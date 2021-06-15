@@ -1,6 +1,6 @@
 zh-TW:
   meta:
-    lang: zh-Hans
+    lang: zh-Hant
     dir: ltr
     noscript: 抱歉積木文檔需要在開啟瀏覽器的Javascript功能後才能正常工作，請訪問 %{url} 了解詳情。
     noscript_url: https://support.google.com/admanager/answer/12654?hl=zh-Hant
@@ -125,7 +125,7 @@ zh-TW:
       required: 必須存在
       taken: 已經被使用
       too_long: 過長（最長為 %{count} 個字符）
-      too_short: 过短（最短为 %{count} 个字符）
+      too_short: 過短（最短為 %{count} 個字符）
       wrong_length: 長度錯誤（必須為 %{count} 個字符）
     template:
       body: 以下欄位發生問題：
