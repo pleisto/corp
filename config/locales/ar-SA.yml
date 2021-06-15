@@ -1,0 +1,525 @@
+ar-SA:
+  meta:
+    lang: ar-SA
+    dir: rtl
+    noscript: We're sorry but Brickdoc doesn't work properly without JavaScript enabled. Please visit %{url} for more information.
+    noscript_url: https://www.wikihow.com/Enable-JavaScript
+  'Your browser is out of date': Your browser is out of date
+  download_latest_browser_html: Please download the latest version of <a href="%{edge}" rel="nofollow">Microsoft Edge</a>, <a href="%{chrome}" rel="nofollow">Chrome</a> or <a href="%{firefox}" rel="nofollow">Firefox</a> to continue using Brickdoc.
+  edge_link: https://www.microsoft.com/en-us/edge
+  chrome_link: https://www.google.com/chrome/
+  firefox_link: https://www.mozilla.org/en-US/firefox/new/
+  activerecord:
+    attributes:
+      doorkeeper/application:
+        name: 'Name'
+        redirect_uri: 'Redirect URI'
+    errors:
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: 'cannot contain a fragment.'
+              invalid_uri: 'must be a valid URI.'
+              unspecified_scheme: 'must specify a scheme.'
+              relative_uri: 'must be an absolute URI.'
+              secured_uri: 'must be an HTTPS/SSL URI.'
+              forbidden_uri: 'is forbidden by the server.'
+            scopes:
+              not_match_configured: "doesn't match configured on the server."
+      messages:
+        record_invalid: 'فشل التحقّق من: %{errors}'
+        restrict_dependent_destroy:
+          has_one: لا يمكن حذف السجل لوجود سجل يعتمد عليه %{record}
+          has_many: لا يمكن حذف السجل لوجود سجلات تعتمد عليه %{record}
+  date:
+    abbr_day_names:
+      - الأحد
+      - الإثنين
+      - الثّلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السّبت
+    abbr_month_names:
+      -
+      - يناير
+      - فبراير
+      - مارس
+      - أبريل
+      - مايو
+      - يونيو
+      - يوليو
+      - أغسطس
+      - سبتمبر
+      - أكتوبر
+      - نوفمبر
+      - ديسمبر
+    day_names:
+      - الأحد
+      - الإثنين
+      - الثّلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السّبت
+    formats:
+      default: "%d-%m-%Y"
+      long: "%e %B، %Y"
+      short: "%e %b"
+    month_names:
+      -
+      - يناير
+      - فبراير
+      - مارس
+      - أبريل
+      - مايو
+      - يونيو
+      - يوليو
+      - أغسطس
+      - سبتمبر
+      - أكتوبر
+      - نوفمبر
+      - ديسمبر
+    order:
+      - :day
+      - :month
+      - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+        about_x_months:
+          zero: about %{count} months
+          one: about 1 month
+          two: about %{count} months
+          few: about %{count} months
+          many: about %{count} months
+          other: about %{count} months
+        about_x_years:
+          zero: about %{count} years
+          one: about 1 year
+          two: about %{count} years
+          few: about %{count} years
+          many: about %{count} years
+          other: about %{count} years
+        almost_x_years:
+          zero: almost %{count} years
+          one: almost 1 year
+          two: almost %{count} years
+          few: almost %{count} years
+          many: almost %{count} years
+          other: almost %{count} years
+        half_a_minute: half a minute
+        less_than_x_seconds:
+          zero: less than %{count} seconds
+          one: less than 1 second
+          two: less than %{count} seconds
+          few: less than %{count} seconds
+          many: less than %{count} seconds
+          other: less than %{count} seconds
+        less_than_x_minutes:
+          zero: less than %{count} minutes
+          one: less than a minute
+          two: less than %{count} minutes
+          few: less than %{count} minutes
+          many: less than %{count} minutes
+          other: less than %{count} minutes
+        over_x_years:
+          zero: over %{count} years
+          one: over 1 year
+          two: over %{count} years
+          few: over %{count} years
+          many: over %{count} years
+          other: over %{count} years
+        x_seconds:
+          zero: "%{count} seconds"
+          one: 1 second
+          two: "%{count} seconds"
+          few: "%{count} seconds"
+          many: "%{count} seconds"
+          other: "%{count} seconds"
+        x_minutes:
+          zero: "%{count} minutes"
+          one: 1 minute
+          two: "%{count} minutes"
+          few: "%{count} minutes"
+          many: "%{count} minutes"
+          other: "%{count} minutes"
+        x_days:
+          zero: "%{count} days"
+          one: 1 day
+          two: "%{count} days"
+          few: "%{count} days"
+          many: "%{count} days"
+          other: "%{count} days"
+        x_months:
+          zero: "%{count} months"
+          one: 1 month
+          two: "%{count} months"
+          few: "%{count} months"
+          many: "%{count} months"
+          other: "%{count} months"
+        x_years:
+          zero: "%{count} years"
+          one: 1 year
+          two: "%{count} years"
+          few: "%{count} years"
+          many: "%{count} years"
+          other: "%{count} years"
+    prompts:
+      second: ثانية
+      minute: دقيقة
+      hour: ساعة
+      day: اليوم
+      month: الشهر
+      year: السنة
+  errors:
+    format: "%{message}"
+    messages:
+      already_confirmed: تم تأكيده بالفعل، الرجاء محاولة تسجيل الدخول
+      confirmation_period_expired: يحتاج إلى التأكيد في غضون %{period}،الرجاء طلب رابط تأكيد جديد
+      expired: قد انتهت المدة، الرجاء طلب رابط تأكيد جديد
+      not_found: غير موجود
+      not_locked: لم يتم إلغاء قفله
+      not_saved:
+        zero: "%{count} أخطاء منع %{resource} هذا من أن يتم حفظه:"
+        one: '1 خطأ منع %{resource} هذا من أن يتم حفظه:'
+        two: "%{count} أخطاء منع %{resource} هذا من أن يتم حفظه:"
+        few: "%{count} أخطاء منع %{resource} هذا من أن يتم حفظه:"
+        many: "%{count} أخطاء منع %{resource} هذا من أن يتم حفظه:"
+        other: "%{count} أخطاء منع %{resource} هذا من أن يتم حفظه:"
+      is_not_valid_webid: "WebID \"%{webid}\" is not available"
+      send_interval: Sending interval is too short, please try again after 1 minute
+      accepted: يجب أن تقبل %{attribute}
+      blank: لا يمكن أن يكون محتوى %{attribute} فارغاً
+      confirmation: محتوى %{attribute} لا يتوافق مع %{attribute}
+      empty: لا يمكن أن يكون محتوى %{attribute} فارغاً
+      equal_to: يجب أن يساوي طول %{attribute} %{count}
+      even: يجب أن يكون عدد %{attribute} زوجياً
+      exclusion: حقل %{attribute} محجوز
+      greater_than: ميجب أن يكون عدد %{attribute} أكبر من %{count}
+      greater_than_or_equal_to: يجب أن يكون عدد %{attribute} أكبر أو يساوي %{count}
+      inclusion: '%{attribute} غير وارد في القائمة'
+      invalid: محتوى %{attribute} غير صالح
+      less_than: يجب أن يكون عدد %{attribute} أصغر من %{count}
+      less_than_or_equal_to: يجب أن يكون عدد %{attribute} أصغر أو  يساوي %{count}
+      model_invalid: 'فشل التحقّق من: %{errors}'
+      not_a_number: يجب أن يكون محتوى %{attribute} رقماً
+      not_an_integer: يجب أن يكون عدد %{attribute} عدد صحيحاً
+      odd: يجب أن يكون عدد %{attribute} عدداً فردياً
+      other_than: must be other than %{count}
+      present: يجب ترك حقل %{attribute} فارغاً
+      required: must exist
+      taken: حقل %{attribute} محجوز مسبقاً
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+        too_short:
+          zero: is too short (minimum is %{count} characters)
+          one: is too short (minimum is 1 character)
+          two: is too short (minimum is %{count} characters)
+          few: is too short (minimum is %{count} characters)
+          many: is too short (minimum is %{count} characters)
+          other: is too short (minimum is %{count} characters)
+        wrong_length:
+          zero: is the wrong length (should be %{count} characters)
+          one: is the wrong length (should be 1 character)
+          two: is the wrong length (should be %{count} characters)
+          few: is the wrong length (should be %{count} characters)
+          many: is the wrong length (should be %{count} characters)
+          other: is the wrong length (should be %{count} characters)
+    template:
+      body: 'يُرجى التحقّق من الحقول التّالية:%{attribute}'
+      header:
+        zero: "ليس بالامكان حفظ %{model} لسبب ولا خطأ."
+        one: ليس بالامكان حفظ %{model} لسبب وجود خطأ واحد.
+        two: "ليس بالامكان حفظ %{model} لسبب وجود خطئان."
+        few: "ليس بالامكان حفظ %{model} لسبب وجود %{count} أخطاء."
+        many: "ليس بالامكان حفظ %{model} لسبب وجود %{count} خطأ."
+        other: "ليس بالامكان حفظ %{model} لسبب وجود %{count} خطأ."
+  helpers:
+    select:
+      prompt: يُرجى الاختيار
+    submit:
+      create: '%{model} إنشاء'
+      submit: '%{model} حِفظ'
+      update: '%{model} تحديث'
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u %n"
+        precision: 3
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: 'KWD'
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: مليار
+          million: مليون
+          quadrillion: كدريليون
+          thousand: ألفّ
+          trillion: تريليون
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            zero: Bytes
+            one: Byte
+            two: Bytes
+            few: Bytes
+            many: Bytes
+            other: Bytes
+          eb: EB
+          gb: GB
+          kb: KB
+          mb: MB
+          pb: PB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " و "
+      two_words_connector: " و "
+      words_connector: " ، "
+  time:
+    am: صباحًا
+    formats:
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      long: "%d %B, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: مساءً
+  devise:
+    confirmations:
+      confirmed: "تم تأكيد عنوان بريدك الإلكتروني بنجاح."
+      send_instructions: "ستتلقى رسالة بريد إلكتروني بها تعليمات عن كيفية تأكيد عنوان بريدك الإلكتروني في غضون بضع دقائق."
+      send_paranoid_instructions: "إذا كان بريدك الإلكتروني موجود في قاعدة البيانات لدينا، ستتلقى رسالة بريد إلكتروني بها تعليمات عن كيفية تأكيد عنوان بريدك الإلكتروني في بضع دقائق."
+    failure:
+      already_authenticated: لقد قمت بتسجيل الدخول بالفعل.
+      inactive: لم يتم تفعيل حسابك بعد.
+      invalid: Invalid %{authentication_keys} or password.
+      locked: تم غلق حسابك.
+      last_attempt: لديك محاولة أو أكثر قبل غلق حسابك.
+      not_found_in_database: Invalid %{authentication_keys} or password.
+      timeout: انتهى الوقت المخصص للجلسة. الرجاء تسجيل الدخول مرة أخرى للمتابعة.
+      unauthenticated: تحتاج إلى تسجيل الدخول أو التسجيل قبل المتابعة.
+      unconfirmed: تحتاج إلى تأكيد عنوان بريدك الإلكتروني قبل المتابعة.
+    omniauth_callbacks:
+      failure: تعذر التحقق منك من %{kind} بسبب "%{reason}".
+      success: تمت المصادقة بنجاح من حساب %{kind}.
+    passwords:
+      no_token: لا يُمكنك الوصول إلى هذه الصفحة دون تأكيد رسالة البريد الإلكتروني المحتوية على إعادة تعيين كلمة المرور. إذا كنت قد انتقلت من رسالة تعيين كلمة المرور، الرجاء التأكد من أنك استخدمت رابط URL الكامل الموجود في الرسالة.
+      send_instructions: ستتلقى رسالة بريد إلكرتوني بها تعليمات ععن كيفية إعادة تعيين كلمة مرورك في غضون بضع دقائق.
+      send_paranoid_instructions: إذا كان بريدك الإلكتروني موجود في قاعدة البيانات لدينا، ستتلقى رابط استعادة كلمة المرور على عنوان بريدك الإلكتروني في غضون بضع دقائق.
+      updated: تم تغيير كلمة مرورك بنجاح. أنت الآن مُسجِّل الدخول.
+      updated_not_active: تم تغيير كلمة مرورك بنجاح.
+    registrations:
+      destroyed: وداعاً! تم إلغاء حسابك بنجاح. نأمل أن نراك مرة أخرى في القريب العاجل.
+      signed_up: مرحباً! لقد قمت بالتسجيل بنجاح.
+      signed_up_but_inactive: لقد قمت بالتسجيل بنجاح. ومع ذلك، لن نتمكن من تسجيل دخولك لحسابك لأن حسابك لم يتم تفعيله بعد.
+      signed_up_but_locked: لقد قمت بالتسجيل بنجاح. ومع ذلك، لن نتمكن من تسجيل دخولك لحسابك لأن حسابك مغلق.
+      signed_up_but_unconfirmed: تم إرسال رسالة بها رابط التأكيد إلى عنوان بريدك الإلكتروني. الرجاء اتباع الرابط لتفعيل حسابك.
+      update_needs_confirmation: لقد قمت بتحديث حسابك بنجاح، ولكن نحتاج إلى تأكيد عنوان بريدك الإلكتروني الجديد. الرجاء التحقق من بريدك الإلكتروني واتباع رابط التأكيد لتأكيد عنوان بريدك الإلكتروني الجديد.
+      updated: تم تحديث حسابك بنجاح.
+    unlock_instructions:
+      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    mailer:
+      confirmation_instructions:
+        subject: "تعليمات التأكيد"
+      reset_password_instructions:
+        subject: "تعليمات إعادة تعيين كلمة المرور"
+      unlock_instructions:
+        subject: "تعليمات إلغاء القفل"
+      email_changed:
+        subject: "تم تغيير عنوان البريد الإلكتروني"
+      password_change:
+        subject: "تم تغيير كلمة المرور"
+    sessions:
+      signed_in: "تم تسجيل الدخول بنجاح."
+      signed_out: "تم تسجيل الخروج بنجاح."
+      already_signed_out: "تم تسجيل الخروج بنجاح."
+  doorkeeper:
+    scopes:
+      openid: 'Authenticate your account'
+      profile: 'View your profile information'
+      email: 'View your email address'
+      address: 'View your physical address'
+      phone: 'View your phone number'
+    applications:
+      confirmations:
+        destroy: 'Are you sure?'
+      buttons:
+        edit: 'Edit'
+        destroy: 'Destroy'
+        submit: 'Submit'
+        cancel: 'Cancel'
+        authorize: 'Authorize'
+      form:
+        error: 'Whoops! Check your form for possible errors'
+      help:
+        confidential: 'Application will be used where the client secret can be kept confidential. Native mobile apps and Single Page Apps are considered non-confidential.'
+        redirect_uri: 'Use one line per URI'
+        blank_redirect_uri: "Leave it blank if you configured your provider to use Client Credentials, Resource Owner Password Credentials or any other grant type that doesn't require redirect URI."
+        scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+      edit:
+        title: 'Edit application'
+      index:
+        title: 'Your applications'
+        new: 'New Application'
+        name: 'Name'
+        callback_url: 'Callback URL'
+        actions: 'Actions'
+        confidential: 'Confidential?'
+        confidentiality:
+          'yes': 'Yes'
+          'no': 'No'
+      new:
+        title: 'New Application'
+      show:
+        title: 'Application: %{name}'
+        application_id: 'UID'
+        secret: 'Secret'
+        scopes: 'Scopes'
+        confidential: 'Confidential'
+        callback_urls: 'Callback urls'
+        actions: 'Actions'
+    authorizations:
+      buttons:
+        authorize: 'Authorize'
+        deny: 'Deny'
+      error:
+        title: 'An error has occurred'
+      new:
+        title: 'Authorization required'
+        prompt: 'Authorize %{client_name} to use your account?'
+        able_to: 'This application will be able to'
+      show:
+        title: 'Authorization code'
+    authorized_applications:
+      confirmations:
+        revoke: 'Are you sure?'
+      buttons:
+        revoke: 'Revoke'
+      index:
+        title: 'Your authorized applications'
+        application: 'Application'
+        created_at: 'Created At'
+        date_format: "%Y-%m-%d %H:%M:%S"
+    pre_authorization:
+      status: 'Pre-authorization'
+    openid_connect:
+      errors:
+        messages:
+          #Configuration error messages
+          resource_owner_from_access_token_not_configured: 'Failure due to Doorkeeper::OpenidConnect.configure.resource_owner_from_access_token missing configuration.'
+          auth_time_from_resource_owner_not_configured: 'Failure due to Doorkeeper::OpenidConnect.configure.auth_time_from_resource_owner missing configuration.'
+          reauthenticate_resource_owner_not_configured: 'Failure due to Doorkeeper::OpenidConnect.configure.reauthenticate_resource_owner missing configuration.'
+          select_account_for_resource_owner_not_configured: 'Failure due to Doorkeeper::OpenidConnect.configure.select_account_for_resource_owner missing configuration.'
+          subject_not_configured: 'ID Token generation failed due to Doorkeeper::OpenidConnect.configure.subject missing configuration.'
+    errors:
+      messages:
+        #doorkeeper oidc
+        login_required: 'The authorization server requires end-user authentication'
+        consent_required: 'The authorization server requires end-user consent'
+        interaction_required: 'The authorization server requires end-user interaction'
+        account_selection_required: 'The authorization server requires end-user account selection'
+        #Common error messages
+        invalid_request:
+          unknown: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: 'Request need to be authorized. Required parameter for authorizing request is missing or invalid.'
+        invalid_redirect_uri: 'The requested redirect uri is malformed or doesn''t match client redirect URI.'
+        unauthorized_client: 'The client is not authorized to perform this request using this method.'
+        access_denied: 'The resource owner or authorization server denied the request.'
+        invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
+        invalid_code_challenge_method: 'The code challenge method must be plain or S256.'
+        server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
+        temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
+        #Configuration error messages
+        credential_flow_not_configured: 'Resource Owner Password Credentials flow failed due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.'
+        resource_owner_authenticator_not_configured: 'Resource Owner find failed due to Doorkeeper.configure.resource_owner_authenticator being unconfigured.'
+        admin_authenticator_not_configured: 'Access to admin panel is forbidden due to Doorkeeper.configure.admin_authenticator being unconfigured.'
+        #Access grant errors
+        unsupported_response_type: 'The authorization server does not support this response type.'
+        #Access token errors
+        invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
+        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
+        unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
+        invalid_token:
+          revoked: "The access token was revoked"
+          expired: "The access token expired"
+          unknown: "The access token is invalid"
+        revoke:
+          unauthorized: "You are not authorized to revoke this token"
+    flash:
+      applications:
+        create:
+          notice: 'Application created.'
+        destroy:
+          notice: 'Application deleted.'
+        update:
+          notice: 'Application updated.'
+      authorized_applications:
+        destroy:
+          notice: 'Application revoked.'
+    layouts:
+      admin:
+        title: 'Doorkeeper'
+        nav:
+          oauth2_provider: 'OAuth2 Provider'
+          applications: 'Applications'
+          home: 'Home'
+      application:
+        title: 'OAuth authorization required'
+  accounts:
+    app_title: Brickdoc Accounts
+    provider:
+      github: Github
+      email_password: Email & Password
+    sessions:
+      sign_in: Sign In
+      sign_up: Sign Up
+      sign_in_to_brickdoc: Sign in to Brickdoc
+      more_login_options: More Login Options
+      login_via: "Sign In with %{provider}"
+      email: Email
+      password: Password
+      remember_me: Remember me
+      sign_up_with_email: Sign Up
+      resend_unconfirmed_mail: 重发激活邮件
+      confirmation_email_required_heading: Almost done
+      forget_password: Forget Password
+      confirm_password: Confirm Password
+      sign_up_via: "Sign Up with %{provider}"
+      name: "Name"
+      webid: "WebID"
+      webid_description: "Similar to a username, only alphabet and numbers are allowed"
+      agree_to_agreement: "Sign Up indicate you agree to our <0>User Agreement</0>."
+      resend_after: "Resendable after %{seconds} seconds"
+    common:
+      confirm_not_match: "%{field} and confirm field do not match"
