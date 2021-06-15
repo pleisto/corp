@@ -64,6 +64,8 @@ gem 'cityhash', '~> 0.9.0'
 ## Docs
 gem 'rdeunicode', '~> 0.1.1'
 gem 'pg_ltree', '~> 1.1', '>= 1.1.8'
+gem 'brickdoc-yrb', path: 'packages/yrb'
+gem 'brickdoc-crdt', path: 'packages/crdt'
 
 ## Background Tasks
 gem 'sidekiq', '~> 6.2', '>= 6.2.1'
