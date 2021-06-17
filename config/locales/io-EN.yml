@@ -440,6 +440,7 @@ io-EN:
     sessions:
       sign_in: crwdns1130:0crwdne1130:0
       sign_up: crwdns1132:0crwdne1132:0
+      reset_password: crwdns1790:0crwdne1790:0
       sign_in_to_brickdoc: crwdns1134:0crwdne1134:0
       more_login_options: crwdns1136:0crwdne1136:0
       login_via: "crwdns1138:0%{provider}crwdne1138:0"
