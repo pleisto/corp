@@ -16,13 +16,14 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
       expect(unavailable_on_openapi(mutation)).to be true
     end
 
+    let(:user) { create(:accounts_user) }
+
     it 'should check token exists' do
       internal_graphql_execute(mutation, { input: { token: FFaker::Guid.guid, password: FFaker::Internet.password } })
       expect(response.data[:userPasswordReset][:errors][0]).to eq("Token #{I18n.t('devise.passwords.no_token')}")
     end
 
     it 'token expired' do
-      user = create(:accounts_user)
       token = user.send_reset_password_instructions
       user.update!(reset_password_sent_at: user.reset_password_sent_at - 3.hours)
       expect(user.reset_password_period_valid?).to be(false)
@@ -33,7 +34,6 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
     end
 
     it 'password too short' do
-      user = create(:accounts_user)
       token = user.send_reset_password_instructions
       internal_graphql_execute(mutation, { input: { token: token, password: "foo" } })
       expect(response.data[:userPasswordReset][:errors][0]).to eq(
@@ -42,7 +42,6 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
     end
 
     it 'works' do
-      user = create(:accounts_user)
       token = user.send_reset_password_instructions
 
       expect(user.reset_password_period_valid?).to be(true)

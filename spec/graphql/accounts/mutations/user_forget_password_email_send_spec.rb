@@ -31,6 +31,12 @@ describe Accounts::Mutations::UserForgetPasswordMailSend, type: :mutation do
       user = create(:accounts_user)
       internal_graphql_execute(mutation, { input: { email: user.email } })
       expect(response.data[:userForgetPasswordMailSend][:errors]).to eq([])
+
+      expect(user.reset_password_token).to be(nil)
+      user.reload
+      expect(user.reset_password_token).not_to be(nil)
+      expect(user.reset_password_sent_at).not_to be(nil)
+
       internal_graphql_execute(mutation, { input: { email: user.email } })
       expect(response.data[:userForgetPasswordMailSend][:errors]).to eq([I18n.t('errors.messages.send_interval')])
     end

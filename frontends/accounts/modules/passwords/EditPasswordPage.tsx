@@ -33,16 +33,15 @@ const EditPasswordPage: React.FC = () => {
     return <Redirect to="/sign_in" />
   }
 
+  const token = new URLSearchParams(window.location.search).get('reset_password_token')
+
   return (
     <div>
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
       <h1>{pageTitle}</h1>
-      <Form
-        layout="vertical"
-        initialValues={{ token: new URLSearchParams(window.location.search).get('reset_password_token') }}
-        onFinish={onFinish}>
+      <Form layout="vertical" initialValues={{ token }} onFinish={onFinish}>
         <Form.Item hidden name="token" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
