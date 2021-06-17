@@ -81,4 +81,5 @@ jobs:
           HUSKY: 0
         with:
           default_author: github_actions
+          message: 'ci: bump schema and dists'
           add: 'app lib packages spec config db frontends'
