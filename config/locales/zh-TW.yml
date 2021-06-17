@@ -424,6 +424,7 @@ zh-TW:
     sessions:
       sign_in: 登錄
       sign_up: 註冊
+      reset_password: Reset Password
       sign_in_to_brickdoc: 登錄 Brickdoc
       more_login_options: 更多登錄方式
       login_via: "使用 %{provider} 登錄"
