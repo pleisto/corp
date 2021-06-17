@@ -424,6 +424,7 @@ ja-JP:
     sessions:
       sign_in: サインイン
       sign_up: サインアップ
+      reset_password: Reset Password
       sign_in_to_brickdoc: Brickdocにサインインする
       more_login_options: 追加のログインオプション
       login_via: "%{provider} を使用してサインインする"
