@@ -504,6 +504,7 @@ ar-SA:
     sessions:
       sign_in: تسجيل الدخول
       sign_up: التسجيل
+      reset_password: Reset Password
       sign_in_to_brickdoc: تسجيل الدخول إلى Brickdoc
       more_login_options: المزيد من خيارات تسجيل الدخول
       login_via: "تسجيل الدخول باستخدام %{provider}"
