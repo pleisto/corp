@@ -30,6 +30,10 @@ class Accounts::User < ApplicationRecord
     Accounts::FederatedIdentity.find_or_create_by!(provider: omniauth_provider, uid: omniauth_uid, accounts_user_id: id)
   end
 
+  # default values
+  default_value_for :locale, BrickdocConfig.default_locale
+  default_value_for :timezone, BrickdocConfig.default_timezone
+
   # Devise Overwrite
 
   # When federated identity is not available, the password field is required
