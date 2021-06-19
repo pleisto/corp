@@ -143,10 +143,10 @@ zh-HK:
         array:
           len: '須為%{len}個%{label}'
           min: '最少%{min}個%{label}'
-          max: 'At most %{max} %{label}'
-          range: 'The amount of %{label} must be between %{min}-%{max}'
+          max: '最多%{max}個%{label}'
+          range: '%{label}數量須在%{min}-%{max}之間'
         pattern:
-          mismatch: '%{label} does not match the pattern %{pattern}'
+          mismatch: '%{label}與模式不匹配%{pattern}'
     image:
       preview: 預覽
   activerecord:
