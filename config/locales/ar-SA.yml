@@ -11,32 +11,32 @@ ar-SA:
   firefox_link: https://www.mozilla.org/ar/firefox/new
   design_system:
     calendarPicker:
-      today: Today
-      now: Now
-      backToToday: Back to today
-      ok: Ok
-      clear: Clear
+      today: اليوم
+      now: الأن
+      backToToday: العودة إلى اليوم
+      ok: تأكيد
+      clear: مسح
       month: الشهر
       year: السنة
-      timeSelect: select time
-      dateSelect: select date
-      weekSelect: Choose a week
-      monthSelect: Choose a month
-      yearSelect: Choose a year
-      decadeSelect: Choose a decade
+      timeSelect: اختيار الوقت
+      dateSelect: اختيار التاريخ
+      weekSelect: اختر أسبوعًا
+      monthSelect: اختيار الشهر
+      yearSelect: اختيار السنة
+      decadeSelect: اختيار العقد
       yearFormat: YYYY
       dateFormat: M/D/YYYY
       dayFormat: D
       dateTimeFormat: 'M/D/YYYY HH:mm:ss'
       monthBeforeYear: true
-      previousMonth: Previous month (PageUp)
-      nextMonth: Next month (PageDown)
-      previousYear: Last year (Control + left)
-      nextYear: Next year (Control + right)
-      previousDecade: Last decade
-      nextDecade: Next decade
-      previousCentury: Last century
-      nextCentury: Next century
+      previousMonth: الشهر السابق (PageUp)
+      nextMonth: الشهر التالى(PageDown)
+      previousYear: العام السابق (Control + left)
+      nextYear: العام التالى (Control + right)
+      previousDecade: العقد السابق
+      nextDecade: العقد التالى
+      previousCentury: القرن السابق
+      nextCentury: القرن التالى
       placeholder: Select date
       yearPlaceholder: Select year
       quarterPlaceholder: Select quarter
@@ -60,16 +60,16 @@ ar-SA:
         startTime: Start time
         endTime: End time
     pagination:
-      itemsPerPage: '/ page'
-      jumpTo: Go to
-      jumpToConfirm: confirm
+      itemsPerPage: '/ الصفحة'
+      jumpTo: الذهاب إلى
+      jumpToConfirm: تأكيد
       page: ''
-      prevPage: 'Previous Page'
-      nextPage: 'Next Page'
-      prev5: 'Previous 5 Pages'
-      next5: 'Next 5 Pages'
-      prev3: 'Previous 3 Pages'
-      next3: 'Next 3 Pages'
+      prevPage: 'الصفحة السابقة'
+      nextPage: 'الصفحة التالية'
+      prev5: 'خمس صفحات سابقة'
+      next5: 'خمس صفحات تالية'
+      prev3: 'ثلاث صفحات سابقة'
+      next3: 'ثلاث صفحات تالية'
     global:
       placeholder: يُرجى الاختيار
     table:
