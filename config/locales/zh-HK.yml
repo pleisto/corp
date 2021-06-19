@@ -11,144 +11,144 @@ zh-HK:
   firefox_link: https://www.mozilla.org/zh-TW/firefox/
   design_system:
     calendarPicker:
-      today: Today
-      now: Now
-      backToToday: Back to today
-      ok: Ok
-      clear: Clear
+      today: 今天
+      now: 此刻
+      backToToday: 返回今天
+      ok: 確定
+      clear: 清除
       month: 月
       year: 年
-      timeSelect: select time
-      dateSelect: select date
-      weekSelect: Choose a week
-      monthSelect: Choose a month
-      yearSelect: Choose a year
-      decadeSelect: Choose a decade
-      yearFormat: YYYY
-      dateFormat: M/D/YYYY
-      dayFormat: D
-      dateTimeFormat: 'M/D/YYYY HH:mm:ss'
+      timeSelect: 選擇時間
+      dateSelect: 選擇日期
+      weekSelect: 選擇周
+      monthSelect: 選擇月份
+      yearSelect: 選擇年份
+      decadeSelect: 選擇年代
+      yearFormat: YYYY年
+      dateFormat: YYYY年M月D日
+      dayFormat: D日
+      dateTimeFormat: 'YYYY年M月D日 HH時mm分ss秒'
       monthBeforeYear: true
-      previousMonth: Previous month (PageUp)
-      nextMonth: Next month (PageDown)
-      previousYear: Last year (Control + left)
-      nextYear: Next year (Control + right)
-      previousDecade: Last decade
-      nextDecade: Next decade
-      previousCentury: Last century
-      nextCentury: Next century
-      placeholder: Select date
-      yearPlaceholder: Select year
-      quarterPlaceholder: Select quarter
-      monthPlaceholder: Select month
-      weekPlaceholder: Select week
+      previousMonth: 上個月 (翻頁上鍵)
+      nextMonth: 下個月 (翻頁下鍵)
+      previousYear: 上一年 (Control鍵加左方向鍵)
+      nextYear: 下一年 (Control鍵加右方向鍵)
+      previousDecade: 上一年代
+      nextDecade: 下一年代
+      previousCentury: 上一世紀
+      nextCentury: 下一世紀
+      placeholder: 请選擇日期
+      yearPlaceholder: 请選擇年份
+      quarterPlaceholder: 请選擇季度
+      monthPlaceholder: 请選擇月份
+      weekPlaceholder: 请選擇周
       rangePlaceholder:
-        startDate: Start date
-        endDate: End date
+        startDate: 開始日期
+        endDate: 結束日期
       rangeYearPlaceholder:
-        startYear: Start year
-        endYear: End year
+        startYear: 開始年份
+        endYear: 結束年份
       rangeMonthPlaceholder:
-        startMonth: Start month
-        endMonth: End month
+        startMonth: 開始月份
+        endMonth: 結束月份
       rangeWeekPlaceholder:
-        startWeek: Start week
-        endWeek: End week
+        startWeek: 開始周
+        endWeek: 結束周
     timePicker:
-      placeholder: Select time
+      placeholder: 请選擇日期
       rangePlaceholder:
-        startTime: Start time
-        endTime: End time
+        startTime: 開始時間
+        endTime: 結束時間
     pagination:
-      itemsPerPage: '/ page'
-      jumpTo: Go to
-      jumpToConfirm: confirm
-      page: ''
-      prevPage: 'Previous Page'
-      nextPage: 'Next Page'
-      prev5: 'Previous 5 Pages'
-      next5: 'Next 5 Pages'
-      prev3: 'Previous 3 Pages'
-      next3: 'Next 3 Pages'
+      itemsPerPage: '條/頁'
+      jumpTo: 跳至
+      jumpToConfirm: 確認
+      page: '頁'
+      prevPage: '上一頁'
+      nextPage: '下一頁'
+      prev5: '向前 5 頁'
+      next5: '向後 5 頁'
+      prev3: '向前 3 頁'
+      next3: '向後 3 頁'
     global:
       placeholder: 請選擇
     table:
-      filterTitle: Filter menu
-      filterConfirm: OK
-      filterReset: Reset
-      filterEmptyText: 'No filters'
-      emptyText: 'No data'
-      selectAll: 'Select current page'
-      selectInvert: Invert current page
-      selectNone: Clear all data
-      selectionAll: Select all data
-      sortTitle: Sort
-      expand: Expand row
-      collapse: Collapse row
-      triggerDesc: Click to sort descending
-      triggerAsc: Click to sort ascending
-      cancelSort: Click to cancel sorting
+      filterTitle: 篩選器
+      filterConfirm: 確定
+      filterReset: 重置
+      filterEmptyText: '無篩選項'
+      emptyText: '無此資料'
+      selectAll: '全部選取'
+      selectInvert: 反向選取
+      selectNone: 空所有
+      selectionAll: 全選所有
+      sortTitle: 排序
+      expand: 展開行
+      collapse: 關閉行
+      triggerDesc: 點擊降序
+      triggerAsc: 點擊升序
+      cancelSort: 取消排序
     modal:
-      okText: OK
+      okText: 確定
       cancelText: 取消
-      justOkText: OK
+      justOkText: 確定
     popconfirm:
-      okText: OK
+      okText: 確定
       cancelText: 取消
     transfer:
       titles:
         first: ''
         second: ''
-      searchPlaceholder: 'Search here'
-      itemUnit: 'item'
-      itemsUnit: 'items'
-      remove: Remove
-      selectCurrent: Select current page
-      removeCurrent: Remove current page
-      selectAll: Select all data
-      removeAll: Remove all data
-      selectInvert: Invert current page
+      searchPlaceholder: '搜尋資料'
+      itemUnit: '項目'
+      itemsUnit: '項目'
+      remove: 移除
+      selectCurrent: 選擇當前頁面
+      removeCurrent: 移除當前頁面
+      selectAll: 全選所有
+      removeAll: 移除所有
+      selectInvert: 反向選取
     empty:
-      description: No Data
+      description: 無此資料
     icon:
-      icon: icon
+      icon: 圖標
     text:
       edit: 編輯
-      copy: Copy
-      copied: Copied
-      expand: Expand
+      copy: 複製
+      copied: 複製成功
+      expand: 展開
     form:
       optional: (optional)
       defaultValidationMessages:
-        default: Field validation error for %{label}
-        required: Please enter %{label}
-        enum: "%{label} must be one of [%{enum}]"
-        whitespace: "%{label} cannot be a blank character"
+        default: 字段驗證錯誤%{label}
+        required: 請輸入%{label}
+        enum: "%{label}必須是其中一個[%{enum}]"
+        whitespace: "%{label}不能為空字符"
         types:
-          template: '%{label} is not a valid %{type}'
+          template: '%{label}不是一個有效的%{type}'
         date:
-          format: '%{label} date format is invalid'
-          parse: '%{label} cannot be converted to a date'
-          invalid: '%{label} is an invalid date'
+          format: '%{label} 日期格式無效'''
+          parse: '%{label}不能轉換為日期'
+          invalid: '%{label}是一個無效日期'
         string:
-          len: '%{label} must be %{len} characters'
-          min: '%{label} must be at least %{min} characters'
-          max: '%{label} must be up to %{max} characters'
-          range: '%{label} must be between %{min}-%{max} characters'
+          len: '%{label}須為%{len}個字符'
+          min: '%{label}最少%{min}個字符'
+          max: '%{label}最多%{max}個字符'
+          range: '%{label}須在%{min}-%{max}字符之間'
         number:
-          len: '%{label} must be equal to %{len}'
-          min: '%{label} must be minimum %{min}'
-          max: '%{label} must be maximum %{max}'
-          range: '%{label} must be between %{min}-%{max}'
+          len: '%{label}必須等於%{len}'
+          min: '%{label}最小值為%{min}'
+          max: '%{label}最大值為%{max}'
+          range: '%{label}須在%{min}-%{max}字符之間'
         array:
-          len: 'Must be %{len} %{label}'
-          min: 'At least %{min} %{label}'
+          len: '須為%{len}個%{label}'
+          min: '最少%{min}個%{label}'
           max: 'At most %{max} %{label}'
           range: 'The amount of %{label} must be between %{min}-%{max}'
         pattern:
           mismatch: '%{label} does not match the pattern %{pattern}'
     image:
-      preview: Preview
+      preview: 預覽
   activerecord:
     attributes:
       doorkeeper/application:
