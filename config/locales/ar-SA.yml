@@ -37,28 +37,28 @@ ar-SA:
       nextDecade: العقد التالى
       previousCentury: القرن السابق
       nextCentury: القرن التالى
-      placeholder: Select date
-      yearPlaceholder: Select year
-      quarterPlaceholder: Select quarter
-      monthPlaceholder: Select month
-      weekPlaceholder: Select week
+      placeholder: اختيار التاريخ
+      yearPlaceholder: تحديد سنة
+      quarterPlaceholder: حدد الربع
+      monthPlaceholder: اختر الشهر
+      weekPlaceholder: حدد الأسبوع
       rangePlaceholder:
-        startDate: Start date
-        endDate: End date
+        startDate: تاريخ البدء
+        endDate: تاريخ الانتهاء
       rangeYearPlaceholder:
-        startYear: Start year
-        endYear: End year
+        startYear: سنة البدء
+        endYear: نهاية السنة
       rangeMonthPlaceholder:
-        startMonth: Start month
-        endMonth: End month
+        startMonth: شهر البدء
+        endMonth: نهاية الشهر
       rangeWeekPlaceholder:
-        startWeek: Start week
-        endWeek: End week
+        startWeek: بداية الأسبوع
+        endWeek: نهاية الأسبوع
     timePicker:
-      placeholder: Select time
+      placeholder: حدد الوقت
       rangePlaceholder:
-        startTime: Start time
-        endTime: End time
+        startTime: وقت البدء
+        endTime: وقت النهاية
     pagination:
       itemsPerPage: '/ الصفحة'
       jumpTo: الذهاب إلى
@@ -73,82 +73,82 @@ ar-SA:
     global:
       placeholder: يُرجى الاختيار
     table:
-      filterTitle: Filter menu
-      filterConfirm: OK
-      filterReset: Reset
-      filterEmptyText: 'No filters'
-      emptyText: 'No data'
-      selectAll: 'Select current page'
-      selectInvert: Invert current page
-      selectNone: Clear all data
-      selectionAll: Select all data
-      sortTitle: Sort
-      expand: Expand row
-      collapse: Collapse row
-      triggerDesc: Click to sort descending
-      triggerAsc: Click to sort ascending
-      cancelSort: Click to cancel sorting
+      filterTitle: الفلاتر
+      filterConfirm: تأكيد
+      filterReset: إعادة ضبط
+      filterEmptyText: 'لا يوجد عامل تصفية'
+      emptyText: 'لا بيانات'
+      selectAll: 'اختيار الكل'
+      selectInvert: إلغاء الاختيار
+      selectNone: مسح البيانات
+      selectionAll: حدد جميع البيانات
+      sortTitle: رتب
+      expand: توسيع الصف
+      collapse: طي الصف
+      triggerDesc: ترتيب تنازلي
+      triggerAsc: ترتيب تصاعدي
+      cancelSort: إلغاء الترتيب
     modal:
-      okText: OK
+      okText: تأكيد
       cancelText: يلغي
-      justOkText: OK
+      justOkText: تأكيد
     popconfirm:
-      okText: OK
+      okText: تأكيد
       cancelText: يلغي
     transfer:
       titles:
         first: ''
         second: ''
-      searchPlaceholder: 'Search here'
-      itemUnit: 'item'
-      itemsUnit: 'items'
-      remove: Remove
-      selectCurrent: Select current page
-      removeCurrent: Remove current page
-      selectAll: Select all data
-      removeAll: Remove all data
-      selectInvert: Invert current page
+      searchPlaceholder: 'ابحث هنا'
+      itemUnit: 'عنصر'
+      itemsUnit: 'عناصر'
+      remove: ازالة
+      selectCurrent: اختيار الكل
+      removeCurrent: إزالة الصفحة الحالية
+      selectAll: حدد جميع البيانات
+      removeAll: قم بإزالة كافة البيانات
+      selectInvert: إلغاء الاختيار
     empty:
-      description: No Data
+      description: لا توجد بيانات
     icon:
-      icon: icon
+      icon: أيقونة
     text:
       edit: تحرير
-      copy: Copy
-      copied: Copied
-      expand: Expand
+      copy: انسخ
+      copied: تم النسخ
+      expand: وسع
     form:
-      optional: (optional)
+      optional: (إختياري)
       defaultValidationMessages:
-        default: Field validation error for %{label}
-        required: Please enter %{label}
-        enum: "%{label} must be one of [%{enum}]"
-        whitespace: "%{label} cannot be a blank character"
+        default: خطأ في التحقق من صحة الحقل لـ %{label}
+        required: الرجاء إدخال %{label}
+        enum: "يجب أن تكون %{label} واحدة من [%{enum}]"
+        whitespace: "لا يمكن أن يكون %{label} حرف فارغ"
         types:
-          template: '%{label} is not a valid %{type}'
+          template: '%{label} غير صالحة %{type}'
         date:
-          format: '%{label} date format is invalid'
-          parse: '%{label} cannot be converted to a date'
-          invalid: '%{label} is an invalid date'
+          format: '%{label} تنسيق التاريخ غير صحيح'
+          parse: '%{label} لا يمكن تحويلها إلى تاريخ'
+          invalid: 'تاريخ %{label} غير صحيح'
         string:
-          len: '%{label} must be %{len} characters'
-          min: '%{label} must be at least %{min} characters'
-          max: '%{label} must be up to %{max} characters'
-          range: '%{label} must be between %{min}-%{max} characters'
+          len: 'يجب %{label} ان يكون %{len} أحرف'
+          min: '%{label} يجب أن يكون حرفًا %{min}'
+          max: '%{label} يجب أن تصل إلى %{max} الأحرف'
+          range: '%{label} يجب أن تكون بين %{min}-%{max} الأحرف'
         number:
-          len: '%{label} must be equal to %{len}'
-          min: '%{label} must be minimum %{min}'
-          max: '%{label} must be maximum %{max}'
-          range: '%{label} must be between %{min}-%{max}'
+          len: '%{label} يجب أن يساوي %{len}'
+          min: '%{label} يجب أن يكون الحد الأدنى %{min}'
+          max: 'يجب أن يكون %{label} أقصى %{max}'
+          range: 'يجب أن يكون الرقم %{label} %{min}-%{max}'
         array:
-          len: 'Must be %{len} %{label}'
-          min: 'At least %{min} %{label}'
-          max: 'At most %{max} %{label}'
-          range: 'The amount of %{label} must be between %{min}-%{max}'
+          len: 'يجب أن يكون %{len} %{label}'
+          min: 'على الأقل %{min} %{label}'
+          max: 'على الأكثر %{max} %{label}'
+          range: 'كمية من %{label} يجب أن تكون بين %{min}-%{max}'
         pattern:
-          mismatch: '%{label} does not match the pattern %{pattern}'
+          mismatch: '%{label} لا يطابق نمط %{pattern}'
     image:
-      preview: Preview
+      preview: معاينة
   activerecord:
     attributes:
       doorkeeper/application:
