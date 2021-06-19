@@ -37,28 +37,28 @@ ja-JP:
       nextDecade: 次の年代
       previousCentury: 前の世紀
       nextCentury: 次の世紀
-      placeholder: Select date
-      yearPlaceholder: Select year
-      quarterPlaceholder: Select quarter
-      monthPlaceholder: Select month
-      weekPlaceholder: Select week
+      placeholder: 日付を選択
+      yearPlaceholder: 年を選択
+      quarterPlaceholder: 四半期の選択
+      monthPlaceholder: 月を選択
+      weekPlaceholder: 週を選択
       rangePlaceholder:
-        startDate: Start date
-        endDate: End date
+        startDate: 開始日
+        endDate: 終了日
       rangeYearPlaceholder:
-        startYear: Start year
-        endYear: End year
+        startYear: 開始年
+        endYear: 終了年
       rangeMonthPlaceholder:
-        startMonth: Start month
-        endMonth: End month
+        startMonth: 開始月
+        endMonth: 終了月
       rangeWeekPlaceholder:
-        startWeek: Start week
-        endWeek: End week
+        startWeek: 開始週
+        endWeek: 終了週
     timePicker:
-      placeholder: Select time
+      placeholder: 時間を選択
       rangePlaceholder:
-        startTime: Start time
-        endTime: End time
+        startTime: 開始日時
+        endTime: 終了日時
     pagination:
       itemsPerPage: '件 / ページ'
       jumpTo: 移動
@@ -73,82 +73,82 @@ ja-JP:
     global:
       placeholder: 選択してください
     table:
-      filterTitle: Filter menu
-      filterConfirm: OK
-      filterReset: Reset
-      filterEmptyText: 'No filters'
-      emptyText: 'No data'
-      selectAll: 'Select current page'
-      selectInvert: Invert current page
-      selectNone: Clear all data
-      selectionAll: Select all data
-      sortTitle: Sort
-      expand: Expand row
-      collapse: Collapse row
-      triggerDesc: Click to sort descending
-      triggerAsc: Click to sort ascending
-      cancelSort: Click to cancel sorting
+      filterTitle: フィルター
+      filterConfirm: 決定
+      filterReset: リセット
+      filterEmptyText: 'フィルターなし'
+      emptyText: 'データがありません'
+      selectAll: 'ページ単位で選択'
+      selectInvert: ページ単位で反転
+      selectNone: すべてのデータを消去
+      selectionAll: すべてを選択
+      sortTitle: ソート
+      expand: 展開する
+      collapse: 折り畳む
+      triggerDesc: クリックで降順にソート
+      triggerAsc: クリックで昇順にソート
+      cancelSort: ソートをキャンセル
     modal:
-      okText: OK
+      okText: 決定
       cancelText: キャンセル
-      justOkText: OK
+      justOkText: 決定
     popconfirm:
-      okText: OK
+      okText: 決定
       cancelText: キャンセル
     transfer:
       titles:
         first: ''
         second: ''
-      searchPlaceholder: 'Search here'
-      itemUnit: 'item'
-      itemsUnit: 'items'
-      remove: Remove
-      selectCurrent: Select current page
-      removeCurrent: Remove current page
-      selectAll: Select all data
-      removeAll: Remove all data
-      selectInvert: Invert current page
+      searchPlaceholder: 'ここを検索'
+      itemUnit: 'アイテム'
+      itemsUnit: 'アイテム'
+      remove: 削除
+      selectCurrent: ページ単位で選択
+      removeCurrent: 現在のページを削除する
+      selectAll: すべてを選択
+      removeAll: すべてのデータを削除する
+      selectInvert: ページ単位で反転
     empty:
-      description: No Data
+      description: データがありません
     icon:
-      icon: icon
+      icon: Icon
     text:
       edit: 編集
-      copy: Copy
-      copied: Copied
-      expand: Expand
+      copy: 複製
+      copied: コピーしました
+      expand: 展開する
     form:
-      optional: (optional)
+      optional: "(オプション)\n"
       defaultValidationMessages:
-        default: Field validation error for %{label}
-        required: Please enter %{label}
-        enum: "%{label} must be one of [%{enum}]"
-        whitespace: "%{label} cannot be a blank character"
+        default: '%{label}のフィールド検証エラー'
+        required: '%{label}を入力してください'
+        enum: "%{label}は[%{enum}]のいずれかである必要があります"
+        whitespace: "%{label}は空白文字にすることはできません"
         types:
-          template: '%{label} is not a valid %{type}'
+          template: '%{label}は有効な%{type}ではありません'
         date:
-          format: '%{label} date format is invalid'
-          parse: '%{label} cannot be converted to a date'
-          invalid: '%{label} is an invalid date'
+          format: '%{label}の日付形式は不正です'
+          parse: '%{label}日付に変換できません'
+          invalid: '%{label}は不正な日付です'
         string:
-          len: '%{label} must be %{len} characters'
-          min: '%{label} must be at least %{min} characters'
-          max: '%{label} must be up to %{max} characters'
-          range: '%{label} must be between %{min}-%{max} characters'
+          len: '%{label}は%{len}文字である必要があります'
+          min: '%{label}は%{min}文字以上である必要があります'
+          max: '%{label}は%{max}文字以下である必要があります'
+          range: '%{label}は%{min}-%{max}文字の範囲である必要があります'
         number:
-          len: '%{label} must be equal to %{len}'
-          min: '%{label} must be minimum %{min}'
-          max: '%{label} must be maximum %{max}'
-          range: '%{label} must be between %{min}-%{max}'
+          len: '%{label}は%{len}と等しい必要があります'
+          min: '%{label}の最小値は%{min}です'
+          max: '%{label}の最大値は%{max}です'
+          range: '%{label}は%{min}-%{max}の範囲である必要があります'
         array:
-          len: 'Must be %{len} %{label}'
-          min: 'At least %{min} %{label}'
-          max: 'At most %{max} %{label}'
-          range: 'The amount of %{label} must be between %{min}-%{max}'
+          len: '%{label}は%{len}である必要があります'
+          min: '%{label}の最小は%{min}です'
+          max: '%{label}の最大は%{max}です'
+          range: '%{label}の合計は%{min}-%{max}の範囲である必要があります'
         pattern:
-          mismatch: '%{label} does not match the pattern %{pattern}'
+          mismatch: '%{label}はパターン%{pattern}と一致しません'
     image:
-      preview: Preview
+      preview: プレビュー
   activerecord:
     attributes:
       doorkeeper/application:
