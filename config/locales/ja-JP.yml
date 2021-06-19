@@ -11,32 +11,32 @@ ja-JP:
   firefox_link: https://www.mozilla.org/ja/firefox/new/
   design_system:
     calendarPicker:
-      today: Today
-      now: Now
-      backToToday: Back to today
-      ok: Ok
-      clear: Clear
+      today: 今日
+      now: 現在時刻
+      backToToday: 今日に戻る
+      ok: 決定
+      clear: クリア
       month: 月
       year: 年
-      timeSelect: select time
-      dateSelect: select date
-      weekSelect: Choose a week
-      monthSelect: Choose a month
-      yearSelect: Choose a year
-      decadeSelect: Choose a decade
-      yearFormat: YYYY
-      dateFormat: M/D/YYYY
-      dayFormat: D
-      dateTimeFormat: 'M/D/YYYY HH:mm:ss'
+      timeSelect: 時間を選択
+      dateSelect: 日時を選択
+      weekSelect: 週を選択
+      monthSelect: 月を選択
+      yearSelect: 年を選択
+      decadeSelect: 年代を選択
+      yearFormat: YYYY年
+      dateFormat: YYYY年M月D日
+      dayFormat: D日
+      dateTimeFormat: 'YYYY年M月D日 HH時mm分ss秒'
       monthBeforeYear: true
-      previousMonth: Previous month (PageUp)
-      nextMonth: Next month (PageDown)
-      previousYear: Last year (Control + left)
-      nextYear: Next year (Control + right)
-      previousDecade: Last decade
-      nextDecade: Next decade
-      previousCentury: Last century
-      nextCentury: Next century
+      previousMonth: 前月 (ページアップキー)'
+      nextMonth: 翌月 (ページダウンキー)
+      previousYear: 前年 (Controlを押しながら左キー)
+      nextYear: 翌年 (Controlを押しながら右キー)
+      previousDecade: 前の年代
+      nextDecade: 次の年代
+      previousCentury: 前の世紀
+      nextCentury: 次の世紀
       placeholder: Select date
       yearPlaceholder: Select year
       quarterPlaceholder: Select quarter
@@ -60,16 +60,16 @@ ja-JP:
         startTime: Start time
         endTime: End time
     pagination:
-      itemsPerPage: '/ page'
-      jumpTo: Go to
-      jumpToConfirm: confirm
-      page: ''
-      prevPage: 'Previous Page'
-      nextPage: 'Next Page'
-      prev5: 'Previous 5 Pages'
-      next5: 'Next 5 Pages'
-      prev3: 'Previous 3 Pages'
-      next3: 'Next 3 Pages'
+      itemsPerPage: '件 / ページ'
+      jumpTo: 移動
+      jumpToConfirm: 確認する
+      page: 'ページ'
+      prevPage: '前のページ'
+      nextPage: '次のページ'
+      prev5: '前 5ページ'
+      next5: '次 5ページ'
+      prev3: '前 3ページ'
+      next3: '次 3ページ'
     global:
       placeholder: 選択してください
     table:
