@@ -50,4 +50,11 @@ class Accounts::User < ApplicationRecord
   def confirmation_period_valid?
     email_required? ? super : true
   end
+
+  def as_global_context
+    {
+      webid: webid,
+      name: name
+    }
+  end
 end
