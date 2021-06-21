@@ -58,7 +58,6 @@ jobs:
         run: yarn lint
       - name: Run Migrate
         env:
-          RAILS_ENV: test
           POSTGRES_PASS: 123456
         run: bundle exec rails db:create db:migrate db:seed
       - name: Run Spec
