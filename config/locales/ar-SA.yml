@@ -667,5 +667,5 @@ ar-SA:
   docs:
     app_title: Brickdoc
     menu:
-      create_new_pod: Create a new pod
-      logout: Logout
+      create_new_pod: إنشاء جراب
+      logout: تسجيل الخروج
