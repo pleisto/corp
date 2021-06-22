@@ -3,12 +3,10 @@ require 'rails_helper'
 
 RSpec.describe Docs::Block, type: :model do
   context '.create block' do
-    let(:user) { create(:accounts_user) }
-    let(:pod) { create(:pod, owner: user) }
-    let(:block) { create(:docs_block, pod: pod) }
+    let(:block) { create(:docs_block) }
 
     it 'basic' do
-      expect(block.pod_id).to eq(pod.id)
+      expect(block.pod_id).to eq(block.collaborators.first)
     end
   end
 end

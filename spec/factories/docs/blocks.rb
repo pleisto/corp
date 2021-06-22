@@ -4,6 +4,7 @@ FactoryBot.define do
     pod
     type { 'page' }
     meta { { title: FFaker::Lorem.phrase } }
-    collaborators { [accounts_user] }
+    data { { paragraphs: FFaker::DizzleIpsum.paragraphs	} }
+    collaborators { [pod.id] }
   end
 end
