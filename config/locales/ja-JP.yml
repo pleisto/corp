@@ -587,5 +587,5 @@ ja-JP:
   docs:
     app_title: Brickdoc
     menu:
-      create_new_pod: Create a new pod
-      logout: Logout
+      create_new_pod: "ポッド作成\n"
+      logout: ログアウト
