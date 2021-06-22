@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_19_175028) do
+ActiveRecord::Schema.define(version: 2021_06_21_101017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -69,11 +69,38 @@ ActiveRecord::Schema.define(version: 2021_06_19_175028) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "snapshot_version", default: 0, null: false
     t.index ["children"], name: "index_docs_blocks_on_children", using: :gin
     t.index ["collaborators"], name: "index_docs_blocks_on_collaborators", using: :gin
     t.index ["deleted_at"], name: "index_docs_blocks_on_deleted_at"
     t.index ["parent_id"], name: "index_docs_blocks_on_parent_id"
     t.index ["pod_id"], name: "index_docs_blocks_on_pod_id"
+  end
+
+  create_table "docs_histories", force: :cascade do |t|
+    t.bigint "pod_id"
+    t.jsonb "meta", null: false
+    t.jsonb "data", null: false
+    t.uuid "block_id", null: false
+    t.uuid "children", array: true
+    t.bigint "version", null: false
+    t.bigint "snapshots", default: [], null: false, comment: "snapshot ids", array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["block_id", "version"], name: "index_docs_histories_on_block_id_and_version", unique: true, comment: "history identifier"
+    t.index ["pod_id"], name: "index_docs_histories_on_pod_id"
+    t.index ["snapshots"], name: "index_docs_histories_on_snapshots", using: :gin
+  end
+
+  create_table "docs_snapshots", force: :cascade do |t|
+    t.bigint "pod_id"
+    t.uuid "block_id", null: false
+    t.bigint "snapshot_version", null: false
+    t.jsonb "meta", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["block_id"], name: "index_docs_snapshots_on_block_id"
+    t.index ["pod_id"], name: "index_docs_snapshots_on_pod_id"
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -96,7 +123,7 @@ ActiveRecord::Schema.define(version: 2021_06_19_175028) do
     t.bigint "owner_id", null: false
     t.string "webid", null: false
     t.string "name", null: false
-    t.string "avatar_uri", limit: 128, comment: "\"object key for bucket or url that stored avatar."
+    t.string "avatar_uri", limit: 128, comment: "object key for bucket or url that stored avatar."
     t.string "bio", limit: 140, comment: "\"Bio\" means Biography in social media."
     t.boolean "personal", default: false, null: false
     t.datetime "deleted_at"

@@ -64,6 +64,7 @@ gem 'cityhash', '~> 0.9.0'
 ## Docs
 gem 'rdeunicode', '~> 0.1.1'
 gem 'pg_ltree', '~> 1.1', '>= 1.1.8'
+gem 'activerecord-cte', '~> 0.1'
 
 ## Background Tasks
 gem 'sidekiq', '~> 6.2', '>= 6.2.1'
