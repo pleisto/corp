@@ -585,7 +585,7 @@ zh-CN:
     common:
       confirm_not_match: "%{field}和确认%{field}不一致"
   docs:
-    app_title: Brickdoc
+    app_title: 积木文档
     menu:
-      create_new_pod: Create a new pod
-      logout: Logout
+      create_new_pod: 创建新 Pod
+      logout: 登出
