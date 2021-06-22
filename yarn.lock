@@ -2209,7 +2209,6 @@ __metadata:
     "@tiptap/extension-strike": ^2.0.0-beta.16
     "@tiptap/extension-text": ^2.0.0-beta.12
     "@tiptap/react": ^2.0.0-beta.50
-    "@tiptap/starter-kit": ^2.0.0-beta.80
   languageName: unknown
   linkType: soft
 
@@ -5368,33 +5367,6 @@ __metadata:
     react: ^17.0.1
     react-dom: ^17.0.1
   checksum: c3a4612210d8403ff18cb0186c0d4d7d53c439a74971ae5a68720599f0408a79d6abc235121341561904738d3d722af5b4c215f2fc366a9fd9f4a196a1c16e15
-  languageName: node
-  linkType: hard
-
-"@tiptap/starter-kit@npm:^2.0.0-beta.80":
-  version: 2.0.0-beta.80
-  resolution: "@tiptap/starter-kit@npm:2.0.0-beta.80"
-  dependencies:
-    "@tiptap/core": ^2.0.0-beta.84
-    "@tiptap/extension-blockquote": ^2.0.0-beta.14
-    "@tiptap/extension-bold": ^2.0.0-beta.14
-    "@tiptap/extension-bullet-list": ^2.0.0-beta.14
-    "@tiptap/extension-code": ^2.0.0-beta.14
-    "@tiptap/extension-code-block": ^2.0.0-beta.16
-    "@tiptap/extension-document": ^2.0.0-beta.12
-    "@tiptap/extension-dropcursor": ^2.0.0-beta.16
-    "@tiptap/extension-gapcursor": ^2.0.0-beta.17
-    "@tiptap/extension-hard-break": ^2.0.0-beta.14
-    "@tiptap/extension-heading": ^2.0.0-beta.14
-    "@tiptap/extension-history": ^2.0.0-beta.13
-    "@tiptap/extension-horizontal-rule": ^2.0.0-beta.17
-    "@tiptap/extension-italic": ^2.0.0-beta.14
-    "@tiptap/extension-list-item": ^2.0.0-beta.13
-    "@tiptap/extension-ordered-list": ^2.0.0-beta.14
-    "@tiptap/extension-paragraph": ^2.0.0-beta.15
-    "@tiptap/extension-strike": ^2.0.0-beta.16
-    "@tiptap/extension-text": ^2.0.0-beta.12
-  checksum: 7cafd50a22408410d7ea7e5583cb9b21472e53462c0dc1e34c3815a6f800b2f4391fcbcf8e4d1f14d3f8614e20bdefea0264ec2d2d411c71586519b83b43b114
   languageName: node
   linkType: hard
 
