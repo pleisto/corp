@@ -24,7 +24,7 @@ def random_collaborators(pod, pods)
   (pods.sample(COLLABORATOR_COUNT.to_a.sample) + [pod]).map(&:id).uniq
 end
 
-def create_block(pod, id, parent_id, children, pods)
+def create_block(pod, id, parent_id, pods)
   params = {
     id: id,
     pod: pod,
@@ -32,8 +32,7 @@ def create_block(pod, id, parent_id, children, pods)
     collaborators: random_collaborators(pod, pods),
     meta: { title: FFaker::Lorem.phrase },
     data: { paragraphs: FFaker::DizzleIpsum.paragraphs },
-    parent_id: parent_id,
-    children: children
+    parent_id: parent_id
   }
   params[:parent_type] = BLOCK_TYPE if params[:parent_id]
   Docs::Block.create!(params)
@@ -45,13 +44,10 @@ parent_map = BLOCK_SEEDS.reduce([{}, []]) do |(result, prev), seed|
   [result, uuids]
 end.first
 
-children_map = parent_map.each_with_object({}) do |(k, v), result|
-  result[v] = result[v].to_a + [k] unless v.nil?
-end
-
 ROOT_POD = pods.first
-(parent_map.keys + parent_map.values).compact.uniq.each do |uuid|
-  create_block(ROOT_POD, uuid, parent_map[uuid], children_map[uuid].to_a, pods)
+
+parent_map.each do |k, v|
+  create_block(ROOT_POD, k, v, pods)
 end
 
 #### Snapshot and history
@@ -62,4 +58,4 @@ root_block = Docs::Block.find_by!(parent_id: nil)
 root_block.update!(meta: root_block.meta.merge('changed' => true))
 
 ## Manual save snapshot
-root_block.update!(snapshot_version: root_block.snapshot_version + 1)
+root_block.save_snapshot!

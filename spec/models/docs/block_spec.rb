@@ -13,18 +13,20 @@ RSpec.describe Docs::Block, type: :model do
   context '.histories' do
     let(:block) { create(:docs_block) }
 
-    it 'automatic save histories' do
-      old_version = block.version
+    it 'automatic save' do
+      old_version = block.history_version
       old_hist_count = block.histories.count
 
-      expect(block.histories.last.version).to eq(old_version)
+      expect(block.histories.last.history_version).to eq(old_version)
       expect(block.histories.last.meta).to eq(block.meta)
 
       block.update!(meta: block.meta.merge('changed' => true))
 
-      expect(block.version).to eq(old_version + 1)
-      expect(block.histories.last.version).to eq(old_version + 1)
-      expect(block.histories.last.meta).to eq(block.meta)
+      history = block.histories.last
+      expect(block.history_version).to eq(old_version + 1)
+      expect(history.history_version).to eq(old_version + 1)
+      expect(history.meta).to eq(block.meta)
+      expect(history.path).to eq([block.id])
       expect(block.histories.count).to eq(old_hist_count + 1)
     end
   end
@@ -32,7 +34,7 @@ RSpec.describe Docs::Block, type: :model do
   context '.snapshots' do
     let(:block) { create(:docs_block) }
 
-    it 'save snapshot' do
+    it 'basic' do
       expect(block.snapshots.count).to eq(0)
       expect(block.snapshot_version).to eq(0)
 
@@ -45,7 +47,8 @@ RSpec.describe Docs::Block, type: :model do
       expect(snapshot.snapshot_version).to eq(1)
       expect(snapshot.blocks.count).to eq(1)
       hist = snapshot.blocks.first
-      expect(hist.snapshots).to eq([snapshot.id])
+      expect(snapshot.blocks.count).to eq(block.descendants_v1.count)
+      # expect(snapshot.blocks.count).to be > 1
     end
   end
 end

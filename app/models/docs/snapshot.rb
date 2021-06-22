@@ -4,13 +4,14 @@
 #
 # Table name: docs_snapshots
 #
-#  id               :bigint           not null, primary key
-#  meta             :jsonb            not null
-#  snapshot_version :bigint           not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  block_id         :uuid             not null
-#  pod_id           :bigint
+#  id                                           :bigint           not null, primary key
+#  meta(child block_id and history_version map) :jsonb
+#  name                                         :string
+#  snapshot_version                             :bigint           not null
+#  created_at                                   :datetime         not null
+#  updated_at                                   :datetime         not null
+#  block_id                                     :uuid             not null
+#  pod_id                                       :bigint
 #
 # Indexes
 #
@@ -24,14 +25,21 @@ class Docs::Snapshot < ApplicationRecord
   before_create do
     self.pod_id = block.pod_id
     self.snapshot_version = block.snapshot_version
-    self.meta = {}
+    self.name ||= generate_default_name
+
+    ## NOTE save children's version as snapshot
+    self.meta = block.children_version_metas
   end
 
-  after_create do
-    block.persist_snapshot!(id)
+  def generate_default_name
+    "SNAPSHOT [#{snapshot_version}] #{Time.current}"
   end
 
   def blocks
-    Docs::History.where("? = ANY(snapshots)", id)
+    # Before: save snapshot_id in all of child blocks
+    # Docs::History.where("? = ANY(snapshots)", id)
+
+    # After: save snapshot_id only in current block
+    Docs::History.from_meta(meta)
   end
 end
