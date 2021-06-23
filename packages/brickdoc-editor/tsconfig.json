@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strictNullChecks": false,
+    "jsx": "preserve",
+    "noUnusedParameters": true,
+    "noImplicitAny": false
+  },
+  "include": ["./externals.d.ts"]
+}
