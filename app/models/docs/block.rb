@@ -41,7 +41,7 @@ class Docs::Block < ApplicationRecord
 
   before_save do
     ## TODO add redis lock
-    self.history_version = history_version + 1 if meta_changed? || data_changed?
+    self.history_version = history_version + 1 if meta_changed? || data_changed? || sort_changed? || parent_id_changed?
   end
 
   after_save do
@@ -49,89 +49,68 @@ class Docs::Block < ApplicationRecord
     snapshots.create! if snapshot_version_previously_changed?
   end
 
-  def ancestors_v1(columns = self.class.column_names)
-    cols = columns.join(', ')
-    child_id = ActiveRecord::Base.connection.quote(id)
-    self.class.from <<~SQL
-      (WITH RECURSIVE org_tree(#{cols}, path) AS (
-        SELECT
-          #{cols}, ARRAY[id]
-        FROM
-          docs_blocks
-        WHERE
-          id = #{child_id}
-      UNION ALL
-        SELECT
-          #{columns.map { |col| "docs_blocks.#{col}" }.join(', ')}, path || docs_blocks.id
-        FROM
-          org_tree
-        JOIN
-          docs_blocks ON docs_blocks.id = org_tree.parent_id
-      ) SELECT #{cols}, path FROM org_tree) as docs_blocks
-    SQL
-  end
-
-  def descendants_v1(columns = self.class.column_names)
-    cols = columns.join(', ')
-    parent_id = ActiveRecord::Base.connection.quote(id)
-    self.class.from <<~SQL
-      (WITH RECURSIVE recursive(#{cols}, path) AS (
-        SELECT
-          #{cols}, ARRAY[id]
-        FROM
-          docs_blocks
-        WHERE
-          id = #{parent_id}
-      UNION ALL
-        SELECT
-          #{columns.map { |col| "docs_blocks.#{col}" }.join(', ')}, path || docs_blocks.id
-        FROM
-        recursive
-        JOIN
-          docs_blocks ON docs_blocks.parent_id = recursive.id
-      ) SELECT * FROM recursive) as docs_blocks
-    SQL
-  end
-
   # https://stackoverflow.com/a/30924648
-  def descendants_v3(_columns = self.class.column_names)
+  def cte(type, columns = self.class.column_names)
     hierarchy = self.class.arel_table
-    recursive_table = hierarchy.alias :recursive
+    recursive_table = Arel::Table.new(:recursive)
     select_manager = Arel::SelectManager.new(ActiveRecord::Base).freeze
 
     non_recursive_term = select_manager.dup.tap do |m|
       m.from self.class.table_name
-      m.project Arel.star
+      m.project(*columns)
       m.where hierarchy[:id].eq(id)
     end
 
     recursive_term = select_manager.dup.tap do |m|
       m.from recursive_table
-      m.project recursive_table[Arel.star]
+      m.project(*(columns.map { |col| hierarchy[col] }))
       m.join hierarchy
-      m.on recursive_table[:id].eq(hierarchy[:parent_id])
+      case type
+      when :descendants
+        m.on recursive_table[:id].eq(hierarchy[:parent_id])
+      when :ancestors
+        m.on recursive_table[:parent_id].eq(hierarchy[:id])
+      else
+        raise("Not supported!")
+      end
     end
 
     union = non_recursive_term.union :all, recursive_term
-    as_statement = Arel::Nodes::As.new hierarchy, union
+    as_statement = Arel::Nodes::As.new recursive_table, union
 
     manager = select_manager.dup.tap do |m|
       m.with :recursive, as_statement
-      m.from hierarchy
+      m.from recursive_table
       m.project Arel.star
     end
 
+    ## TODO save this query!
     ids = ActiveRecord::Base.connection.execute(manager.to_sql).field_values('id')
-    ordering = ids.map { |id| hierarchy[:id].eq(id) }
+    Docs::Block.where(id: ids)
+  end
 
-    self.class.where(id: id).order(ordering)
+  def ancestors(columns = self.class.column_names)
+    cte(:ancestors, columns)
+  end
+
+  def descendants(columns = self.class.column_names)
+    cte(:descendants, columns)
   end
 
   def path_cache
     return [id] if parent_id.nil?
 
     ## TODO read path cache from Current module
-    ancestors_v1(['id', 'parent_id']).pluck(:path).sort_by(&:length).last
+    hash = ancestors(['id', 'parent_id']).pluck(:id, :parent_id).to_h
+    target = []
+    i = id
+    loop do
+      target << i
+      i = hash[i]
+      break if i.nil?
+    end
+
+    target
   end
 
   def latest_history
@@ -148,6 +127,6 @@ class Docs::Block < ApplicationRecord
   end
 
   def children_version_metas
-    descendants_v1(['id', 'history_version', 'parent_id']).pluck(:id, :history_version).to_h
+    descendants(['id', 'history_version', 'parent_id']).pluck(:id, :history_version).to_h
   end
 end

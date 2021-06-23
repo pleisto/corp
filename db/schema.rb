@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2021_06_21_101017) do
     t.jsonb "meta", null: false
     t.jsonb "data", null: false
     t.uuid "block_id", null: false
+    t.uuid "parent_id"
+    t.string "parent_type"
     t.uuid "path", array: true
     t.decimal "sort", precision: 15, scale: 10, null: false
     t.bigint "history_version", null: false

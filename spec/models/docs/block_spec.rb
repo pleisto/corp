@@ -48,7 +48,7 @@ RSpec.describe Docs::Block, type: :model do
       expect(snapshot.snapshot_version).to eq(1)
       expect(snapshot.blocks.count).to eq(1)
       # hist = snapshot.blocks.first
-      expect(snapshot.blocks.count).to eq(child.descendants_v1.count)
+      expect(snapshot.blocks.count).to eq(child.descendants.count)
       # expect(snapshot.blocks.count).to be > 1
     end
 

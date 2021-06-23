@@ -8,11 +8,13 @@
 #  data            :jsonb            not null
 #  history_version :bigint           not null
 #  meta            :jsonb            not null
+#  parent_type     :string
 #  path            :uuid             is an Array
 #  sort            :decimal(15, 10)  not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  block_id        :uuid             not null
+#  parent_id       :uuid
 #  pod_id          :bigint
 #
 # Indexes
@@ -32,6 +34,8 @@ class Docs::History < ApplicationRecord
     self.meta = block.meta
     self.sort = block.sort
     self.path = block.path_cache
+    self.parent_type = block.parent_type
+    self.parent_id = block.parent_id
   end
 
   def children
