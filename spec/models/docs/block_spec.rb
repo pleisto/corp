@@ -32,23 +32,56 @@ RSpec.describe Docs::Block, type: :model do
   end
 
   context '.snapshots' do
-    let(:block) { create(:docs_block) }
+    let(:child) { create(:docs_block_child) }
 
     it 'basic' do
-      expect(block.snapshots.count).to eq(0)
-      expect(block.snapshot_version).to eq(0)
+      expect(child.parent_id).not_to be_nil
+      expect(child.snapshots.count).to eq(0)
+      expect(child.snapshot_version).to eq(0)
 
-      block.save_snapshot!
+      child.save_snapshot!
 
-      expect(block.snapshots.count).to eq(1)
-      expect(block.snapshot_version).to eq(1)
-      snapshot = block.snapshots.first
+      expect(child.snapshots.count).to eq(1)
+      expect(child.snapshot_version).to eq(1)
+      snapshot = child.snapshots.first
 
       expect(snapshot.snapshot_version).to eq(1)
       expect(snapshot.blocks.count).to eq(1)
-      hist = snapshot.blocks.first
-      expect(snapshot.blocks.count).to eq(block.descendants_v1.count)
+      # hist = snapshot.blocks.first
+      expect(snapshot.blocks.count).to eq(child.descendants_v1.count)
       # expect(snapshot.blocks.count).to be > 1
+    end
+
+    it 'complex' do
+      parent = child.parent
+      expect(parent.snapshots.count).to eq(0)
+      expect(parent.snapshot_version).to eq(0)
+
+      child_history_version_0 = child.history_version
+      parent_history_version_0 = parent.history_version
+      child.update!(meta: { "meta" => "child first edit" })
+      parent.update!(meta: { "meta" => "parent first edit" })
+
+      child_history_version_1 = child.history_version
+      parent_history_version_1 = parent.history_version
+
+      expect(child_history_version_1).to eq(child_history_version_0 + 1)
+      expect(parent_history_version_1).to eq(parent_history_version_0 + 1)
+
+      parent.save_snapshot!
+
+      expect(parent.snapshot_version).to eq(1)
+      snapshot = parent.snapshots.first
+      expect(snapshot.blocks.count).to eq(2)
+
+      expect(snapshot.blocks.first.history_version).to eq(parent_history_version_1)
+      expect(snapshot.blocks.last.history_version).to eq(child_history_version_1)
+
+      child.update!(meta: { "meta" => "child second edit" })
+      parent.update!(meta: { "meta" => "parent second edit" })
+
+      expect(snapshot.blocks.first.history_version).to eq(parent_history_version_1)
+      expect(snapshot.blocks.last.history_version).to eq(child_history_version_1)
     end
   end
 end
