@@ -80,7 +80,8 @@ class Accounts::User < ApplicationRecord
   end
 
   def password_required?
-    email_required?
+    email_required? &&
+      encrypted_password.blank?
   end
 
   # User who authenticated with federated identity can still sign in even if their email is not confirmed.
