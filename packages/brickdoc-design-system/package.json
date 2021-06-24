@@ -78,7 +78,7 @@
     "@storybook/addon-links": "^6.3.0-rc.11",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addons": "^6.3.0-rc.11",
-    "@storybook/builder-webpack5": "^6.3.0-rc.11",
+    "@storybook/builder-webpack5": "^6.3.0",
     "@storybook/cli": "^6.3.0-rc.11",
     "@storybook/manager-webpack5": "^6.3.0-rc.11",
     "@storybook/react": "^6.3.0-rc.11",
