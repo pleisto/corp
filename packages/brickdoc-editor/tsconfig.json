@@ -3,9 +3,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "strictNullChecks": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "noUnusedParameters": true,
     "noImplicitAny": false
   },
-  "include": ["./externals.d.ts"]
+  "include": ["./externals.d.ts"],
+  "exclude": [
+    "**/__tests__/**/*.ts?(x)",
+    "**/?(*.)+(spec|test).ts?(x)"
+  ]
 }
