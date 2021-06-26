@@ -9,6 +9,12 @@ generates:
       - typescript-react-apollo
     config:
       useTypeImports: true
+      scalars:
+        UntypedBlock: Block
+        Email: string
+        AutoIncrementID: string
+        HttpUrl: string
+        UUID: string
 hooks:
   afterAllFileWrite:
     - prettier --write

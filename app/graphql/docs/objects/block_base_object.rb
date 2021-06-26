@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 module Docs
   class Objects::BlockBaseObject < BrickGraphQL::BaseObject
-    global_id_field :id
+    has_primary_key uuid: true
+
     field :type, String, 'block type', null: false
-    field :parent_id, String, 'parent uuid', null: true
+    field :parent_id, BrickGraphQL::Scalars::UUID, 'parent uuid', null: true
     field :parent_type, String, 'parent type', null: true
-    field :children, [String], 'children block uuids', null: true
-    field :children_blocks, [GraphQL::Types::JSON], 'children block', null: true
+    field :sort, Float, 'block sort', null: false
     field :collaborators, [Accounts::Objects::User], 'collaborators', null: true
 
     def self.create_object(&block)
