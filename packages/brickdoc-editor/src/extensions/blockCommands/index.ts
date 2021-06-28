@@ -2,6 +2,7 @@
 import { Extension } from '@tiptap/core'
 import { Plugin } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
+import createDragHandle from './dragHandle'
 
 function removeNode(node: Element) {
   node.parentNode.removeChild(node)
@@ -17,10 +18,16 @@ function absoluteRect(node: Element) {
   }
 }
 
-function createBlockCommandsMenuElement() {
+function addMenuItems(menuElement: HTMLElement, editorView: EditorView) {
+  // drag handle
+  menuElement.appendChild(createDragHandle(editorView))
+}
+
+// TODO: create a popup for block commands menu
+function createBlockCommandsMenuElement(editorView: EditorView) {
   const element = document.createElement('div')
-  element.textContent = 'block commands'
   element.classList.add('BrickdocBlockCommands')
+  addMenuItems(element, editorView)
   document.body.appendChild(element)
 
   return element
@@ -76,25 +83,14 @@ function adjustMenuPosition(node: Element, menuElement: HTMLElement) {
   menuElement.style.display = 'flex'
 }
 
-function resetMenuPosition(menuElement?: HTMLElement) {
-  if (!menuElement) {
-    return
-  }
-
-
-  menuElement.style.left = 'unset'
-  menuElement.style.top = 'unset'
-  menuElement.style.display = 'none'
-}
-
 const BlockCommandsExtension = Extension.create({
   addProseMirrorPlugins() {
     let menuElement: HTMLElement
 
     return [
       new Plugin({
-        view() {
-          menuElement = createBlockCommandsMenuElement()
+        view(editorView) {
+          menuElement = createBlockCommandsMenuElement(editorView)
 
           return {
             destroy() {
@@ -115,11 +111,6 @@ const BlockCommandsExtension = Extension.create({
               adjustMenuPosition(node, menuElement)
               return true
             },
-            mouseleave() {
-              console.log('leave')
-              resetMenuPosition(menuElement)
-              return true
-            }
           }
         }
       })
