@@ -42,6 +42,7 @@ class Docs::Block < ApplicationRecord
   validates :collaborators, presence: true
 
   before_save do
+    self.collaborators = collaborators.uniq
     ## TODO add redis lock
     self.history_version = history_version + 1 if meta_changed? || data_changed? || sort_changed? || parent_id_changed?
   end
