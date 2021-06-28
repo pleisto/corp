@@ -47,11 +47,14 @@ export const SyncExtension = Extension.create({
   name: PLUGIN_NAME,
 
   addProseMirrorPlugins() {
+    const options: any = this.options
     return [
       new Plugin({
         key,
         state: {
-          init: (_config, state) => ({
+          init: (config, state) => ({
+            config,
+            options,
             localSteps: [],
             unsyncedMapping: new Mapping(),
             versionMappings: [],
@@ -75,6 +78,7 @@ export const SyncExtension = Extension.create({
         },
         view(view) {
           const session = new CollabSession(
+            options.provider,
             0,
             {
               onClose: () => {},

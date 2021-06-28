@@ -60,12 +60,14 @@ export class CollabSession {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   constructor(
+    network: CollabNetworkAdapter,
     startingVersion: number,
     callbacks: SessionCallbacks,
     opts: {
       commitThrottleMs: number
     }
   ) {
+    this.network = network
     this.callbacks = callbacks
 
     this.commitQueue = new ReceivedCommitQueue(startingVersion, commit => {
@@ -109,14 +111,10 @@ export class CollabSession {
     setTimeout(() => {
       this.commitScheduled = false
 
-      // if (!this.isConnected()) return this.commit()
+      if (!this.isConnected()) return this.commit()
 
       const sendableCommit = this.callbacks.getSendableCommit()
-
-      if (sendableCommit) {
-        console.log(sendableCommit)
-        // this.connection.commit(sendableCommit)
-      }
+      if (sendableCommit) this.connection.commit(sendableCommit)
     }, this.commitThrottleMs)
   }
 
