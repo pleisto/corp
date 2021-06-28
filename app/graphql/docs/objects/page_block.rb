@@ -31,7 +31,7 @@ module Docs
       ]
     end
 
-    field(:data, data_object, null: false)
-    field(:meta, meta_object, null: false)
+    field :data, data_object, null: false
+    field :meta, meta_object, null: false
   end
 end

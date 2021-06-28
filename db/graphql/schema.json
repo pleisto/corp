@@ -271,6 +271,16 @@
           "possibleTypes": null
         },
         {
+          "kind": "SCALAR",
+          "name": "Nil",
+          "description": "Null value",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "PageBlock",
           "description": "page blocks",
@@ -1001,6 +1011,24 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "UUID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "meta",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Nil",
                   "ofType": null
                 }
               },

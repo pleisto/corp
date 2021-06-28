@@ -15,13 +15,15 @@ export type Scalars = {
   /** AutoIncrement Primary Key */
   AutoIncrementID: string
   /** block data */
-  BlockData: any
+  BlockData: Block['data']
   /** block meta */
-  BlockMeta: any
+  BlockMeta: Block['meta']
   /** Email Address */
   Email: string
   /** A valid http/https url or image uri */
   HttpUrl: string
+  /** Null value */
+  Nil: null | undefined
   /** UUID V4 */
   UUID: string
 }
@@ -190,6 +192,7 @@ export type TextBlock = {
   data: TextBlockData
   /** object unique id */
   id: Scalars['UUID']
+  meta: Scalars['Nil']
   /** parent uuid */
   parentId?: Maybe<Scalars['UUID']>
   /** parent type */
