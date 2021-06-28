@@ -9,7 +9,9 @@ class CreateDocsBlocks < ActiveRecord::Migration[6.1]
       t.string :parent_type, limit: 32
       t.jsonb :meta, null: false, default: {}, comment: 'metadata'
       t.jsonb :data, null: false, comment: 'data props'
-      t.column :version, :bigint, null: false, default: 0
+      t.column :history_version, :bigint, null: false, default: 0
+      t.column :snapshot_version, :bigint, null: false, default: 0
+      t.column :sort, :decimal, precision: 15, scale: 10, null: false, default: 0
       t.bigint :collaborators, array: true, default: [], null: false
       t.datetime :deleted_at, null: true, index: true
 
