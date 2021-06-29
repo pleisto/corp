@@ -3,15 +3,13 @@ import { NodeSelection, TextSelection } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { serializeForClipboard } from 'prosemirror-view/src/clipboard'
 
-function blockPosAtCoords(coords, view) {
+function blockPosAtCoords(coords: { left: number; top: number }, view: EditorView) {
   const pos = view.posAtCoords(coords)
-  let node = view.domAtPos(pos.pos)
-
-  node = node.node
+  let node = view.domAtPos(pos.pos).node
 
   // find the topmost node
   while (node?.parentNode) {
-    if (node.parentNode?.classList?.contains('ProseMirror')) {
+    if ((node.parentNode as Element)?.classList?.contains('ProseMirror')) {
       break
     }
 
@@ -19,16 +17,17 @@ function blockPosAtCoords(coords, view) {
   }
 
   if (node && node.nodeType === 1) {
-    const desc = view.docView.nearestDesc(node, true)
+    const docView = (view as any).docView
+    const desc = docView.nearestDesc(node, true)
 
-    if (!(!desc || desc === view.docView)) {
+    if (!(!desc || desc === docView)) {
       return desc.posBefore
     }
   }
   return null
 }
 
-function dragStart(e, view) {
+function dragStart(e: DragEvent, view: EditorView) {
   view.composing = true
 
   if (!e.dataTransfer) {
@@ -56,7 +55,7 @@ function dragStart(e, view) {
   }
 }
 
-export default function createDragHandle(editorView: EditorView) {
+export function createDragHandle(editorView: EditorView) {
   // drag handle
   const dragElement = document.createElement('div')
   dragElement.draggable = true

@@ -2,7 +2,7 @@
 import { Extension } from '@tiptap/core'
 import { Plugin } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import createDragHandle from './dragHandle'
+import { createDragHandle } from './dragHandle'
 
 function removeNode(node: Element) {
   node.parentNode.removeChild(node)
@@ -26,7 +26,7 @@ function addMenuItems(menuElement: HTMLElement, editorView: EditorView) {
 // TODO: create a popup for block commands menu
 function createBlockCommandsMenuElement(editorView: EditorView) {
   const element = document.createElement('div')
-  element.classList.add('BrickdocBlockCommands')
+  element.classList.add('brickdoc-block-commands')
   addMenuItems(element, editorView)
   document.body.appendChild(element)
 
