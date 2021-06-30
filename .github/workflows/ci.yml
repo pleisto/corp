@@ -54,6 +54,7 @@ jobs:
       - name: Run rails server
         run: bundle exec rails s -p 3000 &
         env:
+          CYPRESS: 1
           RAILS_ENV: development
       - name: Lint Code
         run: yarn lint
