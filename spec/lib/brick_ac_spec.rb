@@ -3,13 +3,7 @@
 require 'rails_helper'
 
 describe BrickAc do
-  
   context 'basic' do
-
-    def get_resource_test_persist_key(resource)
-      resource.class_name + ':' + resource.id
-    end
-
     class BrickAcTestPersistor
       def initialize
         @ac_persists = {}
@@ -31,7 +25,7 @@ describe BrickAc do
       def set_persist(actor, resource, role, attrs = {})
         resource_key = get_persist_key(resource)
         @ac_persists[resource_key] ||= {}
-        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || {roles: [], attrs: {}}
+        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], attrs: {} }
         persist_value[:roles].push(role)
         persist_value[:roles].uniq!
         persist_value[:attrs].merge!(attrs)
@@ -39,12 +33,12 @@ describe BrickAc do
       end
 
       def get_actors(resource, role)
-        @ac_persists.dig(get_persist_key(resource))&.select do |actor, value|
+        @ac_persists.dig(get_persist_key(resource))&.select do |_, value|
           value[:roles].include?(role)
-        end.map{|a, v| [get_object(a), v[:attrs]]}.to_h
+        end&.map { |a, v| [get_object(a), v[:attrs]] }.to_h
       end
     end
-    
+
     it 'can define access rules then check' do
       block1 = create(:docs_block)
       owner1 = create(:accounts_user)
@@ -60,7 +54,7 @@ describe BrickAc do
 
           permit :view
           permit :edit, roles: [:owner, :editor]
-          permit :delete, role: :owner do |actor, resource, roles, attrs|
+          permit :delete, role: :owner do |actor, _resource, _roles, _attrs|
             actor == owner2
           end
         end
@@ -80,9 +74,9 @@ describe BrickAc do
       expect(owner1.can?(:delete, block1)).to be(false)
       expect(owner2.can?(:delete, block1)).to be(true)
 
-      expect {|b|
+      expect do |b|
         editor1.can?(:edit, block1, &b)
-      }.to yield_control 
+      end.to yield_control
 
       owner1.can?(:edit, block1) do |roles, attrs|
         expect(roles).to include(:owner)
@@ -94,7 +88,5 @@ describe BrickAc do
       expect(block1.actors(:editor).keys.first).to eq(editor1)
       expect(block1.actors(:editor).values.first).to eq({})
     end
-
   end
-
 end
