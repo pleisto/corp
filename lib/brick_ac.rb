@@ -32,16 +32,10 @@ module BrickAc
       end
     end
 
-    def grant!(actor, role, attrs = {})
-      self.class.resource_ac.grant!(self, actor, role, attrs)
-    end
-
-    def revoke!(actor, role, attrs = {})
-      self.class.resource_ac.revoke!(self, actor, role, attrs)
-    end
-
-    def actors(role)
-      self.class.resource_ac.get_actors(self, role)
+    [:add_actor!, :remove_actor!, :grant!, :revoke!, :get_actors].each do |method_name|
+      define_method method_name do |*args|
+        self.class.resource_ac.send method_name, *([self] + args)
+      end
     end
   end
 
@@ -80,10 +74,6 @@ module BrickAc
 
     def can?(actor, ability, resource, &block)
       @resources[resource.class]&.can?(actor, ability, resource, &block)
-    end
-
-    def get_actors(resource, role)
-      @resources[resource.class].get_actors(resource, role)
     end
   end
 
@@ -134,13 +124,16 @@ module BrickAc
       permission = @permissions[ability]
       if permission
         require_roles = permission[:roles]
-        persist_value = persistor_of_actor(actor).get_persist(actor, resource)
+        persist_value = persistor_of_actor(actor).get_persist(resource, actor)
         if can && require_roles.present?
           can &&= persist_value.present? && (persist_value[:roles] & require_roles).present?
         end
         check_block = permission[:block]
         if can && check_block.present?
           can &&= check_block.call(actor, resource, persist_value[:roles], persist_value[:attrs])
+        end
+        if persist_value
+          can ||= persist_value[:abilities].include?(ability)
         end
       end
       if can && block
@@ -149,14 +142,26 @@ module BrickAc
       can && true
     end
 
-    def grant!(resource, actor, role, attrs = {})
-      persistor_of_role(role).set_persist(actor, resource, role, attrs) do |value|
+    def grant!(resource, ability, actor, attrs = {})
+      persistor_of_actor(actor).set_persist(resource, actor, attrs) do |value|
+        value[:abilities].push ability
+      end
+    end
+
+    def revoke!(resource, ability, actor, attrs = {})
+      persistor_of_actor(actor).set_persist(resource, actor, attrs) do |value|
+        value[:abilities].delete ability
+      end
+    end
+
+    def add_actor!(resource, role, actor, attrs = {})
+      persistor_of_actor(actor).set_persist(resource, actor, attrs) do |value|
         value[:roles].push role
       end
     end
 
-    def revoke!(resource, actor, role, attrs = {})
-      persistor_of_role(role).set_persist(actor, resource, role, attrs) do |value|
+    def remove_actor!(resource, role, actor, attrs = {})
+      persistor_of_actor(actor).set_persist(resource, actor, attrs) do |value|
         value[:roles].delete role
       end
     end

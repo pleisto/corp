@@ -18,15 +18,16 @@ describe BrickAc do
         object_type.constantize.find object_id
       end
 
-      def get_persist(actor, resource)
+      def get_persist(resource, actor)
         @ac_persists.dig(get_persist_key(resource), get_persist_key(actor))
       end
 
-      def set_persist(actor, resource, role, attrs = {})
+      def set_persist(resource, actor, attrs = {})
         resource_key = get_persist_key(resource)
         @ac_persists[resource_key] ||= {}
-        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], attrs: {} }
+        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], abilities: [], attrs: {} }
         yield persist_value
+        persist_value[:abilities].uniq!
         persist_value[:roles].uniq!
         persist_value[:attrs].merge!(attrs)
         @ac_persists[resource_key][get_persist_key(actor)] = persist_value
@@ -60,9 +61,9 @@ describe BrickAc do
         end
       end
 
-      block1.grant!(editor1, :editor)
-      block1.grant!(owner1, :owner, creator: true)
-      block1.grant!(owner2, :owner)
+      block1.add_actor!(:editor, editor1)
+      block1.add_actor!(:owner, owner1, creator: true)
+      block1.add_actor!(:owner, owner2)
 
       expect(viewer1.can?(:view, block1)).to be(true)
       expect(viewer1.can?(:edit, block1)).to be(false)
@@ -83,14 +84,20 @@ describe BrickAc do
         expect(attrs[:creator]).to be(true)
       end
 
-      expect(block1.actors(:editor).length).to be(1)
+      expect(block1.get_actors(:editor).length).to be(1)
 
-      expect(block1.actors(:editor).keys.first).to eq(editor1)
-      expect(block1.actors(:editor).values.first).to eq({})
+      expect(block1.get_actors(:editor).keys.first).to eq(editor1)
+      expect(block1.get_actors(:editor).values.first).to eq({})
 
-      block1.revoke!(owner2, :owner)
+      block1.remove_actor!(:owner, owner2)
 
       expect(owner2.can?(:delete, block1)).to be(false)
+
+      block1.grant!(:delete, viewer1)
+      expect(viewer1.can?(:delete, block1)).to be(true)
+
+      block1.revoke!(:delete, viewer1)
+      expect(viewer1.can?(:delete, block1)).to be(false)
     end
   end
 end
