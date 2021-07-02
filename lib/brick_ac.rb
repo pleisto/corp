@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 module BrickAc
-  class << self
-    def for_actor(cls, *args, &block)
-      @actors ||= {}
-      @actors[cls] ||= ActorAc.new(cls, *args)
-      @actors[cls].instance_eval(&block)
-    end
-  end
-
   module AcActorConcern
     extend ActiveSupport::Concern
 
@@ -39,6 +31,13 @@ module BrickAc
     end
   end
 
+  class << self
+    def for_actor(cls, *args, &block)
+      cls.include(AcActorConcern) unless cls.include?(AcActorConcern)
+      cls.actor_ac ||= ActorAc.new(cls, *args)
+      cls.actor_ac.instance_eval(&block)
+    end
+  end
   class AcBase
     attr_reader :ac_options
 
@@ -58,18 +57,14 @@ module BrickAc
       super
       @actor_cls = cls
       @resources = {}
-
-      actor_ac = self
-      @actor_cls.instance_eval do
-        include AcActorConcern
-        self.actor_ac = actor_ac
-      end
     end
 
     def to(cls, *args, &block)
-      @resources[cls] ||= ResourceAc.new(cls, *args)
-      @resources[cls].current_actor_ac = self
-      @resources[cls].instance_eval(&block)
+      cls.include(AcResourceConcern) unless cls.include?(AcResourceConcern)
+      cls.resource_ac ||= ResourceAc.new(cls, *args)
+      @resources[cls] = cls.resource_ac
+      cls.resource_ac.current_actor_ac = self
+      cls.resource_ac.instance_eval(&block)
     end
 
     def can?(actor, ability, resource, &block)
@@ -87,12 +82,6 @@ module BrickAc
       @role_to_actors = {}
       @cls_to_actors = {}
       @permissions = {}
-
-      resource_ac = self
-      @resource_cls.instance_eval do
-        include AcResourceConcern
-        self.resource_ac = resource_ac
-      end
     end
 
     def persistor_of_actor(actor)
