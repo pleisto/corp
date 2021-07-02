@@ -28,10 +28,14 @@ describe BrickAc do
         @ac_persists.dig(get_persist_key(resource), get_persist_key(actor))
       end
 
-      def set_persist(actor, resource, roles, attrs = {})
+      def set_persist(actor, resource, role, attrs = {})
         resource_key = get_persist_key(resource)
         @ac_persists[resource_key] ||= {}
-        @ac_persists[resource_key][get_persist_key(actor)] = {roles: roles, attrs: attrs}
+        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || {roles: [], attrs: {}}
+        persist_value[:roles].push(role)
+        persist_value[:roles].uniq!
+        persist_value[:attrs].merge!(attrs)
+        @ac_persists[resource_key][get_persist_key(actor)] = persist_value
       end
 
       def get_actors(resource, role)
