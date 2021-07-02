@@ -26,7 +26,7 @@ describe BrickAc do
         resource_key = get_persist_key(resource)
         @ac_persists[resource_key] ||= {}
         persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], attrs: {} }
-        persist_value[:roles].push(role)
+        yield persist_value
         persist_value[:roles].uniq!
         persist_value[:attrs].merge!(attrs)
         @ac_persists[resource_key][get_persist_key(actor)] = persist_value
@@ -87,6 +87,10 @@ describe BrickAc do
 
       expect(block1.actors(:editor).keys.first).to eq(editor1)
       expect(block1.actors(:editor).values.first).to eq({})
+
+      block1.revoke!(owner2, :owner)
+
+      expect(owner2.can?(:delete, block1)).to be(false)
     end
   end
 end

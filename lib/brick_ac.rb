@@ -36,6 +36,10 @@ module BrickAc
       self.class.resource_ac.grant!(self, actor, role, attrs)
     end
 
+    def revoke!(actor, role, attrs = {})
+      self.class.resource_ac.revoke!(self, actor, role, attrs)
+    end
+
     def actors(role)
       self.class.resource_ac.get_actors(self, role)
     end
@@ -102,11 +106,11 @@ module BrickAc
     end
 
     def persistor_of_actor(actor)
-      @ac_options[[:persistor] || @cls_to_actors[actor.class].ac_options[:persistor]
+      @ac_options[:persistor] || @cls_to_actors[actor.class].ac_options[:persistor]
     end
 
     def persistor_of_role(role)
-      @ac_options[[:persistor] || @role_to_actors[role].ac_options[:persistor]
+      @ac_options[:persistor] || @role_to_actors[role].ac_options[:persistor]
     end
 
     def current_actor_ac=(actor_ac)
@@ -146,7 +150,15 @@ module BrickAc
     end
 
     def grant!(resource, actor, role, attrs = {})
-      persistor_of_role(role).set_persist(actor, resource, role, attrs)
+      persistor_of_role(role).set_persist(actor, resource, role, attrs) do |value|
+        value[:roles].push role
+      end
+    end
+
+    def revoke!(resource, actor, role, attrs = {})
+      persistor_of_role(role).set_persist(actor, resource, role, attrs) do |value|
+        value[:roles].delete role
+      end
     end
 
     def get_actors(resource, role)
