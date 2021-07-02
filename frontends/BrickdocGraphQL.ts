@@ -65,6 +65,33 @@ export type BlockSyncPayload = {
   errors: Array<Scalars['String']>
 }
 
+/** doc blocks */
+export type MetaBlock = {
+  __typename?: 'MetaBlock'
+  /** collaborators */
+  collaborators?: Maybe<Array<Accounts_User>>
+  data: Scalars['Nil']
+  /** object unique id */
+  id: Scalars['UUID']
+  meta: MetaBlockMeta
+  /** parent uuid */
+  parentId?: Maybe<Scalars['UUID']>
+  /** parent type */
+  parentType?: Maybe<Scalars['String']>
+  /** block sort */
+  sort: Scalars['Int']
+  /** block type */
+  type: Scalars['String']
+}
+
+export type MetaBlockMeta = {
+  __typename?: 'MetaBlockMeta'
+  /** attrs */
+  attrs?: Maybe<Scalars['String']>
+  /** marks */
+  marks?: Maybe<Scalars['String']>
+}
+
 /** page blocks */
 export type PageBlock = {
   __typename?: 'PageBlock'
@@ -350,7 +377,7 @@ export type Accounts_User = {
 }
 
 /** Brickdoc Docs::Block */
-export type Block = PageBlock | TextBlock
+export type Block = MetaBlock | PageBlock | TextBlock
 
 /** Brickdoc Global Configuration */
 export type Config = {
@@ -524,6 +551,14 @@ export type GetPageBlocksQuery = { __typename?: 'RootQuery' } & {
         }
     >
   >
+}
+
+export type BlockSyncMutationVariables = Exact<{
+  input: BlockSyncInput
+}>
+
+export type BlockSyncMutation = { __typename?: 'RootMutation' } & {
+  blockSync?: Maybe<{ __typename?: 'BlockSyncPayload' } & Pick<BlockSyncPayload, 'errors'>>
 }
 
 export const UserSignOutDocument = gql`
@@ -1033,3 +1068,36 @@ export function useGetPageBlocksLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetPageBlocksQueryHookResult = ReturnType<typeof useGetPageBlocksQuery>
 export type GetPageBlocksLazyQueryHookResult = ReturnType<typeof useGetPageBlocksLazyQuery>
 export type GetPageBlocksQueryResult = Apollo.QueryResult<GetPageBlocksQuery, GetPageBlocksQueryVariables>
+export const BlockSyncDocument = gql`
+  mutation blockSync($input: BlockSyncInput!) {
+    blockSync(input: $input) {
+      errors
+    }
+  }
+`
+export type BlockSyncMutationFn = Apollo.MutationFunction<BlockSyncMutation, BlockSyncMutationVariables>
+
+/**
+ * __useBlockSyncMutation__
+ *
+ * To run a mutation, you first call `useBlockSyncMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBlockSyncMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [blockSyncMutation, { data, loading, error }] = useBlockSyncMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBlockSyncMutation(baseOptions?: Apollo.MutationHookOptions<BlockSyncMutation, BlockSyncMutationVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<BlockSyncMutation, BlockSyncMutationVariables>(BlockSyncDocument, options)
+}
+export type BlockSyncMutationHookResult = ReturnType<typeof useBlockSyncMutation>
+export type BlockSyncMutationResult = Apollo.MutationResult<BlockSyncMutation>
+export type BlockSyncMutationOptions = Apollo.BaseMutationOptions<BlockSyncMutation, BlockSyncMutationVariables>
