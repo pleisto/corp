@@ -16,7 +16,12 @@ describe BrickAc do
       end
 
       def get_persist_key(resource)
-        "#{resource.class.name}:#{resource.id}"
+        "#{resource.class.name}\n#{resource.id}"
+      end
+
+      def get_object(persist_key)
+        object_type, object_id = persist_key.split("\n")
+        object_type.constantize.find object_id
       end
 
       def get_persist(actor, resource)
@@ -27,6 +32,12 @@ describe BrickAc do
         resource_key = get_persist_key(resource)
         @ac_persists[resource_key] ||= {}
         @ac_persists[resource_key][get_persist_key(actor)] = {roles: roles, attrs: attrs}
+      end
+
+      def get_actors(resource, role)
+        @ac_persists.dig(get_persist_key(resource))&.select do |actor, value|
+          value[:roles].include?(role)
+        end.map{|a, v| [get_object(a), v[:attrs]]}.to_h
       end
     end
     
@@ -52,9 +63,8 @@ describe BrickAc do
       end
 
       block1.grant!(editor1, :editor)
-      block1.grant!(owner1, :owner)
+      block1.grant!(owner1, :owner, creator: true)
       block1.grant!(owner2, :owner)
-
 
       expect(viewer1.can?(:view, block1)).to be(true)
       expect(viewer1.can?(:edit, block1)).to be(false)
@@ -63,9 +73,22 @@ describe BrickAc do
       expect(owner1.can?(:edit, block1)).to be(true)
       expect(owner2.can?(:edit, block1)).to be(true)
 
-
       expect(owner1.can?(:delete, block1)).to be(false)
       expect(owner2.can?(:delete, block1)).to be(true)
+
+      expect {|b|
+        editor1.can?(:edit, block1, &b)
+      }.to yield_control 
+
+      owner1.can?(:edit, block1) do |roles, attrs|
+        expect(roles).to include(:owner)
+        expect(attrs[:creator]).to be(true)
+      end
+
+      expect(block1.actors(:editor).length).to be(1)
+
+      expect(block1.actors(:editor).keys.first).to eq(editor1)
+      expect(block1.actors(:editor).values.first).to eq({})
     end
 
   end

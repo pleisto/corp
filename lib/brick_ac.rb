@@ -18,8 +18,8 @@ module BrickAc
       end
     end
 
-    def can?(ability, resource)
-      self.class.actor_ac.can?(self, ability, resource)
+    def can?(ability, resource, &block)
+      self.class.actor_ac.can?(self, ability, resource, &block)
     end
   end
 
@@ -28,13 +28,23 @@ module BrickAc
 
     included do
       class << self
-        attr_accessor :actors_acs
+        attr_accessor :actors_acs, :resource_ac
       end
       self.actors_acs ||= {}
     end
 
     def grant!(actor, roles, attrs = {})
       self.class.actors_acs[actor.class].grant!(actor, self, roles, attrs)
+    end
+
+    def actors(role, actor_cls = nil)
+      actors = {}
+      actors_acs = self.class.actors_acs
+      actors_acs = actors_acs.slice(actor_cls) if actor_cls
+      actors_acs.values.each do |actor_ac|
+        actors.merge! actor_ac.get_actors(self, role)
+      end
+      actors
     end
   end
 
@@ -70,12 +80,16 @@ module BrickAc
       @resources[cls].instance_eval(&block)
     end
 
-    def can?(actor, ability, resource)
-      @resources[resource.class]&.can?(actor, ability, resource)
+    def can?(actor, ability, resource, &block)
+      @resources[resource.class]&.can?(actor, ability, resource, &block)
     end
 
     def grant!(actor, resource, roles, attrs = {})
       @resources[resource.class].grant!(resource, actor, roles, attrs)
+    end
+
+    def get_actors(resource, role)
+      @resources[resource.class].get_actors(resource, role)
     end
   end
 
@@ -90,9 +104,11 @@ module BrickAc
       @roles = []
       @permissions = {}
 
+      resource_ac = self
       @resource_cls.instance_eval do
         include AcResourceConcern
         self.actors_acs[actor_ac.actor_cls] = actor_ac
+        self.resource_ac = resource_ac
       end
     end
 
@@ -105,7 +121,7 @@ module BrickAc
       @permissions[ability] = options.merge(block: block)
     end
 
-    def can?(actor, ability, resource)
+    def can?(actor, ability, resource, &block)
       can = true
       permission = @permissions[ability]
       if permission
@@ -114,10 +130,13 @@ module BrickAc
         if can && require_roles.present?
           can &&= persist_value.present? && (persist_value[:roles] & require_roles).present?
         end
-        block = permission[:block]
-        if can && block.present?
-          can &&= block.call(actor, resource, persist_value[:roles], persist_value[:attrs])
+        check_block = permission[:block]
+        if can && check_block.present?
+          can &&= check_block.call(actor, resource, persist_value[:roles], persist_value[:attrs])
         end
+      end
+      if can && block
+        block.call(persist_value[:roles], persist_value[:attrs])
       end
       can && true
     end
@@ -125,6 +144,10 @@ module BrickAc
     def grant!(actor, resource, roles, attrs = {})
       roles = [roles] unless roles.is_a?(Array)
       @ac_options[:persist_to].set_persist(resource, actor, roles, attrs)
+    end
+
+    def get_actors(resource, role)
+      @ac_options[:persist_to].get_actors(resource, role)
     end
   end
 end
