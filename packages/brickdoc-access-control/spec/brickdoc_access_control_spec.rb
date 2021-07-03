@@ -1,56 +1,61 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
-describe BrickAc do
+class BrickAcTestPersistor
+  def initialize
+    @ac_persists = {}
+    @test_model_cache = {}
+  end
+
+  def get_persist_key(resource)
+    persist_key = "#{resource.class.name}\n#{resource.id}"
+    @test_model_cache[persist_key] = resource
+    persist_key
+  end
+
+  def get_object(persist_key)
+    @test_model_cache[persist_key]
+  end
+
+  def get_persist(resource, actor)
+    @ac_persists.dig(get_persist_key(resource), get_persist_key(actor))
+  end
+
+  def set_persist(resource, actor, attrs = {})
+    resource_key = get_persist_key(resource)
+    @ac_persists[resource_key] ||= {}
+    persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], abilities: [], attrs: {} }
+    yield persist_value
+    persist_value[:abilities].uniq!
+    persist_value[:roles].uniq!
+    persist_value[:attrs].merge!(attrs)
+    @ac_persists[resource_key][get_persist_key(actor)] = persist_value
+  end
+
+  def get_actors(resource, role)
+    @ac_persists.dig(get_persist_key(resource))&.select do |_, value|
+      value[:roles].include?(role)
+    end&.map { |a, v| [get_object(a), v[:attrs]] }.to_h
+  end
+end
+
+describe BrickdocAccessControl do
   context 'basic' do
-    class BrickAcTestPersistor
-      def initialize
-        @ac_persists = {}
-      end
-
-      def get_persist_key(resource)
-        "#{resource.class.name}\n#{resource.id}"
-      end
-
-      def get_object(persist_key)
-        object_type, object_id = persist_key.split("\n")
-        object_type.constantize.find object_id
-      end
-
-      def get_persist(resource, actor)
-        @ac_persists.dig(get_persist_key(resource), get_persist_key(actor))
-      end
-
-      def set_persist(resource, actor, attrs = {})
-        resource_key = get_persist_key(resource)
-        @ac_persists[resource_key] ||= {}
-        persist_value = @ac_persists[resource_key][get_persist_key(actor)] || { roles: [], abilities: [], attrs: {} }
-        yield persist_value
-        persist_value[:abilities].uniq!
-        persist_value[:roles].uniq!
-        persist_value[:attrs].merge!(attrs)
-        @ac_persists[resource_key][get_persist_key(actor)] = persist_value
-      end
-
-      def get_actors(resource, role)
-        @ac_persists.dig(get_persist_key(resource))&.select do |_, value|
-          value[:roles].include?(role)
-        end&.map { |a, v| [get_object(a), v[:attrs]] }.to_h
-      end
-    end
-
     it 'can define access rules then check' do
-      block1 = create(:docs_block)
-      owner1 = create(:accounts_user)
-      owner2 = create(:accounts_user)
-      editor1 = create(:accounts_user)
-      viewer1 = create(:accounts_user)
+      mock_model('Block')
+      mock_model('User')
 
-      BrickAc.for_actor Accounts::User do
+      block1 = stub_model(Block, id: SecureRandom.uuid)
+      owner1 = stub_model(User, id: SecureRandom.uuid)
+      owner2 = stub_model(User, id: SecureRandom.uuid)
+      editor1 = stub_model(User, id: SecureRandom.uuid)
+      viewer1 = stub_model(User, id: SecureRandom.uuid)
+
+      BrickdocAccessControl.for_actor User do
         persist_to BrickAcTestPersistor.new
 
-        to Docs::Block do
+        to Block do
           roles :owner, :editor, :viewer
 
           permit :view
