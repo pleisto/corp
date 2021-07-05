@@ -7,3 +7,34 @@ export const BlockSync = gql`
     }
   }
 `
+
+export const queryChildrenBlocks = gql`
+  query GetChildrenBlocks($parentId: String!) {
+    childrenBlocks(parentId: $parentId) {
+      ... on MetaBlock {
+        nullableData: data
+        meta {
+          attrs
+          marks
+        }
+      }
+
+      ... on PageBlock {
+        data {
+          title
+        }
+        meta {
+          icon
+          cover
+        }
+      }
+
+      ... on TextBlock {
+        data {
+          content
+        }
+        nullableMeta: meta
+      }
+    }
+  }
+`

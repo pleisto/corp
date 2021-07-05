@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom'
 import { Editor } from '@brickdoc/editor'
 import { currentWebidVar } from '@/docs/vars'
 import { syncProvider } from './SyncProvider'
-import { useBlockSyncMutation } from '@/BrickdocGraphQL'
+import { useBlockSyncMutation, useGetChildrenBlocksLazyQuery } from '@/BrickdocGraphQL'
 
 const Page: React.FC = () => {
   const { webid, docid } = useParams()
   const [blockSync] = useBlockSyncMutation()
+  const [childrenBlocks] = useGetChildrenBlocksLazyQuery()
+  const syncCallback = syncProvider({ blockSync, childrenBlocks })
 
   currentWebidVar(webid)
   return (
@@ -15,7 +17,7 @@ const Page: React.FC = () => {
       <h1>
         WIP - ${webid} ${docid}
       </h1>
-      <Editor syncCallback={syncProvider(blockSync)} />
+      <Editor syncCallback={syncCallback} />
     </div>
   )
 }

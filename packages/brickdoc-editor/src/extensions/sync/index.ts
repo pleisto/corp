@@ -12,7 +12,8 @@ const now = () => {
 }
 
 export interface SyncCallback {
-  onCommit: (node: Node) => void
+  onCommit: ({ node: Node }) => void
+  onLoad: ({ parentId: String, schema: Schema }) => Node
 }
 
 // https://prosemirror.net/docs/ref/#state.PluginSpec
@@ -43,7 +44,7 @@ export const SyncExtension = Extension.create({
               if (state.timer) {
                 clearTimeout(state.timer)
               }
-              callback.onCommit(newState.doc)
+              callback.onCommit({ node: newState.doc })
             }
             if (state.syncTime && now() - state.syncTime < THROTTLE_DURATION) {
               if (state.timer) {

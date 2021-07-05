@@ -1,9 +1,9 @@
 import { SyncCallback } from 'packages/brickdoc-editor/src/extensions'
-import type { Node } from 'prosemirror-model'
+import { Node } from 'prosemirror-model'
 import { BlockSyncInput, PageBlockData, TextBlockData } from '@/BrickdocGraphQL'
 
 // https://prosemirror.net/docs/ref/#model.Node
-const nodeToBlocks = (node: Node): BlockSyncInput[] => {
+const nodeToBlock = (node: Node): BlockSyncInput[] => {
   const parent: BlockSyncInput = {
     id: (node as any).uuid,
     sort: (node as any).sort,
@@ -26,7 +26,7 @@ const nodeToBlocks = (node: Node): BlockSyncInput[] => {
   // NOTE Fragment type miss content field
   const fragment: any = node.content
   const children = fragment.content.flatMap((n: Node) =>
-    nodeToBlocks(n).map((i: BlockSyncInput) => {
+    nodeToBlock(n).map((i: BlockSyncInput) => {
       return { ...i, parentId: parent.id }
     })
   )
@@ -34,12 +34,22 @@ const nodeToBlocks = (node: Node): BlockSyncInput[] => {
   return [parent, ...children]
 }
 
-export const syncProvider = (blockSync): SyncCallback => {
+const blockToNode = ({ blocks, schema }): Node => {
+  const node = Node.fromJSON(schema, blocks)
+  return node
+}
+
+export const syncProvider = ({ blockSync, childrenBlocks }): SyncCallback => {
   return {
-    onCommit: node => {
-      const inputs = nodeToBlocks(node)
+    onCommit: ({ node }) => {
+      const inputs = nodeToBlock(node)
       console.log(inputs)
       inputs.map(input => blockSync({ variables: { input } }))
+    },
+    onLoad: ({ parentId, schema }) => {
+      const [blocks] = childrenBlocks({ variables: { parentId } })
+      const node = blockToNode({ blocks, schema })
+      return node
     }
   }
 }
