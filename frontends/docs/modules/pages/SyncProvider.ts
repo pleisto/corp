@@ -34,8 +34,12 @@ const nodeToBlock = (node: Node): BlockSyncInput[] => {
   return [parent, ...children]
 }
 
+const nest = (blocks, id = null) =>
+  blocks.filter(block => block.parentId === id).map(block => ({ ...block, content: nest(blocks, block.id) }))
+
 const blockToNode = ({ blocks, schema }): Node => {
-  const node = Node.fromJSON(schema, blocks)
+  const nodes = nest(blocks)
+  const node = Node.fromJSON(schema, nodes)
   return node
 }
 

@@ -6,6 +6,7 @@ import './styles.less'
 export interface EditorProps {
   options?: Partial<EditorOptions>
   syncCallback: SyncCallback
+  content: string
 }
 
 export const Editor: React.FC<EditorProps> = (props: EditorProps) => {
@@ -17,7 +18,8 @@ export const Editor: React.FC<EditorProps> = (props: EditorProps) => {
       SlashCommandsExtension,
       SyncExtension.configure({ callback: props.syncCallback })
     ],
-    autofocus: true
+    autofocus: true,
+    content: props.content
   })
   return <EditorContent style={{ minHeight: '100vh' }} editor={editor} />
 }

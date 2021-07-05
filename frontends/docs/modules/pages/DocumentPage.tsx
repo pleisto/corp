@@ -11,13 +11,12 @@ const Page: React.FC = () => {
   const [childrenBlocks] = useGetChildrenBlocksLazyQuery()
   const syncCallback = syncProvider({ blockSync, childrenBlocks })
 
+  const content = `WIP - ${webid} ${docid}`
+
   currentWebidVar(webid)
   return (
     <div>
-      <h1>
-        WIP - ${webid} ${docid}
-      </h1>
-      <Editor syncCallback={syncCallback} />
+      <Editor syncCallback={syncCallback} content={content} />
     </div>
   )
 }
