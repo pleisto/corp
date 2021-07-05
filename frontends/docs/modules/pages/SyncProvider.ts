@@ -37,7 +37,6 @@ const nodeToBlocks = (node: Node): BlockSyncInput[] => {
 export const syncProvider = (blockSync): SyncCallback => {
   return {
     onCommit: node => {
-      console.log(node)
       const inputs = nodeToBlocks(node)
       console.log(inputs)
       inputs.map(input => blockSync({ variables: { input } }))
