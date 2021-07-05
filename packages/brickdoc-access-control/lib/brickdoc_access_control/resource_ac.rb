@@ -60,26 +60,11 @@ module BrickdocAccessControl
     #     puts "The role of current user in this document is: #{roles}, has attrbutes: #{attrs}"
     #   end
     def can?(actor, ability, resource, &block)
-      can = true
-      permission = @permissions[ability]
-      if permission
-        require_roles = permission[:roles]
-        persist_value = persistor_of_actor(actor).get_persist(resource, actor)
-        if can && require_roles.present?
-          can &&= persist_value.present? && (persist_value[:roles] & require_roles).present?
-        end
-        check_block = permission[:block]
-        if can && check_block.present?
-          can &&= check_block.call(actor, resource, persist_value[:roles], persist_value[:attrs])
-        end
-        if persist_value
-          can ||= persist_value[:abilities].include?(ability)
-        end
-      end
+      can, persist_value = check_ability_for(actor, ability, resource)
       if can && block
         block.call(persist_value[:roles], persist_value[:attrs])
       end
-      can && true
+      can
     end
 
     # Grant given ability to this actor of the resource
@@ -113,6 +98,28 @@ module BrickdocAccessControl
     # Get actors on given role of the resource
     def get_actors(resource, role)
       persistor_of_role(role).get_actors(resource, role)
+    end
+
+    private
+
+    def check_ability_for(actor, ability, resource)
+      can = true
+      permission = @permissions[ability]
+      if permission
+        require_roles = permission[:roles]
+        persist_value = persistor_of_actor(actor).get_persist(resource, actor)
+        if can && require_roles.present?
+          can &&= persist_value.present? && (persist_value[:roles] & require_roles).present?
+        end
+        check_block = permission[:block]
+        if can && check_block.present?
+          can &&= check_block.call(actor, resource, persist_value[:roles], persist_value[:attrs])
+        end
+        if persist_value
+          can ||= persist_value[:abilities].include?(ability)
+        end
+      end
+      [(can && true), persist_value]
     end
   end
 end
