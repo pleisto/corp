@@ -561,6 +561,27 @@ export type BlockSyncMutation = { __typename?: 'RootMutation' } & {
   blockSync?: Maybe<{ __typename?: 'BlockSyncPayload' } & Pick<BlockSyncPayload, 'errors'>>
 }
 
+export type GetChildrenBlocksQueryVariables = Exact<{
+  parentId: Scalars['String']
+}>
+
+export type GetChildrenBlocksQuery = { __typename?: 'RootQuery' } & {
+  childrenBlocks?: Maybe<
+    Array<
+      | ({ __typename?: 'MetaBlock' } & { nullableData: MetaBlock['data'] } & {
+          meta: { __typename?: 'MetaBlockMeta' } & Pick<MetaBlockMeta, 'attrs' | 'marks'>
+        })
+      | ({ __typename?: 'PageBlock' } & {
+          data: { __typename?: 'PageBlockData' } & Pick<PageBlockData, 'title'>
+          meta: { __typename?: 'PageBlockMeta' } & Pick<PageBlockMeta, 'icon' | 'cover'>
+        })
+      | ({ __typename?: 'TextBlock' } & { nullableMeta: TextBlock['meta'] } & {
+          data: { __typename?: 'TextBlockData' } & Pick<TextBlockData, 'content'>
+        })
+    >
+  >
+}
+
 export const UserSignOutDocument = gql`
   mutation userSignOut($input: UserSignOutInput!) {
     userSignOut(input: $input) {
@@ -1101,3 +1122,61 @@ export function useBlockSyncMutation(baseOptions?: Apollo.MutationHookOptions<Bl
 export type BlockSyncMutationHookResult = ReturnType<typeof useBlockSyncMutation>
 export type BlockSyncMutationResult = Apollo.MutationResult<BlockSyncMutation>
 export type BlockSyncMutationOptions = Apollo.BaseMutationOptions<BlockSyncMutation, BlockSyncMutationVariables>
+export const GetChildrenBlocksDocument = gql`
+  query GetChildrenBlocks($parentId: String!) {
+    childrenBlocks(parentId: $parentId) {
+      ... on MetaBlock {
+        nullableData: data
+        meta {
+          attrs
+          marks
+        }
+      }
+      ... on PageBlock {
+        data {
+          title
+        }
+        meta {
+          icon
+          cover
+        }
+      }
+      ... on TextBlock {
+        data {
+          content
+        }
+        nullableMeta: meta
+      }
+    }
+  }
+`
+
+/**
+ * __useGetChildrenBlocksQuery__
+ *
+ * To run a query within a React component, call `useGetChildrenBlocksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetChildrenBlocksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetChildrenBlocksQuery({
+ *   variables: {
+ *      parentId: // value for 'parentId'
+ *   },
+ * });
+ */
+export function useGetChildrenBlocksQuery(baseOptions: Apollo.QueryHookOptions<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>(GetChildrenBlocksDocument, options)
+}
+export function useGetChildrenBlocksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>(GetChildrenBlocksDocument, options)
+}
+export type GetChildrenBlocksQueryHookResult = ReturnType<typeof useGetChildrenBlocksQuery>
+export type GetChildrenBlocksLazyQueryHookResult = ReturnType<typeof useGetChildrenBlocksLazyQuery>
+export type GetChildrenBlocksQueryResult = Apollo.QueryResult<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>
