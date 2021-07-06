@@ -21,8 +21,14 @@ module BrickdocAccessControl
     def persist_to(persistor)
       @ac_options[:persistor] = persistor
     end
+
+    def cache_to(cache_store)
+      @ac_options[:cache_store] = cache_store
+    end
   end
 end
 
 require 'brickdoc_access_control/resource_ac'
 require 'brickdoc_access_control/actor_ac'
+require 'brickdoc_access_control/persistor_base'
+require 'brickdoc_access_control/current_cache'

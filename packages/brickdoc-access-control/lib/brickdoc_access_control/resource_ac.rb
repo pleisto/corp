@@ -29,6 +29,10 @@ module BrickdocAccessControl
       @permissions = {}
     end
 
+    def cache_store_of_actor(actor)
+      @ac_options[:cache_store] || @cls_to_actors[actor.class].ac_options[:cache_store]
+    end
+
     def persistor_of_actor(actor)
       @ac_options[:persistor] || @cls_to_actors[actor.class].ac_options[:persistor]
     end
@@ -60,7 +64,14 @@ module BrickdocAccessControl
     #     puts "The role of current user in this document is: #{roles}, has attrbutes: #{attrs}"
     #   end
     def can?(actor, ability, resource, &block)
-      can, persist_value = check_ability_for(actor, ability, resource)
+      cache_store = cache_store_of_actor(actor)
+      can, persist_value = if cache_store.present?
+        cache_store.can?(actor, ability, resource) do
+          check_ability_for(actor, ability, resource)
+        end
+      else
+        check_ability_for(actor, ability, resource)
+      end
       if can && block
         block.call(persist_value[:roles], persist_value[:attrs])
       end
