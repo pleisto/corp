@@ -11,3 +11,7 @@ gem "rspec", "~> 3.0"
 gem "rspec-activemodel-mocks"
 
 gem "rubocop", "~> 1.7"
+
+gem "sqlite3"
+
+gem "rails", "~> 6.0"

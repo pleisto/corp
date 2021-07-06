@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require "rspec/active_model/mocks"
-require "securerandom"
+require 'rspec/active_model/mocks'
+require 'securerandom'
 
-require "brickdoc_access_control"
+require 'brickdoc_access_control'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

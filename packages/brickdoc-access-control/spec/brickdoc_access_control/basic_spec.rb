@@ -31,7 +31,7 @@ class BrickAcTestPersistor
     yield persist_value
     persist_value[:abilities].uniq!
     persist_value[:roles].uniq!
-    persist_value[:attrs].merge!(attrs)
+    persist_value[:attrs] = attrs
     @ac_persists[resource_key][actor_key(actor)] = persist_value
   end
 
