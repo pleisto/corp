@@ -1,6 +1,6 @@
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Extension } from '@tiptap/core'
-import type { Node } from 'prosemirror-model'
+// import { Node } from 'prosemirror-model'
 
 const PLUGIN_NAME = 'sync'
 const PLUGIN_KEY = new PluginKey(PLUGIN_NAME)
@@ -12,8 +12,8 @@ const now = (): number => {
 }
 
 export interface SyncCallback {
-  onCommit: ({ node: Node }) => void
-  onLoad: ({ parentId: String, schema: Schema }) => Node
+  // TODO why cannot import {Node} type ???
+  onCommit: ({ node }) => void
 }
 
 // https://prosemirror.net/docs/ref/#state.PluginSpec
@@ -40,23 +40,20 @@ export const SyncExtension = Extension.create({
               return state
             }
             const newPluginState = { ...state, editTime: now() }
-            const commitNow = (): void => {
-              if (state.timer) {
-                clearTimeout(state.timer)
-              }
+            const doCommit = (): void => {
               callback.onCommit({ node: newState.doc })
             }
             if (state.syncTime && now() - state.syncTime < THROTTLE_DURATION) {
               if (state.timer) {
-                return newPluginState
+                clearTimeout(state.timer)
               }
-              const timer = setTimeout(commitNow, THROTTLE_DURATION)
+
+              const timer = setTimeout(doCommit, THROTTLE_DURATION)
               return { ...newPluginState, timer }
             }
 
-            commitNow()
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            return { ...newPluginState, doc: newState.doc, version: state.version + 1, syncTime: now() }
+            doCommit()
+            return { ...newPluginState, doc: newState.doc, version: (state.version as number) + 1, syncTime: now() }
           }
         }
       })

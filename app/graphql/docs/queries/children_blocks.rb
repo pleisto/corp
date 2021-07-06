@@ -11,7 +11,7 @@ module Docs
     def resolve(parent_id:, exclude_pages:)
       # TODO: permission check
       where = exclude_pages ? "docs_blocks.type != 'doc'" : nil
-      Docs::Block.find(parent_id, { where: where }).descendants
+      Docs::Block.where(where).find_by(id: parent_id).descendants
     end
   end
 end

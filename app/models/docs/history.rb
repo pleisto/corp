@@ -29,7 +29,6 @@ class Docs::History < ApplicationRecord
 
   before_create do
     self.pod_id = block.pod_id
-    self.history_version = block.history_version
     self.data = block.data
     self.meta = block.meta
     self.sort = block.sort

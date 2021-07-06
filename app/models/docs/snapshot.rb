@@ -24,7 +24,6 @@ class Docs::Snapshot < ApplicationRecord
 
   before_create do
     self.pod_id = block.pod_id
-    self.snapshot_version = block.snapshot_version
     self.name ||= generate_default_name
 
     ## NOTE save children's version as snapshot
