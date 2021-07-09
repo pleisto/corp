@@ -65,7 +65,7 @@
     "rc-tree": "^4.2.2",
     "rc-tree-select": "^4.4.0-alpha.2",
     "rc-trigger": "^5.2.9",
-    "rc-util": "^5.13.1",
+    "rc-util": "^5.13.2",
     "scroll-into-view-if-needed": "^2.2.28"
   },
   "devDependencies": {
