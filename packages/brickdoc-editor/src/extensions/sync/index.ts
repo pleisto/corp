@@ -1,19 +1,14 @@
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Extension } from '@tiptap/core'
-// import { Node } from 'prosemirror-model'
 
 const PLUGIN_NAME = 'sync'
 const PLUGIN_KEY = new PluginKey(PLUGIN_NAME)
 
 const THROTTLE_DURATION = 3000
 
-const now = (): number => {
-  return new Date().getTime()
-}
-
-export interface SyncCallback {
-  // TODO why cannot import {Node} type ???
-  onCommit: ({ node }) => void
+const now = (): number => new Date().getTime()
+export interface onSync {
+  onCommit: ({ node: any }) => void
 }
 
 // https://prosemirror.net/docs/ref/#state.PluginSpec
@@ -22,7 +17,7 @@ export const SyncExtension = Extension.create({
 
   addProseMirrorPlugins() {
     const options: any = this.options
-    const callback = options.callback
+    const onSync = options.onSync
 
     return [
       new Plugin({
@@ -40,8 +35,8 @@ export const SyncExtension = Extension.create({
               return state
             }
             const newPluginState = { ...state, editTime: now() }
-            const doCommit = (): void => {
-              callback.onCommit({ node: newState.doc })
+            const doCommit = () => {
+              onSync.onCommit({ node: newState.doc })
             }
             if (state.syncTime && now() - state.syncTime < THROTTLE_DURATION) {
               if (state.timer) {

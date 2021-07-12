@@ -1,20 +1,18 @@
-import { SyncCallback } from 'packages/brickdoc-editor/src/extensions'
+import { onSync } from 'packages/brickdoc-editor/src/extensions'
 import { Node } from 'prosemirror-model'
 import { BlockSyncInput, PageBlockData, TextBlockData, ParagraphBlockData, Block, BlockSyncBatchInput } from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
 
 const SLICE_MAX_SIZE = 50
 
-const outline = (node: Node): string => {
-  return (node.textContent || 'untitled').slice(0, SLICE_MAX_SIZE)
-}
+const outline = (node: Node): string => (node.textContent || 'untitled').slice(0, SLICE_MAX_SIZE)
 
 // https://prosemirror.net/docs/ref/#model.Node
 const nodeToBlock = (node: Node): BlockSyncInput[] => {
   const { uuid, sort, ...rest } = node.attrs
   const parent: BlockSyncInput = {
-    id: node.attrs.uuid,
-    // sort: node.attrs.sort, ## TODO
+    id: uuid,
+    // sort: sort, ## TODO
     type: node.type.name,
     meta: { attrs: JSON.stringify(rest), marks: JSON.stringify(node.marks.map(n => n.toJSON())) }
   }
@@ -37,20 +35,20 @@ const nodeToBlock = (node: Node): BlockSyncInput[] => {
 
   // NOTE Fragment type miss content field
   const fragment: any = node.content
-  const children = fragment.content.flatMap((n: Node, index) =>
-    nodeToBlock(n).map((i: BlockSyncInput) => {
-      return { parentId: parent.id, sort: index, ...i }
-    })
+  const children = fragment.content.flatMap((n: Node, index: Number) =>
+    nodeToBlock(n).map((i: BlockSyncInput) => ({ parentId: parent.id, sort: index, ...i }))
   )
 
   return [parent, ...children]
 }
 
 export const blockToNode = (block: Block): JSONContent => {
-  const result: any = {}
-  result.type = block.type
+  const result: JSONContent = {
+    type: block.type
+  }
 
   if (block.type === 'text') {
+    // HACK Prosemirror text node initializer polyfill.
     result.text = `uuid$$$$${block.id}sort$$$$${block.sort}####${(block.data as TextBlockData).content}`
   }
 
@@ -72,18 +70,16 @@ export const blockToNode = (block: Block): JSONContent => {
   return result
 }
 
-export const nest = (blocks: Block[], id = null): JSONContent[] =>
+export const blocksToJSONContents = (blocks: Block[], id = null): JSONContent[] =>
   blocks
     .filter(block => block.parentId === id)
     .sort((a, b) => a.sort - b.sort)
-    .map(block => ({ content: nest(blocks, block.id), ...blockToNode(block) }))
+    .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
 
-export const syncProvider = ({ blockSyncBatch }): SyncCallback => {
-  return {
-    onCommit: ({ node }) => {
-      const blocks = nodeToBlock(node)
-      const input: BlockSyncBatchInput = { blocks, rootId: node.attrs.uuid }
-      blockSyncBatch({ variables: { input } })
-    }
+export const syncProvider = ({ blockSyncBatch }): onSync => ({
+  onCommit: ({ node }) => {
+    const blocks = nodeToBlock(node)
+    const input: BlockSyncBatchInput = { blocks, rootId: node.attrs.uuid }
+    blockSyncBatch({ variables: { input } })
   }
-}
+})

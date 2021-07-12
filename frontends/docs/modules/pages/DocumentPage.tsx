@@ -2,13 +2,13 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Alert, Skeleton } from '@brickdoc/design-system'
 import { Editor } from '@brickdoc/editor'
-import { syncProvider, nest } from './SyncProvider'
-import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery } from '@/BrickdocGraphQL'
+import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
+import { syncProvider, blocksToJSONContents } from './SyncProvider'
 
 const Page: React.FC = () => {
-  const { webid, docid } = useParams<{ webid: string; docid: string }>()
+  const { docid } = useParams<{ docid: string }>()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
-  const syncCallback = syncProvider({ blockSyncBatch })
+  const onSync = syncProvider({ blockSyncBatch })
   const { data, loading } = useGetChildrenBlocksQuery({ variables: { parentId: docid, excludePages: false } })
 
   if (loading) {
@@ -18,20 +18,20 @@ const Page: React.FC = () => {
   if (!docid) {
     return (
       <div>
-        <Editor syncCallback={syncCallback} />
+        <Editor onSync={onSync} />
       </div>
     )
   }
 
   if (!data) {
-    console.log(`error: ${webid} ${docid}`)
     return <Alert message="Page not found" type="error" />
   }
 
-  const content = nest(data.childrenBlocks as any)[0]
+  const content = blocksToJSONContents(data.childrenBlocks as Block[])[0]
+
   return (
     <div>
-      <Editor syncCallback={syncCallback} content={content} />
+      <Editor onSync={onSync} content={content} />
     </div>
   )
 }

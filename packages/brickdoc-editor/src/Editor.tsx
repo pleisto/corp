@@ -1,23 +1,18 @@
 import React from 'react'
 import { useEditor, EditorContent, EditorOptions, JSONContent } from '@tiptap/react'
-import { BasicRichtextExtension, SlashCommandsExtension, BlockCommandsExtension, SyncExtension, SyncCallback } from './extensions'
+import { BasicRichtextExtension, SlashCommandsExtension, BlockCommandsExtension, SyncExtension, onSync } from './extensions'
 import './styles.less'
 
 export interface EditorProps {
   options?: Partial<EditorOptions>
-  syncCallback: SyncCallback
+  onSync: onSync
   content?: string | JSONContent
 }
 
 export const Editor: React.FC<EditorProps> = (props: EditorProps) => {
   const editor = useEditor({
     ...props.options,
-    extensions: [
-      BasicRichtextExtension,
-      BlockCommandsExtension,
-      SlashCommandsExtension,
-      SyncExtension.configure({ callback: props.syncCallback })
-    ],
+    extensions: [BasicRichtextExtension, BlockCommandsExtension, SlashCommandsExtension, SyncExtension.configure({ onSync: props.onSync })],
     autofocus: true,
     content: props.content
   })

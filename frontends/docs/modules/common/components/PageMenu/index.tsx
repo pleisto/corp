@@ -3,18 +3,18 @@ import React from 'react'
 import { Dropdown, Menu } from '@brickdoc/design-system'
 import { Link } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
-import { useBlockDeleteMutation, BlockDeleteInput } from '@/BrickdocGraphQL'
+import { useBlockDeleteMutation, BlockDeleteInput, Scalars } from '@/BrickdocGraphQL'
 
 interface PageMenuProps {
   webid: string
-  id: string
-  title: string
-  parentId: string
+  id: Scalars['UUID']
+  title: Scalars['String']
+  parentId: Scalars['UUID'] | null
 }
 
 const PageMenu: React.FC<PageMenuProps> = props => {
   const [blockDelete] = useBlockDeleteMutation()
-  const deletePage = id => {
+  const deletePage = (id: Scalars['UUID']) => {
     const input: BlockDeleteInput = { id }
     blockDelete({ variables: { input } })
   }
