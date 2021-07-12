@@ -347,6 +347,7 @@ export type RootQueryBlockSnapshotsArgs = {
 export type RootQueryChildrenBlocksArgs = {
   parentId: Scalars['String']
   excludePages?: Maybe<Scalars['Boolean']>
+  snapshotVersion: Scalars['Int']
 }
 
 export type RootQueryPageBlocksArgs = {
@@ -731,6 +732,14 @@ export type BlockDeleteMutation = { __typename?: 'RootMutation' } & {
   blockDelete?: Maybe<{ __typename?: 'BlockDeletePayload' } & Pick<BlockDeletePayload, 'errors'>>
 }
 
+export type BlockCreateSnapshotMutationVariables = Exact<{
+  input: BlockCreateSnapshotInput
+}>
+
+export type BlockCreateSnapshotMutation = { __typename?: 'RootMutation' } & {
+  blockCreateSnapshot?: Maybe<{ __typename?: 'BlockCreateSnapshotPayload' } & Pick<BlockCreateSnapshotPayload, 'errors'>>
+}
+
 export type BlockSyncMutationVariables = Exact<{
   input: BlockSyncInput
 }>
@@ -750,6 +759,7 @@ export type BlockSyncBatchMutation = { __typename?: 'RootMutation' } & {
 export type GetChildrenBlocksQueryVariables = Exact<{
   parentId: Scalars['String']
   excludePages: Scalars['Boolean']
+  snapshotVersion: Scalars['Int']
 }>
 
 export type GetChildrenBlocksQuery = { __typename: 'RootQuery' } & {
@@ -1391,6 +1401,44 @@ export function useBlockDeleteMutation(baseOptions?: Apollo.MutationHookOptions<
 export type BlockDeleteMutationHookResult = ReturnType<typeof useBlockDeleteMutation>
 export type BlockDeleteMutationResult = Apollo.MutationResult<BlockDeleteMutation>
 export type BlockDeleteMutationOptions = Apollo.BaseMutationOptions<BlockDeleteMutation, BlockDeleteMutationVariables>
+export const BlockCreateSnapshotDocument = gql`
+  mutation blockCreateSnapshot($input: BlockCreateSnapshotInput!) {
+    blockCreateSnapshot(input: $input) {
+      errors
+    }
+  }
+`
+export type BlockCreateSnapshotMutationFn = Apollo.MutationFunction<BlockCreateSnapshotMutation, BlockCreateSnapshotMutationVariables>
+
+/**
+ * __useBlockCreateSnapshotMutation__
+ *
+ * To run a mutation, you first call `useBlockCreateSnapshotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBlockCreateSnapshotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [blockCreateSnapshotMutation, { data, loading, error }] = useBlockCreateSnapshotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBlockCreateSnapshotMutation(
+  baseOptions?: Apollo.MutationHookOptions<BlockCreateSnapshotMutation, BlockCreateSnapshotMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<BlockCreateSnapshotMutation, BlockCreateSnapshotMutationVariables>(BlockCreateSnapshotDocument, options)
+}
+export type BlockCreateSnapshotMutationHookResult = ReturnType<typeof useBlockCreateSnapshotMutation>
+export type BlockCreateSnapshotMutationResult = Apollo.MutationResult<BlockCreateSnapshotMutation>
+export type BlockCreateSnapshotMutationOptions = Apollo.BaseMutationOptions<
+  BlockCreateSnapshotMutation,
+  BlockCreateSnapshotMutationVariables
+>
 export const BlockSyncDocument = gql`
   mutation blockSync($input: BlockSyncInput!) {
     blockSync(input: $input) {
@@ -1460,9 +1508,9 @@ export type BlockSyncBatchMutationHookResult = ReturnType<typeof useBlockSyncBat
 export type BlockSyncBatchMutationResult = Apollo.MutationResult<BlockSyncBatchMutation>
 export type BlockSyncBatchMutationOptions = Apollo.BaseMutationOptions<BlockSyncBatchMutation, BlockSyncBatchMutationVariables>
 export const GetChildrenBlocksDocument = gql`
-  query GetChildrenBlocks($parentId: String!, $excludePages: Boolean!) {
+  query GetChildrenBlocks($parentId: String!, $excludePages: Boolean!, $snapshotVersion: Int!) {
     __typename
-    childrenBlocks(parentId: $parentId, excludePages: $excludePages) {
+    childrenBlocks(parentId: $parentId, excludePages: $excludePages, snapshotVersion: $snapshotVersion) {
       ... on MetaBlock {
         id
         sort
@@ -1530,6 +1578,7 @@ export const GetChildrenBlocksDocument = gql`
  *   variables: {
  *      parentId: // value for 'parentId'
  *      excludePages: // value for 'excludePages'
+ *      snapshotVersion: // value for 'snapshotVersion'
  *   },
  * });
  */

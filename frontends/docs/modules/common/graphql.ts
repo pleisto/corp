@@ -50,3 +50,11 @@ export const BlockDelete = gql`
     }
   }
 `
+
+export const BlockCreateSnapshot = gql`
+  mutation blockCreateSnapshot($input: BlockCreateSnapshotInput!) {
+    blockCreateSnapshot(input: $input) {
+      errors
+    }
+  }
+`

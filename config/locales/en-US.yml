@@ -608,7 +608,7 @@ en-US:
       delete: Delete
       create_snapshot: Create Snapshot
     snapshots:
-      version: Snapshot version
+      name: Snapshot
     menu:
       create_new_pod: Create a new pod
       logout: Logout

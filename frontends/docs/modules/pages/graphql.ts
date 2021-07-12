@@ -17,9 +17,9 @@ export const BlockSyncBatch = gql`
 `
 
 export const queryChildrenBlocks = gql`
-  query GetChildrenBlocks($parentId: String!, $excludePages: Boolean!) {
+  query GetChildrenBlocks($parentId: String!, $excludePages: Boolean!, $snapshotVersion: Int!) {
     __typename
-    childrenBlocks(parentId: $parentId, excludePages: $excludePages) {
+    childrenBlocks(parentId: $parentId, excludePages: $excludePages, snapshotVersion: $snapshotVersion) {
       ... on MetaBlock {
         id
         sort

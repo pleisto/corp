@@ -1,8 +1,8 @@
 import React from 'react'
-import { useGetBlockSnapshotsQuery } from '@/BrickdocGraphQL'
-import { Skeleton, Table } from '@brickdoc/design-system'
-import { Link } from 'react-router-dom'
+import { useGetBlockSnapshotsQuery, BlockSnapshot } from '@/BrickdocGraphQL'
+import { Menu } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
+import { Link } from 'react-router-dom'
 
 interface SnapshotListProps {
   id: string
@@ -10,19 +10,25 @@ interface SnapshotListProps {
 }
 
 const SnapshotList: React.FC<SnapshotListProps> = props => {
+  const { SubMenu } = Menu
   const { t } = useDocsI18n()
 
   const { data, loading } = useGetBlockSnapshotsQuery({ variables: { id: props.id } })
   if (loading) {
-    return <Skeleton />
+    return <Menu.Divider />
   }
 
-  const columns = [
-    { title: 'id', key: 'id', dataIndex: 'id', render: id => <Link to={`/${props.webid}/${id}`}>{id}</Link> },
-    { title: t('snapshots.version'), key: 'snapshotVersion', dataIndex: 'snapshotVersion' }
-  ]
+  if (data.blockSnapshots.length === 0) {
+    return <SubMenu title={t('snapshots.name')} disabled />
+  }
 
-  return <Table dataSource={data.blockSnapshots} columns={columns} />
+  const subMenus = data.blockSnapshots.map((snapshot: BlockSnapshot) => (
+    <Menu.Item key={`snapshot-${snapshot.snapshotVersion}`}>
+      <Link to={`/${props.webid}/${props.id}/${snapshot.snapshotVersion}`}> {snapshot.name} </Link>
+    </Menu.Item>
+  ))
+
+  return <SubMenu title={t('snapshots.name')}>{subMenus}</SubMenu>
 }
 
 export default SnapshotList

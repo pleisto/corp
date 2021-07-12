@@ -540,6 +540,11 @@ type RootQuery {
     List all children from parent id
     """
     parentId: String!
+
+    """
+    Snapshot version
+    """
+    snapshotVersion: Int!
   ): [block!]
 
   """

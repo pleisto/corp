@@ -6,10 +6,13 @@ import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block } from '@/B
 import { syncProvider, blocksToJSONContents } from './SyncProvider'
 
 const Page: React.FC = () => {
-  const { docid } = useParams<{ docid: string }>()
+  const { webid, docid, ...restParams } = useParams<{ webid: string; docid: string; snapshotVersion: string }>()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
   const onSync = syncProvider({ blockSyncBatch })
-  const { data, loading } = useGetChildrenBlocksQuery({ variables: { parentId: docid, excludePages: false } })
+
+  const { data, loading } = useGetChildrenBlocksQuery({
+    variables: { parentId: docid, excludePages: false, snapshotVersion: Number(restParams.snapshotVersion || '0') }
+  })
 
   if (loading) {
     return <Skeleton />
