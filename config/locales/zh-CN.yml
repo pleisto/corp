@@ -587,11 +587,11 @@ zh-CN:
   docs:
     app_title: 积木文档
     blocks:
-      create_pages: Add Pages
-      delete: Delete
-      create_snapshot: Create Snapshot
+      create_pages: 新增页面
+      delete: 刪除
+      create_snapshot: 创建快照
     snapshots:
-      name: Snapshot
+      name: 快照
     menu:
       create_new_pod: 创建新 Pod
       logout: 登出
