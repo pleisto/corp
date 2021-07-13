@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dropdown, Menu } from '@brickdoc/design-system'
+import { Dropdown, Menu, MenuProps } from '@brickdoc/design-system'
 import { Link } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import {
@@ -18,23 +18,23 @@ interface PageMenuProps {
   webid: string
   id: UUID
   title: Scalars['String']
-  parentId: UUID | null
+  parentId?: UUID
 }
 
 const PageMenu: React.FC<PageMenuProps> = props => {
   const [blockDelete] = useBlockDeleteMutation()
-  const deletePage = (id: UUID) => {
+  const deletePage = (id: UUID): void => {
     const input: BlockDeleteInput = { id }
-    blockDelete({ variables: { input } })
+    void blockDelete({ variables: { input } })
   }
   const [blockCreateSnapshot] = useBlockCreateSnapshotMutation()
-  const createSnapshot = (id: UUID) => {
+  const createSnapshot = (id: UUID): void => {
     const input: BlockCreateSnapshotInput = { id }
-    blockCreateSnapshot({ variables: { input } })
+    void blockCreateSnapshot({ variables: { input } })
   }
   const { t } = useDocsI18n()
 
-  const rollbackSnapshot = version => {
+  const rollbackSnapshot = (version: number): void => {
     console.log(`rollback snapshot ${version}`)
   }
 
@@ -43,7 +43,7 @@ const PageMenu: React.FC<PageMenuProps> = props => {
     return link
   }
 
-  const onClick = (id: UUID) => {
+  const onClick = (id: UUID): MenuProps['onClick'] => {
     return ({ key }) => {
       switch (key) {
         case 'create_snapshot':

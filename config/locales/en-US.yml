@@ -604,7 +604,7 @@ en-US:
   docs:
     app_title: Brickdoc
     blocks:
-      create: Add Pages
+      create_pages: Add Pages
       delete: Delete
       create_snapshot: Create Snapshot
     snapshots:

@@ -1,7 +1,17 @@
-import { onSync } from 'packages/brickdoc-editor/src/extensions'
+import { SyncHandler } from 'packages/brickdoc-editor/src/extensions'
 import { Node } from 'prosemirror-model'
-import { BlockSyncInput, PageBlockData, TextBlockData, ParagraphBlockData, Block, BlockSyncBatchInput } from '@/BrickdocGraphQL'
+import {
+  BlockSyncInput,
+  PageBlockData,
+  TextBlockData,
+  ParagraphBlockData,
+  Block,
+  BlockSyncBatchInput,
+  BlockSyncBatchMutation,
+  BlockSyncBatchMutationVariables
+} from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
+import { MutationTuple } from '@apollo/client'
 
 const SLICE_MAX_SIZE = 50
 
@@ -42,7 +52,7 @@ const nodeToBlock = (node: Node): BlockSyncInput[] => {
   return [parent, ...children]
 }
 
-export const blockToNode = (block: Block): JSONContent => {
+export function blockToNode(block: Block): JSONContent {
   const result: JSONContent = {
     type: block.type
   }
@@ -76,10 +86,16 @@ export const blocksToJSONContents = (blocks: Block[], id = null): JSONContent[] 
     .sort((a, b) => a.sort - b.sort)
     .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
 
-export const syncProvider = ({ blockSyncBatch }): onSync => ({
-  onCommit: ({ node }) => {
-    const blocks = nodeToBlock(node)
-    const input: BlockSyncBatchInput = { blocks, rootId: node.attrs.uuid }
-    blockSyncBatch({ variables: { input } })
+export function syncProvider({
+  blockSyncBatch
+}: {
+  blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables>[0]
+}): SyncHandler {
+  return {
+    onCommit: ({ node }) => {
+      const blocks = nodeToBlock(node)
+      const input: BlockSyncBatchInput = { blocks, rootId: node.attrs.uuid }
+      void blockSyncBatch({ variables: { input } })
+    }
   }
-})
+}

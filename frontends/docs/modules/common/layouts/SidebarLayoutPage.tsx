@@ -23,7 +23,7 @@ export const SidebarLayoutPage: React.FC<SidebarLayoutPageProps> = ({ currentUse
 
           <Footer style={{ textAlign: 'center' }}>
             <Link style={{ color: 'inherit' }} to={`/${currentUserWebid}`}>
-              + {t('blocks.create')}
+              + {t('blocks.create_pages')}
             </Link>
           </Footer>
         </Sider>

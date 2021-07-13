@@ -1,11 +1,11 @@
 import React from 'react'
 import { useEditor, EditorContent, EditorOptions, JSONContent } from '@tiptap/react'
-import { BasicRichtextExtension, SlashCommandsExtension, BlockCommandsExtension, SyncExtension, onSync } from './extensions'
+import { BasicRichtextExtension, SlashCommandsExtension, BlockCommandsExtension, SyncExtension, SyncHandler } from './extensions'
 import './styles.less'
 
 export interface EditorProps {
   options?: Partial<EditorOptions>
-  onSync: onSync
+  onSync: SyncHandler
   content?: string | JSONContent
 }
 

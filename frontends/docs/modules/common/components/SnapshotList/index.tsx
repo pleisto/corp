@@ -9,8 +9,9 @@ interface SnapshotListProps {
   webid: string
 }
 
+const { SubMenu } = Menu
+
 const SnapshotList: React.FC<SnapshotListProps> = props => {
-  const { SubMenu } = Menu
   const { t } = useDocsI18n()
 
   const { data, loading } = useGetBlockSnapshotsQuery({ variables: { id: props.id } })
@@ -18,11 +19,11 @@ const SnapshotList: React.FC<SnapshotListProps> = props => {
     return <Menu.Divider />
   }
 
-  if (data.blockSnapshots.length === 0) {
+  if (data.blockSnapshots?.length === 0) {
     return <SubMenu title={t('snapshots.name')} disabled />
   }
 
-  const subMenus = data.blockSnapshots.map((snapshot: BlockSnapshot) => (
+  const subMenus = data.blockSnapshots?.map((snapshot: BlockSnapshot) => (
     <Menu.Item key={`snapshot-${snapshot.snapshotVersion}`}>
       <Link to={`/${props.webid}/${props.id}/${snapshot.snapshotVersion}`}> {snapshot.name} </Link>
     </Menu.Item>

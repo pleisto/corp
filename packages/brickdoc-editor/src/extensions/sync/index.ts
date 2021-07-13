@@ -7,7 +7,7 @@ const PLUGIN_KEY = new PluginKey(PLUGIN_NAME)
 const THROTTLE_DURATION = 3000
 
 const now = (): number => new Date().getTime()
-export interface onSync {
+export interface SyncHandler {
   onCommit: ({ node: any }) => void
 }
 
