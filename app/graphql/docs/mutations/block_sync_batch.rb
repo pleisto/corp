@@ -5,6 +5,13 @@ module Docs
     argument :root_id, BrickGraphQL::Scalars::UUID, 'block root id', required: true
 
     def resolve(blocks:, root_id:)
+      lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 0.1)
+      lock.lock do
+        do_resolve(blocks: blocks, root_id: root_id)
+      end
+    end
+
+    def do_resolve(blocks:, root_id:)
       root = Docs::Block.find_by(id: root_id)
 
       if root
