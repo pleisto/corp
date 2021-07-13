@@ -16,12 +16,16 @@ const PageTree: React.FC<PageTreeProps> = props => {
   }
 
   const flattedData = data.pageBlocks
-    .map(i => ({
-      key: i.id,
-      parentId: i.parentId,
-      sort: i.sort,
-      title: <PageMenu id={i.id} parentId={i.parentId} title={i.data.title} webid={props.webid} />
-    }))
+    .map(i => {
+      const data: any = i.data
+      const title = data.title || (data.text || 'untitled').slice(0, 20)
+      return {
+        key: i.id,
+        parentId: i.parentId,
+        sort: i.sort,
+        title: <PageMenu id={i.id} parentId={i.parentId} title={title} webid={props.webid} />
+      }
+    })
     .sort((a, b) => b.sort - a.sort) // descend
 
   const treeData = array2Tree(flattedData, { id: 'key' })
