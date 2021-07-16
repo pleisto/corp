@@ -64,12 +64,12 @@ ActiveRecord::Schema.define(version: 2021_06_21_101017) do
     t.jsonb "meta", default: {}, null: false, comment: "metadata"
     t.jsonb "data", null: false, comment: "data props"
     t.bigint "history_version", default: 0, null: false
-    t.bigint "snapshot_version", default: 0, null: false
-    t.bigint "sort", default: 0
     t.bigint "collaborators", default: [], null: false, array: true
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "snapshot_version", default: 0, null: false
+    t.decimal "sort", precision: 15, scale: 10, default: "0.0", null: false
     t.index ["collaborators"], name: "index_docs_blocks_on_collaborators", using: :gin
     t.index ["deleted_at"], name: "index_docs_blocks_on_deleted_at"
     t.index ["parent_id"], name: "index_docs_blocks_on_parent_id"
@@ -84,8 +84,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_101017) do
     t.uuid "parent_id"
     t.string "parent_type"
     t.uuid "path", array: true
-    t.string "type", limit: 32
-    t.bigint "sort", null: false
+    t.decimal "sort", precision: 15, scale: 10, null: false
     t.bigint "history_version", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -102,7 +101,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_101017) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["block_id", "snapshot_version"], name: "index_docs_snapshots_on_block_id_and_snapshot_version", unique: true, comment: "snapshot identifier"
+    t.index ["block_id"], name: "index_docs_snapshots_on_block_id"
     t.index ["pod_id"], name: "index_docs_snapshots_on_pod_id"
   end
 
@@ -126,7 +125,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_101017) do
     t.bigint "owner_id", null: false
     t.string "webid", null: false
     t.string "name", null: false
-    t.string "avatar_uri", limit: 128, comment: "object key for bucket or url that stored avatar."
+    t.string "avatar_uri", limit: 128, comment: "\"object key for bucket or url that stored avatar."
     t.string "bio", limit: 140, comment: "\"Bio\" means Biography in social media."
     t.boolean "personal", default: false, null: false
     t.datetime "deleted_at"
