@@ -10,7 +10,8 @@
 #  meta            :jsonb            not null
 #  parent_type     :string
 #  path            :uuid             is an Array
-#  sort            :decimal(15, 10)  not null
+#  sort            :bigint           not null
+#  type            :string(32)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  block_id        :uuid             not null
