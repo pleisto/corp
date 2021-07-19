@@ -30,37 +30,38 @@ jobs:
             .(ts|tsx|jsx)$
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-        if: steps.changed-ruby-files.oputputs.any_changed == 'true'
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
         with:
           ruby-version: 3.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Setup NodeJS
-        if: steps.changed-es-files.oputputs.any_changed == 'true'
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: yarn
       - name: Run yarn install
-        if: steps.changed-es-files.oputputs.any_changed == 'true'
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
       - name: Rubocop
-        if: steps.changed-ruby-files.oputputs.any_changed == 'true'
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: yarn lint:rubocop -f json -o rubocop_report.json
       - name: Brakeman
-        if: steps.changed-ruby-files.oputputs.any_changed == 'true' && always()
+        if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
         run: yarn lint:brakeman -o brakeman_report.json
       - name: TS Check
-        if: steps.changed-es-files.oputputs.any_changed == 'true' && always()
+        if: steps.changed-es-files.outputs.any_changed == 'true' && always()
         run: yarn tsc:check
       - name: ESLint
-        if: steps.changed-es-files.oputputs.any_changed == 'true' && always()
+        if: steps.changed-es-files.outputs.any_changed == 'true' && always()
         run: yarn lint:eslint --output-file eslint_report.json --format json
       - name: Annotation
         if: always()
         run: ./bin/generate-github-annotations
       - name: Upload linting results
+        if: always()
         uses: kibalabs/github-action-create-annotations@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
