@@ -52,7 +52,7 @@ jobs:
         if: steps.changed-es-files.outputs.any_changed == 'true' && always()
         run: yarn lint:eslint
       - name: Rubocop
-        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
         run: |
           echo "::add-matcher::.github/matchers/rubocop.json"
           yarn lint:rubocop
