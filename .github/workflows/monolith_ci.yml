@@ -140,7 +140,9 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run DB migrations
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
-        run: bundle exec rails db:create db:migrate db:seed
+        run: bundle exec rails db:prepare
+        env:
+          RAILS_ENV: test
       - name: Run RSpec tests
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         env:
@@ -214,7 +216,7 @@ jobs:
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
         run: yarn graphql
       - name: Run DB migrations
-        run: bundle exec rails db:create db:migrate db:seed
+        run: bundle exec rails db:prepare
       - name: Start the Rails server
         run: bundle exec rails s -p 3000 &
         env:
