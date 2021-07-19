@@ -35,7 +35,8 @@ jobs:
           ruby-version: 3.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Setup NodeJS
-        if: steps.changed-es-files.outputs.any_changed == 'true'
+        # Always run actions/setup-node to make sure add-matcher work correctly.
+        # if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v2
         with:
           node-version: 16
