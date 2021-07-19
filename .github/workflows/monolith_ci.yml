@@ -223,7 +223,7 @@ jobs:
       - name: Ensure the server is running
         run: curl http://localhost:3000 -I
       - name: Run Webpacker compilation
-        run: bundle exec rails webpacker_compile
+        run: yarn dist
       - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
