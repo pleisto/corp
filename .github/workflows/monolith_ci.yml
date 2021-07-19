@@ -247,10 +247,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cypress-rails-logs
-          if-no-files-found: ignore
           retention-days: 20
-          path: |
-            log/
+          path: log/development.log
       - name: Upload cypress screenshots (when failed)
         if: failure()
         uses: actions/upload-artifact@v2
@@ -258,8 +256,7 @@ jobs:
           name: cypress-screenshots
           if-no-files-found: ignore
           retention-days: 20
-          path: |
-            cypress/screenshots/
+          path: cypress/screenshots/
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v2
@@ -267,5 +264,4 @@ jobs:
           name: cypress-videos
           if-no-files-found: ignore
           retention-days: 20
-          path: |
-            cypress/videos/
+          path: cypress/videos/

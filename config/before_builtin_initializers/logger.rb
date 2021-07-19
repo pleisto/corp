@@ -2,7 +2,7 @@
 
 # Don't use json formatter on local development env.
 if ENV['CI'] == 'true'
-  Rails.application.configure { config.log_level = :debug}
+  Rails.application.configure { config.log_level = :debug }
 elsif Rails.env.test? || Rails.env.development?
   Rails.application.configure do
     config.logger = Logger.new(STDOUT)
