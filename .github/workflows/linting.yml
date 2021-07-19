@@ -54,11 +54,11 @@ jobs:
       - name: Rubocop
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: |
-          echo ":add-matcher::.github/matchers/rubocop.json"
+          echo "::add-matcher::.github/matchers/rubocop.json"
           yarn lint:rubocop
       - name: Brakeman
         if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
         run: |
-          echo ":add-matcher::.github/matchers/brakeman.json"
+          echo "::add-matcher::.github/matchers/brakeman.json"
           yarn lint:brakeman -f csv -o /dev/stdout
 
