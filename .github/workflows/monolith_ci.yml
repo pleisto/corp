@@ -1,9 +1,56 @@
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
 ---
-name: ci
+name: Monolith Application CI
 on:
+  pull_request:
+    # Make sure same as push
+    paths-ignore:
+      - .github/**
+      - !.github/workflow/monolith_ci.yml
+      - .husky/**
+      - bin/**
+      - packages/brickdoc-design-system/**
+      - !packages/brickdoc-design-system/components/**
+      - packages/less-vars-loader/**
+      - packages/rubocop-brickdoc/**
+      - packages/eslint-plugin-brickdoc/**
+      - public/**
+      - templates/**
+      - config/locales/**
+      - '**/*.template'
+      - '**/*.md'
+      - '**/Dockerfile'
+      - '**/.git*'
+      - '**/crowdin.yml'
+      - '**/LICENSE'
+      - '**/NOTICE'
+      - '**/VERSION'
   push:
-
+    # Make sure same as pull_request
+    paths-ignore:
+      - .github/**
+      - !.github/workflow/monolith_ci.yml
+      - .husky/**
+      - bin/**
+      - packages/brickdoc-design-system/**
+      - !packages/brickdoc-design-system/components/**
+      - packages/less-vars-loader/**
+      - packages/rubocop-brickdoc/**
+      - packages/eslint-plugin-brickdoc/**
+      - public/**
+      - templates/**
+      - config/locales/**
+      - '**/*.template'
+      - '**/*.md'
+      - '**/Dockerfile'
+      - '**/.git*'
+      - '**/crowdin.yml'
+      - '**/LICENSE'
+      - '**/NOTICE'
+      - '**/VERSION'
+    branches:
+      - master
+      - main
 env:
   POSTGRES_PASS: '123456'
   REDIS_URL: redis://127.0.0.1:6379
@@ -38,6 +85,8 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # To retrieve the preceding commit.
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -52,9 +101,39 @@ jobs:
         with:
           ruby-version: 3.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Get changed ruby files
+        id: changed-ruby-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(rb|gemspec)$
+            Gemfile
+      - name: Get changed ES files
+        id: changed-es-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(ts|tsx|jsx)$
+            packages.json
+      - name: Get changed database migrations
+        id: changed-db-migrations
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            db\/migrate
+      - name: Get changed graphql type definitions
+        id: changed-gql-typeds
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            app\/graphql
+            lib\/brick_graphql
+            graphql.ts$
       - name: Dump the graphql schema
+        if: steps.changed-gql-typeds.outputs.any_changed == 'true'
         run: yarn graphql
       - name: Run Jest tests
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn test:jest --ci --collectCoverage
       - name: Run DB migrations
         run: bundle exec rails db:create db:migrate db:seed
@@ -64,11 +143,12 @@ jobs:
           CYPRESS: 1
           RAILS_ENV: development
       - name: Run RSpec tests
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
         env:
           RAILS_ENV: test
         run: bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
-      - name: Publish test reports
-        if: always()
+      - name: Publish junit reports
+        if: always() && steps.changed-es-files.outputs.any_changed == 'true'
         uses: mikepenz/action-junit-report@v2
         with:
           report_paths: junit-reports/*.xml
@@ -81,6 +161,7 @@ jobs:
         with:
           config: pageLoadTimeout=10000
       - name: Dump the database schema
+        if: steps.changed-db-migrations.outputs.any_changed == 'true'
         run: bundle exec rails db:schema:dump
         env:
           RAILS_ENV: test
