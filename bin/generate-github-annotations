@@ -45,7 +45,7 @@ end
 
 def rubocop
   result = []
-  load_json_if_exists('rubocop')['files']
+  load_json_if_exists('rubocop')&.fetch('files')
     &.reject{ |i| i['offenses'].empty? }
     &.each do |file|
     file['offenses'].each do |msg|
