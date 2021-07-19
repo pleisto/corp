@@ -54,8 +54,6 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Dump the graphql schema
         run: yarn graphql
-      - name: Lint the codebase
-        run: yarn tsc:check && yarn lint
       - name: Run Jest tests
         run: yarn test:jest --ci --collectCoverage
       - name: Run DB migrations

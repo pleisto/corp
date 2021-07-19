@@ -1,0 +1,67 @@
+name: Linting Code
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  linting:
+    name: Linting Code
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # To retrieve the preceding commit.
+      - name: Get changed ruby files
+        id: changed-ruby-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(rb)$
+      - name: Get changed es files
+        id: changed-es-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(ts|tsx|jsx)$
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        if: steps.changed-ruby-files.oputputs.any_changes == 'true'
+        with:
+          ruby-version: 3.0
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Setup NodeJS
+        if: steps.changed-es-files.oputputs.any_changes == 'true'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Run yarn install
+        if: steps.changed-es-files.oputputs.any_changes == 'true'
+        run: yarn
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+      - name: Rubocop
+        if: steps.changed-ruby-files.oputputs.any_changes == 'true'
+        run: yarn lint:rubocop -f json -o rubocop_report.json
+      - name: Brakeman
+        if: steps.changed-ruby-files.oputputs.any_changes == 'true' && always()
+        run: yarn lint:brakeman -o brakeman_report.json
+      - name: TS Check
+        if: steps.changed-es-files.oputputs.any_changes == 'true' && always()
+        run: yarn tsc:check
+      - name: ESLint
+        if: steps.changed-es-files.oputputs.any_changes == 'true' && always()
+        run: yarn lint:eslint --output-file eslint_report.json --format json
+      - name: Annotation
+        if: always()
+        run: ./bin/generate-github-annotations
+      - name: Upload linting results
+        uses: kibalabs/github-action-create-annotations@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          json-file-path: ./gh_annotations_report.json

@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+require 'json'
+
+WORKING_DIR = File.expand_path(Dir.pwd)
+
+def load_json_if_exists(linter)
+  path = "./#{linter}_report.json"
+  File.exist?(path) ? JSON.parse(File.read(path)) : []
+end
+
+# Linter
+def eslint
+  result = []
+  load_json_if_exists('eslint')
+    .reject{ |i|  i['messages'].empty? }
+    .each do |file|
+      file['messages'].each do |msg|
+        result.push({
+                      path: file['filePath'].delete_prefix(WORKING_DIR),
+                      start_line: msg['line'],
+                      end_lint: msg['endLine'],
+                      start_column: msg['column'],
+                      end_column: msg['endColumn'],
+                      message: "#{msg['message']}\n\n`#{msg['ruleId']}`",
+                      annotation_level: (msg['severity'] > 1) ? 'failure':'warning'
+                    })
+      end
+  end
+  result
+end
+
+def brakeman
+  result = []
+  load_json_if_exists('brakeman')['warnings'].each do |msg|
+    result.push({
+                  path: msg['file'],
+                  start_line: msg['line'],
+                  end_line: msg['line'],
+                  message: "#{msg['message']} \n ```#{msg['user_input']}``` \n\n #{msg['link']}",
+                  annotation_level: 'failure',
+                })
+  end
+  result
+end
+
+def rubocop
+  result = []
+  load_json_if_exists('rubocop')['files']
+    .reject{ |i| i['offenses'].empty? }
+    .each do |file|
+    file['offenses'].each do |msg|
+
+      severity = case msg['severity']
+                 when 'error', 'fatal'
+                   'failure'
+                 when 'info'
+                   'info'
+                 else
+                   'warning'
+                 end
+
+      result.push({
+                    path: file['path'],
+                    start_line: msg['location']['start_line'],
+                    end_lint: msg['location']['last_line'],
+                    start_column: msg['location']['start_column'],
+                    end_column: msg['location']['last_column'],
+                    message: "#{msg['message']}\n\n`#{msg['cop_name']}`",
+                    annotation_level: severity
+                  })
+    end
+  end
+  result
+end
+
+
+payload = eslint.concat(brakeman).concat(rubocop).to_json
+File.open('./gh_annotations_report.json', 'w') { |f| f.write(payload) }
