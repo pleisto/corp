@@ -18,7 +18,7 @@ def eslint
         result.push({
                       path: file['filePath'].delete_prefix(WORKING_DIR),
                       start_line: msg['line'],
-                      end_lint: msg['endLine'],
+                      end_line: msg['endLine'],
                       start_column: msg['column'],
                       end_column: msg['endColumn'],
                       message: "#{msg['message']}\n\n`#{msg['ruleId']}`",
@@ -62,7 +62,7 @@ def rubocop
       result.push({
                     path: file['path'],
                     start_line: msg['location']['start_line'],
-                    end_lint: msg['location']['last_line'],
+                    end_line: msg['location']['last_line'],
                     start_column: msg['location']['start_column'],
                     end_column: msg['location']['last_column'],
                     message: "#{msg['message']}\n\n`#{msg['cop_name']}`",
