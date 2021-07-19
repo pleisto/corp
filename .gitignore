@@ -67,10 +67,7 @@ junit-reports/
 coverage/
 cypress/screenshots/
 cypress/videos/
-eslint_report.json
-rubocop_report.json
-brakeman_report.json
-gh_annotations_report.json
+
 # build
 dist
 

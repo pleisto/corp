@@ -3,7 +3,7 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "5ea6dfd2b1dc1c2604737473af02f07b4697bdb53ab57d400dce90eeaec03231",
+      "fingerprint": "5ea6dfd2b1dc1c2604737473af02f07b4697bdb53ab57d400dce90eeaec03231-3",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "lib/patches/active_record/postgresql_drop_database.rb",

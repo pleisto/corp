@@ -45,24 +45,20 @@ jobs:
         run: yarn
         env:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      - name: Rubocop
-        if: steps.changed-ruby-files.outputs.any_changed == 'true'
-        run: yarn lint:rubocop -f json -o rubocop_report.json
-      - name: Brakeman
-        if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
-        run: yarn lint:brakeman -o brakeman_report.json
       - name: TS Check
         if: steps.changed-es-files.outputs.any_changed == 'true' && always()
         run: yarn tsc:check
       - name: ESLint
         if: steps.changed-es-files.outputs.any_changed == 'true' && always()
-        run: yarn lint:eslint --output-file eslint_report.json --format json
-      - name: Annotation
-        if: always()
-        run: ./bin/generate-github-annotations
-      - name: Upload linting results
-        if: always()
-        uses: kibalabs/github-action-create-annotations@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          json-file-path: ./gh_annotations_report.json
+        run: yarn lint:eslint
+      - name: Rubocop
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        run: |
+          echo ":add-matcher::.github/matchers/rubocop.json"
+          yarn lint:rubocop
+      - name: Brakeman
+        if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
+        run: |
+          echo ":add-matcher::.github/matchers/brakeman.json"
+          yarn lint:brakeman -f csv -o /dev/stdout
+

@@ -1,0 +1,17 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "brakeman-csv",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^.+,.+,.+\\.rb,\\d+,.+,.+,.+,.+,.+,.+,https:\\/\\/brakeman.*$",
+          "file": 3,
+          "line": 4,
+          "message": 5,
+          "code": 2
+        }
+      ]
+    }
+  ]
+}
