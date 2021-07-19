@@ -5,15 +5,15 @@ WORKING_DIR = File.expand_path(Dir.pwd)
 
 def load_json_if_exists(linter)
   path = "./#{linter}_report.json"
-  File.exist?(path) ? JSON.parse(File.read(path)) : []
+  File.exist?(path) ? JSON.parse(File.read(path)) : nil
 end
 
 # Linter
 def eslint
   result = []
   load_json_if_exists('eslint')
-    .reject{ |i|  i['messages'].empty? }
-    .each do |file|
+    &.reject{ |i|  i['messages'].empty? }
+    &.each do |file|
       file['messages'].each do |msg|
         result.push({
                       path: file['filePath'].delete_prefix(WORKING_DIR),
@@ -31,7 +31,7 @@ end
 
 def brakeman
   result = []
-  load_json_if_exists('brakeman')['warnings'].each do |msg|
+  load_json_if_exists('brakeman')&.fetch('warnings')&.each do |msg|
     result.push({
                   path: msg['file'],
                   start_line: msg['line'],
@@ -46,8 +46,8 @@ end
 def rubocop
   result = []
   load_json_if_exists('rubocop')['files']
-    .reject{ |i| i['offenses'].empty? }
-    .each do |file|
+    &.reject{ |i| i['offenses'].empty? }
+    &.each do |file|
     file['offenses'].each do |msg|
 
       severity = case msg['severity']
