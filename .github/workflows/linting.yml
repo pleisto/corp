@@ -35,8 +35,7 @@ jobs:
           ruby-version: 3.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Setup NodeJS
-        # Always run actions/setup-node to make sure add-matcher work correctly.
-        # if: steps.changed-es-files.outputs.any_changed == 'true'
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v2
         with:
           node-version: 16
@@ -56,10 +55,10 @@ jobs:
         if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
         run: |
           echo "::add-matcher::.github/matchers/rubocop.json"
-          yarn lint:rubocop
+          bundle exec rubocop --parallel --config .rubocop.yml
       - name: Brakeman
         if: steps.changed-ruby-files.outputs.any_changed == 'true' && always()
         run: |
           echo "::add-matcher::.github/matchers/brakeman.json"
-          yarn lint:brakeman -f csv -o /dev/stdout
+          bundle exec brakeman --no-pager -f csv -o /dev/stdout
 
