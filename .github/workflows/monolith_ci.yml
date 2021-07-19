@@ -6,11 +6,11 @@ on:
     # Make sure same as push
     paths-ignore:
       - .github/**
-      - !.github/workflow/monolith_ci.yml
+      - '!.github/workflow/monolith_ci.yml'
       - .husky/**
       - bin/**
       - packages/brickdoc-design-system/**
-      - !packages/brickdoc-design-system/components/**
+      - '!packages/brickdoc-design-system/components/**'
       - packages/less-vars-loader/**
       - packages/rubocop-brickdoc/**
       - packages/eslint-plugin-brickdoc/**
@@ -29,11 +29,11 @@ on:
     # Make sure same as pull_request
     paths-ignore:
       - .github/**
-      - !.github/workflow/monolith_ci.yml
+      - '!.github/workflow/monolith_ci.yml'
       - .husky/**
       - bin/**
       - packages/brickdoc-design-system/**
-      - !packages/brickdoc-design-system/components/**
+      - '!packages/brickdoc-design-system/components/**'
       - packages/less-vars-loader/**
       - packages/rubocop-brickdoc/**
       - packages/eslint-plugin-brickdoc/**
