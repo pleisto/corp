@@ -132,6 +132,12 @@ jobs:
           files: |
             .(rb|gemspec)$
             Gemfile
+      - name: Setup Ruby
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run DB migrations
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: bundle exec rails db:create db:migrate db:seed
