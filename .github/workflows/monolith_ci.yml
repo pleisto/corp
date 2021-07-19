@@ -242,7 +242,16 @@ jobs:
           default_author: github_actions
           message: 'ci: bump schemas and dists'
           add: 'app lib packages spec config db frontends'
-      - name: Upload build artifacts (when failed)
+      - name: Upload rails log (when cypress failed)
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-rails-logs
+          if-no-files-found: ignore
+          retention-days: 20
+          path: |
+            log/
+      - name: Upload cypress screenshots (when failed)
         if: failure()
         uses: actions/upload-artifact@v2
         with:
