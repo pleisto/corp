@@ -56,8 +56,97 @@ env:
   REDIS_URL: redis://127.0.0.1:6379
 
 jobs:
+  cancel:
+    # Cancel any previous CI runs to save GH Actions minutes
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+  jest:
+    name: Jest Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # To retrieve the preceding commit.
+      - name: Get changed ES files
+        id: changed-es-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(ts|tsx|jsx)$
+            packages.json
+      - name: Setup NodeJS
+        if: steps.changed-es-files.outputs.any_changed == 'true'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Run yarn install
+        if: steps.changed-es-files.outputs.any_changed == 'true'
+        run: yarn
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+      - name: Run Jest tests
+        if: steps.changed-es-files.outputs.any_changed == 'true'
+        run: yarn test:jest --ci --collectCoverage
+  rspec:
+    name: Rails RSpec Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: 'brickdoc_test'
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: '123456'
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # To retrieve the preceding commit.
+      - name: Get changed ruby files
+        id: changed-ruby-files
+        uses: tj-actions/changed-files@v8.9
+        with:
+          files: |
+            .(rb|gemspec)$
+            Gemfile
+      - name: Run DB migrations
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        run: bundle exec rails db:create db:migrate db:seed
+      - name: Run RSpec tests
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        env:
+          RAILS_ENV: test
+        run: bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
+      - name: Publish junit reports
+        if: always() && steps.changed-ruby-files.outputs.any_changed == 'true'
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: junit-reports/*.xml
   ci:
-    name: CI
+    name: Main CI workflow
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -101,20 +190,6 @@ jobs:
         with:
           ruby-version: 3.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Get changed ruby files
-        id: changed-ruby-files
-        uses: tj-actions/changed-files@v8.9
-        with:
-          files: |
-            .(rb|gemspec)$
-            Gemfile
-      - name: Get changed ES files
-        id: changed-es-files
-        uses: tj-actions/changed-files@v8.9
-        with:
-          files: |
-            .(ts|tsx|jsx)$
-            packages.json
       - name: Get changed database migrations
         id: changed-db-migrations
         uses: tj-actions/changed-files@v8.9
@@ -132,23 +207,10 @@ jobs:
       - name: Dump the graphql schema
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
         run: yarn graphql
-      - name: Run Jest tests
-        if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn test:jest --ci --collectCoverage
       - name: Run DB migrations
         run: bundle exec rails db:create db:migrate db:seed
-      - name: Run RSpec tests
-        if: steps.changed-ruby-files.outputs.any_changed == 'true'
-        env:
-          RAILS_ENV: test
-        run: bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
-      - name: Publish junit reports
-        if: always() && steps.changed-es-files.outputs.any_changed == 'true'
-        uses: mikepenz/action-junit-report@v2
-        with:
-          report_paths: junit-reports/*.xml
       - name: Start the Rails server
-        run: bundle exec rails s -p 3000
+        run: bundle exec rails s -p 3000 &
         env:
           CYPRESS: 1
           RAILS_ENV: development
