@@ -121,14 +121,9 @@ const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): any => {
   const newNode: JSONContent | null = block && blockToNode(block)
   const patchType = patch.patchType
 
-  console.log({ label: 'Apply One', patch, content, newNode })
-
   // NOTE traverse the content tree
   patch.path.forEach(id => {
     object = contents.find(n => n.attrs?.uuid === id)
-    if (!object) {
-      console.log({ label: 'DEBUG', patch, id, content })
-    }
     contents = object.content
   })
 
@@ -147,7 +142,7 @@ const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): any => {
       if (newNode.content) {
         object.content = newNode.content
       }
-      if (newNode.attrs) {
+      if (newNode.attrs && Object.keys(newNode.attrs).length > 0) {
         object.attrs = newNode.attrs
       }
       break
@@ -178,13 +173,11 @@ const applyNewPatch = (content: JSONContent, newPatch: NewPatchPayload): JSONCon
   }
 
   // TODO Check seq is increment atomically...
-
   patches.forEach(patch => {
     applyOnePatch(content, patch)
   })
 
   const newContent = compact(content)
-
   newContent.attrs = { ...content.attrs, patchSeq: newPatch.seq }
   console.log({ label: 'After Apply', uuid: globalThis.brickdocContext.uuid, patches, newPatch, content, newContent })
   return newContent

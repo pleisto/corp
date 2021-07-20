@@ -39,13 +39,11 @@ export const SyncExtension = Extension.create<SyncExtensionOptions>({
     return {
       patchDocument:
         newPatch =>
-        ({ editor, state }) => {
+        ({ state, commands }) => {
           const doc = applyNewPatch(state.doc, newPatch)
-          if (!doc) {
-            return true
+          if (doc) {
+            commands.replaceRoot(doc)
           }
-          console.log({ label: 'After Patch Document', doc, oldDoc: state.doc, newPatch })
-          editor.commands.replaceRoot(doc)
           return true
         },
       setDocAttrs:
