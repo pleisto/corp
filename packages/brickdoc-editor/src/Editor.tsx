@@ -28,11 +28,10 @@ export const EditorContent: React.FC<EditorProps> = ({ editor }: EditorProps) =>
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
   onCommit: SyncExtensionOptions['onCommit']
-  applyNewPatch: SyncExtensionOptions['applyNewPatch']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor {
-  const { onCommit, applyNewPatch, ...restOptions } = options
+  const { onCommit, ...restOptions } = options
   return useTiptapEditor({
     extensions: [
       BasicRichtextExtension,
@@ -40,7 +39,7 @@ export function useEditor(options: EditorOptions): TiptapEditor {
       SlashCommandsExtension,
       PlaceholderExtension,
       BulletListExtension,
-      SyncExtension.configure({ onCommit, applyNewPatch })
+      SyncExtension.configure({ onCommit })
     ],
     autofocus: true,
     ...restOptions

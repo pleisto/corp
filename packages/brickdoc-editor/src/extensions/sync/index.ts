@@ -1,13 +1,11 @@
 import { Plugin, PluginKey } from 'prosemirror-state'
-import { Node } from 'prosemirror-model'
 import { Extension, JSONContent } from '@tiptap/core'
+import { Node } from 'prosemirror-model'
 import { SetDocAttrStep } from './SetDocAttrStep'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     sync: {
-      // TODO: change type of `patch` to a real type
-      patchDocument: (patch: any) => ReturnType
       setDocAttrs: (newAttrs: Record<string, any>) => ReturnType
       replaceRoot: (content: JSONContent) => ReturnType
     }
@@ -16,8 +14,6 @@ declare module '@tiptap/core' {
 
 export interface SyncExtensionOptions {
   onCommit: (doc: Node) => void
-  // TODO: change type of `patch` to a real type
-  applyNewPatch: (node: Node, patch: any) => JSONContent | null
 }
 
 const PLUGIN_NAME = 'sync'
@@ -34,28 +30,20 @@ export const SyncExtension = Extension.create<SyncExtensionOptions>({
   name: PLUGIN_NAME,
 
   addCommands() {
-    const { applyNewPatch } = this.options
-
     return {
-      patchDocument:
-        newPatch =>
-        ({ state, commands }) => {
-          const doc = applyNewPatch(state.doc, newPatch)
-          if (doc) {
-            commands.replaceRoot(doc)
-          }
-          return true
-        },
       setDocAttrs:
         newAttrs =>
-        ({ tr }) => {
-          tr.step(new SetDocAttrStep(newAttrs))
+        ({ tr, dispatch }) => {
+          if (dispatch) {
+            tr.step(new SetDocAttrStep(newAttrs))
+          }
           return true
         },
       replaceRoot:
         content =>
-        ({ chain }) => {
-          return chain().setContent(content).setDocAttrs(content.attrs).run()
+        ({ chain, can, dispatch }) => {
+          const chainedCommands = dispatch ? chain() : can().chain()
+          return chainedCommands.setContent(content).setDocAttrs(content.attrs).run()
         }
     }
   },

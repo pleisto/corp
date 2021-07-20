@@ -2,23 +2,22 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Alert, Skeleton, Input } from '@brickdoc/design-system'
 import { EditorContent, useEditor } from '@brickdoc/editor'
-import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block, NewPatchPayload } from '@/BrickdocGraphQL'
+import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
 import { syncProvider, blocksToJSONContents } from './SyncProvider'
-import { useDocumentSubscription } from './DocumentSubscription'
+import { useDocumentSubscription } from './useDocumentSubscription'
 import styles from './DocumentPage.module.less'
 
 const Page: React.FC = () => {
   const { webid, docid, ...restParams } = useParams<{ webid: string; docid: string; snapshotVersion: string }>()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
-  const { onCommit, applyNewPatch } = syncProvider({ blockSyncBatch })
+  const { onCommit } = syncProvider({ blockSyncBatch })
 
   const { data, loading } = useGetChildrenBlocksQuery({
     variables: { parentId: docid, excludePages: false, snapshotVersion: Number(restParams.snapshotVersion || '0') }
   })
 
   const editor = useEditor({
-    onCommit,
-    applyNewPatch
+    onCommit
   })
 
   useEffect(() => {
@@ -29,12 +28,7 @@ const Page: React.FC = () => {
 
   useDocumentSubscription({
     docid,
-    webid,
-    patchHandler: ({ newPatch }: { newPatch: NewPatchPayload }) => {
-      if (editor && data) {
-        editor.commands.patchDocument(newPatch)
-      }
-    }
+    editor
   })
 
   if (loading) {

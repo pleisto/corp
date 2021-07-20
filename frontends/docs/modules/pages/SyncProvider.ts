@@ -7,8 +7,6 @@ import {
   BlockSyncBatchInput,
   BlockSyncBatchMutation,
   BlockSyncBatchMutationVariables,
-  NewPatchPayload,
-  PatchBaseObject,
   PageBlockMeta,
   ParagraphBlockMeta
 } from '@/BrickdocGraphQL'
@@ -60,7 +58,7 @@ const nodeToBlock = (node: Node, level: number): BlockSyncInput[] => {
   return [parent, ...children]
 }
 
-const blockToNode = (block: Block): JSONContent => {
+export const blockToNode = (block: Block): JSONContent => {
   const result: JSONContent = {
     type: block.type
   }
@@ -80,105 +78,16 @@ const blockToNode = (block: Block): JSONContent => {
   }
 
   // NOTE patch UPDATE
-  if (block.sort) {
+  if (block.sort !== undefined) {
     result.attrs.sort = block.sort
   }
 
   if (data?.content) {
     const content = JSON.parse(data.content)
-    if (content) {
-      result.content = content
-    }
+    result.content = content
   }
 
   return result
-}
-
-const compact = (node: JSONContent): JSONContent => {
-  const content = node.content
-    ?.filter(x => !x.deleted)
-    .sort((a, b) => a.sort - b.sort)
-    .map(node => compact(node))
-
-  if (content) {
-    return { ...node, content }
-  } else {
-    return node
-  }
-}
-
-const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): void => {
-  let contents: JSONContent[] = [content]
-  let object = content
-  const block = JSON.parse(patch.payload)
-  const newNode: JSONContent | null = block && blockToNode(block)
-  const patchType = patch.patchType
-
-  // NOTE traverse the content tree
-  patch.path.forEach(id => {
-    object = contents.find(n => n.attrs?.uuid === id)
-    if (!object) {
-      console.log({ label: 'DEBUG', patch, content, block, newNode })
-    }
-    contents = object?.content || []
-  })
-
-  if (!object) {
-    return
-  }
-
-  switch (patchType) {
-    case 'ADD':
-      if (object.content) {
-        object.content.push(newNode)
-      } else {
-        object.content = [newNode]
-      }
-      break
-    case 'UPDATE':
-      if (newNode.text) {
-        object.text = newNode.text
-      }
-      if (newNode.content) {
-        object.content = newNode.content
-      }
-      if (newNode.attrs && Object.keys(newNode.attrs).length > 0) {
-        object.attrs = newNode.attrs
-      }
-      break
-    case 'DELETE':
-      object.deleted = true
-      break
-  }
-}
-
-const applyNewPatch = (content: JSONContent, newPatch: NewPatchPayload): JSONContent => {
-  const patchSeq = content.attrs?.patchSeq
-  if (newPatch.seq === patchSeq) {
-    console.warn(`Duplicated seq ${patchSeq}, ignore...`)
-    return null
-  }
-
-  if (newPatch.state === 'DELETED') {
-    console.log('Delete page ...')
-    return null
-  }
-
-  const patches = newPatch.patches.filter(p => p.operatorId !== globalThis.brickdocContext.uuid)
-
-  if (patches.length === 0) {
-    return null
-  }
-
-  // TODO Check seq is increment atomically...
-  patches.forEach(patch => {
-    void applyOnePatch(content, patch)
-  })
-
-  const newContent = compact(content)
-  newContent.attrs = { ...content.attrs, patchSeq: newPatch.seq }
-  console.log({ label: 'After Apply', uuid: globalThis.brickdocContext.uuid, patches, newPatch, content, newContent })
-  return newContent
 }
 
 export const blocksToJSONContents = (blocks: Block[], id = null): JSONContent[] =>
@@ -198,11 +107,6 @@ export function syncProvider({
       const blocks = nodeToBlock(doc, 0)
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
       void blockSyncBatch({ variables: { input } })
-    },
-    applyNewPatch: (doc: Node, newPatch: NewPatchPayload): JSONContent | null => {
-      const content: JSONContent = doc.toJSON() as any
-      const newContent = applyNewPatch(content, newPatch)
-      return newContent
     }
   }
 }
