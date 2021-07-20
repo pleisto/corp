@@ -15,10 +15,8 @@ import {
 import { JSONContent } from '@tiptap/core'
 import { MutationTuple } from '@apollo/client'
 
-// const outline = (node: Node): string => (node.textContent || 'untitled').slice(0, 50)
-
 const nodeChildren = (node: Node): Node[] => {
-  // TODO Fragment type miss content field
+  // TODO Fragment type missing content field
   return (node.content as any).content
 }
 
@@ -67,11 +65,6 @@ const blockToNode = (block: Block): JSONContent => {
     type: block.type
   }
 
-  // if (block.type === 'text') {
-  //   // HACK Prosemirror text node initializer polyfill.
-  //   result.text = `uuid$$$$${block.id}sort$$$$${block.sort}####${(block.data as TextBlockData).content}`
-  // }
-
   const meta = block.meta as any
   const data = block.data as any
 
@@ -114,7 +107,7 @@ const compact = (node: JSONContent): JSONContent => {
   }
 }
 
-const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): any => {
+const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): void => {
   let contents: JSONContent[] = [content]
   let object = content
   const block = JSON.parse(patch.payload)
@@ -124,8 +117,15 @@ const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): any => {
   // NOTE traverse the content tree
   patch.path.forEach(id => {
     object = contents.find(n => n.attrs?.uuid === id)
-    contents = object.content
+    if (!object) {
+      console.log({ label: 'DEBUG', patch, content, block, newNode })
+    }
+    contents = object?.content || []
   })
+
+  if (!object) {
+    return
+  }
 
   switch (patchType) {
     case 'ADD':
@@ -150,8 +150,6 @@ const applyOnePatch = (content: JSONContent, patch: PatchBaseObject): any => {
       object.deleted = true
       break
   }
-
-  return content
 }
 
 const applyNewPatch = (content: JSONContent, newPatch: NewPatchPayload): JSONContent => {
@@ -174,7 +172,7 @@ const applyNewPatch = (content: JSONContent, newPatch: NewPatchPayload): JSONCon
 
   // TODO Check seq is increment atomically...
   patches.forEach(patch => {
-    applyOnePatch(content, patch)
+    void applyOnePatch(content, patch)
   })
 
   const newContent = compact(content)
