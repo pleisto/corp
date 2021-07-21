@@ -12,6 +12,7 @@ ActiveRecord::Schema.define do
   create_table :brick_settings, force: true do |t|
     t.string :key
     t.string :value
+    t.string :scope
     t.string :domain
     t.integer :domain_len
   end
@@ -52,9 +53,10 @@ describe BrickdocSettings do
     BrickSettings.set('default_val', 'test2')
     expect(BrickSettings.get('default_val')).to eq('test2')
 
-    expect(BrickSettings.get('l1.l2.l3_val')).to eq('ha')
-
     expect(BrickSettings.scope('l1.l2').get('l3_val')).to eq('ha')
+
+
+    expect(BrickSettings.scope('l1.l2') { get('l3_val') }).to eq('ha')
 
     expect(BrickSettings.scope('l1.l2').l3_val).to eq('ha')
   end

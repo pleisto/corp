@@ -2,23 +2,23 @@
 
 module BrickdocSettings
   class Accessor
-    def initialize(settings, domain: '', scope: [])
+    def initialize(settings, scope: '', domain: '')
       @settings = settings
-      @domain = domain
       @scope = scope
+      @domain = domain
     end
 
     def at(domain)
       BrickdocSettings::Accessor.new(@settings, domain: domain)
     end
 
-    def _get_key(key)
-      (@scope + [key.to_s]).join('.')
+    def with_block(&block)
+      block ? instance_eval(&block) : self
     end
 
     [:get, :set, :field, :touch].each do |method_name|
       define_method(method_name) do |key, *args, **options|
-        @settings.send(method_name, _get_key(key), *args, **options.merge(domain: @domain))
+        @settings.send(method_name, key, *args, **options.merge(scope: @scope, domain: @domain))
       end
     end
 

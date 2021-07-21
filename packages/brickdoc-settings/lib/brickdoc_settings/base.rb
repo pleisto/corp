@@ -18,31 +18,35 @@ module BrickdocSettings
       end
 
       def scope(*scope, &block)
+        scope = scope.join('.')
         cached_scopes[scope] ||= BrickdocSettings::Accessor.new(self, scope: scope)
-        cached_scopes[scope].instance_eval(&block) if block
-        cached_scopes[scope]
+        cached_scopes[scope].with_block(&block)
       end
 
-      def at(domain)
-        BrickdocSettings::Accessor.new(self, domain: domain)
+      def at(*domain, &block)
+        domain = domain.join('.')
+        cached_domains[domain] ||= BrickdocSettings::Accessor.new(self, domain: domain)
+        cached_domains[domain].with_block(&block)
       end
 
-      def field(key, default: nil, type: :string, **options)
+      def field(key, scope: '', default: nil, type: :string, **options)
         key = key.to_s
         @defined_fields ||= {}
-        @defined_fields[key] = {
+        @defined_fields[scope] ||= {}
+        @defined_fields[scope][key] = {
           default: default,
           type: type,
           options: options
         }
       end
 
-      def get(key, domain: '')
-        cache_key = "#{key}@#{domain}"
+      def get(key, scope: '', domain: '')
+        cache_key = "#{scope}.#{key}@#{domain}"
         unless cached_values[cache_key]
-          value = _get_value(key, domain)
+          field_config = @defined_fields.dig(scope, key) || {}
+          value = _get_value(key, scope: scope, domain: domain)
           value = if value
-            case @defined_fields.dig(key, :type)
+            case field_config[:type]
             when :boolean
               ['t', 'true', '1', 1, true].include?(value)
             when :integer
@@ -53,20 +57,20 @@ module BrickdocSettings
               value
             end
           else
-            @defined_fields.dig(key, :default)
+            field_config[:default]
           end
           cached_values[cache_key] = value
         end
         cached_values[cache_key]
       end
 
-      def set(key, value, domain: '')
-        _save_value(key.to_s, domain, value)
-        touch(key, domain: domain)
+      def set(key, value, scope: '', domain: '')
+        _save_value(key.to_s, value, scope: scope, domain: domain)
+        touch(key, scope: scope, domain: domain)
       end
 
-      def touch(key, domain: '')
-        cached_values.delete "#{key}@#{domain}"
+      def touch(key, scope: '', domain: '')
+        cached_values.delete "#{scope}.#{key}@#{domain}"
       end
 
       def method_missing(method_name, *args, **options)
@@ -77,9 +81,9 @@ module BrickdocSettings
         end
       end
 
-      def _get_value(key, domain)
+      def _get_value(key, scope: '', domain: '')
         domain_len = domain.split('.').count
-        records = where(key: key).where('domain_len <= ?', domain_len).order('domain_len ASC').to_a
+        records = where(key: key, scope: scope).where('domain_len <= ?', domain_len).order('domain_len ASC').to_a
         if records.present?
           records.select do |r|
             r.domain.blank? || (r.domain == domain) || domain.end_with?(".#{r.domain}")
@@ -87,8 +91,8 @@ module BrickdocSettings
         end
       end
 
-      def _save_value(key, domain, value)
-        record = where(key: key, domain: domain).first_or_initialize
+      def _save_value(key, value, scope: '', domain: '')
+        record = where(key: key, scope: scope, domain: domain).first_or_initialize
         record.value = value
         record.domain_len = domain.split('.').count
         record.save
