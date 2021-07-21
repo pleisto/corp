@@ -17,6 +17,10 @@ module BrickdocSettings
         Thread.current[:"#{self.class.name.underscore}_domains"] ||= {}
       end
 
+      def cached_keys
+        Thread.current[:"#{self.class.name.underscore}_keys"] ||= {}
+      end
+
       def scope(*scope, &block)
         scope = scope.join('.')
         cached_scopes[scope] ||= BrickdocSettings::Accessor.new(self, scope: scope)
@@ -38,6 +42,15 @@ module BrickdocSettings
           type: type,
           options: options
         }
+      end
+
+      def get_field(key, scope: '', **_)
+        key = key.to_s
+        @defined_fields[scope][key]
+      end
+
+      def defined_keys(scope: '', **_)
+        @defined_fields[scope].keys
       end
 
       def get(key, scope: '', domain: '')
@@ -79,6 +92,10 @@ module BrickdocSettings
         else
           get(method_name, *args, **options)
         end
+      end
+
+      def respond_to_missing?(method_name, *_)
+        defined_keys.include? method_name.to_s
       end
 
       def _get_value(key, scope: '', domain: '')

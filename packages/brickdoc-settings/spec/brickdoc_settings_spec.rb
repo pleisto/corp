@@ -55,10 +55,18 @@ describe BrickdocSettings do
 
     expect(BrickSettings.scope('l1.l2').get('l3_val')).to eq('ha')
 
-
     expect(BrickSettings.scope('l1.l2') { get('l3_val') }).to eq('ha')
 
     expect(BrickSettings.scope('l1.l2').l3_val).to eq('ha')
+
+    expect(BrickSettings.scope('l1.l2').get_field(:l3_val)[:default]).to eq('ha')
+
+    expect(BrickSettings.scope('l1.l2').defined_keys).to eq(['l3_val'])
+
+    expect(BrickSettings.respond_to?(:int)).to eq(true)
+    expect(BrickSettings.respond_to?(:l3_val)).to eq(false)
+    expect(BrickSettings.scope('l1.l2').respond_to?(:l3_val)).to eq(true)
+    expect(BrickSettings.scope('l1.l2').respond_to?(:int)).to eq(false)
   end
 
   it 'can match value by domain' do
