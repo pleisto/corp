@@ -604,8 +604,12 @@ en-US:
       resend_after: "Resendable after %{seconds} seconds"
     common:
       confirm_not_match: "%{field} and confirm %{field} do not match"
-    errors:        
+    errors:
+      invalid_operation_type: "Invalid operation type"
       invalid_pod_webid: "No access to the webid"
+      pod_has_already_switched: "Pod has already switched"
+      pod_exist: "Pod has already exist"
+      pod_not_exist: "Pod doesn't exist"
   docs:
     app_title: Brickdoc
     blocks:

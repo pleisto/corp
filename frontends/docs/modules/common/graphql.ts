@@ -11,11 +11,13 @@ export const queryPods = gql`
   }
 `
 
-export const CreatePod = gql`
-  mutation createPod($input: CreatePodInput!) {
-    createPod(input: $input) {
+export const CreateOrUpdatePod = gql`
+  mutation createOrUpdatePod($input: CreateOrUpdatePodInput!) {
+    createOrUpdatePod(input: $input) {
+      errors
       pod {
         webid
+        name
       }
     }
   }

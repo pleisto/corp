@@ -4,6 +4,8 @@ module System
     argument :webid, String, "webid", required: true
 
     def resolve(webid:)
+      return { errors: [I18n.t('accounts.errors.pod_has_already_switched')] } if current_pod.fetch('webid') == webid
+
       pod = current_user.pods.find_by(webid: webid)
       return { errors: [I18n.t('accounts.errors.invalid_pod_webid')] } unless pod
 

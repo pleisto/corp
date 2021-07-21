@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   useGetPodsQuery,
   useUserSignOutMutation,
   UserSignOutInput,
-  useCreatePodMutation,
-  CreatePodInput,
+  // useCreateOrUpdatePodMutation,
+  // CreateOrUpdatePodInput,
   useSwitchPodMutation,
-  SwitchPodInput
+  SwitchPodInput,
+  PodOperation
 } from '@/BrickdocGraphQL'
 import { Dropdown, Avatar, Skeleton, Menu } from '@brickdoc/design-system'
 import { SortTwo } from '@brickdoc/design-system/components/icon'
@@ -14,6 +15,7 @@ import { useDocsI18n } from '../../hooks'
 import { useHistory, Redirect } from 'react-router'
 import styles from './index.module.less'
 import { useBoolean } from 'ahooks'
+import { ProfileModal } from '../ProfileModal'
 
 interface PodSelectProps {
   webid: string
@@ -24,9 +26,11 @@ const PodSelect: React.FC<PodSelectProps> = props => {
   const { t } = useDocsI18n()
   const { loading, data } = useGetPodsQuery()
   const [userSignOutMutation] = useUserSignOutMutation()
-  const [createPodMutation] = useCreatePodMutation()
+  // const [createOrUpdatePodMutation] = useCreateOrUpdatePodMutation()
   const [switchPodMutation] = useSwitchPodMutation()
   const [didRedirectToSignInPage, { setTrue: redirectToSignInPage }] = useBoolean(false)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [operationType, setOperationType] = useState<PodOperation>()
 
   if (didRedirectToSignInPage) {
     return <Redirect to="/" />
@@ -45,12 +49,15 @@ const PodSelect: React.FC<PodSelectProps> = props => {
 
   const onClick = ({ key }): void => {
     const signOutInput: UserSignOutInput = {}
-    const createPodInput: CreatePodInput = { webid: '123', name: 'asd' }
+    // const createPodInput: CreateOrUpdatePodInput = { webid: '123', type: 'CREATE', name: 'asd' }
     switch (key) {
       case 'pod-create':
-        void createPodMutation({ variables: { input: createPodInput } })
+        setOperationType(PodOperation.Create)
+        // void createOrUpdatePodMutation({ variables: { input: createPodInput } })
         break
       case 'pod-profile':
+        setOperationType(PodOperation.Update)
+        setModalVisible(true)
         break
       case 'logout':
         void userSignOutMutation({ variables: { input: signOutInput } })
@@ -84,17 +91,20 @@ const PodSelect: React.FC<PodSelectProps> = props => {
   )
 
   return (
-    <Dropdown trigger={['click']} overlay={dropdown} placement="bottomLeft">
-      <div className={styles.select}>
-        <Avatar style={{ background: '#2376b7' }} shape="square">
-          B
-        </Avatar>
-        <div className={styles.name}>
-          <span>{pod.name}</span>
-          <SortTwo />
+    <>
+      <Dropdown trigger={['click']} overlay={dropdown} placement="bottomLeft">
+        <div className={styles.select}>
+          <Avatar style={{ background: '#2376b7' }} shape="square">
+            B
+          </Avatar>
+          <div className={styles.name}>
+            <span>{pod.name}</span>
+            <SortTwo />
+          </div>
         </div>
-      </div>
-    </Dropdown>
+      </Dropdown>
+      <ProfileModal webid={props.webid} type={operationType} visible={modalVisible} setVisible={setModalVisible} />
+    </>
   )
 }
 

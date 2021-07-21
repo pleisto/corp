@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe System::Mutations::CreateDirectUpload, type: :mutation, focus: true do
+describe System::Mutations::CreateDirectUpload, type: :mutation do
   describe '#resolve' do
     mutation = <<-'GRAPHQL'
       mutation createDirectUpload($input: CreateDirectUploadInput!) {
@@ -29,7 +29,8 @@ describe System::Mutations::CreateDirectUpload, type: :mutation, focus: true do
 
       expect(response.errors).to eq({})
       expect(response.data[:createDirectUpload][:directUpload][:url]).not_to be_blank
-      Current.user = nil
+      self.current_user = nil
+      self.current_pod = nil
     end
   end
 end
