@@ -84,7 +84,10 @@ export const blockToNode = (block: Block): JSONContent => {
 
   if (data?.content) {
     const content = JSON.parse(data.content)
-    result.content = content
+    // NOTE check data.content === "null"
+    if (content) {
+      result.content = content
+    }
   }
 
   return result
