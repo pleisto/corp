@@ -11,6 +11,24 @@ export const queryPods = gql`
   }
 `
 
+export const CreatePod = gql`
+  mutation createPod($input: CreatePodInput!) {
+    createPod(input: $input) {
+      pod {
+        webid
+      }
+    }
+  }
+`
+
+export const SwitchPod = gql`
+  mutation switchPod($input: SwitchPodInput!) {
+    switchPod(input: $input) {
+      errors
+    }
+  }
+`
+
 export const queryPageBlocks = gql`
   query GetPageBlocks($webid: String!) {
     pageBlocks(webid: $webid) {

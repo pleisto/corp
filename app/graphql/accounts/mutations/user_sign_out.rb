@@ -8,6 +8,7 @@ module Accounts
     def resolve
       return {} if context[:current_user].nil?
 
+      context[:warden].session['current_pod'] = nil
       context[:warden].logout
       {}
     end

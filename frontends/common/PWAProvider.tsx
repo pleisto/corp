@@ -11,6 +11,10 @@ interface globalContext {
   version: string
   locale: string
   rtl: boolean
+  currentPod?: {
+    webid: string
+    name: string
+  }
   currentUser?: {
     webid: string
     avatar: string
