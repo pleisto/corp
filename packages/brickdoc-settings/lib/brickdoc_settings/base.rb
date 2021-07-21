@@ -33,13 +33,15 @@ module BrickdocSettings
         cached_domains[domain].with_block(&block)
       end
 
-      def field(key, scope: '', default: nil, type: :string, **options)
+      def field(key, scope: '', type: :string, default: nil, read_only: false, **options)
         key = key.to_s
         @defined_fields ||= {}
         @defined_fields[scope] ||= {}
+        options.delete(:domain)
         @defined_fields[scope][key] = {
-          default: default,
           type: type,
+          default: default,
+          read_only: read_only,
           options: options
         }
       end
@@ -54,6 +56,7 @@ module BrickdocSettings
       end
 
       def get(key, scope: '', domain: '')
+        key = key.to_s
         cache_key = "#{scope}.#{key}@#{domain}"
         unless cached_values[cache_key]
           field_config = @defined_fields.dig(scope, key) || {}
@@ -78,6 +81,7 @@ module BrickdocSettings
       end
 
       def set(key, value, scope: '', domain: '')
+        return if @defined_fields.dig(scope, key, :read_only)
         _save_value(key.to_s, value, scope: scope, domain: domain)
         touch(key, scope: scope, domain: domain)
       end

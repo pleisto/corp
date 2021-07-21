@@ -27,6 +27,8 @@ class BrickSettings < ActiveRecord::Base
   field :bool, type: :boolean
   field :default_val, default: 'test'
 
+  field :ro_val, default: 'x', read_only: true
+
   scope :l1, :l2 do
     field :l3_val, default: 'ha'
   end
@@ -67,6 +69,10 @@ describe BrickdocSettings do
     expect(BrickSettings.respond_to?(:l3_val)).to eq(false)
     expect(BrickSettings.scope('l1.l2').respond_to?(:l3_val)).to eq(true)
     expect(BrickSettings.scope('l1.l2').respond_to?(:int)).to eq(false)
+
+    expect(BrickSettings.ro_val).to eq('x')
+    BrickSettings.ro_val = 'y'
+    expect(BrickSettings.ro_val).to eq('x')
   end
 
   it 'can match value by domain' do
