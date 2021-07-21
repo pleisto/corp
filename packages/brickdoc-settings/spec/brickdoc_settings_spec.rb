@@ -37,6 +37,11 @@ describe BrickdocSettings do
     BrickSettings.set('int', 1)
     expect(BrickSettings.get('int')).to eq(1)
 
+    expect(BrickSettings.int).to eq(1)
+
+    BrickSettings.new_value = 'new'
+    expect(BrickSettings.new_value).to eq('new')
+
     expect(BrickSettings.get('bool')).to eq(nil)
     BrickSettings.set('bool', true)
     expect(BrickSettings.get('bool')).to eq(true)
@@ -48,6 +53,10 @@ describe BrickdocSettings do
     expect(BrickSettings.get('default_val')).to eq('test2')
 
     expect(BrickSettings.get('l1.l2.l3_val')).to eq('ha')
+
+    expect(BrickSettings.scope('l1.l2').get('l3_val')).to eq('ha')
+
+    expect(BrickSettings.scope('l1.l2').l3_val).to eq('ha')
   end
 
   it 'can match value by domain' do

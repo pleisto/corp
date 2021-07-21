@@ -5,29 +5,30 @@ module BrickdocSettings
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def current_cache
-        Thread.current[:"#{self.class.name.underscore}_cached"] ||= {}
+      def cached_values
+        Thread.current[:"#{self.class.name.underscore}_values"] ||= {}
       end
 
-      def scope(*names, &block)
-        names = names.map(&:to_s)
-        @current_scope ||= []
-        @current_scope += names
-        yield block
-        @current_scope -= names
+      def cached_scopes
+        Thread.current[:"#{self.class.name.underscore}_scopes"] ||= {}
+      end
+
+      def cached_domains
+        Thread.current[:"#{self.class.name.underscore}_domains"] ||= {}
+      end
+
+      def scope(*scope, &block)
+        cached_scopes[scope] ||= BrickdocSettings::Accessor.new(self, scope: scope)
+        cached_scopes[scope].instance_eval(&block) if block
+        cached_scopes[scope]
       end
 
       def at(domain)
         BrickdocSettings::Accessor.new(self, domain: domain)
       end
 
-      def _get_key(key)
-        @current_scope ||= []
-        (@current_scope + [key.to_s]).join('.')
-      end
-
       def field(key, default: nil, type: :string, **options)
-        key = _get_key(key)
+        key = key.to_s
         @defined_fields ||= {}
         @defined_fields[key] = {
           default: default,
@@ -37,45 +38,60 @@ module BrickdocSettings
       end
 
       def get(key, domain: '')
-        key = _get_key(key)
         cache_key = "#{key}@#{domain}"
-        unless current_cache[cache_key]
-          domain_len = domain.split('.').count
-          records = where(key: key).where('domain_len <= ?', domain_len).to_a
-          if records.present?
-            value = records.select do |r|
-              r.domain.blank? || (r.domain == domain) || domain.end_with?(".#{r.domain}")
-            end.sort_by(&:domain_len).last&.value
-          end
+        unless cached_values[cache_key]
+          value = _get_value(key, domain)
           value = if value
             case @defined_fields.dig(key, :type)
             when :boolean
               ['t', 'true', '1', 1, true].include?(value)
             when :integer
               value&.to_i
+            when :float
+              value&.to_f
             else
               value
             end
           else
             @defined_fields.dig(key, :default)
           end
-          current_cache[cache_key] = value
+          cached_values[cache_key] = value
         end
-        current_cache[cache_key]
+        cached_values[cache_key]
       end
 
       def set(key, value, domain: '')
-        key = _get_key(key)
+        _save_value(key.to_s, domain, value)
+        touch(key, domain: domain)
+      end
+
+      def touch(key, domain: '')
+        cached_values.delete "#{key}@#{domain}"
+      end
+
+      def method_missing(method_name, *args, **options)
+        if method_name[-1] == '='
+          set(method_name[0..-2], *args, **options)
+        else
+          get(method_name, *args, **options)
+        end
+      end
+
+      def _get_value(key, domain)
+        domain_len = domain.split('.').count
+        records = where(key: key).where('domain_len <= ?', domain_len).order('domain_len ASC').to_a
+        if records.present?
+          records.select do |r|
+            r.domain.blank? || (r.domain == domain) || domain.end_with?(".#{r.domain}")
+          end.last&.value
+        end
+      end
+
+      def _save_value(key, domain, value)
         record = where(key: key, domain: domain).first_or_initialize
         record.value = value
         record.domain_len = domain.split('.').count
         record.save
-        touch(key, domain: domain)
-        # current_cache["#{key}@#{domain}"] = value
-      end
-
-      def touch(key, domain: '')
-        current_cache.delete "#{_get_key(key)}@#{domain}"
       end
     end
   end
