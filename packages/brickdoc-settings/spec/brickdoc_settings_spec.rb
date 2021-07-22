@@ -11,7 +11,7 @@ ActiveRecord::Schema.define do
 
   create_table :brick_settings, force: true do |t|
     t.string :key
-    t.string :value
+    t.text :value
     t.string :scope
     t.string :domain
     t.integer :domain_len
@@ -22,12 +22,17 @@ ActiveRecord::Base.cache_versioning = true if ActiveRecord::Base.respond_to?(:ca
 
 class BrickSettings < ActiveRecord::Base
   include BrickdocSettings::Base
+  serialize :value
 
   field :int, type: :integer
   field :bool, type: :boolean
   field :default_val, default: 'test'
 
   field :ro_val, default: 'x', read_only: true
+
+  field :array_val, type: :array
+  field :hash_val, type: :hash
+  field :hash_val2, type: :hash, symbolize_keys: true
 
   scope :l1, :l2 do
     field :l3_val, default: 'ha'
@@ -73,6 +78,15 @@ describe BrickdocSettings do
     expect(BrickSettings.ro_val).to eq('x')
     BrickSettings.ro_val = 'y'
     expect(BrickSettings.ro_val).to eq('x')
+
+    BrickSettings.array_val = ['a', 1, true, :sym]
+    expect(BrickSettings.array_val).to eq(['a', 1, true, :sym])
+
+    BrickSettings.hash_val = { 'a' => 1, 'b' => '2' }
+    expect(BrickSettings.hash_val).to eq({ 'a' => 1, 'b' => '2' })
+
+    BrickSettings.hash_val2 = { 'a' => 1, 'b' => '2' }
+    expect(BrickSettings.hash_val2).to eq({ a: 1, b: '2' })
   end
 
   it 'can match value by domain' do

@@ -61,7 +61,7 @@ module BrickdocSettings
         unless cached_values[cache_key]
           field_config = @defined_fields.dig(scope, key) || {}
           value = _get_value(key, scope: scope, domain: domain)
-          value = if value
+          value = if !value.nil?
             case field_config[:type]
             when :boolean
               ['t', 'true', '1', 1, true].include?(value)
@@ -75,6 +75,7 @@ module BrickdocSettings
           else
             field_config[:default]
           end
+          value = value.deep_symbolize_keys if field_config.dig(:options, :symbolize_keys)
           cached_values[cache_key] = value
         end
         cached_values[cache_key]
