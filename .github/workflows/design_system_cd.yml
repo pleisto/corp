@@ -9,6 +9,9 @@ on:
       - main
   # todo: remove it.
   pull_request:
+defaults:
+  run:
+    working-directory: packages/design-system
 jobs:
   cancel:
     # Cancel any previous CI runs to save GH Actions minutes
