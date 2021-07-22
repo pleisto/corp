@@ -56,7 +56,7 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: Deployment to App Engine
-        uses: brickdoc/app-engine
+        uses: brickdoc/app-engine@main
         with:
           name: design-system
         env:
