@@ -43,6 +43,6 @@ class Pod < ApplicationRecord
   end
 
   def as_session_context
-    attributes.slice('id', 'webid', 'name')
+    attributes.slice('id', 'webid')
   end
 end

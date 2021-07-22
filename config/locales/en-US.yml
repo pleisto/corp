@@ -149,7 +149,6 @@ en-US:
           mismatch: '%{label} does not match the pattern %{pattern}'
     image:
       preview: Preview
-
   activerecord:
     attributes:
       doorkeeper/application:
@@ -618,7 +617,20 @@ en-US:
       create_snapshot: Create Snapshot
     snapshots:
       name: Snapshot
+    pods:
+      webid: WebID
+      name: Name
+      bio: Bio
+      avatar: Avatar
+      required:
+        webid: WebID is required
+        name: Name is required
+      create:
+        success: Create successfully.
+      update:
+        success: Update successfully.
     menu:
       create_new_pod: Create a new pod
+      edit_profile: Edit profile
       pod_profile: Profile
       logout: Logout

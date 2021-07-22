@@ -188,9 +188,13 @@ export type CreateDirectUploadPayload = {
 export type CreateOrUpdatePodInput = {
   /** webid */
   webid: Scalars['String']
+  type: PodOperation
   /** pod name */
   name: Scalars['String']
-  type: PodOperation
+  /** bio */
+  bio?: Maybe<Scalars['String']>
+  /** avatar */
+  avatar?: Maybe<Scalars['String']>
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>
 }
@@ -812,7 +816,7 @@ export type GetAvailableLocalesFromWsQuery = { __typename?: 'RootQuery' } & {
 export type GetPodsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetPodsQuery = { __typename?: 'RootQuery' } & {
-  pods: Array<{ __typename?: 'pod' } & Pick<Pod, 'id' | 'webid' | 'name' | 'avatar'>>
+  pods: Array<{ __typename?: 'pod' } & Pick<Pod, 'id' | 'webid' | 'name' | 'avatar' | 'bio'>>
 }
 
 export type CreateOrUpdatePodMutationVariables = Exact<{
@@ -1370,6 +1374,7 @@ export const GetPodsDocument = gql`
       webid
       name
       avatar
+      bio
     }
   }
 `

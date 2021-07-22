@@ -3,8 +3,6 @@ import {
   useGetPodsQuery,
   useUserSignOutMutation,
   UserSignOutInput,
-  // useCreateOrUpdatePodMutation,
-  // CreateOrUpdatePodInput,
   useSwitchPodMutation,
   SwitchPodInput,
   PodOperation
@@ -21,18 +19,19 @@ interface PodSelectProps {
   webid: string
 }
 
-const PodSelect: React.FC<PodSelectProps> = props => {
+export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
   const history = useHistory()
   const { t } = useDocsI18n()
   const { loading, data } = useGetPodsQuery()
   const [userSignOutMutation] = useUserSignOutMutation()
-  // const [createOrUpdatePodMutation] = useCreateOrUpdatePodMutation()
+
   const [switchPodMutation] = useSwitchPodMutation()
   const [didRedirectToSignInPage, { setTrue: redirectToSignInPage }] = useBoolean(false)
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
-  const [operationType, setOperationType] = useState<PodOperation>()
+  const [modalCreateVisible, setModalCreateVisible] = useState<boolean>(false)
+  const [modalUpdateVisible, setModalUpdateVisible] = useState<boolean>(false)
 
   if (didRedirectToSignInPage) {
+    // TODO how to redirect to index by click
     return <Redirect to="/" />
   }
 
@@ -40,7 +39,7 @@ const PodSelect: React.FC<PodSelectProps> = props => {
     return <Skeleton avatar active paragraph={false} />
   }
 
-  const pod = !loading && data.pods.find(pod => pod.webid === props.webid)
+  const pod = data.pods.find(p => p.webid === webid)
 
   if (!pod) {
     console.error('Webid does not match the current user')
@@ -49,19 +48,15 @@ const PodSelect: React.FC<PodSelectProps> = props => {
 
   const onClick = ({ key }): void => {
     const signOutInput: UserSignOutInput = {}
-    // const createPodInput: CreateOrUpdatePodInput = { webid: '123', type: 'CREATE', name: 'asd' }
     switch (key) {
       case 'pod-create':
-        setOperationType(PodOperation.Create)
-        // void createOrUpdatePodMutation({ variables: { input: createPodInput } })
+        setModalCreateVisible(true)
         break
       case 'pod-profile':
-        setOperationType(PodOperation.Update)
-        setModalVisible(true)
+        setModalUpdateVisible(true)
         break
       case 'logout':
         void userSignOutMutation({ variables: { input: signOutInput } })
-        // TODO how to redirect to index by click
         redirectToSignInPage()
         break
       default:
@@ -90,22 +85,38 @@ const PodSelect: React.FC<PodSelectProps> = props => {
     </Menu>
   )
 
+  let avatar
+  if (pod.avatar) {
+    avatar = <Avatar src={pod.avatar} />
+  } else {
+    avatar = <Avatar style={{ background: '#2376b7' }}>{pod.webid}</Avatar>
+  }
+
   return (
     <>
       <Dropdown trigger={['click']} overlay={dropdown} placement="bottomLeft">
         <div className={styles.select}>
-          <Avatar style={{ background: '#2376b7' }} shape="square">
-            B
-          </Avatar>
+          {avatar}
           <div className={styles.name}>
             <span>{pod.name}</span>
             <SortTwo />
           </div>
         </div>
       </Dropdown>
-      <ProfileModal webid={props.webid} type={operationType} visible={modalVisible} setVisible={setModalVisible} />
+      <ProfileModal
+        title={t('menu.create_new_pod')}
+        pod={pod}
+        type={PodOperation.Create}
+        visible={modalCreateVisible}
+        setVisible={setModalCreateVisible}
+      />
+      <ProfileModal
+        title={t('menu.edit_profile')}
+        pod={pod}
+        type={PodOperation.Update}
+        visible={modalUpdateVisible}
+        setVisible={setModalUpdateVisible}
+      />
     </>
   )
 }
-
-export default PodSelect

@@ -1,44 +1,85 @@
 import React from 'react'
-import { Modal } from '@brickdoc/design-system'
+import { Modal, Form, Input, message } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
-import { PodOperation } from '@/BrickdocGraphQL'
+import { PodOperation, useCreateOrUpdatePodMutation, CreateOrUpdatePodInput, Pod } from '@/BrickdocGraphQL'
 
 interface ProfileModalProps {
-  webid: string
+  pod: Pod
   visible: boolean
+  title: string
   type: PodOperation
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProfileModal: React.FC<ProfileModalProps> = props => {
+export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title, type, setVisible }) => {
   const { t } = useDocsI18n()
   const [confirmLoading, setConfirmLoading] = React.useState(false)
-  const [modalText, setModalText] = React.useState('Content of the modal')
+  const [form] = Form.useForm()
+  const [createOrUpdatePodMutation] = useCreateOrUpdatePodMutation()
 
-  const handleCancel = () => {
-    console.log('Clicked cancel button')
-    props.setVisible(false)
+  const handleCancel = (): void => {
+    setVisible(false)
   }
 
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds')
+  const handleOk = (): void => {
     setConfirmLoading(true)
-    setTimeout(() => {
-      props.setVisible(false)
-      setConfirmLoading(false)
-    }, 2000)
+
+    form
+      .validateFields()
+      .then(values => {
+        form.resetFields()
+        const input: CreateOrUpdatePodInput = { type, webid: values.webid, name: values.name, bio: values.bio, avatar: values.avatar }
+        void createOrUpdatePodMutation({ variables: { input } })
+        setVisible(false)
+        setConfirmLoading(false)
+        const msg = type === PodOperation.Create ? 'pods.create.success' : 'pods.update.success'
+        void message.success(t(msg))
+      })
+      .catch(info => {
+        console.log('Validate Failed:', info)
+      })
   }
+
+  const initialValues = type === PodOperation.Create ? {} : pod
+  const formName = type === PodOperation.Create ? 'Create' : 'Update'
+
+  const webidFormItem =
+    type === PodOperation.Create ? (
+      <Form.Item name="webid" label={t('pods.webid')} rules={[{ required: true, message: t('pods.required.webid') }]}>
+        <Input />
+      </Form.Item>
+    ) : (
+      <Form.Item name="webid" label={t('pods.webid')}>
+        <span>{pod.webid}</span>
+      </Form.Item>
+    )
+
+  const formData = (
+    <Form form={form} name={formName} layout="vertical" initialValues={initialValues}>
+      {webidFormItem}
+      <Form.Item name="name" label={t('pods.name')} rules={[{ required: true, message: t('pods.required.name') }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item name="bio" label={t('pods.bio')}>
+        <Input />
+      </Form.Item>
+      {/* TODO Upload avatar */}
+      <Form.Item name="avatar" label={t('pods.avatar')}>
+        <Input />
+      </Form.Item>
+    </Form>
+  )
 
   return (
     <Modal
-      title="Title"
+      title={title}
       okText={t('design_system:modal.okText')}
       cancelText={t('design_system:modal.cancelText')}
-      visible={props.visible}
+      visible={visible}
       onOk={handleOk}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}>
-      <p>{modalText}</p>
+      {formData}
     </Modal>
   )
 }

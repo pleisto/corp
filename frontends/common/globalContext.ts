@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface globalContext {
+export interface globalContext {
   internalApiEndpoint: string
   env: string
   version: string
@@ -8,12 +8,9 @@ interface globalContext {
   rtl: boolean
   currentPod?: {
     webid: string
-    name: string
   }
   currentUser?: {
     webid: string
-    avatar: string
-    name: string
   }
   timezone: string
   selfHost: boolean
