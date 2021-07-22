@@ -72,7 +72,7 @@ gem 'premailer-rails', '~> 1.11', '>= 1.11.1' # mailer
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.1' # Don't rely on Linux/macOS timezone data.
 
-gem 'brickdoc-settings', path: 'packages/brickdoc-settings'
+gem 'brickdoc_settings', path: 'packages/brickdoc_settings'
 
 group :development, :test do
   gem 'cypress-on-rails', '~> 1.9.1'

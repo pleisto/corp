@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brickdoc-settings (0.0.1)
+    brickdoc_settings (0.0.1)
       activesupport (>= 6.1.0)
 
 GEM
@@ -175,7 +175,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  brickdoc-settings!
+  brickdoc_settings!
   rails (~> 6.0)
   rake (~> 13.0)
   rspec (~> 3.0)

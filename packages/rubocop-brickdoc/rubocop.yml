@@ -162,7 +162,7 @@ Layout/ExtraSpacing:
   ForceEqualSignAlignment: false
 
 Naming/FileName:
-  Exclude: [packages/brickdoc-settings/lib/brickdoc-settings.rb]
+  Exclude: []
   ExpectMatchingDefinition: false
   Regex:
   IgnoreExecutableScripts: true

@@ -1,7 +1,7 @@
 PATH
-  remote: packages/brickdoc-settings
+  remote: packages/brickdoc_settings
   specs:
-    brickdoc-settings (0.0.1)
+    brickdoc_settings (0.0.1)
       activesupport (>= 6.1.0)
 
 PATH
@@ -484,7 +484,7 @@ DEPENDENCIES
   apollo_upload_server (~> 2.0, >= 2.0.5)
   bootsnap (>= 1.4.4)
   brakeman
-  brickdoc-settings!
+  brickdoc_settings!
   byebug
   cityhash (~> 0.9.0)
   cloak-rb (>= 0.1.0)
