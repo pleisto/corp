@@ -9,6 +9,6 @@ class CreateBrickdocConfigs < ActiveRecord::Migration[6.1]
       t.integer :domain_len
     end
 
-    add_index :brickdoc_configs, [:key, :scope], unique: true
+    add_index :brickdoc_configs, [:key, :scope, :domain], unique: true
   end
 end

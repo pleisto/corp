@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_070124) do
     t.string "scope", null: false
     t.string "domain", null: false
     t.integer "domain_len"
-    t.index ["key", "scope"], name: "index_brickdoc_configs_on_key_and_scope", unique: true
+    t.index ["key", "scope", "domain"], name: "index_brickdoc_configs_on_key_and_scope_and_domain", unique: true
   end
 
   create_table "docs_blocks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

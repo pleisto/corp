@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_brickdoc_configs_on_key_and_scope  (key,scope) UNIQUE
+#  index_brickdoc_configs_on_key_and_scope_and_domain  (key,scope,domain) UNIQUE
 #
 class BrickdocConfig < ApplicationRecord
   include BrickdocSettings::Base
