@@ -7,8 +7,8 @@ on:
     branches:
       - master
       - main
-      # todo: remove it.
-      - feat/design-system-deploy
+  # todo: remove it.
+  pull_request:
 jobs:
   cancel:
     # Cancel any previous CI runs to save GH Actions minutes
