@@ -19,8 +19,8 @@ jobs:
       - uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
-  cd:
-    name: 'BAE Continuous Deployment'
+  build:
+    name: 'Build and Push Docker Image'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the codebase
@@ -56,6 +56,11 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+  deploy:
+    name: 'Deployment to BAE'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deployment to App Engine
         uses: brickdoc/app-engine@main
         with:
