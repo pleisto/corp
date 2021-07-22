@@ -109,6 +109,7 @@ module BrickdocSettings
       end
 
       def _get_value(key, scope: '', domain: '')
+        return unless table_exists?
         records = cached_records[scope] ||= where(scope: scope).order('domain_len ASC').to_a.group_by(&:key)
         if records[key].present?
           domain_len = domain.split('.').count
