@@ -1763,6 +1763,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@brickdoc/editor@workspace:packages/brickdoc-editor"
   dependencies:
+    "@brickdoc/design-system": "workspace:packages/brickdoc-design-system"
     "@tiptap/core": ^2.0.0-beta.86
     "@tiptap/extension-blockquote": ^2.0.0-beta.14
     "@tiptap/extension-bold": ^2.0.0-beta.14
@@ -1780,8 +1781,11 @@ __metadata:
     "@tiptap/extension-list-item": ^2.0.0-beta.13
     "@tiptap/extension-ordered-list": ^2.0.0-beta.14
     "@tiptap/extension-paragraph": ^2.0.0-beta.15
+    "@tiptap/extension-placeholder": ^2.0.0-beta.25
     "@tiptap/extension-strike": ^2.0.0-beta.16
     "@tiptap/extension-text": ^2.0.0-beta.12
+    "@tiptap/extension-text-style": ^2.0.0-beta.16
+    "@tiptap/extension-underline": ^2.0.0-beta.15
     "@tiptap/react": ^2.0.0-beta.52
     "@tiptap/suggestion": ^2.0.0-beta.59
     react: ^17.0.2
@@ -1855,6 +1859,7 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.0-rc.1
     "@rails/actioncable": ^6.1.4
     "@rails/webpacker": 6.0.0-beta.7
+    "@types/enzyme": ^3.10.9
     "@types/jest": ^26.0.24
     "@types/node": ^16.3.1
     "@types/qs": ^6.9.7
@@ -4771,6 +4776,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-placeholder@npm:^2.0.0-beta.25":
+  version: 2.0.0-beta.25
+  resolution: "@tiptap/extension-placeholder@npm:2.0.0-beta.25"
+  dependencies:
+    prosemirror-model: ^1.14.2
+    prosemirror-state: ^1.3.4
+    prosemirror-view: ^1.18.8
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: 4b37f3f01c2ef9ac651a979ec5dda5c0220d60e0a359568e284bb50e63eb72a8e346b1d419b6551db907fe0579389e76e4da65155472cc4d0865f85fed340b13
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-strike@npm:^2.0.0-beta.16":
   version: 2.0.0-beta.16
   resolution: "@tiptap/extension-strike@npm:2.0.0-beta.16"
@@ -4780,12 +4798,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-text-style@npm:^2.0.0-beta.16":
+  version: 2.0.0-beta.16
+  resolution: "@tiptap/extension-text-style@npm:2.0.0-beta.16"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: 26b5143c6af83b977fd4c664071f4263e0a9651f6e7a5f2585f55928672827487ad0e66f437a665ef3ed31d7eb167a321cf02d2aa9e5f0cb9a06afe657300191
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-text@npm:^2.0.0-beta.12":
   version: 2.0.0-beta.12
   resolution: "@tiptap/extension-text@npm:2.0.0-beta.12"
   peerDependencies:
     "@tiptap/core": ^2.0.0-beta.1
   checksum: 9975c26c99260739e3516f8304cb5c2ca083f780993407085516bb5724c7444c10eb6f38418dfd9893524447f62687fbd090eba77828ddac9507bd6002442a0e
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-underline@npm:^2.0.0-beta.15":
+  version: 2.0.0-beta.15
+  resolution: "@tiptap/extension-underline@npm:2.0.0-beta.15"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: c567d8f7014d1c23313286022508425acf384665fe55a2d875a6ee44914c20c2a5d37e19ab07d38e0ad87bb5f9584139d52766a1bdb925cb5a9a788d2a27a5e4
   languageName: node
   linkType: hard
 
@@ -4879,6 +4915,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cheerio@npm:*":
+  version: 0.22.30
+  resolution: "@types/cheerio@npm:0.22.30"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2aba93f57c0c88964bd83c3403b1f9ad98c377d00e0d638417a943ab483f0a638925c9a4f2e25d923db2a293ffb59f833cd49fa76c6299684494633becea54de
+  languageName: node
+  linkType: hard
+
 "@types/classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "@types/classnames@npm:2.3.1"
@@ -4901,6 +4946,16 @@ __metadata:
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
   checksum: b71fcad728cc68abcba1d405742134410c8f8eb3c2ef18113b047afca158ad23a4f2c229bcf71a38f4a818dead375c45b20db121d0e69259c2d81e97a740daa6
+  languageName: node
+  linkType: hard
+
+"@types/enzyme@npm:^3.10.9":
+  version: 3.10.9
+  resolution: "@types/enzyme@npm:3.10.9"
+  dependencies:
+    "@types/cheerio": "*"
+    "@types/react": "*"
+  checksum: d04a0345bb87a1127a3a4ce7c29258083e00e02eb9937d36ecf63bd5748211ffdef990e63e99ec00e6ad631ba029ab5168324bc6f4c671a6934f9a025bb78d93
   languageName: node
   linkType: hard
 

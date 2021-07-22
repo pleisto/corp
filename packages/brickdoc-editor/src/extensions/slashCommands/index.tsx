@@ -1,32 +1,63 @@
 // ref: https://github.com/ueberdosis/tiptap/blob/main/packages/suggestion/src/suggestion.ts
+import * as React from 'react'
 import { Extension } from '@tiptap/core'
 import { Editor, ReactRenderer } from '@tiptap/react'
 import Suggestion from '@tiptap/suggestion'
+import { Icon } from '@brickdoc/design-system'
 import { createPopup, PopupInstance } from '../helpers/popup'
-import SlashCommandsMenu from './SlashCommandsMenu'
+import { SlashCommandsMenu } from './SlashCommandsMenu'
 
 const QUERY_LIMIT = 10
 const TRIGGER_CHAR = '/'
 
 export interface MenuItem {
-  title: string;
-  command: ({ editor: Editor, range: Range }) => void;
+  title: string
+  desc: string
+  icon: React.ReactNode
+  command: ({ editor: Editor, range: Range }) => void
 }
 
-// TODO: menu items should be passed in from outside
 const menuItems: MenuItem[] = [
   {
-    title: 'H1',
+    title: 'Heading 1',
+    desc: 'Big section heading',
+    icon: <Icon name="rte-h1" className="menu-item-icon" />,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setNode('heading', { level: 1 }).run()
     }
   },
   {
-    title: 'H2',
+    title: 'Heading 2',
+    desc: 'Medium section heading',
+    icon: <Icon name="rte-h2" className="menu-item-icon" />,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setNode('heading', { level: 2 }).run()
     }
   },
+  {
+    title: 'Heading 3',
+    desc: 'Small section heading',
+    icon: <Icon name="rte-h3" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setNode('heading', { level: 3 }).run()
+    }
+  },
+  {
+    title: 'Bulleted List',
+    desc: 'Create a bulleted list',
+    icon: <Icon name="list-unordered" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).toggleBulletList().run()
+    }
+  },
+  {
+    title: 'Numbered List',
+    desc: 'Create a list with numbering',
+    icon: <Icon name="list-ordered" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).toggleOrderedList().run()
+    }
+  }
 ]
 
 function filterMenuItemsByQuery(query: string): MenuItem[] {

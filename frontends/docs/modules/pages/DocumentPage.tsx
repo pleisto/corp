@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Alert, Skeleton } from '@brickdoc/design-system'
-import { Editor } from '@brickdoc/editor'
+import { Alert, Skeleton, Input } from '@brickdoc/design-system'
+import { EditorContent, useEditor } from '@brickdoc/editor'
 import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
 import { syncProvider, blocksToJSONContents } from './SyncProvider'
+import { useDocumentSubscription } from './useDocumentSubscription'
+import styles from './DocumentPage.module.less'
 
 const Page: React.FC = () => {
   const { webid, docid, ...restParams } = useParams<{ webid: string; docid: string; snapshotVersion: string }>()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
-  const onSync = syncProvider({ blockSyncBatch })
+  const { onCommit } = syncProvider({ blockSyncBatch })
 
   const { data, loading } = useGetChildrenBlocksQuery({
     variables: { parentId: docid, excludePages: false, snapshotVersion: Number(restParams.snapshotVersion || '0') }
+  })
+
+  const editor = useEditor({
+    onCommit
+  })
+
+  useEffect(() => {
+    if (editor && data) {
+      editor.commands.replaceRoot(blocksToJSONContents(data.childrenBlocks as Block[])[0])
+    }
+  }, [editor, data])
+
+  useDocumentSubscription({
+    docid,
+    editor
   })
 
   if (loading) {
@@ -20,8 +37,9 @@ const Page: React.FC = () => {
 
   if (!docid) {
     return (
-      <div>
-        <Editor onSync={onSync} />
+      <div className={styles.page}>
+        <Input.TextArea className={styles.titleInput} placeholder="Untitled" autoSize={true} />
+        <EditorContent editor={editor} />
       </div>
     )
   }
@@ -30,11 +48,10 @@ const Page: React.FC = () => {
     return <Alert message="Page not found" type="error" />
   }
 
-  const content = blocksToJSONContents(data.childrenBlocks as Block[])[0]
-
   return (
-    <div>
-      <Editor onSync={onSync} content={content} />
+    <div className={styles.page}>
+      <Input.TextArea className={styles.titleInput} placeholder="Untitled" autoSize={true} />
+      <EditorContent editor={editor} />
     </div>
   )
 }

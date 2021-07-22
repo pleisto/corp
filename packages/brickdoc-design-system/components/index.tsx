@@ -92,6 +92,10 @@ import './input/style'
 export type { InputProps } from './input'
 export { default as Input } from './input'
 
+import './icon/style'
+export type { IconProps } from './icon/Icon'
+export { Icon } from './icon/Icon'
+
 import './image/style'
 export type { ImageProps } from './image'
 export { default as Image } from './image'

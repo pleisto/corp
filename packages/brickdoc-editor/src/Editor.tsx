@@ -1,20 +1,47 @@
 import React from 'react'
-import { useEditor, EditorContent, EditorOptions, JSONContent } from '@tiptap/react'
-import { BasicRichtextExtension, SlashCommandsExtension, BlockCommandsExtension, SyncExtension, SyncHandler } from './extensions'
+import { useEditor as useTiptapEditor, EditorContent as TiptapEditorContent, Editor as TiptapEditor } from '@tiptap/react'
+import { EditorOptions as TiptapEditorOptions } from '@tiptap/core'
+import {
+  BasicRichtextExtension,
+  SlashCommandsExtension,
+  BlockCommandsExtension,
+  SyncExtension,
+  BulletListExtension,
+  PlaceholderExtension,
+  SyncExtensionOptions,
+  BubbleMenu
+} from './extensions'
 import './styles.less'
 
 export interface EditorProps {
-  options?: Partial<EditorOptions>
-  onSync: SyncHandler
-  content?: string | JSONContent
+  editor: TiptapEditor
 }
 
-export const Editor: React.FC<EditorProps> = (props: EditorProps) => {
-  const editor = useEditor({
-    ...props.options,
-    extensions: [BasicRichtextExtension, BlockCommandsExtension, SlashCommandsExtension, SyncExtension.configure({ onSync: props.onSync })],
+export const EditorContent: React.FC<EditorProps> = ({ editor }: EditorProps) => {
+  return (
+    <>
+      <BubbleMenu editor={editor} />
+      <TiptapEditorContent className="brickdoc" editor={editor} />
+    </>
+  )
+}
+
+export interface EditorOptions extends Partial<TiptapEditorOptions> {
+  onCommit: SyncExtensionOptions['onCommit']
+}
+
+export function useEditor(options: EditorOptions): TiptapEditor {
+  const { onCommit, ...restOptions } = options
+  return useTiptapEditor({
+    extensions: [
+      BasicRichtextExtension,
+      BlockCommandsExtension,
+      SlashCommandsExtension,
+      PlaceholderExtension,
+      BulletListExtension,
+      SyncExtension.configure({ onCommit })
+    ],
     autofocus: true,
-    content: props.content
+    ...restOptions
   })
-  return <EditorContent style={{ minHeight: '100vh' }} editor={editor} />
 }
