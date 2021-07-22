@@ -21,6 +21,10 @@ module BrickdocSettings
         Thread.current[:"#{self.class.name.underscore}_keys"] ||= {}
       end
 
+      def cached_records
+        Thread.current[:"#{self.class.name.underscore}_records"] ||= {}
+      end
+
       def scope(*scope, &block)
         scope = scope.join('.')
         cached_scopes[scope] ||= BrickdocSettings::Accessor.new(self, scope: scope)
@@ -88,6 +92,7 @@ module BrickdocSettings
       end
 
       def touch(key, scope: '', domain: '')
+        cached_records.delete scope
         cached_values.delete "#{scope}.#{key}@#{domain}"
       end
 
@@ -104,11 +109,11 @@ module BrickdocSettings
       end
 
       def _get_value(key, scope: '', domain: '')
-        domain_len = domain.split('.').count
-        records = where(key: key, scope: scope).where('domain_len <= ?', domain_len).order('domain_len ASC').to_a
-        if records.present?
-          records.select do |r|
-            r.domain.blank? || (r.domain == domain) || domain.end_with?(".#{r.domain}")
+        records = cached_records[scope] ||= where(scope: scope).order('domain_len ASC').to_a.group_by(&:key)
+        if records[key].present?
+          domain_len = domain.split('.').count
+          records[key].select do |r|
+            r.domain.blank? || (r.domain == domain) || ((r.domain_len <= domain_len) && domain.end_with?(".#{r.domain}"))
           end.last&.value
         end
       end

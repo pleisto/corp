@@ -18,6 +18,8 @@
 class BrickdocConfig < ApplicationRecord
   include BrickdocSettings::Base
 
+  serialize :value
+
   field :default_locale, default: 'en-US'
   field :default_timezone, default: 'UTC'
   field :host, default: (Rails.env.development? ? 'localhost' : Brickdoc::Runtime.hostname)
