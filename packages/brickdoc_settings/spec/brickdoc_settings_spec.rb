@@ -51,10 +51,13 @@ describe BrickdocSettings do
     expect(BrickSettings.new_value).to eq('new')
 
     expect(BrickSettings.get('bool')).to eq(nil)
+    expect(BrickSettings.bool?).to eq(false)
     BrickSettings.set('bool', true)
     expect(BrickSettings.get('bool')).to eq(true)
+    expect(BrickSettings.bool?).to eq(true)
     BrickSettings.set('bool', false)
     expect(BrickSettings.get('bool')).to eq(false)
+    expect(BrickSettings.bool?).to eq(false)
 
     expect(BrickSettings.get('default_val')).to eq('test')
     BrickSettings.set('default_val', 'test2')

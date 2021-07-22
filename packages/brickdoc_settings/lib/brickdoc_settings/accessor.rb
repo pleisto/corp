@@ -2,6 +2,8 @@
 
 module BrickdocSettings
   class Accessor
+    include BrickdocSettings::AccessorBase
+
     def initialize(settings, scope: '', domain: '')
       @settings = settings
       @scope = scope
@@ -9,7 +11,7 @@ module BrickdocSettings
     end
 
     def at(domain)
-      BrickdocSettings::Accessor.new(@settings, domain: domain)
+      @settings.at(domain)
     end
 
     def with_block(&block)
@@ -20,21 +22,9 @@ module BrickdocSettings
       @settings.defined_keys(scope: @scope)
     end
 
-    def respond_to_missing?(method_name, *_)
-      defined_keys.include? method_name.to_s
-    end
-
     [:field, :get_field, :get, :set, :touch].each do |method_name|
       define_method(method_name) do |key, *args, **options|
         @settings.send(method_name, key, *args, **options.merge(scope: @scope, domain: @domain))
-      end
-    end
-
-    def method_missing(method_name, *args, **options)
-      if method_name[-1] == '='
-        set(method_name[0..-2], *args, **options)
-      else
-        get(method_name, *args, **options)
       end
     end
   end

@@ -5,6 +5,8 @@ module BrickdocSettings
     extend ActiveSupport::Concern
 
     module ClassMethods
+      include BrickdocSettings::AccessorBase
+
       def cached_values
         Thread.current[:"#{self.class.name.underscore}_values"] ||= {}
       end
@@ -94,18 +96,6 @@ module BrickdocSettings
       def touch(key, scope: '', domain: '')
         cached_records.delete scope
         cached_values.delete "#{scope}.#{key}@#{domain}"
-      end
-
-      def method_missing(method_name, *args, **options)
-        if method_name[-1] == '='
-          set(method_name[0..-2], *args, **options)
-        else
-          get(method_name, *args, **options)
-        end
-      end
-
-      def respond_to_missing?(method_name, *_)
-        defined_keys.include? method_name.to_s
       end
 
       def _table_exists?

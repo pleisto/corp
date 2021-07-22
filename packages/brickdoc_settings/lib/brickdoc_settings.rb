@@ -3,5 +3,6 @@
 module BrickdocSettings
 end
 
+require 'brickdoc_settings/accessor_base'
 require 'brickdoc_settings/base'
 require 'brickdoc_settings/accessor'
