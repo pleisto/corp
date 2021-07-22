@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/brickdoc_settings/version"
+require_relative "lib/brickdoc-settings/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "brickdoc-settings"

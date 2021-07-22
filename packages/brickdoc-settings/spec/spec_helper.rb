@@ -2,7 +2,7 @@
 require 'rspec/active_model/mocks'
 require 'securerandom'
 
-require 'brickdoc_settings'
+require 'brickdoc-settings'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
