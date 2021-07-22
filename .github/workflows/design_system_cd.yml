@@ -7,8 +7,6 @@ on:
     branches:
       - master
       - main
-  # todo: remove it.
-  pull_request:
 jobs:
   cancel:
     # Cancel any previous CI runs to save GH Actions minutes
@@ -62,7 +60,7 @@ jobs:
     needs: build
     steps:
       - name: Deployment to App Engine
-        uses: brickdoc/app-engine@main
+        uses: brickdoc/app-engine@v1.beta1
         with:
           name: design-system
         env:
