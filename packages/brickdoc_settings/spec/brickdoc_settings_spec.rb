@@ -49,6 +49,7 @@ describe BrickdocSettings do
 
     BrickSettings.new_value = 'new'
     expect(BrickSettings.new_value).to eq('new')
+    expect(BrickSettings.find_by!(key: 'new_value', scope: '', domain: '').value).to eq('new')
 
     expect(BrickSettings.get('bool')).to eq(nil)
     expect(BrickSettings.bool?).to eq(false)
@@ -79,7 +80,7 @@ describe BrickdocSettings do
     expect(BrickSettings.scope('l1.l2').respond_to?(:int)).to eq(false)
 
     expect(BrickSettings.ro_val).to eq('x')
-    BrickSettings.ro_val = 'y'
+    expect { BrickSettings.ro_val = 'y' }.to raise_error(BrickdocSettings::ReadOnlyField)
     expect(BrickSettings.ro_val).to eq('x')
 
     BrickSettings.array_val = ['a', 1, true, :sym]

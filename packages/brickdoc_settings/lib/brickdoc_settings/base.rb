@@ -88,7 +88,7 @@ module BrickdocSettings
       end
 
       def set(key, value, scope: '', domain: '')
-        return if @defined_fields.dig(scope, key, :read_only)
+        raise ReadOnlyField.new(self, key, scope: scope) if @defined_fields.dig(scope, key, :read_only)
         _save_value(key.to_s, value, scope: scope, domain: domain)
         touch(key, scope: scope, domain: domain)
       end
