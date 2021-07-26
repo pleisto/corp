@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, message } from '@brickdoc/design-system'
+import { Modal, Form, Input, Skeleton, message } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
 import { PodOperation, useCreateOrUpdatePodMutation, CreateOrUpdatePodInput, Pod } from '@/BrickdocGraphQL'
 
@@ -15,10 +15,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
   const { t } = useDocsI18n()
   const [confirmLoading, setConfirmLoading] = React.useState(false)
   const [form] = Form.useForm()
-  const [createOrUpdatePodMutation] = useCreateOrUpdatePodMutation()
+  const [createOrUpdatePod, {loading}] = useCreateOrUpdatePodMutation()
 
   const handleCancel = (): void => {
     setVisible(false)
+  }
+
+  if(loading) {
+    return <Skeleton />
   }
 
   const handleOk = (): void => {
@@ -29,11 +33,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       .then(values => {
         form.resetFields()
         const input: CreateOrUpdatePodInput = { type, webid: values.webid, name: values.name, bio: values.bio, avatar: values.avatar }
-        void createOrUpdatePodMutation({ variables: { input } })
+        void createOrUpdatePod({ variables: { input } })
         setVisible(false)
         setConfirmLoading(false)
         const msg = type === PodOperation.Create ? 'pods.create.success' : 'pods.update.success'
         void message.success(t(msg))
+        window.location.href = `/${values.webid}`
       })
       .catch(info => {
         console.log('Validate Failed:', info)

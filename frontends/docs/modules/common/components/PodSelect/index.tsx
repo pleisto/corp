@@ -39,7 +39,7 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
         break
       case 'logout':
         void await userSignOut({ variables: { input: signOutInput } })
-        window.location.href = `/`
+        window.location.href = '/'
         break
       default:
         if (key.startsWith('pod-')) {
