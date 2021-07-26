@@ -1,5 +1,5 @@
 ---
-name: dependency_updater
+name: Upgrade Dependencies
 on:
   workflow_dispatch:
   schedule:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   dependency_updater:
-    name: dependency_updater
+    name: Check and Upgrade
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the codebase
@@ -17,10 +17,6 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-      - name: Run yarn install
-        run: yarn
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: false
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -28,17 +24,19 @@ jobs:
           bundler-cache: true
       - name: Unset deployment
         run: bundle config unset deployment
-      - name: Update gems
+      - name: Update ruby gems
         run: bundle update
-      - name: Update yarn
-        run: yarn up
+      - name: Update yarn packages
+        run: yarn up '@(*|@!(brickdoc|rails|pmmmwh)/*)' --mode=update-lockfile
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         env:
           HUSKY: 0
         with:
-          title: 'build(deps): Upgrade dependencies'
-          commit-message: 'build(deps): Upgrade dependencies'
+          token: ${{ secrets.PAT_FOR_BOT_CREATED_PR }}
+          title: 'build(deps): upgrade dependencies'
+          body: This is an auto-created PR to upgrade our dependencies according to <https://github.com/brickdoc/brickdoc/blob/master/.github/workflows/dependency_updater.yml>.
+          commit-message: 'build(deps): upgrade dependencies'
           branch: deps-automatic-upgrade
           labels: |
             dependencies

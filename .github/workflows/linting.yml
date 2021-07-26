@@ -27,10 +27,11 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ES files
         id: changed-es-files
-        uses: tj-actions/changed-files@v8.9
+        uses: tj-actions/changed-files@v9
         with:
           files: |
             .(ts|tsx|js|jsx)$
+            yarn.lock
       - name: Setup NodeJS
         if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v2
@@ -58,10 +59,11 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ruby files
         id: changed-ruby-files
-        uses: tj-actions/changed-files@v8.9
+        uses: tj-actions/changed-files@v9
         with:
           files: |
             .(rb)$
+            Gemfile.lock
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
