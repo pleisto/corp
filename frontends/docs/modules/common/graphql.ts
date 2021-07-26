@@ -24,14 +24,6 @@ export const CreateOrUpdatePod = gql`
   }
 `
 
-export const SwitchPod = gql`
-  mutation switchPod($input: SwitchPodInput!) {
-    switchPod(input: $input) {
-      errors
-    }
-  }
-`
-
 export const queryPageBlocks = gql`
   query GetPageBlocks($webid: String!) {
     pageBlocks(webid: $webid) {

@@ -1,12 +1,5 @@
 import React, { useState } from 'react'
-import {
-  useGetPodsQuery,
-  useUserSignOutMutation,
-  UserSignOutInput,
-  useSwitchPodMutation,
-  SwitchPodInput,
-  PodOperation
-} from '@/BrickdocGraphQL'
+import { useGetPodsQuery, useUserSignOutMutation, UserSignOutInput, PodOperation } from '@/BrickdocGraphQL'
 import { Dropdown, Avatar, Skeleton, Menu } from '@brickdoc/design-system'
 import { SortTwo } from '@brickdoc/design-system/components/icon'
 import { useDocsI18n } from '../../hooks'
@@ -25,7 +18,6 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
   const { loading, data } = useGetPodsQuery()
   const [userSignOutMutation] = useUserSignOutMutation()
 
-  const [switchPodMutation] = useSwitchPodMutation()
   const [didRedirectToSignInPage, { setTrue: redirectToSignInPage }] = useBoolean(false)
   const [modalCreateVisible, setModalCreateVisible] = useState<boolean>(false)
   const [modalUpdateVisible, setModalUpdateVisible] = useState<boolean>(false)
@@ -62,8 +54,6 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
       default:
         if (key.startsWith('pod-')) {
           const webid = key.replace('pod-', '')
-          const input: SwitchPodInput = { webid }
-          void switchPodMutation({ variables: { input } })
           history.push(`/${webid}`)
         } else {
           console.log(`unknown key ${key}`)
