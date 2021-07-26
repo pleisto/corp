@@ -3,7 +3,7 @@ import { useGetPodsQuery, useUserSignOutMutation, UserSignOutInput, PodOperation
 import { Dropdown, Avatar, Skeleton, Menu } from '@brickdoc/design-system'
 import { SortTwo } from '@brickdoc/design-system/components/icon'
 import { useDocsI18n } from '../../hooks'
-import { useHistory, Redirect } from 'react-router'
+import { Redirect } from 'react-router'
 import styles from './index.module.less'
 import { useBoolean } from 'ahooks'
 import { ProfileModal } from '../ProfileModal'
@@ -13,7 +13,6 @@ interface PodSelectProps {
 }
 
 export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
-  const history = useHistory()
   const { t } = useDocsI18n()
   const { loading, data } = useGetPodsQuery()
   const [userSignOutMutation] = useUserSignOutMutation()
@@ -54,7 +53,7 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
       default:
         if (key.startsWith('pod-')) {
           const webid = key.replace('pod-', '')
-          history.push(`/${webid}`)
+          window.location.href = `/${webid}`
         } else {
           console.log(`unknown key ${key}`)
         }
