@@ -16,9 +16,7 @@ export const DocumentPage: React.FC = () => {
     variables: { parentId: docid, excludePages: false, snapshotVersion: Number(restParams.snapshotVersion || '0') }
   })
 
-  const editor = useEditor({
-    onCommit
-  })
+  const editor = useEditor({ onCommit })
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && data) {
@@ -26,10 +24,7 @@ export const DocumentPage: React.FC = () => {
     }
   }, [editor, data])
 
-  useDocumentSubscription({
-    docid,
-    editor
-  })
+  useDocumentSubscription({ docid, editor })
 
   if (loading) {
     return <Skeleton />
