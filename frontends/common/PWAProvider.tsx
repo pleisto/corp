@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useContext } from 'react'
 import { ApolloProvider } from '@apollo/client'
 import { Spin, ConfigProvider } from '@brickdoc/design-system'
 import { HelmetProvider } from 'react-helmet-async'
@@ -22,10 +22,21 @@ interface globalContext {
   isDesktopApp: boolean
   featureFlags: string[]
   serverMessage: string
+  settings: {
+    [scope: string]: {
+      [key: string]: any
+    }
+  }
 }
 
 export const BrickdocContext: React.Context<globalContext> = React.createContext(globalThis.brickdocContext)
 BrickdocContext.displayName = 'BrickdocGlobalConfig'
+
+export const useBrickdocSetting: any = (key, scope = '') => {
+  const { settings } = useContext(BrickdocContext)
+  if (!settings[scope]) return null
+  return settings[scope][key]
+}
 
 const direction = globalThis.brickdocContext.rtl ? 'rtl' : 'ltr'
 

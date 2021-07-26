@@ -18,6 +18,28 @@
 class BrickdocConfig < ApplicationRecord
   include BrickdocSettings::Base
 
+  @frontend_fields = {}
+  class << self
+    attr_accessor :frontend_fields
+    def field(key, scope: '', **opts)
+      key = key.to_s
+      if opts[:frontend]
+        frontend_fields[scope] ||= []
+        frontend_fields[scope].push key
+      end
+      super key, scope: scope, **opts
+    end
+
+    def to_frontend
+      frontend_fields.map do |scope, keys|
+        values = keys.uniq.map do |key|
+          [key, get(key, scope: scope)]
+        end.to_h
+        [scope, values]
+      end.to_h
+    end
+  end
+
   serialize :value
 
   field :default_locale, default: 'en-US'
