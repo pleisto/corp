@@ -3,9 +3,7 @@ import { useGetPodsQuery, useUserSignOutMutation, UserSignOutInput, PodOperation
 import { Dropdown, Avatar, Skeleton, Menu } from '@brickdoc/design-system'
 import { SortTwo } from '@brickdoc/design-system/components/icon'
 import { useDocsI18n } from '../../hooks'
-import { Redirect } from 'react-router'
 import styles from './index.module.less'
-import { useBoolean } from 'ahooks'
 import { ProfileModal } from '../ProfileModal'
 
 interface PodSelectProps {
@@ -15,18 +13,11 @@ interface PodSelectProps {
 export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
   const { t } = useDocsI18n()
   const { loading, data } = useGetPodsQuery()
-  const [userSignOutMutation] = useUserSignOutMutation()
-
-  const [didRedirectToSignInPage, { setTrue: redirectToSignInPage }] = useBoolean(false)
+  const [userSignOut, { loading: signOutLoading }] = useUserSignOutMutation()
   const [modalCreateVisible, setModalCreateVisible] = useState<boolean>(false)
   const [modalUpdateVisible, setModalUpdateVisible] = useState<boolean>(false)
 
-  if (didRedirectToSignInPage) {
-    // TODO how to redirect to index by click
-    return <Redirect to="/" />
-  }
-
-  if (loading) {
+  if (loading || signOutLoading) {
     return <Skeleton avatar active paragraph={false} />
   }
 
@@ -37,7 +28,7 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
     return <></>
   }
 
-  const onClick = ({ key }): void => {
+  const onClick = async ({ key }) => {
     const signOutInput: UserSignOutInput = {}
     switch (key) {
       case 'pod-create':
@@ -47,8 +38,8 @@ export const PodSelect: React.FC<PodSelectProps> = ({ webid }) => {
         setModalUpdateVisible(true)
         break
       case 'logout':
-        void userSignOutMutation({ variables: { input: signOutInput } })
-        redirectToSignInPage()
+        void await userSignOut({ variables: { input: signOutInput } })
+        window.location.href = `/`
         break
       default:
         if (key.startsWith('pod-')) {
