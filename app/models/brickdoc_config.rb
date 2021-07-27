@@ -19,8 +19,18 @@ class BrickdocConfig < ApplicationRecord
   include BrickdocSettings::Base
 
   @frontend_fields = {}
+
   class << self
     attr_accessor :frontend_fields
+
+    def current
+      Thread.current[:brickdoc_config_current] || self
+    end
+
+    def current=(config)
+      Thread.current[:brickdoc_config_current] = config
+    end
+
     def field(key, scope: '', **opts)
       key = key.to_s
       if opts[:frontend]

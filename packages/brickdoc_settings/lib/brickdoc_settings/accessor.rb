@@ -10,8 +10,12 @@ module BrickdocSettings
       @domain = domain
     end
 
-    def at(domain)
-      @settings.at(domain)
+    def at(*domain)
+      self.class.new(@settings, scope: @scope, domain: domain.join('.'))
+    end
+
+    def scope(*scope)
+      self.class.new(@settings, scope: scope.join('.'), domain: @domain)
     end
 
     def with_block(&block)
