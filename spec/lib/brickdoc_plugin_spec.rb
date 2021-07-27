@@ -23,5 +23,13 @@ describe BrickdocPlugin do
     BrickdocConfig.current = BrickdocConfig.at('pod2')
 
     expect(plugin.settings.test_plugin_key).to eq('value')
+
+    expect(BrickdocPlugin[:test_plugin]).to eq(plugin)
+  end
+
+  it 'can load plugins from dirs' do
+    BrickdocPlugin.load_plugins(Rails.root.join('spec/dummy/plugins/**'))
+
+    expect(BrickdocPlugin.loaded?(:dummy_plugin)).to be(true)
   end
 end
