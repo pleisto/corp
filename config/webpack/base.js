@@ -10,12 +10,14 @@ console.log(
     .map(file => `  ${path.relative(path.resolve(__dirname, '../..'), file)}`)
     .join('\n')}`
 )
-console.log(process.env.NODE_ENV)
+
 // Less Options
 webpackConfig.module.rules.find(x => x.test.toString().includes('less')).use[3].options.lessOptions = { javascriptEnabled: true }
 
-// Reconfigure WebpackAssetsManifest to Fix https://github.com/rails/webpacker/issues/2864
-webpackConfig.plugins = webpackConfig.plugins.filter(x => x.constructor.name !== 'WebpackAssetsManifest')
+// Use ts-loader for TypeScript files
+webpackConfig.module.rules
+  .find(x => x.test.toString().includes('jsx'))
+  .use.push({ loader: 'ts-loader', options: { transpileOnly: true, projectReferences: true, configFile: 'tsconfig.build.json' } })
 
 // Use ts-loader for TypeScript files
 webpackConfig.module.rules
@@ -26,16 +28,5 @@ module.exports = merge(webpackConfig, {
   resolve: {
     plugins: [new TsconfigPathsPlugin({ configFile: path.resolve(__dirname, '../../tsconfig.build.json') }), new DistAssetResolvePlugin()]
   },
-  plugins: [
-    new ProgressPlugin(),
-    new WebpackAssetsManifest({
-      enabled: true,
-      entrypoints: true,
-      writeToDisk: true,
-      output: 'manifest.json',
-      entrypointsUseAssets: true,
-      space: 2,
-      publicPath: true
-    })
-  ]
+  plugins: [new ProgressPlugin()]
 })

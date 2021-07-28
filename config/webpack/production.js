@@ -7,4 +7,5 @@ const webpackConfig = require('./base')
 webpackConfig.plugins = webpackConfig.plugins.filter(x => x.constructor.name !== 'CompressionPlugin')
 delete webpackConfig.devtool
 if (process.env.BUNDLE_ANALYZER) webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+
 module.exports = webpackConfig
