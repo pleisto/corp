@@ -139,4 +139,18 @@ describe BrickdocSettings do
 
     expect(BrickSettings.at('user1.pod2').domains_test).to eq('test2')
   end
+
+  it 'can set scope or domain on accessor' do
+    BrickSettings.field :test_key, default: '1', scope: 'cross1'
+    BrickSettings.field :test_key, default: '2', scope: 'cross2'
+
+    expect(BrickSettings.scope('cross1').test_key).to eq('1')
+    expect(BrickSettings.scope('cross1').get(:test_key, scope: 'cross2')).to eq('2')
+
+    BrickSettings.scope('cross1').at('d1').test_key = '3'
+
+    expect(BrickSettings.scope('cross1').at('d1').test_key).to eq('3')
+    expect(BrickSettings.scope('cross1').at('d1').get(:test_key, domain: 'd2')).to eq('1')
+    expect(BrickSettings.scope('cross1').at('d1').get(:test_key, scope: 'cross2', domain: 'd2')).to eq('2')
+  end
 end

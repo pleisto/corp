@@ -25,6 +25,20 @@ describe BrickdocPlugin do
     BrickdocConfig.current = BrickdocConfig.at('pod2')
 
     expect(the_plugin.settings.test_plugin_key).to eq('value')
+
+    # test #enabled?
+
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(false)
+
+    the_plugin.enabled = true # enable the plugin on current domain (pod2) only
+
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(true)
+
+    # switch back to domain (pod1)
+
+    BrickdocConfig.current = BrickdocConfig.at('pod1')
+
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(false)
   end
 
   it 'can load plugins from dirs' do

@@ -14,7 +14,11 @@ class BrickdocPlugin
     end
 
     def loaded?(plugin_name)
-      @plugins[plugin_name.to_sym].present?
+      plugin(plugin_name).present?
+    end
+
+    def enabled?(plugin_name)
+      plugin(plugin_name).enabled?
     end
 
     def config(plugin_name, &block)
@@ -41,6 +45,7 @@ class BrickdocPlugin
 
   def initialize(plugin_name)
     @plugin_name = plugin_name
+    BrickdocConfig.field("#{@plugin_name}_enabled", type: :boolean, scope: 'plugins', default: false)
   end
 
   def config(&block)
@@ -49,5 +54,13 @@ class BrickdocPlugin
 
   def settings(&block)
     BrickdocConfig.current.scope("plugin.#{@plugin_name}", &block)
+  end
+
+  def enabled?
+    BrickdocConfig.current.get("#{@plugin_name}_enabled", scope: 'plugins')
+  end
+
+  def enabled=(enabled)
+    BrickdocConfig.current.set("#{@plugin_name}_enabled", enabled, scope: 'plugins')
   end
 end
