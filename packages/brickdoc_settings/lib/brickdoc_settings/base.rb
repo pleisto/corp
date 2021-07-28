@@ -44,6 +44,7 @@ module BrickdocSettings
         @defined_fields ||= {}
         @defined_fields[scope] ||= {}
         options.delete(:domain)
+        p default
         @defined_fields[scope][key] = {
           type: type,
           default: default,
