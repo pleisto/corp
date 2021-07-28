@@ -5176,8 +5176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-
-"@types/node@npm:*, @types/node@npm:^16.4.4":
+"@types/node@npm:*":
   version: 16.4.4
   resolution: "@types/node@npm:16.4.4"
   checksum: c5763046266b3398c9bca1e5615c4cbecf3f2533dc41231d80d705ff9628b9663c27e83555e765f9b0505a25a1c20b890640358d10432a57d8b7c05f344dd38d
@@ -5621,7 +5620,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-
 "@typescript-eslint/experimental-utils@npm:4.28.5, @typescript-eslint/experimental-utils@npm:^4.0.1":
   version: 4.28.5
   resolution: "@typescript-eslint/experimental-utils@npm:4.28.5"
@@ -5655,7 +5653,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-
 "@typescript-eslint/scope-manager@npm:4.28.5":
   version: 4.28.5
   resolution: "@typescript-eslint/scope-manager@npm:4.28.5"
@@ -5665,7 +5662,6 @@ __metadata:
   checksum: bde38033295c5e6c04f3c4852a7dd42758f7abdacb58eae2f3b8f7e4163bfc0960be985116caff179e3b0f0116a065007e3ccde8d159ca49710d21bab65e4e27
   languageName: node
   linkType: hard
-
 
 "@typescript-eslint/types@npm:4.28.5":
   version: 4.28.5
@@ -5689,23 +5685,6 @@ __metadata:
     typescript:
       optional: true
   checksum: a63847b676c265b9cd1d5370f99ed9049940b42369815c20d768e655ebf7f1af3521e00f9c3e31133bd1848d0290468aa58b1822c0941af02243c3cff089dac1
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:4.28.5":
-  version: 4.28.5
-  resolution: "@typescript-eslint/visitor-keys@npm:4.28.5"
-  dependencies:
-    "@typescript-eslint/types": 4.28.5
-    eslint-visitor-keys: ^2.0.0
-  checksum: 77fa439f4ae8fbdb4923e34c0aac9b567216becfa848490ae51d15b578431b8f54c083570dd6c8472d57a492d14aa6d426be34364195538ee1072d91a63616f4
-  languageName: node
-  linkType: hard
-
-"@ungap/promise-all-settled@npm:1.1.2":
-  version: 1.1.2
-  resolution: "@ungap/promise-all-settled@npm:1.1.2"
-  checksum: 08d37fdfa23a6fe8139f1305313562ebad973f3fac01bcce2773b2bda5bcb0146dfdcf3cb6a722cf0a5f2ca0bc56a827eac8f1e7b3beddc548f654addf1fc34c
   languageName: node
   linkType: hard
 
@@ -23704,42 +23683,6 @@ typescript@^4.3.5:
   linkType: hard
 
 "webpack@npm:^5.11.0, webpack@npm:^5.47.0, webpack@npm:^5.9.0":
-  version: 5.47.0
-  resolution: "webpack@npm:5.47.0"
-  dependencies:
-    "@types/eslint-scope": ^3.7.0
-    "@types/estree": ^0.0.50
-    "@webassemblyjs/ast": 1.11.1
-    "@webassemblyjs/wasm-edit": 1.11.1
-    "@webassemblyjs/wasm-parser": 1.11.1
-    acorn: ^8.4.1
-    browserslist: ^4.14.5
-    chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.8.0
-    es-module-lexer: ^0.7.1
-    eslint-scope: 5.1.1
-    events: ^3.2.0
-    glob-to-regexp: ^0.4.1
-    graceful-fs: ^4.2.4
-    json-parse-better-errors: ^1.0.2
-    loader-runner: ^4.2.0
-    mime-types: ^2.1.27
-    neo-async: ^2.6.2
-    schema-utils: ^3.1.0
-    tapable: ^2.1.1
-    terser-webpack-plugin: ^5.1.3
-    watchpack: ^2.2.0
-    webpack-sources: ^3.0.1
-  peerDependenciesMeta:
-    webpack-cli:
-      optional: true
-  bin:
-    webpack: bin/webpack.js
-  checksum: e13a6ca9e5c056557a972a9f512357b73908b1e9c9749c6b1ac12a0d59db1583ffd519682cddede465099eb95e55e68cbce3e9067a9452d095c6c736d4449ffb
-  languageName: node
-  linkType: hard
-
-"webpack@npm:^5.47.0":
   version: 5.47.0
   resolution: "webpack@npm:5.47.0"
   dependencies:
