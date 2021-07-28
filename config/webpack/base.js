@@ -3,7 +3,6 @@ const { ProgressPlugin } = require('webpack')
 const { webpackConfig, merge } = require('@rails/webpacker')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const DistAssetResolvePlugin = require('./DistAssetResolvePlugin')
-const WebpackAssetsManifest = require('webpack-assets-manifest')
 
 console.log(
   `Webpack entrypoints:\n${Object.values(webpackConfig.entry)
