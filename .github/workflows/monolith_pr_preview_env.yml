@@ -82,7 +82,7 @@ jobs:
           name: brickdoc-preview-pr${{ github.event.pull_request.number }}
           image: ghcr.io/brickdoc/brickdoc:${{ github.sha }}
           host: pr-${{ github.event.pull_request.number }}.brickdoc.dev
-          chart: ${{ env.GITHUB_WORKSPACE }}/templates/helm-charts/brickdoc
+          chart: ${{ github.workspace }}/templates/helm-charts/brickdoc
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GLOBAL_CORP_AK }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GLOBAL_CORP_SECRET }}
