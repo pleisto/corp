@@ -41,7 +41,7 @@ jobs:
       - name: App Engine Remove Deployment
         uses: brickdoc/app-engine@v1.beta2
         with:
-          name: preview-pr${{ github.event.pull_request.number }}
+          name: brickdoc-preview-pr${{ github.event.pull_request.number }}
           task: 'remove'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GLOBAL_CORP_AK }}
