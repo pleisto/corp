@@ -37,7 +37,7 @@ class BrickdocPlugin
       plugin_file = "#{path}/plugin.rb"
       plugin.instance_eval(File.read(plugin_file), plugin_file) if File.exist?(plugin_file)
       metadata_file = "#{path}/package.yml"
-      plugin.metadata = YAML.load(File.read(metadata_file)).deep_symbolize_keys if File.exist?(metadata_file)
+      plugin.metadata = YAML.load(File.read(metadata_file))['metadata']&.deep_symbolize_keys || {} if File.exist?(metadata_file)
     end
 
     # TODO: cached with BrickSetting in current domain
