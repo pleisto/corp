@@ -44,6 +44,13 @@ class BrickdocPlugin
     def enabled_plugins
       @plugins.select { |_, plugin| plugin.enabled? }.keys
     end
+
+    # TODO: switch domain of BrickdocConfig and enable Hook scopes in one place
+    def update_hooks_scopes
+      BrickdocHook.enabled_scopes =
+        BrickdocHook.enabled_scopes.select { |s| !s.start_with?('plugin.') } +
+        enabled_plugins.map { |pn| "plugin.#{pn}" }
+    end
   end
 
   attr_accessor :metadata
@@ -67,5 +74,10 @@ class BrickdocPlugin
 
   def enabled=(enabled)
     BrickdocConfig.current.set("#{@plugin_name}_enabled", enabled, scope: 'plugins')
+    BrickdocPlugin.update_hooks_scopes
+  end
+
+  def on(hook_name, &block)
+    BrickdocHook.on(hook_name, scope: "plugin.#{@plugin_name}", &block)
   end
 end

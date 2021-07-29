@@ -28,11 +28,11 @@ describe BrickdocPlugin do
 
     # test #enabled?
 
-    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(false)
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to be(false)
 
     the_plugin.enabled = true # enable the plugin on current domain (pod2) only
 
-    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(true)
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to be(true)
 
     expect(BrickdocPlugin.enabled_plugins).to include(:test_plugin)
 
@@ -40,12 +40,12 @@ describe BrickdocPlugin do
 
     BrickdocConfig.current = BrickdocConfig.at('pod1')
 
-    expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(false)
+    expect(BrickdocPlugin.enabled?(:test_plugin)).to be(false)
 
     expect(BrickdocPlugin.enabled_plugins).to_not include(:test_plugin)
   end
 
-  it 'can load plugins from dirs' do
+  it 'can load plugin dummy_plugin' do
     BrickdocPlugin.load_plugins(Rails.root.join('spec/dummy/plugins/**'))
 
     expect(BrickdocPlugin.loaded?(:dummy_plugin)).to be(true)
@@ -54,5 +54,21 @@ describe BrickdocPlugin do
 
     expect(dummy_plugin.metadata[:name]).to eq('dummy_plugin')
     expect(dummy_plugin.metadata[:version]).to eq('0.0.1')
+
+    test_value = { done: false }
+
+    BrickdocPlugin.update_hooks_scopes
+    expect(BrickdocHook.enabled_scopes).to_not include('plugin.dummy_plugin')
+
+    BrickdocHook.trigger :test_hook, test_value
+    expect(test_value[:done]).to be(false)
+
+    dummy_plugin.enabled = true
+
+    BrickdocPlugin.update_hooks_scopes
+    expect(BrickdocHook.enabled_scopes).to include('plugin.dummy_plugin')
+
+    BrickdocHook.trigger :test_hook, test_value
+    expect(test_value[:done]).to be(true)
   end
 end
