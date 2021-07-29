@@ -25,4 +25,30 @@ describe BrickdocHook do
     BrickdocHook.off :test
     expect(BrickdocHook.hooks[:test].length).to eq(0)
   end
+
+  it 'can trigger hook' do
+    v = { i: 0 }
+
+    BrickdocHook.on :hook1, scope: 'plugin1' do |a|
+      a[:i] |= 0b01
+    end
+    BrickdocHook.on :hook1, scope: 'plugin2' do |a|
+      a[:i] |= 0b10
+    end
+
+    BrickdocHook.trigger :hook1, v
+    expect(v[:i]).to eq(0b00)
+
+    BrickdocHook.enabled_scopes = ['plugin1']
+
+    BrickdocHook.trigger :hook1, v
+    expect(v[:i]).to eq(0b01)
+
+    v[:i] = 0
+
+    BrickdocHook.enabled_scopes = ['plugin1', 'plugin2']
+
+    BrickdocHook.trigger :hook1, v
+    expect(v[:i]).to eq(0b11)
+  end
 end
