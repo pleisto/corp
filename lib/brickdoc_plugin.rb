@@ -39,6 +39,11 @@ class BrickdocPlugin
       metadata_file = "#{path}/package.yml"
       plugin.metadata = YAML.load(File.read(metadata_file)).deep_symbolize_keys if File.exist?(metadata_file)
     end
+
+    # TODO: cached with BrickSetting in current domain
+    def enabled_plugins
+      @plugins.select { |_, plugin| plugin.enabled? }.keys
+    end
   end
 
   attr_accessor :metadata

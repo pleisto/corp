@@ -34,11 +34,15 @@ describe BrickdocPlugin do
 
     expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(true)
 
+    expect(BrickdocPlugin.enabled_plugins).to include(:test_plugin)
+
     # switch back to domain (pod1)
 
     BrickdocConfig.current = BrickdocConfig.at('pod1')
 
     expect(BrickdocPlugin.enabled?(:test_plugin)).to eq(false)
+
+    expect(BrickdocPlugin.enabled_plugins).to_not include(:test_plugin)
   end
 
   it 'can load plugins from dirs' do
