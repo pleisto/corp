@@ -42,7 +42,7 @@ COPY --from=builder /app /app
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   libcurl4-openssl-dev libpq-dev libxml2-dev libxslt-dev libjemalloc2 \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 # Use jemalloc by default
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
@@ -53,4 +53,4 @@ ENV RAILS_SERVE_STATIC_FILES=true
 EXPOSE 3000
 WORKDIR /app
 RUN  bundle install
-CMD ["bundle", "exec", "rails", "server"]
+ENTRYPOINT ["/app/bin/docker-entrypoint"]

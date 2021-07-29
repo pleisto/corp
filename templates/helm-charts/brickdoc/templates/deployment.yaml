@@ -5,18 +5,12 @@ metadata:
   labels:
     {{- include "brickdoc.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "brickdoc.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
         {{- include "brickdoc.selectorLabels" . | nindent 8 }}
     spec:
@@ -25,24 +19,57 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "brickdoc.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
+        {{- if .Values.previewEnv }}
+        - name: {{ .Chart.Name }}-postgres
+          image: postgres:12.4-alpine
+          env:
+            - name: POSTGRES_DB
+              value: brickdoc_cicd
+            - name: POSTGRES_PASSWORD
+              value: NonPersistenceInstance
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 256Mi
+        - name: {{ .Chart.Name }}-redis
+          image: redis:6-alpine
+          ports:
+            - name: redis
+              containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+        {{- end }}
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.name | quote }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if empty .Values.secrets  }}
+          {{- else }}
+          envFrom:
+          - secretRef:
+              name: {{ include "brickdoc.fullname" . }}
+          {{- end }}    
           env:
             {{- range $key, $value := .Values.envs }}
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
+            {{- if .Values.previewEnv }}
+            - name: REDIS_URL
+              value: redis://localhost:6379
+            - name: BRICKDOC_DATABASE_URL
+              value: postgresql://postgres:NonPersistenceInstance@localhost/brickdoc_cicd  
+            {{- end }}
           ports:
             - name: http
-              containerPort: {{ int .Values.containerPort }}
+              containerPort: 3000
               protocol: TCP
-          {{- if .Values.ingress.enabled }}    
           livenessProbe:
             httpGet:
               path: /
@@ -51,9 +78,13 @@ spec:
             httpGet:
               path: /
               port: http
-          {{- end }}    
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+            {{- if .Values.previewEnv -}}
+            limits:
+              cpu: "1"
+              memory: 512Mi
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
