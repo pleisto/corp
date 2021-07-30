@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 previewEnv: false
-envs: []
-secrets: []
+envs: {}
+secrets: {}
 
 image:
   name: 'ghcr.io/brickdoc/brickdoc:latest'
