@@ -36,8 +36,8 @@ node_modules
 
 .eslintcache
 .byebug_history
-/public/esm-bundle
-/public/packs-test
+public/esm-bundle/
+public/packs-test/
 
 .env.local
 .env.development.local
@@ -69,7 +69,7 @@ cypress/screenshots/
 cypress/videos/
 
 # build
-dist
-
+dist/
+storybook-static/
 
 vendor
