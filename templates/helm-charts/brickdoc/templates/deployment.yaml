@@ -74,12 +74,12 @@ spec:
               containerPort: 3000
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
+            initialDelaySeconds: 180
+            tcpSocket:
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /readiness.txt
               port: http
           resources:
             {{- if .Values.previewEnv }}
