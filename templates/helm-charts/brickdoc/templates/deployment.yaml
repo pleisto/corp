@@ -49,6 +49,9 @@ spec:
         {{- end }}
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.name | quote }}
+          {{- if .Values.previewEnv }}
+          imagePullPolicy: Always
+          {{- end }}
           {{- if empty .Values.secrets  }}
           {{- else }}
           envFrom:
