@@ -82,11 +82,12 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
             {{- if .Values.previewEnv }}
             limits:
               cpu: "1"
               memory: 512Mi
+            {{- else }}
+            {{- toYaml .Values.resources | nindent 12 }}
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
