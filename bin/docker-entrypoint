@@ -1,3 +1,0 @@
-#!/bin/sh
-bundle exec rake db:migrate
-nohup bundle exec sidekiq -C /app/config/sidekiq.yml > /dev/null 2>&1 && bundle exec pumactl -F /app/config/puma.rb start

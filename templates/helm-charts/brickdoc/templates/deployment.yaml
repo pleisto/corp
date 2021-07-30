@@ -1,3 +1,26 @@
+{{- define "brickdoc.deploymentCommon" }}
+          image: {{ .Values.image.name | quote }}
+          {{- if .Values.previewEnv }}
+          imagePullPolicy: Always
+          {{- end }}
+          {{- if empty .Values.secrets  }}
+          {{- else }}
+          envFrom:
+          - secretRef:
+              name: {{ include "brickdoc.fullname" . }}
+          {{- end }}    
+          env:
+            {{- range $key, $value := .Values.envs }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- if .Values.previewEnv }}
+            - name: REDIS_URL
+              value: redis://{{ include "brickdoc.devDependenciesService" . }}:6379
+            - name: BRICKDOC_DATABASE_URL
+              value: postgresql://postgres:NonPersistenceInstance@{{ include "brickdoc.devDependenciesService" . }}/brickdoc_cicd  
+            {{- end }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,56 +42,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "brickdoc.serviceAccountName" . }}
+      initContainers:
+        - name: {{ .Chart.Name }}-db-migrate
+          command: ["bundle", "exec", "rake", "db:migrate"]
+          {{- template "brickdoc.deploymentCommon" }}
       containers:
-        {{- if .Values.previewEnv }}
-        - name: {{ .Chart.Name }}-postgres
-          image: postgres:12.4-alpine
-          env:
-            - name: POSTGRES_DB
-              value: brickdoc_cicd
-            - name: POSTGRES_PASSWORD
-              value: NonPersistenceInstance
-          ports:
-            - name: postgres
-              containerPort: 5432
-              protocol: TCP
-          resources:
-            limits:
-              cpu: "1"
-              memory: 256Mi
-        - name: {{ .Chart.Name }}-redis
-          image: redis:6-alpine
-          ports:
-            - name: redis
-              containerPort: 6379
-              protocol: TCP
-          resources:
-            limits:
-              cpu: "1"
-              memory: 512Mi
-        {{- end }}
-        - name: {{ .Chart.Name }}
-          image: {{ .Values.image.name | quote }}
-          {{- if .Values.previewEnv }}
-          imagePullPolicy: Always
-          {{- end }}
-          {{- if empty .Values.secrets  }}
-          {{- else }}
-          envFrom:
-          - secretRef:
-              name: {{ include "brickdoc.fullname" . }}
-          {{- end }}    
-          env:
-            {{- range $key, $value := .Values.envs }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
-            {{- end }}
-            {{- if .Values.previewEnv }}
-            - name: REDIS_URL
-              value: redis://localhost:6379
-            - name: BRICKDOC_DATABASE_URL
-              value: postgresql://postgres:NonPersistenceInstance@localhost/brickdoc_cicd  
-            {{- end }}
+        - name: {{ .Chart.Name }}-web
+          {{- template "brickdoc.deploymentCommon" }}
           ports:
             - name: http
               containerPort: 3000
@@ -78,9 +58,19 @@ spec:
             tcpSocket:
               port: http
           readinessProbe:
-            httpGet:
-              path: /readiness.txt
+            tcpSocket:
               port: http
+          resources:
+            {{- if .Values.previewEnv }}
+            limits:
+              cpu: "1"
+              memory: 512Mi
+            {{- else }}
+            {{- toYaml .Values.resources | nindent 12 }}
+            {{- end }}
+        - name: {{ .Chart.Name }}-sidekiq
+          {{- template "brickdoc.deploymentCommon" }}
+          command: ["bundle", "exec", "sidekiq", "-C", "/app/config/sidekiq.yml"]
           resources:
             {{- if .Values.previewEnv }}
             limits:

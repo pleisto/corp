@@ -54,4 +54,4 @@ ENV RAILS_SERVE_STATIC_FILES=true
 EXPOSE 3000
 WORKDIR /app
 RUN  bundle install
-ENTRYPOINT ["/app/bin/docker-entrypoint"]
+ENTRYPOINT ["bundle exec pumactl -F /app/config/puma.rb start"]
