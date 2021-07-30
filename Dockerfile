@@ -29,6 +29,7 @@ RUN bundle config set without 'test development' && bundle config set deployment
 RUN rm -rf node_modules .git .yarn frontends dist public/esm-bundle/stats.json *.js *.json *.yml yarn.lock \
   # Remove ./packages without local gems
   && find ./packages/* -maxdepth 0 -type d | \
+  # TODO: we should separate the gem packages from npm packages in the future to avoid listing all gem package names here.
   grep -v 'brickdoc_settings' | \
   grep -v 'rubocop-brickdoc' | \
   xargs rm -rf
