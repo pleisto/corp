@@ -70,5 +70,9 @@ describe BrickdocPlugin do
 
     BrickdocHook.trigger :test_hook, test_value
     expect(test_value[:done]).to be(true)
+
+    BrickdocHook.trigger :test_autoload, test_value
+    expect(test_value[:lib]).to be('lib loaded')
+    expect(test_value[:model]).to be('model loaded')
   end
 end

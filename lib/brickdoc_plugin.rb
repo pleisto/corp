@@ -38,6 +38,9 @@ class BrickdocPlugin
       plugin.instance_eval(File.read(plugin_file), plugin_file) if File.exist?(plugin_file)
       metadata_file = "#{path}/package.yml"
       plugin.metadata = YAML.load(File.read(metadata_file))['metadata']&.deep_symbolize_keys || {} if File.exist?(metadata_file)
+      # TODO: autoload by Zeitwerk?
+      Dir["#{path}/lib/*.rb"].each { |file| require file }
+      Dir["#{path}/app/**/*.rb"].each { |file| require file }
     end
 
     # TODO: cached with BrickSetting in current domain

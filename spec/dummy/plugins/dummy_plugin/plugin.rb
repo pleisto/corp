@@ -7,3 +7,9 @@ end
 on :test_hook do |arg|
   arg[:done] = true
 end
+
+
+on :test_autoload do |arg|
+  arg[:lib] = DummyPlugin::TEST_LOAD
+  arg[:model] = DummyPlugin::Test::TEST_LOAD
+end
