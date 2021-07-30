@@ -39,9 +39,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.3.21":
-  version: 3.4.0
-  resolution: "@apollo/client@npm:3.4.0"
+"@apollo/client@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "@apollo/client@npm:3.4.1"
   dependencies:
     "@graphql-typed-document-node/core": ^3.0.0
     "@wry/context": ^0.6.0
@@ -64,7 +64,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 2717256d59cda9edd037cee7f741e244c3f0fd432e085d63259873d7c12fb2c2cbf1154970172d36ec27d743d29360446a4a1046dfcce7b54e9994ee03c1a620
+  checksum: 879e028fe31f19889413f6833a324fab758eeb594c0966b163c21ecb4e883a7dec47c8bea63db70fa2a7badcb37929126ce2a871fa5621e89ba55b9ae3366d9f
   languageName: node
   linkType: hard
 
@@ -1850,7 +1850,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@brickdoc/monorepo@workspace:."
   dependencies:
-    "@apollo/client": ^3.3.21
+    "@apollo/client": ^3.4.1
     "@babel/core": ^7.14.8
     "@babel/preset-react": ^7.14.5
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system"
@@ -1884,7 +1884,7 @@ __metadata:
     css-loader: ^6.2.0
     css-minimizer-webpack-plugin: ^3.0.2
     cssnano: ^5.0.7
-    cypress: ^8.0.0
+    cypress: ^8.1.0
     cypress-multi-reporters: ^1.5.0
     cz-conventional-changelog: ^3.3.0
     date-fns: ^2.23.0
@@ -7779,9 +7779,9 @@ __metadata:
   linkType: hard
 
 "buffer-from@npm:^1.0.0":
-  version: 1.1.1
-  resolution: "buffer-from@npm:1.1.1"
-  checksum: ccc53b69736008bff764497367c4d24879ba7122bc619ee499ff47eef3a5b885ca496e87272e7ebffa0bec3804c83f84041c616f6e3318f40624e27c1d80f045
+  version: 1.1.2
+  resolution: "buffer-from@npm:1.1.2"
+  checksum: 0448524a562b37d4d7ed9efd91685a5b77a50672c556ea254ac9a6d30e3403a517d8981f10e565db24e8339413b43c97ca2951f10e399c6125a0d8911f5679bb
   languageName: node
   linkType: hard
 
@@ -8921,26 +8921,26 @@ __metadata:
   linkType: hard
 
 "core-js-compat@npm:^3.14.0, core-js-compat@npm:^3.15.0, core-js-compat@npm:^3.8.1":
-  version: 3.15.2
-  resolution: "core-js-compat@npm:3.15.2"
+  version: 3.16.0
+  resolution: "core-js-compat@npm:3.16.0"
   dependencies:
     browserslist: ^4.16.6
     semver: 7.0.0
-  checksum: ca68b51b4a75241dae44ae75bf01476c0c8505c1c6fe69dc3b3ae3ee0e8d39fadf415df21a2c46ea018c250aa76ba1a664e8cb2b6657a801eed1a2ac738d7968
+  checksum: 31f7a75a6109bad5d8d66ed3be47a2271543f8c99f7e3dea1aa1b82f41c37277266fb0193a86b1f9255833c087d2adfcf5d7935c3bc66a1cb21a9dc0ff453f7a
   languageName: node
   linkType: hard
 
 "core-js-pure@npm:^3.15.0, core-js-pure@npm:^3.8.1, core-js-pure@npm:^3.8.2":
-  version: 3.15.2
-  resolution: "core-js-pure@npm:3.15.2"
-  checksum: b3f33de3d3ea8885784e0c817b4a84a9df0efa15d0504153e3e0243610c7cae5b9ef4c69c96ad238914217aae7ca5458d02239985a1d8613d003f32eab85f8e4
+  version: 3.16.0
+  resolution: "core-js-pure@npm:3.16.0"
+  checksum: 8d48180af8ea2e78cbe51237bbec32b21d1c34f6f6c0d96b3e28ef192b67f5dcaf985e0db82bba9534376f267e6d2799bf92ac67841dadcaf7a5a8e899bb52df
   languageName: node
   linkType: hard
 
 "core-js@npm:^3.0.4, core-js@npm:^3.6.5, core-js@npm:^3.8.0, core-js@npm:^3.8.2":
-  version: 3.15.2
-  resolution: "core-js@npm:3.15.2"
-  checksum: f8f61569c4c3bdf50679226f5a1045551192a2f4bc3fa46a873b6fa834cff6d1634ee138a6e4bae3eea99f1b1db2d588fa693de74640447476292b41f595a4c3
+  version: 3.16.0
+  resolution: "core-js@npm:3.16.0"
+  checksum: e215cf057fadd86e5386d8042c1bd0ddab1c7811d8f66d272c356ba9bae34c0897c3f5a80d19f93fd74cff832652354a0feb0c817234a066ae9177e28c6d865a
   languageName: node
   linkType: hard
 
@@ -9414,9 +9414,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "cypress@npm:8.0.0"
+"cypress@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "cypress@npm:8.1.0"
   dependencies:
     "@cypress/request": ^2.88.5
     "@cypress/xvfb": ^1.2.4
@@ -9461,7 +9461,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 6f8444843de84fddca64d2dc09b20bad16edd578b61b830db9038793c0a8bf363b187abd9e35c55d1f12f76d7abb5adcc85a03d1556ff4178faa72d1a6a184e1
+  checksum: 564093b5f33e2967437b6579b6911915dddacb323b23c436545f108c72f689de079ba220c4ca7ebaf98a91e5832f3b1940b2354276ddab7f87e4a166359c670f
   languageName: node
   linkType: hard
 
@@ -10224,9 +10224,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.3.564, electron-to-chromium@npm:^1.3.723":
-  version: 1.3.790
-  resolution: "electron-to-chromium@npm:1.3.790"
-  checksum: 03b18da54c6391d936aa3c8f540c8cfdabcc6116ce570f06aacdded721216ba24441fae7baf6d32c8bcaa527f17c0bc9a1a349f4750a8d6dd89e1638c7a48c9d
+  version: 1.3.791
+  resolution: "electron-to-chromium@npm:1.3.791"
+  checksum: 4b41d709deb4c360f700071e23e6347d080f13404f249155763a8cfef79e3d022e3e3e0fbd27936ef5c0b8919780882c0c8644c867b3f1dfba5d5ec1551960bc
   languageName: node
   linkType: hard
 
