@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: App Engine Remove Deployment
-        uses: brickdoc/app-engine@v1.beta2
+        uses: brickdoc/app-engine@v1.beta3
         with:
           name: brickdoc-preview-pr${{ github.event.pull_request.number }}
           task: 'remove'

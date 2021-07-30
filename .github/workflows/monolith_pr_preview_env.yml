@@ -77,12 +77,13 @@ jobs:
       - name: Checkout the codebase
         uses: actions/checkout@v2
       - name: Deployment to App Engine
-        uses: brickdoc/app-engine@v1.beta2
+        uses: brickdoc/app-engine@v1.beta3
         with:
           name: brickdoc-preview-pr${{ github.event.pull_request.number }}
           image: ghcr.io/brickdoc/brickdoc:${{ github.sha }}
           host: pr-${{ github.event.pull_request.number }}.brickdoc.dev
           chart: ${{ github.workspace }}/templates/helm-charts/brickdoc
+          extraArgs: '--set previewEnv=true'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GLOBAL_CORP_AK }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GLOBAL_CORP_SECRET }}
