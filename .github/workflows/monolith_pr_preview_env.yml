@@ -24,6 +24,9 @@ on:
       - '**/LICENSE'
       - '**/NOTICE'
       - '**/VERSION'
+env:
+  image: ghcr.io/brickdoc/brickdoc:pr.${{github.event.pull_request.number}}
+  domain: pr-${{ github.event.pull_request.number }}.brickdoc.dev
 jobs:
   cancel:
     # Cancel any previous CI runs to save GH Actions minutes
@@ -59,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/brickdoc/brickdoc:pr.${{github.event.pull_request.number}}
+          tags: ${{ env.image }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
         # Temp fix
@@ -80,8 +83,8 @@ jobs:
         uses: brickdoc/app-engine@v1.beta3
         with:
           name: brickdoc-preview-pr${{ github.event.pull_request.number }}
-          image: ghcr.io/brickdoc/brickdoc:pr.${{github.event.pull_request.number}}
-          host: pr-${{ github.event.pull_request.number }}.brickdoc.dev
+          image: ${{ env.image }}
+          host: ${{ env.domain }}
           chart: ${{ github.workspace }}/templates/helm-charts/brickdoc
           extraArgs: '--set previewEnv=true'
         env:
@@ -93,3 +96,18 @@ jobs:
           APP_ENV_SECURITY_REVERSIBLE_INT_RANDOM: 1480013428
           APP_ENV_SECURITY_REVERSIBLE_INT_INVERSE: 536856091
           APP_SECRET_SECRET_KEY_BASE: ${{ secrets.previewEnvSecretKey }}
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: This pull request is automatically built and testable in
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            This pull request is automatically built and testable in [${{ env.domain }}](${{ env.domain }})
+          edit-mode: replace
