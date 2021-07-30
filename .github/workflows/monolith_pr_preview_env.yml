@@ -109,5 +109,5 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            This pull request is automatically built and testable in [${{ env.domain }}](${{ env.domain }})
+            This pull request is automatically built and testable in [${{ env.domain }}](https://${{ env.domain }})
           edit-mode: replace
