@@ -1,5 +1,5 @@
 ARG RAILS_ENV=production 
-FROM ruby:3-buster as builder
+FROM ruby:3.0.2-buster as builder
 
 # Add NodeJS & PostgreSQL apt sources.
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
@@ -36,7 +36,7 @@ RUN rm -rf node_modules .git .yarn frontends dist public/esm-bundle/stats.json *
   grep -v 'rubocop-brickdoc' | \
   xargs rm -rf
 
-FROM ruby:3-slim-buster
+FROM ruby:3.0.2-slim-buster
 LABEL org.opencontainers.iamge.authors="secure@brickdoc.com"
 LABEL org.opencontainers.image.licenses = "Apache-2.0"
 LABEL org.opencontainers.image.source = "https://github.com/brickdoc/brickdoc"
