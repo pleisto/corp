@@ -44,3 +44,15 @@ spec:
             limits:
               cpu: "1"
               memory: 512Mi
+        - name: {{ .Chart.Name }}-mailhog
+          image: mailhog/mailhog:v1.0.1
+          env:
+            - name: MH_UI_WEB_PATH
+              value: devtools/mailer
+          ports:
+            - name: smtp
+              containerPort: 1025
+              protocol: TCP
+            - name: mailhog-ui
+              containerPort: 8025
+              protocol: TCP
