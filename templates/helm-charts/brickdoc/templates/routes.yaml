@@ -9,6 +9,8 @@ spec:
   http:
     - name: {{ $fullName }}
       match:
+        paths:
+          - /*
         hosts:
           - {{ .Values.ingress.host }}
       backends:
