@@ -66,12 +66,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: brickdocCE-${{ runner.os }}-buildx-${{ github.sha }}
+          key: brickdocCE-pr-${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-            brickdocCE-${{ runner.os }}-buildx-
+            brickdocCE-pr-${{ runner.os }}-buildx-
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
           tags: ${{ env.image }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -97,7 +98,7 @@ jobs:
           image: ${{ env.image }}
           host: ${{ env.domain }}
           chart: ${{ github.workspace }}/templates/helm-charts/brickdoc
-          extraArgs: '--set previewEnv=true --timeout 5m'
+          extraArgs: '--set previewEnv=true --timeout 5m --cleanup-on-fail'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GLOBAL_CORP_AK }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GLOBAL_CORP_SECRET }}
