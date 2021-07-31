@@ -1,26 +1,3 @@
-{{- define "brickdoc.deploymentCommon" }}
-          image: {{ .Values.image.name | quote }}
-          {{- if .Values.previewEnv }}
-          imagePullPolicy: Always
-          {{- end }}
-          {{- if empty .Values.secrets  }}
-          {{- else }}
-          envFrom:
-          - secretRef:
-              name: {{ include "brickdoc.fullname" . }}
-          {{- end }}    
-          env:
-            {{- range $key, $value := .Values.envs }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
-            {{- end }}
-            {{- if .Values.previewEnv }}
-            - name: REDIS_URL
-              value: redis://{{ include "brickdoc.devDependenciesService" . }}:6379
-            - name: BRICKDOC_DATABASE_URL
-              value: postgresql://postgres:NonPersistenceInstance@{{ include "brickdoc.devDependenciesService" . }}/brickdoc_cicd  
-            {{- end }}
-{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,10 +22,10 @@ spec:
       initContainers:
         - name: {{ .Chart.Name }}-db-migrate
           command: ["bundle", "exec", "rake", "db:migrate"]
-          {{- template "brickdoc.deploymentCommon" }}
+          {{- include "brickdoc.deploymentCommon" . }}
       containers:
         - name: {{ .Chart.Name }}-web
-          {{- template "brickdoc.deploymentCommon" }}
+          {{- include "brickdoc.deploymentCommon" . }}
           ports:
             - name: http
               containerPort: 3000
@@ -69,7 +46,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
             {{- end }}
         - name: {{ .Chart.Name }}-sidekiq
-          {{- template "brickdoc.deploymentCommon" }}
+          {{- include "brickdoc.deploymentCommon" . }}
           command: ["bundle", "exec", "sidekiq", "-C", "/app/config/sidekiq.yml"]
           resources:
             {{- if .Values.previewEnv }}
