@@ -23,7 +23,8 @@ RUN echo $RAILS_ENV
 RUN bundle config set without 'test development' && bundle config set deployment 'true' \
   && echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" \
   && bundle install --retry 2 --jobs 4  \
-  && yarn install --immutable && yarn dist
+  && ([ "$(ls -A /app/node_modules)" ] && echo "skip yarn install" || yarn install --immutable) \
+  && yarn dist
 
 # Cleanup
 RUN rm -rf node_modules .git .yarn frontends dist public/esm-bundle/stats.json *.js *.json *.yml yarn.lock \
@@ -54,4 +55,4 @@ ENV RAILS_SERVE_STATIC_FILES=true
 EXPOSE 3000
 WORKDIR /app
 RUN  bundle install
-ENTRYPOINT ["bundle exec pumactl -F /app/config/puma.rb start"]
+ENTRYPOINT ["bundle", "exec" ,"pumactl", "-F" ,"/app/config/puma.rb start"]

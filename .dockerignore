@@ -13,13 +13,11 @@
 /public/uploads/
 /spec/
 /coverage/
-/node_modules/
 /packages/brickdoc-design-system/docs/
 /packages/brickdoc-design-system/.storybook/
 /packages/brickdoc-design-system/storybook-static/
 /packages/*/dist/
 /junit-reports/
-/vendor/
 /packages/*/spec/
 Dockerfile
 .env.*
