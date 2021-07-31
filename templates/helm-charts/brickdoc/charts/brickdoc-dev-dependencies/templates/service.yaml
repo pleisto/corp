@@ -16,8 +16,10 @@ spec:
       name: redis  
     - port: 1025
       targetPort: 1025
-      protocol: smtp
+      protocol: TCP
+      name: smtp
     - port: 8025
       targetPort: 8025
-      protocol: mailhog-ui    
+      protocol: TCP
+      name: mailhog-ui    
   selector: {{- include "brickdoc.selectorLabels" . | nindent 4 }}
