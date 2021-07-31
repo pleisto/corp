@@ -22,6 +22,7 @@ RUN echo $RAILS_ENV
 
 RUN bundle config set without 'test development' && bundle config set deployment 'true' \
   && echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc" \
+  && ([ "$(ls -A /app/vendor/bundle)" ] && echo "use bundle cache" || echo 'bundle cache not found' ) \
   && bundle install --retry 2 --jobs 4  \
   && ([ "$(ls -A /app/node_modules)" ] && echo "skip yarn install" || yarn install --immutable) \
   && yarn dist
