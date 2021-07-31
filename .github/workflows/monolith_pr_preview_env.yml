@@ -127,5 +127,5 @@ jobs:
             This pull request is automatically built and testable in [${{ env.domain }}](https://${{ env.domain }}).
             ## Devtools
             * [Mailer Mock](https://${{ env.domain }}/devtools/mailer)
-            * [Logs](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#container-insights:infrastructure) `* Brickodc LTD internal use only`
+            * [Logs](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#container-insights:infrastructure)
           edit-mode: replace
