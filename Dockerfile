@@ -37,4 +37,4 @@ ENV RAILS_SERVE_STATIC_FILES=true
 
 EXPOSE 3000
 WORKDIR /app
-ENTRYPOINT ["bundle", "exec" ,"pumactl", "-F" ,"/app/config/puma.rb start"]
+ENTRYPOINT ["bundle", "exec" ,"pumactl", "-F" ,"/app/config/puma.rb", "start"]
