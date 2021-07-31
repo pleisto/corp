@@ -16,7 +16,7 @@
             {{- end }}
             {{- if .Values.previewEnv }}
             - name: PREVIEW_ENV
-              value: true
+              value: "true"
             # previewEnv is transient environment, so we use a fixed reversible int seed here.
             - name: SECURITY_REVERSIBLE_INT_PRIME
               value: "1828824083"
