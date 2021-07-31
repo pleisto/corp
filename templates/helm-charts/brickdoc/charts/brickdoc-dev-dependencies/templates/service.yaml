@@ -13,5 +13,5 @@ spec:
     - port: 6379
       targetPort: 6379
       protocol: TCP
-      name: postgres  
+      name: redis  
   selector: {{- include "brickdoc.selectorLabels" . | nindent 4 }}
