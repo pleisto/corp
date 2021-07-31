@@ -106,7 +106,7 @@ jobs:
           image: ${{ env.image }}
           host: ${{ env.domain }}
           chart: ${{ github.workspace }}/templates/helm-charts/brickdoc
-          extraArgs: '--set previewEnv=true --timeout 5m --cleanup-on-fail'
+          extraArgs: '--set previewEnv=true --timeout 30m --cleanup-on-fail'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_GLOBAL_CORP_AK }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GLOBAL_CORP_SECRET }}
