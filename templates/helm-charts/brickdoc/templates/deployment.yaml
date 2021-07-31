@@ -21,7 +21,7 @@ spec:
       serviceAccountName: {{ include "brickdoc.serviceAccountName" . }}
       initContainers:
         - name: {{ .Chart.Name }}-db-migrate
-          command: ["bundle", "exec", "rake", "db:migrate"]
+          command: ["/app/bin/kube-init"]
           {{- include "brickdoc.deploymentCommon" . }}
       containers:
         - name: {{ .Chart.Name }}-web
