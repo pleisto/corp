@@ -23,7 +23,9 @@ RUN bundle install --retry 2 --jobs 4 \
   # TODO: we should separate the gem packages from npm packages in the future to avoid listing all gem package names here.
   grep -v 'brickdoc_settings' | \
   grep -v 'rubocop-brickdoc' | \
-  xargs rm -rf
+  xargs rm -rf \
+  && mkdir mkdir tmp && mkdir tmp/pids
+
 
 FROM ghcr.io/brickdoc/ruby-3:latest
 LABEL org.opencontainers.iamge.authors="secure@brickdoc.com"
