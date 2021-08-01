@@ -40,13 +40,13 @@ Rails.application.reloader.to_prepare do
   Rails.application.config.active_storage.service = BrickdocConfig.active_storage_service.to_sym
 
   # Mailer
-  smtp_settings = URI(ENV['SMTP_URL'])
+  smtp_settings = URI(ENV['SMTP_URL'] || 'smtp://localhost:1025')
   Rails.application.configure do
     config.action_mailer.default_url_options = Rails.application.default_url_options
     unless Rails.env.test?
       config.action_mailer.delivery_method = :smtp
       config.action_mailer.default_options = {
-        from: ENV['SMTP_FROM']
+        from: ENV['SMTP_FROM'] || 'webmaster@localhost'
       }
       config.action_mailer.smtp_settings = {
         addresses: smtp_settings.hostname,
