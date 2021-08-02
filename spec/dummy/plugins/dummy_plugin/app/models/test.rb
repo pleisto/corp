@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module DummyPlugin
+module BrickdocPlugin::DummyPlugin
   class Test
     TEST_LOAD = 'model loaded'
   end

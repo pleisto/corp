@@ -38,9 +38,15 @@ class BrickdocPlugin
       plugin.instance_eval(File.read(plugin_file), plugin_file) if File.exist?(plugin_file)
       metadata_file = "#{path}/package.yml"
       plugin.metadata = YAML.load(File.read(metadata_file))['metadata']&.deep_symbolize_keys || {} if File.exist?(metadata_file)
-      # TODO: autoload by Zeitwerk?
-      Dir["#{path}/lib/*.rb"].each { |file| require file }
-      Dir["#{path}/app/**/*.rb"].each { |file| require file }
+
+      plugin_main_file = "#{path}/lib/#{plugin_name}"
+      require "#{path}/lib/#{plugin_name}" if File.exist?("#{plugin_main_file}.rb")
+
+      plugin_constant_name = plugin_name.to_s.camelize
+      plugin_constant = const_defined?(plugin_constant_name) ? const_get(plugin_constant_name) : const_set(plugin_constant_name, Module.new)
+      plugin.loader.push_dir("#{path}/app/models", namespace: plugin_constant)
+      plugin.loader.setup
+      plugin.loader.eager_load
     end
 
     # TODO: cached with BrickSetting in current domain
@@ -57,14 +63,21 @@ class BrickdocPlugin
   end
 
   attr_accessor :metadata
+  attr_reader :plugin_constant
 
   def initialize(plugin_name)
     @plugin_name = plugin_name
+    @loader = Zeitwerk::Loader.new
     BrickdocConfig.field("#{@plugin_name}_enabled", type: :boolean, scope: 'plugins', default: false)
   end
 
   def config(&block)
     instance_eval(&block) if block
+  end
+
+  def loader(&block)
+    @loader.instance_eval(&block) if block
+    @loader
   end
 
   def settings(&block)

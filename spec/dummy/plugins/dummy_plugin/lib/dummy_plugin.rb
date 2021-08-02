@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-module DummyPlugin
+module BrickdocPlugin::DummyPlugin
   TEST_LOAD = 'lib loaded'
 end

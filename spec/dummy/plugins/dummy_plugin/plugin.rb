@@ -10,6 +10,6 @@ end
 
 
 on :test_autoload do |arg|
-  arg[:lib] = DummyPlugin::TEST_LOAD
-  arg[:model] = DummyPlugin::Test::TEST_LOAD
+  arg[:lib] = BrickdocPlugin::DummyPlugin::TEST_LOAD
+  arg[:model] = BrickdocPlugin::DummyPlugin::Test::TEST_LOAD
 end
