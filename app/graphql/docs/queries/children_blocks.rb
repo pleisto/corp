@@ -13,7 +13,21 @@ module Docs
     def resolve(parent_id:, exclude_pages: false, snapshot_version:)
       where = exclude_pages ? "docs_blocks.type != 'doc'" : nil
       if snapshot_version.zero?
-        blocks = Docs::Block.where(where).find_by(id: parent_id).descendants_cache
+        root = Docs::Block.where(where).find_by(id: parent_id)
+        if root.nil?
+          params = {
+            id: parent_id,
+            type: 'doc',
+            data: { text: "", content: [] },
+            pod_id: current_pod.fetch('id'),
+            collaborators: [current_user.id]
+          }
+          root = Docs::Block.create!(params)
+        end
+
+        ## TODO check permission
+
+        blocks = root.descendants_cache
         ## NOTE cast to `doc`
         blocks = blocks.map do |b|
           if b.id == parent_id

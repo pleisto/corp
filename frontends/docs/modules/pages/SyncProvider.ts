@@ -86,7 +86,8 @@ export const blockToNode = (block: Block): JSONContent => {
 
 export const blocksToJSONContents = (blocks: Block[], id?: string): JSONContent[] =>
   blocks
-    .filter(block => block.parentId === id)
+    // eslint-disable-next-line eqeqeq
+    .filter(block => block.parentId == id)
     .sort((a, b) => Number(a.sort) - Number(b.sort))
     .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetPageBlocksQuery, useBlockMoveMutation, BlockMoveInput } from '@/BrickdocGraphQL'
+import { useGetPageBlocksQuery, useBlockMoveMutation, BlockMoveInput, BlockData } from '@/BrickdocGraphQL'
 import { Skeleton, Tree } from '@brickdoc/design-system'
 import { array2Tree } from '@/utils'
 import { PageMenu } from '../PageMenu'
@@ -12,13 +12,13 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
   const { data, loading, refetch } = useGetPageBlocksQuery({ variables: { webid } })
   const [blockMove, { loading: moveLoading }] = useBlockMoveMutation()
 
-  if (loading || moveLoading) {
+  if (loading || moveLoading || !data?.pageBlocks) {
     return <Skeleton />
   }
 
   const flattedData = data.pageBlocks
     .map(i => {
-      const data: any = i.data
+      const data: BlockData = i.data
       const title = data.text.slice(0, 20)
       return {
         key: i.id,
@@ -28,12 +28,12 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
         sort: i.sort,
         nextSort: i.nextSort,
         titleText: title,
-        title: <PageMenu id={i.id} text={data.text} parentId={i.parentId} title={title} webid={webid} />
+        title: <PageMenu id={i.id} text={data.text} parentId={i.parentId ?? null} title={title} webid={webid} />
       }
     })
     .sort((a, b) => Number(a.sort) - Number(b.sort))
 
-  const onDrop = async (attrs): Promise<void> => {
+  const onDrop = async (attrs: any): Promise<void> => {
     // TODO check dropToGap
     // TODO empty targetParentId support
     console.log(attrs)

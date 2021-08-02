@@ -20,7 +20,9 @@ export const DocumentPage: React.FC = () => {
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && data) {
-      editor.commands.replaceRoot(blocksToJSONContents(data.childrenBlocks as Block[])[0])
+      const content = blocksToJSONContents(data.childrenBlocks as Block[])[0]
+      console.log({ content, data })
+      editor.commands.replaceRoot(content)
     }
   }, [editor, data])
 
