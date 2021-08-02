@@ -14,7 +14,7 @@ const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
   if (!content) {
     return []
   }
-  return content?.map(i => {
+  return content.map(i => {
     const { uuid, sort, ...attrs } = i.attrs ?? {}
     const result = { ...i, attrs }
     if (i.content) {
