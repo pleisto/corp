@@ -57,25 +57,22 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 }
 
 export const blockToNode = (block: Block): JSONContent => {
-  const result: JSONContent = {
-    type: block.type
-  }
-
-  const meta = block.meta
   const data = block.data
-
-  result.attrs = meta.attrs ?? {}
+  const attrs = { ...block.meta }
 
   // NOTE patch UPDATE
   if (block.id) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    result.attrs!.uuid = block.id
+    attrs.uuid = block.id
   }
 
   // NOTE patch UPDATE
   if (block.sort !== undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    result.attrs!.sort = block.sort
+    attrs.sort = block.sort
+  }
+
+  const result: JSONContent = {
+    type: block.type,
+    attrs
   }
 
   if (data.content.length) {
