@@ -2,6 +2,7 @@ import { Node } from 'prosemirror-model'
 import { BlockInput, Block, BlockSyncBatchInput, BlockSyncBatchMutation, BlockSyncBatchMutationVariables } from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
 import { ApolloCache, MutationTuple } from '@apollo/client'
+import { isNil } from 'lodash'
 
 const nodeChildren = (node: Node): Node[] => {
   // TODO Fragment type missing content field
@@ -86,8 +87,7 @@ export const blockToNode = (block: Block): JSONContent => {
 
 export const blocksToJSONContents = (blocks: Block[], id?: string): JSONContent[] =>
   blocks
-    // eslint-disable-next-line eqeqeq
-    .filter(block => block.parentId == id)
+    .filter(block => block.parentId === id || (isNil(block.parentId) && isNil(id)))
     .sort((a, b) => Number(a.sort) - Number(b.sort))
     .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useGetPageBlocksQuery, useBlockMoveMutation, BlockMoveInput, BlockData } from '@/BrickdocGraphQL'
-import { Skeleton, Tree } from '@brickdoc/design-system'
+import { useGetPageBlocksQuery, useBlockMoveMutation, BlockMoveInput, BlockData, Block } from '@/BrickdocGraphQL'
+import { Skeleton, Tree, TreeProps } from '@brickdoc/design-system'
 import { array2Tree } from '@/utils'
 import { PageMenu } from '../PageMenu'
 
@@ -33,22 +33,24 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
     })
     .sort((a, b) => Number(a.sort) - Number(b.sort))
 
-  const onDrop = async (attrs: any): Promise<void> => {
+  const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
     // TODO check dropToGap
     // TODO empty targetParentId support
     console.log(attrs)
     let targetParentId: string, sort: number
+
+    const node = attrs.node as unknown as Block & { key: string }
     // Check if is root node
-    if (attrs.node.parentId) {
-      targetParentId = attrs.node.parentId
+    if (node.parentId) {
+      targetParentId = node.parentId
       // take averaged value
-      sort = Math.round(0.5 * (Number(attrs.node.sort) + Number(attrs.node.nextSort)))
+      sort = Math.round(0.5 * (Number(node.sort) + Number(node.nextSort)))
     } else {
-      targetParentId = attrs.node.key
+      targetParentId = node.key
       // take next value
-      sort = Number(attrs.node.nextSort)
+      sort = Number(node.nextSort)
     }
-    const input: BlockMoveInput = { id: attrs.dragNode.key, targetParentId, sort }
+    const input: BlockMoveInput = { id: attrs.dragNode.key as string, targetParentId, sort }
     console.log({ input })
     await blockMove({ variables: { input } })
     void refetch()
@@ -61,5 +63,5 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
 
   const treeData = array2Tree(compactedData, { id: 'key' })
 
-  return <Tree treeData={treeData as any} defaultExpandAll draggable onDrop={onDrop} />
+  return <Tree treeData={treeData} defaultExpandAll draggable onDrop={onDrop} />
 }
