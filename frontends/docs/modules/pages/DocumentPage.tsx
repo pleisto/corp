@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Alert, Skeleton } from '@brickdoc/design-system'
-import { EditorContent, useEditor } from '@brickdoc/editor'
-import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
+import { EditorContent, ImageSectionAttributes, useEditor } from '@brickdoc/editor'
+import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block, Filestoragetype } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './DocumentTitle'
 import { syncProvider, blocksToJSONContents } from './SyncProvider'
 import { useDocumentSubscription } from './useDocumentSubscription'
@@ -29,10 +29,23 @@ export const DocumentPage: React.FC = () => {
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
+  const getImageUrl = (image: ImageSectionAttributes): string => {
+    if (image.storageType === Filestoragetype.External) {
+      return image.key
+    }
+
+    if (image.storageType === Filestoragetype.Origin) {
+      return data?.childrenBlocks?.[0].blobs?.find(blob => blob.blobKey === image.key)?.url ?? ''
+    }
+
+    return ''
+  }
+
   const editor = useEditor({
     onCommit,
     prepareFileUpload,
-    fetchUnsplashImages
+    fetchUnsplashImages,
+    getImageUrl
   })
 
   const [icon, setIcon] = React.useState<DocumentIconMeta | null | undefined>()

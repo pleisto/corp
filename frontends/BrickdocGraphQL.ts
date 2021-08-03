@@ -44,20 +44,6 @@ export type AuthorizationResult = {
   value: Scalars['Boolean']
 }
 
-export type BlockAttachment = {
-  __typename?: 'BlockAttachment'
-  /** width */
-  height?: Maybe<Scalars['String']>
-  /** url or blob key */
-  key: Scalars['String']
-  /** type */
-  storageType: Filestoragetype
-  /** type */
-  type: Blocktype
-  /** height */
-  width?: Maybe<Scalars['String']>
-}
-
 export type BlockBaseObjectPermissions = {
   __typename?: 'BlockBaseObjectPermissions'
   canShow: AuthorizationResult
@@ -184,7 +170,7 @@ export type BlockMeta = {
   /** icon */
   icon?: Maybe<BlockIcon>
   /** image */
-  image?: Maybe<BlockAttachment>
+  image?: Maybe<BlockImage>
   /** Prosemirror builtin level */
   level?: Maybe<Scalars['Int']>
 }
@@ -1011,7 +997,7 @@ export type GetChildrenBlocksQuery = { __typename?: 'RootQuery' } & {
           blobs?: Maybe<Array<{ __typename?: 'blob' } & Pick<Blob, 'blobKey' | 'url'>>>
           data: { __typename?: 'BlockData' } & Pick<BlockData, 'text' | 'content'>
           meta: { __typename?: 'BlockMeta' } & {
-            image?: Maybe<{ __typename?: 'BlockAttachment' } & Pick<BlockAttachment, 'type' | 'storageType' | 'key' | 'height' | 'width'>>
+            image?: Maybe<{ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>>
             cover?: Maybe<
               | ({ __typename?: 'BlockColor' } & Pick<BlockColor, 'type' | 'color'>)
               | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key'>)

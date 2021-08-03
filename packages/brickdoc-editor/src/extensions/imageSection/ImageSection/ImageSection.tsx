@@ -51,14 +51,28 @@ function useDoubleClick(fn: VoidFunction): VoidFunction {
   return onDoubleClick
 }
 
+export interface ImageSectionAttributes {
+  width?: number
+  aspectRatio?: number
+  key: string
+  storageType: string
+  type: string
+}
+
 // TODO: handle image load on error
 export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateAttributes }) => {
   const [file, setFile] = React.useState<string>()
-  const updateImageAttributes = (newAttributes: Record<string, unknown>): void => {
+  const latestImageAttributes = React.useRef<Partial<ImageSectionAttributes>>({})
+  const updateImageAttributes = (newAttributes: Partial<ImageSectionAttributes>): void => {
+    latestImageAttributes.current = {
+      ...latestImageAttributes.current,
+      ...newAttributes
+    }
     updateAttributes({
       image: {
         ...node.attrs.image,
-        ...newAttributes
+        ...latestImageAttributes.current,
+        storage_type: (latestImageAttributes.current as any).storageType
       }
     })
   }
@@ -78,18 +92,20 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
   }
   const onDoubleClick = useDoubleClick(previewImage)
   const onUploaded = (data: UploadResultData): void => {
-    updateImageAttributes({ key: data.url, storage_type: data.meta?.source.toUpperCase() })
+    updateImageAttributes({ key: data.url, storageType: data.meta?.source.toUpperCase() })
   }
   const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement>): void => {
     const img = event.target as HTMLImageElement
     // Update image dimensions on loaded if there is no dimensions data before
-    if (!node.attrs.image?.aspect_ratio) {
-      updateImageAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), aspect_ratio: img.naturalWidth / img.naturalHeight })
+    if (!node.attrs.image?.aspectRatio) {
+      updateImageAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), aspectRatio: img.naturalWidth / img.naturalHeight })
     }
     setLoaded(true)
   }
 
   if (node.attrs.image?.key || file) {
+    const url = extension.options.getImageUrl?.(node.attrs.image) || file
+
     return (
       <NodeViewWrapper>
         <div role="dialog" className="brickdoc-block-image-section-container" onClick={onDoubleClick}>
@@ -127,7 +143,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               right: true
             }}
             size={{
-              width: node.attrs.image?.width,
+              width: node.attrs.image?.width ?? '100%',
               height: 'auto'
             }}
             onResizeStop={(e, direction, ref, d) => {
@@ -145,12 +161,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               onZoomChange={shouldZoom => {
                 setShowPreview(shouldZoom)
               }}>
-              <img
-                className={cx('brickdoc-block-image', { loading: !loaded })}
-                src={node.attrs.image?.key || file}
-                alt=""
-                onLoad={onImageLoad}
-              />
+              <img className={cx('brickdoc-block-image', { loading: !loaded })} src={url} alt="" onLoad={onImageLoad} />
             </ImagePreview>
           </Resizable>
         </div>

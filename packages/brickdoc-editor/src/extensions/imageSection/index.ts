@@ -1,7 +1,9 @@
 import type { DashboardPluginOptions } from '@brickdoc/uploader'
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { ImageSection } from './ImageSection'
+import { ImageSection, ImageSectionAttributes } from './ImageSection'
+
+export type { ImageSectionAttributes }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -17,6 +19,7 @@ declare module '@tiptap/core' {
 export interface ImageSectionOptions {
   prepareFileUpload: DashboardPluginOptions['prepareFileUpload']
   fetchUnsplashImages: DashboardPluginOptions['fetchUnsplashImages']
+  getImageUrl?: (image: ImageSectionAttributes) => string
 }
 
 export const ImageSectionExtension = Node.create<ImageSectionOptions>({

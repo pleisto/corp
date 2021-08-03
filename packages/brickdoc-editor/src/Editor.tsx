@@ -14,6 +14,8 @@ import {
 import './styles.less'
 import { ImageSectionOptions } from './extensions/imageSection'
 
+export type { ImageSectionAttributes } from './extensions'
+
 export interface EditorContentProps {
   editor: TiptapEditor | null
 }
@@ -31,13 +33,17 @@ export interface EditorOptions extends Partial<TiptapEditorOptions> {
   onCommit: SyncExtensionOptions['onCommit']
   prepareFileUpload?: ImageSectionOptions['prepareFileUpload']
   fetchUnsplashImages?: ImageSectionOptions['fetchUnsplashImages']
+  getImageUrl?: ImageSectionOptions['getImageUrl']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { onCommit, prepareFileUpload, fetchUnsplashImages, ...restOptions } = options
+  const { onCommit, prepareFileUpload, fetchUnsplashImages, getImageUrl, ...restOptions } = options
   return useTiptapEditor({
     extensions: [
-      BasicRichtextExtension.configure({ imageSection: { prepareFileUpload, fetchUnsplashImages }, pdfSection: { prepareFileUpload } }),
+      BasicRichtextExtension.configure({
+        imageSection: { prepareFileUpload, fetchUnsplashImages, getImageUrl },
+        pdfSection: { prepareFileUpload }
+      }),
       BlockCommandsExtension,
       SlashCommandsExtension,
       PlaceholderExtension,
