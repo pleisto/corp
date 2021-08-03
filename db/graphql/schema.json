@@ -664,7 +664,7 @@
             },
             {
               "name": "height",
-              "description": "width",
+              "description": "height",
               "args": [
 
               ],
@@ -678,7 +678,7 @@
             },
             {
               "name": "key",
-              "description": "url or blob key",
+              "description": "key",
               "args": [
 
               ],

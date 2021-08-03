@@ -30,7 +30,7 @@ module System
       if type == "DOC"
         raise BrickGraphQL::Errors::ArgumentError, "Need a block_id" if args[:block_id].nil?
 
-        block = Docs::Block.find_by(id: args[:block_id])
+        block = Docs::Block.unscoped.find_by(id: args[:block_id])
 
         if block
           block.attach_blob!(blob.id)

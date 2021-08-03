@@ -135,9 +135,9 @@ export type BlockImage = {
   __typename?: 'BlockImage'
   /** aspect ratio */
   aspectRatio?: Maybe<Scalars['Float']>
-  /** width */
+  /** height */
   height?: Maybe<Scalars['String']>
-  /** url or blob key */
+  /** key */
   key: Scalars['String']
   /** type */
   storageType: Filestoragetype
@@ -1004,11 +1004,11 @@ export type GetChildrenBlocksQuery = { __typename?: 'RootQuery' } & {
               image?: Maybe<{ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>>
               cover?: Maybe<
                 | ({ __typename?: 'BlockColor' } & Pick<BlockColor, 'type' | 'color'>)
-                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key'>)
+                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>)
               >
               icon?: Maybe<
                 | ({ __typename?: 'BlockEmoji' } & Pick<BlockEmoji, 'type' | 'name' | 'emoji'>)
-                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key'>)
+                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>)
               >
             }
         }
@@ -1961,6 +1961,8 @@ export const GetChildrenBlocksDocument = gql`
             type
             storageType
             key
+            height
+            width
           }
           ... on BlockColor {
             type
@@ -1972,6 +1974,8 @@ export const GetChildrenBlocksDocument = gql`
             type
             storageType
             key
+            height
+            width
           }
           ... on BlockEmoji {
             type

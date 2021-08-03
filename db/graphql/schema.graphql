@@ -196,12 +196,12 @@ type BlockImage {
   aspectRatio: Float
 
   """
-  width
+  height
   """
   height: String
 
   """
-  url or blob key
+  key
   """
   key: String!
 

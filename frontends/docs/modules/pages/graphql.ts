@@ -54,6 +54,8 @@ export const queryChildrenBlocks = gql`
             type
             storageType
             key
+            height
+            width
           }
           ... on BlockColor {
             type
@@ -65,6 +67,8 @@ export const queryChildrenBlocks = gql`
             type
             storageType
             key
+            height
+            width
           }
 
           ... on BlockEmoji {
