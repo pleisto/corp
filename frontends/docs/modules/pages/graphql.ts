@@ -40,6 +40,8 @@ export const queryChildrenBlocks = gql`
         content
       }
       meta {
+        title
+        level
         image {
           type
           storageType

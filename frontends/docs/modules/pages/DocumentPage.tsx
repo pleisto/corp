@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Alert, Skeleton } from '@brickdoc/design-system'
 import { EditorContent, ImageSectionAttributes, useEditor } from '@brickdoc/editor'
-import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block, Filestoragetype } from '@/BrickdocGraphQL'
+import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block, Filestoragetype, BlockMeta } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './DocumentTitle'
 import { syncProvider, blocksToJSONContents } from './SyncProvider'
 import { useDocumentSubscription } from './useDocumentSubscription'
@@ -55,17 +55,17 @@ export const DocumentPage: React.FC = () => {
   useEffect(() => {
     if (editor && !editor.isDestroyed && data) {
       const content: JSONContent = blocksToJSONContents(data.childrenBlocks as Block[])[0]
-      const attrs = content.attrs as DocumentMeta
+      const attrs = content.attrs as BlockMeta
 
       /**
        * Document Meta
        */
       // initialize
-      if (content.text && title === undefined) setTitle(content.text)
-      if (attrs.cover && cover === undefined) setCover(attrs.cover)
-      if (attrs.icon && icon === undefined) setIcon(attrs.icon)
-      // update
-      if (title !== undefined && title !== content.text) content.text = title
+      if (attrs.title && title === undefined) setTitle(attrs.title)
+      if (attrs.cover && cover === undefined) setCover(attrs.cover as DocumentCoverMeta)
+      if (attrs.icon && icon === undefined) setIcon(attrs.icon as DocumentIconMeta)
+      // update TODO remove this
+      if (title !== undefined && title !== attrs.title) attrs.title = title
       if (cover !== undefined && cover !== attrs.cover) (content.attrs as DocumentMeta).cover = cover
       if (icon !== undefined && icon !== attrs.icon) (content.attrs as DocumentMeta).icon = icon
 
