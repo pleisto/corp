@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - uses: styfle/cancel-workflow-action@0.9.0
+      - uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
   es:
@@ -27,10 +27,11 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ES files
         id: changed-es-files
-        uses: tj-actions/changed-files@v8.9
+        uses: tj-actions/changed-files@v9
         with:
           files: |
             .(ts|tsx|js|jsx)$
+            yarn.lock
       - name: Setup NodeJS
         if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v2
@@ -40,6 +41,8 @@ jobs:
       - name: Run yarn install
         if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn install --immutable
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
       - name: Run TypeScript checks
         if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn tsc:check
@@ -58,10 +61,11 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ruby files
         id: changed-ruby-files
-        uses: tj-actions/changed-files@v8.9
+        uses: tj-actions/changed-files@v9
         with:
           files: |
             .(rb)$
+            Gemfile.lock
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         if: steps.changed-ruby-files.outputs.any_changed == 'true'

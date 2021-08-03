@@ -10,6 +10,8 @@
 #  key        :string           not null
 #  scope      :string           not null
 #  value      :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 # Indexes
 #
@@ -75,9 +77,6 @@ class BrickdocConfig < ApplicationRecord
     Rails.env.test? ? "test" : "local"
   )
 
-  # Keep personally identifiable information (PII) out of logs.
-  field :pii_masking, type: :boolean, default: Brickdoc.saas?
-
   field :user_agreement_link, type: :string, default: 'https://www.contributor-covenant.org/version/2/0/code_of_conduct/'
 
   # Accounts
@@ -93,5 +92,8 @@ class BrickdocConfig < ApplicationRecord
     },
   ]
   # rubocop:enable Layout/LineLength
-  field :accounts_preferred_auth_method, default: Brickdoc.saas? ? 'github' : 'email_password'
+  field :accounts_preferred_auth_method, default: 'email_password'
+
+  field :unsplash_api_access_key, default: ENV['UNSPLASH_API_ACCESS_KEY']
+  field :unsplash_api_secret, default: ENV['UNSPLASH_API_SECRET']
 end

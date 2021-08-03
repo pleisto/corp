@@ -7,6 +7,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+return if Rails.env.production?
+
 users = 5.times.map do |n|
   Accounts::User.create!(name: "ADMIN#{n}", password: "PASSWORD#{n}", email: "ADMIN#{n}@brickdoc.com", webid: "ADMIN#{n}")
 end
@@ -15,7 +17,7 @@ users.first.confirm
 
 pods = users.map { |u| u.pods.first }
 
-BLOCK_TYPE = 'page'
+BLOCK_TYPE = 'doc'
 COLLABORATOR_COUNT = 1..5
 BLOCKS_COUNT = 5..5
 SECOND_LEVEL_CHILDREN_COUNT = 50..10
@@ -34,10 +36,10 @@ def create_block(pod, id, parent_id, pods)
     type: BLOCK_TYPE,
     collaborators: random_collaborators(pod, pods),
     meta: { title: FFaker::Lorem.phrase },
-    data: { paragraphs: FFaker::DizzleIpsum.paragraphs },
+    data: { text: FFaker::Lorem.phrase, content: [] },
     parent_id: parent_id
   }
-  params[:parent_type] = BLOCK_TYPE if params[:parent_id]
+  params[:parent_type] = "paragraph" if params[:parent_id]
   Docs::Block.create!(params)
 end
 
@@ -47,7 +49,7 @@ parent_map = BLOCK_SEEDS.reduce([{}, []]) do |(result, prev), seed|
   [result, uuids]
 end.first
 
-ROOT_POD = pods.first
+ROOT_POD = pods.last
 
 parent_map.each do |k, v|
   create_block(ROOT_POD, k, v, pods)

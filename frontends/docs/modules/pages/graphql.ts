@@ -1,13 +1,5 @@
 import { gql } from '@apollo/client'
 
-export const BlockSync = gql`
-  mutation blockSync($input: BlockSyncInput!) {
-    blockSync(input: $input) {
-      errors
-    }
-  }
-`
-
 export const BlockSyncBatch = gql`
   mutation blockSyncBatch($input: BlockSyncBatchInput!) {
     blockSyncBatch(input: $input) {
@@ -35,31 +27,40 @@ export const NewPatch = gql`
 export const queryChildrenBlocks = gql`
   query GetChildrenBlocks($parentId: String!, $excludePages: Boolean!, $snapshotVersion: Int!) {
     childrenBlocks(parentId: $parentId, excludePages: $excludePages, snapshotVersion: $snapshotVersion) {
-      ... on PageBlock {
-        id
-        sort
-        parentId
-        type
-        data {
-          title
-        }
-        meta {
-          icon
-          cover
-        }
+      id
+      sort
+      parentId
+      blobs {
+        blobKey
+        url
       }
-
-      ... on ParagraphBlock {
-        id
-        sort
-        parentId
-        type
-        data {
-          text
-          content
+      type
+      data {
+        text
+        content
+      }
+      meta {
+        cover {
+          ... on BlockImage {
+            type
+            url
+          }
+          ... on BlockColor {
+            type
+            color
+          }
         }
-        meta {
-          attrs
+        icon {
+          ... on BlockImage {
+            type
+            url
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
         }
       }
     }

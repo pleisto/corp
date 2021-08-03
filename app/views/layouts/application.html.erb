@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Brickdoc</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tag %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
     <%= render partial: 'layouts/head' %>
@@ -22,7 +23,7 @@
     </style>
     <%= yield :stylesheet_head %>
     <%# icon font  %>
-    <script src="https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_1919_11.455edf481747eec0804ebd68a5f7e9f3.js"></script>
+    <script src="https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_1919_140.a2133dd4c40c6ed07dd2f543237d267d.js"></script>
     <%= render partial: 'layouts/context' %>
   </head>
   <body>

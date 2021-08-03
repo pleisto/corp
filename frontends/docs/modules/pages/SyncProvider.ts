@@ -1,32 +1,25 @@
 import { Node } from 'prosemirror-model'
-import {
-  BlockSyncInput,
-  PageBlockData,
-  ParagraphBlockData,
-  Block,
-  BlockSyncBatchInput,
-  BlockSyncBatchMutation,
-  BlockSyncBatchMutationVariables,
-  PageBlockMeta,
-  ParagraphBlockMeta
-} from '@/BrickdocGraphQL'
+import { BlockInput, Block, BlockSyncBatchInput, BlockSyncBatchMutation, BlockSyncBatchMutationVariables } from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
-import { MutationTuple } from '@apollo/client'
+import { ApolloCache, MutationTuple } from '@apollo/client'
+import { isNil } from 'lodash'
 
 const nodeChildren = (node: Node): Node[] => {
   // TODO Fragment type missing content field
   return (node.content as any).content
 }
 
-const exceptUUID = (content): any => {
+const SIZE_GAP = 2 ** 32
+
+const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
   if (!content) {
-    return null
+    return []
   }
-  return content?.map(i => {
-    const { uuid, sort, ...attrs } = i.attrs
+  return content.map(i => {
+    const { uuid, sort, ...attrs } = i.attrs ?? {}
     const result = { ...i, attrs }
     if (i.content) {
-      return { ...result, content: exceptUUID(i.content) }
+      return { ...result, content: withoutUUID(i.content) }
     } else {
       return result
     }
@@ -34,73 +27,76 @@ const exceptUUID = (content): any => {
 }
 
 // https://prosemirror.net/docs/ref/#model.Node
-const nodeToBlock = (node: Node, level: number): BlockSyncInput[] => {
+const nodeToBlock = (node: Node, level: number): BlockInput[] => {
   const { uuid, sort, ...rest } = node.attrs
-  const parent: BlockSyncInput = {
+
+  // TODO check if has child
+  const hasChildren =
+    level === 0 ||
+    (node.type.name === 'paragraph' && nodeChildren(node) && nodeChildren(node).length && nodeChildren(node)[0].type.name === 'paragraph')
+
+  const text = node.text ?? node.textContent
+
+  const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
+
+  const parent: BlockInput = {
     id: uuid,
     // sort: sort, ## TODO
-    type: node.type.name
+    type: node.type.name,
+    meta: rest,
+    data: { text, content }
   }
 
-  if (level === 0) {
-    ;(parent.data as PageBlockData) = { title: 'Untitled' }
-    ;(parent.meta as PageBlockMeta) = {}
-  } else {
-    ;(parent.data as ParagraphBlockData) = { text: node.textContent, content: JSON.stringify(exceptUUID((node.toJSON() as any).content)) }
-    ;(parent.meta as ParagraphBlockMeta) = { attrs: JSON.stringify(rest) }
-  }
-
-  const childrenBlocks = level === 0 ? nodeChildren(node) : []
+  const childrenBlocks = hasChildren ? nodeChildren(node) : []
   const children = childrenBlocks.flatMap((n: Node, index: number) =>
-    nodeToBlock(n, level + 1).map((i: BlockSyncInput) => ({ parentId: parent.id, sort: index, ...i }))
+    // TODO multiple level
+    nodeToBlock(n, level + 1).map((i: BlockInput) => ({ parentId: parent.id, sort: index * SIZE_GAP, ...i }))
   )
 
   return [parent, ...children]
 }
 
 export const blockToNode = (block: Block): JSONContent => {
-  const result: JSONContent = {
-    type: block.type
-  }
-
-  const meta = block.meta as any
-  const data = block.data as any
-
-  if (meta?.attrs) {
-    result.attrs = JSON.parse(meta.attrs)
-  } else {
-    result.attrs = {}
-  }
+  const data = block.data
+  const attrs: JSONContent['attrs'] = { ...block.meta }
 
   // NOTE patch UPDATE
   if (block.id) {
-    result.attrs.uuid = block.id
+    attrs.uuid = block.id
   }
 
   // NOTE patch UPDATE
   if (block.sort !== undefined) {
-    result.attrs.sort = block.sort
+    attrs.sort = block.sort
   }
 
-  if (data?.content) {
-    const content = JSON.parse(data.content)
-    result.content = content
+  const result: JSONContent = {
+    type: block.type,
+    attrs
+  }
+
+  if (data.text) {
+    result.text = data.text
+  }
+
+  if (data.content.length) {
+    result.content = data.content
   }
 
   return result
 }
 
-export const blocksToJSONContents = (blocks: Block[], id = null): JSONContent[] =>
+export const blocksToJSONContents = (blocks: Block[], id?: string): JSONContent[] =>
   blocks
-    .filter(block => block.parentId === id)
-    .sort((a, b) => a.sort - b.sort)
+    .filter(block => block.parentId === id || (isNil(block.parentId) && isNil(id)))
+    .sort((a, b) => Number(a.sort) - Number(b.sort))
     .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function syncProvider({
+export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<any>>({
   blockSyncBatch
 }: {
-  blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables>[0]
+  blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables, TApolloContext, TApolloCache>[0]
 }) {
   return {
     onCommit: (doc: Node) => {
