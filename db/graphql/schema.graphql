@@ -60,7 +60,7 @@ type BlockColor {
   """
   type
   """
-  type: String!
+  type: Blocktype!
 }
 
 """
@@ -169,7 +169,7 @@ type BlockEmoji {
   """
   type
   """
-  type: String!
+  type: Blocktype!
 }
 
 type BlockHistory {
@@ -191,14 +191,29 @@ union BlockIcon = BlockEmoji | BlockImage
 
 type BlockImage {
   """
-  type
+  width
   """
-  type: String!
+  height: String
 
   """
-  url
+  url or blob key
   """
-  url: String!
+  key: String!
+
+  """
+  type
+  """
+  storageType: Filestoragetype!
+
+  """
+  type
+  """
+  type: Blocktype!
+
+  """
+  height
+  """
+  width: String
 }
 
 """
@@ -345,6 +360,23 @@ type BlockSyncBatchPayload {
   Errors encountered during execution of the mutation.
   """
   errors: [String!]!
+}
+
+enum Blocktype {
+  """
+  COLOR
+  """
+  COLOR
+
+  """
+  EMOJI
+  """
+  EMOJI
+
+  """
+  IMAGE
+  """
+  IMAGE
 }
 
 """
@@ -502,6 +534,18 @@ type FailureReasons {
   Human-readable errors
   """
   fullMessages: [String!]!
+}
+
+enum Filestoragetype {
+  """
+  EXTERNAL
+  """
+  EXTERNAL
+
+  """
+  ORIGIN
+  """
+  ORIGIN
 }
 
 """

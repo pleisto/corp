@@ -14,8 +14,6 @@ declare module '@tiptap/core' {
   }
 }
 
-const DEFAULT_WIDTH = 700
-
 export interface ImageSectionOptions {
   prepareFileUpload: DashboardPluginOptions['prepareFileUpload']
   fetchUnsplashImages: DashboardPluginOptions['fetchUnsplashImages']
@@ -41,17 +39,10 @@ export const ImageSectionExtension = Node.create<ImageSectionOptions>({
 
   addAttributes() {
     return {
-      width: {
-        default: DEFAULT_WIDTH
-      },
-      url: {
-        default: null
-      },
-      aspectRatio: {
-        default: null
-      },
-      blobKey: {
-        default: null
+      image: {
+        default: {
+          type: 'IMAGE'
+        }
       }
     }
   },

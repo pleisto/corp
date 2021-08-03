@@ -1,3 +1,4 @@
+import { Blocktype, Filestoragetype } from '@/BrickdocGraphQL'
 import { PopoverProps } from '@brickdoc/design-system'
 import { Dashboard, DashboardProps, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import React from 'react'
@@ -46,13 +47,14 @@ export function useDocumentIconUploader(
     fr.readAsDataURL(inputFile)
     fr.onload = function onload() {
       onChange({
-        type: 'image',
-        url: this.result as string
+        type: Blocktype.Image,
+        storageType: Filestoragetype.Origin,
+        key: this.result as string
       })
     }
   }
 
-  const onUploaded = ({ action, url, emoji }: UploadResultData): void => {
+  const onUploaded = ({ action, url, emoji, meta }: UploadResultData): void => {
     if (action === 'remove') {
       onChange(null)
       return
@@ -62,12 +64,13 @@ export function useDocumentIconUploader(
 
     if (url) {
       documentIconMeta = {
-        type: 'image',
-        url
+        type: Blocktype.Image,
+        storageType: meta?.source === 'external' ? Filestoragetype.External : Filestoragetype.Origin,
+        key: url
       }
     } else if (emoji) {
       documentIconMeta = {
-        type: 'emoji',
+        type: Blocktype.Emoji,
         name: emoji.name,
         emoji: emoji.emoji
       }

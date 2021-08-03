@@ -54,6 +54,14 @@ function useDoubleClick(fn: VoidFunction): VoidFunction {
 // TODO: handle image load on error
 export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateAttributes }) => {
   const [file, setFile] = React.useState<string>()
+  const updateImageAttributes = (newAttributes: Record<string, unknown>): void => {
+    updateAttributes({
+      image: {
+        ...node.attrs.image,
+        ...newAttributes
+      }
+    })
+  }
 
   const onFileLoaded = (inputFile: File): void => {
     const fr = new FileReader()
@@ -65,23 +73,23 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
   const [loaded, setLoaded] = React.useState(false)
   const [showPreview, setShowPreview] = React.useState(false)
   const previewImage = (): void => {
-    if (!(file && !node.attrs.url) && !loaded) return
+    if (!(file && !node.attrs.image?.key) && !loaded) return
     setShowPreview(true)
   }
   const onDoubleClick = useDoubleClick(previewImage)
   const onUploaded = (data: UploadResultData): void => {
-    updateAttributes({ url: data.url, blobKey: data.meta?.blobKey })
+    updateImageAttributes({ key: data.url, storage_type: data.meta?.source.toUpperCase() })
   }
   const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement>): void => {
     const img = event.target as HTMLImageElement
     // Update image dimensions on loaded if there is no dimensions data before
-    if (!node.attrs.width) {
-      updateAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), aspectRatio: img.naturalWidth / img.naturalHeight })
+    if (!node.attrs.image?.aspect_ratio) {
+      updateImageAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), aspect_ratio: img.naturalWidth / img.naturalHeight })
     }
     setLoaded(true)
   }
 
-  if (node.attrs.url || file) {
+  if (node.attrs.image?.key || file) {
     return (
       <NodeViewWrapper>
         <div role="dialog" className="brickdoc-block-image-section-container" onClick={onDoubleClick}>
@@ -119,12 +127,12 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               right: true
             }}
             size={{
-              width: node.attrs.width,
+              width: node.attrs.image?.width,
               height: 'auto'
             }}
             onResizeStop={(e, direction, ref, d) => {
-              updateAttributes({
-                width: Math.min(Number(node.attrs.width) + d.width, MAX_WIDTH)
+              updateImageAttributes({
+                width: Math.min(Number(node.attrs.image?.width) + d.width, MAX_WIDTH)
               })
             }}>
             <div className="image-section-menu-button">
@@ -137,7 +145,12 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               onZoomChange={shouldZoom => {
                 setShowPreview(shouldZoom)
               }}>
-              <img className={cx('brickdoc-block-image', { loading: !loaded })} src={node.attrs.url || file} alt="" onLoad={onImageLoad} />
+              <img
+                className={cx('brickdoc-block-image', { loading: !loaded })}
+                src={node.attrs.image?.key || file}
+                alt=""
+                onLoad={onImageLoad}
+              />
             </ImagePreview>
           </Resizable>
         </div>

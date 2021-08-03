@@ -57,18 +57,24 @@ describe Docs::Queries::Block, type: :query do
             meta {
               cover {
                 ... on BlockImage {
-                  url
+                  type
+                  key
+                  storageType
                 }
                 ... on BlockColor {
+                  type
                   color
                 }
               }
               icon {
                 ... on BlockImage {
-                  url
+                  type
+                  key
+                  storageType
                 }
 
                 ... on BlockEmoji {
+                  type
                   name
                   emoji
                 }

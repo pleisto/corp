@@ -1,3 +1,4 @@
+import { Blocktype, Filestoragetype } from '@/BrickdocGraphQL'
 import { PopoverProps } from '@brickdoc/design-system'
 import { Dashboard, DashboardProps, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import React from 'react'
@@ -48,13 +49,14 @@ export function useDocumentCoverUploader(
     fr.readAsDataURL(inputFile)
     fr.onload = function onload() {
       onChange({
-        type: 'image',
-        url: this.result as string
+        type: Blocktype.Image,
+        storageType: Filestoragetype.Origin,
+        key: this.result as string
       })
     }
   }
 
-  const onUploaded = ({ action, url, color }: UploadResultData): void => {
+  const onUploaded = ({ action, url, color, meta }: UploadResultData): void => {
     if (action === 'remove') {
       onChange(null)
       return
@@ -64,12 +66,13 @@ export function useDocumentCoverUploader(
 
     if (url) {
       documentCoverMeta = {
-        type: 'image',
-        url
+        type: Blocktype.Image,
+        storageType: meta?.source === 'external' ? Filestoragetype.External : Filestoragetype.Origin,
+        key: url
       }
     } else if (color) {
       documentCoverMeta = {
-        type: 'color',
+        type: Blocktype.Color,
         color
       }
     } else {

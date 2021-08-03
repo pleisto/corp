@@ -43,7 +43,8 @@ export const queryChildrenBlocks = gql`
         cover {
           ... on BlockImage {
             type
-            url
+            storageType
+            key
           }
           ... on BlockColor {
             type
@@ -53,7 +54,8 @@ export const queryChildrenBlocks = gql`
         icon {
           ... on BlockImage {
             type
-            url
+            storageType
+            key
           }
 
           ... on BlockEmoji {

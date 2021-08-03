@@ -38,12 +38,12 @@ export const PdfSection: React.FC<NodeViewProps> = ({ node, extension, updateAtt
   }
 
   const onUploaded = (data: UploadResultData): void => {
-    updateAttributes({ url: data.url, blobKey: data.meta?.blobKey })
+    updateAttributes({ key: data.url, storageType: data.meta?.source.toUpperCase() })
   }
 
   const isUploadCompleted = !!node.attrs.blobKey && file
 
-  if (node.attrs.url || isUploadCompleted) {
+  if (node.attrs.key || isUploadCompleted) {
     return (
       <NodeViewWrapper>
         <div role="dialog" className="brickdoc-block-pdf-section-container">
@@ -115,7 +115,7 @@ export const PdfSection: React.FC<NodeViewProps> = ({ node, extension, updateAtt
             <div className="pdf-section-menu-button">
               <Icon className="pdf-section-menu-icon" name="more" />
             </div>
-            <PdfDocument file={node.attrs.url || file} scale={Number(node.attrs.width) / MAX_WIDTH} />
+            <PdfDocument file={node.attrs.key || file} scale={Number(node.attrs.width) / MAX_WIDTH} />
           </Resizable>
         </div>
       </NodeViewWrapper>
