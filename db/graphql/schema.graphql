@@ -47,6 +47,33 @@ exceed the size of a 32-bit integer, it's encoded as a string.
 """
 scalar BigInt
 
+type BlockAttachment {
+  """
+  width
+  """
+  height: String
+
+  """
+  url or blob key
+  """
+  key: String!
+
+  """
+  type
+  """
+  storageType: Filestoragetype!
+
+  """
+  type
+  """
+  type: Blocktype!
+
+  """
+  height
+  """
+  width: String
+}
+
 type BlockBaseObjectPermissions {
   canShow: AuthorizationResult!
 }
@@ -266,6 +293,16 @@ type BlockMeta {
   icon
   """
   icon: BlockIcon
+
+  """
+  image
+  """
+  image: BlockAttachment
+
+  """
+  Prosemirror builtin level
+  """
+  level: Int
 }
 
 """
