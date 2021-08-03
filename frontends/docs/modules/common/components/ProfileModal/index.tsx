@@ -15,13 +15,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
   const { t } = useDocsI18n()
   const [confirmLoading, setConfirmLoading] = React.useState(false)
   const [form] = Form.useForm()
-  const [createOrUpdatePod, {loading}] = useCreateOrUpdatePodMutation()
+  const [createOrUpdatePod, { loading }] = useCreateOrUpdatePodMutation()
 
   const handleCancel = (): void => {
     setVisible(false)
   }
 
-  if(loading) {
+  if (loading) {
     return <Skeleton />
   }
 
@@ -32,7 +32,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       .validateFields()
       .then(values => {
         form.resetFields()
-        const input: CreateOrUpdatePodInput = { type, webid: values.webid, name: values.name, bio: values.bio, avatar: values.avatar }
+        const input: CreateOrUpdatePodInput = {
+          type,
+          webid: values.webid,
+          name: values.name,
+          bio: values.bio,
+          avatarSignedId: values.avatar
+        }
         void createOrUpdatePod({ variables: { input } })
         setVisible(false)
         setConfirmLoading(false)

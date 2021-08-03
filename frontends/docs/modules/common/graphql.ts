@@ -6,8 +6,20 @@ export const queryPods = gql`
       id
       webid
       name
-      avatar
+      avatarUrl
       bio
+    }
+  }
+`
+
+export const queryUnsplashImage = gql`
+  query QueryUnsplashImage($query: String, $page: Int, $perPage: Int) {
+    unsplashImage(query: $query, page: $page, perPage: $perPage) {
+      id
+      width
+      height
+      fullUrl
+      username
     }
   }
 `
@@ -36,7 +48,30 @@ export const queryPageBlocks = gql`
         text
         content
       }
-      meta
+      meta {
+        cover {
+          ... on BlockImage {
+            type
+            url
+          }
+          ... on BlockColor {
+            type
+            color
+          }
+        }
+        icon {
+          ... on BlockImage {
+            type
+            url
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
+      }
     }
   }
 `

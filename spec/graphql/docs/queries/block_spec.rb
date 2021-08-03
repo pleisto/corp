@@ -54,7 +54,26 @@ describe Docs::Queries::Block, type: :query do
               text
               content
             }
-            meta
+            meta {
+              cover {
+                ... on BlockImage {
+                  url
+                }
+                ... on BlockColor {
+                  color
+                }
+              }
+              icon {
+                ... on BlockImage {
+                  url
+                }
+
+                ... on BlockEmoji {
+                  name
+                  emoji
+                }
+              }
+            }
           }
         }
       GRAPHQL

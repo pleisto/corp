@@ -35,7 +35,7 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
     level === 0 ||
     (node.type.name === 'paragraph' && nodeChildren(node) && nodeChildren(node).length && nodeChildren(node)[0].type.name === 'paragraph')
 
-  const text = hasChildren ? 'Untitled' : node.textContent
+  const text = node.text ?? node.textContent
 
   const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
 
@@ -58,7 +58,7 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 
 export const blockToNode = (block: Block): JSONContent => {
   const data = block.data
-  const attrs = { ...block.meta }
+  const attrs: JSONContent['attrs'] = { ...block.meta }
 
   // NOTE patch UPDATE
   if (block.id) {
@@ -73,6 +73,10 @@ export const blockToNode = (block: Block): JSONContent => {
   const result: JSONContent = {
     type: block.type,
     attrs
+  }
+
+  if (data.text) {
+    result.text = data.text
   }
 
   if (data.content.length) {

@@ -52,6 +52,13 @@ class Docs::Block < ApplicationRecord
   ## Distance for expansion
   SORT_GAP = 2**32
   REBALANCE_GAP = 2**12
+  has_many_attached :attachments
+
+  def blobs
+    attachments.map do |blob|
+      { blob_key: blob.key, url: blob.real_url }
+    end
+  end
 
   def patch_seq_increment
     patch_seq.increment
