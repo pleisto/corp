@@ -15,10 +15,12 @@ export type DocumentIconMeta = DocumentIconImage | DocumentIconEmoji
 
 export interface DocumentIconProps {
   documentIconMeta?: DocumentIconMeta
+  localUrl?: string
   onClick?: VoidFunction
+  getDocIconUrl: () => string | undefined
 }
 
-export const DocumentIcon: React.FC<DocumentIconProps> = ({ documentIconMeta, onClick }) => {
+export const DocumentIcon: React.FC<DocumentIconProps> = ({ documentIconMeta, onClick, getDocIconUrl, localUrl }) => {
   if (!documentIconMeta) return null
 
   return (
@@ -29,7 +31,7 @@ export const DocumentIcon: React.FC<DocumentIconProps> = ({ documentIconMeta, on
         </span>
       )}
       {documentIconMeta.type === Blocktype.Image && (
-        <div className={styles.image} style={{ backgroundImage: `url(${documentIconMeta.key})` }} />
+        <div className={styles.image} style={{ backgroundImage: `url(${getDocIconUrl() ?? localUrl ?? ''})` }} />
       )}
     </Button>
   )

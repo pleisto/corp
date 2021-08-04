@@ -59,7 +59,7 @@ describe Docs::Queries::Block, type: :query do
                 ... on BlockImage {
                   type
                   key
-                  storageType
+                  source
                 }
                 ... on BlockColor {
                   type
@@ -70,7 +70,7 @@ describe Docs::Queries::Block, type: :query do
                 ... on BlockImage {
                   type
                   key
-                  storageType
+                  source
                 }
 
                 ... on BlockEmoji {

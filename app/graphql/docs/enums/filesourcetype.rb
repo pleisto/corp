@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Docs
-  class Enums::Filestoragetype < BrickGraphQL::BaseEnum
+  class Enums::Filesourcetype < BrickGraphQL::BaseEnum
     value "ORIGIN", "ORIGIN"
     value "EXTERNAL", "EXTERNAL"
   end

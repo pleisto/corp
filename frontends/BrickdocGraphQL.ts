@@ -44,6 +44,20 @@ export type AuthorizationResult = {
   value: Scalars['Boolean']
 }
 
+export type BlockAttachment = {
+  __typename?: 'BlockAttachment'
+  /** width */
+  height?: Maybe<Scalars['String']>
+  /** url or blob key */
+  key: Scalars['String']
+  /** type */
+  source: Filesourcetype
+  /** type */
+  type: Blocktype
+  /** height */
+  width?: Maybe<Scalars['String']>
+}
+
 export type BlockBaseObjectPermissions = {
   __typename?: 'BlockBaseObjectPermissions'
   canShow: AuthorizationResult
@@ -133,14 +147,14 @@ export type BlockIcon = BlockEmoji | BlockImage
 
 export type BlockImage = {
   __typename?: 'BlockImage'
-  /** aspect ratio */
-  aspectRatio?: Maybe<Scalars['Float']>
   /** height */
   height?: Maybe<Scalars['String']>
   /** key */
   key: Scalars['String']
+  /** aspect ratio */
+  ratio?: Maybe<Scalars['Float']>
   /** type */
-  storageType: Filestoragetype
+  source: Filesourcetype
   /** type */
   type: Blocktype
   /** height */
@@ -167,6 +181,8 @@ export type BlockInput = {
 
 export type BlockMeta = {
   __typename?: 'BlockMeta'
+  /** attachment */
+  attachment?: Maybe<BlockAttachment>
   /** cover */
   cover?: Maybe<BlockCover>
   /** icon */
@@ -321,7 +337,7 @@ export type FailureReasons = {
   fullMessages: Array<Scalars['String']>
 }
 
-export enum Filestoragetype {
+export enum Filesourcetype {
   /** ORIGIN */
   Origin = 'ORIGIN',
   /** EXTERNAL */
@@ -918,11 +934,11 @@ export type GetPageBlocksQuery = { __typename?: 'RootQuery' } & {
           meta: { __typename?: 'BlockMeta' } & {
             cover?: Maybe<
               | ({ __typename?: 'BlockColor' } & Pick<BlockColor, 'type' | 'color'>)
-              | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key'>)
+              | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'source' | 'key'>)
             >
             icon?: Maybe<
               | ({ __typename?: 'BlockEmoji' } & Pick<BlockEmoji, 'type' | 'name' | 'emoji'>)
-              | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key'>)
+              | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'source' | 'key'>)
             >
           }
         }
@@ -1001,14 +1017,14 @@ export type GetChildrenBlocksQuery = { __typename?: 'RootQuery' } & {
           blobs?: Maybe<Array<{ __typename?: 'blob' } & Pick<Blob, 'blobKey' | 'url'>>>
           data: { __typename?: 'BlockData' } & Pick<BlockData, 'text' | 'content'>
           meta: { __typename?: 'BlockMeta' } & Pick<BlockMeta, 'title' | 'level'> & {
-              image?: Maybe<{ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>>
+              image?: Maybe<{ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'source' | 'key' | 'height' | 'width' | 'ratio'>>
               cover?: Maybe<
                 | ({ __typename?: 'BlockColor' } & Pick<BlockColor, 'type' | 'color'>)
-                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>)
+                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'source' | 'key' | 'height' | 'width'>)
               >
               icon?: Maybe<
                 | ({ __typename?: 'BlockEmoji' } & Pick<BlockEmoji, 'type' | 'name' | 'emoji'>)
-                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'storageType' | 'key' | 'height' | 'width'>)
+                | ({ __typename?: 'BlockImage' } & Pick<BlockImage, 'type' | 'source' | 'key' | 'height' | 'width'>)
               >
             }
         }
@@ -1625,7 +1641,7 @@ export const GetPageBlocksDocument = gql`
         cover {
           ... on BlockImage {
             type
-            storageType
+            source
             key
           }
           ... on BlockColor {
@@ -1636,7 +1652,7 @@ export const GetPageBlocksDocument = gql`
         icon {
           ... on BlockImage {
             type
-            storageType
+            source
             key
           }
           ... on BlockEmoji {
@@ -1951,15 +1967,16 @@ export const GetChildrenBlocksDocument = gql`
         level
         image {
           type
-          storageType
+          source
           key
           height
           width
+          ratio
         }
         cover {
           ... on BlockImage {
             type
-            storageType
+            source
             key
             height
             width
@@ -1972,7 +1989,7 @@ export const GetChildrenBlocksDocument = gql`
         icon {
           ... on BlockImage {
             type
-            storageType
+            source
             key
             height
             width

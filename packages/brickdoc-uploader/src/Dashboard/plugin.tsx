@@ -151,7 +151,7 @@ export class DashboardPlugin extends Plugin {
     void this.handleFetchUnsplashImage()
   }
 
-  handleScrollObserve = (entities: any, observer: any) => {
+  handleScrollObserve = (entities: any, observer: any): void => {
     const y = entities[0].boundingClientRect.y
     if (this.observeY > y) {
       void this.handleFetchUnsplashImage()

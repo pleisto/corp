@@ -1,4 +1,4 @@
-import { Blocktype, Filestoragetype } from '@/BrickdocGraphQL'
+import { Blocktype, Filesourcetype } from '@/BrickdocGraphQL'
 import { PopoverProps } from '@brickdoc/design-system'
 import { Dashboard, DashboardProps, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import React from 'react'
@@ -28,15 +28,19 @@ const IMPORT_SOURCES: ImportSourceOption[] = [
 export function useDocumentCoverUploader(
   cover: DocumentCoverMeta | null | undefined,
   {
+    blockId,
     prepareFileUpload,
     fetchUnsplashImages,
     styles,
-    onChange
+    onChange,
+    onFileLoaded
   }: {
+    blockId: string
     prepareFileUpload: DashboardProps['prepareFileUpload']
     fetchUnsplashImages: DashboardProps['fetchUnsplashImages']
     styles: any
     onChange: (icon: DocumentCoverMeta | null | undefined) => void
+    onFileLoaded: (localUrl: string) => void
   }
 ): [DocumentCoverMeta | null | undefined, Partial<PopoverProps>] {
   const [documentCoverMeta, setDocumentCoverMeta] = React.useState(cover)
@@ -44,15 +48,11 @@ export function useDocumentCoverUploader(
     setDocumentCoverMeta(cover)
   }, [cover])
 
-  const onFileLoaded = (inputFile: File): void => {
+  const onLoaded = (inputFile: File): void => {
     const fr = new FileReader()
     fr.readAsDataURL(inputFile)
     fr.onload = function onload() {
-      onChange({
-        type: Blocktype.Image,
-        storageType: Filestoragetype.Origin,
-        key: this.result as string
-      })
+      onFileLoaded(this.result as string)
     }
   }
 
@@ -67,7 +67,8 @@ export function useDocumentCoverUploader(
     if (url) {
       documentCoverMeta = {
         type: Blocktype.Image,
-        storageType: meta?.source === 'external' ? Filestoragetype.External : Filestoragetype.Origin,
+        // TODO: align types
+        source: meta?.source === 'external' ? Filesourcetype.External : Filesourcetype.Origin,
         key: url
       }
     } else if (color) {
@@ -88,11 +89,12 @@ export function useDocumentCoverUploader(
     placement: 'top',
     content: (
       <Dashboard
+        blockId={blockId}
         fileType="image"
         prepareFileUpload={prepareFileUpload}
         fetchUnsplashImages={fetchUnsplashImages}
         onUploaded={onUploaded}
-        onFileLoaded={onFileLoaded}
+        onFileLoaded={onLoaded}
         importSources={IMPORT_SOURCES}
       />
     )

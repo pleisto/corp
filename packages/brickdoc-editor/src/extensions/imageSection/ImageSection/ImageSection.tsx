@@ -53,9 +53,9 @@ function useDoubleClick(fn: VoidFunction): VoidFunction {
 
 export interface ImageSectionAttributes {
   width?: number
-  aspectRatio?: number
+  ratio?: number
   key: string
-  storageType: string
+  source: string
   type: string
 }
 
@@ -69,20 +69,17 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
       ...newAttributes
     }
 
-    if (!node.attrs.image?.storageType && !latestImageAttributes.current.storageType) {
+    if (!node.attrs.image?.source && !latestImageAttributes.current.source) {
       return
     }
 
     updateAttributes({
       image: {
         ...node.attrs.image,
-        ...latestImageAttributes.current,
-        storage_type: (latestImageAttributes.current as any).storageType
+        ...latestImageAttributes.current
       }
     })
   }
-
-  console.log(node.attrs)
 
   const onFileLoaded = (inputFile: File): void => {
     const fr = new FileReader()
@@ -99,19 +96,19 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
   }
   const onDoubleClick = useDoubleClick(previewImage)
   const onUploaded = (data: UploadResultData): void => {
-    updateImageAttributes({ key: data.url, storageType: data.meta?.source.toUpperCase() })
+    updateImageAttributes({ key: data.url, source: data.meta?.source.toUpperCase() })
   }
   const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement>): void => {
     const img = event.target as HTMLImageElement
     // Update image dimensions on loaded if there is no dimensions data before
-    if (!node.attrs.image?.aspectRatio) {
-      updateImageAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), aspectRatio: img.naturalWidth / img.naturalHeight })
+    if (!node.attrs.image?.ratio) {
+      updateImageAttributes({ width: Math.min(MAX_WIDTH, img.naturalWidth), ratio: img.naturalWidth / img.naturalHeight })
     }
     setLoaded(true)
   }
 
   if (node.attrs.image?.key || file) {
-    const url = extension.options.getImageUrl?.(node.attrs.image) || file
+    const url = extension.options.getImageUrl?.(node) || file
 
     return (
       <NodeViewWrapper>
@@ -150,7 +147,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               right: true
             }}
             size={{
-              width: node.attrs.image?.width ?? '100%',
+              width: node.attrs.image.width ?? '100%',
               height: 'auto'
             }}
             onResizeStop={(e, direction, ref, d) => {

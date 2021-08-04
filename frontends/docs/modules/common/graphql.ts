@@ -52,7 +52,7 @@ export const queryPageBlocks = gql`
         cover {
           ... on BlockImage {
             type
-            storageType
+            source
             key
           }
           ... on BlockColor {
@@ -63,7 +63,7 @@ export const queryPageBlocks = gql`
         icon {
           ... on BlockImage {
             type
-            storageType
+            source
             key
           }
 

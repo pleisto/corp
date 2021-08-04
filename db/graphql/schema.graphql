@@ -47,6 +47,33 @@ exceed the size of a 32-bit integer, it's encoded as a string.
 """
 scalar BigInt
 
+type BlockAttachment {
+  """
+  width
+  """
+  height: String
+
+  """
+  url or blob key
+  """
+  key: String!
+
+  """
+  type
+  """
+  source: Filesourcetype!
+
+  """
+  type
+  """
+  type: Blocktype!
+
+  """
+  height
+  """
+  width: String
+}
+
 type BlockBaseObjectPermissions {
   canShow: AuthorizationResult!
 }
@@ -191,11 +218,6 @@ union BlockIcon = BlockEmoji | BlockImage
 
 type BlockImage {
   """
-  aspect ratio
-  """
-  aspectRatio: Float
-
-  """
   height
   """
   height: String
@@ -206,9 +228,14 @@ type BlockImage {
   key: String!
 
   """
+  aspect ratio
+  """
+  ratio: Float
+
+  """
   type
   """
-  storageType: Filestoragetype!
+  source: Filesourcetype!
 
   """
   type
@@ -262,6 +289,11 @@ input BlockInput {
 }
 
 type BlockMeta {
+  """
+  attachment
+  """
+  attachment: BlockAttachment
+
   """
   cover
   """
@@ -556,7 +588,7 @@ type FailureReasons {
   fullMessages: [String!]!
 }
 
-enum Filestoragetype {
+enum Filesourcetype {
   """
   EXTERNAL
   """

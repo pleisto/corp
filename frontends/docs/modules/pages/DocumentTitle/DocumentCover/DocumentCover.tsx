@@ -17,13 +17,22 @@ export type DocumentCoverMeta = DocumentCoverImage | DocumentCoverColor
 export interface DocumentCoverProps {
   documentCoverMeta?: DocumentCoverMeta | null
   popoverProps: PopoverProps
+  localUrl?: string
+  onClick?: VoidFunction
+  getDocCoverUrl: () => string | undefined
 }
 
-export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta, popoverProps }) => {
+export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta, popoverProps, getDocCoverUrl, localUrl }) => {
   let value = 'unset'
 
   if (documentCoverMeta?.type === Blocktype.Color) value = documentCoverMeta.color
-  if (documentCoverMeta?.type === Blocktype.Image) value = documentCoverMeta.key
+  if (documentCoverMeta?.type === Blocktype.Image) {
+    const url = getDocCoverUrl() ?? localUrl ?? ''
+
+    if (url) {
+      value = `url(${url})`
+    }
+  }
 
   return (
     <div

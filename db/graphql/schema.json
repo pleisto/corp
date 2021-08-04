@@ -115,6 +115,101 @@
         },
         {
           "kind": "OBJECT",
+          "name": "BlockAttachment",
+          "description": null,
+          "fields": [
+            {
+              "name": "height",
+              "description": "width",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "key",
+              "description": "url or blob key",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "source",
+              "description": "type",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "Filesourcetype",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "type",
+              "description": "type",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "Blocktype",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "width",
+              "description": "height",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "BlockBaseObjectPermissions",
           "description": null,
           "fields": [
@@ -649,20 +744,6 @@
           "description": null,
           "fields": [
             {
-              "name": "aspectRatio",
-              "description": "aspect ratio",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "height",
               "description": "height",
               "args": [
@@ -695,7 +776,21 @@
               "deprecationReason": null
             },
             {
-              "name": "storageType",
+              "name": "ratio",
+              "description": "aspect ratio",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "source",
               "description": "type",
               "args": [
 
@@ -705,7 +800,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "ENUM",
-                  "name": "Filestoragetype",
+                  "name": "Filesourcetype",
                   "ofType": null
                 }
               },
@@ -868,6 +963,20 @@
           "name": "BlockMeta",
           "description": null,
           "fields": [
+            {
+              "name": "attachment",
+              "description": "attachment",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "BlockAttachment",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "cover",
               "description": "cover",
@@ -1863,7 +1972,7 @@
         },
         {
           "kind": "ENUM",
-          "name": "Filestoragetype",
+          "name": "Filesourcetype",
           "description": null,
           "fields": null,
           "inputFields": null,

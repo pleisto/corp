@@ -44,7 +44,15 @@ export const queryChildrenBlocks = gql`
         level
         image {
           type
-          storageType
+          source
+          key
+          height
+          width
+          ratio
+        }
+        attachment {
+          type
+          source
           key
           height
           width
@@ -52,7 +60,7 @@ export const queryChildrenBlocks = gql`
         cover {
           ... on BlockImage {
             type
-            storageType
+            source
             key
             height
             width
@@ -65,7 +73,7 @@ export const queryChildrenBlocks = gql`
         icon {
           ... on BlockImage {
             type
-            storageType
+            source
             key
             height
             width
