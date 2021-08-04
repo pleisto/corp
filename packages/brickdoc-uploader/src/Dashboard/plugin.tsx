@@ -292,7 +292,7 @@ export class DashboardPlugin extends Plugin {
       headers
     })
 
-    this.opts?.onFileLoaded(file)
+    this.opts.onFileLoaded?.(file)
 
     await this.uppy.upload()
   }
