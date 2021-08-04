@@ -17,6 +17,7 @@ const IMPORT_SOURCES: ImportSourceOption[] = [
   {
     type: 'upload',
     buttonText: 'Choose an image',
+    acceptType: 'image/*',
     buttonHint: 'Images wider than 1500 pixels work best.'
   }
 ]
