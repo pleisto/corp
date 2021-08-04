@@ -38,8 +38,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
     return <Skeleton />
   }
 
-  const onFileLoaded = (inputFile: File): void => {}
-
   const handleOk = (): void => {
     setConfirmLoading(true)
 
@@ -105,7 +103,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
   const updateDashboard = (
     <Dashboard
       fileType="image"
-      onFileLoaded={onFileLoaded}
       prepareFileUpload={prepareFileUpload}
       onUploaded={onUploaded}
       importSources={IMPORT_SOURCES}
