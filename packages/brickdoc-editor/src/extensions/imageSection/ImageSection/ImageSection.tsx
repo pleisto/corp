@@ -68,6 +68,11 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
       ...latestImageAttributes.current,
       ...newAttributes
     }
+
+    if (!node.attrs.image?.storageType && !latestImageAttributes.current.storageType) {
+      return
+    }
+
     updateAttributes({
       image: {
         ...node.attrs.image,
@@ -76,6 +81,8 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
       }
     })
   }
+
+  console.log(node.attrs)
 
   const onFileLoaded = (inputFile: File): void => {
     const fr = new FileReader()
