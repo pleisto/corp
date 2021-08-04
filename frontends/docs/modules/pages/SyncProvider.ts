@@ -101,6 +101,7 @@ export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<an
   return {
     onCommit: (doc: Node) => {
       const blocks = nodeToBlock(doc, 0)
+      console.debug({ doc, blocks })
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
       void blockSyncBatch({ variables: { input } })
     }
