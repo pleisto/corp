@@ -18,11 +18,7 @@ module BrickdocSettings
       def cached_domains
         Thread.current[:"#{self.class.name.underscore}_domains"] ||= {}
       end
-
-      def cached_keys
-        Thread.current[:"#{self.class.name.underscore}_keys"] ||= {}
-      end
-
+      
       def cached_records
         Thread.current[:"#{self.class.name.underscore}_records"] ||= {}
       end

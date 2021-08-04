@@ -79,10 +79,10 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-if ENV['CI'] == 'true'
-  require 'simplecov'
-  SimpleCov.start
+#if ENV['CI'] == 'true'
+require 'simplecov'
+SimpleCov.start
 
   # require 'codecov'
   # SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
+#end
