@@ -416,6 +416,11 @@ type BlockSyncBatchPayload {
 
 enum Blocktype {
   """
+  ATTACHMENT
+  """
+  ATTACHMENT
+
+  """
   COLOR
   """
   COLOR
