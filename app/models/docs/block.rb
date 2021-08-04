@@ -204,7 +204,7 @@ class Docs::Block < ApplicationRecord
   end
 
   def attach_blob!(blob_id)
-    # Docs::Block.find(args[:block_id]).attachments.attach blob.signed_id    
+    # Docs::Block.find(args[:block_id]).attachments.attach blob.signed_id
     ## HACK Create `ActiveStorage::Attachment` directly because blob is not persist yet.
     ActiveStorage::Attachment.create!(
       record_id: id,
