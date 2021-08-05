@@ -17,40 +17,29 @@ export interface SlashCommandsMenuProps {
   command: (item: SlashCommandsMenuItem) => void
 }
 
-// We need expose instance function onKeyDown for suggestion extension.
-// And reactRenderer only access ref of a class component, thus SlashCommandsMenu must be a class component.
-export class SlashCommandsMenu extends React.PureComponent<SlashCommandsMenuProps> {
-  container: HTMLDivElement | undefined
-
-  selectItem = (index: number) => () => {
-    const item = this.props.items[index]
-    if (item) {
-      this.props.command(item)
-    }
+export const SlashCommandsMenu: React.FC<SlashCommandsMenuProps> = ({ items, activeIndex, command, onIndexChange }) => {
+  const selectItem = (index: number) => () => {
+    const item = items[index]
+    if (item) command(item)
   }
 
-  onHover = (index: number) => (): void => {
-    this.props.onIndexChange?.(index)
+  const onHover = (index: number) => (): void => {
+    onIndexChange?.(index)
   }
-
-  render(): React.ReactElement {
-    const { items, activeIndex } = this.props
-
-    return (
-      <div role="menu" className="brickdoc-slash-menu">
-        <div className="slash-menu-heading">Brickdoc</div>
-        {items.map((item, index) => (
-          <SlashMenuItem
-            key={index}
-            active={index === activeIndex}
-            title={item.title}
-            desc={item.desc}
-            icon={item.icon}
-            onClick={this.selectItem(index)}
-            onHover={this.onHover(index)}
-          />
-        ))}
-      </div>
-    )
-  }
+  return (
+    <div role="menu" className="brickdoc-slash-menu">
+      <div className="slash-menu-heading">Brickdoc</div>
+      {items.map((item, index) => (
+        <SlashMenuItem
+          key={index}
+          active={index === activeIndex}
+          title={item.title}
+          desc={item.desc}
+          icon={item.icon}
+          onClick={selectItem(index)}
+          onHover={onHover(index)}
+        />
+      ))}
+    </div>
+  )
 }
