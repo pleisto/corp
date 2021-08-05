@@ -134,6 +134,7 @@ export const SlashCommandsExtension = Extension.create({
 
               if (key === 'Enter') {
                 reactRenderer.props.command(menuItems[activeIndex])
+                handleIndexChange(0)
                 return true
               }
 
