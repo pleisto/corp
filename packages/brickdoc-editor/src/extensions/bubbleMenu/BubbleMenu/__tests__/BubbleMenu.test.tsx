@@ -66,7 +66,7 @@ describe('BubbleMenu', () => {
     const editor = mockEditor()
     render(<BubbleMenu editor={editor as any} />)
 
-    expect(screen.getByRole('menu', byRoleOptions)).toBeDefined()
+    expect(screen.getByRole('menu', byRoleOptions)).toBeInTheDocument()
     expect(screen.getAllByRole('menuitem', byRoleOptions)).toHaveLength(10)
   })
 
@@ -190,7 +190,7 @@ describe('BubbleMenu', () => {
       const menuItems = screen.getAllByRole('menuitem', byRoleOptions)
       fireEvent.click(menuItems[7])
 
-      expect(screen.getByText('Color')).toBeDefined()
+      expect(screen.getByText('Color')).toBeInTheDocument()
     })
 
     it('selects font color normally', () => {

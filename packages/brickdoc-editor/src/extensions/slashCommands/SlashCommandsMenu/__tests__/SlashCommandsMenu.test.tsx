@@ -30,7 +30,7 @@ describe('SlashCommandsMenu', () => {
 
     const menuItems = screen.getAllByRole('menuitem')
 
-    expect(screen.getByRole('menu')).toBeDefined()
+    expect(screen.getByRole('menu')).toBeInTheDocument()
     expect(menuItems).toHaveLength(3)
 
     items.forEach((item, index) => {
@@ -67,7 +67,7 @@ describe('SlashCommandsMenu', () => {
 
     render(<SlashCommandsMenu items={items} activeIndex={activeIndex} command={() => {}} />)
 
-    expect(screen.getByRole('menu')).toBeDefined()
+    expect(screen.getByRole('menu')).toBeInTheDocument()
 
     const menuItems = screen.getAllByRole('menuitem')
 
