@@ -11033,6 +11033,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dummy_plugin-55c91b@workspace:plugins/dummy_plugin":
+  version: 0.0.0-use.local
+  resolution: "dummy_plugin-55c91b@workspace:plugins/dummy_plugin"
+  dependencies:
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
+"dummy_plugin-c57b8b@workspace:spec/dummy/plugins/dummy_plugin":
+  version: 0.0.0-use.local
+  resolution: "dummy_plugin-c57b8b@workspace:spec/dummy/plugins/dummy_plugin"
+  dependencies:
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
 "duplexer2@npm:^0.1.2, duplexer2@npm:~0.1.0, duplexer2@npm:~0.1.2":
   version: 0.1.4
   resolution: "duplexer2@npm:0.1.4"
