@@ -8,6 +8,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'dotenv'
 Dotenv.load('.env.local', '.env.test', '.env')
 
+require 'simplecov'
+SimpleCov.start
+
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -78,11 +81,3 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
-#if ENV['CI'] == 'true'
-require 'simplecov'
-SimpleCov.start
-
-  # require 'codecov'
-  # SimpleCov.formatter = SimpleCov::Formatter::Codecov
-#end

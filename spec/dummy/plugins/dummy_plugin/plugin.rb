@@ -12,3 +12,5 @@ on :test_autoload do |arg|
   arg[:lib] = BrickdocPlugin::DummyPlugin::TEST_LOAD
   arg[:model] = BrickdocPlugin::DummyPlugin::Test::TEST_LOAD
 end
+
+load_engine!
