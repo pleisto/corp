@@ -88,8 +88,13 @@ export const SlashCommandsExtension = Extension.create({
         render: () => {
           let reactRenderer: ReactRenderer
           let popup: PopupInstance
-
-          // TODO: make SlashCommandsMenu a controlled function component, and move its internal selectedIndex state here
+          let activeIndex = 0
+          const handleIndexChange = (index: number): void => {
+            activeIndex = index
+            reactRenderer.updateProps({
+              activeIndex: index
+            })
+          }
 
           return {
             onStart: props => {
@@ -109,7 +114,30 @@ export const SlashCommandsExtension = Extension.create({
               })
             },
             onKeyDown({ event }) {
-              return (reactRenderer.ref as SlashCommandsMenu).onKeyDown(event.key)
+              const key = event.key
+              const moving = (index: number): void => {
+                handleIndexChange(index)
+                reactRenderer.element
+                  ?.getElementsByClassName('slash-menu-item')
+                  [index].scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+              }
+
+              if (key === 'ArrowUp') {
+                moving((activeIndex + menuItems.length - 1) % menuItems.length)
+                return true
+              }
+
+              if (key === 'ArrowDown') {
+                moving((activeIndex + 1) % menuItems.length)
+                return true
+              }
+
+              if (key === 'Enter') {
+                reactRenderer.props.command(menuItems[activeIndex])
+                return true
+              }
+
+              return false
             },
             onExit() {
               popup.destroy()
