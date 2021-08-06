@@ -80,7 +80,9 @@ export const DocumentPage: React.FC = () => {
       const content: JSONContent = blocksToJSONContents(data.childrenBlocks as Block[])[0]
       childrenBlocks.current = data.childrenBlocks
 
-      editor.commands.replaceRoot(content)
+      if (content?.length) {
+        editor.commands.replaceRoot(content)
+      }
     }
   }, [editor, data])
 
@@ -115,14 +117,14 @@ export const DocumentPage: React.FC = () => {
     )
   }
 
-  if (!data) {
+  if (data?.childrenBlocks?.length) {
+    return (
+      <div className={styles.page}>
+        {DocumentTitleElement}
+        <EditorContent editor={editor} />
+      </div>
+    )
+  } else {
     return <Alert message="Page not found" type="error" />
   }
-
-  return (
-    <div className={styles.page}>
-      {DocumentTitleElement}
-      <EditorContent editor={editor} />
-    </div>
-  )
 }

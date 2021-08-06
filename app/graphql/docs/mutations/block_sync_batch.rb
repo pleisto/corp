@@ -44,7 +44,8 @@ module Docs
         block.pod_id = pod_id
         block.deleted_at = nil
 
-        block.collaborators << current_user.id
+        # TODO: fix this in collab
+        block.collaborators << current_user.id if current_pod.fetch('owner_id') == current_user.id
 
         # valid_payload(block)
 

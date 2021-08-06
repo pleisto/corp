@@ -108,6 +108,17 @@ export const BlockDelete = gql`
   }
 `
 
+export const BlockCreateShareLink = gql`
+  mutation blockCreateShareLink($input: BlockCreateShareLinkInput!) {
+    blockCreateShareLink(input: $input) {
+      errors
+      shareLink {
+        key
+      }
+    }
+  }
+`
+
 export const BlockMove = gql`
   mutation blockMove($input: BlockMoveInput!) {
     blockMove(input: $input) {

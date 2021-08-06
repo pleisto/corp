@@ -25,9 +25,7 @@ module Docs
           root = Docs::Block.create!(params)
         end
 
-        ## TODO check permission
-
-        blocks = root.descendants.with_attached_attachments.to_a
+        blocks = root.descendants.with_attached_attachments.includes(:enabled_share_links).to_a
         ## NOTE cast to `doc`
         blocks = blocks.map do |b|
           if b.id == parent_id

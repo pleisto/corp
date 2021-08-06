@@ -8,7 +8,7 @@ module Docs
              description: 'List all pages for pod webid'
 
     def resolve(webid:)
-      blocks = Docs::Block.joins(:pod).pageable.where(pod: { webid: webid }).to_a
+      blocks = Docs::Block.joins(:pod).pageable.where(pod: { webid: webid }).includes(:enabled_share_links).to_a
 
       tree_map = blocks.group_by(&:parent_id).transform_values do |a|
         [a.count, flatten_hash(a)]
