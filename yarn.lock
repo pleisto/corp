@@ -2024,7 +2024,7 @@ __metadata:
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system"
     "@brickdoc/editor": "workspace:packages/brickdoc-editor"
     "@brickdoc/eslint-plugin": "workspace:packages/eslint-plugin-brickdoc"
-    "@brickdoc/webpacker": "workspace:packages/webpacker"
+    "@brickdoc/webpacker": "workspace:gems/webpacker"
     "@commitlint/cli": ^13.1.0
     "@commitlint/config-conventional": ^13.1.0
     "@cypress/code-coverage": ^3.9.10
@@ -2129,9 +2129,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@brickdoc/webpacker@workspace:packages/webpacker":
+"@brickdoc/webpacker@workspace:gems/webpacker":
   version: 0.0.0-use.local
-  resolution: "@brickdoc/webpacker@workspace:packages/webpacker"
+  resolution: "@brickdoc/webpacker@workspace:gems/webpacker"
   dependencies:
     "@babel/core": ^7.14.8
     "@babel/plugin-proposal-class-properties": ^7.14.5
@@ -11032,14 +11032,6 @@ __metadata:
   checksum: 10c862029c7be1291f86020688072d984ebee6645123ad24bd15f98e9619d961e468b002c19932106e62a171b535c0fb79fd13c0df00912b82ed07a344110981
   languageName: node
   linkType: hard
-
-"dummy_plugin-55c91b@workspace:plugins/dummy_plugin":
-  version: 0.0.0-use.local
-  resolution: "dummy_plugin-55c91b@workspace:plugins/dummy_plugin"
-  dependencies:
-    typescript: ^4.3.5
-  languageName: unknown
-  linkType: soft
 
 "dummy_plugin-c57b8b@workspace:spec/dummy/plugins/dummy_plugin":
   version: 0.0.0-use.local

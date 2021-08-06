@@ -18,12 +18,13 @@ RUN bundle install --retry 2 --jobs 4 \
   && yarn install --immutable \
   && yarn dist && rm -rf node_modules .git .yarn frontends dist public/esm-bundle/stats.json *.js *.json *.yml yarn.lock \
   # Remove ./packages without local gems
-  && find ./packages/* -maxdepth 0 -type d | \
-  # TODO: we should separate the gem packages from npm packages in the future to avoid listing all gem package names here.
-  grep -v 'webpacker' | \
-  grep -v 'brickdoc_settings' | \
-  grep -v 'rubocop-brickdoc' | \
-  xargs rm -rf \
+  # && find ./packages/* -maxdepth 0 -type d | \
+  # # TODO: we should separate the gem packages from npm packages in the future to avoid listing all gem package names here.
+  # grep -v 'webpacker' | \
+  # grep -v 'brickdoc_settings' | \
+  # grep -v 'rubocop-brickdoc' | \
+  # xargs rm -rf \
+  && rm -rf ./packages \
   && mkdir mkdir tmp && mkdir tmp/pids
 
 

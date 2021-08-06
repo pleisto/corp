@@ -12,6 +12,7 @@ exclude:
 # Patterns to find package configuration files
 package_paths:
   - ./
+  - gems/**
   - plugins/**
   - spec/dummy/plugins/**
 
