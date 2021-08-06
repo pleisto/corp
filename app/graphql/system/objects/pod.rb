@@ -8,7 +8,7 @@ module System
 
       field :webid, String, 'Like a username, Unique within this instance of Brickdoc', null: false
       field :name, String, 'Pod Name', null: true
-      field :avatar, String, 'Pod Avatar', null: true
+      field :avatar_data, Avatar, 'Pod Avatar', null: true
       field :bio, String, 'public profile bio', null: true
     end
   end

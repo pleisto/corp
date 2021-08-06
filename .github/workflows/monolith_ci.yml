@@ -54,6 +54,9 @@ on:
 env:
   POSTGRES_PASS: '123456'
   REDIS_URL: redis://127.0.0.1:6379
+  SECURITY_REVERSIBLE_INT_PRIME: 1911469727
+  SECURITY_REVERSIBLE_INT_RANDOM: 1996136202
+  SECURITY_REVERSIBLE_INT_INVERSE: 2083710303
 
 jobs:
   cancel:
@@ -100,6 +103,12 @@ jobs:
         with:
           report_paths: junit-reports/jest.xml
           check_name: Jest Test Report
+      - name: Publish Jest code coverage reports
+        if: steps.changed-es-files.outputs.any_changed == 'true'
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: frontend-unit
   rspec:
     name: Rails RSpec Test
     runs-on: ubuntu-latest
@@ -153,6 +162,8 @@ jobs:
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         env:
           RAILS_ENV: test
+          UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
+          UNSPLASH_API_SECRET: ${{ secrets.UNSPLASH_API_SECRET }}
         run: bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
       - name: Publish RSpec test reports
         if: always() && steps.changed-ruby-files.outputs.any_changed == 'true'
@@ -160,6 +171,12 @@ jobs:
         with:
           report_paths: junit-reports/rspec.xml
           check_name: Rails RSpec Test Report
+      - name: Publish RSpec code coverage reports
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-unit
 
   build_e2e:
     name: Build & E2E Test
@@ -187,6 +204,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+    env:
+      RAILS_ENV: test
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
@@ -232,11 +251,10 @@ jobs:
         run: bundle exec rails s -p 3000 &
         env:
           CYPRESS: 1
-          RAILS_ENV: development
-      - name: Ensure the server is running
-        run: curl http://localhost:3000 -I
       - name: Run front end compilation
         run: yarn dist
+      - name: Ensure the server is running
+        run: curl http://localhost:3000/accounts/sign_in -I
       - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
@@ -246,6 +264,7 @@ jobs:
           config: '{"reporter":"cypress-multi-reporters","reporterOptions":{"configFile":"cypress/ciReporterConfig.json"}}'
           tag: ${{ github.event_name }}
         env:
+          CYPRESS_COVERAGE: 1
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # See https://github.com/cypress-io/github-action/issues/124#issuecomment-653180260
@@ -256,11 +275,21 @@ jobs:
         with:
           report_paths: junit-reports/cypress/*.xml
           check_name: Cypress Test Report
+      - name: Publish Cypress code coverage reports
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: frontend-e2e
+      - name: Stop the server
+        run: rm -rf coverage && (ps -aux | grep '[p]uma' | awk 'NR<=1{print $2}' | xargs kill -2)
+      - name: Publish Rails code coverage reports during Cypress tests
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-e2e
       - name: Dump the database schema
         if: steps.changed-db-migrations.outputs.any_changed == 'true'
         run: bundle exec rails db:prepare db:schema:dump
-        env:
-          RAILS_ENV: test
       - name: Add and commit everything
         uses: EndBug/add-and-commit@v7
         if: github.ref != 'refs/heads/master'

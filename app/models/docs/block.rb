@@ -52,6 +52,13 @@ class Docs::Block < ApplicationRecord
   ## Distance for expansion
   SORT_GAP = 2**32
   REBALANCE_GAP = 2**12
+  has_many_attached :attachments
+
+  def blobs
+    attachments.map do |blob|
+      { blob_key: blob.key, url: blob.real_url }
+    end
+  end
 
   def patch_seq_increment
     patch_seq.increment
@@ -181,6 +188,30 @@ class Docs::Block < ApplicationRecord
   after_save do
     histories.create!(history_version: history_version) if history_version_previously_changed? || id_previously_changed?
     snapshots.create!(snapshot_version: snapshot_version) if snapshot_version_previously_changed?
+  end
+
+  after_create :maybe_attach_attachments!
+
+  def maybe_attach_attachments!
+    Brickdoc::Redis.with(:cache) do |redis|
+      key = "blob_#{id}"
+      redis.smembers(key).each do |blob_id|
+        attach_blob!(blob_id)
+      end
+
+      redis.del(key)
+    end
+  end
+
+  def attach_blob!(blob_id)
+    # Docs::Block.find(args[:block_id]).attachments.attach blob.signed_id
+    ## HACK Create `ActiveStorage::Attachment` directly because blob is not persist yet.
+    ActiveStorage::Attachment.create!(
+      record_id: id,
+      record_type: "Docs::Block",
+      blob_id: blob_id,
+      name: "attachments"
+    )
   end
 
   def self.broadcast(id, payload)

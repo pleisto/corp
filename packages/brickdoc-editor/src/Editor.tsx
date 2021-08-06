@@ -12,6 +12,10 @@ import {
   BubbleMenu
 } from './extensions'
 import './styles.less'
+import { ImageSectionOptions } from './extensions/imageSection'
+import { PdfSectionOptions } from './extensions/pdfSection'
+
+export type { ImageSectionAttributes } from './extensions'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
@@ -28,13 +32,20 @@ export const EditorContent: React.FC<EditorContentProps> = ({ editor }: EditorCo
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
   onCommit: SyncExtensionOptions['onCommit']
+  prepareFileUpload?: ImageSectionOptions['prepareFileUpload']
+  fetchUnsplashImages?: ImageSectionOptions['fetchUnsplashImages']
+  getImageUrl?: ImageSectionOptions['getImageUrl']
+  getPdfUrl?: PdfSectionOptions['getPdfUrl']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { onCommit, ...restOptions } = options
+  const { onCommit, prepareFileUpload, fetchUnsplashImages, getImageUrl, getPdfUrl, ...restOptions } = options
   return useTiptapEditor({
     extensions: [
-      BasicRichtextExtension,
+      BasicRichtextExtension.configure({
+        imageSection: { prepareFileUpload, fetchUnsplashImages, getImageUrl },
+        pdfSection: { prepareFileUpload, getPdfUrl }
+      }),
       BlockCommandsExtension,
       SlashCommandsExtension,
       PlaceholderExtension,

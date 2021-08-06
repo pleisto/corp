@@ -49,6 +49,22 @@ const menuItems: SlashCommandsMenuItem[] = [
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleOrderedList().run()
     }
+  },
+  {
+    title: 'PDF',
+    desc: 'Embed a PDF',
+    icon: <Icon name="file-pdf" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setPdfSection().run()
+    }
+  },
+  {
+    title: 'Image',
+    desc: 'Upload or embed with a link',
+    icon: <Icon name="file-image" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setImageSection().run()
+    }
   }
 ]
 

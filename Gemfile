@@ -44,7 +44,7 @@ gem 'apollo_upload_server', '~> 2.0', '>= 2.0.5'
 gem 'graphql-batch', '~> 0.4.3'
 
 # Frontend
-gem 'webpacker', '6.0.0.beta.7'
+gem 'webpacker', path: 'packages/webpacker'
 
 ## IAM
 gem 'action_policy', '~> 0.5.7'
@@ -65,6 +65,8 @@ gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.1' # Don't rely on Linux/macOS timezo
 
 gem 'brickdoc_settings', path: 'packages/brickdoc_settings'
 
+gem 'unsplash'
+
 group :development, :test do
   gem 'cypress-on-rails', '~> 1.9.1'
   gem 'brakeman'
@@ -79,6 +81,8 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'simplecov-lcov', require: false
 end
 
 group :development do

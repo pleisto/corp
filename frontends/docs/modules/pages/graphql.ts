@@ -30,12 +30,62 @@ export const queryChildrenBlocks = gql`
       id
       sort
       parentId
+      blobs {
+        blobKey
+        url
+      }
       type
       data {
         text
         content
       }
-      meta
+      meta {
+        title
+        level
+        image {
+          type
+          source
+          key
+          height
+          width
+          ratio
+        }
+        attachment {
+          type
+          source
+          key
+          height
+          width
+        }
+        cover {
+          ... on BlockImage {
+            type
+            source
+            key
+            height
+            width
+          }
+          ... on BlockColor {
+            type
+            color
+          }
+        }
+        icon {
+          ... on BlockImage {
+            type
+            source
+            key
+            height
+            width
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
+      }
     }
   }
 `
