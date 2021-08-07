@@ -1140,6 +1140,18 @@ type accounts_user {
   webid: String!
 }
 
+type avatar {
+  """
+  signed id
+  """
+  signedId: String!
+
+  """
+  url
+  """
+  url: String!
+}
+
 """
 ActiveStorage blobs
 """
@@ -1290,9 +1302,9 @@ Brickdoc Pod.
 """
 type pod {
   """
-  Pod Avatar url
+  Pod Avatar
   """
-  avatarUrl: String
+  avatarData: avatar
 
   """
   public profile bio
