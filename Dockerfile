@@ -24,7 +24,7 @@ RUN bundle install --retry 2 --jobs 4 \
   # grep -v 'brickdoc_settings' | \
   # grep -v 'rubocop-brickdoc' | \
   # xargs rm -rf \
-  && rm -rf ./packages \
+  && rm -rf ./packages/* \
   && mkdir tmp/pids
 
 
