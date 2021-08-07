@@ -102,7 +102,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
   }
 
   const updateDashboard = (
-    <Dashboard fileType="image" prepareFileUpload={prepareFileUpload} onUploaded={onUploaded} importSources={IMPORT_SOURCES} />
+    <Dashboard
+      fileType="image"
+      prepareFileUpload={prepareFileUpload}
+      onUploaded={onUploaded}
+      importSources={IMPORT_SOURCES}
+    />
   )
 
   const formData = (
