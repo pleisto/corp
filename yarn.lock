@@ -2015,7 +2015,7 @@ __metadata:
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system"
     "@brickdoc/editor": "workspace:packages/brickdoc-editor"
     "@brickdoc/eslint-plugin": "workspace:packages/eslint-plugin-brickdoc"
-    "@brickdoc/webpacker": "workspace:gems/webpacker"
+    "@brickdoc/webpacker": "workspace:packages/webpacker"
     "@commitlint/cli": ^13.1.0
     "@commitlint/config-conventional": ^13.1.0
     "@cypress/code-coverage": ^3.9.10
@@ -2120,9 +2120,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@brickdoc/webpacker@workspace:gems/webpacker":
+"@brickdoc/webpacker@workspace:packages/webpacker":
   version: 0.0.0-use.local
-  resolution: "@brickdoc/webpacker@workspace:gems/webpacker"
+  resolution: "@brickdoc/webpacker@workspace:packages/webpacker"
   dependencies:
     "@babel/core": ^7.15.0
     "@babel/plugin-proposal-class-properties": ^7.14.5

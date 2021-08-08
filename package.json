@@ -75,7 +75,7 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
     "@brickdoc/eslint-plugin": "workspace:packages/eslint-plugin-brickdoc",
-    "@brickdoc/webpacker": "workspace:gems/webpacker",
+    "@brickdoc/webpacker": "workspace:packages/webpacker",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@cypress/code-coverage": "^3.9.10",
