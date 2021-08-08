@@ -56,6 +56,12 @@ function mockEditor(): MockEditor {
 
 describe('BubbleMenu', () => {
   const byRoleOptions = { hidden: true }
+  it('matches correct snapshot', () => {
+    const editor = mockEditor()
+
+    const { container } = render(<BubbleMenu editor={editor as any} />)
+    expect(container.firstChild).toMatchSnapshot()
+  })
   it('renders nothing if `editor` is not ready', () => {
     render(<BubbleMenu editor={null} />)
 

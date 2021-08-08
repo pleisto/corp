@@ -3,6 +3,33 @@ import { SlashCommandsMenu } from '../SlashCommandsMenu'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 describe('SlashCommandsMenu', () => {
+  it('matches correct snapshot', () => {
+    const iconText = 'icon'
+    const items = [
+      {
+        title: 'H1',
+        desc: 'h1',
+        icon: <div>{iconText}</div>,
+        command: () => {}
+      },
+      {
+        title: 'H2',
+        desc: 'h2',
+        icon: <div>{iconText}</div>,
+        command: () => {}
+      },
+      {
+        title: 'H3',
+        desc: 'h3',
+        icon: <div>{iconText}</div>,
+        command: () => {}
+      }
+    ]
+
+    const { container } = render(<SlashCommandsMenu items={items} command={() => {}} />)
+    expect(container.firstChild).toMatchSnapshot()
+  })
+
   it('renders menu items correctly', () => {
     const iconText = 'icon'
     const items = [

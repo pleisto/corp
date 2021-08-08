@@ -5,6 +5,7 @@ import './index.less'
 
 export interface SlashCommandsMenuItem {
   title: string
+  alias?: string[]
   desc: string
   icon: React.ReactNode
   command: ({ editor, range }: { editor: Editor; range: Range }) => void
