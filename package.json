@@ -8,8 +8,7 @@
   "workspaces": [
     "gems/*",
     "packages/*",
-    "plugins/*",
-    "spec/dummy/plugins/*"
+    "plugins/*"
   ],
   "scripts": {
     "postinstall": "husky install",

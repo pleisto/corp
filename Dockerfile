@@ -16,7 +16,7 @@ COPY . .
 RUN bundle install --retry 2 --jobs 4
 
 ENV CYPRESS_INSTALL_BINARY=0
-RUN CYPRESS_INSTALL_BINARY=0 yarn install --immutable
+RUN yarn install --immutable
 RUN yarn dist
 RUN rm -rf node_modules .yarn frontends dist public/esm-bundle/stats.json *.js *.json *.yml yarn.lock \
   && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
