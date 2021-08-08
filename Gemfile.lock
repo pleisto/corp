@@ -11,7 +11,7 @@ PATH
       rubocop (>= 1.10)
 
 PATH
-  remote: packages/webpacker
+  remote: gems/webpacker
   specs:
     webpacker (0.1.0)
       activesupport (>= 6.1)
