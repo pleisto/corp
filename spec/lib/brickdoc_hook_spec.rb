@@ -51,4 +51,17 @@ describe BrickdocHook do
     BrickdocHook.trigger :hook1, v
     expect(v[:i]).to eq(0b11)
   end
+
+  it 'can eval_with for DSL-style hook' do
+    BrickdocHook.on :dsl_hook, scope: 'plugin3' do
+      push 'new'
+    end
+
+    BrickdocHook.enabled_scopes = ['plugin3']
+
+    arr = ['old']
+
+    BrickdocHook.eval_with :dsl_hook, arr
+    expect(arr).to eq(['old', 'new'])
+  end
 end

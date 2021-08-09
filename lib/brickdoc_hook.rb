@@ -22,8 +22,14 @@ class BrickdocHook
     end
 
     def trigger(hook_name, *params)
-      @hooks[hook_name].each do |h|
+      @hooks[hook_name]&.each do |h|
         h[:block].call(*params) if @enabled_scopes.include?(h[:scope])
+      end
+    end
+
+    def eval_with(hook_name, object)
+      @hooks[hook_name]&.each do |h|
+        object.instance_eval(&h[:block]) if @enabled_scopes.include?(h[:scope])
       end
     end
   end
