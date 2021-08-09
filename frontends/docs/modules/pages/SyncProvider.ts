@@ -16,7 +16,7 @@ const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
     return []
   }
   return content.map(i => {
-    const { uuid, sort, ...attrs } = i.attrs ?? {}
+    const { uuid, sort, seq, ...attrs } = i.attrs ?? {}
     const result = { ...i, attrs }
     if (i.content) {
       return { ...result, content: withoutUUID(i.content) }
@@ -28,7 +28,7 @@ const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
 
 // https://prosemirror.net/docs/ref/#model.Node
 const nodeToBlock = (node: Node, level: number): BlockInput[] => {
-  const { uuid, sort, ...rest } = node.attrs
+  const { uuid, sort, seq, ...rest } = node.attrs
 
   // TODO check if has child
   const hasChildren =
@@ -79,7 +79,7 @@ export const blockToNode = (block: Block): JSONContent => {
   //   result.text = data.text
   // }
 
-  if (data.content.length) {
+  if (data?.content.length) {
     result.content = data.content
   }
 

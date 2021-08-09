@@ -76,7 +76,7 @@ export const DocumentPage: React.FC = () => {
   // const setSort = createDocAttrsUpdater('sort')
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed && data) {
+    if (editor && !editor.isDestroyed && data?.childrenBlocks) {
       const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
