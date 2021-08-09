@@ -2120,8 +2120,6 @@ __metadata:
     "@uppy/dashboard": ^1.21.0
     "@uppy/react": ^1.12.1
     "@uppy/xhr-upload": ^1.7.5
-    htm: ^3.1.0
-    preact: 8.2.9
   languageName: unknown
   linkType: soft
 
@@ -13791,13 +13789,6 @@ fsevents@^1.2.7:
   version: 1.0.0
   resolution: "hsla-regex@npm:1.0.0"
   checksum: 9aa6eb9ff6c102d2395435aa5d1d91eae20043c4b1497c543d8db501c05f3edacd9a07fb34a987059d7902dba415af4cb4e610f751859ae8e7525df4ffcd085f
-  languageName: node
-  linkType: hard
-
-"htm@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "htm@npm:3.1.0"
-  checksum: d6d00146bcc1d2cc45ae6e82f5a54e8b5d1142fe67d3b7363503926c426f608e359ae7bc67242efa0e6afda278ae3865a303d82200a4399cabe53c0a05f82fa8
   languageName: node
   linkType: hard
 

@@ -147,7 +147,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               right: true
             }}
             size={{
-              width: node.attrs.image.width ?? '100%',
+              width: node.attrs.image.width ?? 'unset',
               height: 'auto'
             }}
             onResizeStop={(e, direction, ref, d) => {
