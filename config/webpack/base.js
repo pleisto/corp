@@ -20,8 +20,7 @@ webpackConfig.module.rules.push({
       options: {
         transpileOnly: true,
         projectReferences: true,
-        configFile: 'tsconfig.build.json',
-        happyPackMode: true
+        configFile: 'tsconfig.build.json'
       }
     }
   ]
