@@ -112,7 +112,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
 
     return (
       <NodeViewWrapper>
-        <div role="dialog" className="brickdoc-block-image-section-container" onClick={onDoubleClick}>
+        <div role="cell" className="brickdoc-block-image-section-container" onClick={onDoubleClick}>
           <Resizable
             lockAspectRatio={true}
             className="image-section-control-panel"
@@ -165,7 +165,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ node, extension, updateA
               onZoomChange={shouldZoom => {
                 setShowPreview(shouldZoom)
               }}>
-              <img className={cx('brickdoc-block-image', { loading: !loaded })} src={url} alt="" onLoad={onImageLoad} />
+              <img role="img" className={cx('brickdoc-block-image', { loading: !loaded })} src={url} alt="" onLoad={onImageLoad} />
             </ImagePreview>
           </Resizable>
         </div>

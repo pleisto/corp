@@ -2,8 +2,7 @@
 // that is what uppy suggests us to do.
 // ref: https://uppy.io/docs/writing-plugins/#UI-Plugins
 import { Plugin, Uppy, UppyFile } from '@uppy/core'
-// preact type definition is conflict with React, so we import source file directly
-import { html } from 'htm/preact/index.module'
+import { html } from 'htm/preact'
 import cx from 'classnames'
 import emojiData from './data-by-group.json'
 import './index.less'
@@ -155,7 +154,8 @@ export class DashboardPlugin extends Plugin {
   handleNavbarItemClick = (activeSource: ImportSourceOption) => () => {
     this.setPluginState({ activeSource })
 
-    if ((this.getPluginState() as { unsplashImages: UnsplashImage[] }).unsplashImages?.length > 0) return
+    if (activeSource.type !== 'unsplash' || (this.getPluginState() as { unsplashImages: UnsplashImage[] }).unsplashImages?.length > 0)
+      return
     void this.handleFetchUnsplashImage()
   }
 
@@ -383,7 +383,7 @@ export class DashboardPlugin extends Plugin {
 
   renderUploadPanel(source: ImportSourceOption) {
     return html`
-      <div class="uploader-dashboard-upload-panel">
+      <div role="tabpanel" class="uploader-dashboard-upload-panel">
         <input
           class="dashboard-upload-file-input"
           ref=${input => {
@@ -526,7 +526,7 @@ export class DashboardPlugin extends Plugin {
     ]
 
     return html`
-      <div class="brickdoc-uploader-dashboard">
+      <div role="dialog" class="brickdoc-uploader-dashboard">
         <div class="uploader-dashboard-navbar">
           ${this.opts.importSources.map(
             source => html`

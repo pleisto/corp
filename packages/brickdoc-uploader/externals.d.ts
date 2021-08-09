@@ -16,3 +16,6 @@ declare module '*.json' {
   }
   export default value
 }
+
+// preact type definition is conflict with React, so we import source file directly
+declare module 'htm/preact'
