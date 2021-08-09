@@ -93,12 +93,7 @@ export const PageMenu: React.FC<PageMenuProps> = props => {
     </Menu>
   )
 
-  let link: string
-  if (props.parentId) {
-    link = `/${props.webid}/p/${props.parentId}#${props.id}`
-  } else {
-    link = `/${props.webid}/p/${props.id}`
-  }
+  const link = props.parentId ? `/${props.webid}/p/${props.parentId}#${props.id}` : `/${props.webid}/p/${props.id}`
 
   return (
     <>
