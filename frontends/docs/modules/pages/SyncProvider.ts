@@ -3,6 +3,7 @@ import { BlockInput, Block, BlockSyncBatchInput, BlockSyncBatchMutation, BlockSy
 import { JSONContent } from '@tiptap/core'
 import { ApolloCache, ApolloClient, MutationTuple } from '@apollo/client'
 import { isNil } from 'lodash'
+import { queryPageBlocks } from '../common/graphql'
 
 const nodeChildren = (node: Node): Node[] => {
   // TODO Fragment type missing content field
@@ -101,11 +102,11 @@ export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<an
   blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables, TApolloContext, TApolloCache>[0]
 }) {
   return {
-    onCommit: (doc: Node) => {
+    onCommit: async (doc: Node) => {
       const blocks = nodeToBlock(doc, 0)
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
-      void blockSyncBatch({ variables: { input } })
-      // void client.refetchQueries({ include: [queryPageBlocks] })
+      await blockSyncBatch({ variables: { input } })
+      void client.refetchQueries({ include: [queryPageBlocks] })
     }
   }
 }
