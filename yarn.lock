@@ -2030,11 +2030,11 @@ __metadata:
     "@testing-library/react": ^12.0.0
     "@types/is-ci": ^3.0.0
     "@types/jest": ^26.0.24
-    "@types/node": ^16.4.12
+    "@types/node": ^16.4.13
     "@types/qs": ^6.9.7
     "@types/rails__actioncable": ^6.1.5
     "@types/rails__activestorage": ^6.0.1
-    "@types/react": ^17.0.15
+    "@types/react": ^17.0.16
     "@types/react-dom": ^17.0.9
     "@types/react-router-config": ^5.0.3
     "@types/react-router-dom": ^5.1.8
@@ -5476,7 +5476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.4.12":
+"@types/node@npm:*, @types/node@npm:^16.4.13":
   version: 16.4.13
   resolution: "@types/node@npm:16.4.13"
   checksum: 071e86a1d196cf72928a7109e99769dffed93db481032b9ca2f52e6f3ced432e2a179849c85e587e67409202e1ed37bffd0c7a31d38adf35a385d327dfe8bd72
@@ -5763,7 +5763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17.0.15":
+"@types/react@npm:*, @types/react@npm:^17.0.16":
   version: 17.0.16
   resolution: "@types/react@npm:17.0.16"
   dependencies:
