@@ -97,7 +97,7 @@ export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<an
   client,
   blockSyncBatch
 }: {
-  client: ApolloClient<TApolloCache>
+  client: ApolloClient<any>
   blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables, TApolloContext, TApolloCache>[0]
 }) {
   return {
