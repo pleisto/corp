@@ -39,9 +39,10 @@ module Docs
         block.meta = args.meta
         block.parent_id ||= args.parent_id
         block.type ||= args.type
+        block.pod_id ||= pod_id
+
         block.attachments = args.attachments if args.attachments
 
-        block.pod_id = pod_id
         block.deleted_at = nil
 
         # TODO: fix this in collab (Readonly mode)
