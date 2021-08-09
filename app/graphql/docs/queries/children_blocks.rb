@@ -35,7 +35,12 @@ module Docs
           b
         end
 
-        authorized_scope blocks, as: :collaborating, with: Docs::BlockPolicy
+        result = authorized_scope [root], as: :collaborating, with: Docs::BlockPolicy
+        if result.blank?
+          []
+        else
+          blocks
+        end
       else
         # TODO: permission check
         Docs::Snapshot.find_by!(block_id: parent_id, snapshot_version: snapshot_version).blocks.graphql_normalize

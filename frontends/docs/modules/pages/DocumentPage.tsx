@@ -77,11 +77,11 @@ export const DocumentPage: React.FC = () => {
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && data) {
-      const content: JSONContent = blocksToJSONContents(data.childrenBlocks as Block[])[0]
+      const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
-      if (content?.length) {
-        editor.commands.replaceRoot(content)
+      if (content.length) {
+        editor.commands.replaceRoot(content[0])
       }
     }
   }, [editor, data])

@@ -79,10 +79,13 @@ export const PageMenu: React.FC<PageMenuProps> = props => {
       }
     }
   }
+
+  const shareLinkItem = props.parentId ? <></> : <Menu.Item key="create_share_link">{t('blocks.create_share_link')}</Menu.Item>
+
   const menu = (
     <Menu onClick={onClick(props.id)}>
       <Menu.Item key="create_snapshot">{t('blocks.create_snapshot')}</Menu.Item>
-      <Menu.Item key="create_share_link">{t('blocks.create_share_link')}</Menu.Item>
+      {shareLinkItem}
       <Menu.Item danger key="delete">
         {t('blocks.delete')}
       </Menu.Item>

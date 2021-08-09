@@ -46,7 +46,18 @@ module Docs
         end
       end
 
-      authorized_scope blocks, as: :collaborating, with: Docs::BlockPolicy
+      roots = blocks.select { |block| block.parent_id.nil? }
+      result = authorized_scope roots, as: :collaborating, with: Docs::BlockPolicy
+      target = result
+
+      loop do
+        break if result.blank?
+        parent_ids = result.map(&:id)
+        result = blocks.select { |block| block.parent_id.in?(parent_ids) }
+        target += result
+      end
+
+      target
     end
 
     private
