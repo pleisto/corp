@@ -36,7 +36,6 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
     .sort((a, b) => Number(a.sort) - Number(b.sort))
 
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
-    // TODO check dropToGap
     let targetParentId: string | undefined | null, sort: number
 
     const node = attrs.node as unknown as Block & { key: string }
@@ -64,7 +63,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
   }
 
   const compactedData = flattedData.filter(i => {
-    // NOTE check if is NEWLINE (which type == paragraph and title is blank)
+    // NOTE hide if is NEWLINE (which type == paragraph and title is blank)
     return i.type !== 'paragraph' || !!i.titleText
   })
 

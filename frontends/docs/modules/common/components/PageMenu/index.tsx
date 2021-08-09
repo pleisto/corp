@@ -80,6 +80,7 @@ export const PageMenu: React.FC<PageMenuProps> = props => {
     }
   }
 
+  // Hide if is not page block
   const shareLinkItem = props.parentId ? <></> : <Menu.Item key="create_share_link">{t('blocks.create_share_link')}</Menu.Item>
 
   const menu = (

@@ -51,11 +51,6 @@ class Docs::ShareLink < ApplicationRecord
     deliver_email_later! if target_pod_ids.present?
   end
 
-  Rails.application.default_url_options = {
-    host: BrickdocConfig.host,
-    port: Rails.env.development? ? 3000 : nil
-  }
-
   def deliver_email_later!
     host = Rails.application.default_url_options.fetch(:host)
     port = Rails.application.default_url_options.fetch(:port)
