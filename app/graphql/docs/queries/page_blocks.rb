@@ -14,6 +14,8 @@ module Docs
         [a.count, flatten_hash(a)]
       end
 
+      first_child_sort = {}
+
       target_blocks = []
       tree_map.each do |parent_id, (size, hash)|
         last_size = nil
@@ -43,7 +45,13 @@ module Docs
           block = hash.fetch("idx_#{idx}")
           block.next_sort = hash[idx + 1] || block.sort + Docs::Block::SORT_GAP
           target_blocks << block
+          first_child_sort[block.parent_id] = [first_child_sort[block.parent_id], block.sort].compact.min
         end
+      end
+
+      blocks = blocks.map do |block|
+        block.first_child_sort = first_child_sort[block.id] || 0
+        block
       end
 
       roots = blocks.select { |block| block.parent_id.nil? }

@@ -49,6 +49,7 @@ describe Docs::Queries::Block, type: :query do
             sort
             parentId
             nextSort
+            firstChildSort
             type
             data {
               text
@@ -91,6 +92,7 @@ describe Docs::Queries::Block, type: :query do
       expect(root['id']).to eq block2.id
       expect(root['nextSort'].class).to eq String
       expect(root['nextSort'].to_i).to_not eq 0
+      expect(root['firstChildSort'].to_i).to eq child1.reload.sort
       sort_map = {
         # block2.id => [Docs::Block::SORT_GAP, Docs::Block::SORT_GAP * 2],
         child1.id => [0, Docs::Block::SORT_GAP * 1],

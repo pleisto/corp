@@ -1289,6 +1289,11 @@ type block {
   data: BlockData!
 
   """
+  block first child sort
+  """
+  firstChildSort: BigInt!
+
+  """
   object unique id
   """
   id: UUID!

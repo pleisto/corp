@@ -45,6 +45,7 @@ export const queryPageBlocks = gql`
       id
       sort
       nextSort
+      firstChildSort
       parentId
       type
       data {

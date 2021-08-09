@@ -50,6 +50,7 @@ class Docs::Block < ApplicationRecord
   validates :collaborators, presence: true
 
   attribute :next_sort, :integer, default: 0
+  attribute :first_child_sort, :integer, default: 0
 
   ## Distance for expansion
   SORT_GAP = 2**32

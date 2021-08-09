@@ -9,7 +9,7 @@ const nodeChildren = (node: Node): Node[] => {
   return (node.content as any).content
 }
 
-const SIZE_GAP = 2 ** 32
+export const SIZE_GAP = 2 ** 32
 
 const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
   if (!content) {

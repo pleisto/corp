@@ -761,6 +761,8 @@ export type Block = {
   /** collaborators */
   collaborators?: Maybe<Array<Accounts_User>>
   data: BlockData
+  /** block first child sort */
+  firstChildSort: Scalars['BigInt']
   /** object unique id */
   id: Scalars['UUID']
   meta: BlockMeta
@@ -1036,6 +1038,7 @@ export type GetPageBlocksQuery = {
       id: string
       sort: any
       nextSort: any
+      firstChildSort: any
       parentId?: Maybe<string>
       type: string
       data: { __typename?: 'BlockData'; text: string; content: Array<any> }
@@ -1809,6 +1812,7 @@ export const GetPageBlocksDocument = gql`
       id
       sort
       nextSort
+      firstChildSort
       parentId
       type
       data {
