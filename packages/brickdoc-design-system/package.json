@@ -15,11 +15,6 @@
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.less",
-    "**/*.css",
-    "dist/components/**/style/*"
-  ],
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
     "@ant-design/react-slick": "^0.28.3",
