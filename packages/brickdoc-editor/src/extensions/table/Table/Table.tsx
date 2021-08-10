@@ -68,28 +68,26 @@ export const Table: React.FC<NodeViewProps> = () => {
   return (
     <NodeViewWrapper>
       <button onClick={() => setData(prevData => [...prevData, { id: prevData.length, firstName: 'C', lastName: 'C' }])}>Add row</button>
-      <TableBlock columns={columns} data={data} />
+      <TableBlock columns={columns} data={data} setData={setData} />
     </NodeViewWrapper>
   )
 }
 
-function TableBlock({ columns, data }: any) {
-  const [records, setRecords] = React.useState(data)
-
+function TableBlock({ columns, data, setData }: any) {
   const getRowId = React.useCallback(row => {
     return row.id
   }, [])
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    data: records,
+    data,
     columns,
     getRowId
   })
 
   const moveRow = (dragIndex: number, hoverIndex: number) => {
-    const dragRecord = records[dragIndex]
-    setRecords(
-      update(records, {
+    const dragRecord = data[dragIndex]
+    setData(
+      update(data, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragRecord]
