@@ -2,7 +2,7 @@ import React from 'react'
 import { EmojiMeta, EmojiPanelProps } from './EmojiPanel'
 import { DashboardPluginOptions, UploadResultData } from './plugin'
 
-const RECENT_EMOJI_LOCAL_STORAGE_KEY = 'brickdoc-uploader-recent-emoji'
+export const RECENT_EMOJI_LOCAL_STORAGE_KEY = 'brickdoc-uploader-recent-emoji'
 
 export function useEmoji(pluginOptions: DashboardPluginOptions, active: boolean): [EmojiMeta[], EmojiPanelProps['onSelectEmoji']] {
   const [recentEmojis, setRecentEmojis] = React.useState<EmojiMeta[]>([])
@@ -31,7 +31,7 @@ export function useEmoji(pluginOptions: DashboardPluginOptions, active: boolean)
 
     let recentEmojis = []
     try {
-      recentEmojis = JSON.parse(localStorage.getItem(RECENT_EMOJI_LOCAL_STORAGE_KEY))
+      recentEmojis = JSON.parse(localStorage.getItem(RECENT_EMOJI_LOCAL_STORAGE_KEY)) ?? []
     } catch {
       // ignore error
     }

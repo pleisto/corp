@@ -27,15 +27,16 @@ export const EmojiPanel: React.FC<EmojiPanelProps> = ({ emojiData, recentEmojis,
   const [search, setSearch] = React.useState('')
   const handleSearchEmoji = debounce((event: any): void => {
     const search = event.target.value
+    console.log('有 search 吗', search)
     setSearch(search)
   }, 200)
 
   const getEmojis = (name: string): EmojiMeta[] => {
     let data: EmojiMeta[] = []
     if (name === RECENT_GROUP) {
-      data = recentEmojis
+      data = recentEmojis ?? []
     } else {
-      data = emojiData[name]
+      data = emojiData[name] ?? []
     }
 
     if (!search) return data
@@ -94,9 +95,9 @@ export const EmojiPanel: React.FC<EmojiPanelProps> = ({ emojiData, recentEmojis,
           }
 
           return (
-            <div key={name} className="dashboard-emoji-group">
+            <div role="group" key={name} className="dashboard-emoji-group">
               <div className="dashboard-emoji-group-name">{name}</div>
-              <div className="dashboard-emoji-list">
+              <div role="list" className="dashboard-emoji-list">
                 {emojis.map(item => (
                   <Button type="text" key={item.name} className="dashboard-emoji-item" onClick={() => onSelectEmoji(item, 'add')}>
                     <span aria-label={item.name} className="dashboard-emoji" role="img">

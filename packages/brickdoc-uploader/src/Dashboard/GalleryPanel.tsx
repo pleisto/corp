@@ -27,9 +27,9 @@ export const GalleryPanel: React.FC<GalleryPanelProps> = ({ pluginOptions }) => 
   }
   return (
     <div className="uploader-dashboard-gallery-panel">
-      <div className="dashboard-gallery-group">
+      <div role="group" className="dashboard-gallery-group">
         <div className="dashboard-gallery-group-name">COLOR & GRADIENT</div>
-        <div className="dashboard-color-list">
+        <div role="list" className="dashboard-color-list">
           {COLORS.map(item => (
             <div
               role="img"

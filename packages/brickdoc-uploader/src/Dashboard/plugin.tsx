@@ -59,7 +59,7 @@ export interface DashboardPluginOptions {
   onProgress?: (progress: UploadProgress) => void
   onUploaded?: (data: UploadResultData) => void
   onFileLoaded?: (file: File) => void
-  prepareFileUpload: (
+  prepareFileUpload?: (
     blockId: string,
     type: 'image' | 'pdf',
     file: any
@@ -274,7 +274,11 @@ export class DashboardPlugin extends Plugin {
 
   // TODO: handle error
   handleUpload = async (file: File): Promise<void> => {
-    const { endpoint, headers, blobKey, viewUrl, signedId } = await this.opts.prepareFileUpload(this.opts.blockId, this.opts.fileType, file)
+    const { endpoint, headers, blobKey, viewUrl, signedId } = await this.opts.prepareFileUpload?.(
+      this.opts.blockId,
+      this.opts.fileType,
+      file
+    )
     this.blobKey = blobKey
     this.viewUrl = viewUrl
     this.signedId = signedId
