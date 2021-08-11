@@ -34,6 +34,20 @@ function applyPatch(patch: PatchBaseObject, editor: Editor, chainedCommands: Cha
 
     switch (patch.patchType) {
       case Patchtype.Add:
+        // TODO handle `sort` here
+        // if (newNode.attrs?.sort !== undefined) {
+        //   const resolvedPos = tr.doc.resolve(startPos)
+        //   let insertPos = resolvedPos.start()
+        //   for (let i = 0; i < resolvedPos.parent.childCount; i += 1) {
+        //     const child = resolvedPos.parent.child(i)
+        //     if (newNode.attrs.sort <= child.attrs.sort) {
+        //       break
+        //     }
+        //     insertPos += child.nodeSize
+        //   }
+        //   tr.insert(insertPos, editor.schema.nodeFromJSON(newNode))
+        // }
+
         tr.insert(endPos - 1, editor.schema.nodeFromJSON(newNode))
         break
       case Patchtype.Update:
