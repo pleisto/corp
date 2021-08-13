@@ -49,6 +49,7 @@ export interface IconProps {
     | 'double-right'
     | 'double-left'
     | 'double-up'
+    | 'delete'
     | 'up'
     | 'down'
     | 'right'

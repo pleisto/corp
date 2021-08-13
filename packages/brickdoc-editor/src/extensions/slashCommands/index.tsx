@@ -71,6 +71,14 @@ const menuItems: SlashCommandsMenuItem[] = [
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setImageSection().run()
     }
+  },
+  {
+    title: 'Table',
+    desc: 'table',
+    icon: <Icon name="file-image" className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setTableBlock().run()
+    }
   }
 ]
 
