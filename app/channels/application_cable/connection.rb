@@ -5,11 +5,11 @@ module ApplicationCable
 
     def connect
       self.current_user = find_verified_user
-      self.current_pod = find_current_pod(self.current_user)
+      self.current_pod = find_current_pod(current_user)
     end
 
     private
-    
+
     def find_verified_user
       env['warden'].user
       # reject_unauthorized_connection
