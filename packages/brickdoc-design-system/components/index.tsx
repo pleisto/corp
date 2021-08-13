@@ -1,10 +1,4 @@
 /* eslint-disable import/first */
-export type { AffixProps } from './affix'
-export { default as Affix } from './affix'
-
-export type { AnchorProps, AnchorLinkProps } from './anchor'
-export { default as Anchor } from './anchor'
-
 export type { AutoCompleteProps } from './auto-complete'
 export { default as AutoComplete } from './auto-complete'
 
@@ -14,26 +8,14 @@ export { default as Alert } from './alert'
 export type { AvatarProps } from './avatar'
 export { default as Avatar } from './avatar'
 
-export type { BackTopProps } from './back-top'
-export { default as BackTop } from './back-top'
-
 export type { BadgeProps } from './badge'
 export { default as Badge } from './badge'
 
 export type { ButtonProps } from './button'
 export { default as Button } from './button'
 
-export type { CalendarProps } from './calendar'
-export { default as Calendar } from './calendar'
-
 export type { CardProps } from './card'
 export { default as Card } from './card'
-
-export type { CollapseProps, CollapsePanelProps } from './collapse'
-export { default as Collapse } from './collapse'
-
-export type { CarouselProps } from './carousel'
-export { default as Carousel } from './carousel'
 
 export type { CascaderProps } from './cascader'
 export { default as Cascader } from './cascader'
@@ -56,9 +38,6 @@ export { default as Divider } from './divider'
 export type { DropdownProps } from './dropdown'
 export { default as Dropdown } from './dropdown'
 
-export type { DrawerProps } from './drawer'
-export { default as Drawer } from './drawer'
-
 export type { EmptyProps } from './empty'
 export { default as Empty } from './empty'
 
@@ -80,9 +59,6 @@ export { default as Input } from './input'
 export type { IconProps } from './icon/Icon'
 export { Icon } from './icon/Icon'
 
-export type { ImageProps } from './image'
-export { default as Image } from './image'
-
 export type { InputNumberProps } from './input-number'
 export { default as InputNumber } from './input-number'
 
@@ -94,9 +70,6 @@ export { default as message } from './message'
 
 export type { MenuProps, MenuTheme, SubMenuProps, MenuItemProps } from './menu'
 export { default as Menu } from './menu'
-
-export type { MentionProps } from './mentions'
-export { default as Mentions } from './mentions'
 
 export type { ModalProps, ModalFuncProps } from './modal'
 export { default as Modal } from './modal'
@@ -111,9 +84,6 @@ export { default as Popconfirm } from './popconfirm'
 
 export type { PopoverProps } from './popover'
 export { default as Popover } from './popover'
-
-export type { ProgressProps } from './progress'
-export { default as Progress } from './progress'
 
 export type { RadioProps, RadioChangeEvent, RadioGroupProps } from './radio'
 export { default as Radio } from './radio'
@@ -130,17 +100,11 @@ export { default as Select } from './select'
 export type { SkeletonProps } from './skeleton'
 export { default as Skeleton } from './skeleton'
 
-export type { SliderSingleProps } from './slider'
-export { default as Slider } from './slider'
-
 export type { SpaceProps } from './space'
 export { default as Space } from './space'
 
 export type { SpinProps } from './spin'
 export { default as Spin } from './spin'
-
-export type { StepProps, StepsProps } from './steps'
-export { default as Steps } from './steps'
 
 export type { SwitchProps } from './switch'
 export { default as Switch } from './switch'
@@ -157,9 +121,6 @@ export { default as Table } from './table'
 
 export type { TreeProps, AntTreeNodeProps as TreeNodeProps, DataNode as TreeDataNode } from './tree'
 export { default as Tree } from './tree'
-
-export type { TreeSelectProps } from './tree-select'
-export { default as TreeSelect } from './tree-select'
 
 export type { TabsProps, TabPaneProps } from './tabs'
 export { default as Tabs } from './tabs'

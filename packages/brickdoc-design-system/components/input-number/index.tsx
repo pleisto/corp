@@ -6,7 +6,6 @@ import './style'
 import { Up as UpOutlined, Down as DownOutlined } from '../icon'
 
 import { ConfigContext } from '../config-provider'
-import { Omit } from '../_util/type'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
 
 type ValueType = string | number

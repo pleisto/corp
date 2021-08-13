@@ -45,3 +45,11 @@ const App = () => (
 ### 0.1.9
 
 - Sync of patches from Ant Design 4.16.10
+
+### 0.1.11
+
+- Sync of patches from Ant Design 4.16.11
+
+### 0.2.0
+
+- Use `postcss-preset-env` instead of `less`
