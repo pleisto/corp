@@ -173,7 +173,7 @@ export const Table: React.FC<NodeViewProps> = () => {
         container?.parentElement?.classList.add('table-block-react-renderer')
       }}>
       <div className="brickdoc-table-block">
-        <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' } })}>
+        <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' }, role: 'table' })}>
           <div className="table-block-row">
             {headerGroups.filter(isGroupedHeader).map(headerGroup => {
               const headerGroupProps = headerGroup.getHeaderGroupProps({
@@ -215,7 +215,7 @@ export const Table: React.FC<NodeViewProps> = () => {
               const rowProps = row.getRowProps({ className: 'table-block-tr' })
               return (
                 <div className={cx('table-block-row', { active: isRowActive(rowIndex) })} key={rowProps.key}>
-                  <div className="table-block-row-actions">
+                  <div data-testid="table-actions" className="table-block-row-actions">
                     <Button onClick={() => addNewRow(rowIndex)} className="table-block-row-action-button" type="text">
                       <Icon name="plus" />
                     </Button>
