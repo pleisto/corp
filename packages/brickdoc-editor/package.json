@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system",
+    "@brickdoc/uploader": "workspace:packages/brickdoc-uploader",
     "@tiptap/core": "2.0.0-beta.89",
     "@tiptap/extension-blockquote": "2.0.0-beta.15",
     "@tiptap/extension-bold": "2.0.0-beta.15",
@@ -42,10 +43,12 @@
     "re-resizable": "^6.9.0",
     "react-medium-image-zoom": "^4.3.4",
     "react-pdf": "^5.3.2",
+    "react-table": "^7.7.0",
     "tippy.js": "^6.3.1"
   },
   "devDependencies": {
     "@types/react-pdf": "^5.0.5",
+    "@types/react-table": "^7.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "typescript": "^4.3.5"
