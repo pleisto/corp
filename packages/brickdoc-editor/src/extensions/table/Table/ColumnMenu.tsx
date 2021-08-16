@@ -15,9 +15,10 @@ export const ColumnMenu: React.FC<ColumnMenuProps> = ({ onRemoveColumn, onColumn
   const removeColumnConfirm = (): void => {
     setVisible(false)
     modal.confirm({
-      content: 'Are you sure you want to delete this property?',
+      title: 'Are you sure you want to delete this property?',
       okText: 'Delete',
       cancelText: 'Cancel',
+      icon: null,
       onOk: () => onRemoveColumn()
     })
   }

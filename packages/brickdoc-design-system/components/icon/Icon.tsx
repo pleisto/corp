@@ -105,6 +105,7 @@ export interface IconProps {
     | 'shield'
     | 'sort'
     | 'sort-242ci1f6'
+    | 'table'
     | 'tag'
     | 'time'
     | 'star'

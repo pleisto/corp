@@ -2,13 +2,13 @@ import React from 'react'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
-import { useTable, Column, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps } from 'react-table'
+import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps } from 'react-table'
 import { Button, Icon } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
+import { useColumns, DEFAULT_GROUP_ID } from './useColumns'
+import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
+import { useActiveStatus } from './useActiveStatus'
 import './Table.css'
-
-const ADD_NEW_COLUMN_ID = '__addColumn'
-const DEFAULT_GROUP_ID = '__defaultGroup'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
@@ -25,8 +25,13 @@ const getStyles = (props: Partial<TableHeaderProps>, align = 'left') => [
 const headerPropsGetter = (props: Partial<TableHeaderGroupProps>, { column }: any) => getStyles(props, column.align)
 const cellPropsGetter = (props: Partial<TableHeaderGroupProps>, { cell }: any) => getStyles(props, cell.column.align)
 
+const defaultColumnMeta = {
+  minWidth: 30, // minWidth is only used as a limit for resizing
+  width: 180 // width is used for both the flex-basis and flex-grow
+}
+
 export const Table: React.FC<NodeViewProps> = () => {
-  const [columns, setColumns] = React.useState<Column[]>([
+  const [columns, { add: addNewColumn, remove: removeColumn, update: updateColumn }] = useColumns([
     {
       id: DEFAULT_GROUP_ID,
       columns: [
@@ -42,91 +47,7 @@ export const Table: React.FC<NodeViewProps> = () => {
     }
   ])
 
-  const removeColumn = (groupId: string, columnId: string): void => {
-    setColumns(prevColumns =>
-      prevColumns.map(group => {
-        if (group.id === groupId) {
-          return {
-            ...group,
-            columns: ((group as any).columns as Column[]).filter(column => {
-              if (column.accessor === columnId) {
-                return false
-              }
-
-              return true
-            })
-          }
-        }
-
-        return group
-      })
-    )
-  }
-
-  const updateColumn = (value: string, groupId: string, columnId: string): void =>
-    setColumns(prevColumns =>
-      prevColumns.map(group => {
-        if (group.id === groupId) {
-          return {
-            ...group,
-            columns: ((group as any).columns as Column[]).map(column => {
-              if (column.accessor === columnId) {
-                return {
-                  ...column,
-                  Header: value
-                }
-              }
-
-              return column
-            })
-          }
-        }
-
-        return group
-      })
-    )
-
-  const addNewColumn = (): void => {
-    setColumns(prevColumns => {
-      return prevColumns.map(group => {
-        if (group.id === DEFAULT_GROUP_ID) {
-          const columns: Column[] = (group as any).columns
-          const label = 'Column'
-          const existsCount = columns.filter(c => typeof c.Header === 'string' && c.Header.startsWith(label)).length
-          const Header = `${label}${existsCount}`
-
-          return {
-            ...group,
-            columns: [
-              ...columns,
-              {
-                Header,
-                accessor: uuid()
-              }
-            ]
-          }
-        }
-
-        return group
-      })
-    })
-  }
-
-  const [activeCells, setActiveCells] = React.useState<Array<[number, number] | number>>([])
-  const isRowActive = (rowIndex: number): boolean => activeCells.includes(rowIndex)
-  const isCellActive = (rowIndex: number, cellIndex: number): boolean =>
-    activeCells.some(active => {
-      if (typeof active === 'number') return false
-      return active[0] === rowIndex && (active[1] === -1 || active[1] === cellIndex)
-    })
-
-  const defaultColumn = React.useMemo(
-    () => ({
-      minWidth: 30, // minWidth is only used as a limit for resizing
-      width: 180 // width is used for both the flex-basis and flex-grow
-    }),
-    []
-  )
+  const [{ isCellActive, isRowActive, updateActiveStatus }] = useActiveStatus()
   const [data, setData] = React.useState<object[]>([
     {
       taskName: 'taskName',
@@ -135,34 +56,17 @@ export const Table: React.FC<NodeViewProps> = () => {
   ])
 
   const addNewRow = (rowIndex: number): void => {
-    setActiveCells([rowIndex + 1])
+    updateActiveStatus([rowIndex + 1])
     setData(prevData => [...prevData.slice(0, rowIndex), {}, ...prevData.slice(rowIndex, prevData.length)])
   }
 
-  const AddNewColumnButton = React.useCallback(
-    () => (
-      <Button type="text" className="table-block-add-column-button" onClick={addNewColumn}>
-        <Icon name="plus" />
-      </Button>
-    ),
-    []
-  )
-
-  const AddNewColumnCell = React.useCallback(() => <div />, [])
-
+  const addNewColColumn = useAddNewColumn(addNewColumn)
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data, defaultColumn },
+    { columns, data, defaultColumn: defaultColumnMeta },
     useFlexLayout,
     useResizeColumns,
     hooks => {
-      hooks.visibleColumns.push(columns => [
-        ...columns,
-        {
-          id: ADD_NEW_COLUMN_ID,
-          Header: AddNewColumnButton,
-          Cell: AddNewColumnCell
-        }
-      ])
+      hooks.visibleColumns.push(columns => [...columns, addNewColColumn])
     }
   )
 
