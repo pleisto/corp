@@ -1,9 +1,8 @@
 import { Node } from 'prosemirror-model'
 import { BlockInput, Block, BlockSyncBatchInput, BlockSyncBatchMutation, BlockSyncBatchMutationVariables } from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
-import { ApolloCache, ApolloClient, MutationTuple } from '@apollo/client'
+import { ApolloCache, MutationTuple } from '@apollo/client'
 import { isNil } from 'lodash'
-import { queryPageBlocks } from '../common/graphql'
 
 const nodeChildren = (node: Node): Node[] => {
   // TODO Fragment type missing content field
@@ -95,10 +94,8 @@ export const blocksToJSONContents = (blocks: Block[], filterId?: string): JSONCo
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<any>>({
-  client,
   blockSyncBatch
 }: {
-  client: ApolloClient<any>
   blockSyncBatch: MutationTuple<BlockSyncBatchMutation, BlockSyncBatchMutationVariables, TApolloContext, TApolloCache>[0]
 }) {
   return {
@@ -106,7 +103,6 @@ export function syncProvider<TApolloContext, TApolloCache extends ApolloCache<an
       const blocks = nodeToBlock(doc, 0)
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
       await blockSyncBatch({ variables: { input } })
-      void client.refetchQueries({ include: [queryPageBlocks] })
     }
   }
 }
