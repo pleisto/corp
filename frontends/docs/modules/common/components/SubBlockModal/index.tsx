@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Modal, Form, Input, message, FormInstance } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
 import { BlockCreateSubBlockInput, useBlockCreateSubBlockMutation } from '@/BrickdocGraphQL'
@@ -16,12 +16,12 @@ export const SubBlockModal: React.FC<SubBlockModalProps> = ({ visible, title, bl
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
   const [form] = Form.useForm()
   const [blockCreateSubBlock, { client }] = useBlockCreateSubBlockMutation()
-  const formRef = React.createRef<FormInstance>()
+  const formRef = useRef<FormInstance>(null)
 
   const handleCancel = (): void => {
     setVisible(false)
     setConfirmLoading(false)
-    formRef.current!.resetFields()
+    formRef.current?.resetFields()
   }
 
   const handleOk = (): void => {
