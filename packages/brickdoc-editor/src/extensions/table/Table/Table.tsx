@@ -5,21 +5,10 @@ import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps, Column } from 'react-table'
 import { Button, Icon } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
-// import { useColumns } from './useColumns'
+import { useColumns } from './useColumns'
 import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
 import { useActiveStatus } from './useActiveStatus'
 import './Table.css'
-
-export const DEFAULT_GROUP_ID = '__defaultGroup'
-
-export interface DatabaseColumn {
-  key: string
-  title: string
-  type: string
-  // group: string
-}
-
-interface DatabaseColumns extends Array<DatabaseColumn> {}
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
@@ -41,59 +30,12 @@ const defaultColumnMeta = {
   width: 180 // width is used for both the flex-basis and flex-grow
 }
 
-const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) =>
-  Object.entries(
-    databaseColumns.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
-      const group = DEFAULT_GROUP_ID
-      r[group] = [
-        ...(r[group] || []),
-        {
-          accessor: dbColumn.key,
-          Header: dbColumn.title
-        }
-      ] as Column[]
-      return r
-    }, {})
-  ).map(([group, columns]) => ({ id: group, columns }))
-
 
 export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
-  const latestDatabaseColumns = React.useRef<DatabaseColumns>(node.attrs.columns)
-  const latestColumns = React.useRef<Column[]>(databaseColumnsToTableColumns(latestDatabaseColumns.current))
-
-  const setColumns = (fn: (prevColumns: DatabaseColumns) => DatabaseColumns): void => {
-    latestDatabaseColumns.current = fn(latestDatabaseColumns.current)
-    latestColumns.current = databaseColumnsToTableColumns(latestDatabaseColumns.current)
-    updateAttributes({ columns: latestDatabaseColumns.current })
-  }
-
-  const addNewColumn = React.useCallback(() =>
-    setColumns(prevColumns =>[
-      ...prevColumns,
-      {
-        key: uuid(),
-        title: `Column${prevColumns.length}`,
-        type: 'text'
-      }
-    ]),
-    []
-  )
-
-  const updateColumn = React.useCallback((value: string, groupId: string, columnId: string) =>
-    setColumns(prevColumns =>
-      prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn))
-    ),
-    []
-  )
-
-  const removeColumn = React.useCallback((groupId: string, columnId: string) =>
-    setColumns(prevColumns =>
-      prevColumns.filter(dbColumn => dbColumn.key !== columnId)
-    ),
-    []
-  )
-
-  const columns = latestColumns.current
+  const [columns, { add: addNewColumn, remove: removeColumn, update: updateColumn }] = useColumns({
+    databaseColumns: node.attrs.columns,
+    updateAttributes
+  })
 
   const [{ isCellActive, isRowActive, updateActiveStatus }] = useActiveStatus()
   const [data, setData] = React.useState<object[]>([
