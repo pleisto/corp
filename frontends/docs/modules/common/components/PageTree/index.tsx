@@ -4,16 +4,17 @@ import { Skeleton, Tree, TreeProps } from '@brickdoc/design-system'
 import { array2Tree } from '@/utils'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '@/docs/modules/pages/SyncProvider'
+import { queryPageBlocks } from '../../graphql'
 
 interface PageTreeProps {
   webid: string
 }
 
 export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
-  const { data, loading, refetch } = useGetPageBlocksQuery({ variables: { webid } })
-  const [blockMove, { loading: moveLoading }] = useBlockMoveMutation()
+  const { data } = useGetPageBlocksQuery({ variables: { webid } })
+  const [blockMove] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
 
-  if (loading || moveLoading || !data?.pageBlocks) {
+  if (!data?.pageBlocks) {
     return <Skeleton />
   }
 
@@ -45,8 +46,6 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
     })
     .sort((a, b) => Number(a.sort) - Number(b.sort))
 
-  console.log({ flattedData, data })
-
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
     let targetParentId: string | undefined | null, sort: number
 
@@ -69,17 +68,10 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
     if (targetParentId) {
       input.targetParentId = targetParentId
     }
-    // console.log({ input, attrs })
     await blockMove({ variables: { input } })
-    void refetch()
   }
 
-  const compactedData = flattedData.filter(i => {
-    // NOTE hide if is NEWLINE (which type == paragraph and title is blank)
-    return i.type !== 'paragraph' || !!i.titleText
-  })
-
-  const treeData = array2Tree(compactedData, { id: 'key' })
+  const treeData = array2Tree(flattedData, { id: 'key' })
 
   return <Tree treeData={treeData} defaultExpandAll draggable onDrop={onDrop} />
 }
