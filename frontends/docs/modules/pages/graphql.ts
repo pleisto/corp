@@ -85,6 +85,11 @@ export const queryChildrenBlocks = gql`
             emoji
           }
         }
+        columns {
+          key
+          type
+          title
+        }
       }
     }
   }

@@ -1,6 +1,7 @@
+import { v4 as uuid } from 'uuid'
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { Table } from './Table'
+import { Table, DEFAULT_GROUP_ID } from './Table'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -25,7 +26,16 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
 
   addAttributes() {
     return {
-      table: {}
+      columns: {
+        default: [
+          {
+            title: 'Task name',
+            type: 'text',
+            key: uuid(),
+            group: DEFAULT_GROUP_ID
+          }
+        ]
+      }
     }
   },
 

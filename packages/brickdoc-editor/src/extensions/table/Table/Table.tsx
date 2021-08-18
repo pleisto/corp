@@ -2,13 +2,24 @@ import React from 'react'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
-import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps } from 'react-table'
+import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps, Column } from 'react-table'
 import { Button, Icon } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
-import { useColumns, DEFAULT_GROUP_ID } from './useColumns'
+// import { useColumns } from './useColumns'
 import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
 import { useActiveStatus } from './useActiveStatus'
 import './Table.css'
+
+export const DEFAULT_GROUP_ID = '__defaultGroup'
+
+export interface DatabaseColumn {
+  key: string
+  title: string
+  type: string
+  group: string
+}
+
+interface DatabaseColumnsAttributes extends Array<DatabaseColumn> {}
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
@@ -30,22 +41,46 @@ const defaultColumnMeta = {
   width: 180 // width is used for both the flex-basis and flex-grow
 }
 
-export const Table: React.FC<NodeViewProps> = () => {
-  const [columns, { add: addNewColumn, remove: removeColumn, update: updateColumn }] = useColumns([
-    {
-      id: DEFAULT_GROUP_ID,
-      columns: [
+export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
+  const columnsAttributes: DatabaseColumnsAttributes = node.attrs.columns || []
+
+  const updateDatabaseColumnsAttributes = (newAttributes: DatabaseColumnsAttributes): void => {
+    updateAttributes({ columns: newAttributes })
+  }
+
+  const addNewColumn = () =>
+    updateDatabaseColumnsAttributes([
+      ...columnsAttributes,
+      {
+        key: uuid(),
+        title: `Column${columnsAttributes.length}`,
+        type: 'text',
+        group: DEFAULT_GROUP_ID
+      }
+    ])
+
+  const updateColumn = (value: string, groupId: string, columnId: string) =>
+    updateDatabaseColumnsAttributes(
+      columnsAttributes.map(dbColumn =>
+        dbColumn.key === columnId && dbColumn.group === groupId ? { ...dbColumn, title: value } : dbColumn
+      )
+    )
+
+  const removeColumn = (groupId: string, columnId: string) =>
+    updateDatabaseColumnsAttributes(columnsAttributes.filter(dbColumn => dbColumn.key !== columnId && dbColumn.group !== groupId))
+
+  const columns = Object.entries(
+    columnsAttributes.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
+      r[dbColumn.group] = [
+        ...(r[dbColumn.group] || []),
         {
-          Header: 'Task name',
-          accessor: uuid()
-        },
-        {
-          Header: 'Due date',
-          accessor: uuid()
+          accessor: dbColumn.key,
+          Header: dbColumn.title
         }
-      ]
-    }
-  ])
+      ] as Column[]
+      return r
+    }, {})
+  ).map(([group, columns]) => ({ id: group, columns }))
 
   const [{ isCellActive, isRowActive, updateActiveStatus }] = useActiveStatus()
   const [data, setData] = React.useState<object[]>([

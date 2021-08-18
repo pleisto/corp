@@ -10,6 +10,8 @@ module Docs
 
       ## NOTE: Prosemirror builtin
       field :level, Int, 'Prosemirror builtin level', null: true
+
+      field :columns, [BlockDatabaseColumn], 'columns', null: true
     end
   end
 end
