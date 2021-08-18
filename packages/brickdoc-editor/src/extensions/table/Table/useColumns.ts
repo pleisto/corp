@@ -28,20 +28,16 @@ export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) 
     }, {})
   ).map(([group, columns]) => ({ id: group, columns }))
 
-export function useColumns(options: {
-    databaseColumns: DatabaseColumns,
-    updateAttributes: (attributes: Record<string, any>) => void
-  }): [
-    Column[],
-    {
-      setColumns: (fn: (prevColumns: DatabaseColumns) => DatabaseColumns) => void
-      remove: (groupId: string, columnId: string) => void
-      update: (value: string, groupId: string, columnId: string) => void
-      add: () => void
-    }
-  ] {
-
-  const {databaseColumns, updateAttributes} = options
+export function useColumns(options: { databaseColumns: DatabaseColumns; updateAttributes: (attributes: Record<string, any>) => void }): [
+  Column[],
+  {
+    setColumns: (fn: (prevColumns: DatabaseColumns) => DatabaseColumns) => void
+    remove: (groupId: string, columnId: string) => void
+    update: (value: string, groupId: string, columnId: string) => void
+    add: () => void
+  }
+] {
+  const { databaseColumns, updateAttributes } = options
 
   const latestDatabaseColumns = React.useRef<DatabaseColumns>(databaseColumns)
   const latestColumns = React.useRef<Column[]>(databaseColumnsToTableColumns(latestDatabaseColumns.current))
@@ -52,31 +48,20 @@ export function useColumns(options: {
     updateAttributes({ columns: latestDatabaseColumns.current })
   }
 
-  const remove = React.useCallback((groupId: string, columnId: string) =>
-    setColumns(prevColumns =>
-      prevColumns.filter(dbColumn => dbColumn.key !== columnId)
-    ),
-    []
-  )
+  const remove = (groupId: string, columnId: string) => setColumns(prevColumns => prevColumns.filter(dbColumn => dbColumn.key !== columnId))
 
-  const update = React.useCallback((value: string, groupId: string, columnId: string) =>
-    setColumns(prevColumns =>
-      prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn))
-    ),
-    []
-  )
+  const update = (value: string, groupId: string, columnId: string) =>
+    setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn)))
 
-  const add = React.useCallback(() =>
-    setColumns(prevColumns =>[
+  const add = () =>
+    setColumns(prevColumns => [
       ...prevColumns,
       {
         key: uuid(),
         title: `Column${prevColumns.length}`,
         type: 'text'
       }
-    ]),
-    []
-  )
+    ])
 
   return [latestColumns.current, { add, update, remove, setColumns }]
 }

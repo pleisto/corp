@@ -1,8 +1,7 @@
 import React from 'react'
-import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
-import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps, Column } from 'react-table'
+import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps } from 'react-table'
 import { Button, Icon } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
@@ -29,7 +28,6 @@ const defaultColumnMeta = {
   minWidth: 30, // minWidth is only used as a limit for resizing
   width: 180 // width is used for both the flex-basis and flex-grow
 }
-
 
 export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
   const [columns, { add: addNewColumn, remove: removeColumn, update: updateColumn }] = useColumns({
