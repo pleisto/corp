@@ -13,7 +13,7 @@ export interface DatabaseColumn {
 
 export interface DatabaseColumns extends Array<DatabaseColumn> {}
 
-export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) =>
+export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns): Column[] =>
   Object.entries(
     databaseColumns.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
       const group = DEFAULT_GROUP_ID
@@ -42,18 +42,19 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
   const latestDatabaseColumns = React.useRef<DatabaseColumns>(databaseColumns)
   const latestColumns = React.useRef<Column[]>(databaseColumnsToTableColumns(latestDatabaseColumns.current))
 
-  const setColumns = (fn: (prevColumns: DatabaseColumns) => DatabaseColumns) => {
+  const setColumns = (fn: (prevColumns: DatabaseColumns) => DatabaseColumns): void => {
     latestDatabaseColumns.current = fn(latestDatabaseColumns.current)
     latestColumns.current = databaseColumnsToTableColumns(latestDatabaseColumns.current)
     updateAttributes({ columns: latestDatabaseColumns.current })
   }
 
-  const remove = (groupId: string, columnId: string) => setColumns(prevColumns => prevColumns.filter(dbColumn => dbColumn.key !== columnId))
+  const remove = (groupId: string, columnId: string): void =>
+    setColumns(prevColumns => prevColumns.filter(dbColumn => dbColumn.key !== columnId))
 
-  const update = (value: string, groupId: string, columnId: string) =>
+  const update = (value: string, groupId: string, columnId: string): void =>
     setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn)))
 
-  const add = () =>
+  const add = (): void =>
     setColumns(prevColumns => [
       ...prevColumns,
       {
