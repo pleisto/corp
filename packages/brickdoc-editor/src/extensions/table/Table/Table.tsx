@@ -16,7 +16,7 @@ export interface DatabaseColumn {
   key: string
   title: string
   type: string
-  group: string
+  // group: string
 }
 
 interface DatabaseColumnsAttributes extends Array<DatabaseColumn> {}
@@ -54,25 +54,23 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
       {
         key: uuid(),
         title: `Column${columnsAttributes.length}`,
-        type: 'text',
-        group: DEFAULT_GROUP_ID
+        type: 'text'
       }
     ])
 
   const updateColumn = (value: string, groupId: string, columnId: string) =>
     updateDatabaseColumnsAttributes(
-      columnsAttributes.map(dbColumn =>
-        dbColumn.key === columnId && dbColumn.group === groupId ? { ...dbColumn, title: value } : dbColumn
-      )
+      columnsAttributes.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn))
     )
 
   const removeColumn = (groupId: string, columnId: string) =>
-    updateDatabaseColumnsAttributes(columnsAttributes.filter(dbColumn => dbColumn.key !== columnId && dbColumn.group !== groupId))
+    updateDatabaseColumnsAttributes(columnsAttributes.filter(dbColumn => dbColumn.key !== columnId))
 
   const columns = Object.entries(
     columnsAttributes.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
-      r[dbColumn.group] = [
-        ...(r[dbColumn.group] || []),
+      const group = DEFAULT_GROUP_ID
+      r[group] = [
+        ...(r[group] || []),
         {
           accessor: dbColumn.key,
           Header: dbColumn.title
