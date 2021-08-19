@@ -7,14 +7,15 @@ export const DEFAULT_GROUP_ID = '__defaultGroup'
 export function useColumns(defaultColumns: Column[]): [
   Column[],
   {
-    remove: (groupId: string, columnId: string) => void
-    update: (value: string, groupId: string, columnId: string) => void
     add: () => void
+    remove: (groupId: string, columnId: string) => void
+    updateName: (value: string, groupId: string, columnId: string) => void
+    updateType: (type: string, groupId: string, columnId: string) => void
   }
 ] {
   const [columns, setColumns] = React.useState<Column[]>(defaultColumns)
 
-  const remove = React.useCallback((groupId: string, columnId: string): void => {
+  const removeFn = (groupId: string, columnId: string): void => {
     setColumns(prevColumns =>
       prevColumns.map(group => {
         if (group.id === groupId) {
@@ -27,26 +28,44 @@ export function useColumns(defaultColumns: Column[]): [
         return group
       })
     )
-  }, [])
+  }
+  const remove = React.useCallback(removeFn, [])
 
-  const update = React.useCallback(
-    (value: string, groupId: string, columnId: string): void =>
-      setColumns(prevColumns =>
-        prevColumns.map(group => {
-          if (group.id !== groupId) return group
-          return {
-            ...group,
-            columns: ((group as any).columns as Column[]).map(column => ({
+  const updateNameFn = (value: string, groupId: string, columnId: string): void =>
+    setColumns(prevColumns =>
+      prevColumns.map(group => {
+        if (group.id !== groupId) return group
+        return {
+          ...group,
+          columns: ((group as any).columns as Column[]).map(column => ({
+            ...column,
+            Header: column.accessor === columnId ? value : column.Header
+          }))
+        }
+      })
+    )
+  const updateName = React.useCallback(updateNameFn, [])
+
+  const updateTypeFn = (type: string, groupId: string, columnId: string): void =>
+    setColumns(prevColumns =>
+      prevColumns.map(group => {
+        if (group.id !== groupId) return group
+        return {
+          ...group,
+          columns: ((group as any).columns as Column[]).map(column => {
+            if (column.accessor !== columnId) return column
+
+            return {
               ...column,
-              Header: column.accessor === columnId ? value : column.Header
-            }))
-          }
-        })
-      ),
-    []
-  )
+              columnType: type
+            }
+          })
+        }
+      })
+    )
+  const updateType = React.useCallback(updateTypeFn, [])
 
-  const add = React.useCallback((): void => {
+  const addFn = (): void => {
     setColumns(prevColumns => {
       return prevColumns.map(group => {
         if (group.id === DEFAULT_GROUP_ID) {
@@ -61,7 +80,8 @@ export function useColumns(defaultColumns: Column[]): [
               ...columns,
               {
                 Header,
-                accessor: uuid()
+                accessor: uuid(),
+                columnType: 'text'
               }
             ]
           }
@@ -70,7 +90,8 @@ export function useColumns(defaultColumns: Column[]): [
         return group
       })
     })
-  }, [])
+  }
+  const add = React.useCallback(addFn, [])
 
-  return [columns, { add, update, remove }]
+  return [columns, { add, updateName, updateType, remove }]
 }

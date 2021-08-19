@@ -8,6 +8,7 @@ import { ColumnMenu } from './ColumnMenu'
 import { useColumns, DEFAULT_GROUP_ID } from './useColumns'
 import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
 import { useActiveStatus } from './useActiveStatus'
+import { Cell } from './Cells/Cell'
 import './Table.css'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
@@ -25,44 +26,64 @@ const getStyles = (props: Partial<TableHeaderProps>, align = 'left') => [
 const headerPropsGetter = (props: Partial<TableHeaderGroupProps>, { column }: any) => getStyles(props, column.align)
 const cellPropsGetter = (props: Partial<TableHeaderGroupProps>, { cell }: any) => getStyles(props, cell.column.align)
 
-const defaultColumnMeta = {
+const defaultColumnConfig = {
   minWidth: 30, // minWidth is only used as a limit for resizing
-  width: 180 // width is used for both the flex-basis and flex-grow
+  width: 180, // width is used for both the flex-basis and flex-grow
+  Cell
 }
 
+const columnMeta = [
+  {
+    Header: 'Task name',
+    columnType: 'text',
+    accessor: uuid(),
+    index: 0
+  },
+  {
+    Header: 'Status',
+    columnType: 'select',
+    columnSelectOptions: [{ label: 'Completed', value: uuid(), color: '#2CAD94' }],
+    accessor: uuid(),
+    index: 1
+  }
+]
+
 export const Table: React.FC<NodeViewProps> = () => {
-  const [columns, { add: addNewColumn, remove: removeColumn, update: updateColumn }] = useColumns([
+  const [columns, { add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] = useColumns([
     {
       id: DEFAULT_GROUP_ID,
-      columns: [
-        {
-          Header: 'Task name',
-          accessor: uuid()
-        },
-        {
-          Header: 'Due date',
-          accessor: uuid()
-        }
-      ]
+      columns: columnMeta
     }
   ])
 
-  const [{ isCellActive, isRowActive, updateActiveStatus }] = useActiveStatus()
+  const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
+
   const [data, setData] = React.useState<object[]>([
     {
-      taskName: 'taskName',
-      dueDate: 'dueDate'
+      [columnMeta[0].accessor]: 'taskName'
     }
   ])
+  const updateData = React.useCallback((rowIndex: number, key: string, data: any): void => {
+    setData(prevData =>
+      prevData.map((item, rIndex) => {
+        if (rIndex !== rowIndex) return item
+
+        return {
+          ...item,
+          [key]: data
+        }
+      })
+    )
+  }, [])
 
   const addNewRow = (rowIndex: number): void => {
-    updateActiveStatus([rowIndex + 1])
-    setData(prevData => [...prevData.slice(0, rowIndex), {}, ...prevData.slice(rowIndex, prevData.length)])
+    updateActiveStatus([{ rowIndex: rowIndex + 1 }])
+    setData(prevData => [...prevData.slice(0, rowIndex + 1), {}, ...prevData.slice(rowIndex + 1, prevData.length)])
   }
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data, defaultColumn: defaultColumnMeta },
+    { columns, data, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData },
     useFlexLayout,
     useResizeColumns,
     hooks => {
@@ -103,7 +124,9 @@ export const Table: React.FC<NodeViewProps> = () => {
                       <ColumnMenu
                         key={column.id}
                         columnName={column.Header as string}
-                        onColumnNameChange={e => updateColumn(e.target.value, column.parent?.id ?? '', column.id)}
+                        columnType={column.columnType}
+                        onColumnNameChange={e => updateColumnName(e.target.value, column.parent?.id ?? '', column.id)}
+                        onColumnTypeChange={type => updateColumnType(type, column.parent?.id ?? '', column.id)}
                         onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
                         {Header}
                       </ColumnMenu>
