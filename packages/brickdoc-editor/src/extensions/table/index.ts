@@ -34,6 +34,9 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
             key: uuid()
           }
         ]
+      },
+      rows: {
+        default: []
       }
     }
   },

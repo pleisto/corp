@@ -258,6 +258,8 @@ export type BlockMeta = {
   image?: Maybe<BlockImage>
   /** Prosemirror builtin level */
   level?: Maybe<Scalars['Int']>
+  /** rows */
+  rows?: Maybe<Array<Scalars['JSON']>>
   /** title */
   title?: Maybe<Scalars['String']>
 }
@@ -1269,6 +1271,7 @@ export type GetChildrenBlocksQuery = {
         __typename?: 'BlockMeta'
         title?: Maybe<string>
         level?: Maybe<number>
+        rows?: Maybe<Array<any>>
         image?: Maybe<{
           __typename?: 'BlockImage'
           type: Blocktype
@@ -2481,6 +2484,7 @@ export const GetChildrenBlocksDocument = gql`
           type
           title
         }
+        rows
       }
     }
   }

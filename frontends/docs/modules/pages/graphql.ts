@@ -91,6 +91,7 @@ export const queryChildrenBlocks = gql`
           type
           title
         }
+        rows
       }
     }
   }

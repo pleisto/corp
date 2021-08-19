@@ -443,6 +443,11 @@ type BlockMeta {
   level: Int
 
   """
+  rows
+  """
+  rows: [JSON!]
+
+  """
   title
   """
   title: String

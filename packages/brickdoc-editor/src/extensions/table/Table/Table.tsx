@@ -5,6 +5,7 @@ import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumn
 import { Button, Icon } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
+import { useRows } from './useRows'
 import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
 import { useActiveStatus } from './useActiveStatus'
 import { Cell } from './Cells/Cell'
@@ -39,12 +40,12 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
-  const [data, setData] = React.useState<object[]>([
-    {
-      [node.attrs.columns[0].key]: 'taskName'
-    }
-  ])
-  const updateData = React.useCallback((rowIndex: number, key: string, data: any): void => {
+  const [tableRows, { updateRows: setData }] = useRows({
+    databaseRows: node.attrs.rows,
+    updateAttributes
+  })
+
+  const updateData = (rowIndex: number, key: string, data: any): void => {
     setData(prevData =>
       prevData.map((item, rIndex) => {
         if (rIndex !== rowIndex) return item
@@ -55,7 +56,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
         }
       })
     )
-  }, [])
+  }
 
   const addNewRow = (rowIndex: number): void => {
     updateActiveStatus([{ rowIndex: rowIndex + 1 }])
@@ -64,7 +65,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData },
+    { columns, data: tableRows, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData },
     useFlexLayout,
     useResizeColumns,
     hooks => {

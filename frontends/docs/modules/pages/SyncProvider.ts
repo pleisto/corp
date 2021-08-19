@@ -47,6 +47,8 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
     data: { text, content }
   }
 
+  // TODO: convert rows to children nodes
+
   const childrenBlocks = hasChildren ? nodeChildren(node) : []
   const children = childrenBlocks.flatMap((n: Node, index: number) =>
     // TODO multiple level
