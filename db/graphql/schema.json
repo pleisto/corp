@@ -610,9 +610,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -624,9 +622,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -649,9 +645,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5496,9 +5490,7 @@
             {
               "name": "rootId",
               "description": "root uuid",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
