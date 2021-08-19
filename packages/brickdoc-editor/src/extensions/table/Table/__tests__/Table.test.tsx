@@ -12,6 +12,12 @@ describe('Table', () => {
     updateAttributes: () => {}
   }
 
+  it('matches correct snapshot', () => {
+    const { container } = render(<Table {...props} />)
+
+    expect(container.firstChild).toMatchSnapshot()
+  })
+
   it('renders table correctly', () => {
     render(<Table {...props} />)
 

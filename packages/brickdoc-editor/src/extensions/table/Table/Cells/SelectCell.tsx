@@ -35,6 +35,11 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
   }
   const isOptionExist = (options: TableColumnSelectOption[], value: string): boolean => options.some(item => item.value === value)
 
+  const handleFilterOption: SelectProps<object>['filterOption'] = (inputValue, option) => {
+    if (!inputValue) return true
+    return (option?.title as string).includes(inputValue)
+  }
+
   const handleColumnOptionChange = (option: TableColumnSelectOption): void => {
     setOptions(prevOptions => {
       updateColumnOption(option)
@@ -119,7 +124,10 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
           autoFocus={true}
           mode="tags"
           tagRender={OptionTag}
+          optionFilterProp="title"
+          filterOption={handleFilterOption}
           dropdownRender={Dropdown}
+          dropdownClassName="select-cell-select-dropdown"
           value={[value].filter(i => !!i)}
           suffixIcon={false}
           menuItemSelectedIcon={false}
@@ -129,12 +137,13 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
           open={true}
           onChange={handleChange}>
           {options.map(option => (
-            <Select.Option key={option.value} value={option.value} title={option.label}>
+            <Select.Option className="select-cell-select-option" key={option.value} value={option.value} title={option.label}>
               <SelectCellOption onOptionValueChange={handleColumnOptionChange} onOptionRemove={handleColumnOptionRemove} option={option} />
             </Select.Option>
           ))}
         </Select>
         <div
+          data-testid="table-select-overlay"
           className="table-block-select-cell-overlay"
           onClick={() => {
             hideEditing()

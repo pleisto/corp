@@ -22,9 +22,10 @@ export const SelectCellOption: React.FC<SelectCellOptionProps> = ({ option, onOp
     event.stopPropagation()
     setVisible(!visible)
   }
+  const inputRef = React.useRef<Input | null>()
 
   return (
-    <div className="select-cell-option-item">
+    <div className="select-cell-option-item" role="listitem">
       <Tag color={bgColor(option.color)} style={{ color: option.color }}>
         {option.label}
       </Tag>
@@ -34,9 +35,12 @@ export const SelectCellOption: React.FC<SelectCellOptionProps> = ({ option, onOp
         overlayStyle={{ zIndex: 1054 }}
         content={
           <Menu className="table-block-menu" onClick={e => e.domEvent.stopPropagation()}>
-            <Menu.Item key="Header" className="table-block-menu-item input-item">
-              {/* TODO: input inside option is not work now */}
+            <Menu.Item key="Header" className="table-block-menu-item input-item" onClick={() => inputRef.current?.focus()}>
               <Input
+                ref={container => {
+                  inputRef.current = container
+                }}
+                onPressEnter={() => setVisible(false)}
                 onFocus={e => {
                   e.target.setSelectionRange(0, e.target.value?.length ?? 0)
                 }}

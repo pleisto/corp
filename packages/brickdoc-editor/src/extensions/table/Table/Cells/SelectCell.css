@@ -148,3 +148,13 @@
     }
   }
 }
+
+.select-cell-select-dropdown {
+  &.brk-select-dropdown {
+    & .brk-select-item:not(.select-cell-select-option):before {
+      content: 'Create ';
+      font-weight: 500;
+      margin-right: 8px;
+    }
+  }
+}

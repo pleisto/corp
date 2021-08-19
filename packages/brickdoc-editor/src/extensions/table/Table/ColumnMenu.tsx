@@ -49,7 +49,7 @@ export const ColumnMenu: React.FC<ColumnMenuProps> = ({
     })
   }
 
-  const handleUpdateColumnType = (type: string) => {
+  const handleUpdateColumnType = (type: string): void => {
     onColumnTypeChange(type)
     setVisible(false)
   }

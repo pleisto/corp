@@ -65,14 +65,11 @@
     border: none;
     transition: border-color @animation-duration-slow @ease-in-out, background @animation-duration-slow @ease-in-out,
       padding @menu-animation-duration-normal @ease-in-out;
+
   }
 
   &-submenu-active {
     background: @menu-item-active-bg;
-  }
-
-  &-submenu-selected {
-    color: @menu-highlight-color;
   }
 
   &-item:hover {
@@ -481,6 +478,10 @@
       overflow: hidden;
       line-height: @menu-item-height;
       text-overflow: ellipsis;
+
+      .@{brk-prefix}-icon-arrow-right {
+        display: none;
+      }
     }
 
     // disable margin collapsed
@@ -520,15 +521,15 @@
         align-items: center;
         transition: border-color @animation-duration-slow, background @animation-duration-slow, padding 0.1s @ease-out;
 
+        > * {
+          flex: none;
+        }
+
         > .@{menu-prefix-cls}-title-content {
           flex: auto;
           min-width: 0;
           overflow: hidden;
           text-overflow: ellipsis;
-        }
-
-        > * {
-          flex: none;
         }
       }
     }
