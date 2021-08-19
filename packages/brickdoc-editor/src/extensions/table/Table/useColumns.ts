@@ -13,17 +13,20 @@ export interface DatabaseColumn {
 
 export interface DatabaseColumns extends Array<DatabaseColumn> {}
 
-export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns): Column[] =>
+export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) =>
   Object.entries(
     databaseColumns.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
       const group = DEFAULT_GROUP_ID
+      const column = {
+        accessor: dbColumn.key,
+        Header: dbColumn.title,
+        columnType: dbColumn.type,
+        columnSelectOptions: [{ label: 'Completed', value: uuid(), color: '#2CAD94' }]
+      }
       r[group] = [
         ...(r[group] || []),
-        {
-          accessor: dbColumn.key,
-          Header: dbColumn.title
-        }
-      ] as Column[]
+        column
+      ]
       return r
     }, {})
   ).map(([group, columns]) => ({ id: group, columns }))
@@ -32,9 +35,10 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
   Column[],
   {
     setColumns: (fn: (prevColumns: DatabaseColumns) => DatabaseColumns) => void
-    remove: (groupId: string, columnId: string) => void
-    update: (value: string, groupId: string, columnId: string) => void
     add: () => void
+    remove: (groupId: string, columnId: string) => void
+    updateName: (value: string, groupId: string, columnId: string) => void
+    updateType: (type: string, groupId: string, columnId: string) => void
   }
 ] {
   const { databaseColumns, updateAttributes } = options
@@ -51,9 +55,6 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
   const remove = (groupId: string, columnId: string): void =>
     setColumns(prevColumns => prevColumns.filter(dbColumn => dbColumn.key !== columnId))
 
-  const update = (value: string, groupId: string, columnId: string): void =>
-    setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn)))
-
   const add = (): void =>
     setColumns(prevColumns => [
       ...prevColumns,
@@ -64,5 +65,12 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
       }
     ])
 
-  return [latestColumns.current, { add, update, remove, setColumns }]
+  const updateName = (value: string, groupId: string, columnId: string): void =>
+    setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, title: value } : dbColumn)))
+
+  const updateType = (type: string, groupId: string, columnId: string): void =>
+    setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, type } : dbColumn)))
+
+
+  return [latestColumns.current, { setColumns, add, remove, updateName, updateType }]
 }
