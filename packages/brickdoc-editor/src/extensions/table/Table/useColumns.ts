@@ -21,12 +21,11 @@ export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) 
         accessor: dbColumn.key,
         Header: dbColumn.title,
         columnType: dbColumn.type,
-        columnSelectOptions: [{ label: 'Completed', value: uuid(), color: '#2CAD94' }]
+        // TODO: should get select options from dbColumn
+        columnSelectOptions: [{ label: 'Completed', value: uuid(), color: '#2CAD94' }],
+        index: (r[group] || []).length
       }
-      r[group] = [
-        ...(r[group] || []),
-        column
-      ]
+      r[group] = [...(r[group] || []), column]
       return r
     }, {})
   ).map(([group, columns]) => ({ id: group, columns }))
@@ -61,7 +60,8 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
       {
         key: uuid(),
         title: `Column${prevColumns.length}`,
-        type: 'text'
+        type: 'text',
+        index: prevColumns.length
       }
     ])
 
@@ -70,7 +70,6 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
 
   const updateType = (type: string, groupId: string, columnId: string): void =>
     setColumns(prevColumns => prevColumns.map(dbColumn => (dbColumn.key === columnId ? { ...dbColumn, type } : dbColumn)))
-
 
   return [latestColumns.current, { setColumns, add, remove, updateName, updateType }]
 }

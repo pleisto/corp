@@ -5,7 +5,18 @@ import { render, screen, fireEvent } from '@testing-library/react'
 describe('Table', () => {
   const props: any = {
     editor: {},
-    node: { attrs: { table: {} } },
+    node: {
+      attrs: {
+        rows: [],
+        columns: [
+          {
+            key: 'key',
+            title: 'Column',
+            type: 'text'
+          }
+        ]
+      }
+    },
     extension: {
       options: {}
     },
@@ -25,7 +36,15 @@ describe('Table', () => {
   })
 
   it('adds new column normally', () => {
-    render(<Table {...props} />)
+    const updateAttributes = (attrs: any): void => {
+      props.node.attrs = {
+        ...props.node.attrs,
+        ...attrs
+      }
+
+      rerender(<Table {...props} />)
+    }
+    const { rerender } = render(<Table {...props} updateAttributes={updateAttributes} />)
 
     const columnHeaders = screen.getAllByRole('columnheader')
 
@@ -40,11 +59,19 @@ describe('Table', () => {
     const newColumnHeaders = screen.getAllByRole('columnheader')
 
     expect(newColumnHeaders.length - columnHeaders.length).toBe(1)
-    expect(screen.getByText('Column0')).toBeInTheDocument()
+    expect(screen.getByText('Column1')).toBeInTheDocument()
   })
 
   it(`updates column's name normally`, () => {
-    render(<Table {...props} />)
+    const updateAttributes = (attrs: any): void => {
+      props.node.attrs = {
+        ...props.node.attrs,
+        ...attrs
+      }
+
+      rerender(<Table {...props} />)
+    }
+    const { rerender } = render(<Table {...props} updateAttributes={updateAttributes} />)
     const newName = 'new name'
 
     const columnHeaders = screen.getAllByRole('columnheader')
@@ -62,7 +89,15 @@ describe('Table', () => {
   })
 
   it('removes column normally', () => {
-    render(<Table {...props} />)
+    const updateAttributes = (attrs: any): void => {
+      props.node.attrs = {
+        ...props.node.attrs,
+        ...attrs
+      }
+
+      rerender(<Table {...props} />)
+    }
+    const { rerender } = render(<Table {...props} updateAttributes={updateAttributes} />)
 
     const columnHeaders = screen.getAllByRole('columnheader')
     const firstColumnHeader = columnHeaders[0]
