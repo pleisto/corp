@@ -114,5 +114,3 @@ class BrickdocPlugin
     BrickdocHook.on(hook_name, scope: "plugin.#{@plugin_name}", &block)
   end
 end
-
-::BrickdocPlugin.load_plugins(Rails.root.join('spec/dummy/plugins/**'))
