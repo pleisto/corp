@@ -33,10 +33,11 @@ const defaultColumnConfig = {
 }
 
 export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
-  const [columns, { add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] = useColumns({
-    databaseColumns: node.attrs.columns,
-    updateAttributes
-  })
+  const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
+    useColumns({
+      databaseColumns: node.attrs.columns,
+      updateAttributes
+    })
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
@@ -65,7 +66,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data: tableRows, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData },
+    { columns, data: tableRows, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData, setColumns },
     useFlexLayout,
     useResizeColumns,
     hooks => {

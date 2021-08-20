@@ -162,6 +162,8 @@ export type BlockDatabaseColumn = {
   height?: Maybe<Scalars['String']>
   /** key */
   key: Scalars['String']
+  /** select options */
+  selectOptions?: Maybe<Array<Scalars['JSON']>>
   /** type */
   source: Filesourcetype
   /** title */
@@ -1311,7 +1313,9 @@ export type GetChildrenBlocksQuery = {
               width?: Maybe<string>
             }
         >
-        columns?: Maybe<Array<{ __typename?: 'BlockDatabaseColumn'; key: string; type: string; title?: Maybe<string> }>>
+        columns?: Maybe<
+          Array<{ __typename?: 'BlockDatabaseColumn'; key: string; type: string; title?: Maybe<string>; selectOptions?: Maybe<Array<any>> }>
+        >
       }
     }>
   >
@@ -2483,6 +2487,7 @@ export const GetChildrenBlocksDocument = gql`
           key
           type
           title
+          selectOptions
         }
         rows
       }

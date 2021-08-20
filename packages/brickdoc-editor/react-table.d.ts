@@ -126,7 +126,7 @@ declare module 'react-table' {
       UseSortByColumnProps<D> {
     // define custom column properties here
     columnType: string
-    columnSelectOptions: TableColumnSelectOption[]
+    selectOptions: TableColumnSelectOption[]
     index: number
   }
 

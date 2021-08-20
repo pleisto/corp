@@ -90,6 +90,7 @@ export const queryChildrenBlocks = gql`
           key
           type
           title
+          selectOptions
         }
         rows
       }

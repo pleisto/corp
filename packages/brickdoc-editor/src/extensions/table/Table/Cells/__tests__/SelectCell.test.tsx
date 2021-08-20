@@ -11,7 +11,7 @@ describe('SelectCell', () => {
   const id2 = 'id2'
   const label2 = 'label2'
 
-  const columnSelectOptions = [
+  const selectOptions = [
     {
       value: 'id',
       label,
@@ -29,7 +29,7 @@ describe('SelectCell', () => {
     resetActiveStatus: () => {},
     updateActiveStatus: () => {},
     column: {
-      columnSelectOptions
+      selectOptions
     },
     cell: {
       row: {
@@ -42,7 +42,7 @@ describe('SelectCell', () => {
   }
 
   beforeEach(() => {
-    props.column.columnSelectOptions = columnSelectOptions.map(item => ({ ...item }))
+    props.column.selectOptions = selectOptions.map(item => ({ ...item }))
   })
 
   it('matches correct snapshot', () => {
@@ -116,7 +116,7 @@ describe('SelectCell', () => {
 
   describe('Select Option', () => {
     beforeEach(() => {
-      props.column.columnSelectOptions = columnSelectOptions.map(item => ({ ...item }))
+      props.column.selectOptions = selectOptions.map(item => ({ ...item }))
     })
 
     it('shows option menu when click menu button', () => {

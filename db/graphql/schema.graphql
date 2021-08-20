@@ -255,6 +255,11 @@ type BlockDatabaseColumn {
   key: String!
 
   """
+  select options
+  """
+  selectOptions: [JSON!]
+
+  """
   type
   """
   source: Filesourcetype!

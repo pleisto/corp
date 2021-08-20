@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column } from 'react-table'
+import { Column, TableColumnSelectOption } from 'react-table'
 import { v4 as uuid } from 'uuid'
 
 export const DEFAULT_GROUP_ID = '__defaultGroup'
@@ -9,6 +9,7 @@ export interface DatabaseColumn {
   title: string
   type: string
   // group: string
+  selectOptions?: TableColumnSelectOption[]
 }
 
 export interface DatabaseColumns extends Array<DatabaseColumn> {}
@@ -21,8 +22,7 @@ export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) 
         accessor: dbColumn.key,
         Header: dbColumn.title,
         columnType: dbColumn.type,
-        // TODO: should get select options from dbColumn
-        columnSelectOptions: [],
+        selectOptions: dbColumn.selectOptions ?? [],
         index: (r[group] || []).length
       }
       r[group] = [...(r[group] || []), column]

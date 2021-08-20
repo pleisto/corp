@@ -785,6 +785,26 @@
               "deprecationReason": null
             },
             {
+              "name": "selectOptions",
+              "description": "select options",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "JSON",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "source",
               "description": "type",
               "args": [],

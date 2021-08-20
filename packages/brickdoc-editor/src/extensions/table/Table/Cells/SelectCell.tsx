@@ -7,6 +7,7 @@ import { CellProps, TableColumnSelectOption } from 'react-table'
 import { useEditingStatus } from './useEditingStatus'
 import { SelectCellOption } from './SelectCellOption'
 import { COLOR } from '../../../color'
+import { DatabaseColumns } from '../useColumns'
 import './SelectCell.css'
 
 const randomColor = (): string => COLOR[Math.floor(Math.random() * COLOR.length)].color
@@ -21,19 +22,26 @@ export const bgColor = (color?: string): string => {
 }
 
 export const SelectCell: React.FC<SelectCellProps> = props => {
-  const { cell, value, updateData, column } = props
+  const { cell, value, updateData, column, setColumns } = props
   const [modal, contextHolder] = Modal.useModal()
   const [editing, { show: showEditing, hide: hideEditing }] = useEditingStatus(props)
 
-  const [options, setOptions] = React.useState<TableColumnSelectOption[]>(column.columnSelectOptions.map(item => ({ ...item })))
-  const updateColumnOption = (option: TableColumnSelectOption): void => {
-    const item = column.columnSelectOptions.find(item => item.value === option.value)
-    if (item) {
-      item.color = option.color
-      item.label = option.label
-    } else column.columnSelectOptions.push(option)
+  const selectOptions = column.selectOptions
+
+  const setSelectOptions = (fn: (prevColumns: TableColumnSelectOption[]) => TableColumnSelectOption[]): void => {
+    setColumns((prevColumns: DatabaseColumns) =>
+      prevColumns.map(dbColumn =>
+        dbColumn.key === cell.column.id
+          ? {
+              ...dbColumn,
+              selectOptions: fn(dbColumn.selectOptions ?? [])
+            }
+          : dbColumn
+      )
+    )
   }
-  const isOptionExist = (options: TableColumnSelectOption[], value: string): boolean => options.some(item => item.value === value)
+
+  const isOptionExist = (options: TableColumnSelectOption[], value: string): boolean => selectOptions.some(item => item.value === value)
 
   const handleFilterOption: SelectProps<object>['filterOption'] = (inputValue, option) => {
     if (!inputValue) return true
@@ -41,13 +49,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
   }
 
   const handleColumnOptionChange = (option: TableColumnSelectOption): void => {
-    setOptions(prevOptions => {
-      updateColumnOption(option)
-      return prevOptions.map(item => {
-        if (item.value === option.value) return option
-        return item
-      })
-    })
+    setSelectOptions(prevOptions => prevOptions.map(item => (item.value === option.value ? option : item)))
   }
 
   const handleColumnOptionRemove = (option: TableColumnSelectOption): void => {
@@ -57,10 +59,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
       cancelText: 'Cancel',
       icon: null,
       onOk: () => {
-        setOptions(prevOptions => {
-          column.columnSelectOptions = column.columnSelectOptions.filter(item => item.value !== option.value)
-          return prevOptions.filter(item => item.value !== option.value)
-        })
+        setSelectOptions(prevOptions => prevOptions.filter(item => item.value !== option.value))
 
         if (option.value === value) {
           updateData(cell.row.index, cell.column.id, null)
@@ -74,15 +73,13 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
 
     if (!newValue) return
 
-    setOptions(prevOptions => {
+    setSelectOptions(prevOptions => {
       if (isOptionExist(prevOptions, newValue)) {
         updateData(cell.row.index, cell.column.id, newValue)
         return prevOptions
       }
-
       const newOption: TableColumnSelectOption = { label: newValue, color: randomColor(), value: uuid() }
       updateData(cell.row.index, cell.column.id, newOption.value)
-      updateColumnOption(newOption)
       return [...prevOptions, newOption]
     })
   }
@@ -93,15 +90,14 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
 
   const OptionTag: SelectProps<object>['tagRender'] = React.useCallback(
     ({ value }) => {
-      const color = options.find(item => item.value === value)?.color
-      const label = column.columnSelectOptions.find(item => item.value === value)?.label
+      const { label, color } = selectOptions.find(item => item.value === value) ?? {}
       return (
         <Tag className="table-block-select-cell-tag" style={{ color }} color={bgColor(color)} closable={true} onClose={handleRemove}>
           {label}
         </Tag>
       )
     },
-    [options, handleRemove, column.columnSelectOptions]
+    [selectOptions, handleRemove]
   )
 
   const Dropdown: SelectProps<object>['dropdownRender'] = React.useCallback(
@@ -136,7 +132,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
           showAction={['focus', 'click']}
           open={true}
           onChange={handleChange}>
-          {options.map(option => (
+          {selectOptions.map(option => (
             <Select.Option className="select-cell-select-option" key={option.value} value={option.value} title={option.label}>
               <SelectCellOption onOptionValueChange={handleColumnOptionChange} onOptionRemove={handleColumnOptionRemove} option={option} />
             </Select.Option>
@@ -153,8 +149,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     )
   }
 
-  const color = options.find(item => item.value === value)?.color
-  const label = column.columnSelectOptions.find(item => item.value === value)?.label
+  const { color, label } = selectOptions.find(item => item.value === value) ?? {}
 
   return (
     /* eslint-disable jsx-a11y/click-events-have-key-events */
