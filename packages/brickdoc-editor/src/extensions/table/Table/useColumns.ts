@@ -22,7 +22,7 @@ export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) 
         Header: dbColumn.title,
         columnType: dbColumn.type,
         // TODO: should get select options from dbColumn
-        columnSelectOptions: [{ label: 'Completed', value: uuid(), color: '#2CAD94' }],
+        columnSelectOptions: [],
         index: (r[group] || []).length
       }
       r[group] = [...(r[group] || []), column]

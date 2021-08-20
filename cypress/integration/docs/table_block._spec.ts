@@ -16,10 +16,10 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').should('exist')
+    cy.findByText('Column1').should('exist')
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column1').should('exist')
+    cy.findByText('Column2').should('exist')
   })
 
   it('should update column name', () => {
@@ -28,8 +28,8 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').click()
-    cy.findAllByDisplayValue('Column0').focus().type('NewColumn')
+    cy.findByText('Column1').click()
+    cy.findAllByDisplayValue('Column1').focus().type('NewColumn')
     cy.findByText('NewColumn').should('exist')
   })
 
@@ -39,11 +39,11 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last-child > button').click()
-    cy.findByText('Column0').click()
+    cy.findByText('Column1').click()
     cy.findByText('Delete').click()
     // confirm
     cy.get('.brk-btn-ok-btn').click()
-    cy.findByText('Column0').should('not.exist')
+    cy.findByText('Column1').should('not.exist')
   })
 
   it('should add new row', () => {
@@ -73,7 +73,7 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').click()
+    cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
     cy.get('.table-block-select-cell:last').click()
@@ -86,7 +86,7 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').click()
+    cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
     cy.get('.table-block-select-cell:last').click()
@@ -101,7 +101,7 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').click()
+    cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
     cy.get('.table-block-select-cell:last').click()
@@ -118,7 +118,7 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-th:last > button').click()
-    cy.findByText('Column0').click()
+    cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
     cy.get('.table-block-select-cell:last').click()
