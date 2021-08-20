@@ -29,6 +29,7 @@ describe('SelectCell', () => {
     resetActiveStatus: () => {},
     updateActiveStatus: () => {},
     column: {
+      id: 'columnId',
       selectOptions
     },
     cell: {
@@ -87,8 +88,14 @@ describe('SelectCell', () => {
 
   it('selects option normally', () => {
     const updateData = jest.fn()
+    const setColumns = (fn: Function): void => {
+      const newColumns = fn([{ ...props.column, key: props.column.id }])
+      props.column = newColumns[0]
 
-    render(<SelectCell {...props} updateData={updateData} />)
+      rerender(<SelectCell {...props} />)
+    }
+
+    const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
     fireEvent.click(screen.getByRole('button'))
 
@@ -100,10 +107,17 @@ describe('SelectCell', () => {
   })
 
   it('creates new option if no option match search value', () => {
+    const setColumns = (fn: Function): void => {
+      const newColumns = fn([{ ...props.column, key: props.column.id }])
+      props.column = newColumns[0]
+
+      rerender(<SelectCell {...props} />)
+    }
+
     const updateData = jest.fn()
     const newOption = 'new option'
 
-    render(<SelectCell {...props} updateData={updateData} />)
+    const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
     fireEvent.click(screen.getByRole('button'))
     fireEvent.change(screen.getByRole('combobox'), { target: { value: newOption } })
@@ -130,9 +144,16 @@ describe('SelectCell', () => {
     })
 
     it('changes option name correctly', () => {
+      const setColumns = (fn: Function): void => {
+        const newColumns = fn([{ ...props.column, key: props.column.id }])
+        props.column = newColumns[0]
+
+        rerender(<SelectCell {...props} />)
+      }
+
       const newLabel = 'newLabel'
       const updateData = jest.fn()
-      render(<SelectCell {...props} updateData={updateData} />)
+      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')
@@ -145,8 +166,15 @@ describe('SelectCell', () => {
     })
 
     it('delete option which is not current value', () => {
+      const setColumns = (fn: Function): void => {
+        const newColumns = fn([{ ...props.column, key: props.column.id }])
+        props.column = newColumns[0]
+
+        rerender(<SelectCell {...props} />)
+      }
+
       const updateData = jest.fn()
-      render(<SelectCell {...props} updateData={updateData} />)
+      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')
@@ -161,8 +189,15 @@ describe('SelectCell', () => {
     })
 
     it('delete option which is current value', () => {
+      const setColumns = (fn: Function): void => {
+        const newColumns = fn([{ ...props.column, key: props.column.id }])
+        props.column = newColumns[0]
+
+        rerender(<SelectCell {...props} />)
+      }
+
       const updateData = jest.fn()
-      render(<SelectCell {...props} updateData={updateData} />)
+      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')
@@ -178,8 +213,15 @@ describe('SelectCell', () => {
     })
 
     it('picks color for option', () => {
+      const setColumns = (fn: Function): void => {
+        const newColumns = fn([{ ...props.column, key: props.column.id }])
+        props.column = newColumns[0]
+
+        rerender(<SelectCell {...props} />)
+      }
+
       const updateData = jest.fn()
-      render(<SelectCell {...props} updateData={updateData} />)
+      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')
