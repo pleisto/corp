@@ -1,0 +1,71 @@
+/*
+Mixins
+========
+*/
+@define-mixin motion-common $duration: var(--animation-duration-base) {
+  animation-duration: $duration;
+  animation-fill-mode: both;
+}
+
+@define-mixin motion-common-leave $duration: var(--animation-duration-base) {
+  animation-duration: $duration;
+  animation-fill-mode: both;
+}
+
+@define-mixin make-motion $className, $keyframeName, $duration: var(--animation-duration-base) {
+  .$(className)-enter,
+  .$(className)-appear {
+    @mixin motion-common $duration;
+
+    animation-play-state: paused;
+  }
+  .$(className)-leave {
+    @mixin motion-common-leave $duration;
+
+    animation-play-state: paused;
+  }
+  .$(className)-enter.$(className)-enter-active,
+  .$(className)-appear.$(className)-appear-active {
+    animation-name: ~'$(keyframeName)In';
+    animation-play-state: running;
+  }
+  .$(className)-leave.$(className)-leave-active {
+    animation-name: ~'$(keyframeName)Out';
+    animation-play-state: running;
+    pointer-events: none;
+  }
+}
+
+/*
+Fade
+========
+*/
+@keyframes brkFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes brkFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@mixin make-motion brk-fade, brkFade;
+.brk-fade-enter,
+.brk-fade-appear {
+  opacity: 0;
+  animation-timing-function: linear;
+}
+.brk-fade-leave {
+  animation-timing-function: linear;
+}

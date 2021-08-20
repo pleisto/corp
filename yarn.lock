@@ -2037,7 +2037,10 @@ __metadata:
     performant-array-to-tree: ^1.9.1
     postcss: ^8.3.6
     postcss-loader: ^6.1.1
+    postcss-mixins: ^8.1.0
     postcss-preset-env: ^6.7.0
+    postcss-simple-vars: ^6.0.3
+    postcss-will-change: ^4.0.1
     prettier: ^2.3.2
     qs: ^6.10.1
     react: ^17.0.2
@@ -8599,7 +8602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase-css@npm:2.0.1":
+"camelcase-css@npm:2.0.1, camelcase-css@npm:^2.0.1":
   version: 2.0.1
   resolution: "camelcase-css@npm:2.0.1"
   checksum: 1cec2b3b3dcb5026688a470b00299a8db7d904c4802845c353dbd12d9d248d3346949a814d83bfd988d4d2e5b9904c07efe76fecd195a1d4f05b543e7c0b56b1
@@ -19500,6 +19503,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"postcss-js@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "postcss-js@npm:3.0.3"
+  dependencies:
+    camelcase-css: ^2.0.1
+    postcss: ^8.1.6
+  checksum: cc17f59f2b9bb22ed1cf9daab1f9944635b0713dce923ff7d9fd10b89393fc9aa1fab43a97f9a71295827fa32c9676d52661d7d6a693ecc0c41541ee928c781e
+  languageName: node
+  linkType: hard
+
 "postcss-lab-function@npm:^2.0.1":
   version: 2.0.1
   resolution: "postcss-lab-function@npm:2.0.1"
@@ -19651,6 +19664,20 @@ fsevents@^1.2.7:
   peerDependencies:
     postcss: ^8.2.15
   checksum: bf938e70a77b54d68709ec5e9a500b932e177b2278b5c405c3b59fb6f8315f2013e7b327ba76105949bf3c9ba6d6bef80ced4077cababb8e0015d87b4a086b50
+  languageName: node
+  linkType: hard
+
+"postcss-mixins@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "postcss-mixins@npm:8.1.0"
+  dependencies:
+    globby: ^11.0.3
+    postcss-js: ^3.0.3
+    postcss-simple-vars: ^6.0.3
+    sugarss: ^3.0.3
+  peerDependencies:
+    postcss: ^8.2.14
+  checksum: 5a8b0573ef48fec0fac1c8f947446618e1821d92700d4226f4d45e3566185b7adef136527d9f39ecbd60b20d1730a73da2b1beecdde71141d2777d947644b5f0
   languageName: node
   linkType: hard
 
@@ -20055,6 +20082,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"postcss-simple-vars@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "postcss-simple-vars@npm:6.0.3"
+  peerDependencies:
+    postcss: ^8.2.1
+  checksum: 66fd71dc8fc76fc994595132d3476ab37e8c691b69730b117bbd89e0a4c92ee195328f02f1fe3ca7019f413c4b53a1ef30108c802190f6b572e78c55cb9ee349
+  languageName: node
+  linkType: hard
+
 "postcss-svgo@npm:^5.0.2":
   version: 5.0.2
   resolution: "postcss-svgo@npm:5.0.2"
@@ -20107,6 +20143,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"postcss-will-change@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "postcss-will-change@npm:4.0.1"
+  peerDependencies:
+    postcss: ^8.1.0
+  checksum: 470a8c0cc328826b6f317c0a71ee47e9214d65aa898a41c5e3245e3bf0b6ca576ea9feb858f1157b072cdf93bf212a515017c5701716ec2f8a39630c2564535d
+  languageName: node
+  linkType: hard
+
 "postcss@npm:^7.0.14, postcss@npm:^7.0.17, postcss@npm:^7.0.2, postcss@npm:^7.0.21, postcss@npm:^7.0.26, postcss@npm:^7.0.32, postcss@npm:^7.0.35, postcss@npm:^7.0.36, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
   version: 7.0.36
   resolution: "postcss@npm:7.0.36"
@@ -20118,7 +20163,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.15, postcss@npm:^8.3.5, postcss@npm:^8.3.6":
+"postcss@npm:^8.1.6, postcss@npm:^8.2.15, postcss@npm:^8.3.5, postcss@npm:^8.3.6":
   version: 8.3.6
   resolution: "postcss@npm:8.3.6"
   dependencies:
@@ -23841,6 +23886,15 @@ resolve@^2.0.0-next.3:
   dependencies:
     postcss: ^7.0.2
   checksum: 777abf31671b67aafc5bb6dbca0853070ff9c129b7a52e90cfbe1a24ff069765e53b03767f85407386edf01c26fe2c2861aae2841f9a391751df891694137839
+  languageName: node
+  linkType: hard
+
+"sugarss@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "sugarss@npm:3.0.3"
+  dependencies:
+    postcss: ^8.1.6
+  checksum: 13c976518410bf12fef3ae6727b9faeff4a336e97fbd5bc2243bc49de5a218ded2c3248cc3f19d74289bcc0200ed7ceb8857f85f979c96a3ab61af803c7bb66c
   languageName: node
   linkType: hard
 

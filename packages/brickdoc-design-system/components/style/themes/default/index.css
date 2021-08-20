@@ -1,0 +1,15 @@
+:root {
+  /* default */
+  --font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Roboto, 'Segoe UI', 'Segoe WP', sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-sm: 13px;
+  --line-height-base: 1.7;
+  --outline-link-focus: 0;
+
+  /* Animation */
+  --animation-duration-slow: 0.3s; /* Modal */
+  --animation-duration-base: 0.2s;
+  --animation-duration-fast: 0.1s; /* Tooltip */
+}

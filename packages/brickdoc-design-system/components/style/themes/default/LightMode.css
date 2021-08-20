@@ -1,0 +1,7 @@
+:root{
+  --color-text: #333;
+  --color-bg: var(--color-white);
+  --color-heading: var(--color-text);
+  --color-disabled: #ccc;
+  --color-selection-bg: var(--color-primary);
+}
