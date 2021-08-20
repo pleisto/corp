@@ -62,6 +62,10 @@ class BrickdocPlugin
       @plugins.select { |_, plugin| plugin.enabled? }.keys
     end
 
+    def all_plugins
+      @plugins
+    end
+
     # TODO: switch domain of BrickdocConfig and enable Hook scopes in one place
     def update_hooks_scopes
       BrickdocHook.enabled_scopes =
@@ -110,3 +114,5 @@ class BrickdocPlugin
     BrickdocHook.on(hook_name, scope: "plugin.#{@plugin_name}", &block)
   end
 end
+
+::BrickdocPlugin.load_plugins(Rails.root.join('spec/dummy/plugins/**'))
