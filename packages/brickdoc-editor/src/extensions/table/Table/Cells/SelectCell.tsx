@@ -45,7 +45,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
 
   const handleFilterOption: SelectProps<object>['filterOption'] = (inputValue, option) => {
     if (!inputValue) return true
-    return (option?.title as string).includes(inputValue)
+    return ((option?.title as string) ?? '').includes(inputValue)
   }
 
   const handleColumnOptionChange = (option: TableColumnSelectOption): void => {
