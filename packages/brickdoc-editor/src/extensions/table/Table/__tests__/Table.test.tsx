@@ -113,7 +113,23 @@ describe('Table', () => {
     expect(columnHeaders.length - newColumnHeaders.length).toBe(1)
   })
 
-  it('adds new row normally', () => {
+  it('adds new row by toolbar button normally', () => {
+    render(<Table {...props} />)
+
+    const rows = screen.getAllByRole('row')
+
+    fireEvent.click(screen.getByText('New'))
+
+    const newRows = screen.getAllByRole('row')
+
+    expect(newRows.length - rows.length).toBe(1)
+
+    const newRow = newRows[newRows.length - 1]
+
+    expect(newRow.parentElement).toHaveClass('active')
+  })
+
+  it('adds new row by row action normally', () => {
     render(<Table {...props} />)
 
     const rows = screen.getAllByRole('row')

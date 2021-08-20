@@ -13,7 +13,7 @@ import './Table.css'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
-const getStyles = (props: Partial<TableHeaderProps>, align = 'left') => [
+const getStyles = (props: Partial<TableHeaderProps>, align = 'left'): Array<Partial<TableHeaderGroupProps>> => [
   props,
   {
     style: {
@@ -23,8 +23,10 @@ const getStyles = (props: Partial<TableHeaderProps>, align = 'left') => [
     }
   }
 ]
-const headerPropsGetter = (props: Partial<TableHeaderGroupProps>, { column }: any) => getStyles(props, column.align)
-const cellPropsGetter = (props: Partial<TableHeaderGroupProps>, { cell }: any) => getStyles(props, cell.column.align)
+const headerPropsGetter = (props: Partial<TableHeaderGroupProps>, { column }: any): Array<Partial<TableHeaderGroupProps>> =>
+  getStyles(props, column.align)
+const cellPropsGetter = (props: Partial<TableHeaderGroupProps>, { cell }: any): Array<Partial<TableHeaderGroupProps>> =>
+  getStyles(props, cell.column.align)
 
 const defaultColumnConfig = {
   minWidth: 30, // minWidth is only used as a limit for resizing
@@ -59,9 +61,12 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
     )
   }
 
-  const addNewRow = (rowIndex: number): void => {
-    updateActiveStatus([{ rowIndex: rowIndex + 1 }])
-    setData(prevData => [...prevData.slice(0, rowIndex + 1), {}, ...prevData.slice(rowIndex + 1, prevData.length)])
+  const addNewRow = (rowIndex?: number): void => {
+    setData(prevData => {
+      const currentRowIndex = rowIndex ?? prevData.length - 1
+      updateActiveStatus([{ rowIndex: currentRowIndex + 1 }])
+      return [...prevData.slice(0, currentRowIndex + 1), {}, ...prevData.slice(currentRowIndex + 1, prevData.length)]
+    })
   }
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
@@ -76,10 +81,17 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
 
   return (
     <NodeViewWrapper
+      className="table-block-node-view-wrapper"
       ref={(container: HTMLDivElement) => {
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
+        container?.classList.add('table-block-node-view-wrapper')
       }}>
+      <div role="toolbar" className="table-block-toolbar">
+        <Button type="primary" className="table-toolbar-add-button" onClick={() => addNewRow()}>
+          New <Icon.ArrowRight />
+        </Button>
+      </div>
       <div className="brickdoc-table-block">
         <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' }, role: 'table' })}>
           <div className="table-block-row">
