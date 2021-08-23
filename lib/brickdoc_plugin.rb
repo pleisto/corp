@@ -54,7 +54,15 @@ class BrickdocPlugin
       plugin.loader.setup
       plugin.loader.eager_load
 
-      require "#{path}/engine.rb" if plugin.load_engine
+      if plugin.load_engine
+        require "#{path}/engine.rb"
+        engine_constant = const_get(plugin_constant_name + '::Engine')
+        engines_to_mount[plugin_name] = engine_constant if engine_constant.routes?
+      end
+    end
+
+    def engines_to_mount
+      @engines_to_mount ||= {}
     end
 
     # TODO: cached with BrickSetting in current domain
