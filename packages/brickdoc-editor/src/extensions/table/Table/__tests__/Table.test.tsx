@@ -144,4 +144,35 @@ describe('Table', () => {
 
     expect(newRow.parentElement).toHaveClass('active')
   })
+
+  describe('Row ContextMenu', () => {
+    it('filters menu items normally', () => {
+      render(<Table {...props} />)
+
+      const rows = screen.getAllByRole('row')
+      fireEvent.contextMenu(rows[1])
+      fireEvent.change(screen.getByPlaceholderText('Filter actions...'), { target: { value: 'Del' } })
+
+      const menuItems = screen.getAllByRole('menuitem')
+
+      expect(menuItems).toHaveLength(2)
+      expect(menuItems[1]).toHaveTextContent('Delete')
+
+      fireEvent.change(screen.getByPlaceholderText('Filter actions...'), { target: { value: 'nonsense' } })
+      expect(screen.getAllByRole('menuitem')).toHaveLength(1)
+    })
+
+    it('removes row by click delete button', () => {
+      render(<Table {...props} />)
+
+      const rows = screen.getAllByRole('row')
+      fireEvent.contextMenu(rows[1])
+      fireEvent.click(screen.getByText('Delete'))
+      fireEvent.click(screen.getAllByText('Delete')[1])
+
+      const newRows = screen.getAllByRole('row')
+
+      expect(rows.length - newRows.length).toBe(1)
+    })
+  })
 })
