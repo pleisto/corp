@@ -109,6 +109,15 @@ class BrickdocPlugin
     BrickdocConfig.current.scope("plugin.#{@plugin_name}", &block)
   end
 
+  def attributes
+    {
+      name: @plugin_name,
+      metadata: @metadata,
+      version: @metadata.fetch(:version),
+      enabled: enabled?
+    }
+  end
+
   def enabled?
     BrickdocConfig.current.get("#{@plugin_name}_enabled", scope: 'plugins')
   end
