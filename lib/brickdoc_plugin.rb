@@ -48,7 +48,7 @@ class BrickdocPlugin
       plugin_constant = const_defined?(plugin_constant_name) ? const_get(plugin_constant_name) : const_set(plugin_constant_name, Module.new)
 
       # non-engine plugin autoload dirs
-      ['app/models', 'app/helpers', 'app/graphql', 'app/policies'].each do |dir|
+      ['app/models', 'app/helpers', 'app/graphql', 'app/controllers', 'app/policies'].each do |dir|
         plugin.loader.push_dir(dir, namespace: plugin_constant)
       end
       plugin.loader.setup

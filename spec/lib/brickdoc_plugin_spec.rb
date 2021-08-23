@@ -49,6 +49,7 @@ describe BrickdocPlugin do
     BrickdocPlugin.load_plugins(Rails.root.join('spec/dummy/plugins/**'))
 
     expect(BrickdocPlugin.loaded?(:dummy_plugin)).to be(true)
+    expect(BrickdocPlugin.all_plugins[:dummy_plugin].class).to be(BrickdocPlugin)
     dummy_plugin = BrickdocPlugin.plugin(:dummy_plugin)
     expect(dummy_plugin.settings.test_plugin_key).to eq('value2')
 
