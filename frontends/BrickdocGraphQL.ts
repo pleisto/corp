@@ -475,17 +475,35 @@ export type RootMutation = {
   blockSyncBatch?: Maybe<BlockSyncBatchPayload>
   createDirectUpload?: Maybe<CreateDirectUploadPayload>
   createOrUpdatePod?: Maybe<CreateOrUpdatePodPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userConfirmationEmailResend?: Maybe<UserConfirmationEmailResendPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userCreate?: Maybe<UserCreatePayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userEmailPasswordSignIn?: Maybe<UserEmailPasswordSignInPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userForgetPasswordMailSend?: Maybe<UserForgetPasswordMailSendPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userPasswordReset?: Maybe<UserPasswordResetPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userSignOut?: Maybe<UserSignOutPayload>
 }
 
