@@ -5,5 +5,6 @@ class BrickdocPlugin::GithubWebhook::Engine < BrickdocPlugin::Engine
 end
 
 BrickdocPlugin::GithubWebhook::Engine.routes.draw do
-  resources :events
+  resources :events, only: [:index]
+  post "/events/:uuid" => "events#create"
 end
