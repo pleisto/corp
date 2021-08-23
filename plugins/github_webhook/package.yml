@@ -1,0 +1,7 @@
+metadata:
+  name: github_webhook
+  version: 0.0.1
+
+enforce_dependencies: true
+
+enforce_privacy: true
