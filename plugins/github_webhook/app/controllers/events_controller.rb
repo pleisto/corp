@@ -9,8 +9,6 @@ module BrickdocPlugin::GithubWebhook
 
     def create
       _block = Docs::Block.find(params.fetch(:uuid))
-      Rails.logger.info("logger #{params}")
-      puts("puts #{params}")
       render json: { code: 0, msg: "ok" }
     rescue => e
       render json: { code: -1, msg: e.message }
