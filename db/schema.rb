@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_022652) do
+ActiveRecord::Schema.define(version: 2021_08_24_062802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -103,7 +103,6 @@ ActiveRecord::Schema.define(version: 2021_08_24_022652) do
     t.bigint "pod_id"
     t.string "type", limit: 32
     t.uuid "parent_id"
-    t.string "parent_type", limit: 32
     t.jsonb "meta", default: {}, null: false, comment: "metadata"
     t.jsonb "data", null: false, comment: "data props"
     t.bigint "history_version", default: 0, null: false
@@ -128,7 +127,6 @@ ActiveRecord::Schema.define(version: 2021_08_24_022652) do
     t.jsonb "data", null: false
     t.uuid "block_id", null: false
     t.uuid "parent_id"
-    t.string "parent_type"
     t.string "type", limit: 32
     t.bigint "sort", null: false
     t.bigint "history_version", null: false

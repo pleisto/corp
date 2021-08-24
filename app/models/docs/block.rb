@@ -11,7 +11,6 @@
 #  deleted_at            :datetime
 #  history_version       :bigint           default(0), not null
 #  meta(metadata)        :jsonb            not null
-#  parent_type           :string(32)
 #  snapshot_version      :bigint           default(0), not null
 #  sort                  :bigint           default(0)
 #  text(node text)       :text             default("")

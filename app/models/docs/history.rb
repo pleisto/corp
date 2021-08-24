@@ -9,7 +9,6 @@
 #  data                  :jsonb            not null
 #  history_version       :bigint           not null
 #  meta                  :jsonb            not null
-#  parent_type           :string
 #  sort                  :bigint           not null
 #  text(node text)       :text             default("")
 #  type                  :string(32)
@@ -38,7 +37,6 @@ class Docs::History < ApplicationRecord
     self.meta = block.meta
     self.sort = block.sort
     self.type = block.type
-    self.parent_type = block.parent_type
     self.parent_id = block.parent_id
   end
 
@@ -68,7 +66,7 @@ class Docs::History < ApplicationRecord
   ## try `def id = block_id`
   def cast_block
     attributes.slice(
-      'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'parent_type', 'pod_id'
+      'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'pod_id'
     ).merge('id' => block_id)
   end
 end
