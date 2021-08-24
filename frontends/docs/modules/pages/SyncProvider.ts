@@ -39,8 +39,6 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 
   const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
 
-  console.log(content)
-
   const parent: BlockInput = {
     content,
     text,

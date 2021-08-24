@@ -24,7 +24,6 @@ class SeparateDocsBlockTextAndContent < ActiveRecord::Migration[6.1]
   end
 
   def down
-
     [Docs::Block, Docs::History].each do |model_class|
       model_class.unscoped.find_each do |block|
         block.data['text'] = block.text

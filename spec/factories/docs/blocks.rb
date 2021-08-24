@@ -6,7 +6,7 @@ FactoryBot.define do
     sort { 0 }
     type { 'doc' }
     meta { { title: FFaker::Lorem.phrase } }
-    data { { } }
+    data { {} }
     text { FFaker::Lorem.phrase }
     content { [] }
     collaborators { [pod.owner.id] }
@@ -20,7 +20,7 @@ FactoryBot.define do
     sort { 0 }
     type { 'doc' }
     meta { { title: FFaker::Lorem.phrase } }
-    data { { } }
+    data { {} }
     text { FFaker::Lorem.phrase }
     content { [] }
     collaborators { [pod.owner.id] }
