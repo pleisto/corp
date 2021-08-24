@@ -3,7 +3,7 @@ import * as React from 'react'
 import './style'
 import DatePicker from '../date-picker'
 import { PickerTimeProps, RangePickerTimeProps } from '../date-picker/generatePicker'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 
 const { TimePicker: InternalTimePicker, RangePicker: InternalRangePicker } = DatePicker
 

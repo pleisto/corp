@@ -1,11 +1,11 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import { CloseOne as CloseCircleFilled } from '../icon'
-import { tuple } from '../_util/type'
+import { tuple } from '../utils/type'
 import { InputProps, getInputClassName } from './Input'
 import { DirectionType } from '../config-provider'
 import { SizeType } from '../config-provider/SizeContext'
-import { cloneElement } from '../_util/reactNode'
+import { cloneElement } from '../utils/reactNode'
 
 const ClearableInputType = tuple('text', 'input')
 

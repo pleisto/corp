@@ -5,8 +5,8 @@ import debounce from 'lodash/debounce'
 
 import './style'
 import { ConfigConsumer, ConfigConsumerProps } from '../config-provider'
-import { tuple } from '../_util/type'
-import { isValidElement, cloneElement } from '../_util/reactNode'
+import { tuple } from '../utils/type'
+import { isValidElement, cloneElement } from '../utils/reactNode'
 
 const SpinSizes = tuple('small', 'default', 'large')
 export type SpinSize = typeof SpinSizes[number]

@@ -3,7 +3,7 @@ import { SubMenu as RcSubMenu, useFullPath } from 'rc-menu'
 import classNames from 'classnames'
 import omit from 'rc-util/lib/omit'
 import MenuContext from './MenuContext'
-import { isValidElement, cloneElement } from '../_util/reactNode'
+import { isValidElement, cloneElement } from '../utils/reactNode'
 
 interface TitleEventEntity {
   key: string

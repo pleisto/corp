@@ -4,10 +4,10 @@ import classNames from 'classnames'
 
 import './style'
 import { Rotation as LoadingOutlined } from '../icon'
-import Wave from '../_util/wave'
+import Wave from '../utils/wave'
 import { ConfigContext } from '../config-provider'
 import SizeContext from '../config-provider/SizeContext'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 
 export type SwitchSize = 'small' | 'default'
 export type SwitchChangeEventHandler = (checked: boolean, event: MouseEvent) => void

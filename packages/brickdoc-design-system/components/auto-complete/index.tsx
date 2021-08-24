@@ -14,8 +14,8 @@ import omit from 'rc-util/lib/omit'
 import './style'
 import Select, { InternalSelectProps, OptionType, RefSelectProps } from '../select'
 import { ConfigConsumer, ConfigConsumerProps } from '../config-provider'
-import devWarning from '../_util/devWarning'
-import { isValidElement } from '../_util/reactNode'
+import devWarning from '../utils/devWarning'
+import { isValidElement } from '../utils/reactNode'
 
 const { Option } = Select
 

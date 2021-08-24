@@ -1,3 +1,4 @@
+@import '../themes/default/animation.css';
 /*
 Mixins
 ========
@@ -26,11 +27,11 @@ Mixins
   }
   .$(className)-enter.$(className)-enter-active,
   .$(className)-appear.$(className)-appear-active {
-    animation-name: ~'$(keyframeName)In';
+    animation-name: $(keyframeName)-In;
     animation-play-state: running;
   }
   .$(className)-leave.$(className)-leave-active {
-    animation-name: ~'$(keyframeName)Out';
+    animation-name: $(keyframeName)-Out;
     animation-play-state: running;
     pointer-events: none;
   }
@@ -40,7 +41,7 @@ Mixins
 Fade
 ========
 */
-@keyframes brkFadeIn {
+@keyframes brkFade-In {
   0% {
     opacity: 0;
   }
@@ -50,7 +51,7 @@ Fade
   }
 }
 
-@keyframes brkFadeOut {
+@keyframes brkFade-Out {
   0% {
     opacity: 1;
   }
@@ -68,4 +69,481 @@ Fade
 }
 .brk-fade-leave {
   animation-timing-function: linear;
+}
+
+/*
+Move
+========
+*/
+@keyframes brkMoveDown-In {
+  0% {
+    transform: translateY(100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes brkMoveDown-Out {
+  0% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+
+@keyframes brktMoveLeft-In {
+  0% {
+    transform: translateX(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes brkMoveLeft-Out {
+  0% {
+    transform: translateX(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+
+@keyframes brkMoveRight-In {
+  0% {
+    transform: translateX(100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes brkMoveRight-Out {
+  0% {
+    transform: translateX(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+
+@keyframes brkMoveUp-In {
+  0% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes brkMoveUp-Out {
+  0% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+
+@define-mixin move-motion $className, $keyframeName {
+  @mixin make-motion brk-$(className), $keyframeName;
+  .brk-$(className)-enter,
+  .brk-$(className)-appear {
+    opacity: 0;
+    animation-timing-function: var(--ease-out-circ);
+  }
+  .brk-$(className)-leave {
+    animation-timing-function: var(--ease-in-circ);
+  }
+}
+
+@mixin move-motion move-up, brkMoveUp;
+@mixin move-motion move-down, brkMoveDown;
+@mixin move-motion move-left, brkMoveLeft;
+@mixin move-motion move-right, brkMoveRight;
+
+/*
+Slide
+========
+*/
+@keyframes brkSlideUp-In {
+  0% {
+    transform: scaleY(0.8);
+    transform-origin: 0% 0%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleY(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes brkSlideUp-Out {
+  0% {
+    transform: scaleY(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.8);
+    transform-origin: 0% 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkSlideDown-In {
+  0% {
+    transform: scaleY(0.8);
+    transform-origin: 100% 100%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleY(1);
+    transform-origin: 100% 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes brkSlideDown-Out {
+  0% {
+    transform: scaleY(1);
+    transform-origin: 100% 100%;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.8);
+    transform-origin: 100% 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkSlideLeft-In {
+  0% {
+    transform: scaleX(0.8);
+    transform-origin: 0% 0%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes brkSlideLeft-Out {
+  0% {
+    transform: scaleX(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(0.8);
+    transform-origin: 0% 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkSlideRight-In {
+  0% {
+    transform: scaleX(0.8);
+    transform-origin: 100% 0%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes brkSlideRight-Out {
+  0% {
+    transform: scaleX(1);
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(0.8);
+    transform-origin: 100% 0%;
+    opacity: 0;
+  }
+}
+
+@define-mixin slide-motion $className, $keyframeName {
+  @mixin make-motion brk-$className, $keyframeName;
+  .brk-$(className)-enter,
+  .brk-$(className)-appear {
+    opacity: 0;
+    animation-timing-function: var(--ease-out-quint);
+  }
+  .brk-$(className)-leave {
+    animation-timing-function: var(--ease-in-quint);
+  }
+}
+
+@mixin slide-motion slide-up, brkSlideUp;
+@mixin slide-motion slide-down, brkSlideDown;
+@mixin slide-motion slide-left, brkSlideLeft;
+@mixin slide-motion slide-right, brkSlideRight;
+
+/*
+Zoom
+========
+*/
+
+@keyframes brkZoomIn {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes brkZoomOut {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes brkZoomBigIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes brkZoomBigOut {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes brkZoomUpIn {
+  0% {
+    transform: scale(0.8);
+    transform-origin: 50% 0%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    transform-origin: 50% 0%;
+  }
+}
+
+@keyframes brkZoomUpOut {
+  0% {
+    transform: scale(1);
+    transform-origin: 50% 0%;
+  }
+
+  100% {
+    transform: scale(0.8);
+    transform-origin: 50% 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkZoomLeftIn {
+  0% {
+    transform: scale(0.8);
+    transform-origin: 0% 50%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    transform-origin: 0% 50%;
+  }
+}
+
+@keyframes brkZoomLeftOut {
+  0% {
+    transform: scale(1);
+    transform-origin: 0% 50%;
+  }
+
+  100% {
+    transform: scale(0.8);
+    transform-origin: 0% 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkZoomRightIn {
+  0% {
+    transform: scale(0.8);
+    transform-origin: 100% 50%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    transform-origin: 100% 50%;
+  }
+}
+
+@keyframes brkZoomRightOut {
+  0% {
+    transform: scale(1);
+    transform-origin: 100% 50%;
+  }
+
+  100% {
+    transform: scale(0.8);
+    transform-origin: 100% 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes brkZoomDownIn {
+  0% {
+    transform: scale(0.8);
+    transform-origin: 50% 100%;
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    transform-origin: 50% 100%;
+  }
+}
+
+@keyframes brkZoomDownOut {
+  0% {
+    transform: scale(1);
+    transform-origin: 50% 100%;
+  }
+
+  100% {
+    transform: scale(0.8);
+    transform-origin: 50% 100%;
+    opacity: 0;
+  }
+}
+
+@define-mixin $className, $keyframeName, $duration: var(--animation-duration-base)) {
+  @mixin make-motion brk-$(className), $keyframeName, $duration;
+  .brk-$(className)-enter,
+  .brk-$(className)-appear {
+    transform: scale(0);
+    opacity: 0;
+    animation-timing-function: @ease-out-circ;
+
+    &-prepare {
+      transform: none;
+    }
+  }
+  .brk-$(className)-leave {
+    animation-timing-function: @ease-in-out-circ;
+  }
+}
+
+@mixin zoom-motion zoom, brkZoom;
+/* For Popover, Popconfirm, Dropdown */
+@mixin zoom-motion zoom-big, brkZoomBig;
+/* For Tooltip */
+@mixin zoom-motion zoom-big-fast, brkZoomBig, var(--animation-duration-fast);
+
+@mixin zoom-motion zoom-up, brkZoomUp;
+@mixin zoom-motion zoom-down, brkZoomDown;
+@mixin zoom-motion zoom-left, brkZoomLeft;
+@mixin zoom-motion zoom-right, brkZoomRight;
+
+/*
+Other
+========
+*/
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeEffect {
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes i-icon-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.brk-motion-collapse {
+  overflow: hidden;
+  transition: height var(--animation-duration-base) var(--ease-in-out), 
+              opacity var(--animation-duration-base) var(--ease-in-out) !important;
 }

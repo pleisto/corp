@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import omit from 'rc-util/lib/omit'
 import ResizeObserver from 'rc-resize-observer'
 import { ConfigContext, ConfigConsumerProps } from '../config-provider'
-import { throttleByAnimationFrameDecorator } from '../_util/throttleByAnimationFrame'
+import { throttleByAnimationFrameDecorator } from '../utils/throttleByAnimationFrame'
 
 import './style'
 import { addObserveTarget, removeObserveTarget, getTargetRect, getFixedTop, getFixedBottom } from './utils'

@@ -6,7 +6,7 @@ import './style'
 import { ConfigContext } from '../config-provider'
 import { SizeType } from '../config-provider/SizeContext'
 import Item from './Item'
-import useFlexGapSupport from '../_util/hooks/useFlexGapSupport'
+import useFlexGapSupport from '../utils/hooks/useFlexGapSupport'
 
 export const SpaceContext = React.createContext({
   latestIndex: 0,

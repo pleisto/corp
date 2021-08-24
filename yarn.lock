@@ -2039,7 +2039,6 @@ __metadata:
     postcss-loader: ^6.1.1
     postcss-mixins: ^8.1.0
     postcss-preset-env: ^6.7.0
-    postcss-simple-vars: ^6.0.3
     postcss-will-change: ^4.0.1
     prettier: ^2.3.2
     qs: ^6.10.1

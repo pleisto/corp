@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import { Right as RightOutlined } from '../icon'
 import DropdownButton from './dropdown-button'
 import { ConfigContext } from '../config-provider'
-import devWarning from '../_util/devWarning'
-import { tuple } from '../_util/type'
-import { cloneElement } from '../_util/reactNode'
+import devWarning from '../utils/devWarning'
+import { tuple } from '../utils/type'
+import { cloneElement } from '../utils/reactNode'
 
 const Placements = tuple('topLeft', 'topCenter', 'topRight', 'bottomLeft', 'bottomCenter', 'bottomRight')
 

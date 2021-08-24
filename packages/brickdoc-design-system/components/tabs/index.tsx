@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import './style'
 import { Close as CloseOutlined, Plus as PlusOutlined, More as EllipsisOutlined } from '../icon'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import { ConfigContext } from '../config-provider'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
 

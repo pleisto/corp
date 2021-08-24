@@ -8,8 +8,8 @@ import {
   Close as CloseOutlined
 } from '../icon'
 import { ConfigConsumer, ConfigConsumerProps } from '../config-provider'
-import { tuple } from '../_util/type'
-import devWarning from '../_util/devWarning'
+import { tuple } from '../utils/type'
+import devWarning from '../utils/devWarning'
 import Line from './Line'
 import Circle from './Circle'
 import Steps from './Steps'

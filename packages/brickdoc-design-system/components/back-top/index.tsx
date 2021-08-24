@@ -7,11 +7,11 @@ import omit from 'rc-util/lib/omit'
 
 import './style'
 import { ToTop as VerticalAlignTopOutlined } from '../icon'
-import { throttleByAnimationFrame } from '../_util/throttleByAnimationFrame'
+import { throttleByAnimationFrame } from '../utils/throttleByAnimationFrame'
 import { ConfigContext } from '../config-provider'
-import getScroll from '../_util/getScroll'
-import scrollTo from '../_util/scrollTo'
-import { cloneElement } from '../_util/reactNode'
+import getScroll from '../utils/getScroll'
+import scrollTo from '../utils/scrollTo'
+import { cloneElement } from '../utils/reactNode'
 
 export interface BackTopProps {
   visibilityHeight?: number

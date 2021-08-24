@@ -1,5 +1,5 @@
 import * as React from 'react'
-import useForceUpdate from '../../_util/hooks/useForceUpdate'
+import useForceUpdate from '../../utils/hooks/useForceUpdate'
 
 /** Always debounce error to avoid [error -> null -> error] blink */
 export default function useCacheErrors(

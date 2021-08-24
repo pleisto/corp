@@ -2,9 +2,9 @@ import * as React from 'react'
 import classNames from 'classnames'
 import Dialog, { ModalFuncProps } from './Modal'
 import ActionButton from './ActionButton'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 // import ConfigProvider from '../config-provider'
-import { getTransitionName } from '../_util/motion'
+import { getTransitionName } from '../utils/motion'
 
 interface ConfirmDialogProps extends ModalFuncProps {
   afterClose?: () => void

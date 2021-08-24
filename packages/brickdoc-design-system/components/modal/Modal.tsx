@@ -8,8 +8,8 @@ import Button from '../button'
 import { LegacyButtonType, ButtonProps, convertLegacyProps } from '../button/button'
 import LocaleReceiver from '../locale-provider/LocaleReceiver'
 import { ConfigContext, DirectionType } from '../config-provider'
-import { canUseDocElement } from '../_util/styleChecker'
-import { getTransitionName } from '../_util/motion'
+import { canUseDocElement } from '../utils/styleChecker'
+import { getTransitionName } from '../utils/motion'
 import { ModalLocale } from './locale'
 
 let mousePosition: { x: number; y: number } | null

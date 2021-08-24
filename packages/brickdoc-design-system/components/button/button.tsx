@@ -5,12 +5,12 @@ import omit from 'rc-util/lib/omit'
 
 import Group from './button-group'
 import { ConfigContext } from '../config-provider'
-import Wave from '../_util/wave'
-import { tuple } from '../_util/type'
-import devWarning from '../_util/devWarning'
+import Wave from '../utils/wave'
+import { tuple } from '../utils/type'
+import devWarning from '../utils/devWarning'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
 import LoadingIcon from './LoadingIcon'
-import { cloneElement } from '../_util/reactNode'
+import { cloneElement } from '../utils/reactNode'
 
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar)

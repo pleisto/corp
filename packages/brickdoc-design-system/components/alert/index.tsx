@@ -11,9 +11,9 @@ import classNames from 'classnames'
 
 import './style'
 import { ConfigContext } from '../config-provider'
-import getDataOrAriaProps from '../_util/getDataOrAriaProps'
+import getDataOrAriaProps from '../utils/getDataOrAriaProps'
 import ErrorBoundary from './ErrorBoundary'
-import { replaceElement } from '../_util/reactNode'
+import { replaceElement } from '../utils/reactNode'
 
 export interface AlertProps {
   /** Type of Alert styles, options:`success`, `info`, `warning`, `error` */

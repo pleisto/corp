@@ -10,7 +10,7 @@ import { TooltipProps } from '../tooltip'
 import { ConfigContext } from '../config-provider/context'
 import usePagination, { DEFAULT_PAGE_SIZE, getPaginationParam } from './hooks/usePagination'
 import useLazyKVMap from './hooks/useLazyKVMap'
-import { Breakpoint } from '../_util/responsiveObserve'
+import { Breakpoint } from '../utils/responsiveObserve'
 import {
   TableRowSelection,
   GetRowKey,
@@ -32,12 +32,12 @@ import useSorter, { getSortData, SortState } from './hooks/useSorter'
 import useFilter, { getFilterData, FilterState } from './hooks/useFilter'
 import useTitleColumns from './hooks/useTitleColumns'
 import renderExpandIcon from './ExpandIcon'
-import scrollTo from '../_util/scrollTo'
+import scrollTo from '../utils/scrollTo'
 import { useLocale } from '../locale-provider/LocaleReceiver'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
 import Column from './Column'
 import ColumnGroup from './ColumnGroup'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import useBreakpoint from '../grid/hooks/useBreakpoint'
 
 export type { ColumnsType, TablePaginationConfig }

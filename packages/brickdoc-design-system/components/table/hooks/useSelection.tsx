@@ -12,7 +12,7 @@ import Checkbox, { CheckboxProps } from '../../checkbox'
 import Dropdown from '../../dropdown'
 import Menu from '../../menu'
 import Radio from '../../radio'
-import devWarning from '../../_util/devWarning'
+import devWarning from '../../utils/devWarning'
 import {
   TableRowSelection,
   Key,

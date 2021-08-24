@@ -5,11 +5,11 @@ import Group from './Group'
 import Search from './Search'
 import TextArea from './TextArea'
 import Password from './Password'
-import { LiteralUnion } from '../_util/type'
+import { LiteralUnion } from '../utils/type'
 import ClearableLabeledInput, { hasPrefixSuffix } from './ClearableLabeledInput'
 import { ConfigConsumer, ConfigConsumerProps, DirectionType } from '../config-provider'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 
 export interface InputFocusOptions extends FocusOptions {
   cursor?: 'start' | 'end' | 'all'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import omit from 'rc-util/lib/omit'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import Base, { BlockProps, EllipsisConfig } from './Base'
 
 export interface TextProps extends BlockProps {

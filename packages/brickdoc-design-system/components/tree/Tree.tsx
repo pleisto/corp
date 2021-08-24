@@ -5,7 +5,7 @@ import { DataNode, Key } from 'rc-tree/lib/interface'
 
 import DirectoryTree from './DirectoryTree'
 import { ConfigContext } from '../config-provider'
-import collapseMotion from '../_util/motion'
+import collapseMotion from '../utils/motion'
 import renderSwitcherIcon from './utils/iconUtil'
 import dropIndicatorRender from './utils/dropIndicator'
 

@@ -3,8 +3,8 @@ import * as React from 'react'
 import './style'
 import Tooltip, { AbstractTooltipProps, TooltipPlacement } from '../tooltip'
 import { ConfigContext } from '../config-provider'
-import { getRenderPropValue, RenderFunction } from '../_util/getRenderPropValue'
-import { getTransitionName } from '../_util/motion'
+import { getRenderPropValue, RenderFunction } from '../utils/getRenderPropValue'
+import { getTransitionName } from '../utils/motion'
 
 export interface PopoverProps extends AbstractTooltipProps {
   title?: React.ReactNode | RenderFunction

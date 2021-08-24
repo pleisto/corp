@@ -17,10 +17,10 @@ import {
 import Input from '../input'
 import { ConfigConsumer, ConfigConsumerProps, RenderEmptyHandler, DirectionType } from '../config-provider'
 import LocaleReceiver from '../locale-provider/LocaleReceiver'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
-import { replaceElement } from '../_util/reactNode'
-import { getTransitionName } from '../_util/motion'
+import { replaceElement } from '../utils/reactNode'
+import { getTransitionName } from '../utils/motion'
 
 export interface CascaderOptionType {
   value?: string | number

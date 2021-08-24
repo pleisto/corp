@@ -5,7 +5,7 @@ import Item, { FormItemProps } from './FormItem'
 import ErrorList, { ErrorListProps } from './ErrorList'
 import List, { FormListProps } from './FormList'
 import { FormProvider } from './context'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 
 type InternalFormType = typeof InternalForm
 

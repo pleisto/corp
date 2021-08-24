@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import CSSMotion from 'rc-motion'
 import useMemo from 'rc-util/lib/hooks/useMemo'
 import useCacheErrors from './hooks/useCacheErrors'
-import useForceUpdate from '../_util/hooks/useForceUpdate'
+import useForceUpdate from '../utils/hooks/useForceUpdate'
 import { FormItemPrefixContext } from './context'
 import { ConfigContext } from '../config-provider'
 

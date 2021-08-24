@@ -6,8 +6,8 @@ import classNames from 'classnames'
 import './style'
 import { Close as CloseOutlined } from '../icon'
 import { ConfigContext, DirectionType } from '../config-provider'
-import { tuple } from '../_util/type'
-import useForceUpdate from '../_util/hooks/useForceUpdate'
+import { tuple } from '../utils/type'
+import useForceUpdate from '../utils/hooks/useForceUpdate'
 
 interface DrawerRef {
   push: () => void

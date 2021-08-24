@@ -6,12 +6,12 @@ import { DefaultValueType } from 'rc-tree-select/lib/interface'
 
 import './style'
 import { ConfigContext } from '../config-provider'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import { AntTreeNodeProps } from '../tree'
 import getIcons from '../select/utils/iconUtil'
 import renderSwitcherIcon from '../tree/utils/iconUtil'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
-import { getTransitionName } from '../_util/motion'
+import { getTransitionName } from '../utils/motion'
 
 type RawValue = string | number
 

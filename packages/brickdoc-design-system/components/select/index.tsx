@@ -10,7 +10,7 @@ import './style'
 import { ConfigContext } from '../config-provider'
 import getIcons from './utils/iconUtil'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
-import { getTransitionName } from '../_util/motion'
+import { getTransitionName } from '../utils/motion'
 
 type RawValue = string | number
 

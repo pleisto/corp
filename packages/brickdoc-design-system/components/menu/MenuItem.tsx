@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import MenuContext, { MenuContextProps } from './MenuContext'
 import Tooltip, { TooltipProps } from '../tooltip'
 import { SiderContext, SiderContextProps } from '../layout/Sider'
-import { isValidElement, cloneElement } from '../_util/reactNode'
+import { isValidElement, cloneElement } from '../utils/reactNode'
 
 export interface MenuItemProps extends Omit<RcMenuItemProps, 'title'> {
   icon?: React.ReactNode

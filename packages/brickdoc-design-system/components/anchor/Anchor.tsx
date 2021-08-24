@@ -4,8 +4,8 @@ import addEventListener from 'rc-util/lib/Dom/addEventListener'
 import Affix from '../affix'
 import AnchorLink from './AnchorLink'
 import { ConfigContext, ConfigConsumerProps } from '../config-provider'
-import scrollTo from '../_util/scrollTo'
-import getScroll from '../_util/getScroll'
+import scrollTo from '../utils/scrollTo'
+import getScroll from '../utils/getScroll'
 import AnchorContext from './context'
 
 export type AnchorContainer = HTMLElement | Window

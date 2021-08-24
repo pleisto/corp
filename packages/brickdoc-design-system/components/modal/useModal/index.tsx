@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ModalFuncProps } from '../Modal'
-import usePatchElement from '../../_util/hooks/usePatchElement'
+import usePatchElement from '../../utils/hooks/usePatchElement'
 import HookModal, { HookModalRef } from './HookModal'
 import { withConfirm, ModalStaticFunctions, withInfo, withSuccess, withError, withWarn } from '../confirm'
 

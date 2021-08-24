@@ -6,7 +6,7 @@ import RcImage, { ImageProps } from 'rc-image'
 import { useLocale } from '../locale-provider/LocaleReceiver'
 import PreviewGroup, { icons } from './PreviewGroup'
 import { ConfigContext } from '../config-provider'
-import { getTransitionName } from '../_util/motion'
+import { getTransitionName } from '../utils/motion'
 
 export interface CompositionImage<P> extends React.FC<P> {
   PreviewGroup: typeof PreviewGroup

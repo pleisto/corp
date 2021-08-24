@@ -6,9 +6,9 @@ import './style'
 import { Close as CloseOutlined } from '../icon'
 import CheckableTag from './CheckableTag'
 import { ConfigContext } from '../config-provider'
-import { PresetColorTypes, PresetStatusColorTypes, PresetColorType, PresetStatusColorType } from '../_util/colors'
-import Wave from '../_util/wave'
-import { LiteralUnion } from '../_util/type'
+import { PresetColorTypes, PresetStatusColorTypes, PresetColorType, PresetStatusColorType } from '../utils/colors'
+import Wave from '../utils/wave'
+import { LiteralUnion } from '../utils/type'
 
 export type { CheckableTagProps } from './CheckableTag'
 

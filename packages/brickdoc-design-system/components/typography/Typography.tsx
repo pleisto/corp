@@ -2,7 +2,7 @@ import * as React from 'react'
 import classNames from 'classnames'
 import { composeRef } from 'rc-util/lib/ref'
 import { ConfigConsumer, ConfigConsumerProps } from '../config-provider'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 
 export interface TypographyProps {
   id?: string;

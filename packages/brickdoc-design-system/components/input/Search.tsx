@@ -6,7 +6,7 @@ import Input, { InputProps } from './Input'
 import Button from '../button'
 import SizeContext from '../config-provider/SizeContext'
 import { ConfigContext } from '../config-provider'
-import { cloneElement } from '../_util/reactNode'
+import { cloneElement } from '../utils/reactNode'
 
 export interface SearchProps extends InputProps {
   inputPrefixCls?: string

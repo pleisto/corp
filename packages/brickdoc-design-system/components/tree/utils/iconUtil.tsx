@@ -8,7 +8,7 @@ import {
   Down as CaretDownFilled
 } from '../../icon'
 import { AntTreeNodeProps } from '../Tree'
-import { isValidElement, cloneElement } from '../../_util/reactNode'
+import { isValidElement, cloneElement } from '../../utils/reactNode'
 
 export default function renderSwitcherIcon(
   prefixCls: string,

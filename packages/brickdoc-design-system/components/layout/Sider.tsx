@@ -6,7 +6,7 @@ import { HamburgerButton as BarsOutlined, Right as RightOutlined, Left as LeftOu
 
 import { LayoutContext } from './layout'
 import { ConfigContext } from '../config-provider'
-import isNumeric from '../_util/isNumeric'
+import isNumeric from '../utils/isNumeric'
 
 const dimensionMaxMap = {
   xs: '479.98px',

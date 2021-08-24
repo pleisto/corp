@@ -1,3 +1,5 @@
+@import 'animation.css';
+
 :root {
   /* default */
   --font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Roboto, 'Segoe UI', 'Segoe WP', sans-serif, Apple Color Emoji,
@@ -7,9 +9,4 @@
   --font-size-sm: 13px;
   --line-height-base: 1.7;
   --outline-link-focus: 0;
-
-  /* Animation */
-  --animation-duration-slow: 0.3s; /* Modal */
-  --animation-duration-base: 0.2s;
-  --animation-duration-fast: 0.1s; /* Tooltip */
 }

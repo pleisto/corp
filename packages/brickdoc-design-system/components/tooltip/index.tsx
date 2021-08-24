@@ -7,11 +7,11 @@ import { placements as Placements } from 'rc-tooltip/lib/placements'
 
 import './style'
 import getPlacements, { AdjustOverflow, PlacementsConfig } from './placements'
-import { cloneElement, isValidElement } from '../_util/reactNode'
+import { cloneElement, isValidElement } from '../utils/reactNode'
 import { ConfigContext } from '../config-provider'
-import { PresetColorType, PresetColorTypes } from '../_util/colors'
-import { LiteralUnion } from '../_util/type'
-import { getTransitionName } from '../_util/motion'
+import { PresetColorType, PresetColorTypes } from '../utils/colors'
+import { LiteralUnion } from '../utils/type'
+import { getTransitionName } from '../utils/motion'
 
 export type { AdjustOverflow, PlacementsConfig }
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import devWarning from '../_util/devWarning'
+import devWarning from '../utils/devWarning'
 import Base, { BlockProps } from './Base'
 
 export interface LinkProps

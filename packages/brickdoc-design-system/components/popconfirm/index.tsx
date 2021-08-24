@@ -10,9 +10,9 @@ import Button from '../button'
 import { LegacyButtonType, ButtonProps, convertLegacyProps } from '../button/button'
 import LocaleReceiver from '../locale-provider/LocaleReceiver'
 import { ConfigContext } from '../config-provider'
-import { getRenderPropValue, RenderFunction } from '../_util/getRenderPropValue'
-import { cloneElement } from '../_util/reactNode'
-import { getTransitionName } from '../_util/motion'
+import { getRenderPropValue, RenderFunction } from '../utils/getRenderPropValue'
+import { cloneElement } from '../utils/reactNode'
+import { getTransitionName } from '../utils/motion'
 
 export interface PopconfirmProps extends AbstractTooltipProps {
   title: React.ReactNode | RenderFunction

@@ -2,7 +2,7 @@ import * as React from 'react'
 import classNames from 'classnames'
 import { SizeType } from '../config-provider/SizeContext'
 import { ConfigConsumer, ConfigConsumerProps } from '../config-provider'
-import UnreachableException from '../_util/unreachableException'
+import UnreachableException from '../utils/unreachableException'
 
 export interface ButtonGroupProps {
   size?: SizeType;

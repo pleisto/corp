@@ -11,7 +11,7 @@ import {
 } from '../icon'
 import { GroupConsumerProps } from 'rc-image/lib/PreviewGroup'
 import { ConfigContext } from '../config-provider'
-import { getTransitionName } from '../_util/motion'
+import { getTransitionName } from '../utils/motion'
 
 export const icons = {
   rotateLeft: <RotateLeftOutlined />,

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import toArray from 'rc-util/lib/Children/toArray'
-import { cloneElement } from '../_util/reactNode'
+import { cloneElement } from '../utils/reactNode'
 import { ConfigContext } from '../config-provider'
 import Avatar from './avatar'
 import Popover from '../popover'
