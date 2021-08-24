@@ -1349,11 +1349,6 @@ type block {
   parent uuid
   """
   parentId: UUID
-
-  """
-  parent type
-  """
-  parentType: String
   permissions: BlockBaseObjectPermissions!
 
   """

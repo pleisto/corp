@@ -821,8 +821,6 @@ export type Block = {
   nextSort: Scalars['BigInt']
   /** parent uuid */
   parentId?: Maybe<Scalars['UUID']>
-  /** parent type */
-  parentType?: Maybe<Scalars['String']>
   permissions: BlockBaseObjectPermissions
   /** root uuid */
   rootId: Scalars['UUID']
