@@ -4,18 +4,20 @@
 #
 # Table name: docs_histories
 #
-#  id              :bigint           not null, primary key
-#  data            :jsonb            not null
-#  history_version :bigint           not null
-#  meta            :jsonb            not null
-#  parent_type     :string
-#  sort            :bigint           not null
-#  type            :string(32)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  block_id        :uuid             not null
-#  parent_id       :uuid
-#  pod_id          :bigint
+#  id                    :bigint           not null, primary key
+#  content(node content) :jsonb
+#  data                  :jsonb            not null
+#  history_version       :bigint           not null
+#  meta                  :jsonb            not null
+#  parent_type           :string
+#  sort                  :bigint           not null
+#  text(node text)       :text             default("")
+#  type                  :string(32)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  block_id              :uuid             not null
+#  parent_id             :uuid
+#  pod_id                :bigint
 #
 # Indexes
 #

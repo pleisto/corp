@@ -39,12 +39,16 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 
   const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
 
+  console.log(content)
+
   const parent: BlockInput = {
+    content,
+    text,
     id: uuid,
     // sort: sort, ## TODO
     type: node.type.name,
     meta: rest,
-    data: { text, content }
+    data: {}
   }
 
   const childrenBlocks = hasChildren ? nodeChildren(node) : []
@@ -57,7 +61,7 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 }
 
 export const blockToNode = (block: Block): JSONContent => {
-  const data = block.data
+  // const data = block.data
   const attrs: JSONContent['attrs'] = { ...block.meta }
 
   // NOTE patch UPDATE
@@ -79,8 +83,8 @@ export const blockToNode = (block: Block): JSONContent => {
   //   result.text = data.text
   // }
 
-  if (data?.content.length) {
-    result.content = data.content
+  if (block?.content.length) {
+    result.content = block.content
   }
 
   return result

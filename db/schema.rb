@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_080850) do
+ActiveRecord::Schema.define(version: 2021_08_24_022652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 2021_08_16_080850) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "root_id"
+    t.jsonb "content", default: [], comment: "node content"
+    t.text "text", default: "", comment: "node text"
     t.index ["collaborators"], name: "index_docs_blocks_on_collaborators", using: :gin
     t.index ["deleted_at"], name: "index_docs_blocks_on_deleted_at"
     t.index ["parent_id"], name: "index_docs_blocks_on_parent_id"
@@ -132,6 +134,8 @@ ActiveRecord::Schema.define(version: 2021_08_16_080850) do
     t.bigint "history_version", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "content", default: [], comment: "node content"
+    t.text "text", default: "", comment: "node text"
     t.index ["block_id", "history_version"], name: "index_docs_histories_on_block_id_and_history_version", unique: true, comment: "history identifier"
     t.index ["pod_id"], name: "index_docs_histories_on_pod_id"
   end
