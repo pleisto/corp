@@ -140,22 +140,6 @@ export type BlockCreateSubBlockPayload = {
   errors: Array<Scalars['String']>
 }
 
-export type BlockData = {
-  __typename?: 'BlockData'
-  /** content */
-  content: Array<Scalars['JSON']>
-  /** text */
-  text: Scalars['String']
-}
-
-/** InputObject type of Class */
-export type BlockDataInput = {
-  /** content */
-  content: Array<Scalars['JSON']>
-  /** text */
-  text: Scalars['String']
-}
-
 export type BlockDatabaseColumn = {
   __typename?: 'BlockDatabaseColumn'
   /** width */
@@ -238,8 +222,12 @@ export type BlockInput = {
   parentId?: Maybe<Scalars['UUID']>
   /** block sort */
   sort?: Maybe<Scalars['BigInt']>
+  /** content */
+  content: Array<Scalars['JSON']>
+  /** text */
+  text: Scalars['String']
   /** data */
-  data?: Maybe<BlockDataInput>
+  data?: Maybe<Scalars['JSON']>
   /** meta */
   meta?: Maybe<Scalars['JSON']>
   /** attachments */
@@ -475,17 +463,35 @@ export type RootMutation = {
   blockSyncBatch?: Maybe<BlockSyncBatchPayload>
   createDirectUpload?: Maybe<CreateDirectUploadPayload>
   createOrUpdatePod?: Maybe<CreateOrUpdatePodPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userConfirmationEmailResend?: Maybe<UserConfirmationEmailResendPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userCreate?: Maybe<UserCreatePayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userEmailPasswordSignIn?: Maybe<UserEmailPasswordSignInPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userForgetPasswordMailSend?: Maybe<UserForgetPasswordMailSendPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userPasswordReset?: Maybe<UserPasswordResetPayload>
-  /** Required `context[:entrypoints]` is `[:internal]`. */
+  /**
+   *
+   * Required `context[:entrypoints]` is `[:internal]`.
+   */
   userSignOut?: Maybe<UserSignOutPayload>
 }
 
@@ -825,7 +831,9 @@ export type Block = {
   blobs?: Maybe<Array<Blob>>
   /** collaborators */
   collaborators?: Maybe<Array<Accounts_User>>
-  data: BlockData
+  /** content */
+  content: Array<Scalars['JSON']>
+  data: Scalars['JSON']
   /** block first child sort */
   firstChildSort: Scalars['BigInt']
   /** object unique id */
@@ -835,13 +843,13 @@ export type Block = {
   nextSort: Scalars['BigInt']
   /** parent uuid */
   parentId?: Maybe<Scalars['UUID']>
-  /** parent type */
-  parentType?: Maybe<Scalars['String']>
   permissions: BlockBaseObjectPermissions
   /** root uuid */
   rootId: Scalars['UUID']
   /** block sort */
   sort: Scalars['BigInt']
+  /** text */
+  text: Scalars['String']
   /** block type */
   type: Scalars['String']
 }
@@ -1139,7 +1147,9 @@ export type GetPageBlocksQuery = {
       rootId: string
       parentId?: Maybe<string>
       type: string
-      data: { __typename?: 'BlockData'; text: string; content: Array<any> }
+      text: string
+      content: Array<any>
+      data: any
       meta: {
         __typename?: 'BlockMeta'
         cover?: Maybe<
@@ -1267,8 +1277,10 @@ export type GetChildrenBlocksQuery = {
       parentId?: Maybe<string>
       rootId: string
       type: string
+      text: string
+      content: Array<any>
+      data: any
       blobs?: Maybe<Array<{ __typename?: 'blob'; blobKey: string; url: string }>>
-      data: { __typename?: 'BlockData'; text: string; content: Array<any> }
       meta: {
         __typename?: 'BlockMeta'
         title?: Maybe<string>
@@ -2029,10 +2041,9 @@ export const GetPageBlocksDocument = gql`
       rootId
       parentId
       type
-      data {
-        text
-        content
-      }
+      text
+      content
+      data
       meta {
         cover {
           ... on BlockImage {
@@ -2434,10 +2445,9 @@ export const GetChildrenBlocksDocument = gql`
         url
       }
       type
-      data {
-        text
-        content
-      }
+      text
+      content
+      data
       meta {
         title
         level

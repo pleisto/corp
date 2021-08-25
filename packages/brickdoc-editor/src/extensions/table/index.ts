@@ -26,17 +26,17 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
 
   addAttributes() {
     return {
-      columns: {
-        default: [
-          {
-            title: 'Task name',
-            type: 'text',
-            key: uuid()
-          }
-        ]
-      },
-      rows: {
-        default: []
+      data: {
+        default: {
+          rows: [],
+          columns: [
+            {
+              title: 'Task name',
+              type: 'text',
+              key: uuid()
+            }
+          ]
+        }
       }
     }
   },

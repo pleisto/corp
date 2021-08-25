@@ -15,20 +15,20 @@ const defaultRows = (databaseRows: DatabaseRows): DatabaseRows => {
   return databaseRows
 }
 
-export function useRows(options: { databaseRows: DatabaseRows; updateAttributes: (attributes: Record<string, any>) => void }): [
+export function useRows(options: { databaseRows: DatabaseRows; updateAttributeData: (attributes: Record<string, any>) => void }): [
   DatabaseRows,
   {
     updateRows: (fn: (prevRows: DatabaseRows) => DatabaseRows) => void
   }
 ] {
-  const { databaseRows, updateAttributes } = options
+  const { databaseRows, updateAttributeData } = options
 
   const latestDatabaseRows = React.useRef<DatabaseRows>(defaultRows(databaseRows))
 
   const updateRows = (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
     latestDatabaseRows.current = fn(latestDatabaseRows.current)
     // TODO: convert rows to children nodes
-    updateAttributes({ rows: latestDatabaseRows.current })
+    updateAttributeData({ rows: latestDatabaseRows.current })
   }
 
   return [latestDatabaseRows.current, { updateRows }]

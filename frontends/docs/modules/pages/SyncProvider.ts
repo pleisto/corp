@@ -28,23 +28,25 @@ const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
 
 // https://prosemirror.net/docs/ref/#model.Node
 const nodeToBlock = (node: Node, level: number): BlockInput[] => {
-  const { uuid, sort, seq, ...rest } = node.attrs
+  const { uuid, sort, seq, data, ...rest } = node.attrs
 
   // TODO check if has child
   const hasChildren =
     level === 0 ||
     (node.type.name === 'paragraph' && nodeChildren(node) && nodeChildren(node).length && nodeChildren(node)[0].type.name === 'paragraph')
 
-  const text = rest.title || 'Untitled'
+  const text = level === 0 ? rest.title || 'Untitled' : node.textContent
 
   const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
 
   const parent: BlockInput = {
+    content,
+    text,
     id: uuid,
     // sort: sort, ## TODO
     type: node.type.name,
     meta: rest,
-    data: { text, content }
+    data: data || {}
   }
 
   // TODO: convert rows to children nodes
@@ -59,7 +61,7 @@ const nodeToBlock = (node: Node, level: number): BlockInput[] => {
 }
 
 export const blockToNode = (block: Block): JSONContent => {
-  const data = block.data
+  // const data = block.data
   const attrs: JSONContent['attrs'] = { ...block.meta }
 
   // NOTE patch UPDATE
@@ -72,6 +74,10 @@ export const blockToNode = (block: Block): JSONContent => {
     attrs.sort = block.sort
   }
 
+  if (block.data) {
+    attrs.data = block.data
+  }
+
   const result: JSONContent = {
     type: block.type,
     attrs
@@ -81,8 +87,8 @@ export const blockToNode = (block: Block): JSONContent => {
   //   result.text = data.text
   // }
 
-  if (data?.content.length) {
-    result.content = data.content
+  if (block?.content.length) {
+    result.content = block.content
   }
 
   return result

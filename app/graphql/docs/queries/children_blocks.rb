@@ -16,7 +16,9 @@ module Docs
           params = {
             id: root_id,
             type: 'doc',
-            data: { text: "", content: [] },
+            data: {},
+            text: '',
+            content: [],
             pod_id: current_pod.fetch('id'),
             collaborators: [current_user.id]
           }

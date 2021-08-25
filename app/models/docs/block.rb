@@ -4,21 +4,22 @@
 #
 # Table name: docs_blocks
 #
-#  id                 :uuid             not null, primary key
-#  collaborators      :bigint           default([]), not null, is an Array
-#  data(data props)   :jsonb            not null
-#  deleted_at         :datetime
-#  history_version    :bigint           default(0), not null
-#  meta(metadata)     :jsonb            not null
-#  parent_type        :string(32)
-#  snapshot_version   :bigint           default(0), not null
-#  sort               :bigint           default(0)
-#  type               :string(32)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  parent_id          :uuid
-#  pod_id             :bigint
-#  root_id            :uuid
+#  id                    :uuid             not null, primary key
+#  collaborators         :bigint           default([]), not null, is an Array
+#  content(node content) :jsonb
+#  data(data props)      :jsonb            not null
+#  deleted_at            :datetime
+#  history_version       :bigint           default(0), not null
+#  meta(metadata)        :jsonb            not null
+#  snapshot_version      :bigint           default(0), not null
+#  sort                  :bigint           default(0)
+#  text(node text)       :text             default("")
+#  type                  :string(32)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  parent_id             :uuid
+#  pod_id                :bigint
+#  root_id               :uuid
 #
 # Indexes
 #
@@ -59,7 +60,7 @@ class Docs::Block < ApplicationRecord
   has_many_attached :attachments
 
   def title
-    data.fetch('text')
+    text
   end
 
   def blobs
@@ -271,7 +272,9 @@ class Docs::Block < ApplicationRecord
       sort: max_sort + SORT_GAP,
       pod_id: pod_id,
       collaborators: collaborators,
-      data: { content: [], text: title }
+      data: {},
+      content: [],
+      text: title
     )
   end
 

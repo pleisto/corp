@@ -35,17 +35,25 @@ const defaultColumnConfig = {
 }
 
 export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
+  const prevData = node.attrs.data || {}
+
+  const updateAttributeData = (data: Record<string, any>) => {
+    updateAttributes({
+      data: { ...(prevData || {}), ...data }
+    })
+  }
+
   const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
     useColumns({
-      databaseColumns: node.attrs.columns,
-      updateAttributes
+      databaseColumns: prevData.columns,
+      updateAttributeData
     })
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
   const [tableRows, { updateRows: setData }] = useRows({
-    databaseRows: node.attrs.rows,
-    updateAttributes
+    databaseRows: prevData.rows,
+    updateAttributeData
   })
 
   const updateData = (rowIndex: number, key: string, data: any): void => {

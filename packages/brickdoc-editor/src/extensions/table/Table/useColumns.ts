@@ -30,7 +30,7 @@ export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) 
     }, {})
   ).map(([group, columns]) => ({ id: group, columns }))
 
-export function useColumns(options: { databaseColumns: DatabaseColumns; updateAttributes: (attributes: Record<string, any>) => void }): [
+export function useColumns(options: { databaseColumns: DatabaseColumns; updateAttributeData: (attributes: Record<string, any>) => void }): [
   Column[],
   {
     setColumns: (fn: (prevColumns: DatabaseColumns) => DatabaseColumns) => void
@@ -40,7 +40,7 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
     updateType: (type: string, groupId: string, columnId: string) => void
   }
 ] {
-  const { databaseColumns, updateAttributes } = options
+  const { databaseColumns, updateAttributeData } = options
 
   const latestDatabaseColumns = React.useRef<DatabaseColumns>(databaseColumns)
   const latestColumns = React.useRef<Column[]>(databaseColumnsToTableColumns(latestDatabaseColumns.current))
@@ -48,7 +48,7 @@ export function useColumns(options: { databaseColumns: DatabaseColumns; updateAt
   const setColumns = (fn: (prevColumns: DatabaseColumns) => DatabaseColumns): void => {
     latestDatabaseColumns.current = fn(latestDatabaseColumns.current)
     latestColumns.current = databaseColumnsToTableColumns(latestDatabaseColumns.current)
-    updateAttributes({ columns: latestDatabaseColumns.current })
+    updateAttributeData({ columns: latestDatabaseColumns.current })
   }
 
   const remove = (groupId: string, columnId: string): void =>
