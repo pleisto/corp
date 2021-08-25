@@ -106,7 +106,7 @@ module BrickdocSettings
         if records[key].present?
           domain_len = domain.split('.').count
           records[key].select do |r|
-            r.domain.blank? || (r.domain == domain) || ((r.domain_len <= domain_len) && domain.end_with?(".#{r.domain}"))
+            r.domain.blank? || (r.domain == domain) || ((r.domain_len <= domain_len) && domain.start_with?("#{r.domain}."))
           end.last&.value
         end
       end

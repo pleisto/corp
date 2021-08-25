@@ -7,6 +7,7 @@ module BrickdocPlugin::GithubWebhook
       render json: { foo: :bar }
     end
 
+    # https://github.com/brickdoc/brickdoc/settings/hooks/314374472/deliveries
     def create
       _block = Docs::Block.find(params.fetch(:uuid))
       render json: { code: 0, msg: "ok" }
