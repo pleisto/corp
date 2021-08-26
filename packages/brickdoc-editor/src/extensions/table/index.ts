@@ -15,7 +15,16 @@ declare module '@tiptap/core' {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableBlockOptions {}
+
+export interface TableExtensionOptions {
+  getDatabaseRows: (parentId: string, snapshotVersion: number) => Promise<{ success: boolean; data: [] }>
+  saveDatabaseRow: (block: { parentId: string; id: string; data: {} }) => Promise<void>
+}
+
+export interface TableBlockOptions {
+  getDatabaseRows: TableExtensionOptions['getDatabaseRows']
+  saveDatabaseRow: TableExtensionOptions['saveDatabaseRow']
+}
 
 export const TableBlockExtension = Node.create<TableBlockOptions>({
   name: 'tableBlock',
@@ -23,6 +32,15 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
   group: 'block',
 
   selectable: false,
+
+  defaultOptions: {
+    getDatabaseRows: () => {
+      throw new Error('You need configure getDatabaseRows if you want to enable tableBlock')
+    },
+    saveDatabaseRow: () => {
+      throw new Error('You need configure saveDatabaseRow if you want to enable tableBlock')
+    }
+  },
 
   addAttributes() {
     return {

@@ -1,8 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
+import { v4 as uuid } from 'uuid'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, TableHeaderProps, useResizeColumns, TableHeaderGroupProps } from 'react-table'
 import { Button, Icon } from '@brickdoc/design-system'
+import { TableExtensionOptions } from '../../table'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
 import { useRows } from './useRows'
@@ -34,8 +36,11 @@ const defaultColumnConfig = {
   Cell
 }
 
-export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
+export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttributes }) => {
   const prevData = node.attrs.data || {}
+
+  const tableOptions: TableExtensionOptions = extension.options
+  const { getDatabaseRows, saveDatabaseRow } = tableOptions
 
   const updateAttributeData = (data: Record<string, any>) => {
     updateAttributes({
@@ -52,8 +57,9 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
   const [tableRows, { updateRows: setData }] = useRows({
-    databaseRows: prevData.rows,
-    updateAttributeData
+    parentId: node.attrs.uuid,
+    getDatabaseRows,
+    saveDatabaseRow
   })
 
   const updateData = (rowIndex: number, key: string, data: any): void => {
@@ -73,7 +79,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
     setData(prevData => {
       const currentRowIndex = rowIndex ?? prevData.length - 1
       updateActiveStatus([{ rowIndex: currentRowIndex + 1 }])
-      return [...prevData.slice(0, currentRowIndex + 1), {}, ...prevData.slice(currentRowIndex + 1, prevData.length)]
+      return [...prevData.slice(0, currentRowIndex + 1), { id: uuid() }, ...prevData.slice(currentRowIndex + 1, prevData.length)]
     })
   }
 

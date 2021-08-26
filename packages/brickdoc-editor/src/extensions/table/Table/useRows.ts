@@ -1,35 +1,51 @@
 import React from 'react'
-import { v4 as uuid } from 'uuid'
+import { TableExtensionOptions } from '../../table'
 
-export interface DatabaseRows extends Array<object> {}
-
-const defaultRows = (databaseRows: DatabaseRows): DatabaseRows => {
-  if ((databaseRows || []).length === 0) {
-    return [
-      {
-        id: uuid()
-      }
-    ]
-  }
-
-  return databaseRows
+export interface DatabaseRow {
+  id: string
+  [key: string]: any
 }
+export interface DatabaseRows extends Array<DatabaseRow> {}
 
-export function useRows(options: { databaseRows: DatabaseRows; updateAttributeData: (attributes: Record<string, any>) => void }): [
+export function useRows(options: {
+  parentId: string
+  getDatabaseRows: TableExtensionOptions['getDatabaseRows']
+  saveDatabaseRow: TableExtensionOptions['saveDatabaseRow']
+}): [
   DatabaseRows,
   {
     updateRows: (fn: (prevRows: DatabaseRows) => DatabaseRows) => void
   }
 ] {
-  const { databaseRows, updateAttributeData } = options
+  const { parentId, getDatabaseRows, saveDatabaseRow } = options
+  const latestDatabaseRows = React.useRef<DatabaseRows>([])
 
-  const latestDatabaseRows = React.useRef<DatabaseRows>(defaultRows(databaseRows))
-
-  const updateRows = (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
-    latestDatabaseRows.current = fn(latestDatabaseRows.current)
-    // TODO: convert rows to children nodes
-    updateAttributeData({ rows: latestDatabaseRows.current })
+  const fetchDatabaseRows = async (): Promise<DatabaseRows> => {
+    const resp = await getDatabaseRows(parentId, 0)
+    if (resp.success) {
+      return resp.data.map((block: DatabaseRow) => ({ ...block.data, id: block.id }))
+    } else {
+      return []
+    }
   }
 
+  React.useEffect(() => {
+    void (async () => {
+      latestDatabaseRows.current = await fetchDatabaseRows()
+    })()
+  })
+
+  const updateRows = (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
+    // const prevRowsMap = Object.fromEntries((latestDatabaseRows.current.map(
+    //   (row: DatabaseRow) => [row.id, row]
+    // )))
+
+    latestDatabaseRows.current = fn(latestDatabaseRows.current)
+    // TODO: convert rows to children nodes
+    latestDatabaseRows.current.forEach(row => {
+      const { id, ...data } = row
+      void saveDatabaseRow({ parentId, id, data })
+    })
+  }
   return [latestDatabaseRows.current, { updateRows }]
 }

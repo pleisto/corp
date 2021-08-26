@@ -9,6 +9,7 @@ import {
   BulletListExtension,
   PlaceholderExtension,
   SyncExtensionOptions,
+  TableExtensionOptions,
   BubbleMenu
 } from './extensions'
 import './styles.less'
@@ -32,6 +33,8 @@ export const EditorContent: React.FC<EditorContentProps> = ({ editor }: EditorCo
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
   onSave: SyncExtensionOptions['onSave']
+  getDatabaseRows?: TableExtensionOptions['getDatabaseRows']
+  saveDatabaseRow?: TableExtensionOptions['saveDatabaseRow']
   prepareFileUpload?: ImageSectionOptions['prepareFileUpload']
   fetchUnsplashImages?: ImageSectionOptions['fetchUnsplashImages']
   getImageUrl?: ImageSectionOptions['getImageUrl']
@@ -39,12 +42,14 @@ export interface EditorOptions extends Partial<TiptapEditorOptions> {
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { onSave, prepareFileUpload, fetchUnsplashImages, getImageUrl, getPdfUrl, ...restOptions } = options
+  const { onSave, prepareFileUpload, fetchUnsplashImages, getImageUrl, getPdfUrl, getDatabaseRows, saveDatabaseRow, ...restOptions } =
+    options
   return useTiptapEditor({
     extensions: [
       BasicRichtextExtension.configure({
         imageSection: { prepareFileUpload, fetchUnsplashImages, getImageUrl },
-        pdfSection: { prepareFileUpload, getPdfUrl }
+        pdfSection: { prepareFileUpload, getPdfUrl },
+        tableBlock: { getDatabaseRows, saveDatabaseRow }
       }),
       BlockCommandsExtension,
       SlashCommandsExtension,
