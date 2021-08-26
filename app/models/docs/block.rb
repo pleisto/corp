@@ -11,6 +11,7 @@
 #  deleted_at            :datetime
 #  history_version       :bigint           default(0), not null
 #  meta(metadata)        :jsonb            not null
+#  page                  :boolean          default(FALSE), not null
 #  snapshot_version      :bigint           default(0), not null
 #  sort                  :bigint           default(0)
 #  text(node text)       :text             default("")
@@ -36,7 +37,7 @@ class Docs::Block < ApplicationRecord
 
   default_scope { where(deleted_at: nil) }
 
-  scope :pageable, -> { where(type: ['doc']) }
+  scope :pageable, -> { where(page: true) }
 
   belongs_to :pod
   belongs_to :parent, class_name: 'Docs::Block', optional: true
@@ -267,6 +268,7 @@ class Docs::Block < ApplicationRecord
     Docs::Block.create!(
       id: SecureRandom.uuid,
       parent_id: id,
+      page: true,
       type: 'doc',
       meta: { title: title },
       sort: max_sort + SORT_GAP,

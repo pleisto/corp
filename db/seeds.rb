@@ -31,6 +31,7 @@ def create_block(pod, id, parent_id, pods)
   params = {
     id: id,
     pod: pod,
+    page: true,
     type: BLOCK_TYPE,
     collaborators: random_collaborators(pod, pods),
     meta: { title: FFaker::Lorem.phrase },
