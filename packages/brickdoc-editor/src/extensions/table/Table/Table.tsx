@@ -37,6 +37,7 @@ const defaultColumnConfig = {
 }
 
 export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttributes }) => {
+  const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
 
   const tableOptions: TableExtensionOptions = extension.options
@@ -56,15 +57,15 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
-  const [tableRows, { updateRows: setData }] = useRows({
-    parentId: node.attrs.uuid,
+  const [tableRows, { updateRows }] = useRows({
+    parentId,
     getDatabaseRows,
     saveDatabaseRow
   })
 
   const updateData = (rowIndex: number, key: string, data: any): void => {
-    setData(prevData =>
-      prevData.map((item, rIndex) => {
+    updateRows(prevRows =>
+      prevRows.map((item, rIndex) => {
         if (rIndex !== rowIndex) return item
 
         return {
@@ -76,10 +77,10 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
   }
 
   const addNewRow = (rowIndex?: number): void => {
-    setData(prevData => {
-      const currentRowIndex = rowIndex ?? prevData.length - 1
+    updateRows(prevRows => {
+      const currentRowIndex = rowIndex ?? prevRows.length - 1
       updateActiveStatus([{ rowIndex: currentRowIndex + 1 }])
-      return [...prevData.slice(0, currentRowIndex + 1), { id: uuid() }, ...prevData.slice(currentRowIndex + 1, prevData.length)]
+      return [...prevRows.slice(0, currentRowIndex + 1), { id: uuid() }, ...prevRows.slice(currentRowIndex + 1, prevRows.length)]
     })
   }
 

@@ -24,14 +24,15 @@ export function useDatabaseRows(): EditorOptions['getDatabaseRows'] {
 
 export function useSaveDatabaseRow(): EditorOptions['saveDatabaseRow'] {
   const [blockUpdate] = useBlockUpdateMutation()
-  return async (block: { parentId: string; id: string; data: {} }) => {
+  return async (block: { parentId: string; id: string; data: {}; sort: number }) => {
     const blockArg: BlockInput = {
       id: block.id,
       data: block.data,
       parentId: block.parentId,
       type: 'databaseRow',
       content: [],
-      text: ''
+      text: '',
+      sort: block.sort
     }
     const input: BlockUpdateInput = { block: blockArg }
     await blockUpdate({ variables: { input } })

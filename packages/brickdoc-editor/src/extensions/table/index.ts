@@ -18,7 +18,7 @@ declare module '@tiptap/core' {
 
 export interface TableExtensionOptions {
   getDatabaseRows: (parentId: string, snapshotVersion: number) => Promise<{ success: boolean; data: [] }>
-  saveDatabaseRow: (block: { parentId: string; id: string; data: {} }) => Promise<void>
+  saveDatabaseRow: (block: { parentId: string; id: string; data: {}; sort: number }) => Promise<void>
 }
 
 export interface TableBlockOptions {

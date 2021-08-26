@@ -18,7 +18,19 @@ export function useRows(options: {
   }
 ] {
   const { parentId, getDatabaseRows, saveDatabaseRow } = options
-  const latestDatabaseRows = React.useRef<DatabaseRows>([])
+  const [tableRows, setTableRows] = React.useState([] as DatabaseRows)
+
+  const updateRows = React.useCallback(
+    (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
+      const newRows = fn(tableRows)
+      newRows.forEach((row, i) => {
+        const { id, ...data } = row
+        void saveDatabaseRow({ parentId, id, data, sort: i })
+      })
+      setTableRows(newRows)
+    },
+    [tableRows, parentId, saveDatabaseRow]
+  )
 
   const fetchDatabaseRows = async (): Promise<DatabaseRows> => {
     const resp = await getDatabaseRows(parentId, 0)
@@ -31,21 +43,10 @@ export function useRows(options: {
 
   React.useEffect(() => {
     void (async () => {
-      latestDatabaseRows.current = await fetchDatabaseRows()
+      const rows = await fetchDatabaseRows()
+      setTableRows(rows)
     })()
   })
 
-  const updateRows = (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
-    // const prevRowsMap = Object.fromEntries((latestDatabaseRows.current.map(
-    //   (row: DatabaseRow) => [row.id, row]
-    // )))
-
-    latestDatabaseRows.current = fn(latestDatabaseRows.current)
-    // TODO: convert rows to children nodes
-    latestDatabaseRows.current.forEach(row => {
-      const { id, ...data } = row
-      void saveDatabaseRow({ parentId, id, data })
-    })
-  }
-  return [latestDatabaseRows.current, { updateRows }]
+  return [tableRows, { updateRows }]
 }
