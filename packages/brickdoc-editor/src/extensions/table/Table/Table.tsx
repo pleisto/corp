@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps } from 'react-table'
-import { Button, Icon, Modal } from '@brickdoc/design-system'
+import { Modal } from '@brickdoc/design-system'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
 import { useRows } from './useRows'
@@ -11,6 +11,8 @@ import { useActiveStatus } from './useActiveStatus'
 import { Cell } from './Cells/Cell'
 import { TableRow } from './TableRow'
 import './Table.css'
+import { TableToolbar } from './TableToolbar'
+import { useFilter } from './TableToolbar/Filter/useFilter'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
@@ -85,8 +87,17 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
 
+  const [filterGroup, { filter, add: addNewFilter, remove: removeFilter, update: updateFilter, duplicate: duplicateFilter }] = useFilter({
+    type: 'group',
+    collectionType: 'intersection',
+    filters: []
+  })
+
+  // filter
+  const data = React.useMemo(() => tableRows.filter(item => filter(item, filterGroup)), [tableRows, filterGroup, filter])
+
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data: tableRows, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData, setColumns },
+    { columns, data, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData, setColumns },
     useFlexLayout,
     useResizeColumns,
     hooks => {
@@ -103,11 +114,15 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
         container?.classList.add('table-block-node-view-wrapper')
       }}>
       {contextHolder}
-      <div role="toolbar" className="table-block-toolbar">
-        <Button type="primary" className="table-toolbar-add-button" onClick={() => addNewRow()}>
-          New <Icon.ArrowRight />
-        </Button>
-      </div>
+      <TableToolbar
+        onAddNewRow={addNewRow}
+        columns={columns}
+        filterGroup={filterGroup}
+        addFilter={addNewFilter}
+        removeFilter={removeFilter}
+        updateFilter={updateFilter}
+        duplicateFilter={duplicateFilter}
+      />
       <div className="brickdoc-table-block">
         <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' }, role: 'table' })}>
           <div className="table-block-row">

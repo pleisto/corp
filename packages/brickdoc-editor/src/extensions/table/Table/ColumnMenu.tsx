@@ -1,5 +1,6 @@
 import React from 'react'
 import { Popover, Modal, Menu, Input, Icon } from '@brickdoc/design-system'
+import { COLUMN_TYPE } from './columnType'
 
 interface ColumnMenuProps {
   onColumnNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -8,23 +9,6 @@ interface ColumnMenuProps {
   columnName?: string
   columnType: string
 }
-
-const columnTypes: Array<{
-  type: string
-  label: string
-  icon: React.ComponentType
-}> = [
-  {
-    type: 'text',
-    label: 'Text',
-    icon: Icon.AddText
-  },
-  {
-    type: 'select',
-    label: 'Select',
-    icon: Icon.ArrowCircleDown
-  }
-]
 
 export const ColumnMenu: React.FC<ColumnMenuProps> = ({
   onRemoveColumn,
@@ -54,7 +38,7 @@ export const ColumnMenu: React.FC<ColumnMenuProps> = ({
     setVisible(false)
   }
 
-  const currentColumnType = columnTypes.find(item => item.type === columnType)!
+  const currentColumnType = COLUMN_TYPE.find(item => item.type === columnType)!
 
   return (
     <>
@@ -86,7 +70,7 @@ export const ColumnMenu: React.FC<ColumnMenuProps> = ({
                   </>
                 }>
                 <Menu.ItemGroup title="Basic">
-                  {columnTypes.map(type => (
+                  {COLUMN_TYPE.map(type => (
                     <Menu.Item key={type.type} onClick={() => handleUpdateColumnType(type.type)}>
                       {React.createElement(type.icon)}
                       <span>{type.label}</span>

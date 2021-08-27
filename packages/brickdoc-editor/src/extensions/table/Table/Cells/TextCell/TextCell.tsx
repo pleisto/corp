@@ -1,7 +1,7 @@
 import React from 'react'
 import { CellProps } from 'react-table'
 import { Input } from '@brickdoc/design-system'
-import { useEditingStatus } from './useEditingStatus'
+import { useEditingStatus } from '../useEditingStatus'
 import './TextCell.css'
 
 export interface TextCellProps extends CellProps<object> {}

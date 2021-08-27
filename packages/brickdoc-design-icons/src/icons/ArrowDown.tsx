@@ -3,7 +3,7 @@
 import React from 'react'
 import { ISvgIconProps, IconWrapper } from '../icon'
 export default IconWrapper('arrow-down', true, (props: ISvgIconProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" stroke="#3E3E3E" d="m19 9-7 6-7-6" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 24 24">
+    <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" stroke="currentColor" d="m19 9-7 6-7-6" />
   </svg>
 ))
