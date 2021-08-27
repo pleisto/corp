@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.build.json",
-  "include": ["**/*"],
+  "include": ["**/*", ".storybook/postcss.config.js"],
   "exclude": ["dist/**/*"]
 }

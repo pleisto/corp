@@ -2,9 +2,14 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
+import { DevPage } from '@/docs/modules/pages/DevPage'
 
 export const routeConfig = (webid: string): any => {
   return renderRoutes([
+    {
+      path: '/dev',
+      component: DevPage
+    },
     {
       path: '/',
       exact: true,

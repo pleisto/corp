@@ -1,4 +1,3 @@
-@import '../themes/default/animation.css';
 /*
 Mixins
 ========
@@ -492,7 +491,7 @@ Zoom
   }
 }
 
-@define-mixin $className, $keyframeName, $duration: var(--animation-duration-base)) {
+@define-mixin zoom-motion $className, $keyframeName, $duration: var(--animation-duration-base) {
   @mixin make-motion brk-$(className), $keyframeName, $duration;
   .brk-$(className)-enter,
   .brk-$(className)-appear {
@@ -544,6 +543,5 @@ Other
 
 .brk-motion-collapse {
   overflow: hidden;
-  transition: height var(--animation-duration-base) var(--ease-in-out), 
-              opacity var(--animation-duration-base) var(--ease-in-out) !important;
+  transition: height var(--animation-duration-base) var(--ease-in-out), opacity var(--animation-duration-base) var(--ease-in-out) !important;
 }

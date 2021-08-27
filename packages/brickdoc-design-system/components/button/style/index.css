@@ -1,0 +1,164 @@
+$btn-class: brk-btn;
+$btn-height-lg: 40px;
+$btn-height-base: 34px;
+$btn-height-sm: 26px;
+.$(btn-class) {
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-text);
+  border-radius: 4px;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  outline: transparent;
+  position: relative;
+  line-height: var(--line-heigh-base);
+  background: #fff;
+  height: $btn-height-base;
+  min-width: 80px;
+  padding: 4px 15px;
+
+  &.$(btn-class)-lg {
+    height: $btn-height-lg;
+    min-width: 100px;
+    padding: 5px 15px;
+    font-size: var(--font-size-lg);
+  }
+  &.$(btn-class)-sm {
+    font-size: var(--font-size-sm);
+    line-height: 1.2;
+    height: $btn-height-sm;
+    padding: 3px 9px;
+  }
+  &.$(btn-class)-block {
+    width: 100%;
+  }
+  &.$(btn-class)-primary {
+    color: #fff;
+    border-color: transparent;
+    background-color: var(--color-primary-5);
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: var(--color-primary-6);
+    }
+  }
+  &.$(btn-class)-circle {
+    border-radius: 50%;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+    min-width: $btn-height-base;
+    &.$(btn-class)-lg {
+      min-width: $btn-height-lg;
+    }
+    &.$(btn-class)-sm {
+      min-width: $btn-height-sm;
+    }
+  }
+  &.$(btn-class)-loading {
+    position: relative;
+
+    &:not([disabled]) {
+      pointer-events: none;
+    }
+
+    &::before {
+      display: block;
+    }
+  }
+
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:focus,
+  &[disabled]:active {
+    border-color: var(--color-grey-2);
+    color: var(--color-disabled);
+    cursor: not-allowed;
+    box-shadow: none;
+    background: var(--color-grey-1);
+  }
+
+  &.$(btn-class)-text,
+  &.$(btn-class)-link {
+    color: var(--color-text);
+    background: none;
+    border: none;
+    box-shadow: none;
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active {
+      background: none;
+      border: none;
+      color: var(--color-disabled);
+    }
+  }
+
+  &.$(btn-class)-text:hover,
+  &.$(btn-class)-text:focus,
+  &.$(btn-class)-text:active {
+    background: rgba(0, 0, 0, 0.018);
+  }
+
+  &.$(btn-class)-link {
+    color: var(--color-link);
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--color-link-hover);
+    }
+  }
+
+  & > .$(btn-class)-loading-icon {
+    transition: all 0.3s var(--ease-in-out);
+    & .brk-icon {
+      animation: none;
+    }
+
+    /* for smooth button padding transition */
+    & svg {
+      animation: loadingCircle 1s infinite linear;
+    }
+  }
+
+  & .brk-icon {
+    margin-right: 0.5em;
+  }
+
+  &.$(btn-class)-icon-only {
+    vertical-align: -1px;
+    & .brk-icon {
+      margin-right: 0;
+    }
+  }
+}
+
+.$(btn-class)-group {
+  position: relative;
+  display: inline-flex;
+  & .$(btn-class) {
+    position: relative;
+  }
+  & > .$(btn-class):first-child,
+  & > span:first-child > .$(btn-class) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    &.$(btn-class)-primary {
+      border-right-color: var(--color-primary-7);
+    }
+  }
+  & > .$(btn-class):last-child:not(:first-child),
+  & > span:last-child:not(:first-child) > .$(btn-class) {
+    min-width: unset;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

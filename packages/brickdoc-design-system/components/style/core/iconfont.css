@@ -9,11 +9,11 @@
   text-transform: none;
   vertical-align: -0.125em;
   text-rendering: optimizeLegibility;
-  &-spin svg {
+  &.brk-icon-spin svg {
     animation: i-icon-spin 1s infinite linear;
   }
 
-  &-rtl {
+  &.brk-icon-rtl {
     transform: scaleX(-1);
   }
   &[tabindex] {

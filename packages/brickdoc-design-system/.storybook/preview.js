@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-import './docs.less'
+import './docs.css'
 import { ConfigProvider, Skeleton } from '../components'
 
 i18n.use(initReactI18next).init({

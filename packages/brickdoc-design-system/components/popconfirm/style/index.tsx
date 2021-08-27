@@ -1,4 +1,4 @@
-import '../../style/index.less'
+import '../../style/index.css'
 
 // style dependencies
 // deps-lint-skip: tooltip, popover

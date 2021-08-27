@@ -4,7 +4,6 @@ import classNames from 'classnames'
 
 import './style'
 import { Rotation as LoadingOutlined } from '../icon'
-import Wave from '../utils/wave'
 import { ConfigContext } from '../config-provider'
 import SizeContext from '../config-provider/SizeContext'
 import devWarning from '../utils/devWarning'
@@ -56,7 +55,7 @@ const Switch = React.forwardRef<unknown, SwitchProps>(
     )
 
     return (
-      <Wave insertExtraNode>
+      <>
         {/* @ts-expect-error */}
         <RcSwitch
           {...props}
@@ -66,7 +65,7 @@ const Switch = React.forwardRef<unknown, SwitchProps>(
           ref={ref as any}
           loadingIcon={loadingIcon}
         />
-      </Wave>
+      </>
     )
   }
 ) as CompoundedComponent

@@ -6,8 +6,9 @@
   - prettier --write
 '(app|lib|config|gems)/**/*.rb':
   - bundle exec rubocop --parallel --force-exclusion
+  # todo: styelint less to postcss
 '*.(css|less)':
-  - stylelint --cache --fix
+  #  - stylelint --cache --fix
   - prettier --write
 'packages/brickdoc-design-icons/assets/**/*.svg':
   - yarn workspace @brickdoc/design-icons generator

@@ -1,7 +1,10 @@
-:root{
-  --color-text: #333;
+:root[data-color-mode='light'] {
+  @mixin colorPalette primary, #547aff;
+  --color-text: var(--color-grey-7);
+  --color-link: var(--color-cyan-5);
+  --color-link-hover: var(--color-cyan-7);
   --color-bg: var(--color-white);
   --color-heading: var(--color-text);
-  --color-disabled: #ccc;
-  --color-selection-bg: var(--color-primary);
+  --color-disabled: var(--color-grey-2);
+  --color-selection-bg: var(--color-primary-5);
 }

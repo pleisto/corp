@@ -1,4 +1,5 @@
-import { Color, HSV, MAX_COLOR_RGB, clamp, hsv2hsl, hsv2rgb, getColorFromRGBA, cssStr2Color } from "../../utils/color"
+import { Color, HSV, MAX_COLOR_RGB, clamp, hsv2hsl, hsv2rgb, getColorFromRGBA, cssStr2Color } from '../../utils/color'
+import { mapValues } from 'lodash'
 // Soften: to get closer to the background color's luminance
 // (softening with a white background would be lightening, with black it'd be darkening)
 // Strongen: opposite of soften
@@ -26,7 +27,7 @@ export enum Shade {
   Shade5 = 5,
   Shade6 = 6,
   Shade7 = 7,
-  Shade8 = 8,
+  Shade8 = 8
 }
 
 /**
@@ -34,35 +35,35 @@ export enum Shade {
  * @param shade - The Shade value to validate.
  */
 export function isValidShade(shade?: Shade): boolean {
-  return typeof shade === 'number' && shade >= Shade.Shade1 && shade <= Shade.Shade8;
+  return typeof shade === 'number' && shade >= Shade.Shade1 && shade <= Shade.Shade8
 }
 
 function _isBlack(color: Color): boolean {
-  return color.r === 0 && color.g === 0 && color.b === 0;
+  return color.r === 0 && color.g === 0 && color.b === 0
 }
 
 function _isWhite(color: Color): boolean {
-  return color.r === MAX_COLOR_RGB && color.g === MAX_COLOR_RGB && color.b === MAX_COLOR_RGB;
+  return color.r === MAX_COLOR_RGB && color.g === MAX_COLOR_RGB && color.b === MAX_COLOR_RGB
 }
 
 function _darken(hsv: HSV, factor: number): HSV {
   return {
     h: hsv.h,
     s: hsv.s,
-    v: clamp(hsv.v - hsv.v * factor, 100, 0),
-  };
+    v: clamp(hsv.v - hsv.v * factor, 100, 0)
+  }
 }
 
 function _lighten(hsv: HSV, factor: number): HSV {
   return {
     h: hsv.h,
     s: clamp(hsv.s - hsv.s * factor, 100, 0),
-    v: clamp(hsv.v + (100 - hsv.v) * factor, 100, 0),
-  };
+    v: clamp(hsv.v + (100 - hsv.v) * factor, 100, 0)
+  }
 }
 
 export function isDark(color: Color): boolean {
-  return hsv2hsl(color.h, color.s, color.v).l < 50;
+  return hsv2hsl(color.h, color.s, color.v).l < 50
 }
 
 /**
@@ -84,49 +85,63 @@ export function isDark(color: Color): boolean {
  */
 export function getShade(color: Color, shade: Shade, isInverted: boolean = false): Color | null {
   if (!color) {
-    return null;
+    return null
   }
 
   if (!isValidShade(shade)) {
-    return color;
+    return color
   }
 
-  const hsl = hsv2hsl(color.h, color.s, color.v);
-  let hsv = { h: color.h, s: color.s, v: color.v };
-  const tableIndex = shade - 1;
-  let _soften = _lighten;
-  let _strongen = _darken;
+  const hsl = hsv2hsl(color.h, color.s, color.v)
+  let hsv = { h: color.h, s: color.s, v: color.v }
+  const tableIndex = shade - 1
+  let _soften = _lighten
+  let _strongen = _darken
   if (isInverted) {
-    _soften = _darken;
-    _strongen = _lighten;
+    _soften = _darken
+    _strongen = _lighten
   }
   if (_isWhite(color)) {
     // white
-    hsv = _darken(hsv, WhiteShadeTable[tableIndex]);
+    hsv = _darken(hsv, WhiteShadeTable[tableIndex])
   } else if (_isBlack(color)) {
     // black
-    hsv = _lighten(hsv, BlackTintTable[tableIndex]);
+    hsv = _lighten(hsv, BlackTintTable[tableIndex])
   } else if (hsl.l / 100 > HighLuminanceThreshold) {
     // light
-    hsv = _strongen(hsv, LumShadeTable[tableIndex]);
+    hsv = _strongen(hsv, LumShadeTable[tableIndex])
   } else if (hsl.l / 100 < LowLuminanceThreshold) {
     // dark
-    hsv = _soften(hsv, LumTintTable[tableIndex]);
+    hsv = _soften(hsv, LumTintTable[tableIndex])
   } else if (tableIndex < ColorTintTable.length) {
-      hsv = _soften(hsv, ColorTintTable[tableIndex]);
-    } else {
-      hsv = _strongen(hsv, ColorShadeTable[tableIndex - ColorTintTable.length]);
+    hsv = _soften(hsv, ColorTintTable[tableIndex])
+  } else {
+    hsv = _strongen(hsv, ColorShadeTable[tableIndex - ColorTintTable.length])
   }
 
-  return getColorFromRGBA(Object.assign(hsv2rgb(hsv.h, hsv.s, hsv.v), { a: color.a }));
+  return getColorFromRGBA(Object.assign(hsv2rgb(hsv.h, hsv.s, hsv.v), { a: color.a }))
 }
 
-export function colorShadeMixin(colorStr: string, shade: number, isInverted: boolean = false) {
-  const color = cssStr2Color(colorStr)
-  if (color) {
-    const colorObj = getShade(color, shade, isInverted)
-    return {
-      color: colorObj.a === 100 ? colorObj.str : `rgba(${colorObj.r}, ${colorObj.g}, ${colorObj.b}, ${colorObj.a / 100})`,
-    }
+function _color2cssString(color: Color): string {
+  return color.a === 100 ? color.str : `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a / 100})`
+}
+
+export function colorShadeMixin(_mixin: object, colorStr: string, shade: Shade, isInverted: boolean = false) {
+  return { color: _color2cssString(getShade(cssStr2Color(colorStr), shade, isInverted)) }
+}
+
+export function colorPaletteMixin(_mixin: object, colorName: string, colorStr: string, isInverted: boolean = false) {
+  const baseColor = cssStr2Color(colorStr)
+  const map = {
+    [`--color-${colorName}-0`]: getShade(baseColor, Shade.Shade1, isInverted),
+    [`--color-${colorName}-1`]: getShade(baseColor, Shade.Shade2, isInverted),
+    [`--color-${colorName}-2`]: getShade(baseColor, Shade.Shade3, isInverted),
+    [`--color-${colorName}-3`]: getShade(baseColor, Shade.Shade4, isInverted),
+    [`--color-${colorName}-4`]: getShade(baseColor, Shade.Shade5, isInverted),
+    [`--color-${colorName}-5`]: baseColor,
+    [`--color-${colorName}-6`]: getShade(baseColor, Shade.Shade6, isInverted),
+    [`--color-${colorName}-7`]: getShade(baseColor, Shade.Shade7, isInverted),
+    [`--color-${colorName}-8`]: getShade(baseColor, Shade.Shade8, isInverted)
   }
- }
+  return mapValues(map, _color2cssString)
+}

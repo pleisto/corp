@@ -355,16 +355,9 @@ a {
   cursor: pointer;
   transition: color 0.3s;
 
-  &:hover {
-    color: var(--color-link-hover);
-  }
-
-  &:active {
-    color: var(--color-link-active);
-  }
-
   &:active,
   &:hover {
+    color: var(--color-link-hover);
     text-decoration: none;
     outline: 0;
   }

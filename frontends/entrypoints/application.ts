@@ -1,6 +1,5 @@
 import { cable } from '@/common/apollo'
 import { v4 as uuid } from 'uuid'
-import "@brickdoc/design-system/components/style/index.css"
 
 // I18n
 // eslint-disable-next-line import/first

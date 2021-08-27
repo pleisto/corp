@@ -5,85 +5,17 @@ import omit from 'rc-util/lib/omit'
 
 import Group from './button-group'
 import { ConfigContext } from '../config-provider'
-import Wave from '../utils/wave'
 import { tuple } from '../utils/type'
 import devWarning from '../utils/devWarning'
 import SizeContext, { SizeType } from '../config-provider/SizeContext'
 import LoadingIcon from './LoadingIcon'
-import { cloneElement } from '../utils/reactNode'
 
-const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/
-const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar)
-function isString(str: any) {
-  return typeof str === 'string'
-}
-
-function isUnborderedButtonType(type: ButtonType | undefined) {
-  return type === 'text' || type === 'link'
-}
-
-function isReactFragment(node: React.ReactNode) {
-  return React.isValidElement(node) && node.type === React.Fragment
-}
-
-// Insert one space between two chinese characters automatically.
-function insertSpace(child: React.ReactChild, needInserted: boolean) {
-  // Check the child if is undefined or null.
-  if (child == null) {
-    return
-  }
-  const SPACE = needInserted ? ' ' : ''
-  // strictNullChecks oops.
-  if (typeof child !== 'string' && typeof child !== 'number' && isString(child.type) && isTwoCNChar(child.props.children)) {
-    return cloneElement(child, {
-      children: child.props.children.split('').join(SPACE)
-    })
-  }
-  if (typeof child === 'string') {
-    return isTwoCNChar(child) ? <span>{child.split('').join(SPACE)}</span> : <span>{child}</span>
-  }
-  if (isReactFragment(child)) {
-    return <span>{child}</span>
-  }
-  return child
-}
-
-function spaceChildren(children: React.ReactNode, needInserted: boolean) {
-  let isPrevChildPure: boolean = false
-  const childList: React.ReactNode[] = []
-  React.Children.forEach(children, child => {
-    const type = typeof child
-    const isCurrentChildPure = type === 'string' || type === 'number'
-    if (isPrevChildPure && isCurrentChildPure) {
-      const lastIndex = childList.length - 1
-      const lastChild = childList[lastIndex]
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      childList[lastIndex] = `${lastChild}${child}`
-    } else {
-      childList.push(child)
-    }
-
-    isPrevChildPure = isCurrentChildPure
-  })
-
-  // Pass to React.Children.map to auto fill key
-  return React.Children.map(childList, child => insertSpace(child as React.ReactChild, needInserted))
-}
-
-const ButtonTypes = tuple('default', 'primary', 'ghost', 'dashed', 'link', 'text')
+const ButtonTypes = tuple('default', 'primary', 'link', 'text')
 export type ButtonType = typeof ButtonTypes[number]
-const ButtonShapes = tuple('circle', 'round')
+const ButtonShapes = tuple('circle')
 export type ButtonShape = typeof ButtonShapes[number]
 const ButtonHTMLTypes = tuple('submit', 'button', 'reset')
 export type ButtonHTMLType = typeof ButtonHTMLTypes[number]
-
-export type LegacyButtonType = ButtonType | 'danger'
-export function convertLegacyProps(type?: LegacyButtonType): ButtonProps {
-  if (type === 'danger') {
-    return { danger: true }
-  }
-  return { type }
-}
 
 export interface BaseButtonProps {
   type?: ButtonType
@@ -93,8 +25,6 @@ export interface BaseButtonProps {
   loading?: boolean | { delay?: number }
   prefixCls?: string
   className?: string
-  ghost?: boolean
-  danger?: boolean
   block?: boolean
   children?: React.ReactNode
 }
@@ -129,13 +59,11 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
     loading = false,
     prefixCls: customizePrefixCls,
     type,
-    danger,
     shape,
     size: customizeSize,
     className,
     children,
     icon,
-    ghost = false,
     block = false,
     /** If we extract items here, we don't need use omit.js */
     // React does not recognize the `htmlType` prop on a DOM element. Here we pick it out of `rest`.
@@ -145,27 +73,9 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
 
   const size = React.useContext(SizeContext)
   const [innerLoading, setLoading] = React.useState<Loading>(!!loading)
-  const [hasTwoCNChar, setHasTwoCNChar] = React.useState(false)
-  const { getPrefixCls, autoInsertSpaceInButton, direction } = React.useContext(ConfigContext)
+  const { getPrefixCls } = React.useContext(ConfigContext)
   const buttonRef = (ref as any) || React.createRef<HTMLElement>()
   const delayTimeoutRef = React.useRef<number>()
-
-  const isNeedInserted = () => React.Children.count(children) === 1 && !icon && !isUnborderedButtonType(type)
-
-  const fixTwoCNChar = () => {
-    // Fix for HOC usage like <FormatMessage />
-    if (!buttonRef || !buttonRef.current || !autoInsertSpaceInButton) {
-      return
-    }
-    const buttonText = buttonRef.current.textContent
-    if (isNeedInserted() && isTwoCNChar(buttonText)) {
-      if (!hasTwoCNChar) {
-        setHasTwoCNChar(true)
-      }
-    } else if (hasTwoCNChar) {
-      setHasTwoCNChar(false)
-    }
-  }
 
   // =============== Update Loading ===============
   let loadingOrDelay: Loading
@@ -186,9 +96,6 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
     }
   }, [loadingOrDelay])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(fixTwoCNChar, [buttonRef])
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
     const { onClick, disabled } = props
     // https://github.com/ant-design/ant-design/issues/30207
@@ -205,10 +112,7 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
     `\`icon\` is using ReactNode instead of string naming in v4. Please check \`${icon as string}\` at https://ant.design/components/icon`
   )
 
-  devWarning(!(ghost && isUnborderedButtonType(type)), 'Button', "`link` or `text` button can't be a `ghost` button.")
-
   const prefixCls = getPrefixCls('btn', customizePrefixCls)
-  const autoInsertSpace = autoInsertSpaceInButton
 
   // large => lg
   // small => sm
@@ -233,19 +137,15 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
       [`${prefixCls}-${shape}`]: shape,
       [`${prefixCls}-${sizeCls}`]: sizeCls,
       [`${prefixCls}-icon-only`]: !children && children !== 0 && !!iconType,
-      [`${prefixCls}-background-ghost`]: ghost && !isUnborderedButtonType(type),
       [`${prefixCls}-loading`]: innerLoading,
-      [`${prefixCls}-two-chinese-chars`]: hasTwoCNChar && autoInsertSpace,
-      [`${prefixCls}-block`]: block,
-      [`${prefixCls}-dangerous`]: !!danger,
-      [`${prefixCls}-rtl`]: direction === 'rtl'
+      [`${prefixCls}-block`]: block
     },
     className
   )
 
   const iconNode = icon && !innerLoading ? icon : <LoadingIcon existIcon={!!icon} prefixCls={prefixCls} loading={!!innerLoading} />
 
-  const kids = children || children === 0 ? spaceChildren(children, isNeedInserted() && autoInsertSpace) : null
+  const kids = children || children === 0 ? children : null
 
   const linkButtonRestProps = omit(rest as AnchorButtonProps & { navigate: any }, ['navigate'])
   if (linkButtonRestProps.href !== undefined) {
@@ -265,11 +165,7 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
     </button>
   )
 
-  if (isUnborderedButtonType(type)) {
-    return buttonNode
-  }
-
-  return <Wave>{buttonNode}</Wave>
+  return buttonNode
 }
 
 const Button = React.forwardRef<unknown, ButtonProps>(InternalButton) as CompoundedComponent

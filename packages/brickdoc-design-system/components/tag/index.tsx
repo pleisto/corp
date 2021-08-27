@@ -7,7 +7,6 @@ import { Close as CloseOutlined } from '../icon'
 import CheckableTag from './CheckableTag'
 import { ConfigContext } from '../config-provider'
 import { PresetColorTypes, PresetStatusColorTypes, PresetColorType, PresetStatusColorType } from '../utils/colors'
-import Wave from '../utils/wave'
 import { LiteralUnion } from '../utils/type'
 
 export type { CheckableTagProps } from './CheckableTag'
@@ -96,7 +95,6 @@ const InternalTag: React.ForwardRefRenderFunction<HTMLSpanElement, TagProps> = (
     return null
   }
 
-  const isNeedWave = 'onClick' in props || (children && (children as React.ReactElement<any>).type === 'a')
   const tagProps = omit(props, ['visible'])
   const iconNode = icon || null
   const kids = iconNode ? (
@@ -115,7 +113,7 @@ const InternalTag: React.ForwardRefRenderFunction<HTMLSpanElement, TagProps> = (
     </span>
   )
 
-  return isNeedWave ? <Wave>{tagNode}</Wave> : tagNode
+  return tagNode
 }
 
 const Tag = React.forwardRef<HTMLSpanElement, TagProps>(InternalTag) as TagType

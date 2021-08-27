@@ -5,7 +5,7 @@ import { Close as CloseOutlined } from '../icon'
 
 import useModal from './useModal'
 import Button from '../button'
-import { LegacyButtonType, ButtonProps, convertLegacyProps } from '../button/button'
+import { ButtonType, ButtonProps } from '../button/button'
 import LocaleReceiver from '../locale-provider/LocaleReceiver'
 import { ConfigContext, DirectionType } from '../config-provider'
 import { canUseDocElement } from '../utils/styleChecker'
@@ -57,7 +57,7 @@ export interface ModalProps {
   /** 确认按钮文字 */
   okText?: React.ReactNode
   /** 确认按钮类型 */
-  okType?: LegacyButtonType
+  okType?: ButtonType
   /** 取消按钮文字 */
   cancelText?: React.ReactNode
   /** 点击蒙层是否允许关闭 */
@@ -103,7 +103,7 @@ export interface ModalFuncProps {
   centered?: boolean
   width?: string | number
   okText?: React.ReactNode
-  okType?: LegacyButtonType
+  okType?: ButtonType
   cancelText?: React.ReactNode
   icon?: React.ReactNode
   mask?: boolean
@@ -149,7 +149,7 @@ const Modal: ModalInterface = props => {
         <Button onClick={handleCancel} {...props.cancelButtonProps}>
           {cancelText || locale.cancelText}
         </Button>
-        <Button {...convertLegacyProps(okType)} loading={confirmLoading} onClick={handleOk} {...props.okButtonProps}>
+        <Button {...okType} loading={confirmLoading} onClick={handleOk} {...props.okButtonProps}>
           {okText || locale.okText}
         </Button>
       </>
@@ -205,7 +205,7 @@ Modal.defaultProps = {
   width: 520,
   confirmLoading: false,
   visible: false,
-  okType: 'primary' as LegacyButtonType
+  okType: 'primary' as ButtonType
 }
 
 export default Modal

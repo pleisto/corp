@@ -1,10 +1,10 @@
 import * as React from 'react'
 import cx from 'classnames'
 import Button from '../button'
-import { LegacyButtonType, ButtonProps, convertLegacyProps } from '../button/button'
+import { ButtonType, ButtonProps } from '../button/button'
 
 export interface ActionButtonProps {
-  type?: LegacyButtonType
+  type?: ButtonType
   actionType: 'ok' | 'cancel'
   actionFn?: (...args: any[]) => any | PromiseLike<any>
   closeModal: Function
@@ -84,7 +84,7 @@ const ActionButton: React.FC<ActionButtonProps> = props => {
   const { actionType, type, children, prefixCls, buttonProps } = props
   return (
     <Button
-      {...convertLegacyProps(type)}
+      {...type}
       onClick={onClick}
       loading={loading}
       prefixCls={prefixCls}

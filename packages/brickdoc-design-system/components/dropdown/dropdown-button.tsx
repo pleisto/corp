@@ -9,7 +9,7 @@ import Dropdown, { DropdownProps } from './dropdown'
 
 const ButtonGroup = Button.Group
 
-type DropdownButtonType = 'primary' | 'ghost' | 'dashed'
+type DropdownButtonType = 'primary' | 'default'
 
 export interface DropdownButtonProps extends ButtonGroupProps, DropdownProps {
   type?: DropdownButtonType

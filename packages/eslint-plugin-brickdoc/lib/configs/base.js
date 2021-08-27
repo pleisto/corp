@@ -7,6 +7,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'jest/expect-expect': 'off',
     'no-void': 'off',
     'for-direction': 'error',
     'func-name-matching': ['error', 'always'],
