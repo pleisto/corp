@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, Tag } from '@brickdoc/design-system'
+import { Select, SelectProps, Tag } from '@brickdoc/design-system'
 import { bgColor } from '../../../Cells/SelectCell'
 
 export interface SelectValueProps {
@@ -13,10 +13,21 @@ export interface SelectValueProps {
 }
 
 export const SelectValue: React.FC<SelectValueProps> = ({ value, onChange, options }) => {
+  const handleFilterOption: SelectProps<object>['filterOption'] = (inputValue, option) => {
+    if (!inputValue) return true
+    return ((option?.title as string) ?? '').includes(inputValue)
+  }
+
   return (
-    <Select className="table-filter-option-select" value={value} onChange={onChange}>
+    <Select
+      className="table-filter-option-select"
+      value={value}
+      onChange={onChange}
+      showSearch={true}
+      filterOption={handleFilterOption}
+      optionFilterProp="title">
       {options.map(option => (
-        <Select.Option key={option.value} value={option.value}>
+        <Select.Option key={option.value} value={option.value} title={option.label}>
           <Tag color={bgColor(option.color)} style={{ color: option.color }}>
             {option.label}
           </Tag>

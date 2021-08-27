@@ -16,7 +16,8 @@
           position: absolute;
           top: 0;
           left: var(--block-padding-left);
-          width: calc(var(--table-min-width) - 100px);
+          max-width: calc(var(--table-min-width) - 100px);
+          width: 60%;
           height: var(--toolbar-height);
           display: flex;
           flex-direction: row;

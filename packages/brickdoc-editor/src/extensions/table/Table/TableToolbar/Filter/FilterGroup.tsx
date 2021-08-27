@@ -38,7 +38,7 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({
 }) => {
   const updateCollectionType = (value: FilterGroupOption['collectionType']): void => onUpdateFilter({ collectionType: value }, path ?? [])
   return (
-    <div className={cx('table-filter-group-panel', { cascade })}>
+    <div role="group" className={cx('table-filter-group-panel', { cascade })}>
       <div className="table-filter-group-content">
         {filterGroup.filters.map((filter, index) => (
           <div key={index} className={cx('table-filter-option', filter.type)}>

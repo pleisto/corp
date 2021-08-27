@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import { Dropdown, Button, Icon } from '@brickdoc/design-system'
 
+const MOST_CASCADE_LIMIT = 3
+
 export interface FilterFooterProps {
   path?: number[]
   onAddFilter: (isGroup: boolean, path?: number[]) => void
@@ -18,15 +20,17 @@ export const FilterFooter: React.FC<FilterFooterProps> = ({ cascade, onAddFilter
           Add a filter
         </Button>
       </div>
-      <div className="filter-select-option">
-        <Button className="filter-select-option-btn" type="text" onClick={() => onAddFilter(true, path)}>
-          <div className="filter-select-option-btn-content">
-            <Icon.AddGroup />
-            Add a filter group
-          </div>
-          <div className="filter-select-option-btn-desc">A group to nest more filters</div>
-        </Button>
-      </div>
+      {(path?.length ?? 0) < MOST_CASCADE_LIMIT && (
+        <div className="filter-select-option">
+          <Button className="filter-select-option-btn" type="text" onClick={() => onAddFilter(true, path)}>
+            <div className="filter-select-option-btn-content">
+              <Icon.AddGroup />
+              Add a filter group
+            </div>
+            <div className="filter-select-option-btn-desc">A group to nest more filters</div>
+          </Button>
+        </div>
+      )}
     </div>
   )
 
