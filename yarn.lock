@@ -21201,7 +21201,25 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"rc-select@npm:^13.0.0-alpha.3, rc-select@npm:~13.0.0-alpha.1":
+"rc-select@npm:^13.0.0-alpha.4":
+  version: 13.0.0-alpha.4
+  resolution: "rc-select@npm:13.0.0-alpha.4"
+  dependencies:
+    "@babel/runtime": ^7.10.1
+    classnames: 2.x
+    rc-motion: ^2.0.1
+    rc-overflow: ^1.0.0
+    rc-trigger: ^5.0.4
+    rc-util: ^5.9.8
+    rc-virtual-list: ^3.2.0
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 9a3097718858d3113ea96842592f301cd4e892d470c83e8c734f45e1002e5bcf7fabbf77727132a2155b13834f74fe4fa4acb9f1c3559203076362771212d6ef
+  languageName: node
+  linkType: hard
+
+"rc-select@npm:~13.0.0-alpha.1":
   version: 13.0.0-alpha.3
   resolution: "rc-select@npm:13.0.0-alpha.3"
   dependencies:
@@ -21293,7 +21311,6 @@ fsevents@^1.2.7:
   checksum: e65b175c28356cee101db56217d02a1eb1d96e727620bb1f6551f98e3ab49d3ec4381f1d408d19054b46349cba0e89056a4b4f09eeebbe70a1013733ad0e1fc9
   languageName: node
   linkType: hard
-
 
 "rc-tree-select@npm:^4.4.0-alpha.4":
   version: 4.4.0-alpha.4
