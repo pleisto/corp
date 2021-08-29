@@ -50,7 +50,7 @@
     "not dead"
   ],
   "dependencies": {
-    "@apollo/client": "^3.4.9",
+    "@apollo/client": "^3.4.10",
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system",
     "@brickdoc/editor": "workspace:packages/brickdoc-editor",
     "@rails/actioncable": "^6.1.4",
@@ -91,7 +91,7 @@
     "@testing-library/react": "^12.0.0",
     "@types/is-ci": "^3.0.0",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.2",
+    "@types/node": "^16.7.5",
     "@types/qs": "^6.9.7",
     "@types/rails__actioncable": "^6.1.5",
     "@types/rails__activestorage": "^6.0.1",
