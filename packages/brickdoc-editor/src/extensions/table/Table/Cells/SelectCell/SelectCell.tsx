@@ -4,10 +4,10 @@ import React from 'react'
 import { v4 as uuid } from 'uuid'
 import { Select, Tag, SelectProps, Modal } from '@brickdoc/design-system'
 import { CellProps, TableColumnSelectOption } from 'react-table'
-import { useEditingStatus } from './useEditingStatus'
+import { useEditingStatus } from '../useEditingStatus'
 import { SelectCellOption } from './SelectCellOption'
-import { COLOR } from '../../../color'
-import { DatabaseColumns } from '../useColumns'
+import { COLOR } from '../../../../color'
+import { DatabaseColumns } from '../../useColumns'
 import './SelectCell.css'
 
 const randomColor = (): string => COLOR[Math.floor(Math.random() * COLOR.length)].color

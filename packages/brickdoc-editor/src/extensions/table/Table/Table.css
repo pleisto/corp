@@ -1,6 +1,7 @@
 .brickdoc {
   & .ProseMirror {
     & .table-block-react-renderer {
+      --block-padding-left: 226px;
       --table-min-width: 700px;
       --toolbar-height: 42px;
 
@@ -14,20 +15,38 @@
         & .table-block-toolbar {
           position: absolute;
           top: 0;
-          left: var(--table-min-width);
+          left: var(--block-padding-left);
+          max-width: calc(var(--table-min-width) - 100px);
+          width: 60%;
           height: var(--toolbar-height);
           display: flex;
           flex-direction: row;
           align-items: center;
+          justify-content: flex-end;
 
           --button-color: #1c1c1e;
+          --button-height: 22px;
+          --button-font-size: 12px;
+
+          & button + button {
+            margin-left: 8px;
+          }
+
+          & .table-toolbar-text-button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: var(--button-height);
+            font-size: 14px;
+            padding: 0 8px;
+          }
 
           & .table-toolbar-add-button {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            height: 22px;
+            height: var(--button-height);
             width: 88px;
             font-size: 12px;
             padding: 0 5px 0 16px;
@@ -44,7 +63,7 @@
       }
 
       & .brickdoc-table-block {
-        padding-left: 226px;
+        padding-left: var(--block-padding-left);
         overflow-x: scroll;
 
         /* remain some spaces for cell shadow */
@@ -235,7 +254,8 @@
   }
 }
 
-.table-block-menu-popover {
+.table-block-menu-popover,
+.table-block-popover {
   & .brk-popover-arrow {
     display: none;
   }

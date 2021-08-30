@@ -1,7 +1,7 @@
 import React from 'react'
 import { CellProps } from 'react-table'
 import { Input } from '@brickdoc/design-system'
-import { useEditingStatus } from './useEditingStatus'
+import { useEditingStatus } from '../useEditingStatus'
 import './TextCell.css'
 
 export interface TextCellProps extends CellProps<object> {}
@@ -16,6 +16,7 @@ export const TextCell: React.FC<TextCellProps> = props => {
 
   if (editing) {
     return (
+      // TODO: hide editing status at onBlur is not good. Should add a overlay like Select Cell
       /* eslint-disable-next-line jsx-a11y/no-autofocus */
       <Input className="table-block-text-input" autoFocus={true} onBlur={hideEditing} value={value} onChange={handleChange} />
     )
