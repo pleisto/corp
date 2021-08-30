@@ -85,7 +85,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
 
   const removeRow = (rowIndex: number): void => {
     resetActiveStatus()
-    setData(prevData => prevData.filter((_, index) => index !== rowIndex))
+    updateRows(prevRows => prevRows.filter((_, index) => index !== rowIndex))
   }
 
   const [modal, contextHolder] = Modal.useModal()

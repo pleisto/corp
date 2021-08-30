@@ -29,9 +29,9 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
   }
 
   const flattedData = data.pageBlocks
-    .map(i => {
+    .map(b => {
       // const data: BlockData = i.data
-      const title = getTitle(i as Block)
+      const title = getTitle(b as Block)
       return {
         key: b.id,
         value: b.id,
