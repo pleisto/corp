@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_062802) do
+ActiveRecord::Schema.define(version: 2021_08_26_070111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_062802) do
     t.uuid "root_id"
     t.jsonb "content", default: [], comment: "node content"
     t.text "text", default: "", comment: "node text"
+    t.boolean "page", default: false, null: false
     t.index ["collaborators"], name: "index_docs_blocks_on_collaborators", using: :gin
     t.index ["deleted_at"], name: "index_docs_blocks_on_deleted_at"
     t.index ["parent_id"], name: "index_docs_blocks_on_parent_id"

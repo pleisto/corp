@@ -15,6 +15,7 @@ module Docs
         if root.nil?
           params = {
             id: root_id,
+            page: true,
             type: 'doc',
             data: {},
             text: '',

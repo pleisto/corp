@@ -3,6 +3,7 @@ FactoryBot.define do
   factory :docs_block, class: 'Docs::Block' do
     id { SecureRandom.uuid }
     pod
+    page { true }
     sort { 0 }
     type { 'doc' }
     meta { { title: FFaker::Lorem.phrase } }
@@ -17,6 +18,7 @@ FactoryBot.define do
     id { SecureRandom.uuid }
     root_id { parent_id }
     pod
+    page { true }
     sort { 0 }
     type { 'doc' }
     meta { { title: FFaker::Lorem.phrase } }
