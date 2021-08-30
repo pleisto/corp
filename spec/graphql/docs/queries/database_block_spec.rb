@@ -11,7 +11,7 @@ describe Docs::Queries::DatabaseRowBlocks, type: :query do
       self.current_pod = pod.as_session_context
 
       table_block = create(:docs_block, pod: pod, type: 'database', collaborators: [user.id])
-      _rows_blocks = 10.times { create(:docs_block, pod: pod, type: 'database_row', parent: table_block) }
+      _rows_blocks = 10.times { create(:docs_block, pod: pod, type: 'databaseRow', parent: table_block) }
 
       # block
       query = <<-'GRAPHQL'
