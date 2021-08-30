@@ -2,8 +2,8 @@
 /* eslint-disable max-len, import/no-default-export */
 import React from 'react'
 import { ISvgIconProps, IconWrapper } from '../icon'
-export default IconWrapper('down', true, (props: ISvgIconProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path fill="#3E3E3E" d="M12 16 6 9h12l-6 7z" />
-  </svg>
-))
+export default IconWrapper(
+    'down',
+    true,
+    (props: ISvgIconProps) => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="#3E3E3E" d="M12 16 6 9h12l-6 7z"/></svg>)
+);
