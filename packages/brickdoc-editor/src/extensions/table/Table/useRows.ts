@@ -32,21 +32,21 @@ export function useRows(options: {
     [tableRows, parentId, saveDatabaseRow]
   )
 
-  const fetchDatabaseRows = async (): Promise<DatabaseRows> => {
+  const fetchDatabaseRows = React.useCallback(async (): Promise<DatabaseRows> => {
     const resp = await getDatabaseRows(parentId, 0)
     if (resp.success) {
       return resp.data.map((block: DatabaseRow) => ({ ...block.data, id: block.id }))
     } else {
       return []
     }
-  }
+  }, [getDatabaseRows, parentId])
 
   React.useEffect(() => {
     void (async () => {
       const rows = await fetchDatabaseRows()
       setTableRows(rows)
     })()
-  })
+  }, [fetchDatabaseRows])
 
   return [tableRows, { updateRows }]
 }

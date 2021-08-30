@@ -4,6 +4,14 @@ module Docs
     argument :block, Inputs::BlockInput, required: true
 
     def resolve(block:)
+      lock = Redis::Lock.new("block_update:#{block.id}", expiration: 15, timeout: 3)
+      lock.lock do
+        Rails.logger.info("resolve #{block.id}")
+        do_resolve(block: block)
+      end
+    end
+
+    def do_resolve(block:)
       parent_block = Docs::Block.find(block.parent_id)
       update_block = Docs::Block.where(id: block.id).first_or_initialize
 
@@ -15,7 +23,7 @@ module Docs
       update_block.parent_id = parent_block.id
       update_block.type = block.type
       update_block.pod_id ||= current_pod.fetch('id')
-      update_block.root_id = parent_block.root_id
+      update_block.root_id = parent_block.id
 
       update_block.attachments = block.attachments if block.attachments
 
