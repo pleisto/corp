@@ -34,7 +34,10 @@ describe('SelectCell', () => {
     },
     cell: {
       row: {
-        index: 0
+        index: 0,
+        original: {
+          id
+        }
       },
       column: {
         id: 'columnId'
@@ -103,7 +106,7 @@ describe('SelectCell', () => {
     fireEvent.click(elements[elements.length - 1])
 
     expect(updateData).toBeCalledTimes(1)
-    expect(updateData).toBeCalledWith(props.cell.row.index, props.cell.column.id, id2)
+    expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, id2)
   })
 
   it('creates new option if no option match search value', () => {
@@ -209,7 +212,7 @@ describe('SelectCell', () => {
 
       expect(options).toHaveLength(1)
       expect(updateData).toBeCalledTimes(1)
-      expect(updateData).toBeCalledWith(props.cell.row.index, props.cell.column.id, null)
+      expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, null)
     })
 
     it('picks color for option', () => {

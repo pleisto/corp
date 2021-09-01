@@ -9,7 +9,10 @@ describe('TextCell', () => {
     updateActiveStatus: () => {},
     cell: {
       row: {
-        index: 0
+        index: 0,
+        original: {
+          id: 'id'
+        }
       },
       column: {
         id: 'columnId'
@@ -47,7 +50,7 @@ describe('TextCell', () => {
     fireEvent.change(input, { target: { value: newValue } })
 
     expect(updateData).toBeCalledTimes(1)
-    expect(updateData).toBeCalledWith(props.cell.row.index, props.cell.column.id, newValue)
+    expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, newValue)
   })
 
   it('turns into text when blurring', () => {

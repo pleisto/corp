@@ -5,8 +5,8 @@ import { Button, Icon, Input, Menu, Popover } from '@brickdoc/design-system'
 
 export interface TableRowProps extends RTTableRowProps {
   rowActive?: boolean
-  onAddNewRow: (rowIndex: number) => void
-  onRemoveRow: (rowIndex: number) => void
+  onAddNewRow: (rowIndex?: number) => void
+  onRemoveRow: (rowId: string) => void
   isCellActive: (rowIndex: number, cellIndex: number) => boolean
   row: Row
 }
@@ -58,7 +58,8 @@ export const TableRow: React.FC<TableRowProps> = ({ rowActive, isCellActive, onA
               <Input onChange={handleFilterChange} placeholder="Filter actions..." className="table-block-menu-input" />
             </Menu.Item>
             {isMenuItemMatch('Delete') && (
-              <Menu.Item onClick={() => onRemoveRow(row.index)} className="table-block-menu-item" key="Delete">
+              // TODO: fix type
+              <Menu.Item onClick={() => onRemoveRow((row.original as any).id)} className="table-block-menu-item" key="Delete">
                 <Icon.Delete />
                 <span>Delete</span>
               </Menu.Item>

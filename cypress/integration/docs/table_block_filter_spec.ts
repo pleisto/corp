@@ -11,7 +11,7 @@ describe('tableBlockFilter', () => {
     // change to select type
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
-    cy.findByText('Select').click()
+    cy.findByText('Select').click({ force: true })
     cy.get('.table-block-select-cell:last').click()
     // add new select option
     cy.focused().type('new option 2{Enter}')
@@ -37,11 +37,13 @@ describe('tableBlockFilter', () => {
     cy.findByText('Filter').click()
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter group').click()
-    cy.get('.table-filter-group-panel.cascade .table-filter-footer-button').click()
+    cy.get('.table-toolbar-item-group-panel.cascade .table-toolbar-item-footer-button').click()
     cy.findAllByText('Add a filter group').click({ multiple: true, force: true })
-    cy.get('.table-filter-group-panel.cascade .table-filter-group-panel .table-filter-footer-button').click()
+    cy.get('.table-toolbar-item-group-panel.cascade .table-toolbar-item-group-panel .table-toolbar-item-footer-button').click()
     cy.findAllByText('Add a filter group').click({ multiple: true, force: true })
-    cy.get('.table-filter-group-panel.cascade .table-filter-group-panel .table-filter-group-panel .table-filter-footer-button').click()
+    cy.get(
+      '.table-toolbar-item-group-panel.cascade .table-toolbar-item-group-panel .table-toolbar-item-group-panel .table-toolbar-item-footer-button'
+    ).click()
     cy.findByText('Add a filter group').should('not.exist')
   })
 
@@ -50,12 +52,12 @@ describe('tableBlockFilter', () => {
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter').click()
 
-    cy.get('.table-filter-option').should('have.length', 1)
+    cy.get('.table-toolbar-item-option').should('have.length', 1)
 
-    cy.get('.table-filter-option > button').click()
+    cy.get('.table-toolbar-item-option > button').click()
     cy.findByText('Remove').click()
 
-    cy.get('.table-filter-option').should('have.length', 0)
+    cy.get('.table-toolbar-item-option').should('have.length', 0)
   })
 
   it('should duplicate filter option', () => {
@@ -63,12 +65,12 @@ describe('tableBlockFilter', () => {
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter').click()
 
-    cy.get('.table-filter-option').should('have.length', 1)
+    cy.get('.table-toolbar-item-option').should('have.length', 1)
 
-    cy.get('.table-filter-option > button').click()
+    cy.get('.table-toolbar-item-option > button').click()
     cy.findByText('Duplicate').click()
 
-    cy.get('.table-filter-option').should('have.length', 2)
+    cy.get('.table-toolbar-item-option').should('have.length', 2)
   })
 
   it('should filter data by combining filter options', () => {
@@ -77,10 +79,10 @@ describe('tableBlockFilter', () => {
     cy.findByText('Filter').click()
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter').click()
-    cy.get('.table-filter-option-select:first').click()
+    cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('{Enter}')
 
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Is{Enter}')
     cy.findByPlaceholderText('Value').type('text2')
 
@@ -88,11 +90,11 @@ describe('tableBlockFilter', () => {
     cy.findByText('Add a filter').click()
 
     // And
-    cy.get('.table-filter-option:nth-of-type(2) > .table-filter-option-select:nth-of-type(2)').click()
+    cy.get('.table-toolbar-item-option:nth-of-type(2) > .table-toolbar-item-option-select:nth-of-type(2)').click()
     cy.focused().type('Column1{Enter}')
-    cy.get('.table-filter-option:nth-of-type(2) > .table-filter-option-select:nth-of-type(3)').click()
+    cy.get('.table-toolbar-item-option:nth-of-type(2) > .table-toolbar-item-option-select:nth-of-type(3)').click()
     cy.focused().type('Is{Enter}')
-    cy.get('.table-filter-option:nth-of-type(2) > .table-filter-option-select:nth-of-type(4)').click()
+    cy.get('.table-toolbar-item-option:nth-of-type(2) > .table-toolbar-item-option-select:nth-of-type(4)').click()
     cy.focused().type('new option 2{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 1)
@@ -100,9 +102,9 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row .table-block-select-cell').should('contain.text', 'new option 2')
 
     // Or
-    cy.get('.table-filter-option:nth-of-type(2) > .table-filter-option-head-select').click()
+    cy.get('.table-toolbar-item-option:nth-of-type(2) > .table-toolbar-item-option-head-select').click()
     cy.findByText('Or').click()
-    cy.get('.table-filter-option:nth-of-type(2) > .table-filter-option-select:nth-of-type(3)').click()
+    cy.get('.table-toolbar-item-option:nth-of-type(2) > .table-toolbar-item-option-select:nth-of-type(3)').click()
     cy.focused().type('Is not{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
@@ -114,11 +116,11 @@ describe('tableBlockFilter', () => {
     cy.findByText('Filter').click()
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter').click()
-    cy.get('.table-filter-option-select:first').click()
+    cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('{Enter}')
 
     // Is
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Is{Enter}')
     cy.findByPlaceholderText('Value').type('text')
 
@@ -126,45 +128,45 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row .table-block-text-cell').should('contain.text', 'text')
 
     // Is not
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Is not{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 1)
     cy.get('.table-block-tbody > .table-block-row .table-block-text-cell').should('contain.text', 'text2')
 
     // Contains
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Contains{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     // Does not contain
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Does not contain{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 0)
 
     // Starts with
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Starts with{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     // Ends with
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Ends with{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 1)
     cy.get('.table-block-tbody > .table-block-row .table-block-text-cell').should('contain.text', 'text')
 
     // Is empty
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Is empty{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 0)
 
     // Is not empty
-    cy.get('.table-filter-option-select:last').click()
+    cy.get('.table-toolbar-item-option-select:last').click()
     cy.focused().type('Is not empty{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
@@ -176,33 +178,33 @@ describe('tableBlockFilter', () => {
     cy.findByText('Filter').click()
     cy.findByText('Add a Filter').click()
     cy.findByText('Add a filter').click()
-    cy.get('.table-filter-option-select:first').click()
+    cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('Column1{Enter}')
 
     // Is
-    cy.get('.table-filter-option-select:nth-of-type(2)').click()
+    cy.get('.table-toolbar-item-option-select:nth-of-type(2)').click()
     cy.focused().type('Is{Enter}')
-    cy.get('.table-filter-option-select:nth-of-type(3)').click()
+    cy.get('.table-toolbar-item-option-select:nth-of-type(3)').click()
     cy.focused().type('new option 2{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 1)
     cy.get('.table-block-tbody > .table-block-row .table-block-select-cell').should('contain.text', 'new option 2')
 
     // Is
-    cy.get('.table-filter-option-select:nth-of-type(2)').click()
+    cy.get('.table-toolbar-item-option-select:nth-of-type(2)').click()
     cy.focused().type('Is not{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 1)
     cy.get('.table-block-tbody > .table-block-row .table-block-select-cell').should('contain.text', 'new option')
 
     // Is empty
-    cy.get('.table-filter-option-select:nth-of-type(2)').click()
+    cy.get('.table-toolbar-item-option-select:nth-of-type(2)').click()
     cy.focused().type('Is empty{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 0)
 
     // Is not empty
-    cy.get('.table-filter-option-select:nth-of-type(2)').click()
+    cy.get('.table-toolbar-item-option-select:nth-of-type(2)').click()
     cy.focused().type('Is not empty{Enter}')
 
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
