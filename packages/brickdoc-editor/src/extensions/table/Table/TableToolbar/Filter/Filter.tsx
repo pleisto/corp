@@ -1,7 +1,6 @@
 import React from 'react'
 import { Column } from 'react-table'
 import { Popover } from '@brickdoc/design-system'
-import './Filter.css'
 import { FilterGroup } from './FilterGroup'
 import { matches } from '../../columnType'
 
@@ -49,8 +48,8 @@ export const Filter: React.FC<TableFilterProps> = ({
   }
 
   const Content = (
-    <div className="table-block-filter-panel">
-      <span className="table-block-filter-title">Filter for My All Data</span>
+    <div className="table-block-toolbar-item-panel">
+      <span className="table-block-toolbar-item-title">Filter for My All Data</span>
       <FilterGroup
         columns={columns}
         filterGroup={filterGroup}

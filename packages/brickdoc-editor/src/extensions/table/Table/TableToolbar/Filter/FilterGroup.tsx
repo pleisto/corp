@@ -38,19 +38,19 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({
 }) => {
   const updateCollectionType = (value: FilterGroupOption['collectionType']): void => onUpdateFilter({ collectionType: value }, path ?? [])
   return (
-    <div role="group" className={cx('table-filter-group-panel', { cascade })}>
-      <div className="table-filter-group-content">
+    <div data-testid="brickdoc-table-filter-group" role="group" className={cx('table-toolbar-item-group-panel', { cascade })}>
+      <div className="table-toolbar-item-group-content">
         {filterGroup.filters.map((filter, index) => (
-          <div key={index} className={cx('table-filter-option', filter.type)}>
-            {isFirst(index) && <span className="table-filter-option-head-label">Where</span>}
+          <div key={index} className={cx('table-toolbar-item-option', filter.type)}>
+            {isFirst(index) && <span className="table-toolbar-item-option-head-label">Where</span>}
             {isSecond(index) && (
-              <Select className="table-filter-option-head-select" value={filterGroup.collectionType} onChange={updateCollectionType}>
+              <Select className="table-toolbar-item-option-head-select" value={filterGroup.collectionType} onChange={updateCollectionType}>
                 <Select.Option value="intersection">{COLLECTION_TYPE_LABEL.intersection}</Select.Option>
                 <Select.Option value="union">{COLLECTION_TYPE_LABEL.union}</Select.Option>
               </Select>
             )}
             {NotFirstTwo(index) && (
-              <span className="table-filter-option-head-label">{COLLECTION_TYPE_LABEL[filterGroup.collectionType]}</span>
+              <span className="table-toolbar-item-option-head-label">{COLLECTION_TYPE_LABEL[filterGroup.collectionType]}</span>
             )}
             {filter.type === 'single' && (
               <FilterItem path={[...(path ?? []), index]} columns={columns} filterSingleOption={filter} onUpdateFilter={onUpdateFilter} />
@@ -83,7 +83,7 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({
                   </Menu.Item>
                 </Menu>
               }>
-              <Button type="text" className="table-filter-option-action-button">
+              <Button type="text" className="table-toolbar-item-option-action-button">
                 <Icon.More />
               </Button>
             </Popover>

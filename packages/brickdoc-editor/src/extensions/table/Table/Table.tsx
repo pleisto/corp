@@ -1,4 +1,5 @@
 import React from 'react'
+import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps } from 'react-table'
@@ -10,9 +11,10 @@ import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColu
 import { useActiveStatus } from './useActiveStatus'
 import { Cell } from './Cells/Cell'
 import { TableRow } from './TableRow'
-import './Table.css'
 import { TableToolbar } from './TableToolbar'
 import { useFilter } from './TableToolbar/Filter/useFilter'
+import { useSorter } from './TableToolbar/Sorter/useSorter'
+import './Table.css'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean => headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
 
@@ -47,10 +49,10 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
     updateAttributes
   })
 
-  const updateData = (rowIndex: number, key: string, data: any): void => {
+  const updateData = (rowId: string, key: string, data: any): void => {
     setData(prevData =>
-      prevData.map((item, rIndex) => {
-        if (rIndex !== rowIndex) return item
+      prevData.map(item => {
+        if (item.id !== rowId) return item
 
         return {
           ...item,
@@ -64,37 +66,44 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
     setData(prevData => {
       const currentRowIndex = rowIndex ?? prevData.length - 1
       updateActiveStatus([{ rowIndex: currentRowIndex + 1 }])
-      return [...prevData.slice(0, currentRowIndex + 1), {}, ...prevData.slice(currentRowIndex + 1, prevData.length)]
+      return [
+        ...prevData.slice(0, currentRowIndex + 1),
+        {
+          id: uuid()
+        },
+        ...prevData.slice(currentRowIndex + 1, prevData.length)
+      ]
     })
   }
 
-  const removeRow = (rowIndex: number): void => {
+  const removeRow = (rowId: string): void => {
     resetActiveStatus()
-    setData(prevData => prevData.filter((_, index) => index !== rowIndex))
+    setData(prevData => prevData.filter(item => item.id !== rowId))
   }
 
   const [modal, contextHolder] = Modal.useModal()
 
-  const removeRowConfirm = (rowIndex: number): void => {
+  const removeRowConfirm = (rowId: string): void => {
     modal.confirm({
       title: 'Are you sure you want to delete this property?',
       okText: 'Delete',
       cancelText: 'Cancel',
       icon: null,
-      onOk: () => removeRow(rowIndex)
+      onOk: () => removeRow(rowId)
     })
   }
 
   const addNewColColumn = useAddNewColumn(addNewColumn)
 
+  const [sorterOptions, { add: addNewSorter, remove: removeSorter, update: updateSorter, sort }] = useSorter([])
   const [filterGroup, { filter, add: addNewFilter, remove: removeFilter, update: updateFilter, duplicate: duplicateFilter }] = useFilter({
     type: 'group',
     collectionType: 'intersection',
     filters: []
   })
 
-  // filter
-  const data = React.useMemo(() => tableRows.filter(item => filter(item, filterGroup)), [tableRows, filterGroup, filter])
+  // filter && sort
+  const data = React.useMemo(() => sort(tableRows.filter(item => filter(item, filterGroup))), [tableRows, filterGroup, filter, sort])
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     { columns, data, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData, setColumns },
@@ -122,6 +131,10 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
         removeFilter={removeFilter}
         updateFilter={updateFilter}
         duplicateFilter={duplicateFilter}
+        sorterOptions={sorterOptions}
+        addSorter={addNewSorter}
+        removeSorter={removeSorter}
+        updateSorter={updateSorter}
       />
       <div className="brickdoc-table-block">
         <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' }, role: 'table' })}>

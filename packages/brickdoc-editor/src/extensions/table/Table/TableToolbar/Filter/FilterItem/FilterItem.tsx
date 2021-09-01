@@ -42,9 +42,9 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
         const selectColumn = COLUMN_TYPE.find(item => item.type === (column as any)?.columnType)
         return (
           <Select.Option key={column.accessor as string} value={column.accessor as string} title={column.Header as string}>
-            <div className="table-filter-option-select-label">
+            <div className="table-toolbar-item-option-select-label">
               {selectColumn ? React.createElement(selectColumn.icon) : null}
-              <span className="table-filter-option-select-text">{column.Header}</span>
+              <span className="table-toolbar-item-option-select-text">{column.Header}</span>
             </div>
           </Select.Option>
         )
@@ -55,7 +55,7 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
   return (
     <>
       <Select
-        className="table-filter-option-select"
+        className="table-toolbar-item-option-select"
         showSearch={true}
         optionFilterProp="title"
         filterOption={handleFilterOption}
@@ -67,7 +67,7 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
         showSearch={true}
         optionFilterProp="title"
         filterOption={handleFilterOption}
-        className="table-filter-option-select"
+        className="table-toolbar-item-option-select"
         onChange={handleUpdateMatchType}
         value={filterSingleOption.matchType}>
         {matchedColumnType?.matches.map(item => (

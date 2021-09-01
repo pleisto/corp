@@ -1,7 +1,7 @@
 import React from 'react'
 import { v4 as uuid } from 'uuid'
 
-export interface DatabaseRows extends Array<object> {}
+export interface DatabaseRows extends Array<{ [key: string]: any; id: string }> {}
 
 const defaultRows = (databaseRows: DatabaseRows): DatabaseRows => {
   if ((databaseRows || []).length === 0) {

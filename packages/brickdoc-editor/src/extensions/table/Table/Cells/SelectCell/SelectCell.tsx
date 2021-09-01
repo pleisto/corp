@@ -62,7 +62,8 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
         setSelectOptions(prevOptions => prevOptions.filter(item => item.value !== option.value))
 
         if (option.value === value) {
-          updateData(cell.row.index, cell.column.id, null)
+          // TODO: fix type
+          updateData((cell.row.original as any).id, cell.column.id, null)
         }
       }
     })
@@ -75,18 +76,21 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
 
     setSelectOptions(prevOptions => {
       if (isOptionExist(prevOptions, newValue)) {
-        updateData(cell.row.index, cell.column.id, newValue)
+        // TODO: fix type
+        updateData((cell.row.original as any).id, cell.column.id, newValue)
         return prevOptions
       }
       const newOption: TableColumnSelectOption = { label: newValue, color: randomColor(), value: uuid() }
-      updateData(cell.row.index, cell.column.id, newOption.value)
+      // TODO: fix type
+      updateData((cell.row.original as any).id, cell.column.id, newOption.value)
       return [...prevOptions, newOption]
     })
   }
 
   const handleRemove = React.useCallback((): void => {
-    updateData(cell.row.index, cell.column.id, null)
-  }, [cell.row.index, cell.column.id, updateData])
+    // TODO: fix type
+    updateData((cell.row.original as any).id, cell.column.id, null)
+  }, [cell.row.original, cell.column.id, updateData])
 
   const OptionTag: SelectProps<object>['tagRender'] = React.useCallback(
     ({ value }) => {

@@ -11,7 +11,8 @@ export const TextCell: React.FC<TextCellProps> = props => {
   const [editing, { show: showEditing, hide: hideEditing }] = useEditingStatus(props)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    updateData(cell.row.index, cell.column.id, event.target.value)
+    // TODO: fix type
+    updateData((cell.row.original as any).id, cell.column.id, event.target.value)
   }
 
   if (editing) {
