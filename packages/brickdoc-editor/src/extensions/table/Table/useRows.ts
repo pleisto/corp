@@ -23,6 +23,7 @@ export function useRows(options: {
   const updateRows = React.useCallback(
     (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
       const newRows = fn(tableRows)
+      console.log(newRows)
       newRows.forEach((row, i) => {
         const { id, ...data } = row
         void saveDatabaseRow({ parentId, id, data, sort: i })

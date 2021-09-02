@@ -63,10 +63,10 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
     saveDatabaseRow
   })
 
-  const updateData = (rowIndex: number, key: string, data: any): void => {
+  const updateData = (rowId: string, key: string, data: any): void => {
     updateRows(prevRows =>
       prevRows.map((item, rIndex) => {
-        if (rIndex !== rowIndex) return item
+        if (item.id !== rowId) return item
         return {
           ...item,
           [key]: data
