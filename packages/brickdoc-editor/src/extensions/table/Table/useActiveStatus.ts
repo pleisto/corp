@@ -1,23 +1,25 @@
 import React from 'react'
 import { TableActiveStatus } from 'react-table'
 
+export type IsCellActive = (rowId: string, cellIndex: number) => boolean
+
 export function useActiveStatus(): [
   {
-    isRowActive: (rowIndex: number) => boolean
-    isCellActive: (rowIndex: number, cellIndex: number) => boolean
+    isRowActive: (rowId: string) => boolean
+    isCellActive: IsCellActive
     update: React.Dispatch<React.SetStateAction<TableActiveStatus[]>>
     reset: () => void
   }
 ] {
   const [activeItems, setActiveStatus] = React.useState<TableActiveStatus[]>([])
   const isRowActive = React.useCallback(
-    (rowIndex: number): boolean => activeItems.some(item => item.rowIndex === rowIndex && item.columnIndex === undefined),
+    (rowId: string): boolean => activeItems.some(item => item.rowId === rowId && item.columnIndex === undefined),
     [activeItems]
   )
   const isCellActive = React.useCallback(
-    (rowIndex: number, columnIndex: number): boolean =>
+    (rowId: string, columnIndex: number): boolean =>
       activeItems.some(item => {
-        return item.rowIndex === rowIndex && item.columnIndex === columnIndex
+        return item.rowId === rowId && item.columnIndex === columnIndex
       }),
     [activeItems]
   )

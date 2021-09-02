@@ -9,15 +9,6 @@
   font-size: 14px;
 }
 
-.table-block-select-cell-overlay {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-}
-
 .table-block-select-dropdown-title {
   height: 36px;
   padding: 0 16px;

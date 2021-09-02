@@ -2,12 +2,13 @@ import React from 'react'
 import cx from 'classnames'
 import { TableRowProps as RTTableRowProps, Row, TableHeaderGroupProps } from 'react-table'
 import { Button, Icon, Input, Menu, Popover } from '@brickdoc/design-system'
+import { IsCellActive } from './useActiveStatus'
 
 export interface TableRowProps extends RTTableRowProps {
   rowActive?: boolean
   onAddNewRow: (rowIndex?: number) => void
   onRemoveRow: (rowId: string) => void
-  isCellActive: (rowIndex: number, cellIndex: number) => boolean
+  isCellActive: IsCellActive
   row: Row
 }
 
@@ -79,7 +80,11 @@ export const TableRow: React.FC<TableRowProps> = ({ rowActive, isCellActive, onA
           {row.cells.map((cell, cellIndex) => {
             const cellProps = cell.getCellProps(cellPropsGetter)
             return (
-              <div {...cellProps} key={cellProps.key} className={cx('table-block-td', { active: isCellActive(row.index, cellIndex) })}>
+              // TODO: fix type
+              <div
+                {...cellProps}
+                key={cellProps.key}
+                className={cx('table-block-td', { active: isCellActive((row.original as any).id, cellIndex) })}>
                 {cell.render('Cell')}
               </div>
             )

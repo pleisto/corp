@@ -63,7 +63,8 @@ describe('tableBlock', () => {
     cy.get('button.slash-menu-item:first').click()
 
     cy.get('.table-block-text-cell:last').click()
-    cy.focused().type('text').blur()
+    cy.focused().type('text')
+    cy.findByTestId('table-text-overlay').click({ force: true })
     cy.get('.active > .table-block-text-cell').should('exist').should('contain.text', 'text')
   })
 
