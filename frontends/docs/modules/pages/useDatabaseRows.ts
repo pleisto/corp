@@ -14,10 +14,11 @@ export function useDatabaseRows(): EditorOptions['getDatabaseRows'] {
 
   return async (parentId: string, snapshotVersion: number) => {
     const { data, error } = await queryDatabaseRowBlocks({ parentId, snapshotVersion })
-
-    return {
-      success: !error,
-      data: data.databaseRowBlocks as []
+    console.log(data)
+    if (error) {
+      return []
+    } else {
+      return data.databaseRowBlocks?.map(block => ({ ...block.data, id: block.id, sort: block.sort })) ?? []
     }
   }
 }

@@ -8,35 +8,27 @@ describe('Table Filter', () => {
     editor: {},
     node: {
       attrs: {
-        rows: [
-          {
-            text: 'text',
-            select: 'option1'
-          },
-          {
-            text: 'text2',
-            select: 'option1'
-          }
-        ],
-        columns: [
-          {
-            key: 'text',
-            title: 'TextColumn',
-            type: 'text'
-          },
-          {
-            key: 'select',
-            title: 'SelectColumn',
-            type: 'select',
-            selectOptions: [
-              {
-                color: 'color',
-                value: 'option1',
-                label: 'option1'
-              }
-            ]
-          }
-        ]
+        data: {
+          columns: [
+            {
+              key: 'text',
+              title: 'TextColumn',
+              type: 'text'
+            },
+            {
+              key: 'select',
+              title: 'SelectColumn',
+              type: 'select',
+              selectOptions: [
+                {
+                  color: 'color',
+                  value: 'option1',
+                  label: 'option1'
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     extension: {

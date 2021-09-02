@@ -23,7 +23,6 @@ export function useRows(options: {
   const updateRows = React.useCallback(
     (fn: (prevRows: DatabaseRows) => DatabaseRows): void => {
       const newRows = fn(tableRows)
-      console.log(newRows)
       newRows.forEach((row, i) => {
         const { id, ...data } = row
         void saveDatabaseRow({ parentId, id, data, sort: i })
@@ -34,12 +33,7 @@ export function useRows(options: {
   )
 
   const fetchDatabaseRows = React.useCallback(async (): Promise<DatabaseRows> => {
-    const resp = await getDatabaseRows(parentId, 0)
-    if (resp.success) {
-      return resp.data.map((block: DatabaseRow) => ({ ...block.data, id: block.id }))
-    } else {
-      return []
-    }
+    return await getDatabaseRows(parentId, 0)
   }, [getDatabaseRows, parentId])
 
   React.useEffect(() => {

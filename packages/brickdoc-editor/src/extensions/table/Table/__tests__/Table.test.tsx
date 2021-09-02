@@ -7,18 +7,24 @@ describe('Table', () => {
     editor: {},
     node: {
       attrs: {
-        rows: [],
-        columns: [
-          {
-            key: 'key',
-            title: 'Column',
-            type: 'text'
-          }
-        ]
+        data: {
+          columns: [
+            {
+              key: 'key',
+              title: 'Column',
+              type: 'text'
+            }
+          ]
+        }
       }
     },
     extension: {
-      options: {}
+      options: {
+        getDatabaseRows: () => {
+          return []
+        },
+        saveDatabaseRow: () => {}
+      }
     },
     updateAttributes: () => {}
   }
@@ -132,6 +138,8 @@ describe('Table', () => {
   it('adds new row by row action normally', () => {
     render(<Table {...props} />)
 
+    fireEvent.click(screen.getByText('New'))
+
     const rows = screen.getAllByRole('row')
     const actions = screen.getByTestId('table-actions')
     fireEvent.click(actions.firstChild!)
@@ -149,6 +157,8 @@ describe('Table', () => {
     it('filters menu items normally', () => {
       render(<Table {...props} />)
 
+      fireEvent.click(screen.getByText('New'))
+
       const rows = screen.getAllByRole('row')
       fireEvent.contextMenu(rows[1])
       fireEvent.change(screen.getByPlaceholderText('Filter actions...'), { target: { value: 'Del' } })
@@ -164,6 +174,8 @@ describe('Table', () => {
 
     it('removes row by click delete button', () => {
       render(<Table {...props} />)
+
+      fireEvent.click(screen.getByText('New'))
 
       const rows = screen.getAllByRole('row')
       fireEvent.contextMenu(rows[1])

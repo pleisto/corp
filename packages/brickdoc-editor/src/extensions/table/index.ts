@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid'
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { Table } from './Table'
+import { DatabaseRows } from './Table/useRows'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -17,7 +18,7 @@ declare module '@tiptap/core' {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
 export interface TableExtensionOptions {
-  getDatabaseRows: (parentId: string, snapshotVersion: number) => Promise<{ success: boolean; data: [] }>
+  getDatabaseRows: (parentId: string, snapshotVersion: number) => Promise<DatabaseRows>
   saveDatabaseRow: (block: { parentId: string; id: string; data: {}; sort: number }) => Promise<void>
 }
 
@@ -46,7 +47,6 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
     return {
       data: {
         default: {
-          rows: [],
           columns: [
             {
               title: 'Task name',
