@@ -13339,8 +13339,6 @@ fsevents@^1.2.7:
 "github_webhook-381c76@workspace:plugins/github_webhook":
   version: 0.0.0-use.local
   resolution: "github_webhook-381c76@workspace:plugins/github_webhook"
-  dependencies:
-    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 
