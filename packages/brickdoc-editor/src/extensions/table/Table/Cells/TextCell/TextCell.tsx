@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { CellProps } from 'react-table'
 import { Input } from '@brickdoc/design-system'
@@ -10,21 +12,30 @@ export const TextCell: React.FC<TextCellProps> = props => {
   const { value, updateData, cell } = props
   const [editing, { show: showEditing, hide: hideEditing }] = useEditingStatus(props)
 
+  const [currentValue, setCurrentValue] = React.useState(value)
+  React.useEffect(() => setCurrentValue(value), [value])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setCurrentValue(event.target.value)
+  }
+
+  const handleEndEditing = (): void => {
     // TODO: fix type
-    updateData((cell.row.original as any).id, cell.column.id, event.target.value)
+    updateData((cell.row.original as any).id, cell.column.id, currentValue)
+    hideEditing()
   }
 
   if (editing) {
     return (
-      // TODO: hide editing status at onBlur is not good. Should add a overlay like Select Cell
-      /* eslint-disable-next-line jsx-a11y/no-autofocus */
-      <Input className="table-block-text-input" autoFocus={true} onBlur={hideEditing} value={value} onChange={handleChange} />
+      <>
+        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+        <Input className="table-block-text-input" autoFocus={true} value={currentValue} onChange={handleChange} />
+        <div data-testid="table-text-overlay" className="table-block-cell-overlay" onClick={handleEndEditing} />
+      </>
     )
   }
 
   return (
-    /* eslint-disable jsx-a11y/click-events-have-key-events */
     <div role="button" tabIndex={-1} className="table-block-text-cell" onClick={showEditing}>
       {value}
     </div>

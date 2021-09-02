@@ -53,7 +53,7 @@ declare module 'react-table' {
 
   // define our custom types here
   export interface TableActiveStatus {
-    rowIndex: number
+    rowId: string
     columnIndex?: number
   }
 

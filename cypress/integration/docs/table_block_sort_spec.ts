@@ -19,14 +19,16 @@ describe('tableBlockSort', () => {
     cy.findByTestId('table-select-overlay').click()
     // edit text cell
     cy.get('.table-block-text-cell:last').click()
-    cy.focused().type('text').blur()
+    cy.focused().type('text')
+    cy.findByTestId('table-text-overlay').click({ force: true })
 
     // add row 2
     cy.get('.table-block-tbody > .table-block-row:first').realHover()
     cy.get('.table-block-tbody > .table-block-row:first > .table-block-row-actions > button:first').click({ force: true })
     // edit text cell
     cy.get('.table-block-text-cell:last').click()
-    cy.focused().type('text2').blur()
+    cy.focused().type('text2')
+    cy.findByTestId('table-text-overlay').click({ force: true })
     // pick select option
     cy.get('.table-block-select-cell:last').click()
     cy.findByText('new option 2').click()
@@ -37,7 +39,8 @@ describe('tableBlockSort', () => {
     cy.get('.table-block-tbody > .table-block-row:last > .table-block-row-actions > button:first').click({ force: true })
     // edit text cell
     cy.get('.table-block-text-cell:last').click()
-    cy.focused().type('text').blur()
+    cy.focused().type('text')
+    cy.findByTestId('table-text-overlay').click({ force: true })
     // pick select option
     cy.get('.table-block-select-cell:last').click()
     cy.findAllByText('new option 2').last().click()

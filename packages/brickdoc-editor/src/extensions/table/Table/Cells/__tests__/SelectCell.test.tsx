@@ -71,7 +71,8 @@ describe('SelectCell', () => {
   })
 
   it('turns into tag when click overlay', () => {
-    render(<SelectCell {...props} />)
+    const updateData = jest.fn()
+    render(<SelectCell {...props} updateData={updateData} />)
     fireEvent.click(screen.getByRole('button'))
     fireEvent.click(screen.getByTestId('table-select-overlay'))
 
@@ -95,7 +96,7 @@ describe('SelectCell', () => {
       const newColumns = fn([{ ...props.column, key: props.column.id }])
       props.column = newColumns[0]
 
-      rerender(<SelectCell {...props} />)
+      rerender(<SelectCell {...props} updateData={updateData} />)
     }
 
     const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
@@ -104,6 +105,7 @@ describe('SelectCell', () => {
 
     const elements = screen.getAllByRole('listitem')
     fireEvent.click(elements[elements.length - 1])
+    fireEvent.click(screen.getByTestId('table-select-overlay'))
 
     expect(updateData).toBeCalledTimes(1)
     expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, id2)
@@ -114,7 +116,7 @@ describe('SelectCell', () => {
       const newColumns = fn([{ ...props.column, key: props.column.id }])
       props.column = newColumns[0]
 
-      rerender(<SelectCell {...props} />)
+      rerender(<SelectCell {...props} updateData={updateData} />)
     }
 
     const updateData = jest.fn()
@@ -127,6 +129,7 @@ describe('SelectCell', () => {
 
     const elements = screen.getAllByText(newOption)
     fireEvent.click(elements[elements.length - 1])
+    fireEvent.click(screen.getByTestId('table-select-overlay'))
 
     expect(updateData).toBeCalledTimes(1)
   })
@@ -196,7 +199,7 @@ describe('SelectCell', () => {
         const newColumns = fn([{ ...props.column, key: props.column.id }])
         props.column = newColumns[0]
 
-        rerender(<SelectCell {...props} />)
+        rerender(<SelectCell {...props} updateData={updateData} />)
       }
 
       const updateData = jest.fn()
@@ -209,8 +212,10 @@ describe('SelectCell', () => {
       fireEvent.click(screen.getAllByText('Delete')[1])
 
       const options = screen.getAllByRole('listitem')
-
       expect(options).toHaveLength(1)
+
+      fireEvent.click(screen.getByTestId('table-select-overlay'))
+
       expect(updateData).toBeCalledTimes(1)
       expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, null)
     })
