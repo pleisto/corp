@@ -32,7 +32,12 @@ describe('Table Filter', () => {
       }
     },
     extension: {
-      options: {}
+      options: {
+        getDatabaseRows: () => {
+          return []
+        },
+        saveDatabaseRow: () => {}
+      }
     },
     updateAttributes: () => {}
   }

@@ -37,7 +37,12 @@ describe('Table Sort', () => {
       }
     },
     extension: {
-      options: {}
+      options: {
+        getDatabaseRows: () => {
+          return []
+        },
+        saveDatabaseRow: () => {}
+      }
     },
     updateAttributes: () => {}
   }
