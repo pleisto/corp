@@ -1529,6 +1529,11 @@ type plugin {
   enabled: Boolean!
 
   """
+  logo
+  """
+  logo: String!
+
+  """
   metadata
   """
   metadata: JSON!

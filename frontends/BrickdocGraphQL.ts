@@ -919,6 +919,8 @@ export type Plugin = {
   __typename?: 'plugin'
   /** Enabled */
   enabled: Scalars['Boolean']
+  /** logo */
+  logo: Scalars['String']
   /** metadata */
   metadata: Scalars['JSON']
   /** Plugin Name */
@@ -1283,7 +1285,7 @@ export type GetPluginQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetPluginQuery = {
   __typename?: 'RootQuery'
-  plugins: Array<{ __typename?: 'plugin'; name: string; version: string; enabled: boolean; metadata: any }>
+  plugins: Array<{ __typename?: 'plugin'; name: string; version: string; logo: string; enabled: boolean; metadata: any }>
 }
 
 export type BlockSyncBatchMutationVariables = Exact<{
@@ -2508,6 +2510,7 @@ export const GetPluginDocument = gql`
     plugins {
       name
       version
+      logo
       enabled
       metadata
     }

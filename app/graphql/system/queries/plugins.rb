@@ -7,9 +7,8 @@ module System
     authenticate_user!
 
     def resolve
-      BrickdocPlugin.all_plugins.map do |_name, plugin|
-        plugin.attributes
-      end
+      BrickdocConfig.current = BrickdocConfig.at(current_pod.fetch('webid'))
+      BrickdocPlugin.enabled_plugins.map(&:attributes)
     end
   end
 end

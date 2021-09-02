@@ -34,7 +34,7 @@ describe BrickdocPlugin do
 
     expect(BrickdocPlugin.enabled?(:test_plugin)).to be(true)
 
-    expect(BrickdocPlugin.enabled_plugins).to include(:test_plugin)
+    expect(BrickdocPlugin.enabled_plugin_keys).to include(:test_plugin)
 
     # switch back to domain (pod1)
 
@@ -42,7 +42,33 @@ describe BrickdocPlugin do
 
     expect(BrickdocPlugin.enabled?(:test_plugin)).to be(false)
 
-    expect(BrickdocPlugin.enabled_plugins).to_not include(:test_plugin)
+    expect(BrickdocPlugin.enabled_plugin_keys).to_not include(:test_plugin)
+  end
+
+  it 'enabled' do
+    github_webhook_plugin = BrickdocPlugin.plugin(:github_webhook)
+    expect(github_webhook_plugin.enabled?).to be(true)
+    pod = create(:pod)
+    BrickdocConfig.current = BrickdocConfig.at(pod.webid)
+
+    expect(github_webhook_plugin.enabled?).to be(true)
+
+    BrickdocConfig.current.set("#{github_webhook_plugin.plugin_name}_enabled", false, scope: 'plugins')
+    expect(github_webhook_plugin.enabled?).to be(false)
+
+    BrickdocConfig.current.set("#{github_webhook_plugin.plugin_name}_enabled", true, scope: 'plugins')
+    expect(github_webhook_plugin.enabled?).to be(true)
+
+    github_webhook_plugin.enabled = false
+    expect(github_webhook_plugin.enabled?).to be(false)
+
+    github_webhook_plugin.enabled = true
+    expect(github_webhook_plugin.enabled?).to be(true)
+
+    github_webhook_plugin.enabled = false
+    pod2 = create(:pod)
+    BrickdocConfig.current = BrickdocConfig.at(pod2.webid)
+    expect(github_webhook_plugin.enabled?).to be(true)
   end
 
   it 'can load plugin dummy_plugin' do

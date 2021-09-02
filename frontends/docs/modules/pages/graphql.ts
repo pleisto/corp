@@ -5,6 +5,7 @@ export const queryPlugins = gql`
     plugins {
       name
       version
+      logo
       enabled
       metadata
     }

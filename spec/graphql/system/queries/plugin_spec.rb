@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe System::Queries::Plugins, type: :query do
+describe System::Queries::Plugins, type: :query, focus: true do
   describe '#resolver' do
     it 'works' do
       query = <<-'GRAPHQL'
@@ -10,6 +10,7 @@ describe System::Queries::Plugins, type: :query do
           plugins {
             name
             version
+            logo
             enabled
             metadata
           }

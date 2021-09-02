@@ -39,7 +39,8 @@ class BrickdocPlugin
       plugin.instance_eval(File.read(plugin_file), plugin_file) if File.exist?(plugin_file)
 
       metadata_file = "#{path}/package.yml"
-      plugin.metadata = YAML.load(File.read(metadata_file))['metadata']&.deep_symbolize_keys || {} if File.exist?(metadata_file)
+      config = File.exist?(metadata_file) ? YAML.load(File.read(metadata_file)) : {}
+      plugin.metadata = config['metadata']&.deep_symbolize_keys || {}
 
       plugin_main_file = "#{path}/lib/#{plugin_name}"
       require "#{path}/lib/#{plugin_name}" if File.exist?("#{plugin_main_file}.rb")
@@ -53,6 +54,7 @@ class BrickdocPlugin
       end
       plugin.loader.setup
       plugin.loader.eager_load
+      plugin.enabled = true if config['enabled']
 
       if plugin.load_engine
         require "#{path}/engine.rb"
@@ -66,8 +68,12 @@ class BrickdocPlugin
     end
 
     # TODO: cached with BrickSetting in current domain
-    def enabled_plugins
+    def enabled_plugin_keys
       @plugins.select { |_, plugin| plugin.enabled? }.keys
+    end
+
+    def enabled_plugins
+      @plugins.select { |_, plugin| plugin.enabled? }.values
     end
 
     def all_plugins
@@ -78,11 +84,11 @@ class BrickdocPlugin
     def update_hooks_scopes
       BrickdocHook.enabled_scopes =
         BrickdocHook.enabled_scopes.select { |s| !s.start_with?('plugin.') } +
-        enabled_plugins.map { |pn| "plugin.#{pn}" }
+        enabled_plugin_keys.map { |pn| "plugin.#{pn}" }
     end
   end
 
-  attr_accessor :metadata
+  attr_accessor :metadata, :plugin_name
   attr_reader :plugin_constant
   attr_reader :load_engine
 
@@ -114,6 +120,7 @@ class BrickdocPlugin
       name: @plugin_name,
       metadata: @metadata,
       version: @metadata.fetch(:version),
+      logo: @metadata[:logo] || "",
       enabled: enabled?
     }
   end
