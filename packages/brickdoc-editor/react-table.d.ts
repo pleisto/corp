@@ -97,7 +97,7 @@ declare module 'react-table' {
     // define custom table properties here
     updateActiveStatus: React.Dispatch<React.SetStateAction<TableActiveStatus[]>>
     resetActiveStatus: () => void
-    updateData: (rowIndex: number, key: string, data: any) => void
+    updateData: (rowId: string, key: string, data: any) => void
   }
 
   export interface TableState<D extends Record<string, unknown> = Record<string, unknown>>

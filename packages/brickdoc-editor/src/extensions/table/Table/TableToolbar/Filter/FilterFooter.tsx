@@ -35,12 +35,12 @@ export const FilterFooter: React.FC<FilterFooterProps> = ({ cascade, onAddFilter
   )
 
   return (
-    <div className={cx('table-filter-footer', { cascade })}>
+    <div className={cx('table-toolbar-item-footer', { cascade })}>
       <Dropdown trigger={['click']} overlay={Content}>
-        <Button className="table-filter-footer-button" type="text">
+        <Button className="table-toolbar-item-footer-button" type="text">
           <Icon.Add />
           <span>Add a Filter</span>
-          <Icon.ArrowDown className="table-filter-footer-icon-arrow-down" />
+          <Icon.ArrowDown className="table-toolbar-item-footer-icon" />
         </Button>
       </Dropdown>
     </div>

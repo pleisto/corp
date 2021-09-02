@@ -20,7 +20,7 @@ export const SelectValue: React.FC<SelectValueProps> = ({ value, onChange, optio
 
   return (
     <Select
-      className="table-filter-option-select"
+      className="table-toolbar-item-option-select"
       value={value}
       onChange={onChange}
       showSearch={true}

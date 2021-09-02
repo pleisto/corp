@@ -7,5 +7,5 @@ export interface TextValueProps {
 }
 
 export const TextValue: React.FC<TextValueProps> = ({ onChange, value }) => {
-  return <Input className="table-filter-option-input" placeholder="Value" onChange={onChange} value={value} />
+  return <Input className="table-toolbar-item-option-input" placeholder="Value" onChange={onChange} value={value} />
 }

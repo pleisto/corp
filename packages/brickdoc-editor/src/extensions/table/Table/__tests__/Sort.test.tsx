@@ -3,7 +3,7 @@ import { Table } from '../Table'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 // see more tests in e2e testing
-describe('Table Filter', () => {
+describe('Table Sort', () => {
   const props: any = {
     editor: {},
     node: {
@@ -12,6 +12,10 @@ describe('Table Filter', () => {
           {
             text: 'text',
             select: 'option1'
+          },
+          {
+            text: 'text',
+            select: 'option2'
           },
           {
             text: 'text2',
@@ -33,6 +37,11 @@ describe('Table Filter', () => {
                 color: 'color',
                 value: 'option1',
                 label: 'option1'
+              },
+              {
+                color: 'color',
+                value: 'option2',
+                label: 'option2'
               }
             ]
           }
@@ -45,24 +54,12 @@ describe('Table Filter', () => {
     updateAttributes: () => {}
   }
 
-  it('adds single filter option normally', () => {
+  it('adds single sort normally', () => {
     render(<Table {...props} />)
 
-    fireEvent.click(screen.getByText('Filter'))
-    fireEvent.click(screen.getByText('Add a Filter'))
-    fireEvent.click(screen.getByText('Add a filter'))
+    fireEvent.click(screen.getByText('Sort'))
+    fireEvent.click(screen.getByText('Add a Sort'))
 
-    expect(screen.getByTestId('brickdoc-table-filter-group')).toBeInTheDocument()
-    expect(screen.getByText('Where')).toBeInTheDocument()
-  })
-
-  it('adds group filter option normally', () => {
-    render(<Table {...props} />)
-
-    fireEvent.click(screen.getByText('Filter'))
-    fireEvent.click(screen.getByText('Add a Filter'))
-    fireEvent.click(screen.getByText('Add a filter group'))
-
-    expect(screen.getAllByTestId('brickdoc-table-filter-group')).toHaveLength(2)
+    expect(screen.getByRole('group')).toBeInTheDocument()
   })
 })
