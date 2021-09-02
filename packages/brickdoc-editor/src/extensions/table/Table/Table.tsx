@@ -65,11 +65,12 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
   const addNewRow = (rowIndex?: number): void => {
     setData(prevData => {
       const currentRowIndex = rowIndex ?? prevData.length - 1
-      updateActiveStatus([{ rowIndex: currentRowIndex + 1 }])
+      const id = uuid()
+      updateActiveStatus([{ rowId: id }])
       return [
         ...prevData.slice(0, currentRowIndex + 1),
         {
-          id: uuid()
+          id
         },
         ...prevData.slice(currentRowIndex + 1, prevData.length)
       ]
@@ -183,7 +184,8 @@ export const Table: React.FC<NodeViewProps> = ({ node, updateAttributes }) => {
                 <TableRow
                   {...rowProps}
                   row={row}
-                  rowActive={isRowActive(rowIndex)}
+                  // fix type
+                  rowActive={isRowActive((row.original as any).id)}
                   onAddNewRow={addNewRow}
                   onRemoveRow={removeRowConfirm}
                   isCellActive={isCellActive}

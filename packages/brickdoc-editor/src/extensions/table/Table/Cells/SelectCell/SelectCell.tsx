@@ -26,6 +26,9 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
   const [modal, contextHolder] = Modal.useModal()
   const [editing, { show: showEditing, hide: hideEditing }] = useEditingStatus(props)
 
+  const [currentValue, setCurrentValue] = React.useState(value)
+  React.useEffect(() => setCurrentValue(value), [value])
+
   const selectOptions = column.selectOptions
 
   const setSelectOptions = (fn: (prevColumns: TableColumnSelectOption[]) => TableColumnSelectOption[]): void => {
@@ -41,7 +44,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     )
   }
 
-  const isOptionExist = (options: TableColumnSelectOption[], value: string): boolean => selectOptions.some(item => item.value === value)
+  const isOptionExist = (value: string): boolean => selectOptions.some(item => item.value === value)
 
   const handleFilterOption: SelectProps<object>['filterOption'] = (inputValue, option) => {
     if (!inputValue) return true
@@ -62,8 +65,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
         setSelectOptions(prevOptions => prevOptions.filter(item => item.value !== option.value))
 
         if (option.value === value) {
-          // TODO: fix type
-          updateData((cell.row.original as any).id, cell.column.id, null)
+          setCurrentValue(null)
         }
       }
     })
@@ -75,22 +77,17 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     if (!newValue) return
 
     setSelectOptions(prevOptions => {
-      if (isOptionExist(prevOptions, newValue)) {
-        // TODO: fix type
-        updateData((cell.row.original as any).id, cell.column.id, newValue)
+      if (isOptionExist(newValue)) {
+        setCurrentValue(newValue)
         return prevOptions
       }
       const newOption: TableColumnSelectOption = { label: newValue, color: randomColor(), value: uuid() }
-      // TODO: fix type
-      updateData((cell.row.original as any).id, cell.column.id, newOption.value)
+      setCurrentValue(newOption.value)
       return [...prevOptions, newOption]
     })
   }
 
-  const handleRemove = React.useCallback((): void => {
-    // TODO: fix type
-    updateData((cell.row.original as any).id, cell.column.id, null)
-  }, [cell.row.original, cell.column.id, updateData])
+  const handleRemove = React.useCallback((): void => setCurrentValue(null), [])
 
   const OptionTag: SelectProps<object>['tagRender'] = React.useCallback(
     ({ value }) => {
@@ -103,6 +100,12 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     },
     [selectOptions, handleRemove]
   )
+
+  const handleEndEditing = (): void => {
+    // TODO: fix type
+    updateData((cell.row.original as any).id, cell.column.id, currentValue)
+    hideEditing()
+  }
 
   const Dropdown: SelectProps<object>['dropdownRender'] = React.useCallback(
     menu => (
@@ -128,7 +131,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
           filterOption={handleFilterOption}
           dropdownRender={Dropdown}
           dropdownClassName="select-cell-select-dropdown"
-          value={[value].filter(i => !!i)}
+          value={[currentValue].filter(i => !!i)}
           suffixIcon={false}
           menuItemSelectedIcon={false}
           placeholder="Search for option ..."
@@ -142,13 +145,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
             </Select.Option>
           ))}
         </Select>
-        <div
-          data-testid="table-select-overlay"
-          className="table-block-select-cell-overlay"
-          onClick={() => {
-            hideEditing()
-          }}
-        />
+        <div data-testid="table-select-overlay" className="table-block-cell-overlay" onClick={handleEndEditing} />
       </>
     )
   }

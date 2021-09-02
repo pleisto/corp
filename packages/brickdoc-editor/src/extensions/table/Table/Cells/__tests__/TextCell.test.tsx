@@ -40,7 +40,7 @@ describe('TextCell', () => {
     expect(screen.getByDisplayValue(props.value)).toBeInTheDocument()
   })
 
-  it('updates data when change input value', () => {
+  it('updates data after canceling editing status', () => {
     const newValue = 'newValue'
     const updateData = jest.fn()
 
@@ -48,17 +48,17 @@ describe('TextCell', () => {
     fireEvent.click(screen.getByRole('button'))
     const input = screen.getByDisplayValue(props.value)
     fireEvent.change(input, { target: { value: newValue } })
+    fireEvent.click(screen.getByTestId('table-text-overlay'))
 
     expect(updateData).toBeCalledTimes(1)
     expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, newValue)
   })
 
-  it('turns into text when blurring', () => {
-    render(<TextCell {...props} />)
+  it('turns into text when click overlay', () => {
+    const updateData = jest.fn()
+    render(<TextCell {...props} updateData={updateData} />)
     fireEvent.click(screen.getByRole('button'))
-    const input = screen.getByDisplayValue(props.value)
-    input.focus()
-    input.blur()
+    fireEvent.click(screen.getByTestId('table-text-overlay'))
 
     expect(screen.getByRole('button')).toBeInTheDocument()
   })

@@ -13,7 +13,8 @@ export function useEditingStatus({
   }
 
   const hide = (): void => {
-    updateActiveStatus([{ rowIndex: cell.row.index, columnIndex: cell.column.index }])
+    // TODO: fix type
+    updateActiveStatus([{ rowId: (cell.row.original as any).id, columnIndex: cell.column.index }])
     setEditing(false)
   }
 
