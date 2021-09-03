@@ -68,6 +68,16 @@ describe('tableBlock', () => {
     cy.get('.active > .table-block-text-cell').should('exist').should('contain.text', 'text')
   })
 
+  it('should end text cell editing status by press enter', () => {
+    cy.visit('/')
+    cy.get('[contenteditable]').type('/table')
+    cy.get('button.slash-menu-item:first').click()
+
+    cy.get('.table-block-text-cell:last').click()
+    cy.focused().type('text{Enter}')
+    cy.get('.active > .table-block-text-cell').should('exist').should('contain.text', 'text')
+  })
+
   it('should change cell type to select', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')

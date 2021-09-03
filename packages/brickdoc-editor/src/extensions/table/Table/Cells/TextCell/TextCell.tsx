@@ -28,8 +28,14 @@ export const TextCell: React.FC<TextCellProps> = props => {
   if (editing) {
     return (
       <>
-        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-        <Input className="table-block-text-input" autoFocus={true} value={currentValue} onChange={handleChange} />
+        <Input
+          className="table-block-text-input"
+          /* eslint-disable-next-line jsx-a11y/no-autofocus */
+          autoFocus={true}
+          value={currentValue}
+          onChange={handleChange}
+          onPressEnter={handleEndEditing}
+        />
         <div data-testid="table-text-overlay" className="table-block-cell-overlay" onClick={handleEndEditing} />
       </>
     )
