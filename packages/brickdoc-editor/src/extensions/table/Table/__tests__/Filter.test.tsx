@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from '../Table'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useDatabaseRows } from '../useDatabaseRows'
 
 // see more tests in e2e testing
 describe('Table Filter', () => {
@@ -33,10 +34,7 @@ describe('Table Filter', () => {
     },
     extension: {
       options: {
-        getDatabaseRows: () => {
-          return []
-        },
-        saveDatabaseRow: () => {}
+        useDatabaseRows
       }
     },
     updateAttributes: () => {}

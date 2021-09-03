@@ -9,7 +9,7 @@ import { syncProvider, blocksToJSONContents } from './SyncProvider'
 import { useDocumentSubscription } from './useDocumentSubscription'
 import { usePrepareFileUpload } from './usePrepareFileUpload'
 import { useFetchUnsplashImages } from './useFetchUnsplashImages'
-import { useDatabaseRows, useSaveDatabaseRow } from './useDatabaseRows'
+import { useDatabaseRows } from './useDatabaseRows'
 import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
 
@@ -55,8 +55,7 @@ export const DocumentPage: React.FC = () => {
 
   const editor = useEditor({
     onSave: onCommit,
-    getDatabaseRows: useDatabaseRows(),
-    saveDatabaseRow: useSaveDatabaseRow(),
+    useDatabaseRows,
     prepareFileUpload,
     fetchUnsplashImages,
     getImageUrl,

@@ -14,7 +14,7 @@ export interface DatabaseColumn {
 
 export interface DatabaseColumns extends Array<DatabaseColumn> {}
 
-export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns) =>
+export const databaseColumnsToTableColumns = (databaseColumns: DatabaseColumns): Column[] =>
   Object.entries(
     databaseColumns.reduce((r: { [group: string]: Column[] }, dbColumn: DatabaseColumn) => {
       const group = DEFAULT_GROUP_ID

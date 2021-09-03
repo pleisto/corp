@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from '../Table'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useDatabaseRows } from '../useDatabaseRows'
 
 describe('Table', () => {
   const props: any = {
@@ -20,10 +21,7 @@ describe('Table', () => {
     },
     extension: {
       options: {
-        getDatabaseRows: () => {
-          return []
-        },
-        saveDatabaseRow: () => {}
+        useDatabaseRows
       }
     },
     updateAttributes: () => {}

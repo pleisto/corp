@@ -1,5 +1,4 @@
 import React from 'react'
-import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps } from 'react-table'
@@ -7,7 +6,6 @@ import { Modal } from '@brickdoc/design-system'
 import { TableExtensionOptions } from '../../table'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
-import { useRows } from './useRows'
 import { useAddNewColumn, COLUMN_ID as ADD_NEW_COLUMN_ID } from './useAddNewColumn'
 import { useActiveStatus } from './useActiveStatus'
 import { Cell } from './Cells/Cell'
@@ -41,13 +39,15 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
   const prevData = node.attrs.data || {}
 
   const tableOptions: TableExtensionOptions = extension.options
-  const { getDatabaseRows, saveDatabaseRow } = tableOptions
+  const { useDatabaseRows } = tableOptions
 
-  const updateAttributeData = (data: Record<string, any>) => {
+  const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
       data: { ...(prevData || {}), ...data }
     })
   }
+
+  const fetched = React.useRef(false)
 
   const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
     useColumns({
@@ -57,42 +57,25 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
-  const [tableRows, { updateRows }] = useRows({
-    parentId,
-    getDatabaseRows,
-    saveDatabaseRow
-  })
+  const [tableRows, { fetchRows, addRow, updateRow, removeRow }] = useDatabaseRows(parentId)
+
+  React.useEffect(() => {
+    if (!fetched.current) {
+      void fetchRows()
+      fetched.current = true
+    }
+  }, [fetchRows])
 
   const updateData = (rowId: string, key: string, data: any): void => {
-    updateRows(prevRows =>
-      prevRows.map((item, rIndex) => {
-        if (item.id !== rowId) return item
-        return {
-          ...item,
-          [key]: data
-        }
-      })
-    )
+    const row = tableRows.find(r => r.id === rowId)
+    if (row) {
+      updateRow({ ...row, [key]: data })
+    }
   }
 
   const addNewRow = (rowIndex?: number): void => {
-    updateRows(prevRows => {
-      const currentRowIndex = rowIndex ?? prevRows.length - 1
-      const id = uuid()
-      updateActiveStatus([{ rowId: id }])
-      return [
-        ...prevRows.slice(0, currentRowIndex + 1),
-        {
-          id
-        },
-        ...prevRows.slice(currentRowIndex + 1, prevRows.length)
-      ]
-    })
-  }
-
-  const removeRow = (rowId: string): void => {
-    resetActiveStatus()
-    updateRows(prevRows => prevRows.filter(item => item.id !== rowId))
+    const row = addRow(rowIndex)
+    updateActiveStatus([{ rowId: row.id }])
   }
 
   const [modal, contextHolder] = Modal.useModal()
