@@ -30,7 +30,7 @@ describe Docs::Mutations::BlockUpdate, type: :mutation do
         sort: 0,
         data: {}
       }
-      input = { input: { block: block_input } }
+      input = { input: { rootId: table_block.id, block: block_input } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
       expect(response.data).to eq({ "blockUpdate" => nil })
@@ -40,7 +40,7 @@ describe Docs::Mutations::BlockUpdate, type: :mutation do
       expect(row_block.parent).to eq(table_block)
       expect(row_block.root_id).to eq(table_block.id)
 
-      input = { input: { block: block_input.merge(data: { 'a' => 'test' }) } }
+      input = { input: { rootId: table_block.id, block: block_input.merge(data: { 'a' => 'test' }) } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
       expect(response.data).to eq({ "blockUpdate" => nil })

@@ -14,7 +14,6 @@ export function useDatabaseRows(): EditorOptions['getDatabaseRows'] {
 
   return async (parentId: string, snapshotVersion: number) => {
     const { data, error } = await queryDatabaseRowBlocks({ parentId, snapshotVersion })
-    console.log(data)
     if (error) {
       return []
     } else {
@@ -35,7 +34,7 @@ export function useSaveDatabaseRow(): EditorOptions['saveDatabaseRow'] {
       text: '',
       sort: block.sort
     }
-    const input: BlockUpdateInput = { block: blockArg }
+    const input: BlockUpdateInput = { block: blockArg, rootId: block.parentId }
     await blockUpdate({ variables: { input } })
   }
 }

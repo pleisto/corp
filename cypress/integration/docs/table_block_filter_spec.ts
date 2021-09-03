@@ -4,14 +4,17 @@ describe('tableBlockFilter', () => {
 
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
+    cy.get('button.slash-menu-item:first').click()
 
     // add new column
-    cy.get('button.slash-menu-item:first').click()
     cy.get('.table-block-th:last > button').click()
     // change to select type
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click({ force: true })
+
+    cy.get('.table-toolbar-add-button').click()
+
     cy.get('.table-block-select-cell:last').click()
     // add new select option
     cy.focused().type('new option 2{Enter}')

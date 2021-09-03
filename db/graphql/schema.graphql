@@ -545,6 +545,11 @@ input BlockUpdateInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+
+  """
+  block root id
+  """
+  rootId: UUID!
 }
 
 """

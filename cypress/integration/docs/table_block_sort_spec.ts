@@ -4,9 +4,10 @@ describe('tableBlockSort', () => {
 
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
+    cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     // add new column
-    cy.get('button.slash-menu-item:first').click()
     cy.get('.table-block-th:last > button').click()
     // change to select type
     cy.findByText('Column1').click()

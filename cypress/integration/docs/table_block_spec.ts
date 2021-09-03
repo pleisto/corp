@@ -50,8 +50,8 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
-    cy.get('.table-block-th:last-child > button').click()
     cy.get('.table-block-tbody > .table-block-row:first').realHover()
     cy.get('.table-block-tbody > .table-block-row:first > .table-block-row-actions > button:first').click()
     cy.get('.table-block-row.active').should('exist')
@@ -61,6 +61,7 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-text-cell:last').click()
     cy.focused().type('text')
@@ -72,6 +73,7 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-text-cell:last').click()
     cy.focused().type('text{Enter}')
@@ -82,6 +84,7 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-th:last > button').click()
     cy.findByText('Column1').click()
@@ -95,6 +98,7 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-th:last > button').click()
     cy.findByText('Column1').click()
@@ -110,12 +114,14 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-th:last > button').click()
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
     cy.get('.table-block-select-cell:last').click()
+
     cy.focused().type('new option{Enter}')
     cy.focused().type('new option 2{Enter}')
     cy.findByText('new option').click()
@@ -127,6 +133,7 @@ describe('tableBlock', () => {
     cy.visit('/')
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
+    cy.get('.table-toolbar-add-button').click()
 
     cy.get('.table-block-th:last > button').click()
     cy.findByText('Column1').click()
