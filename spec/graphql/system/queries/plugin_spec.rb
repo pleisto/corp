@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 describe System::Queries::Plugins, type: :query, focus: true do
+  before(:all) do
+    BrickdocPlugin.load_plugins
+  end
+
   describe '#resolver' do
     it 'works' do
       query = <<-'GRAPHQL'

@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 describe BrickdocPlugin do
+  before(:all) do
+    BrickdocPlugin.load_plugins
+  end
+
   it 'can define and configure a plugin' do
     BrickdocPlugin.config :test_plugin do
       settings do

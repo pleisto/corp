@@ -4,6 +4,10 @@ require 'rails_helper'
 
 ## NOTE bundle exec rspec plugins
 RSpec.describe BrickdocPlugin::GithubWebhook do
+  before(:all) do
+    BrickdocPlugin.load_plugins
+  end
+
   it 'works' do
     plugin = BrickdocPlugin.all_plugins[:github_webhook]
     expect(plugin.class).to be(BrickdocPlugin)
