@@ -10,10 +10,6 @@ module Docs
 
       ## NOTE: Prosemirror builtin
       field :level, Int, 'Prosemirror builtin level', null: true
-
-      field :columns, [BlockDatabaseColumn], 'columns', null: true
-
-      field :rows, [GraphQL::Types::JSON], 'rows', null: true
     end
   end
 end
