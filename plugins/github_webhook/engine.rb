@@ -6,7 +6,7 @@ module BrickdocPlugin::GithubWebhook
   end
 
   Engine.routes.draw do
-    resources :events, only: [:index]
+    get "/events/:uuid" => "events#index"
     post "/events/:uuid" => "events#create"
   end
 end
