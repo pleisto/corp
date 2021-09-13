@@ -43,5 +43,9 @@ module Brickdoc
     initializer :before_zeitwerk, before: :let_zeitwerk_take_over, after: :prepend_helpers_path do
       Dir[Rails.root.join('config/before_initializers/*.rb')].sort.each { |file| load_config_initializer(file) }
     end
+
+    after_initialize do
+      BrickdocPlugin.load_plugins
+    end
   end
 end
