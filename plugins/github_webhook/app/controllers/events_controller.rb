@@ -11,15 +11,24 @@ module BrickdocPlugin::GithubWebhook
 
     # https://github.com/brickdoc/brickdoc/settings/hooks/314374472/deliveries
     def create
-      if @block.data['columns'].blank?
-        action_uuid = SecureRandom.uuid
-        columns = [{ key: action_uuid, type: "text", title: "action" }]
+      columns = @block.data['columns'].to_a
+
+      uuid = request.headers['HTTP_X_GITHUB_DELIVERY']
+      event_name = request.headers['HTTP_X_GITHUB_EVENT']
+      action_data = params.fetch(:action)
+
+      if columns.find { |column| column.fetch('title') == 'action' }.blank?
+        columns = [
+          { 'key' => SecureRandom.uuid, 'type' => "text", 'title' => "uuid" },
+          { 'key' => SecureRandom.uuid, 'type' => "text", 'title' => "name" },
+          { 'key' => SecureRandom.uuid, 'type' => "text", 'title' => "action" },
+        ]
         @block.update!(data: { columns: columns })
-      else
-        action_uuid = @block.data['columns'].first.fetch('key')
       end
 
-      action_data = params.fetch(:action)
+      uuid_uuid = columns.find { |column| column.fetch('title') == 'uuid' }.fetch('key')
+      name_uuid = columns.find { |column| column.fetch('title') == 'name' }.fetch('key')
+      action_uuid = columns.find { |column| column.fetch('title') == 'action' }.fetch('key')
 
       max_sort = @block.descendants.where(type: 'databaseRow').maximum(:sort) || 0
 
@@ -30,7 +39,7 @@ module BrickdocPlugin::GithubWebhook
         parent_id: @block.id,
         root_id: @block.id,
         meta: {},
-        data: { action_uuid => action_data },
+        data: { action_uuid => action_data, uuid_uuid => uuid, name_uuid => event_name },
         sort: max_sort + 10
       }
 
@@ -46,7 +55,7 @@ module BrickdocPlugin::GithubWebhook
     def load_block
       @block = Docs::Block.unscoped.find(params.fetch(:uuid))
       raise "block type wrong" unless @block.type == "tableBlock"
-      raise "block is deleted" unless @block.deleted_at
+      raise "block is deleted" if @block.deleted_at
     end
   end
 end
