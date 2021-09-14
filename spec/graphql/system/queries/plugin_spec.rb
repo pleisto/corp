@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 describe System::Queries::Plugins, type: :query, focus: true do
-  before(:all) do
-    BrickdocPlugin.load_plugins
-  end
-
   describe '#resolver' do
     it 'works' do
       query = <<-'GRAPHQL'
@@ -28,6 +24,14 @@ describe System::Queries::Plugins, type: :query, focus: true do
       user = create(:accounts_user)
       self.current_user = user
       self.current_pod = user.personal_pod.as_session_context
+      internal_graphql_execute(query)
+
+      expect(response.success?).to be true
+      expect(response.data['plugins'].present?).to be false
+
+      github_webhook_plugin = BrickdocPlugin.plugin(:github_webhook)
+      github_webhook_plugin.enabled = true
+
       internal_graphql_execute(query)
 
       expect(response.success?).to be true

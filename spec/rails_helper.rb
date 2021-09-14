@@ -9,7 +9,6 @@ require 'dotenv'
 Dotenv.load('.env.local', '.env.test', '.env')
 
 require File.expand_path('../config/environment', __dir__)
-require File.expand_path('../plugins/github_webhook/engine', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'

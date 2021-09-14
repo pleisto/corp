@@ -54,7 +54,6 @@ class BrickdocPlugin
       end
       plugin.loader.setup
       plugin.loader.eager_load
-      # plugin.enabled = true if config['enabled']
 
       if plugin.load_engine
         require "#{path}/engine.rb"
