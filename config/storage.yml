@@ -18,11 +18,15 @@ local_private:
 
 amazon_private:
   service: S3
+  access_key_id: AKIA2M5DIALKSBT7DU5Y
+  secret_access_key: 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
   region: us-east-1
-  bucket: brickdoc-private
+  bucket: brickdoc-public
 
 amazon_public:
   service: S3
+  access_key_id: AKIA2M5DIALKSBT7DU5Y
+  secret_access_key: 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
   region: us-east-1
   bucket: brickdoc-public
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
