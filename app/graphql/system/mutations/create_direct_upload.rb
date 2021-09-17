@@ -6,11 +6,12 @@ module System
     argument :block_id, BrickGraphQL::Scalars::UUID, 'block id', required: false
     field :direct_upload, Objects::DirectUpload, null: false
 
-    SERVICE_MAP = {
-      "AVATAR" => :local_public,
-      "DOC" => :local_private,
-      "THIRD" => :local_public
-    }
+    SERVICE_MAP =
+      if Rails.env.in?(["development", "test"])
+        { "AVATAR" => :local_public, "DOC" => :local_private, "THIRD" => :local_public }
+      else
+        { "AVATAR" => :amazon_public, "DOC" => :amazon_private, "THIRD" => :amazon_public }
+      end
 
     def resolve(args)
       input = args[:input]
