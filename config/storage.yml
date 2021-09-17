@@ -19,7 +19,7 @@ local_private:
 amazon_private:
   service: S3
   region: us-east-1
-  bucket: brickdoc-trunk-public
+  bucket: brickdoc-trunk-private
 
 amazon_public:
   service: S3
