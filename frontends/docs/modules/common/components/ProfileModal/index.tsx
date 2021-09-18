@@ -85,8 +85,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       <Form.Item
         name="webid"
         label={t('pods.webid')}
-        rules={[{ required: true, message: t('pods.required.webid') }, webidAvailableValidator]}
-      >
+        rules={[{ required: true, message: t('pods.required.webid') }, webidAvailableValidator]}>
         <Input />
       </Form.Item>
     ) : (
@@ -102,11 +101,15 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
 
   let avatar
   if (avatarUrl) {
-    avatar = <Avatar src={avatarUrl} />
+    avatar = <Avatar src={avatarUrl} data-testid="profile-form-item-avatar" />
   } else if (type === PodOperation.Create) {
-    avatar = <Avatar />
+    avatar = <Avatar data-testid="profile-form-item-avatar" />
   } else {
-    avatar = <Avatar style={{ background: '#2376b7' }}>{pod.webid}</Avatar>
+    avatar = (
+      <Avatar data-testid="profile-form-item-avatar" style={{ background: '#2376b7' }}>
+        {pod.webid}
+      </Avatar>
+    )
   }
 
   const updateDashboard = (
@@ -124,8 +127,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       </Form.Item>
       <Form.Item name="avatar" label={t('pods.avatar')}>
         <Popover overlayClassName={styles.popover} content={updateDashboard}>
-          {' '}
-          {avatar}{' '}
+          {avatar}
         </Popover>
       </Form.Item>
     </Form>
@@ -139,8 +141,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       visible={visible}
       onOk={handleOk}
       confirmLoading={confirmLoading}
-      onCancel={handleCancel}
-    >
+      onCancel={handleCancel}>
       {formData}
     </Modal>
   )
