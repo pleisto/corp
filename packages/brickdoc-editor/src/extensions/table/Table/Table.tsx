@@ -47,7 +47,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
     })
   }
 
-  const fetched = React.useRef(!node.attrs.uuid) // if node have not uuid, not need to fetch rows
+  const fetched = React.useRef(!parentId) // if node have not uuid, not need to fetch rows
 
   const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
     useColumns({
