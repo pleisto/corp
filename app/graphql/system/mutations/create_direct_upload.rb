@@ -51,7 +51,7 @@ module System
         direct_upload: {
           upload_url: blob.service_url_for_direct_upload,
           # NOTE: we pass headers as JSON since they have no schema
-          headers: blob.service_headers_for_direct_upload.to_json,
+          headers: blob.service_headers_for_direct_upload,
           signed_id: blob.signed_id,
           blob_key: blob.key,
           view_url: blob.real_url
