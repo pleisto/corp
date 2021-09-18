@@ -33,6 +33,7 @@ class Docs::Block < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   include Redis::Objects
+  include Sortable
   counter :patch_seq
 
   default_scope { where(deleted_at: nil) }
@@ -421,6 +422,24 @@ class Docs::Block < ApplicationRecord
 
   def latest_history
     histories.find_by!(history_version: history_version)
+  end
+
+  SAVE_SNAPSHOT_SECONDS = 10
+
+  def maybe_save_snapshot!
+    throttle_key = "save_snapshot:#{id}"
+    Brickdoc::Redis.with(:state) do |redis|
+      bol = redis.get(throttle_key)
+      return false if bol
+
+      redis.setex(throttle_key, SAVE_SNAPSHOT_SECONDS, 1)
+    end
+
+    save_snapshot!
+    true
+  rescue => _e
+    ## TODO handle error
+    false
   end
 
   def save_snapshot!

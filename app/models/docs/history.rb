@@ -66,7 +66,7 @@ class Docs::History < ApplicationRecord
   ## try `def id = block_id`
   def cast_block
     attributes.slice(
-      'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'pod_id'
+      'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'pod_id', 'text', 'content'
     ).merge('id' => block_id)
   end
 end

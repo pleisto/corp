@@ -31,7 +31,7 @@ class Docs::Snapshot < ApplicationRecord
   end
 
   def generate_default_name
-    "SNAPSHOT [#{snapshot_version}] #{Time.current}"
+    Time.current.to_s
   end
 
   def blocks

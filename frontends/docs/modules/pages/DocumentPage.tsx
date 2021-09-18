@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Node } from 'prosemirror-model'
-import { useParams } from 'react-router-dom'
 import { Alert, Skeleton } from '@brickdoc/design-system'
 import { EditorContent, useEditor } from '@brickdoc/editor'
 import { useBlockSyncBatchMutation, useGetChildrenBlocksQuery, Block, Filesourcetype, GetChildrenBlocksQuery } from '@/BrickdocGraphQL'
@@ -13,14 +12,18 @@ import { useDatabaseRows } from './useDatabaseRows'
 import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
 
-export const DocumentPage: React.FC = () => {
-  const { docid, snapshotVersion } = useParams<{ docid: string; snapshotVersion: string }>()
+interface DocumentPageProps {
+  docid: string
+  snapshotVersion: number
+}
+
+export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersion }) => {
   const [blockSyncBatch] = useBlockSyncBatchMutation()
   const { onCommit } = syncProvider({ blockSyncBatch })
 
   const childrenBlocks = React.useRef<GetChildrenBlocksQuery['childrenBlocks']>()
   const { data, loading } = useGetChildrenBlocksQuery({
-    variables: { rootId: docid, snapshotVersion: Number(snapshotVersion || '0') }
+    variables: { rootId: docid, snapshotVersion }
   })
 
   const prepareFileUpload = usePrepareFileUpload()

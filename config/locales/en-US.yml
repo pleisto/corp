@@ -623,6 +623,8 @@ en-US:
     search:
       text: Quick Find
       placeholder: Search Pages
+    update:
+      text: Update
     blocks:
       create_pages: Add Pages
       delete: Delete
@@ -646,6 +648,9 @@ en-US:
         success: Share link create successfully.
     snapshots:
       name: Snapshot
+      restore: Restore version
+      cancel: Cancel
+      empty: Version history is empty
     pods:
       webid: WebID
       name: Name

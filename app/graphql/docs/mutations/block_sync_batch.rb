@@ -62,6 +62,10 @@ module Docs
 
       if patches.present?
         root ||= new_blocks_hash.fetch(root_id)
+
+        root.maybe_save_snapshot!
+
+        ## NOTE dirty data
         if patches.any? { |p| p.fetch(:path).blank? }
           root.clear_cache
           paths_cache = root.paths_cache
