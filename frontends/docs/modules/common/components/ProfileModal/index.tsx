@@ -5,6 +5,7 @@ import { PodOperation, useCreateOrUpdatePodMutation, CreateOrUpdatePodInput, Pod
 import { Dashboard, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import { usePrepareFileUpload } from '@/docs/modules/pages/usePrepareFileUpload'
 import { useWebidAvailableValidator } from '@/common/hooks'
+import styles from './index.module.css'
 
 interface ProfileModalProps {
   pod: Pod
@@ -84,7 +85,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       <Form.Item
         name="webid"
         label={t('pods.webid')}
-        rules={[{ required: true, message: t('pods.required.webid') }, webidAvailableValidator]}>
+        rules={[{ required: true, message: t('pods.required.webid') }, webidAvailableValidator]}
+      >
         <Input />
       </Form.Item>
     ) : (
@@ -121,7 +123,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
         <Input />
       </Form.Item>
       <Form.Item name="avatar" label={t('pods.avatar')}>
-        <Popover content={updateDashboard}> {avatar} </Popover>
+        <Popover overlayClassName={styles.popover} content={updateDashboard}>
+          {' '}
+          {avatar}{' '}
+        </Popover>
       </Form.Item>
     </Form>
   )
@@ -134,7 +139,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
       visible={visible}
       onOk={handleOk}
       confirmLoading={confirmLoading}
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       {formData}
     </Modal>
   )
