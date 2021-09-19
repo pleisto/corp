@@ -1,10 +1,11 @@
 import React from 'react'
-import { Column } from 'react-table'
+import { Column, TableColumnType } from 'react-table'
 import { Select, SelectProps } from '@brickdoc/design-system'
 import { FilterOption, FilterSingleOption } from '../Filter'
 import { COLUMN_TYPE } from '../../../columnType'
 import { TextValue } from './TextValue'
 import { SelectValue } from './SelectValue'
+import { DateValue } from './DateValue'
 
 export interface FilterItemProps {
   path: number[]
@@ -30,7 +31,7 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
   const handleUpdateMatchType = (matchType: any): void => onUpdateFilter({ matchType }, path)
   const handleUpdateEventValue = (event: React.ChangeEvent<HTMLInputElement>): void => onUpdateFilter({ value: event.target.value }, path)
   const handleUpdateValue = (value?: string): void => onUpdateFilter({ value }, path)
-  const isValueVisible = (type: string): boolean =>
+  const isValueVisible = (type: TableColumnType): boolean =>
     matchedColumnType?.type === type &&
     !!filterSingleOption.matchType &&
     filterSingleOption.matchType !== 'IsEmpty' &&
@@ -60,7 +61,8 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
         optionFilterProp="title"
         filterOption={handleFilterOption}
         onChange={handleUpdateColumnId}
-        value={filterSingleOption.columnId}>
+        value={filterSingleOption.columnId}
+      >
         {selectColumnComponents}
       </Select>
       <Select
@@ -69,16 +71,24 @@ export const FilterItem: React.FC<FilterItemProps> = ({ path, columns, filterSin
         filterOption={handleFilterOption}
         className="table-toolbar-item-option-select"
         onChange={handleUpdateMatchType}
-        value={filterSingleOption.matchType}>
+        value={filterSingleOption.matchType}
+      >
         {matchedColumnType?.matches.map(item => (
           <Select.Option key={item.value} value={item.value} title={item.label}>
             {item.label}
           </Select.Option>
         ))}
       </Select>
-      {isValueVisible('text') && <TextValue onChange={handleUpdateEventValue} value={filterSingleOption.value} />}
+      {isValueVisible('text') && <TextValue onChange={handleUpdateEventValue} value={filterSingleOption.value as string} />}
       {isValueVisible('select') && (
-        <SelectValue options={(matchedColumn as any).selectOptions} onChange={handleUpdateValue} value={filterSingleOption.value} />
+        <SelectValue
+          options={(matchedColumn as any).selectOptions}
+          onChange={handleUpdateValue}
+          value={filterSingleOption.value as string}
+        />
+      )}
+      {(isValueVisible('date-range') || isValueVisible('date')) && (
+        <DateValue onChange={handleUpdateValue} value={filterSingleOption.value as string} />
       )}
     </>
   )

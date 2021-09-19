@@ -1,8 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react'
-import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps } from 'react-table'
-import { Modal } from '@brickdoc/design-system'
+import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps, usePagination } from 'react-table'
+import { Modal, Pagination } from '@brickdoc/design-system'
 import { TableExtensionOptions } from '../../table'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
@@ -47,7 +47,7 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
     })
   }
 
-  const fetched = React.useRef(false)
+  const fetched = React.useRef(!parentId) // if node have not uuid, not need to fetch rows
 
   const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
     useColumns({
@@ -101,11 +101,34 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
 
   // filter && sort
   const data = React.useMemo(() => sort(tableRows.filter(item => filter(item, filterGroup))), [tableRows, filterGroup, filter, sort])
+  // pagination
+  const currentPageIndex = React.useRef(0)
 
-  const { getTableProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data, defaultColumn: defaultColumnConfig, updateActiveStatus, resetActiveStatus, updateData, setColumns },
+  const {
+    getTableProps,
+    headerGroups,
+    page,
+    prepareRow,
+    // pagination
+    gotoPage,
+    setPageSize,
+    state: { pageIndex, pageSize }
+  } = useTable(
+    {
+      columns,
+      data,
+      defaultColumn: defaultColumnConfig,
+      updateActiveStatus,
+      resetActiveStatus,
+      updateData,
+      setColumns,
+      initialState: {
+        pageIndex: currentPageIndex.current
+      }
+    },
     useFlexLayout,
     useResizeColumns,
+    usePagination,
     hooks => {
       hooks.visibleColumns.push(columns => [...columns, addNewColColumn])
     }
@@ -118,21 +141,24 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
         container?.classList.add('table-block-node-view-wrapper')
-      }}>
+      }}
+    >
       {contextHolder}
-      <TableToolbar
-        onAddNewRow={addNewRow}
-        columns={columns}
-        filterGroup={filterGroup}
-        addFilter={addNewFilter}
-        removeFilter={removeFilter}
-        updateFilter={updateFilter}
-        duplicateFilter={duplicateFilter}
-        sorterOptions={sorterOptions}
-        addSorter={addNewSorter}
-        removeSorter={removeSorter}
-        updateSorter={updateSorter}
-      />
+      {fetched.current && (
+        <TableToolbar
+          onAddNewRow={addNewRow}
+          columns={columns}
+          filterGroup={filterGroup}
+          addFilter={addNewFilter}
+          removeFilter={removeFilter}
+          updateFilter={updateFilter}
+          duplicateFilter={duplicateFilter}
+          sorterOptions={sorterOptions}
+          addSorter={addNewSorter}
+          removeSorter={removeSorter}
+          updateSorter={updateSorter}
+        />
+      )}
       <div className="brickdoc-table-block">
         <div {...getTableProps({ className: 'table-block-table', style: { minWidth: '700px' }, role: 'table' })}>
           <div className="table-block-row">
@@ -163,7 +189,8 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
                         columnType={column.columnType}
                         onColumnNameChange={e => updateColumnName(e.target.value, column.parent?.id ?? '', column.id)}
                         onColumnTypeChange={type => updateColumnType(type, column.parent?.id ?? '', column.id)}
-                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
+                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}
+                      >
                         {Header}
                       </ColumnMenu>
                     )
@@ -173,14 +200,14 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
             })}
           </div>
           <div className="table-block-tbody">
-            {rows.map((row, rowIndex) => {
+            {page.map(row => {
               prepareRow(row)
               const rowProps = row.getRowProps({ className: 'table-block-tr' })
               return (
                 <TableRow
                   {...rowProps}
                   row={row}
-                  // fix type
+                  // TODO: fix type
                   rowActive={isRowActive((row.original as any).id)}
                   onAddNewRow={addNewRow}
                   onRemoveRow={removeRowConfirm}
@@ -189,6 +216,22 @@ export const Table: React.FC<NodeViewProps> = ({ node, extension, updateAttribut
                 />
               )
             })}
+          </div>
+          <div className="table-block-footer">
+            <Pagination
+              className="table-block-pagination"
+              total={data.length}
+              pageSize={pageSize}
+              current={pageIndex + 1}
+              onShowSizeChange={(current, size) => setPageSize(size)}
+              onChange={page => {
+                const nextPageIndex = page - 1
+                if (nextPageIndex !== pageIndex) {
+                  currentPageIndex.current = nextPageIndex
+                  gotoPage(nextPageIndex)
+                }
+              }}
+            />
           </div>
         </div>
       </div>
