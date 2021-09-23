@@ -15,9 +15,10 @@ import { JSONContent } from '@tiptap/core'
 interface DocumentPageProps {
   docid: string
   snapshotVersion: number
+  editable: boolean
 }
 
-export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersion }) => {
+export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersion, editable }) => {
   const [blockSyncBatch] = useBlockSyncBatchMutation()
   const { onCommit } = syncProvider({ blockSyncBatch })
 
@@ -62,7 +63,8 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
     prepareFileUpload,
     fetchUnsplashImages,
     getImageUrl,
-    getPdfUrl
+    getPdfUrl,
+    editable
   })
 
   const createDocAttrsUpdater =

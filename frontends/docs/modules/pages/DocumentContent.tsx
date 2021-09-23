@@ -10,7 +10,7 @@ export const DocumentContent: React.FC = () => {
       <div style={{ float: 'right' }}>
         <UpdateButton id={docid} webid={webid} />
       </div>
-      <DocumentPage docid={docid} snapshotVersion={Number(snapshotVersion || '0')} />
+      <DocumentPage docid={docid} editable={true} snapshotVersion={Number(snapshotVersion || '0')} />
     </>
   )
 }

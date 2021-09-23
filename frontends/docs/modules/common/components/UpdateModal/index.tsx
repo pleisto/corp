@@ -109,7 +109,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
 
   return skelecton(
     <div className={styles.page}>
-      <DocumentPage docid={blockId} snapshotVersion={currentVersion ?? firstVersion} />
+      <DocumentPage docid={blockId} editable={false} snapshotVersion={currentVersion ?? firstVersion} />
     </div>,
     snapshotData,
     !currentVersion
