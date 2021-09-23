@@ -588,6 +588,8 @@ export type RootQuery = {
   plugins: Array<Plugin>
   /** return all pods for user. */
   pods: Array<Pod>
+  /** return preview box data of url */
+  previewBox: Preview_Box
   /** return images from unsplash by search */
   unsplashImage?: Maybe<Array<Unsplash_Image>>
   /**
@@ -635,6 +637,10 @@ export type RootQueryPageBlocksArgs = {
 
 export type RootQueryPasswordAvailableArgs = {
   password: Scalars['String']
+}
+
+export type RootQueryPreviewBoxArgs = {
+  url: Scalars['String']
 }
 
 export type RootQueryUnsplashImageArgs = {
@@ -942,6 +948,14 @@ export type Pod = {
   name?: Maybe<Scalars['String']>
   /** Like a username, Unique within this instance of Brickdoc */
   webid: Scalars['String']
+}
+
+export type Preview_Box = {
+  __typename?: 'preview_box'
+  /** preview html */
+  html: Scalars['String']
+  /** preview url */
+  url: Scalars['String']
 }
 
 /** Option Object for BrickDesign Select Component. */

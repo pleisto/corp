@@ -856,7 +856,6 @@ type RootMutation {
   ): CreateOrUpdatePodPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userConfirmationEmailResend(
@@ -867,7 +866,6 @@ type RootMutation {
   ): UserConfirmationEmailResendPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userCreate(
@@ -878,7 +876,6 @@ type RootMutation {
   ): UserCreatePayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userEmailPasswordSignIn(
@@ -889,7 +886,6 @@ type RootMutation {
   ): UserEmailPasswordSignInPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userForgetPasswordMailSend(
@@ -900,7 +896,6 @@ type RootMutation {
   ): UserForgetPasswordMailSendPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userPasswordReset(
@@ -911,7 +906,6 @@ type RootMutation {
   ): UserPasswordResetPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userSignOut(
@@ -1012,6 +1006,11 @@ type RootQuery {
   return all pods for user.
   """
   pods: [pod!]!
+
+  """
+  return preview box data of url
+  """
+  previewBox(url: String!): preview_box!
 
   """
   return images from unsplash by search
@@ -1577,6 +1576,18 @@ type pod {
   Like a username, Unique within this instance of Brickdoc
   """
   webid: String!
+}
+
+type preview_box {
+  """
+  preview html
+  """
+  html: String!
+
+  """
+  preview url
+  """
+  url: String!
 }
 
 """
