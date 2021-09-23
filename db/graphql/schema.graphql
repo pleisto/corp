@@ -856,6 +856,7 @@ type RootMutation {
   ): CreateOrUpdatePodPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userConfirmationEmailResend(
@@ -866,6 +867,7 @@ type RootMutation {
   ): UserConfirmationEmailResendPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userCreate(
@@ -876,6 +878,7 @@ type RootMutation {
   ): UserCreatePayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userEmailPasswordSignIn(
@@ -886,6 +889,7 @@ type RootMutation {
   ): UserEmailPasswordSignInPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userForgetPasswordMailSend(
@@ -896,6 +900,7 @@ type RootMutation {
   ): UserForgetPasswordMailSendPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userPasswordReset(
@@ -906,6 +911,7 @@ type RootMutation {
   ): UserPasswordResetPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userSignOut(
