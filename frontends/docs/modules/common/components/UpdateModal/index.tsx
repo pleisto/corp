@@ -18,13 +18,21 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
 
   const [currentVersion, setCurrentVersion] = useState<number | undefined>()
   const { data } = useGetBlockSnapshotsQuery({ variables: { id: blockId } })
+  const [confirmLoading, setConfirmLoading] = React.useState<boolean>(false)
 
   const onOkOrCancel = (): void => {
     setVisible(false)
+    setConfirmLoading(false)
+    setCurrentVersion(undefined)
   }
   const onRestore = (): void => {
     // TODO restore
+    setConfirmLoading(true)
     console.log({ currentVersion })
+    setTimeout(() => {
+      setVisible(false)
+      setConfirmLoading(false)
+    }, 2000)
   }
 
   const skelecton = (page: any, snapshots: any, disabled: boolean): any => {
@@ -36,6 +44,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
         closable={false}
         destroyOnClose={true}
         visible={visible}
+        confirmLoading={confirmLoading}
         onOk={onOkOrCancel}
         onCancel={onOkOrCancel}>
         <Row>
@@ -112,6 +121,6 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
       <DocumentPage docid={blockId} editable={false} snapshotVersion={currentVersion ?? firstVersion} />
     </div>,
     snapshotData,
-    !currentVersion
+    !currentVersion || confirmLoading
   )
 }

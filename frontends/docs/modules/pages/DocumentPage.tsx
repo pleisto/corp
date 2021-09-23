@@ -87,13 +87,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
       const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
-      // console.log({ data, content })
+      console.log({ data, content, docid, snapshotVersion, editable })
 
       if (content.length) {
         editor.commands.replaceRoot(content[0])
       }
     }
-  }, [editor, data])
+  }, [editor, data, docid, snapshotVersion, editable])
 
   useDocumentSubscription({ docid, editor })
 
