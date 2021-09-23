@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Modal, Row, Table } from '@brickdoc/design-system'
 import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
 import { BlockSnapshot, useGetBlockSnapshotsQuery } from '@/BrickdocGraphQL'
@@ -14,12 +14,18 @@ interface UpdateModalProps {
 }
 
 export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockId, setVisible }) => {
+  const { t } = useDocsI18n()
+
+  const [currentVersion, setCurrentVersion] = useState<number | undefined>()
+  const { data } = useGetBlockSnapshotsQuery({ variables: { id: blockId } })
+
   const onOkOrCancel = (): void => {
     setVisible(false)
   }
-  const { t } = useDocsI18n()
-
-  const { data } = useGetBlockSnapshotsQuery({ variables: { id: blockId } })
+  const onRestore = (): void => {
+    // TODO restore
+    console.log({ currentVersion })
+  }
 
   const skelecton = (page: any, snapshots: any, disabled: boolean): any => {
     return (
@@ -39,7 +45,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
           <Col span={6} className={styles.row}>
             <div className={styles.snapshot}>{snapshots}</div>
             <div>
-              <Button type="primary" className={styles.buttons} disabled={disabled}>
+              <Button type="primary" className={styles.buttons} disabled={disabled} onClick={onRestore}>
                 {t('snapshots.restore')}
               </Button>
               <br />
@@ -81,13 +87,31 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
     }
   ]
 
-  const snapshotData = <Table dataSource={dataSource} columns={columns} />
+  // TODO change to List
+  const snapshotData = (
+    <Table
+      dataSource={dataSource}
+      columns={columns}
+      onRow={record => {
+        return {
+          onClick: event => {
+            console.log({ setVersion: record })
+            setCurrentVersion(record.snapshotVersion)
+          },
+          onDoubleClick: event => {},
+          onContextMenu: event => {},
+          onMouseEnter: event => {},
+          onMouseLeave: event => {}
+        }
+      }}
+    />
+  )
 
   return skelecton(
     <div className={styles.page}>
-      <DocumentPage docid={blockId} snapshotVersion={firstVersion} />
+      <DocumentPage docid={blockId} snapshotVersion={currentVersion ?? firstVersion} />
     </div>,
     snapshotData,
-    false
+    !currentVersion
   )
 }

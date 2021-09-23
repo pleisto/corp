@@ -85,7 +85,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
       const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
-      console.log({ data, content })
+      // console.log({ data, content })
 
       if (content.length) {
         editor.commands.replaceRoot(content[0])
