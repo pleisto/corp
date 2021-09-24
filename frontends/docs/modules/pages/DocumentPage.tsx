@@ -114,6 +114,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
       getDocCoverUrl={getDocCoverUrl}
       prepareFileUpload={prepareFileUpload}
       fetchUnsplashImages={fetchUnsplashImages}
+      editable={editable}
     />
   )
 

@@ -17,12 +17,13 @@ export type DocumentCoverMeta = DocumentCoverImage | DocumentCoverColor
 export interface DocumentCoverProps {
   documentCoverMeta?: DocumentCoverMeta | null
   popoverProps: PopoverProps
+  editable: boolean
   localUrl?: string
   onClick?: VoidFunction
   getDocCoverUrl: () => string | undefined
 }
 
-export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta, popoverProps, getDocCoverUrl, localUrl }) => {
+export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta, popoverProps, editable, getDocCoverUrl, localUrl }) => {
   let value = 'unset'
 
   if (documentCoverMeta?.type === Blocktype.Color) value = documentCoverMeta.color
@@ -44,13 +45,13 @@ export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta,
       <div className={styles.buttons}>
         {documentCoverMeta && (
           <Popover {...popoverProps}>
-            <Button className={styles.button} type="text">
+            <Button className={styles.button} type="text" disabled={!editable}>
               Change cover
             </Button>
           </Popover>
         )}
         {/* TODO: cover reposition */}
-        <Button className={styles.button} type="text">
+        <Button className={styles.button} type="text" disabled={!editable}>
           Reposition
         </Button>
       </div>
