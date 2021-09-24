@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Col, List, Modal, Row } from '@brickdoc/design-system'
-import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
-import { BlockSnapshot, useGetBlockSnapshotsQuery } from '@/BrickdocGraphQL'
-import styles from './index.module.less'
-import { useDocsI18n } from '../../hooks'
-import Pic from '@/common/assets/cloud_brain_2.svg'
+import { Modal } from '@brickdoc/design-system'
+import { SnapshotList } from '../SnapshotList'
 
 interface UpdateModalProps {
   webid: string
@@ -14,106 +10,34 @@ interface UpdateModalProps {
 }
 
 export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockId, setVisible }) => {
-  const { t } = useDocsI18n()
-
   const [currentVersion, setCurrentVersion] = useState<number | undefined>()
-  const { data } = useGetBlockSnapshotsQuery({ variables: { id: blockId } })
   const [confirmLoading, setConfirmLoading] = React.useState<boolean>(false)
 
-  const onOkOrCancel = (): void => {
+  const onCleanup = (): void => {
     setVisible(false)
     setConfirmLoading(false)
     setCurrentVersion(undefined)
   }
-  const onRestore = (): void => {
-    // TODO restore
-    setConfirmLoading(true)
-    console.log({ currentVersion })
-    setTimeout(() => {
-      setVisible(false)
-      setCurrentVersion(undefined)
-      setConfirmLoading(false)
-    }, 2000)
-  }
 
-  const skelecton = (page: any, snapshots: any, disabled: boolean): any => {
-    return (
-      <Modal
-        width={1000}
-        title={null}
-        footer={null}
-        closable={false}
-        destroyOnClose={true}
-        visible={visible}
-        confirmLoading={confirmLoading}
-        onOk={onOkOrCancel}
-        onCancel={onOkOrCancel}>
-        <Row>
-          <Col span={18} className={styles.row}>
-            {page}
-          </Col>
-          <Col span={6} className={styles.row}>
-            <div className={styles.snapshot}>{snapshots}</div>
-            <div>
-              <Button type="primary" className={styles.buttons} disabled={disabled} onClick={onRestore}>
-                {t('snapshots.restore')}
-              </Button>
-              <br />
-              <Button className={styles.buttons} onClick={onOkOrCancel}>
-                {t('snapshots.cancel')}
-              </Button>
-            </div>
-          </Col>
-        </Row>
-      </Modal>
-    )
-  }
-
-  if (!data?.blockSnapshots || data.blockSnapshots.length === 0) {
-    return skelecton(
-      <div>
-        <img className={styles.image} src={Pic} alt="cloud_brain_2" />
-        <br />
-        <span className={styles.text}>{t('snapshots.empty')}</span>
-      </div>,
-      <>&nbsp;</>,
-      true
-    )
-  }
-
-  const dataSource = data.blockSnapshots.map((snapshot: BlockSnapshot) => ({
-    key: snapshot.id,
-    name: snapshot.name,
-    snapshotVersion: snapshot.snapshotVersion
-  }))
-
-  const firstVersion = Math.max(...data.blockSnapshots.map(snapshot => snapshot.snapshotVersion))
-
-  const snapshotData = (
-    <List
-      size="small"
+  return (
+    <Modal
+      width={1000}
+      title={null}
       footer={null}
-      header={null}
-      dataSource={dataSource}
-      renderItem={item => (
-        <List.Item>
-          <button
-            className={styles.text_button}
-            onClick={event => {
-              setCurrentVersion(item.snapshotVersion)
-            }}>
-            <span style={{ color: item.snapshotVersion === currentVersion ? 'blue' : 'unset' }}>{item.name}</span>
-          </button>
-        </List.Item>
-      )}
-    />
-  )
-
-  return skelecton(
-    <div className={styles.page}>
-      <DocumentPage docid={blockId} editable={false} snapshotVersion={currentVersion ?? firstVersion} />
-    </div>,
-    snapshotData,
-    !currentVersion || confirmLoading
+      closable={false}
+      destroyOnClose={true}
+      visible={visible}
+      confirmLoading={confirmLoading}
+      onOk={onCleanup}
+      onCancel={onCleanup}>
+      <SnapshotList
+        blockId={blockId}
+        currentVersion={currentVersion}
+        setCurrentVersion={setCurrentVersion}
+        confirmLoading={confirmLoading}
+        onCleanup={onCleanup}
+        setConfirmLoading={setConfirmLoading}
+      />
+    </Modal>
   )
 }

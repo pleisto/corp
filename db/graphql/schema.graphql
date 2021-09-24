@@ -14,9 +14,14 @@ enum AuthMethod {
   email_password
 
   """
-  Github Federated Authentication
+   Federated Authentication
   """
   github
+
+  """
+   Federated Authentication
+  """
+  google_oauth2
 }
 
 type AuthorizationResult {
@@ -1004,7 +1009,7 @@ type RootQuery {
   passwordAvailable(password: String!): validate_result!
 
   """
-  return all plugins for user.
+  return all plugins for pod.
   """
   plugins: [plugin!]!
 
@@ -1449,7 +1454,7 @@ type config {
   """
   Enabled federated identity providers
   """
-  accountsFederatedProviders: [federatedProvider!]!
+  accountsFederatedProviders: [federatedProvider!]
 
   """
   Preferred Authentication authentication

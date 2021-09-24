@@ -27,7 +27,13 @@
             },
             {
               "name": "github",
-              "description": "Github Federated Authentication",
+              "description": " Federated Authentication",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "google_oauth2",
+              "description": " Federated Authentication",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -3527,7 +3533,7 @@
             },
             {
               "name": "plugins",
-              "description": "return all plugins for user.",
+              "description": "return all plugins for pod.",
               "args": [
 
               ],
@@ -6055,19 +6061,15 @@
 
               ],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
+                  "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "federatedProvider",
-                      "ofType": null
-                    }
+                    "kind": "OBJECT",
+                    "name": "federatedProvider",
+                    "ofType": null
                   }
                 }
               },

@@ -32,8 +32,10 @@ export type Scalars = {
 export enum AuthMethod {
   /** Email and Password Authentication */
   EmailPassword = 'email_password',
-  /** Github Federated Authentication */
-  Github = 'github'
+  /**  Federated Authentication */
+  Github = 'github',
+  /**  Federated Authentication */
+  GoogleOauth2 = 'google_oauth2'
 }
 
 export type AuthorizationResult = {
@@ -584,7 +586,7 @@ export type RootQuery = {
    * Required `context[:entrypoints]` is `[:internal]`.
    */
   passwordAvailable: Validate_Result
-  /** return all plugins for user. */
+  /** return all plugins for pod. */
   plugins: Array<Plugin>
   /** return all pods for user. */
   pods: Array<Pod>
@@ -875,7 +877,7 @@ export type Config = {
   /** Enable email and password authentication */
   accountsEmailPasswordAuth: Scalars['Boolean']
   /** Enabled federated identity providers */
-  accountsFederatedProviders: Array<FederatedProvider>
+  accountsFederatedProviders?: Maybe<Array<FederatedProvider>>
   /** Preferred Authentication authentication */
   accountsPreferredAuthMethod: AuthMethod
   /** User agreement link */
@@ -999,7 +1001,7 @@ export type GetAccountsConfigFromWsQuery = {
       userAgreementLink: string
       accountsPreferredAuthMethod: AuthMethod
       accountsEmailPasswordAuth: boolean
-      accountsFederatedProviders: Array<{ __typename?: 'federatedProvider'; name: string; logo: string }>
+      accountsFederatedProviders?: Maybe<Array<{ __typename?: 'federatedProvider'; name: string; logo: string }>>
     }
   }
 }
