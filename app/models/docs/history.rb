@@ -7,6 +7,7 @@
 #  id                    :bigint           not null, primary key
 #  content(node content) :jsonb
 #  data                  :jsonb            not null
+#  deleted_at            :datetime
 #  history_version       :bigint           not null
 #  meta                  :jsonb            not null
 #  sort                  :bigint           not null
@@ -37,6 +38,7 @@ class Docs::History < ApplicationRecord
     self.meta = block.meta
     self.sort = block.sort
     self.type = block.type
+    self.deleted_at = block.deleted_at
     self.parent_id = block.parent_id
   end
 
@@ -45,7 +47,7 @@ class Docs::History < ApplicationRecord
     # parameters = version_meta.map { |k, v| "(#{k},#{v})" }.join(',')
     # Docs::History.where("(block_id, history_version) IN (?)", parameters)
     parameters = version_meta.size.times.collect { '(?,?)' }.join(',')
-    Docs::History.where("(block_id, history_version) IN (#{parameters})", *version_meta.flatten)
+    Docs::History.where(deleted_at: nil).where("(block_id, history_version) IN (#{parameters})", *version_meta.flatten)
   end
 
   def self.graphql_normalize(root_id)
@@ -63,7 +65,7 @@ class Docs::History < ApplicationRecord
   end
 
   def update_params
-    attributes.slice('sort', 'meta', 'data', 'parent_id', 'type', 'text', 'content').merge('deleted_at' => nil)
+    attributes.slice('sort', 'meta', 'data', 'parent_id', 'type', 'text', 'content', 'deleted_at')
   end
 
   ## TODO refactor this

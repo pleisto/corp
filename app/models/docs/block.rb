@@ -196,7 +196,8 @@ class Docs::Block < ApplicationRecord
 
   before_save do
     self.collaborators = collaborators.uniq
-    if type_changed? || meta_changed? || data_changed? || sort_changed? || parent_id_changed?
+    if type_changed? || meta_changed? || data_changed? || sort_changed? || 
+      parent_id_changed? || text_changed? || content_changed? || deleted_at_changed? || updated_at_changed?
       self.history_version = realtime_history_version_increment
     end
   end
@@ -231,6 +232,10 @@ class Docs::Block < ApplicationRecord
 
   def self.broadcast(id, payload)
     BrickdocSchema.subscriptions.trigger(:newPatch, { doc_id: id }, payload)
+  end
+
+  def soft_destroy
+    update!(deleted_at: Time.current)
   end
 
   def delete_pages!
