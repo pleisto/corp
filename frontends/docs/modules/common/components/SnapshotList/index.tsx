@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Col, List, Row } from '@brickdoc/design-system'
 import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
-import { BlockSnapshot, useGetBlockSnapshotsQuery } from '@/BrickdocGraphQL'
+import { BlockSnapshot, SnapshotRestoreInput, useGetBlockSnapshotsQuery, useSnapshotRestoreMutation } from '@/BrickdocGraphQL'
 import styles from './index.module.less'
 import { useDocsI18n } from '../../hooks'
 import Pic from '@/common/assets/cloud_brain_2.svg'
+import { queryChildrenBlocks } from '@/docs/modules/pages/graphql'
 
 interface SnapshotListProps {
   blockId: string
@@ -25,14 +26,13 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
 }) => {
   const { t } = useDocsI18n()
   const { data } = useGetBlockSnapshotsQuery({ variables: { id: blockId } })
+  const [snapshotRestore] = useSnapshotRestoreMutation({ refetchQueries: [queryChildrenBlocks] })
 
-  const onRestore = (): void => {
-    // TODO restore
+  const onRestore = async (): Promise<void> => {
     setConfirmLoading(true)
-    console.log({ currentVersion })
-    setTimeout(() => {
-      onCleanup()
-    }, 2000)
+    const input: SnapshotRestoreInput = { blockId, snapshotVersion: currentVersion as number }
+    await snapshotRestore({ variables: { input } })
+    onCleanup()
   }
 
   const skelecton = (page: any, snapshots: any, disabled: boolean): any => {

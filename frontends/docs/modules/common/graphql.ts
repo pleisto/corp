@@ -156,6 +156,14 @@ export const BlockUpdate = gql`
   }
 `
 
+export const SnapshotRestore = gql`
+  mutation snapshotRestore($input: SnapshotRestoreInput!) {
+    snapshotRestore(input: $input) {
+      errors
+    }
+  }
+`
+
 export const BlockCreateSnapshot = gql`
   mutation blockCreateSnapshot($input: BlockCreateSnapshotInput!) {
     blockCreateSnapshot(input: $input) {
