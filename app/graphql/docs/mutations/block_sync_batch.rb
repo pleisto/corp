@@ -60,10 +60,10 @@ module Docs
 
       patches.compact!
 
+      root.maybe_save_snapshot!
+
       if patches.present?
         root ||= new_blocks_hash.fetch(root_id)
-
-        root.maybe_save_snapshot!
 
         ## NOTE dirty data
         if patches.any? { |p| p.fetch(:path).blank? }
