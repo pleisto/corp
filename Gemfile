@@ -67,7 +67,6 @@ gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.1' # Don't rely on Linux/macOS timezo
 
 gem 'brickdoc_settings', path: 'gems/brickdoc_settings'
 
-gem 'onebox'
 gem 'unsplash'
 
 group :development, :test do

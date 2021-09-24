@@ -7,15 +7,12 @@ module System
     argument :url, GraphQL::Types::String, required: true
 
     def resolve(url:)
-      preview_html = cache_fragment(expires_in: 3.hours) do
-        Onebox.preview(url).to_s
-      rescue
-        "<a href='#{url}'>#{url}</a>"
+      preview_data = cache_fragment(expires_in: 3.hours) do
+        Brickdoc::PreviewBox.preview(url)
       end
-      {
-        url: url,
-        html: preview_html
-      }
+      preview_data.merge({
+        url: url
+      })
     end
   end
 end

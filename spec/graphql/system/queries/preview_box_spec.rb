@@ -2,20 +2,29 @@
 
 require 'rails_helper'
 
-describe System::Queries::PreviewBox , type: :query do
+describe System::Queries::PreviewBox, type: :query do
   describe '#resolver' do
     query = <<-'GRAPHQL'
        query QueryPreviewBox($url: String!) {
-         previewBox(url: $url) {
-          html
+        previewBox(url: $url) {
+          url
+          title
+          description
+          cover
         }
        }
     GRAPHQL
 
     it 'works' do
-      internal_graphql_execute(query, { url: 'http://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2' })
+      # internal_graphql_execute(query, { url: 'https://www.amazon.com/gp/product/B005T3GRNW/ref=s9_simh_gw_p147_d0_i2' })
+      # expect(response.success?).to be true
+      # expect(response.data['previewBox']['title']).to include('Seagate 1TB')
+      # expect(response.data['previewBox']['description']).to include('FREE')
+
+      internal_graphql_execute(query, { url: 'https://github.com' })
       expect(response.success?).to be true
-      expect(response.data['previewBox']['html']).to include('onebox amazon')
+      expect(response.data['previewBox']['description']).to start_with('GitHub')
+      expect(response.data['previewBox']['cover']).to end_with('png')
     end
   end
 end
