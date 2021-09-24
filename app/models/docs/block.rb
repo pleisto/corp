@@ -429,7 +429,7 @@ class Docs::Block < ApplicationRecord
     histories.find_by!(history_version: history_version)
   end
 
-  SAVE_SNAPSHOT_SECONDS = 10
+  SAVE_SNAPSHOT_SECONDS = 5
 
   def maybe_save_snapshot!
     throttle_key = "save_snapshot:#{id}"
