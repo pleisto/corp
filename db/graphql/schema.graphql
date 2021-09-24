@@ -294,7 +294,7 @@ type BlockImage {
   """
   key
   """
-  key: String!
+  key: String
 
   """
   aspect ratio

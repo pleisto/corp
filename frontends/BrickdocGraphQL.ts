@@ -185,7 +185,7 @@ export type BlockImage = {
   /** height */
   height?: Maybe<Scalars['Int']>
   /** key */
-  key: Scalars['String']
+  key?: Maybe<Scalars['String']>
   /** aspect ratio */
   ratio?: Maybe<Scalars['Float']>
   /** type */
@@ -1220,11 +1220,11 @@ export type GetPageBlocksQuery = {
         __typename?: 'BlockMeta'
         cover?: Maybe<
           | { __typename?: 'BlockColor'; type: Blocktype; color: string }
-          | { __typename?: 'BlockImage'; type: Blocktype; source: Filesourcetype; key: string }
+          | { __typename?: 'BlockImage'; type: Blocktype; source: Filesourcetype; key?: Maybe<string> }
         >
         icon?: Maybe<
           | { __typename?: 'BlockEmoji'; type: Blocktype; name: string; emoji: string }
-          | { __typename?: 'BlockImage'; type: Blocktype; source: Filesourcetype; key: string }
+          | { __typename?: 'BlockImage'; type: Blocktype; source: Filesourcetype; key?: Maybe<string> }
         >
       }
     }>
@@ -1380,7 +1380,7 @@ export type GetChildrenBlocksQuery = {
           __typename?: 'BlockImage'
           type: Blocktype
           source: Filesourcetype
-          key: string
+          key?: Maybe<string>
           height?: Maybe<number>
           width?: Maybe<number>
           ratio?: Maybe<number>
@@ -1399,7 +1399,7 @@ export type GetChildrenBlocksQuery = {
               __typename?: 'BlockImage'
               type: Blocktype
               source: Filesourcetype
-              key: string
+              key?: Maybe<string>
               height?: Maybe<number>
               width?: Maybe<number>
             }
@@ -1410,7 +1410,7 @@ export type GetChildrenBlocksQuery = {
               __typename?: 'BlockImage'
               type: Blocktype
               source: Filesourcetype
-              key: string
+              key?: Maybe<string>
               height?: Maybe<number>
               width?: Maybe<number>
             }
