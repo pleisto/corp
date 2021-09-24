@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, List, Row } from '@brickdoc/design-system'
 import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
-import { BlockSnapshot, SnapshotRestoreInput, useGetBlockSnapshotsQuery, useSnapshotRestoreMutation } from '@/BrickdocGraphQL'
+import { SnapshotRestoreInput, useGetBlockSnapshotsQuery, useSnapshotRestoreMutation } from '@/BrickdocGraphQL'
 import styles from './index.module.less'
 import { useDocsI18n } from '../../hooks'
 import Pic from '@/common/assets/cloud_brain_2.svg'
@@ -69,11 +69,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
     )
   }
 
-  const dataSource = data.blockSnapshots.map((snapshot: BlockSnapshot) => ({
-    key: snapshot.id,
-    name: snapshot.name,
-    snapshotVersion: snapshot.snapshotVersion
-  }))
+  const dataSource = data.blockSnapshots
 
   const firstVersion = Math.max(...data.blockSnapshots.map(snapshot => snapshot.snapshotVersion))
 
@@ -83,17 +79,22 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
       footer={null}
       header={null}
       dataSource={dataSource}
-      renderItem={item => (
-        <List.Item>
-          <button
-            className={styles.text_button}
-            onClick={event => {
-              setCurrentVersion(item.snapshotVersion)
-            }}>
-            <span style={{ color: item.snapshotVersion === currentVersion ? 'blue' : 'unset' }}>{item.name}</span>
-          </button>
-        </List.Item>
-      )}
+      renderItem={item => {
+        const color = item.snapshotVersion === currentVersion ? 'blue' : 'unset'
+        return (
+          <List.Item>
+            <button
+              className={styles.text_button}
+              onClick={event => {
+                setCurrentVersion(item.snapshotVersion)
+              }}>
+              <span style={{ color }}>{item.name}</span>
+              <br />
+              <span style={{ float: 'left', fontSize: 'small', color }}>{item.relativeTime}</span>
+            </button>
+          </List.Item>
+        )
+      }}
     />
   )
 

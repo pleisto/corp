@@ -257,10 +257,14 @@ export type BlockMovePayload = {
 
 export type BlockSnapshot = {
   __typename?: 'BlockSnapshot'
+  /** created at */
+  createdAt: Scalars['ISO8601DateTime']
   /** object unique id */
   id: Scalars['AutoIncrementID']
   /** Snapshot name */
   name: Scalars['String']
+  /** relative time */
+  relativeTime: Scalars['String']
   /** Snapshot version */
   snapshotVersion: Scalars['Int']
 }
@@ -1237,7 +1241,9 @@ export type GetBlockSnapshotsQueryVariables = Exact<{
 
 export type GetBlockSnapshotsQuery = {
   __typename?: 'RootQuery'
-  blockSnapshots?: Maybe<Array<{ __typename?: 'BlockSnapshot'; id: string; snapshotVersion: number; name: string }>>
+  blockSnapshots?: Maybe<
+    Array<{ __typename?: 'BlockSnapshot'; id: string; snapshotVersion: number; name: string; createdAt: any; relativeTime: string }>
+  >
 }
 
 export type GetBlockHistoriesQueryVariables = Exact<{
@@ -2253,6 +2259,8 @@ export const GetBlockSnapshotsDocument = gql`
       id
       snapshotVersion
       name
+      createdAt
+      relativeTime
     }
   }
 `

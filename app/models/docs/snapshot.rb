@@ -21,6 +21,7 @@
 class Docs::Snapshot < ApplicationRecord
   belongs_to :pod, optional: true
   belongs_to :block
+  include ActionView::Helpers::DateHelper
 
   before_create do
     self.pod_id = block.pod_id
@@ -32,6 +33,10 @@ class Docs::Snapshot < ApplicationRecord
 
   def generate_default_name
     Time.current.to_s
+  end
+
+  def relative_time
+    time_ago_in_words(created_at)
   end
 
   def next_snapshot_name

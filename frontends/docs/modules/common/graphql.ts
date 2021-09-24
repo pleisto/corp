@@ -100,6 +100,8 @@ export const queryBlockSnapshots = gql`
       id
       snapshotVersion
       name
+      createdAt
+      relativeTime
     }
   }
 `

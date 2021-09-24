@@ -441,6 +441,11 @@ type BlockMovePayload {
 
 type BlockSnapshot {
   """
+  created at
+  """
+  createdAt: ISO8601DateTime!
+
+  """
   object unique id
   """
   id: AutoIncrementID!
@@ -449,6 +454,11 @@ type BlockSnapshot {
   Snapshot name
   """
   name: String!
+
+  """
+  relative time
+  """
+  relativeTime: String!
 
   """
   Snapshot version
