@@ -35,7 +35,7 @@ class Docs::Snapshot < ApplicationRecord
   end
 
   def next_snapshot_name
-    "[Before Restore] #{name}"
+    "[Before Restore] #{generate_default_name}"
   end
 
   def blocks
