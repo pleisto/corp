@@ -62,6 +62,10 @@ class Docs::History < ApplicationRecord
     histories.map { |h| h.cast_block.merge('blobs' => preload_blobs[h.block_id].to_a, 'root_id' => root_id) }
   end
 
+  def update_params
+    attributes.slice('sort', 'meta', 'data', 'parent_id', 'type', 'text', 'content').merge('deleted_at' => nil)
+  end
+
   ## TODO refactor this
   ## try `def id = block_id`
   def cast_block

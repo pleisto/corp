@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Col, Modal, Row, Table } from '@brickdoc/design-system'
+import { Button, Col, List, Modal, Row } from '@brickdoc/design-system'
 import { DocumentPage } from '@/docs/modules/pages/DocumentPage'
 import { BlockSnapshot, useGetBlockSnapshotsQuery } from '@/BrickdocGraphQL'
 import styles from './index.module.less'
@@ -31,6 +31,7 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
     console.log({ currentVersion })
     setTimeout(() => {
       setVisible(false)
+      setCurrentVersion(undefined)
       setConfirmLoading(false)
     }, 2000)
   }
@@ -88,31 +89,23 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
 
   const firstVersion = Math.max(...data.blockSnapshots.map(snapshot => snapshot.snapshotVersion))
 
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name'
-    }
-  ]
-
-  // TODO change to List
   const snapshotData = (
-    <Table
+    <List
+      size="small"
+      footer={null}
+      header={null}
       dataSource={dataSource}
-      columns={columns}
-      onRow={record => {
-        return {
-          onClick: event => {
-            console.log({ setVersion: record })
-            setCurrentVersion(record.snapshotVersion)
-          },
-          onDoubleClick: event => {},
-          onContextMenu: event => {},
-          onMouseEnter: event => {},
-          onMouseLeave: event => {}
-        }
-      }}
+      renderItem={item => (
+        <List.Item>
+          <button
+            className={styles.text_button}
+            onClick={event => {
+              setCurrentVersion(item.snapshotVersion)
+            }}>
+            <span style={{ color: item.snapshotVersion === currentVersion ? 'blue' : 'unset' }}>{item.name}</span>
+          </button>
+        </List.Item>
+      )}
     />
   )
 

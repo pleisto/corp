@@ -34,11 +34,36 @@ class Docs::Snapshot < ApplicationRecord
     Time.current.to_s
   end
 
+  def next_snapshot_name
+    "[Before Restore] #{name}"
+  end
+
   def blocks
     # Before: save snapshot_id in all of child blocks
     # Docs::History.where("? = ANY(snapshots)", id)
 
     # After: save snapshot_id only in current block
     Docs::History.from_version_meta(version_meta)
+  end
+
+  def restore!
+    transaction do
+      ## 1. backup current state
+      block.save_snapshot!(name: next_snapshot_name)
+
+      ## 2. do restore
+      preload_blocks = blocks.each_with_object({}) do |history, h|
+        h[history.block_id] = history
+      end
+
+      block.descendants(unscoped: true).each do |child_block|
+        child_history = preload_blocks[child_block.id]
+        if child_history.nil?
+          child_block.update!(deleted_at: Time.current)
+        else
+          child_block.update!(child_history.update_params)
+        end
+      end
+    end
   end
 end

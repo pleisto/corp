@@ -36,6 +36,7 @@ class Docs::Block < ApplicationRecord
   include Sortable
   counter :patch_seq
 
+  ## REMOVE this
   default_scope { where(deleted_at: nil) }
 
   scope :pageable, -> { where(page: true) }
@@ -202,7 +203,6 @@ class Docs::Block < ApplicationRecord
 
   after_save do
     histories.create!(history_version: history_version) if history_version_previously_changed? || id_previously_changed?
-    snapshots.create!(snapshot_version: snapshot_version) if snapshot_version_previously_changed?
   end
 
   after_create :maybe_attach_attachments!
@@ -442,8 +442,11 @@ class Docs::Block < ApplicationRecord
     false
   end
 
-  def save_snapshot!
-    update!(snapshot_version: realtime_snapshot_version_increment)
+  def save_snapshot!(params = {})
+    transaction do
+      update!(snapshot_version: realtime_snapshot_version_increment)
+      snapshots.create!(params.merge(snapshot_version: snapshot_version))
+    end
   end
 
   def current_histories
