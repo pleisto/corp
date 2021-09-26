@@ -218,6 +218,26 @@ export type BlockInput = {
   type: Scalars['String']
 }
 
+export type BlockLink = {
+  __typename?: 'BlockLink'
+  /** cover */
+  cover?: Maybe<Scalars['String']>
+  /** description */
+  description?: Maybe<Scalars['String']>
+  /** height */
+  height?: Maybe<Scalars['Int']>
+  /** key */
+  key: Scalars['String']
+  /** type */
+  source: Filesourcetype
+  /** title */
+  title?: Maybe<Scalars['String']>
+  /** type */
+  type: Blocktype
+  /** width */
+  width?: Maybe<Scalars['Int']>
+}
+
 export type BlockMeta = {
   __typename?: 'BlockMeta'
   /** attachment */
@@ -230,6 +250,8 @@ export type BlockMeta = {
   image?: Maybe<BlockImage>
   /** Prosemirror builtin level */
   level?: Maybe<Scalars['Int']>
+  /** image */
+  link?: Maybe<BlockLink>
   /** title */
   title?: Maybe<Scalars['String']>
 }
@@ -1400,6 +1422,15 @@ export type GetChildrenBlocksQuery = {
               width?: Maybe<number>
             }
         >
+        link?: Maybe<{
+          __typename?: 'BlockLink'
+          key: string
+          type: Blocktype
+          source: Filesourcetype
+          cover?: Maybe<string>
+          description?: Maybe<string>
+          title?: Maybe<string>
+        }>
       }
     }>
   >
@@ -2695,6 +2726,14 @@ export const GetChildrenBlocksDocument = gql`
             name
             emoji
           }
+        }
+        link {
+          key
+          type
+          source
+          cover
+          description
+          title
         }
       }
     }

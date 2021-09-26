@@ -367,6 +367,48 @@ input BlockInput {
   type: String!
 }
 
+type BlockLink {
+  """
+  cover
+  """
+  cover: String
+
+  """
+  description
+  """
+  description: String
+
+  """
+  height
+  """
+  height: Int
+
+  """
+  key
+  """
+  key: String!
+
+  """
+  type
+  """
+  source: Filesourcetype!
+
+  """
+  title
+  """
+  title: String
+
+  """
+  type
+  """
+  type: Blocktype!
+
+  """
+  width
+  """
+  width: Int
+}
+
 type BlockMeta {
   """
   attachment
@@ -392,6 +434,11 @@ type BlockMeta {
   Prosemirror builtin level
   """
   level: Int
+
+  """
+  image
+  """
+  link: BlockLink
 
   """
   title
