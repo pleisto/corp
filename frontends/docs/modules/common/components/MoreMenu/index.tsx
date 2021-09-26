@@ -1,6 +1,5 @@
 import { Button } from '@brickdoc/design-system'
 import React, { useState } from 'react'
-import { useDocsI18n } from '../../hooks'
 import { UpdateModal } from '../UpdateModal'
 
 interface UpdateButtonProps {
@@ -8,8 +7,7 @@ interface UpdateButtonProps {
   webid: string
 }
 
-export const UpdateButton: React.FC<UpdateButtonProps> = ({ id, webid }) => {
-  const { t } = useDocsI18n()
+export const MoreMenu: React.FC<UpdateButtonProps> = ({ id, webid }) => {
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false)
   if (!id) {
     return <></>
@@ -20,7 +18,7 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({ id, webid }) => {
   return (
     <>
       <Button type="text" onClick={onClick}>
-        {t('update.text')}
+        ...
       </Button>
       <UpdateModal webid={webid} blockId={id} visible={updateModalVisible} setVisible={setUpdateModalVisible} />
     </>

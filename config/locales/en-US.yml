@@ -623,8 +623,6 @@ en-US:
     search:
       text: Quick Find
       placeholder: Search Pages
-    update:
-      text: Update
     blocks:
       create_pages: Add Pages
       delete: Delete
