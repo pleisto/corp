@@ -44,7 +44,7 @@ export const DocumentCover: React.FC<DocumentCoverProps> = ({ documentCoverMeta,
     <div className={cx(styles.cover, { [styles.uncover]: !documentCoverMeta })} style={style}>
       <div className={styles.buttons}>
         {documentCoverMeta && (
-          <Popover {...popoverProps}>
+          <Popover {...popoverProps} visible={!editable ? false : undefined}>
             <Button className={styles.button} type="text" disabled={!editable}>
               Change cover
             </Button>

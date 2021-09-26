@@ -66,13 +66,13 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({
       />
       <div className={styles.titleWrapper}>
         {documentIconMeta && (
-          <Popover {...iconPopoverProps}>
+          <Popover {...iconPopoverProps} visible={!editable ? false : undefined}>
             <DocumentIcon getDocIconUrl={getDocIconUrl} localUrl={localIcon} documentIconMeta={documentIconMeta} />
           </Popover>
         )}
         <div className={styles.actions}>
           {!documentIconMeta && (
-            <Popover {...iconPopoverProps}>
+            <Popover {...iconPopoverProps} visible={!editable ? false : undefined}>
               <Button type="text" className={styles.item} disabled={!editable}>
                 <Icon.Face className={styles.icon} />
                 <span className={styles.name}>Add icon</span>
@@ -80,7 +80,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({
             </Popover>
           )}
           {!documentCoverMeta && (
-            <Popover {...coverPopoverProps}>
+            <Popover {...coverPopoverProps} visible={!editable ? false : undefined}>
               <Button type="text" className={styles.item} disabled={!editable}>
                 <Icon.Image className={styles.icon} />
                 <span className={styles.name}>Add cover</span>
