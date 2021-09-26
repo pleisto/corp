@@ -20,9 +20,11 @@ import Strike, { StrikeOptions } from '@tiptap/extension-strike'
 import Underline, { UnderlineOptions } from '@tiptap/extension-underline'
 import Text from '@tiptap/extension-text'
 import TextStyle, { TextStyleOptions } from '@tiptap/extension-text-style'
+import Link, { LinkOptions } from '@tiptap/extension-link'
 import { FontColorExtension, FontColorOptions } from '../fontColor'
 import { ImageSectionExtension, ImageSectionOptions } from '../imageSection'
 import { PdfSectionExtension, PdfSectionOptions } from '../pdfSection'
+import { LinkBlockExtension, LinkBlockOptions } from '../linkBlock'
 import { TableBlockExtension, TableBlockOptions } from '../table'
 
 export interface BasicRichtextOptions {
@@ -47,7 +49,9 @@ export interface BasicRichtextOptions {
   text: false
   textStyle: Partial<TextStyleOptions> | false
   fontColor: Partial<FontColorOptions> | false
+  link: Partial<LinkOptions> | false
   imageSection: Partial<ImageSectionOptions> | false
+  linkBlock: Partial<LinkBlockOptions> | false
   pdfSection: Partial<PdfSectionOptions> | false
   tableBlock: Partial<TableBlockOptions> | false
 }
@@ -80,10 +84,12 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.underline !== false) extensions.push(Underline.configure(this.options?.underline))
     if (this.options.text !== false) extensions.push(Text.configure(this.options?.text))
     if (this.options.imageSection !== false) extensions.push(ImageSectionExtension.configure(this.options?.imageSection))
+    if (this.options.linkBlock !== false) extensions.push(LinkBlockExtension.configure(this.options?.linkBlock))
     if (this.options.pdfSection !== false) extensions.push(PdfSectionExtension.configure(this.options?.pdfSection))
     if (this.options.textStyle !== false) extensions.push(TextStyle.configure(this.options?.textStyle))
     if (this.options.fontColor !== false) extensions.push(FontColorExtension.configure(this.options?.fontColor))
     if (this.options.tableBlock !== false) extensions.push(TableBlockExtension.configure(this.options?.tableBlock))
+    if (this.options.link !== false) extensions.push(Link.configure(this.options?.link))
     /* eslint-enable @typescript-eslint/no-unnecessary-boolean-literal-compare */
 
     return extensions

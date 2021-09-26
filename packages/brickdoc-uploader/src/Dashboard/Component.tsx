@@ -10,9 +10,9 @@ export interface DashboardProps {
   onProgress?: DashboardPluginOptions['onProgress']
   onUploaded?: DashboardPluginOptions['onUploaded']
   onFileLoaded?: DashboardPluginOptions['onFileLoaded']
-  prepareFileUpload: DashboardPluginOptions['prepareFileUpload']
+  prepareFileUpload?: DashboardPluginOptions['prepareFileUpload']
   fetchUnsplashImages?: DashboardPluginOptions['fetchUnsplashImages']
-  fileType: DashboardPluginOptions['fileType']
+  fileType?: DashboardPluginOptions['fileType']
   importSources: DashboardPluginOptions['importSources']
 }
 
@@ -41,7 +41,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         }
 
         container.current = ele
-        uppy.current = new Uppy({ debug: true })
+        uppy.current = new Uppy()
         // TODO: use active storage instead
         uppy.current.use(XhrUploadPlugin, {
           method: 'PUT',
