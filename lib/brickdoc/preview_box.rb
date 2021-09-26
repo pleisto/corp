@@ -17,8 +17,9 @@ module Brickdoc
     end
 
     def self.preview(url)
-      doc = Nokogiri::HTML(URI.parse(url).open.read)
-      engine = match_engine url, doc
+      open_doc = URI.parse(url).open
+      doc = Nokogiri::HTML(open_doc.read)
+      engine = match_engine open_doc.base_uri.to_s, doc
       engine.data
     rescue => e
       Rails.logger.error(e)
