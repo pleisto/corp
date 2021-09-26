@@ -14,9 +14,14 @@ enum AuthMethod {
   email_password
 
   """
-  Github Federated Authentication
+  Federated Authentication
   """
   github
+
+  """
+  Federated Authentication
+  """
+  google_oauth2
 }
 
 type AuthorizationResult {
@@ -856,7 +861,6 @@ type RootMutation {
   ): CreateOrUpdatePodPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userConfirmationEmailResend(
@@ -867,7 +871,6 @@ type RootMutation {
   ): UserConfirmationEmailResendPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userCreate(
@@ -878,7 +881,6 @@ type RootMutation {
   ): UserCreatePayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userEmailPasswordSignIn(
@@ -889,7 +891,6 @@ type RootMutation {
   ): UserEmailPasswordSignInPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userForgetPasswordMailSend(
@@ -900,7 +901,6 @@ type RootMutation {
   ): UserForgetPasswordMailSendPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userPasswordReset(
@@ -911,7 +911,6 @@ type RootMutation {
   ): UserPasswordResetPayload
 
   """
-
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userSignOut(
@@ -1004,7 +1003,7 @@ type RootQuery {
   passwordAvailable(password: String!): validate_result!
 
   """
-  return all plugins for user.
+  return all plugins for pod.
   """
   plugins: [plugin!]!
 
@@ -1454,7 +1453,7 @@ type config {
   """
   Enabled federated identity providers
   """
-  accountsFederatedProviders: [federatedProvider!]!
+  accountsFederatedProviders: [federatedProvider!]
 
   """
   Preferred Authentication authentication
@@ -1586,9 +1585,19 @@ type pod {
 
 type preview_box {
   """
-  preview html
+  preview cover
   """
-  html: String!
+  cover: String
+
+  """
+  preview description
+  """
+  description: String!
+
+  """
+  preview title
+  """
+  title: String!
 
   """
   preview url
