@@ -11,6 +11,7 @@ import { useFetchUnsplashImages } from './useFetchUnsplashImages'
 import { useDatabaseRows } from './useDatabaseRows'
 import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
+import { useFetchWebsiteMeta } from './useFetchWebsiteMeta'
 
 interface DocumentPageProps {
   docid: string | undefined
@@ -29,6 +30,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
+  const fetchWebsiteMeta = useFetchWebsiteMeta()
   const createImageUrlGetter =
     (field: string) =>
     (node: Node): string | undefined => {
@@ -62,6 +64,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
     useDatabaseRows,
     prepareFileUpload,
     fetchUnsplashImages,
+    fetchWebsiteMeta,
     getImageUrl,
     getPdfUrl,
     editable

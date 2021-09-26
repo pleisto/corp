@@ -1218,6 +1218,15 @@ export type QueryUnsplashImageQuery = {
   >
 }
 
+export type QueryPreviewBoxQueryVariables = Exact<{
+  url: Scalars['String']
+}>
+
+export type QueryPreviewBoxQuery = {
+  __typename?: 'RootQuery'
+  previewBox: { __typename?: 'preview_box'; url: string; title: string; description: string; cover?: Maybe<string> }
+}
+
 export type CreateOrUpdatePodMutationVariables = Exact<{
   input: CreateOrUpdatePodInput
 }>
@@ -2155,6 +2164,46 @@ export function useQueryUnsplashImageLazyQuery(
 export type QueryUnsplashImageQueryHookResult = ReturnType<typeof useQueryUnsplashImageQuery>
 export type QueryUnsplashImageLazyQueryHookResult = ReturnType<typeof useQueryUnsplashImageLazyQuery>
 export type QueryUnsplashImageQueryResult = Apollo.QueryResult<QueryUnsplashImageQuery, QueryUnsplashImageQueryVariables>
+export const QueryPreviewBoxDocument = gql`
+  query QueryPreviewBox($url: String!) {
+    previewBox(url: $url) {
+      url
+      title
+      description
+      cover
+    }
+  }
+`
+
+/**
+ * __useQueryPreviewBoxQuery__
+ *
+ * To run a query within a React component, call `useQueryPreviewBoxQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryPreviewBoxQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryPreviewBoxQuery({
+ *   variables: {
+ *      url: // value for 'url'
+ *   },
+ * });
+ */
+export function useQueryPreviewBoxQuery(baseOptions: Apollo.QueryHookOptions<QueryPreviewBoxQuery, QueryPreviewBoxQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<QueryPreviewBoxQuery, QueryPreviewBoxQueryVariables>(QueryPreviewBoxDocument, options)
+}
+export function useQueryPreviewBoxLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<QueryPreviewBoxQuery, QueryPreviewBoxQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<QueryPreviewBoxQuery, QueryPreviewBoxQueryVariables>(QueryPreviewBoxDocument, options)
+}
+export type QueryPreviewBoxQueryHookResult = ReturnType<typeof useQueryPreviewBoxQuery>
+export type QueryPreviewBoxLazyQueryHookResult = ReturnType<typeof useQueryPreviewBoxLazyQuery>
+export type QueryPreviewBoxQueryResult = Apollo.QueryResult<QueryPreviewBoxQuery, QueryPreviewBoxQueryVariables>
 export const CreateOrUpdatePodDocument = gql`
   mutation createOrUpdatePod($input: CreateOrUpdatePodInput!) {
     createOrUpdatePod(input: $input) {
