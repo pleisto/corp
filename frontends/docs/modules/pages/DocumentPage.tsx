@@ -13,7 +13,7 @@ import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
 
 interface DocumentPageProps {
-  docid: string
+  docid: string | undefined
   snapshotVersion: number
   editable: boolean
 }
@@ -24,7 +24,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
 
   const childrenBlocks = React.useRef<GetChildrenBlocksQuery['childrenBlocks']>()
   const { data, loading } = useGetChildrenBlocksQuery({
-    variables: { rootId: docid, snapshotVersion }
+    variables: { rootId: docid as string, snapshotVersion }
   })
 
   const prepareFileUpload = usePrepareFileUpload()
@@ -95,7 +95,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docid, snapshotVersi
     }
   }, [editor, data, docid, snapshotVersion, editable])
 
-  useDocumentSubscription({ docid, editor })
+  useDocumentSubscription({ docid: docid as string, editor })
 
   if (loading) {
     return <Skeleton />

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { UpdateModal } from '../UpdateModal'
 
 interface UpdateButtonProps {
-  id: string
+  id: string | undefined
   webid: string
 }
 
