@@ -15,7 +15,7 @@ module Docs
 
       blocks =
         if block_id
-          Docs::Block.find(block_id).descendants_raw.soft_deleted.pageable
+          Docs::Block.find(block_id).descendants_raw(unscoped: true).soft_deleted.pageable
         else
           Docs::Block.soft_deleted.joins(:pod).pageable.where(pod: { webid: webid })
         end
