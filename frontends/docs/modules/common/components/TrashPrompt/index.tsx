@@ -4,6 +4,7 @@ import { useDocsI18n } from '../../hooks'
 import { BlockHardDeleteInput, BlockRestoreInput, useBlockHardDeleteMutation, useBlockRestoreMutation } from '@/BrickdocGraphQL'
 import { Redirect } from 'react-router-dom'
 import { queryChildrenBlocks } from '@/docs/modules/pages/graphql'
+import { queryPageBlocks } from '../../graphql'
 
 interface TrashPromptProps {
   docid: string
@@ -18,7 +19,7 @@ export const TrashPrompt: React.FC<TrashPromptProps> = ({ docid, webid }) => {
   const [restoreButtonLoading, setRestoreButtonLoading] = React.useState<boolean>(false)
 
   const [blockHardDelete] = useBlockHardDeleteMutation()
-  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryChildrenBlocks] })
+  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryChildrenBlocks, queryPageBlocks] })
 
   const link = `/${webid}`
   if (redirectHome) {

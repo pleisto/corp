@@ -12,7 +12,7 @@ import React, { useState } from 'react'
 import { FilePages, Delete, Undo } from '@brickdoc/design-system/components/icon'
 import { Redirect } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
-import { queryTrashBlocks } from '../../graphql'
+import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 
 interface BlockListItemProps {
   block: Block
@@ -34,7 +34,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
   const [restoreButtonLoading, setRestoreButtonLoading] = React.useState<boolean>(false)
 
   const [blockHardDelete] = useBlockHardDeleteMutation({ refetchQueries: [queryTrashBlocks] })
-  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryTrashBlocks] })
+  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryTrashBlocks, queryPageBlocks] })
 
   const link = `/${webid}/p/${block.id}`
 
