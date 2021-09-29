@@ -17,27 +17,23 @@ interface DocumentPageProps {
   docid: string | undefined
   webid: string
   snapshotVersion: number
-  editable: boolean
+  defaultEditable?: boolean
   onCommit: (doc: Node) => Promise<void>
   setCommitting?: (value: boolean) => void
 }
 
-export const DocumentPage: React.FC<DocumentPageProps> = ({ webid, docid, snapshotVersion, editable, onCommit, setCommitting }) => {
+export const DocumentPage: React.FC<DocumentPageProps> = ({
+  webid,
+  docid,
+  snapshotVersion,
+  defaultEditable = true,
+  onCommit,
+  setCommitting
+}) => {
   const childrenBlocks = React.useRef<GetChildrenBlocksQuery['childrenBlocks']>()
   const { data, loading } = useGetChildrenBlocksQuery({
     variables: { rootId: docid as string, snapshotVersion }
   })
-
-  let finalEditable = editable
-  let restorePrompt = <></>
-  // NOTE Set `editable` flag to `false` and add `restore` prompt if root block is deleted.
-  if (docid && editable && data?.childrenBlocks?.length) {
-    const root = data.childrenBlocks.find(block => block.id === docid)
-    if (root?.deletedAt) {
-      finalEditable = false
-      restorePrompt = <TrashPrompt webid={webid} docid={docid} />
-    }
-  }
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
@@ -78,8 +74,24 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ webid, docid, snapsh
     fetchWebsiteMeta,
     getImageUrl,
     getPdfUrl,
-    editable: finalEditable
+    editable: defaultEditable
   })
+
+  const [editable, setEditable] = React.useState(defaultEditable)
+
+  const restorePrompt = React.useRef(<></>)
+  // NOTE Set `editable` flag to `false` and add `restore` prompt if root block is deleted.
+  if (docid && editable && data?.childrenBlocks?.length) {
+    const root = data.childrenBlocks.find(block => block.id === docid)
+    if (root?.deletedAt) {
+      restorePrompt.current = <TrashPrompt webid={webid} docid={docid} />
+      if (editor) {
+        editor.options.editable = false
+        editor.view.update(editor.view.props)
+      }
+      setEditable(false)
+    }
+  }
 
   const createDocAttrsUpdater =
     (field: string) =>
@@ -101,13 +113,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ webid, docid, snapsh
       const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
-      console.log({ data, content, docid, snapshotVersion, finalEditable })
+      console.log({ data, content, docid, snapshotVersion })
 
       if (content.length) {
         editor.commands.replaceRoot(content[0])
       }
     }
-  }, [editor, data, docid, snapshotVersion, finalEditable])
+  }, [editor, data, docid, snapshotVersion])
 
   useDocumentSubscription({ docid: docid as string, editor })
 
@@ -128,13 +140,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ webid, docid, snapsh
       getDocCoverUrl={getDocCoverUrl}
       prepareFileUpload={prepareFileUpload}
       fetchUnsplashImages={fetchUnsplashImages}
-      editable={finalEditable}
+      editable={editable}
     />
   )
 
   const PageElement = (
     <>
-      {restorePrompt}
+      {restorePrompt.current}
       <div className={styles.page}>
         {DocumentTitleElement}
         <EditorContent editor={editor} />

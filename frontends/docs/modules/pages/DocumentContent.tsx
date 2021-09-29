@@ -15,7 +15,6 @@ export const DocumentContent: React.FC = () => {
       <DocumentPage
         webid={webid}
         docid={docid}
-        editable={true}
         snapshotVersion={Number(snapshotVersion ?? '0')}
         onCommit={onCommit}
         setCommitting={setCommitting}

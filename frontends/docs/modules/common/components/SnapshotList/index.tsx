@@ -105,7 +105,13 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
 
   return skelecton(
     <div className={styles.page}>
-      <DocumentPage webid={webid} docid={blockId} editable={false} snapshotVersion={currentVersion ?? firstVersion} onCommit={onCommit} />
+      <DocumentPage
+        webid={webid}
+        docid={blockId}
+        defaultEditable={false}
+        snapshotVersion={currentVersion ?? firstVersion}
+        onCommit={onCommit}
+      />
     </div>,
     snapshotData,
     !currentVersion || confirmLoading
