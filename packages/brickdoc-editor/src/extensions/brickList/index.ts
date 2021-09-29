@@ -1,5 +1,6 @@
-import { Extension, findParentNode, getNodeType } from '@tiptap/core'
+import { Editor, Extension, findParentNode, getNodeType, isList } from '@tiptap/core'
 import { joinBackward as originalJoinBackward, liftEmptyBlock as originalLiftEmptyBlock } from 'prosemirror-commands'
+import { NodeType } from 'prosemirror-model'
 import { liftListItem as originalLiftListItem } from 'prosemirror-schema-list'
 import { Selection } from 'prosemirror-state'
 
@@ -14,6 +15,15 @@ declare module '@tiptap/core' {
       liftEmptyBlock: () => ReturnType
     }
   }
+}
+
+export const isListType = (nameOrType: string | NodeType) => (editor: Editor) => {
+  const { extensions } = editor.extensionManager
+  const { state } = editor
+  const itemType = getNodeType(nameOrType, state.schema)
+  const { selection } = state
+  const parentList = findParentNode(node => isList(node.type.name, extensions))(selection)
+  return parentList ? parentList.node.type === itemType : false
 }
 
 export const brickListExtension = Extension.create<brickListOptions>({
