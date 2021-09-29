@@ -1,5 +1,6 @@
 import { Extension, findParentNode, getNodeType } from '@tiptap/core'
-import { joinBackward as originalJoinBackward } from 'prosemirror-commands'
+import { joinBackward as originalJoinBackward, liftEmptyBlock as originalLiftEmptyBlock } from 'prosemirror-commands'
+import { liftListItem as originalLiftListItem } from 'prosemirror-schema-list'
 import { Selection } from 'prosemirror-state'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -10,6 +11,7 @@ declare module '@tiptap/core' {
     brickList: {
       wrapInBrickList: (listType: string) => ReturnType
       joinBackward: () => ReturnType
+      liftEmptyBlock: () => ReturnType
     }
   }
 }
@@ -25,7 +27,7 @@ export const brickListExtension = Extension.create<brickListOptions>({
         },
       joinBackward:
         () =>
-        ({ editor, state, tr, dispatch }) => {
+        ({ editor, commands, state, tr, dispatch }) => {
           const itemType = getNodeType('listItem', state.schema)
           const { selection } = state
 
@@ -35,17 +37,29 @@ export const brickListExtension = Extension.create<brickListOptions>({
             if (listItem) {
               const listItemNode = listItem.node
               if (listItemNode.textContent.length === 0) {
+                const parentListItem = findParentNode(node => node.type === itemType && node !== listItemNode)(selection)
+
+                if (parentListItem) {
+                  originalLiftListItem(itemType)(state, dispatch)
+                  return commands.splitListItem(itemType)
+                }
+
                 let deleteFrom = listItem.pos - 2
                 if (deleteFrom < 0) deleteFrom = 0
                 tr.delete(deleteFrom, listItem.start + listItemNode.nodeSize)
-                const selection = Selection.findFrom(tr.doc.resolve(tr.mapping.map(listItem.pos, -1)), -1)
-                if (selection) tr.setSelection(selection)
+                const newSelection = Selection.findFrom(tr.doc.resolve(tr.mapping.map(listItem.pos, -1)), -1)
+                if (newSelection) tr.setSelection(newSelection)
                 if (dispatch) dispatch(tr.scrollIntoView())
                 return true
               }
             }
           }
           return originalJoinBackward(state, dispatch)
+        },
+      liftEmptyBlock:
+        () =>
+        ({ state, dispatch }) => {
+          return originalLiftEmptyBlock(state, dispatch)
         }
     }
   }
