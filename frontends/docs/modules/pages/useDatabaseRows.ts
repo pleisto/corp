@@ -45,7 +45,7 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
 
     const updateRow = React.useCallback(
       async (row: DatabaseRow, updateState = true): Promise<void> => {
-        if (setCommitting) setCommitting(true)
+        setCommitting?.(true)
         if (updateState) {
           const newRows = databaseRows.map((prevRow: DatabaseRow) => {
             return prevRow.id === row.id ? row : prevRow
