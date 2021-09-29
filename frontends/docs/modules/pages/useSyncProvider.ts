@@ -103,7 +103,7 @@ export function useSyncProvider(setCommitting?: (value: boolean) => void): [(doc
   const [blockSyncBatch] = useBlockSyncBatchMutation()
   return [
     async (doc: Node) => {
-      if (setCommitting) setCommitting(true)
+      setCommitting?.(true)
       const blocks = nodeToBlock(doc, 0)
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
       try {
