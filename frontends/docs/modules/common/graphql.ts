@@ -28,6 +28,17 @@ export const queryUnsplashImage = gql`
   }
 `
 
+export const queryPreviewBox = gql`
+  query QueryPreviewBox($url: String!) {
+    previewBox(url: $url) {
+      url
+      title
+      description
+      cover
+    }
+  }
+`
+
 export const CreateOrUpdatePod = gql`
   mutation createOrUpdatePod($input: CreateOrUpdatePodInput!) {
     createOrUpdatePod(input: $input) {
@@ -94,6 +105,48 @@ export const queryPageBlocks = gql`
   }
 `
 
+export const queryTrashBlocks = gql`
+  query GetTrashBlocks($webid: String!, $blockId: UUID, $search: String) {
+    trashBlocks(webid: $webid, blockId: $blockId, search: $search) {
+      id
+      pathArray {
+        id
+        text
+      }
+      rootId
+      parentId
+      type
+      text
+      meta {
+        cover {
+          ... on BlockImage {
+            type
+            source
+            key
+          }
+          ... on BlockColor {
+            type
+            color
+          }
+        }
+        icon {
+          ... on BlockImage {
+            type
+            source
+            key
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
+      }
+    }
+  }
+`
+
 export const queryBlockSnapshots = gql`
   query GetBlockSnapshots($id: String!) {
     blockSnapshots(id: $id) {
@@ -115,9 +168,25 @@ export const queryBlockHistories = gql`
   }
 `
 
-export const BlockDelete = gql`
-  mutation blockDelete($input: BlockDeleteInput!) {
-    blockDelete(input: $input) {
+export const BlockSoftDelete = gql`
+  mutation blockSoftDelete($input: BlockSoftDeleteInput!) {
+    blockSoftDelete(input: $input) {
+      errors
+    }
+  }
+`
+
+export const BlockHardDelete = gql`
+  mutation blockHardDelete($input: BlockHardDeleteInput!) {
+    blockHardDelete(input: $input) {
+      errors
+    }
+  }
+`
+
+export const BlockRestore = gql`
+  mutation blockRestore($input: BlockRestoreInput!) {
+    blockRestore(input: $input) {
       errors
     }
   }

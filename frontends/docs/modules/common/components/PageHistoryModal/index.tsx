@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Modal } from '@brickdoc/design-system'
 import { SnapshotList } from '../SnapshotList'
 
-interface UpdateModalProps {
+interface PageHistoryModalProps {
   webid: string
   visible: boolean
   blockId: string
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockId, setVisible }) => {
+export const PageHistoryModal: React.FC<PageHistoryModalProps> = ({ webid, visible, blockId, setVisible }) => {
   const [currentVersion, setCurrentVersion] = useState<number | undefined>()
   const [confirmLoading, setConfirmLoading] = React.useState<boolean>(false)
 
@@ -29,8 +29,10 @@ export const UpdateModal: React.FC<UpdateModalProps> = ({ webid, visible, blockI
       visible={visible}
       confirmLoading={confirmLoading}
       onOk={onCleanup}
-      onCancel={onCleanup}>
+      onCancel={onCleanup}
+    >
       <SnapshotList
+        webid={webid}
         blockId={blockId}
         currentVersion={currentVersion}
         setCurrentVersion={setCurrentVersion}

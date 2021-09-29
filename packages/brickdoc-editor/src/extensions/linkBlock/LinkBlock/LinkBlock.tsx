@@ -6,6 +6,7 @@ import { Button, Popover, Icon, Menu } from '@brickdoc/design-system'
 import { Dashboard, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import 'react-medium-image-zoom/dist/styles.css'
 import './LinkBlock.css'
+import { WebsiteMeta } from '..'
 
 const IMPORT_SOURCES: ImportSourceOption[] = [
   {
@@ -19,9 +20,14 @@ const IMPORT_SOURCES: ImportSourceOption[] = [
 export interface LinkBlockAttributes {
   key: string
   source: string
+  title?: WebsiteMeta['title']
+  description?: WebsiteMeta['description']
+  cover?: WebsiteMeta['cover']
+  icon?: WebsiteMeta['icon']
 }
 
 export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, extension, updateAttributes }) => {
+  console.log(node)
   const latestLinkBlockAttributes = React.useRef<Partial<LinkBlockAttributes>>({})
   const updateLinkBlockAttributes = (newAttributes: Partial<LinkBlockAttributes>): void => {
     latestLinkBlockAttributes.current = {
@@ -38,6 +44,11 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
   }
 
   const onUploaded = (data: UploadResultData): void => {
+    extension.options.fetchWebsiteMeta(data.url).then(({ success, data }: { success: boolean; data: WebsiteMeta }) => {
+      if (!success) return
+      updateLinkBlockAttributes({ ...data })
+    })
+
     updateLinkBlockAttributes({ key: data.url, source: data.meta?.source.toUpperCase() })
   }
 
@@ -46,6 +57,9 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
     const handleDelete = (): void => {
       const from = getPos()
       editor.commands.deleteRange({ from, to: from + node.nodeSize })
+    }
+    const handleCopy = (): void => {
+      void navigator.clipboard.writeText(url)
     }
     return (
       <NodeViewWrapper>
@@ -64,16 +78,18 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
                   onClick={info => {
                     info.domEvent.stopPropagation()
                     handleDelete()
-                  }}>
+                  }}
+                >
                   <Icon.Delete />
                   Delete
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item onClick={handleCopy}>
                   <Icon.Copy />
                   Copy link
                 </Menu.Item>
               </Menu>
-            }>
+            }
+          >
             <Button type="text" className="link-block-menu-button" onClick={event => event.stopPropagation()}>
               <Icon.More className="link-block-menu-icon" />
             </Button>
@@ -89,7 +105,8 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
         overlayClassName="brickdoc-link-block-popover"
         trigger="click"
         placement="top"
-        content={<Dashboard onUploaded={onUploaded} importSources={IMPORT_SOURCES} />}>
+        content={<Dashboard onUploaded={onUploaded} importSources={IMPORT_SOURCES} />}
+      >
         <Button type="text" className="brickdoc-link-block-placeholder">
           <Icon.BlockLevelLink className="link-block-icon" />
           <div className="link-block-hint">Embed anything</div>

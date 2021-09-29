@@ -42,6 +42,7 @@ export const queryChildrenBlocks = gql`
       id
       sort
       parentId
+      deletedAt
       rootId
       blobs {
         blobKey
@@ -54,6 +55,7 @@ export const queryChildrenBlocks = gql`
       meta {
         title
         level
+        language
         image {
           type
           source
@@ -96,6 +98,14 @@ export const queryChildrenBlocks = gql`
             name
             emoji
           }
+        }
+        link {
+          key
+          type
+          source
+          cover
+          description
+          title
         }
       }
     }
