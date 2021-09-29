@@ -38,9 +38,6 @@ export const brickListExtension = Extension.create<brickListOptions>({
                 let deleteFrom = listItem.pos - 2
                 if (deleteFrom < 0) deleteFrom = 0
                 tr.delete(deleteFrom, listItem.start + listItemNode.nodeSize)
-                // console.log(listItem)
-                // console.log(selection.$from.nodeBefore)
-                console.log(listItem.pos)
                 const selection = Selection.findFrom(tr.doc.resolve(tr.mapping.map(listItem.pos, -1)), -1)
                 if (selection) tr.setSelection(selection)
                 if (dispatch) dispatch(tr.scrollIntoView())
