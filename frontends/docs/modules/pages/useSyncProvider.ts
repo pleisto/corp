@@ -109,7 +109,7 @@ export function useSyncProvider(setCommitting?: (value: boolean) => void): [(doc
       try {
         await blockSyncBatch({ variables: { input } })
       } catch (error) {
-        if (setCommitting) setCommitting(false)
+        setCommitting?.(false)
         throw error
       }
       if (setCommitting) setCommitting(false)
