@@ -68,6 +68,9 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
       })
 
       setAttachmentUrl('')
+      updateLinkBlockAttributes({ key: data.url, source: data.meta?.source.toUpperCase() }, 'link')
+
+      return
     }
 
     setAttachmentUrl(data.viewUrl ?? '')
@@ -79,6 +82,8 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
 
   const fileUrl = extension.options.getAttachmentUrl(node) || attachmentUrl
   const linkUrl = node.attrs.link?.key
+
+  console.log(fileUrl, linkUrl)
 
   if (fileUrl) {
     const { name, size } = node.attrs.attachment

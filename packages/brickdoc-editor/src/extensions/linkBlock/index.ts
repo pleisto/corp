@@ -49,7 +49,6 @@ export const LinkBlockExtension = Node.create<LinkBlockOptions>({
 
   addAttributes() {
     return {
-      ...this.parent?.(),
       link: {
         default: {
           type: 'LINK'

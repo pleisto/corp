@@ -11,7 +11,7 @@ describe('linkBlock', () => {
       cy.findByText('Embed anything').click()
       cy.findByPlaceholderText('Paste in https://...').focus().type('https://www.brickdoc.com')
       cy.findByText('Embed').click()
-      cy.get('.brickdoc-link-block').should('exist')
+      cy.get('.brickdoc-link-block-link').should('exist')
     })
 
     it('should delete link by clicking Delete button', () => {
@@ -21,10 +21,10 @@ describe('linkBlock', () => {
       cy.findByText('Embed anything').click()
       cy.findByPlaceholderText('Paste in https://...').focus().type('https://www.brickdoc.com')
       cy.findByText('Embed').click()
-      cy.get('.brickdoc-link-block').realHover()
+      cy.get('.brickdoc-link-block-link').realHover()
       cy.get('.link-block-menu-button').click()
       cy.findByText('Delete').click()
-      cy.get('.brickdoc-link-block').should('not.exist')
+      cy.get('.brickdoc-link-block-link').should('not.exist')
     })
 
     it('should copy link by clicking Copy button', () => {
@@ -39,7 +39,7 @@ describe('linkBlock', () => {
       cy.findByText('Embed anything').click()
       cy.findByPlaceholderText('Paste in https://...').focus().type(link)
       cy.findByText('Embed').click()
-      cy.get('.brickdoc-link-block').realHover()
+      cy.get('.brickdoc-link-block-link').realHover()
       cy.get('.link-block-menu-button').click()
       cy.findByText('Copy link').click()
       cy.get('@copy').should('be.calledWithExactly', link)
@@ -57,7 +57,7 @@ describe('linkBlock', () => {
       cy.findByText('Embed anything').click()
       cy.findByPlaceholderText('Paste in https://...').focus().type(link)
       cy.findByText('Embed').click()
-      cy.get('.brickdoc-link-block').click()
+      cy.get('.brickdoc-link-block-link').click()
       cy.window().its('open').should('be.calledWithExactly', link, '_blank')
     })
   })
