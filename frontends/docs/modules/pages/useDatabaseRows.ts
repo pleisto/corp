@@ -64,7 +64,7 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
         }
         const input: BlockUpdateInput = { block: blockArg, rootId: parentId }
         await blockUpdate({ variables: { input } })
-        if (setCommitting) setCommitting(false)
+        setCommitting?.(false)
       },
       [databaseRows, setDatabaseRows, parentId, blockUpdate]
     )
