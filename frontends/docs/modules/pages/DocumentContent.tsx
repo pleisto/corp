@@ -7,11 +7,19 @@ import { useSyncProvider } from './useSyncProvider'
 
 export const DocumentContent: React.FC = () => {
   const { webid, docid, snapshotVersion } = useParams<{ webid: string; docid: string | undefined; snapshotVersion: string | undefined }>()
-  const [onCommit, committing] = useSyncProvider()
+  const [committing, setCommitting] = React.useState(false)
+  const [onCommit] = useSyncProvider(setCommitting)
   return (
     <SidebarLayoutPage webid={webid} docid={docid}>
       <DocumentTopBar docid={docid} webid={webid} saving={committing} />
-      <DocumentPage webid={webid} docid={docid} editable={true} snapshotVersion={Number(snapshotVersion ?? '0')} onCommit={onCommit} />
+      <DocumentPage
+        webid={webid}
+        docid={docid}
+        editable={true}
+        snapshotVersion={Number(snapshotVersion ?? '0')}
+        onCommit={onCommit}
+        setCommitting={setCommitting}
+      />
     </SidebarLayoutPage>
   )
 }
