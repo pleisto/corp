@@ -112,7 +112,7 @@ export function useSyncProvider(setCommitting?: (value: boolean) => void): [(doc
         setCommitting?.(false)
         throw error
       }
-      if (setCommitting) setCommitting(false)
+      setCommitting?.(false)
     }
   ]
 }
