@@ -17,6 +17,7 @@ export const DocumentContent: React.FC = () => {
         docid={docid}
         snapshotVersion={Number(snapshotVersion ?? '0')}
         onCommit={onCommit}
+        editable={true}
         setCommitting={setCommitting}
       />
     </SidebarLayoutPage>

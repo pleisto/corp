@@ -17,7 +17,7 @@ interface DocumentPageProps {
   docid: string | undefined
   webid: string
   snapshotVersion: number
-  defaultEditable?: boolean
+  editable: boolean
   onCommit: (doc: Node) => Promise<void>
   setCommitting?: (value: boolean) => void
 }
@@ -27,6 +27,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({
   docid,
   snapshotVersion,
   defaultEditable = true,
+  editable,  
   onCommit,
   setCommitting
 }) => {
@@ -38,7 +39,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
   const fetchWebsiteMeta = useFetchWebsiteMeta()
-  const createImageUrlGetter =
+  const createFileUrlGetter =
     (field: string) =>
     (node: Node): string | undefined => {
       if (node.attrs[field]?.source === Filesourcetype.External) {
@@ -51,20 +52,22 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({
         return blob?.url
       }
     }
-  const getImageUrl = createImageUrlGetter('image')
-  const getPdfUrl = createImageUrlGetter('attachment')
+  const getImageUrl = createFileUrlGetter('image')
+  const getAttachmentUrl = createFileUrlGetter('attachment')
   const getDocIconUrl = (): string | undefined => {
     if (!editor || editor.isDestroyed) {
       return undefined
     }
-    return createImageUrlGetter('icon')(editor.state.doc)
+    return createFileUrlGetter('icon')(editor.state.doc)
   }
   const getDocCoverUrl = (): string | undefined => {
     if (!editor || editor.isDestroyed) {
       return undefined
     }
-    return createImageUrlGetter('cover')(editor.state.doc)
+    return createFileUrlGetter('cover')(editor.state.doc)
   }
+
+  const [isDeleted, setIsDeleted] = React.useState<boolean | undefined>(undefined)
 
   const editor = useEditor({
     onSave: onCommit,
@@ -73,25 +76,23 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({
     fetchUnsplashImages,
     fetchWebsiteMeta,
     getImageUrl,
-    getPdfUrl,
-    editable: defaultEditable
+    getAttachmentUrl,
+    editable: editable && !isDeleted
   })
 
-  const [editable, setEditable] = React.useState(defaultEditable)
+  React.useEffect(() => {
+    const block = data?.childrenBlocks?.find(block => block.id === docid)
 
-  const restorePrompt = React.useRef(<></>)
-  // NOTE Set `editable` flag to `false` and add `restore` prompt if root block is deleted.
-  if (docid && editable && data?.childrenBlocks?.length) {
-    const root = data.childrenBlocks.find(block => block.id === docid)
-    if (root?.deletedAt) {
-      restorePrompt.current = <TrashPrompt webid={webid} docid={docid} />
+    if (block) {
+      const deleted = !!block.deletedAt
+      setIsDeleted(deleted)
+
       if (editor) {
-        editor.options.editable = false
+        editor.options.editable = editable && !deleted
         editor.view.update(editor.view.props)
       }
-      setEditable(false)
     }
-  }
+  }, [data?.childrenBlocks, docid, editor, editable])
 
   const createDocAttrsUpdater =
     (field: string) =>
@@ -146,7 +147,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({
 
   const PageElement = (
     <>
-      {restorePrompt.current}
+      {docid && isDeleted && <TrashPrompt webid={webid} docid={docid} />}
       <div className={styles.page}>
         {DocumentTitleElement}
         <EditorContent editor={editor} />
