@@ -1,0 +1,67 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://api.openai.com/v1/answers
+      body:
+        encoding: UTF-8
+        string: '{"question":"what is the answer to the universe and everything?","documents":["The
+          number 42 is, in The Hitchhiker''s Guide to the Galaxy by Douglas Adams, the
+          \"Answer to the Ultimate Question of Life, the Universe, and Everything,\"
+          calculated by an enormous supercomputer named Deep Thought over a period of
+          7.5 million years."],"examples":[["where was Arthur Dent from?","UK"]],"examples_context":"
+          One of these was the Order for Destruction, which placed Arthur Dent''s home
+          at 155 Country Lane, Cottington, Cottingshire County, UK, and set the date
+          of the demolition (and thus the game events) on October 4th, 1982.","model":"davinci-instruct-beta"}'
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Content-Type:
+          - application/json
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 15:34:08 GMT
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '492'
+        Openai-Version:
+          - '2020-10-01'
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        X-Request-Id:
+          - bdda2bf986bfb55cc813cd6f38df3846
+        Openai-Processing-Ms:
+          - '2738'
+        Access-Control-Allow-Origin:
+          - '*'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: |
+          {
+            "answers": [
+              "42"
+            ],
+            "completion": "cmpl-3nVstsfrD8OF5dYTFRpOEKCNiAR5k",
+            "model": "if-davinci-v2",
+            "object": "answer",
+            "search_model": "ada",
+            "selected_documents": [
+              {
+                "document": 0,
+                "text": "The number 42 is, in The Hitchhiker's Guide to the Galaxy by Douglas Adams, the \"Answer to the Ultimate Question of Life, the Universe, and Everything,\" calculated by an enormous supercomputer named Deep Thought over a period of 7.5 million years. "
+              }
+            ]
+          }
+    recorded_at: Wed, 29 Sep 2021 15:34:08 GMT
+recorded_with: VCR 6.0.0

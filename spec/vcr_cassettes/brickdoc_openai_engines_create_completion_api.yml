@@ -1,0 +1,53 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://api.openai.com/v1/engines/davinci-instruct-beta/completions
+      body:
+        encoding: UTF-8
+        string: '{"prompt":"The personal computer was the bicycle of","max_tokens":1}'
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Content-Type:
+          - application/json
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 10:15:42 GMT
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '211'
+        Access-Control-Allow-Origin:
+          - '*'
+        Cache-Control:
+          - no-cache, must-revalidate
+        Openai-Model:
+          - if-davinci-v2
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        Openai-Processing-Ms:
+          - '85'
+        Openai-Version:
+          - '2020-10-01'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+        X-Request-Id:
+          - 4f6eca380242546c3d52ae81da05a52a
+      body:
+        encoding: UTF-8
+        string: '{"id": "cmpl-3nQukeGGtOdfb6Y8uBdJb5WVnC0GS", "object": "text_completion",
+          "created": 1632910542, "model": "if-davinci-v2", "choices": [{"text": " the",
+          "index": 0, "logprobs": null, "finish_reason": "length"}]}
+
+          '
+    recorded_at: Wed, 29 Sep 2021 10:15:42 GMT
+recorded_with: VCR 6.0.0

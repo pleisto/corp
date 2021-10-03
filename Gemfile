@@ -14,6 +14,7 @@ gem 'redis-namespace', '~> 1.8', '>= 1.8.1'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 gem 'connection_pool', '~> 2.2', '>= 2.2.5'
 gem 'faraday', '~> 1.8'
+gem 'faraday_middleware', '~> 1.1'
 gem 'typhoeus', '~> 1.4'
 gem 'oj'
 gem 'fast_blank', '>= 1.0', require: false

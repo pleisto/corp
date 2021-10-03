@@ -1,0 +1,114 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://api.openai.com/v1/engines
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 09:54:51 GMT
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '1493'
+        Openai-Version:
+          - '2020-10-01'
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        X-Request-Id:
+          - 2763917840d5fd32209a96fce6178ca7
+        Openai-Processing-Ms:
+          - '4161'
+        Access-Control-Allow-Origin:
+          - '*'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: |
+          {
+            "object": "list",
+            "data": [
+              {
+                "id": "ada",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              },
+              {
+                "id": "babbage",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              },
+              {
+                "id": "curie",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              },
+              {
+                "id": "curie-instruct-beta",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              },
+              {
+                "id": "davinci",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              },
+              {
+                "id": "davinci-instruct-beta",
+                "object": "engine",
+                "created": null,
+                "max_replicas": null,
+                "owner": "openai",
+                "permissions": null,
+                "ready": true,
+                "ready_replicas": null,
+                "replicas": null
+              }
+            ]
+          }
+    recorded_at: Wed, 29 Sep 2021 09:54:51 GMT
+recorded_with: VCR 6.0.0

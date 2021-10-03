@@ -1,0 +1,96 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://api.openai.com/v1/classifications
+      body:
+        encoding: UTF-8
+        string:
+          '{"query":"figma","examples":[["linux","software"],["salesforce","software"],["office","software"],["photoshop","software"],["keyboard","hardware"],["cpu","hardware"],["threadripper","hardware"],["google
+          pixel 6","hardware"]],"model":"davinci-instruct-beta"}'
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Content-Type:
+          - application/json
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 15:34:08 GMT
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '883'
+        Openai-Version:
+          - '2020-10-01'
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        X-Request-Id:
+          - c8215986542c4410aa74bd8e23ac4990
+        Openai-Processing-Ms:
+          - '212'
+        Access-Control-Allow-Origin:
+          - '*'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: |
+          {
+            "completion": "cmpl-3nVsui5xxdkonZjDKxmvymJryRgPa",
+            "label": "Software",
+            "model": "if-davinci-v2",
+            "object": "classification",
+            "search_model": "ada",
+            "selected_examples": [
+              {
+                "document": 7,
+                "label": "Hardware",
+                "text": "google pixel 6"
+              },
+              {
+                "document": 0,
+                "label": "Software",
+                "text": "linux"
+              },
+              {
+                "document": 2,
+                "label": "Software",
+                "text": "office"
+              },
+              {
+                "document": 3,
+                "label": "Software",
+                "text": "photoshop"
+              },
+              {
+                "document": 4,
+                "label": "Hardware",
+                "text": "keyboard"
+              },
+              {
+                "document": 5,
+                "label": "Hardware",
+                "text": "cpu"
+              },
+              {
+                "document": 6,
+                "label": "Hardware",
+                "text": "threadripper"
+              },
+              {
+                "document": 1,
+                "label": "Software",
+                "text": "salesforce"
+              }
+            ]
+          }
+    recorded_at: Wed, 29 Sep 2021 15:34:08 GMT
+recorded_with: VCR 6.0.0

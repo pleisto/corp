@@ -1,0 +1,54 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://api.openai.com/v1/engines/davinci
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 10:15:42 GMT
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '194'
+        Openai-Version:
+          - '2020-10-01'
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        X-Request-Id:
+          - 4b37da7749a29ebf7917fbb3c08c9167
+        Openai-Processing-Ms:
+          - '501'
+        Access-Control-Allow-Origin:
+          - '*'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: |
+          {
+            "id": "davinci",
+            "object": "engine",
+            "created": null,
+            "max_replicas": null,
+            "owner": "openai",
+            "permissions": null,
+            "ready": true,
+            "ready_replicas": null,
+            "replicas": null
+          }
+    recorded_at: Wed, 29 Sep 2021 10:15:41 GMT
+recorded_with: VCR 6.0.0
