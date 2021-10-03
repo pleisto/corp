@@ -479,10 +479,18 @@ function InternalTable<RecordType extends object = any>(props: TableProps<Record
 }
 
 const TableRef = React.forwardRef(InternalTable as React.ForwardRefRenderFunction<HTMLDivElement, TableProps<object>>)
+const ForwardTable = TableRef as <RecordType extends object = any>(
+  props: React.PropsWithChildren<TableProps<RecordType>> & { ref?: React.Ref<HTMLDivElement> }
+) => React.ReactElement
 
-type InternalTableType = typeof TableRef
+type InternalTableType = typeof ForwardTable
 
+<<<<<<< HEAD
 export interface TableInterface extends InternalTableType {
+=======
+interface TableInterface extends InternalTableType {
+  defaultProps?: Partial<TableProps<any>>
+>>>>>>> c7462dc (fix: fixed upgrade dependencies)
   SELECTION_ALL: 'SELECT_ALL'
   SELECTION_INVERT: 'SELECT_INVERT'
   SELECTION_NONE: 'SELECT_NONE'
@@ -491,7 +499,7 @@ export interface TableInterface extends InternalTableType {
   Summary: typeof Summary
 }
 
-const Table = TableRef as TableInterface
+const Table = ForwardTable as TableInterface
 
 Table.defaultProps = {
   rowKey: 'key'
