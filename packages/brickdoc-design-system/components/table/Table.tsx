@@ -485,12 +485,8 @@ const ForwardTable = TableRef as <RecordType extends object = any>(
 
 type InternalTableType = typeof ForwardTable
 
-<<<<<<< HEAD
 export interface TableInterface extends InternalTableType {
-=======
-interface TableInterface extends InternalTableType {
   defaultProps?: Partial<TableProps<any>>
->>>>>>> c7462dc (fix: fixed upgrade dependencies)
   SELECTION_ALL: 'SELECT_ALL'
   SELECTION_INVERT: 'SELECT_INVERT'
   SELECTION_NONE: 'SELECT_NONE'
