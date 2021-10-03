@@ -202,6 +202,8 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday_middleware (1.1.0)
+      faraday (~> 1.0)
     fast_blank (1.0.1)
     fast_underscore (0.3.2)
     ffaker (2.19.0)
@@ -522,6 +524,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7, >= 2.7.6)
   factory_bot_rails (>= 6.2)
   faraday (~> 1.8)
+  faraday_middleware (~> 1.1)
   fast_blank (>= 1.0)
   fast_underscore (>= 0.3.1)
   ffaker

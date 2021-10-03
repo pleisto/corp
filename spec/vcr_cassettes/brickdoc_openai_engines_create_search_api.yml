@@ -1,0 +1,77 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://api.openai.com/v1/engines/davinci-instruct-beta/search
+      body:
+        encoding: UTF-8
+        string: '{"documents":["Kasei Valles","Dublin","Great Wall","Tallinn","River
+          Liffey North"],"query":"China"}'
+      headers:
+        User-Agent:
+          - Faraday v1.8.0
+        Authorization:
+          - Bearer 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
+        Content-Type:
+          - application/json
+        Expect:
+          - ''
+    response:
+      status:
+        code: 200
+        message: ''
+      headers:
+        Date:
+          - Wed, 29 Sep 2021 10:15:42 GMT
+        Content-Type:
+          - application/json
+        Access-Control-Allow-Origin:
+          - '*'
+        Openai-Organization:
+          - user-yiyo6tzsbiil4q8yhkiupnek
+        Openai-Processing-Ms:
+          - '141'
+        Openai-Version:
+          - '2020-10-01'
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+        Vary:
+          - Accept-Encoding
+        X-Request-Id:
+          - 1146649e73238604649560102deb88fc
+      body:
+        encoding: UTF-8
+        string: |
+          {
+            "object": "list",
+            "data": [
+              {
+                "object": "search_result",
+                "document": 0,
+                "score": -116.465
+              },
+              {
+                "object": "search_result",
+                "document": 1,
+                "score": -20.934
+              },
+              {
+                "object": "search_result",
+                "document": 2,
+                "score": 589.379
+              },
+              {
+                "object": "search_result",
+                "document": 3,
+                "score": 12.302
+              },
+              {
+                "object": "search_result",
+                "document": 4,
+                "score": -212.266
+              }
+            ],
+            "model": "if-davinci-v2"
+          }
+    recorded_at: Wed, 29 Sep 2021 10:15:42 GMT
+recorded_with: VCR 6.0.0
