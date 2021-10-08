@@ -42,10 +42,16 @@ module Brickdoc
     end
 
     config.before_initialize do
+      ActiveSupport::Inflector.inflections do |inflect|
+        Packwerk::Inflections::Custom.new(
+          Rails.root.join('config', 'inflections.yml')
+        ).apply_to(inflect)
+      end
+
       loader = Zeitwerk::Loader.new
+      loader.inflector = Rails.autoloaders.main.inflector
       loader.push_dir Rails.root.join('lib')
       loader.setup
-      require_relative '../lib/brickdoc'
     end
 
     config.after_initialize do
@@ -59,3 +65,5 @@ module Brickdoc
     end
   end
 end
+
+require_relative '../lib/brickdoc'
