@@ -13,7 +13,7 @@ import {
 } from '@/BrickdocGraphQL'
 import { ShareLinkListItem } from '../ShareLinkListItem'
 import styles from './index.module.less'
-import { BrickdocContext } from '@/common/PWAProvider'
+import { BrickdocContext } from '@/BrickdocPWA'
 
 interface SharePopoverProps {
   webid: string

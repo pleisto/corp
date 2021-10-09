@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  extends: [path.join(__dirname, 'base'), 'plugin:jsx-a11y/recommended'],
+  extends: ['plugin:jsx-a11y/recommended', 'plugin:react/jsx-runtime', path.join(__dirname, 'base')],
   plugins: ['jsx-a11y', 'react', 'react-hooks'],
   settings: {
     react: {
@@ -27,8 +27,8 @@ module.exports = {
     'react/jsx-pascal-case': 'error',
     'react/no-children-prop': 'error',
     'react/prop-types': 'off',
-    'react/jsx-uses-react': 'error',
-    'react/react-in-jsx-scope': 'error',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
     'react/no-find-dom-node': 'error',
     'react/no-is-mounted': 'error',
     'react/no-multi-comp': 'off',
@@ -43,6 +43,7 @@ module.exports = {
     'react/void-dom-elements-no-children': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react/style-prop-object': 'error',
+    'react/no-namespace': 'warn',
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/media-has-caption': 'off'
   },

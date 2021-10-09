@@ -37,9 +37,9 @@ export const EmailPasswordSignIn: React.FC = () => {
         </Button>
       </Form.Item>
       <Form.Item className={styles.links}>
-        <Link to="/sign_up">{t('sessions.sign_up_with_email')}</Link>
+        <Link to="/accounts/sign_up">{t('sessions.sign_up_with_email')}</Link>
         <Divider type="vertical" />
-        <Link to="/password/forget">{t('sessions.forget_password')}</Link>
+        <Link to="/accounts/password/forget">{t('sessions.forget_password')}</Link>
       </Form.Item>
     </Form>
   )

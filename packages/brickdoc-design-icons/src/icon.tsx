@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactElement, createContext, useContext, useMemo } from 'react'
+import { HTMLAttributes, ReactElement, createContext, useContext, useMemo } from 'react'
 
 export type StrokeLinejoin = 'miter' | 'round' | 'bevel'
 export type StrokeLinecap = 'butt' | 'round' | 'square'

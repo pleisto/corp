@@ -1,8 +1,6 @@
 import React from 'react'
-import { DocumentProps } from 'react-pdf'
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { DocumentProps, Document, Page } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
-
 export interface PdfDocumentProps {
   file: File | string
   scale?: number

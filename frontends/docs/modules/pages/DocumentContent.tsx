@@ -4,7 +4,7 @@ import { SidebarLayoutPage } from '../common/layouts/SidebarLayoutPage'
 import { DocumentTopBar } from './DocumentTopBar'
 import { DocumentPage } from './DocumentPage'
 import { useSyncProvider } from './useSyncProvider'
-import { BrickdocContext } from '@/common/PWAProvider'
+import { BrickdocContext } from '@/BrickdocPWA'
 import { Policytype, useGetBlockPermissionQuery } from '@/BrickdocGraphQL'
 
 export const DocumentContent: React.FC = () => {

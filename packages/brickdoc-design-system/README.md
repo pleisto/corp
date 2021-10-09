@@ -3,6 +3,10 @@
 <div align="center">
 Forked From <a href="https://ant.design/" target="_blank">Ant Design</a>.
 </div>
+<br/><br/>
+At Brickdoc we are committed to enhancing human intelligence.
+
+Our design system helps us work together to build a great experience.
 
 ## 📦 Install
 

@@ -38,7 +38,7 @@ export const SidebarLayoutPage: React.FC<SidebarLayoutPageProps> = ({ webid, doc
       <Layout>
         {sider}
         <Content className={styles.content}>{children}</Content>
-        <aside className={styles.pluginBar}>&nbsp; Plugin &nbsp;</aside>
+        <aside className={styles.pluginBar}>&nbsp;&nbsp;</aside>
       </Layout>
     </div>
   )
