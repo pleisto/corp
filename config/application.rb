@@ -54,17 +54,15 @@ module Brickdoc
       loader.setup
     end
 
-    config.after_initialize do
+    initializer :load_plugins, after: :prepend_helpers_path, before: :load_config_initializers do
+      require_relative '../app/models/application_record'
+      require_relative '../app/models/brickdoc_config'
       BrickdocPlugin.load_plugins
 
       ## Enabled Global Plugin
       default_global_plugins = %i(google_auth github_auth)
       BrickdocConfig.on(:global) do
         default_global_plugins.each { |name| BrickdocPlugin.plugin(name).default_enabled! }
-      end
-
-      Devise.setup do |config|
-        BrickdocHook.trigger :omniauth_providers_setup, config
       end
     end
   end
