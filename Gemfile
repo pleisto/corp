@@ -69,6 +69,7 @@ gem 'brickdoc_settings', path: 'gems/brickdoc_settings'
 gem 'unsplash'
 
 gem 'console1984'
+gem 'audits1984'
 
 group :development, :test do
   gem 'cypress-on-rails', '~> 1.11.0'

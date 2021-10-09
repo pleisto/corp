@@ -44,6 +44,7 @@ module CurrentPod
   end
 
   def graphql?
+    return false unless request.path.start_with?("/.")
     internal_graphql_api_path == request.path
   end
 end

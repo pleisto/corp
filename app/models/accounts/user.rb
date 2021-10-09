@@ -85,6 +85,15 @@ class Accounts::User < ApplicationRecord
     email_required? ? super : false
   end
 
+  ## TODO
+  def admin?
+    true
+  end
+
+  def ensure_admin
+    admin? ? self : nil
+  end
+
   # User who authenticated with federated identity can still sign in even if their email is not confirmed.
   def confirmation_period_valid?
     email_required? ? super : true

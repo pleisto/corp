@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
     Current.user = current_user
     Current.pod = current_pod
   end
+
+  def find_current_auditor
+    Current.user&.ensure_admin
+  end
 end
