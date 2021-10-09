@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_09_073759) do
+ActiveRecord::Schema.define(version: 2021_10_09_083319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -86,6 +86,17 @@ ActiveRecord::Schema.define(version: 2021_10_09_073759) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "audits1984_audits", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.text "notes"
+    t.bigint "session_id", null: false
+    t.bigint "auditor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["auditor_id"], name: "index_audits1984_audits_on_auditor_id"
+    t.index ["session_id"], name: "index_audits1984_audits_on_session_id"
   end
 
   create_table "brickdoc_configs", force: :cascade do |t|
