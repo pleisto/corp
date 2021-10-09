@@ -48,9 +48,7 @@
             {
               "name": "message",
               "description": "Human-readable error message",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -62,9 +60,7 @@
             {
               "name": "reasons",
               "description": "Reasons of check failure",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "FailureReasons",
@@ -76,9 +72,7 @@
             {
               "name": "value",
               "description": "Result of applying a policy rule",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -93,9 +87,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -127,9 +119,7 @@
             {
               "name": "height",
               "description": "height",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -141,9 +131,7 @@
             {
               "name": "key",
               "description": "url or blob key",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -155,9 +143,7 @@
             {
               "name": "name",
               "description": "name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -169,9 +155,7 @@
             {
               "name": "size",
               "description": "size",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -183,9 +167,7 @@
             {
               "name": "source",
               "description": "source",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "ENUM",
                 "name": "Filesourcetype",
@@ -197,9 +179,7 @@
             {
               "name": "type",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -215,9 +195,7 @@
             {
               "name": "width",
               "description": "width",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -228,9 +206,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -242,9 +218,7 @@
             {
               "name": "canShow",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -259,9 +233,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -273,9 +245,7 @@
             {
               "name": "color",
               "description": "string",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -291,9 +261,7 @@
             {
               "name": "type",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -308,9 +276,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -406,9 +372,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -420,9 +384,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -445,9 +407,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -498,9 +458,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -512,9 +470,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -537,9 +493,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -606,9 +560,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -620,9 +572,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -645,9 +595,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -659,9 +607,7 @@
             {
               "name": "emoji",
               "description": "emoji",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -677,9 +623,7 @@
             {
               "name": "name",
               "description": "name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -695,9 +639,7 @@
             {
               "name": "type",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -712,9 +654,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -765,9 +705,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -779,9 +717,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -804,9 +740,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -839,9 +773,7 @@
             {
               "name": "height",
               "description": "height",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -853,9 +785,7 @@
             {
               "name": "key",
               "description": "key",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -867,9 +797,7 @@
             {
               "name": "name",
               "description": "name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -881,9 +809,7 @@
             {
               "name": "ratio",
               "description": "aspect ratio",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -895,9 +821,7 @@
             {
               "name": "size",
               "description": "size",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -909,9 +833,7 @@
             {
               "name": "source",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "ENUM",
                 "name": "Filesourcetype",
@@ -923,9 +845,7 @@
             {
               "name": "type",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -941,9 +861,7 @@
             {
               "name": "width",
               "description": "width",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -954,9 +872,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1119,9 +1035,7 @@
             {
               "name": "cover",
               "description": "cover",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1133,9 +1047,7 @@
             {
               "name": "description",
               "description": "description",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1147,9 +1059,7 @@
             {
               "name": "height",
               "description": "height",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -1161,9 +1071,7 @@
             {
               "name": "key",
               "description": "key",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1175,9 +1083,7 @@
             {
               "name": "name",
               "description": "name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1189,9 +1095,7 @@
             {
               "name": "size",
               "description": "size",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -1203,9 +1107,7 @@
             {
               "name": "source",
               "description": "source",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "ENUM",
                 "name": "Filesourcetype",
@@ -1217,9 +1119,7 @@
             {
               "name": "title",
               "description": "title",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1231,9 +1131,7 @@
             {
               "name": "type",
               "description": "type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1249,9 +1147,7 @@
             {
               "name": "width",
               "description": "width",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -1262,9 +1158,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1276,9 +1170,7 @@
             {
               "name": "attachment",
               "description": "attachment",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "BlockAttachment",
@@ -1290,9 +1182,7 @@
             {
               "name": "cover",
               "description": "cover",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "UNION",
                 "name": "BlockCover",
@@ -1304,9 +1194,7 @@
             {
               "name": "icon",
               "description": "icon",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "UNION",
                 "name": "BlockIcon",
@@ -1318,9 +1206,7 @@
             {
               "name": "image",
               "description": "image",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "BlockImage",
@@ -1332,9 +1218,7 @@
             {
               "name": "language",
               "description": "Prosemirror builtin language",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1346,9 +1230,7 @@
             {
               "name": "level",
               "description": "Prosemirror builtin level",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -1360,9 +1242,7 @@
             {
               "name": "link",
               "description": "link",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "BlockLink",
@@ -1374,9 +1254,7 @@
             {
               "name": "title",
               "description": "title",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1387,9 +1265,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1468,9 +1344,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1482,9 +1356,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1507,9 +1379,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1521,9 +1391,7 @@
             {
               "name": "id",
               "description": "icon",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1539,9 +1407,7 @@
             {
               "name": "text",
               "description": "cover",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1556,9 +1422,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1609,9 +1473,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1623,9 +1485,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1648,9 +1508,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1662,9 +1520,7 @@
             {
               "name": "createdAt",
               "description": "created at",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1680,9 +1536,7 @@
             {
               "name": "id",
               "description": "object unique id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1698,9 +1552,7 @@
             {
               "name": "name",
               "description": "Snapshot name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1716,9 +1568,7 @@
             {
               "name": "relativeTime",
               "description": "relative time",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1734,9 +1584,7 @@
             {
               "name": "snapshotVersion",
               "description": "Snapshot version",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1751,9 +1599,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1804,9 +1650,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1818,9 +1662,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1843,9 +1685,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1936,9 +1776,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1950,9 +1788,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1976,9 +1812,7 @@
             {
               "name": "refetchTree",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1993,9 +1827,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2062,9 +1894,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -2076,9 +1906,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2101,9 +1929,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2227,9 +2053,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -2241,9 +2065,7 @@
             {
               "name": "directUpload",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2259,9 +2081,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2284,9 +2104,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2393,9 +2211,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -2407,9 +2223,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2433,9 +2247,7 @@
             {
               "name": "pod",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "pod",
@@ -2446,9 +2258,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2460,9 +2270,7 @@
             {
               "name": "blobKey",
               "description": "Created blob record key",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2478,9 +2286,7 @@
             {
               "name": "headers",
               "description": "HTTP request headers (JSON-encoded)",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2496,9 +2302,7 @@
             {
               "name": "signedId",
               "description": "Blob signed id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2514,9 +2318,7 @@
             {
               "name": "uploadUrl",
               "description": "Upload URL",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2532,9 +2334,7 @@
             {
               "name": "viewUrl",
               "description": "View url",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2549,9 +2349,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2660,9 +2458,7 @@
             {
               "name": "details",
               "description": "JSON-encoded map of reasons",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2678,9 +2474,7 @@
             {
               "name": "fullMessages",
               "description": "Human-readable errors",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2703,9 +2497,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2790,9 +2582,7 @@
             {
               "name": "patches",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2816,9 +2606,7 @@
             {
               "name": "seq",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2834,9 +2622,7 @@
             {
               "name": "state",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2851,9 +2637,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2865,9 +2649,7 @@
             {
               "name": "id",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2883,9 +2665,7 @@
             {
               "name": "operatorId",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2901,9 +2681,7 @@
             {
               "name": "patchType",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2919,9 +2697,7 @@
             {
               "name": "path",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2945,9 +2721,7 @@
             {
               "name": "payload",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -2962,9 +2736,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3601,9 +3373,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3943,9 +3713,7 @@
             {
               "name": "federatedIdentitySession",
               "description": "provides a federated identity session data\nRequired `context[:entrypoints]` is `[:internal]`.\nRequired `context[:entrypoints]` is `[:internal]`.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -3961,9 +3729,7 @@
             {
               "name": "metadata",
               "description": "Return information about current Brickdoc server instance.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4049,9 +3815,7 @@
             {
               "name": "plugins",
               "description": "return all plugins for pod.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4116,9 +3880,7 @@
             {
               "name": "pods",
               "description": "return all pods for user.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4325,9 +4087,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4371,9 +4131,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4385,9 +4143,7 @@
             {
               "name": "key",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4403,9 +4159,7 @@
             {
               "name": "policy",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4421,9 +4175,7 @@
             {
               "name": "sharePodData",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4439,9 +4191,7 @@
             {
               "name": "shareWebid",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4457,9 +4207,7 @@
             {
               "name": "state",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4474,9 +4222,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4625,9 +4371,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4639,9 +4383,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4664,9 +4406,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4766,9 +4506,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4780,9 +4518,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4805,9 +4541,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4930,9 +4664,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4944,9 +4676,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4970,9 +4700,7 @@
             {
               "name": "isUserActive",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
@@ -4984,9 +4712,7 @@
             {
               "name": "redirectPath",
               "description": "redirect url path when sig up successful",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4997,9 +4723,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5082,9 +4806,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5096,9 +4818,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5122,9 +4842,7 @@
             {
               "name": "redirectPath",
               "description": "redirect url path when sign in successful",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5135,9 +4853,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5188,9 +4904,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5202,9 +4916,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5227,9 +4939,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5296,9 +5006,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5310,9 +5018,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5335,9 +5041,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5372,9 +5076,7 @@
             {
               "name": "clientMutationId",
               "description": "A unique identifier for the client performing the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5386,9 +5088,7 @@
             {
               "name": "errors",
               "description": "Errors encountered during execution of the mutation.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5411,9 +5111,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5462,9 +5160,7 @@
             {
               "name": "description",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5476,9 +5172,7 @@
             {
               "name": "locations",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5502,9 +5196,7 @@
             {
               "name": "name",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5520,9 +5212,7 @@
             {
               "name": "onField",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5538,9 +5228,7 @@
             {
               "name": "onFragment",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5556,9 +5244,7 @@
             {
               "name": "onOperation",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5573,9 +5259,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5706,9 +5390,7 @@
             {
               "name": "deprecationReason",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5720,9 +5402,7 @@
             {
               "name": "description",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5734,9 +5414,7 @@
             {
               "name": "isDeprecated",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5752,9 +5430,7 @@
             {
               "name": "name",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5769,9 +5445,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5820,9 +5494,7 @@
             {
               "name": "deprecationReason",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5834,9 +5506,7 @@
             {
               "name": "description",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5848,9 +5518,7 @@
             {
               "name": "isDeprecated",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5866,9 +5534,7 @@
             {
               "name": "name",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5884,9 +5550,7 @@
             {
               "name": "type",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5901,9 +5565,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -5915,9 +5577,7 @@
             {
               "name": "defaultValue",
               "description": "A GraphQL-formatted string representing the default value for this input value.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5929,9 +5589,7 @@
             {
               "name": "deprecationReason",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5943,9 +5601,7 @@
             {
               "name": "description",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -5957,9 +5613,7 @@
             {
               "name": "isDeprecated",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5975,9 +5629,7 @@
             {
               "name": "name",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5993,9 +5645,7 @@
             {
               "name": "type",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6010,9 +5660,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6024,9 +5672,7 @@
             {
               "name": "directives",
               "description": "A list of all directives supported by this server.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6050,9 +5696,7 @@
             {
               "name": "mutationType",
               "description": "If this server supports mutation, the type that mutation operations will be rooted at.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "__Type",
@@ -6064,9 +5708,7 @@
             {
               "name": "queryType",
               "description": "The type that query operations will be rooted at.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6082,9 +5724,7 @@
             {
               "name": "subscriptionType",
               "description": "If this server support subscription, the type that subscription operations will be rooted at.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "__Type",
@@ -6096,9 +5736,7 @@
             {
               "name": "types",
               "description": "A list of all types supported by this server.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6121,9 +5759,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6135,9 +5771,7 @@
             {
               "name": "description",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -6248,9 +5882,7 @@
             {
               "name": "interfaces",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6270,9 +5902,7 @@
             {
               "name": "kind",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6288,9 +5918,7 @@
             {
               "name": "name",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -6302,9 +5930,7 @@
             {
               "name": "ofType",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "__Type",
@@ -6316,9 +5942,7 @@
             {
               "name": "possibleTypes",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6337,9 +5961,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6410,9 +6032,7 @@
             {
               "name": "bio",
               "description": "the user's public profile bio",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -6424,9 +6044,7 @@
             {
               "name": "email",
               "description": "User's email address",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -6438,9 +6056,7 @@
             {
               "name": "id",
               "description": "object unique id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6456,9 +6072,7 @@
             {
               "name": "locale",
               "description": "User's preferred language",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6474,9 +6088,7 @@
             {
               "name": "name",
               "description": "Human-readable name of the user",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6492,9 +6104,7 @@
             {
               "name": "timezone",
               "description": "User's preferred timezone",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6510,9 +6120,7 @@
             {
               "name": "webid",
               "description": "Like a username, Unique within this instance of Brickdoc.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6527,9 +6135,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6541,9 +6147,7 @@
             {
               "name": "signedId",
               "description": "signed id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6559,9 +6163,7 @@
             {
               "name": "url",
               "description": "url",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6576,9 +6178,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6590,9 +6190,7 @@
             {
               "name": "blobKey",
               "description": "Blob key",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6608,9 +6206,7 @@
             {
               "name": "url",
               "description": "Blob url",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6625,9 +6221,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6639,9 +6233,7 @@
             {
               "name": "blobs",
               "description": "blobs",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6661,9 +6253,7 @@
             {
               "name": "collaborators",
               "description": "collaborators",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6683,9 +6273,7 @@
             {
               "name": "content",
               "description": "content",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6709,9 +6297,7 @@
             {
               "name": "data",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6727,9 +6313,7 @@
             {
               "name": "deletedAt",
               "description": "deleted_at",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
@@ -6741,9 +6325,7 @@
             {
               "name": "firstChildSort",
               "description": "block first child sort",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6759,9 +6341,7 @@
             {
               "name": "id",
               "description": "object unique id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6777,9 +6357,7 @@
             {
               "name": "meta",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6795,9 +6373,7 @@
             {
               "name": "nextSort",
               "description": "block next sort",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6813,9 +6389,7 @@
             {
               "name": "parentId",
               "description": "parent uuid",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
@@ -6827,9 +6401,7 @@
             {
               "name": "pathArray",
               "description": "path",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6853,9 +6425,7 @@
             {
               "name": "permissions",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6871,9 +6441,7 @@
             {
               "name": "rootId",
               "description": "root uuid",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6889,9 +6457,7 @@
             {
               "name": "sort",
               "description": "block sort",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6907,9 +6473,7 @@
             {
               "name": "text",
               "description": "text",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6925,9 +6489,7 @@
             {
               "name": "type",
               "description": "block type",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6942,9 +6504,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -6956,9 +6516,7 @@
             {
               "name": "accountsEmailPasswordAuth",
               "description": "Enable email and password authentication",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6974,9 +6532,7 @@
             {
               "name": "accountsFederatedProviders",
               "description": "Enabled federated identity providers",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6996,9 +6552,7 @@
             {
               "name": "accountsPreferredAuthMethod",
               "description": "Preferred Authentication authentication",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7014,9 +6568,7 @@
             {
               "name": "userAgreementLink",
               "description": "User agreement link",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7031,9 +6583,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7045,9 +6595,7 @@
             {
               "name": "logo",
               "description": "Provider Logo URI",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7063,9 +6611,7 @@
             {
               "name": "name",
               "description": "Provider Name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7080,9 +6626,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7094,9 +6638,7 @@
             {
               "name": "availableLocales",
               "description": "Current available locales.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7120,9 +6662,7 @@
             {
               "name": "config",
               "description": "Brickdoc Global Config",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7138,9 +6678,7 @@
             {
               "name": "id",
               "description": "object unique id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7155,9 +6693,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7169,9 +6705,7 @@
             {
               "name": "hasSession",
               "description": null,
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7187,9 +6721,7 @@
             {
               "name": "name",
               "description": "Human-readable name of the user",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7201,9 +6733,7 @@
             {
               "name": "provider",
               "description": "Provider Name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7215,9 +6745,7 @@
             {
               "name": "webid",
               "description": "Like a username, Unique within this instance of Brickdoc.",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7228,9 +6756,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7242,9 +6768,7 @@
             {
               "name": "enabled",
               "description": "Enabled",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7260,9 +6784,7 @@
             {
               "name": "logo",
               "description": "logo",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7278,9 +6800,7 @@
             {
               "name": "metadata",
               "description": "metadata",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7296,9 +6816,7 @@
             {
               "name": "name",
               "description": "Plugin Name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7314,9 +6832,7 @@
             {
               "name": "version",
               "description": "version",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7331,9 +6847,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7345,9 +6859,7 @@
             {
               "name": "avatarData",
               "description": "Pod Avatar",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "avatar",
@@ -7359,9 +6871,7 @@
             {
               "name": "bio",
               "description": "public profile bio",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7373,9 +6883,7 @@
             {
               "name": "email",
               "description": "owner email",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7387,9 +6895,7 @@
             {
               "name": "id",
               "description": "object unique id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7405,9 +6911,7 @@
             {
               "name": "name",
               "description": "Pod Name",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7419,9 +6923,7 @@
             {
               "name": "webid",
               "description": "Like a username, Unique within this instance of Brickdoc",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7436,9 +6938,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7450,9 +6950,7 @@
             {
               "name": "cover",
               "description": "preview cover",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7464,9 +6962,7 @@
             {
               "name": "description",
               "description": "preview description",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7482,9 +6978,7 @@
             {
               "name": "title",
               "description": "preview title",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7500,9 +6994,7 @@
             {
               "name": "url",
               "description": "preview url",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7517,9 +7009,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7531,9 +7021,7 @@
             {
               "name": "label",
               "description": "option label",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7549,9 +7037,7 @@
             {
               "name": "value",
               "description": "option value",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7566,9 +7052,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7580,9 +7064,7 @@
             {
               "name": "fullUrl",
               "description": "url for full size image",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7598,9 +7080,7 @@
             {
               "name": "height",
               "description": "Image height",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -7612,9 +7092,7 @@
             {
               "name": "id",
               "description": "Unsplash image id",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7630,9 +7108,7 @@
             {
               "name": "smallUrl",
               "description": "url for small size image",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7648,9 +7124,7 @@
             {
               "name": "username",
               "description": "username",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -7662,9 +7136,7 @@
             {
               "name": "width",
               "description": "Image width",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -7675,9 +7147,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7689,9 +7159,7 @@
             {
               "name": "message",
               "description": "error message",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7707,9 +7175,7 @@
             {
               "name": "success",
               "description": "Validate success",
-              "args": [
-
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7724,9 +7190,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": [
-
-          ],
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         }
@@ -7735,11 +7199,7 @@
         {
           "name": "include",
           "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "args": [
             {
               "name": "if",
@@ -7762,11 +7222,7 @@
         {
           "name": "skip",
           "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "args": [
             {
               "name": "if",
@@ -7789,12 +7245,7 @@
         {
           "name": "deprecated",
           "description": "Marks an element of a GraphQL schema as no longer supported.",
-          "locations": [
-            "FIELD_DEFINITION",
-            "ENUM_VALUE",
-            "ARGUMENT_DEFINITION",
-            "INPUT_FIELD_DEFINITION"
-          ],
+          "locations": ["FIELD_DEFINITION", "ENUM_VALUE", "ARGUMENT_DEFINITION", "INPUT_FIELD_DEFINITION"],
           "args": [
             {
               "name": "reason",

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Col, Divider, Dropdown, Menu, MenuProps, Modal, Row, Select, Spin, Tag } from '@brickdoc/design-system'
+import cx from 'classnames'
+import { Button, Dropdown, Menu, MenuProps, Modal, Icon, Select, Spin, Tag } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
-import { Help, LineDown } from '@brickdoc/design-icons'
 import {
   BlockCreateShareLinkInput,
   Policytype,
@@ -77,18 +77,20 @@ export const InviteModal: React.FC<InviteModalProps> = ({ webid, visible, blockI
 
   const menu = (
     <Menu onClick={onClickMenu} selectedKeys={[currentPolicy]}>
-      <Menu.Item key={Policytype.View} disabled={Policytype.View === currentPolicy}>
-        {t('invite.view_message')} <br /> {t('invite.view_message_description')}
+      <Menu.Item className={styles.menuItem} key={Policytype.View}>
+        <div className={styles.head}>{t('invite.view_message')}</div>
+        <div className={styles.desc}>{t('invite.view_message_description')}</div>
       </Menu.Item>
-      <Menu.Item key={Policytype.Edit} disabled={Policytype.Edit === currentPolicy}>
-        {t('invite.edit_message')} <br /> {t('invite.edit_message_description')}
+      <Menu.Item className={styles.menuItem} key={Policytype.Edit}>
+        <div className={styles.head}>{t('invite.edit_message')}</div>
+        <div className={styles.desc}>{t('invite.edit_message_description')}</div>
       </Menu.Item>
     </Menu>
   )
   const policyDropdown = (
-    <Dropdown overlay={menu} arrow={true}>
+    <Dropdown placement="bottomLeft" className={styles.policyDropdown} overlay={menu} arrow={true}>
       <div>
-        {policyMessage} <LineDown />
+        {policyMessage} <Icon.LineDown />
       </div>
     </Dropdown>
   )
@@ -117,9 +119,18 @@ export const InviteModal: React.FC<InviteModalProps> = ({ webid, visible, blockI
     )
   }
 
+  const dropdownRender = (node: React.ReactElement): React.ReactElement => (
+    <div className={styles.options}>
+      {options.length > 0 && <div className={styles.head}>Select a person</div>}
+      {node}
+    </div>
+  )
+
+  const inviteListRef = React.useRef<HTMLDivElement>(null)
+
   const selectData = (
     <Select
-      style={{ width: '100%' }}
+      className={styles.select}
       showSearch
       placeholder={t('invite.search')}
       mode="multiple"
@@ -127,8 +138,12 @@ export const InviteModal: React.FC<InviteModalProps> = ({ webid, visible, blockI
       labelInValue={true}
       value={podValue}
       notFoundContent={fetching ? <Spin size="small" /> : <span>{t('invite.type_hint')}</span>}
+      getPopupContainer={() => inviteListRef.current!}
+      dropdownClassName={styles.selectDropdown}
+      dropdownRender={dropdownRender}
       onSearch={debounceFetcher}
       tagRender={tagRender}
+      open={true}
       onChange={newValue => {
         setPodValue(newValue)
       }}>
@@ -141,29 +156,38 @@ export const InviteModal: React.FC<InviteModalProps> = ({ webid, visible, blockI
   )
 
   const inviteContent = (
-    <>
-      <div>
-        <Row>
-          <Col span={14}>{selectData}</Col>
-          <Col span={6} className={styles.center}>
-            {policyDropdown}
-          </Col>
-          <Col span={4} className={styles.center}>
-            <Button type="primary" onClick={onInviteClick} loading={inviteButtonLoading}>
-              {t('invite.button')}
-            </Button>
-          </Col>
-        </Row>
+    <div>
+      <div className={styles.header}>
+        <div className={cx(styles.input, { [styles.filled]: podValue.length > 0 })}>
+          {selectData}
+          {policyDropdown}
+          <Button className={styles.inviteButton} type="primary" onClick={onInviteClick} loading={inviteButtonLoading}>
+            {t('invite.button')}
+          </Button>
+        </div>
+      </div>
 
-        <Divider />
-        <Help />
+      <div ref={inviteListRef} className={styles.inviteList}>
+        <span className={styles.placeholder}>{t('invite.type_hint')}</span>
+      </div>
+
+      <div className={styles.footer}>
+        <Icon.Help />
         <span>{t('invite.learn')}</span>
       </div>
-    </>
+    </div>
   )
 
   return (
-    <Modal title={null} footer={null} closable={false} destroyOnClose={true} visible={visible} onOk={onCleanup} onCancel={onCleanup}>
+    <Modal
+      className={styles.modal}
+      title={null}
+      footer={null}
+      closable={false}
+      destroyOnClose={true}
+      visible={visible}
+      onOk={onCleanup}
+      onCancel={onCleanup}>
       {inviteContent}
     </Modal>
   )
