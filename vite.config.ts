@@ -17,7 +17,8 @@ export default defineConfig({
     VitePWA({})
   ],
   build: {
-    chunkSizeWarningLimit: 1024
+    chunkSizeWarningLimit: 1024,
+    sourcemap: false
   },
   optimizeDeps: {
     include: ['dayjs', 'react', 'react-dom']
