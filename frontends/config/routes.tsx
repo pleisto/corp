@@ -1,12 +1,13 @@
-import { FC } from 'react'
+import { FC, lazy } from 'react'
 import { Redirect } from 'react-router-dom'
 import { renderRoutes, RouteConfig, RouteConfigComponentProps } from 'react-router-config'
-import { PanelLayoutPage } from '@/accounts/modules/common/layouts/PanelLayoutPage'
-import { SignInPage } from '@/accounts/modules/sessions/SignInPage'
-import { SignUpPage } from '@/accounts/modules/sessions/SignUpPage'
-import { EditPasswordPage } from '@/accounts/modules/passwords/EditPasswordPage'
-import { ForgetPasswordPage } from '@/accounts/modules/passwords/ForgetPasswordPage'
-import { DocumentContent } from '@/docs/modules/pages/DocumentContent'
+import { PanelLayoutPage } from '@/accounts/common/layouts/PanelLayoutPage'
+
+const SignInPage = lazy(async () => await import('@/accounts/sessions/SignInPage'))
+const SignUpPage = lazy(async () => await import('@/accounts/sessions/SignUpPage'))
+const EditPasswordPage = lazy(async () => await import('@/accounts/passwords/EditPasswordPage'))
+const ForgetPasswordPage = lazy(async () => await import('@/accounts/passwords/ForgetPasswordPage'))
+const DocumentContentPage = lazy(async () => await import('@/docs/pages/DocumentContentPage'))
 
 interface routeRule extends RouteConfig {
   beforeAction?: FC<RouteConfigComponentProps> | undefined
@@ -70,24 +71,24 @@ export const routeConfig = (context: BrickdocContext): JSX.Element => {
       path: '/:webid/p/:docid',
       exact: true,
       beforeAction: authenticateUser,
-      component: DocumentContent
+      component: DocumentContentPage
     },
     {
       path: '/:webid/p/:docid/s/:snapshotVersion',
       exact: true,
       beforeAction: authenticateUser,
-      component: DocumentContent
+      component: DocumentContentPage
     },
     {
       path: '/:webid/p/:docid/l/:shareLink',
       exact: true,
-      component: DocumentContent
+      component: DocumentContentPage
     },
     {
       path: '/:webid',
       exact: true,
       beforeAction: authenticateUser,
-      component: DocumentContent
+      component: DocumentContentPage
     }
   ]
   return renderRoutes(generateRouteConfig(rules))

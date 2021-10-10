@@ -16,7 +16,8 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "incremental": true
+    "incremental": true,
+    "useDefineForClassFields": true
   },
   "exclude": ["**/*.stories.ts", "**/*.stories.tsx"]
 }

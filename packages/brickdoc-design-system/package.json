@@ -25,7 +25,7 @@
     "array-tree-filter": "^2.1.0",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "rc-cascader": "^2.1.0",
     "rc-checkbox": "^2.3.2",
     "rc-dialog": "^8.6.0",
@@ -55,8 +55,8 @@
   "devDependencies": {
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
-    "@types/lodash": "^4.14.175",
-    "date-fns": "^2.25.0",
+    "@types/lodash-es": "^4.17.5",
+    "dayjs": "^1.10.7",
     "i18next": "^21.2.4",
     "less": "^4.1.2",
     "react": "^17.0.2",
@@ -70,7 +70,7 @@
     "vite-plugin-react-pages": "^3.1.1"
   },
   "peerDependencies": {
-    "date-fns": "^2.23.0",
+    "dayjs": "^1.10.7",
     "i18next": "^21.2.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

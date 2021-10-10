@@ -67,3 +67,8 @@ const App = () => (
 ### 0.3.2
 
 - Sync of patches from Ant Design 4.17-alpha.5
+
+### 0.4.0
+
+- Migrating webpack to vite
+- Use `dayjs` instead of `date-fns`

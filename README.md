@@ -49,7 +49,7 @@ yarn test:cypress # open Cypress GUI
 yarn cleanup # clean up all the building artifacts / intermediates
 
 # webapp
-yarn start # start local dev server
+yarn start # start vite dev
 yarn dist # build dist
 yarn graphql # generate GraphQL schema and run graphql-codegen
 

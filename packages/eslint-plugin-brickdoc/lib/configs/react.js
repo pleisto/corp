@@ -49,10 +49,10 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.stories.js', '*.stories.jsx', '*.stories.ts', '*.stories.tsx'],
+      files: ['*Page.tsx'],
       rules: {
-        'import/no-default-export': 'off',
-        ...Object.fromEntries(Object.keys(require('eslint-plugin-jsx-a11y').rules).map(rule => [`jsx-a11y/${rule}`, 'off']))
+        // React.lazy
+        'import/no-default-export': 'off'
       }
     }
   ]

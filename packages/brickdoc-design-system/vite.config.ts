@@ -24,6 +24,10 @@ export default defineConfig({
     open: true
   },
   build: {
-    outDir: 'storybook-static'
+    outDir: 'storybook-static',
+    chunkSizeWarningLimit: 1024
+  },
+  optimizeDeps: {
+    include: ['dayjs', 'react', 'react-dom']
   }
 } as unknown as UserConfigExport)
