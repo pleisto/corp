@@ -13,7 +13,7 @@
   "scripts": {
     "postinstall": "husky install",
     "start": "yarn design-colors build && ./bin/vite dev",
-    "dist": "yarn design-colors build && ./bin/vite build",
+    "dist": "NODE_ENV=production yarn design-colors build && ./bin/vite build",
     "dist:prod": "RAILS_ENV=production yarn dist",
     "dist:test": "RAILS_ENV=test yarn dist",
     "analyze": "BUNDLE_ANALYZER=1 yarn dist:prod",
