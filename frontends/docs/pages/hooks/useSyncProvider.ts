@@ -153,7 +153,7 @@ export const blockToNode = (block: Block): JSONContent => {
   //   result.text = data.text
   // }
 
-  if (block?.content.length) {
+  if (block?.content?.length) {
     result.content = block.content
   }
 
@@ -174,6 +174,7 @@ export function useSyncProvider(setCommitting?: (value: boolean) => void): [(doc
       const blocks = nodeToBlock(doc, 0)
       const input: BlockSyncBatchInput = { blocks, rootId: doc.attrs.uuid, operatorId: globalThis.brickdocContext.uuid }
       try {
+        // console.log({ doc, blocks, label: 'sync' })
         const { data } = await blockSyncBatch({ variables: { input } })
         if (data?.blockSyncBatch?.refetchTree) {
           void client.refetchQueries({ include: [queryPageBlocks] })
