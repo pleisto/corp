@@ -108,13 +108,11 @@ export const matches = {
 
 export const COLUMN_TYPE: Array<{
   type: TableColumnType
-  label: string
   icon: React.ComponentType
   matches: MatchType[]
 }> = [
   {
     type: 'text',
-    label: 'Text',
     icon: Icon.AddText,
     matches: [
       matches.Is,
@@ -129,13 +127,11 @@ export const COLUMN_TYPE: Array<{
   },
   {
     type: 'select',
-    label: 'Select',
     icon: Icon.ArrowCircleDown,
     matches: [matches.Is, matches.IsNot, matches.IsEmpty, matches.IsNotEmpty]
   },
   {
     type: 'date',
-    label: 'Date',
     icon: Icon.Calendar,
     matches: [
       matches.IsOn,
@@ -150,7 +146,6 @@ export const COLUMN_TYPE: Array<{
   },
   {
     type: 'date-range',
-    label: 'Date range',
     icon: Icon.Calendar,
     matches: [
       matches.IsOn,

@@ -59,7 +59,7 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ webid, docid, sa
         {saving && (
           <div className={styles.loading}>
             <img className={styles.loadingIcon} src={loadingIcon} alt="" />
-            <span>Saving</span>
+            <span>{t('saving')}</span>
           </div>
         )}
       </div>
