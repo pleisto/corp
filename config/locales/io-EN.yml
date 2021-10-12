@@ -624,6 +624,11 @@ io-EN:
     saving: crwdns2897:0crwdne2897:0
     user_setting:
       text: crwdns2899:0crwdne2899:0
+      general: crwdns3225:0crwdne3225:0
+      member: crwdns3227:0crwdne3227:0
+      account: crwdns3229:0crwdne3229:0
+    pod_setting:
+      text: crwdns3231:0crwdne3231:0
     anonymous:
       edit_button: crwdns2901:0crwdne2901:0
     search:
@@ -632,7 +637,6 @@ io-EN:
     blocks:
       create_pages: crwdns2907:0crwdne2907:0
       delete: crwdns2909:0crwdne2909:0
-      create_sub_block: crwdns2911:0crwdne2911:0
     trash:
       name: crwdns2913:0crwdne2913:0
       all_pages: crwdns2915:0crwdne2915:0
@@ -666,10 +670,6 @@ io-EN:
       view_message: crwdns2967:0crwdne2967:0
       view_message_description: crwdns2969:0crwdne2969:0
       remove_message: crwdns2971:0crwdne2971:0
-    sub_blocks:
-      title: crwdns2973:0crwdne2973:0
-      create:
-        success: crwdns2975:0crwdne2975:0
     snapshots:
       name: crwdns2977:0crwdne2977:0
       restore: crwdns2979:0crwdne2979:0
@@ -688,16 +688,16 @@ io-EN:
       update:
         success: crwdns2999:0crwdne2999:0
     menu:
-      create_new_pod: crwdns3001:0crwdne3001:0
-      edit_profile: crwdns3003:0crwdne3003:0
-      pod_profile: crwdns3005:0crwdne3005:0
+      create_new_pod: crwdns3233:0crwdne3233:0
       logout: crwdns3007:0crwdne3007:0
     title:
       add_icon: crwdns3009:0crwdne3009:0
       add_cover: crwdns3011:0crwdne3011:0
-      placeholder: crwdns3013:0crwdne3013:0
+      change_cover: crwdns3235:0crwdne3235:0
+      reposition: crwdns3237:0crwdne3237:0
+      untitled: crwdns3239:0crwdne3239:0
   editor:
-    placeholder: crwdns3015:0crwdne3015:0
+    placeholder: crwdns3241:0crwdne3241:0
     slashmenu:
       heading: crwdns3017:0crwdne3017:0
       items:
