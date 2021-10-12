@@ -159,7 +159,7 @@ zh-CN:
         accounts/user:
           attributes:
             password:
-              too_short: too short
+              too_short: 过短
         doorkeeper/application:
           attributes:
             redirect_uri:
@@ -232,30 +232,30 @@ zh-CN:
   datetime:
     distance_in_words:
       about_x_hours:
-        other: about %{count} hours
+        other: 大约 %{count} 小时
       about_x_months:
-        other: about %{count} months
+        other: 大约 %{count} 个月
       about_x_years:
-        other: about %{count} years
+        other: 大约 %{count} 年
       almost_x_years:
-        other: almost %{count} years
-      half_a_minute: half a minute
+        other: 将近 %{count} 年
+      half_a_minute: 30 秒
       less_than_x_seconds:
-        other: less than %{count} seconds
+        other: 小于 %{count} 秒
       less_than_x_minutes:
-        other: less than %{count} minutes
+        other: 不到 %{count} 分钟
       over_x_years:
-        other: over %{count} years
+        other: '%{count} 年以上'
       x_seconds:
-        other: '%{count} seconds'
+        other: '%{count} 秒'
       x_minutes:
-        other: '%{count} minutes'
+        other: '%{count} 分钟'
       x_days:
-        other: '%{count} days'
+        other: '%{count} 天'
       x_months:
-        other: '%{count} months'
+        other: '%{count} 个月'
       x_years:
-        other: '%{count} years'
+        other: '%{count} 年'
     prompts:
       second: Second
       minute: Minute
@@ -267,7 +267,7 @@ zh-CN:
     format: '%{attribute} %{message}'
     graphql:
       docs:
-        initialized_not_yet_completed: Initialized not yet completed
+        initialized_not_yet_completed: 初始化尚未完成
     messages:
       already_confirmed: was already confirmed, please try signing in
       confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
@@ -277,7 +277,7 @@ zh-CN:
       not_saved:
         other: '%{count} errors prohibited this %{resource} from being saved:'
       is_not_valid_webid: 'WebID "%{webid}" is not available'
-      is_not_valid_email: 'Email "%{email}" is not available'
+      is_not_valid_email: '邮箱“%{email}”不可用'
       send_interval: Sending interval is too short, please try again after 1 minute
       accepted: must be accepted
       blank: can't be blank
@@ -293,11 +293,11 @@ zh-CN:
       less_than: must be less than %{count}
       less_than_or_equal_to: must be less than or equal to %{count}
       model_invalid: 'Validation failed: %{errors}'
-      email_invalid: is not an email
-      webid_invalid: is not a webid
-      uuid_invalid: is not an uuid
-      mobile_phone_invalid: is not a valid mobile phone number
-      webid_presence_invalid: is not presence
+      email_invalid: 不是有效的电子邮件地址
+      webid_invalid: 不是有效的 webid
+      uuid_invalid: 不是有效的 uuid
+      mobile_phone_invalid: 不是有效的手机号码
+      webid_presence_invalid: 不存在
       not_a_number: is not a number
       not_an_integer: must be an integer
       odd: must be odd
@@ -456,7 +456,7 @@ zh-CN:
       help:
         confidential: 'Application will be used where the client secret can be kept confidential. Native mobile apps and Single Page Apps are considered non-confidential.'
         redirect_uri: 'Use one line per URI'
-        blank_redirect_uri: "Leave it blank if you configured your provider to use Client Credentials, Resource Owner Password Credentials or any other grant type that doesn't require redirect URI."
+        blank_redirect_uri: "如果将提供程序配置为使用客户端凭据、资源所有者密码凭据或任何其他不需要重定向 URI 的授予类型，请将其留空。"
         scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
       edit:
         title: 'Edit application'
@@ -466,7 +466,7 @@ zh-CN:
         name: 'Name'
         callback_url: 'Callback URL'
         actions: 'Actions'
-        confidential: 'Confidential?'
+        confidential: '保密的'
         confidentiality:
           'yes': 'Yes'
           'no': 'No'
@@ -477,7 +477,7 @@ zh-CN:
         application_id: 'UID'
         secret: 'Secret'
         scopes: 'Scopes'
-        confidential: 'Confidential'
+        confidential: '保密的'
         callback_urls: 'Callback urls'
         actions: 'Actions'
     authorizations:
@@ -523,13 +523,13 @@ zh-CN:
         #Common error messages
         invalid_request:
           unknown: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
-          missing_param: 'Missing required parameter: %{value}.'
-          request_not_authorized: 'Request need to be authorized. Required parameter for authorizing request is missing or invalid.'
+          missing_param: '缺少必需的参数：%{value}。'
+          request_not_authorized: '请求需要授权。但授权请求所需的参数丢失或无效。'
         invalid_redirect_uri: "The requested redirect uri is malformed or doesn't match client redirect URI."
         unauthorized_client: 'The client is not authorized to perform this request using this method.'
         access_denied: 'The resource owner or authorization server denied the request.'
         invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
-        invalid_code_challenge_method: 'The code challenge method must be plain or S256.'
+        invalid_code_challenge_method: '代码质询方法必须是 plain 或 S256。'
         server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
         temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
         #Configuration error messages
@@ -547,7 +547,7 @@ zh-CN:
           expired: 'The access token expired'
           unknown: 'The access token is invalid'
         revoke:
-          unauthorized: 'You are not authorized to revoke this token'
+          unauthorized: '您无权撤销此令牌'
     flash:
       applications:
         create:
@@ -596,249 +596,249 @@ zh-CN:
     common:
       confirm_not_match: '%{field} and confirm %{field} do not match'
     errors:
-      invalid_operation_type: 'Invalid operation type'
-      invalid_pod_webid: 'No access to the webid'
-      pod_has_already_switched: 'Pod has already switched'
-      pod_exist: 'Pod has already exist'
-      user_not_exist: "User doesn't exist"
-      pod_not_exist: "Pod doesn't exist"
+      invalid_operation_type: '无效的实体类型'
+      invalid_pod_webid: '无访问权限'
+      pod_has_already_switched: 'Pod 已切换'
+      pod_exist: 'Pod 已经存在'
+      user_not_exist: "用户不存在"
+      pod_not_exist: "Pod 不存在"
   docs:
     app_title: Brickdoc
-    saving: Saving
+    saving: 保存中
     user_setting:
-      text: User Setting
+      text: 用户设置
+      general: General
+      member: Member
+      account: Account
+    pod_setting:
+      text: Pod Setting
     anonymous:
       edit_button: Edit
     search:
-      text: Quick Find
-      placeholder: Search Pages
+      text: 快速查找
+      placeholder: 搜索页面
     blocks:
       create_pages: Add Pages
       delete: Delete
-      create_sub_block: Create Sub Block
     trash:
-      name: Trash
-      all_pages: All pages
-      current_page: In current page
-      search: Filter by page title...
-      not_found: No match found.
-      learn: Learn about deleting and restoring pages
-      delete_confirmation_body: Are you sure you want to delete this page permanently?
-      delete_confirmation_ok: Delete Page
+      name: 回收站
+      all_pages: 所有页面
+      current_page: 当前页面
+      search: 按页面标题过滤...
+      not_found: 未找到匹配项
+      learn: 了解如何删除和恢复页面
+      delete_confirmation_body: 您确定要永久删除此页面吗？
+      delete_confirmation_ok: 删除页面
       delete_confirmation_cancel: Cancel
-      in_trash_prompt: This page is in trash.
-      restore_action: Restore page
-      hard_delete_action: Delete permanently
+      in_trash_prompt: 此页面已在回收站中。
+      restore_action: 还原页面
+      hard_delete_action: 永久删除
     share:
-      menu: Share
-      share_to_web: Share to web
-      share_to_web_description: Publish and share link with anyone
-      allow_edit: Allow edit
-      learn: Learn about sharing
-      copy_link_button: Copy link
-      invite_placeholder: Add people, emails, groups, or intergrations
-      invite_button: Invite
+      menu: 分享
+      share_to_web: 分享到网页
+      share_to_web_description: 发布并与任何人共享链接
+      allow_edit: 允许编辑
+      learn: 了解共享
+      copy_link_button: 复制链接
+      invite_placeholder: 添加人员、电子邮件、群组或集成
+      invite_button: 邀请
       copy: Copy
     invite:
-      learn: Learn how to invite people and set permissions
-      type_hint: Type or paste in Email above, separated by commas.
-      search: Search Emails, names
-      button: Invite
-      edit_message: Can edit
-      edit_message_description: Can edit, but not share with others.
-      view_message: Can view
-      view_message_description: Cannot edit or share with others.
+      learn: 了解如何邀请他人和设置权限
+      type_hint: 在上方输入或粘贴Email 地址，以逗号分隔。
+      search: 搜索电子邮件、姓名
+      button: 邀请
+      edit_message: 允许编辑
+      edit_message_description: 可以编辑，但不能再次共享给其他人。
+      view_message: 允许查看
+      view_message_description: 不能编辑或与他人共享。
       remove_message: Remove
-    sub_blocks:
-      title: Title
-      create:
-        success: Create sub block successfully
     snapshots:
       name: Snapshot
-      restore: Restore version
+      restore: 还原此版本
       cancel: Cancel
-      empty: Version history is empty
+      empty: 版本历史为空
     pods:
       webid: WebID
       name: Name
-      bio: Bio
-      avatar: Avatar
+      bio: 个人简介
+      avatar: 头像
       required:
-        webid: WebID is required
-        name: Name is required
+        webid: WebID是必需的
+        name: 名称是必需的
       create:
-        success: Create successfully.
+        success: 创建成功。
       update:
-        success: Update successfully.
+        success: 更新成功。
     menu:
-      create_new_pod: Create a new pod
-      edit_profile: Edit profile
-      pod_profile: Profile
+      create_new_pod: Create other pod
       logout: Logout
     title:
-      add_icon: Add icon
-      add_cover: Add cover
-      placeholder: Untitled
+      add_icon: 添加图标
+      add_cover: 添加封面
+      change_cover: Change cover
+      reposition: Reposition
+      untitled: Untitled
   editor:
-    placeholder: Enter Text
+    placeholder: Type '/' for commands
     slashmenu:
       heading: Brickdoc
       items:
         h1:
-          title: Heading 1
+          title: 一级标题
           desc: Big section heading
         h2:
-          title: Heading 2
+          title: 二级标题
           desc: Medium section heading
         h3:
-          title: Heading 3
+          title: 三级标题
           desc: Small section heading
         h4:
-          title: Heading 4
+          title: 四级标题
           desc: Small section heading
         h5:
-          title: Heading 5
+          title: 五级标题
           desc: Small section heading
         bulletlist:
-          title: Bulleted List
-          desc: Create a bulleted list
+          title: 无序列表
+          desc: 创建无序列表
         orderedlist:
-          title: Numbered List
-          desc: Create a list with numbering
+          title: 有序列表
+          desc: 创建有序列表
         pdf:
           title: PDF
-          desc: Embed a PDF
+          desc: 嵌入 PDF
         embed:
-          title: Embed
+          title: 嵌入
           desc: For PDFs and more
         image:
-          title: Image
-          desc: Upload or embed with a link
+          title: 图片
+          desc: 上传或嵌入链接
         table:
-          title: Table
-          desc: Creat a table in this page
+          title: 表格
+          desc: 在页面中创建表格
     bubblemenu:
       items:
         bold:
-          desc: Bold
+          desc: 粗体
         italic:
-          desc: Italic
+          desc: 斜体
         underline:
-          desc: Underline
+          desc: 下划线
         strike:
-          desc: Strike-through
+          desc: 删除线
         h1:
-          desc: Heading 1
+          desc: 一级标题
         h2:
-          desc: Heading 2
+          desc: 二级标题
         h3:
-          desc: Heading 3
+          desc: 三级标题
         h4:
-          desc: Heading 4
+          desc: 四级标题
         h5:
-          desc: Heading 5
+          desc: 五级标题
         bulletlist:
-          desc: Bullet-list
+          desc: 无序列表
         orderedlist:
-          desc: Ordered-list
+          desc: 有序列表
         link:
-          desc: Link
-          link_placeholder: Paste link
-          linked_to: Linked to
-          web_page: web page
-          copy_link: Copy link
-          remove_link: Remove link
-          link_to_url: Link to url
+          desc: 链接
+          link_placeholder: 粘贴链接
+          linked_to: 链接到
+          web_page: 网页
+          copy_link: 复制链接
+          remove_link: 删除链接
+          link_to_url: 链接到URL
         fontcolor:
-          desc: Font-color
+          desc: 字体颜色
     image_section:
-      hint: Add an image
+      hint: 添加图片
       import_sources:
         link:
-          placeholder: Paste the image link...
-          button_text: Embed image
-          button_hint: Works with any image from the web
+          placeholder: 粘贴图片链接...
+          button_text: 嵌入图像
+          button_hint: 适用于任何来自网页的图像
         upload:
-          button_text: Choose an image
+          button_text: 选择图片
     link_block:
       delete: Delete
-      copy_link: Copy link
-      hint: Embed anything
+      copy_link: 复制链接
+      hint: 嵌入任何内容
       import_sources:
         link:
           placeholder: Paste in https://...
-          button_text: Embed
+          button_text: 嵌入
           button_hint: Works with Block-level link projects
         upload:
-          button_text: Choose an file
-          button_hint: Recommended size is 5MB
+          button_text: 选择文件
+          button_hint: 建议大小为 5MB
     pdf_section:
-      hint: Embed a PDF
+      hint: 嵌入 PDF
       import_sources:
         upload:
-          button_text: Choose an file
+          button_text: 选择文件
         link:
           placeholder: Paste in https://...
-          button_text: Embed PDF
-          button_hint: Embed a PDF file
+          button_text: 嵌入 PDF
+          button_hint: 嵌入 PDF 文件
     table:
       new_row:
-        text: New
+        text: 新建
       remove_row:
         text: Delete
-        title: Are you sure you want to delete this row?
+        title: 您确定要删除此行吗？
         ok: Delete
         cancel: Cancel
       remove_column:
         text: Delete
-        title: Are you sure you want to delete this property?
+        title: 您确定要删除此属性吗？
         ok: Delete
         cancel: Cancel
-      column_default_name: Column
-      column_type: Property Type
+      column_default_name: 列
+      column_type: 属性类型
       column_types:
         basic: Basic
-        text: Text
-        select: Select
-        date: Date
-        date-range: Date Range
+        text: 文本
+        select: 下拉列表
+        date: 日期
+        date-range: 日期范围
       filter:
-        text: Filter
-        title: Filter for My All Data
+        text: 筛选
+        title: 筛选我的所有数据
         remove: Remove
-        duplicate: Duplicate
+        duplicate: 复制
         where: Where
-        add_a_filter: Add a filter
-        add_a_filter_group: Add a filter group
+        add_a_filter: 添加筛选
+        add_a_filter_group: 添加筛选组
         add_a_filter_group_desc: A group to nest more filters
         hint: |
-          Use a filter to:
-          Show tasks assigned to me.
-          Show only notes with a certain tag.
-          Hide completed tasks.
+          使用过滤器来：
+          显示分配给我的任务。
+          只显示带有特定标签的笔记。
+          隐藏已完成的任务。
         collection_types:
-          intersection: And
-          union: Or
+          intersection: 和
+          union: 或
         matches:
-          is: Is
-          is_not: Is not
-          is_on: Is
-          is_not_on: Is not
+          is: 是
+          is_not: 不是
+          is_on: 是
+          is_not_on: 不是
           is_before: Is before
           is_after: Is After
           is_on_or_before: Is on or before
           is_on_or_after: Is on or after
-          contains: Contains
-          does_not_contain: Does not contain
-          starts_with: Starts with
-          ends_with: Ends with
-          is_empty: Is empty
-          is_not_empty: Is not empty
+          contains: 包含
+          does_not_contain: 不包含
+          starts_with: 开头为
+          ends_with: 结尾为
+          is_empty: 是空的
+          is_not_empty: 不为空
       sort:
         text: Sort
-        title: Sort for My All Data
+        title: 为我的所有数据排序
         hint: |
-          Use a sort to:
-          Order tasks by priority.
-          Show notes by creation date.
-          Show recently contacted customers.
+          使用排序来：
+          按优先级排序任务。
+          按创建日期显示笔记。
+          显示最近联系过的客户。
