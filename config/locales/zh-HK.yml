@@ -159,7 +159,7 @@ zh-HK:
         accounts/user:
           attributes:
             password:
-              too_short: too short
+              too_short: 太短
         doorkeeper/application:
           attributes:
             redirect_uri:
@@ -232,30 +232,30 @@ zh-HK:
   datetime:
     distance_in_words:
       about_x_hours:
-        other: about %{count} hours
+        other: 大約 %{count} 個小時
       about_x_months:
-        other: about %{count} months
+        other: 大約 %{count} 個月
       about_x_years:
-        other: about %{count} years
+        other: 大約 %{count} 年
       almost_x_years:
-        other: almost %{count} years
-      half_a_minute: half a minute
+        other: 將近 %{count} 年
+      half_a_minute: 半分鐘
       less_than_x_seconds:
-        other: less than %{count} seconds
+        other: 小於 %{count} 秒
       less_than_x_minutes:
-        other: less than %{count} minutes
+        other: 不到 %{count} 分鐘
       over_x_years:
-        other: over %{count} years
+        other: 超過 %{count} 年
       x_seconds:
-        other: '%{count} seconds'
+        other: '%{count} 秒'
       x_minutes:
-        other: '%{count} minutes'
+        other: '%{count} 分鐘'
       x_days:
-        other: '%{count} days'
+        other: '%{count} 天'
       x_months:
-        other: '%{count} months'
+        other: '%{count} 個月'
       x_years:
-        other: '%{count} years'
+        other: '%{count} 年'
     prompts:
       second: Second
       minute: Minute
@@ -465,11 +465,11 @@ zh-HK:
         new: 'New Application'
         name: 'Name'
         callback_url: 'Callback URL'
-        actions: 'Actions'
+        actions: '操作'
         confidential: 'Confidential?'
         confidentiality:
-          'yes': 'Yes'
-          'no': 'No'
+          'yes': '是'
+          'no': '否'
       new:
         title: 'New Application'
       show:
@@ -479,7 +479,7 @@ zh-HK:
         scopes: 'Scopes'
         confidential: 'Confidential'
         callback_urls: 'Callback urls'
-        actions: 'Actions'
+        actions: '操作'
     authorizations:
       buttons:
         authorize: 'Authorize'
@@ -607,6 +607,11 @@ zh-HK:
     saving: Saving
     user_setting:
       text: User Setting
+      general: General
+      member: Member
+      account: Account
+    pod_setting:
+      text: Pod Setting
     anonymous:
       edit_button: Edit
     search:
@@ -615,44 +620,39 @@ zh-HK:
     blocks:
       create_pages: Add Pages
       delete: Delete
-      create_sub_block: Create Sub Block
     trash:
-      name: Trash
+      name: 垃圾箱
       all_pages: All pages
       current_page: In current page
       search: Filter by page title...
       not_found: No match found.
       learn: Learn about deleting and restoring pages
       delete_confirmation_body: Are you sure you want to delete this page permanently?
-      delete_confirmation_ok: Delete Page
+      delete_confirmation_ok: 刪除頁面
       delete_confirmation_cancel: Cancel
       in_trash_prompt: This page is in trash.
       restore_action: Restore page
       hard_delete_action: Delete permanently
     share:
-      menu: Share
+      menu: 分享
       share_to_web: Share to web
       share_to_web_description: Publish and share link with anyone
       allow_edit: Allow edit
       learn: Learn about sharing
       copy_link_button: Copy link
       invite_placeholder: Add people, emails, groups, or intergrations
-      invite_button: Invite
+      invite_button: 邀請
       copy: Copy
     invite:
       learn: Learn how to invite people and set permissions
       type_hint: Type or paste in Email above, separated by commas.
       search: Search Emails, names
-      button: Invite
+      button: 邀請
       edit_message: Can edit
       edit_message_description: Can edit, but not share with others.
       view_message: Can view
       view_message_description: Cannot edit or share with others.
       remove_message: Remove
-    sub_blocks:
-      title: Title
-      create:
-        success: Create sub block successfully
     snapshots:
       name: Snapshot
       restore: Restore version
@@ -662,7 +662,7 @@ zh-HK:
       webid: WebID
       name: Name
       bio: Bio
-      avatar: Avatar
+      avatar: 頭像
       required:
         webid: WebID is required
         name: Name is required
@@ -671,16 +671,16 @@ zh-HK:
       update:
         success: Update successfully.
     menu:
-      create_new_pod: Create a new pod
-      edit_profile: Edit profile
-      pod_profile: Profile
+      create_new_pod: Create other pod
       logout: Logout
     title:
       add_icon: Add icon
       add_cover: Add cover
-      placeholder: Untitled
+      change_cover: Change cover
+      reposition: Reposition
+      untitled: Untitled
   editor:
-    placeholder: Enter Text
+    placeholder: Type '/' for commands
     slashmenu:
       heading: Brickdoc
       items:
@@ -767,7 +767,7 @@ zh-HK:
       import_sources:
         link:
           placeholder: Paste in https://...
-          button_text: Embed
+          button_text: 內嵌
           button_hint: Works with Block-level link projects
         upload:
           button_text: Choose an file
@@ -783,7 +783,7 @@ zh-HK:
           button_hint: Embed a PDF file
     table:
       new_row:
-        text: New
+        text: 新增
       remove_row:
         text: Delete
         title: Are you sure you want to delete this row?
@@ -794,19 +794,19 @@ zh-HK:
         title: Are you sure you want to delete this property?
         ok: Delete
         cancel: Cancel
-      column_default_name: Column
+      column_default_name: 列
       column_type: Property Type
       column_types:
         basic: Basic
-        text: Text
-        select: Select
-        date: Date
+        text: 文本
+        select: 選擇
+        date: 日期
         date-range: Date Range
       filter:
-        text: Filter
+        text: 篩選
         title: Filter for My All Data
         remove: Remove
-        duplicate: Duplicate
+        duplicate: 複製 
         where: Where
         add_a_filter: Add a filter
         add_a_filter_group: Add a filter group
@@ -817,8 +817,8 @@ zh-HK:
           Show only notes with a certain tag.
           Hide completed tasks.
         collection_types:
-          intersection: And
-          union: Or
+          intersection: 和
+          union: 或
         matches:
           is: Is
           is_not: Is not
