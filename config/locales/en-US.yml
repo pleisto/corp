@@ -700,7 +700,7 @@ en-US:
       add_cover: Add cover
       placeholder: Untitled
   editor:
-    placeholder: Enter Text
+    placeholder: Type '/' for commands
     slashmenu:
       heading: Brickdoc
       items:
