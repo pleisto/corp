@@ -797,7 +797,10 @@ en-US:
           button_text: Embed PDF
           button_hint: Embed a PDF file
     table:
+      new_row:
+        text: New
       remove_row:
+        text: Delete
         title: Are you sure you want to delete this row?
         ok: Delete
         cancel: Cancel
@@ -806,6 +809,7 @@ en-US:
         title: Are you sure you want to delete this property?
         ok: Delete
         cancel: Cancel
+      column_default_name: Column
       column_type: Property Type
       column_types:
         basic: Basic
@@ -813,3 +817,43 @@ en-US:
         select: Select
         date: Date
         date-range: Date Range
+      filter:
+        text: Filter
+        title: Filter for My All Data
+        remove: Remove
+        duplicate: Duplicate
+        where: Where
+        add_a_filter: Add a filter
+        add_a_filter_group: Add a filter group
+        add_a_filter_group_desc: A group to nest more filters
+        hint: |
+          Use a filter to:
+          Show tasks assigned to me.
+          Show only notes with a certain tag.
+          Hide completed tasks.
+        collection_types:
+          intersection: And
+          union: Or
+        matches:
+          is: Is
+          is_not: Is not
+          is_on: Is
+          is_not_on: Is not
+          is_before: Is before
+          is_after: Is After
+          is_on_or_before: Is on or before
+          is_on_or_after: Is on or after
+          contains: Contains
+          does_not_contain: Does not contain
+          starts_with: Starts with
+          ends_with: Ends with
+          is_empty: Is empty
+          is_not_empty: Is not empty
+      sort:
+        text: Sort
+        title: Sort for My All Data
+        hint: |
+          Use a sort to:
+          Order tasks by priority.
+          Show notes by creation date.
+          Show recently contacted customers.
