@@ -61,6 +61,11 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
               title: 'Task name',
               type: 'text',
               key: uuid()
+            },
+            {
+              title: 'Task description',
+              type: 'text',
+              key: uuid()
             }
           ]
         }
