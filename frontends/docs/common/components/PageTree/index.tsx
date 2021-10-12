@@ -1,23 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGetPageBlocksQuery, useBlockMoveMutation, BlockMoveInput, Block, Blocktype, BlockEmoji } from '@/BrickdocGraphQL'
 import { Skeleton, Tree, TreeProps } from '@brickdoc/design-system'
 import { array2Tree } from '@/utils'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '@/docs/pages/hooks/useSyncProvider'
 import { queryPageBlocks } from '../../graphql'
-import styles from './PageTree.module.css'
+import styles from './PageTree.module.less'
 
 interface PageTreeProps {
   webid: string
+  docid: string | undefined
 }
 
-export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
+export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
   const { data } = useGetPageBlocksQuery({ variables: { webid } })
-  const [blockMove] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
+  const [blockMove, { loading }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
+  const [draggable, setDraggable] = useState<boolean>(true)
 
-  if (!data?.pageBlocks) {
+  if (loading) {
     return <Skeleton />
   }
+
+  const pageBlocks = data?.pageBlocks ?? []
 
   const getTitle = (block: Block): string => {
     const emoji = block.meta.icon?.type === Blocktype.Emoji ? (block.meta.icon as BlockEmoji).emoji : ''
@@ -31,7 +35,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
     }
   }
 
-  const flattedData = data.pageBlocks
+  const flattedData = pageBlocks
     .map(b => {
       // const data: BlockData = i.data
       const title = getTitle(b as Block)
@@ -51,6 +55,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
 
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
     let targetParentId: string | undefined | null, sort: number
+    setDraggable(false)
 
     const node = attrs.node as unknown as Block & { key: string }
     // Check if is root node
@@ -72,9 +77,13 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid }) => {
       input.targetParentId = targetParentId
     }
     await blockMove({ variables: { input } })
+    setDraggable(true)
   }
 
   const treeData = array2Tree(flattedData, { id: 'key' })
+  const selectedKeys = docid ? [docid] : []
 
-  return <Tree className={styles.tree} treeData={treeData} defaultExpandAll draggable onDrop={onDrop} />
+  return (
+    <Tree className={styles.tree} selectedKeys={selectedKeys} treeData={treeData} defaultExpandAll draggable={draggable} onDrop={onDrop} />
+  )
 }

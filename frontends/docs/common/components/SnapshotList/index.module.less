@@ -1,3 +1,4 @@
+@import '@brickdoc/design-system/components/style/themes/index';
 .row {
   height: 70vh;
 }
@@ -7,11 +8,10 @@
   flex-direction: row;
 
   .contentWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 4;
-
-    .content {
-      padding-left: 90px;
-    }
   }
 
   .side {
@@ -73,7 +73,7 @@
   .desc {
     font-size: 12px;
     line-height: 16px;
-    color: #bfbcc6;
+    color: @deep-purple-3;
     max-width: 20em;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_062653) do
+ActiveRecord::Schema.define(version: 2021_10_11_124328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2021_09_28_062653) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["accounts_user_id"], name: "index_accounts_federated_identities_on_accounts_user_id"
     t.index ["provider", "uid"], name: "index_accounts_federated_identities_on_provider_and_uid", unique: true
+  end
+
+  create_table "accounts_members", force: :cascade do |t|
+    t.bigint "pod_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "role", null: false
+    t.integer "state", default: 0, null: false
+    t.index ["pod_id"], name: "index_accounts_members_on_pod_id"
+    t.index ["user_id"], name: "index_accounts_members_on_user_id"
   end
 
   create_table "accounts_users", force: :cascade do |t|
@@ -190,11 +201,33 @@ ActiveRecord::Schema.define(version: 2021_09_28_062653) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "invite_enable", default: false, null: false
+    t.string "invite_secret"
     t.index "lower((webid)::text)", name: "index_pods_on_lower_webid_text", unique: true
     t.index ["deleted_at"], name: "index_pods_on_deleted_at"
+    t.index ["invite_secret"], name: "index_pods_on_invite_secret", unique: true
     t.index ["owner_id"], name: "index_pods_on_owner_id"
+  end
+
+  create_table "stafftools_role_assignments", force: :cascade do |t|
+    t.bigint "accounts_user_id", null: false
+    t.bigint "stafftools_role_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["accounts_user_id"], name: "index_stafftools_role_assignments_on_accounts_user_id"
+    t.index ["stafftools_role_id"], name: "index_stafftools_role_assignments_on_stafftools_role_id"
+  end
+
+  create_table "stafftools_roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "permissions", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_stafftools_roles_on_name", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "stafftools_role_assignments", "accounts_users"
+  add_foreign_key "stafftools_role_assignments", "stafftools_roles"
 end
