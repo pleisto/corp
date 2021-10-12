@@ -78,6 +78,7 @@
 .brk-btn.brickdoc-link-block-link {
   position: relative;
   background: #f6f6f6;
+  border: none;
   border-radius: 4px;
   width: 100%;
   height: auto;
