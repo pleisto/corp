@@ -101,10 +101,27 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
   }
 
   const pageBlocks = data?.pageBlocks ?? []
-  // TODO filter pin blocks
-  const pinBlocks = pageBlocks.filter(block => pinIds.includes(block.id))
+
+  const recursionFilter = (blocks: BlockType[], cursor: string): BlockType[] => {
+    return blocks.filter(block => block.parentId === cursor).flatMap(child => recursionFilter(blocks, child.id).concat([child]))
+  }
+  const pinRootBlocks: BlockType[] = pageBlocks.filter(block => pinIds.includes(block.id)).map(block => ({ ...block, parentId: undefined }))
+  const pinChildrenBlocks = pinRootBlocks.map(block => block.id).flatMap(id => recursionFilter(pageBlocks, id))
+
   const pageTreeData = treeDataSkelecton(pageBlocks, true)
-  const pinTreeData = treeDataSkelecton(pinBlocks, false)
+  const pinBlocks = pinRootBlocks.concat(pinChildrenBlocks)
+  const pinTreeIds = pinBlocks.map(block => block.id)
+  const pinTreeBlocks = pageBlocks
+    .filter(block => pinTreeIds.includes(block.id))
+    .map(block => {
+      if (pinIds.includes(block.id) && block.parentId && !pinTreeIds.includes(block.parentId)) {
+        return { ...block, parentId: undefined }
+      } else {
+        return block
+      }
+    })
+
+  const pinTreeData = treeDataSkelecton(pinTreeBlocks, false)
   const selectedKeys = docid ? [docid] : []
 
   const pinTree = pinIds.length ? (
