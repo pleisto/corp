@@ -17,7 +17,7 @@ module Brickdoc
       filename = blob.filename_in_database.presence || "unknown"
       signed_id = blob.signed_id
 
-      p = params.merge({filename: filename, signed_id: signed_id})
+      p = params.merge({ filename: filename, signed_id: signed_id })
 
       if public?(blob.service_name)
         ## NOTE CDN
