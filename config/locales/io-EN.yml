@@ -637,6 +637,10 @@ io-EN:
     blocks:
       create_pages: crwdns2907:0crwdne2907:0
       delete: crwdns2909:0crwdne2909:0
+      copy_link: crwdns3273:0crwdne3273:0
+      copy_link_hint: crwdns3275:0crwdne3275:0
+      rename: crwdns3277:0crwdne3277:0
+      more: crwdns3279:0crwdne3279:0
     trash:
       name: crwdns2913:0crwdne2913:0
       all_pages: crwdns2915:0crwdne2915:0
@@ -787,8 +791,14 @@ io-EN:
         upload:
           button_text: crwdns3109:0crwdne3109:0
     link_block:
-      delete: crwdns3111:0crwdne3111:0
-      copy_link: crwdns3113:0crwdne3113:0
+      copy_hint: crwdns3281:0crwdne3281:0
+      deletion_confirm:
+        title: crwdns3283:0crwdne3283:0
+        ok: crwdns3285:0crwdne3285:0
+        cancel: crwdns3287:0crwdne3287:0
+      menu:
+        copy: crwdns3289:0crwdne3289:0
+        delete: crwdns3291:0crwdne3291:0
       hint: crwdns3115:0crwdne3115:0
       import_sources:
         link:
