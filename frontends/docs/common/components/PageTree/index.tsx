@@ -11,10 +11,12 @@ import { useDocsI18n } from '../../hooks'
 interface PageTreeProps {
   webid: string
   docid: string | undefined
+  pinIds: string[]
 }
 
-export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
+export const PageTree: React.FC<PageTreeProps> = ({ webid, docid, pinIds }) => {
   const { data } = useGetPageBlocksQuery({ variables: { webid } })
+
   const [blockMove, { loading }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
   const { t } = useDocsI18n()
@@ -41,6 +43,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
     .map(b => {
       // const data: BlockData = i.data
       const title = getTitle(b as Block)
+      const pin = pinIds.includes(b.id)
       return {
         key: b.id,
         value: b.id,
@@ -50,7 +53,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
         nextSort: b.nextSort,
         firstChildSort: b.firstChildSort,
         titleText: title,
-        title: <PageMenu docid={docid} id={b.id} title={title} titleText={b.text} webid={webid} />
+        title: <PageMenu docid={docid} pin={pin} id={b.id} title={title} titleText={b.text} webid={webid} />
       }
     })
     .sort((a, b) => Number(a.sort) - Number(b.sort))
