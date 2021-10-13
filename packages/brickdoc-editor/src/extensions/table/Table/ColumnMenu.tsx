@@ -69,7 +69,7 @@ export const ColumnMenu: React.FC<ColumnMenuProps> = ({
                 title={
                   <>
                     {React.createElement(currentColumnType.icon)}
-                    <span>{currentColumnType.type}</span>
+                    <span>{t(`table.column_types.${currentColumnType.type}`)}</span>
                   </>
                 }
               >

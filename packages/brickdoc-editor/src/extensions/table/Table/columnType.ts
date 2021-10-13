@@ -70,7 +70,7 @@ export const matches = {
     executor: isOnOrBefore
   },
   IsOnOrAfter: {
-    key: 'is_on_or_before',
+    key: 'is_on_or_after',
     value: 'IsOnOrAfter',
     executor: isOnOrAfter
   },
