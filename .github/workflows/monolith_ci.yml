@@ -273,12 +273,12 @@ jobs:
         run: yarn graphql
       - name: Run DB migrations
         run: bundle exec rails db:prepare
-      - name: Run front end compilation
-        run: yarn dist
       - name: Start the Rails server
         run: bundle exec rails s -p 3000 > log/std.log 2>&1 &
         env:
           CYPRESS: 1
+      - name: Run front end compilation
+        run: yarn dist
       - name: Ensure the server is running
         run: curl http://localhost:3000/accounts/sign_in -I
       - name: Run Cypress tests
