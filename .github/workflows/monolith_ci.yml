@@ -235,6 +235,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2 # To retrieve the preceding commit.
+      - name: Make directories
+        run: mkdir -p log
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -329,7 +331,7 @@ jobs:
         with:
           name: cypress-rails-logs
           retention-days: 20
-          path: log/*.log
+          path: log/test.log
       - name: Upload cypress screenshots (when failed)
         if: failure()
         uses: actions/upload-artifact@v2
