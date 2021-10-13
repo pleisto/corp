@@ -275,8 +275,6 @@ jobs:
         run: bundle exec rails db:prepare
       - name: Run front end compilation
         run: yarn dist
-      - name: Copy to vite-test
-        run: cp -R esm-bundle vite-test
       - name: Start the Rails server
         run: bundle exec rails s -p 3000 > log/std.log 2>&1 &
         env:

@@ -9,7 +9,6 @@
     "port": 3036
   },
   "test": {
-    "autoBuild": false,
-    "publicOutputDir": "vite-test"
+    "autoBuild": false
   }
 }
