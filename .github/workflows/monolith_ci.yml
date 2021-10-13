@@ -274,7 +274,7 @@ jobs:
       - name: Run DB migrations
         run: bundle exec rails db:prepare
       - name: Run front end compilation
-        run: yarn dist
+        run: yarn dist:prod
       - name: Start the Rails server
         run: bundle exec rails s -p 3000 > log/std.log 2>&1 &
         env:
