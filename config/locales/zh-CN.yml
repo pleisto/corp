@@ -620,6 +620,10 @@ zh-CN:
     blocks:
       create_pages: Add Pages
       delete: Delete
+      copy_link: 复制链接
+      copy_link_hint: Link copied
+      rename: Rename
+      more: Delete, Duplicate, and more...
     trash:
       name: 回收站
       all_pages: 所有页面
@@ -770,8 +774,14 @@ zh-CN:
         upload:
           button_text: 选择图片
     link_block:
-      delete: Delete
-      copy_link: 复制链接
+      copy_hint: link copied
+      deletion_confirm:
+        title: 您确定要删除此属性吗？
+        ok: Delete
+        cancel: Cancel
+      menu:
+        copy: 复制链接
+        delete: Remove
       hint: 嵌入任何内容
       import_sources:
         link:
