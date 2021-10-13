@@ -65,7 +65,7 @@ export const matches = {
     executor: isAfter
   },
   IsOnOrBefore: {
-    label: 'Is on or before',
+    key: 'is_on_or_before',
     value: 'IsOnOrBefore',
     executor: isOnOrBefore
   },
