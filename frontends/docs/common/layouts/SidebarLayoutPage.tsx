@@ -9,7 +9,6 @@ import { TrashButton } from '../components/TrashButton'
 import { NewPage } from '../components/NewPage'
 import { headerBarVar } from '@/docs/common/reactiveVars'
 import styles from './styles.module.less'
-import { useGetBlockPinsQuery } from '@/BrickdocGraphQL'
 import { PinList } from '../components/PinList'
 interface SidebarLayoutPageProps {
   webid: string
@@ -20,9 +19,6 @@ interface SidebarLayoutPageProps {
 export const SidebarLayoutPage: React.FC<SidebarLayoutPageProps> = ({ webid, docid, isAnonymous, children }) => {
   const { t } = useDocsI18n()
   const { Sider, Content, Header } = Layout
-  const { data: pin } = useGetBlockPinsQuery()
-  const pins = pin?.blockPins ?? []
-  const pinIds = pins.map(pin => pin.blockId)
 
   const sider = isAnonymous ? (
     <></>
@@ -32,8 +28,7 @@ export const SidebarLayoutPage: React.FC<SidebarLayoutPageProps> = ({ webid, doc
       <SearchModal webid={webid} />
 
       <div className={styles.scrollArea}>
-        <PinList webid={webid} docid={docid} pins={pins} />
-        <PageTree webid={webid} docid={docid} pinIds={pinIds} />
+        <PageTree webid={webid} docid={docid} />
         <TrashButton webid={webid} docid={docid} />
       </div>
       <div className={styles.siderFooter}>

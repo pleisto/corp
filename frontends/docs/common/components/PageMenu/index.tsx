@@ -22,12 +22,13 @@ interface PageMenuProps {
   webid: string
   id: UUID
   title: Scalars['String']
+  enableMenu: boolean
   titleText: string
   pin: boolean
   docid: string | undefined
 }
 
-export const PageMenu: React.FC<PageMenuProps> = ({ docid, webid, id, pin, title, titleText }) => {
+export const PageMenu: React.FC<PageMenuProps> = ({ docid, webid, id, pin, enableMenu, title, titleText }) => {
   const [blockSoftDelete] = useBlockSoftDeleteMutation({ refetchQueries: [queryPageBlocks, queryChildrenBlocks] })
   const history = useHistory()
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
@@ -164,11 +165,20 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docid, webid, id, pin, title
     </Menu>
   )
 
+  const linkData = <Link to={`/${webid}/p/${id}`}>{title}</Link>
+  if (!enableMenu) {
+    return (
+      <>
+        <div className={styles.menu}>{linkData}</div>
+      </>
+    )
+  }
+
   return (
     <>
       <Dropdown trigger={['contextMenu']} overlay={menu} visible={dropdownVisible} onVisibleChange={setDropdownVisible}>
         <div className={styles.menu}>
-          <Link to={`/${webid}/p/${id}`}>{title}</Link>
+          {linkData}
           <Tooltip title={t('blocks.more')}>
             <Button className={styles.moreBtn} type="text" onClick={onClickAddButton}>
               <More />
