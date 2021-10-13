@@ -274,7 +274,7 @@ jobs:
       - name: Run DB migrations
         run: bundle exec rails db:prepare
       - name: Start the Rails server
-        run: bundle exec rails s -p 3000 &
+        run: bundle exec rails s -p 3000 > log/std.log &
         env:
           CYPRESS: 1
       - name: Run front end compilation
@@ -331,7 +331,7 @@ jobs:
         with:
           name: cypress-rails-logs
           retention-days: 20
-          path: log/test.log
+          path: log/*.log
       - name: Upload cypress screenshots (when failed)
         if: failure()
         uses: actions/upload-artifact@v2
