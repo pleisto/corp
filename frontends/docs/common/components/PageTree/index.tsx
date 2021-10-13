@@ -103,12 +103,14 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
   const pageBlocks = data?.pageBlocks ?? []
 
   const recursionFilter = (blocks: BlockType[], cursor: string): BlockType[] => {
+    if (!cursor) {
+      return []
+    }
     return blocks.filter(block => block.parentId === cursor).flatMap(child => recursionFilter(blocks, child.id).concat([child]))
   }
-  const pinRootBlocks: BlockType[] = pageBlocks.filter(block => pinIds.includes(block.id)).map(block => ({ ...block, parentId: undefined }))
+  const pinRootBlocks: BlockType[] = pageBlocks.filter(block => pinIds.includes(block.id))
   const pinChildrenBlocks = pinRootBlocks.map(block => block.id).flatMap(id => recursionFilter(pageBlocks, id))
 
-  const pageTreeData = treeDataSkelecton(pageBlocks, true)
   const pinBlocks = pinRootBlocks.concat(pinChildrenBlocks)
   const pinTreeIds = pinBlocks.map(block => block.id)
   const pinTreeBlocks = pageBlocks
@@ -121,6 +123,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ webid, docid }) => {
       }
     })
 
+  const pageTreeData = treeDataSkelecton(pageBlocks, true)
   const pinTreeData = treeDataSkelecton(pinTreeBlocks, false)
   const selectedKeys = docid ? [docid] : []
 
