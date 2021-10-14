@@ -14,8 +14,7 @@ describe('tableBlockSort', () => {
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
-    // with default 2 columns, no need to add more
-    // cy.get('.table-block-select-cell:last').click()
+    cy.get('.table-block-select-cell:last').click()
     // add new select option
     cy.focused().type('new option 2{Enter}')
     cy.focused().type('new option{Enter}')

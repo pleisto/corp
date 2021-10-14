@@ -15,8 +15,7 @@ describe('tableBlockFilter', () => {
     cy.findByText('Select').click({ force: true })
 
     // add date column
-    // with default 2 columns, no need to add more
-    // cy.get('.table-block-th:last > button').click()
+    cy.get('.table-block-th:last > button').click()
     // change to date type
     cy.findByText('Column2').click()
     cy.findAllByText('Text').last().click()
@@ -67,7 +66,7 @@ describe('tableBlockFilter', () => {
 
   it('should allow three level nested filter group', () => {
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter group').click()
     cy.get('.table-toolbar-item-group-panel.cascade .table-toolbar-item-footer-button').click()
     cy.findAllByText('Add a filter group').click({ multiple: true, force: true })
@@ -81,7 +80,7 @@ describe('tableBlockFilter', () => {
 
   it('should remove filter option', () => {
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
 
     cy.get('.table-toolbar-item-option').should('have.length', 1)
@@ -94,7 +93,7 @@ describe('tableBlockFilter', () => {
 
   it('should duplicate filter option', () => {
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
 
     cy.get('.table-toolbar-item-option').should('have.length', 1)
@@ -109,7 +108,7 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
     cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('{Enter}')
@@ -118,7 +117,7 @@ describe('tableBlockFilter', () => {
     cy.focused().type('Is{Enter}')
     cy.findByPlaceholderText('Value').type('text2')
 
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
 
     // And
@@ -146,7 +145,7 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
     cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('{Enter}')
@@ -208,7 +207,7 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
     cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('Column1{Enter}')
@@ -246,7 +245,7 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
     cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('Column2{Enter}')
@@ -345,7 +344,7 @@ describe('tableBlockFilter', () => {
     cy.get('.table-block-tbody > .table-block-row').should('have.length', 2)
 
     cy.findByText('Filter').click()
-    cy.findByText('Add a Filter').click()
+    cy.findByText('Add a filter').click()
     cy.findByText('Add a filter').click()
     cy.get('.table-toolbar-item-option-select:first').click()
     cy.focused().type('Column3{Enter}')
