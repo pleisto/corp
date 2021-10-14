@@ -25,7 +25,7 @@ describe('tableBlockFilter', () => {
     // change to date range type
     cy.findByText('Column3').click()
     cy.findAllByText('Text').last().click()
-    cy.findByText('Date range').click()
+    cy.findByText('Date Range').click()
 
     cy.get('.table-toolbar-add-button').click()
 
