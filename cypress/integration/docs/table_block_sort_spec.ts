@@ -6,6 +6,17 @@ describe('tableBlockSort', () => {
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
 
+    // delete 3 empty rows
+    cy.get('.table-block-text-cell:last').rightclick()
+    cy.findByText('Delete').click()
+    cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
+    cy.get('.table-block-text-cell:last').rightclick()
+    cy.findByText('Delete').click()
+    cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
+    cy.get('.table-block-text-cell:last').rightclick()
+    cy.findByText('Delete').click()
+    cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
+
     // add new column
     cy.get('.table-block-th:last > button').click()
     cy.get('.table-toolbar-add-button').click()
