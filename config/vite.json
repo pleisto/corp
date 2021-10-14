@@ -6,6 +6,7 @@
   },
   "development": {
     "autoBuild": false,
+    "host": "localhost",
     "port": 3036
   }
 }

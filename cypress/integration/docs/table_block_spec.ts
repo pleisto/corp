@@ -6,14 +6,14 @@ describe('tableBlock', () => {
   describe('Basic', () => {
     it('should create a table block', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.brickdoc-table-block').should('exist')
     })
 
     it('should add new column', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
 
       cy.get('.table-block-th:last > button').click()
@@ -25,7 +25,7 @@ describe('tableBlock', () => {
 
     it('should update column name', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
 
       cy.get('.table-block-th:last > button').click()
@@ -36,7 +36,7 @@ describe('tableBlock', () => {
 
     it('should delete column', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
 
       cy.get('.table-block-th:last-child > button').click()
@@ -49,7 +49,7 @@ describe('tableBlock', () => {
 
     it('should add new row', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -61,7 +61,7 @@ describe('tableBlock', () => {
   describe('Text Cell', () => {
     it('should edit text cell', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -73,7 +73,7 @@ describe('tableBlock', () => {
 
     it('should end text cell editing status by press enter', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -86,7 +86,7 @@ describe('tableBlock', () => {
   describe('Select Cell', () => {
     it('should change cell type to select', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -100,7 +100,7 @@ describe('tableBlock', () => {
 
     it('should create new select option', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -116,7 +116,7 @@ describe('tableBlock', () => {
 
     it('should select option', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -135,7 +135,7 @@ describe('tableBlock', () => {
 
     it('should filter select option', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -154,7 +154,7 @@ describe('tableBlock', () => {
   describe('Date Cell', () => {
     it('should edit date cell', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -169,7 +169,7 @@ describe('tableBlock', () => {
 
     it('should make date cell include time', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
@@ -190,14 +190,14 @@ describe('tableBlock', () => {
   describe('Date Range Cell', () => {
     it('should edit date range cell', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
       cy.get('.table-block-th:last > button').click()
       cy.findByText('Column1').click()
       cy.findByText('Text').trigger('mouseover')
-      cy.findByText('Date range').click({ force: true })
+      cy.findByText('Date Range').click({ force: true })
       cy.get('.table-block-date-range-cell:last').click()
       cy.get('.brk-picker-cell-today').last().click()
       cy.get('.brk-picker-cell-today').last().click()
@@ -207,14 +207,14 @@ describe('tableBlock', () => {
 
     it('should make date cell include time', () => {
       cy.visit('/')
-      cy.get('[contenteditable]').type('/table')
+      cy.get('[contenteditable]', { timeout: 30000 }).type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
 
       cy.get('.table-block-th:last > button').click()
       cy.findByText('Column1').click()
       cy.findByText('Text').trigger('mouseover')
-      cy.findByText('Date range').click({ force: true })
+      cy.findByText('Date Range').click({ force: true })
       cy.get('.table-block-date-range-cell:last').click()
       cy.findByText('Include time').click()
       cy.get('.brk-picker-cell-today').click()
