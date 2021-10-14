@@ -1,53 +1,70 @@
-import React from 'react'
+import './Color.vars.less'
 
-interface ColorsProps {
-  colors: {
-    [name: string]: string
-  }
-}
-
-export const Colors: React.FC<ColorsProps> = props => {
+export const Colors = () => {
+  const colorsList: Array<{
+    k: string
+    v: string
+  }> = []
   const colorsArray: JSX.Element[] = []
-  console.log(props, 'propspropspropspropsprops')
-  Object.keys(props.colors).forEach(name => {
-    if (props.colors[name].startsWith('#') || props.colors[name].startsWith('rgb')) {
-      colorsArray.push(
-        <div style={{ marginBottom: '5px', marginTop: '5px' }}>
-          <div
-            style={{
-              backgroundColor: props.colors[name],
-              borderColor:
-                props.colors[name] === '#fff' || props.colors[name].startsWith('rgba(255, 255, 255')
-                  ? 'rgba(44, 54, 67, 0.2)'
-                  : 'transparent',
-              borderStyle: 'solid',
-              borderWidth: '1px',
-              display: 'inline-block',
-              height: '30px',
-              marginRight: '10px',
-              width: '30px'
-            }}
-          />
-          <pre
-            style={{
-              display: 'inline-block',
-              fontSize: '14px',
-              lineHeight: '30px'
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: '250px'
-              }}
-            >
-              <span>{name}</span>
-            </span>
-            <span style={{ userSelect: 'none' }}>{props.colors[name]}</span>
-          </pre>
-        </div>
+
+  /* eslint-disable */
+  const allCss = [].slice.call(document.styleSheets).reduce((prev, styleSheet) => {
+    if (styleSheet.cssRules) {
+      return (
+        prev +
+        [].slice.call(styleSheet.cssRules).reduce((prev, cssRule) => {
+          if (cssRule.selectorText === ':root') {
+            let css = cssRule.cssText.split('{')
+            css = css[1].replace('}', '').split(';')
+            for (let i = 0; i < css.length; i++) {
+              const prop = css[i].split(':')
+              if (prop.length === 2 && prop[0].indexOf('--') === 1) {
+                colorsList.push({
+                  k: prop[0],
+                  v: prop[1]
+                })
+              }
+            }
+          }
+        }, '')
       )
     }
+  }, '')
+  /* eslint-disable */
+
+  Object.keys(colorsList).forEach(name => {
+    colorsArray.push(
+      <div className="item">
+        <div
+          style={{
+            backgroundColor: colorsList[name].v,
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            display: 'inline-block',
+            height: '30px',
+            marginRight: '10px',
+            width: '30px'
+          }}
+        />
+        <div
+          style={{
+            display: 'inline-block',
+            fontSize: '14px',
+            lineHeight: '30px'
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              width: '250px'
+            }}
+          >
+            {colorsList[name].k.split('--')[1]}
+          </span>
+          <span style={{ userSelect: 'none' }}>{colorsList[name].v}</span>
+        </div>
+      </div>
+    )
   })
 
   return (
@@ -61,7 +78,7 @@ export const Colors: React.FC<ColorsProps> = props => {
       }}
     >
       <li>
-        <div style={{ marginBottom: '5px', marginTop: '5px' }}>
+        <div className="item">
           <div
             style={{
               backgroundColor: 'transparent',
@@ -74,7 +91,7 @@ export const Colors: React.FC<ColorsProps> = props => {
               width: '30px'
             }}
           />
-          <pre
+          <div
             style={{
               display: 'inline-block',
               fontSize: '14px',
@@ -90,7 +107,7 @@ export const Colors: React.FC<ColorsProps> = props => {
               <span>Token Name</span>
             </span>
             <span style={{ userSelect: 'none' }}>Value</span>
-          </pre>
+          </div>
         </div>
       </li>
       {colorsArray.map((el, i) => (
