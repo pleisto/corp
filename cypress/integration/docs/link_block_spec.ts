@@ -21,6 +21,8 @@ describe('linkBlock', () => {
       cy.findByText('Embed anything').click()
       cy.findByPlaceholderText('Paste in https://...').focus().type('https://www.brickdoc.com')
       cy.findByText('Embed').click()
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
       cy.get('.brickdoc-link-block-link').realHover()
       cy.get('.link-block-menu-button').click()
       cy.findByText('Delete').click()

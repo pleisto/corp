@@ -25,7 +25,7 @@ describe('tableBlockSort', () => {
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
-    cy.get('.table-block-select-cell:last').click()
+    cy.get('.table-block-select-cell:last').click({ force: true })
     // add new select option
     cy.focused().type('new option 2{Enter}')
     cy.focused().type('new option{Enter}')
