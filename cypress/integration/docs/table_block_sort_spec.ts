@@ -14,7 +14,8 @@ describe('tableBlockSort', () => {
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click()
-    cy.get('.table-block-select-cell:last').click()
+    // with default 2 columns, no need to add more
+    // cy.get('.table-block-select-cell:last').click()
     // add new select option
     cy.focused().type('new option 2{Enter}')
     cy.focused().type('new option{Enter}')
@@ -31,7 +32,8 @@ describe('tableBlockSort', () => {
     cy.focused().type('text2')
     cy.findByTestId('table-text-overlay').click({ force: true })
     // pick select option
-    cy.get('.table-block-select-cell:last').click()
+    // with default 2 columns, no need to add more
+    // cy.get('.table-block-select-cell:last').click()
     cy.findByText('new option 2').click()
     cy.findByTestId('table-select-overlay').click({ force: true })
 

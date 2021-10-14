@@ -7,14 +7,16 @@ describe('tableBlockFilter', () => {
     cy.get('button.slash-menu-item:first').click()
 
     // add select column
-    cy.get('.table-block-th:last > button').click()
+    // with default 2 columns, no need to add more
+    // cy.get('.table-block-th:last > button').click()
     // change to select type
     cy.findByText('Column1').click()
     cy.findByText('Text').click()
     cy.findByText('Select').click({ force: true })
 
     // add date column
-    cy.get('.table-block-th:last > button').click()
+    // with default 2 columns, no need to add more
+    // cy.get('.table-block-th:last > button').click()
     // change to date type
     cy.findByText('Column2').click()
     cy.findAllByText('Text').last().click()
