@@ -16,6 +16,7 @@ describe('tableBlock', () => {
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
+      cy.findByText('Column2').should('exist')
       cy.get('.table-block-th:last > button').click()
       cy.findByText('Column3').should('exist')
     })
