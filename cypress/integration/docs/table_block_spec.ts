@@ -28,7 +28,6 @@ describe('tableBlock', () => {
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
-      cy.get('.table-block-th:last > button').click()
       cy.findByText('Column1').click()
       cy.findAllByDisplayValue('Column1').focus().type('NewColumn')
       cy.findByText('NewColumn').should('exist')
@@ -39,13 +38,10 @@ describe('tableBlock', () => {
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
-      cy.get('.table-block-th:last-child > button').click()
       cy.findByText('Column1').click()
       cy.findByText('Delete').click()
       // confirm
       cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500)
       cy.findByText('Column1').should('not.exist')
     })
 
