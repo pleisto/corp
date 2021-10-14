@@ -41,7 +41,7 @@ describe('tableBlockFilter', () => {
 
     cy.get('.table-toolbar-add-button').click()
 
-    cy.get('.table-block-select-cell:last').click()
+    cy.get('.table-block-select-cell:last').click({ force: true })
     // add new select option
     cy.focused().type('new option 2{Enter}')
     cy.focused().type('new option{Enter}')
@@ -52,12 +52,12 @@ describe('tableBlockFilter', () => {
     cy.findByTestId('table-text-overlay').click({ force: true })
 
     // edit date cell
-    cy.get('.table-block-date-cell:last').click()
+    cy.get('.table-block-date-cell:last').click({ force: true })
     // today
     cy.get('.brk-picker-cell-today').click()
 
     // edit date range cell
-    cy.get('.table-block-date-range-cell:last').click()
+    cy.get('.table-block-date-range-cell:last').click({ force: true })
     // today
     cy.get('.brk-picker-cell-today').last().click()
     cy.get('.brk-picker-cell-today').last().click()
