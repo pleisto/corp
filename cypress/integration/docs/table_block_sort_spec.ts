@@ -42,8 +42,7 @@ describe('tableBlockSort', () => {
     cy.focused().type('text2')
     cy.findByTestId('table-text-overlay').click({ force: true })
     // pick select option
-    // with default 2 columns, no need to add more
-    // cy.get('.table-block-select-cell:last').click()
+    cy.get('.table-block-select-cell:last').click()
     cy.findByText('new option 2').click()
     cy.findByTestId('table-select-overlay').click({ force: true })
 
@@ -71,7 +70,7 @@ describe('tableBlockSort', () => {
   })
 
   it('should sort data by combining sort options', () => {
-    cy.get('.table-block-tbody > .table-block-row').should('have.length', 3)
+    cy.get('.table-block-tbody > .table-block-row').should('have.length', 4)
 
     cy.findByText('Sort').click()
     cy.findByText('Add a Sort').click()
