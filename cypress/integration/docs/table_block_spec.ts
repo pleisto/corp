@@ -17,10 +17,7 @@ describe('tableBlock', () => {
       cy.get('button.slash-menu-item:first').click()
 
       cy.get('.table-block-th:last > button').click()
-      cy.findByText('Column1').should('exist')
-
-      cy.get('.table-block-th:last > button').click()
-      cy.findByText('Column2').should('exist')
+      cy.findByText('Column3').should('exist')
     })
 
     it('should update column name', () => {

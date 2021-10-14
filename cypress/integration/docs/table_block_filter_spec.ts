@@ -70,7 +70,7 @@ describe('tableBlockFilter', () => {
     cy.focused().type('text2')
     cy.findByTestId('table-text-overlay').click({ force: true })
     // pick select option
-    cy.get('.table-block-select-cell:last').click()
+    cy.get('.table-block-select-cell:last').click({ force: true })
     cy.findByText('new option 2').click()
     cy.findByTestId('table-select-overlay').click({ force: true })
   })
