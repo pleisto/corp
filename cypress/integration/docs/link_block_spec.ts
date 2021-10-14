@@ -24,6 +24,7 @@ describe('linkBlock', () => {
       cy.get('.brickdoc-link-block-link').realHover()
       cy.get('.link-block-menu-button').click()
       cy.findByText('Remove').click()
+      cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
       cy.get('.brickdoc-link-block-link').should('not.exist')
     })
 
