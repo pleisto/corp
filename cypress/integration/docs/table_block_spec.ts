@@ -44,6 +44,8 @@ describe('tableBlock', () => {
       cy.findByText('Delete').click()
       // confirm
       cy.get('.brk-modal-confirm-btns > .brk-btn:first').click()
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500)
       cy.findByText('Column1').should('not.exist')
     })
 
