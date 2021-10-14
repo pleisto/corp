@@ -1,5 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { v4 as uuid } from 'uuid'
 import { NodeViewProps } from '@tiptap/react'
 import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps } from 'react-table'
@@ -53,28 +55,42 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
 
   const fetched = React.useRef(!parentId) // if node have not uuid, not need to fetch rows
 
-  const [columns, { setColumns, add: addNewColumn, remove: removeColumn, updateName: updateColumnName, updateType: updateColumnType }] =
-    useColumns({
-      databaseColumns: prevData.columns,
-      updateAttributeData
-    })
+  const [
+    columns,
+    {
+      setColumns,
+      add: addNewColumn,
+      remove: removeColumn,
+      updateName: updateColumnName,
+      updateType: updateColumnType,
+      updateWidth: updateColumnWidth
+    }
+  ] = useColumns({
+    databaseColumns: prevData.columns,
+    updateAttributeData
+  })
 
   const [{ isCellActive, isRowActive, update: updateActiveStatus, reset: resetActiveStatus }] = useActiveStatus()
 
-  const [tableRows, { fetchRows, addRow, updateRow, removeRow, setRowsState }] = useDatabaseRows(parentId)
+  const [tableRows, { fetchRows, addRow, updateRow, removeRow, moveRow, setRowsState }] = useDatabaseRows(parentId)
+  const initialized = React.useRef(false)
 
-  if (columns.length === 0 && tableRows.length === 0) {
+  React.useEffect(() => {
+    if (initialized.current) return
+    if (!fetched.current) return
+    if (columns.length > 0 || tableRows.length > 0) return
+
     addNewColumn()
     addNewColumn()
     const newRows = [
       { id: uuid(), sort: 0 },
-      { id: uuid(), sort: 1 },
-      { id: uuid(), sort: 2 }
+      { id: uuid(), sort: 2 ** 32 },
+      { id: uuid(), sort: 2 ** 32 * 2 }
     ]
     newRows.forEach(row => updateRow(row, false))
     setRowsState(newRows)
-    fetched.current = true
-  }
+    initialized.current = true
+  }, [columns, addNewColumn, setRowsState, updateRow, tableRows])
 
   React.useEffect(() => {
     if (!fetched.current) {
@@ -95,12 +111,20 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
     updateActiveStatus([{ rowId: row.id }])
   }
 
+  const handleMoveRow = (fromIndex: number, toIndex: number): void => {
+    const row = moveRow(fromIndex, toIndex)
+    if (row) updateActiveStatus([{ rowId: row.id }])
+  }
+
   const [modal, contextHolder] = Modal.useModal()
 
   const removeRowConfirm = (rowId: string): void => {
     modal.confirm({
       title: t('table.remove_row.title'),
       okText: t('table.remove_row.ok'),
+      okButtonProps: {
+        danger: true
+      },
       cancelText: t('table.remove_row.cancel'),
       icon: null,
       onOk: () => removeRow(rowId)
@@ -177,17 +201,31 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
                 <div {...headerGroupProps} style={{ ...headerGroupProps.style, display: 'inline-flex' }} key={headerGroupProps.key}>
                   {headerGroup.headers.map(column => {
                     const headerProps = column.getHeaderProps(headerPropsGetter)
+                    const resizerProps: any = {
+                      ...column.getResizerProps(),
+                      onClick: (event: React.TouchEvent) => {
+                        event.stopPropagation()
+
+                        const width = parseInt(headerProps.style?.width?.toString() ?? '0', 10)
+                        if (!width) return
+                        updateColumnWidth(width, column.parent?.id ?? '', column.id)
+                      }
+                    }
+
+                    const isAddNewColumn = column.id === ADD_NEW_COLUMN_ID
+
                     const Header = (
-                      <div {...headerProps} className="table-block-th">
+                      <div {...headerProps} className={cx('table-block-th', { bordered: !isAddNewColumn })}>
                         {column.render('Header')}
-                        {column.canResize && (
-                          <div {...column.getResizerProps()} className={cx('resizer', { isResizing: column.isResizing })} />
+                        {column.canResize && !isAddNewColumn && (
+                          <div {...resizerProps} className={cx('table-block-resizer', { resizing: column.isResizing })}>
+                            <div className="table-block-resizer-inner" />
+                          </div>
                         )}
                       </div>
                     )
-                    if (column.id === ADD_NEW_COLUMN_ID) {
-                      return Header
-                    }
+
+                    if (isAddNewColumn) return Header
 
                     return (
                       <ColumnMenu
@@ -207,22 +245,26 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
             })}
           </div>
           <div className="table-block-tbody">
-            {rows.map(row => {
-              prepareRow(row)
-              const rowProps = row.getRowProps({ className: 'table-block-tr' })
-              return (
-                <TableRow
-                  {...rowProps}
-                  row={row}
-                  // TODO: fix type
-                  rowActive={isRowActive((row.original as any).id)}
-                  onAddNewRow={addNewRow}
-                  onRemoveRow={removeRowConfirm}
-                  isCellActive={isCellActive}
-                  key={rowProps.key}
-                />
-              )
-            })}
+            <DndProvider backend={HTML5Backend}>
+              {rows.map(row => {
+                prepareRow(row)
+                const rowProps = row.getRowProps({ className: 'table-block-tr' })
+                return (
+                  <TableRow
+                    {...rowProps}
+                    row={row}
+                    // TODO: fix type
+                    rowActive={isRowActive((row.original as any).id)}
+                    onAddNewRow={addNewRow}
+                    onMoveRow={handleMoveRow}
+                    updateActiveStatus={updateActiveStatus}
+                    onRemoveRow={removeRowConfirm}
+                    isCellActive={isCellActive}
+                    key={rowProps.key}
+                  />
+                )
+              })}
+            </DndProvider>
             <div className="table-block-row">
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
               <div className="table-block-add-new-row" role="button" tabIndex={-1} onClick={() => addNewRow()}>

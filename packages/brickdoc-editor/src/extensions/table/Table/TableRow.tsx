@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import { TableRowProps as RTTableRowProps, Row, TableHeaderGroupProps } from 'react-table'
+import { useDrag, useDrop } from 'react-dnd'
+import { TableRowProps as RTTableRowProps, Row, TableHeaderGroupProps, TableActiveStatus } from 'react-table'
 import { Button, Icon, Input, Menu, Popover } from '@brickdoc/design-system'
 import { IsCellActive } from './useActiveStatus'
 import { useEditorI18n } from '../../../hooks'
@@ -8,7 +9,9 @@ import { useEditorI18n } from '../../../hooks'
 export interface TableRowProps extends RTTableRowProps {
   rowActive?: boolean
   onAddNewRow: (rowIndex?: number) => void
+  onMoveRow: (fromIndex: number, toIndex: number) => void
   onRemoveRow: (rowId: string) => void
+  updateActiveStatus: React.Dispatch<React.SetStateAction<TableActiveStatus[]>>
   isCellActive: IsCellActive
   row: Row
 }
@@ -24,8 +27,67 @@ const cellPropsGetter = (props: Partial<TableHeaderGroupProps>, { cell }: any): 
   }
 ]
 
-export const TableRow: React.FC<TableRowProps> = ({ rowActive, isCellActive, onAddNewRow, onRemoveRow, row, ...rowProps }) => {
+const DND_ITEM_TYPE = 'row'
+
+export const TableRow: React.FC<TableRowProps> = ({
+  rowActive,
+  isCellActive,
+  updateActiveStatus,
+  onAddNewRow,
+  onMoveRow,
+  onRemoveRow,
+  row,
+  ...rowProps
+}) => {
   const { t } = useEditorI18n()
+  const dropRef = React.useRef<HTMLDivElement>(null)
+  const dragRef = React.useRef(null)
+
+  const [, drop] = useDrop({
+    accept: DND_ITEM_TYPE,
+    hover(item: { index: number }, monitor) {
+      if (!dropRef.current) return
+
+      const dragIndex = item.index
+      const hoverIndex = row.index
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) return
+      // Determine rectangle on screen
+      const hoverBoundingRect = dropRef.current.getBoundingClientRect()
+      // Get vertical middle
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset()!
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
+      // Time to actually perform the action
+      onMoveRow(dragIndex, hoverIndex)
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex
+    }
+  })
+
+  const [{ isDragging }, drag, preview] = useDrag({
+    type: DND_ITEM_TYPE,
+    item: { index: row.index },
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    })
+  })
+
+  preview(drop(dropRef))
+  drag(dragRef)
+
   const popupContainer = React.useRef<HTMLDivElement | null>(null)
   const [contextMenuVisible, setContextMenuVisible] = React.useState(false)
   const [contextMenuFilterValue, setContextMenuFilterValue] = React.useState('')
@@ -38,6 +100,9 @@ export const TableRow: React.FC<TableRowProps> = ({ rowActive, isCellActive, onA
     event.preventDefault()
 
     if (!popupContainer.current) return false
+
+    // TODO: fix type
+    updateActiveStatus([{ rowId: (row.original as any).id }])
 
     popupContainer.current.style.left = `${event.clientX}px`
     popupContainer.current.style.top = `${event.clientY}px`
@@ -73,10 +138,13 @@ export const TableRow: React.FC<TableRowProps> = ({ rowActive, isCellActive, onA
         {/* add a placeholder for popover to follow mouse's position */}
         <div ref={popupContainer} style={{ width: '1px', height: '1px', position: 'fixed' }} />
       </Popover>
-      <div className={cx('table-block-row', { active: rowActive })} onContextMenu={handleContextMenu}>
+      <div ref={dropRef} className={cx('table-block-row', { active: rowActive })} onContextMenu={handleContextMenu}>
         <div data-testid="table-actions" className="table-block-row-actions">
           <Button onClick={() => onAddNewRow(row.index)} className="table-block-row-action-button" type="text">
             <Icon.Plus />
+          </Button>
+          <Button type="text" className={cx('table-block-row-action-button', 'drag', { dragging: isDragging })} ref={dragRef}>
+            <Icon.Drag />
           </Button>
         </div>
         <div {...rowProps} style={{ ...rowProps.style, display: 'inline-flex' }}>

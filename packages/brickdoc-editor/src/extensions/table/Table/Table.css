@@ -137,7 +137,7 @@
 
             & .table-block-row-actions {
               display: flex;
-              flex-direction: column;
+              flex-direction: row;
               align-items: center;
               justify-content: center;
               position: absolute;
@@ -168,34 +168,47 @@
               border-radius: 4px;
               font-size: 18px;
               color: var(--font-color);
+
+              &.drag {
+                cursor: grab;
+              }
+
+              &.dragging {
+                cursor: grabbing;
+              }
             }
           }
 
           & .table-block-th {
             height: var(--cell-height);
             min-width: 180px;
+            overflow: hidden;
             padding-left: var(--cell-left-padding);
             color: var(--font-color);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
 
-            & .resizer {
-              display: none;
+            &.bordered {
+              border-right: 1px solid var(--border-color);
+            }
 
-              /* display: inline-block; */
-              background: blue;
+            & .table-block-resizer {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
               width: 10px;
               height: 100%;
               position: absolute;
-              right: 0;
+              right: -5px;
               top: 0;
-              transform: translateX(50%);
               z-index: 1;
               touch-action: none;
 
-              & .isResizing {
-                background: red;
+              & .table-block-resizer-inner {
+                background: var(--border-color);
+                width: 1px;
+                height: 100%;
               }
             }
           }
@@ -207,6 +220,11 @@
           & .table-block-td {
             position: relative;
             height: var(--cell-height);
+            border-right: 1px solid var(--border-color);
+
+            &:last-child {
+              border-right: none;
+            }
 
             &.active {
               border: 1px solid rgba(var(--active-color), 0.3);
@@ -249,6 +267,8 @@
 
 .table-block-menu {
   --item-height: var(--item-height);
+
+  padding-top: 16px;
 
   & .table-block-menu-item {
     display: flex;
@@ -327,6 +347,10 @@
     padding: 0;
     color: unset;
   }
+}
+
+.table-block-menu-popover {
+  box-shadow: 0 4px 8px #2c5bff0f, 0 8px 16px #0000001f;
 }
 
 .table-block-cell-overlay {

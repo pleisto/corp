@@ -6,6 +6,7 @@ export const queryPods = gql`
       id
       webid
       name
+      email
       personal
       inviteEnable
       avatarData {
@@ -37,8 +38,8 @@ export const queryPod = gql`
   }
 `
 
-export const queryPodUsers = gql`
-  query GetPodUsers {
+export const queryPodMembers = gql`
+  query GetPodMembers {
     podMembers {
       webid
       email
@@ -49,6 +50,30 @@ export const queryPodUsers = gql`
         url
         downloadUrl
         signedId
+      }
+    }
+  }
+`
+
+export const queryBlockPins = gql`
+  query GetBlockPins {
+    blockPins {
+      blockId
+      text
+      meta {
+        icon {
+          ... on BlockImage {
+            type
+            source
+            key
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
       }
     }
   }
@@ -270,6 +295,14 @@ export const BlockRestore = gql`
   }
 `
 
+export const BlockPinOrUnpin = gql`
+  mutation blockPinOrUnpin($input: BlockPinOrUnpinInput!) {
+    blockPinOrUnpin(input: $input) {
+      errors
+    }
+  }
+`
+
 export const BlockCreate = gql`
   mutation blockCreate($input: BlockCreateInput!) {
     blockCreate(input: $input) {
@@ -290,6 +323,14 @@ export const BlockCreateShareLink = gql`
 export const BlockMove = gql`
   mutation blockMove($input: BlockMoveInput!) {
     blockMove(input: $input) {
+      errors
+    }
+  }
+`
+
+export const BlockRename = gql`
+  mutation blockRename($input: BlockRenameInput!) {
+    blockRename(input: $input) {
       errors
     }
   }
