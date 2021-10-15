@@ -23,14 +23,16 @@ interface PageMenuProps {
   docMeta: DocMeta
   pageId: UUID
   title: Scalars['String']
-  setCurrentDropdownPage: React.Dispatch<React.SetStateAction<string | undefined>>
+  setSelectedKeys: React.Dispatch<React.SetStateAction<string[]>>
+  selectedKeys: string[]
   titleText: string
   pin: boolean
 }
 
 export const PageMenu: React.FC<PageMenuProps> = ({
   docMeta: { id, webid, host },
-  setCurrentDropdownPage,
+  selectedKeys,
+  setSelectedKeys,
   pageId,
   pin,
   title,
@@ -71,11 +73,19 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const linkPath = `/${webid}/${BlockIdKind.P}/${pageId}`
   const link = `${host}${linkPath}`
 
+  const addSelectedKey = (): void => {
+    setSelectedKeys([...new Set([...selectedKeys, pageId])])
+  }
+
+  const removeSelectedKey = (): void => {
+    setSelectedKeys(selectedKeys.filter(key => key !== pageId))
+  }
+
   const onClickMoreButton = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
     e.preventDefault()
     e.stopPropagation()
     setDropdownVisible(true)
-    setCurrentDropdownPage(pageId)
+    addSelectedKey()
   }
 
   const onRename = async (e: any): Promise<void> => {
@@ -91,7 +101,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
     await navigator.clipboard.writeText(link)
     void message.success(t('blocks.copy_link_hint'))
     setDropdownVisible(false)
-    setCurrentDropdownPage(undefined)
+    removeSelectedKey()
   }
 
   const doFavorite = async (): Promise<void> => {
@@ -101,12 +111,16 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       await pinClient.refetchQueries({ include: [queryBlockInfo] })
     }
     setDropdownVisible(false)
-    setCurrentDropdownPage(undefined)
+    removeSelectedKey()
   }
 
   const onDropdownVisibleChange = (value: boolean): void => {
     setDropdownVisible(value)
-    setCurrentDropdownPage(value ? pageId : undefined)
+    if (value) {
+      addSelectedKey()
+    } else {
+      removeSelectedKey()
+    }
   }
 
   const inputRef = React.useRef<any>(null)
@@ -150,7 +164,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
 
     if (value) {
       setDropdownVisible(false)
-      setCurrentDropdownPage(undefined)
+      removeSelectedKey()
       // TODO focus and select all
       // inputRef.current.focus({ preventScroll: true })
     }

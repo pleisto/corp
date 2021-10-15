@@ -25,7 +25,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const [blockMove] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
-  const [currentDropdownPage, setCurrentDropdownPage] = useState<undefined | string>()
+  const [selectedKeys, setSelectedKeys] = useState<string[]>(docMeta.id ? [docMeta.id] : [])
+
   const { t } = useDocsI18n()
 
   const { data: pinData } = useGetBlockPinsQuery()
@@ -92,7 +93,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           title: (
             <PageMenu
               docMeta={docMeta}
-              setCurrentDropdownPage={setCurrentDropdownPage}
+              selectedKeys={selectedKeys}
+              setSelectedKeys={setSelectedKeys}
               pin={pin}
               pageId={b.id}
               title={title}
@@ -131,9 +133,6 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const pageTreeData = treeDataSkelecton(pageBlocks)
   const pinTreeData = treeDataSkelecton(pinTreeBlocks)
-  const dropDownKeys = currentDropdownPage ? [currentDropdownPage] : []
-  const currentPage = docMeta.id ? [docMeta.id] : []
-  const selectedKeys = dropDownKeys.concat(currentPage)
 
   console.log({ label: 'TODO remove me', selectedKeys })
 
