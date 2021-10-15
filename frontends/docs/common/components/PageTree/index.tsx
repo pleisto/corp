@@ -25,6 +25,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const [blockMove] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
+  const [currentDropdownPage, setCurrentDropdownPage] = useState<undefined | string>()
   const { t } = useDocsI18n()
 
   const { data: pinData } = useGetBlockPinsQuery()
@@ -70,7 +71,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   }
 
   // TODO fix type
-  const treeDataSkelecton = (blocks: BlockType[], enableMenu: boolean): any => {
+  const treeDataSkelecton = (blocks: BlockType[]): any => {
     if (!blocks) {
       return []
     }
@@ -88,7 +89,16 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           nextSort: b.nextSort,
           firstChildSort: b.firstChildSort,
           titleText: title,
-          title: <PageMenu docMeta={docMeta} enableMenu={enableMenu} pin={pin} pageId={b.id} title={title} titleText={b.text} />
+          title: (
+            <PageMenu
+              docMeta={docMeta}
+              setCurrentDropdownPage={setCurrentDropdownPage}
+              pin={pin}
+              pageId={b.id}
+              title={title}
+              titleText={b.text}
+            />
+          )
         }
       })
       .sort((a, b) => Number(a.sort) - Number(b.sort))
@@ -119,14 +129,25 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       }
     })
 
-  const pageTreeData = treeDataSkelecton(pageBlocks, true)
-  const pinTreeData = treeDataSkelecton(pinTreeBlocks, false)
-  const selectedKeys = docMeta.id ? [docMeta.id] : []
+  const pageTreeData = treeDataSkelecton(pageBlocks)
+  const pinTreeData = treeDataSkelecton(pinTreeBlocks)
+  const dropDownKeys = currentDropdownPage ? [currentDropdownPage] : []
+  const currentPage = docMeta.id ? [docMeta.id] : []
+  const selectedKeys = dropDownKeys.concat(currentPage)
+
+  console.log({ label: 'TODO remove me', selectedKeys })
 
   const pinTree = pinIds.length ? (
     <>
       Pin
-      <Tree className={styles.tree} selectedKeys={selectedKeys} treeData={pinTreeData} defaultExpandAll draggable={false} />
+      <Tree
+        className={styles.tree}
+        selectedKeys={selectedKeys}
+        // expandedKeys={selectedKeys}
+        treeData={pinTreeData}
+        defaultExpandAll
+        draggable={false}
+      />
       <Divider />
     </>
   ) : (
@@ -141,6 +162,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
         className={styles.tree}
         selectedKeys={selectedKeys}
         treeData={pageTreeData}
+        // expandedKeys={selectedKeys}
         defaultExpandAll
         draggable={draggable}
         onDrop={onDrop}

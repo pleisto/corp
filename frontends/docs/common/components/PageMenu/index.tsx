@@ -23,16 +23,23 @@ interface PageMenuProps {
   docMeta: DocMeta
   pageId: UUID
   title: Scalars['String']
-  enableMenu: boolean
+  setCurrentDropdownPage: React.Dispatch<React.SetStateAction<string | undefined>>
   titleText: string
   pin: boolean
 }
 
-export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }, pageId, pin, enableMenu, title, titleText }) => {
+export const PageMenu: React.FC<PageMenuProps> = ({
+  docMeta: { id, webid, host },
+  setCurrentDropdownPage,
+  pageId,
+  pin,
+  title,
+  titleText
+}) => {
   const [blockSoftDelete] = useBlockSoftDeleteMutation({ refetchQueries: [queryPageBlocks, queryChildrenBlocks] })
   const history = useHistory()
-  const [dropdownVisible, setDropdownVisible] = React.useState(false)
   const [popoverVisible, setPopoverVisible] = React.useState(false)
+  const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
     refetchQueries: [queryPageBlocks]
@@ -64,10 +71,11 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
   const linkPath = `/${webid}/${BlockIdKind.P}/${pageId}`
   const link = `${host}${linkPath}`
 
-  const onClickAddButton = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
+  const onClickMoreButton = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
     e.preventDefault()
     e.stopPropagation()
     setDropdownVisible(true)
+    setCurrentDropdownPage(pageId)
   }
 
   const onRename = async (e: any): Promise<void> => {
@@ -83,6 +91,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     await navigator.clipboard.writeText(link)
     void message.success(t('blocks.copy_link_hint'))
     setDropdownVisible(false)
+    setCurrentDropdownPage(undefined)
   }
 
   const doFavorite = async (): Promise<void> => {
@@ -92,6 +101,12 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
       await pinClient.refetchQueries({ include: [queryBlockInfo] })
     }
     setDropdownVisible(false)
+    setCurrentDropdownPage(undefined)
+  }
+
+  const onDropdownVisibleChange = (value: boolean): void => {
+    setDropdownVisible(value)
+    setCurrentDropdownPage(value ? pageId : undefined)
   }
 
   const inputRef = React.useRef<any>(null)
@@ -135,6 +150,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
 
     if (value) {
       setDropdownVisible(false)
+      setCurrentDropdownPage(undefined)
       // TODO focus and select all
       // inputRef.current.focus({ preventScroll: true })
     }
@@ -166,21 +182,14 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
   )
 
   const linkData = <Link to={linkPath}>{title}</Link>
-  if (!enableMenu) {
-    return (
-      <>
-        <div className={styles.menu}>{linkData}</div>
-      </>
-    )
-  }
 
   return (
     <>
-      <Dropdown trigger={['contextMenu']} overlay={menu} visible={dropdownVisible} onVisibleChange={setDropdownVisible}>
+      <Dropdown trigger={['contextMenu']} overlay={menu} visible={dropdownVisible} onVisibleChange={onDropdownVisibleChange}>
         <div className={styles.menu}>
           {linkData}
           <Tooltip title={t('blocks.more')}>
-            <Button className={styles.moreBtn} type="text" onClick={onClickAddButton}>
+            <Button className={styles.moreBtn} type="text" onClick={onClickMoreButton}>
               <More />
             </Button>
           </Tooltip>
