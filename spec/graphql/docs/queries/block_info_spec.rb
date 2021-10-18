@@ -17,6 +17,14 @@ describe Docs::Queries::BlockInfo, type: :query do
             policy
             state
           }
+          collaborators {
+            name
+            webid
+            email
+            avatarData {
+              url
+            }
+          }
         }
       }
     GRAPHQL
