@@ -44,7 +44,7 @@ describe('Table Filter', () => {
 
     fireEvent.click(screen.getByText('table.filter.text'))
     fireEvent.click(screen.getByText('table.filter.add_a_filter'))
-    fireEvent.click(screen.getByText('table.filter.add_a_filter'))
+    fireEvent.click(screen.getAllByText('table.filter.add_a_filter')[1])
 
     expect(screen.getByTestId('brickdoc-table-filter-group')).toBeInTheDocument()
     expect(screen.getByText('table.filter.where')).toBeInTheDocument()
