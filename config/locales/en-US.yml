@@ -809,6 +809,13 @@ en-US:
           link_to_url: Link to url
         fontcolor:
           desc: Font-color
+        formula:
+          header: Formula
+          name: Name
+          format: Format
+          result: =
+          save: Save Formula
+          desc: Formula
     image_section:
       copy_hint: Image link copied
       hint: Add an image

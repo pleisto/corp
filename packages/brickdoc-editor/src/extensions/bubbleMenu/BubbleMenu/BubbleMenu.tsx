@@ -6,6 +6,7 @@ import { FontColorMenuItem } from './FontColorMenuItem'
 import { MenuItem } from './MenuItem'
 import { LinkMenuItem } from './LinkMenuItem'
 import './index.less'
+import { FormulaMenuItem } from './FormulaMenuItem'
 
 interface BubbleMenuProps {
   editor: Editor | null
@@ -13,7 +14,7 @@ interface BubbleMenuProps {
 
 export interface StyleMeta {
   key: string
-  value?: 'bold' | 'italic' | 'strike' | 'heading' | 'underline' | 'fontColor' | 'link'
+  value?: 'bold' | 'italic' | 'strike' | 'heading' | 'underline' | 'fontColor' | 'link' | 'formula'
   listType?: 'bulletList' | 'orderedList'
   label: React.ReactNode
   shortcutDesc?: string
@@ -118,6 +119,9 @@ export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
         </div>
         <div className="bubble-menu-group">
           <LinkMenuItem editor={editor} />
+        </div>
+        <div className="bubble-menu-group">
+          <FormulaMenuItem editor={editor} />
         </div>
       </div>
     </TiptapBubbleMenu>

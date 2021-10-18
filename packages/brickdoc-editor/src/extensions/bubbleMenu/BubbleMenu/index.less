@@ -162,13 +162,81 @@
   }
 }
 
-.bubble-menu-item-link-popover {
+.brickdoc-bubble-formula-popover {
   .brk-popover-arrow {
     display: none;
   }
 
   .brk-popover-inner-content {
     padding: 0;
-    color: unset;
+    box-shadow: none;
+  }
+}
+
+.brickdoc-bubble-formula-menu {
+  width: 438px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(44, 91, 255, 0.06), 0 8px 16px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(60px);
+  border-radius: 4px;
+
+  .bubble-menu-formula-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    color: #847e8e;
+    font-size: 14px;
+  }
+
+  .bubble-menu-formula-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .bubble-menu-formula-item {
+      flex: 1;
+    }
+
+    .bubble-menu-formula-item + .bubble-menu-formula-item {
+      margin-left: 24px;
+    }
+
+    .bubble-menu-formula-label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+
+      .bubble-menu-formula-label-text {
+        min-width: 39px;
+        text-align: right;
+      }
+    }
+
+    .bubble-menu-formula-field {
+      margin-left: 12px;
+      flex: 1;
+    }
+  }
+
+  .bubble-menu-formula-footer {
+    position: relative;
+    padding: 6px 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: #f6f6f6;
+      height: 1px;
+      width: 100%;
+    }
   }
 }
