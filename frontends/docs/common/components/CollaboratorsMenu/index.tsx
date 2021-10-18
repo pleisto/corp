@@ -18,14 +18,5 @@ export const CollaboratorsMenu: React.FC<CollaboratorsMenuProps> = ({ docMeta })
     </Tooltip>
   ))
 
-  return (
-    <>
-      <Avatar.Group maxCount={4}>
-        {avatars}
-        <Tooltip title="Ant User">
-          <Avatar style={{ backgroundColor: '#87d068' }} />
-        </Tooltip>
-      </Avatar.Group>
-    </>
-  )
+  return <Avatar.Group maxCount={4}>{avatars}</Avatar.Group>
 }
