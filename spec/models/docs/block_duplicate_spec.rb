@@ -19,6 +19,7 @@ RSpec.describe Docs::Block, type: :model do
 
     expect(new_block.title).to eq(new_title)
     expect(new_block.meta['title']).to eq(new_title)
+    expect(new_block.sort - block.sort).to eq(Docs::Block::DUPLICATE_SORT_GAP)
     expect(new_block.descendants_raw.count).to eq(5)
     expect(new_block.descendants.count).to eq(3)
   end

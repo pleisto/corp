@@ -62,6 +62,7 @@ class Docs::Block < ApplicationRecord
   ## Distance for expansion
   SORT_GAP = 2**32
   REBALANCE_GAP = 2**12
+  DUPLICATE_SORT_GAP = 4
   has_many_attached :attachments
 
   def self.find_by_kind(id, kind, webid)
@@ -312,6 +313,7 @@ class Docs::Block < ApplicationRecord
           new_block.text = I18n.t('docs.duplicate.new_title', title: block.text)
           new_block.meta = new_block.meta.merge('title' => new_block.text)
           new_block.id = new_root_id
+          new_block.sort = block.sort + DUPLICATE_SORT_GAP
           new_block.root_id = new_root_id
         else
           new_block.id = descendants_ids_map.fetch(block.id)
