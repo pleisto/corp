@@ -36,6 +36,7 @@ export const TextCell: React.FC<TextCellProps> = props => {
           autoSize={true}
           onChange={handleChange}
           onPressEnter={handleEndEditing}
+          data-testid="table-text-cell-input"
         />
         <div data-testid="table-text-overlay" className="table-block-cell-overlay" onClick={handleEndEditing} />
       </>
