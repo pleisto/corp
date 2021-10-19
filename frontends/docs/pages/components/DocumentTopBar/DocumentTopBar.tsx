@@ -26,7 +26,7 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
 
   const headMenu = docMeta.id ? (
     <>
-      <PathBreadcrumb docMeta={docMeta as NonNullDocMeta} />
+      <PathBreadcrumb className={styles.menu} docMeta={docMeta as NonNullDocMeta} />
     </>
   ) : (
     <></>
@@ -61,8 +61,8 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
 
   return (
     <div className={styles.topBar}>
-      <div>{headMenu}</div>
-      <div>
+      <div className={styles.topBarStart}>{headMenu}</div>
+      <div className={styles.topBarEnd}>
         <div className={styles.status}>
           {saving && (
             <div className={styles.loading}>

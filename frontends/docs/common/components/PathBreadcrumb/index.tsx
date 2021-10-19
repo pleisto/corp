@@ -7,9 +7,10 @@ import styles from './index.module.less'
 
 interface PathBreadcrumbProps {
   docMeta: NonNullDocMeta
+  className: string
 }
 
-export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta }) => {
+export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, className }) => {
   const paths: NonNullDocMeta['pathArray'] = docMeta.pathArray.concat([{ id: docMeta.id, text: docMeta.title }])
   const { t } = useDocsI18n()
 
@@ -25,5 +26,5 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta }) => {
     )
   })
 
-  return <>{pathData}</>
+  return <div className={className}>{pathData}</div>
 }
