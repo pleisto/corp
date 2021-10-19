@@ -15,7 +15,7 @@ export const TextCell: React.FC<TextCellProps> = props => {
   const [currentValue, setCurrentValue] = React.useState(value)
   React.useEffect(() => setCurrentValue(value), [value])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCurrentValue(event.target.value)
   }
 
@@ -28,11 +28,12 @@ export const TextCell: React.FC<TextCellProps> = props => {
   if (editing) {
     return (
       <>
-        <Input
+        <Input.TextArea
           className="table-block-text-input"
           /* eslint-disable-next-line jsx-a11y/no-autofocus */
           autoFocus={true}
           value={currentValue}
+          autoSize={true}
           onChange={handleChange}
           onPressEnter={handleEndEditing}
         />
