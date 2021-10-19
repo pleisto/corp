@@ -638,10 +638,12 @@ en-US:
       create_pages: Add Pages
       create_sub_pages: Add Subpage
       delete: Delete
-      copy_link: Copy link
-      copy_link_hint: Link copied
       rename: Rename
       more: Delete, Duplicate, and more...
+    copy_link:
+      button: Copy link
+      copied: Copied
+      success_message: Link copied
     duplicate:
       new_title: Copy of %{title}
       button: Duplicate

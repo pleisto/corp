@@ -13,7 +13,7 @@ import {
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
 import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
-import { Add, CheckOneFill, Copy, Delete, Edit, Link as LinkIcon, More, Star } from '@brickdoc/design-system/components/icon'
+import { Add, Check, CheckOneFill, Copy, Delete, Edit, Link as LinkIcon, More, Star } from '@brickdoc/design-system/components/icon'
 import styles from './styles.module.less'
 import { DocMeta } from '@/docs/pages/DocumentContentPage'
 
@@ -41,6 +41,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const history = useHistory()
   const [popoverVisible, setPopoverVisible] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
+  const [copied, setCopied] = React.useState<boolean>(false)
 
   const [blockSoftDelete, { client: deleteClient, loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
     refetchQueries: [queryPageBlocks]
@@ -114,9 +115,12 @@ export const PageMenu: React.FC<PageMenuProps> = ({
 
   const doCopyLink = async (): Promise<void> => {
     await navigator.clipboard.writeText(link)
-    void message.success(t('blocks.copy_link_hint'))
+    void message.success(t('copy_link.success_message'))
+    setCopied(true)
     setDropdownVisible(false)
     removeSelectedKey()
+    // TODO
+    setCopied(false)
   }
 
   const doFavorite = async (): Promise<void> => {
@@ -193,8 +197,8 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       <Menu.Item key="favorite" icon={pin ? <CheckOneFill /> : <Star />} disabled={blockPinLoading}>
         {t(pin ? 'pin.remove' : 'pin.add')}
       </Menu.Item>
-      <Menu.Item key="copy_link" icon={<LinkIcon />}>
-        {t('blocks.copy_link')}
+      <Menu.Item key="copy_link" icon={copied ? <Check /> : <LinkIcon />}>
+        {t(copied ? 'copy_link.copied' : 'copy_link.button')}
       </Menu.Item>
       <Menu.Item key="duplicate" icon={<Copy />} disabled={blockDuplicateLoading}>
         {t('duplicate.button')}

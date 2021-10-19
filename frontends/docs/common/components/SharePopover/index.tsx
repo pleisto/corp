@@ -160,7 +160,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
           <span>{t('share.learn')}</span>
         </div>
         <div role="button" tabIndex={-1} onClick={handleCopy} className={styles.action}>
-          <Icon.Link />
+          {copied ? <Icon.Check /> : <Icon.Link />}
           <span>{t(copied ? 'share.copy_link_button_done' : 'share.copy_link_button')}</span>
         </div>
       </div>
