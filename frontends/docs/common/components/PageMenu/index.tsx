@@ -4,16 +4,16 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import {
   useBlockSoftDeleteMutation,
-  BlockSoftDeleteInput,
   Scalars,
   useBlockCreateMutation,
   useBlockRenameMutation,
   useBlockPinOrUnpinMutation,
-  BlockIdKind
+  BlockIdKind,
+  useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
 import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
-import { Add, CheckOneFill, Delete, Edit, Link as LinkIcon, More, Star } from '@brickdoc/design-system/components/icon'
+import { Add, CheckOneFill, Copy, Delete, Edit, Link as LinkIcon, More, Star } from '@brickdoc/design-system/components/icon'
 import styles from './styles.module.less'
 import { DocMeta } from '@/docs/pages/DocumentContentPage'
 
@@ -38,10 +38,13 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   title,
   titleText
 }) => {
-  const [blockSoftDelete, { client: deleteClient }] = useBlockSoftDeleteMutation({ refetchQueries: [queryPageBlocks] })
   const history = useHistory()
   const [popoverVisible, setPopoverVisible] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
+
+  const [blockSoftDelete, { client: deleteClient, loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
+    refetchQueries: [queryPageBlocks]
+  })
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
     refetchQueries: [queryPageBlocks]
@@ -51,12 +54,16 @@ export const PageMenu: React.FC<PageMenuProps> = ({
     refetchQueries: [queryPageBlocks]
   })
 
-  const [blockPinOrUnpin, { client: pinClient }] = useBlockPinOrUnpinMutation({
+  const [blockPinOrUnpin, { client: pinClient, loading: blockPinLoading }] = useBlockPinOrUnpinMutation({
     refetchQueries: [queryBlockPins]
   })
 
+  const [blockDuplicate, { loading: blockDuplicateLoading }] = useBlockDuplicateMutation({
+    refetchQueries: [queryPageBlocks]
+  })
+
   const deletePage = async (): Promise<void> => {
-    const input: BlockSoftDeleteInput = { id: pageId }
+    const input = { id: pageId }
     await blockSoftDelete({ variables: { input } })
     if (pageId === id) {
       await deleteClient.refetchQueries({ include: [queryBlockInfo, queryChildrenBlocks] })
@@ -98,6 +105,11 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       await renameClient.refetchQueries({ include: [queryChildrenBlocks, queryBlockInfo] })
     }
     setPopoverVisible(false)
+  }
+
+  const duDuplicate = async (): Promise<void> => {
+    const input = { id: pageId }
+    await blockDuplicate({ variables: { input } })
   }
 
   const doCopyLink = async (): Promise<void> => {
@@ -148,6 +160,9 @@ export const PageMenu: React.FC<PageMenuProps> = ({
         case 'copy_link':
           void doCopyLink()
           break
+        case 'duplicate':
+          void duDuplicate()
+          break
         case 'rename':
           // TODO focus and select all
           // inputRef.current.focus({ preventScroll: true })
@@ -175,13 +190,16 @@ export const PageMenu: React.FC<PageMenuProps> = ({
 
   const menu = (
     <Menu onClick={onClickMenu()}>
+      <Menu.Item key="favorite" icon={pin ? <CheckOneFill /> : <Star />} disabled={blockPinLoading}>
+        {t(pin ? 'pin.remove' : 'pin.add')}
+      </Menu.Item>
       <Menu.Item key="copy_link" icon={<LinkIcon />}>
         {t('blocks.copy_link')}
       </Menu.Item>
-      <Menu.Item key="favorite" icon={pin ? <CheckOneFill /> : <Star />}>
-        {t(pin ? 'pin.remove' : 'pin.add')}
+      <Menu.Item key="duplicate" icon={<Copy />} disabled={blockDuplicateLoading}>
+        {t('duplicate.button')}
       </Menu.Item>
-      <Menu.Item key="rename" icon={<Edit />}>
+      <Menu.Item key="rename" icon={<Edit />} disabled={renameBlockLoading}>
         <Popover
           content={renamePopoverContent}
           title={null}
@@ -192,7 +210,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
         </Popover>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item danger key="delete" icon={<Delete />}>
+      <Menu.Item danger key="delete" icon={<Delete />} disabled={blockDeleteLoading}>
         {t('blocks.delete')}
       </Menu.Item>
     </Menu>

@@ -30,6 +30,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
   const [shareWithAnonymousValue, setShareWithAnonymousValue] = React.useState<boolean>(false)
   const [anonymousEditableValue, setAnonymousEditableValue] = React.useState<boolean>(false)
   const [inviteModalVisible, setInviteModalVisible] = React.useState<boolean>(false)
+  const [copied, setCopied] = React.useState<boolean>(false)
   const [blockCreateShareLink] = useBlockCreateShareLinkMutation()
   const { data } = useGetBlockShareLinksQuery({ variables: { id: docMeta.id } })
 
@@ -86,6 +87,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
   const handleCopy = async (): Promise<void> => {
     await navigator.clipboard.writeText(link)
     void message.success(t('share.copy_hint'))
+    setCopied(true)
   }
 
   const allowEditContent = shareWithAnonymousValue ? (
@@ -159,7 +161,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
         </div>
         <div role="button" tabIndex={-1} onClick={handleCopy} className={styles.action}>
           <Icon.Link />
-          <span>{t('share.copy_link_button')}</span>
+          <span>{t(copied ? 'share.copy_link_button_done' : 'share.copy_link_button')}</span>
         </div>
       </div>
     </>
