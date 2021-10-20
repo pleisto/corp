@@ -24,23 +24,29 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
     return <></>
   }
 
-  const headMenu =
-    docMeta.id && docMeta.shareable ? (
-      <>
-        <PathBreadcrumb className={styles.menu} docMeta={docMeta as NonNullDocMeta} />
-      </>
-    ) : (
-      <></>
-    )
+  const headMenu = docMeta.id ? (
+    <>
+      <PathBreadcrumb className={styles.menu} docMeta={docMeta as NonNullDocMeta} />
+    </>
+  ) : (
+    <></>
+  )
 
   const editableMenu =
-    docMeta.id && docMeta.shareable && !docMeta.isDeleted ? (
-      <div className={styles.menu}>
-        <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
-        <ShareMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-        <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-        <MoreMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-      </div>
+    // eslint-disable-next-line no-nested-ternary
+    docMeta.id && !docMeta.isDeleted ? (
+      docMeta.isMine ? (
+        <div className={styles.menu}>
+          <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
+          <ShareMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
+          <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
+          <MoreMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
+        </div>
+      ) : (
+        <div className={styles.menu}>
+          <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
+        </div>
+      )
     ) : (
       <></>
     )

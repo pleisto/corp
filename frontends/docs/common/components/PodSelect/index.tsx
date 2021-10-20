@@ -22,7 +22,7 @@ export const PodSelect: React.FC<DocMetaProps> = ({ docMeta }) => {
     return <Skeleton avatar active paragraph={false} />
   }
 
-  const pod = data?.pods.find(p => p.webid === docMeta.webid)
+  const pod = data?.pods.find(p => p.webid === docMeta.loginWebid)
 
   if (!pod) {
     console.error('Webid does not match the current user')
