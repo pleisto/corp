@@ -44,7 +44,7 @@ export const PodSelect: React.FC<DocMetaProps> = ({ docMeta }) => {
         break
       case 'logout':
         void (await userSignOut({ variables: { input: signOutInput } }))
-        history.push('/accounts/sign_in')
+        globalThis.location.href = '/'
         break
       default:
         if (key.startsWith('pod-')) {
