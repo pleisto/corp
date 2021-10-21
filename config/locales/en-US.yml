@@ -648,9 +648,9 @@ en-US:
       new_title: Copy of %{title}
       button: Duplicate
     pin:
-      add: Add to Favorites
+      add: Pin page
       add_tooltip: Pin this page
-      remove: Remove from Favorites
+      remove: Unpin page
       remove_tooltip: Unpin this page
     trash:
       name: Trash
