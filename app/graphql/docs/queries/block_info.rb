@@ -13,12 +13,15 @@ module Docs
       block, payload = Docs::Block.find_by_kind(id, kind, webid)
       return nil if block.nil?
 
+      current_user&.save_last_position!(webid, block.id)
+
       {
         title: block.title,
         payload: payload,
         pin: fetch_pin(block),
         id: block.id,
         is_deleted: !!block.deleted_at,
+        is_master: master?(block),
         permission: permission(block),
         path_array: block.path_array,
         collaborators: collaborators(block)
@@ -47,6 +50,12 @@ module Docs
 
         share_links.find { |s| s.share_webid == current_pod.fetch('webid') }
       end
+    end
+
+    def master?(block)
+      return false if current_user.nil?
+
+      block.pod_id.in?(current_user.pods.ids)
     end
 
     def collaborators(block)
