@@ -121,7 +121,7 @@ export function useDocumentSubscription({
 
       if (patches.length === 0) return
 
-      setDocumentEditable(true)
+      setDocumentEditable(false)
       try {
         const chainedCommands = editor.chain().setMeta('preventUpdate', true)
         patches.forEach(patch => {
@@ -131,11 +131,11 @@ export function useDocumentSubscription({
         console.log('Patch applied', { uuid: globalThis.brickdocContext.uuid, patches, newPatch })
       } catch (e) {
         console.error(e)
-        setDocumentEditable(true)
-        refetchDocument()
         setDocumentEditable(false)
+        refetchDocument()
+        setDocumentEditable(true)
       }
-      setDocumentEditable(false)
+      setDocumentEditable(true)
     },
     variables: { docId: docid }
   })
