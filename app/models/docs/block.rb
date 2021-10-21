@@ -155,7 +155,7 @@ class Docs::Block < ApplicationRecord
     end
 
     patch_type =
-      if id_previously_changed?
+      if new_record?
         "ADD"
       else
         "UPDATE"
