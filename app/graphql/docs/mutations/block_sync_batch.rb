@@ -85,19 +85,21 @@ module Docs
         patches << block.dirty_patch
       end
 
-      ## Handle insert
+      insert_histories = []
+
+      ## Handle insert block
       if insert_data.present?
         insert_blocks = insert_data.map do |block|
           block.block_attributes.merge('created_at' => now, 'updated_at' => now)
         end
-        insert_histories = insert_data.map do |block|
+        insert_histories_1 = insert_data.map do |block|
           block.history_attributes.merge('created_at' => now, 'updated_at' => now)
         end
         Docs::Block.insert_all(insert_blocks)
-        Docs::History.insert_all(insert_histories)
+        insert_histories += insert_histories_1
       end
 
-      ## Handle upsert
+      ## Handle upsert block
       if upsert_data.present?
         root&.prepare_descendants
 
@@ -106,13 +108,16 @@ module Docs
           block
         end
 
-        insert_histories = upsert_blocks.map do |block|
+        insert_histories_2 = upsert_blocks.map do |block|
           block.history_attributes.merge('created_at' => now, 'updated_at' => now)
         end
 
         Docs::Block.upsert_all(upsert_blocks.map(&:block_attributes))
-        Docs::History.insert_all(insert_histories)
+        insert_histories += insert_histories_2
       end
+
+      ## Handle insert history
+      Docs::History.insert_all(insert_histories) if insert_histories.present?
 
       ## Handle attachment
       attachment_data.each do |block, attachment|
