@@ -143,11 +143,11 @@ class Docs::Block < ApplicationRecord
   end
 
   def dirty_patch
-    return nil if previous_changes.blank?
+    return nil unless changed?
 
-    changes = previous_changes.slice('id', 'meta', 'type', 'data', 'sort', 'parent_id')
-    ## TODO track changes before
-    payload = changes.transform_values(&:last)
+    payload = slice('id', 'type', 'parent_id', 'root_id').merge(
+      changes.slice('meta', 'data', 'sort', 'content').transform_values(&:last)
+    )
     path = if parent_id.nil?
       [id]
     else
@@ -161,7 +161,7 @@ class Docs::Block < ApplicationRecord
         "UPDATE"
       end
 
-    Rails.logger.info("DIRTY #{id} #{changes}")
+    Rails.logger.info("DIRTY #{id} #{payload}")
 
     { id: id, patch_type: patch_type, payload: payload, parent_id: parent_id, path: path }
   end

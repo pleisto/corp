@@ -111,14 +111,11 @@ export function useDocumentSubscription({ docid, editor }: { docid: string; edit
 
       if (patches.length === 0) return
 
-      const chainedCommands = editor.chain()
+      const chainedCommands = editor.chain().setMeta('preventUpdate', true)
       patches.forEach(patch => {
         applyPatch(patch, editor, chainedCommands)
       })
-      chainedCommands
-        .setDocAttrs({ ...editor.state.doc.attrs, seq: newPatch.seq })
-        .setMeta('preventUpdate', true)
-        .run()
+      chainedCommands.setDocAttrs({ ...editor.state.doc.attrs, seq: newPatch.seq }).run()
       console.log('Patch applied', { uuid: globalThis.brickdocContext.uuid, patches, newPatch })
     },
     variables: { docId: docid }
