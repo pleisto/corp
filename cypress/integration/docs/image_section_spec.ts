@@ -24,8 +24,6 @@ describe('imageSection', () => {
     cy.findByText('Add an image').click()
     cy.findByText('Upload').click()
     cy.get('input[type=file]').attachFile('images/test.png')
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500)
     cy.get('.brickdoc-block-image').should('exist')
   })
 
