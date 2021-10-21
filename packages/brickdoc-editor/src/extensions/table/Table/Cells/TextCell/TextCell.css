@@ -1,25 +1,23 @@
 .table-block-text-cell {
   --padding: 8px;
 
-  height: 100%;
   width: 100%;
-  padding-left: var(--padding);
+  padding: var(--padding);
   display: flex;
   flex-direction: row;
   align-items: center;
   color: #333;
   font-size: 14px;
+  word-break: break-all;
   max-width: calc(100% - 2 * var(--padding));
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.table-block-text-input {
+textarea.table-block-text-input {
   --border-color: 239, 239, 239;
   --box-shadow-color: 62, 62, 62;
 
-  height: 100%;
+  font-size: 14px;
+  min-height: 100%;
   border: 1px solid rgba(var(--border-color));
   border-top: none;
   border-bottom: none;

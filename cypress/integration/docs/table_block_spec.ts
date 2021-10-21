@@ -80,6 +80,29 @@ describe('tableBlock', () => {
   })
 
   describe('Select Cell', () => {
+    it("should clear all row's value after delete options", () => {
+      cy.visit('/')
+      cy.get('[contenteditable]').type('/table')
+      cy.get('button.slash-menu-item:first').click()
+      cy.get('.table-toolbar-add-button').click()
+
+      cy.get('.table-block-th:last > button').click()
+      cy.findByText('Column1').click()
+      cy.findByText('Text').trigger('mouseover')
+      cy.findByText('Select').click()
+
+      cy.get('.table-block-select-cell:first').click({ force: true })
+      cy.focused().type('new option{Enter}')
+      cy.get('.table-block-select-cell:last').click({ force: true })
+      cy.focused().type('new option{Enter}')
+      cy.get('.table-block-select-cell:last').click({ force: true })
+      cy.findByTestId('table-select-cell-option-menu-button').click()
+      cy.findByText('Delete').click()
+      cy.findAllByText('Delete').last().click()
+      cy.get('.table-block-select-cell:first').click({ force: true })
+      // after clearing value, there is no "Create option"
+      cy.findByText('Create').should('not.exist')
+    })
     it('should change cell type to select', () => {
       cy.visit('/')
       cy.get('[contenteditable]').type('/table')
@@ -107,6 +130,7 @@ describe('tableBlock', () => {
       cy.get('.table-block-select-cell:last').click()
       cy.focused().type('new option{Enter}')
 
+      cy.get('.table-block-select-cell:last').click()
       cy.get('.select-cell-option-item').should('have.length', 1)
     })
 
@@ -123,9 +147,10 @@ describe('tableBlock', () => {
       cy.get('.table-block-select-cell:last').click()
 
       cy.focused().type('new option{Enter}')
+      cy.get('.table-block-select-cell:last').click()
       cy.focused().type('new option 2{Enter}')
+      cy.get('.table-block-select-cell:last').click()
       cy.findByText('new option').click()
-      cy.findByTestId('table-select-overlay').click({ force: true })
       cy.get('.active > .table-block-select-cell').should('exist').should('contain.text', 'new option')
     })
 
@@ -141,7 +166,9 @@ describe('tableBlock', () => {
       cy.findByText('Select').click()
       cy.get('.table-block-select-cell:last').click()
       cy.focused().type('new option{Enter}')
+      cy.get('.table-block-select-cell:last').click()
       cy.focused().type('new option 2{Enter}')
+      cy.get('.table-block-select-cell:last').click()
       cy.focused().type('new option 2')
       cy.get('.select-cell-option-item').should('have.length', 1)
     })
@@ -181,6 +208,21 @@ describe('tableBlock', () => {
       cy.get('.table-block-date-cell:last').click()
       cy.get('input[type=checkbox]').should('be.checked')
     })
+
+    it('should clear content when change type from anything to date', () => {
+      cy.visit('/')
+      cy.get('[contenteditable]').type('/table')
+      cy.get('button.slash-menu-item:first').click()
+      cy.get('.table-toolbar-add-button').click()
+
+      cy.get('.table-block-text-cell:last').click()
+      cy.focused().type('text')
+      cy.findByTestId('table-text-overlay').click({ force: true })
+      cy.findByText('Column2').click()
+      cy.findByText('Text').trigger('mouseover')
+      cy.findByText('Date').click()
+      cy.get('.table-block-date-cell:last').should('not.contain.text', 'text')
+    })
   })
 
   describe('Date Range Cell', () => {
@@ -201,7 +243,7 @@ describe('tableBlock', () => {
       cy.get('.table-block-date-range-cell').should('exist')
     })
 
-    it('should make date cell include time', () => {
+    it('should make date range cell include time', () => {
       cy.visit('/')
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
@@ -222,6 +264,21 @@ describe('tableBlock', () => {
       cy.get('.table-toolbar-add-button').click()
       cy.get('.table-block-date-range-cell:last').click()
       cy.get('input[type=checkbox]').should('be.checked')
+    })
+
+    it('should clear content when change type from anything to date range', () => {
+      cy.visit('/')
+      cy.get('[contenteditable]').type('/table')
+      cy.get('button.slash-menu-item:first').click()
+      cy.get('.table-toolbar-add-button').click()
+
+      cy.get('.table-block-text-cell:last').click()
+      cy.focused().type('text')
+      cy.findByTestId('table-text-overlay').click({ force: true })
+      cy.findByText('Column2').click()
+      cy.findByText('Text').trigger('mouseover')
+      cy.findByText('Date Range').click()
+      cy.get('.table-block-date-range-cell:last').should('not.contain.text', 'text')
     })
   })
 })

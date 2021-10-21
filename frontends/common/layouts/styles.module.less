@@ -1,0 +1,59 @@
+/* stylelint-disable no-descending-specificity */
+@import '@brickdoc/design-system/components/style/themes';
+.acrylicBg {
+  background: url('~/common/assets/acrylic.svg') no-repeat fixed center center;
+  background-size: cover, cover;
+  background-clip: border-box;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pluginBar {
+  width: 48px;
+}
+
+.main {
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  --brk-editor-max-width: 960px;
+}
+
+.sider {
+  height: 100vh;
+
+  footer {
+    margin-top: auto;
+    bottom: 1rem;
+    left: 0;
+    padding: 0 0.5rem;
+    position: absolute;
+    width: 100%;
+  }
+
+  nav {
+    max-height: 60%;
+    overflow: scroll;
+    h2 {
+      font-weight: unset;
+      font-size: 1rem;
+      padding: 0.5rem 1rem 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+
+.sider :global(.brk-layout-sider-children > .brk-btn-text),
+.sider nav > :global(.brk-btn-text),
+.sider footer :global(.brk-btn-text) {
+  border: 0;
+  padding: 0.375rem 1rem;
+  height: auto;
+  width: 100%;
+  text-align: left;
+  color: @text-color-secondary;
+}

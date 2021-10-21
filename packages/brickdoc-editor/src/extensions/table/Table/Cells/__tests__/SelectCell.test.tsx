@@ -104,7 +104,6 @@ describe('SelectCell', () => {
 
     const elements = screen.getAllByRole('listitem')
     fireEvent.click(elements[elements.length - 1])
-    fireEvent.click(screen.getByTestId('table-select-overlay'))
 
     expect(updateData).toBeCalledTimes(1)
     expect(updateData).toBeCalledWith(props.cell.row.original.id, props.cell.column.id, id2)
@@ -128,7 +127,6 @@ describe('SelectCell', () => {
 
     const elements = screen.getAllByText(newOption)
     fireEvent.click(elements[elements.length - 1])
-    fireEvent.click(screen.getByTestId('table-select-overlay'))
 
     expect(updateData).toBeCalledTimes(1)
   })
@@ -179,7 +177,10 @@ describe('SelectCell', () => {
       }
 
       const updateData = jest.fn()
-      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
+      const batchDeleteDataByValue = jest.fn()
+      const { rerender } = render(
+        <SelectCell {...props} updateData={updateData} setColumns={setColumns} batchDeleteDataByValue={batchDeleteDataByValue} />
+      )
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')
@@ -202,7 +203,10 @@ describe('SelectCell', () => {
       }
 
       const updateData = jest.fn()
-      const { rerender } = render(<SelectCell {...props} updateData={updateData} setColumns={setColumns} />)
+      const batchDeleteDataByValue = jest.fn()
+      const { rerender } = render(
+        <SelectCell {...props} updateData={updateData} setColumns={setColumns} batchDeleteDataByValue={batchDeleteDataByValue} />
+      )
 
       fireEvent.click(screen.getByRole('button'))
       const menuButtons = screen.getAllByRole('button')

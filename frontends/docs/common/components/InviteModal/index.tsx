@@ -15,7 +15,7 @@ import { queryBlockShareLinks } from '../../graphql'
 import { debounce } from 'lodash-es'
 import styles from './index.module.less'
 import { useImperativeQuery } from '@/common/hooks'
-import { PodCard, PodType } from '../PodCard'
+import { PodCard, PodType } from '@/common/components/PodCard'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 interface InviteModalProps {
   docMeta: NonNullDocMeta
@@ -162,7 +162,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ docMeta, visible, setV
           {selectData}
           {policyDropdown}
           <Button className={styles.inviteButton} type="primary" onClick={onInviteClick} loading={inviteButtonLoading}>
-            {t('invite.button')}
+            {t(podValue.length ? 'invite.confirm_button' : 'invite.button')}
           </Button>
         </div>
       </div>

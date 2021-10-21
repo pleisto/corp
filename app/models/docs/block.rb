@@ -42,7 +42,7 @@ class Docs::Block < ApplicationRecord
   scope :soft_deleted, -> { where.not(deleted_at: nil) }
   scope :non_deleted, -> { where(deleted_at: nil) }
 
-  belongs_to :pod
+  belongs_to :pod, optional: true
   belongs_to :parent, class_name: 'Docs::Block', optional: true
   has_many :children, class_name: 'Docs::Block', foreign_key: :parent_id, dependent: :restrict_with_exception
   has_many :histories, dependent: :restrict_with_exception
@@ -52,7 +52,7 @@ class Docs::Block < ApplicationRecord
 
   validates :meta, presence: true, allow_blank: true
   # validates :data, presence: true
-  validates :pod, presence: true
+  validates :pod_id, presence: true
   validates :collaborators, presence: true
 
   attribute :next_sort, :integer, default: 0
@@ -62,6 +62,7 @@ class Docs::Block < ApplicationRecord
   ## Distance for expansion
   SORT_GAP = 2**32
   REBALANCE_GAP = 2**12
+  DUPLICATE_SORT_GAP = 4
   has_many_attached :attachments
 
   def self.find_by_kind(id, kind, webid)
@@ -86,6 +87,11 @@ class Docs::Block < ApplicationRecord
 
   def title
     text
+  end
+
+  def root
+    return self if id == root_id
+    Docs::Block.find(root_id)
   end
 
   def blobs
@@ -168,8 +174,9 @@ class Docs::Block < ApplicationRecord
 
   def realtime_version(type)
     meta = COUNTER_META.fetch(type)
+    key = meta.fetch(:key_f).call(id)
+
     Brickdoc::Redis.with(:cache) do |redis|
-      key = meta.fetch(:key_f).call(id)
       counter = Current.redis_values.to_h[key] || redis.get(key)
       return counter.to_i if counter
 
@@ -183,16 +190,13 @@ class Docs::Block < ApplicationRecord
   def realtime_version_increment(type)
     ## NOTE ensure counter exists
     ## TODO remove this
-    prepare_version = realtime_version(type)
+    _prepare_version = realtime_version(type)
 
     meta = COUNTER_META.fetch(type)
+    key = meta.fetch(:key_f).call(id)
+
     Brickdoc::Redis.with(:cache) do |redis|
-      key = meta.fetch(:key_f).call(id)
-      result = redis.incr(key)
-
-      Rails.logger.info("DEBUG #{key} #{prepare_version} #{result}")
-
-      return result
+      return redis.incr(key)
     end
   end
 
@@ -299,6 +303,38 @@ class Docs::Block < ApplicationRecord
     BrickdocSchema.subscriptions.trigger(:newPatch, { doc_id: id }, payload)
   end
 
+  def duplicate!
+    transaction do
+      preload_descendants = descendants_raw.to_a
+      now = Time.current
+      descendants_ids_map = preload_descendants.map(&:id).each_with_object({}) { |old_id, hash| hash[old_id] = SecureRandom.uuid }
+      descendants_ids_map[parent_id] = parent_id
+      new_root_id = descendants_ids_map.fetch(id)
+      insert_data = preload_descendants.map do |block|
+        new_block = block.dup
+        if block.id == id
+          new_block.text = I18n.t('docs.duplicate.new_title', title: block.text)
+          new_block.meta = new_block.meta.merge('title' => new_block.text)
+          new_block.id = new_root_id
+          new_block.sort = block.sort + DUPLICATE_SORT_GAP
+          new_block.root_id = new_root_id
+        else
+          new_block.id = descendants_ids_map.fetch(block.id)
+          new_block.root_id = descendants_ids_map.fetch(block.root_id)
+          new_block.parent_id = descendants_ids_map.fetch(block.parent_id)
+        end
+
+        new_block.block_attributes.merge('created_at' => now, 'updated_at' => now)
+      end
+
+      Docs::Block.insert_all(insert_data)
+
+      Docs::Block.find(new_root_id).save_snapshot!
+
+      new_root_id
+    end
+  end
+
   def soft_delete!
     raise 'already_soft_delete' unless deleted_at.nil?
     update!(deleted_at: Time.current)
@@ -309,7 +345,9 @@ class Docs::Block < ApplicationRecord
   def hard_delete!
     raise 'not_deleted' if deleted_at.nil?
     raise 'already_hard_delete' unless deleted_permanently_at.nil?
-    update!(deleted_permanently_at: Time.current)
+    ## update!(deleted_permanently_at: Time.current)
+    ## NOTE Remove all descendants
+    descendants_raw(unscoped: true).update_all(deleted_permanently_at: Time.current)
   end
 
   def restore!
@@ -332,7 +370,7 @@ class Docs::Block < ApplicationRecord
   end
 
   def create_sub_block!(title)
-    max_sort = descendants.maximum(:sort) || 0
+    max_sort = descendants_raw.where(parent_id: id).maximum(:sort) || 0
     Docs::Block.create!(
       id: SecureRandom.uuid,
       parent_id: id,

@@ -22,7 +22,6 @@ module Docs
 
       blocks = blocks.where("text like ?", "%#{search}%") if search.present?
 
-      # blocks.select { |block| block.id == block.root_id }
       result = blocks.to_a
 
       target_blocks = blocks.select { |block| !block.parent_id.nil? }
@@ -33,12 +32,18 @@ module Docs
         hash[block.id] = block.parent_path_array
       end
 
-      result.map do |block|
+      final_result = []
+
+      result.each do |block|
         if block.id.in?(target_blocks_ids)
-          block.parent_path_array_value = parent_path_array.fetch(block.parent_id)
+          temp_array = parent_path_array[block.parent_id]
+          next if temp_array.nil?
+          block.parent_path_array_value = temp_array
         end
-        block
+        final_result << block
       end
+
+      final_result.sort_by(&:deleted_at).reverse
     end
   end
 end

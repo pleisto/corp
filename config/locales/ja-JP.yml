@@ -600,8 +600,8 @@ ja-JP:
       invalid_pod_webid: 'No access to the webid'
       pod_has_already_switched: 'Pod has already switched'
       pod_exist: 'Pod has already exist'
-      user_not_exist: 'ユーザーが存在しません。'
-      pod_not_exist: 'ポッドは存在しません'
+      user_not_exist: "ユーザーが存在しません。"
+      pod_not_exist: "ポッドは存在しません"
   docs:
     app_title: Brickdoc
     saving: 保存
@@ -621,10 +621,15 @@ ja-JP:
       create_pages: Add Pages
       create_sub_pages: Add Subpage
       delete: Delete
-      copy_link: Copy link
-      copy_link_hint: Link copied
       rename: Rename
       more: Delete, Duplicate, and more...
+    copy_link:
+      button: Copy link
+      copied: Copied
+      success_message: Link copied
+    duplicate:
+      new_title: Copy of %{title}
+      button: 複製
     pin:
       add: Add to Favorites
       add_tooltip: Pin this page
@@ -650,9 +655,9 @@ ja-JP:
       allow_edit: Allow edit
       learn: Learn about sharing
       copy_link_button: Copy link
+      copy_link_button_done: Copied
       invite_placeholder: Add people, emails, groups, or intergrations
       invite_button: Invite
-      copy: Copy
       copy_hint: Share link copied
       tooltip: share or publish to the web
     invite:
@@ -660,6 +665,7 @@ ja-JP:
       type_hint: Type or paste in Email above, separated by commas.
       search: Search Emails, names
       button: Invite
+      confirm_button: Confirm
       edit_message: Can edit
       edit_message_description: Can edit, but not share with others.
       view_message: Can view

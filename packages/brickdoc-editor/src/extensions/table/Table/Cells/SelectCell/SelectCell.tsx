@@ -22,12 +22,14 @@ export const bgColor = (color?: string): string => {
 }
 
 export const SelectCell: React.FC<SelectCellProps> = props => {
-  const { cell, value, updateData, column, setColumns } = props
+  const { cell, value, updateData, batchDeleteDataByValue, column, setColumns } = props
   const [modal, contextHolder] = Modal.useModal()
   const [editing, { show: showEditing, hide: hideEditing }] = useEditingStatus(props)
 
   const [currentValue, setCurrentValue] = React.useState(value)
-  React.useEffect(() => setCurrentValue(value), [value])
+  React.useEffect(() => {
+    setCurrentValue(value)
+  }, [value])
 
   const selectOptions = column.selectOptions
 
@@ -59,10 +61,14 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     modal.confirm({
       title: 'Are you sure you want to delete this property?',
       okText: 'Delete',
+      okButtonProps: {
+        danger: true
+      },
       cancelText: 'Cancel',
       icon: null,
       onOk: () => {
         setSelectOptions(prevOptions => prevOptions.filter(item => item.value !== option.value))
+        batchDeleteDataByValue(cell.column.id, option.value)
 
         if (option.value === currentValue) {
           setCurrentValue(null)
@@ -79,10 +85,12 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     setSelectOptions(prevOptions => {
       if (isOptionExist(newValue)) {
         setCurrentValue(newValue)
+        handleEndEditing(newValue)
         return prevOptions
       }
       const newOption: TableColumnSelectOption = { label: newValue, color: randomColor(), value: uuid() }
       setCurrentValue(newOption.value)
+      handleEndEditing(newOption.value)
       return [...prevOptions, newOption]
     })
   }
@@ -101,9 +109,9 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     [selectOptions, handleRemove]
   )
 
-  const handleEndEditing = (): void => {
+  const handleEndEditing = (value?: string): void => {
     // TODO: fix type
-    updateData((cell.row.original as any).id, cell.column.id, currentValue)
+    updateData((cell.row.original as any).id, cell.column.id, value ?? currentValue)
     hideEditing()
   }
 
@@ -146,7 +154,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
             </Select.Option>
           ))}
         </Select>
-        <div data-testid="table-select-overlay" className="table-block-cell-overlay" onClick={handleEndEditing} />
+        <div data-testid="table-select-overlay" className="table-block-cell-overlay" onClick={() => handleEndEditing()} />
       </>
     )
   }
@@ -157,7 +165,7 @@ export const SelectCell: React.FC<SelectCellProps> = props => {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     <div role="button" tabIndex={-1} className="table-block-select-cell" onClick={showEditing}>
       {label && (
-        <Tag color={bgColor(color)} style={{ color }}>
+        <Tag className="table-block-select-cell-tag" color={bgColor(color)} style={{ color }}>
           {label}
         </Tag>
       )}

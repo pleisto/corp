@@ -170,7 +170,7 @@ io-EN:
               secured_uri: 'crwdns2287:0crwdne2287:0'
               forbidden_uri: 'crwdns2289:0crwdne2289:0'
             scopes:
-              not_match_configured: 'crwdns2291:0crwdne2291:0'
+              not_match_configured: "crwdns2291:0crwdne2291:0"
       messages:
         record_invalid: 'crwdns2293:0%{errors}crwdne2293:0'
         restrict_dependent_destroy:
@@ -473,7 +473,7 @@ io-EN:
       help:
         confidential: 'crwdns2689:0crwdne2689:0'
         redirect_uri: 'crwdns2691:0crwdne2691:0'
-        blank_redirect_uri: 'crwdns2693:0crwdne2693:0'
+        blank_redirect_uri: "crwdns2693:0crwdne2693:0"
         scopes: 'crwdns2695:0crwdne2695:0'
       edit:
         title: 'crwdns2697:0crwdne2697:0'
@@ -542,7 +542,7 @@ io-EN:
           unknown: 'crwdns2777:0crwdne2777:0'
           missing_param: 'crwdns2779:0%{value}crwdne2779:0'
           request_not_authorized: 'crwdns2781:0crwdne2781:0'
-        invalid_redirect_uri: 'crwdns2783:0crwdne2783:0'
+        invalid_redirect_uri: "crwdns2783:0crwdne2783:0"
         unauthorized_client: 'crwdns2785:0crwdne2785:0'
         access_denied: 'crwdns2787:0crwdne2787:0'
         invalid_scope: 'crwdns2789:0crwdne2789:0'
@@ -617,8 +617,8 @@ io-EN:
       invalid_pod_webid: 'crwdns2885:0crwdne2885:0'
       pod_has_already_switched: 'crwdns2887:0crwdne2887:0'
       pod_exist: 'crwdns2889:0crwdne2889:0'
-      user_not_exist: 'crwdns2891:0crwdne2891:0'
-      pod_not_exist: 'crwdns2893:0crwdne2893:0'
+      user_not_exist: "crwdns2891:0crwdne2891:0"
+      pod_not_exist: "crwdns2893:0crwdne2893:0"
   docs:
     app_title: crwdns2895:0crwdne2895:0
     saving: crwdns2897:0crwdne2897:0
@@ -638,10 +638,15 @@ io-EN:
       create_pages: crwdns2907:0crwdne2907:0
       create_sub_pages: crwdns3305:0crwdne3305:0
       delete: crwdns2909:0crwdne2909:0
-      copy_link: crwdns3273:0crwdne3273:0
-      copy_link_hint: crwdns3275:0crwdne3275:0
       rename: crwdns3277:0crwdne3277:0
       more: crwdns3279:0crwdne3279:0
+    copy_link:
+      button: crwdns3307:0crwdne3307:0
+      copied: crwdns3309:0crwdne3309:0
+      success_message: crwdns3311:0crwdne3311:0
+    duplicate:
+      new_title: crwdns3313:0%{title}crwdne3313:0
+      button: crwdns3315:0crwdne3315:0
     pin:
       add: crwdns3293:0crwdne3293:0
       add_tooltip: crwdns3295:0crwdne3295:0
@@ -667,9 +672,9 @@ io-EN:
       allow_edit: crwdns2943:0crwdne2943:0
       learn: crwdns2945:0crwdne2945:0
       copy_link_button: crwdns2947:0crwdne2947:0
+      copy_link_button_done: crwdns3317:0crwdne3317:0
       invite_placeholder: crwdns2949:0crwdne2949:0
       invite_button: crwdns2951:0crwdne2951:0
-      copy: crwdns2953:0crwdne2953:0
       copy_hint: crwdns3247:0crwdne3247:0
       tooltip: crwdns3301:0crwdne3301:0
     invite:
@@ -677,6 +682,7 @@ io-EN:
       type_hint: crwdns2957:0crwdne2957:0
       search: crwdns2959:0crwdne2959:0
       button: crwdns2961:0crwdne2961:0
+      confirm_button: crwdns3319:0crwdne3319:0
       edit_message: crwdns2963:0crwdne2963:0
       edit_message_description: crwdns2965:0crwdne2965:0
       view_message: crwdns2967:0crwdne2967:0

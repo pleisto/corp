@@ -17,15 +17,17 @@ import { queryPageBlocks } from '../../graphql'
 import styles from './PageTree.module.less'
 import { useDocsI18n } from '../../hooks'
 import { DocMetaProps } from '@/docs/pages/DocumentContentPage'
+import { queryBlockInfo } from '@/docs/pages/graphql'
 
 export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
 
   const { data } = useGetPageBlocksQuery({ variables: { webid: docMeta.webid } })
 
-  const [blockMove] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
+  const [blockMove, { client: blockMoveClient }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
-  const [selectedKeys, setSelectedKeys] = useState<string[]>(docMeta.id ? [docMeta.id] : [])
+  const [popoverKey, setPopoverKey] = useState<string | undefined>()
+  // const [selectedKeys, setSelectedKeys] = useState<string[]>(docMeta.id ? [docMeta.id] : [])
 
   const { t } = useDocsI18n()
 
@@ -73,6 +75,9 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       input.targetParentId = targetParentId
     }
     await blockMove({ variables: { input } })
+    if (docMeta.id === attrs.dragNode.key) {
+      await blockMoveClient.refetchQueries({ include: [queryBlockInfo] })
+    }
     setDraggable(true)
   }
 
@@ -81,8 +86,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     return (
       <PageMenu
         docMeta={docMeta}
-        selectedKeys={selectedKeys}
-        setSelectedKeys={setSelectedKeys}
+        setPopoverKey={setPopoverKey}
         pin={pin}
         pageId={node.key}
         title={node.fakeIcon ? `${node.fakeIcon} ${node.title}` : node.title}
@@ -104,7 +108,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           value: b.id,
           parentId: b.parentId,
           sort: b.sort,
-          // icon: getIcon(b), TODO fix style
+          // icon: getIcon(b), // TODO fix style
           fakeIcon: getIcon(b),
           nextSort: b.nextSort,
           firstChildSort: b.firstChildSort,
@@ -114,13 +118,14 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       })
       .sort((a, b) => Number(a.sort) - Number(b.sort))
     const treeData = array2Tree(flattedData, { id: 'key' })
+    const selectedKeys = [docMeta.id, popoverKey].filter(k => !!k) as string[]
     return (
       <Tree
         className={styles.tree}
         selectedKeys={selectedKeys}
         blockNode={false}
         showIcon={true}
-        selectable={true}
+        selectable={!docMeta.documentInfoLoading}
         // expandedKeys={selectedKeys}
         treeData={treeData}
         defaultExpandAll
@@ -156,7 +161,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const pinTree = pinTreeBlocks.length ? (
     <>
-      Pin
+      <h2>Pin</h2>
       {treeElement(pinTreeBlocks, false)}
       <Divider />
     </>
@@ -167,7 +172,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   return pageBlocks.length ? (
     <>
       {pinTree}
-      Pages
+      <h2>Pages</h2>
       {treeElement(pageBlocks, draggable)}
     </>
   ) : (

@@ -85,5 +85,48 @@ describe Docs::Queries::TrashBlocks, type: :query do
       self.current_user = nil
       self.current_pod = nil
     end
+
+    it 'hard delete dangling' do
+      user = create(:accounts_user)
+      self.current_user = user
+      pod = create(:pod)
+      self.current_pod = pod.as_session_context
+
+      root = create(:docs_block, pod: pod, collaborators: [user.id])
+      block = root.create_sub_block!("abc")
+      sub_block = block.create_sub_block!("abc")
+      sub_sub_block = sub_block.create_sub_block!("abc")
+      root.soft_delete!
+      block.soft_delete!
+
+      internal_graphql_execute(query, { webid: pod.webid })
+      expect(response.success?).to be true
+      expect(response.data['trashBlocks'].count).to eq(2)
+
+      block.hard_delete!
+
+      internal_graphql_execute(query, { webid: pod.webid })
+      expect(response.success?).to be true
+      expect(response.data['trashBlocks'].count).to eq(1)
+
+      block.update_columns(deleted_permanently_at: nil)
+      sub_block.update_columns(deleted_permanently_at: nil)
+      sub_sub_block.update_columns(deleted_permanently_at: nil)
+
+      block.reload
+      sub_block.reload
+      sub_sub_block.reload
+
+      block.restore!
+      sub_block.soft_delete!
+      root.hard_delete!
+
+      internal_graphql_execute(query, { webid: pod.webid })
+      expect(response.success?).to be true
+      expect(response.data['trashBlocks'].count).to eq(0)
+
+      self.current_user = nil
+      self.current_pod = nil
+    end
   end
 end
