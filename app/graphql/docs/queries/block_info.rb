@@ -15,17 +15,23 @@ module Docs
 
       current_user&.save_last_position!(webid, block.id)
 
-      {
+      result = {
         title: block.title,
         payload: payload,
         pin: fetch_pin(block),
         id: block.id,
         is_deleted: !!block.deleted_at,
-        is_master: master?(block),
-        permission: permission(block),
         path_array: block.path_array,
         collaborators: collaborators(block)
       }
+
+      is_master = master?(block)
+      permission = is_master ? nil : get_permission(block)
+
+      result[:is_master] = is_master
+      result[:permission] = permission
+
+      result
     end
 
     def fetch_pin(block)
@@ -38,7 +44,13 @@ module Docs
       true
     end
 
-    def permission(block)
+    def master?(block)
+      return false if current_user.nil?
+
+      block.pod_id.in?(current_user.pods.ids)
+    end
+
+    def get_permission(block)
       base_query = block.share_links
 
       if current_pod.fetch('webid') == Pod::ANONYMOUS_WEBID
@@ -50,12 +62,6 @@ module Docs
 
         share_links.find { |s| s.share_webid == current_pod.fetch('webid') }
       end
-    end
-
-    def master?(block)
-      return false if current_user.nil?
-
-      block.pod_id.in?(current_user.pods.ids)
     end
 
     def collaborators(block)
