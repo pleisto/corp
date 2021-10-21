@@ -44,7 +44,8 @@ module Docs
       pod_id = current_pod.fetch('id')
 
       insert_data = []
-      # attachment_data = {}
+      upsert_data = []
+      attachment_data = {}
       now = Time.current
 
       blocks.each do |args|
@@ -67,21 +68,24 @@ module Docs
         # TODO: fix this in collab (Readonly mode)
         block.collaborators = (block.collaborators + [current_user.id]).uniq if current_pod.fetch('owner_id') == current_user.id
 
-        ## TODO upsert_all
-        block.attachments = args.attachments if args.attachments
+        if args.attachments
+          # block.attachments = args.attachments
+          attachment_data[block] = args.attachments
+        end
 
         refetch_tree = true if args.id == root_id && block.changed?
 
         if exist
-          block.save!
+          upsert_data << block if block.changed?
         else
           insert_data << block
         end
-        new_blocks_hash[block.id] = block
 
+        new_blocks_hash[block.id] = block
         patches << block.dirty_patch
       end
 
+      ## Handle insert
       if insert_data.present?
         insert_blocks = insert_data.map do |block|
           block.block_attributes.merge('created_at' => now, 'updated_at' => now)
@@ -91,6 +95,28 @@ module Docs
         end
         Docs::Block.insert_all(insert_blocks)
         Docs::History.insert_all(insert_histories)
+      end
+
+      ## Handle upsert
+      if upsert_data.present?
+        root&.prepare_descendants
+
+        upsert_blocks = upsert_data.map do |block|
+          block.history_version = block.realtime_history_version_increment
+          block
+        end
+
+        insert_histories = upsert_blocks.map do |block|
+          block.history_attributes.merge('created_at' => now, 'updated_at' => now)
+        end
+
+        Docs::Block.upsert_all(upsert_blocks.map(&:block_attributes))
+        Docs::History.insert_all(insert_histories)
+      end
+
+      ## Handle attachment
+      attachment_data.each do |block, attachment|
+        block.update!(attachment: attachment)
       end
 
       patches.compact!
