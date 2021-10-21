@@ -8,7 +8,7 @@ import { omit } from 'lodash-es'
 import { useBoolean } from 'ahooks'
 
 import { useUserPasswordResetMutation, UserPasswordResetInput, useUserSignOutMutation, UserSignOutInput } from '@/BrickdocGraphQL'
-import { mutationResultHandler } from '@/utils'
+import { mutationResultHandler } from '@/common/utils'
 
 export const EditPasswordPage: React.FC = () => {
   const { t } = useAccountsI18n()

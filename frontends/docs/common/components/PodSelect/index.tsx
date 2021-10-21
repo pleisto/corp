@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { BrickdocContext } from '@/BrickdocPWA'
+import { BrickdocContext } from '@/common/brickdocContext'
 import { useGetPodsQuery, useUserSignOutMutation, UserSignOutInput, PodOperation } from '@/BrickdocGraphQL'
 import { Dropdown, Skeleton, Menu, MenuProps, Tooltip, Button, ButtonProps } from '@brickdoc/design-system'
 import { PodCard } from '@/common/components/PodCard'
