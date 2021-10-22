@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import React from 'react'
 import { Node } from 'prosemirror-model'
 import { gql, useApolloClient } from '@apollo/client'
 import { BlockInput, Block, useBlockSyncBatchMutation, GetChildrenBlocksQuery } from '@/BrickdocGraphQL'
 import { JSONContent } from '@tiptap/core'
 import { isNil, isMatch } from 'lodash-es'
-import { SyncStatusContext } from '../contexts/syncStatusContext'
+import { isSavingVar } from '../../reactiveVars'
 
 const nodeChildren = (node: Node): Node[] => {
   // TODO Fragment type missing content field
@@ -184,16 +183,15 @@ const cachedChildrenBlocksQuery = gql`
 `
 
 export function useSyncProvider(): [(doc: Node) => Promise<void>] {
-  const { setCommitting, committing } = React.useContext(SyncStatusContext)
   const client = useApolloClient()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
   return [
     async (doc: Node) => {
-      if (committing) {
+      if (isSavingVar()) {
         return
       }
 
-      setCommitting(true)
+      isSavingVar(true)
       try {
         const rootId = doc.attrs.uuid
         let { childrenBlocks: oldBlocks } =
@@ -208,6 +206,7 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
         }
 
         const oldBlockMap = new Map(oldBlocks.map(b => [b.id, b]))
+        const newBlockIds = new Set()
 
         const added: BlockInput[] = []
         const updated: BlockInput[] = []
@@ -215,6 +214,10 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
 
         newBlocks.forEach(newBlock => {
           newBlock.sort = `${newBlock.sort}`
+          if (newBlockIds.has(newBlock.id)) {
+            throw new Error('Duplicated uuid found in newly generated blocks')
+          }
+          newBlockIds.add(newBlock.id)
           if (!oldBlockMap.has(newBlock.id)) {
             added.push(newBlock)
           } else {
@@ -228,11 +231,22 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
           }
         })
         const deleted: BlockInput[] = Array.from(oldBlockMap.values())
-        console.log({ added, updated, deleted })
+        // console.log({ added, updated, deleted })
 
         if (added.length === 0 && updated.length === 0 && deleted.length === 0) {
           throw new Error('No added/updated/deleted blocks detected.')
         }
+
+        const syncPromise = blockSyncBatch({
+          variables: {
+            input: {
+              blocks: added.concat(updated),
+              deletedIds: deleted.map(d => d.id),
+              rootId,
+              operatorId: globalThis.brickdocContext.uuid
+            }
+          }
+        })
 
         if (newTitle !== undefined) {
           client.cache.modify({
@@ -244,26 +258,17 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
             }
           })
         }
-
-        await blockSyncBatch({
-          variables: {
-            input: {
-              blocks: added.concat(updated),
-              deletedIds: deleted.map(d => d.id),
-              rootId,
-              operatorId: globalThis.brickdocContext.uuid
-            }
-          }
-        })
         client.writeQuery({
           query: cachedChildrenBlocksQuery,
           variables: { rootId, snapshotVersion: 0 },
           data: { childrenBlocks: newBlocks.map(b => ({ ...b, parentId: b.parentId ?? null, __typename: 'block' })) }
         })
+
+        await syncPromise
       } catch {
         // Ignored
       } finally {
-        setCommitting(false)
+        isSavingVar(false)
       }
     }
   ]

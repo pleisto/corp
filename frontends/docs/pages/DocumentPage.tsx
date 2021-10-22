@@ -18,7 +18,7 @@ import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
 import { Redirect } from 'react-router-dom'
 import { DocMeta, NonNullDocMeta } from './DocumentContentPage'
-import { PageEditorContext } from './contexts/pageEditorContext'
+import { editorVar } from '../reactiveVars'
 interface DocumentPageProps {
   docMeta: DocMeta
 }
@@ -90,8 +90,9 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     onFocus: () => setFocused(true),
     onBlur: () => setFocused(false)
   })
-  const { setEditor } = React.useContext(PageEditorContext)
-  React.useEffect(() => setEditor(editor), [editor, setEditor])
+  React.useEffect(() => {
+    editorVar(editor)
+  }, [editor])
 
   React.useEffect(() => {
     const block = data?.childrenBlocks?.find(block => block.id === docMeta.id)
