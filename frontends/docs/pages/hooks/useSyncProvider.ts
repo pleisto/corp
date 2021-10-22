@@ -228,17 +228,12 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
           }
         })
         const deleted: BlockInput[] = Array.from(oldBlockMap.values())
-        // console.log({ added, updated, deleted })
+        console.log({ added, updated, deleted })
 
         if (added.length === 0 && updated.length === 0 && deleted.length === 0) {
           throw new Error('No added/updated/deleted blocks detected.')
         }
 
-        client.writeQuery({
-          query: cachedChildrenBlocksQuery,
-          variables: { rootId, snapshotVersion: 0 },
-          data: { childrenBlocks: newBlocks.map(b => ({ ...b, parentId: b.parentId ?? null, __typename: 'block' })) }
-        })
         if (newTitle !== undefined) {
           client.cache.modify({
             id: client.cache.identify({ __typename: 'BlockInfo', id: rootId }),
@@ -259,6 +254,11 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
               operatorId: globalThis.brickdocContext.uuid
             }
           }
+        })
+        client.writeQuery({
+          query: cachedChildrenBlocksQuery,
+          variables: { rootId, snapshotVersion: 0 },
+          data: { childrenBlocks: newBlocks.map(b => ({ ...b, parentId: b.parentId ?? null, __typename: 'block' })) }
         })
       } catch {
         // Ignored
