@@ -14,12 +14,12 @@ enum AuthMethod {
   email_password
 
   """
-  Federated Authentication
+   Federated Authentication
   """
   github
 
   """
-  Federated Authentication
+   Federated Authentication
   """
   google_oauth2
 }
@@ -765,6 +765,11 @@ input BlockSyncBatchInput {
   clientMutationId: String
 
   """
+  deleted ids
+  """
+  deletedIds: [UUID!]!
+
+  """
   operator id
   """
   operatorId: String!
@@ -788,7 +793,6 @@ type BlockSyncBatchPayload {
   Errors encountered during execution of the mutation.
   """
   errors: [String!]!
-  refetchTree: Boolean!
 }
 
 """
@@ -1281,6 +1285,7 @@ type RootMutation {
   ): UpdateMemberPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userConfirmationEmailResend(
@@ -1291,6 +1296,7 @@ type RootMutation {
   ): UserConfirmationEmailResendPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userCreate(
@@ -1301,6 +1307,7 @@ type RootMutation {
   ): UserCreatePayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userEmailPasswordSignIn(
@@ -1311,6 +1318,7 @@ type RootMutation {
   ): UserEmailPasswordSignInPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userForgetPasswordMailSend(
@@ -1321,6 +1329,7 @@ type RootMutation {
   ): UserForgetPasswordMailSendPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userPasswordReset(
@@ -1331,6 +1340,7 @@ type RootMutation {
   ): UserPasswordResetPayload
 
   """
+
   Required `context[:entrypoints]` is `[:internal]`.
   """
   userSignOut(

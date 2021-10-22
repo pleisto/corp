@@ -203,7 +203,9 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
           }) ?? {}
         if (!oldBlocks) oldBlocks = []
         const newBlocks = nodeToBlock(doc, 0)
-        newBlocks[0].parentId = oldBlocks[0].parentId
+        if (oldBlocks[0].parentId) {
+          newBlocks[0].parentId = oldBlocks[0].parentId
+        }
 
         const oldBlockMap = new Map(oldBlocks.map(b => [b.id, b]))
 
@@ -226,9 +228,7 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
           }
         })
         const deleted: BlockInput[] = Array.from(oldBlockMap.values())
-        console.log('added', added)
-        console.log('updated', updated)
-        console.log('deleted', deleted)
+        // console.log({ added, updated, deleted })
 
         if (added.length === 0 && updated.length === 0 && deleted.length === 0) {
           throw new Error('No added/updated/deleted blocks detected.')
@@ -253,7 +253,8 @@ export function useSyncProvider(): [(doc: Node) => Promise<void>] {
         await blockSyncBatch({
           variables: {
             input: {
-              blocks: newBlocks, // TODO: use added/updated/deleted
+              blocks: added.concat(updated),
+              deletedIds: deleted.map(d => d.id),
               rootId,
               operatorId: globalThis.brickdocContext.uuid
             }
