@@ -21,6 +21,8 @@ import { useEditorI18n } from './hooks'
 
 export type { ImageSectionAttributes } from './extensions'
 
+export { useEditorI18n }
+
 export interface EditorContentProps {
   editor: TiptapEditor | null
 }

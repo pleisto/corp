@@ -88,6 +88,7 @@ export const queryChildrenBlocks = gql`
         title
         level
         language
+        start
         image {
           type
           source

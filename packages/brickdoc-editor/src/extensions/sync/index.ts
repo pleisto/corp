@@ -77,7 +77,6 @@ export const SyncExtension = Extension.create<SyncExtensionOptions>({
           apply(tr, pluginState, oldState, newState) {
             // Clean up plugin states when `nextSaveTimer` triggered
             if (tr.getMeta('nextSaveTimerTriggered')) {
-              console.log('nextSaveTimerTriggered cleanup')
               return { ...pluginState, nextSaveTimer: undefined }
             }
 
@@ -90,7 +89,6 @@ export const SyncExtension = Extension.create<SyncExtensionOptions>({
             if (newState.doc.attrs.uuid !== oldState.doc.attrs.uuid) {
               // Clear pending sync timers if we are loading a new doc and save the old doc
               if (pluginState.nextSaveTimer) {
-                console.log('cleanup pending save timer')
                 clearTimeout(pluginState.nextSaveTimer)
                 onSave(oldState.doc)
               }

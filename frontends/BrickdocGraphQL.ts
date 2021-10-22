@@ -297,6 +297,8 @@ export type BlockMeta = {
   level?: Maybe<Scalars['Int']>
   /** link */
   link?: Maybe<BlockLink>
+  /** Prosemirror builtin start */
+  start?: Maybe<Scalars['String']>
   /** title */
   title?: Maybe<Scalars['String']>
 }
@@ -1959,6 +1961,7 @@ export type GetChildrenBlocksQuery = {
           title?: string | null | undefined
           level?: number | null | undefined
           language?: string | null | undefined
+          start?: string | null | undefined
           image?:
             | {
                 __typename?: 'BlockImage'
@@ -3914,6 +3917,7 @@ export const GetChildrenBlocksDocument = gql`
         title
         level
         language
+        start
         image {
           type
           source
