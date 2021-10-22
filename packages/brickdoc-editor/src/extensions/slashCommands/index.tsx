@@ -85,6 +85,7 @@ const menuItems: SlashCommandsMenuItem[] = [
         .focus()
         .deleteRange(range)
         .setLinkBlock(range.from - 1)
+        .insertContentAt(range.to + 1, '\n')
         .run()
     }
   },
