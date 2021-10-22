@@ -73,6 +73,7 @@ const menuItems: SlashCommandsMenuItem[] = [
         .focus()
         .deleteRange(range)
         .setPdfSection(range.from - 1)
+        .splitBlock()
         .run()
     }
   },
@@ -85,7 +86,7 @@ const menuItems: SlashCommandsMenuItem[] = [
         .focus()
         .deleteRange(range)
         .setLinkBlock(range.from - 1)
-        .insertContentAt(range.to + 1, '\n')
+        .splitBlock()
         .run()
     }
   },
@@ -99,6 +100,7 @@ const menuItems: SlashCommandsMenuItem[] = [
         .focus()
         .deleteRange(range)
         .setImageSection(range.from - 1)
+        .splitBlock()
         .run()
     }
   },
@@ -111,6 +113,7 @@ const menuItems: SlashCommandsMenuItem[] = [
         .focus()
         .deleteRange(range)
         .setTableBlock(range.from - 1)
+        .splitBlock()
         .run()
     }
   }
