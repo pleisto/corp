@@ -26,7 +26,7 @@ export const NewPage: React.FC<DocMetaProps> = ({ docMeta }) => {
   return (
     <Button type="text" onClick={onClick} loading={createBlockLoading} disabled={createBlockLoading}>
       <Add />
-      {t('blocks.create_pages')}
+      {t('blocks.new_page')}
     </Button>
   )
 }

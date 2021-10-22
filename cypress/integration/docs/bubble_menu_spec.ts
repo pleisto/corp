@@ -3,7 +3,7 @@ describe('bubbleMenu', () => {
     cy.sessionMock({ email: 'cypress@brickdoc.com' })
   })
   it('should insert inline link', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('link')
 
     const link = 'https://www.brickdoc.com'
@@ -23,6 +23,7 @@ describe('bubbleMenu', () => {
         cy.spy(win.navigator.clipboard, 'writeText').as('copy')
       }
     })
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('link')
 
     const link = 'https://www.brickdoc.com'
@@ -42,6 +43,7 @@ describe('bubbleMenu', () => {
         cy.stub(win, 'open')
       }
     })
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('link')
 
     const link = 'https://www.brickdoc.com'

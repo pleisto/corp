@@ -5,14 +5,14 @@ describe('tableBlock', () => {
 
   describe('Basic', () => {
     it('should create a table block', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.brickdoc-table-block').should('exist')
     })
 
     it('should add new column', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
@@ -22,7 +22,7 @@ describe('tableBlock', () => {
     })
 
     it('should update column name', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
@@ -32,7 +32,7 @@ describe('tableBlock', () => {
     })
 
     it('should delete column', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
 
@@ -44,7 +44,7 @@ describe('tableBlock', () => {
     })
 
     it('should add new row', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -56,7 +56,7 @@ describe('tableBlock', () => {
 
   describe('Text Cell', () => {
     it('should edit text cell', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -68,7 +68,7 @@ describe('tableBlock', () => {
     })
 
     it('should end text cell editing status by press enter', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -81,7 +81,7 @@ describe('tableBlock', () => {
 
   describe('Select Cell', () => {
     it("should clear all row's value after delete options", () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -104,7 +104,7 @@ describe('tableBlock', () => {
       cy.findByText('Create').should('not.exist')
     })
     it('should change cell type to select', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -118,7 +118,7 @@ describe('tableBlock', () => {
     })
 
     it('should create new select option', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -135,7 +135,7 @@ describe('tableBlock', () => {
     })
 
     it('should select option', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -155,7 +155,7 @@ describe('tableBlock', () => {
     })
 
     it('should filter select option', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -176,7 +176,7 @@ describe('tableBlock', () => {
 
   describe('Date Cell', () => {
     it('should edit date cell', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -191,7 +191,7 @@ describe('tableBlock', () => {
     })
 
     it('should make date cell include time', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -210,7 +210,7 @@ describe('tableBlock', () => {
     })
 
     it('should clear content when change type from anything to date', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -227,7 +227,7 @@ describe('tableBlock', () => {
 
   describe('Date Range Cell', () => {
     it('should edit date range cell', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -244,7 +244,7 @@ describe('tableBlock', () => {
     })
 
     it('should make date range cell include time', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()
@@ -267,7 +267,7 @@ describe('tableBlock', () => {
     })
 
     it('should clear content when change type from anything to date range', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/table')
       cy.get('button.slash-menu-item:first').click()
       cy.get('.table-toolbar-add-button').click()

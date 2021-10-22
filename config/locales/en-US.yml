@@ -635,6 +635,7 @@ en-US:
       text: Quick Find
       placeholder: Search Pages
     blocks:
+      new_page: New Page
       create_pages: Add Pages
       create_sub_pages: Add Subpage
       delete: Delete

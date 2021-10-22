@@ -4,7 +4,7 @@ describe('document meta', () => {
   })
 
   it('should add document cover', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.findAllByPlaceholderText('Untitled').focus()
     cy.focused().realHover()
     cy.findByText('Add cover').realClick()

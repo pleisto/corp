@@ -3,13 +3,13 @@ describe('slashCommands', () => {
     cy.sessionMock({ email: 'cypress@brickdoc.com' })
   })
   it('should work when typing slash char at start', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/')
     cy.get('button.slash-menu-item').should('exist')
   })
 
   it('should work when select Heading 1 command', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/')
     cy.get('button.slash-menu-item:first').click()
     cy.get('[contenteditable]').type('h1')
@@ -17,7 +17,7 @@ describe('slashCommands', () => {
   })
 
   it('should not work when typing slash from the non-start position', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/')
     cy.get('button.slash-menu-item:first').click()
     cy.get('[contenteditable]').type('h1')
@@ -26,7 +26,7 @@ describe('slashCommands', () => {
   })
 
   it('should filter menu items by inputting name or alias', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/').type('h2{enter}h2')
     cy.get('.ProseMirror > h2').should('contain.text', 'h2')
     // goto new line
@@ -37,7 +37,7 @@ describe('slashCommands', () => {
   })
 
   it('should select item by pressing arrow up/down', () => {
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/').type('{downarrow}{enter}h2')
     cy.get('.ProseMirror > h2').should('contain.text', 'h2')
     // goto new line

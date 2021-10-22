@@ -2,7 +2,7 @@ describe('tableBlockFilter', () => {
   beforeEach(() => {
     cy.sessionMock({ email: 'cypress@brickdoc.com' })
 
-    cy.visit('/')
+    cy.findByText('New Page').click()
     cy.get('[contenteditable]').type('/table')
     cy.get('button.slash-menu-item:first').click()
 

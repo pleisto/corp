@@ -5,7 +5,7 @@ describe('linkBlock', () => {
 
   describe('external link', () => {
     it('should embed link by inputting link', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/embed')
       cy.get('button.slash-menu-item:first').click()
       cy.findByText('Embed anything').click()
@@ -15,7 +15,7 @@ describe('linkBlock', () => {
     })
 
     it('should delete link by clicking Delete button', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/embed')
       cy.get('button.slash-menu-item:first').click()
       cy.findByText('Embed anything').click()
@@ -67,7 +67,7 @@ describe('linkBlock', () => {
   // eslint-disable-next-line jest/no-disabled-tests
   describe.skip('attachment file', () => {
     it('should upload attachment successfully', () => {
-      cy.visit('/')
+      cy.findByText('New Page').click()
       cy.get('[contenteditable]').type('/embed')
       cy.get('button.slash-menu-item:first').click()
       cy.findByText('Embed anything').click()
