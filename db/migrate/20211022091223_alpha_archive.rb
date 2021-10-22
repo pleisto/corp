@@ -16,7 +16,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["accounts_user_id"], name: "index_accounts_federated_identities_on_accounts_user_id"
       t.index ["provider", "uid"], name: "index_accounts_federated_identities_on_provider_and_uid", unique: true
     end
-  
+
     create_table "accounts_members", force: :cascade do |t|
       t.bigint "pod_id", null: false
       t.bigint "user_id", null: false
@@ -27,7 +27,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["pod_id"], name: "index_accounts_members_on_pod_id"
       t.index ["user_id"], name: "index_accounts_members_on_user_id"
     end
-  
+
     create_table "accounts_users", force: :cascade do |t|
       t.string "email"
       t.string "encrypted_password", default: "", null: false
@@ -59,7 +59,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["reset_password_token"], name: "index_accounts_users_on_reset_password_token", unique: true
       t.index ["unlock_token"], name: "index_accounts_users_on_unlock_token", unique: true
     end
-  
+
     create_table "active_storage_attachments", force: :cascade do |t|
       t.string "name", null: false
       t.string "record_id", null: false
@@ -69,7 +69,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
       t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
     end
-  
+
     create_table "active_storage_blobs", force: :cascade do |t|
       t.string "key", null: false
       t.string "filename", null: false
@@ -85,13 +85,13 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.string "operation_type", default: "THIRD", null: false
       t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
     end
-  
+
     create_table "active_storage_variant_records", force: :cascade do |t|
       t.bigint "blob_id", null: false
       t.string "variation_digest", null: false
       t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
     end
-  
+
     create_table "brickdoc_configs", force: :cascade do |t|
       t.string "key", null: false
       t.text "value"
@@ -102,7 +102,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.datetime "updated_at", precision: 6, null: false
       t.index ["key", "scope", "domain"], name: "index_brickdoc_configs_on_key_and_scope_and_domain", unique: true
     end
-  
+
     create_table "docs_aliases", force: :cascade do |t|
       t.bigint "pod_id", null: false
       t.string "alias", null: false
@@ -114,7 +114,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["block_id"], name: "index_docs_aliases_on_block_id"
       t.index ["pod_id", "alias"], name: "index_docs_aliases_on_pod_id_and_alias", unique: true
     end
-  
+
     create_table "docs_blocks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
       t.bigint "pod_id", null: false
       t.string "type", limit: 32
@@ -137,7 +137,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["parent_id"], name: "index_docs_blocks_on_parent_id"
       t.index ["pod_id"], name: "index_docs_blocks_on_pod_id"
     end
-  
+
     create_table "docs_histories", force: :cascade do |t|
       t.bigint "pod_id"
       t.jsonb "meta", null: false
@@ -152,10 +152,11 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.jsonb "content", default: [], comment: "node content"
       t.text "text", default: "", comment: "node text"
       t.datetime "deleted_at"
-      t.index ["block_id", "history_version"], name: "index_docs_histories_on_block_id_and_history_version", unique: true, comment: "history identifier"
+      t.index ["block_id", "history_version"], name: "index_docs_histories_on_block_id_and_history_version", unique: true,
+comment: "history identifier"
       t.index ["pod_id"], name: "index_docs_histories_on_pod_id"
     end
-  
+
     create_table "docs_pins", force: :cascade do |t|
       t.bigint "user_id", null: false
       t.bigint "pod_id", null: false
@@ -165,7 +166,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.datetime "updated_at", precision: 6, null: false
       t.index ["user_id", "pod_id", "block_id"], name: "index_docs_pins_on_user_id_and_pod_id_and_block_id", unique: true
     end
-  
+
     create_table "docs_share_links", force: :cascade do |t|
       t.uuid "block_id", null: false, comment: "Page id"
       t.bigint "pod_id", null: false
@@ -178,7 +179,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["key"], name: "index_docs_share_links_on_key", unique: true
       t.index ["share_webid"], name: "index_docs_share_links_on_share_webid"
     end
-  
+
     create_table "docs_snapshots", force: :cascade do |t|
       t.bigint "pod_id"
       t.uuid "block_id", null: false
@@ -187,17 +188,18 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.string "name"
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
-      t.index ["block_id", "snapshot_version"], name: "index_docs_snapshots_on_block_id_and_snapshot_version", unique: true, comment: "snapshot identifier"
+      t.index ["block_id", "snapshot_version"], name: "index_docs_snapshots_on_block_id_and_snapshot_version", unique: true,
+comment: "snapshot identifier"
       t.index ["pod_id"], name: "index_docs_snapshots_on_pod_id"
     end
-  
+
     create_table "flipper_features", force: :cascade do |t|
       t.string "key", null: false
       t.datetime "created_at", precision: 6, null: false
       t.datetime "updated_at", precision: 6, null: false
       t.index ["key"], name: "index_flipper_features_on_key", unique: true
     end
-  
+
     create_table "flipper_gates", force: :cascade do |t|
       t.string "feature_key", null: false
       t.string "key", null: false
@@ -206,7 +208,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.datetime "updated_at", precision: 6, null: false
       t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
     end
-  
+
     create_table "pods", force: :cascade do |t|
       t.bigint "owner_id", null: false
       t.string "webid", null: false
@@ -223,7 +225,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["invite_secret"], name: "index_pods_on_invite_secret", unique: true
       t.index ["owner_id"], name: "index_pods_on_owner_id"
     end
-  
+
     create_table "stafftools_role_assignments", force: :cascade do |t|
       t.bigint "accounts_user_id", null: false
       t.bigint "stafftools_role_id", null: false
@@ -232,7 +234,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.index ["accounts_user_id"], name: "index_stafftools_role_assignments_on_accounts_user_id"
       t.index ["stafftools_role_id"], name: "index_stafftools_role_assignments_on_stafftools_role_id"
     end
-  
+
     create_table "stafftools_roles", force: :cascade do |t|
       t.string "name", null: false
       t.string "permissions", default: [], array: true
@@ -240,7 +242,7 @@ class AlphaArchive < ActiveRecord::Migration[7.0]
       t.datetime "updated_at", precision: 6, null: false
       t.index ["name"], name: "index_stafftools_roles_on_name", unique: true
     end
-  
+
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
     add_foreign_key "stafftools_role_assignments", "accounts_users"
