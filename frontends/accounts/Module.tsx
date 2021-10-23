@@ -6,7 +6,6 @@ import { SignInPage } from './sessions/SignInPage'
 import { SignUpPage } from './sessions/SignUpPage'
 import { rootPath } from '@/common/utils'
 
-
 const AccountsModule: FC = () => {
   const context = useContext(BrickdocContext)
 
@@ -14,7 +13,7 @@ const AccountsModule: FC = () => {
   const ForgetPasswordPage = lazy(async () => await import('./passwords/ForgetPasswordPage'))
   const EditPasswordPage = lazy(async () => await import('./passwords/EditPasswordPage'))
 
-  if (context.currentUser) return <Navigate replace to={rootPath(context)} />
+  if (context.currentUser) return <Navigate replace={true} to={rootPath(context)} />
 
   return (
     <PanelLayoutPage>
@@ -27,6 +26,6 @@ const AccountsModule: FC = () => {
       </Routes>
     </PanelLayoutPage>
   )
- }
+}
 
 export default AccountsModule

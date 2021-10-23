@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import { SidebarLayoutPage } from '@/common/layouts/SidebarLayoutPage'
 import { DocumentTopBar } from './components/DocumentTopBar'
 import { DocumentPage } from './DocumentPage'
 import { BrickdocContext } from '@/common/brickdocContext'
@@ -83,16 +82,14 @@ export const DocumentContentPage: React.FC = () => {
         if (blockCreateData?.blockCreate?.id) {
           navigate(`/${webid}/${BlockIdKind.P}/${blockCreateData?.blockCreate?.id}`)
         }
-
       }
     }
 
     if (!isAnonymous && !docid) {
       void createAndNavigateToNewPage()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockCreate, docid, history, webid, isAnonymous, lastWebid, lastBlockIds])
-
 
   const { state } = useLocation()
 
@@ -171,14 +168,12 @@ export const DocumentContentPage: React.FC = () => {
     }
   }, [docMeta, loading])
 
-  const content = (
+  return (
     <>
       <Helmet title={editor?.state.doc.attrs.title ?? docMeta.title} />
       <DocumentPage docMeta={{ ...docMeta, editable: docMeta.editable && !isAnonymous }} />
     </>
   )
-
-  return <SidebarLayoutPage>{content}</SidebarLayoutPage>
 }
 
 export default DocumentContentPage

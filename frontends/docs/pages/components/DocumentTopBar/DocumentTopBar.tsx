@@ -19,13 +19,8 @@ export interface DocumentTopBarProps {
 
 export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
   const { t } = useDocsI18n()
-<<<<<<< HEAD
-  const history = useHistory()
-  const isSaving = useReactiveVar(isSavingVar)
-=======
   const navigate = useNavigate()
-  const { committing: saving } = React.useContext(SyncStatusContext)
->>>>>>> d3985a81 (feat: temp commit)
+  const isSaving = useReactiveVar(isSavingVar)
 
   if (!docMeta.viewable) {
     return <></>
