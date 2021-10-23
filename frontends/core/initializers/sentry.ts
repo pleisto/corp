@@ -1,8 +1,8 @@
-import Sentry from '@sentry/react'
+import { init as Sentry } from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 
 export const sentryInit = (): void => {
-  Sentry.init({
+  Sentry({
   dsn: globalThis.brickdocContext.sentryDsn,
   integrations: [new Integrations.BrowserTracing()],
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+if !Rails.env.development? && !Rails.env.test?
 Sentry.init do |config|
   config.dsn = BrickdocConfig.sentry_dsn
   config.breadcrumbs_logger = [:active_support_logger, :http_logger]
@@ -11,4 +12,5 @@ Sentry.init do |config|
   # config.traces_sampler = lambda do |context|
   #   true
   # end
+end
 end

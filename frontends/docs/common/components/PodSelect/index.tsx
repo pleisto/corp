@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { BrickdocContext } from '@/common/brickdocContext'
 import { useGetPodsQuery, useUserSignOutMutation, UserSignOutInput, PodOperation } from '@/BrickdocGraphQL'
 import { Dropdown, Skeleton, Menu, MenuProps, Tooltip, Button, ButtonProps } from '@brickdoc/design-system'
@@ -16,7 +16,7 @@ export const PodSelect: React.FC<DocMetaProps> = ({ docMeta }) => {
   const [userSignOut, { loading: signOutLoading }] = useUserSignOutMutation()
   const [modalCreateVisible, setModalCreateVisible] = useState<boolean>(false)
   const { currentUser } = useContext(BrickdocContext)
-  const history = useHistory()
+  const navigate = useNavigate()
 
   if (loading || signOutLoading) {
     return <Skeleton avatar active paragraph={false} />
@@ -32,7 +32,7 @@ export const PodSelect: React.FC<DocMetaProps> = ({ docMeta }) => {
   const onClickPodSetting = (webid: string): ButtonProps['onClick'] => {
     return (event): void => {
       void event.stopPropagation()
-      history.push(`/${webid}/settings/general`)
+      navigate(`/${webid}/settings/general`)
     }
   }
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { SidebarLayoutPage } from '@/common/layouts/SidebarLayoutPage'
 import { DocumentTopBar } from './components/DocumentTopBar'
 import { DocumentPage } from './DocumentPage'
@@ -59,10 +59,10 @@ export const DocumentContentPage: React.FC = () => {
     docid,
     snapshotVersion,
     kind = BlockIdKind.P
-  } = useParams<{ webid: string; docid?: string; kind?: BlockIdKind; snapshotVersion?: string }>()
+  } = useParams() as unknown as { webid: string; docid?: string; kind?: BlockIdKind; snapshotVersion?: string }
   const { currentPod, currentUser, host, lastWebid, lastBlockIds } = useContext(BrickdocContext)
   const { t } = useDocsI18n()
-  const history = useHistory()
+  const navigate = useNavigate()
   const editor = useReactiveVar(editorVar)
 
   const loginWebid = currentPod.webid
@@ -77,19 +77,22 @@ export const DocumentContentPage: React.FC = () => {
   useEffect(() => {
     async function createAndNavigateToNewPage(): Promise<void> {
       if (lastBlockIds && (lastBlockIds as any)[webid]) {
-        history.push(`/${webid}/${BlockIdKind.P}/${(lastBlockIds as any)[webid]}`)
+        navigate(`/${webid}/${BlockIdKind.P}/${(lastBlockIds as any)[webid]}`)
       } else {
         const { data: blockCreateData } = await blockCreate({ variables: { input: { title: '' } } })
         if (blockCreateData?.blockCreate?.id) {
-          history.push(`/${webid}/${BlockIdKind.P}/${blockCreateData?.blockCreate?.id}`)
+          navigate(`/${webid}/${BlockIdKind.P}/${blockCreateData?.blockCreate?.id}`)
         }
+
       }
     }
 
     if (!isAnonymous && !docid) {
       void createAndNavigateToNewPage()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockCreate, docid, history, webid, isAnonymous, lastWebid, lastBlockIds])
+
 
   const { state } = useLocation()
 
