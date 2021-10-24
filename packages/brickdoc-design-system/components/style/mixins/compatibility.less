@@ -1,9 +1,11 @@
 // Compatibility for browsers.
 
 // Placeholder text
-.placeholder(@color: @input-placeholder-color) {
+.placeholder(@color: @input-placeholder-color, @size: @input-placeholder-size) {
   &::placeholder {
     color: @color;
+    font-size: @size;
+    font-weight: 500;
   }
 
   &:placeholder-shown {

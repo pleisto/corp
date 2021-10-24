@@ -1,6 +1,7 @@
 import { CollaboratorsMenu } from '@/docs/common/components/CollaboratorsMenu'
 import { PathBreadcrumb } from '@/docs/common/components/PathBreadcrumb'
 import { PinMenu } from '@/docs/common/components/PinMenu'
+import { SearchModal } from '@/docs/common/components/SearchModal'
 import { Button } from '@brickdoc/design-system'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -39,8 +40,8 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
         <div className={styles.menu}>
           <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
           <ShareMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-          <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
           <MoreMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
+          <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
         </div>
       ) : (
         <div className={styles.menu}>
@@ -69,6 +70,9 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarStart}>{headMenu}</div>
+      <div className={styles.topBarCenter}>
+        <SearchModal docMeta={docMeta} />
+      </div>
       <div className={styles.topBarEnd}>
         <div className={styles.status}>
           {saving && (

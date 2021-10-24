@@ -17,11 +17,9 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
   const pathData = paths.map((path, idx) => {
     const link = docMeta.isMine ? `/${docMeta.webid}/${BlockIdKind.P}/${path.id}` : '#'
     return (
-      <div key={idx}>
-        <Link className={styles.path} to={link}>
-          {path.text || t('title.untitled')}
-        </Link>
-        {idx < paths.length - 1 ? <span>&nbsp;/&nbsp;</span> : <></>}
+      <div className={styles.path} key={idx}>
+        <Link to={link}>{path.text || t('title.untitled')}</Link>
+        {idx < paths.length - 1 ? <span className={styles.splicing}>&nbsp;/&nbsp;</span> : <></>}
       </div>
     )
   })

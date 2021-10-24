@@ -1,14 +1,19 @@
 @import '@brickdoc/design-system/components/style/themes';
 
 .title {
+  display: flex;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: @font-size-sm;
+  line-height: @line-height-sm * 2;
+  align-items: center;
 }
 .menu {
   display: flex;
   justify-content: space-between;
   a {
-    color: @text-color;
+    color: #292333;
+    font-weight: 500;
   }
   .addBtn {
     opacity: 0;
