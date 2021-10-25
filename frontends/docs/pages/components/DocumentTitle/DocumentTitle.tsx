@@ -99,7 +99,6 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({
               value={title}
               onChange={e => onTitleChange(e.target.value)}
               placeholder={t('title.untitled')}
-              autoSize={true}
               disabled={!editable}
             />
           </div>
