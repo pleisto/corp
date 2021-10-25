@@ -30,7 +30,6 @@ export const PinMenu: React.FC<PinMenuProps> = ({ docMeta, className }) => {
     })
   }
 
-  // TODO: 这里切换pin状态后会抖动，估计export svg时候姿势不对
   return (
     <>
       <Tooltip title={t(docMeta.pin ? 'pin.remove_tooltip' : 'pin.add_tooltip')}>
