@@ -12,10 +12,10 @@ import {
   useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
-import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
 import styles from './styles.module.less'
 import { DocMeta } from '@/docs/pages/DocumentContentPage'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useReactiveVar } from '@apollo/client'
+import { editorVar } from '@/docs/reactiveVars'
 
 type UUID = Scalars['UUID']
 
@@ -31,6 +31,7 @@ interface PageMenuProps {
 export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }, setPopoverKey, pageId, pin, title, titleText }) => {
   const navigate = useNavigate()
   const client = useApolloClient()
+  const editor = useReactiveVar(editorVar)
   const [popoverVisible, setPopoverVisible] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
   const [copied, setCopied] = React.useState<boolean>(false)
@@ -99,10 +100,22 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
   }
 
   const onRename = async (e: any): Promise<void> => {
-    const input = { id: pageId, title: e.target.value }
+    const title = e.target.value
+    const input = { id: pageId, title }
     await blockRename({ variables: { input } })
     if (pageId === id) {
-      await client.refetchQueries({ include: [queryChildrenBlocks, queryBlockInfo] })
+      if (editor && !editor.isDestroyed) {
+        editor.commands.setDocAttrs({ ...editor.state.doc.attrs, title })
+      }
+
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'BlockInfo', id }),
+        fields: {
+          title() {
+            return title
+          }
+        }
+      })
     }
     setPopoverVisible(false)
   }
@@ -127,7 +140,14 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     const input = { blockId: pageId, pin: !pin }
     await blockPinOrUnpin({ variables: { input } })
     if (pageId === id) {
-      await client.refetchQueries({ include: [queryBlockInfo] })
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'BlockInfo', id }),
+        fields: {
+          pin() {
+            return !pin
+          }
+        }
+      })
     }
     setDropdownVisible(false)
     removeSelectedKey()
