@@ -11,7 +11,7 @@ import { useSignUpInitialValues } from './hooks/useSignUpInitialValues'
 import { useWebidAvailableValidator } from '@/common/hooks'
 import { useConfirmationValidator, useAccountsI18n } from '@/accounts/common/hooks'
 import { omit, omitBy, pick, isNil } from 'lodash-es'
-import { mutationResultHandler } from '@/utils'
+import { mutationResultHandler } from '@/common/utils'
 import { Form, Input, Button, Skeleton, message } from '@brickdoc/design-system'
 import { Trans } from 'react-i18next'
 import { ConfirmationEmailTips } from './components/ConfirmationEmailTips'
@@ -76,7 +76,8 @@ export const SignUpPage: React.FC = () => {
         name="email"
         label={t('sessions.email')}
         hasFeedback
-        rules={[{ required: !sessionData?.federatedIdentitySession?.hasSession }, emailAvailableValidator]}>
+        rules={[{ required: !sessionData?.federatedIdentitySession?.hasSession }, emailAvailableValidator]}
+      >
         <Input />
       </Form.Item>
       <Form.Item name="password" label={t('sessions.password')} hasFeedback rules={[{ required: true }, passwordAvailableValidator]}>
@@ -87,7 +88,8 @@ export const SignUpPage: React.FC = () => {
         label={t('sessions.confirm_password')}
         hasFeedback
         dependencies={['password']}
-        rules={[{ required: true }, passwordConfirmValidator]}>
+        rules={[{ required: true }, passwordConfirmValidator]}
+      >
         <Input.Password />
       </Form.Item>
     </>
@@ -106,7 +108,8 @@ export const SignUpPage: React.FC = () => {
           extra={<small>{t('sessions.webid_description')}</small>}
           hasFeedback
           validateTrigger={['onFocus', 'onBlur']}
-          rules={[{ required: true }, webidAvailableValidator]}>
+          rules={[{ required: true }, webidAvailableValidator]}
+        >
           <Input />
         </Form.Item>
         <Form.Item label={t('sessions.name')} name="name" hasFeedback rules={[{ required: true }]}>

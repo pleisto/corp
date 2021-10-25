@@ -15,6 +15,7 @@ interface ProfileModalProps {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+// TODO i18n
 const IMPORT_SOURCES: ImportSourceOption[] = [
   {
     type: 'upload',

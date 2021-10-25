@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Dropdown, Input, Menu, MenuProps, message, Popover, Tooltip } from '@brickdoc/design-system'
-import { Link, useHistory } from 'react-router-dom'
+import { Button, Dropdown, Icon, Input, Menu, MenuProps, message, Popover, Tooltip } from '@brickdoc/design-system'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import {
   useBlockSoftDeleteMutation,
@@ -12,10 +12,10 @@ import {
   useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
-import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
-import { Add, Check, CheckOneFill, Copy, Delete, Edit, Link as LinkIcon, More, Star } from '@brickdoc/design-system/components/icon'
 import styles from './styles.module.less'
 import { DocMeta } from '@/docs/pages/DocumentContentPage'
+import { useApolloClient, useReactiveVar } from '@apollo/client'
+import { editorVar } from '@/docs/reactiveVars'
 
 type UUID = Scalars['UUID']
 
@@ -29,12 +29,14 @@ interface PageMenuProps {
 }
 
 export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }, setPopoverKey, pageId, pin, title, titleText }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
+  const client = useApolloClient()
+  const editor = useReactiveVar(editorVar)
   const [popoverVisible, setPopoverVisible] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
   const [copied, setCopied] = React.useState<boolean>(false)
 
-  const [blockSoftDelete, { client: deleteClient, loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
+  const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
     refetchQueries: [queryPageBlocks]
   })
 
@@ -42,11 +44,11 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     refetchQueries: [queryPageBlocks]
   })
 
-  const [blockRename, { loading: renameBlockLoading, client: renameClient }] = useBlockRenameMutation({
+  const [blockRename, { loading: renameBlockLoading }] = useBlockRenameMutation({
     refetchQueries: [queryPageBlocks]
   })
 
-  const [blockPinOrUnpin, { client: pinClient, loading: blockPinLoading }] = useBlockPinOrUnpinMutation({
+  const [blockPinOrUnpin, { loading: blockPinLoading }] = useBlockPinOrUnpinMutation({
     refetchQueries: [queryBlockPins]
   })
 
@@ -58,7 +60,14 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     const input = { id: pageId }
     await blockSoftDelete({ variables: { input } })
     if (pageId === id) {
-      await deleteClient.refetchQueries({ include: [queryBlockInfo, queryChildrenBlocks] })
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'BlockInfo', id }),
+        fields: {
+          isDeleted() {
+            return true
+          }
+        }
+      })
     }
   }
 
@@ -67,7 +76,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     const input = { parentId: pageId, title: '' }
     const { data } = await blockCreate({ variables: { input } })
     if (data?.blockCreate?.id) {
-      history.push(`/${webid}/${BlockIdKind.P}/${data?.blockCreate?.id}`)
+      navigate(`/${webid}/${BlockIdKind.P}/${data?.blockCreate?.id}`)
     }
   }
 
@@ -91,10 +100,22 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
   }
 
   const onRename = async (e: any): Promise<void> => {
-    const input = { id: pageId, title: e.target.value }
+    const title = e.target.value
+    const input = { id: pageId, title }
     await blockRename({ variables: { input } })
     if (pageId === id) {
-      await renameClient.refetchQueries({ include: [queryChildrenBlocks, queryBlockInfo] })
+      if (editor && !editor.isDestroyed) {
+        editor.commands.setDocAttrs({ ...editor.state.doc.attrs, title })
+      }
+
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'BlockInfo', id }),
+        fields: {
+          title() {
+            return title
+          }
+        }
+      })
     }
     setPopoverVisible(false)
   }
@@ -115,11 +136,18 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     setCopied(false)
   }
 
-  const doFavorite = async (): Promise<void> => {
+  const doPin = async (): Promise<void> => {
     const input = { blockId: pageId, pin: !pin }
     await blockPinOrUnpin({ variables: { input } })
     if (pageId === id) {
-      await pinClient.refetchQueries({ include: [queryBlockInfo] })
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'BlockInfo', id }),
+        fields: {
+          pin() {
+            return !pin
+          }
+        }
+      })
     }
     setDropdownVisible(false)
     removeSelectedKey()
@@ -137,11 +165,12 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
   const inputRef = React.useRef<any>(null)
   const renamePopoverContent = (
     <Input
-      prefix={<Edit />}
+      prefix={<Icon.Edit />}
       disabled={renameBlockLoading}
       size="small"
       bordered={false}
       onPressEnter={onRename}
+      onBlur={onRename}
       ref={inputRef}
       defaultValue={titleText}
     />
@@ -162,9 +191,11 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
         case 'rename':
           // TODO focus and select all
           // inputRef.current.focus({ preventScroll: true })
+          setDropdownVisible(false)
+          setPopoverVisible(true)
           break
-        case 'favorite':
-          void doFavorite()
+        case 'pin':
+          void doPin()
           break
         default:
           console.log(`unknown key ${key}`)
@@ -186,36 +217,38 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
 
   const menu = (
     <Menu onClick={onClickMenu()}>
-      <Menu.Item key="favorite" icon={pin ? <CheckOneFill /> : <Star />} disabled={blockPinLoading}>
+      <Menu.Item key="pin" icon={pin ? <Icon.Pin /> : <Icon.Unpin />} disabled={blockPinLoading}>
         {t(pin ? 'pin.remove' : 'pin.add')}
       </Menu.Item>
-      <Menu.Item key="copy_link" icon={copied ? <Check /> : <LinkIcon />}>
+      <Menu.Item key="copy_link" icon={copied ? <Icon.Check /> : <Icon.Link />}>
         {t(copied ? 'copy_link.copied' : 'copy_link.button')}
       </Menu.Item>
-      <Menu.Item key="duplicate" icon={<Copy />} disabled={blockDuplicateLoading}>
+      <Menu.Item key="duplicate" icon={<Icon.Copy />} disabled={blockDuplicateLoading}>
         {t('duplicate.button')}
       </Menu.Item>
-      <Menu.Item key="rename" icon={<Edit />} disabled={renameBlockLoading}>
-        <Popover
-          content={renamePopoverContent}
-          title={null}
-          trigger="click"
-          visible={popoverVisible}
-          onVisibleChange={onRenamePopoverVisibleChange}>
-          {t('blocks.rename')}
-        </Popover>
+      <Menu.Item key="rename" icon={<Icon.Edit />} disabled={renameBlockLoading}>
+        {t('blocks.rename')}
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item danger key="delete" icon={<Delete />} disabled={blockDeleteLoading}>
+      <Menu.Item danger key="delete" icon={<Icon.Delete />} disabled={blockDeleteLoading}>
         {t('blocks.delete')}
       </Menu.Item>
     </Menu>
   )
 
   const linkData = (
-    <Link to={linkPath} className={styles.title}>
-      {title}
-    </Link>
+    <Popover
+      content={renamePopoverContent}
+      title={null}
+      placement="bottom"
+      trigger="customEvent"
+      visible={popoverVisible}
+      onVisibleChange={onRenamePopoverVisibleChange}
+    >
+      <Link to={linkPath} className={styles.title}>
+        {title}
+      </Link>
+    </Popover>
   )
 
   return (
@@ -225,12 +258,12 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
           {linkData}
           <Tooltip title={t('blocks.more')}>
             <Button className={styles.moreBtn} type="text" onClick={onClickMoreButton}>
-              <More />
+              <Icon.More />
             </Button>
           </Tooltip>
           <Tooltip title={t('blocks.create_sub_pages')}>
             <Button className={styles.addBtn} type="text" onClick={onClickPlus} loading={createBlockLoading} disabled={createBlockLoading}>
-              <Add />
+              <Icon.Add />
             </Button>
           </Tooltip>
         </div>

@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Alert, Button, Modal, Space } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
 import { BlockHardDeleteInput, BlockRestoreInput, useBlockHardDeleteMutation, useBlockRestoreMutation } from '@/BrickdocGraphQL'
-import { useHistory } from 'react-router-dom'
-import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
+import { useNavigate } from 'react-router-dom'
 import { queryPageBlocks } from '../../graphql'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
+import { useApolloClient } from '@apollo/client'
 
 interface TrashPromptProps {
   docMeta: NonNullDocMeta
@@ -13,14 +13,15 @@ interface TrashPromptProps {
 
 export const TrashPrompt: React.FC<TrashPromptProps> = ({ docMeta: { id, webid } }) => {
   const { t } = useDocsI18n()
+  const client = useApolloClient()
   const [hardDeleteModalVisible, setHardDeleteModalVisible] = useState<boolean>(false)
   const [hardDeleteConfirmLoading, setHardDeleteConfirmLoading] = React.useState<boolean>(false)
   const [restoreButtonLoading, setRestoreButtonLoading] = React.useState<boolean>(false)
 
   const [blockHardDelete] = useBlockHardDeleteMutation()
-  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryChildrenBlocks, queryPageBlocks, queryBlockInfo] })
+  const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryPageBlocks] })
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const onHardDeleteClick = (): void => {
     setHardDeleteModalVisible(true)
@@ -30,6 +31,14 @@ export const TrashPrompt: React.FC<TrashPromptProps> = ({ docMeta: { id, webid }
     setRestoreButtonLoading(true)
     const input: BlockRestoreInput = { id }
     await blockRestore({ variables: { input } })
+    client.cache.modify({
+      id: client.cache.identify({ __typename: 'BlockInfo', id }),
+      fields: {
+        isDeleted() {
+          return false
+        }
+      }
+    })
     setRestoreButtonLoading(false)
   }
 
@@ -44,7 +53,7 @@ export const TrashPrompt: React.FC<TrashPromptProps> = ({ docMeta: { id, webid }
     await blockHardDelete({ variables: { input } })
     setHardDeleteModalVisible(false)
     setHardDeleteConfirmLoading(false)
-    history.push(`/${webid}`)
+    navigate(`/${webid}`)
   }
 
   return (
@@ -73,7 +82,8 @@ export const TrashPrompt: React.FC<TrashPromptProps> = ({ docMeta: { id, webid }
         confirmLoading={hardDeleteConfirmLoading}
         onCancel={onCancelDelete}
         onOk={onConfirmDelete}
-        visible={hardDeleteModalVisible}>
+        visible={hardDeleteModalVisible}
+      >
         {t('trash.delete_confirmation_body')}
       </Modal>
     </>

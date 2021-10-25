@@ -1,24 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Node } from 'prosemirror-model'
 import { Alert, Skeleton } from '@brickdoc/design-system'
-import { EditorContent, useEditor } from '@brickdoc/editor'
+import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { useGetChildrenBlocksQuery, Block, Filesourcetype, GetChildrenBlocksQuery } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import { blocksToJSONContents, useDocumentSubscription, usePrepareFileUpload, useFetchUnsplashImages, useFetchWebsiteMeta } from './hooks'
+import {
+  blocksToJSONContents,
+  useDocumentSubscription,
+  usePrepareFileUpload,
+  useFetchUnsplashImages,
+  useFetchWebsiteMeta,
+  useSyncProvider
+} from './hooks'
 import { useDatabaseRows } from './hooks/useDatabaseRows'
 import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { DocMeta, NonNullDocMeta } from './DocumentContentPage'
+import { editorVar } from '../reactiveVars'
 interface DocumentPageProps {
   docMeta: DocMeta
-  onCommit: (doc: Node) => Promise<void>
-  setCommitting?: (value: boolean) => void
 }
 
-export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, setCommitting }) => {
-  const childrenBlocks = React.useRef<GetChildrenBlocksQuery['childrenBlocks']>()
+export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
+  // apollo doesn't work well with React Suspense. We must place this suspense-related hook above
+  // apollo useQuery API to avoid issues like sending request twice.
+  // useEditorI18n() is called inside useEditor(), which is below useGetChildrenBlocksQuery(). So we
+  // promote this call to the beginning of this render fn.
+  useEditorI18n()
+
+  const [onCommit] = useSyncProvider()
+  const childrenBlocks = useRef<GetChildrenBlocksQuery['childrenBlocks']>()
+  const [focused, setFocused] = useState(false)
 
   // TODO lazy query here
   // TODO disable page tree select when loading
@@ -27,9 +41,9 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
   //   foo()
   // }, [])
 
-  const { data, loading } = useGetChildrenBlocksQuery({
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'standby',
+  const { data, loading, refetch } = useGetChildrenBlocksQuery({
+    fetchPolicy: docMeta.snapshotVersion > 0 ? 'no-cache' : 'cache-and-network',
+    nextFetchPolicy: 'cache-only',
     variables: { rootId: docMeta.id as string, snapshotVersion: docMeta.snapshotVersion }
   })
 
@@ -62,28 +76,29 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
 
   // if there is no doc id, document will not have deleted status
   const [documentEditable, setDocumentEditable] = React.useState(!docMeta.id)
-  const [deleted, setDeleted] = React.useState(false)
 
   const editor = useEditor({
     onSave: onCommit,
-    useDatabaseRows: useDatabaseRows(setCommitting),
+    useDatabaseRows: useDatabaseRows(),
     prepareFileUpload,
     fetchUnsplashImages,
     fetchWebsiteMeta,
     getImageUrl,
     getAttachmentUrl,
-    editable: documentEditable
+    editable: documentEditable,
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false)
   })
+  React.useEffect(() => {
+    editorVar(editor)
+  }, [editor])
 
   React.useEffect(() => {
     const block = data?.childrenBlocks?.find(block => block.id === docMeta.id)
 
     if (block) {
-      const deleted = !!block.deletedAt
-      setDeleted(deleted)
-
       if (editor) {
-        const nextEditable = docMeta.editable && !deleted
+        const nextEditable = docMeta.editable
         if (editor.options.editable !== nextEditable) {
           editor.options.editable = nextEditable
           editor.view.update(editor.view.props)
@@ -108,7 +123,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
   const setCover = createDocAttrsUpdater('cover')
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed && data?.childrenBlocks) {
+    if (editor && !editor.isDestroyed && data?.childrenBlocks && !focused) {
       const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
       childrenBlocks.current = data.childrenBlocks
 
@@ -116,16 +131,20 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
         editor.commands.replaceRoot(content[0])
       }
     }
-  }, [editor, data])
+  }, [editor, data, focused])
 
-  useDocumentSubscription({ docid: docMeta.id as string, editor })
+  useDocumentSubscription({ docid: docMeta.id as string, editor, setDocumentEditable, refetchDocument: refetch })
 
   if (loading || docMeta.documentInfoLoading) {
     return <Skeleton active />
   }
 
-  if (!docMeta.viewable) {
-    return <Redirect to="/" />
+  if (!docMeta.viewable || (docMeta.isAnonymous && !data?.childrenBlocks?.length)) {
+    if (docMeta.isRedirect) {
+      return <Alert message="TODO Page not found" type="error" />
+    } else {
+      return <Navigate to="/" />
+    }
   }
 
   const DocumentTitleElement = (
@@ -147,7 +166,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
 
   const PageElement = (
     <>
-      {docMeta.id && deleted && <TrashPrompt docMeta={docMeta as NonNullDocMeta} />}
+      {docMeta.id && docMeta.isDeleted && <TrashPrompt docMeta={docMeta as NonNullDocMeta} />}
       <div className={styles.page}>
         {DocumentTitleElement}
         <div className={styles.pageWrap}>
@@ -159,10 +178,6 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, onCommit, s
 
   if (!docMeta.id) {
     return PageElement
-  }
-
-  if (docMeta.isAnonymous && !data?.childrenBlocks?.length) {
-    return <Redirect to="/" />
   }
 
   if (data?.childrenBlocks?.length) {

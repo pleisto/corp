@@ -7,6 +7,10 @@ declare global {
     currentPod: {
       webid: string
     }
+    lastBlockIds?: {
+      [webid: string]: string
+    }
+    lastWebid?: string
     env: string
     version: string
     locale: string
@@ -19,6 +23,7 @@ declare global {
     isDesktopApp: boolean
     featureFlags: string[]
     serverMessage: string
+    sentryDsn: string
   }
   interface BrickdocClientContext {
     wsCable: ActionCable.Consumer

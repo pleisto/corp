@@ -11,6 +11,7 @@ import {
 import React from 'react'
 import { v4 as uuid } from 'uuid'
 import { useImperativeQuery } from '@/common/hooks'
+import { isSavingVar } from '../../reactiveVars'
 
 export interface DatabaseRow {
   id: string
@@ -20,7 +21,40 @@ export interface DatabaseRows extends Array<DatabaseRow> {}
 
 const SORT_GAP = 2 ** 32
 
-export function useDatabaseRows(setCommitting?: (value: boolean) => void): (parentId: string) => [
+function calculateSort(rows: DatabaseRows, targetIndex: number, fromIndex?: number): number {
+  let nextIndex = targetIndex
+  let prevIndex = targetIndex - 1
+
+  if (fromIndex !== undefined) {
+    if (fromIndex > targetIndex) {
+      prevIndex = targetIndex - 1
+      nextIndex = targetIndex
+    } else {
+      prevIndex = targetIndex
+      nextIndex = targetIndex + 1
+    }
+  }
+
+  let nextRowSort: number | undefined = rows[nextIndex]?.sort
+  let prevRowSort: number | undefined = rows[prevIndex]?.sort
+
+  if (nextRowSort === undefined) {
+    if (prevRowSort === undefined) {
+      nextRowSort = 0
+      prevRowSort = 0
+    } else {
+      nextRowSort = Number(prevRowSort) + 2 * SORT_GAP
+    }
+  }
+
+  if (prevRowSort === undefined) {
+    prevRowSort = Number(nextRowSort) - 2 * SORT_GAP
+  }
+
+  return Math.round(0.5 * (Number(nextRowSort) + Number(prevRowSort)))
+}
+
+export function useDatabaseRows(): (parentId: string) => [
   DatabaseRows,
   {
     fetchRows: () => Promise<void>
@@ -48,7 +82,7 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
 
     const updateRow = React.useCallback(
       async (row: DatabaseRow, updateState = true): Promise<void> => {
-        setCommitting?.(true)
+        isSavingVar(true)
         if (updateState) {
           setDatabaseRows(prevRows =>
             prevRows.map((prevRow: DatabaseRow) => {
@@ -68,24 +102,20 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
         }
         const input: BlockUpdateInput = { block: blockArg, rootId: parentId }
         await blockUpdate({ variables: { input } })
-        setCommitting?.(false)
+        isSavingVar(false)
       },
       [setDatabaseRows, parentId, blockUpdate]
     )
 
     const addRow = React.useCallback(
       (rowIndex?: number): DatabaseRow => {
-        const currentRowIndex = rowIndex ?? databaseRows.length - 1
+        const currentRowIndex: number = rowIndex ?? databaseRows.length
         const id = uuid()
-        const sort = Math.round(databaseRows[currentRowIndex + 1]?.sort ?? SORT_GAP - databaseRows[currentRowIndex - 1]?.sort ?? SORT_GAP)
+        const sort = calculateSort(databaseRows, currentRowIndex)
 
         const row = { id, sort }
         void updateRow(row, false)
-        setDatabaseRows([
-          ...databaseRows.slice(0, currentRowIndex + 1),
-          row,
-          ...databaseRows.slice(currentRowIndex + 1, databaseRows.length)
-        ])
+        setDatabaseRows([...databaseRows.slice(0, currentRowIndex), row, ...databaseRows.slice(currentRowIndex, databaseRows.length)])
         return row
       },
       [databaseRows, setDatabaseRows, updateRow]
@@ -93,11 +123,11 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
 
     const removeRow = React.useCallback(
       async (rowId: string): Promise<void> => {
-        if (setCommitting) setCommitting(true)
+        isSavingVar(true)
         setDatabaseRows(databaseRows.filter(row => row.id !== rowId))
         const input: BlockSoftDeleteInput = { id: rowId }
         await blockSoftDelete({ variables: { input } })
-        if (setCommitting) setCommitting(false)
+        isSavingVar(false)
       },
       [databaseRows, setDatabaseRows, blockSoftDelete]
     )
@@ -105,12 +135,11 @@ export function useDatabaseRows(setCommitting?: (value: boolean) => void): (pare
     const moveRow = React.useCallback(
       (fromIndex: number, toIndex: number): DatabaseRow | undefined => {
         let targetRow: DatabaseRow | undefined
-        const newRows = databaseRows.filter((row, index) => {
+        const newRows = databaseRows.filter((row, index: number) => {
           if (index !== fromIndex) {
             return true
           } else {
-            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-            const sort = Math.round(0.5 * (databaseRows[index + 1]?.sort ?? SORT_GAP - databaseRows[index - 1]?.sort ?? SORT_GAP))
+            const sort = calculateSort(databaseRows, toIndex, fromIndex)
             targetRow = { ...row, sort }
 
             return false

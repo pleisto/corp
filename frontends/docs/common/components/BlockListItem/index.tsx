@@ -11,10 +11,11 @@ import {
 import { Avatar, Button, Modal } from '@brickdoc/design-system'
 import React, { useState } from 'react'
 import { FilePages, Delete, Undo } from '@brickdoc/design-system/components/icon'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import styles from './BlockListItem.module.css'
+import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 
 interface BlockListItemProps {
   block: Block
@@ -28,7 +29,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
   // TODO support image type
   const avatar = block.meta.icon?.type === Blocktype.Emoji ? (block.meta.icon as BlockEmoji).emoji : <FilePages />
 
-  const history = useHistory()
+  const navigate = useNavigate()
   const [hardDeleteModalVisible, setHardDeleteModalVisible] = useState<boolean>(false)
   const [hardDeleteConfirmLoading, setHardDeleteConfirmLoading] = React.useState<boolean>(false)
 
@@ -41,7 +42,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
 
   const onClickLink = (): void => {
     setVisible(false)
-    history.push(link)
+    navigate(link)
   }
 
   const onRestore = async (): Promise<void> => {
@@ -64,6 +65,10 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
     setHardDeleteConfirmLoading(false)
   }
 
+  const getEmoji = (path: NonNullDocMeta['pathArray'][0]): string | undefined => {
+    return path.icon && path.icon.type === Blocktype.Emoji ? (path.icon as BlockEmoji).emoji : ''
+  }
+
   const title = block.text || t('title.untitled')
   const titleData =
     block.pathArray.length === 0 ? (
@@ -72,7 +77,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
       <>
         {title}
         <br />
-        {block.pathArray.map(p => p.text || t('title.untitled')).join(' / ')}
+        {block.pathArray.map(p => `${getEmoji(p)}${p.text || t('title.untitled')}`).join(' / ')}
       </>
     )
 
@@ -91,7 +96,8 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
           className={styles.button}
           onClick={() => {
             setHardDeleteModalVisible(true)
-          }}>
+          }}
+        >
           <Delete />
         </Button>
       </div>
@@ -104,7 +110,8 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
         confirmLoading={hardDeleteConfirmLoading}
         onCancel={onCancelDelete}
         onOk={onConfirmDelete}
-        visible={hardDeleteModalVisible}>
+        visible={hardDeleteModalVisible}
+      >
         {t('trash.delete_confirmation_body')}
       </Modal>
     </>

@@ -16,7 +16,6 @@ export const BlockSyncBatch = gql`
   mutation blockSyncBatch($input: BlockSyncBatchInput!) {
     blockSyncBatch(input: $input) {
       errors
-      refetchTree
     }
   }
 `
@@ -42,12 +41,43 @@ export const queryBlockInfo = gql`
     blockInfo(id: $id, webid: $webid, kind: $kind) {
       title
       id
+      icon {
+        ... on BlockImage {
+          type
+          source
+          key
+          height
+          width
+        }
+
+        ... on BlockEmoji {
+          type
+          name
+          emoji
+        }
+      }
       payload
       isDeleted
+      isMaster
       pin
       pathArray {
         id
         text
+        icon {
+          ... on BlockImage {
+            type
+            source
+            key
+            height
+            width
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
       }
       permission {
         key
@@ -87,6 +117,7 @@ export const queryChildrenBlocks = gql`
         title
         level
         language
+        start
         image {
           type
           source

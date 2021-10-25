@@ -34,6 +34,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
 
     updateAttributes({
       [type]: {
+        __typename: type === 'link' ? 'BlockLink' : 'BlockAttachment',
         ...node.attrs[type],
         ...latestLinkBlockAttributes.current
       }
@@ -115,7 +116,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
     return (
       <BlockWrapper editor={editor}>
         <Button className="brickdoc-link-block-link" onClick={() => window.open(linkUrl, '_blank')}>
-          {cover && <div className="link-block-cover" style={{ backgroundImage: `url(${cover})` }} />}
+          {cover && <div className="link-block-cover" style={{ backgroundImage: `url("${cover}")` }} />}
           <div className="link-block-content">
             {title && <div className="link-block-title">{title}</div>}
             {description && <div className="link-block-description">{description}</div>}
@@ -171,7 +172,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
       <Popover
         overlayClassName="brickdoc-link-block-popover"
         trigger="click"
-        placement="top"
+        placement="bottom"
         content={
           <Dashboard
             blockId={node.attrs.uuid}

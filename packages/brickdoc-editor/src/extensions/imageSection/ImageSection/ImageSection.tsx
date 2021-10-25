@@ -39,6 +39,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ editor, node, extension,
 
     updateAttributes({
       image: {
+        __typename: 'BlockImage',
         ...node.attrs.image,
         ...latestImageAttributes.current,
         // remove defaultFile prop
@@ -222,7 +223,7 @@ export const ImageSection: React.FC<NodeViewProps> = ({ editor, node, extension,
       <Popover
         overlayClassName="brickdoc-block-image-section-popover"
         trigger="click"
-        placement="top"
+        placement="bottom"
         content={
           <Dashboard
             fileType="image"

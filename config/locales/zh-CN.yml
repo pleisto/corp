@@ -4,7 +4,7 @@ zh-CN:
     dir: ltr
     noscript: We're sorry but Brickdoc doesn't work properly without JavaScript enabled. Please visit %{url} for more information.
     noscript_url: https://www.wikihow.com/Enable-JavaScript
-  'Your browser is out of date': Your browser is out of date
+  'Your browser is out of date': Your browser is out-of-date
   download_latest_browser_html: Please download the latest version of <a href="%{edge}" rel="nofollow">Microsoft Edge</a>, <a href="%{chrome}" rel="nofollow">Chrome</a> or <a href="%{firefox}" rel="nofollow">Firefox</a> to continue using Brickdoc.
   edge_link: https://www.microsoft.com/en-us/edge
   chrome_link: https://www.google.com/chrome/
@@ -413,7 +413,7 @@ zh-CN:
       signed_up: You have signed up successfully.
       signed_up_but_inactive: You have signed up successfully. However, we could not sign you in because your account is not yet activated.
       signed_up_but_locked: You have signed up successfully. However, we could not sign you in because your account is locked.
-      signed_up_but_unconfirmed: A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.
+      signed_up_but_unconfirmed: A verification link has been sent to your email address. Please click on the verification link in the confirmation email to complete the sign-up process.
       update_needs_confirmation: You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirmation link to confirm your new email address.
       updated: Your account has been updated successfully.
     unlock_instructions:
@@ -456,7 +456,7 @@ zh-CN:
       help:
         confidential: 'Application will be used where the client secret can be kept confidential. Native mobile apps and Single Page Apps are considered non-confidential.'
         redirect_uri: 'Use one line per URI'
-        blank_redirect_uri: "如果将提供程序配置为使用客户端凭据、资源所有者密码凭据或任何其他不需要重定向 URI 的授予类型，请将其留空。"
+        blank_redirect_uri: '如果将提供程序配置为使用客户端凭据、资源所有者密码凭据或任何其他不需要重定向 URI 的授予类型，请将其留空。'
         scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
       edit:
         title: 'Edit application'
@@ -576,15 +576,15 @@ zh-CN:
       sign_in: Sign In
       sign_up: Sign Up
       reset_password: Reset Password
-      sign_in_to_brickdoc: Sign in to Brickdoc
+      sign_in_to_brickdoc: Sign into Brickdoc
       more_login_options: More Login Options
-      login_via: 'Sign In with %{provider}'
+      login_via: 'Sign in with %{provider}'
       email: Email
       password: Password
       remember_me: Remember me
       sign_up_with_email: Sign Up
-      resend_confirmed_email: Resend Confirmation Email
-      confirmation_email_required_heading: Almost done
+      resend_confirmed_email: Resend Confirmation Link
+      confirmation_email_required_heading: Almost there!
       forget_password: Forget Password
       confirm_password: Confirm Password
       sign_up_via: 'Sign Up with %{provider}'
@@ -600,8 +600,8 @@ zh-CN:
       invalid_pod_webid: '无访问权限'
       pod_has_already_switched: 'Pod 已切换'
       pod_exist: 'Pod 已经存在'
-      user_not_exist: "用户不存在"
-      pod_not_exist: "Pod 不存在"
+      user_not_exist: '用户不存在'
+      pod_not_exist: 'Pod 不存在'
   docs:
     app_title: Brickdoc
     saving: 保存中
@@ -631,9 +631,9 @@ zh-CN:
       new_title: Copy of %{title}
       button: 复制
     pin:
-      add: Add to Favorites
+      add: Pin page
       add_tooltip: Pin this page
-      remove: Remove from Favorites
+      remove: Unpin page
       remove_tooltip: Unpin this page
     trash:
       name: 回收站
@@ -661,9 +661,9 @@ zh-CN:
       copy_hint: Share link copied
       tooltip: share or publish to the web
     invite:
-      learn: 了解如何邀请他人和设置权限
-      type_hint: 在上方输入或粘贴Email 地址，以逗号分隔。
-      search: 搜索电子邮件、姓名
+      learn: Learn more about sharing
+      type_hint: Type or paste in webid above, separated by commas.
+      search: Add people by Web ID
       button: 邀请
       confirm_button: Confirm
       edit_message: 允许编辑
@@ -698,6 +698,28 @@ zh-CN:
       change_cover: Change cover
       reposition: Reposition
       untitled: Untitled
+    document_icon:
+      import_sources:
+        link:
+          placeholder: 粘贴图片链接...
+          button_text: Submit
+          button_hint: 适用于任何来自网页的图像
+          type_label: 链接
+        upload:
+          button_hint: Recommended size is 280x280 pixels
+          button_text: 选择图片
+          type_label: Upload an Image
+    document_cover:
+      import_sources:
+        link:
+          placeholder: 粘贴图片链接...
+          button_text: Submit
+          button_hint: 适用于任何来自网页的图像
+          type_label: 链接
+        upload:
+          button_hint: 'Recommended image size: wider than 1500 pixels'
+          button_text: 选择图片
+          type_label: Upload an Image
   editor:
     placeholder: Type '/' for commands
     slashmenu:
@@ -705,13 +727,13 @@ zh-CN:
       items:
         h1:
           title: 一级标题
-          desc: Big section heading
+          desc: Highest level of heading
         h2:
           title: 二级标题
-          desc: Medium section heading
+          desc: Main section subheading
         h3:
           title: 三级标题
-          desc: Small section heading
+          desc: Sub-subheading
         h4:
           title: 四级标题
           desc: Small section heading
@@ -726,16 +748,16 @@ zh-CN:
           desc: 创建有序列表
         pdf:
           title: PDF
-          desc: 嵌入 PDF
+          desc: Insert a PDF
         embed:
           title: 嵌入
           desc: For PDFs and more
         image:
           title: 图片
-          desc: 上传或嵌入链接
+          desc: Upload or insert with a link
         table:
           title: 表格
-          desc: 在页面中创建表格
+          desc: Create a table
     bubblemenu:
       items:
         bold:

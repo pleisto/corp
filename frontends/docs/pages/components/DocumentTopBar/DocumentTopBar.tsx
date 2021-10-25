@@ -2,24 +2,26 @@ import { CollaboratorsMenu } from '@/docs/common/components/CollaboratorsMenu'
 import { PathBreadcrumb } from '@/docs/common/components/PathBreadcrumb'
 import { PinMenu } from '@/docs/common/components/PinMenu'
 import { SearchModal } from '@/docs/common/components/SearchModal'
+import { useReactiveVar } from '@apollo/client'
 import { Button } from '@brickdoc/design-system'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { MoreMenu } from '../../../common/components/MoreMenu'
 import { ShareMenu } from '../../../common/components/ShareMenu'
 import { useDocsI18n } from '../../../common/hooks'
+import { isSavingVar } from '../../../reactiveVars'
 import { DocMeta, NonNullDocMeta } from '../../DocumentContentPage'
 import styles from './DocumentTopBar.module.less'
 import loadingIcon from './loading.png'
 
 export interface DocumentTopBarProps {
   docMeta: DocMeta
-  saving: boolean
 }
 
-export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving }) => {
+export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
   const { t } = useDocsI18n()
-  const history = useHistory()
+  const navigate = useNavigate()
+  const isSaving = useReactiveVar(isSavingVar)
 
   if (!docMeta.viewable) {
     return <></>
@@ -53,7 +55,7 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
     )
 
   const handleLogin = (): void => {
-    history.push('/')
+    navigate('/')
   }
 
   const loginMenu =
@@ -75,7 +77,7 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta, saving 
       </div>
       <div className={styles.topBarEnd}>
         <div className={styles.status}>
-          {saving && (
+          {isSaving && (
             <div className={styles.loading}>
               <img className={styles.loadingIcon} src={loadingIcon} alt="" />
               <span>{t('saving')}</span>

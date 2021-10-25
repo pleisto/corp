@@ -1,60 +1,5 @@
 import { gql } from '@apollo/client'
 
-export const queryPods = gql`
-  query GetPods {
-    pods {
-      id
-      webid
-      name
-      email
-      personal
-      inviteEnable
-      avatarData {
-        url
-        downloadUrl
-        signedId
-      }
-      bio
-    }
-  }
-`
-
-export const queryPod = gql`
-  query GetPod($webid: String!) {
-    pod(webid: $webid) {
-      id
-      webid
-      name
-      personal
-      inviteEnable
-      inviteSecret
-      avatarData {
-        url
-        downloadUrl
-        signedId
-      }
-      bio
-    }
-  }
-`
-
-export const queryPodMembers = gql`
-  query GetPodMembers {
-    podMembers {
-      webid
-      email
-      name
-      role
-      state
-      avatarData {
-        url
-        downloadUrl
-        signedId
-      }
-    }
-  }
-`
-
 export const queryBlockPins = gql`
   query GetBlockPins {
     blockPins {
@@ -205,6 +150,19 @@ export const queryTrashBlocks = gql`
       pathArray {
         id
         text
+        icon {
+          ... on BlockImage {
+            type
+            source
+            key
+          }
+
+          ... on BlockEmoji {
+            type
+            name
+            emoji
+          }
+        }
       }
       rootId
       parentId

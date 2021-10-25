@@ -4,21 +4,18 @@ module Docs
     argument :blocks, [Inputs::BlockInput], required: true
     argument :root_id, BrickGraphQL::Scalars::UUID, 'block root id', required: true
     argument :operator_id, String, 'operator id', required: true
+    argument :deleted_ids, [BrickGraphQL::Scalars::UUID], 'deleted ids', required: true
 
-    field :refetch_tree, Boolean, null: false
-
-    def resolve(blocks:, root_id:, operator_id:)
-      lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 3)
+    def resolve(blocks:, root_id:, operator_id:, deleted_ids:)
+      lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 10)
       lock.lock do
-        Rails.logger.info("resolve #{root_id} #{operator_id} #{blocks}")
-        do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id)
+        Rails.logger.info("resolve #{root_id} #{operator_id} #{deleted_ids} #{blocks}")
+        do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id, deleted_ids: deleted_ids)
       end
     end
 
-    def do_resolve(blocks:, root_id:, operator_id:)
+    def do_resolve(blocks:, root_id:, operator_id:, deleted_ids:)
       root = Docs::Block.find_by(id: root_id)
-      refetch_tree = false
-      refetch_tree = true if root.nil?
 
       if root&.deleted_at
         raise BrickGraphQL::Errors::ArgumentError, :cannot_modify_deleted_blocks
@@ -31,23 +28,26 @@ module Docs
       if root
         preloads = root.descendants(unscoped: true).index_by(&:id)
         paths_cache = root.paths_cache
-        delete_block_ids = preloads.select { |_, v| !v.deleted_at }.keys - blocks.map(&:id)
-        if delete_block_ids.present?
-          patches += delete_block_ids.map { |id| { id: id, path: paths_cache.fetch(id), payload: {}, patch_type: "DELETE" } }
+        if deleted_ids.present?
+          patches += deleted_ids.map { |id| { id: id, path: paths_cache.fetch(id), payload: {}, patch_type: "DELETE" } }
           preloads = preloads.each_with_object({}) do |(id, b), h|
-            b.soft_delete! if id.in?(delete_block_ids)
+            b.soft_delete! if id.in?(deleted_ids)
             h[id] = b
           end
         end
       end
 
       pod_id = current_pod.fetch('id')
+      current_user.save_last_position!(current_pod.fetch('webid'), root_id)
 
       insert_data = []
-      # attachment_data = {}
+      upsert_data = []
+      attachment_data = {}
       now = Time.current
 
       blocks.each do |args|
+        raise BrickGraphQL::Errors::ArgumentError, :parent_id_cause_endless_loop if args.id == args.parent_id
+
         block = preloads[args.id]
 
         exist = block.present?
@@ -67,30 +67,58 @@ module Docs
         # TODO: fix this in collab (Readonly mode)
         block.collaborators = (block.collaborators + [current_user.id]).uniq if current_pod.fetch('owner_id') == current_user.id
 
-        ## TODO upsert_all
-        block.attachments = args.attachments if args.attachments
-
-        refetch_tree = true if args.id == root_id && block.changed?
+        if args.attachments
+          # block.attachments = args.attachments
+          attachment_data[block] = args.attachments
+        end
 
         if exist
-          block.save!
+          upsert_data << block if block.changed?
         else
           insert_data << block
         end
-        new_blocks_hash[block.id] = block
 
+        new_blocks_hash[block.id] = block
         patches << block.dirty_patch
       end
 
+      insert_histories = []
+
+      ## Handle insert block
       if insert_data.present?
         insert_blocks = insert_data.map do |block|
           block.block_attributes.merge('created_at' => now, 'updated_at' => now)
         end
-        insert_histories = insert_data.map do |block|
+        insert_histories_1 = insert_data.map do |block|
           block.history_attributes.merge('created_at' => now, 'updated_at' => now)
         end
         Docs::Block.insert_all(insert_blocks)
-        Docs::History.insert_all(insert_histories)
+        insert_histories += insert_histories_1
+      end
+
+      ## Handle upsert block
+      if upsert_data.present?
+        root&.prepare_descendants
+
+        upsert_blocks = upsert_data.map do |block|
+          block.history_version = block.realtime_history_version_increment
+          block
+        end
+
+        insert_histories_2 = upsert_blocks.map do |block|
+          block.history_attributes.merge('created_at' => now, 'updated_at' => now)
+        end
+
+        Docs::Block.upsert_all(upsert_blocks.map(&:block_attributes))
+        insert_histories += insert_histories_2
+      end
+
+      ## Handle insert history
+      Docs::History.insert_all(insert_histories) if insert_histories.present?
+
+      ## Handle attachment
+      attachment_data.each do |block, attachment|
+        block.update!(attachment: attachment)
       end
 
       patches.compact!
@@ -100,19 +128,19 @@ module Docs
 
       if patches.present?
         ## NOTE dirty data
-        if patches.any? { |p| p.fetch(:path).blank? }
+        if patches.any? { |patch| patch.fetch(:path).blank? }
           root.clear_cache
           paths_cache = root.paths_cache
 
-          patches = patches.map do |p|
-            if p.fetch(:path).blank?
-              parent_id = p.fetch(:parent_id)
+          patches = patches.map do |patch|
+            if patch.fetch(:path).blank?
+              parent_id = patch.fetch(:parent_id)
               # rubocop:disable Metrics/BlockNesting
-              new_path = parent_id.nil? || p.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id)
-              new_path += [p.fetch(:id)] if p.fetch(:patch_type) != "ADD"
-              p.merge(path: new_path)
+              new_path = parent_id.nil? || patch.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id)
+              new_path += [patch.fetch(:id)] if patch.fetch(:patch_type) != "ADD"
+              patch.merge(path: new_path)
             else
-              p
+              patch
             end
           end
         end
@@ -127,9 +155,7 @@ module Docs
         Docs::Block.broadcast(root_id, trigger_payload)
       end
 
-      {
-        refetch_tree: refetch_tree
-      }
+      nil
     end
   end
 end

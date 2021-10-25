@@ -14,8 +14,10 @@
 #  email                         :string
 #  encrypted_password            :string           default(""), not null
 #  failed_attempts               :integer          default(0), not null
+#  last_block_ids                :json             not null
 #  last_sign_in_at               :datetime
 #  last_sign_in_ip               :string
+#  last_webid                    :string
 #  locale(BCP47 language codes.) :string(17)
 #  locked_at                     :datetime
 #  remember_created_at           :datetime
@@ -63,6 +65,12 @@ class Accounts::User < ApplicationRecord
     }
   end
 
+  def save_last_position!(webid, block_id)
+    return if last_webid == webid && last_block_ids[webid] == block_id
+
+    update!(last_webid: webid, last_block_ids: last_block_ids.merge(webid => block_id))
+  end
+
   def self.email_available?(email)
     instance = new
     instance.email = email
@@ -105,9 +113,23 @@ class Accounts::User < ApplicationRecord
   alias_method :original_personal_pod, :personal_pod
 
   attribute :current_pod_id, :integer
+  attribute :current_pod_cache
 
   def personal_pod
     original_personal_pod || build_personal_pod
+  end
+
+  def fetch_current_pod_cache
+    return current_pod_cache if current_pod_cache
+
+    current_pod_cache = guess_pod
+    current_pod_cache
+  end
+
+  def guess_pod
+    return personal_pod if last_webid.nil?
+
+    pods.find_by(webid: last_webid) || personal_pod
   end
 
   ## FederatedIdentity

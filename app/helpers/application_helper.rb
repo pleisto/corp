@@ -4,6 +4,8 @@ module ApplicationHelper
     {
       internalApiEndpoint: internal_graphql_api_path,
       currentUser: Current.user&.as_global_context,
+      lastWebid: Brickdoc::Runtime.cypress? ? nil : Current.user&.last_webid,
+      lastBlockIds: Brickdoc::Runtime.cypress? ? nil : Current.user&.last_block_ids,
       currentPod: Current.pod,
       env: Rails.env,
       version: Brickdoc.full_version,
@@ -17,7 +19,8 @@ module ApplicationHelper
       isDesktopApp: false,
       featureFlags: Flipper.features,
       settings: BrickdocConfig.to_frontend,
-      serverMessage: flash[:alert]
+      serverMessage: flash[:alert],
+      sentryDsn: BrickdocConfig.sentry_dsn
     }
   end
 end
