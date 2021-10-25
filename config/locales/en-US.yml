@@ -765,13 +765,13 @@ en-US:
           desc: Create a list with numbering
         pdf:
           title: PDF
-          desc: Insert a PDF
+          desc: Embed a PDF
         embed:
           title: Embed
           desc: For PDFs and more
         image:
           title: Image
-          desc: Upload or insert with a link
+          desc: Upload or embed with a link
         table:
           title: Table
           desc: Create a table

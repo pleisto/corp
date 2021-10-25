@@ -4,15 +4,22 @@ require 'rails_helper'
 
 describe Brickdoc::PreviewBox do
   context 'normal html page' do
-    it 'should be get preview data' do
+    it 'should be get preview data: google' do
       data = Brickdoc::PreviewBox.preview('https://www.google.com')
       expect(data[:title]).to eq('Google')
       expect(data[:cover]).to start_with('http')
       expect(data[:cover]).to end_with('png')
+    end
 
+    it 'should be get preview data: w3schools' do
       data = Brickdoc::PreviewBox.preview('https://www.w3schools.com/')
       expect(data[:title]).to eq('W3Schools Free Online Web Tutorials')
       expect(data[:description]).to include('HTML')
+    end
+
+    it 'raw image' do
+      data = Brickdoc::PreviewBox.preview("https://avatars.githubusercontent.com/u/41993484")
+      expect(data[:cover]).to eq(nil)
     end
   end
 
