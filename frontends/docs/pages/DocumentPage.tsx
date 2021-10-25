@@ -152,7 +152,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
       blockId={editor?.state.doc.attrs.uuid}
       icon={editor?.state.doc.attrs.icon}
       cover={editor?.state.doc.attrs.cover}
-      title={docMeta.title}
+      title={editor?.state.doc.attrs.title}
       onCoverChange={setCover}
       onIconChange={setIcon}
       onTitleChange={setTitle}
