@@ -23,6 +23,7 @@ node_modules
 
 # Ignore all logfiles and tempfiles.
 /log
+/.log
 !/log/.keep
 /tmp/*
 !/tmp/.keep
@@ -50,6 +51,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
+Gemfile.lock
 .yarn-integrity
 tsconfig.tsbuildinfo
 
