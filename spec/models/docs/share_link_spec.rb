@@ -4,6 +4,16 @@ require 'rails_helper'
 RSpec.describe Docs::ShareLink, type: :model do
   let(:block) { create(:docs_block) }
 
+  it 'anyone' do
+    pod = create(:pod)
+    target = create(:docs_block)
+    target.upsert_share_links!([{ webid: Pod::ANYONE_WEBID, state: "enabled", policy: "edit" }])
+
+    expect(block.share_links.count).to eq(1)
+    share_link = block.share_links.first
+    expect(share_link.share_pod_id).to eq(nil)
+  end
+
   it 'work' do
     pod = create(:pod)
     expect(block.share_links.count).to eq(0)
@@ -11,7 +21,7 @@ RSpec.describe Docs::ShareLink, type: :model do
 
     expect(block.share_links.count).to eq(1)
     share_link = block.share_links.first
-    expect(share_link.share_webid).to eq(pod.webid)
+    expect(share_link.share_pod_id).to eq(pod.id)
     expect(share_link.pod_id).to eq(block.pod_id)
     expect(share_link.state).to eq("enabled")
     expect(share_link.enabled?).to eq(true)
