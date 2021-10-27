@@ -50,6 +50,12 @@ class Docs::ShareLink < ApplicationRecord
     true
   end
 
+  def share_webid
+    return Pod::ANYONE_WEBID if share_pod_id.nil?
+
+    share_pod.webid
+  end
+
   def share_pod_data
     return share_pod if share_pod_id
 

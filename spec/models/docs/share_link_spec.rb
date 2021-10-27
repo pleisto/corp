@@ -5,12 +5,11 @@ RSpec.describe Docs::ShareLink, type: :model do
   let(:block) { create(:docs_block) }
 
   it 'anyone' do
-    pod = create(:pod)
     target = create(:docs_block)
     target.upsert_share_links!([{ webid: Pod::ANYONE_WEBID, state: "enabled", policy: "edit" }])
 
-    expect(block.share_links.count).to eq(1)
-    share_link = block.share_links.first
+    expect(target.share_links.count).to eq(1)
+    share_link = target.share_links.first
     expect(share_link.share_pod_id).to eq(nil)
   end
 
@@ -51,7 +50,7 @@ RSpec.describe Docs::ShareLink, type: :model do
   it 'invalid webid' do
     expect do
       block.upsert_share_links!([{ webid: "foo_bar", state: "enabled", policy: "edit" }])
-    end.to raise_error(ActiveRecord::RecordInvalid)
+    end.to raise_error(ArgumentError)
   end
 
   it 'special webid' do
