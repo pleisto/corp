@@ -84,7 +84,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   const editor = useEditor({
     onSave: onCommit,
-    useDatabaseRows: useDatabaseRows(),
+    useDatabaseRows: useDatabaseRows(docMeta.id as string),
     prepareFileUpload,
     fetchUnsplashImages,
     fetchWebsiteMeta,

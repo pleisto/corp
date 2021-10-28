@@ -5,16 +5,21 @@ module Docs
     argument :root_id, BrickGraphQL::Scalars::UUID, 'block root id', required: true
     argument :operator_id, String, 'operator id', required: true
     argument :deleted_ids, [BrickGraphQL::Scalars::UUID], 'deleted ids', required: true
+    argument :no_lock, Boolean, 'no lock', required: false
 
-    def resolve(blocks:, root_id:, operator_id:, deleted_ids:)
-      lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 10)
-      lock.lock do
-        Rails.logger.info("resolve #{root_id} #{operator_id} #{deleted_ids} #{blocks}")
+    def resolve(blocks:, root_id:, operator_id:, deleted_ids:, no_lock: false)
+      if no_lock
         do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id, deleted_ids: deleted_ids)
+      else
+        lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 10)
+        lock.lock do
+          do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id, deleted_ids: deleted_ids)
+        end
       end
     end
 
     def do_resolve(blocks:, root_id:, operator_id:, deleted_ids:)
+      Rails.logger.info("resolve #{root_id} #{operator_id} #{deleted_ids} #{blocks}")
       root = Docs::Block.find_by(id: root_id)
 
       if root&.deleted_at
@@ -136,7 +141,7 @@ module Docs
             if patch.fetch(:path).blank?
               parent_id = patch.fetch(:parent_id)
               # rubocop:disable Metrics/BlockNesting
-              new_path = parent_id.nil? || patch.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id)
+              new_path = parent_id.nil? || patch.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id, [parent_id])
               new_path += [patch.fetch(:id)] if patch.fetch(:patch_type) != "ADD"
               patch.merge(path: new_path)
             else
