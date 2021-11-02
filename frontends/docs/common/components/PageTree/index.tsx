@@ -48,7 +48,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       return (block.meta.icon as BlockEmoji).emoji
     }
 
-    return null
+    return ''
   }
 
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
@@ -84,16 +84,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   const titleRender = (node: any): React.ReactElement => {
     const pin = pinIds.includes(node.key)
 
-    return (
-      <PageMenu
-        docMeta={docMeta}
-        setPopoverKey={setPopoverKey}
-        pin={pin}
-        pageId={node.key}
-        title={node.fakeIcon ? `${node.fakeIcon} ${node.title}` : node.title}
-        titleText={node.text}
-      />
-    )
+    return <PageMenu docMeta={docMeta} setPopoverKey={setPopoverKey} pin={pin} pageId={node.key} title={node.title} titleText={node.text} />
   }
 
   // TODO fix type
@@ -110,8 +101,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           value: b.id,
           parentId: b.parentId,
           sort: b.sort,
-          // icon: getIcon(b), // TODO fix style
-          fakeIcon: getIcon(b),
+          icon: getIcon(b), // TODO fix style
+          // fakeIcon: getIcon(b),
           nextSort: b.nextSort,
           firstChildSort: b.firstChildSort,
           text: b.text,
@@ -140,19 +131,19 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     const treeData = array2Tree(flattedData, { id: 'key' })
 
     const selectedKeys = [docMeta.id, popoverKey].filter(k => !!k) as string[]
+
     return (
       <Tree
         className={styles.tree}
         selectedKeys={selectedKeys}
         blockNode={false}
-        showLine={{ showLeafIcon: true }}
+        // showLine={{ showLeafIcon: true }}
         showIcon={true}
         selectable={!docMeta.documentInfoLoading}
-        // expandedKeys={selectedKeys}
+        defaultExpandedKeys={selectedKeys}
         treeData={treeData}
-        defaultExpandAll
         autoExpandParent
-        draggable={draggable}
+        draggable={true}
         onDrop={onDrop}
         titleRender={titleRender}
       />
