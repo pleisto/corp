@@ -620,6 +620,7 @@ zh-CN:
       placeholder: 搜索页面
     blocks:
       create_pages: Add Pages
+      no_pages: No pages inside
       create_sub_pages: Add Subpage
       delete: Delete
       rename: Rename
