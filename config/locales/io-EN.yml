@@ -637,6 +637,7 @@ io-EN:
       placeholder: crwdns2905:0crwdne2905:0
     blocks:
       create_pages: crwdns2907:0crwdne2907:0
+      no_pages: crwdns3425:0crwdne3425:0
       create_sub_pages: crwdns3305:0crwdne3305:0
       delete: crwdns2909:0crwdne2909:0
       rename: crwdns3277:0crwdne3277:0
