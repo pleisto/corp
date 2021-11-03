@@ -101,8 +101,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           value: b.id,
           parentId: b.parentId,
           sort: b.sort,
-          icon: getIcon(b), // TODO fix style
-          // fakeIcon: getIcon(b),
+          icon: getIcon(b),
           nextSort: b.nextSort,
           firstChildSort: b.firstChildSort,
           text: b.text,
@@ -121,8 +120,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           value: item.key,
           nextSort: '',
           parentId: item.key,
-          text: 'No pages inside',
-          title: 'No pages inside',
+          text: t('blocks.no_pages'),
+          title: t('blocks.no_pages'),
           // @ts-expect-error
           className: styles.treeNodeNoPage
         })
@@ -137,7 +136,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
         className={styles.tree}
         selectedKeys={selectedKeys}
         blockNode={false}
-        // showLine={{ showLeafIcon: true }}
+        showLine={{ showLeafIcon: true }}
         showIcon={true}
         selectable={!docMeta.documentInfoLoading}
         defaultExpandedKeys={selectedKeys}
