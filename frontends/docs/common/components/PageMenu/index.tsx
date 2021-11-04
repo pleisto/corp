@@ -8,7 +8,6 @@ import {
   useBlockCreateMutation,
   useBlockRenameMutation,
   useBlockPinOrUnpinMutation,
-  BlockIdKind,
   useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
@@ -76,12 +75,12 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     const input = { parentId: pageId, title: '' }
     const { data } = await blockCreate({ variables: { input } })
     if (data?.blockCreate?.id) {
-      navigate(`/${webid}/${BlockIdKind.P}/${data?.blockCreate?.id}`)
+      navigate(`/${webid}/${data?.blockCreate?.id}`)
     }
   }
 
   const { t } = useDocsI18n()
-  const linkPath = `/${webid}/${BlockIdKind.P}/${pageId}`
+  const linkPath = `/${webid}/${pageId}`
   const link = `${host}${linkPath}`
 
   const addSelectedKey = (): void => {
@@ -236,6 +235,11 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
     </Menu>
   )
 
+  // TODO: Refactoring may be required
+  if (pageId.split('mock')?.length === 2) {
+    return <p className={styles.nopage}>No pages inside</p>
+  }
+
   const linkData = (
     <Popover
       content={renamePopoverContent}
@@ -243,10 +247,10 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
       placement="bottom"
       trigger="customEvent"
       visible={popoverVisible}
-      onVisibleChange={onRenamePopoverVisibleChange}>
-      <Link to={linkPath} className={styles.title}>
-        {title}
-      </Link>
+      onVisibleChange={onRenamePopoverVisibleChange}
+      className={styles.title}
+    >
+      <Link to={linkPath}>{title}</Link>
     </Popover>
   )
 
@@ -255,16 +259,24 @@ export const PageMenu: React.FC<PageMenuProps> = ({ docMeta: { id, webid, host }
       <Dropdown trigger={['contextMenu']} overlay={menu} visible={dropdownVisible} onVisibleChange={onDropdownVisibleChange}>
         <div className={styles.menu}>
           {linkData}
-          <Tooltip title={t('blocks.more')}>
-            <Button className={styles.moreBtn} type="text" onClick={onClickMoreButton}>
-              <Icon.More />
-            </Button>
-          </Tooltip>
-          <Tooltip title={t('blocks.create_sub_pages')}>
-            <Button className={styles.addBtn} type="text" onClick={onClickPlus} loading={createBlockLoading} disabled={createBlockLoading}>
-              <Icon.Add />
-            </Button>
-          </Tooltip>
+          <div>
+            <Tooltip title={t('blocks.more')}>
+              <Button className={styles.moreBtn} type="text" onClick={onClickMoreButton}>
+                <Icon.More />
+              </Button>
+            </Tooltip>
+            <Tooltip title={t('blocks.create_sub_pages')}>
+              <Button
+                className={styles.addBtn}
+                type="text"
+                onClick={onClickPlus}
+                loading={createBlockLoading}
+                disabled={createBlockLoading}
+              >
+                <Icon.Add />
+              </Button>
+            </Tooltip>
+          </div>
         </div>
       </Dropdown>
     </>

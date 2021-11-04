@@ -48,7 +48,9 @@ class Docs::Block < ApplicationRecord
   has_many :histories, dependent: :restrict_with_exception
   has_many :snapshots, dependent: :restrict_with_exception
   has_many :share_links, dependent: :restrict_with_exception
-  has_many :enabled_share_links, -> { enable }, class_name: "Docs::ShareLink", dependent: :restrict_with_exception
+  has_many :enabled_share_links, -> { enabled }, class_name: "Docs::ShareLink", dependent: :restrict_with_exception
+  has_one :enabled_alias, -> { enabled }, class_name: "Docs::Alias"
+  has_many :aliases
 
   validates :meta, presence: true, allow_blank: true
   # validates :data, presence: true
@@ -65,24 +67,24 @@ class Docs::Block < ApplicationRecord
   DUPLICATE_SORT_GAP = 4
   has_many_attached :attachments
 
-  def self.find_by_kind(id, kind, webid)
-    case kind
-    when 'p'
-      o = find_by(id: id)
-      return [o, {}]
-    when 'a'
-      pod = Pod.find_by(webid: webid)
-      return [nil, {}] if pod.nil?
-      a = Docs::Alias.enabled.find_by(pod_id: pod.id, alias: id)
-      return [nil, {}] if a.nil?
-      return [a.block, a.payload]
+  def self.find_by_slug(id, webid, current_pod = {})
+    pod_id =
+      if current_pod.present? && current_pod['webid'] == webid
+        current_pod.fetch('id')
+      else
+        Pod.find_by(webid: webid)&.id
+      end
+
+    return [nil, nil] if pod_id.nil?
+
+    if id =~ Brickdoc::Validators::UUIDValidator::REGEXP
+      o = find_by(pod_id: pod_id, id: id)
+      [o, nil]
+    else
+      a = Docs::Alias.enabled.find_by(pod_id: pod_id, alias: id)
+      return [nil, nil] if a.nil?
+      [a.block, a]
     end
-
-    [nil, {}]
-  end
-
-  def create_alias!(a)
-    Docs::Alias.create!(alias: a, block_id: id, pod_id: pod_id)
   end
 
   def title
@@ -201,7 +203,7 @@ class Docs::Block < ApplicationRecord
   end
 
   def upsert_share_links!(target)
-    exists_share_links = share_links.to_a.index_by(&:share_webid)
+    exists_share_links = share_links.includes(:share_pod).to_a.index_by(&:share_webid)
     transaction do
       target.each do |obj|
         exist = exists_share_links[obj[:webid]]
@@ -213,7 +215,15 @@ class Docs::Block < ApplicationRecord
             exist.update!(state: obj[:state])
           end
         else
-          share_links.create!(params.merge(share_webid: obj[:webid]))
+          pod_id =
+            if obj[:webid] == Pod::ANYONE_WEBID
+              nil
+            else
+              pod = Pod.find_by(webid: obj[:webid])
+              raise ArgumentError, I18n.t("errors.messages.webid_presence_invalid") if pod.nil?
+              pod.id
+            end
+          share_links.create!(params.merge(share_pod_id: pod_id))
         end
       end
     end
@@ -537,9 +547,9 @@ class Docs::Block < ApplicationRecord
 
     ## Anonymous user
     if user.nil?
-      preload_enabled_share_links ||= enabled_share_links.to_a.index_by(&:share_webid)
+      preload_enabled_share_links ||= enabled_share_links.to_a.index_by(&:share_pod_id)
 
-      anyone_share_link = preload_enabled_share_links[Pod::ANYONE_WEBID]
+      anyone_share_link = preload_enabled_share_links[nil]
 
       return false if anyone_share_link.nil?
 
@@ -560,11 +570,11 @@ class Docs::Block < ApplicationRecord
     return true if pod_id.in?(preload_pods.map(&:id))
 
     ## Share links
-    webids = preload_pods.map(&:webid) + [Pod::ANYONE_WEBID]
-    preload_enabled_share_links ||= enabled_share_links.to_a.index_by(&:share_webid)
+    pod_ids = preload_pods.map(&:id) + [nil]
+    preload_enabled_share_links ||= enabled_share_links.to_a.index_by(&:share_pod_id)
 
-    webids.each do |webid|
-      return true if preload_enabled_share_links[webid]
+    pod_ids.each do |pod_id|
+      return true if preload_enabled_share_links[pod_id]
     end
 
     false

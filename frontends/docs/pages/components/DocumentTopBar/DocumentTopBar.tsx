@@ -1,6 +1,7 @@
 import { CollaboratorsMenu } from '@/docs/common/components/CollaboratorsMenu'
 import { PathBreadcrumb } from '@/docs/common/components/PathBreadcrumb'
 import { PinMenu } from '@/docs/common/components/PinMenu'
+import { SearchModal } from '@/docs/common/components/SearchModal'
 import { useReactiveVar } from '@apollo/client'
 import { Button } from '@brickdoc/design-system'
 import React from 'react'
@@ -38,16 +39,14 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
     // eslint-disable-next-line no-nested-ternary
     docMeta.id && !docMeta.isDeleted ? (
       docMeta.isMine ? (
-        <div className={styles.menu}>
+        <>
           <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
           <ShareMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-          <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
           <MoreMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
-        </div>
+          <PinMenu className={styles.menuItem} docMeta={docMeta as NonNullDocMeta} />
+        </>
       ) : (
-        <div className={styles.menu}>
-          <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
-        </div>
+        <CollaboratorsMenu docMeta={docMeta as NonNullDocMeta} />
       )
     ) : (
       <></>
@@ -59,11 +58,9 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
 
   const loginMenu =
     docMeta.editable && docMeta.isAnonymous ? (
-      <div className={styles.menu}>
-        <Button type="text" onClick={handleLogin}>
-          {t('anonymous.edit_button')}
-        </Button>
-      </div>
+      <Button type="text" onClick={handleLogin}>
+        {t('anonymous.edit_button')}
+      </Button>
     ) : (
       <></>
     )
@@ -71,17 +68,20 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarStart}>{headMenu}</div>
+      <div className={styles.topBarCenter}>
+        <SearchModal docMeta={docMeta} />
+      </div>
       <div className={styles.topBarEnd}>
-        <div className={styles.status}>
+        <div className={styles.menu}>
           {isSaving && (
             <div className={styles.loading}>
               <img className={styles.loadingIcon} src={loadingIcon} alt="" />
               <span>{t('saving')}</span>
             </div>
           )}
+          {editableMenu}
+          {loginMenu}
         </div>
-        {editableMenu}
-        {loginMenu}
       </div>
     </div>
   )

@@ -121,6 +121,55 @@
         },
         {
           "kind": "OBJECT",
+          "name": "BlockAlias",
+          "description": null,
+          "fields": [
+            {
+              "name": "key",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "payload",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSON",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "BlockAttachment",
           "description": null,
           "fields": [
@@ -295,13 +344,9 @@
 
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "Blocktype",
-                  "ofType": null
-                }
+                "kind": "ENUM",
+                "name": "Blocktype",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -823,13 +868,9 @@
 
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "Blocktype",
-                  "ofType": null
-                }
+                "kind": "ENUM",
+                "name": "Blocktype",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -932,29 +973,6 @@
 
           ],
           "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "BlockIDKind",
-          "description": null,
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "p",
-              "description": "NORMAL",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "a",
-              "description": "ALIAS",
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
           "possibleTypes": null
         },
         {
@@ -1074,13 +1092,9 @@
 
               ],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "Blocktype",
-                  "ofType": null
-                }
+                "kind": "ENUM",
+                "name": "Blocktype",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1134,6 +1148,20 @@
                     }
                   }
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "enabledAlias",
+              "description": "alias",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "BlockAlias",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1227,24 +1255,6 @@
                       "ofType": null
                     }
                   }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payload",
-              "description": "payload",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "JSON",
-                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -4591,22 +4601,6 @@
                   "defaultValue": null,
                   "isDeprecated": false,
                   "deprecationReason": null
-                },
-                {
-                  "name": "kind",
-                  "description": "kind",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "BlockIDKind",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null,
-                  "isDeprecated": false,
-                  "deprecationReason": null
                 }
               ],
               "type": {
@@ -5454,24 +5448,6 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "pod",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "shareWebid",
-              "description": null,
-              "args": [
-
-              ],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
                   "ofType": null
                 }
               },

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { BlockIdKind } from '@/BrickdocGraphQL'
 import { DocMetaProps } from '@/docs/pages/DocumentContentPage'
-import { AutoComplete, Button, Input, Modal, SelectProps } from '@brickdoc/design-system'
+import { AutoComplete, Input, Modal, SelectProps } from '@brickdoc/design-system'
 import { Search as SearchOutlined } from '@brickdoc/design-system/components/icon'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -43,14 +42,13 @@ export const SearchModal: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const onSelect = (value: string): void => {
     setSearchModalVisible(false)
-    navigate(`/${docMeta.webid}/${BlockIdKind.P}/${value.split('#')[0]}`)
+    navigate(`/${docMeta.webid}/${value.split('#')[0]}`)
   }
+  const suffixDom = <span>⌘+P</span>
 
   return (
     <>
-      <Button type="text" icon={<SearchOutlined />} onClick={onClick}>
-        {t('search.text')}
-      </Button>
+      <Input placeholder={t('search.placeholder')} size="middle" prefix={<SearchOutlined />} suffix={suffixDom} onClick={onClick} />
       <Modal
         className={styles.modal}
         visible={searchModalVisible}
@@ -59,7 +57,8 @@ export const SearchModal: React.FC<DocMetaProps> = ({ docMeta }) => {
         title={null}
         footer={null}
         destroyOnClose={true}
-        closable={false}>
+        closable={false}
+      >
         <AutoComplete
           dropdownAlign={{ offset: [0, 0] }}
           className={styles.input}
@@ -67,7 +66,8 @@ export const SearchModal: React.FC<DocMetaProps> = ({ docMeta }) => {
           options={options}
           onSelect={onSelect}
           onSearch={handleSearch}
-          autoFocus={true}>
+          autoFocus={true}
+        >
           <Input placeholder={t('search.placeholder')} size="large" prefix={<SearchOutlined />} />
         </AutoComplete>
       </Modal>

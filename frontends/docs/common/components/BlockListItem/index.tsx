@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import {
   Block,
   BlockEmoji,
   BlockHardDeleteInput,
-  BlockIdKind,
   BlockRestoreInput,
   Blocktype,
   useBlockHardDeleteMutation,
@@ -14,7 +16,7 @@ import { FilePages, Delete, Undo } from '@brickdoc/design-system/components/icon
 import { useNavigate } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
-import styles from './BlockListItem.module.css'
+import styles from './BlockListItem.module.less'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 
 interface BlockListItemProps {
@@ -38,7 +40,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
   const [blockHardDelete] = useBlockHardDeleteMutation({ refetchQueries: [queryTrashBlocks] })
   const [blockRestore] = useBlockRestoreMutation({ refetchQueries: [queryTrashBlocks, queryPageBlocks] })
 
-  const link = `/${webid}/${BlockIdKind.P}/${block.id}`
+  const link = `/${webid}/${block.id}`
 
   const onClickLink = (): void => {
     setVisible(false)
@@ -72,21 +74,20 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
   const title = block.text || t('title.untitled')
   const titleData =
     block.pathArray.length === 0 ? (
-      <> {title} </>
+      <></>
     ) : (
-      <>
-        {title}
-        <br />
-        {block.pathArray.map(p => `${getEmoji(p)}${p.text || t('title.untitled')}`).join(' / ')}
-      </>
+      <p className={styles.subTitle}>{block.pathArray.map(p => `${getEmoji(p)}${p.text || t('title.untitled')}`).join(' / ')}</p>
     )
 
   return (
-    <>
-      <Avatar className={styles.avatar} icon={avatar} />
-      <Button className={styles.title} type="text" onClick={onClickLink}>
-        {titleData}
-      </Button>
+    <div className={styles.popoverTrash} onClick={onClickLink}>
+      <div className={styles.content}>
+        <Avatar className={styles.avatar} icon={avatar} />
+        <div className={styles.titleWarp}>
+          <p className={styles.title}>{title}</p>
+          {titleData}
+        </div>
+      </div>
       <div className={styles.action}>
         <Button className={styles.button} type="text" loading={restoreButtonLoading} onClick={onRestore}>
           <Undo />
@@ -96,7 +97,8 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
           className={styles.button}
           onClick={() => {
             setHardDeleteModalVisible(true)
-          }}>
+          }}
+        >
           <Delete />
         </Button>
       </div>
@@ -109,9 +111,10 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ webid, block, setV
         confirmLoading={hardDeleteConfirmLoading}
         onCancel={onCancelDelete}
         onOk={onConfirmDelete}
-        visible={hardDeleteModalVisible}>
+        visible={hardDeleteModalVisible}
+      >
         {t('trash.delete_confirmation_body')}
       </Modal>
-    </>
+    </div>
   )
 }

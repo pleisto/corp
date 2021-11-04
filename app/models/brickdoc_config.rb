@@ -99,6 +99,12 @@ class BrickdocConfig < ApplicationRecord
     end
   )
 
+  field :amazon_private_config, type: :hash, symbolize_keys: true, default: {
+    region: ENV['AWS_REGION'],
+    public_bucket: ENV['AWS_PUBLIC_BUCKET'],
+    private_bucket: ENV['AWS_PRIVATE_BUCKET']
+  }
+
   field :user_agreement_link, type: :string, default: 'https://www.contributor-covenant.org/version/2/0/code_of_conduct/'
 
   # Accounts

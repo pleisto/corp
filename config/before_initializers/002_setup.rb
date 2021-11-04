@@ -59,6 +59,7 @@ Rails.application.reloader.to_prepare do
     config.action_mailer.smtp_settings = {
       address: smtp_settings.hostname,
       port: smtp_settings.port,
+      tls: smtp_settings.scheme == 'smtps',
       user_name: URI.decode_www_form_component(smtp_settings.user.to_s),
       password: smtp_settings.password,
       enable_starttls_auto: true
@@ -66,5 +67,6 @@ Rails.application.reloader.to_prepare do
     Devise::Async.enabled = false if Rails.env.test?
     config.active_storage.default_url_options = Rails.application.default_url_options
     ActiveStorage::Current.url_options = Rails.application.default_url_options
+    config.action_mailer.preview_path = Rails.root.join('spec', 'mailer_previews')
   end
 end

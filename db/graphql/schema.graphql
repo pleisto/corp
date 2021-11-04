@@ -52,6 +52,11 @@ exceed the size of a 32-bit integer, it's encoded as a string.
 """
 scalar BigInt
 
+type BlockAlias {
+  key: String!
+  payload: JSON!
+}
+
 type BlockAttachment {
   """
   height
@@ -102,7 +107,7 @@ type BlockColor {
   """
   type
   """
-  type: Blocktype!
+  type: Blocktype
 }
 
 """
@@ -256,7 +261,7 @@ type BlockEmoji {
   """
   type
   """
-  type: Blocktype!
+  type: Blocktype
 }
 
 """
@@ -287,18 +292,6 @@ type BlockHardDeletePayload {
   Errors encountered during execution of the mutation.
   """
   errors: [String!]!
-}
-
-enum BlockIDKind {
-  """
-  ALIAS
-  """
-  a
-
-  """
-  NORMAL
-  """
-  p
 }
 
 """
@@ -340,7 +333,7 @@ type BlockImage {
   """
   type
   """
-  type: Blocktype!
+  type: Blocktype
 
   """
   width
@@ -353,6 +346,11 @@ type BlockInfo {
   pod
   """
   collaborators: [pod!]!
+
+  """
+  alias
+  """
+  enabledAlias: BlockAlias
 
   """
   icon
@@ -378,11 +376,6 @@ type BlockInfo {
   path
   """
   pathArray: [BlockPath!]!
-
-  """
-  payload
-  """
-  payload: JSON!
 
   """
   permission
@@ -1373,11 +1366,6 @@ type RootQuery {
     id: String!
 
     """
-    kind
-    """
-    kind: BlockIDKind!
-
-    """
     webid
     """
     webid: String!
@@ -1515,7 +1503,6 @@ type ShareLink {
   key: String!
   policy: Policytype!
   sharePodData: pod!
-  shareWebid: String!
   state: ShareLinkState!
 }
 

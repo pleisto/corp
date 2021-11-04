@@ -168,7 +168,7 @@ const Tree = React.forwardRef<RcTree, TreeProps>((props, ref) => {
     showLine: Boolean(showLine),
     dropIndicatorRender
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const draggableConfig = React.useMemo(() => {
     if (!draggable) {
       return false
@@ -214,8 +214,9 @@ const Tree = React.forwardRef<RcTree, TreeProps>((props, ref) => {
       checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
       selectable={selectable}
       switcherIcon={(nodeProps: AntTreeNodeProps) => renderSwitcherIcon(prefixCls, switcherIcon, showLine, nodeProps)}
+      // TODO bug?
+      // draggable={draggableConfig as any}
     >
-      draggable={draggableConfig as any}
       {children}
     </RcTree>
   )

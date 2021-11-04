@@ -1,19 +1,56 @@
+@import '@brickdoc/design-system/components/style/themes';
+
 /* stylelint-disable no-descending-specificity */
 .tree {
-  margin: 1.5rem 0;
-
   :global(.brk-tree-treenode) {
+    width: 100%;
+    padding: 0;
+    margin-top: 2px;
+  }
+  :global(.brk-tree-switcher_open + .brk-tree-node-content-wrapper) {
     width: 100%;
   }
   :global(.brk-tree-node-content-wrapper) {
+    display: flex;
     width: 100%;
+    box-sizing: border-box;
+    margin-left: -28px;
+    padding-left: 28px;
   }
   :global(.brk-tree-treenode-selected),
   :global(.brk-tree-treenode:hover) {
-    background-color: rgb(0 0 0 / 5%);
+    // background-color: rgb(0 0 0 / 5%);
   }
   :global(.brk-tree-node-selected),
   :global(.brk-tree-node-content-wrapper:hover) {
+    box-sizing: border-box;
+    // background-color: transparent !important;
+  }
+  :global(.brk-tree-title) {
+    width: 100%;
+  }
+  :global(.brk-tree-indent-unit-start) {
+    &::before {
+      border: none;
+    }
+  }
+
+  :global(.brk-tree-switcher-noop) {
+    padding-left: 20px;
+  }
+
+  :global(.brk-tree-switcher-noop + .brk-tree-node-content-wrapper) {
+    margin-left: -20px;
+    padding-left: 20px;
+  }
+}
+
+.treeNodeNoPage {
+  :global(.brk-tree-node-content-wrapper:hover) {
     background-color: transparent !important;
+    cursor: default;
+  }
+  :global(.brk-tree-switcher-leaf-dot) {
+    display: none;
   }
 }

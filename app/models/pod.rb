@@ -57,6 +57,10 @@ class Pod < ApplicationRecord
     blob.signed_id
   end
 
+  def pod_attributes
+    attributes.merge('avatar_data' => avatar_data)
+  end
+
   ## NOTE persist pod_id and user_id
   def fix_avatar!
     blob = avatar.blob
@@ -102,6 +106,6 @@ class Pod < ApplicationRecord
   end
 
   def as_session_context
-    attributes.slice('id', 'webid', 'owner_id')
+    attributes.slice('id', 'webid', 'owner_id').merge('id_hash' => BrickGraphQL::ReversibleIntHash.encode(id))
   end
 end

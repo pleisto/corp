@@ -6,28 +6,29 @@ module Docs
 
     argument :id, GraphQL::Types::String, 'id', required: true
     argument :webid, GraphQL::Types::String, 'webid', required: true
-    argument :kind, Enums::BlockIDKind, "kind", required: true
 
-    def resolve(id:, kind:, webid:)
+    def resolve(id:, webid:)
       return nil if id.blank?
-      block, payload = Docs::Block.find_by_kind(id, kind, webid)
+      block, enabled_alias = Docs::Block.find_by_slug(id, webid, current_pod)
       return nil if block.nil?
 
-      current_user&.save_last_position!(webid, block.id)
+      is_master = master?(block)
+      permission = is_master ? nil : get_permission(block)
+
+      return nil if !is_master && (permission.nil? || permission.disabled?)
+
+      current_user&.save_last_position!(webid, id)
 
       result = {
         title: block.title,
         icon: block.icon,
-        payload: payload,
         pin: fetch_pin(block),
+        enabled_alias: enabled_alias || block.enabled_alias,
         id: block.id,
         is_deleted: !!block.deleted_at,
         path_array: block.path_array,
         collaborators: collaborators(block)
       }.compact
-
-      is_master = master?(block)
-      permission = is_master ? nil : get_permission(block)
 
       result[:is_master] = is_master
       result[:permission] = permission
@@ -55,13 +56,13 @@ module Docs
       base_query = block.share_links
 
       if current_pod.fetch('webid') == Pod::ANONYMOUS_WEBID
-        base_query.find_by(share_webid: Pod::ANYONE_WEBID)
+        base_query.find_by(share_pod_id: nil)
       else
-        share_links = base_query.where(share_webid: [current_pod.fetch('webid'), Pod::ANYONE_WEBID]).all
+        share_links = base_query.where(share_pod_id: [current_pod.fetch('id'), nil]).all
         return nil if share_links.blank?
         return share_links.first if share_links.one?
 
-        share_links.find { |s| s.share_webid == current_pod.fetch('webid') }
+        share_links.find { |s| s.share_pod_id == current_pod.fetch('id') }
       end
     end
 

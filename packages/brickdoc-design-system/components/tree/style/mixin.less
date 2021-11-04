@@ -11,8 +11,8 @@
   .@{tree-prefix-cls}-switcher-icon,
   .@{select-tree-prefix-cls}-switcher-icon {
     display: inline-block;
-    font-size: 10px;
-    vertical-align: baseline;
+    font-size: 16px;
+    color: @text-color-secondary;
 
     svg {
       transition: transform 0.3s;
@@ -129,7 +129,7 @@
 
     &-unit {
       display: inline-block;
-      width: @tree-title-height;
+      width: (@tree-title-height / 2);
     }
   }
 
@@ -151,9 +151,12 @@
     .antTreeSwitcherIcon();
 
     position: relative;
+    z-index: 1;
     flex: none;
     align-self: stretch;
-    width: @tree-title-height;
+    // width: @tree-title-height;
+    padding-left: 12px;
+    // padding-right: 4px;
     margin: 0;
     line-height: @tree-title-height;
     text-align: center;
@@ -228,7 +231,17 @@
     }
 
     &.@{custom-tree-prefix-cls}-node-selected {
-      background-color: @tree-node-selected-bg;
+      background: @tree-directory-selected-bg;
+      &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        border: 1px solid #809cff;
+        border-radius: @border-radius-base;
+      }
     }
 
     // Icon
@@ -302,10 +315,18 @@
 
     // ============== Cover Background ==============
     .@{custom-tree-prefix-cls}-switcher {
-      background: @component-background;
-
       &-line-icon {
         vertical-align: -0.225em;
+      }
+      &-leaf-dot {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: @text-color-secondary;
+        border-radius: 50%;
+        top: ((@tree-title-height - 4px) /2);
+
+        left: 8px;
       }
     }
   }
@@ -313,6 +334,9 @@
 
 .@{tree-node-prefix-cls}-leaf-last {
   .@{tree-prefix-cls}-switcher {
+    &-leaf-dot {
+      //display: none;
+    }
     &-leaf-line {
       &::before {
         top: auto !important;
