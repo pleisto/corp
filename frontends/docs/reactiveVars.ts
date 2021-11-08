@@ -1,5 +1,6 @@
 import { makeVar } from '@apollo/client'
 import { EditorContentProps } from '@brickdoc/editor'
+import { FormulaContext } from 'packages/brickdoc-formula/src/context'
 
 export const editorVar = makeVar<EditorContentProps['editor']>(null)
 export const isSavingVar = makeVar(false)
@@ -17,3 +18,4 @@ export const pagesVar = makeVar<
     title: string
   }>
 >([])
+export const FormulaContextVar = makeVar<FormulaContext | null>(null)

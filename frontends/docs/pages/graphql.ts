@@ -20,6 +20,47 @@ export const BlockSyncBatch = gql`
   }
 `
 
+export const FormulaCreate = gql`
+  mutation formulaCreate($input: FormulaCreateInput!) {
+    formulaCreate(input: $input) {
+      errors
+    }
+  }
+`
+
+export const FormulaUpdate = gql`
+  mutation formulaUpdate($input: FormulaUpdateInput!) {
+    formulaUpdate(input: $input) {
+      errors
+    }
+  }
+`
+
+export const FormulaDelete = gql`
+  mutation formulaDelete($input: FormulaDeleteInput!) {
+    formulaDelete(input: $input) {
+      errors
+    }
+  }
+`
+
+export const queryFormulas = gql`
+  query GetFormulas($webid: String!) {
+    formulas(webid: $webid) {
+      id
+      name
+      view
+      type
+      value
+      blockId
+      definition
+      dependencyIds
+      updatedAt
+      createdAt
+    }
+  }
+`
+
 export const NewPatch = gql`
   subscription newPatch($docId: UUID!) {
     newPatch(docId: $docId) {

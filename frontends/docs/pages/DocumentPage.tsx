@@ -9,7 +9,9 @@ import {
   usePrepareFileUpload,
   useFetchUnsplashImages,
   useFetchWebsiteMeta,
-  useSyncProvider
+  useSyncProvider,
+  useFormulaContextGetter,
+  useFormula
 } from './hooks'
 import { useBlobGetter } from './hooks/useBlobGetter'
 import { useDatabaseRows } from './hooks/useDatabaseRows'
@@ -54,9 +56,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     variables: queryVariables
   })
 
+  const formulaActions = useFormula(docMeta)
+
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
   const fetchWebsiteMeta = useFetchWebsiteMeta()
+
+  const formulaContextActions = useFormulaContextGetter(docMeta)
 
   const getImageUrl = useBlobGetter('image', data?.childrenBlocks)
   const getAttachmentUrl = useBlobGetter('attachment', data?.childrenBlocks)
@@ -86,6 +92,8 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     getAttachmentUrl,
     getCollaborators: getDocCollaborators,
     getPages: getDocPages,
+    formulaContextActions,
+    formulaActions,
     editable: documentEditable
   })
   React.useEffect(() => {
@@ -170,7 +178,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
       <div className={styles.page}>
         {DocumentTitleElement}
         <div className={styles.pageWrap}>
-          <EditorContent editor={editor} />
+          <EditorContent editor={editor} formulaContextActions={formulaContextActions} formulaActions={formulaActions} />
         </div>
       </div>
     </>

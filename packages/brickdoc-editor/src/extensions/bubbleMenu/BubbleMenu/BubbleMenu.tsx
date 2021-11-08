@@ -6,14 +6,18 @@ import { FontColorMenuItem } from './FontColorMenuItem'
 import { MenuItem } from './MenuItem'
 import { LinkMenuItem } from './LinkMenuItem'
 import './index.less'
+import { FormulaMenuItem } from './FormulaMenuItem'
+import { FormulaOptions } from '../..'
 
 interface BubbleMenuProps {
   editor: Editor | null
+  formulaContextActions: FormulaOptions['formulaContextActions']
+  formulaActions: FormulaOptions['formulaActions']
 }
 
 export interface StyleMeta {
   key: string
-  value?: 'bold' | 'italic' | 'strike' | 'heading' | 'underline' | 'fontColor' | 'link'
+  value?: 'bold' | 'italic' | 'strike' | 'heading' | 'underline' | 'fontColor' | 'link' | 'formula'
   listType?: 'bulletList' | 'orderedList'
   label: React.ReactNode
   shortcutDesc?: string
@@ -92,7 +96,7 @@ const ListStyle: StyleMeta[] = [
   }
 ]
 
-export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
+export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor, formulaContextActions, formulaActions }) => {
   if (!editor) return null
 
   return (
@@ -118,6 +122,9 @@ export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
         </div>
         <div className="bubble-menu-group">
           <LinkMenuItem editor={editor} />
+        </div>
+        <div className="bubble-menu-group">
+          <FormulaMenuItem editor={editor} formulaContextActions={formulaContextActions} formulaActions={formulaActions} />
         </div>
       </div>
     </TiptapBubbleMenu>

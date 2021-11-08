@@ -1,0 +1,16 @@
+import { FormulaContext, FunctionClause } from '../..'
+
+export const TODAY = (ctx: FormulaContext): Date => new Date()
+
+export const DATE_CLAUSES: FunctionClause[] = [
+  {
+    name: 'TODAY',
+    description: 'Returns the current date',
+    group: 'excel',
+    args: [],
+    examples: [],
+    returns: 'Date',
+    chain: false,
+    reference: TODAY
+  }
+]

@@ -1,0 +1,106 @@
+import { FormulaContext, FunctionClause } from '../..'
+
+export const IF = (ctx: FormulaContext, condition: boolean, ifTrue: any, ifFalse: any): any => (condition ? ifTrue : ifFalse)
+
+export const TRUE = (ctx: FormulaContext): boolean => true
+
+export const FALSE = (ctx: FormulaContext): boolean => false
+
+export const AND = (ctx: FormulaContext, ...conditions: boolean[]): boolean => conditions.reduce((acc, condition) => acc && condition, true)
+
+export const OR = (ctx: FormulaContext, ...conditions: boolean[]): boolean => conditions.reduce((acc, condition) => acc || condition, false)
+
+export const NOT = (ctx: FormulaContext, term: boolean): boolean => !term
+
+export const LOGIC_CLAUSES: FunctionClause[] = [
+  {
+    name: 'IF',
+    description: 'Returns the first argument if the condition is true, otherwise the second argument.',
+    group: 'excel',
+    args: [
+      {
+        name: 'condition',
+        type: 'boolean'
+      },
+      {
+        name: 'ifTrue',
+        type: 'any'
+      },
+      {
+        name: 'ifFalse',
+        type: 'any'
+      }
+    ],
+    returns: 'any',
+    examples: [{ input: [true, 'yes', 'no'], output: 'yes' }],
+    chain: false,
+    reference: IF
+  },
+  {
+    name: 'TRUE',
+    description: 'Returns true.',
+    group: 'excel',
+    args: [],
+    returns: 'boolean',
+    examples: [{ input: [], output: true }],
+    chain: false,
+    reference: TRUE
+  },
+  {
+    name: 'FALSE',
+    description: 'Returns false.',
+    group: 'excel',
+    args: [],
+    returns: 'boolean',
+    examples: [{ input: [], output: false }],
+    chain: false,
+    reference: FALSE
+  },
+  {
+    name: 'NOT',
+    description: 'Returns the opposite of the argument.',
+    group: 'excel',
+    args: [
+      {
+        name: 'term',
+        type: 'boolean'
+      }
+    ],
+    returns: 'boolean',
+    examples: [{ input: [true], output: false }],
+    chain: false,
+    reference: NOT
+  },
+  {
+    name: 'AND',
+    description: 'Returns true if all the arguments are true.',
+    group: 'excel',
+    args: [
+      {
+        name: 'conditions',
+        type: 'boolean',
+        spread: true
+      }
+    ],
+    returns: 'boolean',
+    examples: [{ input: [true, true, true], output: true }],
+    chain: false,
+    reference: AND
+  },
+  {
+    name: 'OR',
+    description: 'Returns true if any of the arguments are true.',
+    group: 'excel',
+    args: [
+      {
+        name: 'conditions',
+        type: 'boolean',
+        spread: true
+      }
+    ],
+    returns: 'boolean',
+    examples: [{ input: [true, false, true], output: true }],
+    chain: false,
+    reference: OR
+  }
+]
