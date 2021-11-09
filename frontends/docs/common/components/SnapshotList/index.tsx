@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import { Button, List } from '@brickdoc/design-system'
+import { List } from '@brickdoc/design-system'
+import { Button } from '@brickdoc/brickdoc-headless-design-system'
 import { DocumentPage } from '@/docs/pages/DocumentPage'
 import { SnapshotRestoreInput, useGetBlockSnapshotsQuery, useSnapshotRestoreMutation } from '@/BrickdocGraphQL'
 import styles from './index.module.less'
