@@ -12,6 +12,7 @@ import './LinkBlock.less'
 import { prependHttp } from '../../helpers/prependHttp'
 import { sizeFormat, linkStorage, getFileTypeByExtension } from '../../helpers/file'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
+import { Pdftron } from '../Pdftron/Pdftron'
 
 export interface LinkBlockAttributes {
   key: string
@@ -176,6 +177,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
 
   return (
     <BlockWrapper editor={editor}>
+      <Pdftron />
       <Popover
         overlayClassName="brickdoc-link-block-popover"
         trigger="click"
