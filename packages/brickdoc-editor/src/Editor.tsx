@@ -6,6 +6,7 @@ import UniqueID from '@tiptap/extension-unique-id'
 import {
   BasicRichtextExtension,
   SlashCommandsExtension,
+  MentionCommandsExtension,
   SyncExtension,
   brickListExtension,
   SyncExtensionOptions,
@@ -14,7 +15,9 @@ import {
   BubbleMenu,
   PdfSectionOptions,
   ImageSectionOptions,
-  LinkBlockOptions
+  LinkBlockOptions,
+  UserBlockExtension,
+  PageLinkBlockExtension
 } from './extensions'
 import './styles.less'
 import { useEditorI18n } from './hooks'
@@ -89,6 +92,9 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       }),
       EventHandlerExtension,
       SlashCommandsExtension,
+      MentionCommandsExtension,
+      UserBlockExtension,
+      PageLinkBlockExtension,
       PlaceholderExtension,
       brickListExtension,
       UniqueID.configure({
