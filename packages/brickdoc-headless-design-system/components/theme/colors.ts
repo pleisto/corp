@@ -1,4 +1,5 @@
 import { colorShadeMixin } from '@brickdoc/design-colors'
+import { ColorToken } from './colorToken'
 
 export const Colors = {
   white: '#fff',
@@ -121,7 +122,9 @@ export const Colors = {
   'pink-6': '$pink-base',
   'pink-7': colorShadeMixin('$pink-base', '6'),
   'pink-8': colorShadeMixin('$pink-base', '7'),
-  'pink-9': colorShadeMixin('$pink-base', '8')
+  'pink-9': colorShadeMixin('$pink-base', '8'),
 
   // "preset-colors": ["cyan", "red", "orange", "orange", "yellow", "green", "blue", "purple", "deep-purple", "pink"]
+
+  ...ColorToken
 }
