@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useButton } from '@react-aria/button'
-import { css } from '../theme'
+import { styled } from '../theme'
+import { variants } from './style/button'
 
 export type HtmlType = 'button' | 'reset' | 'submit'
 export type Size = 'default' | 'small' | 'large'
@@ -30,21 +31,17 @@ export interface ButtonProps {
 const Button = props => {
   const ref = useRef()
   const { buttonProps } = useButton(props, ref)
-
-  const demoBtn = css({
-    backgroundColor: '$grey-2',
-    borderRadius: '9999px',
-    fontSize: '13px',
-    padding: '10px 15px',
-    '&:hover': {
-      backgroundColor: 'lightgray'
+  const Button = styled('button', {
+    variants,
+    defaultVariants: {
+      type: 'primary'
     }
   })
 
   return (
-    <button className={demoBtn()} {...buttonProps} ref={ref}>
+    <Button {...buttonProps} ref={ref}>
       {props.children}
-    </button>
+    </Button>
   )
 }
 
