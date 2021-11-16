@@ -17,7 +17,8 @@ import {
   ImageSectionOptions,
   LinkBlockOptions,
   UserBlockExtension,
-  PageLinkBlockExtension
+  PageLinkBlockExtension,
+  MentionCommandsOptions
 } from './extensions'
 import './styles.less'
 import { useEditorI18n } from './hooks'
@@ -47,6 +48,7 @@ export interface EditorOptions extends Partial<TiptapEditorOptions> {
   fetchWebsiteMeta?: LinkBlockOptions['fetchWebsiteMeta']
   getImageUrl?: ImageSectionOptions['getImageUrl']
   getAttachmentUrl?: PdfSectionOptions['getAttachmentUrl']
+  getCollaborators?: MentionCommandsOptions['getCollaborators']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
@@ -57,6 +59,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     fetchWebsiteMeta,
     getImageUrl,
     getAttachmentUrl,
+    getCollaborators,
     useDatabaseRows,
     editable,
     ...restOptions
@@ -92,7 +95,9 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       }),
       EventHandlerExtension,
       SlashCommandsExtension,
-      MentionCommandsExtension,
+      MentionCommandsExtension.configure({
+        getCollaborators
+      }),
       UserBlockExtension,
       PageLinkBlockExtension,
       PlaceholderExtension,

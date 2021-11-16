@@ -90,18 +90,35 @@ const menuItems: MenuItems = {
   ]
 }
 
-function filterMenuItemsByQuery(query: string): MenuItems {
-  const searchValue = (query ?? '').toLowerCase()
-  return {
-    people: menuItems.people.filter(item => item.name.toLowerCase().includes(searchValue)),
-    page: menuItems.page.filter(item => item.name.toLowerCase().includes(searchValue))
-  }
+export interface MentionCommandsOptions {
+  getCollaborators?: () => Array<{
+    name: string
+    avatar: string
+  }>
 }
 
-export const MentionCommandsExtension = Extension.create({
+export const MentionCommandsExtension = Extension.create<MentionCommandsOptions>({
   name: 'mentionCommands',
 
   addProseMirrorPlugins() {
+    const filterMenuItemsByQuery = (query: string): MenuItems => {
+      const searchValue = (query ?? '').toLowerCase()
+      return {
+        people:
+          this.options
+            .getCollaborators?.()
+            .filter(item => item.name.toLowerCase().includes(searchValue))
+            .map(item => ({
+              name: item.name,
+              avatar: item.avatar,
+              command(editor, range) {
+                editor.chain().focus().deleteRange(range).setUserBlock().run()
+              }
+            })) ?? [],
+        page: menuItems.page.filter(item => item.name.toLowerCase().includes(searchValue))
+      }
+    }
+
     return [
       Suggestion({
         char: TRIGGER_CHAR,

@@ -68,6 +68,19 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     if (!editor || editor.isDestroyed) return undefined
     return docCoverGetter(editor.state.doc)
   }
+  const getDocCollaborators = (): Array<{ name: string; avatar: string }> => {
+    return docMeta.collaborators.map(user => {
+      const item: { name: string; avatar: string } = { name: user.name ?? '', avatar: '' }
+
+      if (typeof user.avatarData === 'string') {
+        item.avatar = user.avatarData
+      } else {
+        item.avatar = user.avatarData?.url ?? ''
+      }
+
+      return item
+    })
+  }
 
   // if there is no doc id, document will not have deleted status
   const [documentEditable, setDocumentEditable] = React.useState(!docMeta.id)
@@ -80,6 +93,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     fetchWebsiteMeta,
     getImageUrl,
     getAttachmentUrl,
+    getCollaborators: getDocCollaborators,
     editable: documentEditable
   })
   React.useEffect(() => {
