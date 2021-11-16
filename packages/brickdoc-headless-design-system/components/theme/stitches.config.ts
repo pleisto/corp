@@ -1,15 +1,12 @@
 import { createStitches } from '@stitches/react'
 import { Colors } from './colors'
+import { Spacing } from './spacing'
 
 export const { styled, css, theme } = createStitches({
-  prefix: 'brk',
+  prefix: 'bd',
   theme: {
     colors: Colors,
-    space: {
-      1: '5px',
-      2: '10px',
-      3: '15px'
-    },
+    space: Spacing,
     fontSizes: {
       1: '12px',
       2: '13px',

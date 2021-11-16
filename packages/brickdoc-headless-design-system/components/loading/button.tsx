@@ -8,27 +8,7 @@ export type Size = 'default' | 'small' | 'large'
 export type Theme = 'solid' | 'borderless' | 'light'
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger'
 
-export interface ButtonProps {
-  block?: boolean
-  circle?: boolean
-  disabled?: boolean
-  className?: string
-  icon?: React.ReactNode
-  iconPosition?: 'left' | 'right'
-  loading?: boolean
-  htmlType?: HtmlType
-  size?: Size
-  style?: React.CSSProperties
-  theme?: Theme
-  type?: Type
-  prefixCls?: string
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
-  onMouseDown?: React.MouseEventHandler<HTMLButtonElement>
-  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>
-  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>
-}
-
-const Button = props => {
+const Loading = props => {
   const ref = useRef()
   const { buttonProps } = useButton(props, ref)
   const Button = styled('button', {
@@ -45,4 +25,4 @@ const Button = props => {
   )
 }
 
-export default Button
+export default Loading
