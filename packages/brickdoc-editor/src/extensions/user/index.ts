@@ -8,7 +8,7 @@ declare module '@tiptap/core' {
       /**
        * Set a user block
        */
-      setUserBlock: () => ReturnType
+      setUserBlock: (webid: string, name: string | null | undefined, avatarUrl: string | undefined) => ReturnType
     }
   }
 }
@@ -29,11 +29,10 @@ export const UserBlockExtension = Node.create<UserBlockOptions>({
 
   addAttributes() {
     return {
-      name: {
-        default: ''
-      },
-      avatar: {
-        default: ''
+      people: {
+        default: {
+          type: 'PEOPLE'
+        }
       }
     }
   },
@@ -57,9 +56,19 @@ export const UserBlockExtension = Node.create<UserBlockOptions>({
   addCommands() {
     return {
       setUserBlock:
-        () =>
+        (webid, name, avatarUrl) =>
         ({ commands }) => {
-          return commands.insertContent({ type: this.name })
+          return commands.insertContent({
+            type: this.name,
+            attrs: {
+              people: {
+                type: 'PEOPLE',
+                webid,
+                name,
+                avatarUrl
+              }
+            }
+          })
         }
     }
   }

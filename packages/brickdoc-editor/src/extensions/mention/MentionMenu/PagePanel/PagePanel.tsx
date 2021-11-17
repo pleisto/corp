@@ -7,7 +7,7 @@ import { useEditorI18n } from '../../../..'
 import { Icon } from '@brickdoc/design-system'
 
 export interface PageItem {
-  icon: string
+  icon: string | null
   name: string
   category?: string
   command: (editor: Editor, range: Range) => void

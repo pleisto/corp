@@ -1,5 +1,6 @@
 // ref: https://github.com/ueberdosis/tiptap/blob/main/packages/suggestion/src/suggestion.ts
-import { ReactRenderer, Editor, Extension } from '@tiptap/react'
+import { ReactRenderer, Editor as ReactEditor, Extension } from '@tiptap/react'
+import { Editor, Range } from '@tiptap/core'
 import Suggestion from '@tiptap/suggestion'
 import { createPopup, PopupInstance } from '../helpers/popup'
 import { MentionCommandsMenu, MentionCommandsMenuProps } from './MentionMenu'
@@ -13,88 +14,26 @@ interface MenuItems {
   page: PageItem[]
 }
 
-const menuItems: MenuItems = {
-  people: [
-    {
-      avatar: '',
-      name: 'people 1',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 2',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 3',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 4',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 5',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 6',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    },
-    {
-      avatar: '',
-      name: 'people 7',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setUserBlock().run()
-      }
-    }
-  ],
-  page: [
-    {
-      icon: '',
-      name: 'page link 1',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setPageLinkBlock().run()
-      }
-    },
-    {
-      icon: '🤗',
-      name: 'page link 2',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setPageLinkBlock().run()
-      }
-    },
-    {
-      icon: '🤗',
-      name: 'page link 3',
-      command(editor, range) {
-        editor.chain().focus().deleteRange(range).setPageLinkBlock().run()
-      }
-    }
-  ]
-}
-
 export interface MentionCommandsOptions {
   getCollaborators?: () => Array<{
-    name: string
-    avatar: string
+    name: string | null | undefined
+    webid: string
+    avatar: string | undefined
   }>
+  getPages: () => {
+    webid: string
+    pages: Array<{
+      key: string
+      value: string
+      parentId: string | null | undefined
+      sort: number
+      icon: string | null
+      nextSort: number
+      firstChildSort: number
+      text: string
+      title: string | undefined
+    }>
+  }
 }
 
 export const MentionCommandsExtension = Extension.create<MentionCommandsOptions>({
@@ -103,19 +42,42 @@ export const MentionCommandsExtension = Extension.create<MentionCommandsOptions>
   addProseMirrorPlugins() {
     const filterMenuItemsByQuery = (query: string): MenuItems => {
       const searchValue = (query ?? '').toLowerCase()
+      const { webid, pages } = this.options.getPages()
+      const pagePath = (parentId: string | null | undefined, path: string[] = []): string[] => {
+        const parent = pages.find(p => p.key === parentId)
+
+        if (!parent) return path
+        return pagePath(parent.parentId, [parent.title ?? 'Untitled', ...path])
+      }
       return {
         people:
           this.options
             .getCollaborators?.()
-            .filter(item => item.name.toLowerCase().includes(searchValue))
+            .filter(item => (item.name ?? '').toLowerCase().includes(searchValue))
             .map(item => ({
               name: item.name,
+              webid: item.webid,
               avatar: item.avatar,
-              command(editor, range) {
-                editor.chain().focus().deleteRange(range).setUserBlock().run()
+              command(editor: Editor, range: Range) {
+                editor.chain().focus().deleteRange(range).setUserBlock(item.webid, item.name, item.avatar).run()
               }
-            })) ?? [],
-        page: menuItems.page.filter(item => item.name.toLowerCase().includes(searchValue))
+            }))
+            .slice(0, 5) ?? [],
+        page:
+          pages
+            .filter(item => {
+              if (searchValue) return (item.title ?? '').toLowerCase().includes(searchValue)
+              return !item.parentId
+            })
+            .map(item => ({
+              name: item.title ?? '',
+              icon: item.icon,
+              category: pagePath(item.parentId).join('/'),
+              command(editor: Editor, range: Range) {
+                editor.chain().focus().deleteRange(range).setPageLinkBlock(item.key, `/${webid}/${item.key}`, item.title, item.icon).run()
+              }
+            }))
+            .slice(0, 5) ?? []
       }
     }
 
@@ -149,7 +111,7 @@ export const MentionCommandsExtension = Extension.create<MentionCommandsOptions>
 
               reactRenderer = new ReactRenderer(MentionCommandsMenu as any, {
                 props,
-                editor: props.editor as Editor
+                editor: props.editor as ReactEditor
               })
 
               popup = createPopup(props.clientRect!, reactRenderer.element, 'bottom-start')

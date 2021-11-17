@@ -49,6 +49,7 @@ export interface EditorOptions extends Partial<TiptapEditorOptions> {
   getImageUrl?: ImageSectionOptions['getImageUrl']
   getAttachmentUrl?: PdfSectionOptions['getAttachmentUrl']
   getCollaborators?: MentionCommandsOptions['getCollaborators']
+  getPages?: MentionCommandsOptions['getPages']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
@@ -60,6 +61,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     getImageUrl,
     getAttachmentUrl,
     getCollaborators,
+    getPages,
     useDatabaseRows,
     editable,
     ...restOptions
@@ -96,7 +98,8 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       EventHandlerExtension,
       SlashCommandsExtension,
       MentionCommandsExtension.configure({
-        getCollaborators
+        getCollaborators,
+        getPages
       }),
       UserBlockExtension,
       PageLinkBlockExtension,

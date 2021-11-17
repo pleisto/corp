@@ -8,7 +8,7 @@ declare module '@tiptap/core' {
       /**
        * Set a page link block
        */
-      setPageLinkBlock: () => ReturnType
+      setPageLinkBlock: (id: string, link: string, title: string | undefined, icon: string | null | undefined) => ReturnType
     }
   }
 }
@@ -29,14 +29,10 @@ export const PageLinkBlockExtension = Node.create<PageLinkBlockOptions>({
 
   addAttributes() {
     return {
-      name: {
-        default: ''
-      },
-      icon: {
-        default: ''
-      },
-      link: {
-        default: ''
+      page: {
+        default: {
+          type: 'PAGE'
+        }
       }
     }
   },
@@ -60,9 +56,20 @@ export const PageLinkBlockExtension = Node.create<PageLinkBlockOptions>({
   addCommands() {
     return {
       setPageLinkBlock:
-        () =>
+        (id, link, title, icon) =>
         ({ commands }) => {
-          return commands.insertContent({ type: this.name })
+          return commands.insertContent({
+            type: this.name,
+            attrs: {
+              page: {
+                type: 'PAGE',
+                key: id,
+                title,
+                link,
+                icon
+              }
+            }
+          })
         }
     }
   }

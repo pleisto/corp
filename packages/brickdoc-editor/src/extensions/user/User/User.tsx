@@ -9,10 +9,16 @@ export interface UserProps extends NodeViewRendererProps {}
 
 export const User: React.FC<UserProps> = ({ editor, node }) => {
   const [t] = useEditorI18n()
+  const attributes = node.attrs.people ?? {}
   return (
     <BlockWrapper as="span" editor={editor}>
-      <Avatar src={node.attrs.avatar ?? ''} className="brickdoc-user-block-avatar" />
-      <span className="brickdoc-user-block-name">{node.attrs.name || t('user_block.anonymous')}</span>
+      <Avatar
+        size="small"
+        initials={attributes.name ?? attributes.webid}
+        src={attributes.avatarUrl ? attributes.avatarUrl : undefined}
+        className="brickdoc-user-block-avatar"
+      />
+      <span className="brickdoc-user-block-name">{attributes.name || t('user_block.anonymous')}</span>
     </BlockWrapper>
   )
 }
