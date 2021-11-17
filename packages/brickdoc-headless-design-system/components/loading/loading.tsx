@@ -1,27 +1,15 @@
-import { useRef } from 'react'
-import { useButton } from '@react-aria/button'
-import { styled } from '../theme'
-import { variants } from './style/button'
+import React from 'react'
+import mp4 from './assets/loading.mp4'
 
-export type HtmlType = 'button' | 'reset' | 'submit'
-export type Size = 'default' | 'small' | 'large'
-export type Theme = 'solid' | 'borderless' | 'light'
-export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger'
+export interface ButtonProps {
+  className?: string
+}
 
-const Loading = props => {
-  const ref = useRef()
-  const { buttonProps } = useButton(props, ref)
-  const Button = styled('div', {
-    variants,
-    defaultVariants: {
-      type: 'md'
-    }
-  })
-
+const Loading: React.FC<ButtonProps> = ({ className, ...rest }) => {
   return (
-    <Button {...buttonProps} ref={ref} type="md">
-      123
-    </Button>
+    <video className={className} autoPlay playsInline muted loop {...rest}>
+      <source src={mp4} type="video/mp4" />
+    </video>
   )
 }
 
