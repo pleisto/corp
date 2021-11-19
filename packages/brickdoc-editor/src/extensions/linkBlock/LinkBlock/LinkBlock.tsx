@@ -10,7 +10,7 @@ import { useEditorI18n } from '../../../hooks'
 import 'react-medium-image-zoom/dist/styles.css'
 import './LinkBlock.less'
 import { prependHttp } from '../../helpers/prependHttp'
-import { sizeFormat, linkStorage, getFileTypeByExtension } from '../../helpers/file'
+import { sizeFormat, linkStorage, getFileTypeByExtension, FileType } from '../../helpers/file'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Pdftron } from '../Pdftron/Pdftron'
 
@@ -24,6 +24,8 @@ export interface LinkBlockAttributes {
   cover?: WebsiteMeta['cover']
   icon?: WebsiteMeta['icon']
 }
+
+const canFilePreview = (fileType: FileType): boolean => fileType === 'pdf'
 
 export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, extension, updateAttributes }) => {
   const { t } = useEditorI18n()
@@ -74,6 +76,14 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
   if (fileUrl) {
     const { name, size } = node.attrs.attachment
     const fileType = getFileTypeByExtension(name)
+    if (canFilePreview(fileType)) {
+      return (
+        <BlockWrapper editor={editor}>
+          <Pdftron docLink={fileUrl} fileName={name} />
+        </BlockWrapper>
+      )
+    }
+
     return (
       <BlockWrapper editor={editor}>
         <a href={fileUrl} className="brickdoc-link-block-attachment" download={true}>
@@ -177,7 +187,6 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
 
   return (
     <BlockWrapper editor={editor}>
-      <Pdftron />
       <Popover
         overlayClassName="brickdoc-link-block-popover"
         trigger="click"
@@ -193,9 +202,10 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
         }>
         <Button data-testid={TEST_ID_ENUM.editor.linkBlock.addButton.id} type="text" className="brickdoc-link-block-placeholder">
           <div className="link-block-progressing" style={{ width: `${progress?.percentage ?? 0}%` }} />
-          <Icon.BlockLevelLink className="link-block-icon" />
+          <Icon.PaperClip className="link-block-icon" />
           <div className="link-block-content">
             {progress ? progress.name : t('link_block.hint')}
+            {!progress && <div className="link-block-desc">{t('link_block.desc')}</div>}
             {progress && (
               <div className="link-block-desc">
                 {sizeFormat(progress.bytesTotal)} - {progress.percentage}%
