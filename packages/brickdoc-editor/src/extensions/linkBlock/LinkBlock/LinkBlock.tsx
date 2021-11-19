@@ -28,7 +28,8 @@ export interface LinkBlockAttributes {
   mode: 'link' | 'preview' | undefined
 }
 
-const canFilePreview = (fileType: FileType, mode: LinkBlockAttributes['mode']): boolean => mode !== 'link' && fileType === 'pdf'
+const canFilePreview = (fileType: FileType, mode: LinkBlockAttributes['mode']): boolean =>
+  mode !== 'link' && ['pdf', 'excel', 'word', 'ppt'].includes(fileType)
 
 export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, extension, updateAttributes }) => {
   const { t } = useEditorI18n()
