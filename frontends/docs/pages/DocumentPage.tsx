@@ -120,7 +120,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   if (docMeta.snapshotVersion === 0) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useDocumentSubscription({ docid: docMeta.id as string, editor, setDocumentEditable, refetchDocument: refetch })
+    useDocumentSubscription({ docid: docMeta.id as string, editor, setDocumentEditable, updateCachedDocBlock, refetchDocument: refetch })
   }
 
   if (loading || docMeta.documentInfoLoading) {
