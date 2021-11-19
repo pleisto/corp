@@ -907,11 +907,6 @@ input BlockSyncBatchInput {
   deletedIds: [UUID!]!
 
   """
-  no lock
-  """
-  noLock: Boolean
-
-  """
   operator id
   """
   operatorId: String!

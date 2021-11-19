@@ -5,16 +5,11 @@ module Docs
     argument :root_id, BrickGraphQL::Scalars::UUID, 'block root id', required: true
     argument :operator_id, String, 'operator id', required: true
     argument :deleted_ids, [BrickGraphQL::Scalars::UUID], 'deleted ids', required: true
-    argument :no_lock, Boolean, 'no lock', required: false
 
-    def resolve(blocks:, root_id:, operator_id:, deleted_ids:, no_lock: false)
-      if no_lock
+    def resolve(blocks:, root_id:, operator_id:, deleted_ids:)
+      lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 10)
+      lock.lock do
         do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id, deleted_ids: deleted_ids)
-      else
-        lock = Redis::Lock.new("sync_batch:#{root_id}", expiration: 15, timeout: 10)
-        lock.lock do
-          do_resolve(blocks: blocks, root_id: root_id, operator_id: operator_id, deleted_ids: deleted_ids)
-        end
       end
     end
 
