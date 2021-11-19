@@ -1,14 +1,22 @@
 import React from 'react'
-import WebViewer from '@pdftron/webviewer'
+import WebViewer, { WebViewerInstance } from '@pdftron/webviewer'
 import './Pdftron.less'
+import { ActionPanel } from '../ActionPanel/ActionPanel'
+import { FileIcon } from '../FileIcon/FileIcon'
+import { FileType } from '../../helpers/file'
 
 export interface PdftronProps {
   docLink: string
   fileName: string
+  fileType: FileType
+  onToggleMode: () => void
+  onDelete: () => void
+  onCopyLink: () => void
 }
 
-export const Pdftron: React.FC<PdftronProps> = ({ docLink, fileName }) => {
+export const Pdftron: React.FC<PdftronProps> = ({ docLink, fileName, fileType, onDelete, onCopyLink, onToggleMode }) => {
   const viewer = React.useRef<HTMLDivElement>(null)
+  const viewerInstance = React.useRef<WebViewerInstance>()
   React.useEffect(() => {
     void WebViewer(
       {
@@ -18,14 +26,36 @@ export const Pdftron: React.FC<PdftronProps> = ({ docLink, fileName }) => {
         initialDoc: docLink
       },
       viewer.current as HTMLDivElement
-    )
+    ).then(instance => {
+      viewerInstance.current = instance
+      instance.UI.setFitMode(instance.UI.FitMode.FitWidth)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const handleFullScreen = (): void => {
+    viewerInstance.current?.UI.toggleFullScreen()
+  }
+
+  const handleDownload = (): void => {
+    viewerInstance.current?.UI.downloadPdf()
+  }
+
   return (
-    <div>
-      <div ref={viewer} className="brickdoc-pdftron-container" />
-      <div className="brickdoc-pdftron-info">{fileName}</div>
-    </div>
+    <ActionPanel
+      mode="preview"
+      onCopyLink={onCopyLink}
+      onDelete={onDelete}
+      onDownload={handleDownload}
+      onFullScreen={handleFullScreen}
+      onToggleMode={onToggleMode}>
+      <div className="brickdoc-pdftron-block">
+        <div ref={viewer} className="brickdoc-pdftron-container" />
+        <div className="brickdoc-pdftron-info">
+          <FileIcon className="brickdoc-pdftron-info-icon" fileType={fileType} />
+          {fileName}
+        </div>
+      </div>
+    </ActionPanel>
   )
 }

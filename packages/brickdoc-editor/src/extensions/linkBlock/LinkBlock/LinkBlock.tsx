@@ -13,6 +13,8 @@ import { prependHttp } from '../../helpers/prependHttp'
 import { sizeFormat, linkStorage, getFileTypeByExtension, FileType } from '../../helpers/file'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Pdftron } from '../Pdftron/Pdftron'
+import { ActionPanel } from '../ActionPanel/ActionPanel'
+import { FileIcon } from '../FileIcon/FileIcon'
 
 export interface LinkBlockAttributes {
   key: string
@@ -23,9 +25,10 @@ export interface LinkBlockAttributes {
   description?: WebsiteMeta['description']
   cover?: WebsiteMeta['cover']
   icon?: WebsiteMeta['icon']
+  mode: 'link' | 'preview' | undefined
 }
 
-const canFilePreview = (fileType: FileType): boolean => fileType === 'pdf'
+const canFilePreview = (fileType: FileType, mode: LinkBlockAttributes['mode']): boolean => mode !== 'link' && fileType === 'pdf'
 
 export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, extension, updateAttributes }) => {
   const { t } = useEditorI18n()
@@ -74,30 +77,76 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, getPos, exten
   const linkUrl = node.attrs.link?.key
 
   if (fileUrl) {
-    const { name, size } = node.attrs.attachment
+    const { name } = node.attrs.attachment
     const fileType = getFileTypeByExtension(name)
-    if (canFilePreview(fileType)) {
+
+    const handleDelete = (): void => {
+      Modal.confirm({
+        title: t('link_block.deletion_confirm.title'),
+        okText: t('link_block.deletion_confirm.ok'),
+        okButtonProps: {
+          danger: true
+        },
+        cancelText: t('link_block.deletion_confirm.cancel'),
+        icon: null,
+        onOk: () => {
+          const position = getPos()
+          const range = { from: position, to: position + node.nodeSize }
+          editor.commands.deleteRange(range)
+        }
+      })
+    }
+
+    const handleCopyLink = async (): Promise<void> => {
+      await navigator.clipboard.writeText(fileUrl)
+      void message.success(t('link_block.copy_hint'))
+    }
+
+    const handleChangeModeToLink = (): void => {
+      updateLinkBlockAttributes({ mode: 'link' }, 'attachment')
+    }
+
+    if (canFilePreview(fileType, node.attrs.attachment?.mode)) {
       return (
         <BlockWrapper editor={editor}>
-          <Pdftron docLink={fileUrl} fileName={name} />
+          <Pdftron
+            onToggleMode={handleChangeModeToLink}
+            onCopyLink={handleCopyLink}
+            onDelete={handleDelete}
+            docLink={fileUrl}
+            fileName={name}
+            fileType={fileType}
+          />
         </BlockWrapper>
       )
     }
 
+    const handleChangeModeToPreview = (): void => {
+      updateLinkBlockAttributes({ mode: 'preview' }, 'attachment')
+    }
+
+    const handleDownload = (): void => {
+      const link = document.createElement('a')
+      link.download = 'true'
+      link.href = fileUrl
+      link.click()
+    }
+
     return (
       <BlockWrapper editor={editor}>
-        <a href={fileUrl} className="brickdoc-link-block-attachment" download={true}>
-          {fileType === 'unknown' && <Icon.File />}
-          {fileType === 'image' && <Icon.Image />}
-          {fileType === 'pdf' && <Icon.FilePdf />}
-          <div className="link-block-attachment-content">
-            <div className="link-block-attachment-name">{name}</div>
-            <div className="link-block-attachment-size">{sizeFormat(size)}</div>
+        <ActionPanel
+          mode="link"
+          onDownload={handleDownload}
+          onCopyLink={handleCopyLink}
+          onDelete={handleDelete}
+          onToggleMode={handleChangeModeToPreview}>
+          <div className="brickdoc-link-block-attachment">
+            <FileIcon fileType={fileType} />
+            <div className="link-block-attachment-content">
+              <div className="link-block-attachment-name">{name}</div>
+            </div>
           </div>
-          <div className="link-block-attachment-download-icon">
-            <Icon.Download />
-          </div>
-        </a>
+        </ActionPanel>
       </BlockWrapper>
     )
   }

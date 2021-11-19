@@ -835,6 +835,10 @@ en-US:
         ok: Delete
         cancel: Cancel
       menu:
+        more:
+          duplicate: Duplicate
+          copy: Copy link
+          delete: Delete
         copy: Copy link
         delete: Remove
       hint: You can click or drag the file here.
