@@ -2123,6 +2123,7 @@ export type GetChildrenBlocksQuery = {
                 key: string
                 title?: string | null | undefined
                 icon?: string | null | undefined
+                link: string
               }
             | null
             | undefined
@@ -4180,6 +4181,7 @@ export const GetChildrenBlocksDocument = gql`
           key
           title
           icon
+          link
         }
         people {
           type
