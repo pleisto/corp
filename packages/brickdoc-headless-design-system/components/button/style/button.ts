@@ -1,17 +1,11 @@
+import { priority } from './priority'
+import { size } from './size'
+import { state } from './state'
+import { types } from './types'
+
 export const variants = {
-  type: {
-    violet: {
-      backgroundColor: 'blueviolet',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: 'darkviolet'
-      }
-    },
-    gray: {
-      backgroundColor: 'gainsboro',
-      '&:hover': {
-        backgroundColor: 'lightgray'
-      }
-    }
-  }
+  priority,
+  size,
+  state,
+  type: types
 }

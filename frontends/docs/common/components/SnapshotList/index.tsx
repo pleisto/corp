@@ -45,7 +45,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
         <div className={styles.side}>
           <div className={styles.snapshot}>{snapshots}</div>
           <div className={styles.actionPanel}>
-            <Button type="primary" className={styles.button} disabled={disabled} loading={loading} onClick={onRestore}>
+            <Button priority="primary" className={styles.button} disabled={disabled} loading={loading} onClick={onRestore}>
               {loading ? t('snapshots.restoring') : t('snapshots.restore')}
             </Button>
             <Button className={styles.button} onClick={onCleanup}>

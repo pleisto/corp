@@ -1,12 +1,11 @@
-import { useRef } from 'react'
+import { FC, useRef } from 'react'
 import { useButton } from '@react-aria/button'
 import { styled } from '../theme'
-import { variants } from './style/button'
+import { variants, baseStyles } from './style'
 
 export type HtmlType = 'button' | 'reset' | 'submit'
 export type Size = 'default' | 'small' | 'large'
-export type Theme = 'solid' | 'borderless' | 'light'
-export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger'
+export type Priority = 'primary' | 'secondary' | 'ghost' | 'danger'
 
 export interface ButtonProps {
   block?: boolean
@@ -19,22 +18,38 @@ export interface ButtonProps {
   htmlType?: HtmlType
   size?: Size
   style?: React.CSSProperties
-  theme?: Theme
-  type?: Type
   prefixCls?: string
+  priority?: Priority
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   onMouseDown?: React.MouseEventHandler<HTMLButtonElement>
   onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>
   onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Button = props => {
+const Button: FC<ButtonProps> = props => {
+  const {
+    /* disabled = false,
+     * loading = false, */
+    // prefixCls: customizePrefixCls,
+    priority = 'primary',
+    size = 'default'
+    /* className,
+     * children,
+     * icon, */
+    /* block = false,
+     * htmlType = 'button' as ButtonProps['htmlType'],
+     * ...rest */
+  } = props
+  // console.log(priority, 'prioritypriority')
+
   const ref = useRef()
   const { buttonProps } = useButton(props, ref)
   const Button = styled('button', {
+    ...baseStyles,
     variants,
     defaultVariants: {
-      type: 'primary'
+      priority,
+      size
     }
   })
 
