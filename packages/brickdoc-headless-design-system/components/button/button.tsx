@@ -1,5 +1,6 @@
 import { FC, useRef } from 'react'
 import { useButton } from '@react-aria/button'
+import { noop } from 'lodash-es'
 import { styled } from '../theme'
 import { variants, baseStyles } from './style'
 
@@ -28,19 +29,20 @@ export interface ButtonProps {
 
 const Button: FC<ButtonProps> = props => {
   const {
-    /* disabled = false,
-     * loading = false, */
+    disabled = false,
+    // loading = false,
     // prefixCls: customizePrefixCls,
     priority = 'primary',
-    size = 'default'
-    /* className,
-     * children,
-     * icon, */
-    /* block = false,
-     * htmlType = 'button' as ButtonProps['htmlType'],
-     * ...rest */
+    size = 'default',
+    onClick = noop,
+    onMouseDown = noop,
+    className = '',
+    children,
+    // icon,
+    block = false,
+    // htmlType = 'button' as ButtonProps['htmlType'],
+    ...rest
   } = props
-  // console.log(priority, 'prioritypriority')
 
   const ref = useRef()
   const { buttonProps } = useButton(props, ref)
@@ -49,13 +51,14 @@ const Button: FC<ButtonProps> = props => {
     variants,
     defaultVariants: {
       priority,
-      size
+      size,
+      state: block && 'block'
     }
   })
 
   return (
-    <Button {...buttonProps} ref={ref}>
-      {props.children}
+    <Button {...buttonProps} {...rest} ref={ref} disabled={disabled} onClick={onClick} className={className} onMouseDown={onMouseDown}>
+      {children}
     </Button>
   )
 }

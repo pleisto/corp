@@ -35,8 +35,8 @@ export const ColorToken = {
   'color-overlays-thirdary-hover': 'fade($blue-6,18%)',
   'color-overlays-thirdary-drag': 'fade($blue-6,12%)',
 
-  'color-error-default': 'scarlet-6',
-  'color-error-pressed': 'scarlet-9',
+  'color-error-default': '$scarlet-6',
+  'color-error-pressed': '$scarlet-9',
   'color-error-hover': '$scarlet-8',
   'color-error-border': '$scarlet-3',
   'color-error-bg': '$scarlet-2',

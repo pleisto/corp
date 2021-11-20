@@ -1,1 +1,5 @@
-export const state = {}
+export const state = {
+  block: {
+    width: '100%'
+  }
+}
