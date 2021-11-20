@@ -841,7 +841,7 @@ en-US:
           delete: Delete
         copy: Copy link
         delete: Remove
-      hint: You can click or drag the file here.
+      hint: Embed a link or a file
       desc: Upload PDF、Word、PPT、Excel and more.
       import_sources:
         link:
