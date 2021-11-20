@@ -4,7 +4,7 @@ import { Spacing } from './spacing'
 import { FontSizes } from './fontSizes'
 
 export const { styled, css, theme } = createStitches({
-  prefix: 'bd',
+  prefix: 'brk',
   theme: {
     colors: Colors,
     space: Spacing,
