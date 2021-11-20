@@ -137,6 +137,7 @@ export const queryChildrenBlocks = gql`
           width
           name
           size
+          mode
         }
         cover {
           ... on BlockImage {
