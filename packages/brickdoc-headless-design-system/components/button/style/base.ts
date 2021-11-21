@@ -1,5 +1,5 @@
 export const baseStyles = {
-  lineHeight: '$xl',
+  lineHeight: '$2xl',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',

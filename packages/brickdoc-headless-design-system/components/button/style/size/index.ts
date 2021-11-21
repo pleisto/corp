@@ -1,11 +1,17 @@
 export const size = {
   sm: {
-    padding: '$spacing-2xs $spacing-sm'
+    padding: '$2xs $sm',
+    lineHeight: '$lg',
+    minWidth: '$lg'
   },
   md: {
-    padding: '$spacing-xs $spacing-lg'
+    padding: '$xs $lg',
+    lineHeight: '$xl',
+    minWidth: '$xl'
   },
   lg: {
-    padding: '$spacing-sm $spacing-lg'
+    padding: '$sm $lg',
+    lineHeight: '$2xl',
+    minWidth: '$2xl'
   }
 }

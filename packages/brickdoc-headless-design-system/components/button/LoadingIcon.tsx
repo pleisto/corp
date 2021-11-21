@@ -1,9 +1,21 @@
 import React from 'react'
 import CSSMotion from 'rc-motion'
+import { styled } from '../theme'
 import { Rotation as LoadingOutlined } from '../icon'
 
+const LoadingIconBtn = styled('span', {
+  transition: 'all 0.3s $ease-in-out',
+
+  [`& > span`]: {
+    paddingRight: '10px',
+    animation: 'none',
+    svg: {
+      animation: 'loadingCircle 1s infinite linear'
+    }
+  }
+})
+
 export interface LoadingIconProps {
-  prefixCls: string
   existIcon: boolean
   loading?: boolean | object
 }
@@ -14,22 +26,20 @@ const getRealWidth = (node: HTMLElement) => ({
   transform: 'scale(1)'
 })
 
-const LoadingIcon: React.FC<LoadingIconProps> = ({ prefixCls, loading, existIcon }) => {
+const LoadingIcon: React.FC<LoadingIconProps> = ({ loading, existIcon }) => {
   const visible = !!loading
 
   if (existIcon) {
     return (
-      <span className={`${prefixCls}-loading-icon`}>
+      <LoadingIconBtn>
         <LoadingOutlined />
-      </span>
+      </LoadingIconBtn>
     )
   }
 
   return (
     <CSSMotion
       visible={visible}
-      // We do not really use this motionName
-      motionName={`${prefixCls}-loading-icon-motion`}
       removeOnLeave
       onAppearStart={getCollapsedWidth}
       onAppearActive={getRealWidth}
@@ -40,9 +50,9 @@ const LoadingIcon: React.FC<LoadingIconProps> = ({ prefixCls, loading, existIcon
     >
       {/* eslint-disable-next-line react/no-unused-prop-types */}
       {({ className, style }: { className?: string; style?: React.CSSProperties }, ref: any) => (
-        <span className={`${prefixCls}-loading-icon`} style={style} ref={ref}>
-          <LoadingOutlined className={className} />
-        </span>
+        <LoadingIconBtn className={className} style={style} ref={ref}>
+          <LoadingOutlined />
+        </LoadingIconBtn>
       )}
     </CSSMotion>
   )

@@ -2,6 +2,7 @@ import { createStitches } from '@stitches/react'
 import { Colors } from './colors'
 import { Spacing } from './spacing'
 import { FontSizes } from './fontSizes'
+import { Transitions } from './transitions'
 
 export const { styled, css, theme } = createStitches({
   prefix: 'brk',
@@ -14,14 +15,14 @@ export const { styled, css, theme } = createStitches({
       mono: 'Söhne Mono, menlo, monospace'
     },
     fontWeights: {},
-    lineHeights: {},
+    lineHeights: Spacing,
     letterSpacings: {},
-    sizes: {},
+    sizes: Spacing,
     borderWidths: {},
     borderStyles: {},
     radii: Spacing,
     shadows: {},
     zIndices: {},
-    transitions: {}
+    transitions: Transitions
   }
 })
