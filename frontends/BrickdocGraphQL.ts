@@ -2078,6 +2078,7 @@ export type GetChildrenBlocksQuery = {
                 width?: number | null | undefined
                 name?: string | null | undefined
                 size?: number | null | undefined
+                mode?: string | null | undefined
               }
             | null
             | undefined
