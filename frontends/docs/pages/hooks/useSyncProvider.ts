@@ -116,6 +116,14 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           }
         }
       })
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'block', id: dirtyRootBlock.id }),
+        fields: {
+          text() {
+            return dirtyRootBlock.text
+          }
+        }
+      })
     }
 
     await commitDirty()
