@@ -2,16 +2,31 @@ import { Context, FunctionClause, namespaceId, VariableData, VariableDependency,
 import { BUILTIN_CLAUSES } from '../functions'
 import { Variable } from './variable'
 
+export interface BackendActions {
+  createVariable: (variable: Variable) => Promise<{ success: boolean }>
+  updateVariable: (variable: Variable) => Promise<{ success: boolean }>
+  deleteVariable: (variable: Variable) => Promise<{ success: boolean }>
+}
+
+export interface FormulaContextArgs {
+  functionClauses: FunctionClause[]
+  backendActions?: BackendActions
+}
+
 export class FormulaContext {
   context: Context
   reverseVariableDependencies: { [key: string]: VariableDependency[] }
   reverseFunctionDependencies: { [key: string]: VariableDependency[] }
   functionClausesMap: { [key: string]: FunctionClause }
+  backendActions: BackendActions
 
-  constructor({ functionClauses }: { functionClauses: FunctionClause[] } = { functionClauses: [] }) {
+  constructor({ functionClauses, backendActions }: FormulaContextArgs = { functionClauses: [] }) {
     this.context = {}
     this.reverseVariableDependencies = {}
     this.reverseFunctionDependencies = {}
+    if (backendActions) {
+      this.backendActions = backendActions
+    }
     this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o, acc) => {
       o[`${acc.group}${acc.name}`] = acc
       return o
@@ -75,16 +90,26 @@ export class FormulaContext {
   }
 
   // TODO update dependencies and check circular references
-  public commitVariable = ({ variable, isNew }: { variable: Variable; isNew: boolean }): void => {
+  public commitVariable = async ({ variable, skipCreate }: { variable: Variable; skipCreate?: boolean }): Promise<void> => {
     const { namespaceId, variableId } = variable.t
+    const isNew = !this.context[this.variableKey(namespaceId, variableId)]
     let shouldBroadcast = false
-    if (!isNew) {
+    if (isNew) {
+      variable.backendActions = this.backendActions
+    } else {
       void this.clearDependency(namespaceId, variableId)
-      // const oldVariable: Variable = this.context[this.variableKey(namespaceId, variableId)]
       shouldBroadcast = true
     }
     this.context[this.variableKey(namespaceId, variableId)] = variable
     void this.trackDependency(variable.t)
+
+    if (isNew) {
+      if (!skipCreate) {
+        variable.invokeBackendCreate()
+      }
+    } else {
+      variable.invokeBackendUpdate()
+    }
 
     void variable.afterUpdate()
 
@@ -93,13 +118,17 @@ export class FormulaContext {
     }
   }
 
-  public removeVariable = (namespaceId: namespaceId, variableId: variableId): void => {
+  public removeVariable = async (namespaceId: namespaceId, variableId: variableId): Promise<void> => {
     const key = this.variableKey(namespaceId, variableId)
     const variable = this.context[key]
     if (variable) {
       void this.clearDependency(namespaceId, variableId)
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.context[key]
+
+      if (this.backendActions) {
+        await this.backendActions.deleteVariable(variable)
+      }
     }
   }
 

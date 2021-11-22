@@ -17,7 +17,8 @@ import { useReactiveVar } from '@apollo/client'
 import { editorVar, FormulaContextVar } from '../reactiveVars'
 import { validate as isValidUUID } from 'uuid'
 import { appendFormulas, Formula, FormulaContext, FunctionClause } from '@brickdoc/formula'
-import { useFormula } from './hooks'
+import { useFormulaQuery } from './hooks'
+import { useFormulaBackendActions } from './hooks/useFormulaBackendActions'
 
 type Collaborator = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['collaborators'][0]
 type Path = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['pathArray'][0]
@@ -122,11 +123,12 @@ export const DocumentContentPage: React.FC = () => {
     }
   }, [data, docid, host, isAnonymous, loading, loginWebid, snapshotVersion, state, t, webid])
 
-  const { list } = useFormula(docMeta)
+  const { list } = useFormulaQuery(docMeta)
+  const backendActions = useFormulaBackendActions()
 
   React.useEffect(() => {
     const functionClauses: FunctionClause[] = []
-    const formulaContext = new FormulaContext({ functionClauses })
+    const formulaContext = new FormulaContext({ functionClauses, backendActions })
     void list(webid).then(({ data, success }) => {
       if (!success) return
       appendFormulas(formulaContext, (data ?? []) as Formula[])

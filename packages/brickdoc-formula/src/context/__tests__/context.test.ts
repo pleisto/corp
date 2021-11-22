@@ -96,7 +96,7 @@ describe('Context', () => {
 
     const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
 
-    void formulaContext.commitVariable({ variable, isNew: true })
+    void formulaContext.commitVariable({ variable })
 
     expect(formulaContext.variableCount()).toEqual(3)
 
@@ -108,7 +108,7 @@ describe('Context', () => {
 
     // Update
     variable.t.name = 'bazNew'
-    void formulaContext.commitVariable({ variable, isNew: false })
+    void formulaContext.commitVariable({ variable })
 
     expect(formulaContext.variableCount()).toEqual(3)
 

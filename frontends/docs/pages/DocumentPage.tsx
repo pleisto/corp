@@ -10,8 +10,7 @@ import {
   useFetchUnsplashImages,
   useFetchWebsiteMeta,
   useSyncProvider,
-  useFormulaContextGetter,
-  useFormula
+  useFormulaContextGetter
 } from './hooks'
 import { useBlobGetter } from './hooks/useBlobGetter'
 import { useDatabaseRows } from './hooks/useDatabaseRows'
@@ -56,8 +55,6 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     variables: queryVariables
   })
 
-  const formulaActions = useFormula(docMeta)
-
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
   const fetchWebsiteMeta = useFetchWebsiteMeta()
@@ -93,7 +90,6 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     getCollaborators: getDocCollaborators,
     getPages: getDocPages,
     formulaContextActions,
-    formulaActions,
     editable: documentEditable
   })
   React.useEffect(() => {
@@ -178,7 +174,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
       <div className={styles.page}>
         {DocumentTitleElement}
         <div className={styles.pageWrap}>
-          <EditorContent editor={editor} formulaContextActions={formulaContextActions} formulaActions={formulaActions} />
+          <EditorContent editor={editor} formulaContextActions={formulaContextActions} />
         </div>
       </div>
     </>

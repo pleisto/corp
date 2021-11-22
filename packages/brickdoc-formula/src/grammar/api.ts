@@ -297,7 +297,7 @@ export const appendFormulas = (formulaContext: FormulaContext, formulas: Formula
     .forEach(formula => {
       const variable = castVariable(formulaContext, formula)
 
-      formulaContext.commitVariable({ variable: new Variable({ t: variable }), isNew: true })
+      void formulaContext.commitVariable({ variable: new Variable({ t: variable }), skipCreate: true })
     })
 }
 
@@ -332,7 +332,6 @@ export const quickInsert = ({
     variableDependencies,
     functionDependencies
   }
-  const isNew = true
 
-  formulaContext.commitVariable({ variable: new Variable({ t: variable }), isNew })
+  void formulaContext.commitVariable({ variable: new Variable({ t: variable }) })
 }

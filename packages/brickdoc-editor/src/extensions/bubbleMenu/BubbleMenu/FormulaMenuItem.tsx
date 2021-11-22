@@ -9,7 +9,6 @@ import { FormulaOptions } from '../..'
 export interface FormulaMenuItemProps {
   editor: Editor
   formulaContextActions: FormulaOptions['formulaContextActions']
-  formulaActions: FormulaOptions['formulaActions']
 }
 
 const FormulaStyle: StyleMeta = {
@@ -18,7 +17,7 @@ const FormulaStyle: StyleMeta = {
   label: <Icon.Formula />
 }
 
-export const FormulaMenuItem: React.FC<FormulaMenuItemProps> = ({ editor, formulaContextActions, formulaActions }) => {
+export const FormulaMenuItem: React.FC<FormulaMenuItemProps> = ({ editor, formulaContextActions }) => {
   const { t } = useEditorI18n()
 
   return (
@@ -31,8 +30,9 @@ export const FormulaMenuItem: React.FC<FormulaMenuItemProps> = ({ editor, formul
           {FormulaStyle.shortcutDesc && <div className="item-hint-sub">{FormulaStyle.shortcutDesc}</div>}
         </>
       }
-      placement="top">
-      <FormulaMenu clear={true} editor={editor} formulaContextActions={formulaContextActions} formulaActions={formulaActions}>
+      placement="top"
+    >
+      <FormulaMenu clear={true} editor={editor} formulaContextActions={formulaContextActions}>
         <Button role="menuitem" type="text" className="bubble-menu-item">
           {FormulaStyle.label}
         </Button>

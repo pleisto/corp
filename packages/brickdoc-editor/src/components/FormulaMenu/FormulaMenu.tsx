@@ -18,7 +18,6 @@ export interface FormulaMenuProps {
   formulaResult?: any
   clear?: boolean
   formulaContextActions: FormulaOptions['formulaContextActions']
-  formulaActions: FormulaOptions['formulaActions']
 }
 
 const i18nKey = 'formula.menu'
@@ -32,7 +31,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   formulaValue,
   formulaColor,
   formulaResult,
-  formulaActions,
   formulaContextActions,
   updateFormula,
   clear
@@ -40,7 +38,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const { t } = useEditorI18n()
   const [name, setName] = React.useState(formulaName)
   const [value, setValue] = React.useState(formulaValue?.substr(1))
-  const [type, setType] = React.useState('any')
   const [color, setColor] = React.useState(formulaColor ?? COLOR[0].color)
   const [result, setResult] = React.useState<any>(formulaResult)
   const [variable, setVariable] = React.useState<Variable>()
@@ -52,7 +49,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const close = (): void => {
     if (clear) {
       setName('')
-      setType('')
       setValue('')
       setColor(COLOR[0].color)
       setVariable(undefined)
@@ -74,14 +70,14 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setValue(e.target.value)
     const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext || !name || !e.target.value) return
-    formulaContextActions.calculate(variableId, name, e.target.value, formulaContext, setResult, setType, setVariable, setError, setValue)
+    formulaContextActions.calculate(variableId, name, e.target.value, formulaContext, setResult, setVariable, setError, setValue)
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value)
     const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext || !name || !value) return
-    formulaContextActions.calculate(variableId, e.target.value, value, formulaContext, setResult, setType, setVariable, setError, setValue)
+    formulaContextActions.calculate(variableId, e.target.value, value, formulaContext, setResult, setVariable, setError, setValue)
   }
 
   const handleSave = async (): Promise<void> => {
@@ -89,34 +85,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext) return
 
-    if (!variableId) {
-      const { success } = await formulaActions.create({
-        id: variable.t.variableId,
-        name,
-        definition: variable.t.definition,
-        type,
-        value: String(result)
-      })
-      if (!success) return
-      formulaContext.commitVariable({ variable, isNew: true })
-      if (mode === 'create') {
-        updateFormula?.(variable.t.variableId, color)
-      } else {
-        editor.chain().setFormula(variable.t.variableId, color).focus().run()
-      }
-    } else {
-      const { success } = await formulaActions.update({
-        id: variableId,
-        name,
-        definition: variable.t.definition,
-        type,
-        value: String(result)
-      })
-      if (!success) return
-      formulaContext.commitVariable({ variable, isNew: false })
-
-      updateFormula?.(variableId, color)
-    }
+    formulaContext.commitVariable({ variable })
+    updateFormula?.(variable.t.variableId, color)
+    // editor.chain().setFormula(variable.t.variableId, color).focus().run()
 
     close()
   }

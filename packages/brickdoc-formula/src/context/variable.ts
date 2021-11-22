@@ -1,10 +1,11 @@
 import { interpret, VariableData, VariableMetadata } from '..'
-import { FormulaContext } from '../context'
+import { BackendActions, FormulaContext } from '../context'
 
 type UpdateHandler = (data: VariableData) => void
 export class Variable {
   t: VariableData
   updateHandler: UpdateHandler
+  backendActions: BackendActions
 
   constructor({ t }: { t: VariableData }) {
     this.t = t
@@ -23,6 +24,18 @@ export class Variable {
     this.updateHandler = handler
   }
 
+  public invokeBackendCreate = () => {
+    if (this.backendActions) {
+      void this.backendActions.createVariable(this)
+    }
+  }
+
+  public invokeBackendUpdate = () => {
+    if (this.backendActions) {
+      void this.backendActions.updateVariable(this)
+    }
+  }
+
   public afterUpdate = (): void => {
     // console.log({ label: 'after update', name: this.t.name, result: this.t.variableValue })
     if (this.updateHandler) {
@@ -36,5 +49,6 @@ export class Variable {
     // console.log({ label: 'refresh', name: this.t.name, result })
     this.t = { ...this.t, variableValue: result }
     this.afterUpdate()
+    this.invokeBackendUpdate()
   }
 }

@@ -1,4 +1,4 @@
-import { buildVariable, FormulaContext, interpret, parse, SuccessVariableValue, Variable, View } from '@brickdoc/formula'
+import { buildVariable, FormulaContext, interpret, parse, Variable, View } from '@brickdoc/formula'
 import { v4 as uuid } from 'uuid'
 import { debounce } from 'lodash-es'
 import React from 'react'
@@ -67,7 +67,6 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
         input: string,
         formulaContext: FormulaContext,
         updateResult: React.Dispatch<React.SetStateAction<any>>,
-        updateType: React.Dispatch<React.SetStateAction<string>>,
         updateVariable: React.Dispatch<React.SetStateAction<Variable | undefined>>,
         updateError: React.Dispatch<
           React.SetStateAction<
@@ -98,7 +97,6 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
             const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
             updateVariable(variable)
             updateValue(newInput)
-            updateType((variable.t.variableValue as SuccessVariableValue).type)
             updateError(undefined)
             updateResult(String(variable.t.variableValue.value))
           } else {

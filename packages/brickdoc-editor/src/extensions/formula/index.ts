@@ -15,7 +15,6 @@ export interface FormulaOptions {
       input: string,
       formulaContext: FormulaContext,
       updateResult: React.Dispatch<React.SetStateAction<any>>,
-      updateType: React.Dispatch<React.SetStateAction<string>>,
       updateVariable: React.Dispatch<React.SetStateAction<Variable | undefined>>,
       updateError: React.Dispatch<
         React.SetStateAction<
@@ -28,17 +27,6 @@ export interface FormulaOptions {
       >,
       updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
     ) => void
-  }
-  formulaActions: {
-    create: ({ id, name, definition, value }: { id: string; name: string; type: string; definition: string; value: string }) => Promise<{
-      success: boolean
-    }>
-    update: ({ id, name, definition, value }: { id: string; name: string; type: string; definition: string; value: string }) => Promise<{
-      success: boolean
-    }>
-    delete: (id: string) => Promise<{
-      success: boolean
-    }>
   }
 }
 

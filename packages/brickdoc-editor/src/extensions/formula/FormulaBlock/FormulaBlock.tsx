@@ -46,10 +46,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       onOk: async () => {
         if (!variableT) return
         const position = getPos()
-        const { delete: deleteFormula }: FormulaOptions['formulaActions'] = extension.options.formulaActions
         const { removeVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
-        const { success } = await deleteFormula(variableT.variableId)
-        if (!success) return
         removeVariable(variableT.variableId)
         editor.commands.deleteRange({ from: position, to: position + node.nodeSize })
       }
@@ -69,7 +66,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         formulaColor={attributes.color}
         formulaResult={variableT?.variableValue.value}
         formulaContextActions={extension.options.formulaContextActions}
-        formulaActions={extension.options.formulaActions}
         updateFormula={updateFormula}>
         <Menu.Item className="formula-block-menu-item" key="Edit">
           {t('formula.block.menu.edit')}

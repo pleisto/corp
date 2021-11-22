@@ -31,13 +31,12 @@ export { useEditorI18n }
 export interface EditorContentProps {
   editor: TiptapEditor | null
   formulaContextActions: FormulaOptions['formulaContextActions']
-  formulaActions: FormulaOptions['formulaActions']
 }
 
-export const EditorContent: React.FC<EditorContentProps> = ({ editor, formulaContextActions, formulaActions }: EditorContentProps) => {
+export const EditorContent: React.FC<EditorContentProps> = ({ editor, formulaContextActions }: EditorContentProps) => {
   return (
     <>
-      <BubbleMenu editor={editor} formulaContextActions={formulaContextActions} formulaActions={formulaActions} />
+      <BubbleMenu editor={editor} formulaContextActions={formulaContextActions} />
       <TiptapEditorContent className="brickdoc" editor={editor} />
     </>
   )
@@ -54,7 +53,6 @@ export interface EditorOptions extends Partial<TiptapEditorOptions> {
   getCollaborators?: MentionCommandsOptions['getCollaborators']
   getPages?: MentionCommandsOptions['getPages']
   formulaContextActions: FormulaOptions['formulaContextActions']
-  formulaActions: FormulaOptions['formulaActions']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
@@ -68,7 +66,6 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     getCollaborators,
     getPages,
     formulaContextActions,
-    formulaActions,
     useDatabaseRows,
     editable,
     ...restOptions
@@ -101,7 +98,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
         pdfSection: { prepareFileUpload, getAttachmentUrl },
         tableBlock: { useDatabaseRows },
         linkBlock: { fetchWebsiteMeta, prepareFileUpload, getAttachmentUrl },
-        formula: { formulaContextActions, formulaActions }
+        formula: { formulaContextActions }
       }),
       EventHandlerExtension,
       SlashCommandsExtension,
