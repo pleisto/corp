@@ -5,6 +5,8 @@ export const START_WITH = (ctx: FormulaContext, string: string, prefix: string):
 export const STRING_CLAUSES: FunctionClause[] = [
   {
     name: 'START_WITH',
+    pure: true,
+    effect: false,
     description: 'Returns true if the sequence of elements of searchString converted to a String',
     group: 'core',
     args: [

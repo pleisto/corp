@@ -7,6 +7,8 @@ export const TYPE = (ctx: FormulaContext, obj: any): string => typeof obj
 export const OBJECT_CLAUSES: FunctionClause[] = [
   {
     name: 'T',
+    pure: true,
+    effect: false,
     description: 'Returns current object',
     group: 'core',
     args: [
@@ -25,6 +27,8 @@ export const OBJECT_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'TYPE',
+    pure: true,
+    effect: false,
     description: 'Returns type of current object',
     group: 'core',
     args: [

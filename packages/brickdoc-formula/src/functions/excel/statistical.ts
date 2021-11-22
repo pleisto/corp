@@ -8,6 +8,8 @@ export const AVERAGE = (ctx: FormulaContext, ...numbers: number[]): number => {
 export const STATISTICAL_CLAUSES: FunctionClause[] = [
   {
     name: 'AVERAGE',
+    pure: true,
+    effect: false,
     description: 'Returns the average of the numbers in the list.',
     group: 'excel',
     args: [

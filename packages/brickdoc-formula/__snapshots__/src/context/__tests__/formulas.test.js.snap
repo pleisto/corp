@@ -523,9 +523,11 @@ Array [
         "args": Array [],
         "chain": false,
         "description": "Returns a random number between 0 and 1.",
+        "effect": false,
         "examples": Array [],
         "group": "excel",
         "name": "RAND",
+        "pure": false,
         "reference": [Function],
         "returns": "number",
       },
@@ -1052,6 +1054,7 @@ Array [
         ],
         "chain": false,
         "description": "Returns the absolute value of a number.",
+        "effect": false,
         "examples": Array [
           Object {
             "input": Array [
@@ -1062,6 +1065,7 @@ Array [
         ],
         "group": "excel",
         "name": "ABS",
+        "pure": true,
         "reference": [Function],
         "returns": "number",
       },

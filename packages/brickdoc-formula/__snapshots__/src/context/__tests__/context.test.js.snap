@@ -431,6 +431,7 @@ Object {
         ],
         "chain": false,
         "description": "Returns the absolute value of a number.",
+        "effect": false,
         "examples": Array [
           Object {
             "input": Array [
@@ -441,6 +442,7 @@ Object {
         ],
         "group": "excel",
         "name": "ABS",
+        "pure": true,
         "reference": [Function],
         "returns": "number",
       },

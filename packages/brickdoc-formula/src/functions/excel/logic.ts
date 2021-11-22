@@ -15,6 +15,8 @@ export const NOT = (ctx: FormulaContext, term: boolean): boolean => !term
 export const LOGIC_CLAUSES: FunctionClause[] = [
   {
     name: 'IF',
+    pure: true,
+    effect: false,
     description: 'Returns the first argument if the condition is true, otherwise the second argument.',
     group: 'excel',
     args: [
@@ -38,6 +40,8 @@ export const LOGIC_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'TRUE',
+    pure: true,
+    effect: false,
     description: 'Returns true.',
     group: 'excel',
     args: [],
@@ -48,6 +52,8 @@ export const LOGIC_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'FALSE',
+    pure: true,
+    effect: false,
     description: 'Returns false.',
     group: 'excel',
     args: [],
@@ -58,6 +64,8 @@ export const LOGIC_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'NOT',
+    pure: true,
+    effect: false,
     description: 'Returns the opposite of the argument.',
     group: 'excel',
     args: [
@@ -73,6 +81,8 @@ export const LOGIC_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'AND',
+    pure: true,
+    effect: false,
     description: 'Returns true if all the arguments are true.',
     group: 'excel',
     args: [
@@ -89,6 +99,8 @@ export const LOGIC_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'OR',
+    pure: true,
+    effect: false,
     description: 'Returns true if any of the arguments are true.',
     group: 'excel',
     args: [
