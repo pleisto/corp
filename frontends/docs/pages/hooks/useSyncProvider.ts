@@ -16,11 +16,10 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   updateBlocks: (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
   updateCachedDocBlock: (block: Block, toDelete: boolean) => void
 } {
-  const { rootId, snapshotVersion } = queryVariables
+  const { rootId } = queryVariables
 
   const { data, loading, refetch } = useGetChildrenBlocksQuery({
-    fetchPolicy: snapshotVersion > 0 ? 'no-cache' : 'cache-and-network',
-    nextFetchPolicy: 'cache-only',
+    fetchPolicy: 'no-cache',
     variables: queryVariables
   })
 

@@ -4,7 +4,7 @@ import { Alert } from '@brickdoc/brickdoc-headless-design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import { useDocumentSubscription, usePrepareFileUpload, useFetchUnsplashImages, useFetchWebsiteMeta, useSyncProvider } from './hooks'
+import { useDocumentSubscription, usePrepareFileUpload, useFetchUnsplashImages, useFetchWebsiteMeta, useSyncProvider, useFormulaContextGetter } from './hooks'
 import { blocksToJSONContents } from '../common/blocks'
 import { useBlobGetter } from './hooks/useBlobGetter'
 import { useDatabaseRows } from './hooks/useDatabaseRows'
@@ -35,6 +35,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   const lastQueryVariables = useRef<typeof queryVariables>()
 
   const { rootBlock, data, loading, refetch, onDocSave, updateBlocks, updateCachedDocBlock } = useSyncProvider(queryVariables)
+  const childrenBlocks = data?.childrenBlocks
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
@@ -42,10 +43,10 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   const formulaContextActions = useFormulaContextGetter(docMeta)
 
-  const getImageUrl = useBlobGetter('image', data?.childrenBlocks)
-  const getAttachmentUrl = useBlobGetter('attachment', data?.childrenBlocks)
-  const docIconGetter = useBlobGetter('icon', data?.childrenBlocks)
-  const docCoverGetter = useBlobGetter('cover', data?.childrenBlocks)
+  const getImageUrl = useBlobGetter('image', childrenBlocks)
+  const getAttachmentUrl = useBlobGetter('attachment', childrenBlocks)
+  const docIconGetter = useBlobGetter('icon', childrenBlocks)
+  const docCoverGetter = useBlobGetter('cover', childrenBlocks)
   const getDocIconUrl = (): string | undefined => {
     if (!editor || editor.isDestroyed) return undefined
     return docIconGetter(editor.state.doc)
@@ -107,16 +108,16 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   const setCover = createDocAttrsUpdater('cover')
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed && data?.childrenBlocks && queryVariables !== lastQueryVariables.current) {
+    if (editor && !editor.isDestroyed && childrenBlocks && queryVariables !== lastQueryVariables.current) {
       lastQueryVariables.current = queryVariables
 
-      const content: JSONContent[] = blocksToJSONContents(data.childrenBlocks as Block[])
+      const content: JSONContent[] = blocksToJSONContents(childrenBlocks as Block[])
 
       if (content.length) {
         editor.commands.replaceRoot(content[0])
       }
     }
-  }, [editor, data, queryVariables])
+  }, [editor, childrenBlocks, queryVariables])
 
   if (docMeta.snapshotVersion === 0) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -127,7 +128,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     return <Skeleton active />
   }
 
-  if (!docMeta.viewable || (docMeta.isAnonymous && !data?.childrenBlocks?.length)) {
+  if (!docMeta.viewable || (docMeta.isAnonymous && !childrenBlocks?.length)) {
     if (docMeta.isRedirect) {
       return <Alert message="TODO Page not found" type="error" />
     } else {
@@ -168,7 +169,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     return PageElement
   }
 
-  if (data?.childrenBlocks?.length) {
+  if (childrenBlocks?.length) {
     return PageElement
   } else {
     return <Alert message="TODO Page not found" type="error" />
