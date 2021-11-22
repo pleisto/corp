@@ -5,7 +5,7 @@ export * from './grammar'
 export * from './functions'
 export * from './context'
 
-export type ArgumentType = 'number' | 'string' | 'boolean' | 'Date' | 'any'
+export type ArgumentType = 'number' | 'string' | 'boolean' | 'Date' | 'array' | 'object' | 'any'
 
 export type FunctionGroup = 'core' | 'excel' | 'custom'
 
@@ -87,12 +87,14 @@ export interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
   readonly value?: Result
+  readonly display?: string
   readonly type?: ArgumentType
   readonly errorMessages?: ErrorMessage[]
 }
 
 export interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
+  readonly display: string
   readonly value: Result
   readonly type: ArgumentType
 }

@@ -98,7 +98,7 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
             updateVariable(variable)
             updateValue(newInput)
             updateError(undefined)
-            updateResult(String(variable.t.variableValue.value))
+            updateResult(interpretResult.result.display)
           } else {
             updateError({
               type: 'interpret',

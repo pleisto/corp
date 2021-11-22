@@ -4,6 +4,11 @@ export const T = (ctx: FormulaContext, obj: any): any => obj
 
 export const TYPE = (ctx: FormulaContext, obj: any): string => typeof obj
 
+export const WITH_TYPE = (ctx: FormulaContext, obj: any): { type: string; obj: any } => ({
+  type: typeof obj,
+  obj
+})
+
 export const OBJECT_CLAUSES: FunctionClause[] = [
   {
     name: 'T',
@@ -44,5 +49,25 @@ export const OBJECT_CLAUSES: FunctionClause[] = [
     ],
     chain: true,
     reference: TYPE
+  },
+  {
+    name: 'WITH_TYPE',
+    pure: true,
+    effect: false,
+    description: 'Returns object with type',
+    group: 'core',
+    args: [
+      {
+        name: 'obj',
+        type: 'any'
+      }
+    ],
+    returns: 'object',
+    examples: [
+      { input: [1], output: { type: 'number', obj: 1 } },
+      { input: ['foo'], output: { type: 'string', obj: 'foo' } }
+    ],
+    chain: true,
+    reference: WITH_TYPE
   }
 ]

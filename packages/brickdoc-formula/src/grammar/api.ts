@@ -10,6 +10,7 @@ import {
   FormulaLexer,
   FunctionClause,
   namespaceId,
+  Result,
   SuccessVariableValue,
   Variable,
   VariableData,
@@ -198,11 +199,41 @@ const fetchType = (result: any): ArgumentType => {
   return 'any'
 }
 
+export const displayValue = (result: Result): string => {
+  const type = typeof result
+
+  if (type === 'string') {
+    return `"${result}"`
+  }
+
+  if (['boolean', 'number'].includes(type)) {
+    return String(result)
+  }
+
+  if (result instanceof Date) {
+    return result.toISOString()
+  }
+
+  if (result instanceof Array) {
+    return 'TODO []'
+  }
+
+  if (result instanceof Object) {
+    return 'TODO {}'
+  }
+
+  return String(result)
+}
+
 export const interpret = ({ cst, formulaContext, meta }: InterpretInput): InterpretResult => {
   try {
     const interpreter = new FormulaInterpreter({ formulaContext })
     const result = interpreter.visit(cst)
-    return { success: true, result: { success: true, value: result, type: fetchType(result), updatedAt: new Date() }, errorMessages: [] }
+    return {
+      success: true,
+      result: { success: true, value: result, display: displayValue(result), type: fetchType(result), updatedAt: new Date() },
+      errorMessages: []
+    }
   } catch (e) {
     // console.error(e)
     const errorMessage: ErrorMessage = { message: (e as any).message as string, type: 'runtime' }
@@ -264,6 +295,7 @@ export const castVariable = (
     ? {
         updatedAt: new Date(),
         success: true,
+        display: displayValue(castValue(value, type)),
         type,
         value: castValue(value, type)
       }

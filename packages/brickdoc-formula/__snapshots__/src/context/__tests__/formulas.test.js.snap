@@ -163,6 +163,7 @@ Array [
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableValue": Object {
+      "display": "123",
       "success": true,
       "type": "number",
       "updatedAt": null,
@@ -538,6 +539,7 @@ Array [
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableValue": Object {
+      "display": "123",
       "success": true,
       "type": "number",
       "updatedAt": null,
@@ -1081,6 +1083,7 @@ Array [
     ],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
     "variableValue": Object {
+      "display": "456",
       "success": true,
       "type": "number",
       "updatedAt": null,

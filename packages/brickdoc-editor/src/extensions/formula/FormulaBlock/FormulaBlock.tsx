@@ -81,11 +81,15 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     success_constant_string: 4,
     success_constant_boolean: 5,
     success_constant_any: 6,
+    success_constant_object: 6,
+    success_constant_array: 6,
     success_expression_Date: 2,
     success_expression_number: 8,
     success_expression_string: 9,
     success_expression_boolean: 7,
-    success_expression_any: 6
+    success_expression_any: 6,
+    success_expression_object: 6,
+    success_expression_array: 6
   }
 
   const activeColorIndex = variableT ? COLOR_ARRAY[variableTypeMeta(variableT)] || 0 : 0
@@ -103,11 +107,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
             }}>
             {variableT?.name}:{' '}
-            {variableT.variableValue.success
-              ? variableT.variableValue.type === 'string'
-                ? `"${variableT.variableValue.value}"`
-                : String(variableT.variableValue.value)
-              : variableT.variableValue.errorMessages[0].message}
+            {variableT.variableValue.success ? variableT.variableValue.display : variableT.variableValue.errorMessages[0].message}
           </span>
         ) : (
           <span className="brickdoc-formula-placeholder">

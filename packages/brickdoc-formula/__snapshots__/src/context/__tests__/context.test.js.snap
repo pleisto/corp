@@ -368,6 +368,7 @@ Object {
   ],
   "variableId": "b4289606-2a52-48e3-a50f-77ee321dd84e",
   "variableValue": Object {
+    "display": "366",
     "success": true,
     "type": "number",
     "updatedAt": null,
