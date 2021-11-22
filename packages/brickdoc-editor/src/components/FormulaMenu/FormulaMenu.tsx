@@ -1,20 +1,15 @@
 import React from 'react'
-import { Editor } from '@tiptap/core'
-import { Button, Input, Popover, Icon, Dropdown } from '@brickdoc/design-system'
-import { Variable } from '@brickdoc/formula'
+import { Button, Input, Popover } from '@brickdoc/design-system'
+import { Variable, VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
-import { COLOR, ColorMeta } from '../../extensions/helpers/color'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
 
 export interface FormulaMenuProps {
-  mode?: 'create'
   variableId?: string
-  editor: Editor
-  updateFormula?: (id: string, color: string) => void
+  updateVariableT?: (t: VariableData) => void
   formulaName?: string
   formulaValue?: string
-  formulaColor?: string
   formulaResult?: any
   clear?: boolean
   formulaContextActions: FormulaOptions['formulaContextActions']
@@ -23,34 +18,27 @@ export interface FormulaMenuProps {
 const i18nKey = 'formula.menu'
 
 export const FormulaMenu: React.FC<FormulaMenuProps> = ({
-  mode,
   variableId,
-  editor,
   children,
   formulaName,
   formulaValue,
-  formulaColor,
   formulaResult,
   formulaContextActions,
-  updateFormula,
+  updateVariableT,
   clear
 }) => {
   const { t } = useEditorI18n()
   const [name, setName] = React.useState(formulaName)
   const [value, setValue] = React.useState(formulaValue?.substr(1))
-  const [color, setColor] = React.useState(formulaColor ?? COLOR[0].color)
   const [result, setResult] = React.useState<any>(formulaResult)
   const [variable, setVariable] = React.useState<Variable>()
   const [error, setError] = React.useState<{ type: string; message: string }>()
   const [visible, setVisible] = React.useState(false)
 
-  const activeColor = React.useMemo(() => COLOR.find(item => item.color === color), [color])
-
   const close = (): void => {
     if (clear) {
       setName('')
       setValue('')
-      setColor(COLOR[0].color)
       setVariable(undefined)
       setError(undefined)
       setResult('')
@@ -86,8 +74,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (!formulaContext) return
 
     formulaContext.commitVariable({ variable })
-    updateFormula?.(variable.t.variableId, color)
-    // editor.chain().setFormula(variable.t.variableId, color).focus().run()
+    updateVariableT?.(variable.t)
 
     close()
   }
@@ -95,29 +82,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleCancel = (): void => {
     close()
   }
-
-  const handleSelectColor = (color: ColorMeta) => (): void => {
-    setColor(color.color)
-  }
-
-  const colorMenu = (
-    <div className="formula-menu-color-list">
-      <div className="formula-menu-color-heading">Colors</div>
-      {COLOR.map(item => (
-        <Button key={item.color} type="text" className="formula-menu-color-item" onClick={handleSelectColor(item)}>
-          <span
-            className="formula-menu-color-item-icon-wrapper"
-            style={{
-              borderColor: `rgb(${item.rgb.join(',')}, 0.3)`,
-              background: item.label === 'Default' ? 'unset' : `rgb(${item.rgb.join(',')}, 0.1)`
-            }}>
-            <Icon.FontSize className="formula-menu-color-item-icon" style={{ color: item.color }} />
-          </span>
-          <span className="formula-menu-color-item-label">{item.label}</span>
-        </Button>
-      ))}
-    </div>
-  )
 
   const menu = (
     <div className="brickdoc-formula-menu">
@@ -127,28 +91,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           <label className="formula-menu-label">
             <span className="formula-menu-label-text">{t(`${i18nKey}.name`)}</span>
             <Input className="formula-menu-field" value={name} onChange={handleNameChange} />
-          </label>
-        </div>
-        <div className="formula-menu-item formula-menu-color">
-          <label className="formula-menu-label">
-            <span className="formula-menu-label-text">{t(`${i18nKey}.color`)}</span>
-            <Dropdown overlay={colorMenu} placement="bottomCenter" trigger={['click']}>
-              <Button type="default" className="formula-menu-field">
-                {activeColor ? (
-                  <span
-                    className="formula-menu-color-item-icon-wrapper"
-                    style={{
-                      borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
-                      background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-                    }}>
-                    <Icon.FontSize className="formula-menu-color-item-icon" style={{ color: activeColor.color }} />
-                  </span>
-                ) : (
-                  <span />
-                )}
-                <Icon.LineDown className="formula-menu-item-arrow-icon" />
-              </Button>
-            </Dropdown>
           </label>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { useEditorI18n } from '../../..'
 import { COLOR } from '../../helpers/color'
 import './FormulaBlock.less'
 import { FormulaOptions } from '..'
+import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -24,15 +25,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       setVariableT(t)
     })
   }, [variable])
-
-  const updateFormula = (id: string, color: string): void =>
-    updateAttributes({
-      formula: {
-        type: 'FORMULA',
-        id,
-        color
-      }
-    })
 
   const handleDelete = (): void => {
     Modal.confirm({
@@ -56,17 +48,14 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const menu = (
     <Menu className="formula-block-menu">
       <FormulaMenu
-        mode="create"
         variableId={variableT?.variableId}
-        editor={editor}
         formulaName={variableT?.name}
         formulaValue={
           variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join(' ')}` : variableT?.definition
         }
-        formulaColor={attributes.color}
         formulaResult={variableT?.variableValue.value}
         formulaContextActions={extension.options.formulaContextActions}
-        updateFormula={updateFormula}>
+        updateVariableT={setVariableT}>
         <Menu.Item className="formula-block-menu-item" key="Edit">
           {t('formula.block.menu.edit')}
         </Menu.Item>
@@ -80,7 +69,23 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     </Menu>
   )
 
-  const activeColor = React.useMemo(() => COLOR.find(item => item.color === attributes.color) ?? COLOR[0], [attributes.color])
+  const COLOR_ARRAY: { [key in VariableTypeMeta]: number } = {
+    error_constant: 3,
+    error_expression: 3,
+    success_constant_Date: 2,
+    success_constant_number: 0,
+    success_constant_string: 4,
+    success_constant_boolean: 5,
+    success_constant_any: 6,
+    success_expression_Date: 2,
+    success_expression_number: 8,
+    success_expression_string: 9,
+    success_expression_boolean: 7,
+    success_expression_any: 6
+  }
+
+  const activeColorIndex = variableT ? COLOR_ARRAY[variableTypeMeta(variableT)] || 0 : 0
+  const activeColor = COLOR[activeColorIndex]
 
   return (
     <BlockWrapper as="span" editor={editor}>

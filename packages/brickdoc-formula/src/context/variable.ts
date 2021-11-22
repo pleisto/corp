@@ -2,6 +2,7 @@ import { interpret, VariableData, VariableMetadata } from '..'
 import { BackendActions, FormulaContext } from '../context'
 
 type UpdateHandler = (data: VariableData) => void
+
 export class Variable {
   t: VariableData
   updateHandler: UpdateHandler

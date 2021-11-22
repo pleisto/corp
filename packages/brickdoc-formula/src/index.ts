@@ -11,6 +11,8 @@ export type FunctionGroup = 'core' | 'excel' | 'custom'
 
 export type VariableKind = 'constant' | 'expression'
 
+export type VariableTypeMeta = `error_${VariableKind}` | `success_${VariableKind}_${ArgumentType}`
+
 export type Result = any
 
 export interface View {

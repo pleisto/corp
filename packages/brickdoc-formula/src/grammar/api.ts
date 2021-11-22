@@ -16,6 +16,7 @@ import {
   VariableDependency,
   variableId,
   VariableKind,
+  VariableTypeMeta,
   VariableValue,
   View
 } from '..'
@@ -287,6 +288,14 @@ export const castVariable = (
     functionDependencies,
     dirty: false
   }
+}
+
+export const variableTypeMeta = (t: VariableData): VariableTypeMeta => {
+  if (t.variableValue.success) {
+    return `success_${t.kind}_${t.variableValue.type}`
+  }
+
+  return `error_${t.kind}`
 }
 
 export const appendFormulas = (formulaContext: FormulaContext, formulas: Formula[]): void => {

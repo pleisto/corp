@@ -30,9 +30,8 @@ export const FormulaMenuItem: React.FC<FormulaMenuItemProps> = ({ editor, formul
           {FormulaStyle.shortcutDesc && <div className="item-hint-sub">{FormulaStyle.shortcutDesc}</div>}
         </>
       }
-      placement="top"
-    >
-      <FormulaMenu clear={true} editor={editor} formulaContextActions={formulaContextActions}>
+      placement="top">
+      <FormulaMenu clear={true} formulaContextActions={formulaContextActions}>
         <Button role="menuitem" type="text" className="bubble-menu-item">
           {FormulaStyle.label}
         </Button>
