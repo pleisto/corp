@@ -15,5 +15,7 @@ export const baseStyles = {
   fontWeight: '400',
   outline: 'none',
   verticalAlign: 'middle',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  touchAction: 'manipulation',
+  transition: 'all .3s $ease-in-out'
 }

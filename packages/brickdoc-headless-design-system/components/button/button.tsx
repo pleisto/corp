@@ -1,6 +1,5 @@
 import { FC, useRef, useEffect, useState } from 'react'
 import { useButton } from '@react-aria/button'
-import { noop } from 'lodash-es'
 import LoadingIcon from './LoadingIcon'
 import { styled } from '../theme'
 import { variants, baseStyles } from './style'
@@ -20,8 +19,8 @@ export interface ButtonProps {
   htmlType?: HtmlType
   size?: Size
   style?: React.CSSProperties
-  prefixCls?: string
   priority?: Priority
+  onPress?: React.MouseEventHandler<HTMLButtonElement>
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   onMouseDown?: React.MouseEventHandler<HTMLButtonElement>
   onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>
@@ -30,27 +29,37 @@ export interface ButtonProps {
 
 type Loading = number | boolean
 
+const ButtonRoot = styled('button', {
+  ...baseStyles,
+  variants
+})
+
+/** Button
+ * @example
+ * ```tsx
+ * <Button priority="secondary" disabled loading onClick={....} block>test</Button>
+ * <Button onPress={....} block>test</Button>
+ * ```
+ * @see url
+ */
 const Button: FC<ButtonProps> = props => {
   const {
     disabled = false,
     loading = false,
     circle = false,
-    // prefixCls: customizePrefixCls,
     priority = 'primary',
     size = 'md',
-    onClick = noop,
-    onMouseDown = noop,
     className = '',
     children,
     icon,
     block = false,
-    // htmlType = 'button' as ButtonProps['htmlType'],
+    htmlType = 'button' as ButtonProps['htmlType'],
     ...rest
   } = props
   const [innerLoading, setLoading] = useState<Loading>(!!loading)
-  const ref = useRef()
+  const ref = useRef<HTMLButtonElement>(null)
   const delayTimeoutRef = useRef<number>()
-  const { buttonProps } = useButton(props, ref)
+  const { buttonProps, isPressed } = useButton(props as any, ref)
 
   let loadingOrDelay: Loading
   if (typeof loading === 'object' && loading.delay) {
@@ -74,31 +83,24 @@ const Button: FC<ButtonProps> = props => {
 
   const iconNode = icon && !innerLoading ? icon : <LoadingIcon existIcon={!!icon} loading={!!innerLoading} />
 
-  const Button = styled('button', {
-    ...baseStyles,
-    variants,
-    defaultVariants: {
-      priority,
-      size,
-      block,
-      circle: circle && size
-    }
-  })
   const hasChildren = loading ? <></> : children
 
   return (
-    <Button
+    <ButtonRoot
       {...buttonProps}
       {...rest}
+      role={htmlType}
       ref={ref}
       disabled={disabled || loading}
-      onClick={onClick}
+      priority={isPressed && !disabled ? `${priority}-press` : priority}
+      circle={circle && size}
       className={className}
-      onMouseDown={onMouseDown}
+      size={size}
+      block={block}
     >
       {iconNode}
       {hasChildren}
-    </Button>
+    </ButtonRoot>
   )
 }
 

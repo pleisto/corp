@@ -45,10 +45,10 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
         <div className={styles.side}>
           <div className={styles.snapshot}>{snapshots}</div>
           <div className={styles.actionPanel}>
-            <Button className={styles.button} priority="secondary" disabled={disabled} loading={loading} onClick={onRestore} block>
+            <Button className={styles.button} priority="secondary" disabled={disabled} loading={loading} onPress={onRestore} block>
               {loading ? t('snapshots.restoring') : t('snapshots.restore')}
             </Button>
-            <Button className={styles.button} onClick={onCleanup} block>
+            <Button className={styles.button} onPress={onCleanup} block>
               {t('snapshots.cancel')}
             </Button>
           </div>
@@ -88,7 +88,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
       split={false}
       renderItem={item => (
         <List.Item className={cx(styles.listItem, { [styles.active]: item.snapshotVersion === currentVersion })}>
-          <Button priority="ghost" className={styles.item} onClick={() => setCurrentVersion(item.snapshotVersion)}>
+          <Button priority="ghost" className={styles.item} onPress={() => setCurrentVersion(item.snapshotVersion)}>
             <span className={styles.title}>{item.name || t('title.untitled')}</span>
             <span className={styles.desc}>{item.relativeTime}</span>
           </Button>
