@@ -345,6 +345,8 @@ export type BlockPage = {
   key: Scalars['String']
   /** link */
   link: Scalars['String']
+  /** mode */
+  mode?: Maybe<Scalars['String']>
   /** name */
   name?: Maybe<Scalars['String']>
   /** size */
@@ -377,6 +379,8 @@ export type BlockPeople = {
   height?: Maybe<Scalars['Int']>
   /** url or blob key */
   key?: Maybe<Scalars['String']>
+  /** mode */
+  mode?: Maybe<Scalars['String']>
   /** name */
   name?: Maybe<Scalars['String']>
   /** size */

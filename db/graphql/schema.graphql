@@ -629,6 +629,11 @@ type BlockPage {
   link: String!
 
   """
+  mode
+  """
+  mode: String
+
+  """
   name
   """
   name: String
@@ -691,6 +696,11 @@ type BlockPeople {
   url or blob key
   """
   key: String
+
+  """
+  mode
+  """
+  mode: String
 
   """
   name
