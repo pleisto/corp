@@ -26,6 +26,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     })
   }, [variable])
 
+  const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
+
   const handleDelete = (): void => {
     Modal.confirm({
       title: t('formula.block.menu.delete_confirm.title'),
@@ -50,11 +52,13 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       <FormulaMenu
         variableId={variableT?.variableId}
         formulaName={variableT?.name}
+        editor={editor}
         formulaValue={
           variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join(' ')}` : variableT?.definition
         }
         formulaResult={variableT?.variableValue.value}
         formulaContextActions={extension.options.formulaContextActions}
+        updateFormula={updateFormula}
         updateVariableT={setVariableT}>
         <Menu.Item className="formula-block-menu-item" key="Edit">
           {t('formula.block.menu.edit')}

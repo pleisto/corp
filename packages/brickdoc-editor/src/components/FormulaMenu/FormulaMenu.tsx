@@ -4,10 +4,13 @@ import { Variable, VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
+import { Editor } from '@tiptap/core'
 
 export interface FormulaMenuProps {
   variableId?: string
+  editor: Editor
   updateVariableT?: (t: VariableData) => void
+  updateFormula?: (id: string) => void
   formulaName?: string
   formulaValue?: string
   formulaResult?: any
@@ -20,6 +23,8 @@ const i18nKey = 'formula.menu'
 export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   variableId,
   children,
+  editor,
+  updateFormula,
   formulaName,
   formulaValue,
   formulaResult,
@@ -73,6 +78,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext) return
 
+    if (updateFormula) {
+      updateFormula(variable.t.variableId)
+    } else {
+      editor.chain().setFormula(variable.t.variableId).focus().run()
+    }
     formulaContext.commitVariable({ variable })
     updateVariableT?.(variable.t)
 

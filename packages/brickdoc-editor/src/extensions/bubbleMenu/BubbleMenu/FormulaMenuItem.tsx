@@ -31,7 +31,7 @@ export const FormulaMenuItem: React.FC<FormulaMenuItemProps> = ({ editor, formul
         </>
       }
       placement="top">
-      <FormulaMenu clear={true} formulaContextActions={formulaContextActions}>
+      <FormulaMenu clear={true} editor={editor} formulaContextActions={formulaContextActions}>
         <Button role="menuitem" type="text" className="bubble-menu-item">
           {FormulaStyle.label}
         </Button>

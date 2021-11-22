@@ -33,7 +33,7 @@ export interface FormulaOptions {
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     formula: {
-      setFormula: (id: string, color: string, position?: number) => ReturnType
+      setFormula: (id: string, position?: number) => ReturnType
       setFormulaBlock: (position: number) => ReturnType
     }
   }
@@ -80,9 +80,9 @@ export const FormulaExtension = Node.create<FormulaOptions>({
   addCommands() {
     return {
       setFormula:
-        (id, color, position) =>
+        (id, position) =>
         ({ commands }) => {
-          const content = { type: this.name, attrs: { formula: { type: 'FORMULA', id, color } } }
+          const content = { type: this.name, attrs: { formula: { type: 'FORMULA', id } } }
           if (position) return commands.insertContentAt(position, content)
           return commands.insertContent(content)
         },
