@@ -4,11 +4,10 @@
 # Table name: docs_formulas
 #
 #  id             :uuid             not null, primary key
+#  cache_value    :json             not null
 #  definition     :text             not null
 #  dependency_ids :uuid             default([]), not null, is an Array
 #  name           :string           not null
-#  type           :string           not null
-#  value          :text
 #  view           :json             not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null

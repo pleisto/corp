@@ -24,10 +24,9 @@ export interface Formula {
   definition: string
   id: uuid
   name: string
-  type: ArgumentType
   updatedAt: string
   createdAt: number
-  value: string
+  cacheValue: object
   view: View
 }
 

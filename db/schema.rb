@@ -153,8 +153,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_040644) do
     t.string "name", null: false
     t.json "view", default: {}, null: false
     t.text "definition", null: false
-    t.string "type", null: false
-    t.text "value"
+    t.json "cache_value", null: false
     t.uuid "dependency_ids", default: [], null: false, array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

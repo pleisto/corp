@@ -21,9 +21,11 @@ describe('Context', () => {
       definition: '=123',
       updatedAt: new Date().toDateString(),
       createdAt: 0,
-      type: 'number',
-      view: {},
-      value: '123'
+      cacheValue: {
+        type: 'number',
+        value: 123
+      },
+      view: {}
     },
     {
       name: 'bar',
@@ -32,9 +34,11 @@ describe('Context', () => {
       definition: `=excel::ABS(120) + $${fooNamespaceId}@${fooVariableId}`,
       updatedAt: new Date().toDateString(),
       createdAt: 0,
-      type: 'number',
-      view: {},
-      value: '243'
+      cacheValue: {
+        type: 'number',
+        value: 243
+      },
+      view: {}
     }
   ]
 

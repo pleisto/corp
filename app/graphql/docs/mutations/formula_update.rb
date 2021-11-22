@@ -7,8 +7,7 @@ module Docs
     argument :definition, String, 'definition', required: false
     argument :view, GraphQL::Types::JSON, 'view', required: false
     argument :dependency_ids, [BrickGraphQL::Scalars::UUID], 'dependencies', required: false
-    argument :value, String, 'dump value', required: false
-    argument :type, String, 'type', required: false
+    argument :cache_value, GraphQL::Types::JSON, 'dump value', required: false
 
     def resolve(args)
       formula = Docs::Formula.find_by!(id: args[:id], block_id: args[:block_id])
@@ -18,8 +17,7 @@ module Docs
         definition: args[:definition],
         view: args[:view],
         dependency_ids: args[:dependency_ids],
-        value: args[:value],
-        type: args[:type]
+        cache_value: args[:cache_value]
       }.compact
       formula.update!(update_params)
 

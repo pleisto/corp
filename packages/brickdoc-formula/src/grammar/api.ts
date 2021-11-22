@@ -284,10 +284,11 @@ export const buildVariable = ({
 
 export const castVariable = (
   formulaContext: FormulaContext,
-  { name, definition, type, updatedAt, blockId, id, value, view }: Formula
+  { name, definition, cacheValue, updatedAt, blockId, id, view }: Formula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
+  const { type, value } = cacheValue as any
   const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
   const { success, cst, kind, errorMessages, variableDependencies, codeFragments, functionDependencies } = parse(parseInput)
 

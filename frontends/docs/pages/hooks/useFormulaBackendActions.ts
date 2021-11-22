@@ -14,12 +14,14 @@ export function useFormulaBackendActions(): BackendActions {
           input: {
             blockId: namespaceId,
             id: variableId,
-            type,
+            cacheValue: {
+              type,
+              value
+            },
             name,
             definition,
             view,
-            dependencyIds: [],
-            value: String(value)
+            dependencyIds: []
           }
         }
       })
@@ -37,10 +39,12 @@ export function useFormulaBackendActions(): BackendActions {
             blockId: namespaceId,
             id: variableId,
             name,
-            type,
+            cacheValue: {
+              type,
+              value
+            },
             view,
             dependencyIds: [],
-            value: String(value),
             definition
           }
         }

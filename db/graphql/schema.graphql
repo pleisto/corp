@@ -1187,6 +1187,11 @@ type Formula {
   blockId: UUID!
 
   """
+  dump value
+  """
+  cacheValue: JSON!
+
+  """
   created at
   """
   createdAt: Int!
@@ -1212,19 +1217,9 @@ type Formula {
   name: String!
 
   """
-  type
-  """
-  type: String!
-
-  """
   updated at
   """
   updatedAt: ISO8601DateTime!
-
-  """
-  dump value
-  """
-  value: String
 
   """
   formula name
@@ -1240,6 +1235,11 @@ input FormulaCreateInput {
   block id
   """
   blockId: UUID!
+
+  """
+  dump value
+  """
+  cacheValue: JSON
 
   """
   A unique identifier for the client performing the mutation.
@@ -1265,16 +1265,6 @@ input FormulaCreateInput {
   name
   """
   name: String!
-
-  """
-  type
-  """
-  type: String!
-
-  """
-  dump value
-  """
-  value: String
 
   """
   view
@@ -1342,6 +1332,11 @@ input FormulaUpdateInput {
   blockId: UUID!
 
   """
+  dump value
+  """
+  cacheValue: JSON
+
+  """
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
@@ -1365,16 +1360,6 @@ input FormulaUpdateInput {
   name
   """
   name: String
-
-  """
-  type
-  """
-  type: String
-
-  """
-  dump value
-  """
-  value: String
 
   """
   view

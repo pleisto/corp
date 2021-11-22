@@ -10,8 +10,7 @@ class CreateFormulaTable < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.json :view, null: false, default: {}
       t.text :definition, null: false
-      t.string :type, null: false
-      t.text :value
+      t.json :cache_value, null: false
       t.uuid :dependency_ids, null: false, default: [], array: true
       t.timestamps null: false
 

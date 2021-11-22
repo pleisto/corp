@@ -25,7 +25,7 @@ describe Docs::Mutations::FormulaCreate, type: :mutation do
         id: SecureRandom.uuid,
         blockId: block.id,
         name: 'create formula',
-        type: 'any', value: '123', definition: '=123'
+        cacheValue: { type: 'string', value: '123' }, definition: '=123'
       } }
 
       internal_graphql_execute(mutation, input)

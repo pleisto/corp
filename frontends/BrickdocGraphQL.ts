@@ -635,6 +635,8 @@ export type Formula = {
   __typename?: 'Formula'
   /** block id */
   blockId: Scalars['UUID']
+  /** dump value */
+  cacheValue: Scalars['JSON']
   /** created at */
   createdAt: Scalars['Int']
   /** formula definition */
@@ -645,12 +647,8 @@ export type Formula = {
   id: Scalars['UUID']
   /** formula name */
   name: Scalars['String']
-  /** type */
-  type: Scalars['String']
   /** updated at */
   updatedAt: Scalars['ISO8601DateTime']
-  /** dump value */
-  value?: Maybe<Scalars['String']>
   /** formula name */
   view: Scalars['JSON']
 }
@@ -659,6 +657,8 @@ export type Formula = {
 export type FormulaCreateInput = {
   /** block id */
   blockId: Scalars['UUID']
+  /** dump value */
+  cacheValue?: Maybe<Scalars['JSON']>
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>
   /** definition */
@@ -669,10 +669,6 @@ export type FormulaCreateInput = {
   id: Scalars['UUID']
   /** name */
   name: Scalars['String']
-  /** type */
-  type: Scalars['String']
-  /** dump value */
-  value?: Maybe<Scalars['String']>
   /** view */
   view?: Maybe<Scalars['JSON']>
 }
@@ -709,6 +705,8 @@ export type FormulaDeletePayload = {
 export type FormulaUpdateInput = {
   /** block id */
   blockId: Scalars['UUID']
+  /** dump value */
+  cacheValue?: Maybe<Scalars['JSON']>
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>
   /** definition */
@@ -719,10 +717,6 @@ export type FormulaUpdateInput = {
   id: Scalars['UUID']
   /** name */
   name?: Maybe<Scalars['String']>
-  /** type */
-  type?: Maybe<Scalars['String']>
-  /** dump value */
-  value?: Maybe<Scalars['String']>
   /** view */
   view?: Maybe<Scalars['JSON']>
 }
@@ -2173,8 +2167,7 @@ export type GetFormulasQuery = {
         id: string
         name: string
         view: any
-        type: string
-        value?: string | null | undefined
+        cacheValue: any
         blockId: string
         definition: string
         dependencyIds: Array<string>
@@ -4311,8 +4304,7 @@ export const GetFormulasDocument = gql`
       id
       name
       view
-      type
-      value
+      cacheValue
       blockId
       definition
       dependencyIds

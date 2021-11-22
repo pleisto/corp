@@ -50,8 +50,7 @@ export const queryFormulas = gql`
       id
       name
       view
-      type
-      value
+      cacheValue
       blockId
       definition
       dependencyIds

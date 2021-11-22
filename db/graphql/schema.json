@@ -3826,6 +3826,24 @@
               "deprecationReason": null
             },
             {
+              "name": "cacheValue",
+              "description": "dump value",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSON",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "createdAt",
               "description": "created at",
               "args": [
@@ -3924,24 +3942,6 @@
               "deprecationReason": null
             },
             {
-              "name": "type",
-              "description": "type",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "updatedAt",
               "description": "updated at",
               "args": [
@@ -3955,20 +3955,6 @@
                   "name": "ISO8601DateTime",
                   "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "dump value",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -4106,28 +4092,12 @@
               "deprecationReason": null
             },
             {
-              "name": "value",
+              "name": "cacheValue",
               "description": "dump value",
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "JSON",
                 "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "type",
-              "description": "type",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
               },
               "defaultValue": null,
               "isDeprecated": false,
@@ -4406,23 +4376,11 @@
               "deprecationReason": null
             },
             {
-              "name": "value",
+              "name": "cacheValue",
               "description": "dump value",
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "type",
-              "description": "type",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "name": "JSON",
                 "ofType": null
               },
               "defaultValue": null,

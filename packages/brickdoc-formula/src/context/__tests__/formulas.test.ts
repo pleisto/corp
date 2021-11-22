@@ -21,9 +21,11 @@ describe('appendFormulas', () => {
         definition: '=123',
         updatedAt: new Date().toDateString(),
         createdAt: 0,
-        type: 'number',
-        view: {},
-        value: '123'
+        cacheValue: {
+          type: 'number',
+          value: 123
+        },
+        view: {}
       }
     ]
 
@@ -58,9 +60,11 @@ describe('appendFormulas', () => {
         definition: '= 123 + excel::RAND()',
         updatedAt: new Date().toDateString(),
         createdAt: 0,
-        type: 'number',
-        view: {},
-        value: '123'
+        cacheValue: {
+          type: 'number',
+          value: 123
+        },
+        view: {}
       },
       {
         name: 'bar',
@@ -69,9 +73,11 @@ describe('appendFormulas', () => {
         definition: `=excel::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
         updatedAt: new Date().toDateString(),
         createdAt: 0,
-        type: 'number',
-        view: {},
-        value: '456'
+        cacheValue: {
+          type: 'number',
+          value: 456
+        },
+        view: {}
       }
     ]
 
@@ -107,9 +113,11 @@ describe('appendFormulas', () => {
         definition: `=excel::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
         updatedAt: new Date().toDateString(),
         createdAt: 0,
-        type: 'number',
-        view: {},
-        value: '456'
+        cacheValue: {
+          type: 'number',
+          value: 456
+        },
+        view: {}
       }
     ]
 
@@ -141,9 +149,11 @@ describe('appendFormulas', () => {
         definition: '= 123 +',
         updatedAt: new Date().toDateString(),
         createdAt: 0,
-        type: 'number',
-        view: {},
-        value: '123'
+        cacheValue: {
+          type: 'number',
+          value: 123
+        },
+        view: {}
       }
     ]
 

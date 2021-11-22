@@ -22,7 +22,7 @@ describe Docs::Mutations::FormulaDelete, type: :mutation do
 
       formula = Docs::Formula.create!(
         block_id: block.id, id: SecureRandom.uuid, name: 'formula delete',
-        view: {}, dependency_ids: [], type: 'any', definition: "=123", value: "123"
+        view: {}, dependency_ids: [], definition: "=123", cache_value: { 'value' => "123", 'type' => 'number' }
       )
 
       input = { input: {
