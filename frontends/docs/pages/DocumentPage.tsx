@@ -114,7 +114,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
       const content: JSONContent[] = blocksToJSONContents(data?.childrenBlocks as Block[])
 
       if (content.length) {
-        editor.commands.replaceRoot(content[0])
+        editor.chain().setMeta('preventUpdate', true).replaceRoot(content[0]).run()
       }
     }
   }, [editor, data, data?.childrenBlocks, queryVariables])

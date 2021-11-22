@@ -36,6 +36,9 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   const dirtyToDeleteIds = React.useRef(new Set<string>())
 
   React.useEffect(() => {
+    docBlocksMap.current = new Map<string, Block>()
+    dirtyBlocksMap.current = new Map<string, Block>()
+    dirtyToDeleteIds.current = new Set<string>()
     data?.childrenBlocks?.forEach(_block => {
       const block = _block as Block
       // cachedBlocksMap.current.set(block.id, block)
