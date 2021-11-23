@@ -1,4 +1,4 @@
-import { colorShadeMixin } from '@brickdoc/design-colors'
+import { colorShadeMixin } from '@brickdoc/design-colors/src'
 import { ColorToken } from './colorToken'
 
 const Cyan = '#39b3e8'
