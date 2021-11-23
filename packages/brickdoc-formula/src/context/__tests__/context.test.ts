@@ -44,7 +44,7 @@ describe('Context', () => {
 
   void appendFormulas(formulaContext, formulas)
 
-  it('reset', async () => {
+  it('reset', () => {
     const reverseFunctionDependencies = formulaContext.reverseFunctionDependencies
     const reverseVariableDependencies = formulaContext.reverseVariableDependencies
 
@@ -58,7 +58,7 @@ describe('Context', () => {
     expect(formulaContext.reverseFunctionDependencies).toEqual({})
     expect(formulaContext.reverseVariableDependencies).toEqual({})
 
-    await appendFormulas(formulaContext, formulas)
+    void appendFormulas(formulaContext, formulas)
 
     expect(formulaContext.reverseFunctionDependencies).toEqual(reverseFunctionDependencies)
     expect(formulaContext.reverseVariableDependencies).toEqual(reverseVariableDependencies)
@@ -72,17 +72,17 @@ describe('Context', () => {
     expect({ bar: [bar.t.functionDependencies, bar.t.variableDependencies] }).toMatchSnapshot()
   })
 
-  it('removeVariable', async () => {
-    await formulaContext.removeVariable(barNamespaceId, barVariableId)
+  it('removeVariable', () => {
+    void formulaContext.removeVariable(barNamespaceId, barVariableId)
     expect(Object.keys(formulaContext.context)).toMatchSnapshot()
     expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 
     formulaContext.reset()
-    await appendFormulas(formulaContext, formulas)
+    void appendFormulas(formulaContext, formulas)
   })
 
-  it('commitVariable normal', async () => {
+  it('commitVariable normal', () => {
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const name = 'baz'
@@ -94,13 +94,13 @@ describe('Context', () => {
 
     expect(parseResult.success).toEqual(true)
 
-    const interpretResult = (await interpret({ cst: parseResult.cst, formulaContext, meta })) as SuccessInterpretResult
+    const interpretResult = interpret({ cst: parseResult.cst, formulaContext, meta }) as SuccessInterpretResult
 
     expect(interpretResult.success).toEqual(true)
 
     const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
 
-    await formulaContext.commitVariable({ variable })
+    void formulaContext.commitVariable({ variable })
 
     expect(formulaContext.variableCount()).toEqual(3)
 

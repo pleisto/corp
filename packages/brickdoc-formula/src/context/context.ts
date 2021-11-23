@@ -85,7 +85,7 @@ export class FormulaContext {
   public handleBroadcast = (variable: Variable): void => {
     const dependencyKey = this.variableKey(variable.t.namespaceId, variable.t.variableId)
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
-      void this.context[this.variableKey(namespaceId, variableId)]!.refresh(this)
+      this.context[this.variableKey(namespaceId, variableId)]!.refresh(this)
     })
   }
 

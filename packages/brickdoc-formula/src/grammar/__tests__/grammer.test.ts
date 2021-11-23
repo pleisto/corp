@@ -294,14 +294,6 @@ but found: '*'`
     value: true
   },
   {
-    input: '=excel::FALSE()',
-    value: false
-  },
-  {
-    input: '=(excel::IF(excel::FALSE(), -3, -4))',
-    value: -4
-  },
-  {
     input: '=excel::ABS(excel::IF(excel::FALSE(), -3, -4))',
     value: 4
   },
@@ -365,17 +357,6 @@ but found: '*'`
     value: false
   },
   {
-    input: '=1.',
-    label: 'should error',
-    value: 1
-  },
-  {
-    input: '=1.core::T()',
-    label: 'should success',
-    parseSuccess: false,
-    errorMessage: 'TODO build not all input parsed :3'
-  },
-  {
     input: '=excel::if(true, 1+2, "2")',
     parseSuccess: false,
     errorMessage: 'TODO mismatch token FunctionCall'
@@ -398,14 +379,10 @@ describe('Simple test case', () => {
     const prefix = label ? `[${label}] ` : ''
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     // eslint-disable-next-line jest/valid-title
-    it(`${prefix}${input}${suffix}`, async () => {
+    it(`${prefix}${input}${suffix}`, () => {
       const newMeta = { ...meta, input }
       const { success, cst, errorType, errorMessages } = parse({ ...parseInput, meta: newMeta })
-      const {
-        success: interpretSuccess,
-        result,
-        errorMessages: interpretErrorMessages
-      } = await interpret({ cst, meta: newMeta, formulaContext })
+      const { success: interpretSuccess, result, errorMessages: interpretErrorMessages } = interpret({ cst, meta: newMeta, formulaContext })
 
       if (value !== undefined) {
         expect(errorMessages).toEqual([])
