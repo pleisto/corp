@@ -25,15 +25,15 @@ export class Variable {
     this.updateHandler = handler
   }
 
-  public invokeBackendCreate = () => {
+  public invokeBackendCreate = async () => {
     if (this.backendActions) {
-      void this.backendActions.createVariable(this)
+      await this.backendActions.createVariable(this)
     }
   }
 
-  public invokeBackendUpdate = () => {
+  public invokeBackendUpdate = async () => {
     if (this.backendActions) {
-      void this.backendActions.updateVariable(this)
+      await this.backendActions.updateVariable(this)
     }
   }
 
@@ -44,12 +44,12 @@ export class Variable {
     }
   }
 
-  public refresh = (formulaContext: FormulaContext): void => {
-    const { result } = interpret({ cst: this.t.cst, formulaContext, meta: this.meta() })
+  public refresh = async (formulaContext: FormulaContext): Promise<void> => {
+    const { result } = await interpret({ cst: this.t.cst, formulaContext, meta: this.meta() })
 
     // console.log({ label: 'refresh', name: this.t.name, result })
     this.t = { ...this.t, variableValue: result }
     this.afterUpdate()
-    this.invokeBackendUpdate()
+    await this.invokeBackendUpdate()
   }
 }

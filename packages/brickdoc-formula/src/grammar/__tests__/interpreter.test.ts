@@ -43,15 +43,16 @@ const unknownId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
 
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 
-const formulaContext = new FormulaContext({ functionClauses })
-
 const meta = { namespaceId, variableId, name: 'example' }
 
-void quickInsert({ formulaContext, meta: { ...meta, name: 'foo', variableId: fooVariableId, input: '=24' } })
-
-const parseInput = { formulaContext, meta }
-
 describe('Custom Function', () => {
+  const formulaContext = new FormulaContext({ functionClauses })
+  const parseInput = { formulaContext, meta }
+
+  beforeAll(async () => {
+    await quickInsert({ formulaContext, meta: { ...meta, name: 'foo', variableId: fooVariableId, input: '=24' } })
+  })
+
   const localFormulaContext = new FormulaContext({ functionClauses })
 
   it('Simple cst', () => {
@@ -61,12 +62,12 @@ describe('Custom Function', () => {
     expect(cst).toMatchSnapshot()
   })
 
-  it('Plus', () => {
+  it('Plus', async () => {
     const input = '=custom::PLUS(1, 1)'
     const newMeta = { ...meta, input }
     const { success, cst } = parse({ ...parseInput, meta: newMeta, formulaContext: localFormulaContext })
     expect(success).toEqual(true)
-    expect(interpret({ cst, meta: newMeta, formulaContext: localFormulaContext }).result.value).toEqual(2)
+    expect((await interpret({ cst, meta: newMeta, formulaContext: localFormulaContext })).result.value).toEqual(2)
     expect(cst).toMatchSnapshot()
   })
 
@@ -93,32 +94,39 @@ describe('Custom Function', () => {
     expect(errorMessages[0].message).toContain('Expecting: one of these possible Token sequences:')
   })
 
-  it('42', () => {
+  it('42', async () => {
     const input = '=custom::FORTY_TWO()'
     const newMeta = { ...meta, input }
     const { success, cst } = parse({ ...parseInput, meta: newMeta, formulaContext: localFormulaContext })
     expect(success).toEqual(true)
-    expect(interpret({ cst, meta: newMeta, formulaContext: localFormulaContext }).result.value).toEqual(42)
+    expect((await interpret({ cst, meta: newMeta, formulaContext: localFormulaContext })).result.value).toEqual(42)
   })
 })
 
 describe('Context', () => {
-  it('constant variable', () => {
+  const formulaContext = new FormulaContext({ functionClauses })
+  const parseInput = { formulaContext, meta }
+
+  beforeAll(async () => {
+    await quickInsert({ formulaContext, meta: { ...meta, name: 'foo', variableId: fooVariableId, input: '=24' } })
+  })
+
+  it('constant variable', async () => {
     const input = `=$${namespaceId}#${fooVariableId}`
     const newMeta = { ...meta, input }
     const { cst, errorMessages } = parse({ ...parseInput, meta: newMeta })
     expect(errorMessages).toEqual([])
-    expect(interpret({ cst, meta: newMeta, formulaContext }).result.value).toEqual(24)
+    expect((await interpret({ cst, meta: newMeta, formulaContext })).result.value).toEqual(24)
   })
 
-  it('expression variable', () => {
+  it('expression variable', async () => {
     const anotherBlockId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
     const anotherVariableId = '45e4260c-5bf1-4120-957e-1214c5ea7c20'
     const barInput = `=10 + $${namespaceId}#${fooVariableId}`
 
     // Insert bar
     const meta = { namespaceId: anotherBlockId, variableId: anotherVariableId, name: 'bar' }
-    void quickInsert({ formulaContext, meta: { ...meta, input: barInput } })
+    await quickInsert({ formulaContext, meta: { ...meta, input: barInput } })
 
     const bar = formulaContext.findVariable(anotherBlockId, anotherVariableId)
 
@@ -153,12 +161,12 @@ describe('Context', () => {
     // expect(circularDependencyErrorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 
-  it('PLUS', () => {
+  it('PLUS', async () => {
     const input = `= custom::PLUS(10, $${namespaceId}#${fooVariableId})`
     const newMeta = { ...meta, input }
     const { cst, errorMessages } = parse({ ...parseInput, meta: newMeta })
     expect(errorMessages).toEqual([])
-    expect(interpret({ cst, formulaContext, meta: newMeta }).result.value).toEqual(34)
+    expect((await interpret({ cst, formulaContext, meta: newMeta })).result.value).toEqual(34)
   })
 
   it('syntax', () => {

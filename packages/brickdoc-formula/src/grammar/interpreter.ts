@@ -216,7 +216,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return ['true'].includes(ctx.BooleanLiteral[0].image)
   }
 
-  FunctionCall(ctx, chainArgs): Result {
+  async FunctionCall(ctx, chainArgs): Promise<Result> {
     const group = ctx.FunctionGroupName[0].image
     const name = ctx.FunctionName[0].image
 
@@ -233,9 +233,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     if (clause.chain) {
-      return clause.reference(this.formulaContext, chainArgs, ...args)
+      // eslint-disable-next-line @typescript-eslint/return-await
+      return await clause.reference(this.formulaContext, chainArgs, ...args)
     } else {
-      return (clause as NormalFunctionClause).reference(this.formulaContext, ...args)
+      // eslint-disable-next-line @typescript-eslint/return-await
+      return await (clause as NormalFunctionClause).reference(this.formulaContext, ...args)
     }
   }
 

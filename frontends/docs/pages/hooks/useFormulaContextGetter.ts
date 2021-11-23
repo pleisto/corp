@@ -61,7 +61,7 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
       return data.current?.removeVariable(blockId.current, variableId)
     },
     calculate: debounce(
-      (
+      async (
         id: string | undefined,
         name: string,
         input: string,
@@ -90,7 +90,7 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
         const parseResult = parse(parseInput)
 
         if (parseResult.success) {
-          const interpretResult = interpret({ cst: parseResult.cst, formulaContext, meta })
+          const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
 
           if (interpretResult.success) {
             const newInput = parseResult.codeFragments.map(fragment => fragment.name).join(' ')
