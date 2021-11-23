@@ -16,7 +16,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   updateBlocks: (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
   updateCachedDocBlock: (block: Block, toDelete: boolean) => void
 } {
-  const { rootId } = queryVariables
+  const rootId = React.useRef<string>(queryVariables.rootId)
 
   const { data, loading, refetch } = useGetChildrenBlocksQuery({
     fetchPolicy: 'no-cache',
@@ -36,6 +36,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   const dirtyToDeleteIds = React.useRef(new Set<string>())
 
   React.useEffect(() => {
+    rootId.current = queryVariables.rootId
     docBlocksMap.current = new Map<string, Block>()
     dirtyBlocksMap.current = new Map<string, Block>()
     dirtyToDeleteIds.current = new Set<string>()
@@ -44,8 +45,8 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       // cachedBlocksMap.current.set(block.id, block)
       docBlocksMap.current.set(block.id, block)
     })
-    rootBlock.current = docBlocksMap.current.get(rootId)
-  }, [rootId, data?.childrenBlocks])
+    rootBlock.current = docBlocksMap.current.get(rootId.current)
+  }, [queryVariables, data?.childrenBlocks])
 
   const commitDirty = async () => {
     if (committing.current) return
@@ -55,8 +56,12 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     try {
       const blocks: BlockInput[] = Array.from(dirtyBlocksMap.current.values()).filter(
         // commit only if parent block in doc
-        ({ parentId }) =>
-          parentId && parentId !== rootId ? docBlocksMap.current.get(parentId) || dirtyBlocksMap.current.get(parentId) : true
+        ({ parentId, id }) =>
+          !parentId ||
+          id === rootId.current ||
+          parentId === rootId.current ||
+          docBlocksMap.current.get(parentId) ||
+          dirtyBlocksMap.current.get(parentId)
       )
       const deletedIds = [...dirtyToDeleteIds.current]
       blocks.forEach(b => dirtyBlocksMap.current.delete(b.id))
@@ -67,7 +72,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           input: {
             blocks,
             deletedIds,
-            rootId,
+            rootId: rootId.current,
             operatorId: globalThis.brickdocContext.uuid
           }
         }
@@ -86,7 +91,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     }
   }
 
-  const onDocSave = async (doc: Node) => {
+  const onDocSave = async doc => {
     if (!docBlocksMap.current.size) return
     isSavingVar(true)
     const docBlocks = nodeToBlock(doc, 0)
@@ -109,7 +114,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     })
 
     // update info title if root block changed
-    const dirtyRootBlock = dirtyBlocksMap.current.get(rootId)
+    const dirtyRootBlock = dirtyBlocksMap.current.get(rootId.current)
     if (dirtyRootBlock) {
       client.cache.modify({
         id: client.cache.identify({ __typename: 'BlockInfo', id: dirtyRootBlock.id }),

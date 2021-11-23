@@ -136,7 +136,7 @@ module Docs
             if patch.fetch(:path).blank?
               parent_id = patch.fetch(:parent_id)
               # rubocop:disable Metrics/BlockNesting
-              new_path = parent_id.nil? || patch.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id, [parent_id])
+              new_path = parent_id.nil? || patch.fetch(:id) == root_id ? [] : paths_cache.fetch(parent_id, [root_id])
               new_path += [patch.fetch(:id)] if patch.fetch(:patch_type) != "ADD"
               patch.merge(path: new_path)
             else
