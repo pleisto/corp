@@ -25,6 +25,7 @@ export const LN = (ctx: FormulaContext, number: number): number => Math.log(numb
 export const MATH_CLAUSES: FunctionClause[] = [
   {
     name: 'ABS',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the absolute value of a number.',
@@ -42,6 +43,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'INT',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the integer part of a number.',
@@ -59,6 +61,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'LOG10',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the base-10 logarithm of a number.',
@@ -76,6 +79,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'PI',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the value of pi.',
@@ -93,6 +97,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'POWER',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the value of a number raised to a power.',
@@ -113,6 +118,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'RAND',
+    async: false,
     pure: false,
     effect: false,
     description: 'Returns a random number between 0 and 1.',
@@ -125,6 +131,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'RANDBETWEEN',
+    async: false,
     pure: false,
     effect: false,
     description: 'Returns a random number between two numbers.',
@@ -140,6 +147,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'SQRT',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the square root of a number.',
@@ -157,6 +165,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'SQRTPI',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the square root of a number multiplied by pi.',
@@ -174,6 +183,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'TRUNC',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the integer part of a number.',
@@ -191,6 +201,7 @@ export const MATH_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'LN',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the natural logarithm of a number.',

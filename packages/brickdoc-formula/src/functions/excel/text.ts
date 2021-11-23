@@ -9,6 +9,7 @@ export const TRIM = (ctx: FormulaContext, str: string): string => str.trim()
 export const TEXT_CLAUSES: FunctionClause[] = [
   {
     name: 'LEN',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the length of the string.',
@@ -31,6 +32,7 @@ export const TEXT_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'T',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the input as a string.',
@@ -57,6 +59,7 @@ export const TEXT_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'TRIM',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns the string with leading and trailing whitespace removed.',

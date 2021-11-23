@@ -56,7 +56,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         formulaValue={
           variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join(' ')}` : variableT?.definition
         }
-        formulaResult={variableT?.variableValue.value}
+        formulaResult={variableT?.variableValue.display}
         formulaContextActions={extension.options.formulaContextActions}
         updateFormula={updateFormula}
         updateVariableT={setVariableT}>

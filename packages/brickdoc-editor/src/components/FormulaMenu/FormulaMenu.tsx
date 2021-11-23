@@ -83,7 +83,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     } else {
       editor.chain().setFormula(variable.t.variableId).focus().run()
     }
-    formulaContext.commitVariable({ variable })
+    await formulaContext.commitVariable({ variable })
     updateVariableT?.(variable.t)
 
     close()

@@ -45,6 +45,7 @@ export interface BaseFunctionClause {
   readonly name: string
   readonly pure: boolean
   readonly effect: boolean
+  readonly async: boolean
   readonly description: string
   readonly group: FunctionGroup
   readonly args: Argument[]

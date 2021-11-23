@@ -294,14 +294,6 @@ but found: '*'`
     value: true
   },
   {
-    input: '=excel::FALSE()',
-    value: false
-  },
-  {
-    input: '=(excel::IF(excel::FALSE(), -3, -4))',
-    value: -4
-  },
-  {
     input: '=excel::ABS(excel::IF(excel::FALSE(), -3, -4))',
     value: 4
   },

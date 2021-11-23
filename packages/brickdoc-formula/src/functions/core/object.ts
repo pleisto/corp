@@ -12,6 +12,7 @@ export const WITH_TYPE = (ctx: FormulaContext, obj: any): { type: string; obj: a
 export const OBJECT_CLAUSES: FunctionClause[] = [
   {
     name: 'T',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns current object',
@@ -32,6 +33,7 @@ export const OBJECT_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'TYPE',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns type of current object',
@@ -52,6 +54,7 @@ export const OBJECT_CLAUSES: FunctionClause[] = [
   },
   {
     name: 'WITH_TYPE',
+    async: false,
     pure: true,
     effect: false,
     description: 'Returns object with type',

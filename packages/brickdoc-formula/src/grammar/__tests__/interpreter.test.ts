@@ -4,6 +4,7 @@ import { FormulaContext } from '../../context'
 const functionClauses: FunctionClause[] = [
   {
     name: 'PLUS',
+    async: false,
     pure: true,
     effect: false,
     args: [
@@ -25,6 +26,7 @@ const functionClauses: FunctionClause[] = [
   },
   {
     name: 'FORTY_TWO',
+    async: false,
     pure: true,
     effect: false,
     args: [],

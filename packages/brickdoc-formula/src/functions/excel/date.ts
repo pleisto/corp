@@ -5,6 +5,7 @@ export const TODAY = (ctx: FormulaContext): Date => new Date()
 export const DATE_CLAUSES: FunctionClause[] = [
   {
     name: 'TODAY',
+    async: false,
     pure: false,
     effect: false,
     description: 'Returns the current date',

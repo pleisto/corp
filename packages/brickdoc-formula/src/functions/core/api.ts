@@ -16,6 +16,7 @@ export const CURRENT_POSITION = async (ctx: FormulaContext): Promise<{ long: num
 export const API_CLAUSES: FunctionClause[] = [
   {
     name: 'CURRENT_POSITION',
+    async: true,
     pure: false,
     effect: false,
     description: 'Returns current position',

@@ -430,6 +430,7 @@ Object {
             "type": "number",
           },
         ],
+        "async": false,
         "chain": false,
         "description": "Returns the absolute value of a number.",
         "effect": false,

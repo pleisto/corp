@@ -9,6 +9,7 @@ const fooVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 const functionClauses: FunctionClause[] = [
   {
     name: 'PLUS',
+    async: false,
     pure: true,
     effect: false,
     args: [
@@ -30,6 +31,7 @@ const functionClauses: FunctionClause[] = [
   },
   {
     name: 'FORTY_TWO',
+    async: false,
     pure: true,
     effect: false,
     args: [],
