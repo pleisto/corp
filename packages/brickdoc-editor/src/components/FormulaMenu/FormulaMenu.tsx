@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Input, Popover } from '@brickdoc/design-system'
-import { Variable, VariableData } from '@brickdoc/formula'
+import { VariableInterface, VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
@@ -36,7 +36,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const [name, setName] = React.useState(formulaName)
   const [value, setValue] = React.useState(formulaValue?.substr(1))
   const [result, setResult] = React.useState<any>(formulaResult)
-  const [variable, setVariable] = React.useState<Variable>()
+  const [variable, setVariable] = React.useState<VariableInterface>()
   const [error, setError] = React.useState<{ type: string; message: string }>()
   const [visible, setVisible] = React.useState(false)
 

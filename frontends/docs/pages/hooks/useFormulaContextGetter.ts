@@ -1,4 +1,4 @@
-import { buildVariable, FormulaContext, interpret, parse, Variable, View } from '@brickdoc/formula'
+import { buildVariable, ContextInterface, interpret, parse, VariableInterface, View } from '@brickdoc/formula'
 import { v4 as uuid } from 'uuid'
 import { debounce } from 'lodash-es'
 import React from 'react'
@@ -10,7 +10,7 @@ const parseVariableName = ({
   namespaceId,
   name
 }: {
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
   name: string
   namespaceId: string
 }): string => {
@@ -28,7 +28,7 @@ const transformUserInput = ({
   formulaContext
 }: {
   input: string
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
   namespaceId: string
 }): string => {
   const inputAfterTransformVariable = input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, name): string => {
@@ -65,9 +65,9 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
         id: string | undefined,
         name: string,
         input: string,
-        formulaContext: FormulaContext,
+        formulaContext: ContextInterface,
         updateResult: React.Dispatch<React.SetStateAction<any>>,
-        updateVariable: React.Dispatch<React.SetStateAction<Variable | undefined>>,
+        updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>,
         updateError: React.Dispatch<
           React.SetStateAction<
             | {

@@ -1,4 +1,4 @@
-import { FormulaContext, Variable } from '@brickdoc/formula'
+import { ContextInterface, VariableInterface } from '@brickdoc/formula'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { FormulaOptions } from '../../..'
 import { BubbleMenu } from '../BubbleMenu'
@@ -11,9 +11,9 @@ const formulaContextActions: FormulaOptions['formulaContextActions'] = {
     variableId: string | undefined,
     name: string,
     input: string,
-    formulaContext: FormulaContext,
+    formulaContext: ContextInterface,
     updateResult: React.Dispatch<React.SetStateAction<any>>,
-    updateVariable: React.Dispatch<React.SetStateAction<Variable | undefined>>,
+    updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>,
     updateError: React.Dispatch<
       React.SetStateAction<
         | {

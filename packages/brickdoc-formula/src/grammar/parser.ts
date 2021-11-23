@@ -1,6 +1,5 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
-import { Argument, ArgumentType, FunctionClause, VariableDependency, VariableKind } from '..'
-import { FormulaContext } from '../context'
+import { Argument, ArgumentType, ContextInterface, FunctionClause, VariableDependency, VariableKind } from '..'
 import {
   allTokens,
   AdditionOperator,
@@ -27,9 +26,10 @@ import {
   DoubleColon,
   Dot
 } from './lexer'
+import { FormulaContext } from '../context'
 
 interface ParserConfig {
-  readonly formulaContext: FormulaContext
+  readonly formulaContext: ContextInterface
 }
 
 interface parseTokenType {
@@ -66,7 +66,7 @@ const errorProvider: IParserErrorMessageProvider = {
 export class FormulaParser extends CstParser {
   variableDependencies: VariableDependency[]
   functionDependencies: FunctionClause[]
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
   kind: VariableKind
 
   // Unfortunately no support for class fields with initializer in ES2015, only in esNext...

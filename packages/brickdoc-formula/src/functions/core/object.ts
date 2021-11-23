@@ -1,10 +1,10 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const T = (ctx: FormulaContext, obj: any): any => obj
+export const T = (ctx: ContextInterface, obj: any): any => obj
 
-export const TYPE = (ctx: FormulaContext, obj: any): string => typeof obj
+export const TYPE = (ctx: ContextInterface, obj: any): string => typeof obj
 
-export const WITH_TYPE = (ctx: FormulaContext, obj: any): { type: string; obj: any } => ({
+export const WITH_TYPE = (ctx: ContextInterface, obj: any): { type: string; obj: any } => ({
   type: typeof obj,
   obj
 })

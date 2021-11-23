@@ -1,5 +1,5 @@
 import { tokenMatcher } from 'chevrotain'
-import { FormulaContext, NormalFunctionClause, Result } from '..'
+import { ContextInterface, NormalFunctionClause, Result } from '..'
 import { BaseCstVisitor } from './parser'
 import {
   Div,
@@ -21,11 +21,11 @@ import {
 } from './lexer'
 
 interface InterpreterConfig {
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
 }
 
 export class FormulaInterpreter extends BaseCstVisitor {
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
 
   constructor({ formulaContext }: InterpreterConfig) {
     super()

@@ -1,9 +1,9 @@
 import { IToken } from 'chevrotain'
-import { CodeFragment, ErrorMessage, FormulaContext } from '..'
+import { CodeFragment, ErrorMessage, ContextInterface } from '..'
 import { BaseCstVisitor } from './parser'
 
 interface InterpreterConfig {
-  readonly formulaContext: FormulaContext
+  readonly formulaContext: ContextInterface
 }
 
 type result = CodeFragment[]
@@ -15,7 +15,7 @@ const token2fragment = (token: IToken): CodeFragment => {
 }
 
 export class CodeFragmentVisitor extends BaseCstVisitor {
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
 
   constructor({ formulaContext }: InterpreterConfig) {
     super()

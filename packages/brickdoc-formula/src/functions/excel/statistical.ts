@@ -1,6 +1,6 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const AVERAGE = (ctx: FormulaContext, ...numbers: number[]): number => {
+export const AVERAGE = (ctx: ContextInterface, ...numbers: number[]): number => {
   const sum = numbers.reduce((acc, cur) => acc + cur, 0)
   return sum / numbers.length
 }

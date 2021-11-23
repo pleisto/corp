@@ -1,10 +1,10 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const LEN = (ctx: FormulaContext, str: string): number => str.length
+export const LEN = (ctx: ContextInterface, str: string): number => str.length
 
-export const T = (ctx: FormulaContext, input: any): string => (typeof input === 'string' ? input : '')
+export const T = (ctx: ContextInterface, input: any): string => (typeof input === 'string' ? input : '')
 
-export const TRIM = (ctx: FormulaContext, str: string): string => str.trim()
+export const TRIM = (ctx: ContextInterface, str: string): string => str.trim()
 
 export const TEXT_CLAUSES: FunctionClause[] = [
   {

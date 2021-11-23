@@ -1,6 +1,6 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const CURRENT_POSITION = async (ctx: FormulaContext): Promise<{ long: number; lat: number; msg: string }> => {
+export const CURRENT_POSITION = async (ctx: ContextInterface): Promise<{ long: number; lat: number; msg: string }> => {
   if (!navigator.geolocation) {
     return { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' }
   }

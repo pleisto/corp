@@ -6,20 +6,20 @@ import {
   ErrorType,
   ErrorVariableValue,
   Formula,
-  FormulaContext,
+  ContextInterface,
   FormulaLexer,
   FunctionClause,
-  namespaceId,
   Result,
   SuccessVariableValue,
-  Variable,
+  VariableClass,
   VariableData,
   VariableDependency,
-  variableId,
   VariableKind,
+  VariableMetadata,
   VariableTypeMeta,
   VariableValue,
-  View
+  View,
+  VariableInterface
 } from '..'
 import { FormulaParser } from './parser'
 import { FormulaInterpreter } from './interpreter'
@@ -27,14 +27,7 @@ import { CodeFragmentVisitor } from './code_fragment'
 
 export interface ParseInput {
   readonly meta: VariableMetadata
-  readonly formulaContext: FormulaContext
-}
-
-export interface VariableMetadata {
-  readonly namespaceId: namespaceId
-  readonly variableId: variableId
-  readonly input: string
-  readonly name: string
+  readonly formulaContext: ContextInterface
 }
 
 export interface BaseParseResult {
@@ -71,7 +64,7 @@ export type ParseResult = SuccessParseResult | ErrorParseResult
 export interface InterpretInput {
   readonly cst: CstNode
   readonly meta: VariableMetadata
-  readonly formulaContext: FormulaContext
+  readonly formulaContext: ContextInterface
 }
 
 export interface BaseInterpretResult {
@@ -252,12 +245,12 @@ export const buildVariable = ({
   parseResult: { cst, kind, variableDependencies, functionDependencies },
   interpretResult: { result }
 }: {
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
   meta: VariableMetadata
   view: View
   parseResult: SuccessParseResult
   interpretResult: SuccessInterpretResult
-}): Variable => {
+}): VariableInterface => {
   const t: VariableData = {
     namespaceId,
     variableId,
@@ -278,12 +271,12 @@ export const buildVariable = ({
     oldVariable.t = t
     return oldVariable
   } else {
-    return new Variable({ t })
+    return new VariableClass({ t })
   }
 }
 
 export const castVariable = (
-  formulaContext: FormulaContext,
+  formulaContext: ContextInterface,
   { name, definition, cacheValue, updatedAt, blockId, id, view }: Formula
 ): VariableData => {
   const namespaceId = blockId
@@ -331,7 +324,7 @@ export const variableTypeMeta = (t: VariableData): VariableTypeMeta => {
   return `error_${t.kind}`
 }
 
-export const appendFormulas = (formulaContext: FormulaContext, formulas: Formula[]): void => {
+export const appendFormulas = (formulaContext: ContextInterface, formulas: Formula[]): void => {
   // TODO sort by dependency
   const dupFormulas = [...formulas]
   dupFormulas
@@ -339,7 +332,7 @@ export const appendFormulas = (formulaContext: FormulaContext, formulas: Formula
     .forEach(formula => {
       const variable = castVariable(formulaContext, formula)
 
-      void formulaContext.commitVariable({ variable: new Variable({ t: variable }), skipCreate: true })
+      void formulaContext.commitVariable({ variable: new VariableClass({ t: variable }), skipCreate: true })
     })
 }
 
@@ -349,7 +342,7 @@ export const quickInsert = async ({
   meta: { namespaceId, variableId, name, input }
 }: {
   meta: VariableMetadata
-  formulaContext: FormulaContext
+  formulaContext: ContextInterface
 }): Promise<void> => {
   const meta = { namespaceId, variableId, name, input }
 
@@ -375,5 +368,5 @@ export const quickInsert = async ({
     functionDependencies
   }
 
-  void formulaContext.commitVariable({ variable: new Variable({ t: variable }) })
+  void formulaContext.commitVariable({ variable: new VariableClass({ t: variable }) })
 }

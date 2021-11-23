@@ -1,6 +1,6 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const META_LOCATION = async (ctx: FormulaContext, latt: number, long: number): Promise<number> => {
+export const META_LOCATION = async (ctx: ContextInterface, latt: number, long: number): Promise<number> => {
   return 0
 }
 

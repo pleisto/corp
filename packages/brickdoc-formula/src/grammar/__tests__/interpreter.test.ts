@@ -1,4 +1,4 @@
-import { parse, interpret, quickInsert, FunctionClause, BUILTIN_CLAUSES } from '../..'
+import { parse, interpret, quickInsert, FunctionClause, BUILTIN_CLAUSES, ContextInterface } from '../..'
 import { FormulaContext } from '../../context'
 
 const functionClauses: FunctionClause[] = [
@@ -22,7 +22,7 @@ const functionClauses: FunctionClause[] = [
     returns: 'number',
     examples: [],
     chain: false,
-    reference: (ctx: FormulaContext, a: number, b: number): number => a + b
+    reference: (ctx: ContextInterface, a: number, b: number): number => a + b
   },
   {
     name: 'FORTY_TWO',
@@ -35,7 +35,7 @@ const functionClauses: FunctionClause[] = [
     returns: 'number',
     examples: [],
     chain: false,
-    reference: (ctx: FormulaContext): number => 42
+    reference: (ctx: ContextInterface): number => 42
   }
 ]
 

@@ -1,16 +1,18 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const IF = (ctx: FormulaContext, condition: boolean, ifTrue: any, ifFalse: any): any => (condition ? ifTrue : ifFalse)
+export const IF = (ctx: ContextInterface, condition: boolean, ifTrue: any, ifFalse: any): any => (condition ? ifTrue : ifFalse)
 
-export const TRUE = (ctx: FormulaContext): boolean => true
+export const TRUE = (ctx: ContextInterface): boolean => true
 
-export const FALSE = (ctx: FormulaContext): boolean => false
+export const FALSE = (ctx: ContextInterface): boolean => false
 
-export const AND = (ctx: FormulaContext, ...conditions: boolean[]): boolean => conditions.reduce((acc, condition) => acc && condition, true)
+export const AND = (ctx: ContextInterface, ...conditions: boolean[]): boolean =>
+  conditions.reduce((acc, condition) => acc && condition, true)
 
-export const OR = (ctx: FormulaContext, ...conditions: boolean[]): boolean => conditions.reduce((acc, condition) => acc || condition, false)
+export const OR = (ctx: ContextInterface, ...conditions: boolean[]): boolean =>
+  conditions.reduce((acc, condition) => acc || condition, false)
 
-export const NOT = (ctx: FormulaContext, term: boolean): boolean => !term
+export const NOT = (ctx: ContextInterface, term: boolean): boolean => !term
 
 export const LOGIC_CLAUSES: FunctionClause[] = [
   {

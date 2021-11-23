@@ -1,26 +1,26 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const ABS = (ctx: FormulaContext, number: number): number => Math.abs(number)
+export const ABS = (ctx: ContextInterface, number: number): number => Math.abs(number)
 
-export const INT = (ctx: FormulaContext, number: number): number => Math.floor(number)
+export const INT = (ctx: ContextInterface, number: number): number => Math.floor(number)
 
-export const LOG10 = (ctx: FormulaContext, number: number): number => Math.log10(number)
+export const LOG10 = (ctx: ContextInterface, number: number): number => Math.log10(number)
 
-export const PI = (ctx: FormulaContext): number => Math.PI
+export const PI = (ctx: ContextInterface): number => Math.PI
 
-export const POWER = (ctx: FormulaContext, number: number, power: number): number => Math.pow(number, power)
+export const POWER = (ctx: ContextInterface, number: number, power: number): number => Math.pow(number, power)
 
-export const RAND = (ctx: FormulaContext): number => Math.random()
+export const RAND = (ctx: ContextInterface): number => Math.random()
 
-export const RANDBETWEEN = (ctx: FormulaContext, min: number, max: number): number => Math.random() * (max - min) + min
+export const RANDBETWEEN = (ctx: ContextInterface, min: number, max: number): number => Math.random() * (max - min) + min
 
-export const SQRT = (ctx: FormulaContext, number: number): number => Math.sqrt(number)
+export const SQRT = (ctx: ContextInterface, number: number): number => Math.sqrt(number)
 
-export const SQRTPI = (ctx: FormulaContext, number: number): number => Math.sqrt(number * Math.PI)
+export const SQRTPI = (ctx: ContextInterface, number: number): number => Math.sqrt(number * Math.PI)
 
-export const TRUNC = (ctx: FormulaContext, number: number): number => Math.trunc(number)
+export const TRUNC = (ctx: ContextInterface, number: number): number => Math.trunc(number)
 
-export const LN = (ctx: FormulaContext, number: number): number => Math.log(number)
+export const LN = (ctx: ContextInterface, number: number): number => Math.log(number)
 
 export const MATH_CLAUSES: FunctionClause[] = [
   {

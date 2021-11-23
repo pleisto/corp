@@ -1,19 +1,24 @@
-import { Column, Context, Database, FunctionClause, namespaceId, VariableData, VariableDependency, variableId } from '..'
+import {
+  Column,
+  Context,
+  Database,
+  ContextInterface,
+  FunctionClause,
+  namespaceId,
+  VariableData,
+  VariableDependency,
+  variableId,
+  BackendActions,
+  VariableInterface
+} from '..'
 import { BUILTIN_CLAUSES } from '../functions'
-import { Variable } from './variable'
-
-export interface BackendActions {
-  createVariable: (variable: Variable) => Promise<{ success: boolean }>
-  updateVariable: (variable: Variable) => Promise<{ success: boolean }>
-  deleteVariable: (variable: Variable) => Promise<{ success: boolean }>
-}
 
 export interface FormulaContextArgs {
   functionClauses: FunctionClause[]
   backendActions?: BackendActions
 }
 
-export class FormulaContext {
+export class FormulaContext implements ContextInterface {
   context: Context
   databases: { [key: string]: Database } = {}
   reverseVariableDependencies: { [key: string]: VariableDependency[] }
@@ -33,8 +38,6 @@ export class FormulaContext {
       return o
     }, {})
   }
-
-  public validateCircularReferences = () => {}
 
   public variableCount = (): number => {
     return Object.keys(this.context).length
@@ -57,12 +60,17 @@ export class FormulaContext {
     this.databases[namespaceId] = database
   }
 
-  public findVariable = (namespaceId: namespaceId, variableId: variableId): Variable | undefined => {
+  public removeDatabase = (namespaceId: namespaceId): void => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete this.databases[namespaceId]
+  }
+
+  public findVariable = (namespaceId: namespaceId, variableId: variableId): VariableInterface | undefined => {
     return this.context[this.variableKey(namespaceId, variableId)]
   }
 
-  public findVariableByName = (namespaceId: namespaceId, name: string): Variable | undefined => {
-    return Object.values(this.context).find((v: Variable) => v.t.namespaceId === namespaceId && v.t.name === name)
+  public findVariableByName = (namespaceId: namespaceId, name: string): VariableInterface | undefined => {
+    return Object.values(this.context).find((v: VariableInterface) => v.t.namespaceId === namespaceId && v.t.name === name)
   }
 
   public clearDependency = (namespaceId: namespaceId, variableId: variableId): void => {
@@ -100,7 +108,7 @@ export class FormulaContext {
     })
   }
 
-  public handleBroadcast = (variable: Variable): void => {
+  public handleBroadcast = (variable: VariableInterface): void => {
     const dependencyKey = this.variableKey(variable.t.namespaceId, variable.t.variableId)
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
       void this.context[this.variableKey(namespaceId, variableId)]!.refresh(this)
@@ -108,7 +116,7 @@ export class FormulaContext {
   }
 
   // TODO update dependencies and check circular references
-  public commitVariable = async ({ variable, skipCreate }: { variable: Variable; skipCreate?: boolean }): Promise<void> => {
+  public commitVariable = async ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }): Promise<void> => {
     const { namespaceId, variableId } = variable.t
     const isNew = !this.context[this.variableKey(namespaceId, variableId)]
     let shouldBroadcast = false
@@ -123,10 +131,10 @@ export class FormulaContext {
 
     if (isNew) {
       if (!skipCreate) {
-        variable.invokeBackendCreate()
+        void variable.invokeBackendCreate()
       }
     } else {
-      variable.invokeBackendUpdate()
+      void variable.invokeBackendUpdate()
     }
 
     void variable.afterUpdate()

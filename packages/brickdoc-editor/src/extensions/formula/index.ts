@@ -1,21 +1,21 @@
 import React from 'react'
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { FormulaContext, Variable } from '@brickdoc/formula'
+import { ContextInterface, VariableInterface } from '@brickdoc/formula'
 import { FormulaBlock } from './FormulaBlock'
 
 export interface FormulaOptions {
   formulaContextActions: {
-    getFormulaContext: () => FormulaContext | null
-    getVariable: (variableId: string) => Variable | null | undefined
+    getFormulaContext: () => ContextInterface | null
+    getVariable: (variableId: string) => VariableInterface | null | undefined
     removeVariable: (variableId: string) => void
     calculate: (
       variableId: string | undefined,
       name: string,
       input: string,
-      formulaContext: FormulaContext,
+      formulaContext: ContextInterface,
       updateResult: React.Dispatch<React.SetStateAction<any>>,
-      updateVariable: React.Dispatch<React.SetStateAction<Variable | undefined>>,
+      updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>,
       updateError: React.Dispatch<
         React.SetStateAction<
           | {

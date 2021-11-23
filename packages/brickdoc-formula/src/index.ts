@@ -1,5 +1,4 @@
 import { CstNode } from 'chevrotain'
-import { FormulaContext, Variable } from './context'
 
 export * from './grammar'
 export * from './functions'
@@ -55,6 +54,25 @@ export interface Example {
   readonly output: Result
 }
 
+export interface ContextInterface {
+  variableCount: () => number
+  findDatabase: (namespaceId: namespaceId) => Database | undefined
+  findColumn: (namespaceId: namespaceId, variableId: variableId) => Column | undefined
+  setDatabase: (namespaceId: namespaceId, database: Database) => void
+  removeDatabase: (namespaceId: namespaceId) => void
+  findVariable: (namespaceId: namespaceId, variableId: variableId) => VariableInterface | undefined
+  findVariableByName: (namespaceId: namespaceId, name: string) => VariableInterface | undefined
+  clearDependency: (namespaceId: namespaceId, variableId: variableId) => void
+  trackDependency: (data: VariableData) => void
+  handleBroadcast: (variable: VariableInterface) => void
+  commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
+  removeVariable: (namespaceId: namespaceId, variableId: variableId) => Promise<void>
+  findFunctionClause: (group: string, name: string) => FunctionClause | undefined
+  reset: () => void
+  variableKey: (namespaceId: namespaceId, variableId: variableId) => string
+  functionKey: (group: string, name: string) => string
+}
+
 export interface BaseFunctionClause {
   readonly name: string
   readonly pure: boolean
@@ -66,7 +84,7 @@ export interface BaseFunctionClause {
   readonly chain: boolean
   readonly returns: ArgumentType
   readonly examples: Example[]
-  readonly reference: (ctx: FormulaContext, ...args: any[]) => Result
+  readonly reference: (ctx: ContextInterface, ...args: any[]) => Result
 }
 
 export interface NormalFunctionClause extends BaseFunctionClause {
@@ -76,7 +94,7 @@ export interface NormalFunctionClause extends BaseFunctionClause {
 export interface ChainFunctionClause extends BaseFunctionClause {
   readonly chain: true
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: FormulaContext, chainResult: any, ...args: any[]) => Result
+  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => Result
 }
 
 export type FunctionClause = NormalFunctionClause | ChainFunctionClause
@@ -134,8 +152,35 @@ export interface VariableData {
   variableDependencies: VariableDependency[]
   functionDependencies: FunctionClause[]
 }
+
+export type UpdateHandler = (data: VariableData) => void
+
+export interface VariableMetadata {
+  readonly namespaceId: namespaceId
+  readonly variableId: variableId
+  readonly input: string
+  readonly name: string
+}
+
+export interface VariableInterface {
+  t: VariableData
+  backendActions: BackendActions
+  meta: () => VariableMetadata
+  onUpdate: (handler: UpdateHandler) => void
+  invokeBackendCreate: () => Promise<void>
+  invokeBackendUpdate: () => Promise<void>
+  afterUpdate: () => void
+  refresh: (formulaContext: ContextInterface) => Promise<void>
+}
+
+export interface BackendActions {
+  createVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
+  updateVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
+  deleteVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
+}
+
 export interface Context {
-  [key: `$${namespaceId}@${variableId}`]: Variable
+  [key: `$${namespaceId}@${variableId}`]: VariableInterface
 }
 
 export type ErrorType = 'type' | 'syntax' | 'runtime' | 'fatal' | 'deps' | 'circular_dependency'

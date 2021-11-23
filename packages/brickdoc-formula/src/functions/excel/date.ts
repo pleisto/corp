@@ -1,6 +1,6 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const TODAY = (ctx: FormulaContext): Date => new Date()
+export const TODAY = (ctx: ContextInterface): Date => new Date()
 
 export const DATE_CLAUSES: FunctionClause[] = [
   {

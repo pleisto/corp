@@ -1,9 +1,6 @@
-import { interpret, VariableData, VariableMetadata } from '..'
-import { BackendActions, FormulaContext } from '../context'
+import { BackendActions, ContextInterface, interpret, UpdateHandler, VariableData, VariableInterface, VariableMetadata } from '..'
 
-type UpdateHandler = (data: VariableData) => void
-
-export class Variable {
+export class VariableClass implements VariableInterface {
   t: VariableData
   updateHandler: UpdateHandler
   backendActions: BackendActions
@@ -21,33 +18,31 @@ export class Variable {
     }
   }
 
-  public onUpdate = (handler: UpdateHandler) => {
+  public onUpdate = (handler: UpdateHandler): void => {
     this.updateHandler = handler
   }
 
-  public invokeBackendCreate = async () => {
+  public invokeBackendCreate = async (): Promise<void> => {
     if (this.backendActions) {
       await this.backendActions.createVariable(this)
     }
   }
 
-  public invokeBackendUpdate = async () => {
+  public invokeBackendUpdate = async (): Promise<void> => {
     if (this.backendActions) {
       await this.backendActions.updateVariable(this)
     }
   }
 
   public afterUpdate = (): void => {
-    // console.log({ label: 'after update', name: this.t.name, result: this.t.variableValue })
     if (this.updateHandler) {
       this.updateHandler(this.t)
     }
   }
 
-  public refresh = async (formulaContext: FormulaContext): Promise<void> => {
+  public refresh = async (formulaContext: ContextInterface): Promise<void> => {
     const { result } = await interpret({ cst: this.t.cst, formulaContext, meta: this.meta() })
 
-    // console.log({ label: 'refresh', name: this.t.name, result })
     this.t = { ...this.t, variableValue: result }
     this.afterUpdate()
     await this.invokeBackendUpdate()

@@ -1,6 +1,6 @@
-import { FormulaContext, FunctionClause } from '../..'
+import { ContextInterface, FunctionClause } from '../..'
 
-export const START_WITH = (ctx: FormulaContext, string: string, prefix: string): boolean => string.startsWith(prefix)
+export const START_WITH = (ctx: ContextInterface, string: string, prefix: string): boolean => string.startsWith(prefix)
 
 export const STRING_CLAUSES: FunctionClause[] = [
   {
