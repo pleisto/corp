@@ -129,6 +129,19 @@ export const queryChildrenBlocks = gql`
           width
           ratio
         }
+        page {
+          type
+          key
+          title
+          icon
+          link
+        }
+        people {
+          type
+          webid
+          name
+          avatarUrl
+        }
         attachment {
           type
           source
@@ -137,6 +150,7 @@ export const queryChildrenBlocks = gql`
           width
           name
           size
+          mode
         }
         cover {
           ... on BlockImage {

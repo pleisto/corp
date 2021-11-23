@@ -26,6 +26,11 @@ export const TEST_ID_ENUM = {
     }
   },
   editor: {
+    mentionCommands: {
+      item: {
+        id: 'editor-slash-commands-item'
+      }
+    },
     slashCommands: {
       item: {
         id: 'editor-slash-commands-item'
@@ -141,6 +146,9 @@ export const TEST_ID_ENUM = {
       },
       link: {
         id: 'editor-link-block-link'
+      },
+      pdftron: {
+        id: 'editor-link-block-pdftron'
       }
     }
   },
@@ -161,6 +169,11 @@ export const TEST_ID_ENUM = {
           },
           button: {
             id: 'uploader-dashboard-modules-link-button'
+          }
+        },
+        upload: {
+          button: {
+            id: 'uploader-dashboard-modules-upload-button'
           }
         }
       }
