@@ -46,8 +46,6 @@ const formulaContext = new FormulaContext({ functionClauses })
 
 const meta = { namespaceId, variableId, name: 'foo', input: '=24' }
 
-void quickInsert({ formulaContext, meta })
-
 const testCases = [
   '= (1 + 1) / 2 * 0.1 == (!!true and false or true) == "123"',
   '= custom::PLUS((custom::FORTY_TWO()), 1 + 1)',
@@ -63,6 +61,10 @@ const parseInput = {
 }
 
 describe('Code fragment ok', () => {
+  beforeAll(async () => {
+    await quickInsert({ formulaContext, meta })
+  })
+
   testCases.forEach(input => {
     // eslint-disable-next-line jest/valid-title
     it(input, () => {

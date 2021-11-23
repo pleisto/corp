@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { BUILTIN_CLAUSES } from '..'
 import { FormulaContext } from '../../context'
 import { NormalFunctionClause } from '../..'
@@ -8,8 +9,9 @@ describe('clause examples', () => {
   ;(BUILTIN_CLAUSES as NormalFunctionClause[]).forEach(({ name, examples, reference }) => {
     it(`${name} examples`, () => {
       // eslint-disable-next-line max-nested-callbacks
-      examples.forEach(({ input, output }) => {
-        expect(reference(ctx, ...input)).toEqual(output)
+      examples.forEach(async ({ input, output }) => {
+        const result = await reference(ctx, ...input)
+        expect(result).toEqual(output)
       })
     })
   })

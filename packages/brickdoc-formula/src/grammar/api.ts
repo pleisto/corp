@@ -215,20 +215,20 @@ export const displayValue = (result: Result): string => {
   }
 
   if (result instanceof Array) {
-    return 'TODO []'
+    return JSON.stringify(result)
   }
 
   if (result instanceof Object) {
-    return 'TODO {}'
+    return JSON.stringify(result)
   }
 
   return String(result)
 }
 
-export const interpret = ({ cst, formulaContext, meta }: InterpretInput): InterpretResult => {
+export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): Promise<InterpretResult> => {
   try {
     const interpreter = new FormulaInterpreter({ formulaContext })
-    const result = interpreter.visit(cst)
+    const result = await interpreter.visit(cst)
     return {
       success: true,
       result: { success: true, value: result, display: displayValue(result), type: fetchType(result), updatedAt: new Date() },
@@ -344,13 +344,13 @@ export const appendFormulas = (formulaContext: FormulaContext, formulas: Formula
 }
 
 // NOTE: only for test
-export const quickInsert = ({
+export const quickInsert = async ({
   formulaContext,
   meta: { namespaceId, variableId, name, input }
 }: {
   meta: VariableMetadata
   formulaContext: FormulaContext
-}): void => {
+}): Promise<void> => {
   const meta = { namespaceId, variableId, name, input }
 
   const parseInput = { formulaContext, meta }
@@ -360,7 +360,7 @@ export const quickInsert = ({
     throw new Error(errorMessages[0].message)
   }
 
-  const { result } = interpret({ cst, formulaContext, meta })
+  const { result } = await interpret({ cst, formulaContext, meta })
 
   const variable = {
     namespaceId,
