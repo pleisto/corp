@@ -5,7 +5,10 @@ export * from './grammar'
 export * from './functions'
 export * from './context'
 
-export type ArgumentType = 'number' | 'string' | 'boolean' | 'Date' | 'array' | 'object' | 'any'
+export type BasicType = 'number' | 'string' | 'boolean' | 'object' | 'array'
+export type ObjectType = 'Date' | 'Column'
+
+export type ArgumentType = BasicType | ObjectType | 'any'
 
 export type FunctionGroup = 'core' | 'excel' | 'custom'
 
@@ -30,7 +33,16 @@ export interface Formula {
   view: View
 }
 
-export type Database = any
+export type Cell = any
+
+export type Column = unknown
+export interface Database {
+  size: () => void
+  getColumn: (columnId: uuid) => Column | null
+  getColumnData: (columnId: uuid) => Cell[]
+  // getRow: (rowId: uuid) => Cell[]
+  getCell: (columnId: uuid, rowId: uuid) => Cell | null
+}
 
 export interface Argument {
   readonly name: string

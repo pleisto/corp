@@ -235,7 +235,7 @@ const testCases = [
   {
     input: '= 1+$',
     parseSuccess: false,
-    errorMessage: 'TODO mismatch token variableExpression'
+    errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   {
     input: '=1**2',
@@ -246,8 +246,9 @@ const testCases = [
   3. [NumberLiteral]
   4. [BooleanLiteral]
   5. [StringLiteral]
-  6. [Dollar]
-  7. [FunctionGroupName]
+  6. [Dollar, UUID, At]
+  7. [Dollar, UUID, Sharp]
+  8. [FunctionGroupName]
 but found: '*'`
   },
   // Function Call

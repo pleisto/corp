@@ -124,6 +124,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.FunctionCall)
     } else if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression)
+    } else if (ctx.columnExpression) {
+      return this.visit(ctx.columnExpression)
     }
   }
 
@@ -141,11 +143,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
+  columnExpression(ctx): result {
+    return []
+  }
+
   variableExpression(ctx): result {
     const dollarFragment = token2fragment(ctx.Dollar[0])
-
-    // const atFragment = token2fragment(ctx.At ? ctx.At : ctx.Sharp)
-
     const [namespaceToken, variableToken] = ctx.UUID
 
     const namespaceId = namespaceToken.image

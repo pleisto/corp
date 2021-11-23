@@ -171,6 +171,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.FunctionCall)
     } else if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression)
+    } else if (ctx.columnExpression) {
+      return this.visit(ctx.columnExpression)
     }
   }
 
@@ -190,8 +192,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
+  columnExpression(ctx): Result {
+    const [namespaceId, columnId] = ctx.UUID.map(uuid => uuid.image)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const columnMeta = this.formulaContext.findColumn(namespaceId, columnId)
+
+    return null
+  }
+
   variableExpression(ctx): Result {
-    // const isAt = !!ctx.At
     const [namespaceId, variableId] = ctx.UUID.map(uuid => uuid.image)
     const variable = this.formulaContext.findVariable(namespaceId, variableId)
     if (!variable) {

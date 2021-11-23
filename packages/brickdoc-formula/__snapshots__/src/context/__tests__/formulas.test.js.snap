@@ -1146,8 +1146,9 @@ Array [
   3. [NumberLiteral]
   4. [BooleanLiteral]
   5. [StringLiteral]
-  6. [Dollar]
-  7. [FunctionGroupName]
+  6. [Dollar, UUID, At]
+  7. [Dollar, UUID, Sharp]
+  8. [FunctionGroupName]
 but found: ''",
           "type": "syntax",
         },

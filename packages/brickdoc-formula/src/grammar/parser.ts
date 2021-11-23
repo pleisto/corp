@@ -159,14 +159,36 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.SUBRULE(this.parenthesisExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.constantExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.variableExpression, { ARGS: [type] }) },
+      { ALT: () => this.SUBRULE(this.columnExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.FunctionCall, { ARGS: [type] }) }
     ])
+  })
+
+  public columnExpression = this.RULE('columnExpression', (type: ParseType) => {
+    this.CONSUME(Dollar)
+    const namespaceToken = this.CONSUME(UUID)
+    this.CONSUME(Sharp)
+    const columnToken = this.CONSUME2(UUID)
+
+    const namespaceId = namespaceToken.image
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const columnId = columnToken.image
+
+    if (!this.RECORDING_PHASE) {
+      this.kind = 'expression'
+      const database = this.formulaContext.findDatabase(namespaceId)
+
+      if (database) {
+        // this.intersectType(type, parseToken)
+        console.log(`TODO Found ${namespaceId} !`)
+      }
+    }
   })
 
   public variableExpression = this.RULE('variableExpression', (type: ParseType) => {
     this.CONSUME(Dollar)
     const namespaceToken = this.CONSUME(UUID)
-    this.OR([{ ALT: () => this.CONSUME(At) }, { ALT: () => this.CONSUME(Sharp) }])
+    this.CONSUME(At)
     const variableToken = this.CONSUME2(UUID)
 
     const namespaceId = namespaceToken.image
