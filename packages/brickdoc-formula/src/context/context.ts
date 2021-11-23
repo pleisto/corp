@@ -1,4 +1,4 @@
-import { Context, FunctionClause, namespaceId, VariableData, VariableDependency, variableId } from '..'
+import { Context, Database, FunctionClause, namespaceId, VariableData, VariableDependency, variableId } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { Variable } from './variable'
 
@@ -15,6 +15,7 @@ export interface FormulaContextArgs {
 
 export class FormulaContext {
   context: Context
+  database: { [key: string]: Database } = {}
   reverseVariableDependencies: { [key: string]: VariableDependency[] }
   reverseFunctionDependencies: { [key: string]: VariableDependency[] }
   functionClausesMap: { [key: string]: FunctionClause }
@@ -37,6 +38,10 @@ export class FormulaContext {
 
   public variableCount = (): number => {
     return Object.keys(this.context).length
+  }
+
+  public setDatabase = (namespaceId: namespaceId, database: Database): void => {
+    this.database[namespaceId] = database
   }
 
   public findVariable = (namespaceId: namespaceId, variableId: variableId): Variable | undefined => {

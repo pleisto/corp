@@ -30,6 +30,8 @@ export interface Formula {
   view: View
 }
 
+export type Database = any
+
 export interface Argument {
   readonly name: string
   readonly type: ArgumentType
