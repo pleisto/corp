@@ -91,7 +91,8 @@ const Button: FC<ButtonProps> = props => {
       {...rest}
       role={htmlType}
       ref={ref}
-      disabled={disabled || loading}
+      disabled={disabled}
+      disabledBtn={disabled}
       priority={isPressed && !disabled ? `${priority}-press` : priority}
       circle={circle && size}
       className={className}

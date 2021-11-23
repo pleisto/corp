@@ -3,12 +3,6 @@ export const priority = {
     backgroundColor: '$color-primary-default',
     color: '$white',
 
-    '&[disabled]': {
-      border: '1px solid $color-broder-primary',
-      backgroundColor: '$color-primary-disable',
-      color: '$color-type-disable',
-      cursor: 'not-allowed'
-    },
     '&:hover, &:focus, &:active': {
       textDecoration: 'none',
       backgroundColor: '$color-primary-hover'
@@ -27,9 +21,6 @@ export const priority = {
       textDecoration: 'none',
       backgroundColor: '$color-background-secondary'
     },
-    '&[disabled]': {
-      cursor: 'not-allowed'
-    },
     '&-press': {}
   },
   'secondary-press': {
@@ -43,9 +34,6 @@ export const priority = {
     '&:hover, &:focus, &:active': {
       textDecoration: 'none',
       backgroundColor: '$color-background-primary'
-    },
-    '&[disabled]': {
-      cursor: 'not-allowed'
     }
   },
   'ghost-press': {
@@ -60,12 +48,6 @@ export const priority = {
     '&:hover, &:focus, &:active': {
       textDecoration: 'none',
       backgroundColor: '$color-error-hover'
-    },
-    '&[disabled]': {
-      border: '1px solid $color-broder-primary',
-      backgroundColor: '$color-primary-disable',
-      color: '$color-type-disable',
-      cursor: 'not-allowed'
     }
   },
   'danger-press': {
