@@ -1,12 +1,15 @@
 import React from 'react'
-import { Button, Input, Popover } from '@brickdoc/design-system'
+import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
 import { VariableInterface, VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
 import { Editor } from '@tiptap/core'
+import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 
 export interface FormulaMenuProps {
+  getPos?: () => number
+  node?: FormulaBlockProps['node']
   variableId?: string
   editor: Editor
   updateVariableT?: (t: VariableData) => void
@@ -21,6 +24,8 @@ export interface FormulaMenuProps {
 const i18nKey = 'formula.menu'
 
 export const FormulaMenu: React.FC<FormulaMenuProps> = ({
+  getPos,
+  node,
   variableId,
   children,
   editor,
@@ -93,6 +98,24 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     close()
   }
 
+  const handleDelete = (): void => {
+    Modal.confirm({
+      title: t(`${i18nKey}.delete_confirm.title`),
+      okText: t(`${i18nKey}.delete_confirm.ok`),
+      okButtonProps: {
+        danger: true
+      },
+      cancelText: t(`${i18nKey}.delete_confirm.cancel`),
+      icon: null,
+      onOk: async () => {
+        if (!variableId || !getPos || !node) return
+        const position = getPos()
+        void (await formulaContextActions.removeVariable(variableId))
+        editor.commands.deleteRange({ from: position, to: position + node.nodeSize })
+      }
+    })
+  }
+
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
@@ -105,13 +128,13 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         </div>
       </div>
       <div className="formula-menu-row">
-        <span className="formula-menu-result-label">=</span>
         <div className="formula-menu-item">
           <Input className="formula-menu-field" value={value} onChange={handleValueChange} />
         </div>
       </div>
       <div className="formula-menu-divider" />
       <div className="formula-menu-result">
+        <span className="formula-menu-result-label">=</span>
         {error && (
           <span className="formula-menu-result-error">
             <span className="formula-menu-result-error-type">{error.type}</span>
@@ -127,6 +150,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         <Button className="formula-menu-button" size="small" type="primary" onClick={handleSave}>
           {t(`${i18nKey}.save`)}
         </Button>
+        {node && (
+          <Button className="formula-menu-button" size="small" type="text" danger={true} onClick={handleDelete}>
+            {t(`${i18nKey}.delete`)}
+          </Button>
+        )}
       </div>
     </div>
   )
@@ -139,7 +167,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {children}
     </Popover>
   )
