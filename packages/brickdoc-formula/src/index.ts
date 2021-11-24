@@ -5,11 +5,11 @@ export * from './functions'
 export * from './context'
 
 export type BasicType = 'number' | 'string' | 'boolean' | 'object' | 'array'
-export type ObjectType = 'Date' | 'Column'
+export type ObjectType = 'Date' | 'Column' | 'Table'
 
 export type ArgumentType = BasicType | ObjectType | 'any'
 
-export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'var'
+export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'table' | 'var'
 
 export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom'
 
@@ -47,6 +47,7 @@ export interface Column {
 }
 export interface Database {
   size: () => number
+  name: () => string
   _data: () => any
   listColumns: () => Column[]
   getColumn: (columnId: columnId) => Column | undefined

@@ -19,6 +19,7 @@ export function useFormulaDatabase(
       index: (column as any).index
     }))
     formulaContext?.setDatabase(blockId, {
+      name: () => 'untitled',
       size: () => tableData.length,
       _data: () => ({
         tableData,

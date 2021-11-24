@@ -26,6 +26,7 @@ const columns: Column[] = [
 const functionClauses = []
 
 const database: Database = {
+  name: () => 'MyTable',
   size: () => tableData.length,
   _data: () => ({}),
   listColumns: () => columns,
@@ -55,13 +56,13 @@ describe('Database Functions', () => {
     expect((await interpret({ cst, meta: newMeta, formulaContext })).result.value).toEqual(columns[0])
   })
 
-  // it('size', async () => {
-  //   const newMeta = { ...meta, input: `=${databaseNamespaceId}.database.SIZE()` }
-  //   const { success, cst } = parse({ ...parseInput, meta: newMeta, formulaContext })
-  //   expect(success).toEqual(true)
-  //   expect(cst).toMatchSnapshot()
-  //   expect((await interpret({ cst, meta: newMeta, formulaContext })).result.value).toEqual(2)
-  // })
+  it('size', async () => {
+    const newMeta = { ...meta, input: `=$${databaseNamespaceId}.database::SIZE()` }
+    const { errorMessages, cst } = parse({ ...parseInput, meta: newMeta, formulaContext })
+    expect(errorMessages).toEqual([])
+    expect(cst).toMatchSnapshot()
+    expect((await interpret({ cst, meta: newMeta, formulaContext })).result.value).toEqual(3)
+  })
 
   it('sum', async () => {
     const newMeta = { ...meta, input: `=$${databaseNamespaceId}#${firstColumnId}.database::SUM()` }

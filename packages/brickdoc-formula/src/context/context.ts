@@ -28,6 +28,7 @@ export const ArgumentTypeCastName: { [key in ArgumentType]: SpecialDefaultVariab
   array: 'array',
   Date: 'date',
   Column: 'column',
+  Table: 'table',
   any: 'var'
 }
 
@@ -52,6 +53,7 @@ export class FormulaContext implements ContextInterface {
     array: 0,
     Date: 0,
     Column: 0,
+    Table: 0,
     any: 0
   }
 

@@ -160,6 +160,7 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.SUBRULE(this.constantExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.variableExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.columnExpression, { ARGS: [type] }) },
+      { ALT: () => this.SUBRULE(this.blockExpression, { ARGS: [type] }) },
       { ALT: () => this.SUBRULE(this.FunctionCall, { ARGS: [type] }) }
     ])
   })
@@ -205,6 +206,23 @@ export class FormulaParser extends CstParser {
         this.intersectType(type, parseToken)
 
         this.variableDependencies.push({ namespaceId, variableId })
+      }
+    }
+  })
+
+  public blockExpression = this.RULE('blockExpression', (type: ParseType) => {
+    this.CONSUME(Dollar)
+    const namespaceToken = this.CONSUME(UUID)
+
+    const namespaceId = namespaceToken.image
+
+    if (!this.RECORDING_PHASE) {
+      this.kind = 'expression'
+      const database = this.formulaContext.findDatabase(namespaceId)
+      if (database) {
+        const tableType: ArgumentType = 'Table'
+        const parseToken = { image: database.name(), tokenType: { name: 'Table' }, type: tableType }
+        this.intersectType(type, parseToken)
       }
     }
   })
