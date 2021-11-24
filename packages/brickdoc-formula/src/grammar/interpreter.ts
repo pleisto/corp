@@ -194,10 +194,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   columnExpression(ctx): Result {
     const [namespaceId, columnId] = ctx.UUID.map(uuid => uuid.image)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const columnMeta = this.formulaContext.findColumn(namespaceId, columnId)
+    const column = this.formulaContext.findColumn(namespaceId, columnId)
 
-    return null
+    return column
   }
 
   variableExpression(ctx): Result {

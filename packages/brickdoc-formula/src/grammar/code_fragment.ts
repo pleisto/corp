@@ -144,7 +144,21 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   }
 
   columnExpression(ctx): result {
-    return []
+    const dollarFragment = token2fragment(ctx.Dollar[0])
+    const [namespaceToken, columnToken] = ctx.UUID
+
+    const namespaceId = namespaceToken.image
+    const columnId = columnToken.image
+
+    const columnFragment = token2fragment(columnToken)
+
+    const column = this.formulaContext.findColumn(namespaceId, columnId)
+
+    if (column) {
+      return [{ ...columnFragment, name: `$${column.name}` }]
+    } else {
+      return [dollarFragment, { ...columnFragment, error: { message: `Column not found: ${columnId}`, type: 'deps' } }]
+    }
   }
 
   variableExpression(ctx): result {

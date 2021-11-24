@@ -171,7 +171,6 @@ export class FormulaParser extends CstParser {
     const columnToken = this.CONSUME2(UUID)
 
     const namespaceId = namespaceToken.image
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const columnId = columnToken.image
 
     if (!this.RECORDING_PHASE) {
@@ -179,8 +178,12 @@ export class FormulaParser extends CstParser {
       const database = this.formulaContext.findDatabase(namespaceId)
 
       if (database) {
-        // this.intersectType(type, parseToken)
-        console.log(`TODO Found ${namespaceId} !`)
+        const column = database.getColumn(columnId)
+        if (column) {
+          const columnType: ArgumentType = 'Column'
+          const parseToken = { image: column.name, tokenType: { name: 'Column' }, type: columnType }
+          this.intersectType(type, parseToken)
+        }
       }
     }
   })

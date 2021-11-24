@@ -17,9 +17,16 @@ const parseVariableName = ({
   const variable = formulaContext.findVariableByName(namespaceId, name)
   if (variable) {
     return `$${namespaceId}@${variable.t.variableId}`
-  } else {
+  }
+  const database = Object.values(formulaContext.databases)[0]
+  if (!database) {
     return `$${name}`
   }
+  const column = database.listColumns().find(column => column.name === name)
+  if (column) {
+    return `$${column.namespaceId}#${column.columnId}`
+  }
+  return `$${name}`
 }
 
 const transformUserInput = ({

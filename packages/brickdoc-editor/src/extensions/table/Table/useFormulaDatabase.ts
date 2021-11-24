@@ -11,21 +11,35 @@ export function useFormulaDatabase(
   // TODO pass column Type
   React.useEffect(() => {
     const formulaContext = getFormulaContext()
+    const columns = tableColumns.map(column => ({
+      namespaceId: blockId,
+      columnId: column.accessor as string,
+      name: column.Header as string,
+      type: (column as any).columnType,
+      index: (column as any).index
+    }))
     formulaContext?.setDatabase(blockId, {
       size: () => tableData.length,
-      listColumns: () => tableColumns,
+      _data: () => ({
+        tableData,
+        columns,
+        tableColumns
+      }),
+      listColumns: () => columns,
       getCell: (columnId, rowId) => {
         const value = tableData.find(row => row.id === rowId)?.[columnId]
 
-        return {
-          value
+        if (value) {
+          return { value }
         }
+
+        return undefined
       },
-      getColumnData: columnId =>
+      listCell: columnId =>
         tableData.map(row => ({
           value: row[columnId]
         })),
-      getColumn: columnId => tableColumns.find(col => col.id === columnId)
+      getColumn: columnId => columns.find(col => col.columnId === columnId)
     })
 
     return () => {

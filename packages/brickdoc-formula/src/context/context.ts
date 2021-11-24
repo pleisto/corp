@@ -10,7 +10,8 @@ import {
   BackendActions,
   VariableInterface,
   ArgumentType,
-  SpecialDefaultVariableName
+  SpecialDefaultVariableName,
+  Cell
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 
@@ -79,6 +80,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public getVariableNameCount = (type: ArgumentType): string => {
+    console.log(this)
     return `${ArgumentTypeCastName[type]}${this.variableNameCounter[type] + 1}`
   }
 
@@ -88,6 +90,15 @@ export class FormulaContext implements ContextInterface {
 
   public findDatabase = (namespaceId: namespaceId): Database | undefined => {
     return this.databases[namespaceId]
+  }
+
+  public listCellByColumn = ({ namespaceId, columnId }: Column): Cell[] => {
+    const database = this.findDatabase(namespaceId)
+    if (!database) {
+      return []
+    }
+
+    return database.listCell(columnId)
   }
 
   public findColumn = (namespaceId: namespaceId, variableId: variableId): Column | undefined => {

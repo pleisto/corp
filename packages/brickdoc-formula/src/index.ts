@@ -11,7 +11,7 @@ export type ArgumentType = BasicType | ObjectType | 'any'
 
 export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'var'
 
-export type FunctionGroup = 'core' | 'excel' | 'custom'
+export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom'
 
 export type VariableKind = 'constant' | 'expression'
 
@@ -34,16 +34,24 @@ export interface Formula {
   view: View
 }
 
-export type Cell = any
+export interface Cell {
+  value: any
+}
 
-export type Column = unknown
+export interface Column {
+  namespaceId: namespaceId
+  columnId: columnId
+  name: string | undefined
+  index: number
+  type: string
+}
 export interface Database {
-  size: () => void
+  size: () => number
+  _data: () => any
   listColumns: () => Column[]
-  getColumn: (columnId: uuid) => Column | null
-  getColumnData: (columnId: uuid) => Cell[]
-  // getRow: (rowId: uuid) => Cell[]
-  getCell: (columnId: uuid, rowId: uuid) => Cell | null
+  getColumn: (columnId: columnId) => Column | undefined
+  listCell: (columnId: columnId) => Cell[]
+  getCell: (columnId: columnId, rowId: uuid) => Cell | undefined
 }
 
 export interface Argument {
@@ -58,8 +66,10 @@ export interface Example {
 }
 
 export interface ContextInterface {
+  databases: { [key: string]: Database }
   variableCount: () => number
   getVariableNameCount: (type: ArgumentType) => string
+  listCellByColumn: (column: Column) => Cell[]
   completions: () => { functions: FunctionClause[]; variables: VariableInterface[] }
   findDatabase: (namespaceId: namespaceId) => Database | undefined
   findColumn: (namespaceId: namespaceId, variableId: variableId) => Column | undefined
@@ -114,6 +124,7 @@ type uuid = string
 
 export type namespaceId = uuid
 export type variableId = uuid
+export type columnId = uuid
 
 export interface VariableDependency {
   readonly variableId: variableId
