@@ -85,7 +85,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
   useFormulaDatabase(
     node.attrs.uuid,
     // first column is column group
-    (columns[0] as any).columns,
+    (columns[0] as any)?.columns ?? [],
     tableRows,
     (extension.options as TableBlockOptions).formulaContextActions.getFormulaContext
   )
