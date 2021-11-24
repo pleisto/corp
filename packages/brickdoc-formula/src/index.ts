@@ -39,6 +39,7 @@ export type Cell = any
 export type Column = unknown
 export interface Database {
   size: () => void
+  listColumns: () => Column[]
   getColumn: (columnId: uuid) => Column | null
   getColumnData: (columnId: uuid) => Cell[]
   // getRow: (rowId: uuid) => Cell[]

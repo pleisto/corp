@@ -8,10 +8,12 @@ export function useFormulaDatabase(
   tableData: DatabaseRows,
   getFormulaContext: TableBlockOptions['formulaContextActions']['getFormulaContext']
 ): void {
+  // TODO pass column Type
   React.useEffect(() => {
     const formulaContext = getFormulaContext()
     formulaContext?.setDatabase(blockId, {
       size: () => tableData.length,
+      listColumns: () => tableColumns,
       getCell: (columnId, rowId) => {
         const value = tableData.find(row => row.id === rowId)?.[columnId]
 
