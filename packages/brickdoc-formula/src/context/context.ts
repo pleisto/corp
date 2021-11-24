@@ -1,6 +1,5 @@
 import {
   Column,
-  Context,
   Database,
   ContextInterface,
   FunctionClause,
@@ -9,7 +8,9 @@ import {
   VariableDependency,
   variableId,
   BackendActions,
-  VariableInterface
+  VariableInterface,
+  ArgumentType,
+  SpecialDefaultVariableName
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 
@@ -18,9 +19,41 @@ export interface FormulaContextArgs {
   backendActions?: BackendActions
 }
 
+export const ArgumentTypeCastName: { [key in ArgumentType]: SpecialDefaultVariableName } = {
+  string: 'str',
+  number: 'num',
+  boolean: 'bool',
+  object: 'obj',
+  array: 'array',
+  Date: 'date',
+  Column: 'column',
+  any: 'var'
+}
+
+const ReverseCastName = Object.entries(ArgumentTypeCastName).reduce(
+  (acc, [key, value]) => ({
+    ...acc,
+    [value]: key
+  }),
+  {}
+)
+
+const matchRegex = /(str|num|bool|obj|array|date|column|var)([0-9]+)$/
+
 export class FormulaContext implements ContextInterface {
-  context: Context
+  context: { [key: `$${namespaceId}@${variableId}`]: VariableInterface }
   databases: { [key: string]: Database } = {}
+  variableNameCounter: { [key in ArgumentType]: number } = {
+    string: 0,
+    number: 0,
+    boolean: 0,
+    object: 0,
+    array: 0,
+    Date: 0,
+    Column: 0,
+    any: 0
+  }
+
   reverseVariableDependencies: { [key: string]: VariableDependency[] }
   reverseFunctionDependencies: { [key: string]: VariableDependency[] }
   functionClausesMap: { [key: string]: FunctionClause }
@@ -37,6 +70,16 @@ export class FormulaContext implements ContextInterface {
       o[`${acc.group}${acc.name}`] = acc
       return o
     }, {})
+  }
+
+  public completions = (): { functions: FunctionClause[]; variables: VariableInterface[] } => {
+    const functions = Object.values(this.functionClausesMap)
+    const variables = Object.values(this.context)
+    return { functions, variables }
+  }
+
+  public getVariableNameCount = (type: ArgumentType): string => {
+    return `${ArgumentTypeCastName[type]}${this.variableNameCounter[type] + 1}`
   }
 
   public variableCount = (): number => {
@@ -127,6 +170,12 @@ export class FormulaContext implements ContextInterface {
       shouldBroadcast = true
     }
     this.context[this.variableKey(namespaceId, variableId)] = variable
+    const match = variable.t.name.match(matchRegex)
+    if (match) {
+      const [, defaultName, count] = match
+      const realName = ReverseCastName[defaultName]
+      this.variableNameCounter[realName] = Math.max(this.variableNameCounter[realName], Number(count))
+    }
     void this.trackDependency(variable.t)
 
     if (isNew) {

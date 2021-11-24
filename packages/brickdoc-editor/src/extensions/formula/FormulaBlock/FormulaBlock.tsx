@@ -12,10 +12,12 @@ import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
 export interface FormulaBlockProps extends NodeViewProps {}
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
-  const { getVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
+  const { getVariable, getFormulaContext }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
   const attributes = node.attrs.formula
   const variable = getVariable(attributes.id)
   const [variableT, setVariableT] = React.useState(variable?.t)
+  const formulaContext = getFormulaContext()
+  const formulaDefaultName = formulaContext ? formulaContext.getVariableNameCount('any') : ''
 
   React.useEffect(() => {
     setVariableT(variable?.t)
@@ -57,6 +59,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         getPos={getPos}
         variableId={variableT?.variableId}
         formulaName={variableT?.name}
+        formulaDefaultName={formulaDefaultName}
         editor={editor}
         formulaValue={
           variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join(' ')}` : variableT?.definition
@@ -64,8 +67,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         formulaResult={variableT?.variableValue.display}
         formulaContextActions={extension.options.formulaContextActions}
         updateFormula={updateFormula}
-        updateVariableT={setVariableT}
-      >
+        updateVariableT={setVariableT}>
         {variableT ? (
           <span
             className="brickdoc-formula"
@@ -73,8 +75,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               color: activeColor.color,
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-            }}
-          >
+            }}>
             {variableT?.name}:{' '}
             {variableT.variableValue.success ? variableT.variableValue.display : variableT.variableValue.errorMessages[0].message}
           </span>

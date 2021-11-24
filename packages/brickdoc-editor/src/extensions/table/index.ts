@@ -43,7 +43,8 @@ export interface TableExtensionOptions {
           | undefined
         >
       >,
-      updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+      updateValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+      updateDefaultName: React.Dispatch<React.SetStateAction<string>>
     ) => void
   }
   useDatabaseRows: (parentId: string) => [

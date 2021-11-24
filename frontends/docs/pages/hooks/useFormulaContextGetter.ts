@@ -77,7 +77,8 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
             | undefined
           >
         >,
-        updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+        updateValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+        updateDefaultName: React.Dispatch<React.SetStateAction<string>>
       ) => {
         const namespaceId = blockId.current ?? docMeta.id ?? ''
         const variableId = id ?? uuid()
@@ -99,6 +100,9 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
             updateValue(newInput)
             updateError(undefined)
             updateResult(interpretResult.result.display)
+            const type = interpretResult.result.type
+            const defaultName = formulaContext.getVariableNameCount(type)
+            updateDefaultName(defaultName)
           } else {
             updateError({
               type: 'interpret',

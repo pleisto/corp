@@ -9,6 +9,8 @@ export type ObjectType = 'Date' | 'Column'
 
 export type ArgumentType = BasicType | ObjectType | 'any'
 
+export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'var'
+
 export type FunctionGroup = 'core' | 'excel' | 'custom'
 
 export type VariableKind = 'constant' | 'expression'
@@ -56,6 +58,8 @@ export interface Example {
 
 export interface ContextInterface {
   variableCount: () => number
+  getVariableNameCount: (type: ArgumentType) => string
+  completions: () => { functions: FunctionClause[]; variables: VariableInterface[] }
   findDatabase: (namespaceId: namespaceId) => Database | undefined
   findColumn: (namespaceId: namespaceId, variableId: variableId) => Column | undefined
   setDatabase: (namespaceId: namespaceId, database: Database) => void
@@ -177,10 +181,6 @@ export interface BackendActions {
   createVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
   updateVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
   deleteVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
-}
-
-export interface Context {
-  [key: `$${namespaceId}@${variableId}`]: VariableInterface
 }
 
 export type ErrorType = 'type' | 'syntax' | 'runtime' | 'fatal' | 'deps' | 'circular_dependency'
