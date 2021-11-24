@@ -27,5 +27,10 @@ export function useFormulaDatabase(
         })),
       getColumn: columnId => tableColumns.find(col => col.id === columnId)
     })
+
+    return () => {
+      const formulaContext = getFormulaContext()
+      formulaContext?.removeDatabase(blockId)
+    }
   }, [blockId, getFormulaContext, tableColumns, tableData])
 }

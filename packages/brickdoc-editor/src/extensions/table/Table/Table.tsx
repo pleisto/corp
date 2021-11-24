@@ -82,7 +82,13 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
   const [tableRows, { fetchRows, addRow, updateRow, removeRow, moveRow, setRowsState }] = useDatabaseRows(parentId)
   const initialized = React.useRef(false)
 
-  useFormulaDatabase(node.attrs.uuid, columns, tableRows, (extension.options as TableBlockOptions).formulaContextActions.getFormulaContext)
+  useFormulaDatabase(
+    node.attrs.uuid,
+    // first column is column group
+    (columns[0] as any).columns,
+    tableRows,
+    (extension.options as TableBlockOptions).formulaContextActions.getFormulaContext
+  )
 
   React.useEffect(() => {
     if (initialized.current) return
