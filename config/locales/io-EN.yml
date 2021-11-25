@@ -834,21 +834,17 @@ io-EN:
         upload:
           button_text: crwdns3109:0crwdne3109:0
     formula:
-      block:
-        menu:
-          edit: crwdns3457:0crwdne3457:0
-          copy: crwdns3459:0crwdne3459:0
-          delete: crwdns3461:0crwdne3461:0
-          delete_confirm:
-            title: crwdns3463:0crwdne3463:0
-            ok: crwdns3465:0crwdne3465:0
-            cancel: crwdns3467:0crwdne3467:0
       menu:
+        delete_confirm:
+          title: crwdns3481:0crwdne3481:0
+          ok: crwdns3483:0crwdne3483:0
+          cancel: crwdns3485:0crwdne3485:0
         header: crwdns3469:0crwdne3469:0
         name: crwdns3471:0crwdne3471:0
         color: crwdns3473:0crwdne3473:0
         result: crwdns3475:0crwdne3475:0
         save: crwdns3477:0crwdne3477:0
+        delete: crwdns3487:0crwdne3487:0
         cancel: crwdns3479:0crwdne3479:0
     link_block:
       copy_hint: crwdns3281:0crwdne3281:0
