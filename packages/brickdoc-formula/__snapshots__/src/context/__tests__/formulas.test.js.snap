@@ -1098,13 +1098,13 @@ Array [
 
 exports[`appendFormulas expression 2`] = `
 Object {
-  "&excel::ABS": Array [
+  "excel::ABS": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
     },
   ],
-  "&excel::RAND": Array [
+  "excel::RAND": Array [
     Object {
       "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",

@@ -1,34 +1,12 @@
-import { FunctionClause } from '..'
+import type { IToken } from 'chevrotain'
+import type { Completion, ContextInterface } from '..'
 
 export interface CompleteInput {
-  readonly input: string
-  readonly functionClauses: FunctionClause[]
-}
-
-export interface CompleteResult {
-  readonly type: 'function'
-  readonly title: string
-  readonly description: string
-  readonly text: string
-  readonly index: number
+  readonly tokens: IToken[]
+  readonly formulaContext: ContextInterface
 }
 
 // TODO: https://github.com/Chevrotain/chevrotain/blob/master/examples/parser/content_assist/content_assist_complex.js
-export const complete = ({ input }: CompleteInput): CompleteResult[] => {
-  return [
-    {
-      type: 'function',
-      title: 'PI',
-      description: 'Returns the value of pi.',
-      text: 'PI()',
-      index: 4
-    },
-    {
-      type: 'function',
-      title: 'POWER',
-      description: 'Returns the value of a number raised to a power.',
-      text: 'POWER(number, power)',
-      index: 7
-    }
-  ]
+export const complete = ({ tokens, formulaContext }: CompleteInput): Completion[] => {
+  return []
 }

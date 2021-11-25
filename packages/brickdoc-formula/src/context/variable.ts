@@ -1,8 +1,18 @@
-import { BackendActions, ContextInterface, interpret, UpdateHandler, VariableData, VariableInterface, VariableMetadata } from '..'
+import {
+  BackendActions,
+  ContextInterface,
+  interpret,
+  VariableUpdateHandler,
+  VariableCompletion,
+  VariableData,
+  VariableInterface,
+  variableKey,
+  VariableMetadata
+} from '..'
 
 export class VariableClass implements VariableInterface {
   t: VariableData
-  updateHandler: UpdateHandler
+  updateHandler: VariableUpdateHandler
   backendActions: BackendActions
 
   constructor({ t }: { t: VariableData }) {
@@ -18,7 +28,7 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  public onUpdate = (handler: UpdateHandler): void => {
+  public onUpdate = (handler: VariableUpdateHandler): void => {
     this.updateHandler = handler
   }
 
@@ -31,6 +41,17 @@ export class VariableClass implements VariableInterface {
   public invokeBackendUpdate = async (): Promise<void> => {
     if (this.backendActions) {
       await this.backendActions.updateVariable(this)
+    }
+  }
+
+  public completion = (weight: number): VariableCompletion => {
+    return {
+      kind: 'variable',
+      weight,
+      name: this.t.name,
+      namespace: this.t.namespaceId,
+      value: variableKey(this.t.namespaceId, this.t.variableId),
+      preview: this.t
     }
   }
 

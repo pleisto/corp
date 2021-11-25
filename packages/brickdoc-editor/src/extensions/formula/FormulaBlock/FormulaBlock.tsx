@@ -17,7 +17,9 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const variable = getVariable(attributes.id)
   const [variableT, setVariableT] = React.useState(variable?.t)
   const formulaContext = getFormulaContext()
-  const formulaDefaultName = formulaContext ? formulaContext.getVariableNameCount('any') : ''
+  // TODO very dirty hack, remove this
+  const rootId = (editor.view as any).docView.node.attrs.uuid
+  const formulaDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
 
   React.useEffect(() => {
     setVariableT(variable?.t)

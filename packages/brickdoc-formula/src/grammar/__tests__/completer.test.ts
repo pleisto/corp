@@ -1,10 +1,15 @@
-import { complete } from '..'
+import { complete, FormulaLexer } from '..'
+import { FormulaContext } from '../../context'
+
+const formulaContext = new FormulaContext({ functionClauses: [] })
 
 describe('Complete', () => {
   it('work', () => {
     const input = '=123'
-    const functionClauses = []
-    const result = complete({ input, functionClauses })
-    expect(result.length).toBe(2)
+    const lexResult = FormulaLexer.tokenize(input)
+    const tokens = lexResult.tokens
+
+    const result = complete({ formulaContext, tokens })
+    expect(result.length).toBe(0)
   })
 })
