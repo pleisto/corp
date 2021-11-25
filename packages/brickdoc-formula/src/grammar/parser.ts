@@ -1,5 +1,5 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
-import { Argument, ArgumentType, ContextInterface, FunctionClause, VariableDependency, VariableKind } from '..'
+import { Argument, FormulaType, ContextInterface, FunctionClause, VariableDependency, VariableKind } from '..'
 import {
   allTokens,
   AdditionOperator,
@@ -38,7 +38,7 @@ interface parseTokenType {
 interface ParseToken {
   readonly tokenType: parseTokenType
   readonly image: string
-  readonly type?: ArgumentType
+  readonly type?: FormulaType
 }
 
 type ParseType = undefined | Argument
@@ -181,7 +181,7 @@ export class FormulaParser extends CstParser {
       if (database) {
         const column = database.getColumn(columnId)
         if (column) {
-          const columnType: ArgumentType = 'Column'
+          const columnType: FormulaType = 'Column'
           const parseToken = { image: column.name, tokenType: { name: 'Column' }, type: columnType }
           this.intersectType(type, parseToken)
         }
@@ -220,7 +220,7 @@ export class FormulaParser extends CstParser {
       this.kind = 'expression'
       const database = this.formulaContext.findDatabase(namespaceId)
       if (database) {
-        const tableType: ArgumentType = 'Table'
+        const tableType: FormulaType = 'Table'
         const parseToken = { image: database.name(), tokenType: { name: 'Table' }, type: tableType }
         this.intersectType(type, parseToken)
       }
@@ -345,7 +345,7 @@ export class FormulaParser extends CstParser {
     if (this.RECORDING_PHASE) {
       return arg
     }
-    const targetType: ArgumentType = token.type || AllowTypes[token.tokenType.name]
+    const targetType: FormulaType = token.type || AllowTypes[token.tokenType.name]
     if (targetType === undefined) {
       throw new Error(`Unexpected token type: ${token.tokenType.name}`)
     }

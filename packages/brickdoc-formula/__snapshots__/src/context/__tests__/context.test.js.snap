@@ -380,7 +380,7 @@ Object {
 
 exports[`Context commitVariable normal 2`] = `
 Object {
-  "&excel::ABS": Array [
+  "excel::ABS": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
@@ -467,7 +467,7 @@ Array [
 
 exports[`Context removeVariable 2`] = `
 Object {
-  "&excel::ABS": Array [],
+  "excel::ABS": Array [],
 }
 `;
 
@@ -486,7 +486,7 @@ Array [
 
 exports[`Context reset 2`] = `
 Object {
-  "&excel::ABS": Array [
+  "excel::ABS": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
@@ -504,4 +504,13 @@ Object {
     },
   ],
 }
+`;
+
+exports[`Context unique name check 1`] = `
+Array [
+  Object {
+    "message": "Variable name exist in same namespace",
+    "type": "name_unique",
+  },
+]
 `;

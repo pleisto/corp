@@ -1,6 +1,6 @@
 import { CstNode, ILexingResult, IRecognitionException } from 'chevrotain'
 import {
-  ArgumentType,
+  FormulaType,
   CodeFragment,
   ErrorMessage,
   ErrorType,
@@ -19,9 +19,11 @@ import {
   VariableTypeMeta,
   VariableValue,
   View,
-  VariableInterface
+  VariableInterface,
+  Completion
 } from '..'
 import { FormulaParser } from './parser'
+import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './code_fragment'
 
@@ -39,6 +41,7 @@ export interface BaseParseResult {
   readonly variableDependencies?: VariableDependency[]
   readonly functionDependencies?: FunctionClause[]
   readonly codeFragments?: CodeFragment[]
+  readonly completions: Completion[]
 }
 
 export interface SuccessParseResult extends BaseParseResult {
@@ -87,21 +90,25 @@ export interface ErrorInterpretResult extends BaseInterpretResult {
 
 export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 
-export const parse = ({ formulaContext, meta: { namespaceId, variableId, input } }: ParseInput): ParseResult => {
+export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, name } }: ParseInput): ParseResult => {
   const lexResult: ILexingResult = FormulaLexer.tokenize(input)
+  let completions: Completion[] = formulaContext.completions()
 
   if (lexResult.errors.length > 0) {
     return {
       success: false,
       errorType: 'lex',
+      completions,
       errorMessages: lexResult.errors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]]
     }
   }
 
   const parser = new FormulaParser({ formulaContext })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
+  const tokens = lexResult.tokens
+  completions = complete({ tokens, formulaContext })
 
-  parser.input = lexResult.tokens
+  parser.input = tokens
   try {
     const cst: CstNode = parser.startExpression()
     const codeFragments: CodeFragment[] = codeFragmentVisitor.visit(cst)
@@ -112,6 +119,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input }
       return {
         success: false,
         errorType: 'parse',
+        completions,
         errorMessages: parseErrors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]],
         cst,
         codeFragments
@@ -136,7 +144,21 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input }
         success: false,
         cst,
         errorType: 'parse',
+        completions,
         errorMessages: [errorCodeFragment.error],
+        codeFragments
+      }
+    }
+
+    const variable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
+
+    if (variable) {
+      return {
+        success: false,
+        cst,
+        errorType: 'parse',
+        completions,
+        errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
         codeFragments
       }
     }
@@ -145,6 +167,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input }
       success: true,
       cst,
       errorMessages: [],
+      completions,
       kind: parser.kind,
       variableDependencies: parser.variableDependencies,
       functionDependencies: parser.functionDependencies,
@@ -161,6 +184,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input }
 
     return {
       success: false,
+      completions,
       errorType: 'parse',
       errorMessages: [{ message, type }]
     }
@@ -179,7 +203,7 @@ const castValue = (value: any, type: any): any => {
   }
 }
 
-const fetchType = (result: any): ArgumentType => {
+const fetchType = (result: any): FormulaType => {
   const type = typeof result
   if (['string', 'boolean', 'number'].includes(type)) {
     return type as 'string' | 'boolean' | 'number'

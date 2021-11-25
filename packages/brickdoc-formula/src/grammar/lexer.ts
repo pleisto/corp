@@ -1,5 +1,5 @@
 import { createToken, ILexerErrorMessageProvider, IToken, Lexer } from 'chevrotain'
-import { ArgumentType } from '..'
+import { FormulaType } from '..'
 
 export const CompareOperator = createToken({ name: 'CompareOperator', pattern: Lexer.NA })
 export const AdditionOperator = createToken({ name: 'AdditionOperator', pattern: Lexer.NA })
@@ -250,7 +250,7 @@ export const tokenVocabulary = allTokens.reduce((o, acc) => {
   return o
 }, {})
 
-export const AllowTypes: { [key: string]: ArgumentType } = Object.entries({
+export const AllowTypes: { [key: string]: FormulaType } = Object.entries({
   'Equal2,Equal,NotEqual,NotEqual2': 'any',
   Not: 'any',
   'LessThanEqual,LessThan,GreaterThan,GreaterThanEqual': 'number',

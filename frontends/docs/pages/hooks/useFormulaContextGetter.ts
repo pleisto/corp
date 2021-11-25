@@ -108,7 +108,7 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
             updateError(undefined)
             updateResult(interpretResult.result.display)
             const type = interpretResult.result.type
-            const defaultName = formulaContext.getVariableNameCount(type)
+            const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
             updateDefaultName(defaultName)
           } else {
             updateError({
