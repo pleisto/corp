@@ -780,6 +780,9 @@ io-EN:
         formula:
           title: crwdns3451:0crwdne3451:0
           desc: crwdns3453:0crwdne3453:0
+        divider:
+          title: crwdns3489:0crwdne3489:0
+          desc: crwdns3491:0crwdne3491:0
     bubblemenu:
       items:
         bold:
