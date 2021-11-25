@@ -91,7 +91,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     }
   }
 
-  const onDocSave = async doc => {
+  const onDocSave = async (doc: Node) => {
     if (!docBlocksMap.current.size) return
     isSavingVar(true)
     const docBlocks = nodeToBlock(doc, 0)
