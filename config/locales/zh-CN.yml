@@ -817,21 +817,17 @@ zh-CN:
         upload:
           button_text: 选择图片
     formula:
-      block:
-        menu:
-          edit: Edit
-          copy: Copy
-          delete: Delete
-          delete_confirm:
-            title: 您确定要删除此属性吗？
-            ok: Delete
-            cancel: Cancel
       menu:
+        delete_confirm:
+          title: 您确定要删除此属性吗？
+          ok: Delete
+          cancel: Cancel
         header: Formula
         name: Name
         color: Color
         result: '='
         save: Save Formula
+        delete: Delete
         cancel: Cancel
     link_block:
       copy_hint: link copied
