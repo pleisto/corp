@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useMemo } from 'react'
 import { Alert, Skeleton } from '@brickdoc/design-system'
+import { Banner } from '@brickdoc/brickdoc-headless-design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
@@ -187,6 +188,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   if (data?.childrenBlocks?.length) {
     return PageElement
   } else {
-    return <Alert message="TODO Page not found" type="error" />
+    // return <Alert message="TODO Page not found" type="error" />
+    return (
+      <div>
+        <Banner message="TODO Page not found" type="error" />
+      </div>
+    )
   }
 }
