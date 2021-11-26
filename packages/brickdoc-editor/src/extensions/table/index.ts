@@ -1,6 +1,6 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { ContextInterface, VariableInterface } from '@brickdoc/formula'
+import { Completion, ContextInterface, VariableInterface } from '@brickdoc/formula'
 import { insertBlockAt } from '../../helpers/commands'
 import { Table } from './Table'
 
@@ -25,6 +25,7 @@ export interface DatabaseRows extends Array<DatabaseRow> {}
 
 interface CalculateOptions {
   variableId: string | undefined
+  variable: VariableInterface | undefined
   name: string
   input: string
   formulaContext: ContextInterface
@@ -40,6 +41,7 @@ interface CalculateOptions {
     >
   >
   updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
   updateDefaultName: React.Dispatch<React.SetStateAction<string>>
 }
 

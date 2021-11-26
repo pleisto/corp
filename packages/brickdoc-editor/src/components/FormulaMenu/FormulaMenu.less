@@ -41,24 +41,6 @@
       .formula-menu-field {
         flex: 1;
       }
-
-      &.formula-menu-color {
-        flex: unset;
-
-        .formula-menu-field {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          flex: unset;
-          width: 124px;
-          background: #f9f9f9;
-          border: 1px solid #e0e0e0;
-          border-radius: 4px;
-          text-align: left;
-          padding: 6px 8px;
-        }
-      }
     }
 
     .formula-menu-item + .formula-menu-item {
@@ -109,6 +91,17 @@
 
   .formula-menu-result-label {
     margin-right: 12px;
+  }
+
+  .formula-menu-complete {
+    min-height: unset;
+    height: 30vh;
+    overflow: auto;
+    scrollbar-width: none;
+  }
+
+  .formula-menu-complete::-webkit-scrollbar {
+    display: none;
   }
 
   .formula-menu-footer {

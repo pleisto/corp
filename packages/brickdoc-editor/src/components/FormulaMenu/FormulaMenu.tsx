@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
-import { VariableInterface, VariableData } from '@brickdoc/formula'
+import { Avatar, Button, Col, Input, List, Modal, Popover, Row } from '@brickdoc/design-system'
+import { VariableInterface, VariableData, Completion, FunctionCompletion, VariableCompletion } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
 import { Editor } from '@tiptap/core'
 import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
+import { Formula, Table } from '@brickdoc/design-system/components/icon'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -41,16 +42,21 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   updateVariableT,
   clear
 }) => {
-  const { t } = useEditorI18n()
-  const [name, setName] = React.useState(formulaName)
-  const formulaContext = formulaContextActions.getFormulaContext()
-
   // TODO very dirty hack, remove this
   const rootId = (editor.view as any)?.docView?.node?.attrs?.uuid
-  const formulaDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
 
-  const [defaultName, setDefaultName] = React.useState(formulaDefaultName ?? '')
-  const [value, setValue] = React.useState(formulaValue?.substr(1))
+  const { t } = useEditorI18n()
+  const formulaContext = formulaContextActions.getFormulaContext()
+
+  const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
+  const contextCompletions = formulaContext ? formulaContext.completions(rootId) : []
+  const definition = formulaValue?.substr(1)
+
+  const [completions, setCompletions] = React.useState(contextCompletions)
+
+  const [name, setName] = React.useState(formulaName)
+  const [defaultName, setDefaultName] = React.useState(contextDefaultName)
+  const [value, setValue] = React.useState(definition)
   const [result, setResult] = React.useState<any>(formulaResult)
   const [variable, setVariable] = React.useState<VariableInterface>()
   const [error, setError] = React.useState<{ type: string; message: string }>()
@@ -58,9 +64,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const close = (): void => {
     if (clear) {
-      setName('')
-      setDefaultName('')
-      setValue('')
+      setName(formulaName)
+      setDefaultName(contextDefaultName)
+      setCompletions(contextCompletions)
+      setValue(definition)
       setVariable(undefined)
       setError(undefined)
       setResult('')
@@ -85,6 +92,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (!formulaContext || !e.target.value) return
     formulaContextActions.calculate({
       variableId,
+      variable,
       name: finalName,
       input: e.target.value,
       formulaContext,
@@ -92,6 +100,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       updateVariable: setVariable,
       updateError: setError,
       updateValue: setValue,
+      updateCompletions: setCompletions,
       updateDefaultName: setDefaultName
     })
   }
@@ -101,6 +110,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (!formulaContext || !value) return
     formulaContextActions.calculate({
       variableId,
+      variable,
       name: e.target.value,
       input: value,
       formulaContext,
@@ -108,6 +118,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       updateVariable: setVariable,
       updateError: setError,
       updateValue: setValue,
+      updateCompletions: setCompletions,
       updateDefaultName: setDefaultName
     })
   }
@@ -152,6 +163,45 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     })
   }
 
+  const completeOptions = completions.map(c => ({
+    ...c,
+    icon: c.kind === 'function' ? <Table /> : <Formula />
+  }))
+
+  const renderFunctionPreview = ({ preview }: FunctionCompletion): React.ReactElement => {
+    return (
+      <>
+        <ul>
+          <li>description: {preview.description}</li>
+          <li>args: {JSON.stringify(preview.args)}</li>
+          <li>returns: {preview.returns}</li>
+          <li>examples: {JSON.stringify(preview.examples)}</li>
+        </ul>
+      </>
+    )
+  }
+  const renderVariablePreview = ({ preview }: VariableCompletion): React.ReactElement => {
+    return (
+      <>
+        <ul>
+          <li>definition: {preview.definition}</li>
+          <li>value: {String(preview.variableValue.value)}</li>
+          <li>type: {preview.variableValue.type}</li>
+        </ul>
+      </>
+    )
+  }
+
+  const renderPreview = (completion: Completion): React.ReactNode => {
+    if (completion.kind === 'function') {
+      return renderFunctionPreview(completion)
+    } else {
+      return renderVariablePreview(completion)
+    }
+  }
+
+  const preview = completions[0] ? renderPreview(completions[0]) : 'Empty!'
+
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
@@ -179,6 +229,25 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         )}
         {!error && result}
       </div>
+      <div className="formula-menu-divider" />
+      <Row className="formula-menu-complete">
+        <Col span={10}>
+          <List
+            size="small"
+            header={null}
+            footer={null}
+            dataSource={completeOptions}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta avatar={<Avatar icon={item.icon} />} title={item.name} description={item.namespace} />
+              </List.Item>
+            )}
+          />
+        </Col>
+        <Col span={14}>
+          <div className="formula-menu-complete-preview">{preview}</div>
+        </Col>
+      </Row>
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}

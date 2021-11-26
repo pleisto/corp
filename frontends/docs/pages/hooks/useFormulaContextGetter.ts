@@ -1,9 +1,10 @@
-import { buildVariable, ContextInterface, interpret, parse, View } from '@brickdoc/formula'
+import { buildVariable, Completion, ContextInterface, interpret, parse, VariableInterface, View } from '@brickdoc/formula'
 import { debounce } from 'lodash-es'
 import React from 'react'
 import { FormulaContextVar } from '../../reactiveVars'
 import { DocMeta } from '../DocumentContentPage'
 import { FormulaOptions } from 'packages/brickdoc-editor/src/extensions'
+import { v4 as uuid } from 'uuid'
 
 const parseVariableName = ({
   formulaContext,
@@ -68,15 +69,47 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
       return data.current?.removeVariable(blockId.current, variableId)
     },
     calculate: debounce(
-      async ({ variableId, name, input, formulaContext, updateResult, updateVariable, updateError, updateValue, updateDefaultName }) => {
+      async ({
+        variableId,
+        variable,
+        name,
+        input,
+        formulaContext,
+        updateResult,
+        updateVariable,
+        updateCompletions,
+        updateError,
+        updateValue,
+        updateDefaultName
+      }: {
+        variableId: string | undefined
+        variable: VariableInterface | undefined
+        name: string
+        input: string
+        formulaContext: ContextInterface
+        updateResult: React.Dispatch<React.SetStateAction<any>>
+        updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>
+        updateError: React.Dispatch<
+          React.SetStateAction<
+            | {
+                type: string
+                message: string
+              }
+            | undefined
+          >
+        >
+        updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+        updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
+        updateDefaultName: React.Dispatch<React.SetStateAction<string>>
+      }) => {
         const namespaceId = blockId.current ?? docMeta.id ?? ''
-        const meta = { namespaceId, variableId, name, input: transformUserInput({ namespaceId, input, formulaContext }) }
+        const finalVariableId = variableId ?? (variable ? variable.t.variableId : uuid())
+        const meta = { namespaceId, variableId: finalVariableId, name, input: transformUserInput({ namespaceId, input, formulaContext }) }
         const view: View = {}
-        const parseInput = {
-          formulaContext,
-          meta
-        }
+        const parseInput = { formulaContext, meta }
         const parseResult = parse(parseInput)
+
+        updateCompletions(parseResult.completions)
 
         if (parseResult.success) {
           const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
@@ -92,16 +125,10 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
             const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
             updateDefaultName(defaultName)
           } else {
-            updateError({
-              type: 'interpret',
-              message: interpretResult.errorMessages[0].message
-            })
+            updateError(interpretResult.errorMessages[0])
           }
         } else {
-          updateError({
-            type: 'Syntax error',
-            message: parseResult.errorMessages[0].message
-          })
+          updateError(parseResult.errorMessages[0])
         }
       },
       300

@@ -86,16 +86,16 @@ export class FormulaContext implements ContextInterface {
     }, {})
   }
 
-  public completions = (): Completion[] => {
+  public completions = (namespaceId: NamespaceId): Completion[] => {
     const functions = Object.entries(this.functionClausesMap).map(([key, f]) => {
-      const weight = this.functionWeights[key] || 0
+      const weight: number = this.functionWeights[key] || 0
       return function2completion(f, weight)
     })
     const variables = Object.entries(this.context).map(([key, v]) => {
-      const weight = this.variableWeights[key] || 0
-      return v.completion(weight)
+      const weight: number = this.variableWeights[key] || 0
+      return v.completion(v.t.namespaceId === namespaceId ? weight + 1 : weight)
     })
-    return [...functions, ...variables].sort((a, b) => a.weight - b.weight)
+    return [...functions, ...variables].sort((a, b) => b.weight - a.weight)
   }
 
   public getDefaultVariableName = (namespaceId: NamespaceId, type: FormulaType): DefaultVariableName => {
