@@ -102,7 +102,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     }
   }
   const lexResult: ILexingResult = FormulaLexer.tokenize(input)
-  let completions: Completion[] = formulaContext.completions()
+  let completions: Completion[] = formulaContext.completions(namespaceId)
 
   if (lexResult.errors.length > 0) {
     return {
@@ -116,7 +116,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   const parser = new FormulaParser({ formulaContext })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
   const tokens = lexResult.tokens
-  completions = complete({ tokens, formulaContext })
+  completions = complete({ tokens, formulaContext, namespaceId })
 
   parser.input = tokens
   try {

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { ContextInterface, VariableInterface } from '@brickdoc/formula'
+import { Completion, ContextInterface, VariableInterface } from '@brickdoc/formula'
 import { FormulaBlock } from './FormulaBlock'
 
 interface CalculateOptions {
   variableId: string | undefined
+  variable: VariableInterface | undefined
   name: string
   input: string
   formulaContext: ContextInterface
@@ -21,6 +22,7 @@ interface CalculateOptions {
     >
   >
   updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
   updateDefaultName: React.Dispatch<React.SetStateAction<string>>
 }
 

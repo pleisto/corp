@@ -1,12 +1,31 @@
 import type { IToken } from 'chevrotain'
-import type { Completion, ContextInterface } from '..'
+import type { Completion, ContextInterface, NamespaceId } from '..'
 
 export interface CompleteInput {
   readonly tokens: IToken[]
   readonly formulaContext: ContextInterface
+  readonly namespaceId: NamespaceId
 }
 
 // TODO: https://github.com/Chevrotain/chevrotain/blob/master/examples/parser/content_assist/content_assist_complex.js
-export const complete = ({ tokens, formulaContext }: CompleteInput): Completion[] => {
-  return formulaContext.completions()
+export const complete = ({ tokens, formulaContext, namespaceId }: CompleteInput): Completion[] => {
+  const completions = formulaContext.completions(namespaceId)
+  const lastToken = tokens[tokens.length - 1]
+  if (!lastToken) {
+    return completions
+  }
+  const {
+    tokenType: { name: tokenName },
+    image
+  } = lastToken
+
+  const checkImage = image.toLowerCase()
+
+  if (['FunctionGroupName', 'FunctionName', 'NumberLiteral'].includes(tokenName)) {
+    return completions
+      .map(c => (c.name.toLowerCase().includes(checkImage) ? { ...c, weight: c.weight + 10 } : c))
+      .sort((a, b) => b.weight - a.weight)
+  }
+  console.log({ tokens })
+  return completions
 }

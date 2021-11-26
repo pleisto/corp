@@ -8,8 +8,9 @@ describe('Complete', () => {
     const input = '=123'
     const lexResult = FormulaLexer.tokenize(input)
     const tokens = lexResult.tokens
+    const namespaceId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
-    const result = complete({ formulaContext, tokens })
+    const result = complete({ formulaContext, tokens, namespaceId })
     expect(result.length).not.toBe(0)
   })
 })
