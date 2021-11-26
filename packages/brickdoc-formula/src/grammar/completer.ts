@@ -8,5 +8,5 @@ export interface CompleteInput {
 
 // TODO: https://github.com/Chevrotain/chevrotain/blob/master/examples/parser/content_assist/content_assist_complex.js
 export const complete = ({ tokens, formulaContext }: CompleteInput): Completion[] => {
-  return []
+  return formulaContext.completions()
 }

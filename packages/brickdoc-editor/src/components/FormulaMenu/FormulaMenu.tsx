@@ -11,7 +11,6 @@ export interface FormulaMenuProps {
   getPos?: () => number
   node?: FormulaBlockProps['node']
   variableId?: string
-  formulaDefaultName?: string
   defaultVisible?: boolean
   onVisibleChange?: (visible: boolean) => void
   editor: Editor
@@ -35,7 +34,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   onVisibleChange,
   editor,
   updateFormula,
-  formulaDefaultName,
   formulaName,
   formulaValue,
   formulaResult,
@@ -45,6 +43,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 }) => {
   const { t } = useEditorI18n()
   const [name, setName] = React.useState(formulaName)
+  const formulaContext = formulaContextActions.getFormulaContext()
+
+  // TODO very dirty hack, remove this
+  const rootId = (editor.view as any)?.docView?.node?.attrs?.uuid
+  const formulaDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
+
   const [defaultName, setDefaultName] = React.useState(formulaDefaultName ?? '')
   const [value, setValue] = React.useState(formulaValue?.substr(1))
   const [result, setResult] = React.useState<any>(formulaResult)
@@ -77,42 +81,39 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value)
-    const formulaContext = formulaContextActions.getFormulaContext()
     const finalName = name ?? defaultName
     if (!formulaContext || !e.target.value) return
-    formulaContextActions.calculate(
+    formulaContextActions.calculate({
       variableId,
-      finalName,
-      e.target.value,
+      name: finalName,
+      input: e.target.value,
       formulaContext,
-      setResult,
-      setVariable,
-      setError,
-      setValue,
-      setDefaultName
-    )
+      updateResult: setResult,
+      updateVariable: setVariable,
+      updateError: setError,
+      updateValue: setValue,
+      updateDefaultName: setDefaultName
+    })
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value)
-    const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext || !value) return
-    formulaContextActions.calculate(
+    formulaContextActions.calculate({
       variableId,
-      e.target.value,
-      value,
+      name: e.target.value,
+      input: value,
       formulaContext,
-      setResult,
-      setVariable,
-      setError,
-      setValue,
-      setDefaultName
-    )
+      updateResult: setResult,
+      updateVariable: setVariable,
+      updateError: setError,
+      updateValue: setValue,
+      updateDefaultName: setDefaultName
+    })
   }
 
   const handleSave = async (): Promise<void> => {
     if (!(name ?? defaultName) || !value || !variable || !result) return
-    const formulaContext = formulaContextActions.getFormulaContext()
     if (!formulaContext) return
 
     if (updateFormula) {
@@ -120,8 +121,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     } else {
       editor.chain().setFormula(variable.t.variableId).focus().run()
     }
-    variable.t.name = name ?? defaultName
+    const finalName = name ?? defaultName
+    variable.t.name = finalName
     await formulaContext.commitVariable({ variable })
+    setName(finalName)
     updateVariableT?.(variable.t)
 
     close()

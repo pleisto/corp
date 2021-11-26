@@ -10,6 +10,6 @@ describe('Complete', () => {
     const tokens = lexResult.tokens
 
     const result = complete({ formulaContext, tokens })
-    expect(result.length).toBe(0)
+    expect(result.length).not.toBe(0)
   })
 })

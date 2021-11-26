@@ -7,28 +7,33 @@ import { FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { FormulaOptions } from '..'
+import { v4 as uuid } from 'uuid'
 import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
-  const { getVariable, getFormulaContext }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
+  const { getVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
   const attributes = node.attrs.formula
   const variable = getVariable(attributes.id)
+  console.log({ attributes, variable })
   const [variableT, setVariableT] = React.useState(variable?.t)
-  const formulaContext = getFormulaContext()
-  // TODO very dirty hack, remove this
-  const rootId = (editor.view as any).docView.node.attrs.uuid
-  const formulaDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
+  const [variableId, setVariableId] = React.useState('')
+
+  const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
 
   React.useEffect(() => {
     setVariableT(variable?.t)
     variable?.onUpdate(t => {
       setVariableT(t)
     })
-  }, [variable])
 
-  const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
+    if (!variable) {
+      const newVariableId = uuid()
+      setVariableId(newVariableId)
+      updateAttributes({ formula: { id: newVariableId, type: 'FORMULA' } })
+    }
+  }, [updateAttributes, variable])
 
   const COLOR_ARRAY: { [key in VariableTypeMeta]: number } = {
     error_constant: 3,
@@ -66,9 +71,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       <FormulaMenu
         node={node}
         getPos={getPos}
-        variableId={variableT?.variableId}
+        variableId={variableT?.variableId ?? variableId}
         formulaName={variableT?.name}
-        formulaDefaultName={formulaDefaultName}
         defaultVisible={node.attrs.isNew}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         editor={editor}
