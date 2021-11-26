@@ -91,6 +91,16 @@ export interface ErrorInterpretResult extends BaseInterpretResult {
 export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 
 export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, name } }: ParseInput): ParseResult => {
+  if (!variableId) {
+    return {
+      success: false,
+      cst: null,
+      errorType: 'lex',
+      completions: [],
+      errorMessages: [{ message: 'Miss variableId', type: 'fatal' }],
+      codeFragments: []
+    }
+  }
   const lexResult: ILexingResult = FormulaLexer.tokenize(input)
   let completions: Completion[] = formulaContext.completions()
 

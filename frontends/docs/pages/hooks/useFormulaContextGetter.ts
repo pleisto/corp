@@ -1,9 +1,9 @@
-import { buildVariable, ContextInterface, interpret, parse, VariableInterface, View } from '@brickdoc/formula'
-import { v4 as uuid } from 'uuid'
+import { buildVariable, ContextInterface, interpret, parse, View } from '@brickdoc/formula'
 import { debounce } from 'lodash-es'
 import React from 'react'
 import { FormulaContextVar } from '../../reactiveVars'
 import { DocMeta } from '../DocumentContentPage'
+import { FormulaOptions } from 'packages/brickdoc-editor/src/extensions'
 
 const parseVariableName = ({
   formulaContext,
@@ -44,7 +44,7 @@ const transformUserInput = ({
   return `=${inputAfterTransformVariable}`
 }
 
-export function useFormulaContextGetter(docMeta: DocMeta) {
+export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formulaContextActions'] {
   const context = FormulaContextVar()
   const data = React.useRef(context)
   const blockId = React.useRef(docMeta.id)
@@ -68,27 +68,8 @@ export function useFormulaContextGetter(docMeta: DocMeta) {
       return data.current?.removeVariable(blockId.current, variableId)
     },
     calculate: debounce(
-      async (
-        id: string | undefined,
-        name: string,
-        input: string,
-        formulaContext: ContextInterface,
-        updateResult: React.Dispatch<React.SetStateAction<any>>,
-        updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>,
-        updateError: React.Dispatch<
-          React.SetStateAction<
-            | {
-                type: string
-                message: string
-              }
-            | undefined
-          >
-        >,
-        updateValue: React.Dispatch<React.SetStateAction<string | undefined>>,
-        updateDefaultName: React.Dispatch<React.SetStateAction<string>>
-      ) => {
+      async ({ variableId, name, input, formulaContext, updateResult, updateVariable, updateError, updateValue, updateDefaultName }) => {
         const namespaceId = blockId.current ?? docMeta.id ?? ''
-        const variableId = id ?? uuid()
         const meta = { namespaceId, variableId, name, input: transformUserInput({ namespaceId, input, formulaContext }) }
         const view: View = {}
         const parseInput = {
