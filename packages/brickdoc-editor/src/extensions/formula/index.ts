@@ -25,7 +25,8 @@ export interface FormulaOptions {
           | undefined
         >
       >,
-      updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+      updateValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+      updateDefaultName: React.Dispatch<React.SetStateAction<string>>
     ) => void
   }
 }
@@ -52,6 +53,9 @@ export const FormulaExtension = Node.create<FormulaOptions>({
 
   addAttributes() {
     return {
+      isNew: {
+        default: false
+      },
       formula: {
         default: {
           type: 'FORMULA',
@@ -89,7 +93,7 @@ export const FormulaExtension = Node.create<FormulaOptions>({
       setFormulaBlock:
         (position: number) =>
         ({ commands }) => {
-          return commands.insertContentAt(position, { type: this.name, attrs: { formula: { type: 'FORMULA' } } })
+          return commands.insertContentAt(position, { type: this.name, attrs: { isNew: true, formula: { type: 'FORMULA' } } })
         }
     }
   }

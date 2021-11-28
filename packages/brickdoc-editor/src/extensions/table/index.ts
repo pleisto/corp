@@ -1,5 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { ContextInterface, VariableInterface } from '@brickdoc/formula'
+import { insertBlockAt } from '../../helpers/commands'
 import { Table } from './Table'
 
 declare module '@tiptap/core' {
@@ -8,7 +10,7 @@ declare module '@tiptap/core' {
       /**
        * Set a table block
        */
-      setTableBlock: (position: number) => ReturnType
+      setTableBlock: (position?: number) => ReturnType
     }
   }
 }
@@ -22,6 +24,30 @@ export interface DatabaseRows extends Array<DatabaseRow> {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
 export interface TableExtensionOptions {
+  formulaContextActions: {
+    getFormulaContext: () => ContextInterface | null
+    getVariable: (variableId: string) => VariableInterface | null | undefined
+    removeVariable: (variableId: string) => void
+    calculate: (
+      variableId: string | undefined,
+      name: string,
+      input: string,
+      formulaContext: ContextInterface,
+      updateResult: React.Dispatch<React.SetStateAction<any>>,
+      updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>,
+      updateError: React.Dispatch<
+        React.SetStateAction<
+          | {
+              type: string
+              message: string
+            }
+          | undefined
+        >
+      >,
+      updateValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+      updateDefaultName: React.Dispatch<React.SetStateAction<string>>
+    ) => void
+  }
   useDatabaseRows: (parentId: string) => [
     DatabaseRows,
     {
@@ -36,6 +62,7 @@ export interface TableExtensionOptions {
 }
 
 export interface TableBlockOptions {
+  formulaContextActions: TableExtensionOptions['formulaContextActions']
   useDatabaseRows: TableExtensionOptions['useDatabaseRows']
 }
 
@@ -45,12 +72,6 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
   group: 'block',
 
   selectable: false,
-
-  defaultOptions: {
-    useDatabaseRows: () => {
-      throw new Error('You need configure useDatabaseRows if you want to enable tableBlock')
-    }
-  },
 
   addAttributes() {
     return {
@@ -81,9 +102,9 @@ export const TableBlockExtension = Node.create<TableBlockOptions>({
   addCommands() {
     return {
       setTableBlock:
-        (position: number) =>
-        ({ commands }) => {
-          return commands.insertContentAt(position, { type: this.name })
+        (position?: number) =>
+        ({ chain }) => {
+          return insertBlockAt({ type: this.name }, chain, position)
         }
     }
   }

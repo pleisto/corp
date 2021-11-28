@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImageSection matches correct snapshot 1`] = `
+exports[`ImageBlock matches correct snapshot 1`] = `
 <div
   data-node-view-wrapper=""
   editor="[object Object]"

@@ -2,7 +2,7 @@
 import { ReactRenderer, Editor, Extension } from '@tiptap/react'
 import Suggestion from '@tiptap/suggestion'
 import { Icon } from '@brickdoc/design-system'
-import { createPopup, PopupInstance } from '../helpers/popup'
+import { createPopup, PopupInstance } from '../../helpers/popup'
 import { SlashCommandsMenu, SlashCommandsMenuItem } from './SlashCommandsMenu'
 
 const TRIGGER_CHAR = '/'
@@ -65,29 +65,21 @@ const menuItems: SlashCommandsMenuItem[] = [
     }
   },
   {
-    key: 'pdf',
-    icon: <Icon.FilePdf className="menu-item-icon" />,
-    command: ({ editor, range }) => {
-      editor
-        .chain()
-        .focus()
-        .deleteRange(range)
-        .setPdfSection(range.from - 1)
-        .splitBlock()
-        .run()
-    }
-  },
-  {
     key: 'embed',
     icon: <Icon.PaperClip className="menu-item-icon" />,
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
         .deleteRange(range)
         .setLinkBlock(range.from - 1)
-        .splitBlock()
         .run()
+    }
+  },
+  {
+    key: 'divider',
+    icon: <Icon.Divider className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setHorizontalRule().run()
     }
   },
   {
@@ -97,10 +89,8 @@ const menuItems: SlashCommandsMenuItem[] = [
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
         .deleteRange(range)
         .setImageSection(range.from - 1)
-        .splitBlock()
         .run()
     }
   },
