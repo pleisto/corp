@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo } from 'react'
-import { Alert, Skeleton } from '@brickdoc/design-system'
-import { Banner } from '@brickdoc/brickdoc-headless-design-system'
+import { Skeleton } from '@brickdoc/design-system'
+import { Alert } from '@brickdoc/brickdoc-headless-design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { useGetChildrenBlocksQuery, Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
@@ -191,7 +191,14 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     // return <Alert message="TODO Page not found" type="error" />
     return (
       <div>
-        <Banner message="TODO Page not found" type="error" />
+        <Alert message="TODO Page not found" type="error" />
+        <Alert message="TODO Page not found" type="info" />
+        <Alert message="TODO Page not found" type="warning" />
+        <Alert message="TODO Page not found" type="success" />
+        <Alert title="TODO abc" message="TODO Page not found" type="error" />
+        <Alert title="TODO abc" message="TODO Page not found" type="info" />
+        <Alert title="TODO abc" message="TODO Page not found" type="warning" />
+        <Alert title="TODO abc" message="TODO Page not found" type="success" />
       </div>
     )
   }

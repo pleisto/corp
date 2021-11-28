@@ -1,21 +1,11 @@
 import { FC, useCallback, useState } from 'react'
 import { Success, Info, Caution, CloseOne, Close } from '@brickdoc/design-icons'
 
-import {
-  BannerBase,
-  BannerContentWrapper,
-  BannerContent,
-  BannerContentIcon,
-  BannerContentBody,
-  BannerContentClose,
-  BannerContentAction,
-  BannerTitle,
-  BannerDescription
-} from './style'
+import { AlertRoot } from './style'
 
 export type Type = 'info' | 'error' | 'warning' | 'success'
 
-export interface BannerProps {
+export interface AlertProps {
   type?: Type
   className?: string
   fullMode?: boolean
@@ -27,11 +17,7 @@ export interface BannerProps {
   action?: React.ReactNode
 }
 
-export interface BannerState {
-  visible: boolean
-}
-
-const Banner: FC<BannerProps> = props => {
+const Alert: FC<AlertProps> = props => {
   const { action, type = 'success', className, closeIcon = true, icon = true, title, message, onClose } = props
   const [visible, setVisible] = useState<boolean>(true)
 
@@ -45,7 +31,7 @@ const Banner: FC<BannerProps> = props => {
 
   const size = title ? 'lg' : 'sm'
 
-  const titleDom = title ? <BannerTitle>{title}</BannerTitle> : null
+  const titleDom = title ? <AlertRoot.Title>{title}</AlertRoot.Title> : null
 
   const iconMap = {
     warning: <Caution />,
@@ -54,31 +40,31 @@ const Banner: FC<BannerProps> = props => {
     error: <CloseOne />
   }
 
-  const iconDom = icon ? <BannerContentIcon>{iconMap[type]}</BannerContentIcon> : null
+  const iconDom = icon ? <AlertRoot.ContentIcon>{iconMap[type]}</AlertRoot.ContentIcon> : null
 
-  const actionDom = action ? <BannerContentAction>{action}</BannerContentAction> : null
+  const actionDom = action ? <AlertRoot.ContentAction>{action}</AlertRoot.ContentAction> : null
 
   const closeDom =
     closeIcon && !title && !action ? (
-      <BannerContentClose onClick={handleClose}>
+      <AlertRoot.ContentClose onClick={handleClose}>
         <Close />
-      </BannerContentClose>
+      </AlertRoot.ContentClose>
     ) : null
 
   const alertDom = visible ? (
-    <BannerBase className={className} size={size} variant={type}>
-      <BannerContentWrapper>
-        <BannerContent>
+    <AlertRoot.Base className={className} size={size} variant={type}>
+      <AlertRoot.ContentWrapper>
+        <AlertRoot.Content>
           {iconDom}
-          <BannerContentBody>
+          <AlertRoot.ContentBody>
             {titleDom}
-            <BannerDescription>{message}</BannerDescription>
-          </BannerContentBody>
+            <AlertRoot.Description>{message}</AlertRoot.Description>
+          </AlertRoot.ContentBody>
           {actionDom}
           {closeDom}
-        </BannerContent>
-      </BannerContentWrapper>
-    </BannerBase>
+        </AlertRoot.Content>
+      </AlertRoot.ContentWrapper>
+    </AlertRoot.Base>
   ) : (
     <></>
   )
@@ -86,4 +72,4 @@ const Banner: FC<BannerProps> = props => {
   return alertDom
 }
 
-export default Banner
+export default Alert

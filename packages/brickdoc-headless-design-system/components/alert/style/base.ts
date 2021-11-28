@@ -1,53 +1,53 @@
 import { styled } from '../../theme'
 
-export const BannerContentWrapper = styled('div', {
+export const ContentWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'row'
 })
 
-export const BannerContent = styled('div', {
+export const Content = styled('div', {
   display: 'flex',
   flex: 1,
   alignItems: 'center'
 })
 
-export const BannerContentIcon = styled('div', {
-  display: 'flex',
+export const ContentIcon = styled('div', {
+  display: 'fnlex',
   marginRight: '$xs',
   fontSize: '$subheadline'
 })
 
-export const BannerContentBody = styled('div', {
+export const ContentBody = styled('div', {
   display: 'flex',
   flex: 1,
   flexDirection: 'column'
 })
 
-export const BannerContentAction = styled('div', {
+export const ContentAction = styled('div', {
   display: 'flex',
   marginTop: '$2xs * -1'
 })
 
-export const BannerContentClose = styled('a', {
+export const ContentClose = styled('a', {
   fontSize: '$footnote',
   lineHeight: '$fontSizes$footnote',
   display: 'flex',
   alignItems: 'center'
 })
 
-export const BannerDescription = styled('div', {
+export const Description = styled('div', {
   fontSize: '$callout',
   lineHeight: '$lg'
 })
 
-export const BannerTitle = styled('div', {
+export const Title = styled('div', {
   marginBottom: '$3xs',
   fontSize: '$body',
   fontWeight: '500',
   lineHeight: '$2xl'
 })
 
-export const BannerBase = styled('div', {
+export const Base = styled('div', {
   // Reset
   boxSizing: 'border-box',
   padding: '10px 12px',
@@ -65,17 +65,23 @@ export const BannerBase = styled('div', {
   variants: {
     size: {
       sm: {
-        [`& ${BannerContentIcon}`]: {},
-        [`& ${BannerDescription}`]: {
+        [`& ${ContentIcon}`]: {},
+        [`& ${Description}`]: {
           fontWeight: 500
         }
       },
       lg: {
-        [`& ${BannerContentIcon}`]: {
+        [`& ${Content}`]: {
           fontSize: '$title4',
-          marginRight: '$md'
+          marginRight: '$md',
+          alignItems: 'flex-start'
         },
-        [`& ${BannerDescription}`]: {
+        [`& ${ContentIcon}`]: {
+          fontSize: '$title4',
+          marginRight: '$md',
+          marginTop: '$3xs'
+        },
+        [`& ${Description}`]: {
           // TODO: lacks token
           fontWeight: 400,
           lineHeight: '22px'
@@ -87,7 +93,7 @@ export const BannerBase = styled('div', {
         backgroundColor: '$color-status-info-bg',
         borderColor: '$color-hue-blue-hover',
         color: '$color-primary-default',
-        [`& ${BannerContentClose}`]: {
+        [`& ${ContentClose}`]: {
           color: '$color-primary-default'
         }
       },
@@ -95,38 +101,29 @@ export const BannerBase = styled('div', {
         backgroundColor: '$color-error-bg',
         borderColor: '$color-error-border',
         color: '$color-error-default',
-        [`& ${BannerContentClose}`]: {
+        [`& ${ContentClose}`]: {
           color: '$color-error-default'
         }
       },
       warning: {
         backgroundColor: '$color-status-warning-bg',
-        borderColor: '$color-hue-yellow-pressed'
+        borderColor: '$color-hue-yellow-pressed',
+        [`& ${ContentClose}`]: {
+          color: '$color-type-primary'
+        }
       },
       success: {
         backgroundColor: '$color-hue-green-bg',
         borderColor: '$color-hue-green-pressed',
         color: '$color-hue-green-dafault',
-        [`& ${BannerContentClose}`]: {
+        [`& ${ContentClose}`]: {
           color: '$color-hue-green-dafault'
         }
       }
     },
     full: {}
   },
-  compoundVariants: [
-    {
-      variant: 'warning',
-      css: {
-        [`& ${BannerContentIcon}`]: {
-          color: '$color-hue-orange-default'
-        },
-        [`& ${BannerContentClose}`]: {
-          color: '$color-hue-orange-default'
-        }
-      }
-    }
-  ],
+  compoundVariants: [],
   defaultVariants: {
     size: 'sm',
     variant: 'success'
