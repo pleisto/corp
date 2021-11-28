@@ -188,18 +188,6 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   if (data?.childrenBlocks?.length) {
     return PageElement
   } else {
-    // return <Alert message="TODO Page not found" type="error" />
-    return (
-      <div>
-        <Alert message="TODO Page not found" type="error" />
-        <Alert message="TODO Page not found" type="info" />
-        <Alert message="TODO Page not found" type="warning" />
-        <Alert message="TODO Page not found" type="success" />
-        <Alert title="TODO abc" message="TODO Page not found" type="error" />
-        <Alert title="TODO abc" message="TODO Page not found" type="info" />
-        <Alert title="TODO abc" message="TODO Page not found" type="warning" />
-        <Alert title="TODO abc" message="TODO Page not found" type="success" />
-      </div>
-    )
+    return <Alert message="TODO Page not found" type="error" />
   }
 }
