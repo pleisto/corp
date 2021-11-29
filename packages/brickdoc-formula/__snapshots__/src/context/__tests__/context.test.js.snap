@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Context TODO if 1`] = `
+Array [
+  Object {
+    "message": "[Variable, foo] Expected boolean but got number",
+    "type": "type",
+  },
+]
+`;
+
 exports[`Context commitVariable normal 1`] = `
 Object {
   "cst": Object {

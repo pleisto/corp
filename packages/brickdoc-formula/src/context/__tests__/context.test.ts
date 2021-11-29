@@ -91,6 +91,18 @@ describe('Context', () => {
     expect(parseResult.errorMessages).toMatchSnapshot()
   })
 
+  it('TODO if', () => {
+    const input = `=excel::IF(($${fooNamespaceId}@${fooVariableId}), 1, 2)`
+    const name = 'if'
+    const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
+    const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
+    const meta = { namespaceId, variableId, name, input }
+    const parseInput = { formulaContext, meta }
+    const parseResult = parse(parseInput)
+
+    expect(parseResult.errorMessages).toMatchSnapshot()
+  })
+
   it('commitVariable normal', async () => {
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
