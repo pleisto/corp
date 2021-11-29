@@ -52,7 +52,7 @@ export const functionKey = (group: FunctionGroup, name: FunctionName): FunctionK
 export const variableKey = (namespaceId: string, variableId: string): VariableKey => `$${namespaceId}@${variableId}`
 
 export class FormulaContext implements ContextInterface {
-  context: { [key: VariableKey]: VariableInterface }
+  context: { [key: VariableKey]: VariableInterface } = {}
   functionWeights: { [key: FunctionKey]: number } = {}
   variableWeights: { [key: VariableKey]: number } = {}
   databases: { [key: NamespaceId]: Database } = {}
@@ -68,15 +68,12 @@ export class FormulaContext implements ContextInterface {
     any: {}
   }
 
-  reverseVariableDependencies: { [key: VariableKey]: VariableDependency[] }
-  reverseFunctionDependencies: { [key: FunctionKey]: VariableDependency[] }
+  reverseVariableDependencies: { [key: VariableKey]: VariableDependency[] } = {}
+  reverseFunctionDependencies: { [key: FunctionKey]: VariableDependency[] } = {}
   functionClausesMap: { [key: FunctionKey]: FunctionClause }
   backendActions: BackendActions
 
   constructor({ functionClauses, backendActions }: FormulaContextArgs = { functionClauses: [] }) {
-    this.context = {}
-    this.reverseVariableDependencies = {}
-    this.reverseFunctionDependencies = {}
     if (backendActions) {
       this.backendActions = backendActions
     }

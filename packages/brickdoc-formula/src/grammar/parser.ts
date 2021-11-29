@@ -1,5 +1,5 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
-import { Argument, FormulaType, ContextInterface, FunctionClause, VariableDependency, VariableKind } from '..'
+import { Argument, FormulaType, ContextInterface, FunctionClause, VariableDependency, VariableKind, ErrorMessage } from '..'
 import {
   allTokens,
   AdditionOperator,
@@ -64,10 +64,11 @@ const errorProvider: IParserErrorMessageProvider = {
 }
 
 export class FormulaParser extends CstParser {
-  variableDependencies: VariableDependency[]
-  functionDependencies: FunctionClause[]
+  variableDependencies: VariableDependency[] = []
+  functionDependencies: FunctionClause[] = []
   formulaContext: ContextInterface
-  kind: VariableKind
+  kind: VariableKind = 'constant'
+  runtimeErrors: ErrorMessage[] = []
 
   // Unfortunately no support for class fields with initializer in ES2015, only in esNext...
   // so the parsing rules are defined inside the constructor, as each parsing rule must be initialized by
@@ -81,9 +82,6 @@ export class FormulaParser extends CstParser {
     })
 
     this.formulaContext = config.formulaContext
-    this.variableDependencies = []
-    this.functionDependencies = []
-    this.kind = 'constant'
     this.performSelfAnalysis()
   }
 
@@ -366,7 +364,10 @@ export class FormulaParser extends CstParser {
       return arg
     }
 
-    throw new TypeError(`[${token.tokenType.name}, ${token.image}] Expected ${arg.type} but got ${targetType}`)
+    this.runtimeErrors.push({
+      type: 'type',
+      message: `[${token.tokenType.name}, ${token.image}] Expected ${arg.type} but got ${targetType}`
+    })
   }
 }
 
