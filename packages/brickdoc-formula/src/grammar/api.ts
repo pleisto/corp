@@ -3,7 +3,6 @@ import {
   FormulaType,
   CodeFragment,
   ErrorMessage,
-  ErrorType,
   ErrorVariableValue,
   Formula,
   ContextInterface,
@@ -116,88 +115,85 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   const parser = new FormulaParser({ formulaContext })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
   const tokens = lexResult.tokens
-  completions = complete({ tokens, formulaContext, namespaceId })
 
   parser.input = tokens
-  try {
-    const cst: CstNode = parser.startExpression()
-    const codeFragments: CodeFragment[] = codeFragmentVisitor.visit(cst)
 
-    const parseErrors: IRecognitionException[] = parser.errors
+  const cst: CstNode = parser.startExpression()
+  const codeFragments: CodeFragment[] = codeFragmentVisitor.visit(cst)
 
-    if (parseErrors.length > 0) {
-      return {
-        success: false,
-        errorType: 'parse',
-        completions,
-        errorMessages: parseErrors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]],
-        cst,
-        codeFragments
-      }
-    }
+  completions = complete({ tokens, formulaContext, namespaceId, codeFragments })
 
-    // const flattenVariableDependencies = parser.flattenVariableDependencies
-    // if (flattenVariableDependencies.find(d => d.namespaceId === namespaceId && d.variableId === variableId)) {
-    //   return {
-    //     success: false,
-    //     errorType: 'parse',
-    //     errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
-    //     cst,
-    //     codeFragments
-    //   }
-    // }
+  const parseErrors: IRecognitionException[] = parser.errors
+  const runtimeErrors: ErrorMessage[] = parser.runtimeErrors
 
-    const errorCodeFragment = codeFragments.find(f => !!f.error)
-
-    if (errorCodeFragment) {
-      return {
-        success: false,
-        cst,
-        errorType: 'parse',
-        completions,
-        errorMessages: [errorCodeFragment.error],
-        codeFragments
-      }
-    }
-
-    const variable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
-
-    if (variable) {
-      return {
-        success: false,
-        cst,
-        errorType: 'parse',
-        completions,
-        errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
-        codeFragments
-      }
-    }
-
-    return {
-      success: true,
-      cst,
-      errorMessages: [],
-      completions,
-      kind: parser.kind,
-      variableDependencies: parser.variableDependencies,
-      functionDependencies: parser.functionDependencies,
-      codeFragments
-    }
-  } catch (e) {
-    // console.error(e)
-    let type: ErrorType = 'fatal'
-    if (e instanceof TypeError) {
-      type = 'type'
-    }
-
-    const message = (e as any).message
-
+  if (parseErrors.length > 0) {
     return {
       success: false,
-      completions,
       errorType: 'parse',
-      errorMessages: [{ message, type }]
+      completions,
+      errorMessages: parseErrors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]],
+      cst,
+      codeFragments
     }
+  }
+
+  if (runtimeErrors.length > 0) {
+    return {
+      success: false,
+      errorType: 'parse',
+      completions,
+      errorMessages: runtimeErrors as [ErrorMessage, ...ErrorMessage[]],
+      cst,
+      codeFragments
+    }
+  }
+
+  // const flattenVariableDependencies = parser.flattenVariableDependencies
+  // if (flattenVariableDependencies.find(d => d.namespaceId === namespaceId && d.variableId === variableId)) {
+  //   return {
+  //     success: false,
+  //     errorType: 'parse',
+  //     errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
+  //     cst,
+  //     codeFragments
+  //   }
+  // }
+
+  const errorCodeFragment = codeFragments.find(f => !!f.error)
+
+  if (errorCodeFragment) {
+    return {
+      success: false,
+      cst,
+      errorType: 'parse',
+      completions,
+      errorMessages: [errorCodeFragment.error],
+      codeFragments
+    }
+  }
+
+  const variable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
+
+  if (variable) {
+    return {
+      success: false,
+      cst,
+      errorType: 'parse',
+      completions,
+      errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
+      codeFragments
+    }
+  }
+
+  return {
+    success: true,
+    cst,
+    errorMessages: [],
+    completions,
+    kind: parser.kind,
+    variableDependencies: parser.variableDependencies,
+    functionDependencies: parser.functionDependencies,
+    codeFragments
   }
 }
 
