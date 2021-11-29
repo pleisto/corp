@@ -119,7 +119,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   parser.input = tokens
 
   const cst: CstNode = parser.startExpression()
-  const codeFragments: CodeFragment[] = codeFragmentVisitor.visit(cst)
+  const { codeFragments } = codeFragmentVisitor.visit(cst, { type: 'any' }) ?? { codeFragments: [] }
 
   completions = complete({ tokens, formulaContext, namespaceId, codeFragments })
 
@@ -142,7 +142,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       success: false,
       errorType: 'parse',
       completions,
-      errorMessages: runtimeErrors as [ErrorMessage, ...ErrorMessage[]],
+      errorMessages: [runtimeErrors[0]],
       cst,
       codeFragments
     }
@@ -159,7 +159,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   //   }
   // }
 
-  const errorCodeFragment = codeFragments.find(f => !!f.error)
+  const errorCodeFragment = codeFragments.find(f => f.errors.length)
 
   if (errorCodeFragment) {
     return {
@@ -167,7 +167,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       cst,
       errorType: 'parse',
       completions,
-      errorMessages: [errorCodeFragment.error],
+      errorMessages: [errorCodeFragment.errors[0]],
       codeFragments
     }
   }

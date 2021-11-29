@@ -88,19 +88,21 @@ describe('Context', () => {
     const input = '=123'
     const meta = { namespaceId: fooNamespaceId, variableId: newFooVariableId, name, input }
     const parseResult = parse({ formulaContext, meta })
-    expect(parseResult.errorMessages).toMatchSnapshot()
+    expect(parseResult.errorMessages).toEqual([{ message: 'Variable name exist in same namespace', type: 'name_unique' }])
   })
 
-  it('TODO if', () => {
+  it('if', () => {
     const input = `=excel::IF(($${fooNamespaceId}@${fooVariableId}), 1, 2)`
     const name = 'if'
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const meta = { namespaceId, variableId, name, input }
-    const parseInput = { formulaContext, meta }
-    const parseResult = parse(parseInput)
+    const parseResult = parse({ formulaContext, meta })
 
-    expect(parseResult.errorMessages).toMatchSnapshot()
+    expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
+
+    const parseResult2 = parse({ formulaContext, meta: { ...meta, input: `=excel::IF(($${fooNamespaceId}@${fooVariableId} = 3), 1, 2)` } })
+    expect(parseResult2.errorMessages).toEqual([])
   })
 
   it('commitVariable normal', async () => {
