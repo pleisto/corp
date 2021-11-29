@@ -93,7 +93,7 @@ describe('Custom Function', () => {
 
     const { success, errorMessages } = parse({ ...parseInput, meta: newMeta, formulaContext: localFormulaContext })
     expect(success).toEqual(false)
-    expect(errorMessages[0].message).toContain('Expecting: one of these possible Token sequences:')
+    expect(errorMessages[0].message).toEqual('Argument count mismatch')
   })
 
   it('42', async () => {
@@ -196,7 +196,7 @@ but found: '&'`,
     const input = `= "foo" & $${namespaceId}@${fooVariableId}`
     const newMeta = { ...meta, input }
     const { errorMessages } = parse({ ...parseInput, meta: newMeta })
-    expect(errorMessages).toEqual([{ message: '[Variable, foo] Expected string but got number', type: 'type' }])
+    expect(errorMessages).toEqual([{ message: 'Expected string but got number', type: 'type' }])
   })
 
   it('unknown namespace', () => {
