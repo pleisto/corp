@@ -8,6 +8,7 @@ import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { FormulaOptions } from '..'
 import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
+import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -59,6 +60,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   return (
     <BlockWrapper as="span" editor={editor}>
+      <FormulaEditor />
       <FormulaMenu
         node={node}
         getPos={getPos}
