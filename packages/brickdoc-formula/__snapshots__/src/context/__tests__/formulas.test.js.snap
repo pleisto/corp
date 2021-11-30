@@ -166,6 +166,7 @@ Array [
     "dirty": false,
     "functionDependencies": Array [],
     "kind": "constant",
+    "level": 1,
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
     "variableDependencies": Array [],
@@ -556,6 +557,7 @@ Array [
       },
     ],
     "kind": "expression",
+    "level": 1,
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
     "variableDependencies": Array [],
@@ -1125,10 +1127,12 @@ Array [
       },
     ],
     "kind": "expression",
+    "level": 2,
     "name": "bar",
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableDependencies": Array [
       Object {
+        "level": 1,
         "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
         "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
       },
@@ -1181,11 +1185,12 @@ Array [
     "cst": undefined,
     "definition": "= 123 +",
     "dirty": false,
-    "functionDependencies": undefined,
+    "functionDependencies": Array [],
     "kind": undefined,
+    "level": 1,
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
-    "variableDependencies": undefined,
+    "variableDependencies": Array [],
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableValue": Object {
       "errorMessages": Array [
@@ -1754,11 +1759,12 @@ Array [
     },
     "definition": "=excel::ABS(123) + $d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
     "dirty": false,
-    "functionDependencies": undefined,
+    "functionDependencies": Array [],
     "kind": undefined,
+    "level": 1,
     "name": "bar",
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
-    "variableDependencies": undefined,
+    "variableDependencies": Array [],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
     "variableValue": Object {
       "errorMessages": Array [

@@ -112,6 +112,7 @@ export type Completion = FunctionCompletion | VariableCompletion
 
 export interface ContextInterface {
   databases: { [key: NamespaceId]: Database }
+  backendActions: BackendActions
   variableCount: () => number
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   listCellByColumn: (column: Column) => Cell[]
@@ -124,7 +125,7 @@ export interface ContextInterface {
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: VariableName) => VariableInterface | undefined
   clearDependency: (namespaceId: NamespaceId, variableId: VariableId) => void
-  trackDependency: (data: VariableData) => void
+  trackDependency: (variable: VariableInterface) => void
   handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
@@ -168,6 +169,7 @@ export interface CodeFragment {
 export interface VariableDependency {
   readonly variableId: VariableId
   readonly namespaceId: NamespaceId
+  readonly level?: number
 }
 
 export interface BaseVariableValue {
@@ -195,6 +197,7 @@ export type VariableValue = SuccessVariableValue | ErrorVariableValue
 
 export interface VariableData {
   name: VariableName
+  level: number
   namespaceId: NamespaceId
   variableId: VariableId
   definition: string
