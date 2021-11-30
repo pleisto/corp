@@ -329,7 +329,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return { codeFragments: [{ ...columnFragment, name: `$${column.name}`, errors: errorMessages }], type: newType }
     } else {
       return {
-        codeFragments: [dollarFragment, { ...columnFragment, errors: [{ message: `Column not found: ${columnId}`, type: 'deps' }] }],
+        codeFragments: [
+          dollarFragment,
+          { ...columnFragment, name: `${namespaceId}#${columnId}`, errors: [{ message: `Column not found: ${columnId}`, type: 'deps' }] }
+        ],
         type: parentType
       }
     }
