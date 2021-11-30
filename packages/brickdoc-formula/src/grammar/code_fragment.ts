@@ -1,5 +1,5 @@
 import { IToken } from 'chevrotain'
-import { CodeFragment, ErrorMessage, ContextInterface, FormulaType, Argument } from '..'
+import { CodeFragment, ErrorMessage, ContextInterface, FormulaType, Argument, VariableKind, VariableDependency, FunctionClause } from '..'
 import { BaseCstVisitor } from './parser'
 
 interface InterpreterConfig {
@@ -47,6 +47,10 @@ const intersectType = (argumentType: ExpressionType, contextType: FormulaType): 
 
 export class CodeFragmentVisitor extends BaseCstVisitor {
   formulaContext: ContextInterface
+  variableDependencies: VariableDependency[] = []
+  functionDependencies: FunctionClause[] = []
+  level: number = 0
+  kind: VariableKind = 'constant'
 
   constructor({ formulaContext }: InterpreterConfig) {
     super()
@@ -324,6 +328,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const parentType: ExpressionType = 'Column'
 
+    this.kind = 'expression'
+
     if (column) {
       const { errorMessages, newType } = intersectType(type, parentType)
       return { codeFragments: [{ ...columnFragment, name: `$${column.name}`, errors: errorMessages }], type: newType }
@@ -345,7 +351,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const database = this.formulaContext.findDatabase(namespaceId)
 
-    const parentType: FormulaType = 'Table'
+    const parentType: FormulaType = 'Block'
+
+    this.kind = 'expression'
 
     if (database) {
       const { errorMessages, newType } = intersectType(type, parentType)
@@ -375,7 +383,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const variable = this.formulaContext.findVariable(namespaceId, variableId)
 
+    this.kind = 'expression'
+
     if (variable) {
+      this.variableDependencies.push({ namespaceId, variableId })
+      this.level = Math.max(this.level, variable.t.level + 1)
+
       const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
       return { codeFragments: [{ ...variableFragment, name: `$${variable.t.name}`, errors: errorMessages }], type: newType }
     } else {
@@ -392,9 +405,13 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const clause = this.formulaContext.findFunctionClause(group, name)
 
+    this.kind = 'expression'
+
     const nameFragment = { ...token2fragment(ctx.FunctionName[0], 'any'), name: `${group}::${name}` }
 
     if (clause) {
+      this.functionDependencies.push(clause)
+
       const chainError: ErrorMessage[] = []
       if (firstArgumentType && !clause.chain) {
         chainError.push({ message: `${group}::${name} is not chainable`, type: 'deps' })

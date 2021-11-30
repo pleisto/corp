@@ -1,5 +1,5 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
-import { Argument, ContextInterface, FunctionClause, VariableDependency, VariableKind, ErrorMessage } from '..'
+import { Argument, ContextInterface } from '..'
 import {
   allTokens,
   AdditionOperator,
@@ -54,11 +54,7 @@ const errorProvider: IParserErrorMessageProvider = {
 }
 
 export class FormulaParser extends CstParser {
-  variableDependencies: VariableDependency[] = []
-  functionDependencies: FunctionClause[] = []
   formulaContext: ContextInterface
-  kind: VariableKind = 'constant'
-  runtimeErrors: ErrorMessage[] = []
 
   // Unfortunately no support for class fields with initializer in ES2015, only in esNext...
   // so the parsing rules are defined inside the constructor, as each parsing rule must be initialized by
@@ -93,17 +89,11 @@ export class FormulaParser extends CstParser {
   })
 
   public notExpression = this.RULE('notExpression', () => {
-    this.OR([
-      { ALT: () => this.SUBRULE(this.equalCompareExpression, { LABEL: 'rhs' }) },
-      {
-        ALT: () => {
-          this.AT_LEAST_ONE(() => {
-            this.CONSUME(Not, { LABEL: 'lhs' })
-          })
-          this.SUBRULE2(this.equalCompareExpression, { LABEL: 'rhs' })
-        }
-      }
-    ])
+    this.MANY(() => {
+      this.CONSUME(Not, { LABEL: 'lhs' })
+    })
+
+    this.SUBRULE(this.equalCompareExpression, { LABEL: 'rhs' })
   })
 
   public equalCompareExpression = this.RULE('equalCompareExpression', () => {
@@ -170,37 +160,18 @@ export class FormulaParser extends CstParser {
     this.CONSUME(UUID)
     this.CONSUME(Sharp)
     this.CONSUME2(UUID)
-
-    if (!this.RECORDING_PHASE) {
-      this.kind = 'expression'
-    }
   })
 
   public variableExpression = this.RULE('variableExpression', () => {
     this.CONSUME(Dollar)
-    const namespaceToken = this.CONSUME(UUID)
+    this.CONSUME(UUID)
     this.CONSUME(At)
-    const variableToken = this.CONSUME2(UUID)
-
-    const namespaceId = namespaceToken.image
-    const variableId = variableToken.image
-
-    if (!this.RECORDING_PHASE) {
-      this.kind = 'expression'
-      const variable = this.formulaContext.findVariable(namespaceId, variableId)
-      if (variable) {
-        this.variableDependencies.push({ namespaceId, variableId, level: variable.t.level })
-      }
-    }
+    this.CONSUME2(UUID)
   })
 
   public blockExpression = this.RULE('blockExpression', () => {
     this.CONSUME(Dollar)
     this.CONSUME(UUID)
-
-    if (!this.RECORDING_PHASE) {
-      this.kind = 'expression'
-    }
   })
 
   public constantExpression = this.RULE('constantExpression', () => {
@@ -232,35 +203,15 @@ export class FormulaParser extends CstParser {
   })
 
   public FunctionCall = this.RULE('FunctionCall', () => {
-    const functionGroupName = this.CONSUME(FunctionGroupName)
+    this.CONSUME(FunctionGroupName)
     this.CONSUME(DoubleColon)
-    const functionName = this.CONSUME(FunctionName)
-    const functionClause = this.formulaContext.findFunctionClause(functionGroupName.image, functionName.image)
+    this.CONSUME(FunctionName)
 
-    if (functionClause) {
-      // TODO Check effect
-      this.kind = 'expression'
-      this.functionDependencies.push(functionClause)
-    }
-
-    // TODO chain type check
-
-    this.OR([
-      {
-        // No params
-        ALT: () => {
-          this.CONSUME2(LParen)
-          this.CONSUME2(RParen)
-        }
-      },
-      {
-        ALT: () => {
-          this.CONSUME3(LParen)
-          this.SUBRULE2(this.Arguments)
-          this.CONSUME3(RParen)
-        }
-      }
-    ])
+    this.CONSUME2(LParen)
+    this.OPTION(() => {
+      this.SUBRULE2(this.Arguments)
+    })
+    this.CONSUME2(RParen)
   })
 
   public Arguments = this.RULE('Arguments', (args: undefined | Argument[]) => {

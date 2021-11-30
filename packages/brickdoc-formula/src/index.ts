@@ -5,11 +5,11 @@ export * from './functions'
 export * from './context'
 
 export type BasicType = 'number' | 'string' | 'boolean' | 'object' | 'array'
-export type ObjectType = 'Date' | 'Column' | 'Table'
+export type ObjectType = 'Date' | 'Column' | 'Block'
 
 export type FormulaType = BasicType | ObjectType | 'any'
 
-export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'table' | 'var'
+export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'block' | 'var'
 
 export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom' | string
 
@@ -165,11 +165,9 @@ export interface CodeFragment {
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }
-
 export interface VariableDependency {
   readonly variableId: VariableId
   readonly namespaceId: NamespaceId
-  readonly level?: number
 }
 
 export interface BaseVariableValue {

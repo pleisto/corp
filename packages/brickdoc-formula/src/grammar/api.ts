@@ -36,6 +36,7 @@ export interface BaseParseResult {
   readonly cst?: CstNode
   readonly errorType?: 'lex' | 'parse'
   readonly kind?: VariableKind
+  readonly level: number
   readonly errorMessages: ErrorMessage[]
   readonly variableDependencies?: VariableDependency[]
   readonly functionDependencies?: FunctionClause[]
@@ -90,10 +91,12 @@ export interface ErrorInterpretResult extends BaseInterpretResult {
 export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 
 export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, name } }: ParseInput): ParseResult => {
+  let level = 0
   if (!variableId) {
     return {
       success: false,
       cst: null,
+      level,
       errorType: 'lex',
       completions: [],
       errorMessages: [{ message: 'Miss variableId', type: 'fatal' }],
@@ -107,6 +110,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     return {
       success: false,
       errorType: 'lex',
+      level,
       completions,
       errorMessages: lexResult.errors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]]
     }
@@ -123,26 +127,16 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
 
   completions = complete({ tokens, formulaContext, namespaceId, codeFragments })
 
+  level = codeFragmentVisitor.level
   const parseErrors: IRecognitionException[] = parser.errors
-  const runtimeErrors: ErrorMessage[] = parser.runtimeErrors
 
   if (parseErrors.length > 0) {
     return {
       success: false,
       errorType: 'parse',
       completions,
+      level,
       errorMessages: parseErrors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]],
-      cst,
-      codeFragments
-    }
-  }
-
-  if (runtimeErrors.length > 0) {
-    return {
-      success: false,
-      errorType: 'parse',
-      completions,
-      errorMessages: [runtimeErrors[0]],
       cst,
       codeFragments
     }
@@ -154,6 +148,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     return {
       success: false,
       cst,
+      level,
       errorType: 'parse',
       completions,
       errorMessages: [errorCodeFragment.errors[0]],
@@ -184,6 +179,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     return {
       success: false,
       cst,
+      level,
       errorType: 'parse',
       completions,
       errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
@@ -194,11 +190,12 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   return {
     success: true,
     cst,
+    level,
     errorMessages: [],
     completions,
-    kind: parser.kind,
-    variableDependencies: parser.variableDependencies,
-    functionDependencies: parser.functionDependencies,
+    kind: codeFragmentVisitor.kind,
+    variableDependencies: codeFragmentVisitor.variableDependencies,
+    functionDependencies: codeFragmentVisitor.functionDependencies,
     codeFragments
   }
 }
@@ -278,7 +275,7 @@ export const buildVariable = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId },
   view,
-  parseResult: { cst, kind, variableDependencies, functionDependencies },
+  parseResult: { cst, kind, variableDependencies, functionDependencies, level },
   interpretResult: { result }
 }: {
   formulaContext: ContextInterface
@@ -297,7 +294,7 @@ export const buildVariable = ({
     definition: input,
     dirty: false,
     variableValue: result,
-    level: Math.max(...variableDependencies.map(dependency => dependency.level), 0) + 1,
+    level,
     variableDependencies,
     functionDependencies
   }
@@ -320,7 +317,7 @@ export const castVariable = (
   const variableId = id
   const { type, value } = cacheValue as any
   const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
-  const { success, cst, kind, errorMessages, variableDependencies, codeFragments, functionDependencies } = parse(parseInput)
+  const { success, cst, kind, errorMessages, variableDependencies, codeFragments, functionDependencies, level } = parse(parseInput)
 
   const variableValue: VariableValue = success
     ? {
@@ -350,7 +347,7 @@ export const castVariable = (
     view,
     definition,
     codeFragments,
-    level: Math.max(...finalVariableDependencies.map(dependency => dependency.level), 0) + 1,
+    level,
     variableDependencies: finalVariableDependencies,
     functionDependencies: finalFunctionDependencies,
     dirty: false
@@ -391,7 +388,7 @@ export const quickInsert = async ({
   const meta = { namespaceId, variableId, name, input }
 
   const parseInput = { formulaContext, meta }
-  const { success, cst, kind, errorMessages, variableDependencies, functionDependencies } = parse(parseInput)
+  const { success, cst, kind, level, errorMessages, variableDependencies, functionDependencies } = parse(parseInput)
 
   if (!success) {
     throw new Error(errorMessages[0].message)
@@ -408,7 +405,7 @@ export const quickInsert = async ({
     cst,
     kind,
     variableValue: result,
-    level: Math.max(...variableDependencies.map(dependency => dependency.level), 0) + 1,
+    level,
     variableDependencies,
     functionDependencies
   }

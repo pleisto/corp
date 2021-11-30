@@ -133,7 +133,7 @@ describe('Context', () => {
     const bar = formulaContext.findVariable(anotherBlockId, anotherVariableId)
 
     expect(bar.t.functionDependencies).toEqual([])
-    expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId, level: 1 }])
+    expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
 
     // const input = `=$${anotherBlockId}#${anotherVariableId}`
     // const newMeta = { ...meta, input }
@@ -183,9 +183,10 @@ describe('Context', () => {
   3. [NumberLiteral]
   4. [BooleanLiteral]
   5. [StringLiteral]
-  6. [Dollar]
-  7. [FunctionGroupName]
-  8. [Not]
+  6. [Dollar, UUID, At]
+  7. [Dollar, UUID, Sharp]
+  8. [Dollar, UUID]
+  9. [FunctionGroupName]
 but found: '&'`,
         type: 'syntax'
       }
