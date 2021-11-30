@@ -115,7 +115,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
           const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
 
           if (interpretResult.success) {
-            const newInput = parseResult.codeFragments.map(fragment => fragment.name).join(' ')
+            const newInput = parseResult.codeFragments.map(fragment => fragment.name).join('')
             const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
             updateVariable(variable)
             updateValue(newInput)

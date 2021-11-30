@@ -68,7 +68,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         onVisibleChange={handleDefaultPopoverVisibleChange}
         editor={editor}
         formulaValue={
-          variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join(' ')}` : variableT?.definition
+          variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join('')}` : variableT?.definition
         }
         formulaResult={variableT?.variableValue.display}
         formulaContextActions={extension.options.formulaContextActions}
