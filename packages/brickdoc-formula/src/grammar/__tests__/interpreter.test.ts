@@ -134,33 +134,18 @@ describe('Context', () => {
 
     expect(bar.t.functionDependencies).toEqual([])
     expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
+    expect(bar.t.flattenVariableDependencies).toEqual(new Set([{ namespaceId, variableId: fooVariableId }]))
 
-    // const input = `=$${anotherBlockId}#${anotherVariableId}`
-    // const newMeta = { ...meta, input }
-    // const { cst, errorMessages } = parse({ ...parseInput, meta: newMeta })
-    // expect(errorMessages).toEqual([])
-
-    // const { result, errorMessages: errorMessages3 } = interpret({ cst, meta: newMeta, formulaContext })
-    // expect(errorMessages3).toEqual([])
-    // expect(result).toEqual(34)
-    // const baseVariableDependency = {
-    //   kind: 'expression',
-    //   namespaceId,
-    //   variableId: fooVariableId
-    // }
-    // expect(formulaContext.context[anotherBlockId][anotherVariableId].variableDependencies).toEqual([
-    //   { ...baseVariableDependency, variableDependencies: [] }
-    // ])
-    // expect(formulaContext.context[anotherBlockId][anotherVariableId].flattenVariableDependencies).toEqual([baseVariableDependency])
-
-    // TODO Circular dependency check
-    // const { errorMessages: circularDependencyErrorMessages, flattenVariableDependencies } = parse({
-    //   ...parseInput,
-    //   input,
-    //   meta: { ...meta, variableId: fooVariableId }
-    // })
-    // expect(flattenVariableDependencies).toEqual([baseVariableDependency])
-    // expect(circularDependencyErrorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
+    const input = `=$${anotherBlockId}@${anotherVariableId}`
+    const newMeta = { namespaceId, variableId: fooVariableId, name: 'bar', input }
+    const { errorMessages, flattenVariableDependencies } = parse({ ...parseInput, meta: newMeta })
+    expect(flattenVariableDependencies).toEqual(
+      new Set([
+        { namespaceId, variableId: fooVariableId },
+        { namespaceId: anotherBlockId, variableId: anotherVariableId }
+      ])
+    )
+    expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 
   it('PLUS', async () => {

@@ -41,6 +41,7 @@ export interface BaseParseResult {
   readonly variableDependencies?: VariableDependency[]
   readonly functionDependencies?: FunctionClause[]
   readonly codeFragments?: CodeFragment[]
+  readonly flattenVariableDependencies?: Set<VariableDependency>
   readonly completions: Completion[]
 }
 
@@ -52,6 +53,7 @@ export interface SuccessParseResult extends BaseParseResult {
   readonly variableDependencies: VariableDependency[]
   readonly functionDependencies: FunctionClause[]
   readonly codeFragments: CodeFragment[]
+  readonly flattenVariableDependencies: Set<VariableDependency>
 }
 
 export interface ErrorParseResult extends BaseParseResult {
@@ -156,22 +158,21 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     }
   }
 
-  // const oldVariable = formulaContext.findVariable(namespaceId, variableId)
-
-  // if (oldVariable) {
-  //   const level = oldVariable.t.level
-  // }
-
-  // const flattenVariableDependencies = parser.flattenVariableDependencies
-  // if (flattenVariableDependencies.find(d => d.namespaceId === namespaceId && d.variableId === variableId)) {
-  //   return {
-  //     success: false,
-  //     errorType: 'parse',
-  //     errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
-  //     cst,
-  //     codeFragments
-  //   }
-  // }
+  const flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
+  if ([...flattenVariableDependencies].find(v => v.namespaceId === namespaceId && v.variableId === variableId)) {
+    return {
+      success: false,
+      errorType: 'parse',
+      errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
+      level,
+      completions,
+      cst,
+      flattenVariableDependencies,
+      variableDependencies: codeFragmentVisitor.variableDependencies,
+      functionDependencies: codeFragmentVisitor.functionDependencies,
+      codeFragments
+    }
+  }
 
   const sameNameVariable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
 
@@ -183,6 +184,9 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       errorType: 'parse',
       completions,
       errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
+      flattenVariableDependencies,
+      variableDependencies: codeFragmentVisitor.variableDependencies,
+      functionDependencies: codeFragmentVisitor.functionDependencies,
       codeFragments
     }
   }
@@ -194,6 +198,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     errorMessages: [],
     completions,
     kind: codeFragmentVisitor.kind,
+    flattenVariableDependencies,
     variableDependencies: codeFragmentVisitor.variableDependencies,
     functionDependencies: codeFragmentVisitor.functionDependencies,
     codeFragments
@@ -275,7 +280,7 @@ export const buildVariable = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId },
   view,
-  parseResult: { cst, kind, variableDependencies, functionDependencies, level },
+  parseResult: { cst, kind, variableDependencies, functionDependencies, level, flattenVariableDependencies },
   interpretResult: { result }
 }: {
   formulaContext: ContextInterface
@@ -296,6 +301,7 @@ export const buildVariable = ({
     variableValue: result,
     level,
     variableDependencies,
+    flattenVariableDependencies,
     functionDependencies
   }
 
@@ -317,7 +323,17 @@ export const castVariable = (
   const variableId = id
   const { type, value } = cacheValue as any
   const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
-  const { success, cst, kind, errorMessages, variableDependencies, codeFragments, functionDependencies, level } = parse(parseInput)
+  const {
+    success,
+    cst,
+    kind,
+    errorMessages,
+    variableDependencies,
+    flattenVariableDependencies,
+    codeFragments,
+    functionDependencies,
+    level
+  } = parse(parseInput)
 
   const variableValue: VariableValue = success
     ? {
@@ -336,6 +352,7 @@ export const castVariable = (
 
   const finalVariableDependencies = variableDependencies || []
   const finalFunctionDependencies = functionDependencies || []
+  const finalFlattenVariableDependencies = flattenVariableDependencies || new Set()
 
   return {
     namespaceId,
@@ -349,6 +366,7 @@ export const castVariable = (
     codeFragments,
     level,
     variableDependencies: finalVariableDependencies,
+    flattenVariableDependencies: finalFlattenVariableDependencies,
     functionDependencies: finalFunctionDependencies,
     dirty: false
   }
@@ -388,7 +406,8 @@ export const quickInsert = async ({
   const meta = { namespaceId, variableId, name, input }
 
   const parseInput = { formulaContext, meta }
-  const { success, cst, kind, level, errorMessages, variableDependencies, functionDependencies } = parse(parseInput)
+  const { success, cst, kind, level, errorMessages, variableDependencies, functionDependencies, flattenVariableDependencies } =
+    parse(parseInput)
 
   if (!success) {
     throw new Error(errorMessages[0].message)
@@ -396,7 +415,7 @@ export const quickInsert = async ({
 
   const { result } = await interpret({ cst, formulaContext, meta })
 
-  const variable = {
+  const variable: VariableData = {
     namespaceId,
     variableId,
     name,
@@ -407,7 +426,8 @@ export const quickInsert = async ({
     variableValue: result,
     level,
     variableDependencies,
-    functionDependencies
+    functionDependencies,
+    flattenVariableDependencies
   }
 
   void formulaContext.commitVariable({ variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions }) })
