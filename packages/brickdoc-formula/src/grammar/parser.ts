@@ -189,7 +189,7 @@ export class FormulaParser extends CstParser {
       this.kind = 'expression'
       const variable = this.formulaContext.findVariable(namespaceId, variableId)
       if (variable) {
-        this.variableDependencies.push({ namespaceId, variableId })
+        this.variableDependencies.push({ namespaceId, variableId, level: variable.t.level })
       }
     }
   })

@@ -4,7 +4,6 @@ import {
   ContextInterface,
   FunctionClause,
   NamespaceId,
-  VariableData,
   VariableDependency,
   VariableId,
   BackendActions,
@@ -168,7 +167,7 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  public trackDependency = ({ variableDependencies, namespaceId, variableId, functionDependencies }: VariableData): void => {
+  public trackDependency = ({ t: { variableDependencies, namespaceId, variableId, functionDependencies } }: VariableInterface): void => {
     variableDependencies?.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
       this.reverseVariableDependencies[dependencyKey] ||= []
@@ -183,6 +182,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public handleBroadcast = (variable: VariableInterface): void => {
+    void variable.afterUpdate()
     const dependencyKey = variableKey(variable.t.namespaceId, variable.t.variableId)
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
       void this.context[variableKey(namespaceId, variableId)]!.refresh(this)
@@ -193,22 +193,28 @@ export class FormulaContext implements ContextInterface {
   public commitVariable = async ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }): Promise<void> => {
     const { namespaceId, variableId } = variable.t
     const isNew = !this.context[variableKey(namespaceId, variableId)]
-    let shouldBroadcast = false
-    if (isNew) {
-      variable.backendActions = this.backendActions
-    } else {
+
+    // 1. clear old dependencies
+    if (!isNew) {
+      // Update
       void this.clearDependency(namespaceId, variableId)
-      shouldBroadcast = true
     }
+
+    // 2. replace variable object
     this.context[variableKey(namespaceId, variableId)] = variable
+
+    // 3. update name counter
     const match = variable.t.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
       const realName = ReverseCastName[defaultName]
       this.variableNameCounter[realName][namespaceId] = Math.max(this.variableNameCounter[realName][namespaceId] || 0, Number(count))
     }
-    void this.trackDependency(variable.t)
 
+    // 4. track dependencies
+    void this.trackDependency(variable)
+
+    // 5. persist
     if (isNew) {
       if (!skipCreate) {
         void variable.invokeBackendCreate()
@@ -217,11 +223,8 @@ export class FormulaContext implements ContextInterface {
       void variable.invokeBackendUpdate()
     }
 
-    void variable.afterUpdate()
-
-    if (shouldBroadcast) {
-      void this.handleBroadcast(variable)
-    }
+    // 6. broadcast update
+    void this.handleBroadcast(variable)
   }
 
   public removeVariable = async (namespaceId: NamespaceId, variableId: VariableId): Promise<void> => {

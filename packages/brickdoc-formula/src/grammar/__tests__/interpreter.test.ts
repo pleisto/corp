@@ -133,7 +133,7 @@ describe('Context', () => {
     const bar = formulaContext.findVariable(anotherBlockId, anotherVariableId)
 
     expect(bar.t.functionDependencies).toEqual([])
-    expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
+    expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId, level: 1 }])
 
     // const input = `=$${anotherBlockId}#${anotherVariableId}`
     // const newMeta = { ...meta, input }

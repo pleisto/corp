@@ -148,17 +148,6 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     }
   }
 
-  // const flattenVariableDependencies = parser.flattenVariableDependencies
-  // if (flattenVariableDependencies.find(d => d.namespaceId === namespaceId && d.variableId === variableId)) {
-  //   return {
-  //     success: false,
-  //     errorType: 'parse',
-  //     errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
-  //     cst,
-  //     codeFragments
-  //   }
-  // }
-
   const errorCodeFragment = codeFragments.find(f => f.errors.length)
 
   if (errorCodeFragment) {
@@ -172,9 +161,26 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
     }
   }
 
-  const variable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
+  // const oldVariable = formulaContext.findVariable(namespaceId, variableId)
 
-  if (variable) {
+  // if (oldVariable) {
+  //   const level = oldVariable.t.level
+  // }
+
+  // const flattenVariableDependencies = parser.flattenVariableDependencies
+  // if (flattenVariableDependencies.find(d => d.namespaceId === namespaceId && d.variableId === variableId)) {
+  //   return {
+  //     success: false,
+  //     errorType: 'parse',
+  //     errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
+  //     cst,
+  //     codeFragments
+  //   }
+  // }
+
+  const sameNameVariable = formulaContext.listVariables(namespaceId).find(v => v.t.variableId !== variableId && v.t.name === name)
+
+  if (sameNameVariable) {
     return {
       success: false,
       cst,
@@ -291,6 +297,7 @@ export const buildVariable = ({
     definition: input,
     dirty: false,
     variableValue: result,
+    level: Math.max(...variableDependencies.map(dependency => dependency.level), 0) + 1,
     variableDependencies,
     functionDependencies
   }
@@ -301,13 +308,13 @@ export const buildVariable = ({
     oldVariable.t = t
     return oldVariable
   } else {
-    return new VariableClass({ t })
+    return new VariableClass({ t, backendActions: formulaContext.backendActions })
   }
 }
 
 export const castVariable = (
   formulaContext: ContextInterface,
-  { name, definition, cacheValue, updatedAt, blockId, id, view }: Formula
+  { name, definition, cacheValue, blockId, id, view }: Formula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
@@ -330,6 +337,9 @@ export const castVariable = (
         errorMessages: errorMessages as [ErrorMessage, ...ErrorMessage[]]
       }
 
+  const finalVariableDependencies = variableDependencies || []
+  const finalFunctionDependencies = functionDependencies || []
+
   return {
     namespaceId,
     variableId,
@@ -340,8 +350,9 @@ export const castVariable = (
     view,
     definition,
     codeFragments,
-    variableDependencies,
-    functionDependencies,
+    level: Math.max(...finalVariableDependencies.map(dependency => dependency.level), 0) + 1,
+    variableDependencies: finalVariableDependencies,
+    functionDependencies: finalFunctionDependencies,
     dirty: false
   }
 }
@@ -362,7 +373,10 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: Formu
     .forEach(formula => {
       const variable = castVariable(formulaContext, formula)
 
-      void formulaContext.commitVariable({ variable: new VariableClass({ t: variable }), skipCreate: true })
+      void formulaContext.commitVariable({
+        variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions }),
+        skipCreate: true
+      })
     })
 }
 
@@ -394,9 +408,10 @@ export const quickInsert = async ({
     cst,
     kind,
     variableValue: result,
+    level: Math.max(...variableDependencies.map(dependency => dependency.level), 0) + 1,
     variableDependencies,
     functionDependencies
   }
 
-  void formulaContext.commitVariable({ variable: new VariableClass({ t: variable }) })
+  void formulaContext.commitVariable({ variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions }) })
 }

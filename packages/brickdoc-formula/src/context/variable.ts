@@ -15,8 +15,9 @@ export class VariableClass implements VariableInterface {
   updateHandler: VariableUpdateHandler
   backendActions: BackendActions
 
-  constructor({ t }: { t: VariableData }) {
+  constructor({ t, backendActions }: { t: VariableData; backendActions: BackendActions }) {
     this.t = t
+    this.backendActions = backendActions
   }
 
   public meta = (): VariableMetadata => {
