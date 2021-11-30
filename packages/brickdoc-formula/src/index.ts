@@ -205,6 +205,7 @@ export interface VariableData {
   variableValue: VariableValue
   cst: CstNode
   codeFragments?: CodeFragment[]
+  flattenVariableDependencies: Set<VariableDependency>
   variableDependencies: VariableDependency[]
   functionDependencies: FunctionClause[]
 }

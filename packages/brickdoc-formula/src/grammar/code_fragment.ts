@@ -49,6 +49,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   formulaContext: ContextInterface
   variableDependencies: VariableDependency[] = []
   functionDependencies: FunctionClause[] = []
+  flattenVariableDependencies: Set<VariableDependency> = new Set()
   level: number = 0
   kind: VariableKind = 'constant'
 
@@ -387,6 +388,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     if (variable) {
       this.variableDependencies.push({ namespaceId, variableId })
+      this.flattenVariableDependencies = new Set([{ namespaceId, variableId }, ...variable.t.flattenVariableDependencies])
       this.level = Math.max(this.level, variable.t.level + 1)
 
       const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
