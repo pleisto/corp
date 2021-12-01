@@ -1,12 +1,12 @@
 import React from 'react'
-import { Avatar, Button, Col, Input, List, Modal, Popover, Row } from '@brickdoc/design-system'
-import { VariableInterface, VariableData, Completion, FunctionCompletion, VariableCompletion } from '@brickdoc/formula'
+import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
+import { VariableInterface, VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
 import { Editor } from '@tiptap/core'
 import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
-import { Formula, Table } from '@brickdoc/design-system/components/icon'
+import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -163,45 +163,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     })
   }
 
-  const completeOptions = completions.map(c => ({
-    ...c,
-    icon: c.kind === 'function' ? <Table /> : <Formula />
-  }))
-
-  const renderFunctionPreview = ({ preview }: FunctionCompletion): React.ReactElement => {
-    return (
-      <>
-        <ul>
-          <li>description: {preview.description}</li>
-          <li>args: {JSON.stringify(preview.args)}</li>
-          <li>returns: {preview.returns}</li>
-          <li>examples: {JSON.stringify(preview.examples)}</li>
-        </ul>
-      </>
-    )
-  }
-  const renderVariablePreview = ({ preview }: VariableCompletion): React.ReactElement => {
-    return (
-      <>
-        <ul>
-          <li>definition: {preview.definition}</li>
-          <li>value: {String(preview.variableValue.value)}</li>
-          <li>type: {preview.variableValue.type}</li>
-        </ul>
-      </>
-    )
-  }
-
-  const renderPreview = (completion: Completion): React.ReactNode => {
-    if (completion.kind === 'function') {
-      return renderFunctionPreview(completion)
-    } else {
-      return renderVariablePreview(completion)
-    }
-  }
-
-  const preview = completions[0] ? renderPreview(completions[0]) : 'Empty!'
-
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
@@ -230,24 +191,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         {!error && result}
       </div>
       <div className="formula-menu-divider" />
-      <Row className="formula-menu-complete">
-        <Col span={10}>
-          <List
-            size="small"
-            header={null}
-            footer={null}
-            dataSource={completeOptions}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta avatar={<Avatar icon={item.icon} />} title={item.name} description={item.namespace} />
-              </List.Item>
-            )}
-          />
-        </Col>
-        <Col span={14}>
-          <div className="formula-menu-complete-preview">{preview}</div>
-        </Col>
-      </Row>
+      <AutocompleteList completions={completions} />
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}
