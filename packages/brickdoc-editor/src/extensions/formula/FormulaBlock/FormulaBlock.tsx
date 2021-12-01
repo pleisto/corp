@@ -8,22 +8,19 @@ import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { FormulaOptions } from '..'
 import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
-import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
   const { getVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
   const attributes = node.attrs.formula
-  const variable = getVariable(attributes.id)
-  const [variableT, setVariableT] = React.useState(variable?.t)
+  const [variable, setVariable] = React.useState(getVariable(attributes.id))
 
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
 
   React.useEffect(() => {
-    setVariableT(variable?.t)
     variable?.onUpdate(t => {
-      setVariableT(t)
+      setVariable(t)
     })
   }, [variable])
 
@@ -50,7 +47,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     success_expression_array: 6
   }
 
-  const activeColorIndex = variableT ? COLOR_ARRAY[variableTypeMeta(variableT)] || 0 : 0
+  const activeColorIndex = variable ? COLOR_ARRAY[variableTypeMeta(variable.t)] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && node.attrs.isNew) {
@@ -60,23 +57,17 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   return (
     <BlockWrapper as="span" editor={editor}>
-      <FormulaEditor />
       <FormulaMenu
         node={node}
         getPos={getPos}
-        variableId={variableT?.variableId}
-        formulaName={variableT?.name}
         defaultVisible={node.attrs.isNew}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         editor={editor}
-        formulaValue={
-          variableT?.codeFragments ? `=${variableT.codeFragments.map(fragment => fragment.name).join('')}` : variableT?.definition
-        }
-        formulaResult={variableT?.variableValue.display}
         formulaContextActions={extension.options.formulaContextActions}
         updateFormula={updateFormula}
-        updateVariableT={setVariableT}>
-        {variableT ? (
+        variable={variable}
+        updateVariable={setVariable}>
+        {variable ? (
           <span
             className="brickdoc-formula"
             style={{
@@ -84,8 +75,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
             }}>
-            {variableT?.name}:{' '}
-            {variableT.variableValue.success ? variableT.variableValue.display : variableT.variableValue.errorMessages[0].message}
+            {variable.t.name}:{' '}
+            {variable.t.variableValue.success ? variable.t.variableValue.display : variable.t.variableValue.errorMessages[0].message}
           </span>
         ) : (
           <span className="brickdoc-formula-placeholder">

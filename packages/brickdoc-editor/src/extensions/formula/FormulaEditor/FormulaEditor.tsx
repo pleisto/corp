@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
 import { FunctionCallBlockExtension } from './extensions/functionCall'
 import { DisableNewLineExtension } from './extensions/disableNewLine'
+import { Editor } from '@tiptap/core'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FormulaEditorProps {}
+export interface FormulaEditorProps {
+  content: JSONContent | undefined
+  updateContent: (editor: Editor) => void
+}
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = () => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateContent }) => {
   const editor = useEditor({
     extensions: [Document, Text, Paragraph, FunctionCallBlockExtension, DisableNewLineExtension],
     content: '<p>123<function-call></function-call></p>',
     onUpdate: ({ editor, transaction }) => {
+      updateContent(editor)
       if (transaction.selection.from === transaction.selection.to) {
         const position = transaction.selection.from - 1
 
@@ -46,6 +50,12 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = () => {
       }
     }
   })
+
+  useEffect(() => {
+    if (editor && !editor.isDestroyed && content) {
+      editor.commands.replaceRoot(content)
+    }
+  }, [editor, content])
 
   return (
     <>

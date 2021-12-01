@@ -1,11 +1,14 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { Node, mergeAttributes, JSONContent } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
+import { SetDocAttrStep } from '../../../../sync/SetDocAttrStep'
 import { FunctionCall } from './FunctionCall/FunctionCall'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     functionCallBlock: {
       setFunctionCallBlock: () => ReturnType
+      setDocAttrs: (newAttrs: Record<string, any>) => ReturnType
+      replaceRoot: (content: JSONContent) => ReturnType
     }
   }
 }
@@ -50,6 +53,27 @@ export const FunctionCallBlockExtension = Node.create<FunctionCallBlockOptions>(
         () =>
         ({ chain }) => {
           return chain().insertContent(this.name).run()
+        },
+      setDocAttrs:
+        newAttrs =>
+        ({ tr, dispatch }) => {
+          if (dispatch) {
+            tr.step(new SetDocAttrStep(newAttrs))
+          }
+          return true
+        },
+      replaceRoot:
+        content =>
+        ({ chain, can, dispatch }) => {
+          const chainedCommands = dispatch ? chain() : can().chain()
+          return (
+            chainedCommands
+              // replaceRoot will not record in history because it is an initialization
+              .setMeta('addToHistory', false)
+              .setContent(content, false)
+              .setDocAttrs(content.attrs ?? {})
+              .run()
+          )
         }
     }
   }
