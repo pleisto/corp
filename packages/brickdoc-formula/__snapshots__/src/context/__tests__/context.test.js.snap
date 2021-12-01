@@ -2,6 +2,26 @@
 
 exports[`Context commitVariable normal 1`] = `
 Object {
+  "codeFragments": Array [
+    Object {
+      "code": "UUID",
+      "errors": Array [],
+      "name": "$foo",
+      "type": "any",
+    },
+    Object {
+      "code": "Plus",
+      "errors": Array [],
+      "name": "+",
+      "type": "number",
+    },
+    Object {
+      "code": "UUID",
+      "errors": Array [],
+      "name": "$bar",
+      "type": "any",
+    },
+  ],
   "cst": Object {
     "children": Object {
       "Equal": Array [

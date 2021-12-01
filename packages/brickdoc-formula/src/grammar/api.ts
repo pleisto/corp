@@ -280,7 +280,7 @@ export const buildVariable = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId },
   view,
-  parseResult: { cst, kind, variableDependencies, functionDependencies, level, flattenVariableDependencies },
+  parseResult: { cst, kind, codeFragments, variableDependencies, functionDependencies, level, flattenVariableDependencies },
   interpretResult: { result }
 }: {
   formulaContext: ContextInterface
@@ -296,6 +296,7 @@ export const buildVariable = ({
     cst,
     kind,
     view,
+    codeFragments,
     definition: input,
     dirty: false,
     variableValue: result,
@@ -406,8 +407,17 @@ export const quickInsert = async ({
   const meta = { namespaceId, variableId, name, input }
 
   const parseInput = { formulaContext, meta }
-  const { success, cst, kind, level, errorMessages, variableDependencies, functionDependencies, flattenVariableDependencies } =
-    parse(parseInput)
+  const {
+    success,
+    cst,
+    codeFragments,
+    kind,
+    level,
+    errorMessages,
+    variableDependencies,
+    functionDependencies,
+    flattenVariableDependencies
+  } = parse(parseInput)
 
   if (!success) {
     throw new Error(errorMessages[0].message)
@@ -423,6 +433,7 @@ export const quickInsert = async ({
     definition: input,
     cst,
     kind,
+    codeFragments,
     variableValue: result,
     level,
     variableDependencies,
