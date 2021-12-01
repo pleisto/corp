@@ -58,7 +58,7 @@ export class VariableClass implements VariableInterface {
 
   public afterUpdate = (): void => {
     if (this.updateHandler) {
-      this.updateHandler(this.t)
+      this.updateHandler(this)
     }
   }
 

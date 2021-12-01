@@ -4,9 +4,10 @@ import { BubbleMenu } from '../BubbleMenu'
 
 const formulaContextActions: FormulaOptions['formulaContextActions'] = {
   getFormulaContext: (): null => null,
-  getVariable: (variableId: string): null => null,
+  getVariable: (variableId: string): undefined => undefined,
   removeVariable: (variableId: string): void => {},
-  calculate: (): void => {}
+  calculate: (): void => {},
+  codeFragmentsToJSONContent: () => undefined
 }
 
 interface MockEditor {

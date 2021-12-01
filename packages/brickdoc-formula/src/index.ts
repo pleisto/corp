@@ -210,7 +210,7 @@ export interface VariableData {
   functionDependencies: FunctionClause[]
 }
 
-export type VariableUpdateHandler = (data: VariableData) => void
+export type VariableUpdateHandler = (variable: VariableInterface) => void
 
 export interface VariableMetadata {
   readonly namespaceId: NamespaceId
