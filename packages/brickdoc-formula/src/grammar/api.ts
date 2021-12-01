@@ -429,6 +429,8 @@ export const quickInsert = async ({
     functionDependencies,
     flattenVariableDependencies
   }
-
-  void formulaContext.commitVariable({ variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions }) })
+  // return new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
+  void (await formulaContext.commitVariable({
+    variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
+  }))
 }

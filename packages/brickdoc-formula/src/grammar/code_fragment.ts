@@ -388,7 +388,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     if (variable) {
       this.variableDependencies.push({ namespaceId, variableId })
-      this.flattenVariableDependencies = new Set([{ namespaceId, variableId }, ...variable.t.flattenVariableDependencies])
+      this.flattenVariableDependencies = new Set([
+        { namespaceId, variableId },
+        ...this.flattenVariableDependencies,
+        ...variable.t.flattenVariableDependencies
+      ])
       this.level = Math.max(this.level, variable.t.level + 1)
 
       const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
