@@ -365,6 +365,10 @@ Object {
       "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     },
+    Object {
+      "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+      "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+    },
   },
   "functionDependencies": Array [],
   "kind": "expression",

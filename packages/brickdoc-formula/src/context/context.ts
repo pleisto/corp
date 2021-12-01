@@ -146,6 +146,7 @@ export class FormulaContext implements ContextInterface {
     return Object.values(this.context).find((v: VariableInterface) => v.t.namespaceId === namespaceId && v.t.name === name)
   }
 
+  // TODO flattenVariableDependencies
   public clearDependency = (namespaceId: NamespaceId, variableId: VariableId): void => {
     const variable = this.findVariable(namespaceId, variableId)
     if (variable) {
@@ -167,6 +168,8 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
+  // TODO flattenVariableDependencies
+  // TODO update level
   public trackDependency = ({ t: { variableDependencies, namespaceId, variableId, functionDependencies } }: VariableInterface): void => {
     variableDependencies?.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
@@ -197,7 +200,7 @@ export class FormulaContext implements ContextInterface {
     // 1. clear old dependencies
     if (!isNew) {
       // Update
-      void this.clearDependency(namespaceId, variableId)
+      this.clearDependency(namespaceId, variableId)
     }
 
     // 2. replace variable object
@@ -212,7 +215,7 @@ export class FormulaContext implements ContextInterface {
     }
 
     // 4. track dependencies
-    void this.trackDependency(variable)
+    this.trackDependency(variable)
 
     // 5. persist
     if (isNew) {
