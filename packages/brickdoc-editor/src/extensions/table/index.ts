@@ -27,6 +27,7 @@ interface CalculateOptions {
   variable: VariableInterface | undefined
   name: string
   input: string
+  codeFragmentsToJSONContent: (codeFragments: CodeFragment[] | undefined) => JSONContent | undefined
   formulaContext: ContextInterface
   updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>> | undefined
   updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
@@ -42,7 +43,6 @@ export interface TableExtensionOptions {
     getVariable: (variableId: string) => VariableInterface | null | undefined
     removeVariable: (variableId: string) => void
     calculate: (options: CalculateOptions) => void
-    codeFragmentsToJSONContent: (codeFragments: CodeFragment[] | undefined) => JSONContent | undefined
   }
   useDatabaseRows: (parentId: string) => [
     DatabaseRows,

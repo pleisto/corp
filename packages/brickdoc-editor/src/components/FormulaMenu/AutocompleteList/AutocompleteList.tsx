@@ -4,6 +4,8 @@ import cx from 'classnames'
 import { Icon } from '@brickdoc/design-system'
 import { Completion, FunctionCompletion, VariableCompletion } from '@brickdoc/formula'
 import './AutocompleteList.less'
+import { FormulaEditor } from '../../../extensions/formula/FormulaEditor/FormulaEditor'
+import { codeFragmentsToJSONContent } from '../../../helpers/formula'
 
 export interface AutocompleteListProps {
   completions: Completion[]
@@ -70,12 +72,15 @@ const COMPLETION_STYLE_META: {
     descKey: 'variable',
     render: (completion: Completion): React.ReactElement => {
       const { preview } = completion as VariableCompletion
+      const content = codeFragmentsToJSONContent(preview.codeFragments)
       return (
         <div className="formula-autocomplete-preview-variable">
           <div className="autocomplete-preview-name">{preview.name}</div>
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Definition</div>
-            <div className="autocomplete-preview-definition">{preview.definition}</div>
+            <div className="autocomplete-preview-definition">
+              <FormulaEditor content={content} editable={false} />
+            </div>
           </div>
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Type</div>

@@ -10,17 +10,19 @@ import './FormulaEditor.less'
 
 export interface FormulaEditorProps {
   content: JSONContent | undefined
-  updateContent: (editor: Editor) => void
+  editable: boolean
+  updateContent?: (editor: Editor) => void
 }
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateContent }) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, updateContent }) => {
   const editor = useEditor({
+    editable,
     extensions: [Document, Text, Paragraph, CodeFragmentBlockExtension, DisableNewLineExtension],
     onUpdate: ({ editor, transaction }) => {
-      updateContent(editor)
+      updateContent?.(editor)
       if (transaction.selection.from === transaction.selection.to) {
         const position = transaction.selection.from - 1
 

@@ -8,6 +8,7 @@ import { Editor, JSONContent } from '@tiptap/core'
 import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
+import { codeFragmentsToJSONContent } from '../../helpers/formula'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -51,7 +52,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const definition = formulaValue?.substr(1)
 
   const codeFragments = variable?.t.codeFragments
-  const defaultContent = formulaContextActions.codeFragmentsToJSONContent(codeFragments)
+  const defaultContent = codeFragmentsToJSONContent(codeFragments)
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
@@ -103,6 +104,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       variable,
       name: finalName,
       input,
+      codeFragmentsToJSONContent,
       formulaContext,
       updateVariable,
       updateError: setError,
@@ -120,6 +122,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       variable,
       name: e.target.value,
       input,
+      codeFragmentsToJSONContent,
       formulaContext,
       updateVariable,
       updateError: setError,
@@ -187,7 +190,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       </div>
       <div className="formula-menu-row">
         <div className="formula-menu-item">
-          <FormulaEditor content={content} updateContent={handleValueChange} />
+          <FormulaEditor content={content} updateContent={handleValueChange} editable={true} />
           {/* <Input className="formula-menu-field" value={value} onChange={handleValueChange} /> */}
         </div>
       </div>
