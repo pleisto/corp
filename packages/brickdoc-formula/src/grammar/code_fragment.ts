@@ -6,9 +6,8 @@ interface InterpreterConfig {
   readonly formulaContext: ContextInterface
 }
 
-const NeedSpaceTypes = [
+const SpaceBeforeTypes = [
   'Comma',
-  'LParen',
   'RParen',
   'Plus',
   'Div',
@@ -26,9 +25,29 @@ const NeedSpaceTypes = [
   'GreaterThanEqual'
 ]
 
+const SpaceAfterTypes = [
+  'Comma',
+  'LParen',
+  'Plus',
+  'Div',
+  'Minus',
+  'Multi',
+  'And',
+  'Or',
+  'Equal',
+  'NotEqual',
+  'Equal2',
+  'NotEqual2',
+  'LessThanEqual',
+  'LessThan',
+  'GreaterThan',
+  'GreaterThanEqual'
+]
+
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
-  const space = NeedSpaceTypes.includes(token.tokenType.name)
-  return { name: token.image, code: token.tokenType.name, errors: [], type, space, meta: {} }
+  const spaceBefore = SpaceBeforeTypes.includes(token.tokenType.name)
+  const spaceAfter = SpaceAfterTypes.includes(token.tokenType.name)
+  return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, meta: {} }
 }
 
 type ExpressionType = FormulaType | undefined
@@ -205,7 +224,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(rhsOperand => {
       const { codeFragments: rhsValue }: result = this.visit(rhsOperand, { type: childrenType })
-      codeFragments.push({ name: '&', code: 'Ampersand', type: 'any', errors: [], space: true, meta: {} }, ...rhsValue)
+      codeFragments.push(
+        { name: '&', code: 'Ampersand', type: 'any', errors: [], spaceBefore: true, spaceAfter: true, meta: {} },
+        ...rhsValue
+      )
     })
 
     const { errorMessages, newType } = intersectType(type, parentType)
@@ -278,7 +300,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(cst => {
       const { codeFragments: rhsCodeFragments, type: rhsType }: result = this.visit(cst, { type: 'any', firstArgumentType })
-      codeFragments.push({ name: '.', code: 'Dot', type: 'any', errors: [], space: true, meta: {} }, ...rhsCodeFragments)
+      codeFragments.push(
+        { name: '.', code: 'Dot', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: {} },
+        ...rhsCodeFragments
+      )
       firstArgumentType = rhsType
     })
 

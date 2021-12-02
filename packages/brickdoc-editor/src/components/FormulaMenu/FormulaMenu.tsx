@@ -92,8 +92,16 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const value = completion.value
     const attrs: CodeFragment =
       completion.kind === 'function'
-        ? { meta: {}, errors: [], name: value, code: 'Function', space: false, type: 'any' }
-        : { meta: { name: completion.preview.name }, errors: [], name: value, code: 'Variable', space: false, type: 'any' }
+        ? { meta: {}, errors: [], name: value, code: 'Function', spaceBefore: false, spaceAfter: false, type: 'any' }
+        : {
+            meta: { name: completion.preview.name },
+            errors: [],
+            name: value,
+            code: 'Variable',
+            spaceBefore: false,
+            spaceAfter: false,
+            type: 'any'
+          }
     const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: value }] }]
     const newContent = [...oldContent, ...completionContents]
     console.log({ completion, content, attrs, label: 'selectCompletion', newContent })
