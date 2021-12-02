@@ -18,7 +18,6 @@ const findNearestWord = (content: string, targetIndex: number): string | undefin
 export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateContent }) => {
   const editor = useEditor({
     extensions: [Document, Text, Paragraph, FunctionCallBlockExtension, DisableNewLineExtension],
-    content: '<p>123<function-call></function-call></p>',
     onUpdate: ({ editor, transaction }) => {
       updateContent(editor)
       if (transaction.selection.from === transaction.selection.to) {

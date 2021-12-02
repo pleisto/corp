@@ -28,7 +28,17 @@ export const FunctionCallBlockExtension = Node.create<FunctionCallBlockOptions>(
   defaultOptions: {},
 
   addAttributes() {
-    return {}
+    return {
+      functionCall: {
+        default: {
+          code: '',
+          name: '',
+          space: false,
+          type: 'any',
+          errors: []
+        }
+      }
+    }
   },
 
   parseHTML() {

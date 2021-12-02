@@ -4,7 +4,8 @@ import React from 'react'
 
 export interface FunctionCallProps extends NodeViewProps {}
 
-export const FunctionCall: React.FC<FunctionCallProps> = ({ editor }) => {
+export const FunctionCall: React.FC<FunctionCallProps> = ({ editor, node }) => {
+  console.log({ attrs: node.attrs })
   return (
     <NodeViewWrapper as="span">
       <span>function call</span>
