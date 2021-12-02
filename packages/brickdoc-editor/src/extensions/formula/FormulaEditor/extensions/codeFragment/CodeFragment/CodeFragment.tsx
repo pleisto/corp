@@ -4,6 +4,7 @@ import { NodeViewWrapper } from '@tiptap/react'
 import { CodeFragment as CodeFragmentType } from '@brickdoc/formula'
 import { StringLiteral } from '../CodeFragment/StringLiteral/StringLiteral'
 import { NumberLiteral } from '../CodeFragment/NumberLiteral/NumberLiteral'
+import './CodeFragment.less'
 
 export interface CodeFragmentProps extends NodeViewProps {}
 
@@ -14,7 +15,11 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
     case 'NumberLiteral':
       return <NumberLiteral content={content} />
     default:
-      return <span>{content}</span>
+      return (
+        <span className="brickdoc-formula-code-fragment-content" contentEditable={true}>
+          {content}
+        </span>
+      )
   }
 }
 
