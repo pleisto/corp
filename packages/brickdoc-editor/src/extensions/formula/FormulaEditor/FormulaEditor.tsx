@@ -59,7 +59,6 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateCon
   return (
     <>
       <EditorContent editor={editor} />
-      <div> auto complete </div>
     </>
   )
 }
