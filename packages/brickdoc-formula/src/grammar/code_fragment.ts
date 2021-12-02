@@ -6,8 +6,29 @@ interface InterpreterConfig {
   readonly formulaContext: ContextInterface
 }
 
+const NeedSpaceTypes = [
+  'Comma',
+  'LParen',
+  'RParen',
+  'Plus',
+  'Div',
+  'Minus',
+  'Multi',
+  'And',
+  'Or',
+  'Equal',
+  'NotEqual',
+  'Equal2',
+  'NotEqual2',
+  'LessThanEqual',
+  'LessThan',
+  'GreaterThan',
+  'GreaterThanEqual'
+]
+
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
-  return { name: token.image, code: token.tokenType?.name, errors: [], type }
+  const space = NeedSpaceTypes.includes(token.tokenType.name)
+  return { name: token.image, code: token.tokenType.name, errors: [], type, space }
 }
 
 type ExpressionType = FormulaType | undefined
@@ -184,7 +205,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(rhsOperand => {
       const { codeFragments: rhsValue }: result = this.visit(rhsOperand, { type: childrenType })
-      codeFragments.push({ name: '&', code: 'Ampersand', type: 'any', errors: [] }, ...rhsValue)
+      codeFragments.push({ name: '&', code: 'Ampersand', type: 'any', errors: [], space: true }, ...rhsValue)
     })
 
     const { errorMessages, newType } = intersectType(type, parentType)
@@ -257,7 +278,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(cst => {
       const { codeFragments: rhsCodeFragments, type: rhsType }: result = this.visit(cst, { type: 'any', firstArgumentType })
-      codeFragments.push({ name: '.', code: 'Dot', type: 'any', errors: [] }, ...rhsCodeFragments)
+      codeFragments.push({ name: '.', code: 'Dot', type: 'any', errors: [], space: true }, ...rhsCodeFragments)
       firstArgumentType = rhsType
     })
 
