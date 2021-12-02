@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
-import { VariableInterface } from '@brickdoc/formula'
+import { Completion, VariableInterface } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
@@ -130,6 +130,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     })
   }
 
+  const handleSelectCompletion = (completion: Completion): void => {
+    console.log({ completion, label: 'selectCompletion' })
+  }
+
   const handleSave = async (): Promise<void> => {
     if (!(name ?? defaultName) || !input || !variable) return
     if (!formulaContext) return
@@ -199,7 +203,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         {!error && variable?.t.variableValue.display}
       </div>
       <div className="formula-menu-divider" />
-      <AutocompleteList completions={completions} onSelect={completion => console.log('select completion', completion)} />
+      <AutocompleteList completions={completions} onSelect={handleSelectCompletion} />
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}

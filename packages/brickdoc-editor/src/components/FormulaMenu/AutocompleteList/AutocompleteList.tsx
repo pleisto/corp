@@ -91,7 +91,7 @@ const COMPLETION_STYLE_META: {
   }
 }
 
-export const AutocompleteList: React.FC<AutocompleteListProps> = ({ completions }) => {
+export const AutocompleteList: React.FC<AutocompleteListProps> = ({ completions, onSelect }) => {
   const [activeCompletionValue, setActiveCompletionValue] = React.useState(completions[0]?.value)
 
   React.useEffect(() => setActiveCompletionValue(completions[0]?.value), [completions])
@@ -104,6 +104,7 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({ completions 
 
   const handleSelect = (completion: Completion) => () => {
     setActiveCompletionValue(completion.value)
+    onSelect(completion)
   }
 
   const preview = React.useMemo(
