@@ -87,6 +87,15 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
+  const handleSelectCompletion = (completion: Completion): void => {
+    const oldContent = content?.content ?? []
+    const attrs: CodeFragment = { meta: {}, errors: [], name: completion.value, code: 'Completion', space: false, type: 'any' }
+    const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: completion.value }] }]
+    const newContent = [...oldContent, ...completionContents]
+    console.log({ completion, content, label: 'selectCompletion', newContent })
+    setContent({ type: 'doc', content: newContent })
+  }
+
   const handleValueChange = (editor: Editor): void => {
     const text = editor
       .getJSON()
@@ -129,15 +138,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       updateCompletions: setCompletions,
       updateDefaultName: setDefaultName
     })
-  }
-
-  const handleSelectCompletion = (completion: Completion): void => {
-    const oldContent = content?.content ?? []
-    const attrs: CodeFragment = { errors: [], name: completion.value, code: 'Completion', space: false, type: 'any' }
-    const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: completion.value }] }]
-    const newContent = [...oldContent, ...completionContents]
-    console.log({ completion, content, label: 'selectCompletion', newContent })
-    setContent({ type: 'doc', content: newContent })
   }
 
   const handleSave = async (): Promise<void> => {

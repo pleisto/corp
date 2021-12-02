@@ -1179,6 +1179,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -1186,6 +1187,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "1",
     "space": false,
     "type": "number",
@@ -1193,6 +1195,7 @@ Array [
   Object {
     "code": "Plus",
     "errors": Array [],
+    "meta": Object {},
     "name": "+",
     "space": true,
     "type": "number",
@@ -1200,6 +1203,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "1",
     "space": false,
     "type": "number",
@@ -1207,6 +1211,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -1214,6 +1219,7 @@ Array [
   Object {
     "code": "Div",
     "errors": Array [],
+    "meta": Object {},
     "name": "/",
     "space": true,
     "type": "number",
@@ -1221,6 +1227,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "2",
     "space": false,
     "type": "number",
@@ -1228,6 +1235,7 @@ Array [
   Object {
     "code": "Multi",
     "errors": Array [],
+    "meta": Object {},
     "name": "*",
     "space": true,
     "type": "number",
@@ -1235,6 +1243,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "0.1",
     "space": false,
     "type": "number",
@@ -1242,6 +1251,7 @@ Array [
   Object {
     "code": "Equal2",
     "errors": Array [],
+    "meta": Object {},
     "name": "==",
     "space": true,
     "type": "boolean",
@@ -1249,6 +1259,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -1256,6 +1267,7 @@ Array [
   Object {
     "code": "Not",
     "errors": Array [],
+    "meta": Object {},
     "name": "!",
     "space": false,
     "type": "boolean",
@@ -1263,6 +1275,7 @@ Array [
   Object {
     "code": "Not",
     "errors": Array [],
+    "meta": Object {},
     "name": "!",
     "space": false,
     "type": "boolean",
@@ -1270,6 +1283,7 @@ Array [
   Object {
     "code": "BooleanLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "true",
     "space": false,
     "type": "boolean",
@@ -1277,6 +1291,7 @@ Array [
   Object {
     "code": "And",
     "errors": Array [],
+    "meta": Object {},
     "name": "and",
     "space": true,
     "type": "boolean",
@@ -1284,6 +1299,7 @@ Array [
   Object {
     "code": "BooleanLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "false",
     "space": false,
     "type": "boolean",
@@ -1291,6 +1307,7 @@ Array [
   Object {
     "code": "Or",
     "errors": Array [],
+    "meta": Object {},
     "name": "or",
     "space": true,
     "type": "boolean",
@@ -1298,6 +1315,7 @@ Array [
   Object {
     "code": "BooleanLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "true",
     "space": false,
     "type": "boolean",
@@ -1305,6 +1323,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -1312,6 +1331,7 @@ Array [
   Object {
     "code": "Equal2",
     "errors": Array [],
+    "meta": Object {},
     "name": "==",
     "space": true,
     "type": "boolean",
@@ -1319,6 +1339,7 @@ Array [
   Object {
     "code": "StringLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "\\"123\\"",
     "space": false,
     "type": "string",
@@ -2087,6 +2108,7 @@ Array [
   Object {
     "code": "FunctionName",
     "errors": Array [],
+    "meta": Object {},
     "name": "custom::PLUS",
     "space": false,
     "type": "any",
@@ -2094,6 +2116,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -2101,6 +2124,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -2108,6 +2132,7 @@ Array [
   Object {
     "code": "FunctionName",
     "errors": Array [],
+    "meta": Object {},
     "name": "custom::FORTY_TWO",
     "space": false,
     "type": "any",
@@ -2115,6 +2140,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -2122,6 +2148,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -2129,6 +2156,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -2136,6 +2164,7 @@ Array [
   Object {
     "code": "Comma",
     "errors": Array [],
+    "meta": Object {},
     "name": ",",
     "space": true,
     "type": "any",
@@ -2143,6 +2172,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "1",
     "space": false,
     "type": "number",
@@ -2150,6 +2180,7 @@ Array [
   Object {
     "code": "Plus",
     "errors": Array [],
+    "meta": Object {},
     "name": "+",
     "space": true,
     "type": "number",
@@ -2157,6 +2188,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "1",
     "space": false,
     "type": "number",
@@ -2164,6 +2196,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -2662,6 +2695,7 @@ Array [
   Object {
     "code": "StringLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "\\"FOO\\"",
     "space": false,
     "type": "string",
@@ -2669,6 +2703,7 @@ Array [
   Object {
     "code": "Dot",
     "errors": Array [],
+    "meta": Object {},
     "name": ".",
     "space": true,
     "type": "any",
@@ -2676,6 +2711,7 @@ Array [
   Object {
     "code": "FunctionName",
     "errors": Array [],
+    "meta": Object {},
     "name": "core::T",
     "space": false,
     "type": "any",
@@ -2683,6 +2719,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -2690,6 +2727,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -2697,6 +2735,7 @@ Array [
   Object {
     "code": "Dot",
     "errors": Array [],
+    "meta": Object {},
     "name": ".",
     "space": true,
     "type": "any",
@@ -2704,6 +2743,7 @@ Array [
   Object {
     "code": "FunctionName",
     "errors": Array [],
+    "meta": Object {},
     "name": "core::T",
     "space": false,
     "type": "any",
@@ -2711,6 +2751,7 @@ Array [
   Object {
     "code": "LParen",
     "errors": Array [],
+    "meta": Object {},
     "name": "(",
     "space": true,
     "type": "any",
@@ -2718,6 +2759,7 @@ Array [
   Object {
     "code": "RParen",
     "errors": Array [],
+    "meta": Object {},
     "name": ")",
     "space": true,
     "type": "any",
@@ -2725,6 +2767,7 @@ Array [
   Object {
     "code": "Ampersand",
     "errors": Array [],
+    "meta": Object {},
     "name": "&",
     "space": true,
     "type": "any",
@@ -2732,6 +2775,7 @@ Array [
   Object {
     "code": "StringLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "\\"Zzz\\"",
     "space": false,
     "type": "string",
@@ -3045,6 +3089,7 @@ Array [
   Object {
     "code": "Dollar",
     "errors": Array [],
+    "meta": Object {},
     "name": "$",
     "space": false,
     "type": "any",
@@ -3057,6 +3102,7 @@ Array [
         "type": "deps",
       },
     ],
+    "meta": Object {},
     "name": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "space": false,
     "type": "any",
@@ -3064,6 +3110,7 @@ Array [
   Object {
     "code": "Plus",
     "errors": Array [],
+    "meta": Object {},
     "name": "+",
     "space": true,
     "type": "number",
@@ -3071,6 +3118,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "3",
     "space": false,
     "type": "number",
@@ -3384,6 +3432,7 @@ Array [
   Object {
     "code": "Dollar",
     "errors": Array [],
+    "meta": Object {},
     "name": "$",
     "space": false,
     "type": "any",
@@ -3396,6 +3445,7 @@ Array [
         "type": "deps",
       },
     ],
+    "meta": Object {},
     "name": "d986e871-cb85-4bd5-b675-87307f60b882",
     "space": false,
     "type": "any",
@@ -3403,6 +3453,7 @@ Array [
   Object {
     "code": "Plus",
     "errors": Array [],
+    "meta": Object {},
     "name": "+",
     "space": true,
     "type": "number",
@@ -3410,6 +3461,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "1",
     "space": false,
     "type": "number",
@@ -3723,6 +3775,7 @@ Array [
   Object {
     "code": "Dollar",
     "errors": Array [],
+    "meta": Object {},
     "name": "$",
     "space": false,
     "type": "any",
@@ -3735,6 +3788,7 @@ Array [
         "type": "deps",
       },
     ],
+    "meta": Object {},
     "name": "d986e871-cb85-4bd5-b675-87307f60b882",
     "space": false,
     "type": "any",
@@ -3742,6 +3796,7 @@ Array [
   Object {
     "code": "Plus",
     "errors": Array [],
+    "meta": Object {},
     "name": "+",
     "space": true,
     "type": "number",
@@ -3749,6 +3804,7 @@ Array [
   Object {
     "code": "NumberLiteral",
     "errors": Array [],
+    "meta": Object {},
     "name": "2",
     "space": false,
     "type": "number",
