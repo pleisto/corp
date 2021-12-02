@@ -1181,7 +1181,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1189,7 +1190,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -1197,7 +1199,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "+",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -1205,7 +1208,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -1213,7 +1217,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -1221,7 +1226,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "/",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -1229,7 +1235,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "2",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -1237,7 +1244,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "*",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -1245,7 +1253,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "0.1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -1253,7 +1262,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "==",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "boolean",
   },
   Object {
@@ -1261,7 +1271,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1269,7 +1280,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "!",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "boolean",
   },
   Object {
@@ -1277,7 +1289,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "!",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "boolean",
   },
   Object {
@@ -1285,7 +1298,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "true",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "boolean",
   },
   Object {
@@ -1293,7 +1307,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "and",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "boolean",
   },
   Object {
@@ -1301,7 +1316,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "false",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "boolean",
   },
   Object {
@@ -1309,7 +1325,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "or",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "boolean",
   },
   Object {
@@ -1317,7 +1334,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "true",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "boolean",
   },
   Object {
@@ -1325,7 +1343,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -1333,7 +1352,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "==",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "boolean",
   },
   Object {
@@ -1341,7 +1361,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "\\"123\\"",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "string",
   },
 ]
@@ -2110,7 +2131,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "custom::PLUS",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2118,7 +2140,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2126,7 +2149,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2134,7 +2158,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "custom::FORTY_TWO",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2142,7 +2167,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2150,7 +2176,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2158,7 +2185,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2166,7 +2194,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ",",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2174,7 +2203,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -2182,7 +2212,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "+",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -2190,7 +2221,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
   Object {
@@ -2198,7 +2230,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
 ]
@@ -2697,7 +2730,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "\\"FOO\\"",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "string",
   },
   Object {
@@ -2705,7 +2739,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ".",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2713,7 +2748,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "core::T",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2721,7 +2757,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2729,7 +2766,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2737,7 +2775,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ".",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2745,7 +2784,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "core::T",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2753,7 +2793,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "(",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -2761,7 +2802,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": ")",
-    "space": true,
+    "spaceAfter": false,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2769,7 +2811,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "&",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "any",
   },
   Object {
@@ -2777,7 +2820,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "\\"Zzz\\"",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "string",
   },
 ]
@@ -3091,7 +3135,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "$",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3104,7 +3149,8 @@ Array [
     ],
     "meta": Object {},
     "name": "$57622108-1337-4edd-833a-2557835bcfe0@cd4f6e1e-765e-4064-badd-b5585c7eff8e",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3112,7 +3158,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "+",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -3120,7 +3167,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "3",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
 ]
@@ -3434,7 +3482,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "$",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3447,7 +3496,8 @@ Array [
     ],
     "meta": Object {},
     "name": "$57622108-1337-4edd-833a-2557835bcfe0@d986e871-cb85-4bd5-b675-87307f60b882",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3455,7 +3505,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "+",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -3463,7 +3514,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "1",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
 ]
@@ -3777,7 +3829,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "$",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3790,7 +3843,8 @@ Array [
     ],
     "meta": Object {},
     "name": "$cd4f6e1e-765e-4064-badd-b5585c7eff8e@d986e871-cb85-4bd5-b675-87307f60b882",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -3798,7 +3852,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "+",
-    "space": true,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "number",
   },
   Object {
@@ -3806,7 +3861,8 @@ Array [
     "errors": Array [],
     "meta": Object {},
     "name": "2",
-    "space": false,
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "number",
   },
 ]

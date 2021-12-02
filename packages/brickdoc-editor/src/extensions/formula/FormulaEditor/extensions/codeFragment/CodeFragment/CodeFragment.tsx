@@ -27,7 +27,7 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
 
 export const CodeFragment: React.FC<CodeFragmentProps> = ({ editor, node }) => {
   const codeFragment = node.attrs as CodeFragmentType
-  const text = codeFragment.space ? ` ${codeFragment.name} ` : codeFragment.name
+  const text = `${codeFragment.spaceBefore ? ' ' : ''}${codeFragment.name}${codeFragment.spaceAfter ? ' ' : ''}`
 
   console.log({ attrs: node.attrs, text })
 
