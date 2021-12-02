@@ -207,7 +207,7 @@ Array [
         "type": "number",
       },
       Object {
-        "code": "FunctionName",
+        "code": "Function",
         "errors": Array [],
         "meta": Object {},
         "name": "excel::RAND",
@@ -588,7 +588,7 @@ Array [
   Object {
     "codeFragments": Array [
       Object {
-        "code": "FunctionName",
+        "code": "Function",
         "errors": Array [],
         "meta": Object {},
         "name": "excel::ABS",
@@ -1257,7 +1257,7 @@ Array [
   Object {
     "codeFragments": Array [
       Object {
-        "code": "FunctionName",
+        "code": "Function",
         "errors": Array [],
         "meta": Object {},
         "name": "excel::ABS",
@@ -1305,7 +1305,7 @@ Array [
         "type": "any",
       },
       Object {
-        "code": "UUID",
+        "code": "Variable",
         "errors": Array [
           Object {
             "message": "Variable not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",
@@ -1313,7 +1313,7 @@ Array [
           },
         ],
         "meta": Object {},
-        "name": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+        "name": "$d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
         "space": false,
         "type": "any",
       },

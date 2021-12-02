@@ -29,6 +29,7 @@ export const CodeFragmentBlockExtension = Node.create<CodeFragmentBlockOptions>(
 
   addAttributes() {
     return {
+      meta: { default: {} },
       code: { default: '' },
       name: { default: '' },
       space: { default: false },

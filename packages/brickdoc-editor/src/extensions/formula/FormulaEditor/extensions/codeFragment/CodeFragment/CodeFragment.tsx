@@ -5,6 +5,8 @@ import { CodeFragment as CodeFragmentType } from '@brickdoc/formula'
 import { StringLiteral } from '../CodeFragment/StringLiteral/StringLiteral'
 import { NumberLiteral } from '../CodeFragment/NumberLiteral/NumberLiteral'
 import './CodeFragment.less'
+import { Variable } from './Variable/variable'
+import { Function } from './Function/function'
 
 export interface CodeFragmentProps extends NodeViewProps {}
 
@@ -14,6 +16,10 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
       return <StringLiteral content={content} />
     case 'NumberLiteral':
       return <NumberLiteral content={content} />
+    case 'Variable':
+      return <Variable codeFragment={codeFragment} />
+    case 'Function':
+      return <Function codeFragment={codeFragment} content={content} />
     default:
       return <span className="brickdoc-formula-code-fragment-content">{content}</span>
   }
@@ -22,6 +28,8 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
 export const CodeFragment: React.FC<CodeFragmentProps> = ({ editor, node }) => {
   const codeFragment = node.attrs as CodeFragmentType
   const text = codeFragment.space ? ` ${codeFragment.name} ` : codeFragment.name
+
+  console.log({ attrs: node.attrs, text })
 
   return <NodeViewWrapper as="span">{renderContent(codeFragment, text)}</NodeViewWrapper>
 }
