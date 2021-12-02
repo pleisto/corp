@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
+import { Editor } from '@tiptap/core'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
 import { CodeFragmentBlockExtension } from './extensions/codeFragment'
 import { DisableNewLineExtension } from './extensions/disableNewLine'
-import { Editor } from '@tiptap/core'
+import './FormulaEditor.less'
 
 export interface FormulaEditorProps {
   content: JSONContent | undefined
@@ -58,7 +59,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateCon
 
   return (
     <>
-      <EditorContent editor={editor} />
+      <EditorContent className="brickdoc-formula-editor" editor={editor} />
     </>
   )
 }
