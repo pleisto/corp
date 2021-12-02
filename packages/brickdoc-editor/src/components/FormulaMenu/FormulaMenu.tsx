@@ -95,7 +95,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleValueChange = (editor: Editor): void => {
     const text = editor.getText()
     const input = `=${text}`
-    console.log({ content, input, label: 'updateValue' })
+    console.log({ content, editor, input, label: 'updateValue' })
     setInput(input)
     const finalName = name ?? defaultName
     if (!formulaContext || !input) return
