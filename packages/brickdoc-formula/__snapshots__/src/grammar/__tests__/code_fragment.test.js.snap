@@ -2106,7 +2106,7 @@ Object {
 exports[`Code fragment ok = custom::PLUS((custom::FORTY_TWO()), 1 + 1) 2`] = `
 Array [
   Object {
-    "code": "FunctionName",
+    "code": "Function",
     "errors": Array [],
     "meta": Object {},
     "name": "custom::PLUS",
@@ -2130,7 +2130,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "FunctionName",
+    "code": "Function",
     "errors": Array [],
     "meta": Object {},
     "name": "custom::FORTY_TWO",
@@ -2709,7 +2709,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "FunctionName",
+    "code": "Function",
     "errors": Array [],
     "meta": Object {},
     "name": "core::T",
@@ -2741,7 +2741,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "FunctionName",
+    "code": "Function",
     "errors": Array [],
     "meta": Object {},
     "name": "core::T",
@@ -3095,7 +3095,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "UUID",
+    "code": "Variable",
     "errors": Array [
       Object {
         "message": "Variable not found: cd4f6e1e-765e-4064-badd-b5585c7eff8e",
@@ -3103,7 +3103,7 @@ Array [
       },
     ],
     "meta": Object {},
-    "name": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "space": false,
     "type": "any",
   },
@@ -3438,7 +3438,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "UUID",
+    "code": "Variable",
     "errors": Array [
       Object {
         "message": "Variable not found: d986e871-cb85-4bd5-b675-87307f60b882",
@@ -3446,7 +3446,7 @@ Array [
       },
     ],
     "meta": Object {},
-    "name": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@d986e871-cb85-4bd5-b675-87307f60b882",
     "space": false,
     "type": "any",
   },
@@ -3781,7 +3781,7 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "UUID",
+    "code": "Variable",
     "errors": Array [
       Object {
         "message": "Variable not found: d986e871-cb85-4bd5-b675-87307f60b882",
@@ -3789,7 +3789,7 @@ Array [
       },
     ],
     "meta": Object {},
-    "name": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "name": "$cd4f6e1e-765e-4064-badd-b5585c7eff8e@d986e871-cb85-4bd5-b675-87307f60b882",
     "space": false,
     "type": "any",
   },

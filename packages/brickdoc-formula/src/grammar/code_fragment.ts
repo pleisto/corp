@@ -431,7 +431,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     } else {
       return {
-        codeFragments: [dollarFragment, { ...variableFragment, errors: [{ message: `Variable not found: ${variableId}`, type: 'deps' }] }],
+        codeFragments: [
+          dollarFragment,
+          {
+            ...variableFragment,
+            code: 'Variable',
+            name: `$${namespaceId}@${variableId}`,
+            errors: [{ message: `Variable not found: ${variableId}`, type: 'deps' }]
+          }
+        ],
         type: 'any'
       }
     }
@@ -470,7 +478,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const { errorMessages, newType } = intersectType(type, clause.returns)
       return {
         codeFragments: [
-          { ...nameFragment, errors: [...chainError, ...errorMessages, ...argsErrorMessages] },
+          { ...nameFragment, code: 'Function', errors: [...chainError, ...errorMessages, ...argsErrorMessages] },
           token2fragment(ctx.LParen[0], 'any'),
           ...args,
           token2fragment(ctx.RParen[0], 'any')
@@ -481,7 +489,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const args = ctx.Arguments ? (this.visit(ctx.Arguments, null) as result).codeFragments : []
       return {
         codeFragments: [
-          { ...nameFragment, errors: [{ message: `Function ${group}.${name} not found`, type: 'deps' }] },
+          { ...nameFragment, code: 'Function', errors: [{ message: `Function ${group}.${name} not found`, type: 'deps' }] },
           token2fragment(ctx.LParen[0], 'any'),
           ...args,
           token2fragment(ctx.RParen[0], 'any')
