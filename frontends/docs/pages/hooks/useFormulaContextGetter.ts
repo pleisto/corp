@@ -15,10 +15,11 @@ const codeFragmentsToJSONContent = (codeFragments: CodeFragment[] | undefined): 
 
   codeFragments.forEach(codeFragment => {
     content.push({
-      text: codeFragment.name,
+      // text: codeFragment.name,
       type: 'codeFragmentBlock',
       // type: codeFragment.code,
-      attrs: codeFragment
+      attrs: codeFragment,
+      content: [{ text: codeFragment.name, type: 'text' }]
     })
   })
 
@@ -84,7 +85,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         const parseInput = { formulaContext, meta }
         const parseResult = parse(parseInput)
 
-        console.log({ parseResult })
+        console.log({ parseResult, input })
 
         updateCompletions(parseResult.completions)
         const content = codeFragmentsToJSONContent(parseResult.codeFragments)
