@@ -7,29 +7,6 @@ import { FormulaOptions } from 'packages/brickdoc-editor/src/extensions'
 import { v4 as uuid } from 'uuid'
 import { JSONContent } from '@tiptap/core'
 
-const codeFragmentsToJSONContent = (codeFragments: CodeFragment[] | undefined): JSONContent | undefined => {
-  if (!codeFragments) return undefined
-  if (codeFragments.length === 0) return undefined
-
-  const content: JSONContent[] = []
-
-  codeFragments.forEach(codeFragment => {
-    content.push({
-      // text: codeFragment.name,
-      type: 'codeFragmentBlock',
-      // type: codeFragment.code,
-      attrs: codeFragment,
-      content: [{ text: codeFragment.name, type: 'text' }]
-    })
-  })
-
-  const jsonContent = { type: 'doc', content }
-
-  console.log({ codeFragments, jsonContent, label: 'code2contentjson' })
-
-  return jsonContent
-}
-
 export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formulaContextActions'] {
   const context = FormulaContextVar()
   const data = React.useRef(context)
@@ -53,12 +30,12 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
       if (!blockId.current) return null
       return data.current?.removeVariable(blockId.current, variableId)
     },
-    codeFragmentsToJSONContent,
     calculate: debounce(
       async ({
         variable,
         name,
         input,
+        codeFragmentsToJSONContent,
         formulaContext,
         updateVariable,
         updateCompletions,
@@ -70,6 +47,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         variable: VariableInterface | undefined
         name: string
         input: string
+        codeFragmentsToJSONContent: (codeFragments: CodeFragment[] | undefined) => JSONContent | undefined
         formulaContext: ContextInterface
         updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>> | undefined
         updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>

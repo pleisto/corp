@@ -6,8 +6,7 @@ const formulaContextActions: FormulaOptions['formulaContextActions'] = {
   getFormulaContext: (): null => null,
   getVariable: (variableId: string): undefined => undefined,
   removeVariable: (variableId: string): void => {},
-  calculate: (): void => {},
-  codeFragmentsToJSONContent: () => undefined
+  calculate: (): void => {}
 }
 
 interface MockEditor {
