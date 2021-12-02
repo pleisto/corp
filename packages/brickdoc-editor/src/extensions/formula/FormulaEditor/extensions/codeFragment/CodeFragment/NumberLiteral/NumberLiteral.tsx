@@ -9,9 +9,7 @@ export const NumberLiteral: React.FC<NumberLiteralProps> = ({ content }) => {
   return (
     <span className="brickdoc-formula-number-literal">
       Number:
-      <span contentEditable={true} className="brickdoc-formula-number-literal-content">
-        {content}
-      </span>
+      <span className="brickdoc-formula-number-literal-content">{content}</span>
     </span>
   )
 }

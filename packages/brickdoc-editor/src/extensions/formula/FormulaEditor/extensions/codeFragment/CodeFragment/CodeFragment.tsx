@@ -15,11 +15,7 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
     case 'NumberLiteral':
       return <NumberLiteral content={content} />
     default:
-      return (
-        <span className="brickdoc-formula-code-fragment-content" contentEditable={true}>
-          {content}
-        </span>
-      )
+      return <span className="brickdoc-formula-code-fragment-content">{content}</span>
   }
 }
 

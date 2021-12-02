@@ -89,7 +89,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const handleSelectCompletion = (completion: Completion): void => {
     const oldContent = content?.content ?? []
-    const value = completion.kind === 'function' ? `${completion.value}()` : completion.value
+    const value = completion.value
     const attrs: CodeFragment =
       completion.kind === 'variable'
         ? completion.preview.codeFragments[0]

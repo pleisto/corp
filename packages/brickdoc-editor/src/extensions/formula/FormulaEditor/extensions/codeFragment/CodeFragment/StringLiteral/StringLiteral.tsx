@@ -9,9 +9,7 @@ export const StringLiteral: React.FC<StringLiteralProps> = ({ content }) => {
   return (
     <span className="brickdoc-formula-string-literal">
       String:
-      <span contentEditable={true} className="brickdoc-formula-string-literal-content">
-        {content}
-      </span>
+      <span className="brickdoc-formula-string-literal-content">{content}</span>
     </span>
   )
 }
