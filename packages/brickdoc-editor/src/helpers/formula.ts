@@ -18,8 +18,5 @@ export const codeFragmentsToJSONContent = (codeFragments: CodeFragment[] | undef
   })
 
   const jsonContent = { type: 'doc', content }
-
-  console.log({ codeFragments, jsonContent, label: 'code2contentjson' })
-
   return jsonContent
 }
