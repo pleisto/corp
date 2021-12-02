@@ -15,11 +15,13 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const { getVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
   const attributes = node.attrs.formula
   const [variable, setVariable] = React.useState(getVariable(attributes.id))
+  const [t, setT] = React.useState(variable?.t)
 
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
 
   React.useEffect(() => {
     variable?.onUpdate(t => {
+      setT(t.t)
       setVariable(t)
     })
   }, [variable])
@@ -47,7 +49,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     success_expression_array: 6
   }
 
-  const activeColorIndex = variable ? COLOR_ARRAY[variableTypeMeta(variable.t)] || 0 : 0
+  const activeColorIndex = t ? COLOR_ARRAY[variableTypeMeta(t)] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && node.attrs.isNew) {
@@ -67,7 +69,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         updateFormula={updateFormula}
         variable={variable}
         updateVariable={setVariable}>
-        {variable ? (
+        {t ? (
           <span
             className="brickdoc-formula"
             style={{
@@ -75,8 +77,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
             }}>
-            {variable.t.name}:{' '}
-            {variable.t.variableValue.success ? variable.t.variableValue.display : variable.t.variableValue.errorMessages[0].message}
+            {t.name}: {t.variableValue.success ? t.variableValue.display : t.variableValue.errorMessages[0].message}
           </span>
         ) : (
           <span className="brickdoc-formula-placeholder">

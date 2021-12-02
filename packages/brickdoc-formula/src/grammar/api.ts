@@ -40,7 +40,7 @@ export interface BaseParseResult {
   readonly errorMessages: ErrorMessage[]
   readonly variableDependencies?: VariableDependency[]
   readonly functionDependencies?: FunctionClause[]
-  readonly codeFragments?: CodeFragment[]
+  readonly codeFragments: CodeFragment[]
   readonly flattenVariableDependencies?: Set<VariableDependency>
   readonly completions: Completion[]
 }
@@ -52,14 +52,12 @@ export interface SuccessParseResult extends BaseParseResult {
   readonly kind: VariableKind
   readonly variableDependencies: VariableDependency[]
   readonly functionDependencies: FunctionClause[]
-  readonly codeFragments: CodeFragment[]
   readonly flattenVariableDependencies: Set<VariableDependency>
 }
 
 export interface ErrorParseResult extends BaseParseResult {
   readonly success: false
   readonly cst?: CstNode
-  readonly codeFragments?: CodeFragment[]
   readonly errorType: 'lex' | 'parse'
   readonly errorMessages: [ErrorMessage, ...ErrorMessage[]]
 }
@@ -114,6 +112,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       errorType: 'lex',
       level,
       completions,
+      codeFragments: [],
       errorMessages: lexResult.errors.map(e => ({ message: e.message, type: 'syntax' })) as [ErrorMessage, ...ErrorMessage[]]
     }
   }
