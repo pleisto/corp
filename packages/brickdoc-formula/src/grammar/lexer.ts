@@ -77,7 +77,6 @@ export const Plus = createToken({
   categories: AdditionOperator
 })
 
-// TODO remove this
 export const Ampersand = createToken({
   name: 'Ampersand',
   pattern: /&/

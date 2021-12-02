@@ -162,6 +162,7 @@ export type FunctionClause = NormalFunctionClause | ChainFunctionClause
 export interface CodeFragment {
   readonly code: string
   readonly name: string
+  readonly space: boolean
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }
