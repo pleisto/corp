@@ -101,10 +101,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }
 
   const handleValueChange = (editor: Editor): void => {
-    const text = editor
-      .getJSON()
-      .content[0].content.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? ''))
-      .join('')
+    const text =
+      editor
+        .getJSON()
+        .content[0].content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? ''))
+        .join('') ?? ''
     // const text = editor.getText()
     const input = `=${text}`
     console.log({ content, editor, input, label: 'updateValue' })
