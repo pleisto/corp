@@ -3,7 +3,7 @@ import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
-import { FunctionCallBlockExtension } from './extensions/functionCall'
+import { CodeFragmentBlockExtension } from './extensions/codeFragment'
 import { DisableNewLineExtension } from './extensions/disableNewLine'
 import { Editor } from '@tiptap/core'
 
@@ -17,7 +17,7 @@ const findNearestWord = (content: string, targetIndex: number): string | undefin
 
 export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, updateContent }) => {
   const editor = useEditor({
-    extensions: [Document, Text, Paragraph, FunctionCallBlockExtension, DisableNewLineExtension],
+    extensions: [Document, Text, Paragraph, CodeFragmentBlockExtension, DisableNewLineExtension],
     onUpdate: ({ editor, transaction }) => {
       updateContent(editor)
       if (transaction.selection.from === transaction.selection.to) {
