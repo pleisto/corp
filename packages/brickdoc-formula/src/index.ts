@@ -163,6 +163,7 @@ export interface CodeFragment {
   readonly code: string
   readonly name: string
   readonly space: boolean
+  readonly meta: { [key: string]: any }
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }

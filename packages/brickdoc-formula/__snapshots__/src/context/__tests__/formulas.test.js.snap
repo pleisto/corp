@@ -7,6 +7,7 @@ Array [
       Object {
         "code": "NumberLiteral",
         "errors": Array [],
+        "meta": Object {},
         "name": "123",
         "space": false,
         "type": "number",
@@ -192,6 +193,7 @@ Array [
       Object {
         "code": "NumberLiteral",
         "errors": Array [],
+        "meta": Object {},
         "name": "123",
         "space": false,
         "type": "number",
@@ -199,6 +201,7 @@ Array [
       Object {
         "code": "Plus",
         "errors": Array [],
+        "meta": Object {},
         "name": "+",
         "space": true,
         "type": "number",
@@ -206,6 +209,7 @@ Array [
       Object {
         "code": "FunctionName",
         "errors": Array [],
+        "meta": Object {},
         "name": "excel::RAND",
         "space": false,
         "type": "any",
@@ -213,6 +217,7 @@ Array [
       Object {
         "code": "LParen",
         "errors": Array [],
+        "meta": Object {},
         "name": "(",
         "space": true,
         "type": "any",
@@ -220,6 +225,7 @@ Array [
       Object {
         "code": "RParen",
         "errors": Array [],
+        "meta": Object {},
         "name": ")",
         "space": true,
         "type": "any",
@@ -584,6 +590,7 @@ Array [
       Object {
         "code": "FunctionName",
         "errors": Array [],
+        "meta": Object {},
         "name": "excel::ABS",
         "space": false,
         "type": "any",
@@ -591,6 +598,7 @@ Array [
       Object {
         "code": "LParen",
         "errors": Array [],
+        "meta": Object {},
         "name": "(",
         "space": true,
         "type": "any",
@@ -598,6 +606,7 @@ Array [
       Object {
         "code": "NumberLiteral",
         "errors": Array [],
+        "meta": Object {},
         "name": "123",
         "space": false,
         "type": "number",
@@ -605,6 +614,7 @@ Array [
       Object {
         "code": "RParen",
         "errors": Array [],
+        "meta": Object {},
         "name": ")",
         "space": true,
         "type": "any",
@@ -612,6 +622,7 @@ Array [
       Object {
         "code": "Plus",
         "errors": Array [],
+        "meta": Object {},
         "name": "+",
         "space": true,
         "type": "number",
@@ -619,7 +630,8 @@ Array [
       Object {
         "code": "UUID",
         "errors": Array [],
-        "name": "$foo",
+        "meta": Object {},
+        "name": "$d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
         "space": false,
         "type": "any",
       },
@@ -1245,6 +1257,7 @@ Array [
       Object {
         "code": "FunctionName",
         "errors": Array [],
+        "meta": Object {},
         "name": "excel::ABS",
         "space": false,
         "type": "any",
@@ -1252,6 +1265,7 @@ Array [
       Object {
         "code": "LParen",
         "errors": Array [],
+        "meta": Object {},
         "name": "(",
         "space": true,
         "type": "any",
@@ -1259,6 +1273,7 @@ Array [
       Object {
         "code": "NumberLiteral",
         "errors": Array [],
+        "meta": Object {},
         "name": "123",
         "space": false,
         "type": "number",
@@ -1266,6 +1281,7 @@ Array [
       Object {
         "code": "RParen",
         "errors": Array [],
+        "meta": Object {},
         "name": ")",
         "space": true,
         "type": "any",
@@ -1273,6 +1289,7 @@ Array [
       Object {
         "code": "Plus",
         "errors": Array [],
+        "meta": Object {},
         "name": "+",
         "space": true,
         "type": "number",
@@ -1280,6 +1297,7 @@ Array [
       Object {
         "code": "Dollar",
         "errors": Array [],
+        "meta": Object {},
         "name": "$",
         "space": false,
         "type": "any",
@@ -1292,6 +1310,7 @@ Array [
             "type": "deps",
           },
         ],
+        "meta": Object {},
         "name": "1588aedf-06e1-47f1-9282-d2ffe865974c",
         "space": false,
         "type": "any",

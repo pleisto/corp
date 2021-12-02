@@ -28,7 +28,7 @@ const NeedSpaceTypes = [
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   const space = NeedSpaceTypes.includes(token.tokenType.name)
-  return { name: token.image, code: token.tokenType.name, errors: [], type, space }
+  return { name: token.image, code: token.tokenType.name, errors: [], type, space, meta: {} }
 }
 
 type ExpressionType = FormulaType | undefined
@@ -205,7 +205,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(rhsOperand => {
       const { codeFragments: rhsValue }: result = this.visit(rhsOperand, { type: childrenType })
-      codeFragments.push({ name: '&', code: 'Ampersand', type: 'any', errors: [], space: true }, ...rhsValue)
+      codeFragments.push({ name: '&', code: 'Ampersand', type: 'any', errors: [], space: true, meta: {} }, ...rhsValue)
     })
 
     const { errorMessages, newType } = intersectType(type, parentType)
@@ -278,7 +278,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     ctx.rhs.forEach(cst => {
       const { codeFragments: rhsCodeFragments, type: rhsType }: result = this.visit(cst, { type: 'any', firstArgumentType })
-      codeFragments.push({ name: '.', code: 'Dot', type: 'any', errors: [], space: true }, ...rhsCodeFragments)
+      codeFragments.push({ name: '.', code: 'Dot', type: 'any', errors: [], space: true, meta: {} }, ...rhsCodeFragments)
       firstArgumentType = rhsType
     })
 
@@ -417,7 +417,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       this.level = Math.max(this.level, variable.t.level + 1)
 
       const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
-      return { codeFragments: [{ ...variableFragment, name: `$${variable.t.name}`, errors: errorMessages }], type: newType }
+      return { codeFragments: [{ ...variableFragment, name: `$${namespaceId}@${variableId}`, errors: errorMessages }], type: newType }
     } else {
       return {
         codeFragments: [dollarFragment, { ...variableFragment, errors: [{ message: `Variable not found: ${variableId}`, type: 'deps' }] }],
