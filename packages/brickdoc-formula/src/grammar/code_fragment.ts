@@ -417,7 +417,18 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       this.level = Math.max(this.level, variable.t.level + 1)
 
       const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
-      return { codeFragments: [{ ...variableFragment, name: `$${namespaceId}@${variableId}`, errors: errorMessages }], type: newType }
+      return {
+        codeFragments: [
+          {
+            ...variableFragment,
+            code: 'Variable',
+            meta: { name: variable.t.name },
+            name: `$${namespaceId}@${variableId}`,
+            errors: errorMessages
+          }
+        ],
+        type: newType
+      }
     } else {
       return {
         codeFragments: [dollarFragment, { ...variableFragment, errors: [{ message: `Variable not found: ${variableId}`, type: 'deps' }] }],
