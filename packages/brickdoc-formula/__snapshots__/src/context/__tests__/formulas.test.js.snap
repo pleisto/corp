@@ -628,9 +628,11 @@ Array [
         "type": "number",
       },
       Object {
-        "code": "UUID",
+        "code": "Variable",
         "errors": Array [],
-        "meta": Object {},
+        "meta": Object {
+          "name": "foo",
+        },
         "name": "$d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
         "space": false,
         "type": "any",
