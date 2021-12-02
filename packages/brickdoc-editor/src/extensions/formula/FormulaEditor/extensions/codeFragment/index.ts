@@ -1,12 +1,12 @@
 import { Node, mergeAttributes, JSONContent } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { SetDocAttrStep } from '../../../../sync/SetDocAttrStep'
-import { FunctionCall } from './FunctionCall/FunctionCall'
+import { CodeFragment } from './CodeFragment/CodeFragment'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    functionCallBlock: {
-      setFunctionCallBlock: () => ReturnType
+    codeFragmentBlock: {
+      setCodeFragmentBlock: () => ReturnType
       setDocAttrs: (newAttrs: Record<string, any>) => ReturnType
       replaceRoot: (content: JSONContent) => ReturnType
     }
@@ -14,10 +14,10 @@ declare module '@tiptap/core' {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FunctionCallBlockOptions {}
+export interface CodeFragmentBlockOptions {}
 
-export const FunctionCallBlockExtension = Node.create<FunctionCallBlockOptions>({
-  name: 'functionCallBlock',
+export const CodeFragmentBlockExtension = Node.create<CodeFragmentBlockOptions>({
+  name: 'codeFragmentBlock',
 
   inline: true,
 
@@ -29,15 +29,11 @@ export const FunctionCallBlockExtension = Node.create<FunctionCallBlockOptions>(
 
   addAttributes() {
     return {
-      functionCall: {
-        default: {
-          code: '',
-          name: '',
-          space: false,
-          type: 'any',
-          errors: []
-        }
-      }
+      code: { default: '' },
+      name: { default: '' },
+      space: { default: false },
+      type: { default: 'any' },
+      errors: { default: [] }
     }
   },
 
@@ -54,12 +50,12 @@ export const FunctionCallBlockExtension = Node.create<FunctionCallBlockOptions>(
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(FunctionCall)
+    return ReactNodeViewRenderer(CodeFragment)
   },
 
   addCommands() {
     return {
-      setFunctionCallBlock:
+      setCodeFragmentBlock:
         () =>
         ({ chain }) => {
           return chain().insertContent(this.name).run()
