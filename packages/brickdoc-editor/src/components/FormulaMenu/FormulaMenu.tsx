@@ -199,7 +199,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         {!error && variable?.t.variableValue.display}
       </div>
       <div className="formula-menu-divider" />
-      <AutocompleteList completions={completions} />
+      <AutocompleteList completions={completions} onSelect={completion => console.log('select completion', completion)} />
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}
