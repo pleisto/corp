@@ -40,7 +40,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateVariable,
         updateCompletions,
         updateError,
-        updateValue,
+        updateInput,
         updateDefaultName,
         updateContent
       }: {
@@ -51,7 +51,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         formulaContext: ContextInterface
         updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>> | undefined
         updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
-        updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+        updateInput: React.Dispatch<React.SetStateAction<string | undefined>>
         updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
         updateDefaultName: React.Dispatch<React.SetStateAction<string>>
         updateContent: React.Dispatch<React.SetStateAction<JSONContent | undefined>>
@@ -68,15 +68,15 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateCompletions(parseResult.completions)
         const content = codeFragmentsToJSONContent(parseResult.codeFragments)
         updateContent(content)
+        const newInput = parseResult.codeFragments.map(fragment => fragment.name)
+        updateInput(newInput.join(''))
 
         if (parseResult.success) {
           const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
 
           if (interpretResult.success) {
-            const newInput = parseResult.codeFragments.map(fragment => fragment.name).join('')
             const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
             updateVariable?.(variable)
-            updateValue(newInput)
             updateError(undefined)
             const type = interpretResult.result.type
             const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)

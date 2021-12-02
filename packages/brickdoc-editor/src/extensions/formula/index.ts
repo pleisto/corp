@@ -12,7 +12,7 @@ interface CalculateOptions {
   formulaContext: ContextInterface
   updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>> | undefined
   updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
-  updateValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  updateInput: React.Dispatch<React.SetStateAction<string | undefined>>
   updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
   updateDefaultName: React.Dispatch<React.SetStateAction<string>>
   updateContent: React.Dispatch<React.SetStateAction<JSONContent | undefined>>

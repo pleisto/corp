@@ -90,10 +90,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleSelectCompletion = (completion: Completion): void => {
     const oldContent = content?.content ?? []
     const value = completion.value
-    const attrs: CodeFragment =
-      completion.kind === 'variable'
-        ? completion.preview.codeFragments[0]
-        : { meta: {}, errors: [], name: value, code: 'Completion', space: false, type: 'any' }
+    const attrs: CodeFragment = { meta: {}, errors: [], name: value, code: 'Completion', space: false, type: 'any' }
     const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: value }] }]
     const newContent = [...oldContent, ...completionContents]
     console.log({ completion, content, attrs, label: 'selectCompletion', newContent })
@@ -120,7 +117,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       formulaContext,
       updateVariable,
       updateError: setError,
-      updateValue: setInput,
+      updateInput: setInput,
       updateContent: setContent,
       updateCompletions: setCompletions,
       updateDefaultName: setDefaultName
@@ -138,7 +135,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       formulaContext,
       updateVariable,
       updateError: setError,
-      updateValue: setInput,
+      updateInput: setInput,
       updateContent: setContent,
       updateCompletions: setCompletions,
       updateDefaultName: setDefaultName
