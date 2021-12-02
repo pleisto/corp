@@ -16,7 +16,7 @@ const codeFragmentsToJSONContent = (codeFragments: CodeFragment[] | undefined): 
   codeFragments.forEach(codeFragment => {
     content.push({
       text: codeFragment.name,
-      type: 'functionCallBlock',
+      type: 'codeFragmentBlock',
       // type: codeFragment.code,
       attrs: codeFragment
     })
