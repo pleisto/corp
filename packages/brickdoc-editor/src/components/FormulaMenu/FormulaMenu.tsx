@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
-import { Completion, VariableInterface } from '@brickdoc/formula'
+import { CodeFragment, Completion, VariableInterface } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
@@ -87,14 +87,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
-  // const JSONContentToInput = ({ content }: JSONContent): string => {
-  //   console.log({ content, label: 'jsoncontent2string' })
-  //   if (!content) return 'unknown'
-  //   return content.map(content => content.text).join('')
-  // }
-
   const handleValueChange = (editor: Editor): void => {
-    const text = editor.getText()
+    const text = editor
+      .getJSON()
+      .content[0].content.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? ''))
+      .join('')
+    // const text = editor.getText()
     const input = `=${text}`
     console.log({ content, editor, input, label: 'updateValue' })
     setInput(input)
@@ -134,7 +132,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }
 
   const handleSelectCompletion = (completion: Completion): void => {
-    console.log({ completion, label: 'selectCompletion' })
+    const oldContent = content?.content ?? []
+    const attrs: CodeFragment = { errors: [], name: completion.value, code: 'Completion', space: false, type: 'any' }
+    const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: completion.value }] }]
+    const newContent = [...oldContent, ...completionContents]
+    console.log({ completion, content, label: 'selectCompletion', newContent })
+    setContent({ type: 'doc', content: newContent })
   }
 
   const handleSave = async (): Promise<void> => {

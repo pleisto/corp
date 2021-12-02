@@ -42,9 +42,8 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
           if (length + blockLength >= position) {
             if (block.type !== 'text') break
 
-            console.log(position - length - 1)
             const word = findNearestWord(block.text!, position - length - 1)
-            console.log(word)
+            console.log({ word, pos: position - length - 1 })
           }
 
           length += blockLength
@@ -56,6 +55,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
   useEffect(() => {
     if (editor && !editor.isDestroyed && content) {
       editor.commands.replaceRoot(content)
+      console.log({ content, editor, label: 'after replace root' })
     }
   }, [editor, content])
 
