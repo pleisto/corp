@@ -1,5 +1,6 @@
 import { CodeFragment } from '@brickdoc/formula'
 import React from 'react'
+import './Variable.less'
 
 export interface VariableProps {
   codeFragment: CodeFragment

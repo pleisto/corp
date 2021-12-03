@@ -1,5 +1,6 @@
 import { CodeFragment } from '@brickdoc/formula'
 import React from 'react'
+import './Function.less'
 
 export interface FunctionProps {
   content: string
