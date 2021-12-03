@@ -1,6 +1,6 @@
 @import '@brickdoc/design-system/components/style/themes';
 
-.brickdoc-link-block-action-panel {
+.brickdoc-action-panel {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,14 +11,14 @@
   border-radius: 4px;
   padding: 8px 12px;
 
-  .brickdoc-link-block-action-button-divider {
+  .brickdoc-action-panel-button-divider {
     background: #f6f6f6;
     width: 1px;
     height: 16px;
     margin: 0 4px;
   }
 
-  .brickdoc-link-block-action-button {
+  .brickdoc-action-panel-button {
     width: 20px;
     height: 20px;
     font-size: 14px;
@@ -31,12 +31,12 @@
     }
   }
 
-  .brickdoc-link-block-action-button + .brickdoc-link-block-action-button {
+  .brickdoc-action-panel-button + .brickdoc-action-panel-button {
     margin-left: 2px;
   }
 }
 
-.brickdoc-link-block-action-panel-popover {
+.brickdoc-action-panel-popover {
   .brk-popover-arrow {
     display: none;
   }
@@ -45,4 +45,17 @@
     padding: 0;
     color: unset;
   }
+}
+
+.brickdoc-action-panel-dropdown-menu {
+  min-width: 240px;
+}
+
+.brickdoc-action-panel-dropdown-menu-item {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.brickdoc-action-panel-dropdown-menu-item-icon {
+  margin-right: 8px;
 }
