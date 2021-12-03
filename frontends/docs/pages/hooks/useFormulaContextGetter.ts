@@ -66,13 +66,13 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         console.log({ parseResult, input })
 
         updateCompletions(parseResult.completions)
-        const content = codeFragmentsToJSONContent(parseResult.codeFragments)
-        updateContent(content)
-        const newInput = parseResult.codeFragments.map(fragment => fragment.name)
-        updateInput(newInput.join(''))
 
         if (parseResult.success) {
           const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
+          const content = codeFragmentsToJSONContent(parseResult.codeFragments)
+          updateContent(content)
+          const newInput = parseResult.codeFragments.map(fragment => fragment.name)
+          updateInput(newInput.join(''))
 
           if (interpretResult.success) {
             const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
