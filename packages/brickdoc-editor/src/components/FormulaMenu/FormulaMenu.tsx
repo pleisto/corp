@@ -104,44 +104,43 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           }
     const completionContents: JSONContent[] = [{ type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: value }] }]
     const newContent = [...oldContent, ...completionContents]
-    console.log({ completion, content, attrs, label: 'selectCompletion', newContent })
-    setContent({ type: 'doc', content: newContent })
+    const finalContent = { type: 'doc', content: newContent }
+    const finalInput = contentToInput(finalContent)
+    setContent(finalContent)
+    setInput(finalInput)
+    console.log({ completion, content, attrs, label: 'selectCompletion', newContent, finalInput })
+    doCalculate({ newInput: finalInput })
+  }
+
+  const contentToInput = (content: JSONContent): string => {
+    const newInput = content.content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? '')).join('') ?? ''
+    return `=${newInput}`
   }
 
   const handleValueChange = (editor: Editor): void => {
-    const text =
-      editor
-        .getJSON()
-        .content[0].content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? ''))
-        .join('') ?? ''
+    const text = contentToInput(editor.getJSON().content[0])
     // const text = editor.getText()
-    const input = `=${text}`
-    console.log({ content, editor, input, label: 'updateValue' })
-    setInput(input)
-    const finalName = name ?? defaultName
-    if (!formulaContext || !input) return
-    formulaContextActions.calculate({
-      variable,
-      name: finalName,
-      input,
-      codeFragmentsToJSONContent,
-      formulaContext,
-      updateVariable,
-      updateError: setError,
-      updateInput: setInput,
-      updateContent: setContent,
-      updateCompletions: setCompletions,
-      updateDefaultName: setDefaultName
-    })
+    console.log({ content, editor, text, label: 'updateValue' })
+    setInput(text)
+    doCalculate({ newInput: text })
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value)
-    if (!formulaContext || !input) return
+    doCalculate({ newName: e.target.value })
+  }
+
+  const doCalculate = ({ newName, newInput }: { newName?: string; newInput?: string }): void => {
+    const finalName = newName ?? name ?? defaultName
+    const finalInput = newInput ?? input ?? ''
+    console.log({ finalName, newName, newInput, input, finalInput })
+
+    if (!formulaContext || !finalInput) return
+
     formulaContextActions.calculate({
       variable,
-      name: e.target.value,
-      input,
+      name: finalName,
+      input: finalInput,
       codeFragmentsToJSONContent,
       formulaContext,
       updateVariable,
