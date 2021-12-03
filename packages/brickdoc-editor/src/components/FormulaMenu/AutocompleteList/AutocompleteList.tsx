@@ -58,7 +58,7 @@ const COMPLETION_STYLE_META: {
                 <div key={index} className="autocomplete-preview-example">
                   {preview.name}({example.input.join(',')})
                   <br />
-                  <span className="autocomplete-preview-example-result">={example.output}</span>
+                  <span className="autocomplete-preview-example-result">={JSON.stringify(example.output)}</span>
                 </div>
               ))}
             </div>

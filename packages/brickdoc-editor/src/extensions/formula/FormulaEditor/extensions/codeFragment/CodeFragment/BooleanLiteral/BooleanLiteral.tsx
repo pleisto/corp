@@ -1,17 +1,15 @@
 import React from 'react'
-import './StringLiteral.less'
+import './BooleanLiteral.less'
 
-export interface StringLiteralProps {
+export interface BooleanLiteralProps {
   content: string
 }
 
-export const StringLiteral: React.FC<StringLiteralProps> = ({ content }) => {
+export const BooleanLiteral: React.FC<BooleanLiteralProps> = ({ content }) => {
   return (
-    <span className="brickdoc-formula-string-literal">
-      String:
-      <span contentEditable={true} className="brickdoc-formula-string-literal-content">
-        {content}
-      </span>
+    <span className="brickdoc-formula-boolean-literal">
+      Boolean:
+      <span className="brickdoc-formula-boolean-literal-content">{content}</span>
     </span>
   )
 }

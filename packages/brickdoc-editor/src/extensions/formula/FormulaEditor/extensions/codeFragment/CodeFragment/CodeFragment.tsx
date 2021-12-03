@@ -7,6 +7,7 @@ import { NumberLiteral } from '../CodeFragment/NumberLiteral/NumberLiteral'
 import './CodeFragment.less'
 import { Variable } from './Variable/variable'
 import { Function } from './Function/function'
+import { BooleanLiteral } from './BooleanLiteral/BooleanLiteral'
 
 export interface CodeFragmentProps extends NodeViewProps {}
 
@@ -16,6 +17,8 @@ const renderContent = (codeFragment: CodeFragmentType, content: string): React.R
       return <StringLiteral content={content} />
     case 'NumberLiteral':
       return <NumberLiteral content={content} />
+    case 'BooleanLiteral':
+      return <BooleanLiteral content={content} />
     case 'Variable':
       return <Variable codeFragment={codeFragment} />
     case 'Function':
