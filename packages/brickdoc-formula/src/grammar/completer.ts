@@ -22,11 +22,26 @@ export const complete = ({ tokens, formulaContext, namespaceId, codeFragments }:
 
   const checkImage = image.toLowerCase()
 
-  if (['FunctionGroupName', 'FunctionName', 'NumberLiteral'].includes(tokenName)) {
+  if (!['FunctionGroupName', 'FunctionName', 'NumberLiteral'].includes(tokenName)) {
     return completions
-      .map(c => (c.name.toLowerCase().includes(checkImage) ? { ...c, weight: c.weight + 10 } : c))
-      .sort((a, b) => b.weight - a.weight)
   }
-  // console.log({ tokens })
+
   return completions
+    .map(c => {
+      const name = c.name.toLowerCase()
+      if (name === checkImage) {
+        return { ...c, weight: c.weight + 1000 }
+      }
+
+      if (name.startsWith(checkImage)) {
+        return { ...c, weight: c.weight + 100 }
+      }
+
+      if (name.includes(checkImage)) {
+        return { ...c, weight: c.weight + 10 }
+      }
+
+      return c
+    })
+    .sort((a, b) => b.weight - a.weight)
 }
