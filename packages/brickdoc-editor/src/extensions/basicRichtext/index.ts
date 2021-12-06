@@ -27,6 +27,7 @@ import { PdfSectionExtension, PdfSectionOptions } from '../pdfSection'
 import { LinkBlockExtension, LinkBlockOptions } from '../linkBlock'
 import { TableBlockExtension, TableBlockOptions } from '../table'
 import { FormulaExtension, FormulaOptions } from '../formula'
+import { CanvasExtension, CanvasOptions } from '../canvas'
 
 export interface BasicRichtextOptions {
   blockquote: Partial<BlockquoteOptions> | false
@@ -51,6 +52,7 @@ export interface BasicRichtextOptions {
   textStyle: Partial<TextStyleOptions> | false
   fontColor: Partial<FontColorOptions> | false
   formula: Partial<FormulaOptions> | false
+  canvas: Partial<CanvasOptions> | false
   link: Partial<LinkOptions> | false
   imageSection: Partial<ImageSectionOptions> | false
   linkBlock: Partial<LinkBlockOptions> | false
@@ -91,6 +93,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.textStyle !== false) extensions.push(TextStyle.configure(this.options?.textStyle))
     if (this.options.fontColor !== false) extensions.push(FontColorExtension.configure(this.options?.fontColor))
     if (this.options.formula !== false) extensions.push(FormulaExtension.configure(this.options?.formula))
+    if (this.options.canvas !== false) extensions.push(CanvasExtension.configure(this.options?.canvas))
     if (this.options.tableBlock !== false) extensions.push(TableBlockExtension.configure(this.options?.tableBlock))
     if (this.options.link !== false) extensions.push(Link.configure(this.options?.link))
     /* eslint-enable @typescript-eslint/no-unnecessary-boolean-literal-compare */
