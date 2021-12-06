@@ -15944,10 +15944,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:8.2.9":
-  version: 8.2.9
-  resolution: "preact@npm:8.2.9"
-  checksum: a2ef90c66592620b1be0d2909c48dc54dbcd30ef5c914b0f3329b6237651b381dbdba95192d732ca567f9b429500e230974b9a403f8bc09fcdabd5bc117cb4c9
+"preact@npm:10.6.2":
+  version: 10.6.2
+  resolution: "preact@npm:10.6.2"
+  checksum: 69d29dca061ee00285ff7705fd39c491c8a116b35e670b1206aa4387149b8f505e1751439b69d6f8dcfbbc4ee928e9127a2dad739a8e13bffab4a1eafa7d7917
   languageName: node
   linkType: hard
 
