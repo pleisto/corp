@@ -3,7 +3,7 @@ import { pagesVar } from '@/docs/reactiveVars'
 import { useReactiveVar } from '@apollo/client'
 import { DocMeta } from '../DocumentContentPage'
 
-export function useDocumentPagesGetter(docMeta: DocMeta) {
+export function useDocumentPagesGetter(docMeta: DocMeta): Function[] {
   const data = useReactiveVar(pagesVar)
   const pages = React.useRef(data)
   const webid = React.useRef(docMeta.webid)

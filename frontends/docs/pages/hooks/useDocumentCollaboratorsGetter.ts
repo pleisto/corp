@@ -1,7 +1,7 @@
 import React from 'react'
 import { DocMeta } from '../DocumentContentPage'
 
-export function useDocumentCollaboratorsGetter(docMeta: DocMeta) {
+export function useDocumentCollaboratorsGetter(docMeta: DocMeta): Function[] {
   const data = docMeta.collaborators
   const collaborators = React.useRef(data)
   React.useEffect(() => {
