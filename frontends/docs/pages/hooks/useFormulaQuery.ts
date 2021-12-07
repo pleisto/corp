@@ -3,7 +3,7 @@ import { GetFormulasDocument, GetFormulasQueryVariables as Variables, GetFormula
 import { DocMeta } from '../DocumentContentPage'
 import { useImperativeQuery } from '@/common/hooks'
 
-export function useFormulaQuery(docMeta: DocMeta): Function {
+export function useFormulaQuery(docMeta: DocMeta) {
   const blockId = React.useRef(docMeta.id)
   const query = useImperativeQuery<Query, Variables>(GetFormulasDocument)
 

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import './style'
 import { ModalLocale, changeConfirmLocale } from '../modal/locale'
 import { TransferLocale as TransferLocaleForEmpty } from '../empty'
-import { PopconfirmLocale } from '../popconfirm'
 import { PickerLocale } from '../date-picker/generatePicker'
 import LocaleContext from './context'
 import { getLocaleData } from './localeData'
@@ -18,7 +17,6 @@ export interface Locale {
   TimePicker?: TimePickerLocale
   Calendar?: PickerLocale
   Modal?: ModalLocale
-  Popconfirm?: PopconfirmLocale
   Transfer?: unknown
   Select?: Record<string, any>
   Empty?: TransferLocaleForEmpty
