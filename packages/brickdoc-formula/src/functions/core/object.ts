@@ -65,7 +65,7 @@ export const CORE_OBJECT_CLAUSES: FunctionClause[] = [
         type: 'any'
       }
     ],
-    returns: 'object',
+    returns: 'Object',
     examples: [
       { input: [1], output: { type: 'number', obj: 1 } },
       { input: ['foo'], output: { type: 'string', obj: 'foo' } }

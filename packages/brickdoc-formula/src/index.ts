@@ -4,12 +4,12 @@ export * from './grammar'
 export * from './functions'
 export * from './context'
 
-export type BasicType = 'number' | 'string' | 'boolean' | 'object' | 'array'
-export type ObjectType = 'Date' | 'Column' | 'Block'
+export type BasicType = 'number' | 'string' | 'boolean' | 'null'
+export type ObjectType = 'Date' | 'Column' | 'Block' | 'Object' | 'Array'
 
 export type FormulaType = BasicType | ObjectType | 'any'
 
-export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'block' | 'var'
+export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'block' | 'var' | 'null'
 
 export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom' | string
 
@@ -19,7 +19,7 @@ export type ColumnName = string
 
 export type VariableKind = 'constant' | 'expression'
 
-export type VariableTypeMeta = `error_${VariableKind}` | `success_${VariableKind}_${FormulaType}`
+export type VariableTypeMeta = `error_${VariableKind}` | `success_${FormulaType}`
 export type ErrorType = 'type' | 'syntax' | 'runtime' | 'fatal' | 'deps' | 'circular_dependency' | 'name_unique'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionName}`

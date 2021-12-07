@@ -374,7 +374,7 @@ export const castVariable = (
 
 export const variableTypeMeta = (t: VariableData): VariableTypeMeta => {
   if (t.variableValue.success) {
-    return `success_${t.kind}_${t.variableValue.type}`
+    return `success_${t.variableValue.type}`
   }
 
   return `error_${t.kind}`

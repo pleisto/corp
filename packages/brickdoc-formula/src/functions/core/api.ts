@@ -22,7 +22,7 @@ export const CORE_API_CLAUSES: FunctionClause[] = [
     description: 'Returns current position',
     group: 'core',
     args: [],
-    returns: 'object',
+    returns: 'Object',
     examples: [{ input: [], output: { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' } }],
     chain: false,
     reference: CURRENT_POSITION
