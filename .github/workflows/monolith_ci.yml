@@ -125,13 +125,16 @@ jobs:
           path: |
             ~/.cache/Cypress
           key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: install cypress
+        uses: cypress-io/github-action@v2
+        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+        with:
+          # just perform install
+          runTests: false
       - name: Run yarn install without cypress
         run: yarn install --immutable
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - name: install cypress
-        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run: cypress install
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
