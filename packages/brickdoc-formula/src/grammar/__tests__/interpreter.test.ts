@@ -76,7 +76,7 @@ describe('Custom Function', () => {
   })
 
   it('Today track', () => {
-    const input = '=core::TODAY()'
+    const input = '=TODAY()'
     const newMeta = { ...meta, input }
     const { success, cst, variableDependencies, functionDependencies } = parse({
       ...parseInput,
@@ -174,6 +174,7 @@ describe('Context', () => {
   7. [Dollar, UUID, Sharp]
   8. [Dollar, UUID]
   9. [FunctionGroupName]
+  10. [FunctionName]
 but found: '&'`,
         type: 'syntax'
       }

@@ -11,7 +11,7 @@ import { CORE_TEXT_CLAUSES } from './text'
 
 export const buildFunctionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => {
   if (group === 'core') {
-    return `${group}::${name}`
+    return name
   }
   return `${group}::${name}`
 }

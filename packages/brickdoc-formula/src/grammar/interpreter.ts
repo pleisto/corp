@@ -1,5 +1,5 @@
 import { CstNode, tokenMatcher } from 'chevrotain'
-import { ContextInterface, NormalFunctionClause, Result } from '..'
+import { buildFunctionKey, ContextInterface, NormalFunctionClause, Result } from '..'
 import { BaseCstVisitor } from './parser'
 import {
   Div,
@@ -274,13 +274,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
     ctx: { FunctionGroupName: Array<{ image: any }>; FunctionName: Array<{ image: any }>; Arguments: CstNode | CstNode[] },
     chainArgs: any
   ): Result {
-    const group = ctx.FunctionGroupName[0].image
+    const group = ctx.FunctionGroupName?.[0].image ?? 'core'
     const name = ctx.FunctionName[0].image
 
     const clause = this.formulaContext.findFunctionClause(group, name)
 
+    const functionKey = buildFunctionKey(group, name)
+
     if (!clause) {
-      throw new Error(`Function ${group}.${name} not found`)
+      throw new Error(`Function ${functionKey} not found`)
     }
 
     const args: Result[] = []

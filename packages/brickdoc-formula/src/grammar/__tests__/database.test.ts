@@ -57,7 +57,7 @@ describe('Database Functions', () => {
   })
 
   it('size', async () => {
-    const newMeta = { ...meta, input: `=$${databaseNamespaceId}.core::SIZE()` }
+    const newMeta = { ...meta, input: `=$${databaseNamespaceId}.SIZE()` }
     const { errorMessages, cst } = parse({ ...parseInput, meta: newMeta, formulaContext })
     expect(errorMessages).toEqual([])
     expect(cst).toMatchSnapshot()
@@ -65,7 +65,7 @@ describe('Database Functions', () => {
   })
 
   it('sum', async () => {
-    const newMeta = { ...meta, input: `=$${databaseNamespaceId}#${firstColumnId}.core::SUM()` }
+    const newMeta = { ...meta, input: `=$${databaseNamespaceId}#${firstColumnId}.SUM()` }
     const { errorMessages, cst } = parse({ ...parseInput, meta: newMeta, formulaContext })
     expect(errorMessages).toEqual([])
     expect(cst).toMatchSnapshot()

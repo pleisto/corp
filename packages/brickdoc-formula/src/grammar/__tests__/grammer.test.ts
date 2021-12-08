@@ -238,7 +238,7 @@ const testCases = [
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=true and !2 && core::TRUE()',
+    input: '=true and !2 && TRUE()',
     value: false
   },
   // Error
@@ -266,117 +266,122 @@ const testCases = [
   7. [Dollar, UUID, Sharp]
   8. [Dollar, UUID]
   9. [FunctionGroupName]
+  10. [FunctionName]
 but found: '*'`
   },
   // Function Call
+  {
+    input: '=ABS ( -1  )',
+    value: 1
+  },
   {
     input: '=core::ABS ( -1  )',
     value: 1
   },
   {
-    input: '=core::ABS ()',
+    input: '=ABS ()',
     parseSuccess: false,
     errorMessage: 'Miss argument'
   },
   {
-    input: '=core::ABS(1,2)',
+    input: '=ABS(1,2)',
     parseSuccess: false,
     errorMessage: 'Argument count mismatch'
   },
   {
-    input: '=core::AVERAGE()',
+    input: '=AVERAGE()',
     parseSuccess: false,
     errorMessage: 'Miss argument',
     label: 'Spread operator with no argument'
   },
   {
-    input: '=core::AVERAGE(1)',
+    input: '=AVERAGE(1)',
     value: 1,
     label: 'spread operator'
   },
   {
-    input: '=core::AVERAGE(1, 2, 3)',
+    input: '=AVERAGE(1, 2, 3)',
     value: 2,
     label: 'spread operator'
   },
   {
-    input: '=core::IF(true, 1+2, "2")',
+    input: '=IF(true, 1+2, "2")',
     value: 3
   },
   {
-    input: '=core::AND(true, false, false)',
+    input: '=AND(true, false, false)',
     value: false
   },
   {
-    input: '=core::OR(true)',
+    input: '=OR(true)',
     value: true
   },
   {
-    input: '=core::ABS(core::IF(core::FALSE(), -3, -4))',
+    input: '=ABS(IF(FALSE(), -3, -4))',
     value: 4
   },
   {
-    input: '=core::UNKNOWN ()',
+    input: '=UNKNOWN ()',
     parseSuccess: false,
-    errorMessage: 'Function core.UNKNOWN not found'
+    errorMessage: 'Function UNKNOWN not found'
   },
   // Chain
   {
-    input: '="FOO".core::T().core::T()',
+    input: '="FOO".T().T()',
     value: 'FOO'
   },
   {
-    input: '=(1+1).core::TYPE()',
+    input: '=(1+1).TYPE()',
     value: 'number'
   },
   {
-    input: '="foobar".core::START_WITH("foo")',
+    input: '="foobar".START_WITH("foo")',
     value: true
   },
   {
-    input: '="foobar".core::START_WITH("bar")',
+    input: '="foobar".START_WITH("bar")',
     value: false
   },
   {
-    input: '="foo".core::START_WITH(123)',
+    input: '="foo".START_WITH(123)',
     parseSuccess: false,
     errorMessage: 'Expected string but got number',
     label: 'chain type 1'
   },
   {
-    input: '=true.core::START_WITH("123")',
+    input: '=true.START_WITH("123")',
     parseSuccess: false,
     label: 'TODO chain type 2',
     errorMessage: 'Expected string but got boolean'
   },
   {
-    input: '="123".core::LEN()',
+    input: '="123".LEN()',
     parseSuccess: false,
-    errorMessage: 'core::LEN is not chainable'
+    errorMessage: 'LEN is not chainable'
   },
   // Type
   {
-    input: '=core::ABS ( "a" )',
+    input: '=ABS ( "a" )',
     parseSuccess: false,
     errorMessage: 'Expected number but got string'
   },
   {
-    input: '=core::IF(1, -3, -4)',
+    input: '=IF(1, -3, -4)',
     parseSuccess: false,
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=core::ABS( core::TODAY() )',
+    input: '=ABS( TODAY() )',
     parseSuccess: false,
     errorMessage: 'Expected number but got Date'
   },
   {
-    input: '=core::AND(1, 2)',
+    input: '=AND(1, 2)',
     parseSuccess: false,
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=core::ABS ( core::TRUE() )',
+    input: '=ABS ( TRUE() )',
     parseSuccess: false,
     errorMessage: 'Expected number but got boolean'
   },
@@ -398,24 +403,24 @@ but found: '*'`
     value: 1
   },
   {
-    input: '=1.core::T()',
+    input: '=1.T()',
     label: 'should success',
     parseSuccess: false,
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
-    input: '=1.core::START_WITH("123")',
+    input: '=1.START_WITH("123")',
     parseSuccess: false,
     label: 'TODO chain type 3',
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
-    input: '=123.core::ABS()',
+    input: '=123.ABS()',
     parseSuccess: false,
     errorMessage: 'TODO build not all input parsed :5'
   },
   {
-    input: '=core::if(true, 1+2, "2")',
+    input: '=if(true, 1+2, "2")',
     parseSuccess: false,
     label: 'TODO downcase',
     errorMessage: 'TODO mismatch token FunctionCall'

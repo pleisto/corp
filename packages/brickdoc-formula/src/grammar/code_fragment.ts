@@ -1,5 +1,15 @@
 import { CstNode, IToken } from 'chevrotain'
-import { CodeFragment, ErrorMessage, ContextInterface, FormulaType, Argument, VariableKind, VariableDependency, FunctionClause } from '..'
+import {
+  CodeFragment,
+  ErrorMessage,
+  ContextInterface,
+  FormulaType,
+  Argument,
+  VariableKind,
+  VariableDependency,
+  FunctionClause,
+  buildFunctionKey
+} from '..'
 import { BaseCstVisitor } from './parser'
 
 interface InterpreterConfig {
@@ -515,14 +525,16 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     },
     { type, firstArgumentType }: ExpressionArgument
   ): result {
-    const group = ctx.FunctionGroupName[0].image
+    const group = ctx.FunctionGroupName?.[0].image ?? 'core'
     const name = ctx.FunctionName[0].image
 
     const clause = this.formulaContext.findFunctionClause(group, name)
 
     this.kind = 'expression'
 
-    const nameFragment = { ...token2fragment(ctx.FunctionName[0], 'any'), name: `${group}::${name}` }
+    const functionKey = buildFunctionKey(group, name)
+
+    const nameFragment = { ...token2fragment(ctx.FunctionName[0], 'any'), name: functionKey }
 
     if (clause) {
       this.functionDependencies.push(clause)
@@ -558,7 +570,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const args = ctx.Arguments ? (this.visit(ctx.Arguments, null) as result).codeFragments : []
       return {
         codeFragments: [
-          { ...nameFragment, code: 'Function', errors: [{ message: `Function ${group}.${name} not found`, type: 'deps' }] },
+          { ...nameFragment, code: 'Function', errors: [{ message: `Function ${functionKey} not found`, type: 'deps' }] },
           token2fragment(ctx.LParen[0], 'any'),
           ...args,
           token2fragment(ctx.RParen[0], 'any')

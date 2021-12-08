@@ -34,7 +34,7 @@ export type VariableKind = 'constant' | 'expression'
 export type VariableTypeMeta = `error_${VariableKind}` | `success_${FormulaType}`
 export type ErrorType = 'type' | 'syntax' | 'runtime' | 'fatal' | 'deps' | 'circular_dependency' | 'name_unique'
 
-export type FunctionKey = `${FunctionGroup}::${FunctionName}`
+export type FunctionKey = `${FunctionGroup}::${FunctionName}` | FunctionName
 export type VariableKey = `$${NamespaceId}@${VariableId}`
 
 export type DefaultVariableName = `${SpecialDefaultVariableName}${number}`
