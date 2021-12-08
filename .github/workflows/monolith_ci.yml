@@ -100,7 +100,7 @@ jobs:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Run Jest tests
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn test:jest --silent --onlyChanged
+        run: yarn test:jest --silent
       - name: Publish Jest test reports
         if: always() && steps.changed-es-files.outputs.any_changed == 'true'
         uses: mikepenz/action-junit-report@v2
@@ -201,10 +201,13 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-unit
-
   build_e2e:
     name: Build & E2E Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # run 3 copies of the current job in parallel
+        containers: [1, 2, 3]
     services:
       postgres:
         image: postgres:13
@@ -277,15 +280,13 @@ jobs:
         run: bundle exec rails db:prepare
       - name: Run front end compilation
         run: yarn dist:prod
-      - name: Start the Rails server
-        run: bundle exec rails s -p 3000 > log/std.log 2>&1 &
-        env:
-          CYPRESS: 1
       # - name: Ensure the server is running
       #   run: curl http://localhost:3000/accounts/sign_in -I
       - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
+          start: CYPRESS=1 bundle exec rails s
+          parallel: true
           browser: chrome
           install: false
           record: true
@@ -308,8 +309,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: frontend-e2e
-      - name: Stop the server
-        run: rm -rf coverage && (ps -aux | grep '[p]uma' | awk 'NR<=1{print $2}' | xargs kill -2)
       - name: Publish Rails code coverage reports during Cypress tests
         uses: codecov/codecov-action@v2
         with:
@@ -320,7 +319,7 @@ jobs:
         run: bundle exec rails db:prepare db:schema:dump
       - name: Add and commit everything
         uses: EndBug/add-and-commit@v7
-        if: github.ref != 'refs/heads/master'
+        if: github.ref != 'refs/heads/master' && ${{ matrix.containers }} == 1
         env:
           HUSKY: 0
         with:
