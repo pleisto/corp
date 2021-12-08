@@ -141,7 +141,7 @@ jobs:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Dist Russian doll caching
-        id: cache-dist
+        id: cache-dist-doll
         uses: actions/cache@v2
         with:
           path: public
