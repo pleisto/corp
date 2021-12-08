@@ -1,6 +1,9 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, BooleanResult } from '../..'
 
-export const START_WITH = (ctx: ContextInterface, string: string, prefix: string): boolean => string.startsWith(prefix)
+export const START_WITH = (ctx: ContextInterface, string: string, prefix: string): BooleanResult => ({
+  result: string.startsWith(prefix),
+  type: 'boolean'
+})
 
 export const CORE_STRING_CLAUSES: BaseFunctionClause[] = [
   {

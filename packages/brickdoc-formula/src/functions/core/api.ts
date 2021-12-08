@@ -1,30 +1,35 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+// import { ContextInterface, BaseFunctionClause, ObjectResult } from '../..'
 
-export const CURRENT_POSITION = async (ctx: ContextInterface): Promise<{ long: number; lat: number; msg: string }> => {
-  if (!navigator.geolocation) {
-    return { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' }
-  }
+// import { ContextInterface, BaseFunctionClause, ObjectResult } from '../..'
 
-  try {
-    const position: GeolocationPosition = await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject))
-    return { long: position.coords.longitude, lat: position.coords.latitude, msg: 'ok' }
-  } catch (e) {
-    return { long: 0, lat: 0, msg: (e as any).message }
-  }
-}
+// // TODO { long: number; lat: number; msg: string }
+// export const CURRENT_POSITION = async (ctx: ContextInterface): Promise<ObjectResult> => {
+//   if (!navigator.geolocation) {
+//     return { type: 'Object', result: { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' } }
+//   }
 
-export const CORE_API_CLAUSES: BaseFunctionClause[] = [
-  {
-    name: 'CURRENT_POSITION',
-    async: true,
-    pure: false,
-    effect: false,
-    description: 'Returns current position',
-    group: 'core',
-    args: [],
-    returns: 'Object',
-    examples: [{ input: [], output: { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' } }],
-    chain: false,
-    reference: CURRENT_POSITION
-  }
-]
+//   try {
+//     const position: GeolocationPosition = await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject))
+//     return { type: 'Object', result: { long: position.coords.longitude, lat: position.coords.latitude, msg: 'ok' } }
+//   } catch (e) {
+//     return { type: 'Object', result: { long: 0, lat: 0, msg: (e as any).message } }
+//   }
+// }
+
+// export const CORE_API_CLAUSES: BaseFunctionClause[] = [
+//   {
+//     name: 'CURRENT_POSITION',
+//     async: true,
+//     pure: false,
+//     effect: false,
+//     description: 'Returns current position',
+//     group: 'core',
+//     args: [],
+//     returns: 'Object',
+//     examples: [{ input: [], output: { long: 0, lat: 0, msg: 'Geolocation is not supported by your browser' } }],
+//     chain: false,
+//     reference: CURRENT_POSITION
+//   }
+// ]
+
+export const CORE_API_CLAUSES = []

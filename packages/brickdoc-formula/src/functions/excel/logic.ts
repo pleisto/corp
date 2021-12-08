@@ -1,18 +1,25 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, AnyResult, BooleanResult } from '../..'
 
-export const IF = (ctx: ContextInterface, condition: boolean, ifTrue: any, ifFalse: any): any => (condition ? ifTrue : ifFalse)
+export const IF = (ctx: ContextInterface, condition: boolean, ifTrue: any, ifFalse: any): AnyResult => ({
+  result: condition ? ifTrue : ifFalse,
+  type: 'any'
+})
 
-export const TRUE = (ctx: ContextInterface): boolean => true
+export const TRUE = (ctx: ContextInterface): BooleanResult => ({ type: 'boolean', result: true })
 
-export const FALSE = (ctx: ContextInterface): boolean => false
+export const FALSE = (ctx: ContextInterface): BooleanResult => ({ type: 'boolean', result: false })
 
-export const AND = (ctx: ContextInterface, ...conditions: boolean[]): boolean =>
-  conditions.reduce((acc, condition) => acc && condition, true)
+export const AND = (ctx: ContextInterface, ...conditions: boolean[]): BooleanResult => ({
+  type: 'boolean',
+  result: conditions.reduce((acc, condition) => acc && condition, true)
+})
 
-export const OR = (ctx: ContextInterface, ...conditions: boolean[]): boolean =>
-  conditions.reduce((acc, condition) => acc || condition, false)
+export const OR = (ctx: ContextInterface, ...conditions: boolean[]): BooleanResult => ({
+  result: conditions.reduce((acc, condition) => acc || condition, false),
+  type: 'boolean'
+})
 
-export const NOT = (ctx: ContextInterface, term: boolean): boolean => !term
+export const NOT = (ctx: ContextInterface, term: boolean): BooleanResult => ({ type: 'boolean', result: !term })
 
 export const EXCEL_LOGIC_CLAUSES: BaseFunctionClause[] = [
   {

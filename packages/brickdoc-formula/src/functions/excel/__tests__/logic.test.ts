@@ -5,36 +5,36 @@ const ctx = new FormulaContext()
 
 describe('logic', () => {
   it('IF', () => {
-    expect(IF(ctx, false, 1, 2)).toBe(2)
-    expect(IF(ctx, true, 1, 2)).toBe(1)
+    expect(IF(ctx, false, 1, 2).result).toBe(2)
+    expect(IF(ctx, true, 1, 2).result).toBe(1)
   })
 
   it('TRUE', () => {
-    expect(TRUE(ctx)).toBe(true)
+    expect(TRUE(ctx).result).toBe(true)
   })
 
   it('FALSE', () => {
-    expect(FALSE(ctx)).toBe(false)
+    expect(FALSE(ctx).result).toBe(false)
   })
 
   it('NOT', () => {
-    expect(NOT(ctx, false)).toBe(true)
-    expect(NOT(ctx, true)).toBe(false)
+    expect(NOT(ctx, false).result).toBe(true)
+    expect(NOT(ctx, true).result).toBe(false)
   })
 
   it('AND', () => {
-    expect(AND(ctx)).toBe(true)
-    expect(AND(ctx, true, true)).toBe(true)
-    expect(AND(ctx, true, false)).toBe(false)
-    expect(AND(ctx, false, true)).toBe(false)
-    expect(AND(ctx, false, false)).toBe(false)
+    expect(AND(ctx).result).toBe(true)
+    expect(AND(ctx, true, true).result).toBe(true)
+    expect(AND(ctx, true, false).result).toBe(false)
+    expect(AND(ctx, false, true).result).toBe(false)
+    expect(AND(ctx, false, false).result).toBe(false)
   })
 
   it('OR', () => {
-    expect(OR(ctx)).toBe(false)
-    expect(OR(ctx, true, true)).toBe(true)
-    expect(OR(ctx, true, false)).toBe(true)
-    expect(OR(ctx, false, true)).toBe(true)
-    expect(OR(ctx, false, false)).toBe(false)
+    expect(OR(ctx).result).toBe(false)
+    expect(OR(ctx, true, true).result).toBe(true)
+    expect(OR(ctx, true, false).result).toBe(true)
+    expect(OR(ctx, false, true).result).toBe(true)
+    expect(OR(ctx, false, false).result).toBe(false)
   })
 })

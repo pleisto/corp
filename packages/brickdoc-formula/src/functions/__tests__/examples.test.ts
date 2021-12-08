@@ -11,7 +11,7 @@ describe('clause examples', () => {
       // eslint-disable-next-line max-nested-callbacks
       examples.forEach(async ({ input, output }) => {
         const result = await reference(ctx, ...input)
-        expect(result).toEqual(output)
+        expect(result.result).toEqual(output)
       })
     })
   })

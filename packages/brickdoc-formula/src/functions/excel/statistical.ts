@@ -1,8 +1,8 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, NumberResult } from '../..'
 
-export const AVERAGE = (ctx: ContextInterface, ...numbers: number[]): number => {
+export const AVERAGE = (ctx: ContextInterface, ...numbers: number[]): NumberResult => {
   const sum = numbers.reduce((acc, cur) => acc + cur, 0)
-  return sum / numbers.length
+  return { type: 'number', result: sum / numbers.length }
 }
 
 export const EXCEL_STATISTICAL_CLAUSES: BaseFunctionClause[] = [

@@ -1,10 +1,10 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, NumberResult, StringResult } from '../..'
 
-export const LEN = (ctx: ContextInterface, str: string): number => str.length
+export const LEN = (ctx: ContextInterface, str: string): NumberResult => ({ result: str.length, type: 'number' })
 
-export const T = (ctx: ContextInterface, input: any): string => (typeof input === 'string' ? input : '')
+export const T = (ctx: ContextInterface, input: any): StringResult => ({ result: typeof input === 'string' ? input : '', type: 'string' })
 
-export const TRIM = (ctx: ContextInterface, str: string): string => str.trim()
+export const TRIM = (ctx: ContextInterface, str: string): StringResult => ({ result: str.trim(), type: 'string' })
 
 export const EXCEL_TEXT_CLAUSES: BaseFunctionClause[] = [
   {

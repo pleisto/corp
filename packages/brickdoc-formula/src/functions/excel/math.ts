@@ -1,26 +1,31 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, NumberResult } from '../..'
 
-export const ABS = (ctx: ContextInterface, number: number): number => Math.abs(number)
+export const ABS = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.abs(number), type: 'number' })
 
-export const INT = (ctx: ContextInterface, number: number): number => Math.floor(number)
+export const INT = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.floor(number), type: 'number' })
 
-export const LOG10 = (ctx: ContextInterface, number: number): number => Math.log10(number)
+export const LOG10 = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.log10(number), type: 'number' })
 
-export const PI = (ctx: ContextInterface): number => Math.PI
+export const PI = (ctx: ContextInterface): NumberResult => ({ result: Math.PI, type: 'number' })
 
-export const POWER = (ctx: ContextInterface, number: number, power: number): number => Math.pow(number, power)
+export const POWER = (ctx: ContextInterface, number: number, power: number): NumberResult => ({
+  result: Math.pow(number, power),
+  type: 'number'
+})
 
-export const RAND = (ctx: ContextInterface): number => Math.random()
+export const RAND = (ctx: ContextInterface): NumberResult => ({ result: Math.random(), type: 'number' })
 
-export const RANDBETWEEN = (ctx: ContextInterface, min: number, max: number): number => Math.random() * (max - min) + min
+export const RANDBETWEEN = (ctx: ContextInterface, min: number, max: number): NumberResult => ({
+  result: Math.random() * (max - min) + min,
+  type: 'number'
+})
 
-export const SQRT = (ctx: ContextInterface, number: number): number => Math.sqrt(number)
+export const SQRT = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.sqrt(number), type: 'number' })
 
-export const SQRTPI = (ctx: ContextInterface, number: number): number => Math.sqrt(number * Math.PI)
+export const SQRTPI = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.sqrt(number * Math.PI), type: 'number' })
 
-export const TRUNC = (ctx: ContextInterface, number: number): number => Math.trunc(number)
-
-export const LN = (ctx: ContextInterface, number: number): number => Math.log(number)
+export const TRUNC = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.trunc(number), type: 'number' })
+export const LN = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.log(number), type: 'number' })
 
 export const EXCEL_MATH_CLAUSES: BaseFunctionClause[] = [
   {

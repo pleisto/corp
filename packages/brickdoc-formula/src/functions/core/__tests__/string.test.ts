@@ -5,7 +5,7 @@ const ctx = new FormulaContext()
 
 describe('object', () => {
   it('START_WITH', () => {
-    expect(START_WITH(ctx, 'foo', 'bar')).toBe(false)
-    expect(START_WITH(ctx, 'foo', 'foo')).toBe(true)
+    expect(START_WITH(ctx, 'foo', 'bar').result).toBe(false)
+    expect(START_WITH(ctx, 'foo', 'foo').result).toBe(true)
   })
 })

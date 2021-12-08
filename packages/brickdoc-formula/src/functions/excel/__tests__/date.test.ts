@@ -5,6 +5,6 @@ const ctx = new FormulaContext()
 
 describe('date', () => {
   it('DATE', () => {
-    expect(typeof TODAY(ctx)).toBe('object')
+    expect(typeof TODAY(ctx).result).toBe('object')
   })
 })

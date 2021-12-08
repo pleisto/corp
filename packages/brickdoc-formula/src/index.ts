@@ -5,11 +5,23 @@ export * from './functions'
 export * from './context'
 
 export type BasicType = 'number' | 'string' | 'boolean' | 'null'
-export type ObjectType = 'Date' | 'Column' | 'Block' | 'Object' | 'Array'
+export type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Object' | 'Array' | 'Error'
 
 export type FormulaType = BasicType | ObjectType | 'any'
 
-export type SpecialDefaultVariableName = 'str' | 'num' | 'bool' | 'obj' | 'array' | 'date' | 'column' | 'block' | 'var' | 'null'
+export type SpecialDefaultVariableName =
+  | 'str'
+  | 'num'
+  | 'bool'
+  | 'obj'
+  | 'array'
+  | 'date'
+  | 'column'
+  | 'block'
+  | 'var'
+  | 'null'
+  | 'error'
+  | 'spreadsheet'
 
 export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom' | string
 
@@ -36,6 +48,86 @@ export type VariableId = uuid
 export type ColumnId = uuid
 
 export type Result = any
+
+export interface BaseResult {
+  result: Result
+  type: FormulaType
+  errorKind?: ErrorType
+}
+export interface NumberResult extends BaseResult {
+  result: number
+  type: 'number'
+}
+
+export interface BooleanResult extends BaseResult {
+  result: boolean
+  type: 'boolean'
+}
+
+export interface StringResult extends BaseResult {
+  result: string
+  type: 'string'
+}
+
+export interface NullResult extends BaseResult {
+  result: null
+  type: 'null'
+}
+
+export interface ArrayResult extends BaseResult {
+  result: any[]
+  type: 'Array'
+}
+
+export interface ObjectResult extends BaseResult {
+  result: { [key: string]: any }
+  type: 'Object'
+}
+
+export interface DateResult extends BaseResult {
+  result: Date
+  type: 'Date'
+}
+
+export interface ColumnResult extends BaseResult {
+  result: Column
+  type: 'Column'
+}
+
+export interface SpreadsheetResult extends BaseResult {
+  result: Database
+  type: 'Spreadsheet'
+}
+
+export interface BlockResult extends BaseResult {
+  result: never
+  type: 'Block'
+}
+
+export interface ErrorResult extends BaseResult {
+  result: string
+  type: 'Error'
+  errorKind: ErrorType
+}
+
+export interface AnyResult extends BaseResult {
+  result: any
+  type: 'any'
+}
+
+export type FunctionResult =
+  | NumberResult
+  | BooleanResult
+  | StringResult
+  | NullResult
+  | ObjectResult
+  | ArrayResult
+  | DateResult
+  | ColumnResult
+  | SpreadsheetResult
+  | BlockResult
+  | ErrorResult
+  | AnyResult
 
 export interface View {
   [key: string]: any
@@ -144,7 +236,7 @@ export interface BaseFunctionClause {
   readonly args: Argument[]
   readonly returns: FormulaType
   readonly examples: Example[]
-  readonly reference: (ctx: ContextInterface, ...args: any[]) => Result
+  readonly reference: (ctx: ContextInterface, ...args: any[]) => FunctionResult
 }
 
 export interface NormalFunctionClause extends BaseFunctionClause {
@@ -154,7 +246,7 @@ export interface NormalFunctionClause extends BaseFunctionClause {
 export interface ChainFunctionClause extends BaseFunctionClause {
   readonly chain: true
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => Result
+  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => FunctionResult
 }
 
 export type BasicFunctionClause = NormalFunctionClause | ChainFunctionClause

@@ -1,13 +1,10 @@
-import { ContextInterface, BaseFunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause, AnyResult, StringResult, ObjectResult } from '../..'
 
-export const T = (ctx: ContextInterface, obj: any): any => obj
+export const T = (ctx: ContextInterface, obj: any): AnyResult => ({ type: 'any', result: obj })
 
-export const TYPE = (ctx: ContextInterface, obj: any): string => typeof obj
+export const TYPE = (ctx: ContextInterface, obj: any): StringResult => ({ result: typeof obj, type: 'string' })
 
-export const WITH_TYPE = (ctx: ContextInterface, obj: any): { type: string; obj: any } => ({
-  type: typeof obj,
-  obj
-})
+export const WITH_TYPE = (ctx: ContextInterface, obj: any): ObjectResult => ({ result: { type: typeof obj, obj }, type: 'Object' })
 
 export const CORE_OBJECT_CLAUSES: BaseFunctionClause[] = [
   {

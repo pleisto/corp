@@ -23,7 +23,7 @@ const functionClauses: FunctionClause[] = [
     returns: 'number',
     examples: [],
     chain: false,
-    reference: (ctx: ContextInterface, a: number, b: number): number => a + b
+    reference: (ctx: ContextInterface, a: number, b: number) => ({ type: 'number', result: a + b })
   },
   {
     name: 'FORTY_TWO',
@@ -37,7 +37,7 @@ const functionClauses: FunctionClause[] = [
     returns: 'number',
     examples: [],
     chain: false,
-    reference: (ctx: ContextInterface): number => 42
+    reference: (ctx: ContextInterface) => ({ type: 'number', result: 42 })
   }
 ]
 

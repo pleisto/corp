@@ -5,17 +5,17 @@ const ctx = new FormulaContext()
 
 describe('object', () => {
   it('T', () => {
-    expect(T(ctx, false)).toBe(false)
-    expect(T(ctx, [])).toStrictEqual([])
+    expect(T(ctx, false).result).toBe(false)
+    expect(T(ctx, []).result).toStrictEqual([])
   })
 
   it('TYPE', () => {
-    expect(TYPE(ctx, 1)).toBe('number')
-    expect(TYPE(ctx, [])).toBe('object')
+    expect(TYPE(ctx, 1).result).toBe('number')
+    expect(TYPE(ctx, []).result).toBe('object')
   })
 
   it('WITH_TYPE', () => {
-    expect(WITH_TYPE(ctx, 1)).toStrictEqual({ type: 'number', obj: 1 })
-    expect(WITH_TYPE(ctx, '123')).toStrictEqual({ type: 'string', obj: '123' })
+    expect(WITH_TYPE(ctx, 1).result).toStrictEqual({ type: 'number', obj: 1 })
+    expect(WITH_TYPE(ctx, '123').result).toStrictEqual({ type: 'string', obj: '123' })
   })
 })
