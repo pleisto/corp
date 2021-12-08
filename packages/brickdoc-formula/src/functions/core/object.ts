@@ -1,4 +1,4 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const T = (ctx: ContextInterface, obj: any): any => obj
 
@@ -9,7 +9,7 @@ export const WITH_TYPE = (ctx: ContextInterface, obj: any): { type: string; obj:
   obj
 })
 
-export const CORE_OBJECT_CLAUSES: FunctionClause[] = [
+export const CORE_OBJECT_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'T',
     async: false,

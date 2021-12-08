@@ -157,7 +157,11 @@ export interface ChainFunctionClause extends BaseFunctionClause {
   readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => Result
 }
 
-export type FunctionClause = NormalFunctionClause | ChainFunctionClause
+export type BasicFunctionClause = NormalFunctionClause | ChainFunctionClause
+
+export interface FunctionClause extends BaseFunctionClause {
+  readonly key: FunctionKey
+}
 
 export interface CodeFragment {
   readonly code: string

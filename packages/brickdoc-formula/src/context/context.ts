@@ -19,7 +19,7 @@ import {
   VariableName,
   DefaultVariableName
 } from '..'
-import { BUILTIN_CLAUSES, function2completion } from '../functions'
+import { BUILTIN_CLAUSES, function2completion, functionKey } from '../functions'
 
 export interface FormulaContextArgs {
   functionClauses: FunctionClause[]
@@ -48,7 +48,6 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
   {}
 ) as { [key in SpecialDefaultVariableName]: FormulaType }
 
-export const functionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => `${group}::${name}`
 export const variableKey = (namespaceId: string, variableId: string): VariableKey => `$${namespaceId}@${variableId}`
 
 export class FormulaContext implements ContextInterface {
@@ -78,8 +77,8 @@ export class FormulaContext implements ContextInterface {
     if (backendActions) {
       this.backendActions = backendActions
     }
-    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o: { [key: FunctionKey]: FunctionClause}, acc) => {
-      o[functionKey(acc.group, acc.name)] = acc
+    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o: { [key: FunctionKey]: FunctionClause }, acc) => {
+      o[acc.key] = acc
       return o
     }, {})
   }
@@ -161,7 +160,7 @@ export class FormulaContext implements ContextInterface {
       })
 
       variable.t.functionDependencies?.forEach(dependency => {
-        const dependencyKey = functionKey(dependency.group, dependency.name)
+        const dependencyKey = dependency.key
         const functionDependencies = this.reverseFunctionDependencies[dependencyKey]
           ? this.reverseFunctionDependencies[dependencyKey].filter(x => !(x.namespaceId === namespaceId && x.variableId === variableId))
           : []
@@ -180,7 +179,7 @@ export class FormulaContext implements ContextInterface {
     })
 
     functionDependencies?.forEach(dependency => {
-      const dependencyKey = functionKey(dependency.group, dependency.name)
+      const dependencyKey = dependency.key
       this.reverseFunctionDependencies[dependencyKey] ||= []
       this.reverseFunctionDependencies[dependencyKey] = [...this.reverseFunctionDependencies[dependencyKey], { namespaceId, variableId }]
     })

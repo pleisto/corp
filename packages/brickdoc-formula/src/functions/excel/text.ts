@@ -1,4 +1,4 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const LEN = (ctx: ContextInterface, str: string): number => str.length
 
@@ -6,7 +6,7 @@ export const T = (ctx: ContextInterface, input: any): string => (typeof input ==
 
 export const TRIM = (ctx: ContextInterface, str: string): string => str.trim()
 
-export const EXCEL_TEXT_CLAUSES: FunctionClause[] = [
+export const EXCEL_TEXT_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'LEN',
     async: false,

@@ -7,6 +7,7 @@ const functionClauses: FunctionClause[] = [
     async: false,
     pure: true,
     effect: false,
+    key: 'custom::PLUS',
     args: [
       {
         type: 'number',
@@ -29,6 +30,7 @@ const functionClauses: FunctionClause[] = [
     async: false,
     pure: true,
     effect: false,
+    key: 'custom::FORTY_TWO',
     args: [],
     description: '',
     group: 'custom',

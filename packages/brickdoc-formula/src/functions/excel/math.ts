@@ -1,4 +1,4 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const ABS = (ctx: ContextInterface, number: number): number => Math.abs(number)
 
@@ -22,7 +22,7 @@ export const TRUNC = (ctx: ContextInterface, number: number): number => Math.tru
 
 export const LN = (ctx: ContextInterface, number: number): number => Math.log(number)
 
-export const EXCEL_MATH_CLAUSES: FunctionClause[] = [
+export const EXCEL_MATH_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'ABS',
     async: false,

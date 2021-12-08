@@ -1,8 +1,8 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const TODAY = (ctx: ContextInterface): Date => new Date()
 
-export const EXCEL_DATE_CLAUSES: FunctionClause[] = [
+export const EXCEL_DATE_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'TODAY',
     async: false,

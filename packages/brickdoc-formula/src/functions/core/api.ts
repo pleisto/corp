@@ -1,4 +1,4 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const CURRENT_POSITION = async (ctx: ContextInterface): Promise<{ long: number; lat: number; msg: string }> => {
   if (!navigator.geolocation) {
@@ -13,7 +13,7 @@ export const CURRENT_POSITION = async (ctx: ContextInterface): Promise<{ long: n
   }
 }
 
-export const CORE_API_CLAUSES: FunctionClause[] = [
+export const CORE_API_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'CURRENT_POSITION',
     async: true,

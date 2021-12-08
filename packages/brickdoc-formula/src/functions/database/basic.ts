@@ -1,4 +1,4 @@
-import { Cell, Column, ContextInterface, Database, FunctionClause } from '../..'
+import { Cell, Column, ContextInterface, Database, BaseFunctionClause } from '../..'
 
 export const SUM = (ctx: ContextInterface, column: Column): number => {
   const rows: number[] = ctx.listCellByColumn(column).map((cell: Cell) => Number(cell.value) || 0)
@@ -10,7 +10,7 @@ export const SIZE = (ctx: ContextInterface, database: Database): number => {
   return database.size()
 }
 
-export const DATABASE_BASIC_CLAUSES: FunctionClause[] = [
+export const DATABASE_BASIC_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'SUM',
     async: false,

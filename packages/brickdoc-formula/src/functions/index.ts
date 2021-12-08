@@ -4,10 +4,12 @@ import { DATABASE_CLAUSES } from './database'
 import { EXCEL_CLAUSES } from './excel'
 import { THIRD_CLAUSES } from './third'
 
-export const BUILTIN_CLAUSES: FunctionClause[] = [...EXCEL_CLAUSES, ...CORE_CLAUSES, ...DATABASE_CLAUSES, ...THIRD_CLAUSES]
+export const functionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => `${group}::${name}`
 
-// TODO remove this
-const functionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => `${group}::${name}`
+export const BUILTIN_CLAUSES: FunctionClause[] = [...EXCEL_CLAUSES, ...CORE_CLAUSES, ...DATABASE_CLAUSES, ...THIRD_CLAUSES].map(f => ({
+  ...f,
+  key: functionKey(f.group, f.name)
+}))
 
 export const function2completion = (functionClause: FunctionClause, weight: number): FunctionCompletion => {
   return {
@@ -15,7 +17,7 @@ export const function2completion = (functionClause: FunctionClause, weight: numb
     weight,
     name: functionClause.name,
     namespace: functionClause.group,
-    value: functionKey(functionClause.group, functionClause.name),
+    value: functionClause.key,
     preview: functionClause
   }
 }

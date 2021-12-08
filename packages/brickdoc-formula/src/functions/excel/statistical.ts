@@ -1,11 +1,11 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const AVERAGE = (ctx: ContextInterface, ...numbers: number[]): number => {
   const sum = numbers.reduce((acc, cur) => acc + cur, 0)
   return sum / numbers.length
 }
 
-export const EXCEL_STATISTICAL_CLAUSES: FunctionClause[] = [
+export const EXCEL_STATISTICAL_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'AVERAGE',
     async: false,

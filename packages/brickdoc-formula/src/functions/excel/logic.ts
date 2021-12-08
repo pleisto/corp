@@ -1,4 +1,4 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const IF = (ctx: ContextInterface, condition: boolean, ifTrue: any, ifFalse: any): any => (condition ? ifTrue : ifFalse)
 
@@ -14,7 +14,7 @@ export const OR = (ctx: ContextInterface, ...conditions: boolean[]): boolean =>
 
 export const NOT = (ctx: ContextInterface, term: boolean): boolean => !term
 
-export const EXCEL_LOGIC_CLAUSES: FunctionClause[] = [
+export const EXCEL_LOGIC_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'IF',
     async: false,

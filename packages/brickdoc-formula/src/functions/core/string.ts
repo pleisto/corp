@@ -1,8 +1,8 @@
-import { ContextInterface, FunctionClause } from '../..'
+import { ContextInterface, BaseFunctionClause } from '../..'
 
 export const START_WITH = (ctx: ContextInterface, string: string, prefix: string): boolean => string.startsWith(prefix)
 
-export const CORE_STRING_CLAUSES: FunctionClause[] = [
+export const CORE_STRING_CLAUSES: BaseFunctionClause[] = [
   {
     name: 'START_WITH',
     async: false,
