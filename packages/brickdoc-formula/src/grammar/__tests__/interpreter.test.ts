@@ -93,7 +93,7 @@ describe('Custom Function', () => {
 
     const { success, errorMessages } = parse({ ...parseInput, meta: newMeta, formulaContext: localFormulaContext })
     expect(success).toEqual(false)
-    expect(errorMessages[0].message).toEqual('Argument count mismatch')
+    expect(errorMessages[0]!.message).toEqual('Argument count mismatch')
   })
 
   it('42', async () => {
@@ -130,7 +130,7 @@ describe('Context', () => {
     const meta = { namespaceId: anotherBlockId, variableId: anotherVariableId, name: 'bar' }
     await quickInsert({ formulaContext, meta: { ...meta, input: barInput } })
 
-    const bar = formulaContext.findVariable(anotherBlockId, anotherVariableId)
+    const bar = formulaContext.findVariable(anotherBlockId, anotherVariableId)!
 
     expect(bar.t.functionDependencies).toEqual([])
     expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])

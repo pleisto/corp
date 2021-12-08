@@ -72,7 +72,7 @@ export class FormulaContext implements ContextInterface {
   reverseVariableDependencies: { [key: VariableKey]: VariableDependency[] } = {}
   reverseFunctionDependencies: { [key: FunctionKey]: VariableDependency[] } = {}
   functionClausesMap: { [key: FunctionKey]: FunctionClause }
-  backendActions: BackendActions
+  backendActions: BackendActions | undefined
 
   constructor({ functionClauses, backendActions }: FormulaContextArgs = { functionClauses: [] }) {
     if (backendActions) {

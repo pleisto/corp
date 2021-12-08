@@ -112,7 +112,7 @@ export type Completion = FunctionCompletion | VariableCompletion
 
 export interface ContextInterface {
   databases: { [key: NamespaceId]: Database }
-  backendActions: BackendActions
+  backendActions: BackendActions | undefined
   variableCount: () => number
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   listCellByColumn: (column: Column) => Cell[]
@@ -206,7 +206,7 @@ export interface VariableData {
   view?: View
   kind: VariableKind
   variableValue: VariableValue
-  cst: CstNode
+  cst?: CstNode
   codeFragments: CodeFragment[]
   flattenVariableDependencies: Set<VariableDependency>
   variableDependencies: VariableDependency[]
@@ -224,7 +224,7 @@ export interface VariableMetadata {
 
 export interface VariableInterface {
   t: VariableData
-  backendActions: BackendActions
+  backendActions: BackendActions | undefined
   meta: () => VariableMetadata
   completion: (weight: number) => VariableCompletion
   onUpdate: (handler: VariableUpdateHandler) => void

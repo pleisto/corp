@@ -328,6 +328,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     } else if (ctx.blockExpression) {
       return this.visit(ctx.blockExpression, { type })
     }
+
+    throw new Error('Unsupported atomic expression')
   }
 
   parenthesisExpression(ctx, { type }: ExpressionArgument): result {
@@ -348,6 +350,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const { errorMessages } = intersectType(type, parentType)
       return { codeFragments: [{ ...token2fragment(ctx.StringLiteral[0], parentType), errors: errorMessages }], type: parentType }
     }
+
+    throw new Error('Unsupported constant expression')
   }
 
   NumberLiteralExpression(ctx, { type }: ExpressionArgument): result {
@@ -441,7 +445,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       ])
       this.level = Math.max(this.level, variable.t.level + 1)
 
-      const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type)
+      const { errorMessages, newType } = intersectType(type, variable.t.variableValue.type ?? 'any')
       return {
         codeFragments: [
           {
@@ -526,7 +530,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
   Arguments(ctx, args: Argument[] | null): result {
     const firstArgs = args?.[0]
-    const argumentTypes = firstArgs?.spread ? Array(ctx.expression.length).fill(firstArgs.type) : args.map(x => x.type)
+    const argumentTypes = firstArgs?.spread ? Array(ctx.expression.length).fill(firstArgs.type) : args?.map(x => x.type) ?? []
 
     const codeFragments: CodeFragment[] = []
 

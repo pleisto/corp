@@ -39,9 +39,9 @@ describe('Dependency', () => {
     ].map(({ name, input }) => ({
       name,
       namespaceId,
-      variableId: variableWithNames.find(v => v.name === name).variableId,
+      variableId: variableWithNames.find(v => v.name === name)!.variableId,
       input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
-        return `$${namespaceId}@${variableWithNames.find(v => v.name === variableName).variableId}`
+        return `$${namespaceId}@${variableWithNames.find(v => v.name === variableName)!.variableId}`
       })
     }))
 
@@ -52,8 +52,8 @@ describe('Dependency', () => {
 
   it('snapshot', () => {
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
-    expect(formulaContext.findVariable(namespaceId, variableIds[5]).t.variableValue.value).toEqual(5)
-    expect(formulaContext.findVariable(namespaceId, variableIds[6]).t.variableValue.value).toEqual(4)
+    expect(formulaContext.findVariable(namespaceId, variableIds[5])!.t.variableValue.value).toEqual(5)
+    expect(formulaContext.findVariable(namespaceId, variableIds[6])!.t.variableValue.value).toEqual(4)
     expect(
       Object.values(formulaContext.context).map(v => ({ ...v.t, cst: null, variableValue: { ...v.t.variableValue, updatedAt: null } }))
     ).toMatchSnapshot()

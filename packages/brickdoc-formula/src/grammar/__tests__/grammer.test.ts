@@ -457,10 +457,10 @@ describe('Simple test case', () => {
         expect(result.value).toEqual(value)
         expect(interpretSuccess).toEqual(true)
       } else if (!lexSuccess) {
-        expect(errorMessages[0].message).toContain(errorMessage)
+        expect(errorMessages[0]!.message).toContain(errorMessage)
         expect(errorType).toEqual('lex')
       } else if (!parseSuccess) {
-        expect(errorMessages[0].message).toContain(errorMessage)
+        expect(errorMessages[0]!.message).toContain(errorMessage)
         expect(errorType).toEqual('parse')
       } else {
         expect(errorMessages).toEqual([])
@@ -469,7 +469,7 @@ describe('Simple test case', () => {
         expect(success).toEqual(true)
 
         expect(interpretSuccess).toEqual(false)
-        expect(interpretErrorMessages[0].message).toContain(errorMessage)
+        expect(interpretErrorMessages[0]!.message).toContain(errorMessage)
         expect(result).toEqual(null)
       }
     })

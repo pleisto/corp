@@ -245,7 +245,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return variable.t.variableValue.value
     }
 
-    return this.visit(variable.t.cst)
+    return this.visit(variable.t.cst!)
   }
 
   NumberLiteralExpression(ctx): Result {
@@ -269,10 +269,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Function ${group}.${name} not found`)
     }
 
-    const args = []
+    const args: Result[] = []
 
     if (ctx.Arguments) {
-      args.push(...this.visit(ctx.Arguments))
+      args.push(...(this.visit(ctx.Arguments)))
     }
 
     if (clause.chain) {
@@ -282,7 +282,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  Arguments(ctx): Result {
+  Arguments(ctx): Result[] {
     return ctx.expression.map(arg => this.visit(arg))
   }
 }
