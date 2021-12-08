@@ -1,4 +1,4 @@
-import { tokenMatcher } from 'chevrotain'
+import { CstNode, tokenMatcher } from 'chevrotain'
 import { ContextInterface, NormalFunctionClause, Result } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -33,19 +33,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
     this.validateVisitor()
   }
 
-  startExpression(ctx): Result {
+  startExpression(ctx: { expression: CstNode | CstNode[] }): Result {
     return this.visit(ctx.expression)
   }
 
-  expression(ctx): Result {
+  expression(ctx: { combineExpression: CstNode | CstNode[] }): Result {
     return this.visit(ctx.combineExpression)
   }
 
-  combineExpression(ctx): Result {
+  combineExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[]; CombineOperator: { [x: string]: any } }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach((rhsOperand, idx) => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
         const rhsValue = this.visit(rhsOperand)
         const operator = ctx.CombineOperator[idx]
 
@@ -62,7 +62,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  notExpression(ctx): Result {
+  notExpression(ctx: { rhs: CstNode | CstNode[]; lhs: any[] }): Result {
     let result = this.visit(ctx.rhs)
     if (ctx.lhs) {
       ctx.lhs.forEach(() => {
@@ -72,11 +72,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  equalCompareExpression(ctx): Result {
+  equalCompareExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[]; EqualCompareOperator: { [x: string]: any } }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach((rhsOperand, idx) => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
         const rhsValue = this.visit(rhsOperand)
         const operator = ctx.EqualCompareOperator[idx]
 
@@ -93,11 +93,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  compareExpression(ctx): Result {
+  compareExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[]; CompareOperator: { [x: string]: any } }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach((rhsOperand, idx) => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
         // there will be one operator for each rhs operand
         const rhsValue = this.visit(rhsOperand)
         const operator = ctx.CompareOperator[idx]
@@ -119,11 +119,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  concatExpression(ctx): Result {
+  concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach(rhsOperand => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[]) => {
         result = result.concat(this.visit(rhsOperand))
       })
     }
@@ -131,11 +131,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  additionExpression(ctx): Result {
+  additionExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[]; AdditionOperator: { [x: string]: any } }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach((rhsOperand, idx) => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
         const rhsValue = this.visit(rhsOperand)
         const operator = ctx.AdditionOperator[idx]
 
@@ -153,11 +153,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  multiplicationExpression(ctx): Result {
+  multiplicationExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[]; MultiplicationOperator: { [x: string]: any } }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach((rhsOperand, idx) => {
+      ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
         const rhsValue = this.visit(rhsOperand)
         const operator = ctx.MultiplicationOperator[idx]
 
@@ -176,11 +176,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  chainExpression(ctx): Result {
+  chainExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): Result {
     let result = this.visit(ctx.lhs)
 
     if (ctx.rhs) {
-      ctx.rhs.forEach(cst => {
+      ctx.rhs.forEach((cst: CstNode | CstNode[]) => {
         result = this.visit(cst, result)
       })
     }
@@ -188,7 +188,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  atomicExpression(ctx): Result {
+  // eslint-disable-next-line max-len
+  atomicExpression(ctx: { parenthesisExpression: CstNode | CstNode[]; constantExpression: CstNode | CstNode[]; FunctionCall: CstNode | CstNode[]; variableExpression: CstNode | CstNode[]; columnExpression: CstNode | CstNode[]; blockExpression: CstNode | CstNode[] }): Result {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
     } else if (ctx.constantExpression) {
@@ -204,11 +205,12 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  parenthesisExpression(ctx): Result {
+  parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): Result {
     return this.visit(ctx.expression)
   }
 
-  constantExpression(ctx): Result {
+  // eslint-disable-next-line max-len
+  constantExpression(ctx: { NumberLiteralExpression: CstNode | CstNode[]; BooleanLiteralExpression: CstNode | CstNode[]; StringLiteral: Array<{ image: any }> }): Result {
     if (ctx.NumberLiteralExpression) {
       return this.visit(ctx.NumberLiteralExpression)
     } else if (ctx.BooleanLiteralExpression) {
@@ -220,22 +222,22 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  columnExpression(ctx): Result {
-    const [namespaceId, columnId] = ctx.UUID.map(uuid => uuid.image)
+  columnExpression(ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } }): Result {
+    const [namespaceId, columnId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
     const column = this.formulaContext.findColumn(namespaceId, columnId)
 
     return column
   }
 
-  blockExpression(ctx): Result {
+  blockExpression(ctx: { UUID: Array<{ image: any }> }): Result {
     const namespaceId = ctx.UUID[0].image
     const database = this.formulaContext.findDatabase(namespaceId)
 
     return database
   }
 
-  variableExpression(ctx): Result {
-    const [namespaceId, variableId] = ctx.UUID.map(uuid => uuid.image)
+  variableExpression(ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } }): Result {
+    const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
     const variable = this.formulaContext.findVariable(namespaceId, variableId)
     if (!variable) {
       throw new Error(`Variable not found: ${variableId}`)
@@ -248,18 +250,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return this.visit(variable.t.cst!)
   }
 
-  NumberLiteralExpression(ctx): Result {
+  NumberLiteralExpression(ctx: { NumberLiteral: Array<{ image: any }>; Sign: any; Minus: any }): Result {
     const number = Number(ctx.NumberLiteral[0].image)
     const numberAfterSign = ctx.Sign ? number * 0.01 : number
 
     return ctx.Minus ? numberAfterSign * -1 : numberAfterSign
   }
 
-  BooleanLiteralExpression(ctx): Result {
+  BooleanLiteralExpression(ctx: { BooleanLiteral: Array<{ image: string }> }): Result {
     return ['true'].includes(ctx.BooleanLiteral[0].image)
   }
 
-  FunctionCall(ctx, chainArgs): Result {
+  // eslint-disable-next-line max-len
+  FunctionCall(ctx: {FunctionGroupName: Array<{ image: any }>; FunctionName: Array<{ image: any }>; Arguments: CstNode | CstNode[] }, chainArgs: any): Result {
     const group = ctx.FunctionGroupName[0].image
     const name = ctx.FunctionName[0].image
 
@@ -282,7 +285,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  Arguments(ctx): Result[] {
-    return ctx.expression.map(arg => this.visit(arg))
+  Arguments(ctx: { expression: any[] }): Result[] {
+    return ctx.expression.map((arg: CstNode | CstNode[]) => this.visit(arg))
   }
 }

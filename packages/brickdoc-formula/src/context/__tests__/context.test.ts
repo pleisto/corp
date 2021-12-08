@@ -1,7 +1,7 @@
-import { appendFormulas, buildVariable, Formula, interpret, parse, SuccessInterpretResult, SuccessParseResult } from '../..'
+import { appendFormulas, buildVariable, Formula, FunctionClause, interpret, parse, SuccessInterpretResult, SuccessParseResult } from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses = []
+const functionClauses: FunctionClause[]= []
 
 describe('Context', () => {
   const formulaContext = new FormulaContext({ functionClauses })

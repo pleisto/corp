@@ -124,7 +124,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   parser.input = tokens
 
   const cst: CstNode = parser.startExpression()
-  const { codeFragments } = codeFragmentVisitor.visit(cst, { type: 'any' }) ?? { codeFragments: [] }
+  const { codeFragments }: {codeFragments: CodeFragment[]} = codeFragmentVisitor.visit(cst, { type: 'any' }) ?? { codeFragments: [] }
 
   completions = complete({ tokens, formulaContext, namespaceId, codeFragments })
 

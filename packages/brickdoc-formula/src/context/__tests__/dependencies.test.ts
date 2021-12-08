@@ -1,8 +1,8 @@
 /* eslint-disable max-nested-callbacks */
-import { buildVariable, interpret, parse, quickInsert, SuccessInterpretResult, SuccessParseResult } from '../..'
+import { buildVariable, FunctionClause, interpret, parse, quickInsert, SuccessInterpretResult, SuccessParseResult, VariableMetadata } from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses = []
+const functionClauses: FunctionClause[]= []
 const formulaContext = new FormulaContext({ functionClauses })
 
 const namespaceId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
@@ -18,7 +18,8 @@ const variableIds = [
 
 const variableWithNames = variableIds.map((id, index) => ({ variableId: id, name: `num${index}` }))
 
-const asyncForEach = async (array, callback): Promise<void> => {
+// eslint-disable-next-line max-len
+const asyncForEach = async (array: string | any[], callback: { (meta: VariableMetadata): Promise<void>; (arg0: any, arg1: number, arg2: any): any }): Promise<void> => {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
@@ -28,7 +29,7 @@ describe('Dependency', () => {
   beforeAll(async () => {
     formulaContext.reset()
 
-    const metas = [
+    const metas: VariableMetadata[] = [
       { name: 'num0', input: '=1' },
       { name: 'num1', input: '=2' },
       { name: 'num2', input: '=$num0' },
@@ -45,7 +46,7 @@ describe('Dependency', () => {
       })
     }))
 
-    await asyncForEach(metas, async meta => {
+    await asyncForEach(metas, async (meta: VariableMetadata) => {
       await quickInsert({ formulaContext, meta })
     })
   })

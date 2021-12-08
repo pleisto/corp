@@ -78,7 +78,7 @@ export class FormulaContext implements ContextInterface {
     if (backendActions) {
       this.backendActions = backendActions
     }
-    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o, acc) => {
+    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o: { [key: FunctionKey]: FunctionClause}, acc) => {
       o[functionKey(acc.group, acc.name)] = acc
       return o
     }, {})
@@ -86,11 +86,11 @@ export class FormulaContext implements ContextInterface {
 
   public completions = (namespaceId: NamespaceId): Completion[] => {
     const functions = Object.entries(this.functionClausesMap).map(([key, f]) => {
-      const weight: number = this.functionWeights[key] || 0
+      const weight: number = this.functionWeights[key as FunctionKey] || 0
       return function2completion(f, weight)
     })
     const variables = Object.entries(this.context).map(([key, v]) => {
-      const weight: number = this.variableWeights[key] || 0
+      const weight: number = this.variableWeights[key as VariableKey] || 0
       return v.completion(v.t.namespaceId === namespaceId ? weight + 1 : weight)
     })
     return [...functions, ...variables].sort((a, b) => b.weight - a.weight)
@@ -212,7 +212,7 @@ export class FormulaContext implements ContextInterface {
     const match = variable.t.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
-      const realName = ReverseCastName[defaultName]
+      const realName = ReverseCastName[defaultName as SpecialDefaultVariableName]
       this.variableNameCounter[realName][namespaceId] = Math.max(this.variableNameCounter[realName][namespaceId] || 0, Number(count))
     }
 
