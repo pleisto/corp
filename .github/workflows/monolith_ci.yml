@@ -66,7 +66,7 @@ env:
   NODE_OPTIONS: '--max-old-space-size=5250'
 
 jobs:
-  jest_and_cache_dist:
+  jest:
     name: Jest Test
     runs-on: ubuntu-latest
     steps:
@@ -83,11 +83,13 @@ jobs:
             yarn.lock
       - name: Setup NodeJS
         uses: actions/setup-node@v2
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         with:
           node-version: 16
           cache: yarn
       - name: Run yarn install
         run: yarn install --immutable
+        if: steps.changed-es-files.outputs.any_changed == 'true'
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Run Jest tests
@@ -105,6 +107,23 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: frontend-unit
+  cache_dist:
+    name: Cache dist:prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # To retrieve the preceding commit.
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Run yarn install
+        run: yarn install --immutable
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -118,8 +137,19 @@ jobs:
           key: ${{ github.sha }}-public
       - name: build frontend dist
         run: yarn dist:prod
+      - name: Check Cypress binary cache
+        id: cache-cypress-binary
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Cache Cypress binary
+        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+        run:  rm -rf node_modules && npm i cypress
   rspec_and_dump_schema:
-    name: Rails RSpec Test and build artifacts
+    name: Rails RSpec & Dump Schema
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -238,7 +268,7 @@ jobs:
   running_e2e:
     name: Build & E2E Test
     runs-on: ubuntu-latest
-    needs: jest_and_cache_dist
+    needs: cache_dist
     strategy:
       matrix:
         # run 3 copies of the current job in parallel
@@ -272,10 +302,6 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # To retrieve the preceding commit.
-      - name: Make directories
-        run: mkdir -p log
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -284,17 +310,17 @@ jobs:
       - name: Restore Cypress binary cache
         uses: actions/cache@v2
         with:
-          path: ~/.cache/Cypress
-          key: cypress-binary-cache-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-      - name: Run yarn install
-        run: yarn install --immutable
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Run DB migrations
-        run: bundle exec rails db:prepare
+      - name: Create Log dir & Run DB migrations
+        run: mkdir -p log && bundle exec rails db:prepare
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
