@@ -109,8 +109,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     return this.visit(ctx.combineExpression, { type })
   }
 
-  // eslint-disable-next-line max-len
-  combineExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[]; CombineOperator: { [x: string]: IToken } }, { type }: ExpressionArgument): result {
+  combineExpression(
+    ctx: { rhs: any[]; lhs: CstNode | CstNode[]; CombineOperator: { [x: string]: IToken } },
+    { type }: ExpressionArgument
+  ): result {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -161,8 +163,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  equalCompareExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[]; EqualCompareOperator: { [x: string]: any } }, { type }: ExpressionArgument): result {
+  equalCompareExpression(
+    ctx: { rhs: any[]; lhs: CstNode | CstNode[]; EqualCompareOperator: { [x: string]: any } },
+    { type }: ExpressionArgument
+  ): result {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -187,8 +191,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  compareExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[]; CompareOperator: { [x: string]: any } }, { type }: ExpressionArgument): result {
+  compareExpression(
+    ctx: { rhs: any[]; lhs: CstNode | CstNode[]; CompareOperator: { [x: string]: any } },
+    { type }: ExpressionArgument
+  ): result {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -240,8 +246,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  additionExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[]; AdditionOperator: { [x: string]: any } }, { type }: ExpressionArgument): result {
+  additionExpression(
+    ctx: { rhs: any[]; lhs: CstNode | CstNode[]; AdditionOperator: { [x: string]: any } },
+    { type }: ExpressionArgument
+  ): result {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -266,8 +274,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  multiplicationExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[]; MultiplicationOperator: { [x: string]: any } }, { type }: ExpressionArgument): result {
+  multiplicationExpression(
+    ctx: { rhs: any[]; lhs: CstNode | CstNode[]; MultiplicationOperator: { [x: string]: any } },
+    { type }: ExpressionArgument
+  ): result {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -319,8 +329,17 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  atomicExpression(ctx: { parenthesisExpression: CstNode | CstNode[]; constantExpression: CstNode | CstNode[]; FunctionCall: CstNode | CstNode[]; variableExpression: CstNode | CstNode[]; columnExpression: CstNode | CstNode[]; blockExpression: CstNode | CstNode[] }, { type }: ExpressionArgument): result {
+  atomicExpression(
+    ctx: {
+      parenthesisExpression: CstNode | CstNode[]
+      constantExpression: CstNode | CstNode[]
+      FunctionCall: CstNode | CstNode[]
+      variableExpression: CstNode | CstNode[]
+      columnExpression: CstNode | CstNode[]
+      blockExpression: CstNode | CstNode[]
+    },
+    { type }: ExpressionArgument
+  ): result {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression, { type })
     } else if (ctx.constantExpression) {
@@ -338,8 +357,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     throw new Error('Unsupported atomic expression')
   }
 
-  // eslint-disable-next-line max-len
-  parenthesisExpression(ctx: { expression: CstNode | CstNode[]; LParen: IToken[]; RParen: IToken[] }, { type }: ExpressionArgument): result {
+  parenthesisExpression(
+    ctx: { expression: CstNode | CstNode[]; LParen: IToken[]; RParen: IToken[] },
+    { type }: ExpressionArgument
+  ): result {
     const { codeFragments, type: expressionType }: result = this.visit(ctx.expression, { type })
     return {
       codeFragments: [token2fragment(ctx.LParen[0], 'any'), ...codeFragments, token2fragment(ctx.RParen[0], 'any')],
@@ -347,8 +368,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  constantExpression(ctx: { NumberLiteralExpression: CstNode | CstNode[]; BooleanLiteralExpression: CstNode | CstNode[]; StringLiteral: IToken[] }, { type }: ExpressionArgument): result {
+  constantExpression(
+    ctx: { NumberLiteralExpression: CstNode | CstNode[]; BooleanLiteralExpression: CstNode | CstNode[]; StringLiteral: IToken[] },
+    { type }: ExpressionArgument
+  ): result {
     if (ctx.NumberLiteralExpression) {
       return this.visit(ctx.NumberLiteralExpression, { type })
     } else if (ctx.BooleanLiteralExpression) {
@@ -482,8 +505,16 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  // eslint-disable-next-line max-len
-  FunctionCall(ctx: { FunctionGroupName: Array<{ image: any }>; FunctionName: IToken[]; Arguments: CstNode | CstNode[]; LParen: IToken[]; RParen: IToken[] }, { type, firstArgumentType }: ExpressionArgument): result {
+  FunctionCall(
+    ctx: {
+      FunctionGroupName: Array<{ image: any }>
+      FunctionName: IToken[]
+      Arguments: CstNode | CstNode[]
+      LParen: IToken[]
+      RParen: IToken[]
+    },
+    { type, firstArgumentType }: ExpressionArgument
+  ): result {
     const group = ctx.FunctionGroupName[0].image
     const name = ctx.FunctionName[0].image
 

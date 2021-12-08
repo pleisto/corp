@@ -188,8 +188,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  // eslint-disable-next-line max-len
-  atomicExpression(ctx: { parenthesisExpression: CstNode | CstNode[]; constantExpression: CstNode | CstNode[]; FunctionCall: CstNode | CstNode[]; variableExpression: CstNode | CstNode[]; columnExpression: CstNode | CstNode[]; blockExpression: CstNode | CstNode[] }): Result {
+  atomicExpression(ctx: {
+    parenthesisExpression: CstNode | CstNode[]
+    constantExpression: CstNode | CstNode[]
+    FunctionCall: CstNode | CstNode[]
+    variableExpression: CstNode | CstNode[]
+    columnExpression: CstNode | CstNode[]
+    blockExpression: CstNode | CstNode[]
+  }): Result {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
     } else if (ctx.constantExpression) {
@@ -209,8 +215,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return this.visit(ctx.expression)
   }
 
-  // eslint-disable-next-line max-len
-  constantExpression(ctx: { NumberLiteralExpression: CstNode | CstNode[]; BooleanLiteralExpression: CstNode | CstNode[]; StringLiteral: Array<{ image: any }> }): Result {
+  constantExpression(ctx: {
+    NumberLiteralExpression: CstNode | CstNode[]
+    BooleanLiteralExpression: CstNode | CstNode[]
+    StringLiteral: Array<{ image: any }>
+  }): Result {
     if (ctx.NumberLiteralExpression) {
       return this.visit(ctx.NumberLiteralExpression)
     } else if (ctx.BooleanLiteralExpression) {
@@ -261,8 +270,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return ['true'].includes(ctx.BooleanLiteral[0].image)
   }
 
-  // eslint-disable-next-line max-len
-  FunctionCall(ctx: {FunctionGroupName: Array<{ image: any }>; FunctionName: Array<{ image: any }>; Arguments: CstNode | CstNode[] }, chainArgs: any): Result {
+  FunctionCall(
+    ctx: { FunctionGroupName: Array<{ image: any }>; FunctionName: Array<{ image: any }>; Arguments: CstNode | CstNode[] },
+    chainArgs: any
+  ): Result {
     const group = ctx.FunctionGroupName[0].image
     const name = ctx.FunctionName[0].image
 
@@ -275,7 +286,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     const args: Result[] = []
 
     if (ctx.Arguments) {
-      args.push(...(this.visit(ctx.Arguments)))
+      args.push(...this.visit(ctx.Arguments))
     }
 
     if (clause.chain) {

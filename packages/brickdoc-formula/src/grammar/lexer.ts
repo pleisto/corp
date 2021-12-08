@@ -245,7 +245,7 @@ export const FormulaLexer = new Lexer(allTokens, {
   ensureOptimizations: true
 })
 
-export const tokenVocabulary= allTokens.reduce((o: {[key: string]: TokenType}, acc) => {
+export const tokenVocabulary = allTokens.reduce((o: { [key: string]: TokenType }, acc) => {
   o[acc.name] = acc
   return o
 }, {})

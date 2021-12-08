@@ -1,8 +1,17 @@
 /* eslint-disable max-nested-callbacks */
-import { buildVariable, FunctionClause, interpret, parse, quickInsert, SuccessInterpretResult, SuccessParseResult, VariableMetadata } from '../..'
+import {
+  buildVariable,
+  FunctionClause,
+  interpret,
+  parse,
+  quickInsert,
+  SuccessInterpretResult,
+  SuccessParseResult,
+  VariableMetadata
+} from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses: FunctionClause[]= []
+const functionClauses: FunctionClause[] = []
 const formulaContext = new FormulaContext({ functionClauses })
 
 const namespaceId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
@@ -18,8 +27,10 @@ const variableIds = [
 
 const variableWithNames = variableIds.map((id, index) => ({ variableId: id, name: `num${index}` }))
 
-// eslint-disable-next-line max-len
-const asyncForEach = async (array: string | any[], callback: { (meta: VariableMetadata): Promise<void>; (arg0: any, arg1: number, arg2: any): any }): Promise<void> => {
+const asyncForEach = async (
+  array: string | any[],
+  callback: { (meta: VariableMetadata): Promise<void>; (arg0: any, arg1: number, arg2: any): any }
+): Promise<void> => {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
