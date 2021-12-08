@@ -232,6 +232,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     env:
+      CYPRESS: 1
       RAILS_ENV: test
       UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
       UNSPLASH_API_SECRET: ${{ secrets.UNSPLASH_API_SECRET }}
@@ -285,7 +286,7 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
-          start: CYPRESS=1 bundle exec rails s
+          start: bundle exec rails s
           parallel: true
           browser: chrome
           install: false
