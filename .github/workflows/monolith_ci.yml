@@ -140,12 +140,6 @@ jobs:
         with:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: vite cache
-        id: vite-cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.vite
-          key: vite-cache
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
