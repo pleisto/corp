@@ -5,7 +5,7 @@ export const START_WITH = (ctx: ContextInterface, string: string, prefix: string
   type: 'boolean'
 })
 
-export const CORE_STRING_CLAUSES: BaseFunctionClause[] = [
+export const CORE_STRING_CLAUSES: Array<BaseFunctionClause<'boolean'>> = [
   {
     name: 'START_WITH',
     async: false,

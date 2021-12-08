@@ -6,7 +6,7 @@ export const T = (ctx: ContextInterface, input: any): StringResult => ({ result:
 
 export const TRIM = (ctx: ContextInterface, str: string): StringResult => ({ result: str.trim(), type: 'string' })
 
-export const EXCEL_TEXT_CLAUSES: BaseFunctionClause[] = [
+export const EXCEL_TEXT_CLAUSES: Array<BaseFunctionClause<any>> = [
   {
     name: 'LEN',
     async: false,

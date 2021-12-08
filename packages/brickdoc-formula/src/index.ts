@@ -115,19 +115,21 @@ export interface AnyResult extends BaseResult {
   type: 'any'
 }
 
-export type FunctionResult =
-  | NumberResult
-  | BooleanResult
-  | StringResult
-  | NullResult
-  | ObjectResult
-  | ArrayResult
-  | DateResult
-  | ColumnResult
-  | SpreadsheetResult
-  | BlockResult
+export type FunctionResult<T> =
+  | ((
+      | NumberResult
+      | BooleanResult
+      | StringResult
+      | NullResult
+      | ObjectResult
+      | ArrayResult
+      | DateResult
+      | ColumnResult
+      | SpreadsheetResult
+      | BlockResult
+      | AnyResult
+    ) & { type: T })
   | ErrorResult
-  | AnyResult
 
 export interface View {
   [key: string]: any
@@ -190,7 +192,7 @@ export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
   readonly namespace: FunctionGroup
   readonly value: FunctionKey
-  readonly preview: FunctionClause
+  readonly preview: FunctionClause<any>
 }
 
 export interface VariableCompletion extends BaseCompletion {
@@ -221,11 +223,11 @@ export interface ContextInterface {
   handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
-  findFunctionClause: (group: FunctionGroup, name: FunctionName) => FunctionClause | undefined
+  findFunctionClause: (group: FunctionGroup, name: FunctionName) => FunctionClause<any> | undefined
   reset: () => void
 }
 
-export interface BaseFunctionClause {
+export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionName
   readonly pure: boolean
   readonly effect: boolean
@@ -234,24 +236,25 @@ export interface BaseFunctionClause {
   readonly description: string
   readonly group: FunctionGroup
   readonly args: Argument[]
-  readonly returns: FormulaType
+  readonly returns: T
   readonly examples: Example[]
-  readonly reference: (ctx: ContextInterface, ...args: any[]) => FunctionResult
+  readonly reference: (ctx: ContextInterface, ...args: any[]) => FunctionResult<T>
 }
 
-export interface NormalFunctionClause extends BaseFunctionClause {
+export interface NormalFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
   readonly chain: false
 }
 
-export interface ChainFunctionClause extends BaseFunctionClause {
+export interface ChainFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
   readonly chain: true
+  readonly returns: T
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => FunctionResult
+  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => FunctionResult<T>
 }
 
-export type BasicFunctionClause = NormalFunctionClause | ChainFunctionClause
+export type BasicFunctionClause<T extends FormulaType> = NormalFunctionClause<T> | ChainFunctionClause<T>
 
-export interface FunctionClause extends BaseFunctionClause {
+export interface FunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
   readonly key: FunctionKey
 }
 
@@ -306,7 +309,7 @@ export interface VariableData {
   codeFragments: CodeFragment[]
   flattenVariableDependencies: Set<VariableDependency>
   variableDependencies: VariableDependency[]
-  functionDependencies: FunctionClause[]
+  functionDependencies: Array<FunctionClause<any>>
 }
 
 export type VariableUpdateHandler = (variable: VariableInterface) => void

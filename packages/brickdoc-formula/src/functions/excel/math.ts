@@ -27,7 +27,7 @@ export const SQRTPI = (ctx: ContextInterface, number: number): NumberResult => (
 export const TRUNC = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.trunc(number), type: 'number' })
 export const LN = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.log(number), type: 'number' })
 
-export const EXCEL_MATH_CLAUSES: BaseFunctionClause[] = [
+export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
   {
     name: 'ABS',
     async: false,

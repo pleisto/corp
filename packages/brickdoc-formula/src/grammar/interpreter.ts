@@ -292,7 +292,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (clause.chain) {
       return clause.reference(this.formulaContext, chainArgs, ...args).result
     } else {
-      return (clause as NormalFunctionClause).reference(this.formulaContext, ...args).result
+      return (clause as NormalFunctionClause<'any'>).reference(this.formulaContext, ...args).result
     }
   }
 

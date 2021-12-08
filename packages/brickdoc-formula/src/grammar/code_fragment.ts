@@ -88,7 +88,7 @@ const intersectType = (argumentType: ExpressionType, contextType: FormulaType): 
 export class CodeFragmentVisitor extends BaseCstVisitor {
   formulaContext: ContextInterface
   variableDependencies: VariableDependency[] = []
-  functionDependencies: FunctionClause[] = []
+  functionDependencies: Array<FunctionClause<any>> = []
   flattenVariableDependencies: Set<VariableDependency> = new Set()
   level: number = 0
   kind: VariableKind = 'constant'

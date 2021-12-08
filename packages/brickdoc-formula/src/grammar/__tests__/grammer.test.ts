@@ -425,7 +425,7 @@ but found: '*'`
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 
-const functionClauses: FunctionClause[]= []
+const functionClauses: Array<FunctionClause<any>> = []
 const formulaContext = new FormulaContext({ functionClauses })
 
 const name = 'foo'

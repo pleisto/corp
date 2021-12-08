@@ -6,7 +6,7 @@ const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const unknownId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
 const fooVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
-const functionClauses: FunctionClause[] = [
+const functionClauses: Array<FunctionClause<any>> = [
   {
     name: 'PLUS',
     async: false,

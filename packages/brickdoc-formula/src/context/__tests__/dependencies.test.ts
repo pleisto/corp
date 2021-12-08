@@ -11,7 +11,7 @@ import {
 } from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses: FunctionClause[] = []
+const functionClauses: Array<FunctionClause<any>> = []
 const formulaContext = new FormulaContext({ functionClauses })
 
 const namespaceId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'

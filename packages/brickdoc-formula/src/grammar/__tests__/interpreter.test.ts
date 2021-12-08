@@ -1,7 +1,7 @@
 import { parse, interpret, quickInsert, FunctionClause, BUILTIN_CLAUSES, ContextInterface } from '../..'
 import { FormulaContext } from '../../context'
 
-const functionClauses: FunctionClause[] = [
+const functionClauses: Array<FunctionClause<any>> = [
   {
     name: 'PLUS',
     async: false,

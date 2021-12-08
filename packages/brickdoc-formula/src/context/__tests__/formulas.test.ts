@@ -1,7 +1,7 @@
 import { appendFormulas, Formula, FunctionClause } from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses: FunctionClause[]= []
+const functionClauses: Array<FunctionClause<any>> = []
 
 describe('appendFormulas', () => {
   it('constant', () => {

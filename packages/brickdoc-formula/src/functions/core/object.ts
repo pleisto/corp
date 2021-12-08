@@ -6,7 +6,7 @@ export const TYPE = (ctx: ContextInterface, obj: any): StringResult => ({ result
 
 export const WITH_TYPE = (ctx: ContextInterface, obj: any): ObjectResult => ({ result: { type: typeof obj, obj }, type: 'Object' })
 
-export const CORE_OBJECT_CLAUSES: BaseFunctionClause[] = [
+export const CORE_OBJECT_CLAUSES: Array<BaseFunctionClause<any>> = [
   {
     name: 'T',
     async: false,

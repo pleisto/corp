@@ -39,7 +39,7 @@ export interface BaseParseResult {
   readonly level: number
   readonly errorMessages: ErrorMessage[]
   readonly variableDependencies?: VariableDependency[]
-  readonly functionDependencies?: FunctionClause[]
+  readonly functionDependencies?: Array<FunctionClause<any>>
   readonly codeFragments: CodeFragment[]
   readonly flattenVariableDependencies?: Set<VariableDependency>
   readonly completions: Completion[]
@@ -51,7 +51,7 @@ export interface SuccessParseResult extends BaseParseResult {
   readonly cst: CstNode
   readonly kind: VariableKind
   readonly variableDependencies: VariableDependency[]
-  readonly functionDependencies: FunctionClause[]
+  readonly functionDependencies: Array<FunctionClause<any>>
   readonly flattenVariableDependencies: Set<VariableDependency>
 }
 
@@ -124,7 +124,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   parser.input = tokens
 
   const cst: CstNode = parser.startExpression()
-  const { codeFragments }: {codeFragments: CodeFragment[]} = codeFragmentVisitor.visit(cst, { type: 'any' }) ?? { codeFragments: [] }
+  const { codeFragments }: { codeFragments: CodeFragment[] } = codeFragmentVisitor.visit(cst, { type: 'any' }) ?? { codeFragments: [] }
 
   completions = complete({ tokens, formulaContext, namespaceId, codeFragments })
 
@@ -256,9 +256,13 @@ export const displayValue = (result: Result): string => {
 }
 
 export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): Promise<InterpretResult> => {
-  if(!cst) {
+  if (!cst) {
     const errorMessage: ErrorMessage = { message: 'CST is undefined', type: 'fatal' }
-    return { success: false, errorMessages: [errorMessage], result: {updatedAt: new Date(), success: false, errorMessages: [errorMessage]} }
+    return {
+      success: false,
+      errorMessages: [errorMessage],
+      result: { updatedAt: new Date(), success: false, errorMessages: [errorMessage] }
+    }
   }
   try {
     const interpreter = new FormulaInterpreter({ formulaContext })
@@ -353,7 +357,6 @@ export const castVariable = (
         type: 'any',
         errorMessages: errorMessages as [ErrorMessage, ...ErrorMessage[]]
       }
-
 
   return {
     namespaceId,

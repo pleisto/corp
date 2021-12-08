@@ -22,7 +22,7 @@ import {
 import { BUILTIN_CLAUSES, function2completion, functionKey } from '../functions'
 
 export interface FormulaContextArgs {
-  functionClauses: FunctionClause[]
+  functionClauses: Array<FunctionClause<any>>
   backendActions?: BackendActions
 }
 
@@ -74,14 +74,14 @@ export class FormulaContext implements ContextInterface {
 
   reverseVariableDependencies: { [key: VariableKey]: VariableDependency[] } = {}
   reverseFunctionDependencies: { [key: FunctionKey]: VariableDependency[] } = {}
-  functionClausesMap: { [key: FunctionKey]: FunctionClause }
+  functionClausesMap: { [key: FunctionKey]: FunctionClause<any> }
   backendActions: BackendActions | undefined
 
   constructor({ functionClauses, backendActions }: FormulaContextArgs = { functionClauses: [] }) {
     if (backendActions) {
       this.backendActions = backendActions
     }
-    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o: { [key: FunctionKey]: FunctionClause }, acc) => {
+    this.functionClausesMap = [...BUILTIN_CLAUSES, ...functionClauses].reduce((o: { [key: FunctionKey]: FunctionClause<any> }, acc) => {
       o[acc.key] = acc
       return o
     }, {})
@@ -249,7 +249,7 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  public findFunctionClause = (group: FunctionGroup, name: FunctionName): FunctionClause | undefined => {
+  public findFunctionClause = (group: FunctionGroup, name: FunctionName): FunctionClause<any> | undefined => {
     return this.functionClausesMap[functionKey(group, name)]
   }
 

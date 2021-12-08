@@ -10,7 +10,7 @@ export const SIZE = (ctx: ContextInterface, database: Database): NumberResult =>
   return { type: 'number', result: database.size() }
 }
 
-export const DATABASE_BASIC_CLAUSES: BaseFunctionClause[] = [
+export const DATABASE_BASIC_CLAUSES: Array<BaseFunctionClause<'number'>> = [
   {
     name: 'SUM',
     async: false,

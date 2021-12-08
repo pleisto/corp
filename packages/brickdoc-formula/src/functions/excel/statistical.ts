@@ -5,7 +5,7 @@ export const AVERAGE = (ctx: ContextInterface, ...numbers: number[]): NumberResu
   return { type: 'number', result: sum / numbers.length }
 }
 
-export const EXCEL_STATISTICAL_CLAUSES: BaseFunctionClause[] = [
+export const EXCEL_STATISTICAL_CLAUSES: Array<BaseFunctionClause<'number'>> = [
   {
     name: 'AVERAGE',
     async: false,

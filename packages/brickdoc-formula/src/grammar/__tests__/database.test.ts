@@ -13,7 +13,7 @@ const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
 const meta = { namespaceId, variableId, name: 'example' }
 
-const tableData: Array<{ [key: string]: any}> = [
+const tableData: Array<{ [key: string]: any }> = [
   { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', sort: 100 },
   { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', sort: 100 },
   { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', sort: 100 }
@@ -23,7 +23,7 @@ const columns: Column[] = [
   { namespaceId: databaseNamespaceId, columnId: secondColumnId, type: 'foo', name: 'second', index: 1 }
 ]
 
-const functionClauses: FunctionClause[]= []
+const functionClauses: Array<FunctionClause<any>> = []
 
 const database: Database = {
   name: () => 'MyTable',

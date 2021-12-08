@@ -21,7 +21,7 @@ export const OR = (ctx: ContextInterface, ...conditions: boolean[]): BooleanResu
 
 export const NOT = (ctx: ContextInterface, term: boolean): BooleanResult => ({ type: 'boolean', result: !term })
 
-export const EXCEL_LOGIC_CLAUSES: BaseFunctionClause[] = [
+export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
   {
     name: 'IF',
     async: false,

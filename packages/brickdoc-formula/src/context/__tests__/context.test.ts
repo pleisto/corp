@@ -1,7 +1,7 @@
 import { appendFormulas, buildVariable, Formula, FunctionClause, interpret, parse, SuccessInterpretResult, SuccessParseResult } from '../..'
 import { FormulaContext } from '..'
 
-const functionClauses: FunctionClause[]= []
+const functionClauses: Array<FunctionClause<any>> = []
 
 describe('Context', () => {
   const formulaContext = new FormulaContext({ functionClauses })
