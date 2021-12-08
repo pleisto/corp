@@ -1,4 +1,4 @@
-import { ContextInterface, BaseFunctionClause, NumberResult } from '../..'
+import { ContextInterface, BaseFunctionClause, NumberResult } from '..'
 
 export const ABS = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.abs(number), type: 'number' })
 
@@ -27,14 +27,14 @@ export const SQRTPI = (ctx: ContextInterface, number: number): NumberResult => (
 export const TRUNC = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.trunc(number), type: 'number' })
 export const LN = (ctx: ContextInterface, number: number): NumberResult => ({ result: Math.log(number), type: 'number' })
 
-export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
+export const CORE_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
   {
     name: 'ABS',
     async: false,
     pure: true,
     effect: false,
     description: 'Returns the absolute value of a number.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [
@@ -70,7 +70,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the base-10 logarithm of a number.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [
@@ -88,7 +88,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the value of pi.',
-    group: 'excel',
+    group: 'core',
     args: [],
     returns: 'number',
     examples: [
@@ -106,7 +106,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the value of a number raised to a power.',
-    group: 'excel',
+    group: 'core',
     args: [
       { name: 'number', type: 'number' },
       { name: 'power', type: 'number' }
@@ -127,7 +127,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: false,
     effect: false,
     description: 'Returns a random number between 0 and 1.',
-    group: 'excel',
+    group: 'core',
     args: [],
     returns: 'number',
     examples: [],
@@ -140,7 +140,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: false,
     effect: false,
     description: 'Returns a random number between two numbers.',
-    group: 'excel',
+    group: 'core',
     args: [
       { name: 'min', type: 'number' },
       { name: 'max', type: 'number' }
@@ -156,7 +156,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the square root of a number.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [
@@ -174,7 +174,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the square root of a number multiplied by pi.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [
@@ -192,7 +192,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the integer part of a number.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [
@@ -210,7 +210,7 @@ export const EXCEL_MATH_CLAUSES: Array<BaseFunctionClause<'number'>> = [
     pure: true,
     effect: false,
     description: 'Returns the natural logarithm of a number.',
-    group: 'excel',
+    group: 'core',
     args: [{ name: 'number', type: 'number' }],
     returns: 'number',
     examples: [

@@ -23,7 +23,7 @@ export type SpecialDefaultVariableName =
   | 'error'
   | 'spreadsheet'
 
-export type FunctionGroup = 'core' | 'excel' | 'database' | 'custom' | string
+export type FunctionGroup = 'core' | 'custom' | string
 
 export type FunctionName = string
 export type VariableName = string

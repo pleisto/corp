@@ -19,7 +19,7 @@ import {
   VariableName,
   DefaultVariableName
 } from '..'
-import { BUILTIN_CLAUSES, function2completion, functionKey } from '../functions'
+import { BUILTIN_CLAUSES, function2completion, buildFunctionKey } from '../functions'
 
 export interface FormulaContextArgs {
   functionClauses: Array<FunctionClause<any>>
@@ -250,7 +250,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findFunctionClause = (group: FunctionGroup, name: FunctionName): FunctionClause<any> | undefined => {
-    return this.functionClausesMap[functionKey(group, name)]
+    return this.functionClausesMap[buildFunctionKey(group, name)]
   }
 
   public reset = (): void => {

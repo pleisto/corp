@@ -1,4 +1,4 @@
-import { ContextInterface, BaseFunctionClause, BooleanResult } from '../..'
+import { ContextInterface, BaseFunctionClause, BooleanResult } from '..'
 
 export const START_WITH = (ctx: ContextInterface, string: string, prefix: string): BooleanResult => ({
   result: string.startsWith(prefix),

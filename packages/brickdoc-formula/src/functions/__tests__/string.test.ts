@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { START_WITH } from '../string'
 
 const ctx = new FormulaContext()

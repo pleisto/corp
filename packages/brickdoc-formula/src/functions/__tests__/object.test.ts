@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { T, TYPE, WITH_TYPE } from '../object'
 
 const ctx = new FormulaContext()

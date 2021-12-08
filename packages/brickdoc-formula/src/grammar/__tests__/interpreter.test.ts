@@ -76,7 +76,7 @@ describe('Custom Function', () => {
   })
 
   it('Today track', () => {
-    const input = '=excel::TODAY()'
+    const input = '=core::TODAY()'
     const newMeta = { ...meta, input }
     const { success, cst, variableDependencies, functionDependencies } = parse({
       ...parseInput,

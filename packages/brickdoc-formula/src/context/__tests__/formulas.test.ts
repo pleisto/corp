@@ -57,7 +57,7 @@ describe('appendFormulas', () => {
         name: 'foo',
         id: fooVariableId,
         blockId: fooNamespaceId,
-        definition: '= 123 + excel::RAND()',
+        definition: '= 123 + core::RAND()',
         updatedAt: new Date().toDateString(),
         createdAt: 0,
         cacheValue: {
@@ -70,7 +70,7 @@ describe('appendFormulas', () => {
         name: 'bar',
         id: barVariableId,
         blockId: barNamespaceId,
-        definition: `=excel::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
+        definition: `=core::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
         updatedAt: new Date().toDateString(),
         createdAt: 0,
         cacheValue: {
@@ -110,7 +110,7 @@ describe('appendFormulas', () => {
         name: 'bar',
         id: barVariableId,
         blockId: barNamespaceId,
-        definition: `=excel::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
+        definition: `=core::ABS(123) + $${fooNamespaceId}@${fooVariableId}`,
         updatedAt: new Date().toDateString(),
         createdAt: 0,
         cacheValue: {

@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { IF, TRUE, FALSE, NOT, AND, OR } from '../logic'
 
 const ctx = new FormulaContext()

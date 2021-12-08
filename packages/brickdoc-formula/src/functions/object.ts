@@ -1,4 +1,4 @@
-import { ContextInterface, BaseFunctionClause, AnyResult, StringResult, ObjectResult } from '../..'
+import { ContextInterface, BaseFunctionClause, AnyResult, StringResult, ObjectResult } from '..'
 
 export const T = (ctx: ContextInterface, obj: any): AnyResult => ({ type: 'any', result: obj })
 

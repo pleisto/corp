@@ -238,7 +238,7 @@ const testCases = [
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=true and !2 && excel::TRUE()',
+    input: '=true and !2 && core::TRUE()',
     value: false
   },
   // Error
@@ -270,55 +270,55 @@ but found: '*'`
   },
   // Function Call
   {
-    input: '=excel::ABS ( -1  )',
+    input: '=core::ABS ( -1  )',
     value: 1
   },
   {
-    input: '=excel::ABS ()',
+    input: '=core::ABS ()',
     parseSuccess: false,
     errorMessage: 'Miss argument'
   },
   {
-    input: '=excel::ABS(1,2)',
+    input: '=core::ABS(1,2)',
     parseSuccess: false,
     errorMessage: 'Argument count mismatch'
   },
   {
-    input: '=excel::AVERAGE()',
+    input: '=core::AVERAGE()',
     parseSuccess: false,
     errorMessage: 'Miss argument',
     label: 'Spread operator with no argument'
   },
   {
-    input: '=excel::AVERAGE(1)',
+    input: '=core::AVERAGE(1)',
     value: 1,
     label: 'spread operator'
   },
   {
-    input: '=excel::AVERAGE(1, 2, 3)',
+    input: '=core::AVERAGE(1, 2, 3)',
     value: 2,
     label: 'spread operator'
   },
   {
-    input: '=excel::IF(true, 1+2, "2")',
+    input: '=core::IF(true, 1+2, "2")',
     value: 3
   },
   {
-    input: '=excel::AND(true, false, false)',
+    input: '=core::AND(true, false, false)',
     value: false
   },
   {
-    input: '=excel::OR(true)',
+    input: '=core::OR(true)',
     value: true
   },
   {
-    input: '=excel::ABS(excel::IF(excel::FALSE(), -3, -4))',
+    input: '=core::ABS(core::IF(core::FALSE(), -3, -4))',
     value: 4
   },
   {
-    input: '=excel::UNKNOWN ()',
+    input: '=core::UNKNOWN ()',
     parseSuccess: false,
-    errorMessage: 'Function excel.UNKNOWN not found'
+    errorMessage: 'Function core.UNKNOWN not found'
   },
   // Chain
   {
@@ -350,33 +350,33 @@ but found: '*'`
     errorMessage: 'Expected string but got boolean'
   },
   {
-    input: '="123".excel::LEN()',
+    input: '="123".core::LEN()',
     parseSuccess: false,
-    errorMessage: 'excel::LEN is not chainable'
+    errorMessage: 'core::LEN is not chainable'
   },
   // Type
   {
-    input: '=excel::ABS ( "a" )',
+    input: '=core::ABS ( "a" )',
     parseSuccess: false,
     errorMessage: 'Expected number but got string'
   },
   {
-    input: '=excel::IF(1, -3, -4)',
+    input: '=core::IF(1, -3, -4)',
     parseSuccess: false,
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=excel::ABS( excel::TODAY() )',
+    input: '=core::ABS( core::TODAY() )',
     parseSuccess: false,
     errorMessage: 'Expected number but got Date'
   },
   {
-    input: '=excel::AND(1, 2)',
+    input: '=core::AND(1, 2)',
     parseSuccess: false,
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=excel::ABS ( excel::TRUE() )',
+    input: '=core::ABS ( core::TRUE() )',
     parseSuccess: false,
     errorMessage: 'Expected number but got boolean'
   },
@@ -410,12 +410,12 @@ but found: '*'`
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
-    input: '=123.excel::ABS()',
+    input: '=123.core::ABS()',
     parseSuccess: false,
     errorMessage: 'TODO build not all input parsed :5'
   },
   {
-    input: '=excel::if(true, 1+2, "2")',
+    input: '=core::if(true, 1+2, "2")',
     parseSuccess: false,
     label: 'TODO downcase',
     errorMessage: 'TODO mismatch token FunctionCall'

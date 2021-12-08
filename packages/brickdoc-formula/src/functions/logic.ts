@@ -1,4 +1,4 @@
-import { ContextInterface, BaseFunctionClause, AnyResult, BooleanResult } from '../..'
+import { ContextInterface, BaseFunctionClause, AnyResult, BooleanResult } from '..'
 
 export const IF = (ctx: ContextInterface, condition: boolean, ifTrue: any, ifFalse: any): AnyResult => ({
   result: condition ? ifTrue : ifFalse,
@@ -21,14 +21,14 @@ export const OR = (ctx: ContextInterface, ...conditions: boolean[]): BooleanResu
 
 export const NOT = (ctx: ContextInterface, term: boolean): BooleanResult => ({ type: 'boolean', result: !term })
 
-export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
+export const CORE_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
   {
     name: 'IF',
     async: false,
     pure: true,
     effect: false,
     description: 'Returns the first argument if the condition is true, otherwise the second argument.',
-    group: 'excel',
+    group: 'core',
     args: [
       {
         name: 'condition',
@@ -54,7 +54,7 @@ export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
     pure: true,
     effect: false,
     description: 'Returns true.',
-    group: 'excel',
+    group: 'core',
     args: [],
     returns: 'boolean',
     examples: [{ input: [], output: true }],
@@ -67,7 +67,7 @@ export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
     pure: true,
     effect: false,
     description: 'Returns false.',
-    group: 'excel',
+    group: 'core',
     args: [],
     returns: 'boolean',
     examples: [{ input: [], output: false }],
@@ -80,7 +80,7 @@ export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
     pure: true,
     effect: false,
     description: 'Returns the opposite of the argument.',
-    group: 'excel',
+    group: 'core',
     args: [
       {
         name: 'term',
@@ -98,7 +98,7 @@ export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
     pure: true,
     effect: false,
     description: 'Returns true if all the arguments are true.',
-    group: 'excel',
+    group: 'core',
     args: [
       {
         name: 'conditions',
@@ -117,7 +117,7 @@ export const EXCEL_LOGIC_CLAUSES: Array<BaseFunctionClause<any>> = [
     pure: true,
     effect: false,
     description: 'Returns true if any of the arguments are true.',
-    group: 'excel',
+    group: 'core',
     args: [
       {
         name: 'conditions',

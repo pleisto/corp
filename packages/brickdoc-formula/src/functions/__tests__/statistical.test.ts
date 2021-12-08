@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { AVERAGE } from '../statistical'
 
 const ctx = new FormulaContext()

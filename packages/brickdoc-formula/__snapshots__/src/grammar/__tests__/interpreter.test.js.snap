@@ -793,13 +793,13 @@ Object {
                                                                     "children": Object {
                                                                       "Colon": Array [
                                                                         Object {
-                                                                          "endColumn": 8,
+                                                                          "endColumn": 7,
                                                                           "endLine": 1,
-                                                                          "endOffset": 7,
+                                                                          "endOffset": 6,
                                                                           "image": "::",
-                                                                          "startColumn": 7,
+                                                                          "startColumn": 6,
                                                                           "startLine": 1,
-                                                                          "startOffset": 6,
+                                                                          "startOffset": 5,
                                                                           "tokenType": Object {
                                                                             "CATEGORIES": Array [],
                                                                             "PATTERN": /::/,
@@ -814,10 +814,10 @@ Object {
                                                                       ],
                                                                       "FunctionGroupName": Array [
                                                                         Object {
-                                                                          "endColumn": 6,
+                                                                          "endColumn": 5,
                                                                           "endLine": 1,
-                                                                          "endOffset": 5,
-                                                                          "image": "excel",
+                                                                          "endOffset": 4,
+                                                                          "image": "core",
                                                                           "startColumn": 2,
                                                                           "startLine": 1,
                                                                           "startOffset": 1,
@@ -835,13 +835,13 @@ Object {
                                                                       ],
                                                                       "FunctionName": Array [
                                                                         Object {
-                                                                          "endColumn": 13,
+                                                                          "endColumn": 12,
                                                                           "endLine": 1,
-                                                                          "endOffset": 12,
+                                                                          "endOffset": 11,
                                                                           "image": "TODAY",
-                                                                          "startColumn": 9,
+                                                                          "startColumn": 8,
                                                                           "startLine": 1,
-                                                                          "startOffset": 8,
+                                                                          "startOffset": 7,
                                                                           "tokenType": Object {
                                                                             "CATEGORIES": Array [],
                                                                             "PATTERN": /\\[A-Z\\]\\[A-Z0-9_\\]\\*/,
@@ -856,13 +856,13 @@ Object {
                                                                       ],
                                                                       "LParen": Array [
                                                                         Object {
-                                                                          "endColumn": 14,
+                                                                          "endColumn": 13,
                                                                           "endLine": 1,
-                                                                          "endOffset": 13,
+                                                                          "endOffset": 12,
                                                                           "image": "(",
-                                                                          "startColumn": 14,
+                                                                          "startColumn": 13,
                                                                           "startLine": 1,
-                                                                          "startOffset": 13,
+                                                                          "startOffset": 12,
                                                                           "tokenType": Object {
                                                                             "CATEGORIES": Array [],
                                                                             "PATTERN": /\\\\\\(/,
@@ -877,13 +877,13 @@ Object {
                                                                       ],
                                                                       "RParen": Array [
                                                                         Object {
-                                                                          "endColumn": 15,
+                                                                          "endColumn": 14,
                                                                           "endLine": 1,
-                                                                          "endOffset": 14,
+                                                                          "endOffset": 13,
                                                                           "image": ")",
-                                                                          "startColumn": 15,
+                                                                          "startColumn": 14,
                                                                           "startLine": 1,
-                                                                          "startOffset": 14,
+                                                                          "startOffset": 13,
                                                                           "tokenType": Object {
                                                                             "CATEGORIES": Array [],
                                                                             "PATTERN": /\\\\\\)/,

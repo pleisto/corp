@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { ABS, INT, LOG10, PI, POWER, RAND, RANDBETWEEN, SQRT, SQRTPI, TRUNC, LN } from '../math'
 
 const ctx = new FormulaContext()

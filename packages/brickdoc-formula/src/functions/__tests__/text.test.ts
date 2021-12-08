@@ -1,4 +1,4 @@
-import { FormulaContext } from '../../../context'
+import { FormulaContext } from '../../context'
 import { LEN, T, TRIM } from '../text'
 const ctx = new FormulaContext()
 

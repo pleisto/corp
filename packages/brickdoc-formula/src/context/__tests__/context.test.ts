@@ -31,7 +31,7 @@ describe('Context', () => {
       name: 'bar',
       id: barVariableId,
       blockId: barNamespaceId,
-      definition: `=excel::ABS(120) + $${fooNamespaceId}@${fooVariableId}`,
+      definition: `=core::ABS(120) + $${fooNamespaceId}@${fooVariableId}`,
       updatedAt: new Date().toDateString(),
       createdAt: 0,
       cacheValue: {
@@ -92,7 +92,7 @@ describe('Context', () => {
   })
 
   it('if', () => {
-    const input = `=excel::IF(($${fooNamespaceId}@${fooVariableId}), 1, 2)`
+    const input = `=core::IF(($${fooNamespaceId}@${fooVariableId}), 1, 2)`
     const name = 'if'
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
@@ -101,7 +101,7 @@ describe('Context', () => {
 
     expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
 
-    const parseResult2 = parse({ formulaContext, meta: { ...meta, input: `=excel::IF(($${fooNamespaceId}@${fooVariableId} = 3), 1, 2)` } })
+    const parseResult2 = parse({ formulaContext, meta: { ...meta, input: `=core::IF(($${fooNamespaceId}@${fooVariableId} = 3), 1, 2)` } })
     expect(parseResult2.errorMessages).toEqual([])
   })
 
