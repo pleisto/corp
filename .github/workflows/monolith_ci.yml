@@ -113,22 +113,39 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # To retrieve the preceding commit.
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: yarn
-      - name: Run yarn install
+      - name: Check Cypress binary cache
+        id: cache-cypress-binary
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/Cypress
+          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Run yarn install without cypress
         run: yarn install --immutable
+        if: steps.cache-cypress-binary.outputs.cache-hit == 'true'
         env:
           CYPRESS_INSTALL_BINARY: '0'
+      - name: Run yarn install with cypress
+        run: yarn install --immutable
+        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+        env:
+          CYPRESS_INSTALL_BINARY: '1'
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: vite cache
+        id: vite-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.vite
+          key: vite-cache
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
@@ -137,17 +154,6 @@ jobs:
           key: ${{ github.sha }}-public
       - name: build frontend dist
         run: yarn dist:prod
-      - name: Check Cypress binary cache
-        id: cache-cypress-binary
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/Cypress
-            node_modules
-          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-      - name: Cache Cypress binary
-        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run:  rm -rf node_modules && npm i cypress
   rspec_and_dump_schema:
     name: Rails RSpec & Dump Schema
     runs-on: ubuntu-latest
@@ -307,12 +313,15 @@ jobs:
         with:
           node-version: 16
           cache: yarn
+      - name: Run yarn install without cypress
+        run: yarn install --immutable
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
       - name: Restore Cypress binary cache
         uses: actions/cache@v2
         with:
           path: |
             ~/.cache/Cypress
-            node_modules
           key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
