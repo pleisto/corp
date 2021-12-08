@@ -129,12 +129,9 @@ jobs:
         run: yarn install --immutable
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - name: Run yarn install with cypress
-        uses: cypress-io/github-action@v2
+      - name: install cypress
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        with:
-          # just perform install
-          runTests: false
+        run: cypress install
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
