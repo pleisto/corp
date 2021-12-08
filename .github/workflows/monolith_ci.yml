@@ -108,7 +108,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: frontend-unit
   cache_dist:
-    name: Cache dist:prod
+    name: Cache Frontend Dist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the codebase
@@ -140,6 +140,12 @@ jobs:
         with:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Dist Russian doll caching
+        id: cache-dist
+        uses: actions/cache@v2
+        with:
+          path: public
+          key: ${{ github.ref }}-public-doll
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
@@ -149,7 +155,7 @@ jobs:
       - name: build frontend dist
         run: yarn dist:prod
   rspec_and_dump_schema:
-    name: Rails RSpec & Dump Schema
+    name: Rails RSpec & Schema Dump
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -266,7 +272,7 @@ jobs:
           message: 'chore: bump schemas and dists'
           add: 'app lib packages spec config db frontends'
   running_e2e:
-    name: Build & E2E Test
+    name: E2E Test
     runs-on: ubuntu-latest
     needs: cache_dist
     strategy:
