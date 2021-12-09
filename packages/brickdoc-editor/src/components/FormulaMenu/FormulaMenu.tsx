@@ -9,7 +9,7 @@ import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
 import { codeFragmentsToJSONContent } from '../../helpers/formula'
-import { KeyDownHandlerType } from '../../extensions/formula/FormulaEditor/extensions/handleKeyDown'
+import { useKeydownHandler } from './useKeyDownHandler'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -90,31 +90,19 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
-  const keyDownHandler: KeyDownHandlerType = (view, event) => {
-    console.log({ event, activeCompletion })
-    if (event.key === 'Enter' && !event.shiftKey) {
-      return true
-    }
+  const handleSelectActiveCompletion = (completion?: Completion): void => {
+    const currentCompletion = completion ?? activeCompletion
 
-    if (event.key === 'Tab') {
-      console.log({ tab: 'tab', activeCompletion })
-      handleSelectActiveCompletion()
-    }
-
-    return false
-  }
-
-  const handleSelectActiveCompletion = (): void => {
-    if (!activeCompletion) {
+    if (!currentCompletion) {
       return
     }
     const oldContent = content?.content ?? []
-    const value = activeCompletion.value
+    const value = currentCompletion.value
     const attrs: CodeFragment =
-      activeCompletion.kind === 'function'
+      currentCompletion.kind === 'function'
         ? { meta: {}, errors: [], name: value, code: 'Function', spaceBefore: false, spaceAfter: false, type: 'any' }
         : {
-            meta: { name: activeCompletion.preview.name },
+            meta: { name: currentCompletion.preview.name },
             errors: [],
             name: value,
             code: 'Variable',
@@ -128,9 +116,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const finalInput = contentToInput(finalContent)
     setContent(finalContent)
     setInput(finalInput)
-    console.log({ activeCompletion, content, attrs, label: 'selectCompletion', newContent, finalInput })
+    console.log({ currentCompletion, content, attrs, label: 'selectCompletion', newContent, finalInput })
     doCalculate({ newInput: finalInput })
   }
+  const keyDownHandler = useKeydownHandler(activeCompletion, handleSelectActiveCompletion)
 
   const contentToInput = (content: JSONContent): string => {
     const newInput = content.content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? '')).join('') ?? ''
