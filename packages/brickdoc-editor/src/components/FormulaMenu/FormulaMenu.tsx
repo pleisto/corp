@@ -46,7 +46,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const formulaContext = formulaContextActions.getFormulaContext()
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
-  const contextCompletions = formulaContext ? formulaContext.completions(rootId) : []
+  const contextCompletions = formulaContext ? formulaContext.completions(rootId, variable?.t.variableId) : []
   const formulaValue = variable?.t.valid ? `=${variable.t.codeFragments.map(fragment => fragment.name).join('')}` : variable?.t.definition
   const definition = formulaValue?.substr(1)
 
