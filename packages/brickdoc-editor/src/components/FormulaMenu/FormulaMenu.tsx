@@ -9,6 +9,7 @@ import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
 import { codeFragmentsToJSONContent } from '../../helpers/formula'
+import { KeyDownHandlerType } from '../../extensions/formula/FormulaEditor/extensions/handleKeyDown'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -63,6 +64,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const [error, setError] = React.useState<{ type: string; message: string }>()
   const [visible, setVisible] = React.useState(defaultVisible)
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
+  const [activeCompletion, setActiveCompletion] = React.useState<Completion | undefined>(completions[0])
 
   const close = (): void => {
     if (clear) {
@@ -71,6 +73,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       setDefaultName(contextDefaultName)
       setCompletions(contextCompletions)
       setInput(definition)
+      setActiveCompletion(completions[0])
       setError(undefined)
     }
     setVisible(false)
@@ -87,14 +90,31 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
-  const handleSelectCompletion = (completion: Completion): void => {
+  const keyDownHandler: KeyDownHandlerType = (view, event) => {
+    console.log({ event, activeCompletion })
+    if (event.key === 'Enter' && !event.shiftKey) {
+      return true
+    }
+
+    if (event.key === 'Tab') {
+      console.log({ tab: 'tab', activeCompletion })
+      handleSelectActiveCompletion()
+    }
+
+    return false
+  }
+
+  const handleSelectActiveCompletion = (): void => {
+    if (!activeCompletion) {
+      return
+    }
     const oldContent = content?.content ?? []
-    const value = completion.value
+    const value = activeCompletion.value
     const attrs: CodeFragment =
-      completion.kind === 'function'
+      activeCompletion.kind === 'function'
         ? { meta: {}, errors: [], name: value, code: 'Function', spaceBefore: false, spaceAfter: false, type: 'any' }
         : {
-            meta: { name: completion.preview.name },
+            meta: { name: activeCompletion.preview.name },
             errors: [],
             name: value,
             code: 'Variable',
@@ -108,7 +128,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const finalInput = contentToInput(finalContent)
     setContent(finalContent)
     setInput(finalInput)
-    console.log({ completion, content, attrs, label: 'selectCompletion', newContent, finalInput })
+    console.log({ activeCompletion, content, attrs, label: 'selectCompletion', newContent, finalInput })
     doCalculate({ newInput: finalInput })
   }
 
@@ -148,6 +168,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       updateInput: setInput,
       updateContent: setContent,
       updateCompletions: setCompletions,
+      updateActiveCompletion: setActiveCompletion,
       updateDefaultName: setDefaultName
     })
   }
@@ -178,9 +199,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     Modal.confirm({
       title: t(`${i18nKey}.delete_confirm.title`),
       okText: t(`${i18nKey}.delete_confirm.ok`),
-      okButtonProps: {
-        danger: true
-      },
+      okButtonProps: { danger: true },
       cancelText: t(`${i18nKey}.delete_confirm.cancel`),
       icon: null,
       onOk: async () => {
@@ -205,7 +224,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       </div>
       <div className="formula-menu-row">
         <div className="formula-menu-item">
-          <FormulaEditor content={content} updateContent={handleValueChange} editable={true} />
+          <FormulaEditor content={content} updateContent={handleValueChange} keyDownHandler={keyDownHandler} editable={true} />
           {/* <Input className="formula-menu-field" value={value} onChange={handleValueChange} /> */}
         </div>
       </div>
@@ -221,7 +240,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         {!error && variable?.t.variableValue.display}
       </div>
       <div className="formula-menu-divider" />
-      <AutocompleteList completions={completions} onSelect={handleSelectCompletion} />
+      <AutocompleteList
+        completions={completions}
+        handleSelectActiveCompletion={handleSelectActiveCompletion}
+        setActiveCompletion={setActiveCompletion}
+        activeCompletion={activeCompletion}
+      />
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}

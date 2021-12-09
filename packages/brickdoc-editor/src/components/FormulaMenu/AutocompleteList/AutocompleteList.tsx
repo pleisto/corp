@@ -6,10 +6,11 @@ import { Completion, FunctionCompletion, VariableCompletion } from '@brickdoc/fo
 import './AutocompleteList.less'
 import { FormulaEditor } from '../../../extensions/formula/FormulaEditor/FormulaEditor'
 import { codeFragmentsToJSONContent } from '../../../helpers/formula'
-
 export interface AutocompleteListProps {
   completions: Completion[]
-  onSelect: (completion: Completion) => void
+  handleSelectActiveCompletion: () => void
+  setActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
+  activeCompletion: Completion | undefined
 }
 
 const COMPLETION_STYLE_META: {
@@ -96,42 +97,34 @@ const COMPLETION_STYLE_META: {
   }
 }
 
-export const AutocompleteList: React.FC<AutocompleteListProps> = ({ completions, onSelect }) => {
-  const [activeCompletionValue, setActiveCompletionValue] = React.useState(completions[0]?.value)
+export const AutocompleteList: React.FC<AutocompleteListProps> = ({
+  completions,
+  setActiveCompletion,
+  activeCompletion,
+  handleSelectActiveCompletion
+}) => {
+  const preview = activeCompletion ? COMPLETION_STYLE_META[activeCompletion.kind].render(activeCompletion) : 'Empty!'
 
-  React.useEffect(() => setActiveCompletionValue(completions[0]?.value), [completions])
-
-  const activeIndex = React.useMemo(() => {
-    const index = completions.findIndex(item => item.value === activeCompletionValue)
-    if (index === -1) return 0
-    return index
-  }, [completions, activeCompletionValue])
-
-  const handleSelect = (completion: Completion) => () => {
-    setActiveCompletionValue(completion.value)
-    onSelect(completion)
+  const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
+    if (event.key === 'Tab') {
+      handleSelectActiveCompletion()
+    }
   }
-
-  const preview = React.useMemo(
-    () => (completions[activeIndex] ? COMPLETION_STYLE_META[completions[activeIndex].kind].render(completions[activeIndex]) : 'Empty!'),
-    [completions, activeIndex]
-  )
 
   return (
     <div className="formula-autocomplete">
       <div className="formula-autocomplete-list">
-        {completions.map((completion, index) => {
+        {completions.map(completion => {
           const styleMeta = COMPLETION_STYLE_META[completion.kind]
           return (
             <div
               role="button"
               tabIndex={-1}
-              onClick={handleSelect(completion)}
+              onClick={() => setActiveCompletion(completion)}
               key={completion.value}
-              className={cx('autocomplete-list-item', { active: activeIndex === index })}>
-              {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, {
-                className: 'autocomplete-list-item-icon'
-              })}
+              onKeyDown={onKeyDown}
+              className={cx('autocomplete-list-item', { active: completion.value === activeCompletion?.value })}>
+              {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, { className: 'autocomplete-list-item-icon' })}
               <div className="autocomplete-list-item-content">
                 <span className="autocomplete-list-item-name">{completion.name}</span>
                 {styleMeta.descKey && (

@@ -39,6 +39,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         formulaContext,
         updateVariable,
         updateCompletions,
+        updateActiveCompletion,
         updateError,
         updateInput,
         updateDefaultName,
@@ -53,6 +54,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
         updateInput: React.Dispatch<React.SetStateAction<string | undefined>>
         updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
+        updateActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
         updateDefaultName: React.Dispatch<React.SetStateAction<string>>
         updateContent: React.Dispatch<React.SetStateAction<JSONContent | undefined>>
       }) => {
@@ -65,7 +67,9 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
 
         console.log({ parseResult, input })
 
-        updateCompletions(parseResult.completions)
+        const completions = parseResult.completions
+        updateCompletions(completions)
+        updateActiveCompletion(completions[0])
 
         if (parseResult.success) {
           const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })

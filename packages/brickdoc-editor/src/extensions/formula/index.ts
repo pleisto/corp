@@ -14,6 +14,7 @@ interface CalculateOptions {
   updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
   updateInput: React.Dispatch<React.SetStateAction<string | undefined>>
   updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
+  updateActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
   updateDefaultName: React.Dispatch<React.SetStateAction<string>>
   updateContent: React.Dispatch<React.SetStateAction<JSONContent | undefined>>
 }
