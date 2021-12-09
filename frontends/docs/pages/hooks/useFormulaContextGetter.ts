@@ -71,26 +71,36 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateCompletions(completions)
         updateActiveCompletion(completions[0])
 
-        if (parseResult.success) {
-          const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
-          const content = codeFragmentsToJSONContent(parseResult.codeFragments)
-          updateContent(content)
-          const newInput = parseResult.codeFragments.map(fragment => fragment.name)
-          updateInput(newInput.join(''))
-
-          if (interpretResult.success) {
-            const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
-            updateVariable?.(variable)
-            updateError(undefined)
-            const type = interpretResult.result.type
-            const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
-            updateDefaultName(defaultName)
-          } else {
-            updateError(interpretResult.errorMessages[0])
-          }
-        } else {
+        if (!parseResult.success && ['lex', 'parse'].includes(parseResult.errorType)) {
           updateError(parseResult.errorMessages[0])
+
+          return
         }
+
+        const content = codeFragmentsToJSONContent(parseResult.codeFragments)
+        updateContent(content)
+        const newInput = parseResult.codeFragments.map(fragment => fragment.name)
+        updateInput(newInput.join(''))
+
+        if (!parseResult.success) {
+          updateError(parseResult.errorMessages[0])
+
+          return
+        }
+
+        const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
+
+        if (!interpretResult.success) {
+          updateError(interpretResult.errorMessages[0])
+          return
+        }
+
+        const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
+        updateVariable?.(newVariable)
+        updateError(undefined)
+        const type = interpretResult.result.type
+        const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
+        updateDefaultName(defaultName)
       },
       300
     )

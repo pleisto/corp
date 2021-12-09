@@ -34,7 +34,7 @@ export interface ParseInput {
 export interface BaseParseResult {
   readonly success: boolean
   readonly cst?: CstNode
-  readonly errorType?: 'lex' | 'parse'
+  readonly errorType?: 'lex' | 'parse' | 'syntax'
   readonly kind?: VariableKind
   readonly level: number
   readonly errorMessages: ErrorMessage[]
@@ -58,7 +58,7 @@ export interface SuccessParseResult extends BaseParseResult {
 export interface ErrorParseResult extends BaseParseResult {
   readonly success: false
   readonly cst?: CstNode
-  readonly errorType: 'lex' | 'parse'
+  readonly errorType: 'lex' | 'parse' | 'syntax'
   readonly errorMessages: [ErrorMessage, ...ErrorMessage[]]
 }
 
@@ -150,7 +150,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       success: false,
       cst,
       level,
-      errorType: 'parse',
+      errorType: 'syntax',
       completions,
       errorMessages: [errorCodeFragment.errors[0]],
       codeFragments
@@ -161,7 +161,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if ([...flattenVariableDependencies].find(v => v.namespaceId === namespaceId && v.variableId === variableId)) {
     return {
       success: false,
-      errorType: 'parse',
+      errorType: 'syntax',
       errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
       level,
       completions,
@@ -180,7 +180,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
       success: false,
       cst,
       level,
-      errorType: 'parse',
+      errorType: 'syntax',
       completions,
       errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
       flattenVariableDependencies,
