@@ -48,7 +48,7 @@ export function useKeydownHandler({
 
       return false
     },
-    [handleSelectActiveCompletion]
+    [handleSelectActiveCompletion, activeCompletionIndex, completions, setActiveCompletion, setActiveCompletionIndex]
   )
 
   return keyDownHandler
