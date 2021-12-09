@@ -82,7 +82,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateCompletions(completions)
         updateActiveCompletion(completions[0])
 
-        if (parseResult.success || parseResult.errorType === 'syntax') {
+        if (parseResult.valid) {
           const content = codeFragmentsToJSONContent(parseResult.codeFragments)
           updateContent(content)
           const newInput = parseResult.codeFragments.map(fragment => fragment.name)

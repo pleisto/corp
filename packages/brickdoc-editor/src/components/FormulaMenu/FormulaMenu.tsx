@@ -47,13 +47,13 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
   const contextCompletions = formulaContext ? formulaContext.completions(rootId) : []
-  const formulaValue = variable?.t.codeFragments
-    ? `=${variable.t.codeFragments.map(fragment => fragment.name).join('')}`
-    : variable?.t.definition
+  const formulaValue = variable?.t.valid ? `=${variable.t.codeFragments.map(fragment => fragment.name).join('')}` : variable?.t.definition
   const definition = formulaValue?.substr(1)
 
   const codeFragments = variable?.t.codeFragments
-  const defaultContent = codeFragmentsToJSONContent(codeFragments)
+  const defaultContent = variable?.t.valid
+    ? codeFragmentsToJSONContent(codeFragments)
+    : { type: 'doc', content: [{ type: 'text', text: definition }] }
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
@@ -128,9 +128,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const handleValueChange = (editor: Editor): void => {
     const text = contentToInput(editor.getJSON().content[0])
-    // const text = editor.getText()
-    console.log({ content, editor, text, label: 'updateValue' })
+    console.log({ content, json: editor.getJSON(), editor, text, label: 'updateValue' })
     setInput(text)
+    setContent(editor.getJSON() as JSONContent)
     doCalculate({ newInput: text })
   }
 
@@ -177,6 +177,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setName(finalName)
     updateVariable?.(variable)
 
+    console.log({ label: 'save ...', input, variable, updateVariable, formulaContext })
     close()
   }
 
@@ -214,7 +215,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-row">
         <div className="formula-menu-item">
           <FormulaEditor content={content} updateContent={handleValueChange} keyDownHandler={keyDownHandler} editable={true} />
-          {/* <Input className="formula-menu-field" value={value} onChange={handleValueChange} /> */}
         </div>
       </div>
       <div className="formula-menu-divider" />

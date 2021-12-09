@@ -33,6 +33,7 @@ export interface ParseInput {
 
 export interface BaseParseResult {
   readonly success: boolean
+  readonly valid: boolean
   readonly cst?: CstNode
   readonly errorType?: 'lex' | 'parse' | 'syntax'
   readonly kind?: VariableKind
@@ -47,6 +48,7 @@ export interface BaseParseResult {
 
 export interface SuccessParseResult extends BaseParseResult {
   readonly success: true
+  readonly valid: true
   readonly errorMessages: []
   readonly cst: CstNode
   readonly kind: VariableKind
@@ -95,6 +97,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if (!variableId) {
     return {
       success: false,
+      valid: false,
       cst: undefined,
       level,
       errorType: 'lex',
@@ -109,6 +112,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if (lexResult.errors.length > 0) {
     return {
       success: false,
+      valid: false,
       errorType: 'lex',
       level,
       completions,
@@ -134,6 +138,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if (parseErrors.length > 0) {
     return {
       success: false,
+      valid: false,
       errorType: 'parse',
       completions,
       level,
@@ -148,6 +153,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if (errorCodeFragment) {
     return {
       success: false,
+      valid: true,
       cst,
       level,
       errorType: 'syntax',
@@ -161,6 +167,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if ([...flattenVariableDependencies].find(v => v.namespaceId === namespaceId && v.variableId === variableId)) {
     return {
       success: false,
+      valid: true,
       errorType: 'syntax',
       errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
       level,
@@ -178,6 +185,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
   if (sameNameVariable) {
     return {
       success: false,
+      valid: true,
       cst,
       level,
       errorType: 'syntax',
@@ -192,6 +200,7 @@ export const parse = ({ formulaContext, meta: { namespaceId, variableId, input, 
 
   return {
     success: true,
+    valid: true,
     cst,
     level,
     errorMessages: [],
@@ -287,7 +296,7 @@ export const buildVariable = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId },
   view,
-  parseResult: { cst, kind, codeFragments, variableDependencies, functionDependencies, level, flattenVariableDependencies },
+  parseResult: { valid, cst, kind, codeFragments, variableDependencies, functionDependencies, level, flattenVariableDependencies },
   interpretResult: { result }
 }: {
   formulaContext: ContextInterface
@@ -306,6 +315,7 @@ export const buildVariable = ({
     definition: input,
     dirty: false,
     variableValue: result,
+    valid,
     level,
     kind: kind ?? 'constant',
     variableDependencies: variableDependencies ?? [],
@@ -335,6 +345,7 @@ export const castVariable = (
     success,
     cst,
     kind,
+    valid,
     errorMessages,
     variableDependencies,
     flattenVariableDependencies,
@@ -365,6 +376,7 @@ export const castVariable = (
     name,
     cst,
     view,
+    valid,
     definition,
     codeFragments,
     level,
@@ -433,6 +445,7 @@ export const quickInsert = async ({
     variableId,
     name,
     dirty: false,
+    valid: true,
     definition: input,
     cst,
     kind: kind ?? 'constant',

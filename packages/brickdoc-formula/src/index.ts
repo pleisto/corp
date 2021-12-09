@@ -302,6 +302,7 @@ export interface VariableData {
   variableId: VariableId
   definition: string
   dirty: boolean
+  valid: boolean
   view?: View
   kind: VariableKind
   variableValue: VariableValue
