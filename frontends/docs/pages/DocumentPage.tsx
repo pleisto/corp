@@ -4,7 +4,14 @@ import { Alert } from '@brickdoc/brickdoc-headless-design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import { useDocumentSubscription, usePrepareFileUpload, useFetchUnsplashImages, useFetchWebsiteMeta, useSyncProvider, useFormulaContextGetter } from './hooks'
+import {
+  useDocumentSubscription,
+  usePrepareFileUpload,
+  useFetchUnsplashImages,
+  useFetchWebsiteMeta,
+  useSyncProvider,
+  useFormulaContextGetter
+} from './hooks'
 import { blocksToJSONContents } from '../common/blocks'
 import { useBlobGetter } from './hooks/useBlobGetter'
 import { useDatabaseRows } from './hooks/useDatabaseRows'
@@ -16,6 +23,7 @@ import { DocMeta, NonNullDocMeta } from './DocumentContentPage'
 import { editorVar } from '../reactiveVars'
 import { useDocumentPagesGetter } from './hooks/useDocumentPagesGetter'
 import { useDocumentCollaboratorsGetter } from './hooks/useDocumentCollaboratorsGetter'
+import { useEditorDataSource } from './hooks/useEditorDataSource'
 interface DocumentPageProps {
   docMeta: DocMeta
 }
@@ -34,7 +42,8 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   const lastQueryVariables = useRef<typeof queryVariables>()
 
-  const { rootBlock, data, loading, refetch, onDocSave, updateBlocks, updateCachedDocBlock } = useSyncProvider(queryVariables)
+  const { rootBlock, data, loading, refetch, onDocSave, updateBlocks, updateCachedDocBlock } =
+    useSyncProvider(queryVariables)
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
@@ -61,9 +70,12 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   // if there is no doc id, document will not have deleted status
   const [documentEditable, setDocumentEditable] = React.useState(!docMeta.id)
 
+  const editorDataSource = useEditorDataSource({ blocks: data?.childrenBlocks })
+
   const editor = useEditor({
     onSave: onDocSave,
     useDatabaseRows: useDatabaseRows({ updateBlocks }),
+    externalDataSource: editorDataSource,
     prepareFileUpload,
     fetchUnsplashImages,
     fetchWebsiteMeta,
@@ -121,7 +133,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   if (docMeta.snapshotVersion === 0) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useDocumentSubscription({ docid: docMeta.id as string, editor, setDocumentEditable, updateCachedDocBlock, refetchDocument: refetch })
+    useDocumentSubscription({
+      docid: docMeta.id as string,
+      editor,
+      setDocumentEditable,
+      updateCachedDocBlock,
+      refetchDocument: refetch
+    })
   }
 
   if (loading || docMeta.documentInfoLoading) {

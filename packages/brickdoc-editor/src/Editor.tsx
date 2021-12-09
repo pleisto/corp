@@ -23,6 +23,7 @@ import {
 } from './extensions'
 import './styles.less'
 import { useEditorI18n } from './hooks'
+import { DataSource } from './dataSource/DataSource'
 
 export type { ImageSectionAttributes } from './extensions'
 
@@ -43,6 +44,7 @@ export const EditorContent: React.FC<EditorContentProps> = ({ editor, formulaCon
 }
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
+  externalDataSource: DataSource
   onSave: SyncExtensionOptions['onSave']
   useDatabaseRows?: TableExtensionOptions['useDatabaseRows']
   prepareFileUpload?: ImageSectionOptions['prepareFileUpload']
@@ -68,6 +70,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     formulaContextActions,
     useDatabaseRows,
     editable,
+    externalDataSource,
     ...restOptions
   } = options
   const { t } = useEditorI18n()
