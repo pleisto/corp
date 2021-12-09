@@ -3,7 +3,7 @@ import { Completion } from '@brickdoc/formula'
 import { KeyDownHandlerType } from '../../extensions/formula/FormulaEditor/extensions/handleKeyDown'
 
 export function useKeydownHandler(
-  activeCompletion: Completion,
+  activeCompletion: Completion | undefined,
   handleSelectActiveCompletion: (completion?: Completion) => void
 ): KeyDownHandlerType {
   const latestCompletion = React.useRef(activeCompletion)
