@@ -10,6 +10,8 @@ export interface AutocompleteListProps {
   completions: Completion[]
   handleSelectActiveCompletion: () => void
   setActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
+  setActiveCompletionIndex: React.Dispatch<React.SetStateAction<number>>
+  activeCompletionIndex: number
   activeCompletion: Completion | undefined
 }
 
@@ -100,27 +102,48 @@ const COMPLETION_STYLE_META: {
 export const AutocompleteList: React.FC<AutocompleteListProps> = ({
   completions,
   setActiveCompletion,
+  setActiveCompletionIndex,
+  activeCompletionIndex,
   activeCompletion,
   handleSelectActiveCompletion
 }) => {
   const preview = activeCompletion ? COMPLETION_STYLE_META[activeCompletion.kind].render(activeCompletion) : 'Empty!'
 
   const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
-    if (event.key === 'Tab') {
-      handleSelectActiveCompletion()
+    let newIndex: number
+    switch (event.key) {
+      case 'Tab':
+        handleSelectActiveCompletion()
+        break
+      case 'Enter':
+        handleSelectActiveCompletion()
+        break
+      case 'ArrowDown':
+        newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
+        setActiveCompletion(completions[newIndex])
+        setActiveCompletionIndex(newIndex)
+        break
+      case 'ArrowUp':
+        newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
+        setActiveCompletion(completions[newIndex])
+        setActiveCompletionIndex(newIndex)
+        break
     }
   }
 
   return (
     <div className="formula-autocomplete">
       <div className="formula-autocomplete-list">
-        {completions.map(completion => {
+        {completions.map((completion, index) => {
           const styleMeta = COMPLETION_STYLE_META[completion.kind]
           return (
             <div
               role="button"
               tabIndex={-1}
-              onClick={() => setActiveCompletion(completion)}
+              onClick={() => {
+                setActiveCompletion(completion)
+                setActiveCompletionIndex(index)
+              }}
               key={completion.value}
               onKeyDown={onKeyDown}
               className={cx('autocomplete-list-item', { active: completion.value === activeCompletion?.value })}>

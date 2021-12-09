@@ -65,6 +65,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const [visible, setVisible] = React.useState(defaultVisible)
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
   const [activeCompletion, setActiveCompletion] = React.useState<Completion | undefined>(completions[0])
+  const [activeCompletionIndex, setActiveCompletionIndex] = React.useState<number>(0)
 
   const close = (): void => {
     if (clear) {
@@ -74,6 +75,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       setCompletions(contextCompletions)
       setInput(definition)
       setActiveCompletion(completions[0])
+      setActiveCompletionIndex(0)
       setError(undefined)
     }
     setVisible(false)
@@ -119,7 +121,14 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     console.log({ currentCompletion, content, attrs, label: 'selectCompletion', newContent, finalInput })
     doCalculate({ newInput: finalInput })
   }
-  const keyDownHandler = useKeydownHandler(activeCompletion, handleSelectActiveCompletion)
+  const keyDownHandler = useKeydownHandler({
+    completions,
+    activeCompletion,
+    activeCompletionIndex,
+    handleSelectActiveCompletion,
+    setActiveCompletion,
+    setActiveCompletionIndex
+  })
 
   const contentToInput = (content: JSONContent): string => {
     const newInput = content.content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? '')).join('') ?? ''
@@ -233,6 +242,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         completions={completions}
         handleSelectActiveCompletion={handleSelectActiveCompletion}
         setActiveCompletion={setActiveCompletion}
+        activeCompletionIndex={activeCompletionIndex}
+        setActiveCompletionIndex={setActiveCompletionIndex}
         activeCompletion={activeCompletion}
       />
       <div className="formula-menu-footer">
