@@ -293,24 +293,24 @@ export const buildVariable = ({
   formulaContext: ContextInterface
   meta: VariableMetadata
   view: View
-  parseResult: SuccessParseResult
-  interpretResult: SuccessInterpretResult
+  parseResult: ParseResult
+  interpretResult: InterpretResult
 }): VariableInterface => {
   const t: VariableData = {
     namespaceId,
     variableId,
     name,
     cst,
-    kind,
     view,
     codeFragments,
     definition: input,
     dirty: false,
     variableValue: result,
     level,
-    variableDependencies,
-    flattenVariableDependencies,
-    functionDependencies
+    kind: kind ?? 'constant',
+    variableDependencies: variableDependencies ?? [],
+    flattenVariableDependencies: flattenVariableDependencies ?? new Set(),
+    functionDependencies: functionDependencies ?? []
   }
 
   const oldVariable = formulaContext.findVariable(namespaceId, variableId)
@@ -364,11 +364,11 @@ export const castVariable = (
     variableValue,
     name,
     cst,
-    kind: kind ?? 'constant',
     view,
     definition,
     codeFragments,
     level,
+    kind: kind ?? 'constant',
     variableDependencies: variableDependencies ?? [],
     flattenVariableDependencies: flattenVariableDependencies ?? new Set(),
     functionDependencies: functionDependencies ?? [],

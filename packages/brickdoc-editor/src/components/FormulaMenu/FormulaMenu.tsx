@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Input, Modal, Popover } from '@brickdoc/design-system'
-import { CodeFragment, Completion, VariableInterface } from '@brickdoc/formula'
+import { CodeFragment, Completion, ErrorMessage, VariableInterface } from '@brickdoc/formula'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { FormulaOptions } from '../../extensions'
@@ -61,7 +61,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
   const [input, setInput] = React.useState(definition)
 
-  const [error, setError] = React.useState<{ type: string; message: string }>()
+  const [error, setError] = React.useState<ErrorMessage | undefined>()
   const [visible, setVisible] = React.useState(defaultVisible)
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
   const [activeCompletion, setActiveCompletion] = React.useState<Completion | undefined>(completions[0])

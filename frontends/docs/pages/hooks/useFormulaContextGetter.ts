@@ -1,4 +1,15 @@
-import { buildVariable, CodeFragment, Completion, ContextInterface, interpret, parse, VariableInterface, View } from '@brickdoc/formula'
+import {
+  buildVariable,
+  CodeFragment,
+  Completion,
+  ContextInterface,
+  ErrorMessage,
+  interpret,
+  InterpretResult,
+  parse,
+  VariableInterface,
+  View
+} from '@brickdoc/formula'
 import { debounce } from 'lodash-es'
 import React from 'react'
 import { FormulaContextVar } from '../../reactiveVars'
@@ -51,7 +62,7 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         codeFragmentsToJSONContent: (codeFragments: CodeFragment[] | undefined) => JSONContent | undefined
         formulaContext: ContextInterface
         updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>> | undefined
-        updateError: React.Dispatch<React.SetStateAction<{ type: string; message: string } | undefined>>
+        updateError: React.Dispatch<React.SetStateAction<ErrorMessage | undefined>>
         updateInput: React.Dispatch<React.SetStateAction<string | undefined>>
         updateCompletions: React.Dispatch<React.SetStateAction<Completion[]>>
         updateActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
@@ -71,36 +82,35 @@ export function useFormulaContextGetter(docMeta: DocMeta): FormulaOptions['formu
         updateCompletions(completions)
         updateActiveCompletion(completions[0])
 
-        if (!parseResult.success && ['lex', 'parse'].includes(parseResult.errorType)) {
-          updateError(parseResult.errorMessages[0])
-
-          return
+        if (parseResult.success || parseResult.errorType === 'syntax') {
+          const content = codeFragmentsToJSONContent(parseResult.codeFragments)
+          updateContent(content)
+          const newInput = parseResult.codeFragments.map(fragment => fragment.name)
+          updateInput(newInput.join(''))
         }
 
-        const content = codeFragmentsToJSONContent(parseResult.codeFragments)
-        updateContent(content)
-        const newInput = parseResult.codeFragments.map(fragment => fragment.name)
-        updateInput(newInput.join(''))
+        let interpretResult: InterpretResult
 
-        if (!parseResult.success) {
-          updateError(parseResult.errorMessages[0])
-
-          return
-        }
-
-        const interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
-
-        if (!interpretResult.success) {
-          updateError(interpretResult.errorMessages[0])
-          return
+        if (parseResult.success) {
+          interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
+        } else {
+          interpretResult = {
+            success: false,
+            errorMessages: parseResult.errorMessages,
+            result: { success: false, errorMessages: parseResult.errorMessages, updatedAt: new Date() }
+          }
         }
 
         const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
         updateVariable?.(newVariable)
-        updateError(undefined)
-        const type = interpretResult.result.type
-        const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
-        updateDefaultName(defaultName)
+        const errors = [...parseResult.errorMessages, ...interpretResult.errorMessages]
+        updateError(errors.length ? errors[0] : undefined)
+
+        if (interpretResult.success) {
+          const type = interpretResult.result.type
+          const defaultName = formulaContext.getDefaultVariableName(namespaceId, type)
+          updateDefaultName(defaultName)
+        }
       },
       300
     )
