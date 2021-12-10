@@ -68,7 +68,7 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
 
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               <TreeRoot.ContentAction data-test-id="content-action" {...pressProps}>
-                {titleRender(treeData)}
+                {titleRender?.(treeData)}
               </TreeRoot.ContentAction>
             </TreeRoot.Content>
           </TreeRoot.ItemContent>
