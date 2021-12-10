@@ -33,17 +33,17 @@ export function useKeydownHandler({
       switch (event.key) {
         case 'Tab':
           handleSelectActiveCompletion(latestCompletion.current)
-          break
+          return true
         case 'ArrowDown':
           newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
           setActiveCompletion(completions[newIndex])
           setActiveCompletionIndex(newIndex)
-          break
+          return true
         case 'ArrowUp':
           newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
           setActiveCompletion(completions[newIndex])
           setActiveCompletionIndex(newIndex)
-          break
+          return true
       }
 
       return false

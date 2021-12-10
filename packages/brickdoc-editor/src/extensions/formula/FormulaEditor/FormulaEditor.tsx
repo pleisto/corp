@@ -23,6 +23,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
     editable,
     extensions: [Document, Text, Paragraph, CodeFragmentBlockExtension, HandleKeyDownExtension(keyDownHandler)],
     onUpdate: ({ editor, transaction }) => {
+      console.log('应该要出现这句话')
       updateContent?.(editor)
       if (transaction.selection.from === transaction.selection.to) {
         const position = transaction.selection.from - 1
