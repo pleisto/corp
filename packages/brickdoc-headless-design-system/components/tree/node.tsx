@@ -1,4 +1,4 @@
-import { FC, useCallback, memo, MouseEvent, ReactNode } from 'react'
+import { FC, useCallback, memo, MouseEvent, ReactNode, useMemo } from 'react'
 import { usePress } from '@react-aria/interactions'
 import { Right } from '@brickdoc/design-icons'
 import type { TNode } from './constants'
@@ -6,6 +6,7 @@ import { TreeRoot } from './style'
 
 export interface TreeProps {
   treeData: TNode
+  emptyNode?: string | ReactNode
   onClick: (node: TNode) => void
   handleSelected: (id: string) => void
   titleRender?: (node: TNode) => ReactNode
@@ -15,11 +16,13 @@ export interface TreeProps {
 /** Tree
  * @example
  */
-const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, selectedId }) => {
+const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, selectedId, emptyNode }) => {
   const {
-    key,
+    // key,
     icon = '',
     hasChildren,
+    parentId,
+    firstChildSort,
     // title,
     indent,
     value,
@@ -42,6 +45,12 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
     [treeData, onClick]
   )
 
+  const hasEmptyNode = useMemo(() => !parentId && firstChildSort === '0', [parentId, firstChildSort])
+
+  const emptyItem = typeof emptyNode === 'string' ? <TreeRoot.EmptyNode>{emptyNode}</TreeRoot.EmptyNode> : emptyNode
+
+  const showEmptyItem = hasEmptyNode && isOpen ? emptyItem : null
+
   return (
     <>
       <TreeRoot.Base
@@ -50,13 +59,12 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
         role="button"
         tabIndex={0}
         data-test-id="BrkTree"
-        key={key}
       >
         <TreeRoot.Indent size={indent} data-test-id="indent" />
         <TreeRoot.PageItem data-test-id="page-item">
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">
-              {hasChildren ? (
+              {hasChildren || hasEmptyNode ? (
                 <TreeRoot.ContentArrow isOpen={isOpen} data-test-id="content-arrow" onClick={handleOpen}>
                   <Right data-test-id="content-icon" />
                 </TreeRoot.ContentArrow>
@@ -74,6 +82,7 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
           </TreeRoot.ItemContent>
         </TreeRoot.PageItem>
       </TreeRoot.Base>
+      {showEmptyItem}
     </>
   )
 }

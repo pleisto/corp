@@ -127,6 +127,16 @@ export const ContentAction = styled('div', {
   lineHeight: '$2xl'
 })
 
+export const EmptyNode = styled('p', {
+  margin: 0,
+  fontSize: '$subheadline',
+  fontWeight: 500,
+  lineHeight: '$3xl',
+  color: '$color-type-thirdary',
+  paddingLeft: '$lg',
+  marginBottom: '$3xs'
+})
+
 export const Base = styled('div', {
   boxSizing: 'border-box',
   display: 'flex',

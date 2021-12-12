@@ -9,8 +9,10 @@ import {
   useGetBlockPinsQuery,
   GetPageBlocksQuery
 } from '@/BrickdocGraphQL'
-import { Tree, TreeProps } from '@brickdoc/design-system'
-// import { Tree } from '@brickdoc/brickdoc-headless-design-system'
+/* import { Tree, TreeProps } from '@brickdoc/design-system' */
+
+// TODO: change to design-system
+import { Tree } from '@brickdoc/brickdoc-headless-design-system'
 import { array2Tree } from '@/common/utils'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '../../blocks'
@@ -28,7 +30,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   const [blockMove, { client: blockMoveClient }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
-  const [popoverKey, setPopoverKey] = useState<string | undefined>()
+  // const [popoverKey, setPopoverKey] = useState<string | undefined>()
   // const [selectedKeys, setSelectedKeys] = useState<string[]>(docMeta.id ? [docMeta.id] : [])
 
   const { t } = useDocsI18n()
@@ -56,6 +58,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     return ''
   }, [])
 
+  //
+  /* @ts-expect-error eslint-disable @typescript-eslint/no-unused-vars */
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
     let targetParentId: string | undefined | null, sort: number
     setDraggable(false)
@@ -92,7 +96,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     return (
       <PageMenu
         docMeta={docMeta}
-        setPopoverKey={setPopoverKey}
+        // setPopoverKey={setPopoverKey}
         pin={pin}
         pageId={node.key}
         title={node.title}
@@ -125,39 +129,15 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       })
       .sort((a, b) => Number(a.sort) - Number(b.sort))
 
-    // TODO: refactor~  insufficient data structure to support business requirements
-    flattedData
-      .filter(i => !i.parentId && i.firstChildSort === '0')
-      .forEach(item => {
-        flattedData.push({
-          firstChildSort: '0',
-          key: `${item.key}mock`,
-          value: item.key,
-          nextSort: '',
-          parentId: item.key,
-          text: t('blocks.no_pages'),
-          title: t('blocks.no_pages'),
-          // @ts-expect-error
-          className: styles.treeNodeNoPage
-        })
-      })
-
     const treeData = array2Tree(flattedData, { id: 'key' })
-
-    const selectedKeys = [docMeta.id, popoverKey].filter(k => !!k) as string[]
-    console.log([docMeta.id, popoverKey], '[docMeta.id, popoverKey]')
 
     return (
       <Tree
         className={styles.tree}
-        selectedKeys={selectedKeys}
-        blockNode={false}
-        showLine={{ showLeafIcon: true }}
-        showIcon={true}
+        emptyNode={t('blocks.no_pages')}
         selectable={!docMeta.documentInfoLoading}
-        defaultExpandedKeys={selectedKeys}
+        // TODO: ts
         treeData={treeData}
-        autoExpandParent
         draggable={true}
         onDrop={onDrop}
         titleRender={titleRender}

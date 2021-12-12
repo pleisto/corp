@@ -10,46 +10,26 @@ export interface TreeNode {
   children?: TreeNode[]
 }
 
-export interface FlattenedTreeNode {
-  id: string
-  labelNode: ReactNode
-  showArrow?: boolean
-  hasChildren: boolean
-  depth: number
-  collapsed: boolean
-}
-
-/* interface Props {
- *   data: TreeNode[];
- *   className?: string;
- *   collapseAll?: boolean;
- * } */
-
 export interface TreeProps {
   treeData: TNode[]
   className?: string
   openAll?: boolean
-  selectedKeys: string[]
+  draggable?: boolean
   titleRender?: (node: TNode) => ReactNode
+  emptyNode?: string | ReactNode
 }
 
 /** Tree
  * @example
  */
-const Tree: FC<TreeProps> = ({
-  treeData,
-  openAll = false,
-  titleRender
-  /* selectedKeys,
-   * className */
-}) => {
+const Tree: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode }) => {
   const [closedItemIds, setClosedItemIds] = useState<string[]>(
     openAll ? treeData.map(node => node.value) : treeData.filter(node => node.isOpen).map(node => node.value)
   )
 
   const [selectedId, setSelectedId] = useState<string>()
-  // console.log(selectedKeys, 'selectedKeysselectedKeysselectedKeys')
-  const flattenNode = useCallback(
+
+  const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
       const isOpen = closedItemIds.includes(value)
@@ -62,7 +42,7 @@ const Tree: FC<TreeProps> = ({
 
       if (!isOpen && children) {
         for (const child of children) {
-          flattenNode(child, indent + 1, result)
+          flattened(child, indent + 1, result)
         }
       }
     },
@@ -72,10 +52,10 @@ const Tree: FC<TreeProps> = ({
   const renderTree = useMemo(() => {
     const result: TNode[] = []
     for (const node of treeData) {
-      flattenNode(node, 0, result)
+      flattened(node, 0, result)
     }
     return result
-  }, [treeData, flattenNode])
+  }, [treeData, flattened])
 
   const handleSelected = useCallback((id: string) => setSelectedId(id), [setSelectedId])
 
@@ -87,13 +67,12 @@ const Tree: FC<TreeProps> = ({
     []
   )
 
-  // const parentRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <>
       {renderTree.map(item => (
         <Node
-          key={item.value}
+          key={item.key}
+          emptyNode={emptyNode}
           treeData={item}
           onClick={handleItemClick}
           handleSelected={handleSelected}
