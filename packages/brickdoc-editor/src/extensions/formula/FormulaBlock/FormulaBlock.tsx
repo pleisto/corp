@@ -12,9 +12,11 @@ import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
 export interface FormulaBlockProps extends NodeViewProps {}
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
-  const { getVariable }: FormulaOptions['formulaContextActions'] = extension.options.formulaContextActions
+  const { editorDataSource } = extension.options as FormulaOptions
+  const formulaContext = editorDataSource.formulaContext
+
   const attributes = node.attrs.formula
-  const [variable, setVariable] = React.useState(getVariable(attributes.id))
+  const [variable, setVariable] = React.useState(formulaContext?.findVariable(editorDataSource.rootId, attributes.id))
   const [t, setT] = React.useState(variable?.t)
 
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
@@ -59,7 +61,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         defaultVisible={node.attrs.isNew}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         editor={editor}
-        formulaContextActions={extension.options.formulaContextActions}
         updateFormula={updateFormula}
         variable={variable}
         updateVariable={setVariable}>

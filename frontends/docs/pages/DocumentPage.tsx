@@ -4,25 +4,15 @@ import { Alert } from '@brickdoc/brickdoc-headless-design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import {
-  useDocumentSubscription,
-  usePrepareFileUpload,
-  useFetchUnsplashImages,
-  useFetchWebsiteMeta,
-  useSyncProvider,
-  useFormulaContextGetter
-} from './hooks'
+import { useDocumentSubscription, usePrepareFileUpload, useFetchUnsplashImages, useSyncProvider } from './hooks'
 import { blocksToJSONContents } from '../common/blocks'
 import { useBlobGetter } from './hooks/useBlobGetter'
-import { useDatabaseRows } from './hooks/useDatabaseRows'
 import styles from './DocumentPage.module.less'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
 import { Navigate } from 'react-router-dom'
 import { DocMeta, NonNullDocMeta } from './DocumentContentPage'
 import { editorVar } from '../reactiveVars'
-import { useDocumentPagesGetter } from './hooks/useDocumentPagesGetter'
-import { useDocumentCollaboratorsGetter } from './hooks/useDocumentCollaboratorsGetter'
 import { useEditorDataSource } from './hooks/useEditorDataSource'
 interface DocumentPageProps {
   docMeta: DocMeta
@@ -47,12 +37,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
 
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
-  const fetchWebsiteMeta = useFetchWebsiteMeta()
 
-  const formulaContextActions = useFormulaContextGetter(docMeta)
-
-  const getImageUrl = useBlobGetter('image', data?.childrenBlocks)
-  const getAttachmentUrl = useBlobGetter('attachment', data?.childrenBlocks)
   const docIconGetter = useBlobGetter('icon', data?.childrenBlocks)
   const docCoverGetter = useBlobGetter('cover', data?.childrenBlocks)
 
@@ -64,26 +49,14 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     if (!editor || editor.isDestroyed) return undefined
     return docCoverGetter(editor.state.doc)
   }
-  const [getDocCollaborators] = useDocumentCollaboratorsGetter(docMeta)
-  const [getDocPages] = useDocumentPagesGetter(docMeta)
-
   // if there is no doc id, document will not have deleted status
   const [documentEditable, setDocumentEditable] = React.useState(!docMeta.id)
 
-  const editorDataSource = useEditorDataSource({ blocks: data?.childrenBlocks })
+  const editorDataSource = useEditorDataSource({ docMeta, blocks: data?.childrenBlocks, updateBlocks })
 
   const editor = useEditor({
     onSave: onDocSave,
-    useDatabaseRows: useDatabaseRows({ updateBlocks }),
     externalDataSource: editorDataSource,
-    prepareFileUpload,
-    fetchUnsplashImages,
-    fetchWebsiteMeta,
-    getImageUrl,
-    getAttachmentUrl,
-    getCollaborators: getDocCollaborators,
-    getPages: getDocPages,
-    formulaContextActions,
     editable: documentEditable
   })
   React.useEffect(() => {
@@ -154,30 +127,26 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
     }
   }
 
-  const DocumentTitleElement = (
-    <DocumentTitle
-      blockId={editor?.state.doc.attrs.uuid}
-      icon={editor?.state.doc.attrs.icon}
-      cover={editor?.state.doc.attrs.cover}
-      title={editor?.state.doc.attrs.title}
-      onCoverChange={setCover}
-      onIconChange={setIcon}
-      onTitleChange={setTitle}
-      getDocIconUrl={getDocIconUrl}
-      getDocCoverUrl={getDocCoverUrl}
-      prepareFileUpload={prepareFileUpload}
-      fetchUnsplashImages={fetchUnsplashImages}
-      editable={documentEditable}
-    />
-  )
-
   const PageElement = (
     <>
       {docMeta.id && docMeta.isDeleted && <TrashPrompt docMeta={docMeta as NonNullDocMeta} />}
       <div className={styles.page}>
-        {DocumentTitleElement}
+        <DocumentTitle
+          blockId={editor?.state.doc.attrs.uuid}
+          icon={editor?.state.doc.attrs.icon}
+          cover={editor?.state.doc.attrs.cover}
+          title={editor?.state.doc.attrs.title}
+          onCoverChange={setCover}
+          onIconChange={setIcon}
+          onTitleChange={setTitle}
+          getDocIconUrl={getDocIconUrl}
+          getDocCoverUrl={getDocCoverUrl}
+          prepareFileUpload={prepareFileUpload}
+          fetchUnsplashImages={fetchUnsplashImages}
+          editable={documentEditable}
+        />
         <div className={styles.pageWrap}>
-          <EditorContent editor={editor} formulaContextActions={formulaContextActions} />
+          <EditorContent editor={editor} editorDataSource={editorDataSource} />
         </div>
       </div>
     </>
