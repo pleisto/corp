@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface TItem {
+export interface TNode {
   key: string
   value: string
   parentId?: string
@@ -8,12 +8,11 @@ export interface TItem {
   icon: string | null
   hasItemIcon?: boolean
   hasChildren: boolean
+  firstChildSort: string
   indent: number | 16 | '1rem'
   isOpen: boolean
+  collapsed: boolean
   sort: number
   lastPlaceholder: ReactNode | string
-}
-
-export type TNode = Pick<TItem, 'key' | 'value' | 'hasItemIcon' | 'sort' | 'isOpen'> & {
   children: TNode[]
 }

@@ -1,11 +1,10 @@
-import { styled } from '../../../themes'
+import { styled, theme } from '../../../themes'
 import { rgba, rem } from 'polished'
 
 export const PageBlock = styled('div', {})
 
 export const Indent = styled('div', {
   display: 'block',
-  // width: '$lg',
   variants: {
     size: {
       1: {
@@ -30,11 +29,12 @@ export const Indent = styled('div', {
   }
 })
 
-export const PageItem = styled('a', {
+export const PageItem = styled('div', {
   display: 'block',
   color: 'inherit',
   textDecoration: 'none',
-  width: '100%'
+  width: '100%',
+  cursor: 'pointer'
 })
 
 export const ItemContent = styled('div', {
@@ -47,8 +47,8 @@ export const ItemContent = styled('div', {
 export const Content = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  lineHeight: '$3xl',
-  fontSize: '$subheadline',
+  lineHeight: theme.space.xxxl,
+  fontSize: theme.fontSizes.subHeadline,
   width: '100%'
 })
 
@@ -56,12 +56,12 @@ export const ContentArrow = styled('div', {
   flexShrink: 0,
   flexGrow: 0,
   position: 'relative',
-  width: '$lg',
-  height: '$3xl',
+  width: theme.space.lg,
+  height: theme.space.xxxl,
   borderRadius: '3px',
-  color: '$color-type-secondary',
-  fontSize: '$body',
-  paddingRight: '$2xs',
+  color: theme.colors.typeSecondary,
+  fontSize: theme.fontSizes.body,
+  paddingRight: theme.space.xxs,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -83,10 +83,10 @@ export const ContentArrow = styled('div', {
 
 export const LeafDot = styled('div', {
   position: 'absolute',
-  width: '$2xs',
-  height: '$2xs',
-  background: '$color-icon-secondary',
-  borderRadius: '$2xs',
+  width: theme.space.xxs,
+  height: theme.space.xxs,
+  background: theme.colors.iconSecondary,
+  borderRadius: theme.space.xxs,
   top: rem('14px')
 })
 
@@ -96,9 +96,9 @@ export const ContentIcon = styled('a', {
   justifyContent: 'center',
   flexShrink: 0,
   flexGrow: 0,
-  width: '$xl',
-  height: '$xl',
-  fontSize: '$title4',
+  width: theme.space.xl,
+  height: theme.space.xl,
+  fontSize: theme.fontSizes.title4,
   marginRight: '4px',
   position: 'relative'
 })
@@ -112,44 +112,44 @@ export const ContentTitle = styled('div', {
   display: 'flex',
   alignItems: 'center',
   fontWeight: 600,
-  fontSize: '$subheadline',
-  color: '$color-type-primary',
+  fontSize: theme.fontSizes.subHeadline,
+  color: theme.colors.typePrimary,
   '&:hover': {
-    color: '$color-type-primary'
+    color: theme.colors.typePrimary
   }
 })
 
 export const ContentAction = styled('div', {
-  marginBottom: '$3xs',
+  marginBottom: theme.space.xxxs,
   width: '100%',
-  fontSize: '$body',
+  fontSize: theme.fontSizes.body,
   fontWeight: '500',
-  lineHeight: '$2xl'
+  lineHeight: theme.space.xxl
 })
 
 export const EmptyNode = styled('p', {
   margin: 0,
-  fontSize: '$subheadline',
+  fontSize: theme.fontSizes.subHeadline,
   fontWeight: 500,
-  lineHeight: '$3xl',
-  color: '$color-type-thirdary',
-  paddingLeft: '$lg',
-  marginBottom: '$3xs'
+  lineHeight: theme.space.xxxl,
+  color: theme.colors.typeThirdary,
+  paddingLeft: theme.space.lg,
+  marginBottom: theme.space.xxxs
 })
 
 export const Base = styled('div', {
   boxSizing: 'border-box',
   display: 'flex',
-  height: '$3xl',
-  paddingLeft: '$md',
-  borderRadius: '$2xs',
+  height: theme.space.xxxl,
+  paddingLeft: theme.space.md,
+  borderRadius: theme.space.xxs,
   background: 'transparent',
-  marginRight: '$3xs',
-  marginBottom: '$3xs',
+  marginRight: theme.space.xxxs,
+  marginBottom: theme.space.xxxs,
 
   '&:hover': {
-    background: '$color-bg-overlay-thirdary-hover',
-    boxShadow: '$tree-default',
+    background: theme.colors.backgroundOverlayThirdaryHover,
+    boxShadow: theme.shadows.treeDefault,
     backdropFilter: 'blur(40px)'
   },
   '&:focus-visible': {
@@ -161,19 +161,19 @@ export const Base = styled('div', {
     pressed: {
       true: {
         '&:hover': {
-          background: '$color-overlays-primary-pressed'
+          background: theme.colors.fillOverlayPrimayPressed
         }
       }
     },
     selected: {
       true: {
-        background: '$color-bg-overlay-quinary-drag',
+        background: theme.colors.backgroundOverlayThirdaryDarg,
         borderColor: rgba(44, 91, 255, 0.04),
-        boxShadow: '$tree-selected',
+        boxShadow: theme.shadows.treeSelected,
         '&:hover': {
-          background: '$color-bg-overlay-quinary-drag',
+          background: theme.colors.backgroundOverlayThirdaryDarg,
           borderColor: rgba(44, 91, 255, 0.04),
-          boxShadow: '$tree-selected'
+          boxShadow: theme.shadows.treeSelected
         }
       }
     },

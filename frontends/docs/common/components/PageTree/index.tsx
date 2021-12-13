@@ -27,7 +27,6 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
 
   const { data } = useGetPageBlocksQuery({ variables: { webid: docMeta.webid } })
-
   const [blockMove, { client: blockMoveClient }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
   // const [popoverKey, setPopoverKey] = useState<string | undefined>()
@@ -114,11 +113,12 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     const flattedData = blocks
       .map(b => {
         const title = getTitle(b)
+
         return {
           key: b.id,
           value: b.id,
           parentId: b.parentId,
-          isOpen: docMeta.id === b.id,
+          collapsed: docMeta.id === b.id,
           sort: b.sort,
           icon: getIcon(b),
           nextSort: b.nextSort,
@@ -136,7 +136,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
         className={styles.tree}
         emptyNode={t('blocks.no_pages')}
         selectable={!docMeta.documentInfoLoading}
-        // TODO: ts
+        selectedNodeId={docMeta.id}
         treeData={treeData}
         draggable={true}
         onDrop={onDrop}

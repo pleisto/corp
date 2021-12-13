@@ -41,6 +41,17 @@ export const Tokens = {
   backgroundOverlayThirdaryDarg: rgba(Palettes.blue6, 0.12),
   backgroundOverlayQuaternaryHover: rgba(Palettes.white, 0.7),
   backgroundOverlayQuaternaryPressed: rgba(Palettes.black, 0.12),
+
+  /**
+   * Fill
+   */
+  fillOverlayPrimaryHover: rgba(Palettes.black, 0.05),
+  fillOverlayPrimayPressed: rgba(Palettes.black, 0.1),
+  fillOverlayPrimaySelected: rgba(Palettes.blue6, 0.18),
+  fillOverlayPrimayDrag: rgba(Palettes.blue6, 0.12),
+  fillOverlaySecondaryHover: rgba(Palettes.white, 0.9),
+  fillOverlaySecondaryPressed: rgba(Palettes.black, 0.12),
+
   // Todo: add nosie to `ceramic`
   backgroundCeramic: rgba(Palettes.black, 0.1),
   backgroundFluidCeramic1: rgba(Palettes.cyan1, 0.88),

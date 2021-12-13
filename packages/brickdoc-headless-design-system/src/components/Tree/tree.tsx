@@ -1,17 +1,10 @@
 import { FC, useCallback, useState, useMemo, ReactNode, memo } from 'react'
 import type { TNode } from './constants'
 import Node from './node'
-// import { TreeRoot } from './style'
-
-export interface TreeNode {
-  id: string
-  labelNode: ReactNode
-  showArrow?: boolean
-  children?: TreeNode[]
-}
 
 export interface TreeProps {
   treeData: TNode[]
+  selectedNodeId?: string
   className?: string
   openAll?: boolean
   draggable?: boolean
@@ -22,31 +15,28 @@ export interface TreeProps {
 /** Tree
  * @example
  */
-const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode }) => {
-  const [closedItemIds, setClosedItemIds] = useState<string[]>(
-    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.isOpen).map(node => node.value)
-  )
-
-  const [selectedId, setSelectedId] = useState<string>()
+const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode, selectedNodeId }) => {
+  const [closeIds, setCloseIds] = useState<string[]>(openAll ? treeData.map(node => node.value) : [])
+  const [selectedId, setSelectedId] = useState<string>(selectedNodeId)
 
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
-      const isOpen = closedItemIds.includes(value)
+      const collapsed = closeIds.includes(value)
+
       result.push({
         ...node,
         hasChildren: (children ?? []).length > 0,
         indent: indent ?? 0,
-        isOpen
+        collapsed
       })
-
-      if (!isOpen && children) {
+      if (collapsed && children) {
         for (const child of children) {
           flattened(child, indent + 1, result)
         }
       }
     },
-    [closedItemIds]
+    [closeIds]
   )
 
   const renderTree = useMemo(() => {
@@ -56,14 +46,11 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
     }
     return result
   }, [treeData, flattened])
-
   const handleSelected = useCallback((id: string) => setSelectedId(id), [setSelectedId])
 
   const handleItemClick = useCallback(
     (node: TNode) =>
-      node.isOpen
-        ? setClosedItemIds(closedNodeIds => closedNodeIds.filter(value => value !== node.value))
-        : setClosedItemIds(closedNodeIds => [...closedNodeIds, node.value]),
+      node.collapsed ? setCloseIds(i => i.filter(value => value !== node.value)) : setCloseIds(i => [...i, node.value]),
     []
   )
 

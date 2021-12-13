@@ -17,18 +17,7 @@ export interface TreeProps {
  * @example
  */
 const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, selectedId, emptyNode }) => {
-  const {
-    // key,
-    icon = '',
-    hasChildren,
-    parentId,
-    firstChildSort,
-    // title,
-    indent,
-    value,
-    isOpen
-  } = treeData as any // TODO: WIP
-
+  const { icon = '', firstChildSort, hasChildren, parentId, indent, value, collapsed } = treeData
   const { pressProps, isPressed } = usePress({
     onPress: e => {
       if (e.type === 'press') {
@@ -49,8 +38,8 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
 
   const emptyItem = typeof emptyNode === 'string' ? <TreeRoot.EmptyNode>{emptyNode}</TreeRoot.EmptyNode> : emptyNode
 
-  const showEmptyItem = hasEmptyNode && isOpen ? emptyItem : null
-
+  const showEmptyItem = hasEmptyNode && collapsed ? emptyItem : null
+  console.log(collapsed, 'collapsedcollapsed')
   return (
     <>
       <TreeRoot.Base
@@ -65,7 +54,7 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">
               {hasChildren || hasEmptyNode ? (
-                <TreeRoot.ContentArrow isOpen={isOpen} data-test-id="content-arrow" onClick={handleOpen}>
+                <TreeRoot.ContentArrow isOpen={collapsed} data-test-id="content-arrow" onClick={handleOpen}>
                   <Right data-test-id="content-icon" />
                 </TreeRoot.ContentArrow>
               ) : (
@@ -73,7 +62,6 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
                   <TreeRoot.LeafDot data-test-id="leaf-dot" />
                 </TreeRoot.ContentArrow>
               )}
-
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               <TreeRoot.ContentAction data-test-id="content-action" {...pressProps}>
                 {titleRender?.(treeData)}
@@ -87,6 +75,6 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
   )
 }
 
-Node.displayName = 'BrkTree'
+Node.displayName = 'BrkNode'
 
 export default memo(Node)
