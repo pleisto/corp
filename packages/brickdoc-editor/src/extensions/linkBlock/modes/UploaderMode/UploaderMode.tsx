@@ -5,17 +5,17 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Dashboard, ImportSourceOption, UploadProgress, UploadResultData } from '@brickdoc/uploader'
 import { prependHttp } from '../../../../helpers/prependHttp'
 import { linkStorage, sizeFormat } from '../../../../helpers/file'
-import { EditorDataSource, WebsiteMeta } from '../../../../dataSource/DataSource'
+import { EditorDataSourceContext, WebsiteMeta } from '../../../../dataSource/DataSource'
 import { useEditorI18n } from '../../../../hooks/useEditorI18n'
 
 export interface UploaderModeProps {
   node: NodeViewProps['node']
-  editorDataSource: EditorDataSource
   updateLinkBlockAttributes: (attrs: Record<string, any>, type: 'link' | 'attachment') => void
 }
 
-export const UploaderMode: React.FC<UploaderModeProps> = ({ node, editorDataSource, updateLinkBlockAttributes }) => {
+export const UploaderMode: React.FC<UploaderModeProps> = ({ node, updateLinkBlockAttributes }) => {
   const [t] = useEditorI18n()
+  const editorDataSource = React.useContext(EditorDataSourceContext)
   const onUploaded = (data: UploadResultData): void => {
     // external link
     if (data.meta?.source === 'external') {

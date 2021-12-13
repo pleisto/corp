@@ -11,7 +11,7 @@ import { BlockWrapper } from '../../BlockWrapper'
 import { useEditorI18n } from '../../../hooks'
 import './styles.less'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'
-import { EditorDataSource } from '../../../dataSource/DataSource'
+import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 
 const MAX_WIDTH = 700
 
@@ -25,7 +25,7 @@ export interface PdfSectionAttributes {
 
 // TODO: handle pdf load on error
 export const PdfSection: React.FC<NodeViewProps> = ({ editor, node, extension, getPos, updateAttributes }) => {
-  const editorDataSource: EditorDataSource = extension.options.editorDataSource
+  const editorDataSource = React.useContext(EditorDataSourceContext)
   const { t } = useEditorI18n()
   const latestPdfAttributes = React.useRef<Partial<PdfSectionAttributes>>({})
   const updatePdfAttributes = (newAttributes: Partial<PdfSectionAttributes>): void => {

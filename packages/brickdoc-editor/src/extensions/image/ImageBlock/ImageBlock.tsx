@@ -14,7 +14,7 @@ import 'react-medium-image-zoom/dist/styles.css'
 import './styles.less'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'
-import { ImageSectionOptions } from '..'
+import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 
 const MAX_WIDTH = 700
 
@@ -28,7 +28,7 @@ export interface ImageSectionAttributes {
 
 // TODO: handle image load on error
 export const ImageBlock: React.FC<NodeViewProps> = ({ editor, node, extension, getPos, updateAttributes }) => {
-  const editorDataSource = (extension.options as ImageSectionOptions).editorDataSource
+  const editorDataSource = React.useContext(EditorDataSourceContext)
   const { t } = useEditorI18n()
   const latestImageAttributes = React.useRef<Partial<ImageSectionAttributes>>({})
   const updateImageAttributes = (newAttributes: Partial<ImageSectionAttributes>): void => {

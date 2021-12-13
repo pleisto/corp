@@ -1,5 +1,2 @@
-import { EditorDataSource } from '../dataSource/DataSource'
-
-export interface ExtensionBaseOptions {
-  editorDataSource: EditorDataSource
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ExtensionBaseOptions {}

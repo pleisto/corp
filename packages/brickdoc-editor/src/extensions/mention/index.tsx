@@ -7,6 +7,7 @@ import { MentionCommandsMenu, MentionCommandsMenuProps } from './MentionMenu'
 import { PageItem } from './MentionMenu/PagePanel/PagePanel'
 import { PeopleItem } from './MentionMenu/PeoplePanel/PeoplePanel'
 import { ExtensionBaseOptions } from '../baseOptions'
+import { EditorDataSource } from '../../dataSource/DataSource'
 
 const TRIGGER_CHAR = '@'
 
@@ -15,7 +16,9 @@ interface MenuItems {
   page: PageItem[]
 }
 
-export interface MentionCommandsOptions extends ExtensionBaseOptions {}
+export interface MentionCommandsOptions extends ExtensionBaseOptions {
+  editorDataSource: EditorDataSource
+}
 
 export const MentionCommandsExtension = Extension.create<MentionCommandsOptions>({
   name: 'mentionCommands',

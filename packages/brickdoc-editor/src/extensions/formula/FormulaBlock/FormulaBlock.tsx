@@ -6,13 +6,13 @@ import { BlockWrapper } from '../../BlockWrapper'
 import { FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
-import { FormulaOptions } from '..'
 import { VariableTypeMeta, variableTypeMeta } from '@brickdoc/formula'
+import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
-  const { editorDataSource } = extension.options as FormulaOptions
+  const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
 
   const attributes = node.attrs.formula

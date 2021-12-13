@@ -69,13 +69,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
 
   return useTiptapEditor({
     extensions: [
-      BasicRichtextExtension.configure({
-        imageSection: { editorDataSource },
-        pdfSection: { editorDataSource },
-        tableBlock: { editorDataSource },
-        linkBlock: { editorDataSource },
-        formula: { editorDataSource }
-      }),
+      BasicRichtextExtension,
       EventHandlerExtension,
       SlashCommandsExtension,
       MentionCommandsExtension.configure({

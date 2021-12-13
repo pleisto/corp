@@ -9,7 +9,7 @@ import { AttachmentMode } from '../modes/AttachmentMode/AttachmentMode'
 import { LinkMode } from '../modes/LinkMode/LinkMode'
 import { UploaderMode } from '../modes/UploaderMode/UploaderMode'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'
-import { EditorDataSource, WebsiteMeta } from '../../../dataSource/DataSource'
+import { EditorDataSourceContext, WebsiteMeta } from '../../../dataSource/DataSource'
 
 export interface LinkBlockAttributes {
   key: string
@@ -26,8 +26,8 @@ export interface LinkBlockAttributes {
 const canFilePreview = (fileType: FileType, mode: LinkBlockAttributes['mode']): boolean =>
   mode !== 'link' && ['pdf', 'excel', 'word', 'ppt'].includes(fileType)
 
-export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, extension, updateAttributes, deleteNode }) => {
-  const editorDataSource: EditorDataSource = extension.options.editorDataSource
+export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttributes, deleteNode }) => {
+  const editorDataSource = React.useContext(EditorDataSourceContext)
   const latestLinkBlockAttributes = React.useRef<Partial<LinkBlockAttributes>>({})
   const updateLinkBlockAttributes = (
     newAttributes: Partial<LinkBlockAttributes>,
@@ -98,11 +98,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, extension, up
 
   return (
     <BlockWrapper editor={editor}>
-      <UploaderMode
-        node={node}
-        editorDataSource={editorDataSource}
-        updateLinkBlockAttributes={updateLinkBlockAttributes}
-      />
+      <UploaderMode node={node} updateLinkBlockAttributes={updateLinkBlockAttributes} />
     </BlockWrapper>
   )
 }

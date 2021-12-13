@@ -19,9 +19,9 @@ import { useFilter } from './TableToolbar/Filter/useFilter'
 import { useSorter } from './TableToolbar/Sorter/useSorter'
 import './Table.css'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
-import { TableBlockOptions } from '../..'
 import { useFormulaDatabase } from './useFormulaDatabase'
 import { useTableRows } from './useTableRows'
+import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean =>
   headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
@@ -51,7 +51,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
 
-  const { editorDataSource } = extension.options as TableBlockOptions
+  const editorDataSource = React.useContext(EditorDataSourceContext)
 
   const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
