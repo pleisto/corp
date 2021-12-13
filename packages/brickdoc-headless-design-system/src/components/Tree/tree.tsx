@@ -1,6 +1,22 @@
 import { FC, useCallback, useState, useMemo, ReactNode, memo } from 'react'
-import type { TNode } from './constants'
 import Node from './node'
+
+export interface TNode {
+  key: string
+  value: string
+  parentId?: string
+  title: ReactNode | string
+  icon: string | null
+  hasItemIcon?: boolean
+  hasChildren: boolean
+  firstChildSort: string
+  indent: number
+  isOpen: boolean
+  collapsed: boolean
+  sort: number
+  lastPlaceholder: ReactNode | string
+  children: TNode[]
+}
 
 export interface TreeProps {
   treeData: TNode[]
@@ -8,6 +24,8 @@ export interface TreeProps {
   className?: string
   openAll?: boolean
   draggable?: boolean
+  // TODO
+  onDrop?: any
   titleRender?: (node: TNode) => ReactNode
   emptyNode?: string | ReactNode
 }
@@ -17,7 +35,7 @@ export interface TreeProps {
  */
 const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode, selectedNodeId }) => {
   const [closeIds, setCloseIds] = useState<string[]>(openAll ? treeData.map(node => node.value) : [])
-  const [selectedId, setSelectedId] = useState<string>(selectedNodeId)
+  const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
 
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {

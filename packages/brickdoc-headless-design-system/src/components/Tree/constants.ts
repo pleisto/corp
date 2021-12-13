@@ -9,7 +9,7 @@ export interface TNode {
   hasItemIcon?: boolean
   hasChildren: boolean
   firstChildSort: string
-  indent: number | 16 | '1rem'
+  indent: number
   isOpen: boolean
   collapsed: boolean
   sort: number

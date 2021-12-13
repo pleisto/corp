@@ -4,29 +4,7 @@ import { rgba, rem } from 'polished'
 export const PageBlock = styled('div', {})
 
 export const Indent = styled('div', {
-  display: 'block',
-  variants: {
-    size: {
-      1: {
-        width: rem(`${16 * 1}px`)
-      },
-      2: {
-        width: rem(`${16 * 2}px`)
-      },
-      3: {
-        width: rem(`${16 * 3}px`)
-      },
-      4: {
-        width: rem(`${16 * 4}px`)
-      },
-      5: {
-        width: rem(`${16 * 5}px`)
-      },
-      6: {
-        width: rem(`${16 * 6}px`)
-      }
-    }
-  }
+  display: 'block'
 })
 
 export const PageItem = styled('div', {

@@ -7,6 +7,7 @@
     "cleanup": "tsc --build --clean"
   },
   "module": "./src/index.tsx",
+  "main": "./src/index.tsx",
   "files": [
     "src"
   ],

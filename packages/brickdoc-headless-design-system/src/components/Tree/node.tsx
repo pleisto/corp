@@ -1,5 +1,6 @@
 import { FC, useCallback, memo, MouseEvent, ReactNode, useMemo } from 'react'
 import { usePress } from '@react-aria/interactions'
+import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
 import type { TNode } from './constants'
 import { TreeRoot } from './style'
@@ -17,7 +18,7 @@ export interface TreeProps {
  * @example
  */
 const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, selectedId, emptyNode }) => {
-  const { icon = '', firstChildSort, hasChildren, parentId, indent, value, collapsed } = treeData
+  const { icon = '', firstChildSort, hasChildren, parentId, indent = 0, value, collapsed } = treeData
   const { pressProps, isPressed } = usePress({
     onPress: e => {
       if (e.type === 'press') {
@@ -39,7 +40,7 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
   const emptyItem = typeof emptyNode === 'string' ? <TreeRoot.EmptyNode>{emptyNode}</TreeRoot.EmptyNode> : emptyNode
 
   const showEmptyItem = hasEmptyNode && collapsed ? emptyItem : null
-  console.log(collapsed, 'collapsedcollapsed')
+
   return (
     <>
       <TreeRoot.Base
@@ -49,7 +50,12 @@ const Node: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, s
         tabIndex={0}
         data-test-id="BrkTree"
       >
-        <TreeRoot.Indent size={indent} data-test-id="indent" />
+        <TreeRoot.Indent
+          css={{
+            width: rem(`${16 * indent}px`)
+          }}
+          data-test-id="indent"
+        />
         <TreeRoot.PageItem data-test-id="page-item">
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">

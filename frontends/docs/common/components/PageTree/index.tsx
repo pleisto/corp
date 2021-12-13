@@ -117,7 +117,7 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
         return {
           key: b.id,
           value: b.id,
-          parentId: b.parentId,
+          // parentId: b.parentId,
           collapsed: docMeta.id === b.id,
           sort: b.sort,
           icon: getIcon(b),
@@ -135,9 +135,10 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
       <Tree
         className={styles.tree}
         emptyNode={t('blocks.no_pages')}
-        selectable={!docMeta.documentInfoLoading}
+        // selectable={!docMeta.documentInfoLoading}
         selectedNodeId={docMeta.id}
-        treeData={treeData}
+        // @ts-expect-error
+        treeData={treeData} // TODO: to be improved
         draggable={true}
         onDrop={onDrop}
         titleRender={titleRender}
