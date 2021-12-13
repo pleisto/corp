@@ -49,9 +49,12 @@ export interface EditorDatabase {
 
   documentPages: DocumentPageData[]
 
+  documentEditable: boolean
+
   collaborators: Collaborator[]
 
   webid: string
+
   rootId: string
 
   table: {
@@ -89,6 +92,7 @@ export class EditorDataSource {
     },
     webid: '',
     rootId: '',
+    documentEditable: false,
     blobs: {},
     collaborators: [],
     documentPages: [],
@@ -155,6 +159,15 @@ export class EditorDataSource {
   set rootId(value: EditorDatabase['rootId']) {
     this.database.rootId = value
     this.invokeListeners('rootId')
+  }
+
+  get documentEditable(): EditorDatabase['documentEditable'] {
+    return this.database.documentEditable
+  }
+
+  set documentEditable(value: EditorDatabase['documentEditable']) {
+    this.database.documentEditable = value
+    this.invokeListeners('documentEditable')
   }
 
   get webid(): EditorDatabase['webid'] {

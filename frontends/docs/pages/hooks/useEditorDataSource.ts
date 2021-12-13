@@ -19,9 +19,15 @@ export interface UseEditorDataSourceProps {
   docMeta: DocMeta
   blocks: GetChildrenBlocksQuery['childrenBlocks']
   updateBlocks: UpdateBlocks
+  documentEditable: boolean
 }
 
-export function useEditorDataSource({ docMeta, blocks, updateBlocks }: UseEditorDataSourceProps): EditorDataSource {
+export function useEditorDataSource({
+  docMeta,
+  documentEditable,
+  blocks,
+  updateBlocks
+}: UseEditorDataSourceProps): EditorDataSource {
   const dataSource = React.useRef<EditorDataSource>(new EditorDataSource())
   const prepareFileUpload = usePrepareFileUpload()
   const fetchUnsplashImages = useFetchUnsplashImages()
@@ -99,6 +105,11 @@ export function useEditorDataSource({ docMeta, blocks, updateBlocks }: UseEditor
       avatar: user.avatarData?.url ?? undefined
     }))
   }, [docMeta.collaborators])
+
+  // document editable
+  React.useEffect(() => {
+    dataSource.current.documentEditable = documentEditable
+  }, [documentEditable])
 
   // webid
   React.useEffect(() => {

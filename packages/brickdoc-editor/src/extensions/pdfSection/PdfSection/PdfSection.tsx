@@ -7,7 +7,7 @@ import { Button, Popover, Icon, Menu, message, Modal } from '@brickdoc/design-sy
 import { Dashboard, UploadResultData, ImportSourceOption, UploadProgress } from '@brickdoc/uploader'
 import { PdfDocument } from './PdfDocument'
 import { linkStorage, sizeFormat } from '../../../helpers/file'
-import { BlockWrapper } from '../../BlockWrapper'
+import { BlockWrapper } from '../../../components'
 import { useEditorI18n } from '../../../hooks'
 import './styles.less'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'

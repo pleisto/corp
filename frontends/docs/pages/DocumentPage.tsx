@@ -38,7 +38,12 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta }) => {
   const currentRootBlock = rootBlock.current
   const [documentEditable, setDocumentEditable] = useDocumentEditable(docMeta, currentRootBlock)
 
-  const editorDataSource = useEditorDataSource({ docMeta, blocks: data?.childrenBlocks, updateBlocks })
+  const editorDataSource = useEditorDataSource({
+    docMeta,
+    documentEditable,
+    blocks: data?.childrenBlocks,
+    updateBlocks
+  })
 
   const editor = useEditor({
     onSave: onDocSave,

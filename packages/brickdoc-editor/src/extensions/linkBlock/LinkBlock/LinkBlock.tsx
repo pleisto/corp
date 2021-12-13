@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { NodeViewProps } from '@tiptap/react'
-import { BlockWrapper } from '../../BlockWrapper'
+import { BlockWrapper } from '../../../components'
 import 'react-medium-image-zoom/dist/styles.css'
 import './LinkBlock.less'
 import { linkStorage, getFileTypeByExtension, FileType } from '../../../helpers/file'
