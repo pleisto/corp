@@ -1,14 +1,5 @@
 import { Table } from '../Table'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { useDatabaseRows } from '../useDatabaseRows'
-import { FormulaOptions } from '../../..'
-
-const formulaContextActions: FormulaOptions['formulaContextActions'] = {
-  getFormulaContext: (): null => null,
-  getVariable: (variableId: string): undefined => undefined,
-  removeVariable: (variableId: string): void => {},
-  calculate: (): void => {}
-}
 
 describe('Table', () => {
   const props: any = {
@@ -27,10 +18,7 @@ describe('Table', () => {
       }
     },
     extension: {
-      options: {
-        useDatabaseRows,
-        formulaContextActions
-      }
+      options: {}
     },
     updateAttributes: () => {}
   }

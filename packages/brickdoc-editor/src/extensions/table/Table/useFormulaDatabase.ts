@@ -1,4 +1,4 @@
-import { FormulaContext } from '@brickdoc/formula'
+import { ContextInterface } from '@brickdoc/formula'
 import React from 'react'
 import { Column } from 'react-table'
 import { DatabaseRows } from '..'
@@ -7,7 +7,7 @@ export function useFormulaDatabase(
   blockId: string,
   tableColumns: Column[],
   tableData: DatabaseRows,
-  formulaContext: FormulaContext | null | undefined
+  formulaContext: ContextInterface | null | undefined
 ): void {
   // TODO pass column Type
   React.useEffect(() => {
