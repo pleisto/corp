@@ -49,6 +49,7 @@ export type ErrorType =
 export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionName}` | FunctionName
+export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
 export type VariableKey = `$${NamespaceId}@${VariableId}`
 export type SpreadsheetKey = `$${NamespaceId}`
 export type ColumnKey = `$${NamespaceId}#${ColumnId}`
@@ -253,7 +254,7 @@ export interface BaseCompletion {
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
   readonly namespace: FunctionGroup
-  readonly value: FunctionKey
+  readonly value: FunctionCompletionValue
   readonly preview: FunctionClause<any>
 }
 

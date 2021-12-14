@@ -65,7 +65,7 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     weight,
     name: functionClause.name,
     namespace: functionClause.group,
-    value: functionClause.key,
+    value: functionClause.args.length ? functionClause.key : `${functionClause.key}()`,
     preview: functionClause
   }
 }
