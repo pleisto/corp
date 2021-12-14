@@ -1,5 +1,5 @@
 import { FC, useCallback, useState, useMemo, ReactNode, memo } from 'react'
-import Node from './node'
+import { Node } from './node'
 
 export interface TNode {
   key: string

@@ -4,12 +4,14 @@
   "description": "Brickdoc design system and React components implementation",
   "license": "Apache-2.0",
   "scripts": {
+    "build": "tsc --build tsconfig.build.json",
     "cleanup": "tsc --build tsconfig.build.json --clean",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "module": "./src/index.tsx",
-  "main": "./src/index.tsx",
+  "main": "./dist/src/index.js",
+  "module": "./src/index.ts",
+  "types": "./dist/src/index.d.ts",
   "files": [
     "src"
   ],
