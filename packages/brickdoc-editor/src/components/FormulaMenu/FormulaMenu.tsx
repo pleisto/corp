@@ -179,15 +179,16 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
-  const handleSelectActiveCompletion = (completion?: Completion): void => {
+  const handleSelectActiveCompletion = (completion?: Completion, inputContent?: JSONContent): void => {
     const currentCompletion = completion ?? activeCompletion
+    const currentContent = inputContent ?? content
 
     if (!currentCompletion) {
       console.error('No active completion!')
       return
     }
     // TODO content is missing! {text: undefined, type: 'text'}
-    const oldContent = content?.content ?? []
+    const oldContent = currentContent?.content ?? []
     const value = currentCompletion.value
     let attrs: CodeFragmentWithBlockId
     switch (currentCompletion.kind) {
@@ -259,6 +260,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const keyDownHandler = useKeydownHandler({
     completions,
     activeCompletion,
+    content,
     activeCompletionIndex,
     handleSelectActiveCompletion,
     setActiveCompletion,
