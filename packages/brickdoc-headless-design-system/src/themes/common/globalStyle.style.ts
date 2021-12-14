@@ -28,7 +28,6 @@ export const globalStyleSheet = {
     margin: 0,
     height: '100%',
     width: '100%',
-    overflowY: 'hidden',
     '--webkit-font-smoothing': 'antialiased',
     fontFamily: '$fonts$defaultSans',
     color: '$colors$typePrimary',
@@ -101,17 +100,45 @@ export const globalStyleSheet = {
   table: {
     borderCollapse: 'revert'
   },
-  // fix for the content editable attribute will work properly
-  ':where([contenteditable])': {
-    '-moz-user-modify': 'read-write',
-    '-webkit-user-modify': 'read-write',
-    overflowWrap: 'break-word',
-    '-webkit-line-break': 'after-white-space'
-  },
   summary: {
     display: 'list-item'
   },
   'dialog:not([open])': {
     display: 'none'
+  },
+  '.brd-icon': {
+    display: 'inline-block',
+    color: 'inherit',
+    fontStyle: 'normal',
+    lineHeight: '0',
+    textAlign: 'center',
+    textTransform: 'none',
+    verticalAlign: '-0.125em',
+    textRendering: 'optimizeLegibility',
+    fontSize: 'inherit',
+    fill: 'currentColor',
+    '& > *': {
+      lineHeight: '1',
+      width: '1em',
+      height: '1em'
+    },
+    '&-rtl': {
+      transform: 'scaleX(-1)'
+    },
+    '&-spin svg': {
+      animation: 'brd-icon-spin 1s linear infinite'
+    },
+    '& brd-image': {
+      width: '1em',
+      height: '1em'
+    },
+    '&[tabindex]': {
+      cursor: 'pointer'
+    }
+  },
+  '@keyframes brd-icon-spin': {
+    '100%': {
+      transform: 'rotate(360deg)'
+    }
   }
 }
