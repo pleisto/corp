@@ -7,7 +7,8 @@ import {
   ErrorResult,
   PredicateResult,
   PredicateFunction,
-  StringResult
+  StringResult,
+  AnyTypeResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 
@@ -60,7 +61,7 @@ export const SUMIFS = (
 
 export const VLOOKUP = (
   ctx: ContextInterface,
-  { result: match }: StringResult,
+  { result: match }: AnyTypeResult,
   { result: database }: SpreadsheetResult,
   { result: column }: ColumnResult
 ): StringResult | ErrorResult => {
@@ -85,8 +86,10 @@ export const VLOOKUP = (
 
   let result: StringResult | ErrorResult = { type: 'Error', result: 'Not found', errorKind: 'runtime' }
 
+  const matchData = String(match)
+
   database.listRows().forEach(row => {
-    if (row[firstColumn.columnId] === match) {
+    if (row[firstColumn.columnId] === matchData) {
       result = { type: 'string', result: row[column.columnId] ?? '' }
     }
   })
@@ -105,7 +108,7 @@ const VLOOKUP_CLAUSE: BasicFunctionClause<'string'> = {
   args: [
     {
       name: 'match',
-      type: 'string'
+      type: 'any'
     },
     {
       name: 'database',

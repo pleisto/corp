@@ -281,6 +281,89 @@ Array [
 ]
 `;
 
+exports[`Database Functions [VLOOKUP Column check] =VLOOKUP("", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "StringLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "\\"\\"",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "first",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+]
+`;
+
 exports[`Database Functions [VLOOKUP Not found] =VLOOKUP("", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
@@ -364,7 +447,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [VLOOKUP Not found] =VLOOKUP("", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
+exports[`Database Functions [VLOOKUP ok number] =VLOOKUP(1, $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
     "code": "Function",
@@ -385,13 +468,13 @@ Array [
     "type": "any",
   },
   Object {
-    "code": "StringLiteral",
+    "code": "NumberLiteral",
     "errors": Array [],
     "meta": undefined,
-    "name": "\\"\\"",
+    "name": "1",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "string",
+    "type": "number",
   },
   Object {
     "code": "Comma",
@@ -427,10 +510,10 @@ Array [
     "code": "Column",
     "errors": Array [],
     "meta": Object {
-      "name": "first",
+      "name": "second",
       "spreadsheetName": "MyTable",
     },
-    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "Column",
@@ -447,7 +530,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [VLOOKUP Not found] =VLOOKUP("1", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Database Functions [VLOOKUP ok string] =VLOOKUP("1", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
     "code": "Function",
@@ -563,6 +646,7 @@ Object {
     "name": [Function],
     "rowCount": [Function],
   },
+  "replace": "",
   "value": "$28e28190-63bd-4f70-aeca-26e72574c01a",
   "weight": 10,
 }
@@ -612,6 +696,7 @@ Object {
     "returns": "number",
     "testCases": Array [],
   },
+  "replace": "",
   "value": "SUM",
   "weight": 250,
 }
@@ -630,6 +715,7 @@ Object {
     "spreadsheetName": "MyTable",
     "type": "foo",
   },
+  "replace": "$28e28190-63bd-4f70-aeca-26e72574c01a.",
   "value": "$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   "weight": 997,
 }
@@ -679,6 +765,7 @@ Object {
     "returns": "number",
     "testCases": Array [],
   },
+  "replace": "",
   "value": "COLUMN_COUNT",
   "weight": 250,
 }

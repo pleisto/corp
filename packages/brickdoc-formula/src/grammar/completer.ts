@@ -38,15 +38,17 @@ export const complete = ({
 }: CompleteInput): Completion[] => {
   let completions = cacheCompletions ?? formulaContext?.completions(namespaceId, variableId) ?? []
   const lastCodeFragment = codeFragments[codeFragments.length - 1]
+  const lastToken = tokens[tokens.length - 1]
   // const lastToken = tokens[tokens.length - 1]
-  if (!lastCodeFragment) {
+  if (!lastCodeFragment || !lastToken) {
     return completions
   }
   const { code, name } = lastCodeFragment
   const lowerCaseName = name.toLowerCase()
+  const lastTokenText = lastToken.image
 
   // console.log({ name, code, input })
-  // console.log({ name, code, lastCodeFragment, tokens, codeFragments, completions })
+  // console.log({ name, code, input, lastCodeFragment, tokens, codeFragments, completions })
 
   if (code === 'Dot') {
     const last2CodeFragment = codeFragments[codeFragments.length - 2]
@@ -76,23 +78,39 @@ export const complete = ({
     })
   }
 
-  if (['other'].includes(code)) {
+  if (['other', 'NumberLiteral'].includes(code)) {
     completions = completions.map(c => {
       if (c.name === name) {
-        return { ...c, weight: c.weight + 1000 }
+        return { ...c, weight: c.weight + 1000, replace: c.replace.concat(name) }
       }
 
       const cname = c.name.toLowerCase()
       if (cname === lowerCaseName) {
-        return { ...c, weight: c.weight + 500 }
+        return { ...c, weight: c.weight + 500, replace: c.replace.concat(name) }
       }
 
       if (cname.startsWith(lowerCaseName)) {
-        return { ...c, weight: c.weight + 100 }
+        return { ...c, weight: c.weight + 100, replace: c.replace.concat(name) }
       }
 
       if (cname.includes(lowerCaseName)) {
-        return { ...c, weight: c.weight + 10 }
+        return { ...c, weight: c.weight + 10, replace: c.replace.concat(name) }
+      }
+
+      if (c.name === lastTokenText) {
+        return { ...c, weight: c.weight + 1000, replace: c.replace.concat(lastTokenText) }
+      }
+
+      if (cname === lastTokenText) {
+        return { ...c, weight: c.weight + 500, replace: c.replace.concat(lastTokenText) }
+      }
+
+      if (cname.startsWith(lastTokenText)) {
+        return { ...c, weight: c.weight + 100, replace: c.replace.concat(lastTokenText) }
+      }
+
+      if (cname.includes(lastTokenText)) {
+        return { ...c, weight: c.weight + 10, replace: c.replace.concat(lastTokenText) }
       }
 
       return c

@@ -258,9 +258,57 @@ const testCases: TestCase[] = [
     errorMessage: 'TODO mismatch token startExpression'
   },
   {
+    input: '=1+',
+    parseErrorType: 'parse',
+    label: 'TODO missing suffix expression',
+    errorMessage: 'Expecting: one of these possible Token sequences:'
+  },
+  {
+    input: '=(1',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis1',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=(1',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis1',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=ABS(',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis2',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=ABS(1',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis3',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=POWER(1,',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis4',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=POWER(1,2',
+    parseErrorType: 'parse',
+    label: 'Missing closing parenthesis5',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
     input: '= 1+$',
     parseErrorType: 'parse',
     errorMessage: 'Expecting: one of these possible Token sequences:'
+  },
+  {
+    input: '="foo" &&& 123',
+    parseErrorType: 'parse',
+    label: 'TODO &&&',
+    errorMessage: 'Expected boolean but got string'
   },
   {
     input: '=1**2',

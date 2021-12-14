@@ -496,14 +496,22 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx: { expression: CstNode | CstNode[]; LParen: IToken[]; RParen: IToken[] },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
-    if (!ctx.LParen || !ctx.RParen) {
+    if (!ctx.LParen) {
       return { codeFragments: [], type: 'any', image: '' }
     }
+    const rParenErrorMessages: ErrorMessage[] = ctx.RParen ? [] : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const { codeFragments, type: expressionType, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
+    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], 'any')] : []
+    const finalImage = ctx.RParen ? `(${image})` : `(${image}`
+
     return {
-      codeFragments: [token2fragment(ctx.LParen[0], 'any'), ...codeFragments, token2fragment(ctx.RParen[0], 'any')],
+      codeFragments: [
+        { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
+        ...codeFragments,
+        ...rparenCodeFragments
+      ],
       type: expressionType,
-      image: `(${image})`
+      image: finalImage
     }
   }
 
@@ -705,9 +713,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     },
     { type, firstArgumentType }: ExpressionArgument
   ): CodeFragmentResult {
-    if (!ctx.LParen || !ctx.RParen) {
+    if (!ctx.LParen) {
       return { codeFragments: [], type: 'any', image: '' }
     }
+
+    const rParenErrorMessages: ErrorMessage[] = ctx.RParen
+      ? []
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
+    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], 'any')] : []
 
     const names = ctx.FunctionName.map(({ image }) => image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
@@ -758,15 +771,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const argsErrorMessages: ErrorMessage[] =
         clauseArgs.length > 0 && argsCodeFragments.length === 0 ? [{ message: 'Miss argument', type: 'deps' }] : []
 
-      images.push('(', image, ')')
+      images.push('(', image, ctx.RParen ? ')' : '')
 
       const { errorMessages, newType } = intersectType(type, clause.returns)
       return {
         codeFragments: [
-          { ...nameFragment, code: 'Function', errors: [...chainError, ...errorMessages, ...argsErrorMessages] },
-          token2fragment(ctx.LParen[0], 'any'),
+          { ...nameFragment, code: 'Function', errors: [...rParenErrorMessages, ...chainError, ...errorMessages, ...argsErrorMessages] },
+          { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
           ...argsCodeFragments,
-          token2fragment(ctx.RParen[0], 'any')
+          ...rparenCodeFragments
         ],
         image: images.join(''),
         type: newType
@@ -775,7 +788,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
         ? (this.visit(ctx.Arguments, null) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
-      images.push('(', image, ')')
+      images.push('(', image, ctx.RParen ? ')' : '')
 
       return {
         codeFragments: [
@@ -784,9 +797,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             code: 'Function',
             errors: [{ message: `Function ${functionKey} not found`, type: 'deps' }]
           },
-          token2fragment(ctx.LParen[0], 'any'),
+          { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
           ...argsCodeFragments,
-          token2fragment(ctx.RParen[0], 'any')
+          ...rparenCodeFragments
         ],
         image: images.join(''),
         type: 'any'
@@ -807,13 +820,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const { codeFragments: argFragments, image }: CodeFragmentResult = this.visit(arg, {
         type: argumentTypes[idx] || 'any'
       })
-      if (idx === 0) {
-        codeFragments.push(...argFragments)
-        images.push(image)
-      } else {
-        codeFragments.push(token2fragment(ctx.Comma[idx - 1], 'any'), ...argFragments)
-        images.push(',', image)
+
+      if (idx !== 0 && ctx.Comma[idx - 1]) {
+        codeFragments.push(token2fragment(ctx.Comma[idx - 1], 'any'))
+        images.push(',')
       }
+
+      codeFragments.push(...argFragments)
+      images.push(image)
     })
 
     const errorMessages: ErrorMessage[] =
@@ -821,7 +835,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         ? [{ message: 'Argument count mismatch', type: 'deps' }]
         : []
     return {
-      image: images.join(','),
+      image: images.join(''),
       codeFragments: codeFragments.map(codeFragment => ({
         ...codeFragment,
         errors: [...errorMessages, ...codeFragment.errors]

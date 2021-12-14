@@ -129,15 +129,11 @@ export const parse = ({
   const endChar = input[input.length - 1]
   // console.log({ endChar, input })
 
-  if (['.', ' '].includes(endChar)) {
+  if (['.', ' ', ','].includes(endChar)) {
     const index = endChar === '.' ? tokens.length - 2 : tokens.length - 1
     const lastToken = tokens[index]
 
-    // TODO get real activeCompletion via React.useCallback
-    // TODO remove this ...
-    // const currentCompletion = activeCompletion
-    // NOTE hacky way to get the current completion
-    const currentCompletion = completions.find(c => c.name === lastToken.image && c.kind !== 'function')
+    const currentCompletion = activeCompletion
 
     // console.log({ endChar, lastToken, input, tokens, currentCompletion })
     if (lastToken && currentCompletion && currentCompletion.name === lastToken.image) {
@@ -169,6 +165,11 @@ export const parse = ({
       message: e.message,
       type: 'syntax'
     })) as [ErrorMessage, ...ErrorMessage[]]
+
+    const errorCodeFragment = codeFragments.find(f => f.errors.length)
+    const finalErrorMessages: [ErrorMessage, ...ErrorMessage[]] = errorCodeFragment
+      ? [errorCodeFragment.errors[0]]
+      : errorMessages
 
     if (inputImage.startsWith(image)) {
       const restImages = inputImage.slice(image.length)
@@ -206,7 +207,7 @@ export const parse = ({
       parseImage: image,
       completions,
       level,
-      errorMessages,
+      errorMessages: finalErrorMessages,
       cst,
       codeFragments: finalCodeFragments
     }

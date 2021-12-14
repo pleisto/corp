@@ -25,6 +25,7 @@ export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnK
 export const database2completion = (database: Database): SpreadsheetCompletion => {
   return {
     kind: 'spreadsheet',
+    replace: '',
     weight: 10,
     name: database.name(),
     namespace: database.blockId,
@@ -36,6 +37,7 @@ export const database2completion = (database: Database): SpreadsheetCompletion =
 export const column2completion = (column: Column): ColumnCompletion => {
   return {
     kind: 'column',
+    replace: `${spreadsheetKey(column.namespaceId)}.`,
     weight: -3,
     name: column.name,
     namespace: column.spreadsheetName,
@@ -47,6 +49,7 @@ export const column2completion = (column: Column): ColumnCompletion => {
 export const variable2completion = (variable: VariableInterface, weight: number): VariableCompletion => {
   return {
     kind: 'variable',
+    replace: '',
     weight,
     name: variable.t.name,
     namespace: variable.t.namespaceId,
@@ -58,6 +61,7 @@ export const variable2completion = (variable: VariableInterface, weight: number)
 export const function2completion = (functionClause: FunctionClause<any>, weight: number): FunctionCompletion => {
   return {
     kind: 'function',
+    replace: '',
     weight,
     name: functionClause.name,
     namespace: functionClause.group,

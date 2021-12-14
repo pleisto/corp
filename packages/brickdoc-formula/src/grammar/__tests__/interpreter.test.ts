@@ -171,30 +171,6 @@ describe('Context', () => {
     expect((await interpret({ cst, formulaContext, meta: newMeta })).variableValue.result.result).toEqual(34)
   })
 
-  it('syntax', () => {
-    const input = `= "foo" &&& 123`
-    const newMeta = { ...meta, input }
-    const { errorMessages } = parse({ ...parseInput, meta: newMeta })
-    expect(errorMessages).toEqual([
-      {
-        message: `Expecting: one of these possible Token sequences:
-  1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
-but found: '&'`,
-        type: 'syntax'
-      }
-    ])
-  })
-
   it('Type', () => {
     const input = `= "foo" & $${namespaceId}@${fooVariableId}`
     const newMeta = { ...meta, input }

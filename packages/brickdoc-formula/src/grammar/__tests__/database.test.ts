@@ -77,12 +77,17 @@ const testCases: TestCase[] = [
     value: 'Not found'
   },
   {
-    label: 'VLOOKUP Not found',
+    label: 'VLOOKUP Column check',
     input: `=VLOOKUP("", $${databaseNamespaceId}, $${databaseNamespaceId}#${firstColumnId})`,
     value: 'Column cannot be the same as the first column'
   },
   {
-    label: 'VLOOKUP Not found',
+    label: 'VLOOKUP ok number',
+    input: `=VLOOKUP(1, $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId})`,
+    value: '2'
+  },
+  {
+    label: 'VLOOKUP ok string',
     input: `=VLOOKUP("1", $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId})`,
     value: '2'
   }

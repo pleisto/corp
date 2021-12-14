@@ -244,6 +244,7 @@ export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column'
 export interface BaseCompletion {
   readonly kind: CompletionKind
   readonly weight: number
+  readonly replace: string
   readonly namespace: string
   readonly name: string
   readonly value: any
