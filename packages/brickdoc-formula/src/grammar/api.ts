@@ -17,7 +17,6 @@ import {
   View,
   VariableInterface,
   Completion,
-  FormulaType,
   AnyTypeValue,
   ParseErrorType,
   CodeFragmentResult
