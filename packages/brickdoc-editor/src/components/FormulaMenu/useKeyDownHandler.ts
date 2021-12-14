@@ -30,6 +30,16 @@ export function useKeydownHandler({
     latestContent.current = content
   }, [content])
 
+  const latestActiveCompletionIndex = React.useRef(activeCompletionIndex)
+  React.useEffect(() => {
+    latestActiveCompletionIndex.current = activeCompletionIndex
+  }, [activeCompletionIndex])
+
+  const latestCompletions = React.useRef(completions)
+  React.useEffect(() => {
+    latestCompletions.current = completions
+  }, [completions])
+
   const keyDownHandler = React.useCallback(
     (view, event) => {
       if (event.key === 'Enter' && !event.shiftKey) {
@@ -42,20 +52,27 @@ export function useKeydownHandler({
           handleSelectActiveCompletion(latestCompletion.current, latestContent.current)
           return true
         case 'ArrowDown':
-          newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
-          setActiveCompletion(completions[newIndex])
+          newIndex =
+            latestActiveCompletionIndex.current + 1 > latestCompletions.current.length - 1
+              ? 0
+              : latestActiveCompletionIndex.current + 1
+
+          setActiveCompletion(latestCompletions.current[newIndex])
           setActiveCompletionIndex(newIndex)
           return true
         case 'ArrowUp':
-          newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
-          setActiveCompletion(completions[newIndex])
+          newIndex =
+            latestActiveCompletionIndex.current - 1 < 0
+              ? latestCompletions.current.length - 1
+              : latestActiveCompletionIndex.current - 1
+          setActiveCompletion(latestCompletions.current[newIndex])
           setActiveCompletionIndex(newIndex)
           return true
       }
 
       return false
     },
-    [handleSelectActiveCompletion, activeCompletionIndex, completions, setActiveCompletion, setActiveCompletionIndex]
+    [handleSelectActiveCompletion, setActiveCompletion, setActiveCompletionIndex]
   )
 
   return keyDownHandler
