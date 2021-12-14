@@ -22,6 +22,26 @@ export const SUM = (ctx: ContextInterface, { result: column }: ColumnResult): Nu
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
 }
 
+export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
+  const database = ctx.findDatabase(column.namespaceId)
+  if (!database) {
+    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+  }
+
+  const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
+  return { type: 'number', result: Math.max(...rows) }
+}
+
+export const COUNTA = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
+  const database = ctx.findDatabase(column.namespaceId)
+  if (!database) {
+    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+  }
+
+  const counta = database.listRows().filter(row => !!row[column.columnId]).length
+  return { type: 'number', result: counta }
+}
+
 export const COLUMN_COUNT = (ctx: ContextInterface, database: SpreadsheetResult): NumberResult => {
   return { type: 'number', result: database.result.columnCount() }
 }
@@ -54,6 +74,89 @@ export const SUMIFS = (
     if (value1 && predicateFunction(value2)) {
       sum += value1
     }
+  })
+
+  return { type: 'number', result: sum }
+}
+
+export const AVERAGEIFS = (
+  ctx: ContextInterface,
+  { result: column1 }: ColumnResult,
+  { result: column2 }: ColumnResult,
+  predicate: PredicateResult
+): NumberResult | ErrorResult => {
+  if (column1.namespaceId !== column2.namespaceId) {
+    return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
+  }
+
+  const database = ctx.findDatabase(column1.namespaceId)
+  if (!database) {
+    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+  }
+
+  const predicateFunction: PredicateFunction = buildPredicate(predicate)
+  let sum: number = 0
+  let count: number = 0
+
+  database.listRows().forEach(row => {
+    const value1 = Number(row[column1.columnId])
+    const value2 = Number(row[column2.columnId])
+    if (value1 && predicateFunction(value2)) {
+      count += 1
+      sum += value1
+    }
+  })
+
+  if (count === 0) {
+    return { type: 'Error', result: 'No matching values', errorKind: 'runtime' }
+  }
+
+  return { type: 'number', result: sum / count }
+}
+
+export const COUNTIFS = (
+  ctx: ContextInterface,
+  { result: column }: ColumnResult,
+  predicate: PredicateResult
+): NumberResult | ErrorResult => {
+  const database = ctx.findDatabase(column.namespaceId)
+  if (!database) {
+    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+  }
+
+  const predicateFunction: PredicateFunction = buildPredicate(predicate)
+  let sum: number = 0
+
+  database.listRows().forEach(row => {
+    const value = Number(row[column.columnId])
+    if (predicateFunction(value)) {
+      sum += 1
+    }
+  })
+
+  return { type: 'number', result: sum }
+}
+
+export const SUMPRODUCT = (
+  ctx: ContextInterface,
+  { result: column1 }: ColumnResult,
+  { result: column2 }: ColumnResult
+): NumberResult | ErrorResult => {
+  if (column1.namespaceId !== column2.namespaceId) {
+    return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
+  }
+
+  const database = ctx.findDatabase(column1.namespaceId)
+  if (!database) {
+    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+  }
+
+  let sum: number = 0
+
+  database.listRows().forEach(row => {
+    const value1 = Number(row[column1.columnId])
+    const value2 = Number(row[column2.columnId])
+    sum += value1 * value2
   })
 
   return { type: 'number', result: sum }
@@ -207,8 +310,119 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     ],
     returns: 'number',
     testCases: [],
-    chain: true,
+    chain: false,
     reference: SUMIFS
+  },
+  {
+    name: 'AVERAGEIFS',
+    async: false,
+    pure: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'number', result: 123 } }],
+    description: 'Returns the average of the column in the database.',
+    group: 'core',
+    args: [
+      {
+        name: 'column1',
+        type: 'Column'
+      },
+      {
+        name: 'column2',
+        type: 'Column'
+      },
+      {
+        name: 'condition',
+        type: 'Predicate'
+      }
+    ],
+    returns: 'number',
+    testCases: [],
+    chain: false,
+    reference: AVERAGEIFS
+  },
+  {
+    name: 'COUNTIFS',
+    async: false,
+    pure: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'number', result: 123 } }],
+    description: 'Returns the sum of the column in the database.',
+    group: 'core',
+    args: [
+      {
+        name: 'column',
+        type: 'Column'
+      },
+      {
+        name: 'condition',
+        type: 'Predicate'
+      }
+    ],
+    returns: 'number',
+    testCases: [],
+    chain: true,
+    reference: COUNTIFS
+  },
+  {
+    name: 'SUMPRODUCT',
+    async: false,
+    pure: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'number', result: 123 } }],
+    description: 'Returns the sum of the column in the database.',
+    group: 'core',
+    args: [
+      {
+        name: 'column1',
+        type: 'Column'
+      },
+      {
+        name: 'column2',
+        type: 'Column'
+      }
+    ],
+    returns: 'number',
+    testCases: [],
+    chain: false,
+    reference: SUMPRODUCT
+  },
+  {
+    name: 'MAX',
+    async: false,
+    pure: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'number', result: 123 } }],
+    description: 'Returns the max of the column in the database.',
+    group: 'core',
+    args: [
+      {
+        name: 'column',
+        type: 'Column'
+      }
+    ],
+    returns: 'number',
+    testCases: [],
+    chain: true,
+    reference: MAX
+  },
+  {
+    name: 'COUNTA',
+    async: false,
+    pure: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'number', result: 123 } }],
+    description: 'Returns the count of the column in the database.',
+    group: 'core',
+    args: [
+      {
+        name: 'column',
+        type: 'Column'
+      }
+    ],
+    returns: 'number',
+    testCases: [],
+    chain: true,
+    reference: COUNTA
   }
 ]
 

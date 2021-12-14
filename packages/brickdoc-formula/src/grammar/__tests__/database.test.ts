@@ -9,6 +9,7 @@ const testVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
 const firstColumnId = '62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6'
 const secondColumnId = '4e6f9adb-6f33-454e-9f9e-635dc98e3f28'
+const thirdColumnId = '2723b7d9-22ce-4d93-b2ef-7cce1b122d64'
 const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
 const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
 const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
@@ -16,9 +17,9 @@ const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 const meta = { namespaceId, variableId, name: 'example' }
 
 const tableData: Row[] = [
-  { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', sort: 100 },
-  { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', sort: 100 },
-  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', sort: 100 }
+  { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', [thirdColumnId]: '3', sort: 100 },
+  { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', [thirdColumnId]: '', sort: 100 },
+  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', [thirdColumnId]: '9', sort: 100 }
 ]
 const columns: Column[] = [
   {
@@ -36,6 +37,14 @@ const columns: Column[] = [
     type: 'foo',
     name: 'second',
     index: 1
+  },
+  {
+    namespaceId: databaseNamespaceId,
+    columnId: thirdColumnId,
+    spreadsheetName: 'MyTable',
+    type: 'foo',
+    name: 'third',
+    index: 2
   }
 ]
 
@@ -59,8 +68,16 @@ interface TestCase {
 
 const testCases: TestCase[] = [
   { label: 'column', input: `=$${databaseNamespaceId}#${firstColumnId}`, value: columns[0] },
-  { label: 'COLUMN_COUNT', input: `=$${databaseNamespaceId}.COLUMN_COUNT()`, value: 2 },
+  { label: 'COLUMN_COUNT', input: `=$${databaseNamespaceId}.COLUMN_COUNT()`, value: 3 },
   { label: 'SUM', input: `=$${databaseNamespaceId}#${firstColumnId}.SUM()`, value: 1 + 3 + 5 },
+  { label: 'MAX', input: `=$${databaseNamespaceId}#${firstColumnId}.MAX()`, value: 5 },
+  { label: 'COUNTA', input: `=$${databaseNamespaceId}#${firstColumnId}.COUNTA()`, value: 3 },
+  { label: 'COUNTA', input: `=$${databaseNamespaceId}#${thirdColumnId}.COUNTA()`, value: 2 },
+  {
+    label: 'SUMPRODUCT',
+    input: `=SUMPRODUCT($${databaseNamespaceId}#${firstColumnId}, $${databaseNamespaceId}#${secondColumnId})`,
+    value: 1 * 2 + 3 * 4 + 5 * 6
+  },
   {
     label: 'SUMIFS >3',
     input: `=SUMIFS($${databaseNamespaceId}#${firstColumnId}, $${databaseNamespaceId}#${secondColumnId}, >3)`,
@@ -70,6 +87,26 @@ const testCases: TestCase[] = [
     label: 'SUMIFS 4',
     input: `=SUMIFS($${databaseNamespaceId}#${firstColumnId}, $${databaseNamespaceId}#${secondColumnId}, 4)`,
     value: 3
+  },
+  {
+    label: 'AVERAGEIFS 4',
+    input: `=AVERAGEIFS($${databaseNamespaceId}#${firstColumnId}, $${databaseNamespaceId}#${secondColumnId}, >3)`,
+    value: 4
+  },
+  {
+    label: 'AVERAGEIFS 100',
+    input: `=AVERAGEIFS($${databaseNamespaceId}#${firstColumnId}, $${databaseNamespaceId}#${secondColumnId}, >100)`,
+    value: 'No matching values'
+  },
+  {
+    label: 'COUNTIFS >2',
+    input: `=COUNTIFS($${databaseNamespaceId}#${firstColumnId}, >2)`,
+    value: 2
+  },
+  {
+    label: 'COUNTIFS =1',
+    input: `=COUNTIFS($${databaseNamespaceId}#${firstColumnId}, 3)`,
+    value: 1
   },
   {
     label: 'VLOOKUP Not found',
@@ -112,7 +149,7 @@ describe('Database Functions', () => {
     const completions = formulaContext.completions(namespaceId, variableId)
     expect(completions[0].kind).toEqual('spreadsheet')
     expect(completions[0]).toMatchSnapshot()
-    expect(completions.filter(c => c.kind === 'column').length).toEqual(2)
+    expect(completions.filter(c => c.kind === 'column').length).toEqual(3)
 
     const input1 = `=$${databaseNamespaceId}#${firstColumnId}.`
     const { completions: input1Completions } = parse({
