@@ -4,10 +4,12 @@ export * from './grammar'
 export * from './functions'
 export * from './context'
 
-export type BasicType = 'number' | 'string' | 'boolean' | 'null'
-export type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Object' | 'Array' | 'Error' | 'Predicate'
+type BasicType = 'number' | 'string' | 'boolean' | 'null'
+type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Object' | 'Array' | 'Error' | 'Predicate'
 
 export type FormulaType = BasicType | ObjectType | 'any'
+
+export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
 export type SpecialDefaultVariableName =
   | 'str'
@@ -100,7 +102,7 @@ export interface NullResult extends BaseResult {
 }
 
 export interface ArrayResult extends BaseResult {
-  result: any[]
+  result: AnyTypeValue[]
   type: 'Array'
 }
 

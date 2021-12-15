@@ -181,12 +181,22 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const result2 = this.visit(ctx.rhs)
 
-    const finalResult =
-      operator === 'ExactIn'
-        ? result2.result.includes(result.result)
-        : result2.result.toUpperCase().includes(result.result.toUpperCase())
+    if (operator === 'ExactIn' || result.type !== 'string') {
+      const checkResult = result2.type === 'Array' ? result2.result.map((e: AnyTypeValue) => e.result) : result2.result
+      return { result: checkResult.includes(result.result), type: 'boolean' }
+    }
 
-    return { result: finalResult, type: 'boolean' }
+    if (result2.type === 'string') {
+      const finalResult = result2.result.toUpperCase().includes(result.result.toUpperCase())
+      return { result: finalResult, type: 'boolean' }
+    } else {
+      const match = result.result.toUpperCase()
+      const finalresult = result2.result
+        .filter((e: AnyTypeValue) => e.type === 'string')
+        .map((e: AnyTypeValue) => e.result.toUpperCase())
+
+      return { result: finalresult.includes(match), type: 'boolean' }
+    }
   }
 
   concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): AnyTypeValue {

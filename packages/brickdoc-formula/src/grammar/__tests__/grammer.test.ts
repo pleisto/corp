@@ -143,12 +143,45 @@ const testCases: TestCase[] = [
   {
     input: '= "foo" in 123',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected string but got number'
+    errorMessage: 'Expected string,Array but got number'
   },
   {
     input: '= "foo" in',
     parseErrorType: 'parse',
     errorMessage: 'Missing right expression'
+  },
+  {
+    input: '= 1 in []',
+    value: false
+  },
+  {
+    input: '= false exactin "foo"',
+    parseErrorType: 'syntax',
+    errorMessage: 'Expected Array but got string'
+  },
+  {
+    input: '= 1 in [1, "foo", true]',
+    value: true
+  },
+  {
+    input: '= "Foo" in [1, "foo", true]',
+    value: true
+  },
+  {
+    input: '= "Foo" exactin [1, "foo", true]',
+    value: false
+  },
+  {
+    input: '= true in [1, "foo", true]',
+    value: true
+  },
+  {
+    input: '= true exactin [1, "foo", true]',
+    value: true
+  },
+  {
+    input: '= false exactin [1, "foo", true]',
+    value: false
   },
   // Array
   {

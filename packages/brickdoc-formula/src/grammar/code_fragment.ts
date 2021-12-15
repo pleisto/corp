@@ -10,7 +10,8 @@ import {
   FunctionClause,
   buildFunctionKey,
   OtherCodeFragment,
-  CodeFragmentResult
+  CodeFragmentResult,
+  FormulaCheckType
 } from '..'
 import { BaseCstVisitor } from './parser'
 interface InterpreterConfig {
@@ -69,11 +70,11 @@ const token2fragment = (token: IToken, type: FormulaType): OtherCodeFragment => 
   return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, meta: undefined }
 }
 
-type ExpressionType = FormulaType | undefined
+type ExpressionType = FormulaCheckType | undefined
 
 interface ExpressionArgument {
   readonly type: ExpressionType
-  readonly firstArgumentType?: ExpressionType
+  readonly firstArgumentType?: FormulaType
 }
 
 const intersectType = (
@@ -89,7 +90,14 @@ const intersectType = (
   }
 
   if (contextResultType === 'any') {
-    return { errorMessages: [], newType: expectedArgumentType }
+    return {
+      errorMessages: [],
+      newType: expectedArgumentType instanceof Array ? expectedArgumentType[0] : expectedArgumentType
+    }
+  }
+
+  if (expectedArgumentType instanceof Array && expectedArgumentType.includes(contextResultType)) {
+    return { errorMessages: [], newType: contextResultType }
   }
 
   if (expectedArgumentType === contextResultType) {
@@ -342,16 +350,22 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
     const parentType: FormulaType = 'boolean'
-    const childrenType: FormulaType = 'string'
+    const childrenLhsType: FormulaCheckType = ['string', 'number', 'boolean', 'null']
 
-    const { codeFragments: lhsCodeFragments, image: lhsImage }: CodeFragmentResult = this.visit(ctx.lhs, {
-      type: childrenType
+    const {
+      codeFragments: lhsCodeFragments,
+      image: lhsImage,
+      type: newLhsType
+    }: CodeFragmentResult = this.visit(ctx.lhs, {
+      type: childrenLhsType
     })
     codeFragments.push(...lhsCodeFragments)
     images.push(lhsImage)
 
+    const childrenRhsType: FormulaCheckType = newLhsType === 'string' ? ['string', 'Array'] : ['Array']
+
     const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(ctx.rhs, {
-      type: childrenType
+      type: childrenRhsType
     })
 
     const inErrorMessages: ErrorMessage[] = rhsCodeFragments.length
