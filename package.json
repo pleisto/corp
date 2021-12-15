@@ -40,7 +40,7 @@
     "uploader": "yarn workspace @brickdoc/uploader"
   },
   "dependencies": {
-    "@apollo/client": "3.4.17",
+    "@apollo/client": "^3.5.6",
     "@brickdoc/design-system": "workspace:packages/brickdoc-design-system",
     "@brickdoc/editor": "workspace:packages/brickdoc-editor",
     "@brickdoc/formula": "workspace:packages/brickdoc-formula",
@@ -49,7 +49,7 @@
     "@rails/activestorage": "^7.0.0-rc1",
     "@sentry/react": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
-    "ahooks": "^3.0.2",
+    "ahooks": "^3.0.3",
     "dayjs": "^1.10.7",
     "graphql": "^16.1.0",
     "graphql-ruby-client": "^1.10.4",
@@ -81,7 +81,7 @@
     "@types/jest": "^27.0.3",
     "@types/jest-axe": "^3.5.3",
     "@types/lodash-es": "^4.17.5",
-    "@types/node": "^16.11.12",
+    "@types/node": "^16.11.13",
     "@types/rails__actioncable": "^6.1.6",
     "@types/rails__activestorage": "^6.0.1",
     "@types/react": "^17.0.37",
