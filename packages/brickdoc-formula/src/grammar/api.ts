@@ -149,7 +149,7 @@ export const parse = ({
       lastToken &&
       currentCompletion &&
       lastToken.image.length > 2 &&
-      currentCompletion.replacements.find(replacement => replacement === lastToken.image)
+      currentCompletion.replacements.find(replacement => replacement.toUpperCase() === lastToken.image.toUpperCase())
     ) {
       // console.log('start replace', lastToken.image, currentCompletion)
       // TODO spreadsheet && column completion (should in same codefragment)
@@ -308,7 +308,7 @@ export const parse = ({
 
   const sameNameVariable = formulaContext
     ?.listVariables(namespaceId)
-    .find(v => v.t.variableId !== variableId && v.t.name === name)
+    .find(v => v.t.variableId !== variableId && v.t.name.toUpperCase() === name.toUpperCase())
 
   if (sameNameVariable) {
     return {

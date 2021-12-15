@@ -530,6 +530,14 @@ but found: '*'`
     value: 4
   },
   {
+    input: '=toString(1)',
+    value: '1'
+  },
+  {
+    input: '=toString("Foo")',
+    value: '"Foo"'
+  },
+  {
     input: '=UNKNOWN ()',
     parseErrorType: 'syntax',
     errorMessage: 'Function UNKNOWN not found'
@@ -542,6 +550,10 @@ but found: '*'`
   {
     input: '=(1+1).TYPE()',
     value: 'number'
+  },
+  {
+    input: '=[1,false,"foo"].toString()',
+    value: '[1, false, "foo"]'
   },
   {
     input: '="foobar".START_WITH("foo")',
