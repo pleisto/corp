@@ -19,7 +19,7 @@ const meta = { namespaceId, variableId, name: 'example' }
 const tableData: Row[] = [
   { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', [thirdColumnId]: '3', sort: 100 },
   { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', [thirdColumnId]: '', sort: 100 },
-  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', [thirdColumnId]: '9', sort: 100 }
+  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', [thirdColumnId]: 'Foo', sort: 100 }
 ]
 const columns: Column[] = [
   {
@@ -68,6 +68,11 @@ interface TestCase {
 
 const testCases: TestCase[] = [
   { label: 'column', input: `=$${databaseNamespaceId}#${firstColumnId}`, value: columns[0] },
+  { label: 'in database true', input: `=3 in $${databaseNamespaceId}`, value: true },
+  { label: 'in database false', input: `=4 in $${databaseNamespaceId}`, value: false },
+  { label: 'in column true', input: `=3 in $${databaseNamespaceId}#${secondColumnId}`, value: false },
+  { label: 'in column false', input: `=4 in $${databaseNamespaceId}#${secondColumnId}`, value: true },
+  { label: 'exactin column true', input: `="foo" in $${databaseNamespaceId}#${thirdColumnId}`, value: true },
   { label: 'COLUMN_COUNT', input: `=$${databaseNamespaceId}.COLUMN_COUNT()`, value: 3 },
   { label: 'SUM', input: `=$${databaseNamespaceId}#${firstColumnId}.SUM()`, value: 1 + 3 + 5 },
   { label: 'MAX', input: `=$${databaseNamespaceId}#${firstColumnId}.MAX()`, value: 5 },

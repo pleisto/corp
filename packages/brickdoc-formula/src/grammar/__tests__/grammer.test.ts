@@ -147,7 +147,7 @@ const testCases: TestCase[] = [
   {
     input: '= "foo" in 123',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected string,Array but got number'
+    errorMessage: 'Expected string,Array,Spreadsheet,Column but got number'
   },
   {
     input: '= "foo" in',

@@ -362,7 +362,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     codeFragments.push(...lhsCodeFragments)
     images.push(lhsImage)
 
-    const childrenRhsType: FormulaCheckType = newLhsType === 'string' ? ['string', 'Array'] : ['Array']
+    const childrenRhsType: FormulaCheckType = ['string', 'number'].includes(newLhsType)
+      ? ['string', 'Array', 'Spreadsheet', 'Column']
+      : ['Array']
 
     const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(ctx.rhs, {
       type: childrenRhsType

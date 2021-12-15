@@ -9,7 +9,8 @@ import {
   NumberResult,
   BooleanResult,
   PredicateResult,
-  PredicateOperator
+  PredicateOperator,
+  Row
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -180,6 +181,47 @@ export class FormulaInterpreter extends BaseCstVisitor {
     const operator = ctx.InOperator[0].tokenType.name
 
     const result2 = this.visit(ctx.rhs)
+
+    if (result2.type === 'Spreadsheet') {
+      const match = String(result.result)
+      const database = result2.result
+
+      const columns = database.listColumns()
+
+      const firstColumn = columns[0]
+      if (!firstColumn) {
+        return { type: 'Error', result: 'Database is empty', errorKind: 'runtime' }
+      }
+
+      const row = database.listRows().find((row: Row) => {
+        if (operator === 'ExactIn') {
+          return row[firstColumn.columnId] === match
+        } else {
+          return row[firstColumn.columnId].toUpperCase() === match.toUpperCase()
+        }
+      })
+
+      return { type: 'boolean', result: !!row }
+    }
+
+    if (result2.type === 'Column') {
+      const match = String(result.result)
+      const column = result2.result
+      const database = this.formulaContext.findDatabase(column.namespaceId)
+      if (!database) {
+        return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+      }
+
+      const row = database.listRows().find((row: Row) => {
+        if (operator === 'ExactIn') {
+          return row[column.columnId] === match
+        } else {
+          return row[column.columnId].toUpperCase() === match.toUpperCase()
+        }
+      })
+
+      return { type: 'boolean', result: !!row }
+    }
 
     if (operator === 'ExactIn' || result.type !== 'string') {
       const checkResult = result2.type === 'Array' ? result2.result.map((e: AnyTypeValue) => e.result) : result2.result
