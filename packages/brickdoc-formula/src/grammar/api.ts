@@ -136,7 +136,7 @@ export const parse = ({
   const endChar = input[input.length - 1]
   // console.log({ endChar, input })
 
-  if (['.', ' ', ','].includes(endChar)) {
+  if (['.', ' ', ',', '(', ')'].includes(endChar)) {
     const index = endChar === ' ' ? tokens.length - 1 : tokens.length - 2
     const lastToken = tokens[index]
 
