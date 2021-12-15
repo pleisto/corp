@@ -276,6 +276,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   atomicExpression(ctx: {
     parenthesisExpression: CstNode | CstNode[]
+    arrayExpression: CstNode | CstNode[]
     constantExpression: CstNode | CstNode[]
     FunctionCall: CstNode | CstNode[]
     variableExpression: CstNode | CstNode[]
@@ -285,6 +286,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
+    } else if (ctx.arrayExpression) {
+      return this.visit(ctx.arrayExpression)
     } else if (ctx.constantExpression) {
       return this.visit(ctx.constantExpression)
     } else if (ctx.FunctionCall) {
@@ -333,6 +336,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const result = this.visit(ctx.atomicExpression)
     return { type: 'Predicate', result, operator }
+  }
+
+  arrayExpression(ctx: { Arguments: CstNode | CstNode[] }): AnyTypeValue {
+    const args: AnyTypeValue[] = []
+
+    if (ctx.Arguments) {
+      args.push(...this.visit(ctx.Arguments))
+    }
+    return { type: 'Array', result: args }
   }
 
   parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): AnyTypeValue {

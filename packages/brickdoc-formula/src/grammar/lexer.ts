@@ -143,6 +143,13 @@ export const Div = createToken({
 
 export const LParen = createToken({ name: 'LParen', pattern: /\(/ })
 export const RParen = createToken({ name: 'RParen', pattern: /\)/ })
+
+export const LBracket = createToken({ name: 'LBracket', pattern: /\[/ })
+export const RBracket = createToken({ name: 'RBracket', pattern: /\]/ })
+
+export const LBrace = createToken({ name: 'LBrace', pattern: /\{/ })
+export const RBrace = createToken({ name: 'RBrace', pattern: /\}/ })
+
 export const NumberLiteral = createToken({
   name: 'NumberLiteral',
   pattern: /[0-9]+[.]?[0-9]*([eE][+-][0-9]+)?/
@@ -216,6 +223,12 @@ const tokensBeforeSemicolon = [
 
   LParen, // (
   RParen, // )
+
+  LBracket, // [
+  RBracket, // ]
+
+  LBrace, // {
+  RBrace, // }
 
   Sign, // %
 

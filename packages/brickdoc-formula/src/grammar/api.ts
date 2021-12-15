@@ -136,7 +136,7 @@ export const parse = ({
   const endChar = input[input.length - 1]
   // console.log({ endChar, input })
 
-  if (['.', ' ', ',', '(', ')', '+', '-', '*', '/', '=', '>', '<'].includes(endChar)) {
+  if (['.', ' ', ',', '(', ')', '+', '-', '*', '/', '=', '>', '<', '[', ']', '{', '}'].includes(endChar)) {
     const index = endChar === ' ' ? tokens.length - 1 : tokens.length - 2
     const lastToken = tokens[index]
 
@@ -147,6 +147,7 @@ export const parse = ({
     if (
       lastToken &&
       currentCompletion &&
+      lastToken.image.length > 2 &&
       currentCompletion.replacements.find(replacement => replacement === lastToken.image)
     ) {
       // console.log('start replace', lastToken.image, currentCompletion)
@@ -343,6 +344,8 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `#<Column> ${v.result.spreadsheetName} - ${v.result.name}`
     case 'Predicate':
       return `#<Predicate> [${v.operator}] ${displayValue(v.result)}`
+    case 'Array':
+      return `#<Array> [${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
   }
 
   return JSON.stringify(v.result)

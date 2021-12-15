@@ -1,5 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Simple test case [Array ok] =[2, "foo", true] // => [object Object],[object Object],[object Object] 1`] = `
+Array [
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "2",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "StringLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "\\"foo\\"",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "true",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+]
+`;
+
 exports[`Simple test case [Missing closing parenthesis1] =(1 // => ✗ 1`] = `
 Array [
   Object {
@@ -167,7 +235,12 @@ Array [
   },
   Object {
     "code": "NumberLiteral",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Expression count mismatch",
+        "type": "syntax",
+      },
+    ],
     "meta": undefined,
     "name": "1",
     "spaceAfter": false,
@@ -176,7 +249,12 @@ Array [
   },
   Object {
     "code": "Comma",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Expression count mismatch",
+        "type": "syntax",
+      },
+    ],
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
@@ -420,9 +498,9 @@ Object {
                                                                                                     "categoryMatchesMap": Object {},
                                                                                                     "isParent": false,
                                                                                                     "name": "BooleanLiteral",
-                                                                                                    "tokenTypeIdx": 37,
+                                                                                                    "tokenTypeIdx": 41,
                                                                                                   },
-                                                                                                  "tokenTypeIdx": 37,
+                                                                                                  "tokenTypeIdx": 41,
                                                                                                 },
                                                                                               ],
                                                                                             },
@@ -563,16 +641,17 @@ Array [
       Object {
         "message": "Expecting: one of these possible Token sequences:
   1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
+  2. [LBracket]
+  3. [Minus]
+  4. [NumberLiteral]
+  5. [BooleanLiteral]
+  6. [StringLiteral]
+  7. [Dollar, UUID, At]
+  8. [Dollar, UUID, Sharp]
+  9. [Dollar, UUID]
+  10. [FunctionName]
+  11. [EqualCompareOperator]
+  12. [CompareOperator]
 but found: ''hello''",
         "type": "syntax",
       },
@@ -783,16 +862,17 @@ Array [
       Object {
         "message": "Expecting: one of these possible Token sequences:
   1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
+  2. [LBracket]
+  3. [Minus]
+  4. [NumberLiteral]
+  5. [BooleanLiteral]
+  6. [StringLiteral]
+  7. [Dollar, UUID, At]
+  8. [Dollar, UUID, Sharp]
+  9. [Dollar, UUID]
+  10. [FunctionName]
+  11. [EqualCompareOperator]
+  12. [CompareOperator]
 but found: '中文'",
         "type": "syntax",
       },
@@ -908,6 +988,57 @@ Array [
     "name": "-",
     "spaceAfter": false,
     "spaceBefore": true,
+    "type": "any",
+  },
+]
+`;
+
+exports[`Simple test case [array edit] =[1,] // => ✗ 1`] = `
+Array [
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [
+      Object {
+        "message": "Expression count mismatch",
+        "type": "syntax",
+      },
+    ],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [
+      Object {
+        "message": "Expression count mismatch",
+        "type": "syntax",
+      },
+    ],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
 ]

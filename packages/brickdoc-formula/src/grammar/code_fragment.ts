@@ -526,6 +526,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   atomicExpression(
     ctx: {
       parenthesisExpression: CstNode | CstNode[]
+      arrayExpression: CstNode | CstNode[]
       constantExpression: CstNode | CstNode[]
       FunctionCall: CstNode | CstNode[]
       variableExpression: CstNode | CstNode[]
@@ -537,6 +538,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   ): CodeFragmentResult {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression, { type })
+    } else if (ctx.arrayExpression) {
+      return this.visit(ctx.arrayExpression, { type })
     } else if (ctx.constantExpression) {
       return this.visit(ctx.constantExpression, { type })
     } else if (ctx.FunctionCall) {
@@ -598,6 +601,39 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         errors: [...errorMessages, ...codeFragment.errors]
       })),
       type: newType
+    }
+  }
+
+  arrayExpression(
+    ctx: { LBracket: IToken[]; RBracket: IToken[]; Arguments: CstNode | CstNode[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    if (!ctx.LBracket) {
+      return { codeFragments: [], type: 'any', image: '' }
+    }
+    const parentType = 'Array'
+    const rParenErrorMessages: ErrorMessage[] = ctx.RBracket
+      ? []
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
+    const { codeFragments, image } = ctx.Arguments
+      ? (this.visit(ctx.Arguments) as CodeFragmentResult)
+      : { codeFragments: [], image: '' }
+    const rBracketCodeFragments = ctx.RBracket ? [token2fragment(ctx.RBracket[0], 'any')] : []
+    const finalImage = ctx.RBracket ? `[${image}]` : `[${image}`
+
+    const { errorMessages, newType } = intersectType(type, parentType)
+
+    return {
+      codeFragments: [
+        { ...token2fragment(ctx.LBracket[0], 'any'), errors: rParenErrorMessages },
+        ...codeFragments,
+        ...rBracketCodeFragments
+      ].map(codeFragment => ({
+        ...codeFragment,
+        errors: [...errorMessages, ...codeFragment.errors]
+      })),
+      type: newType,
+      image: finalImage
     }
   }
 
@@ -958,19 +994,30 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
 
+    let commaIndex = 0
+    let validExpressionCount = 0
+
     ctx.expression.forEach((arg: CstNode | CstNode[], idx: number) => {
       const { codeFragments: argFragments, image }: CodeFragmentResult = this.visit(arg, {
         type: argumentTypes[idx] || 'any'
       })
 
-      if (idx !== 0 && ctx.Comma[idx - 1]) {
-        codeFragments.push(token2fragment(ctx.Comma[idx - 1], 'any'))
-        images.push(',')
+      if (argFragments.length > 0) {
+        validExpressionCount += 1
       }
 
       codeFragments.push(...argFragments)
       images.push(image)
+
+      if (ctx.Comma?.[commaIndex]) {
+        codeFragments.push(token2fragment(ctx.Comma[commaIndex], 'any'))
+        commaIndex += 1
+        images.push(',')
+      }
     })
+
+    const expressionMatchErrorMessages: ErrorMessage[] =
+      validExpressionCount === commaIndex + 1 ? [] : [{ message: 'Expression count mismatch', type: 'syntax' }]
 
     const errorMessages: ErrorMessage[] =
       !!args && ctx.expression.length !== argumentTypes.length
@@ -980,7 +1027,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       image: images.join(''),
       codeFragments: codeFragments.map(codeFragment => ({
         ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
+        errors: [...expressionMatchErrorMessages, ...errorMessages, ...codeFragment.errors]
       })),
       type: 'any'
     }

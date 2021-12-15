@@ -26,7 +26,9 @@ import {
   Ampersand,
   EqualCompareOperator,
   Semicolon,
-  InOperator
+  InOperator,
+  LBracket,
+  RBracket
 } from './lexer'
 
 interface ParserConfig {
@@ -170,6 +172,7 @@ export class FormulaParser extends CstParser {
   public atomicExpression = this.RULE('atomicExpression', () => {
     this.OR([
       { ALT: () => this.SUBRULE(this.parenthesisExpression) },
+      { ALT: () => this.SUBRULE(this.arrayExpression) },
       { ALT: () => this.SUBRULE(this.constantExpression) },
       { ALT: () => this.SUBRULE(this.variableExpression) },
       { ALT: () => this.SUBRULE(this.columnExpression) },
@@ -177,6 +180,14 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.SUBRULE(this.FunctionCall) },
       { ALT: () => this.SUBRULE(this.predicateExpression) }
     ])
+  })
+
+  public arrayExpression = this.RULE('arrayExpression', () => {
+    this.CONSUME(LBracket)
+    this.OPTION(() => {
+      this.SUBRULE2(this.Arguments)
+    })
+    this.CONSUME(RBracket)
   })
 
   public predicateExpression = this.RULE('predicateExpression', () => {

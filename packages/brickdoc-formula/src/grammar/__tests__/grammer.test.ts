@@ -150,6 +150,46 @@ const testCases: TestCase[] = [
     parseErrorType: 'parse',
     errorMessage: 'Missing right expression'
   },
+  // Array
+  {
+    input: '=[]',
+    value: []
+  },
+  {
+    input: '=[',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=[1',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=[1,',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=[1,]',
+    label: 'array edit',
+    parseErrorType: 'parse',
+    errorMessage: 'Expression count mismatch'
+  },
+  {
+    input: '=[1,2',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '=[2, "foo", true]',
+    label: 'Array ok',
+    value: [
+      { type: 'number', result: 2 },
+      { type: 'string', result: 'foo' },
+      { type: 'boolean', result: true }
+    ]
+  },
   // Number Literal
   {
     input: '=123123',
@@ -366,16 +406,17 @@ const testCases: TestCase[] = [
     parseErrorType: 'parse',
     errorMessage: `Expecting: one of these possible Token sequences:
   1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
+  2. [LBracket]
+  3. [Minus]
+  4. [NumberLiteral]
+  5. [BooleanLiteral]
+  6. [StringLiteral]
+  7. [Dollar, UUID, At]
+  8. [Dollar, UUID, Sharp]
+  9. [Dollar, UUID]
+  10. [FunctionName]
+  11. [EqualCompareOperator]
+  12. [CompareOperator]
 but found: '*'`
   },
   // Function Call

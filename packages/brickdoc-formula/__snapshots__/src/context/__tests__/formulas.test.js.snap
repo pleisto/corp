@@ -112,9 +112,9 @@ Array [
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "NumberLiteral",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 40,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 40,
                                                                                         },
                                                                                       ],
                                                                                     },
@@ -382,9 +382,9 @@ Array [
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "NumberLiteral",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 40,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 40,
                                                                                         },
                                                                                       ],
                                                                                     },
@@ -435,9 +435,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 42,
+                                                                                      "tokenTypeIdx": 46,
                                                                                     },
-                                                                                    "tokenTypeIdx": 42,
+                                                                                    "tokenTypeIdx": 46,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [
@@ -843,9 +843,9 @@ Array [
                                                                                                                                                                           "categoryMatchesMap": Object {},
                                                                                                                                                                           "isParent": false,
                                                                                                                                                                           "name": "NumberLiteral",
-                                                                                                                                                                          "tokenTypeIdx": 36,
+                                                                                                                                                                          "tokenTypeIdx": 40,
                                                                                                                                                                         },
-                                                                                                                                                                        "tokenTypeIdx": 36,
+                                                                                                                                                                        "tokenTypeIdx": 40,
                                                                                                                                                                       },
                                                                                                                                                                     ],
                                                                                                                                                                   },
@@ -920,9 +920,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 42,
+                                                                                      "tokenTypeIdx": 46,
                                                                                     },
-                                                                                    "tokenTypeIdx": 42,
+                                                                                    "tokenTypeIdx": 46,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [
@@ -1432,9 +1432,9 @@ Array [
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "NumberLiteral",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 40,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 40,
                                                                                         },
                                                                                       ],
                                                                                     },
@@ -1538,31 +1538,33 @@ Array [
     "variableValue": Object {
       "display": "Expecting: one of these possible Token sequences:
   1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
+  2. [LBracket]
+  3. [Minus]
+  4. [NumberLiteral]
+  5. [BooleanLiteral]
+  6. [StringLiteral]
+  7. [Dollar, UUID, At]
+  8. [Dollar, UUID, Sharp]
+  9. [Dollar, UUID]
+  10. [FunctionName]
+  11. [EqualCompareOperator]
+  12. [CompareOperator]
 but found: ''",
       "result": Object {
         "errorKind": "syntax",
         "result": "Expecting: one of these possible Token sequences:
   1. [LParen]
-  2. [Minus]
-  3. [NumberLiteral]
-  4. [BooleanLiteral]
-  5. [StringLiteral]
-  6. [Dollar, UUID, At]
-  7. [Dollar, UUID, Sharp]
-  8. [Dollar, UUID]
-  9. [FunctionName]
-  10. [EqualCompareOperator]
-  11. [CompareOperator]
+  2. [LBracket]
+  3. [Minus]
+  4. [NumberLiteral]
+  5. [BooleanLiteral]
+  6. [StringLiteral]
+  7. [Dollar, UUID, At]
+  8. [Dollar, UUID, Sharp]
+  9. [Dollar, UUID]
+  10. [FunctionName]
+  11. [EqualCompareOperator]
+  12. [CompareOperator]
 but found: ''",
         "type": "Error",
       },
@@ -1821,9 +1823,9 @@ Array [
                                                                                                                                                                           "categoryMatchesMap": Object {},
                                                                                                                                                                           "isParent": false,
                                                                                                                                                                           "name": "NumberLiteral",
-                                                                                                                                                                          "tokenTypeIdx": 36,
+                                                                                                                                                                          "tokenTypeIdx": 40,
                                                                                                                                                                         },
-                                                                                                                                                                        "tokenTypeIdx": 36,
+                                                                                                                                                                        "tokenTypeIdx": 40,
                                                                                                                                                                       },
                                                                                                                                                                     ],
                                                                                                                                                                   },
@@ -1898,9 +1900,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 42,
+                                                                                      "tokenTypeIdx": 46,
                                                                                     },
-                                                                                    "tokenTypeIdx": 42,
+                                                                                    "tokenTypeIdx": 46,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [
