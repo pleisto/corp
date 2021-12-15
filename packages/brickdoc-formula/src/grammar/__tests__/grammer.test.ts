@@ -123,6 +123,33 @@ const testCases: TestCase[] = [
     parseErrorType: 'syntax',
     errorMessage: 'Expected string but got number'
   },
+  // In
+  {
+    input: '= "foo" in "barfoobaz"',
+    value: true
+  },
+  {
+    input: '= "foo" in "barFoobaz"',
+    value: true
+  },
+  {
+    input: '= "foo" exactin "barFoobaz"',
+    value: false
+  },
+  {
+    input: '= "foo" exactin "barfoobaz"',
+    value: true
+  },
+  {
+    input: '= "foo" in 123',
+    parseErrorType: 'syntax',
+    errorMessage: 'Expected string but got number'
+  },
+  {
+    input: '= "foo" in',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing right expression'
+  },
   // Number Literal
   {
     input: '=123123',

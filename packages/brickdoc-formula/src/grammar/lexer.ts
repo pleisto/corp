@@ -6,6 +6,10 @@ export const CompareOperator = createToken({ name: 'CompareOperator', pattern: L
 export const AdditionOperator = createToken({ name: 'AdditionOperator', pattern: Lexer.NA })
 export const MultiplicationOperator = createToken({ name: 'MultiplicationOperator', pattern: Lexer.NA })
 export const CombineOperator = createToken({ name: 'CombineOperator', pattern: Lexer.NA })
+export const InOperator = createToken({ name: 'InOperator', pattern: Lexer.NA })
+
+export const In = createToken({ name: 'In', pattern: /in/, categories: InOperator })
+export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/, categories: InOperator })
 
 export const And = createToken({
   name: 'And',
@@ -191,6 +195,9 @@ const tokensBeforeSemicolon = [
 
   Not, // not !
 
+  In, // in
+  ExactIn, // exactin
+
   LessThanEqual, // <=
   GreaterThanEqual, // >=
   NotEqual, // <>
@@ -221,6 +228,7 @@ const tokensBeforeSemicolon = [
   UUID,
 
   CombineOperator,
+  InOperator,
   EqualCompareOperator,
   CompareOperator,
   AdditionOperator,

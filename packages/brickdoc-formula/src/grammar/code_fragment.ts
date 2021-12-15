@@ -18,6 +18,8 @@ interface InterpreterConfig {
 }
 
 const SpaceBeforeTypes = [
+  'In',
+  'ExactIn',
   'Comma',
   'Semicolon',
   'RParen',
@@ -39,6 +41,8 @@ const SpaceBeforeTypes = [
 ]
 
 const SpaceAfterTypes = [
+  'In',
+  'ExactIn',
   'Comma',
   'Semicolon',
   'LParen',
@@ -315,6 +319,49 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       codeFragments.push(token2fragment(operator, parentType), ...rhsValue)
       images.push(operator.image, image)
     })
+
+    const { errorMessages, newType } = intersectType(type, parentType)
+    return {
+      image: images.join(''),
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...errorMessages, ...codeFragment.errors]
+      })),
+      type: newType
+    }
+  }
+
+  inExpression(
+    ctx: { rhs: CstNode | CstNode[]; lhs: CstNode | CstNode[]; InOperator: IToken[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    if (!ctx.rhs) {
+      return this.visit(ctx.lhs, { type })
+    }
+
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+    const parentType: FormulaType = 'boolean'
+    const childrenType: FormulaType = 'string'
+
+    const { codeFragments: lhsCodeFragments, image: lhsImage }: CodeFragmentResult = this.visit(ctx.lhs, {
+      type: childrenType
+    })
+    codeFragments.push(...lhsCodeFragments)
+    images.push(lhsImage)
+
+    const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(ctx.rhs, {
+      type: childrenType
+    })
+
+    const inErrorMessages: ErrorMessage[] = rhsCodeFragments.length
+      ? []
+      : [{ message: 'Missing right expression', type: 'syntax' }]
+    codeFragments.push({ ...token2fragment(ctx.InOperator[0], 'any'), errors: inErrorMessages })
+    images.push(ctx.InOperator[0].image)
+
+    codeFragments.push(...rhsCodeFragments)
+    images.push(rhsImage)
 
     const { errorMessages, newType } = intersectType(type, parentType)
     return {

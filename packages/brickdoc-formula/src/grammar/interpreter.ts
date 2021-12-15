@@ -166,6 +166,29 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
+  inExpression(ctx: {
+    lhs: CstNode | CstNode[]
+    rhs: CstNode | CstNode[]
+    InOperator: Array<{ tokenType: { name: any } }>
+  }): AnyTypeValue {
+    const result = this.visit(ctx.lhs)
+
+    if (!ctx.rhs) {
+      return result
+    }
+
+    const operator = ctx.InOperator[0].tokenType.name
+
+    const result2 = this.visit(ctx.rhs)
+
+    const finalResult =
+      operator === 'ExactIn'
+        ? result2.result.includes(result.result)
+        : result2.result.toUpperCase().includes(result.result.toUpperCase())
+
+    return { result: finalResult, type: 'boolean' }
+  }
+
   concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 

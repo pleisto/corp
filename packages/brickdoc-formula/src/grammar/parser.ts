@@ -25,7 +25,8 @@ import {
   Dot,
   Ampersand,
   EqualCompareOperator,
-  Semicolon
+  Semicolon,
+  InOperator
 } from './lexer'
 
 interface ParserConfig {
@@ -119,9 +120,17 @@ export class FormulaParser extends CstParser {
   })
 
   public compareExpression = this.RULE('compareExpression', () => {
-    this.SUBRULE(this.concatExpression, { LABEL: 'lhs' })
+    this.SUBRULE(this.inExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(CompareOperator)
+      this.SUBRULE2(this.inExpression, { LABEL: 'rhs' })
+    })
+  })
+
+  public inExpression = this.RULE('inExpression', () => {
+    this.SUBRULE(this.concatExpression, { LABEL: 'lhs' })
+    this.OPTION(() => {
+      this.CONSUME(InOperator)
       this.SUBRULE2(this.concatExpression, { LABEL: 'rhs' })
     })
   })
