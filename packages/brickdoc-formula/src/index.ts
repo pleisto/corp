@@ -46,6 +46,7 @@ export type ErrorType =
   | 'deps'
   | 'circular_dependency'
   | 'name_unique'
+  | 'name_check'
   | 'custom'
 
 export type ParseErrorType = 'parse' | 'syntax'
@@ -287,6 +288,7 @@ export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCo
 
 export interface ContextInterface {
   databases: { [key: NamespaceId]: Database }
+  reservedNames: string[]
   backendActions: BackendActions | undefined
   variableCount: () => number
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName

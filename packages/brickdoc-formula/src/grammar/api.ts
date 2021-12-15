@@ -97,6 +97,7 @@ export interface ErrorInterpretResult extends BaseInterpretResult {
 
 export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 
+// eslint-disable-next-line complexity
 export const parse = ({
   formulaContext,
   mode,
@@ -279,6 +280,25 @@ export const parse = ({
       level,
       completions,
       cst,
+      flattenVariableDependencies,
+      variableDependencies: codeFragmentVisitor.variableDependencies,
+      functionDependencies: codeFragmentVisitor.functionDependencies,
+      codeFragments
+    }
+  }
+
+  if (formulaContext?.reservedNames.includes(name.toUpperCase())) {
+    return {
+      success: false,
+      valid: true,
+      input: newInput,
+      inputImage,
+      parseImage: image,
+      cst,
+      level,
+      errorType: 'syntax',
+      completions,
+      errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }],
       flattenVariableDependencies,
       variableDependencies: codeFragmentVisitor.variableDependencies,
       functionDependencies: codeFragmentVisitor.functionDependencies,

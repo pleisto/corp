@@ -92,12 +92,14 @@ export class FormulaContext implements ContextInterface {
   reverseFunctionDependencies: { [key: FunctionKey]: VariableDependency[] } = {}
   functionClausesMap: { [key: FunctionKey]: FunctionClause<any> }
   backendActions: BackendActions | undefined
+  reservedNames: string[] = []
 
   constructor({ functionClauses = [], backendActions }: FormulaContextArgs) {
     if (backendActions) {
       this.backendActions = backendActions
     }
     const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses]
+    this.reservedNames = baseFunctionClauses.map(({ name }) => name.toUpperCase())
     this.functionClausesMap = baseFunctionClauses.reduce(
       (o: { [key: FunctionKey]: BaseFunctionClauseWithKey<any> }, acc: BaseFunctionClause<any>) => {
         const clause: BaseFunctionClauseWithKey<any> = {
