@@ -137,10 +137,11 @@ export const parse = ({
   // console.log({ endChar, input })
 
   if (['.', ' ', ','].includes(endChar)) {
-    const index = endChar === '.' ? tokens.length - 2 : tokens.length - 1
+    const index = endChar === ' ' ? tokens.length - 1 : tokens.length - 2
     const lastToken = tokens[index]
 
-    const currentCompletion = activeCompletion
+    // const currentCompletion = activeCompletion
+    const currentCompletion = completions.find(completion => completion.name === lastToken.image)
 
     // console.log({ endChar, lastToken, input, tokens, currentCompletion })
     if (lastToken && currentCompletion && currentCompletion.name === lastToken.image) {
