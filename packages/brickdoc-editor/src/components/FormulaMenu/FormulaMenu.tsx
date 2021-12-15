@@ -188,25 +188,27 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     let oldContent = currentContent?.content ?? []
     const oldContentLast = oldContent[oldContent.length - 1]
     // console.log('Before replace', { oldContentLast, currentCompletion })
-    if (oldContentLast && oldContentLast.type === 'codeFragmentBlock' && currentCompletion.replace) {
+    if (oldContentLast && oldContentLast.type === 'codeFragmentBlock' && currentCompletion.replacements.length) {
       const text = contentToInput(currentContent!)
       // console.log('start replace', { oldContentLast, currentCompletion, currentContent, text })
-      if (text === currentCompletion.replace || !text) {
+      if (!text || currentCompletion.replacements.includes(text)) {
         oldContent = []
         // console.log('remove last one...', oldContent)
-      } else if (!text.endsWith(currentCompletion.replace)) {
-        console.error({ text, currentCompletion })
       } else {
-        const newText = text.substring(0, text.length - currentCompletion.replace.length)
+        const replacement = currentCompletion.replacements.find(replacement => text.endsWith(replacement))
+        if (!replacement) {
+          console.error({ text, currentCompletion })
+        } else {
+          const newText = text.substring(0, text.length - replacement.length)
 
-        oldContent = [
-          {
-            type: 'codeFragmentBlock',
-            attrs: { ...oldContentLast.attrs, name: newText },
-            content: [{ type: 'text', text: newText }]
-          }
-        ]
-
+          oldContent = [
+            {
+              type: 'codeFragmentBlock',
+              attrs: { ...oldContentLast.attrs, name: newText },
+              content: [{ type: 'text', text: newText }]
+            }
+          ]
+        }
         // console.log('replace..', newText, oldContent)
       }
     }
