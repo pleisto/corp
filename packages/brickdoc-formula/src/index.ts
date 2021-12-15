@@ -48,6 +48,8 @@ export type ErrorType =
 
 export type ParseErrorType = 'parse' | 'syntax'
 
+export type ParseMode = 'oneline' | 'multiline'
+
 export type FunctionKey = `${FunctionGroup}::${FunctionName}` | FunctionName
 export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
 export type VariableKey = `$${NamespaceId}@${VariableId}`

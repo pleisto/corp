@@ -62,8 +62,7 @@ const calculate = async ({
   const variableId = variable ? variable.t.variableId : uuid()
   const meta = { namespaceId, variableId, name, input }
   const view: View = {}
-  const parseInput = { formulaContext, meta, activeCompletion }
-  const parseResult = parse(parseInput)
+  const parseResult = parse({ formulaContext, meta, activeCompletion })
 
   console.log({
     parseResult,

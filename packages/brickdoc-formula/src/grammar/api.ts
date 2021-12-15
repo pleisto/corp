@@ -5,7 +5,6 @@ import {
   ErrorVariableValue,
   Formula,
   ContextInterface,
-  FormulaLexer,
   FunctionClause,
   SuccessVariableValue,
   VariableClass,
@@ -19,7 +18,9 @@ import {
   Completion,
   AnyTypeValue,
   ParseErrorType,
-  CodeFragmentResult
+  CodeFragmentResult,
+  ParseMode,
+  lexerByMode
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -29,6 +30,7 @@ export interface ParseInput {
   readonly meta: VariableMetadata
   readonly activeCompletion?: Completion
   readonly formulaContext?: ContextInterface
+  readonly mode?: ParseMode
 }
 
 export interface BaseParseResult {
@@ -97,6 +99,7 @@ export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 
 export const parse = ({
   formulaContext,
+  mode,
   meta: { namespaceId, variableId, input, name },
   activeCompletion
 }: ParseInput): ParseResult => {
@@ -120,10 +123,12 @@ export const parse = ({
   const baseCompletion = formulaContext?.completions(namespaceId, variableId) ?? []
   let completions: Completion[] = baseCompletion
 
-  const parser = new FormulaParser({ formulaContext })
+  const parser = new FormulaParser({ formulaContext, mode })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
 
-  let lexResult: ILexingResult = FormulaLexer.tokenize(input)
+  const lexer = lexerByMode(mode)
+
+  let lexResult: ILexingResult = lexer.tokenize(input)
   let tokens = lexResult.tokens
 
   const endChar = input[input.length - 1]
@@ -143,7 +148,7 @@ export const parse = ({
         .concat(currentCompletion.value)
         .concat(endChar)
 
-      lexResult = FormulaLexer.tokenize(newInput)
+      lexResult = lexer.tokenize(newInput)
       tokens = lexResult.tokens
     }
   }
