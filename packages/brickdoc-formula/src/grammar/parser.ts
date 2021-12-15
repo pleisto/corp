@@ -24,7 +24,8 @@ import {
   DoubleColon,
   Dot,
   Ampersand,
-  EqualCompareOperator
+  EqualCompareOperator,
+  Semicolon
 } from './lexer'
 
 interface ParserConfig {
@@ -78,6 +79,15 @@ export class FormulaParser extends CstParser {
   public startExpression = this.RULE('startExpression', () => {
     this.CONSUME(Equal)
     this.SUBRULE(this.expression)
+  })
+
+  public multilineExpression = this.RULE('multilineExpression', () => {
+    this.CONSUME(Equal)
+    this.SUBRULE(this.expression, { LABEL: 'lhs' })
+    this.MANY(() => {
+      this.CONSUME(Semicolon)
+      this.SUBRULE2(this.expression, { LABEL: 'rhs' })
+    })
   })
 
   public expression = this.RULE('expression', () => {

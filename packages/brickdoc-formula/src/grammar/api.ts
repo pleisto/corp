@@ -123,6 +123,8 @@ export const parse = ({
   const baseCompletion = formulaContext?.completions(namespaceId, variableId) ?? []
   let completions: Completion[] = baseCompletion
 
+  const parseRule = mode === 'multiline' ? 'multilineExpression' : 'startExpression'
+
   const parser = new FormulaParser({ formulaContext, mode })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
 
@@ -156,7 +158,7 @@ export const parse = ({
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
 
-  const cst: CstNode = parser.startExpression()
+  const cst: CstNode = parser[parseRule]()
   const { codeFragments, image }: CodeFragmentResult = codeFragmentVisitor.visit(cst, {
     type: 'any'
   })

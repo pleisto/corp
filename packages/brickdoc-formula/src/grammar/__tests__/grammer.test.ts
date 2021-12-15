@@ -1,11 +1,12 @@
 /* eslint-disable jest/no-conditional-expect */
 import { parse, interpret } from '..'
-import { FormulaContext, ParseErrorType } from '../..'
+import { FormulaContext, ParseErrorType, ParseMode } from '../..'
 
 interface TestCase {
   input: string
   value?: any
   label?: string
+  mode?: ParseMode
   parseErrorType?: ParseErrorType
   errorMessage?: string
   debug?: true
@@ -305,6 +306,18 @@ const testCases: TestCase[] = [
     errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   {
+    input: '= 1;',
+    label: 'Semicolon 1',
+    parseErrorType: 'parse',
+    errorMessage: 'TODO build not all input parsed :3'
+  },
+  {
+    input: '= 1; 2',
+    label: 'Semicolon 2',
+    parseErrorType: 'parse',
+    errorMessage: 'TODO build not all input parsed :3'
+  },
+  {
     input: '="foo" &&& 123',
     parseErrorType: 'parse',
     label: 'TODO &&&',
@@ -489,6 +502,33 @@ but found: '*'`
     label: 'downcase',
     errorMessage: 'Function if not found'
   },
+  {
+    input: '=1; 2; (1+3)',
+    label: 'multiline ok',
+    mode: 'multiline',
+    value: 4
+  },
+  {
+    input: '=1; 2;',
+    label: 'multiline error',
+    parseErrorType: 'parse',
+    mode: 'multiline',
+    errorMessage: 'Missing expression'
+  },
+  {
+    input: '=;',
+    label: 'multiline error 2',
+    parseErrorType: 'parse',
+    mode: 'multiline',
+    errorMessage: 'Missing expression'
+  },
+  {
+    input: '=;123',
+    label: 'multiline error 3',
+    parseErrorType: 'parse',
+    mode: 'multiline',
+    errorMessage: 'Expecting: one of these possible Token sequences'
+  },
   // TODO List
   {
     input: '= 中文',
@@ -542,7 +582,7 @@ const meta = { variableId, namespaceId, name }
 const parseInput = { formulaContext, meta }
 
 describe('Simple test case', () => {
-  testCases.forEach(({ input, label, parseErrorType, errorMessage, value, debug }) => {
+  testCases.forEach(({ input, label, parseErrorType, errorMessage, mode, value, debug }) => {
     const prefix = label ? `[${label}] ` : ''
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     it(`${prefix}${input}${suffix}`, async () => {
@@ -559,6 +599,7 @@ describe('Simple test case', () => {
         parseImage
       } = parse({
         ...parseInput,
+        mode,
         meta: newMeta
       })
 

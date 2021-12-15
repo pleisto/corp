@@ -9,6 +9,7 @@ import {
   interpret,
   InterpretResult,
   parse,
+  ParseMode,
   ParseResult,
   VariableInterface,
   View
@@ -62,7 +63,8 @@ const calculate = async ({
   const variableId = variable ? variable.t.variableId : uuid()
   const meta = { namespaceId, variableId, name, input }
   const view: View = {}
-  const parseResult = parse({ formulaContext, meta, activeCompletion })
+  const mode: ParseMode = 'multiline'
+  const parseResult = parse({ formulaContext, meta, activeCompletion, mode })
 
   console.log({
     parseResult,
