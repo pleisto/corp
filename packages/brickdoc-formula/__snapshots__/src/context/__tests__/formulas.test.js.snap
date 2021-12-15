@@ -538,6 +538,7 @@ Array [
     "flattenVariableDependencies": Set {},
     "functionDependencies": Array [
       Object {
+        "acceptError": false,
         "args": Array [],
         "async": false,
         "chain": false,
@@ -1138,6 +1139,7 @@ Array [
     },
     "functionDependencies": Array [
       Object {
+        "acceptError": false,
         "args": Array [
           Object {
             "name": "number",

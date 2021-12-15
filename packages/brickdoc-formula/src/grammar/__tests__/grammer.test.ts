@@ -27,10 +27,6 @@ const testCases: TestCase[] = [
     value: -0.00123
   },
   {
-    input: '=0/0',
-    value: NaN
-  },
-  {
     input: '= ( 3 + 4 ) * 5 - 2',
     value: 33
   },
@@ -365,6 +361,26 @@ const testCases: TestCase[] = [
     value: false
   },
   // Error
+  {
+    input: '= 1/0',
+    value: 'Division by zero'
+  },
+  {
+    input: '= ABS(1/0)',
+    value: 'Division by zero'
+  },
+  {
+    input: '= 1/0 + 1',
+    value: 'Division by zero'
+  },
+  {
+    input: '= 3 = 1/0',
+    value: 'Division by zero'
+  },
+  {
+    input: '= IFERROR(1/0, "Foo")',
+    value: 'Foo'
+  },
   {
     input: '= -',
     label: 'Without number',

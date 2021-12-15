@@ -74,13 +74,22 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
+      if(result.type === 'Error') {
+        return
+      }
+
       const rhsValue = this.visit(rhsOperand)
       const operator = ctx.CombineOperator[idx]
+
+      if(rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
 
       if (tokenMatcher(operator, And)) {
         result = { result: result.result && rhsValue.result, type: 'boolean' }
@@ -97,7 +106,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   notExpression(ctx: { rhs: CstNode | CstNode[]; lhs: any[] }): AnyTypeValue {
     let result = this.visit(ctx.rhs)
 
-    if (!ctx.lhs) {
+    if (!ctx.lhs || result.type === 'Error') {
       return result
     }
 
@@ -115,13 +124,21 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
+      if (result.type === 'Error') {
+        return
+      }
       const rhsValue = this.visit(rhsOperand)
       const operator = ctx.EqualCompareOperator[idx]
+
+      if(rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
 
       if (tokenMatcher(operator, Equal) || tokenMatcher(operator, Equal2)) {
         result = { result: result.result === rhsValue.result, type: 'boolean' }
@@ -142,13 +159,22 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
+      if (result.type === 'Error') {
+        return
+      }
       // there will be one operator for each rhs operand
       const rhsValue = this.visit(rhsOperand)
+
+      if (rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
+
       const operator = ctx.CompareOperator[idx]
 
       if (tokenMatcher(operator, GreaterThan)) {
@@ -174,13 +200,17 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     const result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     const operator = ctx.InOperator[0].tokenType.name
 
     const result2 = this.visit(ctx.rhs)
+
+    if(result2.type === 'Error') {
+      return result2
+    }
 
     if (result2.type === 'Spreadsheet') {
       const match = String(result.result)
@@ -244,12 +274,23 @@ export class FormulaInterpreter extends BaseCstVisitor {
   concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[]) => {
-      result = { result: result.result.concat(this.visit(rhsOperand).result), type: 'string' }
+      if (result.type === 'Error') {
+        return
+      }
+
+      const rhsValue = this.visit(rhsOperand)
+
+      if (rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
+
+      result = { result: result.result.concat(rhsValue.result), type: 'string' }
     })
 
     return result
@@ -262,12 +303,21 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
+      if (result.type === 'Error') {
+        return
+      }
       const rhsValue = this.visit(rhsOperand)
+
+      if (rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
+
       const operator = ctx.AdditionOperator[idx]
 
       if (tokenMatcher(operator, Plus)) {
@@ -290,18 +340,30 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
+      if (result.type === 'Error') {
+        return
+      }
       const rhsValue = this.visit(rhsOperand)
+
+      if (rhsValue.type === 'Error') {
+        result = rhsValue
+        return
+      }
       const operator = ctx.MultiplicationOperator[idx]
 
       if (tokenMatcher(operator, Multi)) {
         result = { result: result.result * rhsValue.result, type: 'number' }
       } else if (tokenMatcher(operator, Div)) {
-        result = { result: result.result / rhsValue.result, type: 'number' }
+        if(rhsValue.result === 0) {
+          result = { type: 'Error', result: 'Division by zero', errorKind: 'runtime' }
+        } else {
+          result = { result: result.result / rhsValue.result, type: 'number' }
+        }
       } else if (tokenMatcher(operator, Caret)) {
         result = { result: result.result ** rhsValue.result, type: 'number' }
       } else {
@@ -315,11 +377,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
   chainExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs) {
+    if (!ctx.rhs || result.type === 'Error') {
       return result
     }
 
     ctx.rhs.forEach((cst: CstNode | CstNode[]) => {
+      if (result.type === 'Error') {
+        return
+      }
       result = this.visit(cst, result)
     })
 
@@ -387,6 +452,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     const result = this.visit(ctx.atomicExpression)
+    if(result.type === 'Error') {
+      return result
+    }
     return { type: 'Predicate', result, operator }
   }
 
@@ -496,12 +564,20 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     if (ctx.Arguments) {
-      args.push(...this.visit(ctx.Arguments))
+      const argResult = this.visit(ctx.Arguments)
+      args.push(...argResult)
     }
 
     const argsTypes = clause.args[0]?.spread
       ? Array(args.length).fill(clause.args[0].type)
       : clause.args.map(arg => arg.type)
+
+    if (!clause.acceptError) {
+      const errorArgs = args.find(a => a.type === 'Error')
+      if (errorArgs) {
+        return errorArgs as AnyTypeValue
+      }
+    }
 
     const newArgs = args.map((arg, index) => {
       const argType = argsTypes[index]

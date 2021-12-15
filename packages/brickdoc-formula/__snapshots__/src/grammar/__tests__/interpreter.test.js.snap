@@ -3,6 +3,7 @@
 exports[`Custom Function Function dependencies 1`] = `
 Array [
   Object {
+    "acceptError": false,
     "args": Array [
       Object {
         "name": "a",

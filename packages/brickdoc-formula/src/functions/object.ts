@@ -1,4 +1,4 @@
-import { ContextInterface, StringResult, ObjectResult, BasicFunctionClause, AnyTypeResult, PredicateResult } from '..'
+import { ContextInterface, StringResult, ObjectResult, BasicFunctionClause, AnyTypeResult } from '..'
 
 export const T = (ctx: ContextInterface, obj: AnyTypeResult): AnyTypeResult => obj
 
@@ -9,14 +9,13 @@ export const WITH_TYPE = (ctx: ContextInterface, obj: AnyTypeResult): ObjectResu
   type: 'Object'
 })
 
-export const PREDICATE = (ctx: ContextInterface, obj: PredicateResult): PredicateResult => obj
-
 // TODO validate any type
 export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
   {
     name: 'T',
     async: false,
     pure: true,
+    acceptError: true,
     effect: false,
     description: 'Returns current object',
     group: 'core',
@@ -39,6 +38,7 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'TYPE',
     async: false,
     pure: true,
+    acceptError: true,
     effect: false,
     description: 'Returns type of current object',
     group: 'core',
@@ -61,6 +61,7 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'WITH_TYPE',
     async: false,
     pure: true,
+    acceptError: true,
     effect: false,
     description: 'Returns object with type',
     group: 'core',
@@ -78,24 +79,5 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     testCases: [],
     chain: true,
     reference: WITH_TYPE
-  },
-  {
-    name: 'PREDICATE',
-    async: false,
-    pure: true,
-    effect: false,
-    description: 'Returns predicate result',
-    group: 'core',
-    args: [
-      {
-        name: 'obj',
-        type: 'Predicate'
-      }
-    ],
-    examples: [{ input: '=PREDICATE(100)', output: { type: 'Predicate', result: 'TODO ...' } }],
-    returns: 'Predicate',
-    testCases: [],
-    chain: true,
-    reference: PREDICATE
   }
 ]

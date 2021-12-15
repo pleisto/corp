@@ -490,6 +490,7 @@ Object {
   "bar": Array [
     Array [
       Object {
+        "acceptError": false,
         "args": Array [
           Object {
             "name": "number",

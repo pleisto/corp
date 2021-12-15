@@ -329,6 +329,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly effect: boolean
   readonly async: boolean
   readonly chain: boolean
+  readonly acceptError: boolean
   readonly description: string
   readonly group: FunctionGroup
   readonly examples: [Example<T>, ...Array<Example<T>>]

@@ -1376,6 +1376,7 @@ Object {
   "name": "SUM",
   "namespace": "core",
   "preview": Object {
+    "acceptError": false,
     "args": Array [
       Object {
         "name": "column",
@@ -1452,6 +1453,7 @@ Object {
   "name": "COLUMN_COUNT",
   "namespace": "core",
   "preview": Object {
+    "acceptError": false,
     "args": Array [
       Object {
         "name": "database",

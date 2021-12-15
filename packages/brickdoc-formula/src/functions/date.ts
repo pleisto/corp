@@ -7,6 +7,7 @@ export const CORE_DATE_CLAUSES: Array<BasicFunctionClause<'Date'>> = [
     name: 'TODAY',
     async: false,
     pure: false,
+    acceptError: false,
     effect: false,
     examples: [{ input: '=TODAY()', output: { type: 'Date', result: new Date('1926-08-17T00:00:00.000Z') } }],
     description: 'Returns the current date',
