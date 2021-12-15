@@ -143,6 +143,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const [name, setName] = React.useState(variable?.t.name)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
   const [input, setInput] = React.useState(definition)
+  const [position, setPosition] = React.useState(0)
 
   const [error, setError] = React.useState<ErrorMessage | undefined>()
   const [visible, setVisible] = React.useState(defaultVisible)
@@ -406,6 +407,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         <div className="formula-menu-item">
           <FormulaEditor
             content={content}
+            position={position}
+            updatePosition={setPosition}
             updateContent={handleValueChange}
             keyDownHandler={keyDownHandler}
             editable={true}
@@ -458,7 +461,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {children}
     </Popover>
   )

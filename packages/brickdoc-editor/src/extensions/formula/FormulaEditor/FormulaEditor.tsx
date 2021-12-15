@@ -11,14 +11,23 @@ import './FormulaEditor.less'
 export interface FormulaEditorProps {
   content: JSONContent | undefined
   editable: boolean
+  position?: number
   updateContent?: (editor: Editor) => void
+  updatePosition?: (position: number) => void
   keyDownHandler?: KeyDownHandlerType
 }
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, updateContent, keyDownHandler }) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({
+  content,
+  editable,
+  position: pos,
+  updateContent,
+  updatePosition,
+  keyDownHandler
+}) => {
   const editor = useEditor({
     editable,
     extensions: [Document, Text, Paragraph, CodeFragmentBlockExtension, HandleKeyDownExtension(keyDownHandler)],
@@ -26,6 +35,8 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
       updateContent?.(editor)
       if (transaction.selection.from === transaction.selection.to) {
         const position = transaction.selection.from - 1
+
+        updatePosition?.(position + 1)
 
         if (position < 1) return
         const blocks: JSONContent[] = editor.getJSON().content[0].content
@@ -56,9 +67,14 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
   useEffect(() => {
     if (editor && !editor.isDestroyed && content) {
       editor.commands.replaceRoot(content)
+
+      if (pos) {
+        console.log({ pos })
+        editor.commands.setTextSelection(pos)
+      }
       // console.log({ content, editor, label: 'after replace root' })
     }
-  }, [editor, content])
+  }, [editor, content, pos])
 
   return (
     <>
