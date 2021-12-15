@@ -28,7 +28,8 @@ import {
   Semicolon,
   InOperator,
   LBracket,
-  RBracket
+  RBracket,
+  NullLiteral
 } from './lexer'
 
 interface ParserConfig {
@@ -219,7 +220,8 @@ export class FormulaParser extends CstParser {
     this.OR([
       { ALT: () => this.SUBRULE(this.NumberLiteralExpression) },
       { ALT: () => this.SUBRULE(this.BooleanLiteralExpression) },
-      { ALT: () => this.CONSUME(StringLiteral) }
+      { ALT: () => this.CONSUME(StringLiteral) },
+      { ALT: () => this.CONSUME(NullLiteral) }
     ])
   })
 

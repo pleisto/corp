@@ -344,6 +344,8 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `#<Column> ${v.result.spreadsheetName} - ${v.result.name}`
     case 'Predicate':
       return `#<Predicate> [${v.operator}] ${displayValue(v.result)}`
+    case 'null':
+      return '#<Null> null'
     case 'Array':
       return `#<Array> [${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
   }

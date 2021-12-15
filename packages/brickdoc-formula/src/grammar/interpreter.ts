@@ -364,12 +364,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
   constantExpression(ctx: {
     NumberLiteralExpression: CstNode | CstNode[]
     BooleanLiteralExpression: CstNode | CstNode[]
+    NullLiteral: CstNode | CstNode[]
     StringLiteral: Array<{ image: any }>
   }): AnyTypeValue {
     if (ctx.NumberLiteralExpression) {
       return this.visit(ctx.NumberLiteralExpression)
     } else if (ctx.BooleanLiteralExpression) {
       return this.visit(ctx.BooleanLiteralExpression)
+    } else if (ctx.NullLiteral) {
+      return { type: 'null', result: null }
     } else if (ctx.StringLiteral) {
       // TODO: dirty hack to get the string literal value
       const str = ctx.StringLiteral[0].image

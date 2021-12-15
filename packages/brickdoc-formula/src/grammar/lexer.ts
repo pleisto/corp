@@ -165,6 +165,11 @@ export const StringLiteral = createToken({
   pattern: /"(""|[^"])*"/
 })
 
+export const NullLiteral = createToken({
+  name: 'NullLiteral',
+  pattern: /null/
+})
+
 export const Comma = createToken({ name: 'Comma', pattern: /,/ })
 
 export const Semicolon = createToken({ name: 'Semicolon', pattern: /;/ })
@@ -250,6 +255,7 @@ const tokensBeforeSemicolon = [
   NumberLiteral,
   BooleanLiteral,
   StringLiteral,
+  NullLiteral,
   Comma // ,
 ]
 

@@ -681,6 +681,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       NumberLiteralExpression: CstNode | CstNode[]
       BooleanLiteralExpression: CstNode | CstNode[]
       StringLiteral: IToken[]
+      NullLiteral: IToken[]
     },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
@@ -688,6 +689,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.NumberLiteralExpression, { type })
     } else if (ctx.BooleanLiteralExpression) {
       return this.visit(ctx.BooleanLiteralExpression, { type })
+    } else if (ctx.NullLiteral) {
+      const parentType = 'null'
+      const { errorMessages } = intersectType(type, parentType)
+
+      return {
+        codeFragments: [{ ...token2fragment(ctx.NullLiteral[0], 'null'), errors: errorMessages }],
+        type: 'null',
+        image: ctx.NullLiteral[0].image
+      }
     } else if (ctx.StringLiteral) {
       const parentType = 'string'
       const { errorMessages } = intersectType(type, parentType)

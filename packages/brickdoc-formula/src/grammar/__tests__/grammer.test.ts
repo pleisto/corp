@@ -18,6 +18,10 @@ const testCases: TestCase[] = [
     value: 2
   },
   {
+    input: '=null',
+    value: null
+  },
+  {
     input: '= -0.123%',
     label: 'caret and sign',
     value: -0.00123
@@ -164,23 +168,27 @@ const testCases: TestCase[] = [
     value: true
   },
   {
-    input: '= "Foo" in [1, "foo", true]',
+    input: '= "Foo" in [1, "foo", true, null]',
     value: true
   },
   {
-    input: '= "Foo" exactin [1, "foo", true]',
+    input: '= "Foo" exactin [1, "foo", true, null]',
     value: false
   },
   {
-    input: '= true in [1, "foo", true]',
+    input: '= true in [1, "foo", true, null]',
     value: true
   },
   {
-    input: '= true exactin [1, "foo", true]',
+    input: '= true exactin [1, "foo", true, null]',
     value: true
   },
   {
-    input: '= false exactin [1, "foo", true]',
+    input: '= null exactin [1, "foo", true, null]',
+    value: true
+  },
+  {
+    input: '= false exactin [1, "foo", true, null]',
     value: false
   },
   // Array
@@ -444,12 +452,13 @@ const testCases: TestCase[] = [
   4. [NumberLiteral]
   5. [BooleanLiteral]
   6. [StringLiteral]
-  7. [Dollar, UUID, At]
-  8. [Dollar, UUID, Sharp]
-  9. [Dollar, UUID]
-  10. [FunctionName]
-  11. [EqualCompareOperator]
-  12. [CompareOperator]
+  7. [NullLiteral]
+  8. [Dollar, UUID, At]
+  9. [Dollar, UUID, Sharp]
+  10. [Dollar, UUID]
+  11. [FunctionName]
+  12. [EqualCompareOperator]
+  13. [CompareOperator]
 but found: '*'`
   },
   // Function Call
@@ -577,6 +586,11 @@ but found: '*'`
     value: { type: 'number', result: 2 }
   },
   // Type
+  {
+    input: '=null + 1',
+    parseErrorType: 'syntax',
+    errorMessage: 'Expected number but got null'
+  },
   {
     input: '=ABS ( "a" )',
     parseErrorType: 'syntax',

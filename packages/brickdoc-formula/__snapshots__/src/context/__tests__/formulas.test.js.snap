@@ -435,9 +435,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 46,
+                                                                                      "tokenTypeIdx": 47,
                                                                                     },
-                                                                                    "tokenTypeIdx": 46,
+                                                                                    "tokenTypeIdx": 47,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [
@@ -920,9 +920,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 46,
+                                                                                      "tokenTypeIdx": 47,
                                                                                     },
-                                                                                    "tokenTypeIdx": 46,
+                                                                                    "tokenTypeIdx": 47,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [
@@ -1543,12 +1543,13 @@ Array [
   4. [NumberLiteral]
   5. [BooleanLiteral]
   6. [StringLiteral]
-  7. [Dollar, UUID, At]
-  8. [Dollar, UUID, Sharp]
-  9. [Dollar, UUID]
-  10. [FunctionName]
-  11. [EqualCompareOperator]
-  12. [CompareOperator]
+  7. [NullLiteral]
+  8. [Dollar, UUID, At]
+  9. [Dollar, UUID, Sharp]
+  10. [Dollar, UUID]
+  11. [FunctionName]
+  12. [EqualCompareOperator]
+  13. [CompareOperator]
 but found: ''",
       "result": Object {
         "errorKind": "syntax",
@@ -1559,12 +1560,13 @@ but found: ''",
   4. [NumberLiteral]
   5. [BooleanLiteral]
   6. [StringLiteral]
-  7. [Dollar, UUID, At]
-  8. [Dollar, UUID, Sharp]
-  9. [Dollar, UUID]
-  10. [FunctionName]
-  11. [EqualCompareOperator]
-  12. [CompareOperator]
+  7. [NullLiteral]
+  8. [Dollar, UUID, At]
+  9. [Dollar, UUID, Sharp]
+  10. [Dollar, UUID]
+  11. [FunctionName]
+  12. [EqualCompareOperator]
+  13. [CompareOperator]
 but found: ''",
         "type": "Error",
       },
@@ -1900,9 +1902,9 @@ Array [
                                                                                       "categoryMatchesMap": Object {},
                                                                                       "isParent": false,
                                                                                       "name": "FunctionName",
-                                                                                      "tokenTypeIdx": 46,
+                                                                                      "tokenTypeIdx": 47,
                                                                                     },
-                                                                                    "tokenTypeIdx": 46,
+                                                                                    "tokenTypeIdx": 47,
                                                                                   },
                                                                                 ],
                                                                                 "LParen": Array [

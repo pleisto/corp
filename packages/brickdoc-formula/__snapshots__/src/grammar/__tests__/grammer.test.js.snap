@@ -646,12 +646,13 @@ Array [
   4. [NumberLiteral]
   5. [BooleanLiteral]
   6. [StringLiteral]
-  7. [Dollar, UUID, At]
-  8. [Dollar, UUID, Sharp]
-  9. [Dollar, UUID]
-  10. [FunctionName]
-  11. [EqualCompareOperator]
-  12. [CompareOperator]
+  7. [NullLiteral]
+  8. [Dollar, UUID, At]
+  9. [Dollar, UUID, Sharp]
+  10. [Dollar, UUID]
+  11. [FunctionName]
+  12. [EqualCompareOperator]
+  13. [CompareOperator]
 but found: ''hello''",
         "type": "syntax",
       },
@@ -867,12 +868,13 @@ Array [
   4. [NumberLiteral]
   5. [BooleanLiteral]
   6. [StringLiteral]
-  7. [Dollar, UUID, At]
-  8. [Dollar, UUID, Sharp]
-  9. [Dollar, UUID]
-  10. [FunctionName]
-  11. [EqualCompareOperator]
-  12. [CompareOperator]
+  7. [NullLiteral]
+  8. [Dollar, UUID, At]
+  9. [Dollar, UUID, Sharp]
+  10. [Dollar, UUID]
+  11. [FunctionName]
+  12. [EqualCompareOperator]
+  13. [CompareOperator]
 but found: '中文'",
         "type": "syntax",
       },
