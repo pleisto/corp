@@ -136,18 +136,34 @@ export const parse = ({
   const endChar = input[input.length - 1]
   // console.log({ endChar, input })
 
-  if (['.', ' ', ',', '(', ')'].includes(endChar)) {
+  if (['.', ' ', ',', '(', ')', '+', '-', '*', '/', '=', '>', '<'].includes(endChar)) {
     const index = endChar === ' ' ? tokens.length - 1 : tokens.length - 2
     const lastToken = tokens[index]
 
-    // const currentCompletion = activeCompletion
-    const currentCompletion = completions.find(completion => completion.name === lastToken.image)
+    const currentCompletion = activeCompletion
+    // const currentCompletion = completions.find(completion => completion.name === lastToken.image)
 
     // console.log({ endChar, lastToken, input, tokens, currentCompletion })
-    if (lastToken && currentCompletion && currentCompletion.name === lastToken.image) {
+    if (
+      lastToken &&
+      currentCompletion &&
+      currentCompletion.replacements.find(replacement => replacement === lastToken.image)
+    ) {
       // console.log('start replace', lastToken.image, currentCompletion)
+      // TODO spreadsheet && column completion (should in same codefragment)
+      const firstReplacement = currentCompletion.replacements.find(replacement =>
+        input.endsWith(replacement.concat(endChar))
+      )
+      let image = lastToken.image
+
+      if (firstReplacement) {
+        image = firstReplacement
+      } else {
+        console.error('replacement not found', { currentCompletion, lastToken, input })
+      }
+
       newInput = input
-        .slice(0, input.length - lastToken.image.length - 1)
+        .slice(0, input.length - image.length - 1)
         .concat(currentCompletion.value)
         .concat(endChar)
 
