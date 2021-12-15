@@ -1,22 +1,6 @@
-import { FC, useCallback, useState, useMemo, ReactNode, memo } from 'react'
+import { FC, useCallback, useState, useMemo, useEffect, ReactNode, memo } from 'react'
+import type { TNode } from './constants'
 import { Node } from './node'
-
-export interface TNode {
-  key: string
-  value: string
-  parentId?: string
-  title: ReactNode | string
-  icon: string | null
-  hasItemIcon?: boolean
-  hasChildren: boolean
-  firstChildSort: string
-  indent: number
-  isOpen: boolean
-  collapsed: boolean
-  sort: number
-  lastPlaceholder: ReactNode | string
-  children: TNode[]
-}
 
 export interface TreeProps {
   treeData: TNode[]
@@ -30,17 +14,43 @@ export interface TreeProps {
   emptyNode?: string | ReactNode
 }
 
+const findPathById = (tree: TNode[], id: string, path?: string[]): string[] => {
+  for (let i = 0; i < tree.length; i++) {
+    const tempPath = [...(path ?? [])]
+    tempPath.push(tree[i].value)
+    if (tree[i].value === id) {
+      return tempPath
+    }
+    if (tree[i].children) {
+      const reuslt = findPathById(tree[i].children, id, tempPath)
+      if (reuslt) {
+        return reuslt
+      }
+    }
+  }
+}
+
 /** Tree
  * @example
  */
 const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode, selectedNodeId }) => {
-  const [closeIds, setCloseIds] = useState<string[]>(openAll ? treeData.map(node => node.value) : [])
+  const [closeIds, setCloseIds] = useState<string[]>(
+    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value)
+  )
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
+  const [collapsedIds, setCollapsedIds] = useState<string[]>([])
+
+  useEffect(() => {
+    if (selectedNodeId) {
+      setCollapsedIds(findPathById(treeData, selectedNodeId, []))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
-      const collapsed = closeIds.includes(value)
+      const collapsed = closeIds.includes(value) || collapsedIds.includes(value)
 
       result.push({
         ...node,
@@ -48,13 +58,14 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
         indent: indent ?? 0,
         collapsed
       })
+
       if (collapsed && children) {
         for (const child of children) {
           flattened(child, indent + 1, result)
         }
       }
     },
-    [closeIds]
+    [closeIds, collapsedIds]
   )
 
   const renderTree = useMemo(() => {
@@ -64,6 +75,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
     }
     return result
   }, [treeData, flattened])
+
   const handleSelected = useCallback((id: string) => setSelectedId(id), [setSelectedId])
 
   const handleItemClick = useCallback(

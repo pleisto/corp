@@ -109,16 +109,17 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     if (!blocks.length) {
       return <></>
     }
-
+    console.log(blocks, 'debug blocks')
     const flattedData = blocks
       .map(b => {
         const title = getTitle(b)
+        const hasShow = docMeta.id === b.id || docMeta.id === b.rootId || docMeta.id === b.parentId
 
         return {
           key: b.id,
           value: b.id,
-          // parentId: b.parentId,
-          collapsed: docMeta.id === b.id,
+          parentId: b.parentId,
+          collapsed: hasShow,
           sort: b.sort,
           icon: getIcon(b),
           nextSort: b.nextSort,

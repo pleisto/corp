@@ -19,7 +19,6 @@ export interface TreeProps {
  */
 const InternalNode: FC<TreeProps> = ({ treeData, onClick, handleSelected, titleRender, selectedId, emptyNode }) => {
   const { icon = '', firstChildSort, hasChildren, parentId, indent = 0, value, collapsed } = treeData
-
   const { pressProps, isPressed } = usePress({
     onPress: e => {
       if (e.type === 'press') {
