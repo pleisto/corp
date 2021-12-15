@@ -25,6 +25,7 @@ const SpaceBeforeTypes = [
   'Div',
   'Minus',
   'Multi',
+  'Caret',
   'And',
   'Or',
   'Equal',
@@ -45,6 +46,7 @@ const SpaceAfterTypes = [
   'Div',
   'Minus',
   'Multi',
+  'Caret',
   'And',
   'Or',
   'Equal',
@@ -603,13 +605,40 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     return { codeFragments: [], type: 'any', image: '' }
   }
 
-  NumberLiteralExpression(ctx: { NumberLiteral: IToken[] }, { type }: ExpressionArgument): CodeFragmentResult {
+  NumberLiteralExpression(
+    ctx: { Minus: IToken[]; NumberLiteral: IToken[]; Sign: IToken[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
     const parentType = 'number'
+
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+
+    if (ctx.Minus) {
+      const errorMessages: ErrorMessage[] = ctx.NumberLiteral ? [] : [{ message: 'Missing number', type: 'syntax' }]
+      codeFragments.push({ ...token2fragment(ctx.Minus[0], 'any'), spaceAfter: false, errors: errorMessages })
+      images.push('-')
+    }
+
     const { errorMessages } = intersectType(type, parentType)
+
+    if (ctx.NumberLiteral) {
+      codeFragments.push({ ...token2fragment(ctx.NumberLiteral[0], parentType) })
+      images.push(ctx.NumberLiteral[0].image)
+    }
+
+    if (ctx.Sign) {
+      codeFragments.push({ ...token2fragment(ctx.Sign[0], 'any') })
+      images.push(ctx.Sign[0].image)
+    }
+
     return {
-      codeFragments: [{ ...token2fragment(ctx.NumberLiteral[0], parentType), errors: errorMessages }],
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...errorMessages, ...codeFragment.errors]
+      })),
       type: parentType,
-      image: ctx.NumberLiteral[0].image
+      image: images.join('')
     }
   }
 

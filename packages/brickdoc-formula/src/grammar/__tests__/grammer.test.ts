@@ -18,6 +18,11 @@ const testCases: TestCase[] = [
     value: 2
   },
   {
+    input: '= -0.123%',
+    label: 'caret and sign',
+    value: -0.00123
+  },
+  {
     input: '=0/0',
     value: NaN
   },
@@ -252,6 +257,12 @@ const testCases: TestCase[] = [
     value: false
   },
   // Error
+  {
+    input: '= -',
+    label: 'Without number',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing number'
+  },
   {
     input: '1+1',
     parseErrorType: 'parse',

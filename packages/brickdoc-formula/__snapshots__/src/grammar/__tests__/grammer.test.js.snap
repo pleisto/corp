@@ -887,6 +887,57 @@ Array [
 ]
 `;
 
+exports[`Simple test case [Without number] = - // => ✗ 1`] = `
+Array [
+  Object {
+    "code": "Minus",
+    "errors": Array [
+      Object {
+        "message": "Missing number",
+        "type": "syntax",
+      },
+    ],
+    "meta": undefined,
+    "name": "-",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+]
+`;
+
+exports[`Simple test case [caret and sign] = -0.123% // => -0.00123 1`] = `
+Array [
+  Object {
+    "code": "Minus",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "-",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "0.123",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Sign",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "%",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+]
+`;
+
 exports[`Simple test case [chain type 1] ="foo".START_WITH(123) // => ✗ 1`] = `
 Array [
   Object {
