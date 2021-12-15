@@ -174,7 +174,9 @@ export const Comma = createToken({ name: 'Comma', pattern: /,/ })
 
 export const Semicolon = createToken({ name: 'Semicolon', pattern: /;/ })
 
-export const DoubleColon = createToken({ name: 'Colon', pattern: /::/ })
+export const DoubleColon = createToken({ name: 'DoubleColon', pattern: /::/ })
+
+export const Colon = createToken({ name: 'Colon', pattern: /:/ })
 
 export const FunctionName = createToken({
   name: 'FunctionName',
@@ -241,6 +243,7 @@ const tokensBeforeSemicolon = [
   At, // @
   Sharp, // #
   DoubleColon, // ::
+  Colon, // :
   Dot, // .
 
   UUID,

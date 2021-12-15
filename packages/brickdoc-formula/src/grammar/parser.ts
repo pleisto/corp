@@ -29,7 +29,10 @@ import {
   InOperator,
   LBracket,
   RBracket,
-  NullLiteral
+  NullLiteral,
+  LBrace,
+  RBrace,
+  Colon
 } from './lexer'
 
 interface ParserConfig {
@@ -174,6 +177,7 @@ export class FormulaParser extends CstParser {
     this.OR([
       { ALT: () => this.SUBRULE(this.parenthesisExpression) },
       { ALT: () => this.SUBRULE(this.arrayExpression) },
+      { ALT: () => this.SUBRULE(this.recordExpression) },
       { ALT: () => this.SUBRULE(this.constantExpression) },
       { ALT: () => this.SUBRULE(this.variableExpression) },
       { ALT: () => this.SUBRULE(this.columnExpression) },
@@ -189,6 +193,25 @@ export class FormulaParser extends CstParser {
       this.SUBRULE2(this.Arguments)
     })
     this.CONSUME(RBracket)
+  })
+
+  public recordExpression = this.RULE('recordExpression', () => {
+    this.CONSUME(LBrace)
+
+    this.MANY_SEP({
+      SEP: Comma,
+      DEF: () => {
+        this.SUBRULE(this.recordField)
+      }
+    })
+
+    this.CONSUME(RBrace)
+  })
+
+  public recordField = this.RULE('recordField', () => {
+    this.CONSUME(StringLiteral)
+    this.CONSUME(Colon)
+    this.SUBRULE(this.expression)
   })
 
   public predicateExpression = this.RULE('predicateExpression', () => {

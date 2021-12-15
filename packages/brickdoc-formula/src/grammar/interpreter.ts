@@ -79,14 +79,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
-      if(result.type === 'Error') {
+      if (result.type === 'Error') {
         return
       }
 
       const rhsValue = this.visit(rhsOperand)
       const operator = ctx.CombineOperator[idx]
 
-      if(rhsValue.type === 'Error') {
+      if (rhsValue.type === 'Error') {
         result = rhsValue
         return
       }
@@ -135,7 +135,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       const rhsValue = this.visit(rhsOperand)
       const operator = ctx.EqualCompareOperator[idx]
 
-      if(rhsValue.type === 'Error') {
+      if (rhsValue.type === 'Error') {
         result = rhsValue
         return
       }
@@ -208,7 +208,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const result2 = this.visit(ctx.rhs)
 
-    if(result2.type === 'Error') {
+    if (result2.type === 'Error') {
       return result2
     }
 
@@ -359,7 +359,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       if (tokenMatcher(operator, Multi)) {
         result = { result: result.result * rhsValue.result, type: 'number' }
       } else if (tokenMatcher(operator, Div)) {
-        if(rhsValue.result === 0) {
+        if (rhsValue.result === 0) {
           result = { type: 'Error', result: 'Division by zero', errorKind: 'runtime' }
         } else {
           result = { result: result.result / rhsValue.result, type: 'number' }
@@ -394,6 +394,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   atomicExpression(ctx: {
     parenthesisExpression: CstNode | CstNode[]
     arrayExpression: CstNode | CstNode[]
+    recordExpression: CstNode | CstNode[]
     constantExpression: CstNode | CstNode[]
     FunctionCall: CstNode | CstNode[]
     variableExpression: CstNode | CstNode[]
@@ -405,6 +406,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.parenthesisExpression)
     } else if (ctx.arrayExpression) {
       return this.visit(ctx.arrayExpression)
+    } else if (ctx.recordExpression) {
+      return this.visit(ctx.recordExpression)
     } else if (ctx.constantExpression) {
       return this.visit(ctx.constantExpression)
     } else if (ctx.FunctionCall) {
@@ -452,7 +455,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     const result = this.visit(ctx.atomicExpression)
-    if(result.type === 'Error') {
+    if (result.type === 'Error') {
       return result
     }
     return { type: 'Predicate', result, operator }
@@ -465,6 +468,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
       args.push(...this.visit(ctx.Arguments))
     }
     return { type: 'Array', result: args }
+  }
+
+  recordExpression(ctx: any): AnyTypeValue {
+    return { type: 'Object', result: {} }
+  }
+
+  recordField(ctx: any): AnyTypeValue {
+    return { type: 'Object', result: {} }
   }
 
   parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): AnyTypeValue {

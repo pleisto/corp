@@ -1625,9 +1625,9 @@ Object {
                                                                                   "categoryMatchesMap": Object {},
                                                                                   "isParent": false,
                                                                                   "name": "FunctionName",
-                                                                                  "tokenTypeIdx": 47,
+                                                                                  "tokenTypeIdx": 48,
                                                                                 },
-                                                                                "tokenTypeIdx": 47,
+                                                                                "tokenTypeIdx": 48,
                                                                               },
                                                                             ],
                                                                             "LParen": Array [
@@ -1989,7 +1989,7 @@ Object {
                                                                                                                                                                                                                             "FunctionCall": Array [
                                                                                                                                                                                                                               Object {
                                                                                                                                                                                                                                 "children": Object {
-                                                                                                                                                                                                                                  "Colon": Array [
+                                                                                                                                                                                                                                  "DoubleColon": Array [
                                                                                                                                                                                                                                     Object {
                                                                                                                                                                                                                                       "endColumn": 24,
                                                                                                                                                                                                                                       "endLine": 1,
@@ -2004,7 +2004,7 @@ Object {
                                                                                                                                                                                                                                         "categoryMatches": Array [],
                                                                                                                                                                                                                                         "categoryMatchesMap": Object {},
                                                                                                                                                                                                                                         "isParent": false,
-                                                                                                                                                                                                                                        "name": "Colon",
+                                                                                                                                                                                                                                        "name": "DoubleColon",
                                                                                                                                                                                                                                         "tokenTypeIdx": 46,
                                                                                                                                                                                                                                       },
                                                                                                                                                                                                                                       "tokenTypeIdx": 46,
@@ -2026,9 +2026,9 @@ Object {
                                                                                                                                                                                                                                         "categoryMatchesMap": Object {},
                                                                                                                                                                                                                                         "isParent": false,
                                                                                                                                                                                                                                         "name": "FunctionName",
-                                                                                                                                                                                                                                        "tokenTypeIdx": 47,
+                                                                                                                                                                                                                                        "tokenTypeIdx": 48,
                                                                                                                                                                                                                                       },
-                                                                                                                                                                                                                                      "tokenTypeIdx": 47,
+                                                                                                                                                                                                                                      "tokenTypeIdx": 48,
                                                                                                                                                                                                                                     },
                                                                                                                                                                                                                                     Object {
                                                                                                                                                                                                                                       "endColumn": 33,
@@ -2045,9 +2045,9 @@ Object {
                                                                                                                                                                                                                                         "categoryMatchesMap": Object {},
                                                                                                                                                                                                                                         "isParent": false,
                                                                                                                                                                                                                                         "name": "FunctionName",
-                                                                                                                                                                                                                                        "tokenTypeIdx": 47,
+                                                                                                                                                                                                                                        "tokenTypeIdx": 48,
                                                                                                                                                                                                                                       },
-                                                                                                                                                                                                                                      "tokenTypeIdx": 47,
+                                                                                                                                                                                                                                      "tokenTypeIdx": 48,
                                                                                                                                                                                                                                     },
                                                                                                                                                                                                                                   ],
                                                                                                                                                                                                                                   "LParen": Array [
@@ -2395,7 +2395,7 @@ Object {
                                                                                 "name": "Arguments",
                                                                               },
                                                                             ],
-                                                                            "Colon": Array [
+                                                                            "DoubleColon": Array [
                                                                               Object {
                                                                                 "endColumn": 10,
                                                                                 "endLine": 1,
@@ -2410,7 +2410,7 @@ Object {
                                                                                   "categoryMatches": Array [],
                                                                                   "categoryMatchesMap": Object {},
                                                                                   "isParent": false,
-                                                                                  "name": "Colon",
+                                                                                  "name": "DoubleColon",
                                                                                   "tokenTypeIdx": 46,
                                                                                 },
                                                                                 "tokenTypeIdx": 46,
@@ -2432,9 +2432,9 @@ Object {
                                                                                   "categoryMatchesMap": Object {},
                                                                                   "isParent": false,
                                                                                   "name": "FunctionName",
-                                                                                  "tokenTypeIdx": 47,
+                                                                                  "tokenTypeIdx": 48,
                                                                                 },
-                                                                                "tokenTypeIdx": 47,
+                                                                                "tokenTypeIdx": 48,
                                                                               },
                                                                               Object {
                                                                                 "endColumn": 14,
@@ -2451,9 +2451,9 @@ Object {
                                                                                   "categoryMatchesMap": Object {},
                                                                                   "isParent": false,
                                                                                   "name": "FunctionName",
-                                                                                  "tokenTypeIdx": 47,
+                                                                                  "tokenTypeIdx": 48,
                                                                                 },
-                                                                                "tokenTypeIdx": 47,
+                                                                                "tokenTypeIdx": 48,
                                                                               },
                                                                             ],
                                                                             "LParen": Array [
@@ -2853,9 +2853,9 @@ Object {
                                                                             "categoryMatchesMap": Object {},
                                                                             "isParent": false,
                                                                             "name": "FunctionName",
-                                                                            "tokenTypeIdx": 47,
+                                                                            "tokenTypeIdx": 48,
                                                                           },
-                                                                          "tokenTypeIdx": 47,
+                                                                          "tokenTypeIdx": 48,
                                                                         },
                                                                       ],
                                                                       "LParen": Array [
@@ -2921,9 +2921,9 @@ Object {
                                                                             "categoryMatchesMap": Object {},
                                                                             "isParent": false,
                                                                             "name": "FunctionName",
-                                                                            "tokenTypeIdx": 47,
+                                                                            "tokenTypeIdx": 48,
                                                                           },
-                                                                          "tokenTypeIdx": 47,
+                                                                          "tokenTypeIdx": 48,
                                                                         },
                                                                       ],
                                                                       "LParen": Array [

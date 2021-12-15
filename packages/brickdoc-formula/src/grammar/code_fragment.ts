@@ -543,6 +543,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx: {
       parenthesisExpression: CstNode | CstNode[]
       arrayExpression: CstNode | CstNode[]
+      recordExpression: CstNode | CstNode[]
       constantExpression: CstNode | CstNode[]
       FunctionCall: CstNode | CstNode[]
       variableExpression: CstNode | CstNode[]
@@ -556,6 +557,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.parenthesisExpression, { type })
     } else if (ctx.arrayExpression) {
       return this.visit(ctx.arrayExpression, { type })
+    } else if (ctx.recordExpression) {
+      return this.visit(ctx.recordExpression, { type })
     } else if (ctx.constantExpression) {
       return this.visit(ctx.constantExpression, { type })
     } else if (ctx.FunctionCall) {
@@ -650,6 +653,27 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       })),
       type: newType,
       image: finalImage
+    }
+  }
+
+  recordExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    return {
+      codeFragments: [
+        { name: '{', code: 'LBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined },
+        { name: '}', code: 'RBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined }
+      ],
+      type: 'Object',
+      image: '{}'
+    }
+  }
+
+  recordField(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    return {
+      codeFragments: [
+        { name: ':', code: 'Colon', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined }
+      ],
+      type: 'any',
+      image: ':'
     }
   }
 
