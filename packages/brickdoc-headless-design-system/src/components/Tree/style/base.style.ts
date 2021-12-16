@@ -126,8 +126,8 @@ export const Base = styled('div', {
   marginBottom: theme.space.xxxs,
 
   '&:hover': {
-    background: theme.colors.backgroundOverlayThirdaryHover,
-    boxShadow: theme.shadows.treeDefault,
+    include: ['treeDefault'],
+    background: theme.colors.secondaryHover,
     backdropFilter: 'blur(40px)'
   },
   '&:focus-visible': {
@@ -139,19 +139,19 @@ export const Base = styled('div', {
     pressed: {
       true: {
         '&:hover': {
-          background: theme.colors.fillOverlayPrimayPressed
+          background: theme.colors.thirdaryPressed
         }
       }
     },
     selected: {
       true: {
-        background: theme.colors.backgroundOverlayThirdaryDarg,
+        background: theme.colors.secondaryDrag,
         borderColor: rgba(44, 91, 255, 0.04),
-        boxShadow: theme.shadows.treeSelected,
+        include: ['treeSelected'],
         '&:hover': {
-          background: theme.colors.backgroundOverlayThirdaryDarg,
-          borderColor: rgba(44, 91, 255, 0.04),
-          boxShadow: theme.shadows.treeSelected
+          include: ['treeSelected'],
+          background: theme.colors.secondaryDrag,
+          borderColor: rgba(44, 91, 255, 0.04)
         }
       }
     },

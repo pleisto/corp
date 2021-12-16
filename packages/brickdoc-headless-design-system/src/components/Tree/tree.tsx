@@ -38,11 +38,11 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
     openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value)
   )
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
-  const [collapsedIds, setCollapsedIds] = useState<string[]>([])
+  console.log(closeIds, 'closeIdscloseIdscloseIds')
 
   useEffect(() => {
     if (selectedNodeId) {
-      setCollapsedIds(findPathById(treeData, selectedNodeId, []))
+      setCloseIds(findPathById(treeData, selectedNodeId, []))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -50,7 +50,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
-      const collapsed = closeIds.includes(value) || collapsedIds.includes(value)
+      const collapsed = closeIds.includes(value)
 
       result.push({
         ...node,
@@ -65,7 +65,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
         }
       }
     },
-    [closeIds, collapsedIds]
+    [closeIds]
   )
 
   const renderTree = useMemo(() => {
@@ -81,7 +81,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
   const handleItemClick = useCallback(
     (node: TNode) =>
       node.collapsed ? setCloseIds(i => i.filter(value => value !== node.value)) : setCloseIds(i => [...i, node.value]),
-    []
+    [setCloseIds]
   )
 
   return (
