@@ -781,6 +781,9 @@ en-US:
         formula:
           title: Formula
           desc: Create a formula
+        canvas:
+          title: Canvas
+          desc: Create a canvas
         divider:
           title: Divider
           desc: Visually divide blocks

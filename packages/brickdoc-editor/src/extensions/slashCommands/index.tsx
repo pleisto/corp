@@ -125,6 +125,18 @@ const menuItems: SlashCommandsMenuItem[] = [
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setCodeBlock().run()
     }
+  },
+  {
+    key: 'canvas',
+    icon: <Icon.Formula className="menu-item-icon" />,
+    command: ({ editor, range }) => {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .setCanvasBlock(range.from - 1)
+        .run()
+    }
   }
 ]
 
