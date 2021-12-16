@@ -230,13 +230,22 @@ export interface Row {
 
 export interface DatabaseDefinition {
   blockId: NamespaceId
+  dynamic: boolean
   name: () => string
   listColumns: () => Column[]
   listRows: () => Row[]
 }
 
+export interface DatabasePersistence {
+  blockId: NamespaceId
+  tableName: string
+  columns: Column[]
+  rows: Row[]
+}
+
 export interface Database {
   blockId: NamespaceId
+  dynamic: boolean
   columnCount: () => number
   rowCount: () => number
   name: () => string
@@ -246,6 +255,7 @@ export interface Database {
   getColumn: (columnId: ColumnId) => Column | undefined
   toArray: () => string[][]
   toRecord: () => Array<{ [key: string]: any }>
+  persist: () => DatabasePersistence
 }
 
 export interface Argument {
@@ -325,7 +335,7 @@ export interface TestCase {
 
 export interface Example<T extends FormulaType> {
   readonly input: Definition
-  readonly output: BaseFunctionResult<T>
+  readonly output: BaseFunctionResult<T> | null
 }
 
 export interface ExampleWithCodeFragments<T extends FormulaType> extends Example<T> {

@@ -125,7 +125,9 @@ const COMPLETION_STYLE_META: {
                     editable={false}
                   />
                   <br />
-                  <span className="autocomplete-preview-example-result">={JSON.stringify(example.output.result)}</span>
+                  <span className="autocomplete-preview-example-result">
+                    ={JSON.stringify(example?.output?.result)}
+                  </span>
                 </div>
               ))}
             </div>

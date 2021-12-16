@@ -1,16 +1,32 @@
-import { Column, Database, DatabaseDefinition, NamespaceId, Row } from '..'
+import { Column, Database, DatabaseDefinition, DatabasePersistence, NamespaceId, Row } from '..'
 
 export class DatabaseFactory implements Database {
   blockId: NamespaceId
+  dynamic: boolean
+  persistence?: DatabasePersistence
   name: () => string
   listColumns: () => Column[]
   listRows: () => Row[]
 
-  constructor({ blockId, name, listColumns, listRows }: DatabaseDefinition) {
+  constructor({ blockId, name, listColumns, listRows, dynamic }: DatabaseDefinition) {
+    this.dynamic = dynamic
     this.blockId = blockId
     this.name = name
     this.listColumns = listColumns
     this.listRows = listRows
+
+    if (dynamic) {
+      this.persistence = this.persist()
+    }
+  }
+
+  persist(): DatabasePersistence {
+    return {
+      blockId: this.blockId,
+      tableName: this.name(),
+      columns: this.listColumns(),
+      rows: this.listRows()
+    }
   }
 
   columnCount(): number {

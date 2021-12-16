@@ -1766,7 +1766,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -2605,7 +2605,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
   Object {
     "code": "RParen",
@@ -2659,7 +2659,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;

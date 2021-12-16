@@ -547,7 +547,7 @@ Object {
                 "name": ")",
                 "spaceAfter": false,
                 "spaceBefore": true,
-                "type": "any",
+                "type": "number",
               },
             ],
             "input": "=ABS(-1)",

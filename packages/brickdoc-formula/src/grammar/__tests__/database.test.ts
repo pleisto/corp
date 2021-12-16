@@ -26,7 +26,7 @@ const columns: Column[] = [
     namespaceId: databaseNamespaceId,
     columnId: firstColumnId,
     spreadsheetName: 'MyTable',
-    type: 'foo',
+    type: 'text',
     name: 'first',
     index: 0,
     rows: tableData.map(row => row[firstColumnId])
@@ -35,7 +35,7 @@ const columns: Column[] = [
     namespaceId: databaseNamespaceId,
     columnId: secondColumnId,
     spreadsheetName: 'MyTable',
-    type: 'foo',
+    type: 'text',
     name: 'second',
     index: 1,
     rows: tableData.map(row => row[secondColumnId])
@@ -44,7 +44,7 @@ const columns: Column[] = [
     namespaceId: databaseNamespaceId,
     columnId: thirdColumnId,
     spreadsheetName: 'MyTable',
-    type: 'foo',
+    type: 'text',
     name: 'third',
     index: 2,
     rows: tableData.map(row => row[thirdColumnId])
@@ -53,6 +53,7 @@ const columns: Column[] = [
 
 const database: Database = new DatabaseFactory({
   name: () => 'MyTable',
+  dynamic: false,
   blockId: databaseNamespaceId,
   listColumns: () => columns,
   listRows: () => tableData

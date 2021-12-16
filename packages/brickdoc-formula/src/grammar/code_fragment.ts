@@ -1045,11 +1045,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return { codeFragments: [], type: 'any', image: '' }
     }
 
-    const rParenErrorMessages: ErrorMessage[] = ctx.RParen
-      ? []
-      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
-    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], 'any')] : []
-
     const names = ctx.FunctionName.map(({ image }) => image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
 
@@ -1076,6 +1071,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       spaceAfter: false,
       meta: undefined
     }
+
+    const rParenErrorMessages: ErrorMessage[] = ctx.RParen
+      ? []
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
+    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], clause ? clause.returns : 'any')] : []
 
     if (clause) {
       this.functionDependencies.push(clause)

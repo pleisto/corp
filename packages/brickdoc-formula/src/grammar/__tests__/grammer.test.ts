@@ -193,6 +193,10 @@ const testCases: TestCase[] = [
     value: []
   },
   {
+    input: '=[[]]',
+    value: [{ type: 'Array', result: [] }]
+  },
+  {
     input: '=[',
     parseErrorType: 'parse',
     errorMessage: 'Missing closing parenthesis'
@@ -233,8 +237,13 @@ const testCases: TestCase[] = [
     value: {}
   },
   {
-    input: '={"foo": 1, bar: "baz"}',
-    value: { foo: { type: 'number', result: 1 }, bar: { type: 'string', result: 'baz' } }
+    input: '={"foo": 1, bar: "baz", obj: {}, array: [1]}',
+    value: {
+      foo: { type: 'number', result: 1 },
+      bar: { type: 'string', result: 'baz' },
+      obj: { type: 'Record', result: {} },
+      array: { type: 'Array', result: [{ type: 'number', result: 1 }] }
+    }
   },
   {
     input: '={',

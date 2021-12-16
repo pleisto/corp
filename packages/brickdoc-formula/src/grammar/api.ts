@@ -20,7 +20,9 @@ import {
   ParseErrorType,
   CodeFragmentResult,
   ParseMode,
-  lexerByMode
+  lexerByMode,
+  DatabasePersistence,
+  DatabaseFactory
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -473,13 +475,31 @@ export const buildVariable = ({
   }
 }
 
+const parseCacheValue = (cacheValue: AnyTypeValue): AnyTypeValue => {
+  if (cacheValue.type === 'Spreadsheet' && cacheValue.result.dynamic) {
+    const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
+    return {
+      type: 'Spreadsheet',
+      result: new DatabaseFactory({
+        blockId,
+        dynamic: true,
+        name: () => tableName,
+        listColumns: () => columns,
+        listRows: () => rows
+      })
+    }
+  }
+
+  return cacheValue
+}
+
 export const castVariable = (
   formulaContext: ContextInterface,
   { name, definition, cacheValue, blockId, id, view }: Formula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
-  const castedValue: AnyTypeValue = cacheValue as unknown as AnyTypeValue
+  const castedValue: AnyTypeValue = parseCacheValue(cacheValue as unknown as AnyTypeValue)
   const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
   const {
     success,

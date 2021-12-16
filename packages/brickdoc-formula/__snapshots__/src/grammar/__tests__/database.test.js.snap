@@ -87,7 +87,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -179,7 +179,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -232,7 +232,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -285,7 +285,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -338,7 +338,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -400,7 +400,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -471,7 +471,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -524,7 +524,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -577,7 +577,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -669,7 +669,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -752,7 +752,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -817,7 +817,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -900,7 +900,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "string",
   },
 ]
 `;
@@ -983,7 +983,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "string",
   },
 ]
 `;
@@ -1066,7 +1066,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "string",
   },
 ]
 `;
@@ -1149,7 +1149,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "string",
   },
 ]
 `;
@@ -1394,7 +1394,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "Array",
   },
 ]
 `;
@@ -1520,7 +1520,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "Array",
   },
 ]
 `;
@@ -1567,7 +1567,7 @@ Array [
       "5",
     ],
     "spreadsheetName": "MyTable",
-    "type": "foo",
+    "type": "text",
   },
   Object {
     "columnId": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
@@ -1580,7 +1580,7 @@ Array [
       "6",
     ],
     "spreadsheetName": "MyTable",
-    "type": "foo",
+    "type": "text",
   },
   Object {
     "columnId": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
@@ -1593,7 +1593,7 @@ Array [
       "Foo",
     ],
     "spreadsheetName": "MyTable",
-    "type": "foo",
+    "type": "text",
   },
 ]
 `;
@@ -1676,6 +1676,7 @@ Object {
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
   "preview": DatabaseFactory {
     "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    "dynamic": false,
     "listColumns": [Function],
     "listRows": [Function],
     "name": [Function],
@@ -1757,7 +1758,7 @@ Object {
       "5",
     ],
     "spreadsheetName": "MyTable",
-    "type": "foo",
+    "type": "text",
   },
   "replacements": Array [
     "first",

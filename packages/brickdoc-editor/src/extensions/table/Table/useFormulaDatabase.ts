@@ -26,6 +26,7 @@ export function useFormulaDatabase(
 
     const database: Database = new DatabaseFactory({
       blockId,
+      dynamic: false,
       name: () => spreadsheetName,
       listColumns: () => columns,
       listRows: () => tableData
