@@ -18,30 +18,39 @@ const findPathById = (tree: TNode[], id: string, path?: string[]): string[] => {
   for (let i = 0; i < tree.length; i++) {
     const tempPath = [...(path ?? [])]
     tempPath.push(tree[i].value)
-    if (tree[i].value === id) {
-      return tempPath
-    }
+    if (tree[i].value === id) return tempPath
     if (tree[i].children) {
-      const reuslt = findPathById(tree[i].children, id, tempPath)
-      if (reuslt) {
-        return reuslt
-      }
+      const result = findPathById(tree[i].children, id, tempPath)
+      if (result) return result
     }
   }
+
+  // fallback
+  console.error('findPathById fallback -->', {
+    tree,
+    id,
+    path
+  })
+  return []
 }
 
 /** Tree
  * @example
  */
 const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode, selectedNodeId }) => {
-  const [closeIds, setCloseIds] = useState<string[]>(
-    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value)
+  const [openedIds, setOpenedIds] = useState<string[]>(
+    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value) || []
   )
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
 
   useEffect(() => {
     if (selectedNodeId) {
-      setCloseIds(findPathById(treeData, selectedNodeId, []))
+      console.log('setOpenedIds(findPathById):', {
+        findPathById: findPathById(treeData, selectedNodeId, []),
+        selectedNodeId,
+        selectedNodeIdInTreeData: treeData.filter(x => x.key === selectedNodeId)
+      })
+      setOpenedIds(findPathById(treeData, selectedNodeId, []))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -49,7 +58,8 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
-      const collapsed = closeIds.includes(value)
+      console.log('cypress debug', treeData, openedIds)
+      const collapsed = openedIds.includes(value)
 
       result.push({
         ...node,
@@ -64,7 +74,8 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
         }
       }
     },
-    [closeIds]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [openedIds]
   )
 
   const renderTree = useMemo(() => {
@@ -79,8 +90,10 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
 
   const handleItemClick = useCallback(
     (node: TNode) =>
-      node.collapsed ? setCloseIds(i => i.filter(value => value !== node.value)) : setCloseIds(i => [...i, node.value]),
-    [setCloseIds]
+      node.collapsed
+        ? setOpenedIds(i => i.filter(value => value !== node.value))
+        : setOpenedIds(i => [...i, node.value]),
+    [setOpenedIds]
   )
 
   return (
