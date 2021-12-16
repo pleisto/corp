@@ -1,12 +1,12 @@
-import { ContextInterface, StringResult, ObjectResult, BasicFunctionClause, AnyTypeResult } from '..'
+import { ContextInterface, StringResult, RecordResult, BasicFunctionClause, AnyTypeResult } from '..'
 
 export const T = (ctx: ContextInterface, obj: AnyTypeResult): AnyTypeResult => obj
 
 export const TYPE = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => ({ result: obj.type, type: 'string' })
 
-export const WITH_TYPE = (ctx: ContextInterface, obj: AnyTypeResult): ObjectResult => ({
+export const WITH_TYPE = (ctx: ContextInterface, obj: AnyTypeResult): RecordResult => ({
   result: obj,
-  type: 'Object'
+  type: 'Record'
 })
 
 export const toString = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => {

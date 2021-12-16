@@ -5,7 +5,7 @@ export * from './functions'
 export * from './context'
 
 type BasicType = 'number' | 'string' | 'boolean' | 'null'
-type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Object' | 'Array' | 'Error' | 'Predicate'
+type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Record' | 'Array' | 'Error' | 'Predicate'
 
 export type FormulaType = BasicType | ObjectType | 'any'
 
@@ -15,7 +15,7 @@ export type SpecialDefaultVariableName =
   | 'str'
   | 'num'
   | 'bool'
-  | 'obj'
+  | 'record'
   | 'array'
   | 'date'
   | 'column'
@@ -107,9 +107,9 @@ export interface ArrayResult extends BaseResult {
   type: 'Array'
 }
 
-export interface ObjectResult extends BaseResult {
+export interface RecordResult extends BaseResult {
   result: { [key: string]: any }
-  type: 'Object'
+  type: 'Record'
 }
 
 export interface DateResult extends BaseResult {
@@ -155,7 +155,7 @@ export type BaseFunctionResult<T> =
       | BooleanResult
       | StringResult
       | NullResult
-      | ObjectResult
+      | RecordResult
       | ArrayResult
       | DateResult
       | ColumnResult
@@ -170,7 +170,7 @@ export type AnyTypeResult =
   | BooleanResult
   | StringResult
   | NullResult
-  | ObjectResult
+  | RecordResult
   | ArrayResult
   | DateResult
   | ColumnResult
@@ -186,7 +186,7 @@ export type AnyFunctionResult<T> =
       | BooleanResult
       | StringResult
       | NullResult
-      | ObjectResult
+      | RecordResult
       | ArrayResult
       | DateResult
       | ColumnResult

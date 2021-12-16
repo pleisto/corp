@@ -10,7 +10,7 @@ import {
   StringResult,
   AnyTypeResult,
   ArrayResult,
-  ObjectResult
+  RecordResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 
@@ -32,8 +32,8 @@ export const toArray = (ctx: ContextInterface, { result: database }: Spreadsheet
 }
 
 // TODO
-export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ObjectResult => {
-  return { type: 'Object', result: {} }
+export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): RecordResult => {
+  return { type: 'Record', result: {} }
 }
 
 export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
@@ -264,13 +264,13 @@ const TO_ARRAY_CLAUSE: BasicFunctionClause<'Array'> = {
   reference: toArray
 }
 
-const TO_RECORD_CLAUSE: BasicFunctionClause<'Object'> = {
+const TO_RECORD_CLAUSE: BasicFunctionClause<'Record'> = {
   name: 'toRecord',
   async: false,
   pure: false,
   acceptError: false,
   effect: false,
-  examples: [{ input: '=123', output: { type: 'Object', result: {} } }],
+  examples: [{ input: '=123', output: { type: 'Record', result: {} } }],
   description: 'Converts the value to a record.',
   group: 'core',
   args: [
@@ -279,7 +279,7 @@ const TO_RECORD_CLAUSE: BasicFunctionClause<'Object'> = {
       type: 'Spreadsheet'
     }
   ],
-  returns: 'Object',
+  returns: 'Record',
   testCases: [],
   chain: true,
   reference: toRecord

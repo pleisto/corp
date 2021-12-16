@@ -662,7 +662,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         { name: '{', code: 'LBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined },
         { name: '}', code: 'RBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined }
       ],
-      type: 'Object',
+      type: 'Record',
       image: '{}'
     }
   }

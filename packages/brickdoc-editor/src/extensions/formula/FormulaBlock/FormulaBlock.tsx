@@ -39,7 +39,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     string: 4,
     boolean: 4,
     any: 6,
-    Object: 6,
+    Record: 6,
     Array: 6
   }
 
