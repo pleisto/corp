@@ -684,11 +684,25 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     if (ctx.recordField) {
       let commaIndex = 0
       let validExpressionCount = 0
+      const keyArray: string[] = []
 
       ctx.recordField.forEach((arg: CstNode | CstNode[], idx: number) => {
         const { codeFragments: fieldCodeFragments, image: fieldImage } = this.visit(arg, { type: childrenType })
+        let nameDuplicateErrors: ErrorMessage[] = []
+        if (fieldCodeFragments[0]) {
+          const str = fieldCodeFragments[0].name
+          const finalStr =
+            fieldCodeFragments[0].code === 'StringLiteral' ? str.substring(1, str.length - 1).replace(/""/g, '"') : str
+          if (keyArray.includes(finalStr)) {
+            nameDuplicateErrors = [{ message: 'Record key duplicated', type: 'syntax' }]
+          }
+          keyArray.push(finalStr)
+        }
+
         images.push(fieldImage)
-        codeFragments.push(...fieldCodeFragments)
+        codeFragments.push(
+          ...fieldCodeFragments.map((c: CodeFragment) => ({ ...c, errors: [...nameDuplicateErrors, ...c.errors] }))
+        )
 
         if (fieldCodeFragments.length > 0) {
           validExpressionCount += 1

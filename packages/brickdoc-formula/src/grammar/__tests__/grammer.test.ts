@@ -280,6 +280,16 @@ const testCases: TestCase[] = [
     input: '={"fo o": 123}',
     value: { 'fo o': { type: 'number', result: 123 } }
   },
+  {
+    input: '={a: 1, a: []}',
+    parseErrorType: 'syntax',
+    errorMessage: 'Record key duplicated'
+  },
+  {
+    input: '={a: 1, "a": 2}',
+    parseErrorType: 'syntax',
+    errorMessage: 'Record key duplicated'
+  },
   // Number Literal
   {
     input: '=123123',
