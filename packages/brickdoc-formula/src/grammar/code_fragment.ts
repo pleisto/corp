@@ -21,9 +21,10 @@ interface InterpreterConfig {
 const SpaceBeforeTypes = [
   'In',
   'ExactIn',
-  'Comma',
   'Semicolon',
   'RParen',
+  'RBracket',
+  'RBrace',
   'Plus',
   'Div',
   'Minus',
@@ -45,8 +46,11 @@ const SpaceAfterTypes = [
   'In',
   'ExactIn',
   'Comma',
+  'Colon',
   'Semicolon',
   'LParen',
+  'LBracket',
+  'LBrace',
   'Plus',
   'Div',
   'Minus',
@@ -656,24 +660,124 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  recordExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+  recordExpression(
+    ctx: { LBrace: IToken[]; RBrace: IToken[]; recordField: Array<CstNode | CstNode[]>; Comma: IToken[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    if (!ctx.LBrace) {
+      return { codeFragments: [], type: 'any', image: '' }
+    }
+
+    const images: string[] = []
+    const codeFragments: CodeFragment[] = []
+
+    images.push('{')
+    const rBraceErrorMessages: ErrorMessage[] = ctx.RBrace
+      ? []
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
+    codeFragments.push({ ...token2fragment(ctx.LBrace[0], 'any'), errors: rBraceErrorMessages })
+
+    const parentType = 'Record'
+    const childrenType = 'any'
+
+    let expressionMatchErrorMessages: ErrorMessage[] = []
+    if (ctx.recordField) {
+      let commaIndex = 0
+      let validExpressionCount = 0
+
+      ctx.recordField.forEach((arg: CstNode | CstNode[], idx: number) => {
+        const { codeFragments: fieldCodeFragments, image: fieldImage } = this.visit(arg, { type: childrenType })
+        images.push(fieldImage)
+        codeFragments.push(...fieldCodeFragments)
+
+        if (fieldCodeFragments.length > 0) {
+          validExpressionCount += 1
+        }
+
+        if (ctx.Comma?.[commaIndex]) {
+          codeFragments.push(token2fragment(ctx.Comma[commaIndex], 'any'))
+          commaIndex += 1
+          images.push(',')
+        }
+      })
+
+      if (validExpressionCount !== commaIndex + 1) {
+        expressionMatchErrorMessages = [{ message: 'Expression count mismatch', type: 'syntax' }]
+      }
+    }
+
+    if (ctx.RBrace) {
+      codeFragments.push(token2fragment(ctx.RBrace[0], 'any'))
+      images.push('}')
+    }
+
+    const { errorMessages, newType } = intersectType(type, parentType)
+
     return {
-      codeFragments: [
-        { name: '{', code: 'LBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined },
-        { name: '}', code: 'RBrace', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined }
-      ],
-      type: 'Record',
-      image: '{}'
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...errorMessages, ...codeFragment.errors, ...expressionMatchErrorMessages]
+      })),
+      type: newType,
+      image: images.join('')
     }
   }
 
-  recordField(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+  recordField(
+    ctx: {
+      Colon: IToken[]
+      FunctionName: IToken[]
+      StringLiteral: IToken[]
+      expression: CstNode | CstNode[]
+    },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    const images: string[] = []
+    const codeFragments: CodeFragment[] = []
+    let key: string
+    const missingColonErrors: ErrorMessage[] = ctx.Colon ? [] : [{ message: 'Missing colon', type: 'syntax' }]
+    if (ctx.FunctionName) {
+      key = ctx.FunctionName[0].image
+      codeFragments.push({
+        name: key,
+        code: ctx.FunctionName[0].tokenType.name,
+        errors: missingColonErrors,
+        meta: undefined,
+        spaceBefore: false,
+        spaceAfter: false,
+        type: 'any'
+      })
+    } else if (ctx.StringLiteral) {
+      key = ctx.StringLiteral[0].image
+      codeFragments.push({
+        name: key,
+        code: ctx.StringLiteral[0].tokenType.name,
+        errors: missingColonErrors,
+        meta: undefined,
+        spaceBefore: false,
+        spaceAfter: false,
+        type: 'any'
+      })
+    } else {
+      return { codeFragments: [], type: 'any', image: '' }
+    }
+    images.push(key)
+
+    if (ctx.Colon) {
+      images.push(':')
+      codeFragments.push(token2fragment(ctx.Colon[0], 'any'))
+    }
+
+    if (ctx.expression) {
+      const { codeFragments: expressionCodeFragments, image } = this.visit(ctx.expression, { type: 'any' })
+      images.push(image)
+      codeFragments.push(...expressionCodeFragments)
+    }
+
     return {
-      codeFragments: [
-        { name: ':', code: 'Colon', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined }
-      ],
+      codeFragments,
       type: 'any',
-      image: ':'
+      image: images.join('')
     }
   }
 

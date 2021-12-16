@@ -7,7 +7,7 @@ Array [
     "errors": Array [],
     "meta": undefined,
     "name": "[",
-    "spaceAfter": false,
+    "spaceAfter": true,
     "spaceBefore": false,
     "type": "any",
   },
@@ -26,7 +26,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -44,7 +44,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -62,7 +62,7 @@ Array [
     "meta": undefined,
     "name": "]",
     "spaceAfter": false,
-    "spaceBefore": false,
+    "spaceBefore": true,
     "type": "any",
   },
 ]
@@ -258,7 +258,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
 ]
@@ -309,7 +309,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -978,6 +978,39 @@ Array [
 ]
 `;
 
+exports[`Simple test case [TODO record number as key] ={1: "a"} // => ✗ 1`] = `
+Array [
+  Object {
+    "code": "LBrace",
+    "errors": Array [
+      Object {
+        "message": "Missing closing parenthesis",
+        "type": "syntax",
+      },
+    ],
+    "meta": undefined,
+    "name": "{",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "other",
+    "errors": Array [
+      Object {
+        "message": "TODO mismatch token recordExpression",
+        "type": "syntax",
+      },
+    ],
+    "meta": undefined,
+    "name": "1:\\"a\\"}",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+]
+`;
+
 exports[`Simple test case [Without number] = - // => ✗ 1`] = `
 Array [
   Object {
@@ -1004,7 +1037,7 @@ Array [
     "errors": Array [],
     "meta": undefined,
     "name": "[",
-    "spaceAfter": false,
+    "spaceAfter": true,
     "spaceBefore": false,
     "type": "any",
   },
@@ -1033,7 +1066,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1042,7 +1075,7 @@ Array [
     "meta": undefined,
     "name": "]",
     "spaceAfter": false,
-    "spaceBefore": false,
+    "spaceBefore": true,
     "type": "any",
   },
 ]
@@ -1367,7 +1400,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1403,7 +1436,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1829,7 +1862,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1847,7 +1880,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {

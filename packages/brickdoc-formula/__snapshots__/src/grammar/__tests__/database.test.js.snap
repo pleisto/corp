@@ -38,7 +38,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -59,7 +59,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -130,7 +130,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -151,7 +151,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -381,7 +381,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -443,7 +443,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -620,7 +620,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -641,7 +641,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -712,7 +712,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -733,7 +733,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -795,7 +795,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -857,7 +857,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -878,7 +878,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -940,7 +940,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -961,7 +961,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1023,7 +1023,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1044,7 +1044,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1106,7 +1106,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {
@@ -1127,7 +1127,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {

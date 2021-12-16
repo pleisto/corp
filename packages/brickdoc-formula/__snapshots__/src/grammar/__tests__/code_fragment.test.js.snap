@@ -2622,7 +2622,7 @@ Array [
     "meta": undefined,
     "name": ",",
     "spaceAfter": true,
-    "spaceBefore": true,
+    "spaceBefore": false,
     "type": "any",
   },
   Object {

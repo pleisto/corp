@@ -227,6 +227,50 @@ const testCases: TestCase[] = [
       { type: 'boolean', result: true }
     ]
   },
+  // Record
+  {
+    input: '={}',
+    value: {}
+  },
+  {
+    input: '={"foo": 1, bar: "baz"}',
+    value: { foo: { type: 'number', result: 1 }, bar: { type: 'string', result: 'baz' } }
+  },
+  {
+    input: '={',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '={a',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '={a: }',
+    parseErrorType: 'parse',
+    errorMessage: 'Expecting: one of these possible Token sequences'
+  },
+  {
+    input: '={a: 1',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '={1: "a"}',
+    parseErrorType: 'parse',
+    label: 'TODO record number as key',
+    errorMessage: 'Missing closing parenthesis'
+  },
+  {
+    input: '={"foo":}',
+    parseErrorType: 'parse',
+    errorMessage: 'Expecting: one of these possible Token sequences'
+  },
+  {
+    input: '={"fo o": 123}',
+    value: { 'fo o': { type: 'number', result: 123 } }
+  },
   // Number Literal
   {
     input: '=123123',

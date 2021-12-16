@@ -366,8 +366,10 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `#<Predicate> [${v.operator}] ${displayValue(v.result)}`
     case 'null':
       return '#<Null> null'
-    case 'Object':
-      return '#<Object> {}'
+    case 'Record':
+      return `#<Record> { ${Object.entries(v.result)
+        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeValue)}`)
+        .join(', ')} }`
     case 'Array':
       return `#<Array> [${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
   }

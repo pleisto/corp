@@ -471,11 +471,32 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   recordExpression(ctx: any): AnyTypeValue {
-    return { type: 'Record', result: {} }
+    if(!ctx.recordField) {
+      return { type: 'Record', result: {} }
+    }
+
+    const result: Record<string, AnyTypeValue> = {}
+    ctx.recordField.forEach((c: CstNode | CstNode[]) => {
+      const {key, value} = this.visit(c)
+      result[key] = value
+    })
+    return { type: 'Record', result }
   }
 
-  recordField(ctx: any): AnyTypeValue {
-    return { type: 'Record', result: {} }
+  recordField(ctx: any): {key: string, value: AnyTypeValue} {
+    let key: string
+    if(ctx.FunctionName) {
+       key = ctx.FunctionName[0].image
+    } else if(ctx.StringLiteral) {
+      const str = ctx.StringLiteral[0].image
+      key = str.substring(1, str.length - 1).replace(/""/g, '"')
+    } else {
+      throw new Error("unsupported record field")
+    }
+
+    const value = this.visit(ctx.expression)
+
+    return { key, value }
   }
 
   parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): AnyTypeValue {
