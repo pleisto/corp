@@ -137,7 +137,9 @@ const COMPLETION_STYLE_META: {
           </div>
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Value</div>
-            <span className="autocomplete-preview-output-tag">{preview.variableValue.result.result}</span>
+            <span className="autocomplete-preview-output-tag">
+              {JSON.stringify(preview.variableValue.result.result)}
+            </span>
           </div>
         </div>
       )
