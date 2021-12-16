@@ -72,11 +72,11 @@ export const Tokens = {
   /**
    * Error
    */
-  errorDefault: Palettes.scarlet6,
-  errorPressed: Palettes.scarlet9,
-  errorHover: Palettes.scarlet8,
-  errorBorder: Palettes.scarlet3,
-  errorBg: Palettes.scarlet2,
+  errorDefault: Palettes.red6,
+  errorPressed: Palettes.red9,
+  errorHover: Palettes.red8,
+  errorBorder: Palettes.red3,
+  errorBg: Palettes.red2,
 
   /**
    * Status
