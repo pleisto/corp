@@ -38,7 +38,6 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
     openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value)
   )
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
-  console.log(closeIds, 'closeIdscloseIdscloseIds')
 
   useEffect(() => {
     if (selectedNodeId) {
