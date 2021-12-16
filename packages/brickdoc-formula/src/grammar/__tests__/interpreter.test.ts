@@ -89,8 +89,8 @@ describe('Custom Function', () => {
     expect(functionDependencies).toMatchSnapshot()
   })
 
-  it('Today track', () => {
-    const input = '=TODAY()'
+  it('NOW track', () => {
+    const input = '=NOW()'
     const newMeta = { ...meta, input }
     const { success, cst, variableDependencies } = parse({
       ...parseInput,

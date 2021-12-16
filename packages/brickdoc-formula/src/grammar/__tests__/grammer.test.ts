@@ -631,7 +631,7 @@ but found: '*'`
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=ABS( TODAY() )',
+    input: '=ABS( NOW() )',
     parseErrorType: 'syntax',
     errorMessage: 'Expected number but got Date'
   },
