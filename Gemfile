@@ -2,9 +2,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 7.0.0.rc3'
+gem 'rails', '~> 7.0.0'
 gem 'pg', '~> 1.2.3'
-gem 'marginalia', '~> 1.11', '>= 1.11.1'
 gem 'puma', '~> 5.5'
 gem 'puma_worker_killer', '~> 0.3.1'
 gem 'hiredis', '~> 0.6.3'
@@ -18,7 +17,7 @@ gem 'oj'
 gem 'fast_blank', '>= 1.0.1', require: false
 gem 'fast_underscore', '>= 0.3.3', require: false
 gem 'actionview_precompiler'
-gem 'second_level_cache', '~> 2.6', '>= 2.6.4'
+# gem 'second_level_cache', '~> 2.6', '>= 2.6.4'
 gem 'packwerk', '~> 1.4'
 
 gem 'cloak-rb', '>= 0.1.0'
@@ -32,10 +31,10 @@ gem 'aws-sdk-s3', '~> 1', '>= 1.109.0'
 
 # Feature toggles
 gem 'flipper', '~> 0.22.2'
-gem 'flipper-active_record', '~> 0.22.2'
-gem 'flipper-active_support_cache_store', '~> 0.22.2'
+gem 'flipper-active_record', github: 'brickdoc/flipper'
+gem 'flipper-active_support_cache_store', github: 'brickdoc/flipper'
 
-gem 'default_value_for', '~> 3.4'
+gem 'default_value_for', github: 'brickdoc/default_value_for'
 
 # Sentry
 gem "sentry-ruby"
@@ -48,7 +47,7 @@ gem 'apollo_upload_server', '~> 2.1'
 gem 'graphql-batch', '~> 0.4.3'
 
 # Frontend
-gem 'vite_rails', '~> 3.0.1'
+gem 'vite_rails', '~> 3.0.2'
 
 ## IAM
 gem 'action_policy', '~> 0.6.0'

@@ -19,7 +19,7 @@
 class Accounts::FederatedIdentity < ApplicationRecord
   belongs_to :user, class_name: 'Accounts::User', foreign_key: :accounts_user_id
 
-  second_level_cache expires_in: 1.week
+  # second_level_cache expires_in: 1.week
 
   validates_presence_of :uid, :provider
   validates :uid, uniqueness: { scope: :provider }
