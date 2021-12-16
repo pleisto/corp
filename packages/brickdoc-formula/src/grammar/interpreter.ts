@@ -471,11 +471,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   recordExpression(ctx: any): AnyTypeValue {
-    return { type: 'Object', result: {} }
+    return { type: 'Record', result: {} }
   }
 
   recordField(ctx: any): AnyTypeValue {
-    return { type: 'Object', result: {} }
+    return { type: 'Record', result: {} }
   }
 
   parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): AnyTypeValue {

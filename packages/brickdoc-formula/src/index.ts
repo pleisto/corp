@@ -220,11 +220,12 @@ export interface Column {
   spreadsheetName: SpreadsheetName
   index: number
   type: string
+  rows: string[]
 }
 
 export interface Row {
   id: string
-  [key: string]: any
+  [key: string]: string
 }
 
 export interface DatabaseDefinition {
@@ -244,6 +245,7 @@ export interface Database {
   getRow: (rowId: uuid) => Row | undefined
   getColumn: (columnId: ColumnId) => Column | undefined
   toArray: () => string[][]
+  toRecord: () => Array<{ [key: string]: any }>
 }
 
 export interface Argument {

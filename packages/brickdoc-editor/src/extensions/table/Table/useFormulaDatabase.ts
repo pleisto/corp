@@ -20,7 +20,8 @@ export function useFormulaDatabase(
       name: column.Header as string,
       spreadsheetName,
       type: (column as any).columnType,
-      index: (column as any).index
+      index: (column as any).index,
+      rows: tableData.map(row => row[column.accessor as string])
     }))
 
     const database: Database = new DatabaseFactory({

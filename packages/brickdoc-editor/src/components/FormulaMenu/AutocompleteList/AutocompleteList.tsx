@@ -32,36 +32,55 @@ const COMPLETION_STYLE_META: {
   column: {
     Icon: <Icon.Table />,
     render: (completion: Completion, blockId: string) => {
-      const { preview, name, namespace, value } = completion as ColumnCompletion
+      const {
+        preview: { rows, name }
+      } = completion as ColumnCompletion
+      const borderStyle = { border: '1px solid' }
+
       return (
-        <div>
-          <ul>
-            <li>name: {preview.name}</li>
-            <li>blockId: {blockId}</li>
-            <li>name: {name}</li>
-            <li>namespace: {namespace}</li>
-            <li>value: {value}</li>
-          </ul>
-        </div>
+        <table style={{ ...borderStyle, height: '100%' }}>
+          <tbody>
+            <tr>
+              <th style={borderStyle}>{name}</th>
+            </tr>
+            {rows.map((o, idx) => (
+              <tr key={idx}>
+                <td style={borderStyle}>{o}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )
     }
   },
   spreadsheet: {
     Icon: <Icon.Table />,
     render: (completion: Completion, blockId: string) => {
-      const { preview, name, namespace, value } = completion as SpreadsheetCompletion
+      const { preview } = completion as SpreadsheetCompletion
+      const [header, ...body] = preview.toArray()
+      const borderStyle = { border: '1px solid' }
+
       return (
-        <div>
-          <ul>
-            <li>name(): {preview.name()}</li>
-            <li>column count: {preview.columnCount()}</li>
-            <li>row count: {preview.rowCount()}</li>
-            <li>blockId: {preview.blockId}</li>
-            <li>name: {name}</li>
-            <li>value: {value}</li>
-            <li>namespace: {namespace}</li>
-          </ul>
-        </div>
+        <table style={{ ...borderStyle, width: '100%', height: '100%' }}>
+          <tbody>
+            <tr>
+              {header.map((o, idx) => (
+                <th style={borderStyle} key={idx}>
+                  {o}
+                </th>
+              ))}
+            </tr>
+            {body.map((row, idx) => (
+              <tr key={idx}>
+                {row.map((o, rowIdx) => (
+                  <td style={borderStyle} key={rowIdx}>
+                    {o}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )
     }
   },

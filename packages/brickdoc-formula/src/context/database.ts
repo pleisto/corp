@@ -39,7 +39,24 @@ export class DatabaseFactory implements Database {
     rows.forEach(row => {
       const rowData: string[] = []
       columns.forEach(col => {
-        rowData.push(String(row[col.columnId]))
+        rowData.push(row[col.columnId] || '')
+      })
+      result.push(rowData)
+    })
+
+    return result
+  }
+
+  toRecord(): Array<{ [key: string]: string }> {
+    const columns: Column[] = this.listColumns()
+    const rows: Row[] = this.listRows()
+
+    const result: Array<{ [key: string]: string }> = []
+
+    rows.forEach(row => {
+      const rowData: { [key: string]: string } = {}
+      columns.forEach(col => {
+        rowData[col.name] = row[col.columnId] || ''
       })
       result.push(rowData)
     })

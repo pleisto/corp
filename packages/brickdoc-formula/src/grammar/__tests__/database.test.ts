@@ -17,9 +17,9 @@ const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 const meta = { namespaceId, variableId, name: 'example' }
 
 const tableData: Row[] = [
-  { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', [thirdColumnId]: '3', sort: 100 },
-  { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', [thirdColumnId]: '', sort: 100 },
-  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', [thirdColumnId]: 'Foo', sort: 100 }
+  { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', [thirdColumnId]: '3', sort: '100' },
+  { id: secondRowId, [firstColumnId]: '3', [secondColumnId]: '4', [thirdColumnId]: '', sort: '100' },
+  { id: thirdRowId, [firstColumnId]: '5', [secondColumnId]: '6', [thirdColumnId]: 'Foo', sort: '100' }
 ]
 const columns: Column[] = [
   {
@@ -28,7 +28,8 @@ const columns: Column[] = [
     spreadsheetName: 'MyTable',
     type: 'foo',
     name: 'first',
-    index: 0
+    index: 0,
+    rows: tableData.map(row => row[firstColumnId])
   },
   {
     namespaceId: databaseNamespaceId,
@@ -36,7 +37,8 @@ const columns: Column[] = [
     spreadsheetName: 'MyTable',
     type: 'foo',
     name: 'second',
-    index: 1
+    index: 1,
+    rows: tableData.map(row => row[secondColumnId])
   },
   {
     namespaceId: databaseNamespaceId,
@@ -44,7 +46,8 @@ const columns: Column[] = [
     spreadsheetName: 'MyTable',
     type: 'foo',
     name: 'third',
-    index: 2
+    index: 2,
+    rows: tableData.map(row => row[thirdColumnId])
   }
 ]
 
@@ -67,6 +70,7 @@ const testCases: TestCase[] = [
   { label: 'column', input: `=$${databaseNamespaceId}#${firstColumnId}`, value: columns[0] },
   { label: 'in database true', input: `=3 in $${databaseNamespaceId}`, value: true },
   { label: 'toArray', input: `=$${databaseNamespaceId}.toArray()`, value: SNAPSHOT_FLAG },
+  { label: 'toRecord', input: `=$${databaseNamespaceId}.toRecord()`, value: SNAPSHOT_FLAG },
   { label: 'in database false', input: `=4 in $${databaseNamespaceId}`, value: false },
   { label: 'in column true', input: `=3 in $${databaseNamespaceId}#${secondColumnId}`, value: false },
   { label: 'in column false', input: `=4 in $${databaseNamespaceId}#${secondColumnId}`, value: true },
@@ -159,6 +163,7 @@ describe('Database Functions', () => {
     expect(database.listColumns()).toMatchSnapshot()
     expect(database.listRows()).toMatchSnapshot()
     expect(database.toArray()).toMatchSnapshot()
+    expect(database.toRecord()).toMatchSnapshot()
   })
 
   it('completion', () => {

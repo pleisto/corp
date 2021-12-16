@@ -9,8 +9,7 @@ import {
   PredicateFunction,
   StringResult,
   AnyTypeResult,
-  ArrayResult,
-  RecordResult
+  ArrayResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 
@@ -24,6 +23,7 @@ export const SUM = (ctx: ContextInterface, { result: column }: ColumnResult): Nu
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
 }
 
+// TODO ... result type???
 export const toArray = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ArrayResult => {
   return {
     type: 'Array',
@@ -31,9 +31,8 @@ export const toArray = (ctx: ContextInterface, { result: database }: Spreadsheet
   }
 }
 
-// TODO
-export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): RecordResult => {
-  return { type: 'Record', result: {} }
+export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ArrayResult => {
+  return { type: 'Array', result: database.toRecord().map(row => ({ type: 'Record', result: row })) }
 }
 
 export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
@@ -264,13 +263,13 @@ const TO_ARRAY_CLAUSE: BasicFunctionClause<'Array'> = {
   reference: toArray
 }
 
-const TO_RECORD_CLAUSE: BasicFunctionClause<'Record'> = {
+const TO_RECORD_CLAUSE: BasicFunctionClause<'Array'> = {
   name: 'toRecord',
   async: false,
   pure: false,
   acceptError: false,
   effect: false,
-  examples: [{ input: '=123', output: { type: 'Record', result: {} } }],
+  examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
   description: 'Converts the value to a record.',
   group: 'core',
   args: [
@@ -279,7 +278,7 @@ const TO_RECORD_CLAUSE: BasicFunctionClause<'Record'> = {
       type: 'Spreadsheet'
     }
   ],
-  returns: 'Record',
+  returns: 'Array',
   testCases: [],
   chain: true,
   reference: toRecord

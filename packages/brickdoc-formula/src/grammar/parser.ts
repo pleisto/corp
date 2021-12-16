@@ -209,7 +209,7 @@ export class FormulaParser extends CstParser {
   })
 
   public recordField = this.RULE('recordField', () => {
-    this.CONSUME(StringLiteral)
+    this.OR([{ ALT: () => this.CONSUME(StringLiteral) }, { ALT: () => this.CONSUME(FunctionName) }])
     this.CONSUME(Colon)
     this.SUBRULE(this.expression)
   })
