@@ -169,7 +169,12 @@ export const parse = ({
       newInput = input
         .slice(0, input.length - image.length - 1)
         .concat(currentCompletion.value)
-        .concat(endChar)
+
+      if (firstReplacement && endChar === '(') {
+        // console.log()
+      } else {
+        newInput = newInput.concat(endChar)
+      }
 
       lexResult = lexer.tokenize(newInput)
       tokens = lexResult.tokens
