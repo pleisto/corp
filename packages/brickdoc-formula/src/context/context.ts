@@ -132,12 +132,13 @@ export class FormulaContext implements ContextInterface {
       const weight: number = this.functionWeights[key as FunctionKey] || 0
       return function2completion(f, weight)
     })
-    const variables: VariableCompletion[] = Object.entries(this.context)
-      .filter(([key, c]) => c.t.variableId !== variableId)
-      .map(([key, v]) => {
-        const weight: number = this.variableWeights[key as VariableKey] || 0
-        return variable2completion(v, v.t.namespaceId === namespaceId ? weight + 1 : weight - 1)
-      })
+    const completionVariables: Array<[string, VariableInterface]> = Object.entries(this.context).filter(
+      ([key, c]) => c.t.variableId !== variableId
+    )
+    const variables: VariableCompletion[] = completionVariables.map(([key, v]) => {
+      const weight: number = this.variableWeights[key as VariableKey] || 0
+      return variable2completion(v, v.t.namespaceId === namespaceId ? weight + 1 : weight - 1)
+    })
     const spreadsheets: SpreadsheetCompletion[] = Object.entries(this.databases).map(([key, database]) => {
       return database2completion(database)
     })
@@ -145,7 +146,17 @@ export class FormulaContext implements ContextInterface {
     const columns: ColumnCompletion[] = Object.entries(this.databases).flatMap(([key, database]) => {
       return database.listColumns().map(column => column2completion(column))
     })
-    return [...functions, ...variables, ...spreadsheets, ...columns].sort((a, b) => b.weight - a.weight)
+
+    const dynamicColumns: ColumnCompletion[] = completionVariables
+      .filter(([key, v]) => {
+        return v.t.variableValue.result.type === 'Spreadsheet' && v.t.variableValue.result.result.dynamic
+      })
+      .flatMap(([key, v]) => {
+        return v.t.variableValue.result.result.listColumns().map((column: Column) => column2completion(column))
+      })
+    return [...functions, ...variables, ...spreadsheets, ...columns, ...dynamicColumns].sort(
+      (a, b) => b.weight - a.weight
+    )
   }
 
   public getDefaultVariableName = (namespaceId: NamespaceId, type: FormulaType): DefaultVariableName => {

@@ -13,7 +13,8 @@ import {
   DatabaseFactory,
   DatabaseDefinition,
   Column,
-  Row
+  Row,
+  RecordResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 import { v4 as uuid } from 'uuid'
@@ -41,16 +42,54 @@ export const toRecord = (ctx: ContextInterface, { result: database }: Spreadshee
 }
 
 export const Table = (ctx: ContextInterface, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
-  // const input = [
-  //   { a: 1, b: 2 },
-  //   { a: 3, b: 4 }
-  // ]
+  const defaultData: RecordResult[] = [
+    { type: 'Record', result: { Column1: { type: 'string', result: 1 }, Column2: { type: 'string', result: 2 } } },
+    { type: 'Record', result: { Column1: { type: 'string', result: 3 }, Column2: { type: 'string', result: 4 } } }
+  ]
+
+  const recordData: RecordResult[] = result.length ? (result as RecordResult[]) : defaultData
+
+  const nonRecordElement = recordData.find(e => e.type !== 'Record')
+  if (nonRecordElement) {
+    return { type: 'Error', result: 'Table must be an array of records', errorKind: 'runtime' }
+  }
 
   const blockId = uuid()
   const tableName = 'Dynamic'
-
   const columns: Column[] = []
   const rows: Row[] = []
+
+  if (recordData.length) {
+    const data = recordData.map(e => e.result)
+    const keys = Object.keys(data[0])
+    const keyWithIds = keys.map(key => ({ key, uuid: uuid() }))
+
+    columns.push(
+      ...keys.map((key, index) => ({
+        namespaceId: blockId,
+        columnId: keyWithIds.find(k => k.key === key)!.uuid,
+        name: key,
+        index,
+        spreadsheetName: tableName,
+        type: 'text',
+        rows: data.map(e => String(e[key].result || ''))
+      }))
+    )
+
+    rows.push(
+      ...data.map(source => {
+        const row: Row = { id: uuid() }
+
+        keyWithIds.forEach(({ key, uuid }) => {
+          row[uuid] = String(source[key].result || '')
+        })
+
+        return row
+      })
+    )
+  }
+
+  // console.log({ recordData, rows, columns })
 
   const databaseDefinition: DatabaseDefinition = {
     blockId,

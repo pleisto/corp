@@ -822,6 +822,486 @@ Array [
 ]
 `;
 
+exports[`Database Functions [Table] =Table([]).toArray() 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Table",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "toArray",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Array",
+  },
+]
+`;
+
+exports[`Database Functions [Table] =Table([]).toArray() 2`] = `
+Array [
+  Object {
+    "result": Array [
+      Object {
+        "result": "Column1",
+        "type": "string",
+      },
+      Object {
+        "result": "Column2",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+  Object {
+    "result": Array [
+      Object {
+        "result": "1",
+        "type": "string",
+      },
+      Object {
+        "result": "2",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+  Object {
+    "result": Array [
+      Object {
+        "result": "3",
+        "type": "string",
+      },
+      Object {
+        "result": "4",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+]
+`;
+
+exports[`Database Functions [Table] =Table([{a: 1}, {a: 2}]).toArray() 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Table",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBrace",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "{",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "FunctionName",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Colon",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ":",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RBrace",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "}",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBrace",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "{",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "FunctionName",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Colon",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ":",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "2",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RBrace",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "}",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "toArray",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Array",
+  },
+]
+`;
+
+exports[`Database Functions [Table] =Table([{a: 1}, {a: 2}]).toArray() 2`] = `
+Array [
+  Object {
+    "result": Array [
+      Object {
+        "result": "a",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+  Object {
+    "result": Array [
+      Object {
+        "result": "1",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+  Object {
+    "result": Array [
+      Object {
+        "result": "2",
+        "type": "string",
+      },
+    ],
+    "type": "Array",
+  },
+]
+`;
+
+exports[`Database Functions [Table] =Table([1,2,3]).toArray() 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Table",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "2",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "3",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "toArray",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Array",
+  },
+]
+`;
+
+exports[`Database Functions [Table] =Table([1,2,3]).toArray() 2`] = `"Table must be an array of records"`;
+
 exports[`Database Functions [VLOOKUP Column check] =VLOOKUP("", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
 Array [
   Object {
