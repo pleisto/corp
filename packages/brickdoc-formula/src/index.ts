@@ -227,16 +227,23 @@ export interface Row {
   [key: string]: any
 }
 
+export interface DatabaseDefinition {
+  blockId: NamespaceId
+  name: () => string
+  listColumns: () => Column[]
+  listRows: () => Row[]
+}
+
 export interface Database {
   blockId: NamespaceId
   columnCount: () => number
   rowCount: () => number
   name: () => string
-  _data: () => any
   listColumns: () => Column[]
   listRows: () => Row[]
   getRow: (rowId: uuid) => Row | undefined
   getColumn: (columnId: ColumnId) => Column | undefined
+  toArray: () => string[][]
 }
 
 export interface Argument {

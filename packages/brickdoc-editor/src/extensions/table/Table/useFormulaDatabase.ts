@@ -1,4 +1,4 @@
-import { ContextInterface, Database, Column as ColumnType } from '@brickdoc/formula'
+import { ContextInterface, Database, Column as ColumnType, DatabaseFactory } from '@brickdoc/formula'
 import React from 'react'
 import { Column } from 'react-table'
 import { DatabaseRows } from '..'
@@ -23,21 +23,12 @@ export function useFormulaDatabase(
       index: (column as any).index
     }))
 
-    const database: Database = {
+    const database: Database = new DatabaseFactory({
       blockId,
       name: () => spreadsheetName,
-      columnCount: () => columns.length,
-      rowCount: () => tableData.length,
-      _data: () => ({
-        tableData,
-        columns,
-        tableColumns
-      }),
       listColumns: () => columns,
-      listRows: () => tableData,
-      getColumn: columnId => columns.find(col => col.columnId === columnId),
-      getRow: rowId => tableData.find(row => row.rowId === rowId)
-    }
+      listRows: () => tableData
+    })
 
     formulaContext?.setDatabase(blockId, database)
 

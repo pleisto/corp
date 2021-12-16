@@ -8,7 +8,9 @@ import {
   PredicateResult,
   PredicateFunction,
   StringResult,
-  AnyTypeResult
+  AnyTypeResult,
+  ArrayResult,
+  ObjectResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 
@@ -20,6 +22,18 @@ export const SUM = (ctx: ContextInterface, { result: column }: ColumnResult): Nu
 
   const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
+}
+
+export const toArray = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ArrayResult => {
+  return {
+    type: 'Array',
+    result: database.toArray().map(row => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
+  }
+}
+
+// TODO
+export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ObjectResult => {
+  return { type: 'Object', result: {} }
 }
 
 export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
@@ -229,6 +243,48 @@ const VLOOKUP_CLAUSE: BasicFunctionClause<'string'> = {
   reference: VLOOKUP
 }
 
+const TO_ARRAY_CLAUSE: BasicFunctionClause<'Array'> = {
+  name: 'toArray',
+  async: false,
+  pure: false,
+  acceptError: false,
+  effect: false,
+  examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
+  description: 'Converts the value to an array.',
+  group: 'core',
+  args: [
+    {
+      name: 'database',
+      type: 'Spreadsheet'
+    }
+  ],
+  returns: 'Array',
+  testCases: [],
+  chain: true,
+  reference: toArray
+}
+
+const TO_RECORD_CLAUSE: BasicFunctionClause<'Object'> = {
+  name: 'toRecord',
+  async: false,
+  pure: false,
+  acceptError: false,
+  effect: false,
+  examples: [{ input: '=123', output: { type: 'Object', result: {} } }],
+  description: 'Converts the value to a record.',
+  group: 'core',
+  args: [
+    {
+      name: 'database',
+      type: 'Spreadsheet'
+    }
+  ],
+  returns: 'Object',
+  testCases: [],
+  chain: true,
+  reference: toRecord
+}
+
 const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   {
     name: 'SUM',
@@ -436,4 +492,9 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   }
 ]
 
-export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<any>> = [VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]
+export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<any>> = [
+  TO_ARRAY_CLAUSE,
+  TO_RECORD_CLAUSE,
+  VLOOKUP_CLAUSE,
+  ...NUMBER_CLAUSES
+]
