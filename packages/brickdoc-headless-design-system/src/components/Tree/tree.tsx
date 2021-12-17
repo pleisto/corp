@@ -24,13 +24,6 @@ const findPathById = (tree: TNode[], id: string, path?: string[]): string[] => {
       if (result) return result
     }
   }
-
-  // fallback
-  console.error('findPathById fallback -->', {
-    tree,
-    id,
-    path
-  })
   return []
 }
 
@@ -45,12 +38,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
 
   useEffect(() => {
     if (selectedNodeId) {
-      console.log('setOpenedIds(findPathById):', {
-        findPathById: findPathById(treeData, selectedNodeId, []),
-        selectedNodeId,
-        selectedNodeIdInTreeData: treeData.filter(x => x.key === selectedNodeId)
-      })
-      setOpenedIds(findPathById(treeData, selectedNodeId, []))
+      setOpenedIds(findPathById(treeData, selectedNodeId, openedIds))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -58,7 +46,6 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
   const flattened = useCallback(
     (node, indent: number, result: TNode[]) => {
       const { children, value } = node
-      console.log('cypress debug', treeData, openedIds)
       const collapsed = openedIds.includes(value)
 
       result.push({
