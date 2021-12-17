@@ -3,7 +3,8 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 describe('tableBlock', () => {
   beforeEach(() => {
     cy.sessionMock({ email: 'cypress@brickdoc.com' })
-    cy.visit('/')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
     cy.addBlock('table')
   })
 
