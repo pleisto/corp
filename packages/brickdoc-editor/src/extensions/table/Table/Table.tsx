@@ -29,6 +29,7 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { useFormulaDatabase } from './useFormulaDatabase'
 import { useTableRows } from './useTableRows'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
+import { BlockTableLoaded, BrickdocEventBus } from '@brickdoc/schema'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean =>
   headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
@@ -135,6 +136,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
     if (!fetched.current) {
       void fetchRows(parentId)
       fetched.current = true
+      BrickdocEventBus.dispatch(BlockTableLoaded({ id: parentId }))
     }
   }, [fetchRows, parentId])
 
@@ -200,8 +202,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
         container?.classList.add('table-block-node-view-wrapper')
-      }}
-    >
+      }}>
       {contextHolder}
       {fetched.current && (
         <TableToolbar
@@ -232,8 +233,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
                 <div
                   {...headerGroupProps}
                   style={{ ...headerGroupProps.style, display: 'inline-flex' }}
-                  key={headerGroupProps.key}
-                >
+                  key={headerGroupProps.key}>
                   {headerGroup.headers.map(column => {
                     const headerProps = column.getHeaderProps(headerPropsGetter)
                     const resizerProps: any = {
@@ -271,8 +271,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
                         onColumnTypeChange={type => {
                           void handleColumnTypeChange(type, column.parent?.id ?? '', column.id)
                         }}
-                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}
-                      >
+                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
                         {Header}
                       </ColumnMenu>
                     )

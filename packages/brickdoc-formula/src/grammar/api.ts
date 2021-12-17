@@ -473,7 +473,7 @@ export const buildVariable = ({
     oldVariable.t = t
     return oldVariable
   } else {
-    return new VariableClass({ t, backendActions: formulaContext.backendActions })
+    return new VariableClass({ t, formulaContext })
   }
 }
 
@@ -567,7 +567,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: Formu
       const variable = castVariable(formulaContext, formula)
 
       void formulaContext.commitVariable({
-        variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions }),
+        variable: new VariableClass({ t: variable, formulaContext }),
         skipCreate: true
       })
     })
@@ -620,6 +620,6 @@ export const quickInsert = async ({
   }
   // return new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
   void (await formulaContext.commitVariable({
-    variable: new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
+    variable: new VariableClass({ t: variable, formulaContext })
   }))
 }

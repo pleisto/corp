@@ -1,5 +1,4 @@
 import {
-  BackendActions,
   ContextInterface,
   interpret,
   VariableUpdateHandler,
@@ -10,13 +9,15 @@ import {
 
 export class VariableClass implements VariableInterface {
   t: VariableData
+  formulaContext: ContextInterface
   updateHandler: VariableUpdateHandler | undefined
-  backendActions: BackendActions | undefined
 
-  constructor({ t, backendActions }: { t: VariableData; backendActions?: BackendActions }) {
+  constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
-    this.backendActions = backendActions
+    this.formulaContext = formulaContext
   }
+
+  public namespaceName = () => this.formulaContext.blockNameMap[this.t.namespaceId] || 'Untitled'
 
   public meta = (): VariableMetadata => {
     return {
@@ -32,14 +33,14 @@ export class VariableClass implements VariableInterface {
   }
 
   public invokeBackendCreate = async (): Promise<void> => {
-    if (this.backendActions) {
-      await this.backendActions.createVariable(this)
+    if (this.formulaContext.backendActions) {
+      await this.formulaContext.backendActions.createVariable(this)
     }
   }
 
   public invokeBackendUpdate = async (): Promise<void> => {
-    if (this.backendActions) {
-      await this.backendActions.updateVariable(this)
+    if (this.formulaContext.backendActions) {
+      await this.formulaContext.backendActions.updateVariable(this)
     }
   }
 
@@ -49,8 +50,12 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  public refresh = async (formulaContext: ContextInterface): Promise<void> => {
-    const { variableValue } = await interpret({ cst: this.t.cst, formulaContext, meta: this.meta() })
+  public refresh = async (): Promise<void> => {
+    const { variableValue } = await interpret({
+      cst: this.t.cst,
+      formulaContext: this.formulaContext,
+      meta: this.meta()
+    })
 
     this.t = { ...this.t, variableValue }
     this.afterUpdate()

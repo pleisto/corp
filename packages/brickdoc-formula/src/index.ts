@@ -286,7 +286,7 @@ export interface VariableCompletion extends BaseCompletion {
   readonly kind: 'variable'
   readonly namespace: BlockName
   readonly value: VariableKey
-  readonly preview: VariableData
+  readonly preview: VariableInterface
 }
 
 export interface ColumnCompletion extends BaseCompletion {
@@ -307,6 +307,7 @@ export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCo
 
 export interface ContextInterface {
   databases: { [key: NamespaceId]: Database }
+  blockNameMap: { [key: NamespaceId]: string }
   reservedNames: string[]
   backendActions: BackendActions | undefined
   variableCount: () => number
@@ -345,8 +346,8 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
 export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionName
   readonly pure: boolean
-  readonly effect: boolean
-  readonly async: boolean
+  readonly effect: false
+  readonly async: false
   readonly chain: boolean
   readonly acceptError: boolean
   readonly description: string
@@ -471,13 +472,13 @@ export interface VariableMetadata {
 
 export interface VariableInterface {
   t: VariableData
-  backendActions: BackendActions | undefined
+  namespaceName: () => string
   meta: () => VariableMetadata
   onUpdate: (handler: VariableUpdateHandler) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void
-  refresh: (formulaContext: ContextInterface) => Promise<void>
+  refresh: () => Promise<void>
 }
 
 export interface BackendActions {

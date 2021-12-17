@@ -57,9 +57,9 @@ export const variable2completion = (variable: VariableInterface, weight: number)
     replacements: [variable.t.name],
     weight,
     name: variable.t.name,
-    namespace: variable.t.namespaceId,
+    namespace: variable.namespaceName(),
     value: variableKey(variable.t.namespaceId, variable.t.variableId),
-    preview: variable.t
+    preview: variable
   }
 }
 

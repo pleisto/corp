@@ -1021,7 +1021,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...variableFragment,
             code: 'Variable',
             type: newType,
-            meta: { name: variable.t.name, namespace: variable.t.namespaceId, namespaceId: variable.t.namespaceId },
+            meta: { name: variable.t.name, namespace: variable.namespaceName(), namespaceId: variable.t.namespaceId },
             name: `$${namespaceId}@${variableId}`,
             errors: errorMessages
           }

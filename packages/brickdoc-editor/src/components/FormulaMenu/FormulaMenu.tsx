@@ -249,9 +249,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       case 'variable':
         attrs = {
           meta: {
-            name: currentCompletion.preview.name,
-            namespaceId: currentCompletion.preview.namespaceId,
-            namespace: currentCompletion.preview.namespaceId
+            name: currentCompletion.preview.t.name,
+            namespaceId: currentCompletion.preview.t.namespaceId,
+            namespace: currentCompletion.preview.namespaceName()
           },
           errors: [],
           name: value,

@@ -36,6 +36,7 @@ import {
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, lexerByMode } from '../grammar'
+import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
@@ -72,6 +73,7 @@ export class FormulaContext implements ContextInterface {
   functionWeights: { [key: FunctionKey]: number } = {}
   variableWeights: { [key: VariableKey]: number } = {}
   databases: { [key: NamespaceId]: Database } = {}
+  blockNameMap: { [key: NamespaceId]: string } = {}
   variableNameCounter: { [key in FormulaType]: { [n: NamespaceId]: number } } = {
     string: {},
     number: {},
@@ -233,8 +235,34 @@ export class FormulaContext implements ContextInterface {
   // TODO flattenVariableDependencies
   // TODO update level
   public trackDependency = ({
-    t: { variableDependencies, namespaceId, variableId, functionDependencies }
+    t: {
+      variableDependencies,
+      variableValue: { result },
+      namespaceId,
+      variableId,
+      functionDependencies
+    }
   }: VariableInterface): void => {
+    BrickdocEventBus.subscribe(
+      BlockNameLoad,
+      e => {
+        this.blockNameMap[namespaceId] = e.payload.name
+      },
+      { eventId: namespaceId, subscribeId: 'formula' }
+    )
+
+    // console.log('result', { result, namespaceId, variableId })
+    // if (result.type === 'Spreadsheet' && !result.result.dynamic) {
+    //   console.log('spreadsheet', { result })
+    //   BrickdocEventBus.subscribe(
+    //     BlockTableLoaded,
+    //     e => {
+    //       console.log('tableLoad', { e })
+    //     },
+    //     { eventId: result.result.blockId, subscribeId: 'formula' }
+    //   )
+    // }
+
     variableDependencies?.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
       this.reverseVariableDependencies[dependencyKey] ||= []
@@ -258,7 +286,7 @@ export class FormulaContext implements ContextInterface {
     void variable.afterUpdate()
     const dependencyKey = variableKey(variable.t.namespaceId, variable.t.variableId)
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
-      void this.context[variableKey(namespaceId, variableId)]!.refresh(this)
+      void this.context[variableKey(namespaceId, variableId)]!.refresh()
     })
   }
 
