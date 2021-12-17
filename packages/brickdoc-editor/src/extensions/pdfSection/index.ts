@@ -24,9 +24,9 @@ export const PdfSectionExtension = Node.create<PdfSectionOptions>({
 
   group: 'block',
 
-  atom: true,
-
   selectable: false,
+
+  allowGapCursor: false,
 
   addAttributes() {
     return {

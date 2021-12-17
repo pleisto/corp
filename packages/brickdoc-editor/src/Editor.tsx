@@ -1,5 +1,9 @@
 import React from 'react'
-import { useEditor as useTiptapEditor, EditorContent as TiptapEditorContent, Editor as TiptapEditor } from '@tiptap/react'
+import {
+  useEditor as useTiptapEditor,
+  EditorContent as TiptapEditorContent,
+  Editor as TiptapEditor
+} from '@tiptap/react'
 import { EditorOptions as TiptapEditorOptions } from '@tiptap/core'
 import Placeholder from '@tiptap/extension-placeholder'
 import UniqueID from '@tiptap/extension-unique-id'
@@ -18,8 +22,6 @@ import {
 import './styles.less'
 import { useEditorI18n } from './hooks'
 import { EditorDataSource, EditorDataSourceContext } from './dataSource/DataSource'
-
-export type { ImageSectionAttributes } from './extensions'
 
 export { useEditorI18n }
 
@@ -69,7 +71,9 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
 
   return useTiptapEditor({
     extensions: [
-      BasicRichtextExtension,
+      BasicRichtextExtension.configure({
+        gapcursor: false
+      }),
       EventHandlerExtension,
       SlashCommandsExtension,
       MentionCommandsExtension.configure({
