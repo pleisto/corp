@@ -44,9 +44,10 @@ module Brickdoc
 
     config.before_initialize do
       ActiveSupport::Inflector.inflections do |inflect|
-        Packwerk::Inflections::Custom.new(
-          Rails.root.join('config', 'inflections.yml')
-        ).apply_to(inflect)
+        inflect.acronym 'GraphQL'
+        inflect.acronym 'UUID'
+        inflect.acronym 'ID'
+        inflect.acronym 'SaaS'
       end
 
       loader = Zeitwerk::Loader.new

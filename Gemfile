@@ -17,8 +17,8 @@ gem 'oj'
 gem 'fast_blank', '>= 1.0.1', require: false
 gem 'fast_underscore', '>= 0.3.3', require: false
 gem 'actionview_precompiler'
-# gem 'second_level_cache', '~> 2.6', '>= 2.6.4'
-gem 'packwerk', '~> 1.4'
+gem 'second_level_cache', '~> 2.7'
+gem 'packwerk', '~> 2.0'
 
 gem 'cloak-rb', '>= 0.1.0'
 gem 'lockbox', '>= 0.6.6'
@@ -56,7 +56,8 @@ gem 'devise', github: 'brickdoc/devise'
 gem 'devise-async', '~> 1.0.0'
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
-gem 'cityhash', '~> 0.9.0'
+gem 'rbnacl', '~> 7.1', '>= 7.1.1'
+gem 'blake3', '~> 0.1.3'
 
 ## Background Tasks
 gem 'sidekiq', '~> 6.3', '>= 6.3.1'
