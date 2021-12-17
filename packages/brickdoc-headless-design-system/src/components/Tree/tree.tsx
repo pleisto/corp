@@ -1,5 +1,7 @@
 import { FC, useCallback, useState, useMemo, useEffect, ReactNode, memo } from 'react'
-import type { TNode } from './constants'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import type { TNode, MoveNode } from './constants'
 import { Node } from './node'
 
 export interface TreeProps {
@@ -8,8 +10,7 @@ export interface TreeProps {
   className?: string
   openAll?: boolean
   draggable?: boolean
-  // TODO
-  onDrop?: any
+  onDrop?: (attrs: MoveNode) => void
   titleRender?: (node: TNode) => ReactNode
   emptyNode?: string | ReactNode
 }
@@ -24,13 +25,20 @@ const findPathById = (tree: TNode[], id: string, path?: string[]): string[] => {
       if (result) return result
     }
   }
-  return []
 }
 
 /** Tree
  * @example
  */
-const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, emptyNode, selectedNodeId }) => {
+const TreeInternal: FC<TreeProps> = ({
+  treeData,
+  openAll = false,
+  titleRender,
+  emptyNode,
+  selectedNodeId,
+  draggable = false,
+  onDrop
+}) => {
   const [openedIds, setOpenedIds] = useState<string[]>(
     openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value) || []
   )
@@ -38,7 +46,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
 
   useEffect(() => {
     if (selectedNodeId) {
-      setOpenedIds(findPathById(treeData, selectedNodeId, openedIds))
+      setOpenedIds(findPathById(treeData, selectedNodeId, openedIds) ?? [])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -83,10 +91,21 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
     [setOpenedIds]
   )
 
+  const moveNode = useCallback(
+    (item: MoveNode) => {
+      if (!draggable) return
+      onDrop?.(item)
+    },
+    [draggable, onDrop]
+  )
+
   return (
-    <>
-      {renderTree.map(item => (
+    <DndProvider backend={HTML5Backend}>
+      {renderTree.map((item, index) => (
         <Node
+          moveNode={moveNode}
+          id={item.key}
+          index={index}
           key={item.key}
           emptyNode={emptyNode}
           treeData={item}
@@ -96,7 +115,7 @@ const TreeInternal: FC<TreeProps> = ({ treeData, openAll = false, titleRender, e
           selectedId={selectedId}
         />
       ))}
-    </>
+    </DndProvider>
   )
 }
 

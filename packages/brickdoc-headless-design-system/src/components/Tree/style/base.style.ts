@@ -143,6 +143,11 @@ export const Base = styled('div', {
         }
       }
     },
+    dragging: {
+      true: {
+        cursor: 'move'
+      }
+    },
     selected: {
       true: {
         background: theme.colors.secondaryDrag,

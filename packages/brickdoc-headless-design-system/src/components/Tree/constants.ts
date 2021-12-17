@@ -3,7 +3,8 @@ import { ReactNode } from 'react'
 export interface TNode {
   key: string
   value: string
-  parentId?: string
+  parentId?: string | null | undefined
+  rootId?: string
   title: ReactNode | string
   icon: string | null
   hasItemIcon?: boolean
@@ -15,4 +16,11 @@ export interface TNode {
   sort: number
   lastPlaceholder: ReactNode | string
   children: TNode[]
+}
+
+export interface MoveNode {
+  sourceIndex: number
+  sourceId: string
+  targetIndex: number
+  targetId: string
 }

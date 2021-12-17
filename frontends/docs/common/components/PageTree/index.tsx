@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { find, propEq } from 'ramda'
 import {
   useGetPageBlocksQuery,
   useBlockMoveMutation,
@@ -12,7 +13,7 @@ import {
 /* import { Tree, TreeProps } from '@brickdoc/design-system' */
 
 // TODO: change to design-system
-import { Tree } from '@brickdoc/brickdoc-headless-design-system'
+import { Tree, TreeProps, TNode } from '@brickdoc/brickdoc-headless-design-system'
 import { array2Tree } from '@/common/utils'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '../../blocks'
@@ -58,32 +59,39 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   }, [])
 
   //
-  /* @ts-expect-error eslint-disable @typescript-eslint/no-unused-vars */
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
-    let targetParentId: string | undefined | null, sort: number
+    const { sourceIndex, sourceId, targetIndex, targetId } = attrs
     setDraggable(false)
-
-    const node = attrs.node as unknown as Block & { key: string }
+    let targetParentId: string | undefined | null, sort: number
+    const node = find<Block>(propEq('id', sourceId))((data?.pageBlocks ?? []) as Block[])
+    if (!node?.id) {
+      setDraggable(true)
+      return
+    }
     // Check if is root node
-    if (attrs.dropToGap) {
-      targetParentId = node.parentId
+    if (node.id === node?.rootId) {
+      targetParentId = targetId
       // take averaged value
-      if (attrs.dropPosition === -1) {
+      if (sourceIndex - targetIndex > 0) {
         sort = Math.round(2 * (Number(node.sort) - Number(node.nextSort)))
       } else {
         sort = Math.round(0.5 * (Number(node.sort) + Number(node.nextSort)))
       }
     } else {
-      targetParentId = node.key
+      targetParentId = node.id
       // take next value
       sort = Number(node.firstChildSort) - SIZE_GAP
     }
-    const input: BlockMoveInput = { id: attrs.dragNode.key as string, sort }
+
+    const input: BlockMoveInput = {
+      id: node.id,
+      sort
+    }
     if (targetParentId) {
       input.targetParentId = targetParentId
     }
     await blockMove({ variables: { input } })
-    if (docMeta.id === attrs.dragNode.key) {
+    if (docMeta.id === node.id) {
       await blockMoveClient.refetchQueries({ include: [queryBlockInfo] })
     }
     setDraggable(true)
@@ -104,22 +112,20 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
     )
   }
 
-  // TODO fix type
-  const treeElement = (blocks: BlockType[], draggable: boolean): React.ReactElement => {
+  const treeElement = (blocks: BlockType[], isDraggable: boolean): React.ReactElement => {
     if (!blocks.length) {
       return <></>
     }
-    console.log(blocks, 'debug blocks')
+
     const flattedData = blocks
       .map(b => {
         const title = getTitle(b)
-        const hasShow = docMeta.id === b.id || docMeta.id === b.rootId || docMeta.id === b.parentId
 
         return {
           key: b.id,
           value: b.id,
+          rootId: b.rootId,
           parentId: b.parentId,
-          collapsed: hasShow,
           sort: b.sort,
           icon: getIcon(b),
           nextSort: b.nextSort,
@@ -138,9 +144,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
         emptyNode={t('blocks.no_pages')}
         // selectable={!docMeta.documentInfoLoading}
         selectedNodeId={docMeta.id}
-        // @ts-expect-error
-        treeData={treeData} // TODO: to be improved
-        draggable={true}
+        treeData={treeData as unknown as TNode[]}
+        draggable={draggable && isDraggable}
         onDrop={onDrop}
         titleRender={titleRender}
       />
@@ -157,6 +162,8 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           key: b.id,
           value: b.id,
           parentId: b.parentId,
+          rootId: b.rootId,
+          // collapsed: docMeta.id === b.id,
           sort: b.sort,
           icon: getIcon(b),
           nextSort: b.nextSort,

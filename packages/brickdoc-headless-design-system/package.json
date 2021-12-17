@@ -33,6 +33,8 @@
     "ahooks": "^3.0.2",
     "lodash-es": "^4.17.21",
     "polished": "^4.1.3",
+    "react-dnd": "^14.0.4",
+    "react-dnd-html5-backend": "^14.0.2",
     "stitches-mixins": "^1.0.0"
   },
   "devDependencies": {
