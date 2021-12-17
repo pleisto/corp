@@ -31,8 +31,8 @@ PATH
   remote: gems/brickdoc_settings
   specs:
     brickdoc_settings (0.0.1)
-      activesupport (>= 6.1.0)
-      lockbox (>= 0.6.5)
+      activesupport (>= 7.0.0)
+      lockbox (>= 0.6.6)
 
 PATH
   remote: gems/rubocop-brickdoc
