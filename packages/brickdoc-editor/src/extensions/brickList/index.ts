@@ -47,14 +47,16 @@ export const brickListExtension = Extension.create<brickListOptions>({
             if (listItem) {
               const listItemNode = listItem.node
               if (listItemNode.textContent.length === 0) {
-                const parentListItem = findParentNode(node => node.type === itemType && node !== listItemNode)(selection)
+                const parentListItem = findParentNode(node => node.type === itemType && node !== listItemNode)(
+                  selection
+                )
 
                 if (parentListItem) {
                   originalLiftListItem(itemType)(state, dispatch)
                   return commands.splitListItem(itemType)
                 }
 
-                let deleteFrom = listItem.pos - 2
+                let deleteFrom = listItem.pos - 1
                 if (deleteFrom < 0) deleteFrom = 0
                 tr.delete(deleteFrom, listItem.start + listItemNode.nodeSize)
                 const newSelection = Selection.findFrom(tr.doc.resolve(tr.mapping.map(listItem.pos, -1)), -1)

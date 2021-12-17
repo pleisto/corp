@@ -4,9 +4,16 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { v4 as uuid } from 'uuid'
 import { NodeViewProps } from '@tiptap/react'
-import { useTable, HeaderGroup, useFlexLayout, useResizeColumns, TableHeaderGroupProps, TableColumnType } from 'react-table'
+import {
+  useTable,
+  HeaderGroup,
+  useFlexLayout,
+  useResizeColumns,
+  TableHeaderGroupProps,
+  TableColumnType
+} from 'react-table'
 import { Modal, Icon } from '@brickdoc/design-system'
-import { BlockWrapper } from '../../../components'
+import { BlockContainer } from '../../../components'
 import { useEditorI18n } from '../../../hooks'
 import { ColumnMenu } from './ColumnMenu'
 import { useColumns } from './useColumns'
@@ -46,7 +53,7 @@ const defaultColumnConfig = {
   Cell
 }
 
-export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, updateAttributes }) => {
+export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
   const { t } = useEditorI18n()
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
@@ -186,14 +193,15 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
   const setTitle = (title: string): void => updateAttributeData({ title })
 
   return (
-    <BlockWrapper
+    <BlockContainer
       editor={editor}
       className="table-block-node-view-wrapper"
       ref={(container: HTMLDivElement) => {
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
         container?.classList.add('table-block-node-view-wrapper')
-      }}>
+      }}
+    >
       {contextHolder}
       {fetched.current && (
         <TableToolbar
@@ -201,6 +209,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
           setTitle={setTitle}
           onAddNewRow={addNewRow}
           columns={columns}
+          deleteNode={deleteNode}
           filterGroup={filterGroup}
           addFilter={addNewFilter}
           removeFilter={removeFilter}
@@ -223,7 +232,8 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
                 <div
                   {...headerGroupProps}
                   style={{ ...headerGroupProps.style, display: 'inline-flex' }}
-                  key={headerGroupProps.key}>
+                  key={headerGroupProps.key}
+                >
                   {headerGroup.headers.map(column => {
                     const headerProps = column.getHeaderProps(headerPropsGetter)
                     const resizerProps: any = {
@@ -261,7 +271,8 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
                         onColumnTypeChange={type => {
                           void handleColumnTypeChange(type, column.parent?.id ?? '', column.id)
                         }}
-                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
+                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}
+                      >
                         {Header}
                       </ColumnMenu>
                     )
@@ -301,6 +312,6 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, extension, update
           </div>
         </div>
       </div>
-    </BlockWrapper>
+    </BlockContainer>
   )
 }
