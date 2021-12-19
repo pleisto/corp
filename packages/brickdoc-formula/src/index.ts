@@ -274,6 +274,7 @@ export interface BaseCompletion {
   readonly name: string
   readonly value: any
   readonly preview: any
+  readonly codeFragment: CodeFragment
 }
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'

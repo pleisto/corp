@@ -244,61 +244,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     }
 
     const value = currentCompletion.value
-    let attrs: CodeFragmentWithBlockId
-    switch (currentCompletion.kind) {
-      case 'variable':
-        attrs = {
-          meta: {
-            name: currentCompletion.preview.t.name,
-            namespaceId: currentCompletion.preview.t.namespaceId,
-            namespace: currentCompletion.preview.namespaceName()
-          },
-          errors: [],
-          name: value,
-          code: 'Variable',
-          spaceBefore: false,
-          spaceAfter: false,
-          type: 'any',
-          blockId: rootId
-        }
-        break
-      case 'function':
-        attrs = {
-          meta: undefined,
-          errors: [],
-          name: value,
-          code: 'Function',
-          spaceBefore: false,
-          spaceAfter: false,
-          type: 'any',
-          blockId: rootId
-        }
-        break
-      case 'spreadsheet':
-        attrs = {
-          meta: { name: currentCompletion.preview.name(), blockId: currentCompletion.preview.blockId },
-          errors: [],
-          name: value,
-          code: 'Spreadsheet',
-          spaceBefore: false,
-          spaceAfter: false,
-          type: 'any',
-          blockId: rootId
-        }
-        break
-      case 'column':
-        attrs = {
-          meta: { name: currentCompletion.preview.name, spreadsheetName: currentCompletion.preview.spreadsheetName },
-          errors: [],
-          name: value,
-          code: 'Column',
-          spaceBefore: false,
-          spaceAfter: false,
-          type: 'any',
-          blockId: rootId
-        }
-        break
-    }
+    const attrs: CodeFragmentWithBlockId = { ...currentCompletion.codeFragment, blockId: rootId }
 
     const completionContents: JSONContent[] = [
       { type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: value }] }
