@@ -35,7 +35,12 @@ Array [
   },
   Object {
     "code": "Dot",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Missing expression",
+        "type": "syntax",
+      },
+    ],
     "meta": undefined,
     "name": ".",
     "spaceAfter": false,
@@ -80,7 +85,12 @@ Array [
   },
   Object {
     "code": "Dot",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Missing expression",
+        "type": "syntax",
+      },
+    ],
     "meta": undefined,
     "name": ".",
     "spaceAfter": false,

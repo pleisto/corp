@@ -169,8 +169,16 @@ export class FormulaParser extends CstParser {
     this.SUBRULE(this.atomicExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(Dot)
-      this.SUBRULE(this.FunctionCall, { LABEL: 'rhs' })
+
+      this.OR([
+        { ALT: () => this.SUBRULE(this.FunctionCall, { LABEL: 'rhs' }) },
+        { ALT: () => this.SUBRULE(this.keyExpression, { LABEL: 'rhs' }) }
+      ])
     })
+  })
+
+  public keyExpression = this.RULE('keyExpression', () => {
+    this.OR([{ ALT: () => this.CONSUME(StringLiteral) }, { ALT: () => this.CONSUME(FunctionName) }])
   })
 
   public atomicExpression = this.RULE('atomicExpression', () => {
@@ -209,7 +217,7 @@ export class FormulaParser extends CstParser {
   })
 
   public recordField = this.RULE('recordField', () => {
-    this.OR([{ ALT: () => this.CONSUME(StringLiteral) }, { ALT: () => this.CONSUME(FunctionName) }])
+    this.SUBRULE(this.keyExpression)
     this.CONSUME(Colon)
     this.SUBRULE(this.expression)
   })

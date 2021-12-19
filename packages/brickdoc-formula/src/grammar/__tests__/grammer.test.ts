@@ -605,7 +605,53 @@ but found: '*'`
     parseErrorType: 'syntax',
     errorMessage: 'Function UNKNOWN not found'
   },
+  // Access
+  {
+    input: '=1.a',
+    parseErrorType: 'parse',
+    errorMessage: 'TODO build not all input parsed :3'
+  },
+  {
+    input: '=1."a"',
+    parseErrorType: 'parse',
+    errorMessage: 'TODO build not all input parsed :3'
+  },
+  {
+    input: '=true.a',
+    parseErrorType: 'syntax',
+    errorMessage: 'Access error'
+  },
+  {
+    input: '={a:1}.a',
+    value: 1
+  },
+  {
+    input: '={a:1}.b',
+    value: 'Key b not found'
+  },
+  {
+    input: '=[123].b',
+    value: 'Access not supported'
+  },
+  {
+    input: '={a:1}."a"',
+    value: 1
+  },
+  {
+    input: '=ERROR("Foo").result',
+    value: 'Foo'
+  },
   // Chain
+  {
+    input: '="FOO".',
+    parseErrorType: 'parse',
+    errorMessage: 'Missing expression'
+  },
+  {
+    input: '="FOO".T',
+    parseErrorType: 'syntax',
+    errorMessage: 'Access error'
+  },
   {
     input: '="FOO".T().T()',
     value: 'FOO'

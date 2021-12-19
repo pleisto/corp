@@ -377,18 +377,45 @@ export class FormulaInterpreter extends BaseCstVisitor {
   chainExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }): AnyTypeValue {
     let result = this.visit(ctx.lhs)
 
-    if (!ctx.rhs || result.type === 'Error') {
+    if (!ctx.rhs) {
       return result
     }
 
-    ctx.rhs.forEach((cst: CstNode | CstNode[]) => {
-      if (result.type === 'Error') {
-        return
+    ctx.rhs.forEach(cst => {
+      if (cst.name === 'FunctionCall') {
+        if (result.type === 'Error') {
+          return
+        }
+        result = this.visit(cst, result)
+      } else {
+        const { result: key } = this.visit(cst)
+
+        if (result.type === 'Error' && ['errorKind', 'result'].includes(key)) {
+          result = { type: 'string', result: result[key] }
+        } else if (result.type === 'Record') {
+          const value = result.result[key]
+          if (value) {
+            result = value
+          } else {
+            result = { type: 'Error', result: `Key ${key} not found`, errorKind: 'runtime' }
+          }
+        } else {
+          result = { type: 'Error', result: 'Access not supported', errorKind: 'runtime' }
+        }
       }
-      result = this.visit(cst, result)
     })
 
     return result
+  }
+
+  keyExpression(ctx: any): AnyTypeValue {
+    if (ctx.FunctionName) {
+      return this.FunctionNameExpression(ctx)
+    } else if (ctx.StringLiteral) {
+      return this.StringLiteralExpression(ctx)
+    } else {
+      throw new Error('Unexpected key expression')
+    }
   }
 
   atomicExpression(ctx: {
@@ -471,29 +498,20 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   recordExpression(ctx: any): AnyTypeValue {
-    if(!ctx.recordField) {
+    if (!ctx.recordField) {
       return { type: 'Record', result: {} }
     }
 
     const result: Record<string, AnyTypeValue> = {}
     ctx.recordField.forEach((c: CstNode | CstNode[]) => {
-      const {key, value} = this.visit(c)
+      const { key, value } = this.visit(c)
       result[key] = value
     })
     return { type: 'Record', result }
   }
 
-  recordField(ctx: any): {key: string, value: AnyTypeValue} {
-    let key: string
-    if(ctx.FunctionName) {
-       key = ctx.FunctionName[0].image
-    } else if(ctx.StringLiteral) {
-      const str = ctx.StringLiteral[0].image
-      key = str.substring(1, str.length - 1).replace(/""/g, '"')
-    } else {
-      throw new Error("unsupported record field")
-    }
-
+  recordField(ctx: any): { key: string; value: AnyTypeValue } {
+    const { result: key } = this.visit(ctx.keyExpression)
     const value = this.visit(ctx.expression)
 
     return { key, value }
@@ -501,6 +519,21 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   parenthesisExpression(ctx: { expression: CstNode | CstNode[] }): AnyTypeValue {
     return this.visit(ctx.expression)
+  }
+
+  StringLiteralExpression(ctx: {
+    NumberLiteralExpression?: CstNode | CstNode[]
+    BooleanLiteralExpression?: CstNode | CstNode[]
+    NullLiteral?: CstNode | CstNode[]
+    StringLiteral: any
+  }): AnyTypeValue {
+    // TODO: dirty hack to get the string literal value
+    const str = ctx.StringLiteral[0].image
+    return { result: str.substring(1, str.length - 1).replace(/""/g, '"'), type: 'string' }
+  }
+
+  FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }): AnyTypeValue {
+    return { result: ctx.FunctionName[0].image, type: 'string' }
   }
 
   constantExpression(ctx: {
@@ -516,9 +549,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else if (ctx.NullLiteral) {
       return { type: 'null', result: null }
     } else if (ctx.StringLiteral) {
-      // TODO: dirty hack to get the string literal value
-      const str = ctx.StringLiteral[0].image
-      return { result: str.substring(1, str.length - 1).replace(/""/g, '"'), type: 'string' }
+      return this.StringLiteralExpression(ctx)
     } else {
       throw new Error('unsupported expression')
     }

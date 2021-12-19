@@ -997,7 +997,7 @@ Array [
     "name": "a",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "any",
+    "type": "string",
   },
   Object {
     "code": "Colon",
@@ -1051,7 +1051,7 @@ Array [
     "name": "a",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "any",
+    "type": "string",
   },
   Object {
     "code": "Colon",

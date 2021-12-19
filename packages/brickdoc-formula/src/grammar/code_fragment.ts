@@ -500,8 +500,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  chainExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[] }, { type }: ExpressionArgument): CodeFragmentResult {
-    if (!ctx.rhs) {
+  chainExpression(
+    ctx: { Dot: any; lhs: CstNode | CstNode[]; rhs: any[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    if (!ctx.Dot) {
       return this.visit(ctx.lhs, { type })
     }
 
@@ -517,21 +520,39 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     let firstArgumentType = lhsType
 
-    ctx.rhs.forEach((cst: CstNode | CstNode[]) => {
-      const {
-        codeFragments: rhsCodeFragments,
-        type: rhsType,
-        image
-      }: CodeFragmentResult = this.visit(cst, {
+    ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
+      const rhsCst = ctx.rhs?.[idx]
+      const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
+
+      codeFragments.push({
+        name: '.',
+        code: 'Dot',
         type: 'any',
-        firstArgumentType
+        spaceBefore: false,
+        spaceAfter: false,
+        meta: undefined,
+        errors: missingRhsErrors
       })
-      codeFragments.push(
-        { name: '.', code: 'Dot', type: 'any', errors: [], spaceBefore: false, spaceAfter: false, meta: undefined },
-        ...rhsCodeFragments
-      )
-      images.push('.', image)
-      firstArgumentType = rhsType
+      images.push('.')
+
+      if (rhsCst) {
+        const accessErrorMessages: ErrorMessage[] =
+          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && rhsCst.name !== 'FunctionCall'
+            ? [{ type: 'syntax', message: 'Access error' }]
+            : []
+
+        const args = rhsCst.name === 'FunctionCall' ? { type: 'any', firstArgumentType } : { type: 'string' }
+
+        const {
+          codeFragments: rhsCodeFragments,
+          type: rhsType,
+          image: rhsImage
+        }: CodeFragmentResult = this.visit(rhsCst, args)
+
+        firstArgumentType = rhsType
+        images.push(rhsImage)
+        codeFragments.push(...rhsCodeFragments.map(f => ({ ...f, errors: [...accessErrorMessages, ...f.errors] })))
+      }
     })
 
     const { errorMessages, newType } = intersectType(type, firstArgumentType)
@@ -543,6 +564,16 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       })),
       type: newType
     }
+  }
+
+  keyExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    if (ctx.FunctionName) {
+      return this.FunctionNameExpression(ctx, { type })
+    } else if (ctx.StringLiteral) {
+      return this.StringLiteralExpression(ctx, { type })
+    }
+
+    return { codeFragments: [], type: 'any', image: '' }
   }
 
   atomicExpression(
@@ -740,44 +771,16 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   }
 
   recordField(
-    ctx: {
-      Colon: IToken[]
-      FunctionName: IToken[]
-      StringLiteral: IToken[]
-      expression: CstNode | CstNode[]
-    },
+    ctx: { Colon: IToken[]; keyExpression: CstNode | CstNode[]; expression: CstNode | CstNode[] },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
     const images: string[] = []
     const codeFragments: CodeFragment[] = []
-    let key: string
     const missingColonErrors: ErrorMessage[] = ctx.Colon ? [] : [{ message: 'Missing colon', type: 'syntax' }]
-    if (ctx.FunctionName) {
-      key = ctx.FunctionName[0].image
-      codeFragments.push({
-        name: key,
-        code: ctx.FunctionName[0].tokenType.name,
-        errors: missingColonErrors,
-        meta: undefined,
-        spaceBefore: false,
-        spaceAfter: false,
-        type: 'any'
-      })
-    } else if (ctx.StringLiteral) {
-      key = ctx.StringLiteral[0].image
-      codeFragments.push({
-        name: key,
-        code: ctx.StringLiteral[0].tokenType.name,
-        errors: missingColonErrors,
-        meta: undefined,
-        spaceBefore: false,
-        spaceAfter: false,
-        type: 'any'
-      })
-    } else {
-      return { codeFragments: [], type: 'any', image: '' }
-    }
-    images.push(key)
+
+    const { codeFragments: keyCodeFragments, image: keyImage } = this.visit(ctx.keyExpression, { type: 'string' })
+    codeFragments.push(...keyCodeFragments.map((e: CodeFragment) => ({ ...e, errors: missingColonErrors })))
+    images.push(keyImage)
 
     if (ctx.Colon) {
       images.push(':')
@@ -845,17 +848,31 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         image: ctx.NullLiteral[0].image
       }
     } else if (ctx.StringLiteral) {
-      const parentType = 'string'
-      const { errorMessages } = intersectType(type, parentType)
-      return {
-        codeFragments: [{ ...token2fragment(ctx.StringLiteral[0], parentType), errors: errorMessages }],
-        type: parentType,
-        image: ctx.StringLiteral[0].image
-      }
+      return this.StringLiteralExpression(ctx, { type })
     }
 
     // console.log('debugConstant', { ctx, type })
     return { codeFragments: [], type: 'any', image: '' }
+  }
+
+  FunctionNameExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    const parentType = 'string'
+    const { errorMessages } = intersectType(type, parentType)
+    return {
+      codeFragments: [{ ...token2fragment(ctx.FunctionName[0], parentType), errors: errorMessages }],
+      type: parentType,
+      image: ctx.FunctionName[0].image
+    }
+  }
+
+  StringLiteralExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    const parentType = 'string'
+    const { errorMessages } = intersectType(type, parentType)
+    return {
+      codeFragments: [{ ...token2fragment(ctx.StringLiteral[0], parentType), errors: errorMessages }],
+      type: parentType,
+      image: ctx.StringLiteral[0].image
+    }
   }
 
   NumberLiteralExpression(

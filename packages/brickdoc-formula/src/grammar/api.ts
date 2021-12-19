@@ -21,8 +21,6 @@ import {
   CodeFragmentResult,
   ParseMode,
   lexerByMode,
-  DatabasePersistence,
-  DatabaseFactory,
   NamespaceId,
   castVariable
 } from '..'

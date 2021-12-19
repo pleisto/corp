@@ -44,11 +44,13 @@ export const complete = ({
   if (!lastCodeFragment || !lastToken) {
     return completions
   }
+
+  // console.log({ lastCodeFragment, lastToken })
+
   const { code, name } = lastCodeFragment
   const lowerCaseName = name.toLowerCase()
   const lastTokenText = lastToken.image
 
-  // console.log({ name, code, input })
   // console.log({ name, code, input, lastCodeFragment, tokens, codeFragments, completions })
 
   if (code === 'Dot') {

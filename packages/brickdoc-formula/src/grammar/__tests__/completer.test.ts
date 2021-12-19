@@ -184,7 +184,7 @@ describe('Complete', () => {
       newInput: `= 1 + $${namespaceId}@${variableId}.`
     })
 
-    expect(errorMessages[0]!.message).toEqual('TODO mismatch token FunctionCall')
+    expect(errorMessages[0]!.message).toEqual('Missing expression')
     expect(valid).toBe(true)
     expect(codeFragments).toMatchSnapshot()
     expect(completions[0].kind).toEqual('function')
@@ -210,7 +210,7 @@ describe('Complete', () => {
     expect(inputImage).toEqual(`=1+$${namespaceId}@${variableId}.`)
     expect(parseImage).toEqual(`=1+$${namespaceId}@${variableId}.`)
     expect(newInput).toEqual(`= 1 + $${namespaceId}@${variableId}.`)
-    expect(errorMessages[0]!.message).toEqual('TODO mismatch token FunctionCall')
+    expect(errorMessages[0]!.message).toEqual('Missing expression')
     expect(valid).toBe(true)
     expect(codeFragments).toMatchSnapshot()
     expect(completions[0].kind).toEqual('function')

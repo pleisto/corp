@@ -27,7 +27,7 @@ export const displayValue = (v: AnyTypeValue): string => {
     case 'Spreadsheet':
       return `#<Spreadsheet> ${v.result.name()}`
     case 'Column':
-      return `#<Column> ${v.result.spreadsheetName} - ${v.result.name}`
+      return `#<Column> ${v.result.spreadsheetName}.${v.result.name}`
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result)}`
     case 'Record':
