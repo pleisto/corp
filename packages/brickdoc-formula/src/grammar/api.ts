@@ -22,7 +22,9 @@ import {
   ParseMode,
   lexerByMode,
   DatabasePersistence,
-  DatabaseFactory
+  DatabaseFactory,
+  NamespaceId,
+  castVariable
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -46,10 +48,11 @@ export interface BaseParseResult {
   readonly kind?: VariableKind
   readonly level: number
   readonly errorMessages: ErrorMessage[]
-  readonly variableDependencies?: VariableDependency[]
-  readonly functionDependencies?: Array<FunctionClause<any>>
+  readonly variableDependencies: VariableDependency[]
+  readonly functionDependencies: Array<FunctionClause<any>>
+  readonly blockDependencies: NamespaceId[]
   readonly codeFragments: CodeFragment[]
-  readonly flattenVariableDependencies?: Set<VariableDependency>
+  readonly flattenVariableDependencies: Set<VariableDependency>
   readonly completions: Completion[]
 }
 
@@ -59,9 +62,6 @@ export interface SuccessParseResult extends BaseParseResult {
   readonly errorMessages: []
   readonly cst: CstNode
   readonly kind: VariableKind
-  readonly variableDependencies: VariableDependency[]
-  readonly functionDependencies: Array<FunctionClause<any>>
-  readonly flattenVariableDependencies: Set<VariableDependency>
 }
 
 export interface ErrorParseResult extends BaseParseResult {
@@ -107,6 +107,10 @@ export const parse = ({
   activeCompletion
 }: ParseInput): ParseResult => {
   let level = 0
+  let variableDependencies: VariableDependency[] = []
+  let functionDependencies: Array<FunctionClause<any>> = []
+  let blockDependencies: NamespaceId[] = []
+  let flattenVariableDependencies: Set<VariableDependency> = new Set()
   let newInput = input
   if (!variableId) {
     return {
@@ -120,7 +124,11 @@ export const parse = ({
       errorType: 'parse',
       completions: [],
       errorMessages: [{ message: 'Miss variableId', type: 'fatal' }],
-      codeFragments: []
+      codeFragments: [],
+      variableDependencies,
+      functionDependencies,
+      blockDependencies,
+      flattenVariableDependencies
     }
   }
   const baseCompletion = formulaContext?.completions(namespaceId, variableId) ?? []
@@ -189,6 +197,11 @@ export const parse = ({
   })
 
   level = codeFragmentVisitor.level
+  variableDependencies = codeFragmentVisitor.variableDependencies
+  functionDependencies = codeFragmentVisitor.functionDependencies
+  blockDependencies = codeFragmentVisitor.blockDependencies
+  flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
+
   const parseErrors: IRecognitionException[] = parser.errors
 
   if (lexResult.errors.length > 0 || parseErrors.length > 0) {
@@ -241,7 +254,11 @@ export const parse = ({
       level,
       errorMessages: finalErrorMessages,
       cst,
-      codeFragments: finalCodeFragments
+      codeFragments: finalCodeFragments,
+      variableDependencies,
+      functionDependencies,
+      blockDependencies,
+      flattenVariableDependencies
     }
   }
 
@@ -269,11 +286,14 @@ export const parse = ({
       errorType: 'syntax',
       completions,
       errorMessages: [errorCodeFragment.errors[0]],
-      codeFragments
+      codeFragments,
+      variableDependencies,
+      functionDependencies,
+      blockDependencies,
+      flattenVariableDependencies
     }
   }
 
-  const flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
   if ([...flattenVariableDependencies].find(v => v.namespaceId === namespaceId && v.variableId === variableId)) {
     return {
       success: false,
@@ -287,8 +307,9 @@ export const parse = ({
       completions,
       cst,
       flattenVariableDependencies,
-      variableDependencies: codeFragmentVisitor.variableDependencies,
-      functionDependencies: codeFragmentVisitor.functionDependencies,
+      variableDependencies,
+      functionDependencies,
+      blockDependencies,
       codeFragments
     }
   }
@@ -306,8 +327,9 @@ export const parse = ({
       completions,
       errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }],
       flattenVariableDependencies,
-      variableDependencies: codeFragmentVisitor.variableDependencies,
-      functionDependencies: codeFragmentVisitor.functionDependencies,
+      blockDependencies,
+      variableDependencies,
+      functionDependencies,
       codeFragments
     }
   }
@@ -329,8 +351,9 @@ export const parse = ({
       completions,
       errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
       flattenVariableDependencies,
-      variableDependencies: codeFragmentVisitor.variableDependencies,
-      functionDependencies: codeFragmentVisitor.functionDependencies,
+      blockDependencies,
+      variableDependencies,
+      functionDependencies,
       codeFragments
     }
   }
@@ -347,38 +370,11 @@ export const parse = ({
     completions,
     kind: codeFragmentVisitor.kind,
     flattenVariableDependencies,
-    variableDependencies: codeFragmentVisitor.variableDependencies,
-    functionDependencies: codeFragmentVisitor.functionDependencies,
+    blockDependencies,
+    variableDependencies,
+    functionDependencies,
     codeFragments
   }
-}
-
-export const displayValue = (v: AnyTypeValue): string => {
-  switch (v.type) {
-    case 'number':
-    case 'boolean':
-      return String(v.result)
-    case 'string':
-      return `"${v.result}"`
-    case 'Date':
-      return v.result.toISOString()
-    case 'Error':
-      return `#<Error> ${v.result}`
-    case 'Spreadsheet':
-      return `#<Spreadsheet> ${v.result.name()}`
-    case 'Column':
-      return `#<Column> ${v.result.spreadsheetName} - ${v.result.name}`
-    case 'Predicate':
-      return `[${v.operator}] ${displayValue(v.result)}`
-    case 'Record':
-      return `{ ${Object.entries(v.result)
-        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeValue)}`)
-        .join(', ')} }`
-    case 'Array':
-      return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
-  }
-
-  return JSON.stringify(v.result)
 }
 
 export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): Promise<InterpretResult> => {
@@ -391,7 +387,6 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       variableValue: {
         updatedAt: new Date(),
         success: false,
-        display: message,
         result: { result: message, type: 'Error', errorKind: 'fatal' }
       }
     }
@@ -404,7 +399,6 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       success: true,
       variableValue: {
         success: true,
-        display: displayValue(result),
         updatedAt: new Date(),
         result
       },
@@ -418,7 +412,6 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       success: false,
       errorMessages: [errorMessage],
       variableValue: {
-        display: message,
         updatedAt: new Date(),
         success: false,
         result: { result: message, type: 'Error', errorKind: 'fatal' }
@@ -438,6 +431,7 @@ export const buildVariable = ({
     codeFragments,
     variableDependencies,
     functionDependencies,
+    blockDependencies,
     level,
     flattenVariableDependencies
   },
@@ -462,9 +456,10 @@ export const buildVariable = ({
     valid,
     level,
     kind: kind ?? 'constant',
-    variableDependencies: variableDependencies ?? [],
-    flattenVariableDependencies: flattenVariableDependencies ?? new Set(),
-    functionDependencies: functionDependencies ?? []
+    variableDependencies,
+    flattenVariableDependencies,
+    blockDependencies,
+    functionDependencies
   }
 
   const oldVariable = formulaContext.findVariable(namespaceId, variableId)
@@ -474,87 +469,6 @@ export const buildVariable = ({
     return oldVariable
   } else {
     return new VariableClass({ t, formulaContext })
-  }
-}
-
-const parseCacheValue = (cacheValue: AnyTypeValue): AnyTypeValue => {
-  if (cacheValue.type === 'Spreadsheet' && cacheValue.result.dynamic) {
-    const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
-    return {
-      type: 'Spreadsheet',
-      result: new DatabaseFactory({
-        blockId,
-        dynamic: true,
-        name: () => tableName,
-        listColumns: () => columns,
-        listRows: () => rows
-      })
-    }
-  }
-
-  if (cacheValue.type === 'Date') {
-    return {
-      type: 'Date',
-      result: new Date(cacheValue.result)
-    }
-  }
-
-  // console.log({ cacheValue })
-
-  return cacheValue
-}
-
-export const castVariable = (
-  formulaContext: ContextInterface,
-  { name, definition, cacheValue, blockId, id, view }: Formula
-): VariableData => {
-  const namespaceId = blockId
-  const variableId = id
-  const castedValue: AnyTypeValue = parseCacheValue(cacheValue as unknown as AnyTypeValue)
-  const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
-  const {
-    success,
-    cst,
-    kind,
-    valid,
-    errorMessages,
-    variableDependencies,
-    flattenVariableDependencies,
-    codeFragments,
-    functionDependencies,
-    level
-  } = parse(parseInput)
-
-  const variableValue: VariableValue = success
-    ? {
-        updatedAt: new Date(),
-        success: true,
-        display: displayValue(castedValue),
-        result: castedValue
-      }
-    : {
-        updatedAt: new Date(),
-        success: false,
-        display: errorMessages[0]!.message,
-        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type }
-      }
-
-  return {
-    namespaceId,
-    variableId,
-    variableValue,
-    name,
-    cst,
-    view,
-    valid,
-    definition,
-    codeFragments,
-    level,
-    kind: kind ?? 'constant',
-    variableDependencies: variableDependencies ?? [],
-    flattenVariableDependencies: flattenVariableDependencies ?? new Set(),
-    functionDependencies: functionDependencies ?? [],
-    dirty: false
   }
 }
 
@@ -582,6 +496,7 @@ export const quickInsert = async ({
   formulaContext: ContextInterface
 }): Promise<void> => {
   const meta = { namespaceId, variableId, name, input }
+  const view: View = {}
 
   const parseInput = { formulaContext, meta }
   const {
@@ -593,6 +508,7 @@ export const quickInsert = async ({
     errorMessages,
     variableDependencies,
     functionDependencies,
+    blockDependencies,
     flattenVariableDependencies
   } = parse(parseInput)
 
@@ -608,15 +524,17 @@ export const quickInsert = async ({
     name,
     dirty: false,
     valid: true,
+    view,
     definition: input,
     cst,
     kind: kind ?? 'constant',
     codeFragments,
     variableValue,
     level,
-    variableDependencies: variableDependencies ?? [],
-    functionDependencies: functionDependencies ?? [],
-    flattenVariableDependencies: flattenVariableDependencies ?? new Set()
+    blockDependencies,
+    variableDependencies,
+    functionDependencies,
+    flattenVariableDependencies
   }
   // return new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
   void (await formulaContext.commitVariable({

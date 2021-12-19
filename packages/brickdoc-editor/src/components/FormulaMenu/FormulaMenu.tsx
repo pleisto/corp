@@ -5,6 +5,7 @@ import {
   CodeFragment,
   Completion,
   ContextInterface,
+  displayValue,
   ErrorMessage,
   interpret,
   InterpretResult,
@@ -86,7 +87,6 @@ const calculate = async ({
       errorMessages: parseResult.errorMessages,
       variableValue: {
         success: false,
-        display: parseResult.errorMessages[0].message,
         result: {
           type: 'Error',
           result: parseResult.errorMessages[0].message,
@@ -462,7 +462,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
             <span className="formula-menu-result-error-message">{error.message}</span>
           </span>
         )}
-        {!error && variable?.t.variableValue.display}
+        {!error && variable && displayValue(variable?.t.variableValue.result)}
       </div>
       <div className="formula-menu-divider" />
       <AutocompleteList
@@ -499,8 +499,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {children}
     </Popover>
   )

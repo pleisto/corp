@@ -13,3 +13,6 @@ export const BlockTableLoaded = event<{ id: string }>()('BlockTableLoaded', ({ i
 export const BlockNameLoad = event<{ id: string; name: string }>()('BlockNameLoad', ({ id }) => {
   return { id }
 })
+export const FormulaUpdated = event<any>()('FormulaUpdated', v => {
+  return { id: `${v.t.namespaceId},${v.t.variableId}` }
+})

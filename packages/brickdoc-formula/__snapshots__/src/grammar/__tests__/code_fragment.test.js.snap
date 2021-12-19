@@ -1268,7 +1268,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
   Object {
     "code": "Div",
@@ -1394,7 +1394,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "boolean",
   },
   Object {
     "code": "Equal2",
@@ -2614,7 +2614,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
   Object {
     "code": "Comma",

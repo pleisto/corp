@@ -6,7 +6,8 @@ import { BlockContainer, FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { FormulaType } from '@brickdoc/formula'
+import { displayValue, FormulaType } from '@brickdoc/formula'
+import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -20,12 +21,24 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
 
+  // React.useEffect(() => {
+  //   variable?.onUpdate(t => {
+  //     setT(t.t)
+  //     setVariable(t)
+  //   })
+  // }, [variable])
+
   React.useEffect(() => {
-    variable?.onUpdate(t => {
-      setT(t.t)
-      setVariable(t)
-    })
-  }, [variable])
+    BrickdocEventBus.subscribe(
+      FormulaUpdated,
+      e => {
+        console.log('formulaUpdated', e.payload)
+        setT(e.payload)
+        setVariable(e.payload.t)
+      },
+      { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
+    )
+  }, [attributes.id, editorDataSource.rootId])
 
   const COLOR_ARRAY: { [key in FormulaType]: number } = {
     Date: 6,
@@ -61,8 +74,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         editor={editor}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}
-      >
+        updateVariable={setVariable}>
         {t ? (
           <span
             className="brickdoc-formula"
@@ -70,9 +82,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               color: activeColor.color,
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-            }}
-          >
-            {t.name}: {t.variableValue.display}
+            }}>
+            {t.name}: {displayValue(t.variableValue.result)}
           </span>
         ) : (
           <span className="brickdoc-formula-placeholder">

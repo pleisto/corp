@@ -1237,7 +1237,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "boolean",
   },
   Object {
     "code": "GreaterThan",
@@ -1739,7 +1739,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;
@@ -1982,7 +1982,7 @@ Array [
     "name": ")",
     "spaceAfter": false,
     "spaceBefore": true,
-    "type": "any",
+    "type": "boolean",
   },
 ]
 `;

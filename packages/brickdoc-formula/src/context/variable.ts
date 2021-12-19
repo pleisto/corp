@@ -1,16 +1,134 @@
+import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 import {
   ContextInterface,
   interpret,
-  VariableUpdateHandler,
   VariableData,
   VariableInterface,
-  VariableMetadata
+  VariableMetadata,
+  Formula,
+  AnyTypeValue,
+  DatabaseFactory,
+  DatabasePersistence,
+  VariableValue
 } from '..'
+import { parse } from '../grammar'
+
+export const displayValue = (v: AnyTypeValue): string => {
+  switch (v.type) {
+    case 'number':
+    case 'boolean':
+      return String(v.result)
+    case 'string':
+      return `"${v.result}"`
+    case 'Date':
+      return v.result.toISOString()
+    case 'Error':
+      return `#<Error> ${v.result}`
+    case 'Spreadsheet':
+      return `#<Spreadsheet> ${v.result.name()}`
+    case 'Column':
+      return `#<Column> ${v.result.spreadsheetName} - ${v.result.name}`
+    case 'Predicate':
+      return `[${v.operator}] ${displayValue(v.result)}`
+    case 'Record':
+      return `{ ${Object.entries(v.result)
+        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeValue)}`)
+        .join(', ')} }`
+    case 'Array':
+      return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
+  }
+
+  return JSON.stringify(v.result)
+}
+
+const parseCacheValue = (cacheValue: AnyTypeValue): AnyTypeValue => {
+  if (
+    cacheValue.type === 'Spreadsheet' &&
+    cacheValue.result.dynamic &&
+    !(cacheValue.result instanceof DatabaseFactory)
+  ) {
+    const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
+    return {
+      type: 'Spreadsheet',
+      result: new DatabaseFactory({
+        blockId,
+        dynamic: true,
+        name: () => tableName,
+        listColumns: () => columns,
+        listRows: () => rows
+      })
+    }
+  }
+
+  if (cacheValue.type === 'Date' && !(cacheValue.result instanceof Date)) {
+    return {
+      type: 'Date',
+      result: new Date(cacheValue.result)
+    }
+  }
+
+  // console.log({ cacheValue })
+
+  return cacheValue
+}
+
+export const castVariable = (
+  formulaContext: ContextInterface,
+  { name, definition, cacheValue, blockId, id, view }: Formula
+): VariableData => {
+  const namespaceId = blockId
+  const variableId = id
+  const castedValue: AnyTypeValue = parseCacheValue(cacheValue as unknown as AnyTypeValue)
+  const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
+  const {
+    success,
+    cst,
+    kind,
+    valid,
+    errorMessages,
+    blockDependencies,
+    variableDependencies,
+    flattenVariableDependencies,
+    codeFragments,
+    functionDependencies,
+    level
+  } = parse(parseInput)
+
+  const variableValue: VariableValue = success
+    ? {
+        updatedAt: new Date(),
+        success: true,
+        result: castedValue
+      }
+    : {
+        updatedAt: new Date(),
+        success: false,
+        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type }
+      }
+
+  return {
+    namespaceId,
+    variableId,
+    variableValue,
+    name,
+    cst,
+    view,
+    valid,
+    definition,
+    codeFragments,
+    level,
+    kind: kind ?? 'constant',
+    blockDependencies,
+    variableDependencies,
+    flattenVariableDependencies,
+    functionDependencies,
+    dirty: false
+  }
+}
 
 export class VariableClass implements VariableInterface {
   t: VariableData
   formulaContext: ContextInterface
-  updateHandler: VariableUpdateHandler | undefined
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
@@ -28,8 +146,17 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  public onUpdate = (handler: VariableUpdateHandler): void => {
-    this.updateHandler = handler
+  public buildFormula = (): Formula => {
+    return {
+      blockId: this.t.namespaceId,
+      definition: this.t.definition,
+      id: this.t.variableId,
+      name: this.t.name,
+      updatedAt: new Date().toISOString(),
+      createdAt: new Date().getTime(),
+      cacheValue: this.t.variableValue.result,
+      view: this.t.view
+    }
   }
 
   public invokeBackendCreate = async (): Promise<void> => {
@@ -45,9 +172,12 @@ export class VariableClass implements VariableInterface {
   }
 
   public afterUpdate = (): void => {
-    if (this.updateHandler) {
-      this.updateHandler(this)
-    }
+    BrickdocEventBus.dispatch(FormulaUpdated(this))
+  }
+
+  public reparse = (): void => {
+    this.t = castVariable(this.formulaContext, this.buildFormula())
+    this.afterUpdate()
   }
 
   public refresh = async (): Promise<void> => {

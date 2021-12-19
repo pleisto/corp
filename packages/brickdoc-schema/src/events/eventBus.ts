@@ -68,7 +68,17 @@ class EventBus {
           eventIdSubscribers.forEach(s => subscribers.push(s))
         }
       }
+
+      console.log('debug FormulaUpdated', {
+        event,
+        type: event.type,
+        result: this.eventIdSubscribers[event.type],
+        eventTypeSubscribers,
+        meta: [this.eventSubscribers, this.eventIdSubscribers],
+        subscribers
+      })
     }
+
     subscribers
       .sort((a, b) => (a.config.priority ?? 0) - (b.config.priority ?? 0))
       .forEach(s => {

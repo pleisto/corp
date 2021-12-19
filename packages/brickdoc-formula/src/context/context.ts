@@ -36,7 +36,7 @@ import {
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, lexerByMode } from '../grammar'
-import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
+import { BlockNameLoad, BlockTableLoaded, BrickdocEventBus } from '@brickdoc/schema'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
@@ -210,7 +210,7 @@ export class FormulaContext implements ContextInterface {
   public clearDependency = (namespaceId: NamespaceId, variableId: VariableId): void => {
     const variable = this.findVariable(namespaceId, variableId)
     if (variable) {
-      variable.t.variableDependencies?.forEach(dependency => {
+      variable.t.variableDependencies.forEach(dependency => {
         const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
         const variableDependencies = this.reverseVariableDependencies[dependencyKey]
           ? this.reverseVariableDependencies[dependencyKey].filter(
@@ -220,7 +220,7 @@ export class FormulaContext implements ContextInterface {
         this.reverseVariableDependencies[dependencyKey] = [...variableDependencies]
       })
 
-      variable.t.functionDependencies?.forEach(dependency => {
+      variable.t.functionDependencies.forEach(dependency => {
         const dependencyKey = dependency.key
         const functionDependencies = this.reverseFunctionDependencies[dependencyKey]
           ? this.reverseFunctionDependencies[dependencyKey].filter(
@@ -235,13 +235,8 @@ export class FormulaContext implements ContextInterface {
   // TODO flattenVariableDependencies
   // TODO update level
   public trackDependency = ({
-    t: {
-      variableDependencies,
-      variableValue: { result },
-      namespaceId,
-      variableId,
-      functionDependencies
-    }
+    t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies },
+    reparse
   }: VariableInterface): void => {
     BrickdocEventBus.subscribe(
       BlockNameLoad,
@@ -251,19 +246,18 @@ export class FormulaContext implements ContextInterface {
       { eventId: namespaceId, subscribeId: 'formula' }
     )
 
-    // console.log('result', { result, namespaceId, variableId })
-    // if (result.type === 'Spreadsheet' && !result.result.dynamic) {
-    //   console.log('spreadsheet', { result })
-    //   BrickdocEventBus.subscribe(
-    //     BlockTableLoaded,
-    //     e => {
-    //       console.log('tableLoad', { e })
-    //     },
-    //     { eventId: result.result.blockId, subscribeId: 'formula' }
-    //   )
-    // }
+    blockDependencies.forEach(blockId => {
+      BrickdocEventBus.subscribe(
+        BlockTableLoaded,
+        e => {
+          reparse()
+          console.log('tableLoad', { e })
+        },
+        { eventId: blockId, subscribeId: 'formula' }
+      )
+    })
 
-    variableDependencies?.forEach(dependency => {
+    variableDependencies.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
       this.reverseVariableDependencies[dependencyKey] ||= []
       this.reverseVariableDependencies[dependencyKey] = [
@@ -272,7 +266,7 @@ export class FormulaContext implements ContextInterface {
       ]
     })
 
-    functionDependencies?.forEach(dependency => {
+    functionDependencies.forEach(dependency => {
       const dependencyKey = dependency.key
       this.reverseFunctionDependencies[dependencyKey] ||= []
       this.reverseFunctionDependencies[dependencyKey] = [

@@ -2,6 +2,7 @@
 
 exports[`Context commitVariable normal 1`] = `
 Object {
+  "blockDependencies": Array [],
   "codeFragments": Array [
     Object {
       "code": "Variable",
@@ -432,7 +433,6 @@ Object {
   ],
   "variableId": "b4289606-2a52-48e3-a50f-77ee321dd84e",
   "variableValue": Object {
-    "display": "366",
     "result": Object {
       "result": 366,
       "type": "number",

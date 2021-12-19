@@ -11,7 +11,8 @@ import {
   buildFunctionKey,
   OtherCodeFragment,
   CodeFragmentResult,
-  FormulaCheckType
+  FormulaCheckType,
+  NamespaceId
 } from '..'
 import { BaseCstVisitor } from './parser'
 interface InterpreterConfig {
@@ -122,6 +123,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   formulaContext?: ContextInterface
   variableDependencies: VariableDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
+  blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: Set<VariableDependency> = new Set()
   level: number = 0
   kind: VariableKind = 'constant'
@@ -806,7 +808,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       ? []
       : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const { codeFragments, type: expressionType, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
-    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], 'any')] : []
+    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], expressionType)] : []
     const finalImage = ctx.RParen ? `(${image})` : `(${image}`
 
     return {
@@ -912,6 +914,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const columnFragment = token2fragment(columnToken, 'any')
 
+    this.blockDependencies.push(namespaceId)
+
     const column = this.formulaContext?.findColumn(namespaceId, columnId)
 
     const parentType: ExpressionType = 'Column'
@@ -955,6 +959,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const namespaceToken = ctx.UUID[0]
     const namespaceId = namespaceToken.image
 
+    this.blockDependencies.push(namespaceId)
     const database = this.formulaContext?.findDatabase(namespaceId)
 
     const parentType: FormulaType = 'Spreadsheet'

@@ -427,7 +427,6 @@ export interface VariableDependency {
 export interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
-  readonly display: string
   readonly result: AnyTypeValue
 }
 
@@ -451,17 +450,16 @@ export interface VariableData {
   definition: Definition
   dirty: boolean
   valid: boolean
-  view?: View
+  view: View
   kind: VariableKind
   variableValue: VariableValue
   cst?: CstNode
   codeFragments: CodeFragment[]
   flattenVariableDependencies: Set<VariableDependency>
   variableDependencies: VariableDependency[]
+  blockDependencies: NamespaceId[]
   functionDependencies: Array<FunctionClause<any>>
 }
-
-export type VariableUpdateHandler = (variable: VariableInterface) => void
 
 export interface VariableMetadata {
   readonly namespaceId: NamespaceId
@@ -472,9 +470,10 @@ export interface VariableMetadata {
 
 export interface VariableInterface {
   t: VariableData
+  buildFormula: () => Formula
   namespaceName: () => string
+  reparse: () => void
   meta: () => VariableMetadata
-  onUpdate: (handler: VariableUpdateHandler) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void
