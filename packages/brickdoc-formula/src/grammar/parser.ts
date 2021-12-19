@@ -71,7 +71,7 @@ export class FormulaParser extends CstParser {
   constructor({ formulaContext, mode }: ParserConfig) {
     const tokens = tokensByMode(mode)
     super(tokens, {
-      maxLookahead: 3,
+      maxLookahead: 5,
       recoveryEnabled: true,
       errorMessageProvider: errorProvider
     })
@@ -181,17 +181,23 @@ export class FormulaParser extends CstParser {
     this.OR([{ ALT: () => this.CONSUME(StringLiteral) }, { ALT: () => this.CONSUME(FunctionName) }])
   })
 
-  public atomicExpression = this.RULE('atomicExpression', () => {
+  public simpleAtomicExpression = this.RULE('simpleAtomicExpression', () => {
     this.OR([
       { ALT: () => this.SUBRULE(this.parenthesisExpression) },
       { ALT: () => this.SUBRULE(this.arrayExpression) },
       { ALT: () => this.SUBRULE(this.recordExpression) },
       { ALT: () => this.SUBRULE(this.constantExpression) },
       { ALT: () => this.SUBRULE(this.variableExpression) },
+      { ALT: () => this.SUBRULE(this.FunctionCall) }
+    ])
+  })
+
+  public atomicExpression = this.RULE('atomicExpression', () => {
+    this.OR([
+      { ALT: () => this.SUBRULE(this.predicateExpression) },
+      { ALT: () => this.SUBRULE(this.simpleAtomicExpression) },
       { ALT: () => this.SUBRULE(this.columnExpression) },
-      { ALT: () => this.SUBRULE(this.spreadsheetExpression) },
-      { ALT: () => this.SUBRULE(this.FunctionCall) },
-      { ALT: () => this.SUBRULE(this.predicateExpression) }
+      { ALT: () => this.SUBRULE(this.spreadsheetExpression) }
     ])
   })
 
@@ -223,9 +229,12 @@ export class FormulaParser extends CstParser {
   })
 
   public predicateExpression = this.RULE('predicateExpression', () => {
+    this.OPTION(() => {
+      this.SUBRULE(this.columnExpression)
+    })
     this.OR([{ ALT: () => this.CONSUME(EqualCompareOperator) }, { ALT: () => this.CONSUME(CompareOperator) }])
 
-    this.SUBRULE(this.atomicExpression)
+    this.SUBRULE(this.simpleAtomicExpression)
   })
 
   public columnExpression = this.RULE('columnExpression', () => {
@@ -290,7 +299,7 @@ export class FormulaParser extends CstParser {
     this.CONSUME2(RParen)
   })
 
-  public Arguments = this.RULE('Arguments', (args: undefined | Argument[]) => {
+  public Arguments = this.RULE('Arguments', () => {
     this.SUBRULE(this.expression)
     this.MANY(() => {
       this.CONSUME(Comma)

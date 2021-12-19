@@ -524,22 +524,7 @@ const testCases: TestCase[] = [
   {
     input: '=1**2',
     parseErrorType: 'parse',
-    errorMessage: `Expecting: one of these possible Token sequences:
-  1. [LParen]
-  2. [LBracket]
-  3. [LBrace]
-  4. [Minus]
-  5. [NumberLiteral]
-  6. [BooleanLiteral]
-  7. [StringLiteral]
-  8. [NullLiteral]
-  9. [Dollar, UUID, At]
-  10. [Dollar, UUID, Sharp]
-  11. [Dollar, UUID]
-  12. [FunctionName]
-  13. [EqualCompareOperator]
-  14. [CompareOperator]
-but found: '*'`
+    errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   // Function Call
   {

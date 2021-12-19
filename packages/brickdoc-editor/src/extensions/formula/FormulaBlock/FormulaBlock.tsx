@@ -56,6 +56,10 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     Array: 6
   }
 
+  if (t && !t.variableValue) {
+    console.log('TODO debug', { t })
+  }
+
   const activeColorIndex = t ? COLOR_ARRAY[t.variableValue.result.type as FormulaType] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {

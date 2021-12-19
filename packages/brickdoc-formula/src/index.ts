@@ -141,6 +141,7 @@ export interface ErrorResult extends BaseResult {
 export interface PredicateResult extends BaseResult {
   type: 'Predicate'
   result: AnyTypeResult
+  column?: Column
   operator: PredicateOperator
 }
 

@@ -473,7 +473,7 @@ Object {
                                                                                 "tokenTypeIdx": 20,
                                                                               },
                                                                             ],
-                                                                            "atomicExpression": Array [
+                                                                            "simpleAtomicExpression": Array [
                                                                               Object {
                                                                                 "children": Object {
                                                                                   "constantExpression": Array [
@@ -512,7 +512,7 @@ Object {
                                                                                     },
                                                                                   ],
                                                                                 },
-                                                                                "name": "atomicExpression",
+                                                                                "name": "simpleAtomicExpression",
                                                                               },
                                                                             ],
                                                                           },
@@ -640,20 +640,22 @@ Array [
     "errors": Array [
       Object {
         "message": "Expecting: one of these possible Token sequences:
-  1. [LParen]
-  2. [LBracket]
-  3. [LBrace]
-  4. [Minus]
-  5. [NumberLiteral]
-  6. [BooleanLiteral]
-  7. [StringLiteral]
-  8. [NullLiteral]
-  9. [Dollar, UUID, At]
-  10. [Dollar, UUID, Sharp]
-  11. [Dollar, UUID]
-  12. [FunctionName]
-  13. [EqualCompareOperator]
-  14. [CompareOperator]
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
 but found: ''hello''",
         "type": "syntax",
       },
@@ -863,20 +865,22 @@ Array [
     "errors": Array [
       Object {
         "message": "Expecting: one of these possible Token sequences:
-  1. [LParen]
-  2. [LBracket]
-  3. [LBrace]
-  4. [Minus]
-  5. [NumberLiteral]
-  6. [BooleanLiteral]
-  7. [StringLiteral]
-  8. [NullLiteral]
-  9. [Dollar, UUID, At]
-  10. [Dollar, UUID, Sharp]
-  11. [Dollar, UUID]
-  12. [FunctionName]
-  13. [EqualCompareOperator]
-  14. [CompareOperator]
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
 but found: '中文'",
         "type": "syntax",
       },

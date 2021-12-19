@@ -9,6 +9,7 @@ import { CORE_OBJECT_CLAUSES } from './object'
 import { CORE_STATISTICAL_CLAUSES } from './statistical'
 import { CORE_STRING_CLAUSES } from './string'
 import { CORE_TEXT_CLAUSES } from './text'
+import { CORE_POWERFX_CLAUSES } from './power_fx'
 
 export const buildFunctionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => {
   if (group === 'core') {
@@ -27,5 +28,6 @@ export const BUILTIN_CLAUSES: Array<BasicFunctionClause<any>> = [
   ...CORE_STATISTICAL_CLAUSES,
   ...CORE_DATE_CLAUSES,
   ...CORE_OBJECT_CLAUSES,
-  ...CORE_ERROR_CLAUSES
+  ...CORE_ERROR_CLAUSES,
+  ...CORE_POWERFX_CLAUSES
 ]

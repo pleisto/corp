@@ -576,7 +576,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     return { codeFragments: [], type: 'any', image: '' }
   }
 
-  atomicExpression(
+  simpleAtomicExpression(
     ctx: {
       parenthesisExpression: CstNode | CstNode[]
       arrayExpression: CstNode | CstNode[]
@@ -584,9 +584,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       constantExpression: CstNode | CstNode[]
       FunctionCall: CstNode | CstNode[]
       variableExpression: CstNode | CstNode[]
-      columnExpression: CstNode | CstNode[]
-      spreadsheetExpression: CstNode | CstNode[]
-      predicateExpression: CstNode | CstNode[]
     },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
@@ -602,6 +599,23 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.FunctionCall, { type })
     } else if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression, { type })
+    }
+
+    // console.log('debugAtomic', {ctx, type})
+    return { codeFragments: [], type: 'any', image: '' }
+  }
+
+  atomicExpression(
+    ctx: {
+      simpleAtomicExpression: CstNode | CstNode[]
+      columnExpression: CstNode | CstNode[]
+      spreadsheetExpression: CstNode | CstNode[]
+      predicateExpression: CstNode | CstNode[]
+    },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
+    if (ctx.simpleAtomicExpression) {
+      return this.visit(ctx.simpleAtomicExpression, { type })
     } else if (ctx.columnExpression) {
       return this.visit(ctx.columnExpression, { type })
     } else if (ctx.spreadsheetExpression) {
@@ -615,7 +629,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   }
 
   predicateExpression(
-    ctx: { EqualCompareOperator: IToken[]; CompareOperator: IToken[]; atomicExpression: CstNode | CstNode[] },
+    ctx: {
+      EqualCompareOperator: IToken[]
+      CompareOperator: IToken[]
+      columnExpression: CstNode | CstNode[]
+      simpleAtomicExpression: CstNode | CstNode[]
+    },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
     let token: IToken
@@ -630,10 +649,25 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
+
+    if (ctx.columnExpression) {
+      const { codeFragments: columnCodeFragments, image: columnImage }: CodeFragmentResult = this.visit(
+        ctx.columnExpression,
+        {
+          type: 'Column'
+        }
+      )
+      codeFragments.push(...columnCodeFragments)
+      images.push(columnImage)
+    }
+
     const parentType: FormulaType = 'Predicate'
-    const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(ctx.atomicExpression, {
-      type: childrenType
-    })
+    const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(
+      ctx.simpleAtomicExpression,
+      {
+        type: childrenType
+      }
+    )
 
     codeFragments.push(
       {

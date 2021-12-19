@@ -10,7 +10,9 @@ import {
   BooleanResult,
   PredicateResult,
   PredicateOperator,
-  Row
+  Row,
+  ErrorResult,
+  Column
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -418,16 +420,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  atomicExpression(ctx: {
+  simpleAtomicExpression(ctx: {
     parenthesisExpression: CstNode | CstNode[]
     arrayExpression: CstNode | CstNode[]
     recordExpression: CstNode | CstNode[]
     constantExpression: CstNode | CstNode[]
     FunctionCall: CstNode | CstNode[]
     variableExpression: CstNode | CstNode[]
-    columnExpression: CstNode | CstNode[]
-    spreadsheetExpression: CstNode | CstNode[]
-    predicateExpression: CstNode | CstNode[]
   }): AnyTypeValue {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
@@ -441,6 +440,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.FunctionCall)
     } else if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression)
+    } else {
+      throw new Error('unsupported expression')
+    }
+  }
+
+  atomicExpression(ctx: {
+    simpleAtomicExpression: CstNode | CstNode[]
+    columnExpression: CstNode | CstNode[]
+    spreadsheetExpression: CstNode | CstNode[]
+    predicateExpression: CstNode | CstNode[]
+  }): AnyTypeValue {
+    if (ctx.simpleAtomicExpression) {
+      return this.visit(ctx.simpleAtomicExpression)
     } else if (ctx.columnExpression) {
       return this.visit(ctx.columnExpression)
     } else if (ctx.spreadsheetExpression) {
@@ -455,8 +467,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
   predicateExpression(ctx: {
     EqualCompareOperator: IToken[]
     CompareOperator: IToken[]
-    atomicExpression: CstNode | CstNode[]
-  }): PredicateResult {
+    columnExpression: CstNode | CstNode[]
+    simpleAtomicExpression: CstNode | CstNode[]
+  }): PredicateResult | ErrorResult {
     let operator: PredicateOperator
     let token: IToken
     if (ctx.EqualCompareOperator) {
@@ -481,11 +494,21 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Unexpected operator ${token.image}`)
     }
 
-    const result = this.visit(ctx.atomicExpression)
+    const result = this.visit(ctx.simpleAtomicExpression)
     if (result.type === 'Error') {
       return result
     }
-    return { type: 'Predicate', result, operator }
+
+    if (!ctx.columnExpression) {
+      return { type: 'Predicate', result, operator }
+    }
+
+    const { type, result: column } = this.visit(ctx.columnExpression)
+    if (type === 'null') {
+      return { type: 'Error', result: 'Column not found', errorKind: 'runtime' }
+    }
+
+    return { type: 'Predicate', result, operator, column }
   }
 
   arrayExpression(ctx: { Arguments: CstNode | CstNode[] }): AnyTypeValue {
