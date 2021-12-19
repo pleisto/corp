@@ -12,7 +12,7 @@ import {
   FormulaType,
   SpecialDefaultVariableName,
   Completion,
-  FunctionName,
+  FunctionNameType,
   FunctionGroup,
   FunctionKey,
   VariableKey,
@@ -345,7 +345,7 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  public findFunctionClause = (group: FunctionGroup, name: FunctionName): FunctionClause<any> | undefined => {
+  public findFunctionClause = (group: FunctionGroup, name: FunctionNameType): FunctionClause<any> | undefined => {
     return this.functionClausesMap[buildFunctionKey(group, name)]
   }
 

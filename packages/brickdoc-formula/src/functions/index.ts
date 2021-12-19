@@ -1,4 +1,4 @@
-import { BasicFunctionClause, FunctionGroup, FunctionKey, FunctionName } from '..'
+import { BasicFunctionClause, FunctionGroup, FunctionKey, FunctionNameType } from '..'
 import { CORE_API_CLAUSES } from './api'
 import { CORE_DATABASE_CLAUSES } from './database'
 import { CORE_DATE_CLAUSES } from './date'
@@ -11,7 +11,7 @@ import { CORE_STRING_CLAUSES } from './string'
 import { CORE_TEXT_CLAUSES } from './text'
 import { CORE_POWERFX_CLAUSES } from './power_fx'
 
-export const buildFunctionKey = (group: FunctionGroup, name: FunctionName): FunctionKey => {
+export const buildFunctionKey = (group: FunctionGroup, name: FunctionNameType): FunctionKey => {
   if (group === 'core') {
     return name
   }

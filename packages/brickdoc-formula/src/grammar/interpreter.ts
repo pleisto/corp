@@ -11,8 +11,7 @@ import {
   PredicateResult,
   PredicateOperator,
   Row,
-  ErrorResult,
-  Column
+  ErrorResult
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {

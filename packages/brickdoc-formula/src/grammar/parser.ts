@@ -1,6 +1,6 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
 import { tokensByMode } from '.'
-import { Argument, ContextInterface, ParseMode } from '..'
+import { ContextInterface, ParseMode } from '..'
 import {
   AdditionOperator,
   MultiplicationOperator,
