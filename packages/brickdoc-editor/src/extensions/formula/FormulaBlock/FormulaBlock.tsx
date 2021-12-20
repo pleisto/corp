@@ -6,7 +6,7 @@ import { BlockContainer, FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { displayValue, FormulaType } from '@brickdoc/formula'
+import { displayValue, FormulaType, VariableClass } from '@brickdoc/formula'
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 
 export interface FormulaBlockProps extends NodeViewProps {}
@@ -31,7 +31,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     FormulaUpdated,
     e => {
       console.log('formulaUpdated', e.payload)
-      setVariable(e.payload)
+      setVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
     },
     { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
   )

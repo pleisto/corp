@@ -461,7 +461,6 @@ export const buildVariable = ({
   }
 
   const oldVariable = formulaContext.findVariable(namespaceId, variableId)
-
   if (oldVariable) {
     oldVariable.t = t
     return oldVariable
