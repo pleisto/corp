@@ -17,7 +17,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   const attributes = node.attrs.formula
   const [variable, setVariable] = React.useState(formulaContext?.findVariable(editorDataSource.rootId, attributes.id))
-  const [t, setT] = React.useState(variable?.t)
 
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
 
@@ -33,8 +32,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       FormulaUpdated,
       e => {
         console.log('formulaUpdated', e.payload)
-        setT(e.payload)
-        setVariable(e.payload.t)
+        setVariable(e.payload)
       },
       { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
     )
@@ -56,11 +54,11 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     Array: 6
   }
 
-  if (t && !t.variableValue) {
-    console.log('TODO debug', { t })
+  if (variable?.t && !variable.t.variableValue) {
+    console.log('TODO debug', { t: variable.t })
   }
 
-  const activeColorIndex = t ? COLOR_ARRAY[t.variableValue.result.type as FormulaType] || 0 : 0
+  const activeColorIndex = variable?.t ? COLOR_ARRAY[variable.t.variableValue.result.type as FormulaType] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && node.attrs.isNew) {
@@ -78,16 +76,18 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         editor={editor}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}>
-        {t ? (
+        updateVariable={setVariable}
+      >
+        {variable?.t ? (
           <span
             className="brickdoc-formula"
             style={{
               color: activeColor.color,
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-            }}>
-            {t.name}: {displayValue(t.variableValue.result)}
+            }}
+          >
+            {variable.t.name}: {displayValue(variable.t.variableValue.result)}
           </span>
         ) : (
           <span className="brickdoc-formula-placeholder">

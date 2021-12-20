@@ -69,14 +69,14 @@ class EventBus {
         }
       }
 
-      // console.log('debug FormulaUpdated', {
-      //   event,
-      //   type: event.type,
-      //   result: this.eventIdSubscribers[event.type],
-      //   eventTypeSubscribers,
-      //   meta: [this.eventSubscribers, this.eventIdSubscribers],
-      //   subscribers
-      // })
+      console.log('debug FormulaUpdated', {
+        event,
+        type: event.type,
+        result: this.eventIdSubscribers[event.type],
+        eventTypeSubscribers,
+        meta: [this.eventSubscribers, this.eventIdSubscribers],
+        subscribers
+      })
     }
 
     subscribers
