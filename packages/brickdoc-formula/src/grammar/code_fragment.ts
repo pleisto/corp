@@ -1013,6 +1013,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     this.blockDependencies.push(namespaceId)
     const database = this.formulaContext?.findDatabase(namespaceId)
 
+    console.log('debug spreadsheetExpression', { database, namespaceId, databases: this.formulaContext?.databases })
+
     const parentType: FormulaType = 'Spreadsheet'
 
     this.kind = 'expression'

@@ -29,7 +29,6 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { useFormulaDatabase } from './useFormulaDatabase'
 import { useTableRows } from './useTableRows'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { BlockTableLoaded, BrickdocEventBus } from '@brickdoc/schema'
 
 const isGroupedHeader = (headerGroup: HeaderGroup): boolean =>
   headerGroup.headers?.[0].depth !== 0 || !!headerGroup.Header
@@ -136,7 +135,6 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
     if (!fetched.current) {
       void fetchRows(parentId)
       fetched.current = true
-      BrickdocEventBus.dispatch(BlockTableLoaded({ id: parentId }))
     }
   }, [fetchRows, parentId])
 
