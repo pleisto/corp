@@ -1,9 +1,11 @@
 import { CstNode } from 'chevrotain'
+import { Button } from '../controls'
 
 type BasicType = 'number' | 'string' | 'boolean' | 'null'
-type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Record' | 'Array' | 'Error' | 'Predicate'
+type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Record' | 'Array' | 'Error' | 'Predicate' | 'Function'
+type ControlType = 'Button'
 
-export type FormulaType = BasicType | ObjectType | 'any'
+export type FormulaType = BasicType | ObjectType | ControlType | 'any'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -21,6 +23,8 @@ export type SpecialDefaultVariableName =
   | 'error'
   | 'predicate'
   | 'spreadsheet'
+  | 'function'
+  | 'button'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -69,6 +73,8 @@ export type VariableId = uuid
 export type ColumnId = uuid
 
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
+
+export type FormulaFunctionKind = 'Set'
 
 export interface BaseResult {
   result: any
@@ -139,6 +145,16 @@ export interface PredicateResult extends BaseResult {
   operator: PredicateOperator
 }
 
+export interface FunctionResult extends BaseResult {
+  type: 'Function'
+  result: FormulaFunction[]
+}
+
+export interface ButtonResult extends BaseResult {
+  type: 'Button'
+  result: Button
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -157,6 +173,8 @@ export type BaseFunctionResult<T> =
       | SpreadsheetResult
       | PredicateResult
       | BlockResult
+      | FunctionResult
+      | ButtonResult
     ) & { type: T })
   | ErrorResult
 
@@ -172,7 +190,9 @@ export type AnyTypeResult =
   | SpreadsheetResult
   | BlockResult
   | PredicateResult
+  | ButtonResult
   | ErrorResult
+  | FunctionResult
   | AnyResult
 
 export type AnyFunctionResult<T> =
@@ -187,7 +207,9 @@ export type AnyFunctionResult<T> =
       | ColumnResult
       | SpreadsheetResult
       | BlockResult
+      | ButtonResult
       | PredicateResult
+      | FunctionResult
       | AnyResult
     ) & { type: T })
   | ErrorResult
@@ -229,6 +251,10 @@ export interface DatabaseDefinition {
   name: () => string
   listColumns: () => Column[]
   listRows: () => Row[]
+}
+
+export interface FormulaFunction {
+  kind: FormulaFunctionKind
 }
 
 export interface DatabasePersistence {

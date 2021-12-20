@@ -36,6 +36,8 @@ export const displayValue = (v: AnyTypeValue): string => {
         .join(', ')} }`
     case 'Array':
       return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
+    case 'Button':
+      return `#<Button> ${v.result.name}`
   }
 
   return JSON.stringify(v.result)

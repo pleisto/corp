@@ -43,12 +43,15 @@ export interface FormulaContextArgs {
   backendActions?: BackendActions
 }
 
-const matchRegex = /(str|num|bool|record|array|null|date|predicate|spreadsheet|column|error|block|var)([0-9]+)$/
+const matchRegex =
+  /(str|num|bool|record|array|null|date|predicate|spreadsheet|function|column|button|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: { [key in FormulaType]: SpecialDefaultVariableName } = {
   string: 'str',
   number: 'num',
   boolean: 'bool',
+  Button: 'button',
   Predicate: 'predicate',
+  Function: 'function',
   null: 'null',
   Record: 'record',
   Array: 'array',
@@ -77,6 +80,8 @@ export class FormulaContext implements ContextInterface {
   variableNameCounter: { [key in FormulaType]: { [n: NamespaceId]: number } } = {
     string: {},
     number: {},
+    Button: {},
+    Function: {},
     boolean: {},
     Record: {},
     Predicate: {},

@@ -1,4 +1,5 @@
 export * from './types'
+export * from './controls'
 export * from './grammar'
 export * from './functions'
 export * from './context'
