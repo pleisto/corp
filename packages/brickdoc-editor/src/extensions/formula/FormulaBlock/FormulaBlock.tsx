@@ -30,10 +30,12 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   BrickdocEventBus.subscribe(
     FormulaUpdated,
     e => {
-      console.log('formulaUpdated', e.payload)
       setVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
     },
-    { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
+    {
+      eventId: `${editorDataSource.rootId},${attributes.id}`,
+      subscribeId: `${editorDataSource.rootId},${attributes.id}`
+    }
   )
 
   const COLOR_ARRAY: { [key in FormulaType]: number } = {
@@ -50,10 +52,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     any: 6,
     Record: 6,
     Array: 6
-  }
-
-  if (variable?.t && !variable.t.variableValue) {
-    console.log('TODO debug', { t: variable.t })
   }
 
   const activeColorIndex = variable?.t ? COLOR_ARRAY[variable.t.variableValue.result.type as FormulaType] || 0 : 0

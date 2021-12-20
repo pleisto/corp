@@ -92,6 +92,11 @@ const calculate = async ({
           result: parseResult.errorMessages[0].message,
           errorKind: parseResult.errorMessages[0].type
         },
+        cacheValue: {
+          type: 'Error',
+          result: parseResult.errorMessages[0].message,
+          errorKind: parseResult.errorMessages[0].type
+        },
         updatedAt: new Date()
       }
     }

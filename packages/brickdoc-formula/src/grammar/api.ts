@@ -385,6 +385,7 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       variableValue: {
         updatedAt: new Date(),
         success: false,
+        cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
         result: { result: message, type: 'Error', errorKind: 'fatal' }
       }
     }
@@ -398,6 +399,7 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       variableValue: {
         success: true,
         updatedAt: new Date(),
+        cacheValue: result,
         result
       },
       errorMessages: []
@@ -412,6 +414,7 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
       variableValue: {
         updatedAt: new Date(),
         success: false,
+        cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
         result: { result: message, type: 'Error', errorKind: 'fatal' }
       }
     }

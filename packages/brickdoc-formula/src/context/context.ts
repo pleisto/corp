@@ -243,7 +243,7 @@ export class FormulaContext implements ContextInterface {
       e => {
         this.blockNameMap[namespaceId] = e.payload.name
       },
-      { eventId: namespaceId, subscribeId: 'formula' }
+      { eventId: namespaceId, subscribeId: variable.t.variableId }
     )
 
     blockDependencies.forEach(blockId => {
@@ -251,9 +251,8 @@ export class FormulaContext implements ContextInterface {
         BlockTableLoaded,
         e => {
           variable.reparse()
-          console.log('tableLoad', { e, variable })
         },
-        { eventId: blockId, subscribeId: 'formula' }
+        { eventId: blockId, subscribeId: variable.t.variableId }
       )
     })
 

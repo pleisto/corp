@@ -192,6 +192,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableValue": Object {
+      "cacheValue": Object {
+        "result": 123,
+        "type": "number",
+      },
       "result": Object {
         "result": 123,
         "type": "number",
@@ -621,6 +625,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableValue": Object {
+      "cacheValue": Object {
+        "result": 123,
+        "type": "number",
+      },
       "result": Object {
         "result": 123,
         "type": "number",
@@ -1278,6 +1286,10 @@ Array [
     ],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
     "variableValue": Object {
+      "cacheValue": Object {
+        "result": 456,
+        "type": "number",
+      },
       "result": Object {
         "result": 456,
         "type": "number",
@@ -1588,6 +1600,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableValue": Object {
+      "cacheValue": Object {
+        "result": 123,
+        "type": "number",
+      },
       "result": Object {
         "errorKind": "syntax",
         "result": "Expecting: one of these possible Token sequences:
@@ -2268,6 +2284,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
     "variableValue": Object {
+      "cacheValue": Object {
+        "result": 456,
+        "type": "number",
+      },
       "result": Object {
         "errorKind": "deps",
         "result": "Variable not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",

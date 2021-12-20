@@ -426,6 +426,7 @@ export interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
   readonly result: AnyTypeValue
+  readonly cacheValue: AnyTypeValue
 }
 
 export interface SuccessVariableValue extends BaseVariableValue {

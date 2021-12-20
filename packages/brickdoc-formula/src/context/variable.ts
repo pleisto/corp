@@ -41,29 +41,34 @@ export const displayValue = (v: AnyTypeValue): string => {
   return JSON.stringify(v.result)
 }
 
-const parseCacheValue = (cacheValue: AnyTypeValue): AnyTypeValue => {
-  if (
-    cacheValue.type === 'Spreadsheet' &&
-    cacheValue.result.dynamic &&
-    !(cacheValue.result instanceof DatabaseFactory)
-  ) {
-    const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
-    return {
-      type: 'Spreadsheet',
-      result: new DatabaseFactory({
-        blockId,
-        dynamic: true,
-        name: () => tableName,
-        listColumns: () => columns,
-        listRows: () => rows
-      })
-    }
-  }
-
+const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeValue): AnyTypeValue => {
   if (cacheValue.type === 'Date' && !(cacheValue.result instanceof Date)) {
     return {
       type: 'Date',
       result: new Date(cacheValue.result)
+    }
+  }
+
+  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof DatabaseFactory)) {
+    if (cacheValue.result.dynamic) {
+      const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
+      return {
+        type: 'Spreadsheet',
+        result: new DatabaseFactory({
+          blockId,
+          dynamic: true,
+          name: () => tableName,
+          listColumns: () => columns,
+          listRows: () => rows
+        })
+      }
+    } else {
+      const database = formulaContext.findDatabase(cacheValue.result.blockId)
+      if (database) {
+        return { type: 'Spreadsheet', result: database }
+      } else {
+        return { type: 'Error', result: `Database ${cacheValue.result.blockId} not found`, errorKind: 'deps' }
+      }
     }
   }
 
@@ -78,7 +83,7 @@ export const castVariable = (
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
-  const castedValue: AnyTypeValue = parseCacheValue(cacheValue as unknown as AnyTypeValue)
+  const castedValue: AnyTypeValue = parseCacheValue(formulaContext, cacheValue)
   const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
   const {
     success,
@@ -98,12 +103,14 @@ export const castVariable = (
     ? {
         updatedAt: new Date(),
         success: true,
-        result: castedValue
+        result: castedValue,
+        cacheValue
       }
     : {
         updatedAt: new Date(),
         success: false,
-        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type }
+        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type },
+        cacheValue
       }
 
   return {
@@ -154,7 +161,7 @@ export class VariableClass implements VariableInterface {
       name: this.t.name,
       updatedAt: new Date().toISOString(),
       createdAt: new Date().getTime(),
-      cacheValue: this.t.variableValue.result,
+      cacheValue: this.t.variableValue.cacheValue,
       view: this.t.view
     }
   }
@@ -176,9 +183,8 @@ export class VariableClass implements VariableInterface {
   }
 
   public reparse = (): void => {
-    console.log('reparse', this.formulaContext.databases)
-    this.t = castVariable(this.formulaContext, this.buildFormula())
-    console.log(this.t)
+    const formula = this.buildFormula()
+    this.t = castVariable(this.formulaContext, formula)
     this.afterUpdate()
   }
 
