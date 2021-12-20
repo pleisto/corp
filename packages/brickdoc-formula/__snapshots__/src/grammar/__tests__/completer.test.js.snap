@@ -40,6 +40,15 @@ Array [
         "message": "Missing expression",
         "type": "syntax",
       },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [FunctionName, DoubleColon]
+  2. [FunctionName, LParen]
+  3. [StringLiteral]
+  4. [FunctionName]
+but found: ''",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": ".",
@@ -90,6 +99,15 @@ Array [
         "message": "Missing expression",
         "type": "syntax",
       },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [FunctionName, DoubleColon]
+  2. [FunctionName, LParen]
+  3. [StringLiteral]
+  4. [FunctionName]
+but found: ''",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": ".",
@@ -133,6 +151,15 @@ Array [
     "spaceBefore": false,
     "type": "number",
   },
+  Object {
+    "code": "Space",
+    "errors": Array [],
+    "meta": undefined,
+    "name": " ",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
 ]
 `;
 
@@ -168,6 +195,15 @@ Array [
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "number",
+  },
+  Object {
+    "code": "Space",
+    "errors": Array [],
+    "meta": undefined,
+    "name": " ",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
   },
 ]
 `;

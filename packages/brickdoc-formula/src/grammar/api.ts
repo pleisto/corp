@@ -189,6 +189,10 @@ export const parse = ({
     type: 'any'
   })
 
+  const finalCodeFragments: CodeFragment[] = codeFragments
+  const errorCodeFragment = codeFragments.find(f => f.errors.length)
+  const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
+
   level = codeFragmentVisitor.level
   variableDependencies = codeFragmentVisitor.variableDependencies
   functionDependencies = codeFragmentVisitor.functionDependencies
@@ -198,16 +202,12 @@ export const parse = ({
   const parseErrors: IRecognitionException[] = parser.errors
 
   if (lexResult.errors.length > 0 || parseErrors.length > 0) {
-    const finalCodeFragments: CodeFragment[] = codeFragments
     const errorMessages = (lexResult.errors.length ? lexResult.errors : parseErrors).map(e => ({
       message: e.message,
       type: 'syntax'
     })) as [ErrorMessage, ...ErrorMessage[]]
 
-    const errorCodeFragment = codeFragments.find(f => f.errors.length)
-    const finalErrorMessages: [ErrorMessage, ...ErrorMessage[]] = errorCodeFragment
-      ? [errorCodeFragment.errors[0]]
-      : errorMessages
+    finalErrorMessages.push(...errorMessages)
 
     if (inputImage.startsWith(image)) {
       const restImages = inputImage.slice(image.length)
@@ -225,34 +225,19 @@ export const parse = ({
     } else {
       console.error({ ParseErrorTODO: { input, newInput, inputImages: inputImage, image } })
     }
+  }
 
-    completions = complete({
-      input,
-      cacheCompletions: baseCompletion,
-      codeFragments,
-      tokens,
-      formulaContext,
-      namespaceId,
-      variableId
+  const spaceCount = input.length - input.trimEnd().length
+  if (spaceCount) {
+    finalCodeFragments.push({
+      code: 'Space',
+      name: Array(spaceCount).fill(' ').join(''),
+      spaceAfter: false,
+      spaceBefore: false,
+      type: 'any',
+      meta: undefined,
+      errors: []
     })
-
-    return {
-      success: false,
-      valid: finalCodeFragments.length > 0,
-      errorType: 'parse',
-      input: newInput,
-      inputImage,
-      parseImage: image,
-      completions,
-      level,
-      errorMessages: finalErrorMessages,
-      cst,
-      codeFragments: finalCodeFragments,
-      variableDependencies,
-      functionDependencies,
-      blockDependencies,
-      flattenVariableDependencies
-    }
   }
 
   completions = complete({
@@ -265,12 +250,10 @@ export const parse = ({
     variableId
   })
 
-  const errorCodeFragment = codeFragments.find(f => f.errors.length)
-
-  if (errorCodeFragment) {
+  if (finalErrorMessages.length) {
     return {
       success: false,
-      valid: true,
+      valid: codeFragments.length > 0,
       input: newInput,
       inputImage,
       parseImage: image,
@@ -278,8 +261,8 @@ export const parse = ({
       level,
       errorType: 'syntax',
       completions,
-      errorMessages: [errorCodeFragment.errors[0]],
-      codeFragments,
+      errorMessages: finalErrorMessages as [ErrorMessage, ...ErrorMessage[]],
+      codeFragments: finalCodeFragments,
       variableDependencies,
       functionDependencies,
       blockDependencies,
@@ -303,7 +286,7 @@ export const parse = ({
       variableDependencies,
       functionDependencies,
       blockDependencies,
-      codeFragments
+      codeFragments: finalCodeFragments
     }
   }
 
@@ -323,7 +306,7 @@ export const parse = ({
       blockDependencies,
       variableDependencies,
       functionDependencies,
-      codeFragments
+      codeFragments: finalCodeFragments
     }
   }
 
@@ -347,7 +330,7 @@ export const parse = ({
       blockDependencies,
       variableDependencies,
       functionDependencies,
-      codeFragments
+      codeFragments: finalCodeFragments
     }
   }
 
@@ -366,7 +349,7 @@ export const parse = ({
     blockDependencies,
     variableDependencies,
     functionDependencies,
-    codeFragments
+    codeFragments: finalCodeFragments
   }
 }
 

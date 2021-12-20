@@ -436,6 +436,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression)
     } else {
+      // console.log({ ctx })
       throw new Error('unsupported expression')
     }
   }
@@ -455,6 +456,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else if (ctx.predicateExpression) {
       return this.visit(ctx.predicateExpression)
     } else {
+      // console.log({ ctx })
       throw new Error('unsupported expression')
     }
   }

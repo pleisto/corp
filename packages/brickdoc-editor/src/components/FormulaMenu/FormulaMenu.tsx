@@ -68,7 +68,7 @@ const calculate = async ({
   console.log({
     parseResult,
     input,
-    newINput: parseResult.input,
+    newInput: parseResult.input,
     codeFragments: parseResult.codeFragments,
     activeCompletion
   })
@@ -278,7 +278,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const handleValueChange = (editor: Editor): void => {
     const text = `=${contentToInput(editor.getJSON().content?.[0] ?? [])}`
-    console.log({ content, json: editor.getJSON(), editor, text, formulaContext, label: 'updateValue' })
+    // console.log({ content, json: editor.getJSON(), editor, text, formulaContext, label: 'updateValue' })
     setInput(text)
     setContent(editor.getJSON() as JSONContent)
     void doCalculate({ newInput: text })

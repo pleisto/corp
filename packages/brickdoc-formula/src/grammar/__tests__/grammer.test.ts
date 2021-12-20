@@ -146,7 +146,7 @@ const testCases: TestCase[] = [
   },
   {
     input: '= "foo" in',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing right expression'
   },
   {
@@ -197,28 +197,28 @@ const testCases: TestCase[] = [
   },
   {
     input: '=[',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=[1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=[1,',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=[1,]',
     label: 'array edit',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expression count mismatch'
   },
   {
     input: '=[1,2',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
@@ -246,33 +246,33 @@ const testCases: TestCase[] = [
   },
   {
     input: '={',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '={a',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '={a: }',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences'
   },
   {
     input: '={a: 1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '={1: "a"}',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'TODO record number as key',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '={"foo":}',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences'
   },
   {
@@ -347,13 +347,13 @@ const testCases: TestCase[] = [
   {
     input: '= "hel"lo"',
     label: 'lex error when parse "hel"lo" => parseError',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO build not all input parsed :7'
   },
   {
     input: "= 'hello'",
     label: 'Single quote => parseError',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences'
   },
   // **
@@ -446,66 +446,66 @@ const testCases: TestCase[] = [
   {
     input: '= -',
     label: 'Without number',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing number'
   },
   {
     input: '1+1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'missing prefix equal',
     errorMessage: 'TODO mismatch token startExpression'
   },
   {
     input: '=1+',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'TODO missing suffix expression',
     errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   {
     input: '=(1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis1',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=(1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis1',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=ABS(',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis2',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=ABS(1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis3',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=POWER(1,',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis4',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '=POWER(1,2',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'Missing closing parenthesis5',
     errorMessage: 'Missing closing parenthesis'
   },
   {
     input: '= 1+$',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   {
     input: '= 1;',
     label: 'Semicolon 1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing expression'
   },
   {
@@ -519,13 +519,13 @@ const testCases: TestCase[] = [
   },
   {
     input: '="foo" &&& 123',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'TODO &&&',
     errorMessage: 'Expected boolean but got string'
   },
   {
     input: '=1**2',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences:'
   },
   // Function Call
@@ -595,12 +595,12 @@ const testCases: TestCase[] = [
   // Access
   {
     input: '=1.a',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
     input: '=1."a"',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
@@ -631,7 +631,7 @@ const testCases: TestCase[] = [
   // Chain
   {
     input: '="FOO".',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing expression'
   },
   {
@@ -680,7 +680,7 @@ const testCases: TestCase[] = [
   {
     input: '==1',
     label: 'TODO predicate ==1',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO mismatch token startExpression'
   },
   {
@@ -759,34 +759,38 @@ const testCases: TestCase[] = [
     value: 4
   },
   {
+    input: '=1; 2; 1/0; (1+3)',
+    value: 4
+  },
+  {
     input: '=1; 2;',
     label: 'multiline error',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing expression'
   },
   {
     input: '=;',
     label: 'multiline error 2',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Missing expression'
   },
   {
     input: '=;123',
     label: 'multiline error 3',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences'
   },
   // TODO List
   {
     input: '= 中文',
     label: 'TODO chinese',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'Expecting: one of these possible Token sequences'
   },
   {
     input: '=varvarabc中文var',
     label: 'TODO chinese2',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO mismatch token FunctionCall'
   },
   {
@@ -802,18 +806,18 @@ const testCases: TestCase[] = [
   {
     input: '=1.T()',
     label: 'should success',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
     input: '=1.START_WITH("123")',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     label: 'TODO chain type 3',
     errorMessage: 'TODO build not all input parsed :3'
   },
   {
     input: '=123.ABS()',
-    parseErrorType: 'parse',
+    parseErrorType: 'syntax',
     errorMessage: 'TODO build not all input parsed :5'
   }
 ]

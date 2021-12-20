@@ -77,6 +77,10 @@ Array [
         "message": "Missing closing parenthesis",
         "type": "syntax",
       },
+      Object {
+        "message": "TODO mismatch token parenthesisExpression",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": "(",
@@ -103,6 +107,10 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
+        "type": "syntax",
+      },
+      Object {
+        "message": "TODO mismatch token parenthesisExpression",
         "type": "syntax",
       },
     ],
@@ -137,6 +145,10 @@ Array [
         "message": "Miss argument",
         "type": "deps",
       },
+      Object {
+        "message": "TODO mismatch token FunctionCall",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": "ABS",
@@ -168,6 +180,10 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
+        "type": "syntax",
+      },
+      Object {
+        "message": "TODO mismatch token FunctionCall",
         "type": "syntax",
       },
     ],
@@ -210,6 +226,27 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
+        "type": "syntax",
+      },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ''",
         "type": "syntax",
       },
     ],
@@ -271,6 +308,10 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
+        "type": "syntax",
+      },
+      Object {
+        "message": "TODO mismatch token FunctionCall",
         "type": "syntax",
       },
     ],
@@ -595,6 +636,27 @@ Array [
         "message": "Missing expression",
         "type": "syntax",
       },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ''",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": ";",
@@ -718,6 +780,27 @@ Array [
       Object {
         "message": "Expected boolean but got string",
         "type": "type",
+      },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: '&'",
+        "type": "syntax",
       },
     ],
     "meta": undefined,
@@ -995,6 +1078,10 @@ Array [
         "message": "Missing closing parenthesis",
         "type": "syntax",
       },
+      Object {
+        "message": "TODO mismatch token recordExpression",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": "{",
@@ -1028,6 +1115,10 @@ Array [
         "message": "Missing number",
         "type": "syntax",
       },
+      Object {
+        "message": "TODO mismatch token NumberLiteralExpression",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": "-",
@@ -1054,6 +1145,27 @@ Array [
     "errors": Array [
       Object {
         "message": "Expression count mismatch",
+        "type": "syntax",
+      },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ']'",
         "type": "syntax",
       },
     ],
@@ -1587,6 +1699,48 @@ Array [
         "message": "Missing expression",
         "type": "syntax",
       },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ';'",
+        "type": "syntax",
+      },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ''",
+        "type": "syntax",
+      },
     ],
     "meta": undefined,
     "name": ";",
@@ -1654,6 +1808,27 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing expression",
+        "type": "syntax",
+      },
+      Object {
+        "message": "Expecting: one of these possible Token sequences:
+  1. [EqualCompareOperator]
+  2. [CompareOperator]
+  3. [Dollar, UUID, Sharp, UUID, EqualCompareOperator]
+  4. [Dollar, UUID, Sharp, UUID, CompareOperator]
+  5. [LParen]
+  6. [LBracket]
+  7. [LBrace]
+  8. [Minus]
+  9. [NumberLiteral]
+  10. [BooleanLiteral]
+  11. [StringLiteral]
+  12. [NullLiteral]
+  13. [FunctionName]
+  14. [Dollar, UUID, At]
+  15. [Dollar, UUID, Sharp, UUID]
+  16. [Dollar, UUID]
+but found: ''",
         "type": "syntax",
       },
     ],
