@@ -27,16 +27,14 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   //   })
   // }, [variable])
 
-  React.useEffect(() => {
-    BrickdocEventBus.subscribe(
-      FormulaUpdated,
-      e => {
-        console.log('formulaUpdated', e.payload)
-        setVariable(e.payload)
-      },
-      { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
-    )
-  }, [attributes.id, editorDataSource.rootId])
+  BrickdocEventBus.subscribe(
+    FormulaUpdated,
+    e => {
+      console.log('formulaUpdated', e.payload)
+      setVariable(e.payload)
+    },
+    { eventId: `${editorDataSource.rootId},${attributes.id}`, subscribeId: 'formula' }
+  )
 
   const COLOR_ARRAY: { [key in FormulaType]: number } = {
     Date: 6,
@@ -76,8 +74,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         editor={editor}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}
-      >
+        updateVariable={setVariable}>
         {variable?.t ? (
           <span
             className="brickdoc-formula"
@@ -85,8 +82,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
               color: activeColor.color,
               borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
               background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-            }}
-          >
+            }}>
             {variable.t.name}: {displayValue(variable.t.variableValue.result)}
           </span>
         ) : (

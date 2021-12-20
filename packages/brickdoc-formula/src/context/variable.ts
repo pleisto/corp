@@ -177,6 +177,7 @@ export class VariableClass implements VariableInterface {
 
   public reparse = (): void => {
     this.t = castVariable(this.formulaContext, this.buildFormula())
+    console.log(this.t)
     this.afterUpdate()
   }
 

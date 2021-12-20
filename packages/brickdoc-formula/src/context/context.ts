@@ -234,10 +234,10 @@ export class FormulaContext implements ContextInterface {
 
   // TODO flattenVariableDependencies
   // TODO update level
-  public trackDependency = ({
-    t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies },
-    reparse
-  }: VariableInterface): void => {
+  public trackDependency = (variable: VariableInterface): void => {
+    const {
+      t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies }
+    } = variable
     BrickdocEventBus.subscribe(
       BlockNameLoad,
       e => {
@@ -250,8 +250,8 @@ export class FormulaContext implements ContextInterface {
       BrickdocEventBus.subscribe(
         BlockTableLoaded,
         e => {
-          reparse()
-          console.log('tableLoad', { e })
+          variable.reparse()
+          console.log('tableLoad', { e, variable })
         },
         { eventId: blockId, subscribeId: 'formula' }
       )
