@@ -2,7 +2,17 @@ import { CstNode } from 'chevrotain'
 import { Button } from '../controls'
 
 type BasicType = 'number' | 'string' | 'boolean' | 'null'
-type ObjectType = 'Date' | 'Column' | 'Spreadsheet' | 'Block' | 'Record' | 'Array' | 'Error' | 'Predicate' | 'Function'
+type ObjectType =
+  | 'Date'
+  | 'Column'
+  | 'Spreadsheet'
+  | 'Block'
+  | 'Record'
+  | 'Array'
+  | 'Error'
+  | 'Predicate'
+  | 'Function'
+  | 'Reference'
 type ControlType = 'Button'
 
 export type FormulaType = BasicType | ObjectType | ControlType | 'any'
@@ -23,6 +33,7 @@ export type SpecialDefaultVariableName =
   | 'error'
   | 'predicate'
   | 'spreadsheet'
+  | 'reference'
   | 'function'
   | 'button'
 
@@ -150,6 +161,11 @@ export interface FunctionResult extends BaseResult {
   result: FormulaFunction[]
 }
 
+export interface ReferenceResult extends BaseResult {
+  type: 'Reference'
+  result: never
+}
+
 export interface ButtonResult extends BaseResult {
   type: 'Button'
   result: Button
@@ -174,6 +190,7 @@ export type BaseFunctionResult<T> =
       | PredicateResult
       | BlockResult
       | FunctionResult
+      | ReferenceResult
       | ButtonResult
     ) & { type: T })
   | ErrorResult
@@ -193,6 +210,7 @@ export type AnyTypeResult =
   | ButtonResult
   | ErrorResult
   | FunctionResult
+  | ReferenceResult
   | AnyResult
 
 export type AnyFunctionResult<T> =
@@ -210,6 +228,7 @@ export type AnyFunctionResult<T> =
       | ButtonResult
       | PredicateResult
       | FunctionResult
+      | ReferenceResult
       | AnyResult
     ) & { type: T })
   | ErrorResult
@@ -369,6 +388,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType
   readonly pure: boolean
   readonly effect: false
+  readonly lazy: boolean
   readonly async: false
   readonly chain: boolean
   readonly acceptError: boolean

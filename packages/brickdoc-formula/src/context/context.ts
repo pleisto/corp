@@ -44,7 +44,7 @@ export interface FormulaContextArgs {
 }
 
 const matchRegex =
-  /(str|num|bool|record|array|null|date|predicate|spreadsheet|function|column|button|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|array|null|date|predicate|reference|spreadsheet|function|column|button|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: { [key in FormulaType]: SpecialDefaultVariableName } = {
   string: 'str',
   number: 'num',
@@ -52,6 +52,7 @@ export const FormulaTypeCastName: { [key in FormulaType]: SpecialDefaultVariable
   Button: 'button',
   Predicate: 'predicate',
   Function: 'function',
+  Reference: 'reference',
   null: 'null',
   Record: 'record',
   Array: 'array',
@@ -85,6 +86,7 @@ export class FormulaContext implements ContextInterface {
     boolean: {},
     Record: {},
     Predicate: {},
+    Reference: {},
     Error: {},
     Spreadsheet: {},
     Array: {},

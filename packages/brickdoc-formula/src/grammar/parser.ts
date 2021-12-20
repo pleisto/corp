@@ -32,7 +32,8 @@ import {
   NullLiteral,
   LBrace,
   RBrace,
-  Colon
+  Colon,
+  Self
 } from './lexer'
 
 interface ParserConfig {
@@ -177,7 +178,7 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.SUBRULE(this.arrayExpression) },
       { ALT: () => this.SUBRULE(this.recordExpression) },
       { ALT: () => this.SUBRULE(this.constantExpression) },
-      { ALT: () => this.SUBRULE(this.variableExpression) },
+      { ALT: () => this.SUBRULE(this.allVariableExpression) },
       { ALT: () => this.SUBRULE(this.FunctionCall) }
     ])
   })
@@ -232,6 +233,23 @@ export class FormulaParser extends CstParser {
     this.CONSUME(UUID)
     this.CONSUME(Sharp)
     this.CONSUME2(UUID)
+  })
+
+  public lazyVariableExpression = this.RULE('lazyVariableExpression', () => {
+    this.OR([{ ALT: () => this.SUBRULE(this.variableExpression) }, { ALT: () => this.CONSUME(Self) }])
+  })
+
+  public allVariableExpression = this.RULE('allVariableExpression', lazy => {
+    this.OR([
+      {
+        GATE: () => !lazy,
+        ALT: () => this.SUBRULE(this.variableExpression)
+      },
+      {
+        GATE: () => lazy,
+        ALT: () => this.SUBRULE(this.lazyVariableExpression)
+      }
+    ])
   })
 
   public variableExpression = this.RULE('variableExpression', () => {

@@ -421,7 +421,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     recordExpression: CstNode | CstNode[]
     constantExpression: CstNode | CstNode[]
     FunctionCall: CstNode | CstNode[]
-    variableExpression: CstNode | CstNode[]
+    allVariableExpression: CstNode | CstNode[]
   }): AnyTypeValue {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
@@ -433,8 +433,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.constantExpression)
     } else if (ctx.FunctionCall) {
       return this.visit(ctx.FunctionCall)
-    } else if (ctx.variableExpression) {
-      return this.visit(ctx.variableExpression)
+    } else if (ctx.allVariableExpression) {
+      return this.visit(ctx.allVariableExpression)
     } else {
       // console.log({ ctx })
       throw new Error('unsupported expression')
@@ -595,6 +595,24 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else {
       return { type: 'null', result: null }
     }
+  }
+
+  allVariableExpression(ctx: {
+    variableExpression: CstNode | CstNode[]
+    lazyVariableExpression: CstNode | CstNode[]
+  }): AnyTypeValue {
+    if (ctx.variableExpression) {
+      return this.visit(ctx.variableExpression)
+    } else if (ctx.lazyVariableExpression) {
+      return this.visit(ctx.lazyVariableExpression)
+    } else {
+      throw new Error('unsupported expression')
+    }
+  }
+
+  lazyVariableExpression(ctx: any): AnyTypeValue {
+    console.log('lazy2', { ctx })
+    return { type: 'null', result: null }
   }
 
   variableExpression(ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } }): AnyTypeValue {

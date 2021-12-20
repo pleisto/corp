@@ -16,6 +16,7 @@ export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'Button',
     async: false,
     pure: false,
+    lazy: false,
     acceptError: false,
     effect: false,
     examples: [{ input: '=Button("name")', output: null }],

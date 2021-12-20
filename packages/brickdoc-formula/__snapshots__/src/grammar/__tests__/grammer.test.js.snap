@@ -242,10 +242,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ''",
         "type": "syntax",
       },
@@ -411,16 +412,16 @@ Object {
               "CATEGORIES": Array [],
               "PATTERN": /NOT_APPLICABLE/,
               "categoryMatches": Array [
-                15,
                 16,
-                18,
+                17,
                 19,
+                20,
               ],
               "categoryMatchesMap": Object {
-                "15": true,
                 "16": true,
-                "18": true,
+                "17": true,
                 "19": true,
+                "20": true,
               },
               "isParent": true,
               "name": "EqualCompareOperator",
@@ -432,9 +433,9 @@ Object {
           "categoryMatchesMap": Object {},
           "isParent": false,
           "name": "Equal",
-          "tokenTypeIdx": 15,
+          "tokenTypeIdx": 16,
         },
-        "tokenTypeIdx": 15,
+        "tokenTypeIdx": 16,
       },
     ],
     "expression": Array [
@@ -488,16 +489,16 @@ Object {
                                                                                       "CATEGORIES": Array [],
                                                                                       "PATTERN": /NOT_APPLICABLE/,
                                                                                       "categoryMatches": Array [
-                                                                                        14,
-                                                                                        17,
-                                                                                        20,
+                                                                                        15,
+                                                                                        18,
                                                                                         21,
+                                                                                        22,
                                                                                       ],
                                                                                       "categoryMatchesMap": Object {
-                                                                                        "14": true,
-                                                                                        "17": true,
-                                                                                        "20": true,
+                                                                                        "15": true,
+                                                                                        "18": true,
                                                                                         "21": true,
+                                                                                        "22": true,
                                                                                       },
                                                                                       "isParent": true,
                                                                                       "name": "CompareOperator",
@@ -509,9 +510,9 @@ Object {
                                                                                   "categoryMatchesMap": Object {},
                                                                                   "isParent": false,
                                                                                   "name": "GreaterThanEqual",
-                                                                                  "tokenTypeIdx": 20,
+                                                                                  "tokenTypeIdx": 21,
                                                                                 },
-                                                                                "tokenTypeIdx": 20,
+                                                                                "tokenTypeIdx": 21,
                                                                               },
                                                                             ],
                                                                             "simpleAtomicExpression": Array [
@@ -539,9 +540,9 @@ Object {
                                                                                                     "categoryMatchesMap": Object {},
                                                                                                     "isParent": false,
                                                                                                     "name": "BooleanLiteral",
-                                                                                                    "tokenTypeIdx": 41,
+                                                                                                    "tokenTypeIdx": 42,
                                                                                                   },
-                                                                                                  "tokenTypeIdx": 41,
+                                                                                                  "tokenTypeIdx": 42,
                                                                                                 },
                                                                                               ],
                                                                                             },
@@ -650,10 +651,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ''",
         "type": "syntax",
       },
@@ -718,10 +720,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ''hello''",
         "type": "syntax",
       },
@@ -795,10 +798,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: '&'",
         "type": "syntax",
       },
@@ -964,10 +968,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: '中文'",
         "type": "syntax",
       },
@@ -1161,10 +1166,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ']'",
         "type": "syntax",
       },
@@ -1713,10 +1719,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ';'",
         "type": "syntax",
       },
@@ -1734,10 +1741,11 @@ but found: ';'",
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ''",
         "type": "syntax",
       },
@@ -1824,10 +1832,11 @@ Array [
   10. [BooleanLiteral]
   11. [StringLiteral]
   12. [NullLiteral]
-  13. [FunctionName]
-  14. [Dollar, UUID, At]
-  15. [Dollar, UUID, Sharp, UUID]
-  16. [Dollar, UUID]
+  13. [Self]
+  14. [FunctionName]
+  15. [Dollar, UUID, At]
+  16. [Dollar, UUID, Sharp, UUID]
+  17. [Dollar, UUID]
 but found: ''",
         "type": "syntax",
       },

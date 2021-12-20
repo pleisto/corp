@@ -579,7 +579,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       recordExpression: CstNode | CstNode[]
       constantExpression: CstNode | CstNode[]
       FunctionCall: CstNode | CstNode[]
-      variableExpression: CstNode | CstNode[]
+      allVariableExpression: CstNode | CstNode[]
     },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
@@ -593,8 +593,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.constantExpression, { type })
     } else if (ctx.FunctionCall) {
       return this.visit(ctx.FunctionCall, { type })
-    } else if (ctx.variableExpression) {
-      return this.visit(ctx.variableExpression, { type })
+    } else if (ctx.allVariableExpression) {
+      return this.visit(ctx.allVariableExpression, { type })
     }
 
     // console.log('debugAtomic', {ctx, type})
@@ -1042,6 +1042,21 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         type: parentType
       }
     }
+  }
+
+  allVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    if (ctx.variableExpression) {
+      return this.visit(ctx.variableExpression, { type })
+    } else if (ctx.lazyVariableExpression) {
+      return this.visit(ctx.lazyVariableExpression, { type })
+    } else {
+      return { codeFragments: [], type: 'any', image: '' }
+    }
+  }
+
+  lazyVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    console.log('lazyVariableExpression', { ctx, type })
+    return { codeFragments: [], type: 'any', image: '' }
   }
 
   variableExpression(ctx: { Dollar: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {

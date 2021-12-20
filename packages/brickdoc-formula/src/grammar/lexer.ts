@@ -10,6 +10,8 @@ export const InOperator = createToken({ name: 'InOperator', pattern: Lexer.NA })
 export const In = createToken({ name: 'In', pattern: /in/, categories: InOperator })
 export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/, categories: InOperator })
 
+export const Self = createToken({ name: 'Self', pattern: /Self/ })
+
 export const And = createToken({
   name: 'And',
   pattern: /and|&&/,
@@ -261,6 +263,8 @@ export const allTokens = [
   Comma, // ,
 
   Semicolon, // ;
+
+  Self, // Self
   // FunctionName,
   FunctionName,
 

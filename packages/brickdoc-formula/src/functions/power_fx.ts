@@ -48,6 +48,7 @@ export const CORE_POWERFX_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'CountIf',
     async: false,
     pure: false,
+    lazy: false,
     acceptError: false,
     effect: false,
     examples: [{ input: '=CountIf()', output: { type: 'number', result: 123 } }],
