@@ -399,7 +399,7 @@ Object {
     "expression": Array [
       Object {
         "children": Object {
-          "combineExpression": Array [
+          "lhs": Array [
             Object {
               "children": Object {
                 "lhs": Array [
@@ -589,23 +589,23 @@ Array [
     "type": "number",
   },
   Object {
-    "code": "other",
+    "code": "Semicolon",
     "errors": Array [
       Object {
-        "message": "TODO build not all input parsed :3",
+        "message": "Missing expression",
         "type": "syntax",
       },
     ],
     "meta": undefined,
     "name": ";",
-    "spaceAfter": false,
-    "spaceBefore": false,
+    "spaceAfter": true,
+    "spaceBefore": true,
     "type": "any",
   },
 ]
 `;
 
-exports[`Simple test case [Semicolon 2] = 1; 2 // => ✗ 1`] = `
+exports[`Simple test case [Semicolon 2] = 1; 2 // => 2 1`] = `
 Array [
   Object {
     "code": "NumberLiteral",
@@ -617,18 +617,22 @@ Array [
     "type": "number",
   },
   Object {
-    "code": "other",
-    "errors": Array [
-      Object {
-        "message": "TODO build not all input parsed :3",
-        "type": "syntax",
-      },
-    ],
+    "code": "Semicolon",
+    "errors": Array [],
     "meta": undefined,
-    "name": ";2",
+    "name": ";",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "2",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "any",
+    "type": "number",
   },
 ]
 `;

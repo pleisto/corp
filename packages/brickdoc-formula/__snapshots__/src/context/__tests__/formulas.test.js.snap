@@ -61,7 +61,7 @@ Array [
         "expression": Array [
           Object {
             "children": Object {
-              "combineExpression": Array [
+              "lhs": Array [
                 Object {
                   "children": Object {
                     "lhs": Array [
@@ -305,7 +305,7 @@ Array [
         "expression": Array [
           Object {
             "children": Object {
-              "combineExpression": Array [
+              "lhs": Array [
                 Object {
                   "children": Object {
                     "lhs": Array [
@@ -746,7 +746,7 @@ Array [
         "expression": Array [
           Object {
             "children": Object {
-              "combineExpression": Array [
+              "lhs": Array [
                 Object {
                   "children": Object {
                     "lhs": Array [
@@ -825,7 +825,7 @@ Array [
                                                                                             "expression": Array [
                                                                                               Object {
                                                                                                 "children": Object {
-                                                                                                  "combineExpression": Array [
+                                                                                                  "lhs": Array [
                                                                                                     Object {
                                                                                                       "children": Object {
                                                                                                         "lhs": Array [
@@ -1400,7 +1400,7 @@ Array [
         "expression": Array [
           Object {
             "children": Object {
-              "combineExpression": Array [
+              "lhs": Array [
                 Object {
                   "children": Object {
                     "lhs": Array [
@@ -1754,7 +1754,7 @@ Array [
         "expression": Array [
           Object {
             "children": Object {
-              "combineExpression": Array [
+              "lhs": Array [
                 Object {
                   "children": Object {
                     "lhs": Array [
@@ -1833,7 +1833,7 @@ Array [
                                                                                             "expression": Array [
                                                                                               Object {
                                                                                                 "children": Object {
-                                                                                                  "combineExpression": Array [
+                                                                                                  "lhs": Array [
                                                                                                     Object {
                                                                                                       "children": Object {
                                                                                                         "lhs": Array [

@@ -144,7 +144,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     return { type: newType, codeFragments, image: `${ctx.Equal[0].image}${image}` }
   }
 
-  multilineExpression(
+  expression(
     ctx: {
       rhs: Array<CstNode | CstNode[]>
       lhs: CstNode | CstNode[]
@@ -155,11 +155,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   ): CodeFragmentResult {
     if (!ctx.rhs) {
       const { type: newType, codeFragments, image } = this.visit(ctx.lhs, { type })
-      return { type: newType, codeFragments, image: `${ctx.Equal[0].image}${image}` }
+      return { type: newType, codeFragments, image }
     }
 
     const codeFragments: CodeFragment[] = []
-    const images: string[] = [ctx.Equal[0].image]
+    const images: string[] = []
     let parentType: FormulaType
     const childrenType: FormulaType = 'any'
 
@@ -200,10 +200,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       })),
       type: newType
     }
-  }
-
-  expression(ctx: { combineExpression: CstNode | CstNode[] }, { type }: ExpressionArgument): CodeFragmentResult {
-    return this.visit(ctx.combineExpression, { type })
   }
 
   combineExpression(

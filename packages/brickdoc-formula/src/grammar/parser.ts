@@ -1,6 +1,6 @@
 import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
-import { tokensByMode } from '.'
-import { ContextInterface, ParseMode } from '..'
+import { allTokens } from '.'
+import { ContextInterface } from '..'
 import {
   AdditionOperator,
   MultiplicationOperator,
@@ -37,7 +37,6 @@ import {
 
 interface ParserConfig {
   readonly formulaContext?: ContextInterface
-  readonly mode?: ParseMode
 }
 
 const errorProvider: IParserErrorMessageProvider = {
@@ -62,14 +61,13 @@ const errorProvider: IParserErrorMessageProvider = {
 
 export class FormulaParser extends CstParser {
   formulaContext?: ContextInterface
-  mode: ParseMode = 'oneline'
 
   // Unfortunately no support for class fields with initializer in ES2015, only in esNext...
   // so the parsing rules are defined inside the constructor, as each parsing rule must be initialized by
   // invoking RULE(...)
   // see: https://github.com/jeffmo/es-class-fields-and-static-properties
-  constructor({ formulaContext, mode }: ParserConfig) {
-    const tokens = tokensByMode(mode)
+  constructor({ formulaContext }: ParserConfig) {
+    const tokens = allTokens
     super(tokens, {
       maxLookahead: 5,
       recoveryEnabled: true,
@@ -77,9 +75,6 @@ export class FormulaParser extends CstParser {
     })
 
     this.formulaContext = formulaContext
-    if (mode) {
-      this.mode = mode
-    }
     this.performSelfAnalysis()
   }
 
@@ -88,17 +83,12 @@ export class FormulaParser extends CstParser {
     this.SUBRULE(this.expression)
   })
 
-  public multilineExpression = this.RULE('multilineExpression', () => {
-    this.CONSUME(Equal)
-    this.SUBRULE(this.expression, { LABEL: 'lhs' })
+  public expression = this.RULE('expression', () => {
+    this.SUBRULE(this.combineExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(Semicolon)
-      this.SUBRULE2(this.expression, { LABEL: 'rhs' })
+      this.SUBRULE2(this.combineExpression, { LABEL: 'rhs' })
     })
-  })
-
-  public expression = this.RULE('expression', () => {
-    this.SUBRULE(this.combineExpression)
   })
 
   public combineExpression = this.RULE('combineExpression', () => {

@@ -35,7 +35,7 @@ import {
   column2completion
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
-import { CodeFragmentVisitor, lexerByMode } from '../grammar'
+import { CodeFragmentVisitor, FormulaLexer } from '../grammar'
 import { BlockNameLoad, BlockTableLoaded, BrickdocEventBus } from '@brickdoc/schema'
 
 export interface FormulaContextArgs {
@@ -355,7 +355,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   private readonly parseCodeFragments = (input: string): CodeFragment[] => {
-    const lexResult: ILexingResult = lexerByMode('oneline').tokenize(input)
+    const lexResult: ILexingResult = FormulaLexer.tokenize(input)
     if (lexResult.errors.length > 0) {
       return []
     }

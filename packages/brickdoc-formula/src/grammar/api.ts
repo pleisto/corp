@@ -19,10 +19,9 @@ import {
   AnyTypeValue,
   ParseErrorType,
   CodeFragmentResult,
-  ParseMode,
-  lexerByMode,
   NamespaceId,
-  castVariable
+  castVariable,
+  FormulaLexer
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -32,7 +31,6 @@ export interface ParseInput {
   readonly meta: VariableMetadata
   readonly activeCompletion?: Completion
   readonly formulaContext?: ContextInterface
-  readonly mode?: ParseMode
 }
 
 export interface BaseParseResult {
@@ -100,7 +98,6 @@ export type InterpretResult = SuccessInterpretResult | ErrorInterpretResult
 // eslint-disable-next-line complexity
 export const parse = ({
   formulaContext,
-  mode,
   meta: { namespaceId, variableId, input, name },
   activeCompletion
 }: ParseInput): ParseResult => {
@@ -132,12 +129,10 @@ export const parse = ({
   const baseCompletion = formulaContext?.completions(namespaceId, variableId) ?? []
   let completions: Completion[] = baseCompletion
 
-  const parseRule = mode === 'multiline' ? 'multilineExpression' : 'startExpression'
-
-  const parser = new FormulaParser({ formulaContext, mode })
+  const parser = new FormulaParser({ formulaContext })
   const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
 
-  const lexer = lexerByMode(mode)
+  const lexer = FormulaLexer
 
   let lexResult: ILexingResult = lexer.tokenize(input)
   let tokens = lexResult.tokens
@@ -189,7 +184,7 @@ export const parse = ({
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
 
-  const cst: CstNode = parser[parseRule]()
+  const cst: CstNode = parser.startExpression()
   const { codeFragments, image }: CodeFragmentResult = codeFragmentVisitor.visit(cst, {
     type: 'any'
   })
