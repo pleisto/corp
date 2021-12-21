@@ -1174,8 +1174,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const clause = this.formulaContext?.findFunctionClause(group, name)
 
-    this.kind = 'expression'
-
     const functionKey = buildFunctionKey(group, name)
 
     const nameFragment: CodeFragment = {
@@ -1195,6 +1193,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     if (clause) {
       this.functionDependencies.push(clause)
+
+      if (clause.effect || !clause.pure) {
+        this.kind = 'expression'
+      }
 
       const chainError: ErrorMessage[] = []
       if (firstArgumentType && !clause.chain) {
