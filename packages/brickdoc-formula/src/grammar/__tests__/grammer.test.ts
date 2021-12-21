@@ -238,7 +238,7 @@ const testCases: TestCase[] = [
   // Reference
   {
     input: `=Self`,
-    value: 'Blank'
+    value: { kind: 'self' }
   },
   {
     input: `=$${barNamespaceId}@${barVariableId}`,

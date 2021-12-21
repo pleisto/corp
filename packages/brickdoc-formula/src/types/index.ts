@@ -177,7 +177,7 @@ export interface FunctionResult extends BaseResult {
 
 export interface CstResult extends BaseResult {
   type: 'Cst'
-  result: any
+  result: CstNode
 }
 
 export interface ReferenceResult extends BaseResult {
