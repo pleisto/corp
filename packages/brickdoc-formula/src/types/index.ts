@@ -14,6 +14,7 @@ type ObjectType =
   | 'Predicate'
   | 'Function'
   | 'Reference'
+  | 'Cst'
 type ControlType = 'Button'
 
 export type FormulaType = BasicType | ObjectType | ControlType | 'any'
@@ -24,6 +25,7 @@ export type SpecialDefaultVariableName =
   | 'str'
   | 'num'
   | 'bool'
+  | 'cst'
   | 'record'
   | 'array'
   | 'date'
@@ -89,6 +91,7 @@ export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterT
 
 export type FormulaFunctionKind = 'Set'
 
+export type Macro = ReferenceResult | CstResult
 export interface BaseResult {
   result: any
   type: FormulaType
@@ -162,14 +165,19 @@ export interface PredicateResult extends BaseResult {
   column?: Column
   operator: PredicateOperator
 }
-
 export interface FormulaFunction {
-  kind: FormulaFunctionKind
+  name: FunctionNameType
+  args: Macro[]
 }
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
-  result: FormulaFunction[]
+  result: FormulaFunction
+}
+
+export interface CstResult extends BaseResult {
+  type: 'Cst'
+  result: any
 }
 
 export interface ReferenceResult extends BaseResult {
@@ -204,26 +212,6 @@ export interface SelfReference extends BaseReference {
   kind: 'self'
 }
 
-export type BaseFunctionResult<T> =
-  | ((
-      | NumberResult
-      | BooleanResult
-      | StringResult
-      | NullResult
-      | RecordResult
-      | ArrayResult
-      | DateResult
-      | ColumnResult
-      | SpreadsheetResult
-      | PredicateResult
-      | BlockResult
-      | BlankResult
-      | FunctionResult
-      | ReferenceResult
-      | ButtonResult
-    ) & { type: T })
-  | ErrorResult
-
 export type AnyTypeResult =
   | NumberResult
   | BooleanResult
@@ -240,29 +228,11 @@ export type AnyTypeResult =
   | ButtonResult
   | ErrorResult
   | FunctionResult
+  | CstResult
   | ReferenceResult
   | AnyResult
 
-export type AnyFunctionResult<T> =
-  | ((
-      | NumberResult
-      | BooleanResult
-      | StringResult
-      | NullResult
-      | BlankResult
-      | RecordResult
-      | ArrayResult
-      | DateResult
-      | ColumnResult
-      | SpreadsheetResult
-      | BlockResult
-      | ButtonResult
-      | PredicateResult
-      | FunctionResult
-      | ReferenceResult
-      | AnyResult
-    ) & { type: T })
-  | ErrorResult
+export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
 export type AnyTypeValue = AnyTypeResult
 
@@ -405,7 +375,7 @@ export interface TestCase {
 
 export interface Example<T extends FormulaType> {
   readonly input: Definition
-  readonly output: BaseFunctionResult<T> | null
+  readonly output: AnyFunctionResult<T> | null
 }
 
 export interface ExampleWithCodeFragments<T extends FormulaType> extends Example<T> {

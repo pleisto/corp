@@ -678,7 +678,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
       args.push(chainArgs)
     }
 
-    // TODO lazy arguments
+    if (clause.lazy) {
+      console.log('lazy', ctx)
+
+      return { type: 'Function', result: { name: functionKey, args: [] } }
+    }
 
     if (ctx.Arguments) {
       const argResult = this.visit(ctx.Arguments)

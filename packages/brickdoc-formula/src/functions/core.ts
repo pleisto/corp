@@ -2,7 +2,7 @@ import { ContextInterface, BasicFunctionClause, ErrorResult, ReferenceResult, Fu
 
 export const Set = (ctx: ContextInterface, { result: name }: ReferenceResult): FunctionResult | ErrorResult => {
   // TODO check reference type
-  return { result: [], type: 'Function' }
+  return { type: 'Function', result: { name: '123', args: [] } }
 }
 
 export const CORE_CORE_CLAUSES: Array<BasicFunctionClause<any>> = [
