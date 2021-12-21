@@ -264,7 +264,7 @@ export type AnyFunctionResult<T> =
     ) & { type: T })
   | ErrorResult
 
-export type AnyTypeValue = AnyFunctionResult<any>
+export type AnyTypeValue = AnyTypeResult
 
 export interface View {
   [key: string]: any
@@ -313,6 +313,7 @@ export interface DatabasePersistence {
 export interface Database {
   blockId: NamespaceId
   dynamic: boolean
+  persistence?: DatabasePersistence
   columnCount: () => number
   rowCount: () => number
   name: () => string

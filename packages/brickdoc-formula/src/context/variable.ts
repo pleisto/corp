@@ -57,7 +57,7 @@ const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeVa
 
   if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof DatabaseFactory)) {
     if (cacheValue.result.dynamic) {
-      const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence
+      const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence!
       return {
         type: 'Spreadsheet',
         result: new DatabaseFactory({
