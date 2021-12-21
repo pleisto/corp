@@ -6,7 +6,7 @@ import { BlockContainer, FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { displayValue, FormulaType, VariableClass, VariableInterface, Button as ButtonType } from '@brickdoc/formula'
+import { displayValue, FormulaType, VariableClass, VariableInterface, ButtonType } from '@brickdoc/formula'
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 
 export interface FormulaBlockProps extends NodeViewProps {}
@@ -68,11 +68,12 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   }
 
   const renderVariable = (variable: VariableInterface): React.ReactNode => {
-    const { type, result } = variable.t.variableValue.result
-    if (type === 'Button') {
-      const button: ButtonType = result
+    const result = variable.t.variableValue.result
+    if (result.type === 'Button') {
+      const button: ButtonType = result.result
+      // console.log({ button })
       return (
-        <Button isDisabled={button.disabled} onClick={button.onClick}>
+        <Button isDisabled={button.disabled} onPress={button.onClick}>
           {button.name}
         </Button>
       )

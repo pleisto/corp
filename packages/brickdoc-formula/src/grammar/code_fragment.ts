@@ -111,8 +111,12 @@ const intersectType = (
   }
 
   if (expectedArgumentType === 'Reference') {
-    return { errorMessages: [], newType: 'Reference' }
+    return { errorMessages: [], newType: expectedArgumentType }
   }
+  if (expectedArgumentType === 'Cst') {
+    return { errorMessages: [], newType: expectedArgumentType }
+  }
+
   if (expectedArgumentType === 'Predicate') {
     return { errorMessages: [], newType: contextResultType }
   }

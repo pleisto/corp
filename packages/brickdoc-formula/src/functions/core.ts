@@ -1,12 +1,8 @@
 import { ContextInterface, BasicFunctionClause, ErrorResult, ReferenceResult, FunctionResult, CstResult } from '..'
 
-export const Set = (
-  ctx: ContextInterface,
-  { result: name }: ReferenceResult,
-  { result: body }: CstResult
-): FunctionResult | ErrorResult => {
-  // TODO check reference type
-  return { type: 'Function', result: { name: '123', args: [] } }
+export const Set = (ctx: ContextInterface, ref: ReferenceResult, cst: CstResult): FunctionResult | ErrorResult => {
+  // TODO check ref as constant
+  return { type: 'Function', result: { name: 'Set', args: [ref, cst] } }
 }
 
 export const CORE_CORE_CLAUSES: Array<BasicFunctionClause<any>> = [
@@ -27,7 +23,7 @@ export const CORE_CORE_CLAUSES: Array<BasicFunctionClause<any>> = [
       },
       {
         name: 'body',
-        type: 'any'
+        type: 'Cst'
       }
     ],
     testCases: [],

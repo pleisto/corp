@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { Button } from '../controls'
+import { ButtonType } from '../controls'
 
 type BasicType = 'number' | 'string' | 'boolean' | 'null'
 type ObjectType =
@@ -90,8 +90,6 @@ export type ColumnId = uuid
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set'
-
-export type Macro = ReferenceResult | CstResult
 export interface BaseResult {
   result: any
   type: FormulaType
@@ -167,7 +165,7 @@ export interface PredicateResult extends BaseResult {
 }
 export interface FormulaFunction {
   name: FunctionNameType
-  args: Macro[]
+  args: Array<ReferenceResult | CstResult>
 }
 
 export interface FunctionResult extends BaseResult {
@@ -187,7 +185,7 @@ export interface ReferenceResult extends BaseResult {
 
 export interface ButtonResult extends BaseResult {
   type: 'Button'
-  result: Button
+  result: ButtonType
 }
 
 export interface AnyResult extends BaseResult {
@@ -515,6 +513,8 @@ export interface VariableInterface {
   namespaceName: () => string
   reparse: () => void
   meta: () => VariableMetadata
+  updateDefinition: (definition: Definition) => void
+  updateCst: (cst: CstNode) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void

@@ -12,8 +12,7 @@ import {
   ReferenceResult,
   PredicateOperator,
   Row,
-  ErrorResult,
-  Macro
+  ErrorResult
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -663,8 +662,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
   ): AnyTypeValue {
     const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
 
-    // console.log({ lazy, namespaceId, variableId })
-
     if (a?.lazy) {
       return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
     }
@@ -711,7 +708,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Function ${functionKey} not found`)
     }
 
-    const args: AnyTypeValue[] = []
+    let args: AnyTypeValue[] = []
 
     if (clause.lazy) {
       const argsTypes = clause.args.map(arg => arg.type)
@@ -723,7 +720,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         return { type: 'Function', result: { name: functionKey, args: [] } }
       }
 
-      const newArgs: Macro[] = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {
+      args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {
         const argType = argsTypes[index]
 
         if (argType === 'Reference') {
@@ -732,43 +729,39 @@ export class FormulaInterpreter extends BaseCstVisitor {
           return { type: 'Cst', result: element }
         }
       })
-
-      console.log('lazy', newArgs)
-
-      return { type: 'Function', result: { name: functionKey, args: newArgs } }
-    }
-
-    if (clause.chain && chainArgs) {
-      args.push(chainArgs)
-    }
-
-    if (ctx.Arguments) {
-      const argResult = this.visit(ctx.Arguments, a)
-      args.push(...argResult)
-    }
-
-    const argsTypes = clause.args[0]?.spread
-      ? Array(args.length).fill(clause.args[0].type)
-      : clause.args.map(arg => arg.type)
-
-    if (!clause.acceptError) {
-      const errorArgs = args.find(a => a.type === 'Error')
-      if (errorArgs) {
-        return errorArgs as AnyTypeValue
+    } else {
+      if (clause.chain && chainArgs) {
+        args.push(chainArgs)
       }
+
+      if (ctx.Arguments) {
+        const argResult = this.visit(ctx.Arguments, a)
+        args.push(...argResult)
+      }
+
+      const argsTypes = clause.args[0]?.spread
+        ? Array(args.length).fill(clause.args[0].type)
+        : clause.args.map(arg => arg.type)
+
+      if (!clause.acceptError) {
+        const errorArgs = args.find(a => a.type === 'Error')
+        if (errorArgs) {
+          return errorArgs as AnyTypeValue
+        }
+      }
+
+      args = args.map((arg, index) => {
+        const argType = argsTypes[index]
+
+        if (argType === 'Predicate' && arg.type !== 'Predicate') {
+          return { type: 'Predicate', result: arg, operator: 'equal' }
+        } else {
+          return arg
+        }
+      })
     }
 
-    const newArgs = args.map((arg, index) => {
-      const argType = argsTypes[index]
-
-      if (argType === 'Predicate' && arg.type !== 'Predicate') {
-        return { type: 'Predicate', result: arg, operator: 'equal' }
-      } else {
-        return arg
-      }
-    })
-
-    return clause.reference(this.formulaContext, ...newArgs)
+    return clause.reference(this.formulaContext, ...args)
   }
 
   Arguments(ctx: { expression: any[] }, a: ExpressionArgument): AnyTypeValue[] {
