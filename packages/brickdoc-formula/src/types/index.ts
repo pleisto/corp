@@ -7,6 +7,7 @@ type ObjectType =
   | 'Column'
   | 'Spreadsheet'
   | 'Block'
+  | 'Blank'
   | 'Record'
   | 'Array'
   | 'Error'
@@ -26,6 +27,7 @@ export type SpecialDefaultVariableName =
   | 'record'
   | 'array'
   | 'date'
+  | 'blank'
   | 'column'
   | 'block'
   | 'var'
@@ -113,6 +115,11 @@ export interface NullResult extends BaseResult {
   type: 'null'
 }
 
+export interface BlankResult extends BaseResult {
+  result: any
+  type: 'Blank'
+}
+
 export interface ArrayResult extends BaseResult {
   result: AnyTypeValue[]
   type: 'Array'
@@ -156,6 +163,10 @@ export interface PredicateResult extends BaseResult {
   operator: PredicateOperator
 }
 
+export interface FormulaFunction {
+  kind: FormulaFunctionKind
+}
+
 export interface FunctionResult extends BaseResult {
   type: 'Function'
   result: FormulaFunction[]
@@ -163,7 +174,7 @@ export interface FunctionResult extends BaseResult {
 
 export interface ReferenceResult extends BaseResult {
   type: 'Reference'
-  result: never
+  result: Reference
 }
 
 export interface ButtonResult extends BaseResult {
@@ -174,6 +185,23 @@ export interface ButtonResult extends BaseResult {
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
+}
+
+export type Reference = VariableReference | SelfReference
+
+export interface BaseReference {
+  attribute?: string
+  kind: 'variable' | 'self'
+}
+
+export interface VariableReference extends BaseReference {
+  kind: 'variable'
+  variableId: VariableId
+  namespaceId: NamespaceId
+}
+
+export interface SelfReference extends BaseReference {
+  kind: 'self'
 }
 
 export type BaseFunctionResult<T> =
@@ -189,6 +217,7 @@ export type BaseFunctionResult<T> =
       | SpreadsheetResult
       | PredicateResult
       | BlockResult
+      | BlankResult
       | FunctionResult
       | ReferenceResult
       | ButtonResult
@@ -201,6 +230,7 @@ export type AnyTypeResult =
   | StringResult
   | NullResult
   | RecordResult
+  | BlankResult
   | ArrayResult
   | DateResult
   | ColumnResult
@@ -219,6 +249,7 @@ export type AnyFunctionResult<T> =
       | BooleanResult
       | StringResult
       | NullResult
+      | BlankResult
       | RecordResult
       | ArrayResult
       | DateResult
@@ -270,10 +301,6 @@ export interface DatabaseDefinition {
   name: () => string
   listColumns: () => Column[]
   listRows: () => Row[]
-}
-
-export interface FormulaFunction {
-  kind: FormulaFunctionKind
 }
 
 export interface DatabasePersistence {

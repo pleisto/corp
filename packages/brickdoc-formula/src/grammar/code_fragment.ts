@@ -579,7 +579,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       recordExpression: CstNode | CstNode[]
       constantExpression: CstNode | CstNode[]
       FunctionCall: CstNode | CstNode[]
-      allVariableExpression: CstNode | CstNode[]
+      lazyVariableExpression: CstNode | CstNode[]
     },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
@@ -593,8 +593,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.constantExpression, { type })
     } else if (ctx.FunctionCall) {
       return this.visit(ctx.FunctionCall, { type })
-    } else if (ctx.allVariableExpression) {
-      return this.visit(ctx.allVariableExpression, { type })
+    } else if (ctx.lazyVariableExpression) {
+      return this.visit(ctx.lazyVariableExpression, { type })
     }
 
     // console.log('debugAtomic', {ctx, type})
@@ -605,6 +605,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx: {
       simpleAtomicExpression: CstNode | CstNode[]
       columnExpression: CstNode | CstNode[]
+      referenceExpression: CstNode | CstNode[]
       spreadsheetExpression: CstNode | CstNode[]
       predicateExpression: CstNode | CstNode[]
     },
@@ -614,6 +615,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.simpleAtomicExpression, { type })
     } else if (ctx.columnExpression) {
       return this.visit(ctx.columnExpression, { type })
+    } else if (ctx.referenceExpression) {
+      return this.visit(ctx.referenceExpression, { type })
     } else if (ctx.spreadsheetExpression) {
       return this.visit(ctx.spreadsheetExpression, { type })
     } else if (ctx.predicateExpression) {
@@ -622,6 +625,43 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     // console.log('debugAtomic', {ctx, type})
     return { codeFragments: [], type: 'any', image: '' }
+  }
+
+  referenceExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+    const parentType: FormulaType = 'Reference'
+    console.log('reference', { ctx })
+    const token = ctx.Ampersand[0]
+
+    images.push(token.image)
+    const ampersandCodeFragment = token2fragment(ctx.Ampersand[0], 'any')
+    const ampersandErrors: ErrorMessage[] = ctx.lazyVariableExpression
+      ? []
+      : [{ type: 'syntax', message: 'Missing variable' }]
+    codeFragments.push({ ...ampersandCodeFragment, errors: ampersandErrors })
+
+    if (ctx.lazyVariableExpression) {
+      const { codeFragments: VariableCodeFragments, image }: CodeFragmentResult = this.visit(
+        ctx.lazyVariableExpression,
+        {
+          type: 'any'
+        }
+      )
+
+      codeFragments.push(...VariableCodeFragments)
+      images.push(image)
+    }
+
+    const { errorMessages, newType } = intersectType(type, parentType)
+    return {
+      image: images.join(''),
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...errorMessages, ...codeFragment.errors]
+      })),
+      type: newType
+    }
   }
 
   predicateExpression(
@@ -1044,19 +1084,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  allVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+  lazyVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
     if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression, { type })
-    } else if (ctx.lazyVariableExpression) {
-      return this.visit(ctx.lazyVariableExpression, { type })
+    } else if (ctx.Self) {
+      return { codeFragments: [token2fragment(ctx.Self[0], 'any')], type: 'any', image: ctx.Self[0].image }
     } else {
       return { codeFragments: [], type: 'any', image: '' }
     }
-  }
-
-  lazyVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
-    console.log('lazyVariableExpression', { ctx, type })
-    return { codeFragments: [], type: 'any', image: '' }
   }
 
   variableExpression(ctx: { Dollar: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {

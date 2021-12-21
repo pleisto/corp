@@ -9,6 +9,7 @@ import {
   NumberResult,
   BooleanResult,
   PredicateResult,
+  ReferenceResult,
   PredicateOperator,
   Row,
   ErrorResult
@@ -396,8 +397,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
           } else {
             result = { type: 'Error', result: `Key ${key} not found`, errorKind: 'runtime' }
           }
+        } else if (result.type === 'Reference') {
+          result = { type: 'Reference', result: { ...result.result, attribute: key } }
         } else {
-          result = { type: 'Error', result: 'Access not supported', errorKind: 'runtime' }
+          result = { type: 'Error', result: `Access not supported for ${result.type}`, errorKind: 'runtime' }
         }
       }
     })
@@ -421,7 +424,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     recordExpression: CstNode | CstNode[]
     constantExpression: CstNode | CstNode[]
     FunctionCall: CstNode | CstNode[]
-    allVariableExpression: CstNode | CstNode[]
+    lazyVariableExpression: CstNode | CstNode[]
   }): AnyTypeValue {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression)
@@ -433,8 +436,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.constantExpression)
     } else if (ctx.FunctionCall) {
       return this.visit(ctx.FunctionCall)
-    } else if (ctx.allVariableExpression) {
-      return this.visit(ctx.allVariableExpression)
+    } else if (ctx.lazyVariableExpression) {
+      return this.visit(ctx.lazyVariableExpression)
     } else {
       // console.log({ ctx })
       throw new Error('unsupported expression')
@@ -445,12 +448,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
     simpleAtomicExpression: CstNode | CstNode[]
     columnExpression: CstNode | CstNode[]
     spreadsheetExpression: CstNode | CstNode[]
+    referenceExpression: CstNode | CstNode[]
     predicateExpression: CstNode | CstNode[]
   }): AnyTypeValue {
     if (ctx.simpleAtomicExpression) {
       return this.visit(ctx.simpleAtomicExpression)
     } else if (ctx.columnExpression) {
       return this.visit(ctx.columnExpression)
+    } else if (ctx.referenceExpression) {
+      return this.visit(ctx.referenceExpression)
     } else if (ctx.spreadsheetExpression) {
       return this.visit(ctx.spreadsheetExpression)
     } else if (ctx.predicateExpression) {
@@ -597,26 +603,34 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  allVariableExpression(ctx: {
-    variableExpression: CstNode | CstNode[]
-    lazyVariableExpression: CstNode | CstNode[]
-  }): AnyTypeValue {
+  referenceExpression(ctx: { lazyVariableExpression: CstNode | CstNode[] }): ReferenceResult {
+    return this.visit(ctx.lazyVariableExpression, { lazy: true })
+  }
+
+  lazyVariableExpression(ctx: any, args: any): AnyTypeValue {
+    const { lazy } = args || {}
     if (ctx.variableExpression) {
-      return this.visit(ctx.variableExpression)
-    } else if (ctx.lazyVariableExpression) {
-      return this.visit(ctx.lazyVariableExpression)
+      return this.visit(ctx.variableExpression, { lazy })
+    } else if (ctx.Self) {
+      if (lazy) {
+        return { type: 'Reference', result: { kind: 'self' } }
+      } else {
+        return { type: 'Blank', result: 'Blank' }
+      }
     } else {
+      // console.log({ ctx })
       throw new Error('unsupported expression')
     }
   }
 
-  lazyVariableExpression(ctx: any): AnyTypeValue {
-    console.log('lazy2', { ctx })
-    return { type: 'null', result: null }
-  }
-
-  variableExpression(ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } }): AnyTypeValue {
+  variableExpression(ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } }, args: any): AnyTypeValue {
+    const { lazy } = args || {}
     const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
+
+    if (lazy) {
+      return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
+    }
+
     const variable = this.formulaContext.findVariable(namespaceId, variableId)
     if (!variable) {
       throw new Error(`Variable not found: ${variableId}`)
@@ -663,6 +677,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (clause.chain && chainArgs) {
       args.push(chainArgs)
     }
+
+    // TODO lazy arguments
 
     if (ctx.Arguments) {
       const argResult = this.visit(ctx.Arguments)

@@ -38,6 +38,10 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
     case 'Button':
       return `#<Button> ${v.result.name}`
+    case 'Reference':
+      return `#<Reference> ${JSON.stringify(v.result)}`
+    case 'Blank':
+      return `#<Blank>`
   }
 
   return JSON.stringify(v.result)
