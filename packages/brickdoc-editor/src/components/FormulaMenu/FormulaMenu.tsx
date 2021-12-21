@@ -298,6 +298,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const finalName = newName ?? name ?? defaultName
     const finalInput = newInput ?? `=${input}`
 
+    if (finalInput.trim() === '=') {
+      return
+    }
+
     // console.log({
     //   finalName,
     //   newName,
