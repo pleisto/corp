@@ -743,6 +743,10 @@ en-US:
   editor:
     placeholder: Type '/' for commands
     copy_hint: Copied to clipboard.
+    toolbar:
+      separator: Menu separator
+    block_actions:
+      more: More
     slashmenu:
       heading: Brickdoc
       items:

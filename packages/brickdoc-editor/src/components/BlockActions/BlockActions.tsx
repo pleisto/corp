@@ -34,6 +34,7 @@ export const BlockActions: React.FC<BlockActionsProps> = ({ options, children })
 
   return (
     <Popover
+      // TODO: replace by css-in-js
       overlayClassName="brickdoc-action-panel-popover"
       trigger="hover"
       autoAdjustOverflow={false}

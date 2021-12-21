@@ -41,12 +41,13 @@ export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef(
     })
 
     const pointerStyle: React.CSSProperties = { pointerEvents: isEditable ? 'unset' : 'none' }
+    const hasActionOptions = (actionOptions?.length ?? 0) > 0
 
     return (
       <NodeViewWrapper {...props} style={{ ...style, ...pointerStyle }} ref={ref}>
         <BlockContext.Provider value={blockContextData}>
-          {actionOptions && <BlockActions options={actionOptions}>{children}</BlockActions>}
-          {!actionOptions && children}
+          {hasActionOptions && <BlockActions options={actionOptions!}>{children}</BlockActions>}
+          {!hasActionOptions && children}
         </BlockContext.Provider>
       </NodeViewWrapper>
     )

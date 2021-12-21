@@ -2,6 +2,7 @@ import React from 'react'
 import { styled, theme } from '@brickdoc/design-system'
 import { ToolbarMenuItem } from './MenuItem'
 import { ToolbarMenuDropdownItem } from './MenuDropdownItem'
+import { EditorContext } from '../../context/EditorContext'
 
 export interface ToolbarOptionBase {
   type: 'item' | 'dropdown'
@@ -75,6 +76,7 @@ const ToolbarMenuOption: React.FC<{ option: ToolbarOption }> = ({ option }) => {
 
 // TODO: implement @react-aria/menu
 export const Toolbar: React.FC<ToolbarProps> = ({ options }) => {
+  const { t } = React.useContext(EditorContext)
   return (
     <ToolbarMenu>
       {options?.reduce<React.ReactElement[]>((elements, option, index, array) => {
@@ -85,7 +87,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({ options }) => {
               {option.map((option, optionIndex) => (
                 <ToolbarMenuOption key={`${index}-${optionIndex}`} option={option} />
               ))}
-              {index < array.length - 1 && <ToolbarSeparator />}
+              {index < array.length - 1 && <ToolbarSeparator aria-label={t('toolbar.separator')} />}
             </ToolbarMenuSection>
           ]
 
