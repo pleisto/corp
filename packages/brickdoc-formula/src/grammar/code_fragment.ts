@@ -631,7 +631,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
     const parentType: FormulaType = 'Reference'
-    console.log('reference', { ctx })
+    // console.log('reference', { ctx })
     const token = ctx.Ampersand[0]
 
     images.push(token.image)
