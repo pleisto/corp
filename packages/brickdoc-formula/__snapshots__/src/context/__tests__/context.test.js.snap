@@ -472,6 +472,7 @@ Object {
     "success": true,
     "updatedAt": null,
   },
+  "version": 0,
   "view": Object {},
 }
 `;

@@ -246,6 +246,8 @@ export interface Formula {
   updatedAt: string
   createdAt: number
   cacheValue: AnyTypeValue
+  level: number
+  version: number
   view: View
 }
 export interface Column {
@@ -484,6 +486,7 @@ export type VariableValue = SuccessVariableValue | ErrorVariableValue
 export interface VariableData {
   name: VariableName
   level: number
+  version: number
   namespaceId: NamespaceId
   variableId: VariableId
   definition: Definition

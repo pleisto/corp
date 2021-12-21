@@ -203,6 +203,7 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
 ]
@@ -637,6 +638,7 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
   Object {
@@ -1306,6 +1308,7 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
 ]
@@ -1640,6 +1643,7 @@ but found: ''",
       "success": false,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
 ]
@@ -2315,6 +2319,7 @@ Array [
       "success": false,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
 ]

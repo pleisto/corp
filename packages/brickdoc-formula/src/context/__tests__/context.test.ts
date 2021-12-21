@@ -27,6 +27,8 @@ describe('Context', () => {
       definition: '=123',
       updatedAt: new Date().toDateString(),
       createdAt: 0,
+      version: 0,
+      level: 0,
       cacheValue: {
         type: 'number',
         result: 123
@@ -40,6 +42,8 @@ describe('Context', () => {
       definition: `=ABS(120) + $${fooNamespaceId}@${fooVariableId}`,
       updatedAt: new Date().toDateString(),
       createdAt: 0,
+      version: 0,
+      level: 0,
       cacheValue: {
         type: 'number',
         result: 243

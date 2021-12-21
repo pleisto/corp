@@ -96,7 +96,7 @@ const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeVa
 
 export const castVariable = (
   formulaContext: ContextInterface,
-  { name, definition, cacheValue, blockId, id, view }: Formula
+  { name, definition, cacheValue, version, blockId, id, view }: Formula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
@@ -138,6 +138,7 @@ export const castVariable = (
     cst,
     view,
     valid,
+    version,
     definition,
     codeFragments,
     level,
@@ -176,6 +177,8 @@ export class VariableClass implements VariableInterface {
       definition: this.t.definition,
       id: this.t.variableId,
       name: this.t.name,
+      version: this.t.version,
+      level: this.t.level,
       updatedAt: new Date().toISOString(),
       createdAt: new Date().getTime(),
       cacheValue: this.t.variableValue.cacheValue,

@@ -21,7 +21,8 @@ import {
   CodeFragmentResult,
   NamespaceId,
   castVariable,
-  FormulaLexer
+  FormulaLexer,
+  FORMULA_PARSER_VERSION
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -37,6 +38,7 @@ export interface BaseParseResult {
   readonly success: boolean
   readonly valid: boolean
   readonly input: string
+  readonly version: number
   readonly inputImage: string
   readonly parseImage: string
   readonly cst?: CstNode
@@ -107,6 +109,7 @@ export const parse = ({
   let blockDependencies: NamespaceId[] = []
   let flattenVariableDependencies: Set<VariableDependency> = new Set()
   let newInput = input
+  const version = FORMULA_PARSER_VERSION
   if (!variableId) {
     return {
       success: false,
@@ -115,6 +118,7 @@ export const parse = ({
       valid: false,
       cst: undefined,
       input: newInput,
+      version,
       level,
       errorType: 'parse',
       completions: [],
@@ -259,6 +263,7 @@ export const parse = ({
       input: newInput,
       inputImage,
       parseImage: image,
+      version,
       cst,
       level,
       errorType: 'syntax',
@@ -282,6 +287,7 @@ export const parse = ({
       errorType: 'syntax',
       errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
       level,
+      version,
       completions,
       cst,
       flattenVariableDependencies,
@@ -301,6 +307,7 @@ export const parse = ({
       parseImage: image,
       cst,
       level,
+      version,
       errorType: 'syntax',
       completions,
       errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }],
@@ -325,6 +332,7 @@ export const parse = ({
       parseImage: image,
       cst,
       level,
+      version,
       errorType: 'syntax',
       completions,
       errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
@@ -344,6 +352,7 @@ export const parse = ({
     parseImage: image,
     cst,
     level,
+    version,
     errorMessages: [],
     completions,
     kind: codeFragmentVisitor.kind,
@@ -410,6 +419,7 @@ export const buildVariable = ({
     cst,
     kind,
     codeFragments,
+    version,
     variableDependencies,
     functionDependencies,
     blockDependencies,
@@ -430,6 +440,7 @@ export const buildVariable = ({
     name,
     cst,
     view,
+    version,
     codeFragments,
     definition: input,
     dirty: false,
@@ -485,6 +496,7 @@ export const quickInsert = async ({
     codeFragments,
     kind,
     level,
+    version,
     errorMessages,
     variableDependencies,
     functionDependencies,
@@ -507,6 +519,7 @@ export const quickInsert = async ({
     view,
     definition: input,
     cst,
+    version,
     kind: kind ?? 'constant',
     codeFragments,
     variableValue,
