@@ -150,7 +150,7 @@ describe('EmbedBlock', () => {
       </EditorDataSourceContext.Provider>
     )
 
-    fireEvent.click(screen.getByText('link_block.hint'))
+    fireEvent.click(screen.getByText('embed_block.hint'))
 
     expect(screen.getByRole('dialog')).toBeInTheDocument()
   })

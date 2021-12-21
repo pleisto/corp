@@ -9,5 +9,5 @@ export interface EditorContextData {
 
 export const EditorContext = React.createContext<EditorContextData>({
   editor: null,
-  t: () => ''
+  t: (key?: string) => key
 })
