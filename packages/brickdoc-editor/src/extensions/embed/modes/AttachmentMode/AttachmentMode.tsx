@@ -7,29 +7,30 @@ import { FileType } from '../../../../helpers/file'
 import { BlockContainer } from '../../../../components'
 
 export interface AttachmentModeProps extends UseAttachmentMethodsProps {
-  editor: NodeViewProps['editor']
+  deleteNode: NodeViewProps['deleteNode']
   name: string
   fileType: FileType
 }
 
 export const AttachmentMode: React.FC<AttachmentModeProps> = ({
-  editor,
+  deleteNode,
   name,
   fileType,
   ...attachmentMethodsProps
 }) => {
-  const [{ onCopy, onDelete, onDownload, onToPreviewMode, onToLinkMode }] = useAttachmentMethods(attachmentMethodsProps)
+  const [{ onDownload, onToPreviewMode, onToLinkMode }] = useAttachmentMethods(attachmentMethodsProps)
   const [actionOptions] = useActionOptions({
     mode: 'link',
-    onCopy,
-    onDelete,
     onDownload,
     onToPreviewMode,
     onToLinkMode
   })
 
   return (
-    <BlockContainer editor={editor} options={actionOptions}>
+    <BlockContainer
+      contentForCopy={attachmentMethodsProps.fileUrl}
+      deleteNode={deleteNode}
+      actionOptions={actionOptions}>
       <div className="brickdoc-link-block-attachment">
         <FileIcon fileType={fileType} />
         <div className="link-block-attachment-content">

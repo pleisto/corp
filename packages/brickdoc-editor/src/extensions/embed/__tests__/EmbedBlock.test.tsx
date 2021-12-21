@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { EditorDataSource, EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { LinkBlock } from '../LinkBlock'
+import { EmbedBlock } from '../EmbedBlock'
 
 // See more specs in e2e test
-describe('LinkBlock', () => {
+describe('EmbedBlock', () => {
   const url = 'https://www.brickdoc.com'
   const editorDataSource = new EditorDataSource()
   const uuid = 'uuid'
@@ -41,7 +41,7 @@ describe('LinkBlock', () => {
 
     const { container } = render(
       <EditorDataSourceContext.Provider value={editorDataSource}>
-        <LinkBlock {...props} />
+        <EmbedBlock {...props} />
       </EditorDataSourceContext.Provider>
     )
     expect(container.firstChild).toMatchSnapshot()
@@ -59,11 +59,11 @@ describe('LinkBlock', () => {
 
     render(
       <EditorDataSourceContext.Provider value={editorDataSource}>
-        <LinkBlock {...props} />
+        <EmbedBlock {...props} />
       </EditorDataSourceContext.Provider>
     )
 
-    expect(screen.getByText('link_block.hint')).toBeInTheDocument()
+    expect(screen.getByText('embed_block.hint')).toBeInTheDocument()
   })
 
   it('renders link', () => {
@@ -93,7 +93,7 @@ describe('LinkBlock', () => {
 
     render(
       <EditorDataSourceContext.Provider value={editorDataSource}>
-        <LinkBlock {...props} />
+        <EmbedBlock {...props} />
       </EditorDataSourceContext.Provider>
     )
 
@@ -124,7 +124,7 @@ describe('LinkBlock', () => {
 
     render(
       <EditorDataSourceContext.Provider value={editorDataSource}>
-        <LinkBlock {...props} />
+        <EmbedBlock {...props} />
       </EditorDataSourceContext.Provider>
     )
 
@@ -146,7 +146,7 @@ describe('LinkBlock', () => {
 
     render(
       <EditorDataSourceContext.Provider value={editorDataSource}>
-        <LinkBlock {...props} />
+        <EmbedBlock {...props} />
       </EditorDataSourceContext.Provider>
     )
 

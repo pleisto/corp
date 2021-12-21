@@ -1,16 +1,13 @@
 import * as React from 'react'
 import { NodeViewProps } from '@tiptap/react'
 import 'react-medium-image-zoom/dist/styles.css'
-import './LinkBlock.less'
+import './EmbedBlock.less'
 import { linkStorage, getFileTypeByExtension, FileType } from '../../../helpers/file'
-import { PreviewMode } from '../modes/PreviewMode/PreviewMode'
-import { AttachmentMode } from '../modes/AttachmentMode/AttachmentMode'
-import { LinkMode } from '../modes/LinkMode/LinkMode'
-import { UploaderMode } from '../modes/UploaderMode/UploaderMode'
+import { AttachmentMode, PreviewMode, LinkMode, UploaderMode } from '../modes'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'
 import { EditorDataSourceContext, WebsiteMeta } from '../../../dataSource/DataSource'
 
-export interface LinkBlockAttributes {
+export interface EmbedBlockAttributes {
   key: string
   source: string
   name?: string
@@ -22,29 +19,29 @@ export interface LinkBlockAttributes {
   mode: 'link' | 'preview' | undefined
 }
 
-const canFilePreview = (fileType: FileType, mode: LinkBlockAttributes['mode']): boolean =>
+const canFilePreview = (fileType: FileType, mode: EmbedBlockAttributes['mode']): boolean =>
   mode !== 'link' && ['pdf', 'excel', 'word', 'ppt'].includes(fileType)
 
-export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttributes, deleteNode }) => {
+export const EmbedBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttributes, deleteNode }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
-  const latestLinkBlockAttributes = React.useRef<Partial<LinkBlockAttributes>>({})
-  const updateLinkBlockAttributes = (
-    newAttributes: Partial<LinkBlockAttributes>,
-    type: 'link' | 'attachment'
-  ): void => {
-    latestLinkBlockAttributes.current = {
-      ...latestLinkBlockAttributes.current,
-      ...newAttributes
-    }
-
-    updateAttributes({
-      [type]: {
-        __typename: type === 'link' ? 'BlockLink' : 'BlockAttachment',
-        ...node.attrs[type],
-        ...latestLinkBlockAttributes.current
+  const latestEmbedBlockAttributes = React.useRef<Partial<EmbedBlockAttributes>>({})
+  const updateEmbedBlockAttributes = React.useCallback(
+    (newAttributes: Partial<EmbedBlockAttributes>, type: 'link' | 'attachment'): void => {
+      latestEmbedBlockAttributes.current = {
+        ...latestEmbedBlockAttributes.current,
+        ...newAttributes
       }
-    })
-  }
+
+      updateAttributes({
+        [type]: {
+          __typename: type === 'link' ? 'BlockLink' : 'BlockAttachment',
+          ...node.attrs[type],
+          ...latestEmbedBlockAttributes.current
+        }
+      })
+    },
+    [node.attrs, updateAttributes]
+  )
 
   const fileUrl =
     getBlobUrl(node.attrs?.uuid, node.attrs?.attachment ?? {}, editorDataSource.blobs) ??
@@ -56,12 +53,11 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttribu
     const fileType = getFileTypeByExtension(name)
 
     const updateAttachmentAttributes = (attrs: Record<string, any>): void =>
-      updateLinkBlockAttributes(attrs, 'attachment')
+      updateEmbedBlockAttributes(attrs, 'attachment')
 
     if (canFilePreview(fileType, node.attrs.attachment?.mode)) {
       return (
         <PreviewMode
-          editor={editor}
           fileName={name}
           fileType={fileType}
           fileUrl={fileUrl}
@@ -73,7 +69,6 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttribu
 
     return (
       <AttachmentMode
-        editor={editor}
         name={name}
         fileType={fileType}
         fileUrl={fileUrl}
@@ -103,7 +98,7 @@ export const LinkBlock: React.FC<NodeViewProps> = ({ editor, node, updateAttribu
       editor={editor}
       deleteNode={deleteNode}
       node={node}
-      updateLinkBlockAttributes={updateLinkBlockAttributes}
+      updateEmbedBlockAttributes={updateEmbedBlockAttributes}
     />
   )
 }

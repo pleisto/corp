@@ -10,12 +10,17 @@ import './PreviewMode.less'
 import { BlockContainer } from '../../../../components'
 
 export interface PreviewModeProps extends Omit<UseAttachmentMethodsProps, 'webViewer'> {
-  editor: NodeViewProps['editor']
+  deleteNode: NodeViewProps['deleteNode']
   fileName: string
   fileType: FileType
 }
 
-export const PreviewMode: React.FC<PreviewModeProps> = ({ editor, fileName, fileType, ...attachmentMethodsProps }) => {
+export const PreviewMode: React.FC<PreviewModeProps> = ({
+  deleteNode,
+  fileName,
+  fileType,
+  ...attachmentMethodsProps
+}) => {
   const viewer = React.useRef<HTMLDivElement>(null)
   const [viewerInstance, setViewerInstance] = React.useState<WebViewerInstance>()
   React.useEffect(() => {
@@ -34,15 +39,13 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ editor, fileName, file
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const [{ onCopy, onDelete, onDownload, onToLinkMode, onFullScreen, onToPreviewMode }] = useAttachmentMethods({
+  const [{ onDownload, onToLinkMode, onFullScreen, onToPreviewMode }] = useAttachmentMethods({
     webViewer: viewerInstance,
     ...attachmentMethodsProps
   })
 
   const [actionOptions] = useActionOptions({
     mode: 'preview',
-    onCopy,
-    onDelete,
     onDownload,
     onToLinkMode,
     onToPreviewMode,
@@ -50,8 +53,11 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ editor, fileName, file
   })
 
   return (
-    <BlockContainer editor={editor} options={actionOptions}>
-      <div data-testid={TEST_ID_ENUM.editor.linkBlock.pdftron.id} className="brickdoc-pdftron-block">
+    <BlockContainer
+      contentForCopy={attachmentMethodsProps.fileUrl}
+      deleteNode={deleteNode}
+      actionOptions={actionOptions}>
+      <div data-testid={TEST_ID_ENUM.editor.embedBlock.pdftron.id} className="brickdoc-pdftron-block">
         <div ref={viewer} className="brickdoc-pdftron-container" />
         <div className="brickdoc-pdftron-info">
           <FileIcon className="brickdoc-pdftron-info-icon" fileType={fileType} />

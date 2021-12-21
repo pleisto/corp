@@ -1,24 +1,24 @@
 import { Node, mergeAttributes, Content } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { LinkBlock } from './LinkBlock'
+import { EmbedBlock } from './EmbedBlock'
 import { insertBlockAt } from '../../helpers/commands'
 import { ExtensionBaseOptions } from '../baseOptions'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    linkBlock: {
+    embedBlock: {
       /**
-       * Set a linkBlock
+       * Set a embedBlock
        */
-      setLinkBlock: (position?: number) => ReturnType
+      setEmbedBlock: (position?: number) => ReturnType
     }
   }
 }
 
-export interface LinkBlockOptions extends ExtensionBaseOptions {}
+export interface EmbedBlockOptions extends ExtensionBaseOptions {}
 
-export const LinkBlockExtension = Node.create<LinkBlockOptions>({
-  name: 'linkBlock',
+export const EmbedBlockExtension = Node.create<EmbedBlockOptions>({
+  name: 'embedBlock',
 
   group: 'block',
 
@@ -47,22 +47,22 @@ export const LinkBlockExtension = Node.create<LinkBlockOptions>({
   parseHTML() {
     return [
       {
-        tag: 'link-block'
+        tag: 'embed-block'
       }
     ]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['link-block', mergeAttributes(HTMLAttributes)]
+    return ['embed-block', mergeAttributes(HTMLAttributes)]
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(LinkBlock)
+    return ReactNodeViewRenderer(EmbedBlock)
   },
 
   addCommands() {
     return {
-      setLinkBlock:
+      setEmbedBlock:
         (position?: number) =>
         ({ chain }) => {
           const content: Content = { type: this.name, attrs: { isNew: true } }
