@@ -1,9 +1,11 @@
-import { FC, useCallback, memo, MouseEvent, ReactNode, useMemo, useRef } from 'react'
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
+import { FC, useCallback, memo, MouseEvent, ReactNode, useMemo, useRef, useState } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
 import { usePress } from '@react-aria/interactions'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
-import type { MoveNode, TNode } from './constants'
+import { MoveNode, TNode, Inserted } from './constants'
+/* import { Inserted } from './constants' */
+
 import { TreeRoot } from './style'
 
 export interface NodeProps {
@@ -24,6 +26,12 @@ interface DragItem {
   type: string
 }
 
+interface HoverNode {
+  hoverClientY: number
+  hoverMiddleY: number
+  handlerId: string
+}
+
 const DND_NODE_TYPE = 'node'
 
 /** Tree
@@ -42,6 +50,7 @@ const InternalNode: FC<NodeProps> = ({
 }) => {
   const { icon = '', hasChildren, parentId, rootId, indent = 0, value, collapsed } = treeData
   const ref = useRef<HTMLDivElement>(null)
+  const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
 
   const { pressProps, isPressed } = usePress({
     onPress: e => {
@@ -76,6 +85,25 @@ const InternalNode: FC<NodeProps> = ({
     })
   })
 
+  const calculate = useCallback(
+    (node: HoverNode | undefined) => {
+      const item = node ?? hoverNode
+      if (!item) {
+        return null
+      }
+      const topRange = item.hoverMiddleY - 10
+      const bottomRange = item.hoverMiddleY + 10
+      if (item.hoverClientY <= topRange) {
+        return Inserted.Top
+      }
+      if (item.hoverClientY >= bottomRange) {
+        return Inserted.Bottom
+      }
+      return Inserted.Child
+    },
+    [hoverNode]
+  )
+
   const [{ handlerId, isOver, isOverCurrent }, drop] = useDrop({
     accept: DND_NODE_TYPE,
     collect(monitor) {
@@ -85,11 +113,35 @@ const InternalNode: FC<NodeProps> = ({
         isOverCurrent: monitor.isOver()
       }
     },
-    drop(item: DragItem, monitor: DropTargetMonitor) {
-      if (!ref.current) {
+    hover(item: DragItem, monitor: any) {
+      const dragIndex = item.index
+      const hoverIndex = index
+      if (dragIndex === hoverIndex) {
         return
       }
 
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+
+      // Get vertical middle
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset()
+
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+
+      setHoverNode({
+        hoverMiddleY,
+        hoverClientY,
+        handlerId: monitor?.targetId ?? ''
+      })
+    },
+    drop(item: DragItem, monitor: any) {
+      if (!ref.current) {
+        return
+      }
       const dragIndex = item.index
       const hoverIndex = index
       // Don't replace items with themselves
@@ -109,35 +161,49 @@ const InternalNode: FC<NodeProps> = ({
       // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
-      }
-
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
-      }
-
+      const position = calculate({
+        hoverMiddleY,
+        hoverClientY,
+        handlerId: monitor?.targetId ?? ''
+      })
       // Time to actually perform the action
+
       moveNode?.({
         sourceIndex: dragIndex,
         sourceId: item.id,
         targetIndex: hoverIndex,
-        targetId: value
+        targetId: value,
+        position
       })
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-
-      // item.index = hoverIndex
     }
   })
+
+  const renderBorder = useMemo(() => {
+    let css = {}
+    const borderPos = calculate(hoverNode)
+
+    switch (borderPos) {
+      case Inserted.Top:
+        css = {
+          borderTop: isOver && isOverCurrent ? '2px dashed blue' : 'none'
+        }
+        break
+      case Inserted.Child:
+        css = {
+          border: isOver && isOverCurrent ? '1px dashed blue' : 'none'
+        }
+        break
+      case Inserted.Bottom:
+        css = {
+          borderBottom: isOver && isOverCurrent ? '2px dashed blue' : 'none'
+        }
+        break
+      default:
+        css = {}
+        break
+    }
+    return css
+  }, [calculate, isOver, isOverCurrent, hoverNode])
 
   drag(drop(ref))
 
@@ -152,10 +218,7 @@ const InternalNode: FC<NodeProps> = ({
         role="button"
         tabIndex={0}
         data-test-id="BrkTree"
-        css={{
-          // TODO: no design drawings
-          border: isOver && isOverCurrent ? '1px dashed blue' : 'none'
-        }}
+        css={renderBorder}
       >
         <TreeRoot.Indent
           css={{

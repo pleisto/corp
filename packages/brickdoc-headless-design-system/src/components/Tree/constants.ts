@@ -18,9 +18,16 @@ export interface TNode {
   children: TNode[]
 }
 
+export enum Inserted {
+  Top,
+  Bottom,
+  Child
+}
+
 export interface MoveNode {
   sourceIndex: number
   sourceId: string
   targetIndex: number
   targetId: string
+  position: Inserted
 }

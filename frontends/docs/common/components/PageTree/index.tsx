@@ -13,7 +13,7 @@ import {
 /* import { Tree, TreeProps } from '@brickdoc/design-system' */
 
 // TODO: change to design-system
-import { Tree, TreeProps, TNode } from '@brickdoc/brickdoc-headless-design-system'
+import { Tree, TreeProps, TNode, Inserted } from '@brickdoc/brickdoc-headless-design-system'
 import { array2Tree } from '@/common/utils'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '../../blocks'
@@ -30,8 +30,6 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
   const { data } = useGetPageBlocksQuery({ variables: { webid: docMeta.webid } })
   const [blockMove, { client: blockMoveClient }] = useBlockMoveMutation({ refetchQueries: [queryPageBlocks] })
   const [draggable, setDraggable] = useState<boolean>(true)
-  // const [popoverKey, setPopoverKey] = useState<string | undefined>()
-  // const [selectedKeys, setSelectedKeys] = useState<string[]>(docMeta.id ? [docMeta.id] : [])
 
   const { t } = useDocsI18n()
 
@@ -60,27 +58,32 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   //
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
-    const { sourceIndex, sourceId, targetIndex, targetId } = attrs
+    const { sourceId, targetId, position } = attrs
     setDraggable(false)
     let targetParentId: string | undefined | null, sort: number
     const node = find<Block>(propEq('id', sourceId))((data?.pageBlocks ?? []) as Block[])
+    const targetNode = find<Block>(propEq('id', targetId))((data?.pageBlocks ?? []) as Block[])
     if (!node?.id) {
       setDraggable(true)
       return
     }
-    // Check if is root node
-    if (node.id === node?.rootId) {
-      targetParentId = targetId
-      // take averaged value
-      if (sourceIndex - targetIndex > 0) {
-        sort = Math.round(2 * (Number(node.sort) - Number(node.nextSort)))
-      } else {
-        sort = Math.round(0.5 * (Number(node.sort) + Number(node.nextSort)))
-      }
-    } else {
-      targetParentId = node.id
-      // take next value
-      sort = Number(node.firstChildSort) - SIZE_GAP
+
+    if (targetNode?.parentId) {
+      // root node
+      targetParentId = targetNode.parentId
+    }
+
+    switch (position) {
+      case Inserted.Top:
+        sort = (targetNode?.sort ?? 0) - 1
+        break
+      case Inserted.Child:
+        targetParentId = targetId
+        sort = Number(node.firstChildSort) - SIZE_GAP
+        break
+      case Inserted.Bottom:
+        sort = Math.round(0.5 * (Number(targetNode?.sort ?? 0) + Number(targetNode?.nextSort ?? 0)))
+        break
     }
 
     const input: BlockMoveInput = {
@@ -163,7 +166,6 @@ export const PageTree: React.FC<DocMetaProps> = ({ docMeta }) => {
           value: b.id,
           parentId: b.parentId,
           rootId: b.rootId,
-          // collapsed: docMeta.id === b.id,
           sort: b.sort,
           icon: getIcon(b),
           nextSort: b.nextSort,
