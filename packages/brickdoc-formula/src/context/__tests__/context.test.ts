@@ -141,7 +141,12 @@ describe('Context', () => {
 
     expect(parseResult.success).toEqual(true)
 
-    const interpretResult = (await interpret({ cst: parseResult.cst, formulaContext, meta })) as SuccessInterpretResult
+    const interpretResult = (await interpret({
+      cst: parseResult.cst,
+      formulaContext,
+      meta,
+      interpretContext: {}
+    })) as SuccessInterpretResult
 
     expect(interpretResult.success).toEqual(true)
 

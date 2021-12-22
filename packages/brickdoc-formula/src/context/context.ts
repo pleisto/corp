@@ -312,7 +312,7 @@ export class FormulaContext implements ContextInterface {
     // console.log('handleBroadcast', dependencyKey, this.reverseVariableDependencies[dependencyKey])
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
       const childrenVariable = this.context[variableKey(namespaceId, variableId)]!
-      void childrenVariable.refresh()
+      void childrenVariable.refresh({})
       this.handleBroadcast(childrenVariable)
     })
   }

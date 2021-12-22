@@ -11,7 +11,8 @@ import {
   DatabaseFactory,
   DatabasePersistence,
   VariableValue,
-  FunctionContext
+  FunctionContext,
+  InterpretContext
 } from '..'
 import { ButtonClass } from '../controls/button'
 import { SwitchClass } from '../controls/switch'
@@ -110,7 +111,7 @@ export const castVariable = (
   const namespaceId = blockId
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
-  const castedValue: AnyTypeValue = parseCacheValue({ ctx: formulaContext, meta }, cacheValue)
+  const castedValue: AnyTypeValue = parseCacheValue({ ctx: formulaContext, meta, interpretContext: {} }, cacheValue)
   const parseInput = { formulaContext, meta }
   const {
     success,
@@ -224,39 +225,25 @@ export class VariableClass implements VariableInterface {
     this.afterUpdate()
   }
 
-  public updateDefinition = (definition: string): void => {
-    this.t.definition = definition
-    void this.reload()
-  }
-
-  public updateCst = (cst: CstNode): void => {
+  public updateCst = (cst: CstNode, interpretContext: InterpretContext): void => {
     this.t.cst = cst
-    void this.refresh()
+    void this.refresh(interpretContext)
   }
 
-  public reload = async (): Promise<void> => {
-    const formula = this.buildFormula()
-    this.t = castVariable(this.formulaContext, formula)
-    const { variableValue } = await interpret({
-      cst: this.t.cst,
-      formulaContext: this.formulaContext,
-      meta: this.meta()
-    })
-
-    this.t = { ...this.t, variableValue }
+  public refresh = async (interpretContext: InterpretContext): Promise<void> => {
+    await this.interpret(interpretContext)
     this.afterUpdate()
     await this.invokeBackendUpdate()
   }
 
-  public refresh = async (): Promise<void> => {
+  private readonly interpret = async (interpretContext: InterpretContext): Promise<void> => {
     const { variableValue } = await interpret({
       cst: this.t.cst,
       formulaContext: this.formulaContext,
-      meta: this.meta()
+      meta: this.meta(),
+      interpretContext
     })
 
     this.t = { ...this.t, variableValue }
-    this.afterUpdate()
-    await this.invokeBackendUpdate()
   }
 }

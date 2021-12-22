@@ -25,7 +25,7 @@ export const functionResult2lambda = (ctx: FunctionContext, { result }: Function
         throw new Error('Only variable reference is supported')
       }
 
-      variable.updateCst(cstdata)
+      variable.updateCst(cstdata, {})
     })
 
     console.log(`lambda called ${ctrl.kind}`)

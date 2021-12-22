@@ -22,7 +22,8 @@ import {
   NamespaceId,
   castVariable,
   FormulaLexer,
-  FORMULA_PARSER_VERSION
+  FORMULA_PARSER_VERSION,
+  InterpretContext
 } from '..'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
@@ -75,6 +76,7 @@ export interface InterpretInput {
   readonly cst?: CstNode
   readonly meta: VariableMetadata
   readonly formulaContext: ContextInterface
+  readonly interpretContext: InterpretContext
 }
 
 export interface BaseInterpretResult {
@@ -362,7 +364,12 @@ export const parse = ({
   }
 }
 
-export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): Promise<InterpretResult> => {
+export const interpret = async ({
+  cst,
+  formulaContext,
+  meta,
+  interpretContext
+}: InterpretInput): Promise<InterpretResult> => {
   if (!cst) {
     const message = 'CST is undefined'
     const errorMessage: ErrorMessage = { message, type: 'fatal' }
@@ -378,7 +385,7 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
     }
   }
   try {
-    const interpreter = new FormulaInterpreter({ formulaContext, meta })
+    const interpreter = new FormulaInterpreter({ formulaContext, meta, interpretContext })
     const result: AnyTypeValue = await interpreter.visit(cst)
 
     return {
@@ -506,7 +513,7 @@ export const quickInsert = async ({
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue } = await interpret({ cst, formulaContext, meta })
+  const { variableValue } = await interpret({ cst, formulaContext, meta, interpretContext: {} })
 
   const variable: VariableData = {
     namespaceId,

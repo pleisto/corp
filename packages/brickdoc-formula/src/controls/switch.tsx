@@ -16,7 +16,7 @@ export class SwitchClass implements SwitchType {
     this.fn = fn
     this.disabled = false
     this.onChange = value => {
-      functionResult2lambda(ctx, fn, this)()
+      functionResult2lambda({ ...ctx, interpretContext: { value } }, fn, this)()
       this.isSelected = value
       BrickdocEventBus.dispatch(
         FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })

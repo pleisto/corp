@@ -908,7 +908,7 @@ describe('Simple test case', () => {
           success: interpretSuccess,
           variableValue,
           errorMessages: interpretErrorMessages
-        } = await interpret({ cst, meta: newMeta, formulaContext })
+        } = await interpret({ cst, meta: newMeta, formulaContext, interpretContext: {} })
 
         expect(errorMessages).toEqual([])
         expect(interpretErrorMessages).toEqual([])

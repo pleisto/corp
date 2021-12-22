@@ -397,6 +397,11 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
 export interface FunctionContext {
   readonly ctx: ContextInterface
   readonly meta: VariableMetadata
+  readonly interpretContext: InterpretContext
+}
+
+export interface InterpretContext {
+  [key: string]: any
 }
 
 export interface BaseFunctionClause<T extends FormulaType> {
@@ -533,13 +538,12 @@ export interface VariableInterface {
   namespaceName: () => string
   reparse: () => void
   meta: () => VariableMetadata
-  updateDefinition: (definition: Definition) => void
-  updateCst: (cst: CstNode) => void
+  updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void
   updateAndPersist: () => Promise<void>
-  refresh: () => Promise<void>
+  refresh: (context: InterpretContext) => Promise<void>
 }
 
 export interface BackendActions {

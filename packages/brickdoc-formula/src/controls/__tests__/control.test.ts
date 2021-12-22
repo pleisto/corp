@@ -96,7 +96,7 @@ describe('Controls', () => {
           success: interpretSuccess,
           variableValue,
           errorMessages: interpretErrorMessages
-        } = await interpret({ cst, meta, formulaContext })
+        } = await interpret({ cst, meta, formulaContext, interpretContext: {} })
 
         expect(interpretSuccess).toBe(true)
         expect(interpretErrorMessages).toEqual([])

@@ -78,7 +78,7 @@ const calculate = async ({
   let interpretResult: InterpretResult
 
   if (parseResult.success) {
-    interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta })
+    interpretResult = await interpret({ cst: parseResult.cst, formulaContext, meta, interpretContext: {} })
   } else {
     interpretResult = {
       success: false,

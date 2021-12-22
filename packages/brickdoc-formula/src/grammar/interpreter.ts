@@ -13,7 +13,8 @@ import {
   PredicateOperator,
   Row,
   ErrorResult,
-  VariableMetadata
+  VariableMetadata,
+  InterpretContext
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -37,6 +38,7 @@ import {
 interface InterpreterConfig {
   formulaContext: ContextInterface
   meta: VariableMetadata
+  interpretContext: InterpretContext
 }
 
 interface ExpressionArgument {
@@ -47,10 +49,12 @@ interface ExpressionArgument {
 export class FormulaInterpreter extends BaseCstVisitor {
   formulaContext: ContextInterface
   meta: VariableMetadata
+  interpretContext: InterpretContext
 
-  constructor({ formulaContext, meta }: InterpreterConfig) {
+  constructor({ formulaContext, meta, interpretContext }: InterpreterConfig) {
     super()
     this.formulaContext = formulaContext
+    this.interpretContext = interpretContext
     this.meta = meta
     // This helper will detect any missing or redundant methods on this visitor
     this.validateVisitor()
@@ -771,7 +775,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       })
     }
 
-    const functionContext = { ctx: this.formulaContext, meta: this.meta }
+    const functionContext = { ctx: this.formulaContext, meta: this.meta, interpretContext: this.interpretContext }
 
     return clause.reference(functionContext, ...args)
   }
