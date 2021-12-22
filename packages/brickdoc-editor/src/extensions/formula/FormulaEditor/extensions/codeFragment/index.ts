@@ -29,9 +29,9 @@ export const CodeFragmentBlockExtension = Node.create<CodeFragmentBlockOptions>(
   defaultOptions: {},
 
   addAttributes() {
-    const defaultAttr: { [key in keyof (CodeFragmentType & { blockId: string })]: { default: any } } = {
+    const defaultAttr: { [key in keyof (CodeFragmentType & {blockId: string })]: { default: any } } = {
       meta: { default: {} },
-      blockId: { default: '' },
+      blockId: {default: ''},
       code: { default: '' },
       name: { default: '' },
       spaceAfter: { default: false },
@@ -86,37 +86,6 @@ export const CodeFragmentBlockExtension = Node.create<CodeFragmentBlockOptions>(
               .run()
           )
         }
-    }
-  },
-
-  addKeyboardShortcuts() {
-    return {
-      // remove code block when at start of document or code block is empty
-      Backspace: () => {
-        const { empty, $anchor } = this.editor.state.selection
-        const isAtStart = $anchor.pos === 1
-
-        console.log('Backspace', {
-          empty,
-          $anchor,
-          thisName: this.name,
-          parentName: $anchor.parent.type.name,
-          length: $anchor.parent.textContent.length
-        })
-
-        if (!empty || $anchor.parent.type.name !== this.name) {
-          console.log('Backspace1')
-          return false
-        }
-
-        if (isAtStart || !$anchor.parent.textContent.length) {
-          console.log('Backspace2')
-          return this.editor.commands.clearNodes()
-        }
-
-        console.log('Backspace3')
-        return false
-      }
     }
   }
 })
