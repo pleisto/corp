@@ -48,6 +48,12 @@ describe('Controls', () => {
       result: SNAPSHOT_FLAG
     },
     {
+      label: 'set multiple line',
+      input: `=Set($${namespaceId}@${variableId}, (1 + $${namespaceId}@${variableId})); Set($${namespaceId}@${variableId}, (123))`,
+      parseErrorMessage: undefined,
+      result: SNAPSHOT_FLAG
+    },
+    {
       label: 'set unknown',
       input: `=Set($${namespaceId}@${unknownVariableId}, 1)`,
       parseErrorMessage: `Variable not found: ${unknownVariableId}`,
@@ -62,6 +68,12 @@ describe('Controls', () => {
     {
       label: 'button',
       input: `=Button("Foo", Set($${namespaceId}@${variableId}, (1 + $${namespaceId}@${variableId})))`,
+      parseErrorMessage: undefined,
+      result: SNAPSHOT_FLAG
+    },
+    {
+      label: 'button multiple set',
+      input: `=Button("Foo", Set($${namespaceId}@${variableId}, (1 + $${namespaceId}@${variableId})); Set($${namespaceId}@${variableId}, (123)))`,
       parseErrorMessage: undefined,
       result: SNAPSHOT_FLAG
     }

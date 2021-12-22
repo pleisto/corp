@@ -43,7 +43,7 @@ export const displayValue = (v: AnyTypeValue): string => {
     case 'Reference':
       return `#<Reference> ${JSON.stringify(v.result)}`
     case 'Function':
-      return `#<Function> ${v.result.name}: ${v.result.args.map(a => displayValue(a)).join(', ')}`
+      return `#<Function> ${v.result.map(({ name, args }) => `${name} ${args.map(a => displayValue(a)).join(', ')}`)}`
     case 'Cst':
       return '#<Cst>'
     case 'Blank':

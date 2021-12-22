@@ -64,7 +64,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     ctx.rhs.forEach((rhs: CstNode | CstNode[]) => {
-      result = this.visit(rhs, args)
+      const newResult = this.visit(rhs, args)
+
+      if (newResult.type === 'Function' && result.type === 'Function') {
+        result = { type: 'Function', result: [...result.result, ...newResult.result] }
+      } else {
+        result = newResult
+      }
     })
 
     return result
@@ -714,10 +720,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
       const argsTypes = clause.args.map(arg => arg.type)
 
       if (!ctx.Arguments) {
-        return { type: 'Function', result: { name: functionKey, args: [] } }
+        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
       }
       if (!ctx.Arguments[0].children?.expression) {
-        return { type: 'Function', result: { name: functionKey, args: [] } }
+        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
       }
 
       args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {

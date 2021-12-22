@@ -170,7 +170,7 @@ export interface FormulaFunction {
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
-  result: FormulaFunction
+  result: FormulaFunction[]
 }
 
 export interface CstResult extends BaseResult {
