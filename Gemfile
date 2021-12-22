@@ -52,7 +52,7 @@ gem 'vite_rails', '~> 3.0.2'
 ## IAM
 gem 'action_policy', '~> 0.6.0'
 gem 'action_policy-graphql', '~> 0.5.3'
-gem 'devise', github: 'brickdoc/devise'
+gem 'devise', '~> 4.8.1'
 gem 'devise-async', '~> 1.0.0'
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'

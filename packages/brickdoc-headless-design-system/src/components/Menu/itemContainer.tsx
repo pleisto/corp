@@ -7,20 +7,22 @@ export interface ItemContainerProps {
   item: Node<React.ReactElement>
   state: TreeState<React.ReactElement>
   onAction: MenuItemProps['onAction']
+  onClose: MenuItemProps['onClose']
 }
 
 export interface ItemContextProps extends ItemContainerProps {}
 
 export const ItemContext = React.createContext<ItemContextProps>(null)
 
-export const ItemContainer: React.FC<ItemContainerProps> = ({ item, state, onAction }) => {
+export const ItemContainer: React.FC<ItemContainerProps> = ({ item, state, onAction, onClose }) => {
   const contextValue = React.useMemo<ItemContextProps>(
     () => ({
       item,
       state,
-      onAction
+      onAction,
+      onClose
     }),
-    [item, onAction, state]
+    [item, onAction, onClose, state]
   )
 
   return <ItemContext.Provider value={contextValue}>{item.rendered}</ItemContext.Provider>

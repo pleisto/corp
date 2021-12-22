@@ -60,8 +60,9 @@ const ButtonRoot = styled('button', buttonStyle)
  * <Button onPress={....} block>test</Button>
  * ```
  */
-const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (props, ref) => {
+const Button: React.ForwardRefRenderFunction<unknown, ButtonProps> = (props, ref) => {
   const {
+    autoFocus,
     isDisabled = false,
     isLoading = false,
     circle = false,
@@ -129,18 +130,18 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
       loading={innerLoading}
       className={className}
       size={size}
+      autoFocus={autoFocus}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      block={block}
-    >
+      block={block}>
       {iconNode}
       {childrenDom}
     </ButtonRoot>
   )
 }
 
-const Button = React.forwardRef<unknown, ButtonProps>(InternalButton)
-Button.displayName = 'Button'
+const _Button = React.forwardRef(Button)
+_Button.displayName = 'Button'
 
-export { Button }
+export { _Button as Button }

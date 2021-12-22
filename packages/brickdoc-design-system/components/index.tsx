@@ -28,17 +28,11 @@ export { default as Checkbox } from './checkbox'
 export type { ColProps } from './col'
 export { default as Col } from './col'
 
-export type { ConfigProviderProps } from './config-provider'
-export { default as ConfigProvider } from './config-provider'
-
 export type { DatePickerProps } from './date-picker'
 export { default as DatePicker } from './date-picker'
 
 export type { DividerProps } from './divider'
 export { default as Divider } from './divider'
-
-export type { DropdownProps } from './dropdown'
-export { default as Dropdown } from './dropdown'
 
 /*
 export type { DrawerProps } from './drawer'
@@ -105,9 +99,6 @@ export type { PopconfirmProps } from './popconfirm'
 export { default as Popconfirm } from './popconfirm'
 */
 
-export type { PopoverProps } from './popover'
-export { default as Popover } from './popover'
-
 /*
 export type { ProgressProps } from './progress'
 export { default as Progress } from './progress'
@@ -161,9 +152,6 @@ export { default as Tag } from './tag'
 export type { TimePickerProps, TimeRangePickerProps } from './time-picker'
 export { default as TimePicker } from './time-picker'
 
-export type { TooltipProps } from './tooltip'
-export { default as Tooltip } from './tooltip'
-
 /*
 export type { TypographyProps } from './typography'
 export { default as Typography } from './typography'
@@ -176,7 +164,8 @@ export {
   styled,
   Loading,
   globalCss,
-  globalStyleSheet
+  globalStyleSheet,
+  Provider
 } from '@brickdoc/brickdoc-headless-design-system'
 
 export type { ButtonProps } from './button'
@@ -189,3 +178,12 @@ export { Avatar } from './avatar'
 
 export type { SwitchProps } from './switch'
 export { Switch } from './switch'
+
+export type { TooltipProps } from './tooltip'
+export { Tooltip } from './tooltip'
+
+export type { PopoverProps } from './popover'
+export { Popover } from './popover'
+
+export type { DropdownProps } from './dropdown'
+export { Dropdown } from './dropdown'

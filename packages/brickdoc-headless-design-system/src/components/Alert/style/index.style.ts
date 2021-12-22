@@ -1,4 +1,5 @@
 import { styled, theme } from '../../../themes'
+import { Button } from '../../Button'
 
 export const ContentWrapper = styled('div', {
   display: 'flex',
@@ -28,12 +29,7 @@ export const ContentAction = styled('div', {
   marginTop: `calc(${theme.space.xxs} * -1)`
 })
 
-export const ContentClose = styled('a', {
-  fontSize: theme.fontSizes.footnote,
-  lineHeight: theme.fontSizes.footnote,
-  display: 'flex',
-  alignItems: 'center'
-})
+export const ContentClose = styled(Button, {})
 
 export const Description = styled('div', {
   fontSize: theme.fontSizes.callout,

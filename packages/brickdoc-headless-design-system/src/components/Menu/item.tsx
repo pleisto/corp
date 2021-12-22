@@ -68,22 +68,19 @@ const ItemDescription = styled('span', {
   lineHeight: '16px'
 })
 
-export interface MenuItemProps {
-  'aria-label'?: AriaMenuItemProps['aria-label']
+export interface MenuItemProps extends AriaMenuItemProps {
   danger?: boolean
   description?: string | React.ReactElement
   icon?: React.ReactNode
-  key: AriaMenuItemProps['key']
   label?: string | React.ReactElement
-  onAction?: AriaMenuItemProps['onAction']
   tip?: string | React.ReactElement
 }
 
 const getReactElement = (element?: string | React.ReactElement): React.ReactElement =>
   typeof element === 'string' ? <span>{element}</span> : element
 
-export const Item: React.FC<MenuItemProps> = ({ children, danger, icon, label, description, tip }) => {
-  const { state, item, onAction } = React.useContext(ItemContext)
+export const Item: React.FC<MenuItemProps> = ({ children, danger, icon, label, description, tip, ...otherProps }) => {
+  const { state, item, onAction, onClose } = React.useContext(ItemContext)
   const isDisabled = React.useMemo(() => state.disabledKeys.has(item.key), [item.key, state.disabledKeys])
 
   const innerRef = React.useRef<HTMLLIElement>()
@@ -91,7 +88,9 @@ export const Item: React.FC<MenuItemProps> = ({ children, danger, icon, label, d
     {
       key: item.key,
       isDisabled,
-      onAction
+      onAction,
+      onClose,
+      ...otherProps
     },
     state,
     innerRef

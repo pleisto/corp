@@ -13,6 +13,7 @@ export interface MenuProps {
   'aria-label'?: string
   className?: string
   onAction?: MenuItemProps['onAction']
+  onClose?: MenuItemProps['onClose']
 }
 
 const MenuRoot = styled('ul', {
@@ -47,7 +48,9 @@ export const Menu: React.FC<MenuProps> & {
             </React.Fragment>
           )
         if (item.type === 'item')
-          return <ItemContainer key={item.key} item={item} state={state} onAction={props.onAction} />
+          return (
+            <ItemContainer key={item.key} item={item} state={state} onAction={props.onAction} onClose={props.onClose} />
+          )
         return null
       })}
     </MenuRoot>

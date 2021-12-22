@@ -3,7 +3,7 @@ import { Item, MenuItemProps as RcMenuItemProps } from 'rc-menu'
 import toArray from 'rc-util/lib/Children/toArray'
 import classNames from 'classnames'
 import MenuContext, { MenuContextProps } from './MenuContext'
-import Tooltip, { TooltipProps } from '../tooltip'
+import { Tooltip } from '../tooltip'
 import { isValidElement, cloneElement } from '../_util/reactNode'
 
 export interface MenuItemProps extends Omit<RcMenuItemProps, 'title'> {
@@ -43,23 +43,16 @@ export default class MenuItem extends React.Component<MenuItemProps> {
     } else if (title === false) {
       tooltipTitle = ''
     }
-    const tooltipProps: TooltipProps = {
+    const tooltipProps = {
       title: tooltipTitle
     }
 
     if (!inlineCollapsed) {
       tooltipProps.title = null
-      // Reset `visible` to fix control mode tooltip display not correct
-      // ref: https://github.com/ant-design/ant-design/issues/16742
-      tooltipProps.visible = false
     }
     const childrenLength = toArray(children).length
     return (
-      <Tooltip
-        {...tooltipProps}
-        placement={direction === 'rtl' ? 'left' : 'right'}
-        overlayClassName={`${prefixCls}-inline-collapsed-tooltip`}
-      >
+      <Tooltip {...tooltipProps} placement={direction === 'rtl' ? 'left' : 'right'}>
         <Item
           {...rest}
           className={classNames(
@@ -69,8 +62,7 @@ export default class MenuItem extends React.Component<MenuItemProps> {
             },
             className
           )}
-          title={typeof title === 'string' ? title : undefined}
-        >
+          title={typeof title === 'string' ? title : undefined}>
           {cloneElement(icon, {
             className: classNames(isValidElement(icon) ? icon.props?.className : '', `${prefixCls}-item-icon`)
           })}

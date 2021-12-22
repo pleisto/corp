@@ -6,7 +6,7 @@ import { FormLabelAlign } from './interface'
 import { FormContext, FormContextProps } from './context'
 import { RequiredMark } from './Form'
 import { useLocale } from '../locale-provider/LocaleReceiver'
-import Tooltip, { TooltipProps } from '../tooltip'
+import { Tooltip, TooltipProps } from '../tooltip'
 
 export type WrapperTooltipProps = TooltipProps & {
   icon?: React.ReactElement
@@ -15,17 +15,7 @@ export type WrapperTooltipProps = TooltipProps & {
 export type LabelTooltipType = WrapperTooltipProps | React.ReactNode
 
 function toTooltipProps(tooltip: LabelTooltipType): WrapperTooltipProps | null {
-  if (!tooltip) {
-    return null
-  }
-
-  if (typeof tooltip === 'object' && !React.isValidElement(tooltip)) {
-    return tooltip as WrapperTooltipProps
-  }
-
-  return {
-    title: tooltip
-  }
+  return null
 }
 
 export interface FormItemLabelProps {

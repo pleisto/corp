@@ -1,11 +1,13 @@
-import { FC, useMemo } from 'react'
+import { ForwardRefRenderFunction, useMemo, RefObject, forwardRef, createRef } from 'react'
 import { User } from '@brickdoc/design-icons'
+import { FocusableProps, FocusableDOMProps } from '@react-types/shared'
 import { name2Initials, string2Color } from './initials'
 import { styled, theme } from '../../themes'
+import { useFocusable } from '../../utilities'
 
 type AvatarSize = 'small' | 'default' | 'large'
 
-export interface AvatarProps {
+export interface AvatarProps extends FocusableProps, FocusableDOMProps {
   shape?: 'circle' | 'square'
   size?: AvatarSize | number
   alt?: string
@@ -77,8 +79,10 @@ const AvatarWrapper = styled('span', {
   }
 })
 
-export const Avatar: FC<AvatarProps> = props => {
+const Avatar: ForwardRefRenderFunction<HTMLSpanElement, AvatarProps> = (props, ref) => {
   const { shape = 'circle', size = 'default', alt, initials, src, className, style = {} } = props
+  const avatarRef = (ref as RefObject<HTMLSpanElement>) || createRef<HTMLSpanElement>()
+  const { focusableProps } = useFocusable(props, avatarRef)
 
   const initialsObj = useMemo(
     () =>
@@ -104,6 +108,8 @@ export const Avatar: FC<AvatarProps> = props => {
 
   return (
     <AvatarWrapper
+      ref={avatarRef}
+      {...focusableProps}
       css={{
         ...customSizeCss,
         ...initialsObj?.color,
@@ -112,9 +118,12 @@ export const Avatar: FC<AvatarProps> = props => {
       default={!src && !initials}
       shape={shape}
       size={isCustomSize ? undefined : (size as AvatarSize)}
-      className={className}
-    >
+      className={className}>
       {childrenNode}
     </AvatarWrapper>
   )
 }
+const _Avatar = forwardRef(Avatar)
+_Avatar.displayName = 'Avatar'
+
+export { _Avatar as Avatar }

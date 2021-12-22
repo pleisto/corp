@@ -9,7 +9,7 @@ import { styled } from '../../themes'
 import { root, switcher } from './styles/index.style'
 
 export interface SwitchProps extends AriaSwitchProps {
-  size: 'small' | 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   isLoading?: boolean
   className?: string
   style?: React.CSSProperties

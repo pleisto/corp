@@ -22,20 +22,20 @@ export const type = {
     '&:hover, &:focus, &:active': {
       textDecoration: 'none',
       backgroundColor: theme.colors.backgroundSecondary
-    },
-    '&-press': {}
+    }
   },
   'secondary-press': {
     backgroundColor: theme.colors.grey3,
+    border: `1px solid ${theme.colors.borderSecondary}`,
     color: theme.colors.typePrimary
   },
 
   text: {
     backgroundColor: 'transparent',
     color: theme.colors.typePrimary,
-    '&:hover, &:focus, &:active': {
+    '&:hover': {
       textDecoration: 'none',
-      backgroundColor: theme.colors.backgroundPrimary
+      backgroundColor: 'transparent'
     }
   },
   'text-press': {
