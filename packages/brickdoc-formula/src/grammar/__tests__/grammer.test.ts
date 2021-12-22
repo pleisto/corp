@@ -789,6 +789,11 @@ const testCases: TestCase[] = [
     value: 4
   },
   {
+    input: '=ABS(1; 2; (1+3))',
+    label: 'multiline function call ok',
+    value: 4
+  },
+  {
     input: '=1; 2; 1/0; (1+3)',
     value: 4
   },
@@ -821,7 +826,7 @@ const testCases: TestCase[] = [
     input: '=varvarabc中文var',
     label: 'TODO chinese2',
     parseErrorType: 'syntax',
-    errorMessage: 'TODO mismatch token FunctionCall'
+    errorMessage: 'Unknown function varvarabc'
   },
   {
     input: '= nottrue',

@@ -2,6 +2,20 @@ import { ContextInterface, BasicFunctionClause, ErrorResult, ReferenceResult, Fu
 
 export const Set = (ctx: ContextInterface, ref: ReferenceResult, cst: CstResult): FunctionResult | ErrorResult => {
   // TODO check ref as constant
+  const reference = ref.result
+  if (reference.kind === 'variable') {
+    const variable = ctx.findVariable(reference.namespaceId, reference.variableId)
+    if (!variable) {
+      return { type: 'Error', errorKind: 'runtime', result: 'Variable not found' }
+    }
+    if (variable.t.kind === 'expression') {
+      return {
+        type: 'Error',
+        errorKind: 'runtime',
+        result: 'Only variable reference is supported'
+      }
+    }
+  }
   return { type: 'Function', result: { name: 'Set', args: [ref, cst] } }
 }
 

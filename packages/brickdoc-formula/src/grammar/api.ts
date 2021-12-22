@@ -142,15 +142,14 @@ export const parse = ({
   let tokens = lexResult.tokens
 
   const endChar = input[input.length - 1]
-  // console.log({ endChar, input })
 
   const specialChars = ['.', ' ', ',', '(', ')', '+', '-', '*', '/', '=', '>', '<', '[', ']', '{', '}']
+  const endCharIsSpecial = specialChars.includes(endChar)
 
-  const index = specialChars.includes(endChar) ? tokens.length - 2 : tokens.length - 1
+  const index = endCharIsSpecial ? tokens.length - 2 : tokens.length - 1
   const lastToken = tokens[index]
 
   const currentCompletion = activeCompletion
-  // const currentCompletion = completions.find(completion => completion.name === lastToken.image)
 
   // console.log({ endChar, lastToken, input, tokens, currentCompletion })
   if (
@@ -159,29 +158,28 @@ export const parse = ({
     lastToken.image.length > 2 &&
     currentCompletion.replacements.find(replacement => replacement.toUpperCase() === lastToken.image.toUpperCase())
   ) {
-    // console.log('start replace', lastToken.image, currentCompletion)
     // TODO spreadsheet && column completion (should in same codefragment)
-    const firstReplacement = currentCompletion.replacements.find(replacement =>
-      input.endsWith(replacement.concat(endChar))
-    )
+
     let image = lastToken.image
+    let firstReplacement
 
-    if (firstReplacement) {
-      image = firstReplacement
+    if (endCharIsSpecial) {
+      firstReplacement = currentCompletion.replacements.find(replacement => input.endsWith(replacement.concat(endChar)))
+      if (firstReplacement) {
+        image = firstReplacement
+      } else {
+        console.error('replacement not found', { currentCompletion, lastToken, input, endChar })
+      }
+
+      newInput = input
+        .slice(0, input.length - image.length - 1)
+        .concat(currentCompletion.value)
+        .concat(endChar)
     } else {
-      console.error('replacement not found', { currentCompletion, lastToken, input })
+      newInput = input.slice(0, input.length - image.length).concat(currentCompletion.value)
     }
 
-    newInput = input.slice(0, input.length - image.length - 1).concat(currentCompletion.value)
-
-    // if (firstReplacement && endChar === '(') {
-    //   // console.log()
-    // } else {
-    //   newInput = newInput.concat(endChar)
-    // }
-    if (specialChars.includes(endChar)) {
-      newInput = newInput.concat(endChar)
-    }
+    // console.log({ input, image, currentCompletion, lastToken })
 
     lexResult = lexer.tokenize(newInput)
     tokens = lexResult.tokens

@@ -1173,10 +1173,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     },
     { type, firstArgumentType }: ExpressionArgument
   ): CodeFragmentResult {
-    if (!ctx.LParen) {
-      return { codeFragments: [], type: 'any', image: '' }
-    }
-
     const names = ctx.FunctionName.map(({ image }) => image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
 
@@ -1200,6 +1196,20 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       spaceBefore: false,
       spaceAfter: false,
       meta: undefined
+    }
+
+    if (!ctx.LParen) {
+      return {
+        codeFragments: [
+          {
+            ...nameFragment,
+            code: 'Function',
+            errors: [{ message: `Unknown function ${functionKey}`, type: 'syntax' }]
+          }
+        ],
+        image: images.join(''),
+        type: 'any'
+      }
     }
 
     const rParenErrorMessages: ErrorMessage[] = ctx.RParen
