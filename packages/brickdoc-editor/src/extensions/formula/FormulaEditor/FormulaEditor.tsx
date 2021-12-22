@@ -68,7 +68,11 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
     if (editor && !editor.isDestroyed && content) {
       console.log({ pos: pos?.current })
       if (pos) {
-        editor.chain().setTextSelection(pos.current).replaceRoot(content).run()
+        editor
+          .chain()
+          .replaceRoot(content)
+          .setTextSelection(pos.current + 1)
+          .run()
       } else {
         editor.commands.replaceRoot(content)
       }
