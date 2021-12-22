@@ -551,13 +551,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
         const args = rhsCst.name === 'FunctionCall' ? { type: 'any', firstArgumentType } : { type: 'string' }
 
-        const {
-          codeFragments: rhsCodeFragments,
-          type: rhsType,
-          image: rhsImage
-        }: CodeFragmentResult = this.visit(rhsCst, args)
+        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
 
-        firstArgumentType = rhsType
+        firstArgumentType = 'any'
         images.push(rhsImage)
         codeFragments.push(...rhsCodeFragments.map(f => ({ ...f, errors: [...accessErrorMessages, ...f.errors] })))
       }

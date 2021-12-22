@@ -40,10 +40,22 @@ export const toRecord = (ctx: FunctionContext, { type, result }: AnyTypeResult):
   }
 }
 
-export const toArray = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
-  return {
-    type: 'Array',
-    result: database.toArray().map(row => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
+export const toArray = (ctx: FunctionContext, { result, type }: AnyTypeResult): ArrayResult | ErrorResult => {
+  switch (type) {
+    case 'Spreadsheet':
+      return {
+        type: 'Array',
+        result: result
+          .toArray()
+          .map((row: string[]) => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
+      }
+    case 'number':
+      if (result < 0) {
+        return { type: 'Error', result: 'Number should be positive', errorKind: 'runtime' }
+      }
+      return { type: 'Array', result: Array.from(Array(result).keys()).map(n => ({ type: 'number', result: n })) }
+    default:
+      return { type: 'Error', result: 'Not support', errorKind: 'runtime' }
   }
 }
 
@@ -109,8 +121,8 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<any>> = [
     group: 'core',
     args: [
       {
-        name: 'database',
-        type: 'Spreadsheet'
+        name: 'input',
+        type: 'any'
       }
     ],
     returns: 'Array',
