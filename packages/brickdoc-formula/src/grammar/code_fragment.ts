@@ -1295,6 +1295,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       ? Array(ctx.expression.length).fill(firstArgs.type)
       : args?.map(x => x.type) ?? []
 
+    const nonDefaultArgumentCount = args ? args.filter(x => !x.default).length : 0
+
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
 
@@ -1324,7 +1326,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       validExpressionCount === commaIndex + 1 ? [] : [{ message: 'Expression count mismatch', type: 'syntax' }]
 
     const errorMessages: ErrorMessage[] =
-      !!args && ctx.expression.length !== argumentTypes.length
+      !!args && (ctx.expression.length > argumentTypes.length || ctx.expression.length < nonDefaultArgumentCount)
         ? [{ message: 'Argument count mismatch', type: 'deps' }]
         : []
     return {

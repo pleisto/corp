@@ -12,7 +12,7 @@ export const Set = (ctx: FunctionContext, ref: ReferenceResult, cst: CstResult):
       return {
         type: 'Error',
         errorKind: 'runtime',
-        result: 'Only variable reference is supported'
+        result: 'Only constant variable is supported'
       }
     }
   }

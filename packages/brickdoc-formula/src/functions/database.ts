@@ -14,7 +14,8 @@ import {
   DatabaseDefinition,
   Column,
   Row,
-  RecordResult
+  RecordResult,
+  BooleanResult
 } from '..'
 import { buildPredicate } from '../grammar/predicate'
 import { v4 as uuid } from 'uuid'
@@ -247,7 +248,8 @@ export const VLOOKUP = (
   ctx: FunctionContext,
   { result: match }: AnyTypeResult,
   { result: database }: SpreadsheetResult,
-  { result: column }: ColumnResult
+  { result: column }: ColumnResult,
+  { result: range }: BooleanResult
 ): StringResult | ErrorResult => {
   if (database.blockId !== column.namespaceId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
@@ -273,7 +275,9 @@ export const VLOOKUP = (
   const matchData = String(match)
 
   database.listRows().forEach(row => {
-    if (row[firstColumn.columnId] === matchData) {
+    const bol = range ? Number(row[firstColumn.columnId]) <= Number(matchData) : row[firstColumn.columnId] === matchData
+
+    if (bol) {
       result = { type: 'string', result: row[column.columnId] ?? '' }
     }
   })
@@ -303,6 +307,11 @@ const VLOOKUP_CLAUSE: BasicFunctionClause<'string'> = {
     {
       name: 'column',
       type: 'Column'
+    },
+    {
+      name: 'range',
+      type: 'boolean',
+      default: { type: 'boolean', result: true }
     }
   ],
   returns: 'string',

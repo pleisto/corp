@@ -14,6 +14,6 @@ export class ButtonClass implements ButtonType {
     this.meta = ctx.meta
     this.fn = fn
     this.disabled = false
-    this.onClick = functionResult2lambda(ctx, fn, this)
+    this.onClick = functionResult2lambda<ButtonType>(ctx, fn, this)
   }
 }

@@ -63,7 +63,7 @@ describe('Controls', () => {
       label: 'set expression',
       input: `=Set($${namespaceId}@${barVariableId}, 1)`,
       parseErrorMessage: undefined,
-      result: 'Only variable reference is supported'
+      result: 'Only constant variable is supported'
     },
     {
       label: 'button',

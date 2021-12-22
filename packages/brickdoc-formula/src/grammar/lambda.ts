@@ -1,9 +1,13 @@
 import { CstNode } from 'chevrotain'
-import { FunctionContext, ControlType, FunctionResult, Reference } from '..'
+import { ControlType, FunctionContext, FunctionResult, Reference } from '..'
 
 export type Lambda = () => void
 
-export const functionResult2lambda = (ctx: FunctionContext, { result }: FunctionResult, ctrl: ControlType): Lambda => {
+export const functionResult2lambda = <T extends ControlType>(
+  ctx: FunctionContext,
+  { result }: FunctionResult,
+  ctrl: T
+): Lambda => {
   result.forEach(({ name }) => {
     if (name !== 'Set') {
       throw new Error('Only Set is supported')
@@ -15,17 +19,17 @@ export const functionResult2lambda = (ctx: FunctionContext, { result }: Function
       const reference = ref.result as Reference
       const cstdata = cst.result as CstNode
 
-      if (reference.kind !== 'variable') {
-        throw new Error('Only variable reference is supported')
+      if (reference.kind === 'variable') {
+        const variable = ctx.ctx.findVariable(reference.namespaceId, reference.variableId)!
+
+        if (variable.t.kind === 'expression') {
+          throw new Error('Only constant variable is supported')
+        }
+
+        variable.updateCst(cstdata, ctx.interpretContext)
+      } else if (reference.kind === 'self' && reference.attribute) {
+        console.log('self', { reference, cstdata })
       }
-
-      const variable = ctx.ctx.findVariable(reference.namespaceId, reference.variableId)!
-
-      if (variable.t.kind === 'expression') {
-        throw new Error('Only variable reference is supported')
-      }
-
-      variable.updateCst(cstdata, ctx.interpretContext)
     })
 
     console.log(`lambda called ${ctrl.kind}`)

@@ -146,6 +146,31 @@ const testCases: TestCase[] = [
     value: '2'
   },
   {
+    label: 'VLOOKUP Not found 2 range false',
+    input: `=VLOOKUP("2", $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId}, false)`,
+    value: 'Not found'
+  },
+  {
+    label: 'VLOOKUP 2 range default',
+    input: `=VLOOKUP("2", $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId})`,
+    value: '2'
+  },
+  {
+    label: 'VLOOKUP 2 range true',
+    input: `=VLOOKUP("2", $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId}, true)`,
+    value: '2'
+  },
+  {
+    label: 'VLOOKUP ok number',
+    input: `=VLOOKUP(1, $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId}, true)`,
+    value: '2'
+  },
+  {
+    label: 'VLOOKUP ok number',
+    input: `=VLOOKUP(1, $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId}, false)`,
+    value: '2'
+  },
+  {
     label: 'VLOOKUP ok string',
     input: `=VLOOKUP("1", $${databaseNamespaceId}, $${databaseNamespaceId}#${secondColumnId})`,
     value: '2'

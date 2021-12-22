@@ -18,7 +18,11 @@ export class SelectClass implements SelectType {
     this.disabled = false
     this.value = value
     this.onChange = option => {
-      functionResult2lambda({ ...ctx, interpretContext: { selected: { type: 'string', result: option } } }, fn, this)()
+      functionResult2lambda<SelectType>(
+        { ...ctx, interpretContext: { selected: { type: 'string', result: option } } },
+        fn,
+        this
+      )()
       this.value = option
       BrickdocEventBus.dispatch(
         FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })

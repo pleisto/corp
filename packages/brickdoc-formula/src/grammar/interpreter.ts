@@ -14,7 +14,8 @@ import {
   Row,
   ErrorResult,
   VariableMetadata,
-  InterpretContext
+  InterpretContext,
+  Argument
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -755,9 +756,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         args.push(...argResult)
       }
 
-      const argsTypes = clause.args[0]?.spread
-        ? Array(args.length).fill(clause.args[0].type)
-        : clause.args.map(arg => arg.type)
+      const argsTypes: Argument[] = clause.args[0]?.spread ? Array(args.length).fill(clause.args[0]) : clause.args
 
       if (!clause.acceptError) {
         const errorArgs = args.find(a => a.type === 'Error')
@@ -766,13 +765,16 @@ export class FormulaInterpreter extends BaseCstVisitor {
         }
       }
 
-      args = args.map((arg, index) => {
-        const argType = argsTypes[index]
+      args = argsTypes.map((argType, index) => {
+        const v = args[index] || argType.default
+        if (!v) {
+          throw new Error(`Argument ${index} is not defined`)
+        }
 
-        if (argType === 'Predicate' && arg.type !== 'Predicate') {
-          return { type: 'Predicate', result: arg, operator: 'equal' }
+        if (argType.type === 'Predicate' && v.type !== 'Predicate') {
+          return { type: 'Predicate', result: v, operator: 'equal' }
         } else {
-          return arg
+          return v
         }
       })
     }
