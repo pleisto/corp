@@ -30,17 +30,6 @@ export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): Num
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
 }
 
-// TODO ... result type???
-export const toArray = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
-  return {
-    type: 'Array',
-    result: database.toArray().map(row => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
-  }
-}
-
-export const toRecord = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
-  return { type: 'Array', result: database.toRecord().map(row => ({ type: 'Record', result: row })) }
-}
 
 export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
   const defaultData: RecordResult[] = [
@@ -337,50 +326,6 @@ const TABLE_CLAUSE: BasicFunctionClause<'Spreadsheet'> = {
   reference: Table
 }
 
-const TO_ARRAY_CLAUSE: BasicFunctionClause<'Array'> = {
-  name: 'toArray',
-  async: false,
-  pure: false,
-  lazy: false,
-  acceptError: false,
-  effect: false,
-  examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
-  description: 'Converts the value to an array.',
-  group: 'core',
-  args: [
-    {
-      name: 'database',
-      type: 'Spreadsheet'
-    }
-  ],
-  returns: 'Array',
-  testCases: [],
-  chain: true,
-  reference: toArray
-}
-
-const TO_RECORD_CLAUSE: BasicFunctionClause<'Array'> = {
-  name: 'toRecord',
-  async: false,
-  pure: false,
-  lazy: false,
-  acceptError: false,
-  effect: false,
-  examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
-  description: 'Converts the value to a record.',
-  group: 'core',
-  args: [
-    {
-      name: 'database',
-      type: 'Spreadsheet'
-    }
-  ],
-  returns: 'Array',
-  testCases: [],
-  chain: true,
-  reference: toRecord
-}
-
 const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   {
     name: 'SUM',
@@ -597,10 +542,4 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   }
 ]
 
-export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<any>> = [
-  TABLE_CLAUSE,
-  TO_ARRAY_CLAUSE,
-  TO_RECORD_CLAUSE,
-  VLOOKUP_CLAUSE,
-  ...NUMBER_CLAUSES
-]
+export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<any>> = [TABLE_CLAUSE, VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]

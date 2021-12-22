@@ -2593,7 +2593,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [toRecord] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecord() 1`] = `
+exports[`Database Functions [toRecordArray] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecordArray() 1`] = `
 Array [
   Object {
     "code": "Spreadsheet",
@@ -2620,7 +2620,7 @@ Array [
     "code": "Function",
     "errors": Array [],
     "meta": undefined,
-    "name": "toRecord",
+    "name": "toRecordArray",
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "any",
@@ -2646,7 +2646,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [toRecord] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecord() 2`] = `
+exports[`Database Functions [toRecordArray] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecordArray() 2`] = `
 Array [
   Object {
     "result": Object {
@@ -2932,13 +2932,13 @@ Object {
     "code": "Function",
     "errors": Array [],
     "meta": undefined,
-    "name": "toArray",
+    "name": "COLUMN_COUNT",
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "any",
   },
   "kind": "function",
-  "name": "toArray",
+  "name": "COLUMN_COUNT",
   "namespace": "core",
   "preview": Object {
     "acceptError": false,
@@ -2950,7 +2950,7 @@ Object {
     ],
     "async": false,
     "chain": true,
-    "description": "Converts the value to an array.",
+    "description": "Returns the column size of the database.",
     "effect": false,
     "examples": Array [
       Object {
@@ -2967,24 +2967,24 @@ Object {
         ],
         "input": "=123",
         "output": Object {
-          "result": Array [],
-          "type": "Array",
+          "result": 123,
+          "type": "number",
         },
       },
     ],
     "group": "core",
-    "key": "toArray",
+    "key": "COLUMN_COUNT",
     "lazy": false,
-    "name": "toArray",
+    "name": "COLUMN_COUNT",
     "pure": false,
     "reference": [Function],
-    "returns": "Array",
+    "returns": "number",
     "testCases": Array [],
   },
   "replacements": Array [
-    "toArray",
+    "COLUMN_COUNT",
   ],
-  "value": "toArray()",
+  "value": "COLUMN_COUNT()",
   "weight": 250,
 }
 `;
