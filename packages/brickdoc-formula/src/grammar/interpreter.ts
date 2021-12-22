@@ -664,6 +664,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.variableExpression, args)
     } else if (ctx.Self) {
       return { type: 'Reference', result: { kind: 'self' } }
+    } else if (ctx.Input) {
+      return { type: 'Record', result: this.interpretContext }
     } else {
       // console.log({ ctx })
       throw new Error('unsupported expression')

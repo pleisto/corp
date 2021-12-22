@@ -304,9 +304,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "LParen",
-                                                                                                "tokenTypeIdx": 35,
+                                                                                                "tokenTypeIdx": 36,
                                                                                               },
-                                                                                              "tokenTypeIdx": 35,
+                                                                                              "tokenTypeIdx": 36,
                                                                                             },
                                                                                           ],
                                                                                           "RParen": Array [
@@ -325,9 +325,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "RParen",
-                                                                                                "tokenTypeIdx": 36,
+                                                                                                "tokenTypeIdx": 37,
                                                                                               },
-                                                                                              "tokenTypeIdx": 36,
+                                                                                              "tokenTypeIdx": 37,
                                                                                             },
                                                                                           ],
                                                                                           "expression": Array [
@@ -369,12 +369,12 @@ Object {
                                                                                                                                                     "CATEGORIES": Array [],
                                                                                                                                                     "PATTERN": /NOT_APPLICABLE/,
                                                                                                                                                     "categoryMatches": Array [
-                                                                                                                                                      23,
-                                                                                                                                                      32,
+                                                                                                                                                      24,
+                                                                                                                                                      33,
                                                                                                                                                     ],
                                                                                                                                                     "categoryMatchesMap": Object {
-                                                                                                                                                      "23": true,
-                                                                                                                                                      "32": true,
+                                                                                                                                                      "24": true,
+                                                                                                                                                      "33": true,
                                                                                                                                                     },
                                                                                                                                                     "isParent": true,
                                                                                                                                                     "name": "AdditionOperator",
@@ -386,9 +386,9 @@ Object {
                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                 "isParent": false,
                                                                                                                                                 "name": "Plus",
-                                                                                                                                                "tokenTypeIdx": 23,
+                                                                                                                                                "tokenTypeIdx": 24,
                                                                                                                                               },
-                                                                                                                                              "tokenTypeIdx": 23,
+                                                                                                                                              "tokenTypeIdx": 24,
                                                                                                                                             },
                                                                                                                                           ],
                                                                                                                                           "lhs": Array [
@@ -425,9 +425,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "NumberLiteral",
-                                                                                                                                                                                    "tokenTypeIdx": 41,
+                                                                                                                                                                                    "tokenTypeIdx": 42,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 41,
+                                                                                                                                                                                  "tokenTypeIdx": 42,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                             },
@@ -488,9 +488,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "At",
-                                                                                                                                                                                    "tokenTypeIdx": 28,
+                                                                                                                                                                                    "tokenTypeIdx": 29,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 28,
+                                                                                                                                                                                  "tokenTypeIdx": 29,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                               "Dollar": Array [
@@ -509,9 +509,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "Dollar",
-                                                                                                                                                                                    "tokenTypeIdx": 27,
+                                                                                                                                                                                    "tokenTypeIdx": 28,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 27,
+                                                                                                                                                                                  "tokenTypeIdx": 28,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                               "UUID": Array [
@@ -530,9 +530,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "UUID",
-                                                                                                                                                                                    "tokenTypeIdx": 31,
+                                                                                                                                                                                    "tokenTypeIdx": 32,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 31,
+                                                                                                                                                                                  "tokenTypeIdx": 32,
                                                                                                                                                                                 },
                                                                                                                                                                                 Object {
                                                                                                                                                                                   "endColumn": 174,
@@ -549,9 +549,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "UUID",
-                                                                                                                                                                                    "tokenTypeIdx": 31,
+                                                                                                                                                                                    "tokenTypeIdx": 32,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 31,
+                                                                                                                                                                                  "tokenTypeIdx": 32,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                             },
@@ -731,9 +731,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "LParen",
-                                                                                                "tokenTypeIdx": 35,
+                                                                                                "tokenTypeIdx": 36,
                                                                                               },
-                                                                                              "tokenTypeIdx": 35,
+                                                                                              "tokenTypeIdx": 36,
                                                                                             },
                                                                                           ],
                                                                                           "RParen": Array [
@@ -752,9 +752,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "RParen",
-                                                                                                "tokenTypeIdx": 36,
+                                                                                                "tokenTypeIdx": 37,
                                                                                               },
-                                                                                              "tokenTypeIdx": 36,
+                                                                                              "tokenTypeIdx": 37,
                                                                                             },
                                                                                           ],
                                                                                           "expression": Array [
@@ -815,9 +815,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "NumberLiteral",
-                                                                                                                                                                                    "tokenTypeIdx": 41,
+                                                                                                                                                                                    "tokenTypeIdx": 42,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 41,
+                                                                                                                                                                                  "tokenTypeIdx": 42,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                             },
@@ -1168,9 +1168,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "LParen",
-                                                                                                "tokenTypeIdx": 35,
+                                                                                                "tokenTypeIdx": 36,
                                                                                               },
-                                                                                              "tokenTypeIdx": 35,
+                                                                                              "tokenTypeIdx": 36,
                                                                                             },
                                                                                           ],
                                                                                           "RParen": Array [
@@ -1189,9 +1189,9 @@ Object {
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
                                                                                                 "name": "RParen",
-                                                                                                "tokenTypeIdx": 36,
+                                                                                                "tokenTypeIdx": 37,
                                                                                               },
-                                                                                              "tokenTypeIdx": 36,
+                                                                                              "tokenTypeIdx": 37,
                                                                                             },
                                                                                           ],
                                                                                           "expression": Array [
@@ -1233,12 +1233,12 @@ Object {
                                                                                                                                                     "CATEGORIES": Array [],
                                                                                                                                                     "PATTERN": /NOT_APPLICABLE/,
                                                                                                                                                     "categoryMatches": Array [
-                                                                                                                                                      23,
-                                                                                                                                                      32,
+                                                                                                                                                      24,
+                                                                                                                                                      33,
                                                                                                                                                     ],
                                                                                                                                                     "categoryMatchesMap": Object {
-                                                                                                                                                      "23": true,
-                                                                                                                                                      "32": true,
+                                                                                                                                                      "24": true,
+                                                                                                                                                      "33": true,
                                                                                                                                                     },
                                                                                                                                                     "isParent": true,
                                                                                                                                                     "name": "AdditionOperator",
@@ -1250,9 +1250,9 @@ Object {
                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                 "isParent": false,
                                                                                                                                                 "name": "Plus",
-                                                                                                                                                "tokenTypeIdx": 23,
+                                                                                                                                                "tokenTypeIdx": 24,
                                                                                                                                               },
-                                                                                                                                              "tokenTypeIdx": 23,
+                                                                                                                                              "tokenTypeIdx": 24,
                                                                                                                                             },
                                                                                                                                           ],
                                                                                                                                           "lhs": Array [
@@ -1289,9 +1289,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "NumberLiteral",
-                                                                                                                                                                                    "tokenTypeIdx": 41,
+                                                                                                                                                                                    "tokenTypeIdx": 42,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 41,
+                                                                                                                                                                                  "tokenTypeIdx": 42,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                             },
@@ -1352,9 +1352,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "At",
-                                                                                                                                                                                    "tokenTypeIdx": 28,
+                                                                                                                                                                                    "tokenTypeIdx": 29,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 28,
+                                                                                                                                                                                  "tokenTypeIdx": 29,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                               "Dollar": Array [
@@ -1373,9 +1373,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "Dollar",
-                                                                                                                                                                                    "tokenTypeIdx": 27,
+                                                                                                                                                                                    "tokenTypeIdx": 28,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 27,
+                                                                                                                                                                                  "tokenTypeIdx": 28,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                               "UUID": Array [
@@ -1394,9 +1394,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "UUID",
-                                                                                                                                                                                    "tokenTypeIdx": 31,
+                                                                                                                                                                                    "tokenTypeIdx": 32,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 31,
+                                                                                                                                                                                  "tokenTypeIdx": 32,
                                                                                                                                                                                 },
                                                                                                                                                                                 Object {
                                                                                                                                                                                   "endColumn": 174,
@@ -1413,9 +1413,9 @@ Object {
                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                     "isParent": false,
                                                                                                                                                                                     "name": "UUID",
-                                                                                                                                                                                    "tokenTypeIdx": 31,
+                                                                                                                                                                                    "tokenTypeIdx": 32,
                                                                                                                                                                                   },
-                                                                                                                                                                                  "tokenTypeIdx": 31,
+                                                                                                                                                                                  "tokenTypeIdx": 32,
                                                                                                                                                                                 },
                                                                                                                                                                               ],
                                                                                                                                                                             },
@@ -1934,9 +1934,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "LParen",
-                                                                                            "tokenTypeIdx": 35,
+                                                                                            "tokenTypeIdx": 36,
                                                                                           },
-                                                                                          "tokenTypeIdx": 35,
+                                                                                          "tokenTypeIdx": 36,
                                                                                         },
                                                                                       ],
                                                                                       "RParen": Array [
@@ -1955,9 +1955,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "RParen",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 37,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 37,
                                                                                         },
                                                                                       ],
                                                                                       "expression": Array [
@@ -1999,12 +1999,12 @@ Object {
                                                                                                                                                 "CATEGORIES": Array [],
                                                                                                                                                 "PATTERN": /NOT_APPLICABLE/,
                                                                                                                                                 "categoryMatches": Array [
-                                                                                                                                                  23,
-                                                                                                                                                  32,
+                                                                                                                                                  24,
+                                                                                                                                                  33,
                                                                                                                                                 ],
                                                                                                                                                 "categoryMatchesMap": Object {
-                                                                                                                                                  "23": true,
-                                                                                                                                                  "32": true,
+                                                                                                                                                  "24": true,
+                                                                                                                                                  "33": true,
                                                                                                                                                 },
                                                                                                                                                 "isParent": true,
                                                                                                                                                 "name": "AdditionOperator",
@@ -2016,9 +2016,9 @@ Object {
                                                                                                                                             "categoryMatchesMap": Object {},
                                                                                                                                             "isParent": false,
                                                                                                                                             "name": "Plus",
-                                                                                                                                            "tokenTypeIdx": 23,
+                                                                                                                                            "tokenTypeIdx": 24,
                                                                                                                                           },
-                                                                                                                                          "tokenTypeIdx": 23,
+                                                                                                                                          "tokenTypeIdx": 24,
                                                                                                                                         },
                                                                                                                                       ],
                                                                                                                                       "lhs": Array [
@@ -2055,9 +2055,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "NumberLiteral",
-                                                                                                                                                                                "tokenTypeIdx": 41,
+                                                                                                                                                                                "tokenTypeIdx": 42,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 41,
+                                                                                                                                                                              "tokenTypeIdx": 42,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -2118,9 +2118,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "At",
-                                                                                                                                                                                "tokenTypeIdx": 28,
+                                                                                                                                                                                "tokenTypeIdx": 29,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 28,
+                                                                                                                                                                              "tokenTypeIdx": 29,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "Dollar": Array [
@@ -2139,9 +2139,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "Dollar",
-                                                                                                                                                                                "tokenTypeIdx": 27,
+                                                                                                                                                                                "tokenTypeIdx": 28,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 27,
+                                                                                                                                                                              "tokenTypeIdx": 28,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "UUID": Array [
@@ -2160,9 +2160,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                             Object {
                                                                                                                                                                               "endColumn": 160,
@@ -2179,9 +2179,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -2361,9 +2361,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "LParen",
-                                                                                            "tokenTypeIdx": 35,
+                                                                                            "tokenTypeIdx": 36,
                                                                                           },
-                                                                                          "tokenTypeIdx": 35,
+                                                                                          "tokenTypeIdx": 36,
                                                                                         },
                                                                                       ],
                                                                                       "RParen": Array [
@@ -2382,9 +2382,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "RParen",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 37,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 37,
                                                                                         },
                                                                                       ],
                                                                                       "expression": Array [
@@ -2445,9 +2445,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "NumberLiteral",
-                                                                                                                                                                                "tokenTypeIdx": 41,
+                                                                                                                                                                                "tokenTypeIdx": 42,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 41,
+                                                                                                                                                                              "tokenTypeIdx": 42,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -2760,9 +2760,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "LParen",
-                                                                                            "tokenTypeIdx": 35,
+                                                                                            "tokenTypeIdx": 36,
                                                                                           },
-                                                                                          "tokenTypeIdx": 35,
+                                                                                          "tokenTypeIdx": 36,
                                                                                         },
                                                                                       ],
                                                                                       "RParen": Array [
@@ -2781,9 +2781,9 @@ Object {
                                                                                             "categoryMatchesMap": Object {},
                                                                                             "isParent": false,
                                                                                             "name": "RParen",
-                                                                                            "tokenTypeIdx": 36,
+                                                                                            "tokenTypeIdx": 37,
                                                                                           },
-                                                                                          "tokenTypeIdx": 36,
+                                                                                          "tokenTypeIdx": 37,
                                                                                         },
                                                                                       ],
                                                                                       "expression": Array [
@@ -2825,12 +2825,12 @@ Object {
                                                                                                                                                 "CATEGORIES": Array [],
                                                                                                                                                 "PATTERN": /NOT_APPLICABLE/,
                                                                                                                                                 "categoryMatches": Array [
-                                                                                                                                                  23,
-                                                                                                                                                  32,
+                                                                                                                                                  24,
+                                                                                                                                                  33,
                                                                                                                                                 ],
                                                                                                                                                 "categoryMatchesMap": Object {
-                                                                                                                                                  "23": true,
-                                                                                                                                                  "32": true,
+                                                                                                                                                  "24": true,
+                                                                                                                                                  "33": true,
                                                                                                                                                 },
                                                                                                                                                 "isParent": true,
                                                                                                                                                 "name": "AdditionOperator",
@@ -2842,9 +2842,9 @@ Object {
                                                                                                                                             "categoryMatchesMap": Object {},
                                                                                                                                             "isParent": false,
                                                                                                                                             "name": "Plus",
-                                                                                                                                            "tokenTypeIdx": 23,
+                                                                                                                                            "tokenTypeIdx": 24,
                                                                                                                                           },
-                                                                                                                                          "tokenTypeIdx": 23,
+                                                                                                                                          "tokenTypeIdx": 24,
                                                                                                                                         },
                                                                                                                                         Object {
                                                                                                                                           "endColumn": 162,
@@ -2860,12 +2860,12 @@ Object {
                                                                                                                                                 "CATEGORIES": Array [],
                                                                                                                                                 "PATTERN": /NOT_APPLICABLE/,
                                                                                                                                                 "categoryMatches": Array [
-                                                                                                                                                  23,
-                                                                                                                                                  32,
+                                                                                                                                                  24,
+                                                                                                                                                  33,
                                                                                                                                                 ],
                                                                                                                                                 "categoryMatchesMap": Object {
-                                                                                                                                                  "23": true,
-                                                                                                                                                  "32": true,
+                                                                                                                                                  "24": true,
+                                                                                                                                                  "33": true,
                                                                                                                                                 },
                                                                                                                                                 "isParent": true,
                                                                                                                                                 "name": "AdditionOperator",
@@ -2877,9 +2877,9 @@ Object {
                                                                                                                                             "categoryMatchesMap": Object {},
                                                                                                                                             "isParent": false,
                                                                                                                                             "name": "Plus",
-                                                                                                                                            "tokenTypeIdx": 23,
+                                                                                                                                            "tokenTypeIdx": 24,
                                                                                                                                           },
-                                                                                                                                          "tokenTypeIdx": 23,
+                                                                                                                                          "tokenTypeIdx": 24,
                                                                                                                                         },
                                                                                                                                       ],
                                                                                                                                       "lhs": Array [
@@ -2916,9 +2916,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "NumberLiteral",
-                                                                                                                                                                                "tokenTypeIdx": 41,
+                                                                                                                                                                                "tokenTypeIdx": 42,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 41,
+                                                                                                                                                                              "tokenTypeIdx": 42,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -2979,9 +2979,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "At",
-                                                                                                                                                                                "tokenTypeIdx": 28,
+                                                                                                                                                                                "tokenTypeIdx": 29,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 28,
+                                                                                                                                                                              "tokenTypeIdx": 29,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "Dollar": Array [
@@ -3000,9 +3000,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "Dollar",
-                                                                                                                                                                                "tokenTypeIdx": 27,
+                                                                                                                                                                                "tokenTypeIdx": 28,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 27,
+                                                                                                                                                                              "tokenTypeIdx": 28,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "UUID": Array [
@@ -3021,9 +3021,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                             Object {
                                                                                                                                                                               "endColumn": 160,
@@ -3040,9 +3040,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -3101,9 +3101,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "At",
-                                                                                                                                                                                "tokenTypeIdx": 28,
+                                                                                                                                                                                "tokenTypeIdx": 29,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 28,
+                                                                                                                                                                              "tokenTypeIdx": 29,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "Dollar": Array [
@@ -3122,9 +3122,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "Dollar",
-                                                                                                                                                                                "tokenTypeIdx": 27,
+                                                                                                                                                                                "tokenTypeIdx": 28,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 27,
+                                                                                                                                                                              "tokenTypeIdx": 28,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                           "UUID": Array [
@@ -3143,9 +3143,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                             Object {
                                                                                                                                                                               "endColumn": 237,
@@ -3162,9 +3162,9 @@ Object {
                                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                                 "isParent": false,
                                                                                                                                                                                 "name": "UUID",
-                                                                                                                                                                                "tokenTypeIdx": 31,
+                                                                                                                                                                                "tokenTypeIdx": 32,
                                                                                                                                                                               },
-                                                                                                                                                                              "tokenTypeIdx": 31,
+                                                                                                                                                                              "tokenTypeIdx": 32,
                                                                                                                                                                             },
                                                                                                                                                                           ],
                                                                                                                                                                         },
@@ -3418,9 +3418,9 @@ Object {
                                                                                                   "categoryMatchesMap": Object {},
                                                                                                   "isParent": false,
                                                                                                   "name": "NumberLiteral",
-                                                                                                  "tokenTypeIdx": 41,
+                                                                                                  "tokenTypeIdx": 42,
                                                                                                 },
-                                                                                                "tokenTypeIdx": 41,
+                                                                                                "tokenTypeIdx": 42,
                                                                                               },
                                                                                             ],
                                                                                           },
@@ -3559,4 +3559,953 @@ Array [
     "type": "Function",
   },
 ]
+`;
+
+exports[`Controls [switch set] =Switch(true, Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + $57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Switch",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "true",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Set",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Reference",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Plus",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "+",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "number",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Cst",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Function",
+  },
+  Object {
+    "code": "Semicolon",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ";",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Set",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Reference",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "123",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "number",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Function",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Switch",
+  },
+]
+`;
+
+exports[`Controls [switch set] =Switch(true, Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + $57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 2`] = `
+Object {
+  "result": SwitchClass {
+    "disabled": false,
+    "fn": Object {
+      "result": Array [
+        Object {
+          "args": Array [
+            Object {
+              "result": Object {
+                "kind": "variable",
+                "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+                "variableId": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+              },
+              "type": "Reference",
+            },
+            Object {
+              "result": Object {
+                "children": Object {
+                  "lhs": Array [
+                    Object {
+                      "children": Object {
+                        "lhs": Array [
+                          Object {
+                            "children": Object {
+                              "rhs": Array [
+                                Object {
+                                  "children": Object {
+                                    "lhs": Array [
+                                      Object {
+                                        "children": Object {
+                                          "lhs": Array [
+                                            Object {
+                                              "children": Object {
+                                                "lhs": Array [
+                                                  Object {
+                                                    "children": Object {
+                                                      "lhs": Array [
+                                                        Object {
+                                                          "children": Object {
+                                                            "lhs": Array [
+                                                              Object {
+                                                                "children": Object {
+                                                                  "lhs": Array [
+                                                                    Object {
+                                                                      "children": Object {
+                                                                        "lhs": Array [
+                                                                          Object {
+                                                                            "children": Object {
+                                                                              "simpleAtomicExpression": Array [
+                                                                                Object {
+                                                                                  "children": Object {
+                                                                                    "parenthesisExpression": Array [
+                                                                                      Object {
+                                                                                        "children": Object {
+                                                                                          "LParen": Array [
+                                                                                            Object {
+                                                                                              "endColumn": 95,
+                                                                                              "endLine": 1,
+                                                                                              "endOffset": 94,
+                                                                                              "image": "(",
+                                                                                              "startColumn": 95,
+                                                                                              "startLine": 1,
+                                                                                              "startOffset": 94,
+                                                                                              "tokenType": Object {
+                                                                                                "CATEGORIES": Array [],
+                                                                                                "PATTERN": /\\\\\\(/,
+                                                                                                "categoryMatches": Array [],
+                                                                                                "categoryMatchesMap": Object {},
+                                                                                                "isParent": false,
+                                                                                                "name": "LParen",
+                                                                                                "tokenTypeIdx": 36,
+                                                                                              },
+                                                                                              "tokenTypeIdx": 36,
+                                                                                            },
+                                                                                          ],
+                                                                                          "RParen": Array [
+                                                                                            Object {
+                                                                                              "endColumn": 174,
+                                                                                              "endLine": 1,
+                                                                                              "endOffset": 173,
+                                                                                              "image": ")",
+                                                                                              "startColumn": 174,
+                                                                                              "startLine": 1,
+                                                                                              "startOffset": 173,
+                                                                                              "tokenType": Object {
+                                                                                                "CATEGORIES": Array [],
+                                                                                                "PATTERN": /\\\\\\)/,
+                                                                                                "categoryMatches": Array [],
+                                                                                                "categoryMatchesMap": Object {},
+                                                                                                "isParent": false,
+                                                                                                "name": "RParen",
+                                                                                                "tokenTypeIdx": 37,
+                                                                                              },
+                                                                                              "tokenTypeIdx": 37,
+                                                                                            },
+                                                                                          ],
+                                                                                          "expression": Array [
+                                                                                            Object {
+                                                                                              "children": Object {
+                                                                                                "lhs": Array [
+                                                                                                  Object {
+                                                                                                    "children": Object {
+                                                                                                      "lhs": Array [
+                                                                                                        Object {
+                                                                                                          "children": Object {
+                                                                                                            "rhs": Array [
+                                                                                                              Object {
+                                                                                                                "children": Object {
+                                                                                                                  "lhs": Array [
+                                                                                                                    Object {
+                                                                                                                      "children": Object {
+                                                                                                                        "lhs": Array [
+                                                                                                                          Object {
+                                                                                                                            "children": Object {
+                                                                                                                              "lhs": Array [
+                                                                                                                                Object {
+                                                                                                                                  "children": Object {
+                                                                                                                                    "lhs": Array [
+                                                                                                                                      Object {
+                                                                                                                                        "children": Object {
+                                                                                                                                          "AdditionOperator": Array [
+                                                                                                                                            Object {
+                                                                                                                                              "endColumn": 98,
+                                                                                                                                              "endLine": 1,
+                                                                                                                                              "endOffset": 97,
+                                                                                                                                              "image": "+",
+                                                                                                                                              "startColumn": 98,
+                                                                                                                                              "startLine": 1,
+                                                                                                                                              "startOffset": 97,
+                                                                                                                                              "tokenType": Object {
+                                                                                                                                                "CATEGORIES": Array [
+                                                                                                                                                  Object {
+                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                    "PATTERN": /NOT_APPLICABLE/,
+                                                                                                                                                    "categoryMatches": Array [
+                                                                                                                                                      24,
+                                                                                                                                                      33,
+                                                                                                                                                    ],
+                                                                                                                                                    "categoryMatchesMap": Object {
+                                                                                                                                                      "24": true,
+                                                                                                                                                      "33": true,
+                                                                                                                                                    },
+                                                                                                                                                    "isParent": true,
+                                                                                                                                                    "name": "AdditionOperator",
+                                                                                                                                                    "tokenTypeIdx": 5,
+                                                                                                                                                  },
+                                                                                                                                                ],
+                                                                                                                                                "PATTERN": /\\\\\\+/,
+                                                                                                                                                "categoryMatches": Array [],
+                                                                                                                                                "categoryMatchesMap": Object {},
+                                                                                                                                                "isParent": false,
+                                                                                                                                                "name": "Plus",
+                                                                                                                                                "tokenTypeIdx": 24,
+                                                                                                                                              },
+                                                                                                                                              "tokenTypeIdx": 24,
+                                                                                                                                            },
+                                                                                                                                          ],
+                                                                                                                                          "lhs": Array [
+                                                                                                                                            Object {
+                                                                                                                                              "children": Object {
+                                                                                                                                                "lhs": Array [
+                                                                                                                                                  Object {
+                                                                                                                                                    "children": Object {
+                                                                                                                                                      "lhs": Array [
+                                                                                                                                                        Object {
+                                                                                                                                                          "children": Object {
+                                                                                                                                                            "simpleAtomicExpression": Array [
+                                                                                                                                                              Object {
+                                                                                                                                                                "children": Object {
+                                                                                                                                                                  "constantExpression": Array [
+                                                                                                                                                                    Object {
+                                                                                                                                                                      "children": Object {
+                                                                                                                                                                        "NumberLiteralExpression": Array [
+                                                                                                                                                                          Object {
+                                                                                                                                                                            "children": Object {
+                                                                                                                                                                              "NumberLiteral": Array [
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 96,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 95,
+                                                                                                                                                                                  "image": "1",
+                                                                                                                                                                                  "startColumn": 96,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 95,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /\\[0-9\\]\\+\\[\\.\\]\\?\\[0-9\\]\\*\\(\\[eE\\]\\[\\+-\\]\\[0-9\\]\\+\\)\\?/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "NumberLiteral",
+                                                                                                                                                                                    "tokenTypeIdx": 42,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 42,
+                                                                                                                                                                                },
+                                                                                                                                                                              ],
+                                                                                                                                                                            },
+                                                                                                                                                                            "name": "NumberLiteralExpression",
+                                                                                                                                                                          },
+                                                                                                                                                                        ],
+                                                                                                                                                                      },
+                                                                                                                                                                      "name": "constantExpression",
+                                                                                                                                                                    },
+                                                                                                                                                                  ],
+                                                                                                                                                                },
+                                                                                                                                                                "name": "simpleAtomicExpression",
+                                                                                                                                                              },
+                                                                                                                                                            ],
+                                                                                                                                                          },
+                                                                                                                                                          "name": "atomicExpression",
+                                                                                                                                                        },
+                                                                                                                                                      ],
+                                                                                                                                                    },
+                                                                                                                                                    "name": "chainExpression",
+                                                                                                                                                  },
+                                                                                                                                                ],
+                                                                                                                                              },
+                                                                                                                                              "name": "multiplicationExpression",
+                                                                                                                                            },
+                                                                                                                                          ],
+                                                                                                                                          "rhs": Array [
+                                                                                                                                            Object {
+                                                                                                                                              "children": Object {
+                                                                                                                                                "lhs": Array [
+                                                                                                                                                  Object {
+                                                                                                                                                    "children": Object {
+                                                                                                                                                      "lhs": Array [
+                                                                                                                                                        Object {
+                                                                                                                                                          "children": Object {
+                                                                                                                                                            "simpleAtomicExpression": Array [
+                                                                                                                                                              Object {
+                                                                                                                                                                "children": Object {
+                                                                                                                                                                  "lazyVariableExpression": Array [
+                                                                                                                                                                    Object {
+                                                                                                                                                                      "children": Object {
+                                                                                                                                                                        "variableExpression": Array [
+                                                                                                                                                                          Object {
+                                                                                                                                                                            "children": Object {
+                                                                                                                                                                              "At": Array [
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 137,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 136,
+                                                                                                                                                                                  "image": "@",
+                                                                                                                                                                                  "startColumn": 137,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 136,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /@/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "At",
+                                                                                                                                                                                    "tokenTypeIdx": 29,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 29,
+                                                                                                                                                                                },
+                                                                                                                                                                              ],
+                                                                                                                                                                              "Dollar": Array [
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 100,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 99,
+                                                                                                                                                                                  "image": "$",
+                                                                                                                                                                                  "startColumn": 100,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 99,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /\\\\\\$/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "Dollar",
+                                                                                                                                                                                    "tokenTypeIdx": 28,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 28,
+                                                                                                                                                                                },
+                                                                                                                                                                              ],
+                                                                                                                                                                              "UUID": Array [
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 136,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 135,
+                                                                                                                                                                                  "image": "57622108-1337-4edd-833a-2557835bcfe0",
+                                                                                                                                                                                  "startColumn": 101,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 100,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /\\[0-9a-f\\]\\{8\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{12\\}/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "UUID",
+                                                                                                                                                                                    "tokenTypeIdx": 32,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 32,
+                                                                                                                                                                                },
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 173,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 172,
+                                                                                                                                                                                  "image": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+                                                                                                                                                                                  "startColumn": 138,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 137,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /\\[0-9a-f\\]\\{8\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{4\\}-\\[0-9a-f\\]\\{12\\}/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "UUID",
+                                                                                                                                                                                    "tokenTypeIdx": 32,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 32,
+                                                                                                                                                                                },
+                                                                                                                                                                              ],
+                                                                                                                                                                            },
+                                                                                                                                                                            "name": "variableExpression",
+                                                                                                                                                                          },
+                                                                                                                                                                        ],
+                                                                                                                                                                      },
+                                                                                                                                                                      "name": "lazyVariableExpression",
+                                                                                                                                                                    },
+                                                                                                                                                                  ],
+                                                                                                                                                                },
+                                                                                                                                                                "name": "simpleAtomicExpression",
+                                                                                                                                                              },
+                                                                                                                                                            ],
+                                                                                                                                                          },
+                                                                                                                                                          "name": "atomicExpression",
+                                                                                                                                                        },
+                                                                                                                                                      ],
+                                                                                                                                                    },
+                                                                                                                                                    "name": "chainExpression",
+                                                                                                                                                  },
+                                                                                                                                                ],
+                                                                                                                                              },
+                                                                                                                                              "name": "multiplicationExpression",
+                                                                                                                                            },
+                                                                                                                                          ],
+                                                                                                                                        },
+                                                                                                                                        "name": "additionExpression",
+                                                                                                                                      },
+                                                                                                                                    ],
+                                                                                                                                  },
+                                                                                                                                  "name": "concatExpression",
+                                                                                                                                },
+                                                                                                                              ],
+                                                                                                                            },
+                                                                                                                            "name": "inExpression",
+                                                                                                                          },
+                                                                                                                        ],
+                                                                                                                      },
+                                                                                                                      "name": "compareExpression",
+                                                                                                                    },
+                                                                                                                  ],
+                                                                                                                },
+                                                                                                                "name": "equalCompareExpression",
+                                                                                                              },
+                                                                                                            ],
+                                                                                                          },
+                                                                                                          "name": "notExpression",
+                                                                                                        },
+                                                                                                      ],
+                                                                                                    },
+                                                                                                    "name": "combineExpression",
+                                                                                                  },
+                                                                                                ],
+                                                                                              },
+                                                                                              "name": "expression",
+                                                                                            },
+                                                                                          ],
+                                                                                        },
+                                                                                        "name": "parenthesisExpression",
+                                                                                      },
+                                                                                    ],
+                                                                                  },
+                                                                                  "name": "simpleAtomicExpression",
+                                                                                },
+                                                                              ],
+                                                                            },
+                                                                            "name": "atomicExpression",
+                                                                          },
+                                                                        ],
+                                                                      },
+                                                                      "name": "chainExpression",
+                                                                    },
+                                                                  ],
+                                                                },
+                                                                "name": "multiplicationExpression",
+                                                              },
+                                                            ],
+                                                          },
+                                                          "name": "additionExpression",
+                                                        },
+                                                      ],
+                                                    },
+                                                    "name": "concatExpression",
+                                                  },
+                                                ],
+                                              },
+                                              "name": "inExpression",
+                                            },
+                                          ],
+                                        },
+                                        "name": "compareExpression",
+                                      },
+                                    ],
+                                  },
+                                  "name": "equalCompareExpression",
+                                },
+                              ],
+                            },
+                            "name": "notExpression",
+                          },
+                        ],
+                      },
+                      "name": "combineExpression",
+                    },
+                  ],
+                },
+                "name": "expression",
+              },
+              "type": "Cst",
+            },
+          ],
+          "name": "Set",
+        },
+        Object {
+          "args": Array [
+            Object {
+              "result": Object {
+                "kind": "variable",
+                "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+                "variableId": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+              },
+              "type": "Reference",
+            },
+            Object {
+              "result": Object {
+                "children": Object {
+                  "lhs": Array [
+                    Object {
+                      "children": Object {
+                        "lhs": Array [
+                          Object {
+                            "children": Object {
+                              "rhs": Array [
+                                Object {
+                                  "children": Object {
+                                    "lhs": Array [
+                                      Object {
+                                        "children": Object {
+                                          "lhs": Array [
+                                            Object {
+                                              "children": Object {
+                                                "lhs": Array [
+                                                  Object {
+                                                    "children": Object {
+                                                      "lhs": Array [
+                                                        Object {
+                                                          "children": Object {
+                                                            "lhs": Array [
+                                                              Object {
+                                                                "children": Object {
+                                                                  "lhs": Array [
+                                                                    Object {
+                                                                      "children": Object {
+                                                                        "lhs": Array [
+                                                                          Object {
+                                                                            "children": Object {
+                                                                              "simpleAtomicExpression": Array [
+                                                                                Object {
+                                                                                  "children": Object {
+                                                                                    "parenthesisExpression": Array [
+                                                                                      Object {
+                                                                                        "children": Object {
+                                                                                          "LParen": Array [
+                                                                                            Object {
+                                                                                              "endColumn": 258,
+                                                                                              "endLine": 1,
+                                                                                              "endOffset": 257,
+                                                                                              "image": "(",
+                                                                                              "startColumn": 258,
+                                                                                              "startLine": 1,
+                                                                                              "startOffset": 257,
+                                                                                              "tokenType": Object {
+                                                                                                "CATEGORIES": Array [],
+                                                                                                "PATTERN": /\\\\\\(/,
+                                                                                                "categoryMatches": Array [],
+                                                                                                "categoryMatchesMap": Object {},
+                                                                                                "isParent": false,
+                                                                                                "name": "LParen",
+                                                                                                "tokenTypeIdx": 36,
+                                                                                              },
+                                                                                              "tokenTypeIdx": 36,
+                                                                                            },
+                                                                                          ],
+                                                                                          "RParen": Array [
+                                                                                            Object {
+                                                                                              "endColumn": 262,
+                                                                                              "endLine": 1,
+                                                                                              "endOffset": 261,
+                                                                                              "image": ")",
+                                                                                              "startColumn": 262,
+                                                                                              "startLine": 1,
+                                                                                              "startOffset": 261,
+                                                                                              "tokenType": Object {
+                                                                                                "CATEGORIES": Array [],
+                                                                                                "PATTERN": /\\\\\\)/,
+                                                                                                "categoryMatches": Array [],
+                                                                                                "categoryMatchesMap": Object {},
+                                                                                                "isParent": false,
+                                                                                                "name": "RParen",
+                                                                                                "tokenTypeIdx": 37,
+                                                                                              },
+                                                                                              "tokenTypeIdx": 37,
+                                                                                            },
+                                                                                          ],
+                                                                                          "expression": Array [
+                                                                                            Object {
+                                                                                              "children": Object {
+                                                                                                "lhs": Array [
+                                                                                                  Object {
+                                                                                                    "children": Object {
+                                                                                                      "lhs": Array [
+                                                                                                        Object {
+                                                                                                          "children": Object {
+                                                                                                            "rhs": Array [
+                                                                                                              Object {
+                                                                                                                "children": Object {
+                                                                                                                  "lhs": Array [
+                                                                                                                    Object {
+                                                                                                                      "children": Object {
+                                                                                                                        "lhs": Array [
+                                                                                                                          Object {
+                                                                                                                            "children": Object {
+                                                                                                                              "lhs": Array [
+                                                                                                                                Object {
+                                                                                                                                  "children": Object {
+                                                                                                                                    "lhs": Array [
+                                                                                                                                      Object {
+                                                                                                                                        "children": Object {
+                                                                                                                                          "lhs": Array [
+                                                                                                                                            Object {
+                                                                                                                                              "children": Object {
+                                                                                                                                                "lhs": Array [
+                                                                                                                                                  Object {
+                                                                                                                                                    "children": Object {
+                                                                                                                                                      "lhs": Array [
+                                                                                                                                                        Object {
+                                                                                                                                                          "children": Object {
+                                                                                                                                                            "simpleAtomicExpression": Array [
+                                                                                                                                                              Object {
+                                                                                                                                                                "children": Object {
+                                                                                                                                                                  "constantExpression": Array [
+                                                                                                                                                                    Object {
+                                                                                                                                                                      "children": Object {
+                                                                                                                                                                        "NumberLiteralExpression": Array [
+                                                                                                                                                                          Object {
+                                                                                                                                                                            "children": Object {
+                                                                                                                                                                              "NumberLiteral": Array [
+                                                                                                                                                                                Object {
+                                                                                                                                                                                  "endColumn": 261,
+                                                                                                                                                                                  "endLine": 1,
+                                                                                                                                                                                  "endOffset": 260,
+                                                                                                                                                                                  "image": "123",
+                                                                                                                                                                                  "startColumn": 259,
+                                                                                                                                                                                  "startLine": 1,
+                                                                                                                                                                                  "startOffset": 258,
+                                                                                                                                                                                  "tokenType": Object {
+                                                                                                                                                                                    "CATEGORIES": Array [],
+                                                                                                                                                                                    "PATTERN": /\\[0-9\\]\\+\\[\\.\\]\\?\\[0-9\\]\\*\\(\\[eE\\]\\[\\+-\\]\\[0-9\\]\\+\\)\\?/,
+                                                                                                                                                                                    "categoryMatches": Array [],
+                                                                                                                                                                                    "categoryMatchesMap": Object {},
+                                                                                                                                                                                    "isParent": false,
+                                                                                                                                                                                    "name": "NumberLiteral",
+                                                                                                                                                                                    "tokenTypeIdx": 42,
+                                                                                                                                                                                  },
+                                                                                                                                                                                  "tokenTypeIdx": 42,
+                                                                                                                                                                                },
+                                                                                                                                                                              ],
+                                                                                                                                                                            },
+                                                                                                                                                                            "name": "NumberLiteralExpression",
+                                                                                                                                                                          },
+                                                                                                                                                                        ],
+                                                                                                                                                                      },
+                                                                                                                                                                      "name": "constantExpression",
+                                                                                                                                                                    },
+                                                                                                                                                                  ],
+                                                                                                                                                                },
+                                                                                                                                                                "name": "simpleAtomicExpression",
+                                                                                                                                                              },
+                                                                                                                                                            ],
+                                                                                                                                                          },
+                                                                                                                                                          "name": "atomicExpression",
+                                                                                                                                                        },
+                                                                                                                                                      ],
+                                                                                                                                                    },
+                                                                                                                                                    "name": "chainExpression",
+                                                                                                                                                  },
+                                                                                                                                                ],
+                                                                                                                                              },
+                                                                                                                                              "name": "multiplicationExpression",
+                                                                                                                                            },
+                                                                                                                                          ],
+                                                                                                                                        },
+                                                                                                                                        "name": "additionExpression",
+                                                                                                                                      },
+                                                                                                                                    ],
+                                                                                                                                  },
+                                                                                                                                  "name": "concatExpression",
+                                                                                                                                },
+                                                                                                                              ],
+                                                                                                                            },
+                                                                                                                            "name": "inExpression",
+                                                                                                                          },
+                                                                                                                        ],
+                                                                                                                      },
+                                                                                                                      "name": "compareExpression",
+                                                                                                                    },
+                                                                                                                  ],
+                                                                                                                },
+                                                                                                                "name": "equalCompareExpression",
+                                                                                                              },
+                                                                                                            ],
+                                                                                                          },
+                                                                                                          "name": "notExpression",
+                                                                                                        },
+                                                                                                      ],
+                                                                                                    },
+                                                                                                    "name": "combineExpression",
+                                                                                                  },
+                                                                                                ],
+                                                                                              },
+                                                                                              "name": "expression",
+                                                                                            },
+                                                                                          ],
+                                                                                        },
+                                                                                        "name": "parenthesisExpression",
+                                                                                      },
+                                                                                    ],
+                                                                                  },
+                                                                                  "name": "simpleAtomicExpression",
+                                                                                },
+                                                                              ],
+                                                                            },
+                                                                            "name": "atomicExpression",
+                                                                          },
+                                                                        ],
+                                                                      },
+                                                                      "name": "chainExpression",
+                                                                    },
+                                                                  ],
+                                                                },
+                                                                "name": "multiplicationExpression",
+                                                              },
+                                                            ],
+                                                          },
+                                                          "name": "additionExpression",
+                                                        },
+                                                      ],
+                                                    },
+                                                    "name": "concatExpression",
+                                                  },
+                                                ],
+                                              },
+                                              "name": "inExpression",
+                                            },
+                                          ],
+                                        },
+                                        "name": "compareExpression",
+                                      },
+                                    ],
+                                  },
+                                  "name": "equalCompareExpression",
+                                },
+                              ],
+                            },
+                            "name": "notExpression",
+                          },
+                        ],
+                      },
+                      "name": "combineExpression",
+                    },
+                  ],
+                },
+                "name": "expression",
+              },
+              "type": "Cst",
+            },
+          ],
+          "name": "Set",
+        },
+      ],
+      "type": "Function",
+    },
+    "isSelected": true,
+    "kind": "Switch",
+    "meta": Object {
+      "input": "=Switch(true, Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + $57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123)))",
+      "name": "foo",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      "variableId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    },
+    "onChange": [Function],
+  },
+  "type": "Switch",
+}
 `;

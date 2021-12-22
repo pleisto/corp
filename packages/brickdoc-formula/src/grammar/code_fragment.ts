@@ -1101,6 +1101,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.variableExpression, { type })
     } else if (ctx.Self) {
       return { codeFragments: [token2fragment(ctx.Self[0], 'Reference')], type: 'Reference', image: ctx.Self[0].image }
+    } else if (ctx.Input) {
+      return {
+        codeFragments: [token2fragment(ctx.Input[0], 'Record')],
+        type: 'Record',
+        image: ctx.Input[0].image
+      }
     } else {
       return { codeFragments: [], type: 'any', image: '' }
     }

@@ -133,8 +133,12 @@ export interface ArrayResult extends BaseResult {
   type: 'Array'
 }
 
+export interface RecordType {
+  [key: string]: AnyTypeValue
+}
+
 export interface RecordResult extends BaseResult {
-  result: { [key: string]: any }
+  result: RecordType
   type: 'Record'
 }
 
@@ -400,9 +404,7 @@ export interface FunctionContext {
   readonly interpretContext: InterpretContext
 }
 
-export interface InterpretContext {
-  [key: string]: any
-}
+export type InterpretContext = RecordType
 
 export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType

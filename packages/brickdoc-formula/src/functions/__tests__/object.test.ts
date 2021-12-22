@@ -1,5 +1,5 @@
 import { FormulaContext } from '../../context'
-import { T, TYPE, WITH_TYPE } from '../object'
+import { T, TYPE } from '../object'
 
 const ctx = {
   ctx: new FormulaContext({}),
@@ -20,9 +20,5 @@ describe('object', () => {
 
   it('TYPE', () => {
     expect(TYPE(ctx, { result: 1, type: 'number' }).result).toBe('number')
-  })
-
-  it('WITH_TYPE', () => {
-    expect(WITH_TYPE(ctx, { result: 1, type: 'number' }).result).toStrictEqual({ result: 1, type: 'number' })
   })
 })

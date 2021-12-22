@@ -452,6 +452,14 @@ const testCases: TestCase[] = [
     input: '=true and !2 && true',
     value: false
   },
+  {
+    input: '=Input.foo',
+    value: 'Key foo not found'
+  },
+  {
+    input: '=Input.bar',
+    value: 'bar123'
+  },
   // Error
   {
     input: '= 1/0',
@@ -908,7 +916,12 @@ describe('Simple test case', () => {
           success: interpretSuccess,
           variableValue,
           errorMessages: interpretErrorMessages
-        } = await interpret({ cst, meta: newMeta, formulaContext, interpretContext: {} })
+        } = await interpret({
+          cst,
+          meta: newMeta,
+          formulaContext,
+          interpretContext: { bar: { type: 'string', result: 'bar123' } }
+        })
 
         expect(errorMessages).toEqual([])
         expect(interpretErrorMessages).toEqual([])

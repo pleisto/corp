@@ -43,8 +43,8 @@ export const toRecord = (ctx: FunctionContext, { result: database }: Spreadsheet
 
 export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
   const defaultData: RecordResult[] = [
-    { type: 'Record', result: { Column1: { type: 'string', result: 1 }, Column2: { type: 'string', result: 2 } } },
-    { type: 'Record', result: { Column1: { type: 'string', result: 3 }, Column2: { type: 'string', result: 4 } } }
+    { type: 'Record', result: { Column1: { type: 'string', result: '1' }, Column2: { type: 'string', result: '2' } } },
+    { type: 'Record', result: { Column1: { type: 'string', result: '3' }, Column2: { type: 'string', result: '4' } } }
   ]
 
   const recordData: RecordResult[] = result.length ? (result as RecordResult[]) : defaultData
