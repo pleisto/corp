@@ -2,7 +2,7 @@ import { CstElement, CstNode, IToken, tokenMatcher } from 'chevrotain'
 import {
   buildFunctionKey,
   ContextInterface,
-  AnyTypeValue,
+  AnyTypeResult,
   ColumnResult,
   NullResult,
   SpreadsheetResult,
@@ -60,11 +60,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     this.validateVisitor()
   }
 
-  startExpression(ctx: { expression: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeValue {
+  startExpression(ctx: { expression: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeResult {
     return this.visit(ctx.expression, args)
   }
 
-  expression(ctx: { lhs: CstNode | CstNode[]; rhs: any }, args: ExpressionArgument): AnyTypeValue {
+  expression(ctx: { lhs: CstNode | CstNode[]; rhs: any }, args: ExpressionArgument): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs) {
@@ -91,7 +91,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       CombineOperator: { [x: string]: any }
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -123,7 +123,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  notExpression(ctx: { rhs: CstNode | CstNode[]; lhs: any[] }, args: ExpressionArgument): AnyTypeValue {
+  notExpression(ctx: { rhs: CstNode | CstNode[]; lhs: any[] }, args: ExpressionArgument): AnyTypeResult {
     let result = this.visit(ctx.rhs, args)
 
     if (!ctx.lhs || result.type === 'Error') {
@@ -144,7 +144,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       EqualCompareOperator: { [x: string]: any }
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -182,7 +182,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       CompareOperator: { [x: string]: any }
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -226,7 +226,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       InOperator: Array<{ tokenType: { name: any } }>
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     const result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -283,7 +283,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     if (operator === 'ExactIn' || result.type !== 'string') {
-      const checkResult = result2.type === 'Array' ? result2.result.map((e: AnyTypeValue) => e.result) : result2.result
+      const checkResult = result2.type === 'Array' ? result2.result.map((e: AnyTypeResult) => e.result) : result2.result
       return { result: checkResult.includes(result.result), type: 'boolean' }
     }
 
@@ -293,14 +293,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else {
       const match = result.result.toUpperCase()
       const finalresult = result2.result
-        .filter((e: AnyTypeValue) => e.type === 'string')
-        .map((e: AnyTypeValue) => e.result.toUpperCase())
+        .filter((e: AnyTypeResult) => e.type === 'string')
+        .map((e: AnyTypeResult) => e.result.toUpperCase())
 
       return { result: finalresult.includes(match), type: 'boolean' }
     }
   }
 
-  concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }, args: ExpressionArgument): AnyTypeValue {
+  concatExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }, args: ExpressionArgument): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -332,7 +332,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       AdditionOperator: { [x: string]: any }
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -372,7 +372,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       MultiplicationOperator: { [x: string]: any }
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs || result.type === 'Error') {
@@ -409,7 +409,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  chainExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }, args: ExpressionArgument): AnyTypeValue {
+  chainExpression(ctx: { lhs: CstNode | CstNode[]; rhs: any[] }, args: ExpressionArgument): AnyTypeResult {
     let result = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs) {
@@ -445,7 +445,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return result
   }
 
-  keyExpression(ctx: any, args: ExpressionArgument): AnyTypeValue {
+  keyExpression(ctx: any, args: ExpressionArgument): AnyTypeResult {
     if (ctx.FunctionName) {
       return this.FunctionNameExpression(ctx)
     } else if (ctx.StringLiteral) {
@@ -465,7 +465,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       lazyVariableExpression: CstNode | CstNode[]
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     if (ctx.parenthesisExpression) {
       return this.visit(ctx.parenthesisExpression, args)
     } else if (ctx.arrayExpression) {
@@ -493,7 +493,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       predicateExpression: CstNode | CstNode[]
     },
     args: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     if (ctx.simpleAtomicExpression) {
       return this.visit(ctx.simpleAtomicExpression, args)
     } else if (ctx.columnExpression) {
@@ -560,8 +560,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return { type: 'Predicate', result, operator, column }
   }
 
-  arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, a: ExpressionArgument): AnyTypeValue {
-    const args: AnyTypeValue[] = []
+  arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, a: ExpressionArgument): AnyTypeResult {
+    const args: AnyTypeResult[] = []
 
     if (ctx.Arguments) {
       args.push(...this.visit(ctx.Arguments, a))
@@ -569,12 +569,12 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return { type: 'Array', result: args }
   }
 
-  recordExpression(ctx: any, type: ExpressionArgument): AnyTypeValue {
+  recordExpression(ctx: any, type: ExpressionArgument): AnyTypeResult {
     if (!ctx.recordField) {
       return { type: 'Record', result: {} }
     }
 
-    const result: Record<string, AnyTypeValue> = {}
+    const result: Record<string, AnyTypeResult> = {}
     ctx.recordField.forEach((c: CstNode | CstNode[]) => {
       const { key, value } = this.visit(c, type)
       result[key] = value
@@ -582,14 +582,14 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return { type: 'Record', result }
   }
 
-  recordField(ctx: any, args: ExpressionArgument): { key: string; value: AnyTypeValue } {
+  recordField(ctx: any, args: ExpressionArgument): { key: string; value: AnyTypeResult } {
     const { result: key } = this.visit(ctx.keyExpression, args)
     const value = this.visit(ctx.expression, args)
 
     return { key, value }
   }
 
-  parenthesisExpression(ctx: { expression: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeValue {
+  parenthesisExpression(ctx: { expression: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeResult {
     return this.visit(ctx.expression, args)
   }
 
@@ -598,13 +598,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
     BooleanLiteralExpression?: CstNode | CstNode[]
     NullLiteral?: CstNode | CstNode[]
     StringLiteral: any
-  }): AnyTypeValue {
+  }): AnyTypeResult {
     // TODO: dirty hack to get the string literal value
     const str = ctx.StringLiteral[0].image
     return { result: str.substring(1, str.length - 1).replace(/""/g, '"'), type: 'string' }
   }
 
-  FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }): AnyTypeValue {
+  FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }): AnyTypeResult {
     return { result: ctx.FunctionName[0].image, type: 'string' }
   }
 
@@ -613,7 +613,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     BooleanLiteralExpression: CstNode | CstNode[]
     NullLiteral: CstNode | CstNode[]
     StringLiteral: Array<{ image: any }>
-  }): AnyTypeValue {
+  }): AnyTypeResult {
     if (ctx.NumberLiteralExpression) {
       return this.visit(ctx.NumberLiteralExpression)
     } else if (ctx.BooleanLiteralExpression) {
@@ -659,7 +659,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return this.visit(ctx.lazyVariableExpression, { lazy: true })
   }
 
-  lazyVariableExpression(ctx: any, args: ExpressionArgument): AnyTypeValue {
+  lazyVariableExpression(ctx: any, args: ExpressionArgument): AnyTypeResult {
     if (ctx.variableExpression) {
       return this.visit(ctx.variableExpression, args)
     } else if (ctx.Self) {
@@ -675,7 +675,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   variableExpression(
     ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } },
     a: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
 
     if (a?.lazy) {
@@ -711,7 +711,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       Arguments: CstNode[]
     },
     a: ExpressionArgument
-  ): AnyTypeValue {
+  ): AnyTypeResult {
     const chainArgs = a?.chainArgs
     const names = ctx.FunctionName.map(group => group.image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
@@ -724,7 +724,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Function ${functionKey} not found`)
     }
 
-    let args: AnyTypeValue[] = []
+    let args: AnyTypeResult[] = []
 
     if (clause.lazy) {
       const argsTypes = clause.args.map(arg => arg.type)
@@ -762,7 +762,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       if (!clause.acceptError) {
         const errorArgs = args.find(a => a.type === 'Error')
         if (errorArgs) {
-          return errorArgs as AnyTypeValue
+          return errorArgs as AnyTypeResult
         }
       }
 
@@ -782,7 +782,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return clause.reference(functionContext, ...args)
   }
 
-  Arguments(ctx: { expression: any[] }, a: ExpressionArgument): AnyTypeValue[] {
+  Arguments(ctx: { expression: any[] }, a: ExpressionArgument): AnyTypeResult[] {
     return ctx.expression.map((arg: CstNode | CstNode[]) => this.visit(arg, a))
   }
 }

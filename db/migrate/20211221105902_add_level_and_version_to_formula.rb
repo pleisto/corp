@@ -10,5 +10,6 @@ class AddLevelAndVersionToFormula < ActiveRecord::Migration[7.0]
   def change
     add_column :docs_formulas, :level, :integer, null: false, default: 0
     add_column :docs_formulas, :version, :integer, null: false, default: 0
+    add_column :docs_formulas, :kind, :string, null: false, default: 'expression'
   end
 end

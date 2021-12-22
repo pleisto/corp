@@ -1180,6 +1180,11 @@ type Formula {
   id: UUID!
 
   """
+  kind
+  """
+  kind: String!
+
+  """
   level
   """
   level: Int!
@@ -1238,6 +1243,11 @@ input FormulaCreateInput {
   id
   """
   id: UUID!
+
+  """
+  kind
+  """
+  kind: String
 
   """
   level
@@ -1343,6 +1353,11 @@ input FormulaUpdateInput {
   id
   """
   id: UUID!
+
+  """
+  kind
+  """
+  kind: String
 
   """
   level

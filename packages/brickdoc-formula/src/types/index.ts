@@ -129,12 +129,12 @@ export interface BlankResult extends BaseResult {
 }
 
 export interface ArrayResult extends BaseResult {
-  result: AnyTypeValue[]
+  result: AnyTypeResult[]
   type: 'Array'
 }
 
 export interface RecordType {
-  [key: string]: AnyTypeValue
+  [key: string]: AnyTypeResult
 }
 
 export interface RecordResult extends BaseResult {
@@ -254,8 +254,6 @@ export type AnyTypeResult =
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
-export type AnyTypeValue = AnyTypeResult
-
 export interface View {
   [key: string]: any
 }
@@ -267,9 +265,10 @@ export interface Formula {
   name: VariableName
   updatedAt: string
   createdAt: number
-  cacheValue: AnyTypeValue
+  cacheValue: AnyTypeResult
   level: number
   version: number
+  kind: string
   view: View
 }
 export interface Column {
@@ -321,6 +320,7 @@ export interface Database {
 export interface Argument {
   readonly name: string
   readonly type: FormulaType
+  readonly default?: AnyTypeResult
   readonly spread?: boolean
 }
 
@@ -497,13 +497,13 @@ export interface VariableDependency {
 export interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
-  readonly result: AnyTypeValue
-  readonly cacheValue: AnyTypeValue
+  readonly result: AnyTypeResult
+  readonly cacheValue: AnyTypeResult
 }
 
 export interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
-  readonly result: AnyTypeValue
+  readonly result: AnyTypeResult
 }
 
 export interface ErrorVariableValue extends BaseVariableValue {

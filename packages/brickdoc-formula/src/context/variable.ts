@@ -7,7 +7,7 @@ import {
   VariableInterface,
   VariableMetadata,
   Formula,
-  AnyTypeValue,
+  AnyTypeResult,
   DatabaseFactory,
   DatabasePersistence,
   VariableValue,
@@ -19,7 +19,7 @@ import { SelectClass } from '../controls/select'
 import { SwitchClass } from '../controls/switch'
 import { parse } from '../grammar'
 
-export const displayValue = (v: AnyTypeValue): string => {
+export const displayValue = (v: AnyTypeResult): string => {
   switch (v.type) {
     case 'number':
     case 'boolean':
@@ -38,10 +38,10 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `[${v.operator}] ${displayValue(v.result)}`
     case 'Record':
       return `{ ${Object.entries(v.result)
-        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeValue)}`)
+        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeResult)}`)
         .join(', ')} }`
     case 'Array':
-      return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
+      return `[${v.result.map((v: AnyTypeResult) => displayValue(v)).join(', ')}]`
     case 'Button':
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':
@@ -61,7 +61,7 @@ export const displayValue = (v: AnyTypeValue): string => {
   return JSON.stringify(v.result)
 }
 
-const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeValue): AnyTypeValue => {
+const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTypeResult => {
   if (cacheValue.type === 'Date' && !(cacheValue.result instanceof Date)) {
     return {
       type: 'Date',
@@ -119,7 +119,7 @@ export const castVariable = (
   const namespaceId = blockId
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
-  const castedValue: AnyTypeValue = parseCacheValue({ ctx: formulaContext, meta, interpretContext: {} }, cacheValue)
+  const castedValue: AnyTypeResult = parseCacheValue({ ctx: formulaContext, meta, interpretContext: {} }, cacheValue)
   const parseInput = { formulaContext, meta }
   const {
     success,
@@ -197,6 +197,7 @@ export class VariableClass implements VariableInterface {
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
+      kind: this.t.kind,
       level: this.t.level,
       updatedAt: new Date().toISOString(),
       createdAt: new Date().getTime(),

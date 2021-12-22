@@ -58,6 +58,7 @@ export const queryFormulas = gql`
       createdAt
       level
       version
+      kind
     }
   }
 `

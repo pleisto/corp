@@ -628,6 +628,8 @@ export type Formula = {
   dependencyIds: Array<Scalars['UUID']>
   /** object unique id */
   id: Scalars['UUID']
+  /** kind */
+  kind: Scalars['String']
   /** level */
   level: Scalars['Int']
   /** formula name */
@@ -654,6 +656,8 @@ export type FormulaCreateInput = {
   dependencyIds: Array<Scalars['UUID']>
   /** id */
   id: Scalars['UUID']
+  /** kind */
+  kind?: InputMaybe<Scalars['String']>
   /** level */
   level?: InputMaybe<Scalars['Int']>
   /** name */
@@ -706,6 +710,8 @@ export type FormulaUpdateInput = {
   dependencyIds?: InputMaybe<Array<Scalars['UUID']>>
   /** id */
   id: Scalars['UUID']
+  /** kind */
+  kind?: InputMaybe<Scalars['String']>
   /** level */
   level?: InputMaybe<Scalars['Int']>
   /** name */
@@ -2192,6 +2198,7 @@ export type GetFormulasQuery = {
         createdAt: number
         level: number
         version: number
+        kind: string
       }>
     | null
     | undefined
@@ -4476,6 +4483,7 @@ export const GetFormulasDocument = gql`
       createdAt
       level
       version
+      kind
     }
   }
 `

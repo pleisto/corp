@@ -16,7 +16,7 @@ import {
   View,
   VariableInterface,
   Completion,
-  AnyTypeValue,
+  AnyTypeResult,
   ParseErrorType,
   CodeFragmentResult,
   NamespaceId,
@@ -386,7 +386,7 @@ export const interpret = async ({
   }
   try {
     const interpreter = new FormulaInterpreter({ formulaContext, meta, interpretContext })
-    const result: AnyTypeValue = await interpreter.visit(cst)
+    const result: AnyTypeResult = await interpreter.visit(cst)
 
     return {
       success: true,

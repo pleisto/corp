@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 2021_12_21_105902) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "level", default: 0, null: false
     t.integer "version", default: 0, null: false
+    t.string "kind", default: "expression", null: false
     t.index ["block_id", "name"], name: "index_docs_formulas_on_block_id_and_name", unique: true
     t.index ["dependency_ids"], name: "index_docs_formulas_on_dependency_ids", using: :gin
     t.index ["pod_id"], name: "index_docs_formulas_on_pod_id"

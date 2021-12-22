@@ -15,6 +15,7 @@
 #  updated_at     :datetime         not null
 #  level          :integer          default("0"), not null
 #  version        :integer          default("0"), not null
+#  kind           :string           default("expression"), not null
 #
 # Indexes
 #

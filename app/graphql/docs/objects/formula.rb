@@ -12,5 +12,6 @@ module Docs
     field :created_at, Integer, 'created at', null: false
     field :level, Integer, 'level', null: false
     field :version, Integer, 'version', null: false
+    field :kind, String, 'kind', null: false
   end
 end
