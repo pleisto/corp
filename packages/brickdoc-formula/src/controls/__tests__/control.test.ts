@@ -82,6 +82,24 @@ describe('Controls', () => {
       input: `=Switch(true, Set($${namespaceId}@${variableId}, (1 + $${namespaceId}@${variableId})); Set($${namespaceId}@${variableId}, (123)))`,
       parseErrorMessage: undefined,
       result: SNAPSHOT_FLAG
+    },
+    {
+      label: 'select ok',
+      input: `=Select([1,2,3], Set($${namespaceId}@${variableId}, Input.selected))`,
+      parseErrorMessage: undefined,
+      result: SNAPSHOT_FLAG
+    },
+    {
+      label: 'select []',
+      input: `=Select([], Set($${namespaceId}@${variableId}, Input.selected))`,
+      parseErrorMessage: undefined,
+      result: 'Select expects non empty options'
+    },
+    {
+      label: 'select [[]]',
+      input: `=Select([[]], Set($${namespaceId}@${variableId}, Input.selected))`,
+      parseErrorMessage: undefined,
+      result: 'Select expects an array of strings'
     }
   ]
 

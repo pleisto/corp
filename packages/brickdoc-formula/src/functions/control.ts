@@ -6,9 +6,13 @@ import {
   StringResult,
   FunctionResult,
   SwitchResult,
-  BooleanResult
+  BooleanResult,
+  ArrayResult,
+  SelectResult,
+  SelectOption
 } from '..'
 import { ButtonClass } from '../controls/button'
+import { SelectClass } from '../controls/select'
 import { SwitchClass } from '../controls/switch'
 
 export const Button = (
@@ -27,6 +31,29 @@ export const Switch = (
 ): SwitchResult | ErrorResult => {
   const switchResult = new SwitchClass(ctx, { isSelected, fn })
   return { result: switchResult, type: 'Switch' }
+}
+
+export const Select = (
+  ctx: FunctionContext,
+  { result }: ArrayResult,
+  fn: FunctionResult
+): SelectResult | ErrorResult => {
+  if (result.find(v => !['string', 'number'].includes(v.type))) {
+    return { type: 'Error', result: 'Select expects an array of strings', errorKind: 'runtime' }
+  }
+
+  const options = result.map(v => String(v.result))
+
+  if (options.length === 0) {
+    return { type: 'Error', result: 'Select expects non empty options', errorKind: 'runtime' }
+  }
+
+  const selectResult = new SelectClass(ctx, {
+    value: options[0],
+    options: options as [SelectOption, ...SelectOption[]],
+    fn
+  })
+  return { result: selectResult, type: 'Select' }
 }
 
 export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<any>> = [
@@ -71,7 +98,7 @@ export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<any>> = [
         type: 'boolean'
       },
       {
-        name: 'onClick',
+        name: 'onChange',
         type: 'Function'
       }
     ],
@@ -79,5 +106,30 @@ export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<any>> = [
     returns: 'Switch',
     chain: false,
     reference: Switch
+  },
+  {
+    name: 'Select',
+    async: false,
+    pure: false,
+    lazy: false,
+    acceptError: false,
+    effect: false,
+    examples: [{ input: '=Select("name")', output: null }],
+    description: 'Build select',
+    group: 'core',
+    args: [
+      {
+        name: 'options',
+        type: 'Array'
+      },
+      {
+        name: 'onChange',
+        type: 'Function'
+      }
+    ],
+    testCases: [],
+    returns: 'Select',
+    chain: false,
+    reference: Select
   }
 ]

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import { NodeViewProps } from '@tiptap/core'
-import { Button, Icon, Switch } from '@brickdoc/design-system'
+import { Button, Icon, Select, Switch } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
@@ -90,6 +90,15 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
             size="large"
             isSelected={result.result.isSelected}
             onChange={result.result.onChange}
+          />
+        )
+      case 'Select':
+        return (
+          <Select
+            disabled={result.result.disabled}
+            options={result.result.options.map(o => ({ value: o, label: o }))}
+            onChange={result.result.onChange}
+            value={result.result.value}
           />
         )
       default:

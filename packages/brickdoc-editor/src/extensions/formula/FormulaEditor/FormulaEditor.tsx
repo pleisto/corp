@@ -66,7 +66,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && content) {
-      console.log({ pos: pos?.current })
+      // console.log({ pos: pos?.current })
       if (pos) {
         editor
           .chain()

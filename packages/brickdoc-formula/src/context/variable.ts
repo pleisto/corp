@@ -15,6 +15,7 @@ import {
   InterpretContext
 } from '..'
 import { ButtonClass } from '../controls/button'
+import { SelectClass } from '../controls/select'
 import { SwitchClass } from '../controls/switch'
 import { parse } from '../grammar'
 
@@ -45,6 +46,8 @@ export const displayValue = (v: AnyTypeValue): string => {
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':
       return `#<${v.type}> ${v.result.isSelected}`
+    case 'Select':
+      return `#<${v.type}> ${JSON.stringify(v.result.options)}`
     case 'Reference':
       return `#<Reference> ${JSON.stringify(v.result)}`
     case 'Function':
@@ -97,6 +100,11 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeValue): AnyTyp
   if (cacheValue.type === 'Switch' && !(cacheValue.result instanceof SwitchClass)) {
     const switchResult = new SwitchClass(ctx, cacheValue.result)
     return { type: 'Switch', result: switchResult }
+  }
+
+  if (cacheValue.type === 'Select' && !(cacheValue.result instanceof SelectClass)) {
+    const selectResult = new SelectClass(ctx, cacheValue.result)
+    return { type: 'Select', result: selectResult }
   }
 
   // console.log({ cacheValue })
@@ -234,6 +242,7 @@ export class VariableClass implements VariableInterface {
     await this.interpret(interpretContext)
     this.afterUpdate()
     await this.invokeBackendUpdate()
+    this.formulaContext.handleBroadcast(this)
   }
 
   private readonly interpret = async (interpretContext: InterpretContext): Promise<void> => {

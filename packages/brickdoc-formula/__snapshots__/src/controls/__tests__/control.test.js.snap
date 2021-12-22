@@ -1547,6 +1547,677 @@ Object {
 }
 `;
 
+exports[`Controls [select [[]]] =Select([[]], Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Select",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Set",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Reference",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Input",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Input",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Record",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "FunctionName",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "selected",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Function",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Select",
+  },
+]
+`;
+
+exports[`Controls [select []] =Select([], Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Select",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Set",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Reference",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Input",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Input",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Record",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "FunctionName",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "selected",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Function",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Select",
+  },
+]
+`;
+
+exports[`Controls [select ok] =Select([1,2,3], Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Select",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "[",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "2",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "3",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RBracket",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "]",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Set",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Variable",
+    "errors": Array [],
+    "meta": Object {
+      "name": "varvarabcvar",
+      "namespace": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "name": "$57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Reference",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Input",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "Input",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Record",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ".",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "FunctionName",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "selected",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Function",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "Select",
+  },
+]
+`;
+
+exports[`Controls [select ok] =Select([1,2,3], Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 2`] = `
+Object {
+  "result": SelectClass {
+    "disabled": false,
+    "fn": Object {
+      "result": Array [
+        Object {
+          "args": Array [
+            Object {
+              "result": Object {
+                "kind": "variable",
+                "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+                "variableId": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+              },
+              "type": "Reference",
+            },
+            Object {
+              "result": Object {
+                "children": Object {
+                  "lhs": Array [
+                    Object {
+                      "children": Object {
+                        "lhs": Array [
+                          Object {
+                            "children": Object {
+                              "rhs": Array [
+                                Object {
+                                  "children": Object {
+                                    "lhs": Array [
+                                      Object {
+                                        "children": Object {
+                                          "lhs": Array [
+                                            Object {
+                                              "children": Object {
+                                                "lhs": Array [
+                                                  Object {
+                                                    "children": Object {
+                                                      "lhs": Array [
+                                                        Object {
+                                                          "children": Object {
+                                                            "lhs": Array [
+                                                              Object {
+                                                                "children": Object {
+                                                                  "lhs": Array [
+                                                                    Object {
+                                                                      "children": Object {
+                                                                        "Dot": Array [
+                                                                          Object {
+                                                                            "endColumn": 103,
+                                                                            "endLine": 1,
+                                                                            "endOffset": 102,
+                                                                            "image": ".",
+                                                                            "startColumn": 103,
+                                                                            "startLine": 1,
+                                                                            "startOffset": 102,
+                                                                            "tokenType": Object {
+                                                                              "CATEGORIES": Array [],
+                                                                              "PATTERN": /\\\\\\./,
+                                                                              "categoryMatches": Array [],
+                                                                              "categoryMatchesMap": Object {},
+                                                                              "isParent": false,
+                                                                              "name": "Dot",
+                                                                              "tokenTypeIdx": 31,
+                                                                            },
+                                                                            "tokenTypeIdx": 31,
+                                                                          },
+                                                                        ],
+                                                                        "lhs": Array [
+                                                                          Object {
+                                                                            "children": Object {
+                                                                              "simpleAtomicExpression": Array [
+                                                                                Object {
+                                                                                  "children": Object {
+                                                                                    "lazyVariableExpression": Array [
+                                                                                      Object {
+                                                                                        "children": Object {
+                                                                                          "Input": Array [
+                                                                                            Object {
+                                                                                              "endColumn": 102,
+                                                                                              "endLine": 1,
+                                                                                              "endOffset": 101,
+                                                                                              "image": "Input",
+                                                                                              "startColumn": 98,
+                                                                                              "startLine": 1,
+                                                                                              "startOffset": 97,
+                                                                                              "tokenType": Object {
+                                                                                                "CATEGORIES": Array [],
+                                                                                                "PATTERN": /Input/,
+                                                                                                "categoryMatches": Array [],
+                                                                                                "categoryMatchesMap": Object {},
+                                                                                                "isParent": false,
+                                                                                                "name": "Input",
+                                                                                                "tokenTypeIdx": 12,
+                                                                                              },
+                                                                                              "tokenTypeIdx": 12,
+                                                                                            },
+                                                                                          ],
+                                                                                        },
+                                                                                        "name": "lazyVariableExpression",
+                                                                                      },
+                                                                                    ],
+                                                                                  },
+                                                                                  "name": "simpleAtomicExpression",
+                                                                                },
+                                                                              ],
+                                                                            },
+                                                                            "name": "atomicExpression",
+                                                                          },
+                                                                        ],
+                                                                        "rhs": Array [
+                                                                          Object {
+                                                                            "children": Object {
+                                                                              "FunctionName": Array [
+                                                                                Object {
+                                                                                  "endColumn": 111,
+                                                                                  "endLine": 1,
+                                                                                  "endOffset": 110,
+                                                                                  "image": "selected",
+                                                                                  "startColumn": 104,
+                                                                                  "startLine": 1,
+                                                                                  "startOffset": 103,
+                                                                                  "tokenType": Object {
+                                                                                    "CATEGORIES": Array [],
+                                                                                    "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                    "categoryMatches": Array [],
+                                                                                    "categoryMatchesMap": Object {},
+                                                                                    "isParent": false,
+                                                                                    "name": "FunctionName",
+                                                                                    "tokenTypeIdx": 50,
+                                                                                  },
+                                                                                  "tokenTypeIdx": 50,
+                                                                                },
+                                                                              ],
+                                                                            },
+                                                                            "name": "keyExpression",
+                                                                          },
+                                                                        ],
+                                                                      },
+                                                                      "name": "chainExpression",
+                                                                    },
+                                                                  ],
+                                                                },
+                                                                "name": "multiplicationExpression",
+                                                              },
+                                                            ],
+                                                          },
+                                                          "name": "additionExpression",
+                                                        },
+                                                      ],
+                                                    },
+                                                    "name": "concatExpression",
+                                                  },
+                                                ],
+                                              },
+                                              "name": "inExpression",
+                                            },
+                                          ],
+                                        },
+                                        "name": "compareExpression",
+                                      },
+                                    ],
+                                  },
+                                  "name": "equalCompareExpression",
+                                },
+                              ],
+                            },
+                            "name": "notExpression",
+                          },
+                        ],
+                      },
+                      "name": "combineExpression",
+                    },
+                  ],
+                },
+                "name": "expression",
+              },
+              "type": "Cst",
+            },
+          ],
+          "name": "Set",
+        },
+      ],
+      "type": "Function",
+    },
+    "kind": "Select",
+    "meta": Object {
+      "input": "=Select([1,2,3], Set($57622108-1337-4edd-833a-2557835bcfe0@481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected))",
+      "name": "foo",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      "variableId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    },
+    "onChange": [Function],
+    "options": Array [
+      "1",
+      "2",
+      "3",
+    ],
+    "value": "1",
+  },
+  "type": "Select",
+}
+`;
+
 exports[`Controls [set error] = Set(a, 1) 1`] = `
 Array [
   Object {

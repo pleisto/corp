@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType, SwitchType } from '../controls'
+import { ButtonType, SelectType, SwitchType } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
@@ -203,6 +203,11 @@ export interface SwitchResult extends BaseResult {
   result: SwitchType
 }
 
+export interface SelectResult extends BaseResult {
+  type: 'Select'
+  result: SelectType
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -240,6 +245,7 @@ export type AnyTypeResult =
   | PredicateResult
   | ButtonResult
   | SwitchResult
+  | SelectResult
   | ErrorResult
   | FunctionResult
   | CstResult
