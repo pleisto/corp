@@ -135,9 +135,6 @@ export type {
 export { default as Table } from './table'
 */
 
-export type { TreeProps, AntTreeNodeProps as TreeNodeProps, DataNode as TreeDataNode } from './tree'
-export { default as Tree } from './tree'
-
 /*
 export type { TreeSelectProps } from './tree-select'
 export { default as TreeSelect } from './tree-select'
@@ -165,7 +162,8 @@ export {
   Loading,
   globalCss,
   globalStyleSheet,
-  Provider
+  Provider,
+  Tree,
 } from '@brickdoc/brickdoc-headless-design-system'
 
 export type { ButtonProps } from './button'
