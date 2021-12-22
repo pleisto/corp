@@ -1,6 +1,6 @@
-import { ContextInterface, BasicFunctionClause, BooleanResult, StringResult } from '..'
+import { FunctionContext, BasicFunctionClause, BooleanResult, StringResult } from '..'
 
-export const START_WITH = (ctx: ContextInterface, string: StringResult, prefix: StringResult): BooleanResult => ({
+export const START_WITH = (ctx: FunctionContext, string: StringResult, prefix: StringResult): BooleanResult => ({
   result: string.result.startsWith(prefix.result),
   type: 'boolean'
 })
@@ -9,6 +9,7 @@ export const CORE_STRING_CLAUSES: Array<BasicFunctionClause<'boolean'>> = [
   {
     name: 'START_WITH',
     async: false,
+    lazy: false,
     acceptError: false,
     pure: true,
     effect: false,

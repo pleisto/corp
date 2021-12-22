@@ -1,15 +1,10 @@
-import { ContextInterface, StringResult, RecordResult, BasicFunctionClause, AnyTypeResult } from '..'
+import { FunctionContext, StringResult, BasicFunctionClause, AnyTypeResult } from '..'
 
-export const T = (ctx: ContextInterface, obj: AnyTypeResult): AnyTypeResult => obj
+export const T = (ctx: FunctionContext, obj: AnyTypeResult): AnyTypeResult => obj
 
-export const TYPE = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => ({ result: obj.type, type: 'string' })
+export const TYPE = (ctx: FunctionContext, obj: AnyTypeResult): StringResult => ({ result: obj.type, type: 'string' })
 
-export const WITH_TYPE = (ctx: ContextInterface, obj: AnyTypeResult): RecordResult => ({
-  result: obj,
-  type: 'Record'
-})
-
-export const toString = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => {
+export const toString = (ctx: FunctionContext, obj: AnyTypeResult): StringResult => {
   if (obj.type === 'Array') {
     return {
       result: `[${obj.result.map(item => toString(ctx, item).result).join(', ')}]`,
@@ -29,6 +24,7 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'T',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: true,
     effect: false,
     description: 'Returns current object',
@@ -52,6 +48,7 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'TYPE',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: true,
     effect: false,
     description: 'Returns type of current object',
@@ -75,6 +72,7 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     name: 'toString',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: true,
     effect: false,
     description: 'Returns string representation of current object',
@@ -93,28 +91,5 @@ export const CORE_OBJECT_CLAUSES: Array<BasicFunctionClause<any>> = [
     ],
     chain: true,
     reference: toString
-  },
-  {
-    name: 'WITH_TYPE',
-    async: false,
-    pure: true,
-    acceptError: true,
-    effect: false,
-    description: 'Returns object with type',
-    group: 'core',
-    args: [
-      {
-        name: 'obj',
-        type: 'any'
-      }
-    ],
-    examples: [
-      { input: '=WITH_TYPE(100)', output: { type: 'Object', result: 'TODO ...' } },
-      { input: '=WITH_TYPE("foo")', output: { type: 'Object', result: 'TODO ...' } }
-    ],
-    returns: 'Object',
-    testCases: [],
-    chain: true,
-    reference: WITH_TYPE
   }
 ]

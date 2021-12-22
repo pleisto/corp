@@ -476,6 +476,160 @@ Array [
 ]
 `;
 
+exports[`Database Functions [CountIf error1] =CountIf($28e28190-63bd-4f70-aeca-26e72574c01a, >= 3) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "CountIf",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "GreaterThanEqual",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ">=",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "3",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "number",
+  },
+]
+`;
+
+exports[`Database Functions [CountIf ok] =CountIf($28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 >= 3) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "CountIf",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "first",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "GreaterThanEqual",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ">=",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "3",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "number",
+  },
+]
+`;
+
 exports[`Database Functions [MAX] =$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.MAX() 1`] = `
 Array [
   Object {
@@ -997,7 +1151,7 @@ Array [
     "name": "a",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "any",
+    "type": "string",
   },
   Object {
     "code": "Colon",
@@ -1051,7 +1205,7 @@ Array [
     "name": "a",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "any",
+    "type": "string",
   },
   Object {
     "code": "Colon",
@@ -1302,6 +1456,190 @@ Array [
 
 exports[`Database Functions [Table] =Table([1,2,3]).toArray() 2`] = `"Table must be an array of records"`;
 
+exports[`Database Functions [VLOOKUP 2 range default] =VLOOKUP("2", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "StringLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "\\"2\\"",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "second",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "string",
+  },
+]
+`;
+
+exports[`Database Functions [VLOOKUP 2 range true] =VLOOKUP("2", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "StringLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "\\"2\\"",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "second",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "true",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "string",
+  },
+]
+`;
+
 exports[`Database Functions [VLOOKUP Column check] =VLOOKUP("", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
 Array [
   Object {
@@ -1372,6 +1710,107 @@ Array [
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "Column",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "string",
+  },
+]
+`;
+
+exports[`Database Functions [VLOOKUP Not found 2 range false] =VLOOKUP("2", $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "StringLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "\\"2\\"",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "string",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "second",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "false",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
   },
   Object {
     "code": "RParen",
@@ -1538,6 +1977,208 @@ Array [
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "Column",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "string",
+  },
+]
+`;
+
+exports[`Database Functions [VLOOKUP ok number] =VLOOKUP(1, $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "second",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "false",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
+  },
+  Object {
+    "code": "RParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ")",
+    "spaceAfter": false,
+    "spaceBefore": true,
+    "type": "string",
+  },
+]
+`;
+
+exports[`Database Functions [VLOOKUP ok number] =VLOOKUP(1, $28e28190-63bd-4f70-aeca-26e72574c01a, $28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
+Array [
+  Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "VLOOKUP",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "LParen",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "(",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "NumberLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "1",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "number",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "second",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Column",
+  },
+  Object {
+    "code": "Comma",
+    "errors": Array [],
+    "meta": undefined,
+    "name": ",",
+    "spaceAfter": true,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
+    "code": "BooleanLiteral",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "true",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "boolean",
   },
   Object {
     "code": "RParen",
@@ -1952,7 +2593,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [toRecord] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecord() 1`] = `
+exports[`Database Functions [toRecordArray] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecordArray() 1`] = `
 Array [
   Object {
     "code": "Spreadsheet",
@@ -1979,7 +2620,7 @@ Array [
     "code": "Function",
     "errors": Array [],
     "meta": undefined,
-    "name": "toRecord",
+    "name": "toRecordArray",
     "spaceAfter": false,
     "spaceBefore": false,
     "type": "any",
@@ -2005,7 +2646,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [toRecord] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecord() 2`] = `
+exports[`Database Functions [toRecordArray] =$28e28190-63bd-4f70-aeca-26e72574c01a.toRecordArray() 2`] = `
 Array [
   Object {
     "result": Object {
@@ -2151,6 +2792,18 @@ Array [
 
 exports[`Database Functions completion 1`] = `
 Object {
+  "codeFragment": Object {
+    "code": "Spreadsheet",
+    "errors": Array [],
+    "meta": Object {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "name": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
   "kind": "spreadsheet",
   "name": "MyTable",
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
@@ -2171,6 +2824,15 @@ Object {
 
 exports[`Database Functions completion 2`] = `
 Object {
+  "codeFragment": Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "SUM",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
   "kind": "function",
   "name": "SUM",
   "namespace": "core",
@@ -2208,6 +2870,7 @@ Object {
     ],
     "group": "core",
     "key": "SUM",
+    "lazy": false,
     "name": "SUM",
     "pure": false,
     "reference": [Function],
@@ -2224,6 +2887,18 @@ Object {
 
 exports[`Database Functions completion 3`] = `
 Object {
+  "codeFragment": Object {
+    "code": "Column",
+    "errors": Array [],
+    "meta": Object {
+      "name": "first",
+      "spreadsheetName": "MyTable",
+    },
+    "name": "$28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
   "kind": "column",
   "name": "first",
   "namespace": "MyTable",
@@ -2253,8 +2928,17 @@ Object {
 
 exports[`Database Functions completion 4`] = `
 Object {
+  "codeFragment": Object {
+    "code": "Function",
+    "errors": Array [],
+    "meta": undefined,
+    "name": "COLUMN_COUNT",
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
   "kind": "function",
-  "name": "toArray",
+  "name": "COLUMN_COUNT",
   "namespace": "core",
   "preview": Object {
     "acceptError": false,
@@ -2266,7 +2950,7 @@ Object {
     ],
     "async": false,
     "chain": true,
-    "description": "Converts the value to an array.",
+    "description": "Returns the column size of the database.",
     "effect": false,
     "examples": Array [
       Object {
@@ -2283,23 +2967,24 @@ Object {
         ],
         "input": "=123",
         "output": Object {
-          "result": Array [],
-          "type": "Array",
+          "result": 123,
+          "type": "number",
         },
       },
     ],
     "group": "core",
-    "key": "toArray",
-    "name": "toArray",
+    "key": "COLUMN_COUNT",
+    "lazy": false,
+    "name": "COLUMN_COUNT",
     "pure": false,
     "reference": [Function],
-    "returns": "Array",
+    "returns": "number",
     "testCases": Array [],
   },
   "replacements": Array [
-    "toArray",
+    "COLUMN_COUNT",
   ],
-  "value": "toArray()",
+  "value": "COLUMN_COUNT()",
   "weight": 250,
 }
 `;

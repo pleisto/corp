@@ -62,6 +62,7 @@ Object {
 exports[`Dependency dependency automatic update 2`] = `
 Array [
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "NumberLiteral",
@@ -86,7 +87,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
     "variableValue": Object {
-      "display": "1",
+      "cacheValue": Object {
+        "result": 1,
+        "type": "number",
+      },
       "result": Object {
         "result": 1,
         "type": "number",
@@ -94,15 +98,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -170,7 +177,10 @@ Array [
     ],
     "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "variableValue": Object {
-      "display": "102",
+      "cacheValue": Object {
+        "result": 102,
+        "type": "number",
+      },
       "result": Object {
         "result": 102,
         "type": "number",
@@ -178,16 +188,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
     "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -219,7 +231,10 @@ Array [
     ],
     "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
     "variableValue": Object {
-      "display": "1",
+      "cacheValue": Object {
+        "result": 1,
+        "type": "number",
+      },
       "result": Object {
         "result": 1,
         "type": "number",
@@ -227,15 +242,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -257,7 +275,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num1",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
@@ -301,7 +319,10 @@ Array [
     ],
     "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
     "variableValue": Object {
-      "display": "3",
+      "cacheValue": Object {
+        "result": 3,
+        "type": "number",
+      },
       "result": Object {
         "result": 3,
         "type": "number",
@@ -309,15 +330,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -339,7 +363,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -383,7 +407,10 @@ Array [
     ],
     "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
     "variableValue": Object {
-      "display": "2",
+      "cacheValue": Object {
+        "result": 2,
+        "type": "number",
+      },
       "result": Object {
         "result": 2,
         "type": "number",
@@ -391,15 +418,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num3",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
@@ -421,7 +451,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -443,7 +473,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -503,7 +533,10 @@ Array [
     ],
     "variableId": "a17872fd-5555-4fe1-9cc9-57169a46b645",
     "variableValue": Object {
-      "display": "5",
+      "cacheValue": Object {
+        "result": 5,
+        "type": "number",
+      },
       "result": Object {
         "result": 5,
         "type": "number",
@@ -511,15 +544,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num4",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
@@ -541,7 +577,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num1",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
@@ -593,7 +629,10 @@ Array [
     ],
     "variableId": "396b8653-6666-4126-92b6-74006a435276",
     "variableValue": Object {
-      "display": "4",
+      "cacheValue": Object {
+        "result": 4,
+        "type": "number",
+      },
       "result": Object {
         "result": 4,
         "type": "number",
@@ -601,6 +640,8 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
 ]
 `;
@@ -663,6 +704,7 @@ Object {
 exports[`Dependency snapshot 2`] = `
 Array [
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "NumberLiteral",
@@ -687,7 +729,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
     "variableValue": Object {
-      "display": "1",
+      "cacheValue": Object {
+        "result": 1,
+        "type": "number",
+      },
       "result": Object {
         "result": 1,
         "type": "number",
@@ -695,8 +740,11 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "NumberLiteral",
@@ -721,7 +769,10 @@ Array [
     "variableDependencies": Array [],
     "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "variableValue": Object {
-      "display": "2",
+      "cacheValue": Object {
+        "result": 2,
+        "type": "number",
+      },
       "result": Object {
         "result": 2,
         "type": "number",
@@ -729,15 +780,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -769,7 +823,10 @@ Array [
     ],
     "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
     "variableValue": Object {
-      "display": "1",
+      "cacheValue": Object {
+        "result": 1,
+        "type": "number",
+      },
       "result": Object {
         "result": 1,
         "type": "number",
@@ -777,15 +834,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -807,7 +867,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num1",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
@@ -851,7 +911,10 @@ Array [
     ],
     "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
     "variableValue": Object {
-      "display": "3",
+      "cacheValue": Object {
+        "result": 3,
+        "type": "number",
+      },
       "result": Object {
         "result": 3,
         "type": "number",
@@ -859,15 +922,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -889,7 +955,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -933,7 +999,10 @@ Array [
     ],
     "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
     "variableValue": Object {
-      "display": "2",
+      "cacheValue": Object {
+        "result": 2,
+        "type": "number",
+      },
       "result": Object {
         "result": 2,
         "type": "number",
@@ -941,15 +1010,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num3",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
@@ -971,7 +1043,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num0",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
@@ -993,7 +1065,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num2",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
@@ -1053,7 +1125,10 @@ Array [
     ],
     "variableId": "a17872fd-5555-4fe1-9cc9-57169a46b645",
     "variableValue": Object {
-      "display": "5",
+      "cacheValue": Object {
+        "result": 5,
+        "type": "number",
+      },
       "result": Object {
         "result": 5,
         "type": "number",
@@ -1061,15 +1136,18 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
   Object {
+    "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
         "code": "Variable",
         "errors": Array [],
         "meta": Object {
           "name": "num4",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
@@ -1091,7 +1169,7 @@ Array [
         "errors": Array [],
         "meta": Object {
           "name": "num1",
-          "namespace": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "namespace": "Untitled",
           "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         },
         "name": "$9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
@@ -1143,7 +1221,10 @@ Array [
     ],
     "variableId": "396b8653-6666-4126-92b6-74006a435276",
     "variableValue": Object {
-      "display": "4",
+      "cacheValue": Object {
+        "result": 4,
+        "type": "number",
+      },
       "result": Object {
         "result": 4,
         "type": "number",
@@ -1151,6 +1232,8 @@ Array [
       "success": true,
       "updatedAt": null,
     },
+    "version": 0,
+    "view": Object {},
   },
 ]
 `;

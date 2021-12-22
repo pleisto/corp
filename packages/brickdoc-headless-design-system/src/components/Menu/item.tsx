@@ -1,5 +1,7 @@
 import React from 'react'
+import { mergeProps } from '@react-aria/utils'
 import { AriaMenuItemProps, useMenuItem } from '@react-aria/menu'
+import { usePress } from '@react-aria/interactions'
 import { ItemContext } from './itemContainer'
 import { styled, theme } from '../../themes'
 import { itemMinHeight, itemSpacing } from './styles/index.style'
@@ -69,6 +71,7 @@ const ItemDescription = styled('span', {
 })
 
 export interface MenuItemProps extends AriaMenuItemProps {
+  'aria-label'?: AriaMenuItemProps['aria-label']
   danger?: boolean
   description?: string | React.ReactElement
   icon?: React.ReactNode
@@ -91,13 +94,19 @@ export const Item: React.FC<MenuItemProps> = ({ children, danger, icon, label, d
       onAction,
       onClose,
       ...otherProps
+
     },
     state,
     innerRef
   )
+  const { pressProps } = usePress({})
 
   return (
-    <ItemRoot {...menuItemProps} danger={danger && typeof children === 'string'} css={{}} ref={innerRef}>
+    <ItemRoot
+      {...mergeProps(menuItemProps, pressProps)}
+      danger={danger && typeof children === 'string'}
+      css={{}}
+      ref={innerRef}>
       {children}
       {!children && (
         <ItemContent>

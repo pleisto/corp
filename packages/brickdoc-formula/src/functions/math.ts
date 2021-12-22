@@ -1,54 +1,54 @@
-import { ContextInterface, BasicFunctionClause, NumberResult } from '..'
+import { FunctionContext, BasicFunctionClause, NumberResult } from '..'
 
-export const ABS = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const ABS = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.abs(number.result),
   type: 'number'
 })
 
-export const INT = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const INT = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.floor(number.result),
   type: 'number'
 })
 
-export const LOG10 = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const LOG10 = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.log10(number.result),
   type: 'number'
 })
 
-export const PI = (ctx: ContextInterface): NumberResult => ({ result: Math.PI, type: 'number' })
+export const PI = (ctx: FunctionContext): NumberResult => ({ result: Math.PI, type: 'number' })
 
-export const POWER = (ctx: ContextInterface, number: NumberResult, power: NumberResult): NumberResult => ({
+export const POWER = (ctx: FunctionContext, number: NumberResult, power: NumberResult): NumberResult => ({
   result: Math.pow(number.result, power.result),
   type: 'number'
 })
 
-export const RAND = (ctx: ContextInterface): NumberResult => ({ result: Math.random(), type: 'number' })
+export const RAND = (ctx: FunctionContext): NumberResult => ({ result: Math.random(), type: 'number' })
 
-export const RANDBETWEEN = (ctx: ContextInterface, min: NumberResult, max: NumberResult): NumberResult => ({
+export const RANDBETWEEN = (ctx: FunctionContext, min: NumberResult, max: NumberResult): NumberResult => ({
   result: Math.random() * (max.result - min.result) + min.result,
   type: 'number'
 })
 
-export const SQRT = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const SQRT = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.sqrt(number.result),
   type: 'number'
 })
 
-export const SQRTPI = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const SQRTPI = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.sqrt(number.result * Math.PI),
   type: 'number'
 })
 
-export const TRUNC = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const TRUNC = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.trunc(number.result),
   type: 'number'
 })
-export const LN = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const LN = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.log(number.result),
   type: 'number'
 })
 
-export const ROUND = (ctx: ContextInterface, number: NumberResult): NumberResult => ({
+export const ROUND = (ctx: FunctionContext, number: NumberResult): NumberResult => ({
   result: Math.round(number.result),
   type: 'number'
 })
@@ -58,6 +58,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'ABS',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the absolute value of a number.',
@@ -78,6 +79,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'INT',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the integer part of a number.',
@@ -98,6 +100,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'LOG10',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the base-10 logarithm of a number.',
@@ -118,6 +121,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'PI',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the value of pi.',
@@ -138,6 +142,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'POWER',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the value of a number raised to a power.',
@@ -161,6 +166,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'RAND',
     async: false,
     pure: false,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns a random number between 0 and 1.',
@@ -176,6 +182,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'RANDBETWEEN',
     async: false,
     pure: false,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns a random number between two numbers.',
@@ -194,6 +201,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'SQRT',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the square root of a number.',
@@ -209,6 +217,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'SQRTPI',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the square root of a number multiplied by pi.',
@@ -224,6 +233,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'TRUNC',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the integer part of a number.',
@@ -239,6 +249,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'LN',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the natural logarithm of a number.',
@@ -254,6 +265,7 @@ export const CORE_MATH_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     name: 'ROUND',
     async: false,
     pure: true,
+    lazy: false,
     acceptError: false,
     effect: false,
     description: 'Returns the number rounded to the specified number of decimal places.',
