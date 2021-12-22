@@ -449,7 +449,7 @@ const testCases: TestCase[] = [
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=true and !2 && TRUE()',
+    input: '=true and !2 && true',
     value: false
   },
   // Error
@@ -606,7 +606,7 @@ const testCases: TestCase[] = [
     value: true
   },
   {
-    input: '=ABS(IF(FALSE(), -3, -4))',
+    input: '=ABS(IF(false, -3, -4))',
     value: 4
   },
   {
@@ -767,7 +767,7 @@ const testCases: TestCase[] = [
     errorMessage: 'Expected boolean but got number'
   },
   {
-    input: '=ABS ( TRUE() )',
+    input: '=ABS ( true )',
     parseErrorType: 'syntax',
     errorMessage: 'Expected number but got boolean'
   },

@@ -1,5 +1,5 @@
 import {
-  ContextInterface,
+  FunctionContext,
   BasicFunctionClause,
   NumberResult,
   ColumnResult,
@@ -19,8 +19,8 @@ import {
 import { buildPredicate } from '../grammar/predicate'
 import { v4 as uuid } from 'uuid'
 
-export const SUM = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.findDatabase(column.namespaceId)
+export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
+  const database = ctx.ctx.findDatabase(column.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -30,18 +30,18 @@ export const SUM = (ctx: ContextInterface, { result: column }: ColumnResult): Nu
 }
 
 // TODO ... result type???
-export const toArray = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ArrayResult => {
+export const toArray = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
   return {
     type: 'Array',
     result: database.toArray().map(row => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
   }
 }
 
-export const toRecord = (ctx: ContextInterface, { result: database }: SpreadsheetResult): ArrayResult => {
+export const toRecord = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
   return { type: 'Array', result: database.toRecord().map(row => ({ type: 'Record', result: row })) }
 }
 
-export const Table = (ctx: ContextInterface, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
+export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
   const defaultData: RecordResult[] = [
     { type: 'Record', result: { Column1: { type: 'string', result: 1 }, Column2: { type: 'string', result: 2 } } },
     { type: 'Record', result: { Column1: { type: 'string', result: 3 }, Column2: { type: 'string', result: 4 } } }
@@ -103,8 +103,8 @@ export const Table = (ctx: ContextInterface, { result }: ArrayResult): Spreadshe
   return { type: 'Spreadsheet', result: database }
 }
 
-export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.findDatabase(column.namespaceId)
+export const MAX = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
+  const database = ctx.ctx.findDatabase(column.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -113,8 +113,8 @@ export const MAX = (ctx: ContextInterface, { result: column }: ColumnResult): Nu
   return { type: 'number', result: Math.max(...rows) }
 }
 
-export const COUNTA = (ctx: ContextInterface, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.findDatabase(column.namespaceId)
+export const COUNTA = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
+  const database = ctx.ctx.findDatabase(column.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -123,16 +123,16 @@ export const COUNTA = (ctx: ContextInterface, { result: column }: ColumnResult):
   return { type: 'number', result: counta }
 }
 
-export const COLUMN_COUNT = (ctx: ContextInterface, database: SpreadsheetResult): NumberResult => {
+export const COLUMN_COUNT = (ctx: FunctionContext, database: SpreadsheetResult): NumberResult => {
   return { type: 'number', result: database.result.columnCount() }
 }
 
-export const ROW_COUNT = (ctx: ContextInterface, database: SpreadsheetResult): NumberResult => {
+export const ROW_COUNT = (ctx: FunctionContext, database: SpreadsheetResult): NumberResult => {
   return { type: 'number', result: database.result.rowCount() }
 }
 
 export const SUMIFS = (
-  ctx: ContextInterface,
+  ctx: FunctionContext,
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
@@ -141,7 +141,7 @@ export const SUMIFS = (
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
-  const database = ctx.findDatabase(column1.namespaceId)
+  const database = ctx.ctx.findDatabase(column1.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -161,7 +161,7 @@ export const SUMIFS = (
 }
 
 export const AVERAGEIFS = (
-  ctx: ContextInterface,
+  ctx: FunctionContext,
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
@@ -170,7 +170,7 @@ export const AVERAGEIFS = (
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
-  const database = ctx.findDatabase(column1.namespaceId)
+  const database = ctx.ctx.findDatabase(column1.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -196,11 +196,11 @@ export const AVERAGEIFS = (
 }
 
 export const COUNTIFS = (
-  ctx: ContextInterface,
+  ctx: FunctionContext,
   { result: column }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  const database = ctx.findDatabase(column.namespaceId)
+  const database = ctx.ctx.findDatabase(column.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -219,7 +219,7 @@ export const COUNTIFS = (
 }
 
 export const SUMPRODUCT = (
-  ctx: ContextInterface,
+  ctx: FunctionContext,
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult
 ): NumberResult | ErrorResult => {
@@ -227,7 +227,7 @@ export const SUMPRODUCT = (
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
-  const database = ctx.findDatabase(column1.namespaceId)
+  const database = ctx.ctx.findDatabase(column1.namespaceId)
   if (!database) {
     return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
@@ -244,7 +244,7 @@ export const SUMPRODUCT = (
 }
 
 export const VLOOKUP = (
-  ctx: ContextInterface,
+  ctx: FunctionContext,
   { result: match }: AnyTypeResult,
   { result: database }: SpreadsheetResult,
   { result: column }: ColumnResult

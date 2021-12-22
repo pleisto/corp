@@ -1,15 +1,15 @@
-import { ContextInterface, StringResult, RecordResult, BasicFunctionClause, AnyTypeResult } from '..'
+import { FunctionContext, StringResult, RecordResult, BasicFunctionClause, AnyTypeResult } from '..'
 
-export const T = (ctx: ContextInterface, obj: AnyTypeResult): AnyTypeResult => obj
+export const T = (ctx: FunctionContext, obj: AnyTypeResult): AnyTypeResult => obj
 
-export const TYPE = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => ({ result: obj.type, type: 'string' })
+export const TYPE = (ctx: FunctionContext, obj: AnyTypeResult): StringResult => ({ result: obj.type, type: 'string' })
 
-export const WITH_TYPE = (ctx: ContextInterface, obj: AnyTypeResult): RecordResult => ({
+export const WITH_TYPE = (ctx: FunctionContext, obj: AnyTypeResult): RecordResult => ({
   result: obj,
   type: 'Record'
 })
 
-export const toString = (ctx: ContextInterface, obj: AnyTypeResult): StringResult => {
+export const toString = (ctx: FunctionContext, obj: AnyTypeResult): StringResult => {
   if (obj.type === 'Array') {
     return {
       result: `[${obj.result.map(item => toString(ctx, item).result).join(', ')}]`,

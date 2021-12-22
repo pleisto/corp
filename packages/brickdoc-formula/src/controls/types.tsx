@@ -1,23 +1,33 @@
-import { FunctionResult } from '..'
-
-export type ControlKind = 'button'
+import { FormulaControlType, FunctionResult, VariableMetadata } from '..'
 
 export interface ControlType {
-  name: string
-  kind: ControlKind
+  meta: VariableMetadata
+  kind: FormulaControlType
 }
-
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ControlInitializer {}
 export interface ButtonType extends ControlType {
-  kind: 'button'
+  kind: 'Button'
+  name: string
   fn: FunctionResult
   disabled: boolean
   onClick?: () => void
 }
 
-export interface ControlInitializer {
+export interface ButtonInitializer extends ControlInitializer {
   name: string
+  fn: FunctionResult
 }
 
-export interface ButtonInitializer extends ControlInitializer {
+export interface SwitchType extends ControlType {
+  kind: 'Switch'
+  isSelected: boolean
+  fn: FunctionResult
+  disabled: boolean
+  onChange?: (bool: boolean) => void
+}
+
+export interface SwitchInitializer extends ControlInitializer {
+  isSelected: boolean
   fn: FunctionResult
 }

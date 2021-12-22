@@ -10,9 +10,11 @@ import {
   AnyTypeValue,
   DatabaseFactory,
   DatabasePersistence,
-  VariableValue
+  VariableValue,
+  FunctionContext
 } from '..'
 import { ButtonClass } from '../controls/button'
+import { SwitchClass } from '../controls/switch'
 import { parse } from '../grammar'
 
 export const displayValue = (v: AnyTypeValue): string => {
@@ -39,7 +41,9 @@ export const displayValue = (v: AnyTypeValue): string => {
     case 'Array':
       return `[${v.result.map((v: AnyTypeValue) => displayValue(v)).join(', ')}]`
     case 'Button':
-      return `#<Button> ${v.result.name}`
+      return `#<${v.type}> ${v.result.name}`
+    case 'Switch':
+      return `#<${v.type}> ${v.result.isSelected}`
     case 'Reference':
       return `#<Reference> ${JSON.stringify(v.result)}`
     case 'Function':
@@ -53,7 +57,7 @@ export const displayValue = (v: AnyTypeValue): string => {
   return JSON.stringify(v.result)
 }
 
-const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeValue): AnyTypeValue => {
+const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeValue): AnyTypeValue => {
   if (cacheValue.type === 'Date' && !(cacheValue.result instanceof Date)) {
     return {
       type: 'Date',
@@ -75,7 +79,7 @@ const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeVa
         })
       }
     } else {
-      const database = formulaContext.findDatabase(cacheValue.result.blockId)
+      const database = ctx.ctx.findDatabase(cacheValue.result.blockId)
       if (database) {
         return { type: 'Spreadsheet', result: database }
       } else {
@@ -85,8 +89,13 @@ const parseCacheValue = (formulaContext: ContextInterface, cacheValue: AnyTypeVa
   }
 
   if (cacheValue.type === 'Button' && !(cacheValue.result instanceof ButtonClass)) {
-    const button = new ButtonClass(formulaContext, cacheValue.result)
-    return { type: 'Button', result: button }
+    const buttonResult = new ButtonClass(ctx, cacheValue.result)
+    return { type: 'Button', result: buttonResult }
+  }
+
+  if (cacheValue.type === 'Switch' && !(cacheValue.result instanceof SwitchClass)) {
+    const switchResult = new SwitchClass(ctx, cacheValue.result)
+    return { type: 'Switch', result: switchResult }
   }
 
   // console.log({ cacheValue })
@@ -100,8 +109,9 @@ export const castVariable = (
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
-  const castedValue: AnyTypeValue = parseCacheValue(formulaContext, cacheValue)
-  const parseInput = { formulaContext, meta: { namespaceId, variableId, name, input: definition } }
+  const meta = { namespaceId, variableId, name, input: definition }
+  const castedValue: AnyTypeValue = parseCacheValue({ ctx: formulaContext, meta }, cacheValue)
+  const parseInput = { formulaContext, meta }
   const {
     success,
     cst,
@@ -201,6 +211,11 @@ export class VariableClass implements VariableInterface {
   public afterUpdate = (): void => {
     // console.log('after update', this.t.name, this.t.variableId)
     BrickdocEventBus.dispatch(FormulaUpdated(this))
+  }
+
+  public updateAndPersist = async (): Promise<void> => {
+    await this.invokeBackendUpdate()
+    this.afterUpdate()
   }
 
   public reparse = (): void => {

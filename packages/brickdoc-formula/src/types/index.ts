@@ -1,8 +1,8 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType } from '../controls'
+import { ButtonType, SwitchType } from '../controls'
 
-type BasicType = 'number' | 'string' | 'boolean' | 'null'
-type ObjectType =
+type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
+type FormulaObjectType =
   | 'Date'
   | 'Column'
   | 'Spreadsheet'
@@ -15,9 +15,10 @@ type ObjectType =
   | 'Function'
   | 'Reference'
   | 'Cst'
-type ControlType = 'Button'
 
-export type FormulaType = BasicType | ObjectType | ControlType | 'any'
+export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
+
+export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -40,6 +41,12 @@ export type SpecialDefaultVariableName =
   | 'reference'
   | 'function'
   | 'button'
+  | 'switch'
+  | 'select'
+  | 'input'
+  | 'radio'
+  | 'rate'
+  | 'slider'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -187,6 +194,10 @@ export interface ButtonResult extends BaseResult {
   type: 'Button'
   result: ButtonType
 }
+export interface SwitchResult extends BaseResult {
+  type: 'Switch'
+  result: SwitchType
+}
 
 export interface AnyResult extends BaseResult {
   result: any
@@ -224,6 +235,7 @@ export type AnyTypeResult =
   | BlockResult
   | PredicateResult
   | ButtonResult
+  | SwitchResult
   | ErrorResult
   | FunctionResult
   | CstResult
@@ -382,6 +394,11 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
   readonly codeFragments: CodeFragment[]
 }
 
+export interface FunctionContext {
+  readonly ctx: ContextInterface
+  readonly meta: VariableMetadata
+}
+
 export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType
   readonly pure: boolean
@@ -396,7 +413,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly args: Argument[]
   readonly returns: T
   readonly testCases: TestCase[]
-  readonly reference: (ctx: ContextInterface, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T>
 }
 
 export interface NormalFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
@@ -408,7 +425,7 @@ export interface ChainFunctionClause<T extends FormulaType> extends BaseFunction
   readonly chain: true
   readonly returns: T
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: ContextInterface, chainResult: any, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (ctx: FunctionContext, chainResult: any, ...args: any[]) => AnyFunctionResult<T>
 }
 
 export type BasicFunctionClause<T extends FormulaType> = NormalFunctionClause<T> | ChainFunctionClause<T>
@@ -521,6 +538,7 @@ export interface VariableInterface {
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void
+  updateAndPersist: () => Promise<void>
   refresh: () => Promise<void>
 }
 

@@ -378,7 +378,7 @@ export const interpret = async ({ cst, formulaContext, meta }: InterpretInput): 
     }
   }
   try {
-    const interpreter = new FormulaInterpreter({ formulaContext })
+    const interpreter = new FormulaInterpreter({ formulaContext, meta })
     const result: AnyTypeValue = await interpreter.visit(cst)
 
     return {
