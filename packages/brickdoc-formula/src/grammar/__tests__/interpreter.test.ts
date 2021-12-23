@@ -156,17 +156,15 @@ describe('Context', () => {
 
     expect(bar.t.functionDependencies).toEqual([])
     expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
-    expect(bar.t.flattenVariableDependencies).toEqual(new Set([{ namespaceId, variableId: fooVariableId }]))
+    expect(bar.t.flattenVariableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
 
     const input = `=$${anotherBlockId}@${anotherVariableId}`
     const newMeta = { namespaceId, variableId: fooVariableId, name: 'bar', input }
     const { errorMessages, flattenVariableDependencies } = parse({ ...parseInput, meta: newMeta })
-    expect(flattenVariableDependencies).toEqual(
-      new Set([
-        { namespaceId, variableId: fooVariableId },
-        { namespaceId: anotherBlockId, variableId: anotherVariableId }
-      ])
-    )
+    expect(flattenVariableDependencies).toEqual([
+      { namespaceId, variableId: fooVariableId },
+      { namespaceId: anotherBlockId, variableId: anotherVariableId }
+    ])
     expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 

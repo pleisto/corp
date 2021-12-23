@@ -82,6 +82,7 @@ const calculate = async ({
   } else {
     interpretResult = {
       success: false,
+      lazy: false,
       errorMessages: parseResult.errorMessages,
       variableValue: {
         success: false,

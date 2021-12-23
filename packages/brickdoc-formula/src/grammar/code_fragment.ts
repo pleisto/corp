@@ -134,7 +134,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   variableDependencies: VariableDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
   blockDependencies: NamespaceId[] = []
-  flattenVariableDependencies: Set<VariableDependency> = new Set()
+  flattenVariableDependencies: VariableDependency[] = []
   level: number = 0
   kind: VariableKind = 'constant'
 
@@ -1122,12 +1122,22 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     this.kind = 'expression'
 
     if (variable) {
-      this.variableDependencies.push({ namespaceId, variableId })
-      this.flattenVariableDependencies = new Set([
-        { namespaceId, variableId },
-        ...this.flattenVariableDependencies,
-        ...variable.t.flattenVariableDependencies
-      ])
+      this.variableDependencies = [
+        ...new Map(
+          [...this.variableDependencies, { namespaceId, variableId }].map(item => [item.variableId, item])
+        ).values()
+      ]
+
+      this.flattenVariableDependencies = [
+        ...new Map(
+          [
+            ...this.flattenVariableDependencies,
+            ...variable.t.flattenVariableDependencies,
+            { namespaceId, variableId }
+          ].map(item => [item.variableId, item])
+        ).values()
+      ]
+
       this.level = Math.max(this.level, variable.t.level + 1)
 
       const { errorMessages, newType } = intersectType(

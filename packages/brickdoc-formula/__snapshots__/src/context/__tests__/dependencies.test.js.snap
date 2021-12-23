@@ -77,7 +77,7 @@ Array [
     "cst": null,
     "definition": "=1",
     "dirty": false,
-    "flattenVariableDependencies": Set {},
+    "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "kind": "constant",
     "level": 0,
@@ -157,12 +157,12 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259 * 2 + 100",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 1,
@@ -211,12 +211,12 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 1,
@@ -287,10 +287,10 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec + $9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -298,9 +298,9 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
+        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
       },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 2,
@@ -375,7 +375,7 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec + $9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
@@ -384,11 +384,7 @@ Array [
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
       },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-      },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 2,
@@ -485,18 +481,14 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@f78cb1af-3333-4d8b-8cd4-4e8a7da3a373 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
     "dirty": false,
-    "flattenVariableDependencies": Set {
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
-      },
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
+        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -504,13 +496,9 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+        "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
       },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-      },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 3,
@@ -589,15 +577,7 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@74d1a0a2-4444-407b-a470-ac6ae1f3e8e2 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "dirty": false,
-    "flattenVariableDependencies": Set {
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
-      },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
-      },
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
@@ -608,9 +588,13 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
+        "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
       },
-    },
+      Object {
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+      },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 3,
@@ -719,7 +703,7 @@ Array [
     "cst": null,
     "definition": "=1",
     "dirty": false,
-    "flattenVariableDependencies": Set {},
+    "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "kind": "constant",
     "level": 0,
@@ -759,7 +743,7 @@ Array [
     "cst": null,
     "definition": "=2",
     "dirty": false,
-    "flattenVariableDependencies": Set {},
+    "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "kind": "constant",
     "level": 0,
@@ -803,12 +787,12 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 1,
@@ -879,10 +863,10 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec + $9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -890,9 +874,9 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
+        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
       },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 2,
@@ -967,7 +951,7 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec + $9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259",
     "dirty": false,
-    "flattenVariableDependencies": Set {
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
@@ -976,11 +960,7 @@ Array [
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
       },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-      },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 2,
@@ -1077,18 +1057,14 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@f78cb1af-3333-4d8b-8cd4-4e8a7da3a373 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@cd0755b8-0000-4326-876d-853e59cb0259 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@94a89a9d-2222-4e46-ae48-887238bc2bec",
     "dirty": false,
-    "flattenVariableDependencies": Set {
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
-      },
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
+        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1096,13 +1072,9 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+        "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
       },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-      },
-    },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 3,
@@ -1181,15 +1153,7 @@ Array [
     "cst": null,
     "definition": "=$9dda8306-dbe1-49d3-868d-1a7c86f27328@74d1a0a2-4444-407b-a470-ac6ae1f3e8e2 + $9dda8306-dbe1-49d3-868d-1a7c86f27328@88d64c7c-1111-4eea-be97-133e12c8c1ce",
     "dirty": false,
-    "flattenVariableDependencies": Set {
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
-      },
-      Object {
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
-      },
+    "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
@@ -1200,9 +1164,13 @@ Array [
       },
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-        "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
+        "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
       },
-    },
+      Object {
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+      },
+    ],
     "functionDependencies": Array [],
     "kind": "expression",
     "level": 3,

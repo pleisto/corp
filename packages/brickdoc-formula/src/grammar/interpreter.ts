@@ -51,6 +51,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   formulaContext: ContextInterface
   meta: VariableMetadata
   interpretContext: InterpretContext
+  lazy: boolean = false
 
   constructor({ formulaContext, meta, interpretContext }: InterpreterConfig) {
     super()
@@ -743,6 +744,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         if (argType === 'Reference') {
           return this.visit(element as CstNode, { lazy: true })
         } else {
+          this.lazy = true
           return { type: 'Cst', result: element }
         }
       })
