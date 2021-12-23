@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import { interpret, parse, quickInsert } from '../..'
-import { FormulaContext } from '../../context'
+import { FormulaContext, FORMULA_FEATURE_CONTROL } from '../../context'
 
 const formulaContext = new FormulaContext({})
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
@@ -102,6 +102,21 @@ describe('Controls', () => {
       result: 'Select expects an array of strings'
     }
   ]
+
+  it('feature', () => {
+    const input = `=Button("Foo", Set($${namespaceId}@${variableId}, (1 + $${namespaceId}@${variableId})))`
+    const meta = { namespaceId, variableId: testVariableId, name: 'foo', input }
+    const { errorMessages: errorMessage1 } = parse({ formulaContext: new FormulaContext({ features: [] }), meta })
+
+    expect(errorMessage1).toEqual([{ message: 'Function Button not found', type: 'deps' }])
+
+    const { errorMessages: errorMessage2 } = parse({
+      formulaContext: new FormulaContext({ features: [FORMULA_FEATURE_CONTROL] }),
+      meta
+    })
+
+    expect(errorMessage2).toEqual([])
+  })
 
   testCases.forEach(({ input, label, parseErrorMessage, result }) => {
     it(`[${label}] ${input}`, async () => {

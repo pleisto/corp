@@ -33,15 +33,18 @@ import {
   variableKey,
   ColumnCompletion,
   column2completion,
-  FORMULA_PARSER_VERSION
+  FORMULA_PARSER_VERSION,
+  Features
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, FormulaLexer } from '../grammar'
 import { BlockNameLoad, BlockTableLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
+import { FORMULA_FEATURE_CONTROL } from '.'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
   backendActions?: BackendActions
+  features?: string[]
 }
 
 const matchRegex =
@@ -84,6 +87,7 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
 ) as { [key in SpecialDefaultVariableName]: FormulaType }
 
 export class FormulaContext implements ContextInterface {
+  features: Features
   context: { [key: VariableKey]: VariableInterface } = {}
   functionWeights: { [key: FunctionKey]: number } = {}
   variableWeights: { [key: VariableKey]: number } = {}
@@ -123,11 +127,15 @@ export class FormulaContext implements ContextInterface {
   backendActions: BackendActions | undefined
   reservedNames: string[] = []
 
-  constructor({ functionClauses = [], backendActions }: FormulaContextArgs) {
+  constructor({ functionClauses = [], backendActions, features = [FORMULA_FEATURE_CONTROL] }: FormulaContextArgs) {
+    this.features = features
     if (backendActions) {
       this.backendActions = backendActions
     }
-    const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses]
+    const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
+      f => !f.feature || this.features.includes(f.feature)
+    )
+
     this.reservedNames = baseFunctionClauses.map(({ name }) => name.toUpperCase())
     this.functionClausesMap = baseFunctionClauses.reduce(
       (o: { [key: FunctionKey]: BaseFunctionClauseWithKey<any> }, acc: BaseFunctionClause<any>) => {

@@ -95,6 +95,9 @@ export type NamespaceId = uuid
 export type VariableId = uuid
 export type ColumnId = uuid
 
+export type Feature = string
+export type Features = Feature[]
+
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set'
@@ -371,6 +374,7 @@ export interface SpreadsheetCompletion extends BaseCompletion {
 export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
 
 export interface ContextInterface {
+  features: string[]
   databases: { [key: NamespaceId]: Database }
   blockNameMap: { [key: NamespaceId]: string }
   reservedNames: string[]
@@ -420,6 +424,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType
   readonly pure: boolean
   readonly effect: false
+  readonly feature?: Feature
   readonly lazy: boolean
   readonly async: false
   readonly chain: boolean

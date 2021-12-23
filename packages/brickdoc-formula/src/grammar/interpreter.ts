@@ -733,6 +733,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Function ${functionKey} not found`)
     }
 
+    if (clause.feature && !this.formulaContext.features.includes(clause.feature)) {
+      throw new Error(`Feature ${clause.feature} not enabled`)
+    }
+
     let args: AnyTypeResult[] = []
 
     if (clause.lazy) {

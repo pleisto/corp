@@ -1176,6 +1176,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
+  // eslint-disable-next-line complexity
   FunctionCall(
     ctx: {
       FunctionName: Array<{ image: any }>
@@ -1229,7 +1230,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], clause ? clause.returns : 'any')] : []
 
-    if (clause) {
+    const clauseErrorMessages: ErrorMessage[] = []
+    if (!clause) {
+      clauseErrorMessages.push({ message: `Function ${functionKey} not found`, type: 'deps' })
+    } else if (clause.feature && this.formulaContext && !this.formulaContext.features.includes(clause.feature)) {
+      clauseErrorMessages.push({ message: `Feature ${clause.feature} not enabled`, type: 'deps' })
+    }
+
+    if (clauseErrorMessages.length === 0 && clause) {
       this.functionDependencies.push(clause)
 
       if (clause.effect || !clause.pure) {
@@ -1285,7 +1293,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           {
             ...nameFragment,
             code: 'Function',
-            errors: [{ message: `Function ${functionKey} not found`, type: 'deps' }]
+            errors: clauseErrorMessages
           },
           { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
           ...argsCodeFragments,
