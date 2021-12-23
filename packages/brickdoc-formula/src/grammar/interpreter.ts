@@ -757,11 +757,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
       args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {
         const argType = argsTypes[index]
 
-        if (argType === 'Reference') {
-          return this.visit(element as CstNode, { lazy: true })
-        } else {
+        if (argType === 'Cst') {
           this.lazy = true
           return { type: 'Cst', result: element }
+        } else {
+          return this.visit(element as CstNode, { lazy: argType === 'Reference' })
         }
       })
     } else {
