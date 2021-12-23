@@ -241,12 +241,11 @@ export class VariableClass implements VariableInterface {
 
   public refresh = async (interpretContext: InterpretContext): Promise<void> => {
     await this.interpret(interpretContext)
-    this.afterUpdate()
     await this.invokeBackendUpdate()
     this.formulaContext.handleBroadcast(this)
   }
 
-  private readonly interpret = async (interpretContext: InterpretContext): Promise<void> => {
+  public interpret = async (interpretContext: InterpretContext): Promise<void> => {
     const { variableValue } = await interpret({
       cst: this.t.cst,
       formulaContext: this.formulaContext,
@@ -255,5 +254,7 @@ export class VariableClass implements VariableInterface {
     })
 
     this.t = { ...this.t, variableValue }
+
+    this.afterUpdate()
   }
 }

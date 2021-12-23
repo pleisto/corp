@@ -32,7 +32,8 @@ import {
   variable2completion,
   variableKey,
   ColumnCompletion,
-  column2completion
+  column2completion,
+  FORMULA_PARSER_VERSION
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, FormulaLexer } from '../grammar'
@@ -354,6 +355,10 @@ export class FormulaContext implements ContextInterface {
     if (isNew) {
       if (!skipCreate) {
         void variable.invokeBackendCreate()
+      }
+
+      if (variable.t.version < FORMULA_PARSER_VERSION) {
+        void variable.interpret({})
       }
     } else {
       void variable.invokeBackendUpdate()

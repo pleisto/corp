@@ -550,6 +550,7 @@ export interface VariableInterface {
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: () => void
+  interpret: (context: InterpretContext) => Promise<void>
   updateAndPersist: () => Promise<void>
   refresh: (context: InterpretContext) => Promise<void>
 }

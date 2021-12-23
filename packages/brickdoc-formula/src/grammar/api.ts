@@ -437,7 +437,7 @@ export const buildVariable = ({
     level,
     flattenVariableDependencies
   },
-  interpretResult: { variableValue }
+  interpretResult: { variableValue, lazy }
 }: {
   formulaContext: ContextInterface
   meta: VariableMetadata
@@ -451,7 +451,7 @@ export const buildVariable = ({
     name,
     cst,
     view,
-    version,
+    version: lazy ? -1 : version,
     codeFragments,
     definition: input,
     dirty: false,
@@ -519,7 +519,7 @@ export const quickInsert = async ({
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue } = await interpret({ cst, formulaContext, meta, interpretContext: {} })
+  const { variableValue, lazy } = await interpret({ cst, formulaContext, meta, interpretContext: {} })
 
   const variable: VariableData = {
     namespaceId,
@@ -530,7 +530,7 @@ export const quickInsert = async ({
     view,
     definition: input,
     cst,
-    version,
+    version: lazy ? -1 : version,
     kind: kind ?? 'constant',
     codeFragments,
     variableValue,
