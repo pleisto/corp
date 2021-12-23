@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { ControlType, FunctionContext, FunctionResult, Reference } from '..'
+import { ControlType, FunctionContext, FunctionResult, Reference, PredicateFunction, PredicateResult } from '..'
 
 export type Lambda = () => void
 
@@ -33,5 +33,22 @@ export const functionResult2lambda = <T extends ControlType>(
     })
 
     console.log('lambda called', { ctx, result, ctrl })
+  }
+}
+
+export const buildPredicate = ({ result: { result }, operator }: PredicateResult): PredicateFunction => {
+  switch (operator) {
+    case 'equal':
+      return input => input === result
+    case 'notEqual':
+      return input => input !== result
+    case 'greaterThan':
+      return input => input > result
+    case 'greaterThanEqual':
+      return input => input >= result
+    case 'lessThan':
+      return input => input < result
+    case 'lessThanEqual':
+      return input => input <= result
   }
 }

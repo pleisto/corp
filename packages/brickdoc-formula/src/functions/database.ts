@@ -15,9 +15,9 @@ import {
   Column,
   Row,
   RecordResult,
-  BooleanResult
+  BooleanResult,
+  buildPredicate
 } from '..'
-import { buildPredicate } from '../grammar/predicate'
 import { v4 as uuid } from 'uuid'
 
 export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
