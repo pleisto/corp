@@ -1253,7 +1253,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         ? (this.visit(ctx.Arguments, clauseArgs) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
       const argsErrorMessages: ErrorMessage[] =
-        clauseArgs.length > 0 && argsCodeFragments.length === 0 ? [{ message: 'Miss argument', type: 'deps' }] : []
+        clauseArgs.filter(a => !a.default).length > 0 && argsCodeFragments.length === 0
+          ? [{ message: 'Miss argument', type: 'deps' }]
+          : []
 
       images.push('(', image, ctx.RParen ? ')' : '')
 

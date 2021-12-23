@@ -63,7 +63,7 @@ export const toRecordArray = (ctx: FunctionContext, { result: database }: Spread
   return { type: 'Array', result: database.toRecord().map(row => ({ type: 'Record', result: row })) }
 }
 
-export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<any>> = [
+export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' | 'Record'>> = [
   {
     name: 'toNumber',
     async: false,
@@ -148,7 +148,17 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<any>> = [
     examples: [
       {
         input: '=toRecord(new Date())',
-        output: { type: 'Record', result: { month: 0, hour: 0, minutes: 0, seconds: 0, day: 1, year: 1970 } }
+        output: {
+          type: 'Record',
+          result: {
+            month: { type: 'number', result: 0 },
+            hour: { type: 'number', result: 0 },
+            minutes: { type: 'number', result: 0 },
+            seconds: { type: 'number', result: 0 },
+            day: { type: 'number', result: 1 },
+            year: { type: 'number', result: 1970 }
+          }
+        }
       },
       { input: '=toRecord(123)', output: { type: 'Error', result: 'Not support', errorKind: 'runtime' } }
     ],

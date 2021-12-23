@@ -542,4 +542,4 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   }
 ]
 
-export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<any>> = [TABLE_CLAUSE, VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]
+export const CORE_DATABASE_CLAUSES = [TABLE_CLAUSE, VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]

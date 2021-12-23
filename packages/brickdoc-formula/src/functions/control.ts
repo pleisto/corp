@@ -56,7 +56,7 @@ export const Select = (
   return { result: selectResult, type: 'Select' }
 }
 
-export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<any>> = [
+export const CORE_CONTROL_CLAUSES: Array<BasicFunctionClause<'Button' | 'Select' | 'Switch'>> = [
   {
     name: 'Button',
     async: false,
