@@ -19,6 +19,18 @@ export interface ButtonInitializer extends ControlInitializer {
   fn: FunctionResult
 }
 
+export interface InputType extends ControlType {
+  kind: 'Input'
+  value: string
+  fn: FunctionResult
+  onChange?: (value: string) => void
+}
+
+export interface InputInitializer extends ControlInitializer {
+  value: string
+  fn: FunctionResult
+}
+
 export interface SwitchType extends ControlType {
   kind: 'Switch'
   isSelected: boolean

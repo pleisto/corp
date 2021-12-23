@@ -78,6 +78,12 @@ describe('Controls', () => {
       result: SNAPSHOT_FLAG
     },
     {
+      label: 'input ok',
+      input: `=CInput(Set(#${namespaceId}@${variableId}, (1 + #${namespaceId}@${variableId})))`,
+      parseErrorMessage: undefined,
+      result: SNAPSHOT_FLAG
+    },
+    {
       label: 'switch set',
       input: `=Switch(true, Set(#${namespaceId}@${variableId}, (1 + #${namespaceId}@${variableId})); Set(#${namespaceId}@${variableId}, (123)))`,
       parseErrorMessage: undefined,
