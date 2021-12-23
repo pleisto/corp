@@ -1075,6 +1075,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -1088,6 +1089,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -1101,6 +1103,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
 ]
@@ -1300,6 +1303,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -1309,6 +1313,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -1318,6 +1323,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
 ]
@@ -2537,6 +2543,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -2554,6 +2561,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -2571,6 +2579,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
   Object {
@@ -2588,6 +2597,7 @@ Array [
         "type": "string",
       },
     ],
+    "subType": "string",
     "type": "Array",
   },
 ]
@@ -2650,26 +2660,56 @@ exports[`Database Functions [toRecordArray] =$28e28190-63bd-4f70-aeca-26e72574c0
 Array [
   Object {
     "result": Object {
-      "first": "1",
-      "second": "2",
-      "third": "3",
+      "first": Object {
+        "result": "1",
+        "type": "string",
+      },
+      "second": Object {
+        "result": "2",
+        "type": "string",
+      },
+      "third": Object {
+        "result": "3",
+        "type": "string",
+      },
     },
+    "subType": "string",
     "type": "Record",
   },
   Object {
     "result": Object {
-      "first": "3",
-      "second": "4",
-      "third": "",
+      "first": Object {
+        "result": "3",
+        "type": "string",
+      },
+      "second": Object {
+        "result": "4",
+        "type": "string",
+      },
+      "third": Object {
+        "result": "",
+        "type": "string",
+      },
     },
+    "subType": "string",
     "type": "Record",
   },
   Object {
     "result": Object {
-      "first": "5",
-      "second": "6",
-      "third": "Foo",
+      "first": Object {
+        "result": "5",
+        "type": "string",
+      },
+      "second": Object {
+        "result": "6",
+        "type": "string",
+      },
+      "third": Object {
+        "result": "Foo",
+        "type": "string",
+      },
     },
+    "subType": "string",
     "type": "Record",
   },
 ]
@@ -2773,19 +2813,46 @@ Array [
 exports[`Database Functions Database Factory 4`] = `
 Array [
   Object {
-    "first": "1",
-    "second": "2",
-    "third": "3",
+    "first": Object {
+      "result": "1",
+      "type": "string",
+    },
+    "second": Object {
+      "result": "2",
+      "type": "string",
+    },
+    "third": Object {
+      "result": "3",
+      "type": "string",
+    },
   },
   Object {
-    "first": "3",
-    "second": "4",
-    "third": "",
+    "first": Object {
+      "result": "3",
+      "type": "string",
+    },
+    "second": Object {
+      "result": "4",
+      "type": "string",
+    },
+    "third": Object {
+      "result": "",
+      "type": "string",
+    },
   },
   Object {
-    "first": "5",
-    "second": "6",
-    "third": "Foo",
+    "first": Object {
+      "result": "5",
+      "type": "string",
+    },
+    "second": Object {
+      "result": "6",
+      "type": "string",
+    },
+    "third": Object {
+      "result": "Foo",
+      "type": "string",
+    },
   },
 ]
 `;

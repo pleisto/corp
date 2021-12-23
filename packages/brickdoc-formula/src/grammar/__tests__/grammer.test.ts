@@ -198,7 +198,7 @@ const testCases: TestCase[] = [
   },
   {
     input: '=[[]]',
-    value: [{ type: 'Array', result: [] }]
+    value: [{ type: 'Array', subType: 'void', result: [] }]
   },
   {
     input: '=[',
@@ -270,8 +270,8 @@ const testCases: TestCase[] = [
     value: {
       foo: { type: 'number', result: 1 },
       bar: { type: 'string', result: 'baz' },
-      obj: { type: 'Record', result: {} },
-      array: { type: 'Array', result: [{ type: 'number', result: 1 }] }
+      obj: { type: 'Record', subType: 'void', result: {} },
+      array: { type: 'Array', subType: 'number', result: [{ type: 'number', result: 1 }] }
     }
   },
   {

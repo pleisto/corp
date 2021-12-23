@@ -29,6 +29,7 @@ export const toRecord = (ctx: FunctionContext, { type, result }: AnyTypeResult):
 
   return {
     type: 'Record',
+    subType: 'number',
     result: {
       month: { type: 'number', result: date.getMonth() },
       hour: { type: 'number', result: date.getHours() },
@@ -45,22 +46,33 @@ export const toArray = (ctx: FunctionContext, { result, type }: AnyTypeResult): 
     case 'Spreadsheet':
       return {
         type: 'Array',
-        result: result
-          .toArray()
-          .map((row: string[]) => ({ type: 'Array', result: row.map(r => ({ type: 'string', result: r })) }))
+        subType: 'Array',
+        result: result.toArray().map((row: string[]) => ({
+          type: 'Array',
+          subType: 'string',
+          result: row.map(r => ({ type: 'string', result: r }))
+        }))
       }
     case 'number':
       if (result < 0) {
         return { type: 'Error', result: 'Number should be positive', errorKind: 'runtime' }
       }
-      return { type: 'Array', result: Array.from(Array(result).keys()).map(n => ({ type: 'number', result: n })) }
+      return {
+        type: 'Array',
+        subType: 'number',
+        result: Array.from(Array(result).keys()).map(n => ({ type: 'number', result: n }))
+      }
     default:
       return { type: 'Error', result: 'Not support', errorKind: 'runtime' }
   }
 }
 
 export const toRecordArray = (ctx: FunctionContext, { result: database }: SpreadsheetResult): ArrayResult => {
-  return { type: 'Array', result: database.toRecord().map(row => ({ type: 'Record', result: row })) }
+  return {
+    type: 'Array',
+    subType: 'Record',
+    result: database.toRecord().map(row => ({ type: 'Record', subType: 'string', result: row }))
+  }
 }
 
 export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' | 'Record'>> = [
@@ -95,7 +107,7 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' 
     lazy: false,
     acceptError: false,
     effect: false,
-    examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
+    examples: [{ input: '=123', output: { type: 'Array', subType: 'void', result: [] } }],
     description: 'Converts the value to a record.',
     group: 'core',
     args: [
@@ -116,7 +128,7 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' 
     lazy: false,
     acceptError: false,
     effect: false,
-    examples: [{ input: '=123', output: { type: 'Array', result: [] } }],
+    examples: [{ input: '=123', output: { type: 'Array', subType: 'void', result: [] } }],
     description: 'Converts the value to an array.',
     group: 'core',
     args: [
@@ -150,6 +162,7 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' 
         input: '=toRecord(new Date())',
         output: {
           type: 'Record',
+          subType: 'number',
           result: {
             month: { type: 'number', result: 0 },
             hour: { type: 'number', result: 0 },

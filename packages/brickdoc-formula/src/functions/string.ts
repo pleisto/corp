@@ -7,6 +7,7 @@ export const START_WITH = (ctx: FunctionContext, string: StringResult, prefix: S
 
 export const Split = (ctx: FunctionContext, string: StringResult, separator: StringResult): ArrayResult => ({
   result: string.result.split(separator.result).map(s => ({ result: s, type: 'string' })),
+  subType: 'string',
   type: 'Array'
 })
 
@@ -74,7 +75,12 @@ export const CORE_STRING_CLAUSES: Array<BasicFunctionClause<'boolean' | 'Array'>
         default: { type: 'string', result: '' }
       }
     ],
-    examples: [{ input: '=Split("foo", ",")', output: { type: 'Array', result: [{ type: 'string', result: 'foo' }] } }],
+    examples: [
+      {
+        input: '=Split("foo", ",")',
+        output: { type: 'Array', subType: 'string', result: [{ type: 'string', result: 'foo' }] }
+      }
+    ],
     returns: 'Array',
     testCases: [],
     chain: true,

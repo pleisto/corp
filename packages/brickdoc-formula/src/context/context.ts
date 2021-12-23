@@ -46,11 +46,12 @@ export interface FormulaContextArgs {
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|void|date|predicate|reference|spreadsheet|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: { [key in FormulaType]: SpecialDefaultVariableName } = {
   string: 'str',
   number: 'num',
   boolean: 'bool',
+  void: 'void',
   Blank: 'blank',
   Cst: 'cst',
   Switch: 'switch',
@@ -93,6 +94,7 @@ export class FormulaContext implements ContextInterface {
     number: {},
     Button: {},
     Switch: {},
+    void: {},
     Select: {},
     Slider: {},
     Input: {},

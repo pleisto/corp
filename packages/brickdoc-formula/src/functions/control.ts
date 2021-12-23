@@ -35,10 +35,10 @@ export const Switch = (
 
 export const Select = (
   ctx: FunctionContext,
-  { result }: ArrayResult,
+  { result, subType }: ArrayResult,
   fn: FunctionResult
 ): SelectResult | ErrorResult => {
-  if (result.find(v => !['string', 'number'].includes(v.type))) {
+  if (!['string', 'number', 'void'].includes(subType)) {
     return { type: 'Error', result: 'Select expects an array of strings', errorKind: 'runtime' }
   }
 

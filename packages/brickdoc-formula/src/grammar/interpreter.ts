@@ -15,7 +15,8 @@ import {
   ErrorResult,
   VariableMetadata,
   InterpretContext,
-  Argument
+  Argument,
+  extractSubType
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -568,12 +569,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (ctx.Arguments) {
       args.push(...this.visit(ctx.Arguments, a))
     }
-    return { type: 'Array', result: args }
+
+    return { type: 'Array', subType: extractSubType(args), result: args }
   }
 
   recordExpression(ctx: any, type: ExpressionArgument): AnyTypeResult {
     if (!ctx.recordField) {
-      return { type: 'Record', result: {} }
+      return { type: 'Record', subType: 'void', result: {} }
     }
 
     const result: Record<string, AnyTypeResult> = {}
@@ -581,7 +583,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       const { key, value } = this.visit(c, type)
       result[key] = value
     })
-    return { type: 'Record', result }
+
+    return { type: 'Record', subType: extractSubType(Object.values(result)), result }
   }
 
   recordField(ctx: any, args: ExpressionArgument): { key: string; value: AnyTypeResult } {
@@ -667,7 +670,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
     } else if (ctx.Self) {
       return { type: 'Reference', result: { kind: 'self' } }
     } else if (ctx.Input) {
-      return { type: 'Record', result: this.interpretContext }
+      return {
+        type: 'Record',
+        subType: extractSubType(Object.values(this.interpretContext)),
+        result: this.interpretContext
+      }
     } else {
       // console.log({ ctx })
       throw new Error('unsupported expression')

@@ -18,7 +18,7 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any'
+export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -36,6 +36,7 @@ export type SpecialDefaultVariableName =
   | 'var'
   | 'null'
   | 'error'
+  | 'void'
   | 'predicate'
   | 'spreadsheet'
   | 'reference'
@@ -100,6 +101,7 @@ export type FormulaFunctionKind = 'Set'
 export interface BaseResult {
   result: any
   type: FormulaType
+  subType?: FormulaType
   errorKind?: ErrorType
   operator?: PredicateOperator
 }
@@ -131,6 +133,7 @@ export interface BlankResult extends BaseResult {
 export interface ArrayResult extends BaseResult {
   result: AnyTypeResult[]
   type: 'Array'
+  subType: FormulaType
 }
 
 export interface RecordType {
@@ -139,6 +142,7 @@ export interface RecordType {
 
 export interface RecordResult extends BaseResult {
   result: RecordType
+  subType: FormulaType
   type: 'Record'
 }
 
@@ -313,7 +317,7 @@ export interface Database {
   getRow: (rowId: uuid) => Row | undefined
   getColumn: (columnId: ColumnId) => Column | undefined
   toArray: () => string[][]
-  toRecord: () => Array<{ [key: string]: any }>
+  toRecord: () => Array<{ [key: string]: StringResult }>
   persist: () => DatabasePersistence
 }
 
