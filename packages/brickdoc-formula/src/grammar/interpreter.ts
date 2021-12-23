@@ -750,11 +750,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (clause.lazy) {
       const argsTypes = clause.args.map(arg => arg.type)
 
-      if (!ctx.Arguments) {
-        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
-      }
-      if (!ctx.Arguments[0].children?.expression) {
-        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
+      if (!ctx.Arguments || !ctx.Arguments[0].children?.expression) {
+        return { type: 'Error', result: 'Function is empty', errorKind: 'runtime' }
       }
 
       args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {

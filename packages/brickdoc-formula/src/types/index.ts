@@ -99,10 +99,10 @@ export type Features = Feature[]
 
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
-export type FormulaFunctionKind = 'Set'
+export type FormulaFunctionKind = 'Set' | 'Lambda'
 export interface BaseResult {
   result: any
-  type: FormulaType
+  type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
   errorKind?: ErrorType
   operator?: PredicateOperator
@@ -128,7 +128,7 @@ export interface NullResult extends BaseResult {
 }
 
 export interface BlankResult extends BaseResult {
-  result: any
+  result: never
   type: 'Blank'
 }
 
@@ -181,13 +181,13 @@ export interface PredicateResult extends BaseResult {
   operator: PredicateOperator
 }
 export interface FormulaFunction {
-  name: FunctionNameType
+  name: FormulaFunctionKind
   args: Array<ReferenceResult | CstResult>
 }
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
-  result: FormulaFunction[]
+  result: [FormulaFunction, ...FormulaFunction[]]
 }
 
 export interface CstResult extends BaseResult {
