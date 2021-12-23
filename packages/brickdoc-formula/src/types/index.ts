@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType, InputType, SelectType, SwitchType } from '../controls'
+import { ButtonType, InputType, Column, Database, SelectType, SwitchType } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
@@ -283,51 +283,6 @@ export interface Formula {
   version: number
   kind: string
   view: View
-}
-export interface Column {
-  namespaceId: NamespaceId
-  columnId: ColumnId
-  name: ColumnName
-  spreadsheetName: SpreadsheetName
-  index: number
-  type: string
-  rows: string[]
-}
-
-export interface Row {
-  id: string
-  [key: string]: string
-}
-
-export interface DatabaseDefinition {
-  blockId: NamespaceId
-  dynamic: boolean
-  name: () => string
-  listColumns: () => Column[]
-  listRows: () => Row[]
-}
-
-export interface DatabasePersistence {
-  blockId: NamespaceId
-  tableName: string
-  columns: Column[]
-  rows: Row[]
-}
-
-export interface Database {
-  blockId: NamespaceId
-  dynamic: boolean
-  persistence?: DatabasePersistence
-  columnCount: () => number
-  rowCount: () => number
-  name: () => string
-  listColumns: () => Column[]
-  listRows: () => Row[]
-  getRow: (rowId: uuid) => Row | undefined
-  getColumn: (columnId: ColumnId) => Column | undefined
-  toArray: () => string[][]
-  toRecord: () => Array<{ [key: string]: StringResult }>
-  persist: () => DatabasePersistence
 }
 
 export interface Argument {

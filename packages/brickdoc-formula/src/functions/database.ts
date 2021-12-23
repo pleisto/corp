@@ -11,7 +11,7 @@ import {
   AnyTypeResult,
   ArrayResult,
   DatabaseFactory,
-  DatabaseDefinition,
+  DatabaseInitializer,
   Column,
   Row,
   RecordResult,
@@ -29,7 +29,6 @@ export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): Num
   const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
 }
-
 
 export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
   const defaultData: RecordResult[] = [
@@ -89,7 +88,7 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
 
   // console.log({ recordData, rows, columns })
 
-  const databaseDefinition: DatabaseDefinition = {
+  const databaseDefinition: DatabaseInitializer = {
     blockId,
     dynamic: true,
     name: () => tableName,

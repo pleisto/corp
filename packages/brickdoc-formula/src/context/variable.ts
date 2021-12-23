@@ -12,11 +12,11 @@ import {
   DatabasePersistence,
   VariableValue,
   FunctionContext,
-  InterpretContext
+  InterpretContext,
+  SwitchClass,
+  ButtonClass,
+  SelectClass
 } from '..'
-import { ButtonClass } from '../controls/button'
-import { SelectClass } from '../controls/select'
-import { SwitchClass } from '../controls/switch'
 import { parse } from '../grammar'
 
 export const displayValue = (v: AnyTypeResult): string => {

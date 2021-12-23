@@ -10,13 +10,13 @@ import {
   ArrayResult,
   SelectResult,
   SelectOption,
-  InputResult
+  InputResult,
+  ButtonClass,
+  SwitchClass,
+  SelectClass,
+  InputClass
 } from '..'
-import { ButtonClass } from '../controls/button'
-import { SelectClass } from '../controls/select'
-import { SwitchClass } from '../controls/switch'
 import { FORMULA_FEATURE_CONTROL } from '../context'
-import { InputClass } from '../controls/input'
 
 export const Button = (
   ctx: FunctionContext,
