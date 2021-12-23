@@ -60,7 +60,6 @@ export type Definition = string
 
 export type VariableKind = 'constant' | 'expression'
 
-export type VariableTypeMeta = `error_${VariableKind}` | `success_${FormulaType}`
 export type ErrorType =
   | 'type'
   | 'syntax'
@@ -76,9 +75,9 @@ export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
 export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
-export type VariableKey = `$${NamespaceId}@${VariableId}`
-export type SpreadsheetKey = `$${NamespaceId}`
-export type ColumnKey = `$${NamespaceId}#${ColumnId}`
+export type VariableKey = `#${NamespaceId}@${VariableId}`
+export type SpreadsheetKey = `#${NamespaceId}`
+export type ColumnKey = `#${NamespaceId}#${ColumnId}`
 
 // TODO blockName -> string
 export type BlockName = NamespaceId
@@ -418,7 +417,10 @@ export interface FunctionContext {
   readonly interpretContext: InterpretContext
 }
 
-export type InterpretContext = RecordType
+export interface InterpretContext {
+  readonly ctx: RecordType
+  readonly arguments: AnyTypeResult[]
+}
 
 export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType

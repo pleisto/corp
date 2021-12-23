@@ -1000,8 +1000,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  columnExpression(ctx: { Dollar: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {
-    const dollarFragment = token2fragment(ctx.Dollar[0], 'any')
+  columnExpression(ctx: { Sharp: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {
+    const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
     const [namespaceToken, columnToken] = ctx.UUID
 
     const namespaceId = namespaceToken.image
@@ -1025,32 +1025,32 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...columnFragment,
             code: 'Column',
             type: parentType,
-            name: `$${namespaceId}#${columnId}`,
+            name: `#${namespaceId}#${columnId}`,
             meta: { name: column.name, spreadsheetName: column.spreadsheetName },
             errors: errorMessages
           }
         ],
         type: newType,
-        image: `$${namespaceId}#${columnId}`
+        image: `#${namespaceId}#${columnId}`
       }
     } else {
       return {
         codeFragments: [
-          dollarFragment,
+          SharpFragment,
           {
             ...columnFragment,
-            name: `$${namespaceId}#${columnId}`,
+            name: `#${namespaceId}#${columnId}`,
             errors: [{ message: `Column not found: ${columnId}`, type: 'deps' }]
           }
         ],
         type: parentType,
-        image: `$${namespaceId}#${columnId}`
+        image: `#${namespaceId}#${columnId}`
       }
     }
   }
 
-  spreadsheetExpression(ctx: { Dollar: IToken[]; UUID: any[] }, { type }: ExpressionArgument): CodeFragmentResult {
-    const dollarFragment = token2fragment(ctx.Dollar[0], 'any')
+  spreadsheetExpression(ctx: { Sharp: IToken[]; UUID: any[] }, { type }: ExpressionArgument): CodeFragmentResult {
+    const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
     const namespaceToken = ctx.UUID[0]
     const namespaceId = namespaceToken.image
 
@@ -1070,23 +1070,23 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             code: 'Spreadsheet',
             type: parentType,
             meta: { name: database.name(), blockId: database.blockId },
-            name: `$${namespaceId}`,
+            name: `#${namespaceId}`,
             errors: errorMessages
           }
         ],
-        image: `$${namespaceId}`,
+        image: `#${namespaceId}`,
         type: newType
       }
     } else {
       return {
         codeFragments: [
-          dollarFragment,
+          SharpFragment,
           {
             ...token2fragment(namespaceToken, 'any'),
             errors: [{ message: `Database not found: ${namespaceId}`, type: 'deps' }]
           }
         ],
-        image: `$${namespaceId}`,
+        image: `#${namespaceId}`,
         type: parentType
       }
     }
@@ -1103,13 +1103,19 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         type: 'Record',
         image: ctx.Input[0].image
       }
+    } else if (ctx.LambdaArgumentNumber) {
+      return {
+        codeFragments: [token2fragment(ctx.LambdaArgumentNumber[0], 'Reference')],
+        type: 'Reference',
+        image: ctx.LambdaArgumentNumber[0].image
+      }
     } else {
       return { codeFragments: [], type: 'any', image: '' }
     }
   }
 
-  variableExpression(ctx: { Dollar: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {
-    const dollarFragment = token2fragment(ctx.Dollar[0], 'any')
+  variableExpression(ctx: { Sharp: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {
+    const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
     const [namespaceToken, variableToken] = ctx.UUID
 
     const namespaceId = namespaceToken.image
@@ -1152,25 +1158,25 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             code: 'Variable',
             type: newType,
             meta: { name: variable.t.name, namespace: variable.namespaceName(), namespaceId: variable.t.namespaceId },
-            name: `$${namespaceId}@${variableId}`,
+            name: `#${namespaceId}@${variableId}`,
             errors: errorMessages
           }
         ],
-        image: `$${namespaceId}@${variableId}`,
+        image: `#${namespaceId}@${variableId}`,
         type: newType
       }
     } else {
       return {
         codeFragments: [
-          dollarFragment,
+          SharpFragment,
           {
             ...variableFragment,
             code: 'Variable',
-            name: `$${namespaceId}@${variableId}`,
+            name: `#${namespaceId}@${variableId}`,
             errors: [{ message: `Variable not found: ${variableId}`, type: 'deps' }]
           }
         ],
-        image: `$${namespaceId}@${variableId}`,
+        image: `#${namespaceId}@${variableId}`,
         type: 'any'
       }
     }

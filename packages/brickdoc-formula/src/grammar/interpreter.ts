@@ -669,11 +669,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.variableExpression, args)
     } else if (ctx.Self) {
       return { type: 'Reference', result: { kind: 'self' } }
+    } else if (ctx.LambdaArgumentNumber) {
+    const number = Number(ctx.LambdaArgumentNumber[0].image.substring(1))
+    const result = this.interpretContext.arguments[number - 1]
+
+    if (result) {
+      return result
+    }
+    return { type: 'Error', result: `Argument ${number} not found`, errorKind: 'runtime' }
     } else if (ctx.Input) {
       return {
         type: 'Record',
-        subType: extractSubType(Object.values(this.interpretContext)),
-        result: this.interpretContext
+        subType: extractSubType(Object.values(this.interpretContext.ctx)),
+        result: this.interpretContext.ctx
       }
     } else {
       // console.log({ ctx })

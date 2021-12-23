@@ -519,7 +519,12 @@ export const quickInsert = async ({
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue, lazy } = await interpret({ cst, formulaContext, meta, interpretContext: {} })
+  const { variableValue, lazy } = await interpret({
+    cst,
+    formulaContext,
+    meta,
+    interpretContext: { ctx: {}, arguments: [] }
+  })
 
   const variable: VariableData = {
     namespaceId,

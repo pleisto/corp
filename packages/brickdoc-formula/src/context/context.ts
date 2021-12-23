@@ -323,7 +323,7 @@ export class FormulaContext implements ContextInterface {
     // console.log('handleBroadcast', dependencyKey, this.reverseVariableDependencies[dependencyKey])
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
       const childrenVariable = this.context[variableKey(namespaceId, variableId)]!
-      void childrenVariable.refresh({})
+      void childrenVariable.refresh({ctx: {}, arguments: []})
     })
   }
 
@@ -368,7 +368,7 @@ export class FormulaContext implements ContextInterface {
       }
 
       if (variable.t.version < FORMULA_PARSER_VERSION) {
-        void variable.interpret({})
+        void variable.interpret({ ctx: {}, arguments: [] })
       }
     } else {
       void variable.invokeBackendUpdate()

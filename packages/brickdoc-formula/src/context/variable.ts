@@ -119,7 +119,10 @@ export const castVariable = (
   const namespaceId = blockId
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
-  const castedValue: AnyTypeResult = parseCacheValue({ ctx: formulaContext, meta, interpretContext: {} }, cacheValue)
+  const castedValue: AnyTypeResult = parseCacheValue(
+    { ctx: formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } },
+    cacheValue
+  )
   const parseInput = { formulaContext, meta }
   const {
     success,
