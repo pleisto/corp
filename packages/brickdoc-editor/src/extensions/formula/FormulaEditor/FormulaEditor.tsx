@@ -4,9 +4,9 @@ import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
-import { CodeFragmentBlockExtension } from './extensions/codeFragment'
 import { HandleKeyDownExtension, KeyDownHandlerType } from './extensions/handleKeyDown'
 import './FormulaEditor.less'
+import { FormulaTypeExtension } from './extensions/formulaType'
 
 export interface FormulaEditorProps {
   content: JSONContent | undefined
@@ -30,7 +30,13 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
 }) => {
   const editor = useEditor({
     editable,
-    extensions: [Document, Text, Paragraph, CodeFragmentBlockExtension, HandleKeyDownExtension(keyDownHandler)],
+    extensions: [
+      Document,
+      Text,
+      Paragraph,
+      FormulaTypeExtension.configure({ editable }),
+      HandleKeyDownExtension(keyDownHandler)
+    ],
     onUpdate: ({ editor, transaction }) => {
       updateContent?.(editor)
       if (transaction.selection.from === transaction.selection.to) {
@@ -66,7 +72,6 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && content) {
-      // console.log({ pos: pos?.current })
       if (pos) {
         editor
           .chain()
@@ -76,7 +81,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
       } else {
         editor.commands.replaceRoot(content)
       }
-      // console.log({ content, editor, label: 'after replace root' })
+      console.log({ content, editor, pos: pos?.current, label: 'after replace root' })
     }
   }, [editor, content, pos])
 

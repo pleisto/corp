@@ -205,7 +205,7 @@ export const parse = ({
           spaceAfter: false,
           spaceBefore: false,
           type: 'any',
-          meta: undefined,
+          render: undefined,
           errors: errorMessages
         })
       }
@@ -222,7 +222,7 @@ export const parse = ({
       spaceAfter: false,
       spaceBefore: false,
       type: 'any',
-      meta: undefined,
+      render: undefined,
       errors: []
     })
   }

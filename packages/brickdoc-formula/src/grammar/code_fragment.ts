@@ -12,7 +12,10 @@ import {
   OtherCodeFragment,
   CodeFragmentResult,
   FormulaCheckType,
-  NamespaceId
+  NamespaceId,
+  renderColumn,
+  renderDatabase,
+  renderVariable
 } from '..'
 import { BaseCstVisitor } from './parser'
 interface InterpreterConfig {
@@ -72,7 +75,7 @@ const SpaceAfterTypes = [
 const token2fragment = (token: IToken, type: FormulaType): OtherCodeFragment => {
   const spaceBefore = SpaceBeforeTypes.includes(token.tokenType.name)
   const spaceAfter = SpaceAfterTypes.includes(token.tokenType.name)
-  return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, meta: undefined }
+  return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, render: undefined }
 }
 
 type ExpressionType = FormulaCheckType | undefined
@@ -419,7 +422,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx.rhs.forEach((rhsOperand: CstNode | CstNode[]) => {
       const { codeFragments: rhsValue, image }: CodeFragmentResult = this.visit(rhsOperand, { type: childrenType })
       codeFragments.push(
-        { name: '&', code: 'Ampersand', type: 'any', errors: [], spaceBefore: true, spaceAfter: true, meta: undefined },
+        {
+          name: '&',
+          code: 'Ampersand',
+          type: 'any',
+          errors: [],
+          spaceBefore: true,
+          spaceAfter: true,
+          render: undefined
+        },
         ...rhsValue
       )
       images.push('&', image)
@@ -536,7 +547,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         type: 'any',
         spaceBefore: false,
         spaceAfter: false,
-        meta: undefined,
+        render: undefined,
         errors: missingRhsErrors
       })
       images.push('.')
@@ -718,7 +729,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         name: token.image,
         code: token.tokenType.name,
         errors: [],
-        meta: undefined,
+        render: undefined,
         spaceBefore: false,
         spaceAfter: false,
         type: 'any'
@@ -1026,7 +1037,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             code: 'Column',
             type: parentType,
             name: `#${namespaceId}#${columnId}`,
-            meta: { name: column.name, spreadsheetName: column.database.name() },
+            render: renderColumn(column, errorMessages),
+            namespaceId: column.namespaceId,
             errors: errorMessages
           }
         ],
@@ -1069,7 +1081,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...token2fragment(namespaceToken, 'any'),
             code: 'Spreadsheet',
             type: parentType,
-            meta: { name: database.name(), blockId: database.blockId },
+            render: renderDatabase(database, errorMessages),
+            namespaceId: database.blockId,
             name: `#${namespaceId}`,
             errors: errorMessages
           }
@@ -1157,7 +1170,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...variableFragment,
             code: 'Variable',
             type: newType,
-            meta: { name: variable.t.name, namespace: variable.namespaceName(), namespaceId: variable.t.namespaceId },
+            render: renderVariable(variable, errorMessages),
+            namespaceId: variable.t.namespaceId,
             name: `#${namespaceId}@${variableId}`,
             errors: errorMessages
           }
@@ -1214,7 +1228,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       type: 'any',
       spaceBefore: false,
       spaceAfter: false,
-      meta: undefined
+      render: undefined
     }
 
     if (!ctx.LParen) {

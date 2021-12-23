@@ -21,9 +21,9 @@ import { Editor, JSONContent } from '@tiptap/core'
 import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
-import { codeFragmentsToJSONContent } from '../../helpers/formula'
-import { useKeydownHandler } from './useKeyDownHandler'
+import { codeFragmentsToJSONContentTotal, codeFragmentToJSONContentArray, contentToInput } from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
+import { useKeydownHandler } from './useKeyDownHandler'
 
 export interface FormulaMenuProps {
   getPos?: () => number
@@ -146,7 +146,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const codeFragments = variable?.t.codeFragments
   const defaultContent = variable?.t.valid
-    ? codeFragmentsToJSONContent(codeFragments, rootId)
+    ? codeFragmentsToJSONContentTotal(codeFragments, rootId)
     : { type: 'doc', content: [{ type: 'text', text: definition }] }
 
   const [completions, setCompletions] = React.useState(contextCompletions)
@@ -252,33 +252,23 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           console.info('replacement not found 1', { text, currentCompletion })
         } else {
           const newText = text.substring(0, text.length - replacement.length)
-
-          oldContent = [
-            {
-              type: 'codeFragmentBlock',
-              attrs: { ...oldContentLast.attrs, name: newText },
-              content: [{ type: 'text', text: newText }]
-            }
-          ]
+          const oldCodeFragment = oldContentLast.attrs as CodeFragment
+          oldContent = codeFragmentToJSONContentArray({ ...oldCodeFragment, name: newText }, rootId)
         }
         // console.log('replace..', newText, oldContent)
       }
     }
 
-    const value = currentCompletion.value
-    const attrs: CodeFragmentWithBlockId = { ...currentCompletion.codeFragment, blockId: rootId }
-
-    const completionContents: JSONContent[] = [
-      { type: 'codeFragmentBlock', attrs, content: [{ type: 'text', text: value }] }
-    ]
+    const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment, rootId)
     const newContent = [...oldContent, ...completionContents]
     const finalContent = { type: 'doc', content: newContent }
     const finalInput = `=${contentToInput(finalContent)}`
     setContent(finalContent)
     setInput(finalInput)
-    console.log({ currentCompletion, content, attrs, label: 'selectCompletion', newContent, finalInput })
+    console.log({ currentCompletion, content, label: 'selectCompletion', newContent, finalInput })
     void doCalculate({ newInput: finalInput })
   }
+
   const keyDownHandler = useKeydownHandler({
     completions: latestCompletions,
     activeCompletion: latestActiveCompletion,
@@ -288,12 +278,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setActiveCompletion: latestSetActiveCompletion,
     setActiveCompletionIndex: latestSetActiveCompletionIndex
   })
-
-  const contentToInput = (content: JSONContent): string => {
-    return (
-      content.content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? '')).join('') ?? ''
-    )
-  }
 
   const handleValueChange = (editor: Editor): void => {
     const text = `=${contentToInput(editor.getJSON().content?.[0] ?? [])}`
@@ -345,7 +329,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const { interpretResult, parseResult, completions, newVariable, errors } = result
 
     if (parseResult.valid) {
-      setContent(codeFragmentsToJSONContent(parseResult.codeFragments, rootId))
+      setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
     } else if (parseResult.input !== input && parseResult.input !== '=') {
       const content = { type: 'doc', content: [{ type: 'text', text: parseResult.input }] }
@@ -406,10 +390,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         <div className="formula-menu-item">
           <FormulaEditor
             content={content}
+            keyDownHandler={keyDownHandler}
             position={latestPosition}
             updatePosition={latestSetPosition}
             updateContent={handleValueChange}
-            keyDownHandler={keyDownHandler}
             editable={true}
           />
         </div>

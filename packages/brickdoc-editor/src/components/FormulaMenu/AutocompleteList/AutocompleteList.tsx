@@ -12,7 +12,7 @@ import {
 } from '@brickdoc/formula'
 import './AutocompleteList.less'
 import { FormulaEditor } from '../../../extensions/formula/FormulaEditor/FormulaEditor'
-import { codeFragmentsToJSONContent } from '../../../helpers/formula'
+import { codeFragmentsToJSONContentTotal } from '../../../helpers/formula'
 export interface AutocompleteListProps {
   completions: MutableRefObject<Completion[]>
   blockId: string
@@ -121,7 +121,7 @@ const COMPLETION_STYLE_META: {
               {preview.examples.map((example, index) => (
                 <div key={index} className="autocomplete-preview-example">
                   <FormulaEditor
-                    content={codeFragmentsToJSONContent(example.codeFragments, blockId)}
+                    content={codeFragmentsToJSONContentTotal(example.codeFragments, blockId)}
                     editable={false}
                   />
                   <br />
@@ -141,7 +141,7 @@ const COMPLETION_STYLE_META: {
     render: (completion: Completion, blockId: string): React.ReactElement => {
       const { preview } = completion as VariableCompletion
       const content = preview.t.valid
-        ? codeFragmentsToJSONContent(preview.t.codeFragments, blockId)
+        ? codeFragmentsToJSONContentTotal(preview.t.codeFragments, blockId)
         : { type: 'doc', content: [{ type: 'text', text: preview.t.definition }] }
       return (
         <div className="formula-autocomplete-preview-variable">
@@ -183,7 +183,7 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
 
   const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
     let newIndex: number
-    // TODO Column2 TAB cause error
+
     switch (event.key) {
       case 'Tab':
         handleSelectActiveCompletion()
@@ -206,19 +206,6 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
     }
   }
 
-  const desc = (completion: Completion): string => {
-    if (completion.kind === 'function' && completion.namespace !== 'core') {
-      return completion.namespace
-    }
-    if (completion.kind === 'variable' && completion.namespace !== blockId) {
-      return completion.namespace
-    }
-    if (completion.kind === 'column') {
-      return completion.namespace
-    }
-    return ''
-  }
-
   return (
     <div className="formula-autocomplete">
       <div className="formula-autocomplete-list">
@@ -237,13 +224,12 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
               onKeyDown={onKeyDown}
               className={cx('autocomplete-list-item', {
                 active: completion.value === activeCompletion.current?.value
-              })}
-            >
+              })}>
               {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, { className: 'autocomplete-list-item-icon' })}
               <div className="autocomplete-list-item-content">
                 <span className="autocomplete-list-item-name">{completion.name}</span>
                 <span className="autocomplete-list-item-desc">
-                  {completion.kind} {desc(completion)}
+                  {completion.kind} {completion.renderDescription(blockId)}
                 </span>
               </div>
             </div>
