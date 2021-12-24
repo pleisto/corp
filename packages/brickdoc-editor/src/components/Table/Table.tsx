@@ -12,7 +12,7 @@ export const Table: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updat
 
   const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
-      data: { ...(prevData || {}), ...data }
+      data: { ...prevData, ...data }
     })
   }
 

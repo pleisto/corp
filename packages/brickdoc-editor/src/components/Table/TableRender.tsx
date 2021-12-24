@@ -109,7 +109,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
 
   const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
-      data: { ...(prevData || {}), ...data }
+      data: { ...prevData, ...data }
     })
   }
 
@@ -209,7 +209,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
 
   const setTitle = (title: string): void => updateAttributeData({ title })
 
-  console.log('debug title is missing bug', { dynamic, prevData, tableRows, columns, fetched: fetched.current })
+  // console.log('debug title is missing bug', { dynamic, prevData, tableRows, columns, fetched: fetched.current })
 
   return (
     <BlockContainer
