@@ -1,4 +1,13 @@
-import { ArrayResult, BasicFunctionClause, CstResult, ErrorResult, FunctionContext, StringResult } from '..'
+import {
+  ArrayResult,
+  BasicFunctionClause,
+  CstResult,
+  ErrorResult,
+  extractSubType,
+  FunctionContext,
+  StringResult
+} from '..'
+import { interpret } from '../grammar'
 
 export const Join = (
   ctx: FunctionContext,
@@ -12,28 +21,23 @@ export const Join = (
   return { result: result.map(a => a.result).join(separator), type: 'string' }
 }
 
-export const Map = (
+export const Map = async (
   ctx: FunctionContext,
-  { subType, result: array }: ArrayResult,
+  { result: array }: ArrayResult,
   { result: cst }: CstResult
-): ArrayResult | ErrorResult => {
-  // const { variableValue } = await interpret({
-  //   cst: this.t.cst,
-  //   formulaContext: this.formulaContext,
-  //   meta: this.meta(),
-  //   interpretContext
-  // })
-
+): Promise<ArrayResult | ErrorResult> => {
   const interpretContexts = array.map(a => ({ ctx: ctx.interpretContext.ctx, arguments: [a] }))
-  console.log({ interpretContexts })
 
-  // const newResult = interpretContexts.map(interpretContext => {
-  //   const { success, result } = ctx.formulaContext.interpret(cst, interpretContext)
-  //   return success ? result : { type: 'Error', result: 'Map failed', errorKind: 'runtime' }
-  // })
+  const newResult = await Promise.all(
+    interpretContexts.map(async interpretContext => {
+      const { variableValue } = await interpret({ cst, ctx: { ...ctx, interpretContext } })
+      return variableValue.result
+    })
+  )
 
-  // TODO: support await
-  return { type: 'Array', result: array, subType }
+  // console.log({ interpretContexts, newResult })
+
+  return { type: 'Array', result: newResult, subType: extractSubType(newResult) }
 }
 
 export const CORE_ARRAY_CLAUSES: Array<BasicFunctionClause<'string' | 'Array'>> = [

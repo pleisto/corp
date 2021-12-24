@@ -720,7 +720,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       Arguments: CstNode[]
     },
     a: ExpressionArgument
-  ): AnyTypeResult {
+  ): AnyTypeResult | Promise<AnyTypeResult> {
     const chainArgs = a?.chainArgs
     const names = ctx.FunctionName.map(group => group.image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
@@ -739,6 +739,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     let args: AnyTypeResult[] = []
 
+    if (clause.chain && chainArgs) {
+      args.push(chainArgs)
+    }
+
     if (clause.lazy) {
       const argsTypes = clause.args.map(arg => arg.type)
 
@@ -746,21 +750,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
         return { type: 'Error', result: 'Function is empty', errorKind: 'runtime' }
       }
 
-      args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {
-        const argType = argsTypes[index]
+      ctx.Arguments[0].children?.expression.forEach((e: CstElement, index: number) => {
+        const argType = argsTypes[clause.chain && chainArgs ? index + 1 : index]
+
+        const element = e as CstNode
 
         if (argType === 'Cst') {
           this.lazy = true
-          return { type: 'Cst', result: element }
+          args.push({ type: 'Cst', result: element })
         } else {
-          return this.visit(element as CstNode, { lazy: argType === 'Reference' })
+          args.push(this.visit(element, { lazy: argType === 'Reference' }))
         }
       })
     } else {
-      if (clause.chain && chainArgs) {
-        args.push(chainArgs)
-      }
-
       if (ctx.Arguments) {
         const argResult = this.visit(ctx.Arguments, a)
         args.push(...argResult)
@@ -788,6 +790,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
         }
       })
     }
+
+    // console.log({ args })
 
     return clause.reference(this.ctx, ...args)
   }

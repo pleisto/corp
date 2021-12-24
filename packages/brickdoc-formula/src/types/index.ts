@@ -399,7 +399,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly args: Argument[]
   readonly returns: T
   readonly testCases: TestCase[]
-  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
 }
 
 export interface NormalFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
@@ -411,7 +411,11 @@ export interface ChainFunctionClause<T extends FormulaType> extends BaseFunction
   readonly chain: true
   readonly returns: T
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: FunctionContext, chainResult: any, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (
+    ctx: FunctionContext,
+    chainResult: any,
+    ...args: any[]
+  ) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
 }
 
 export type BasicFunctionClause<T extends FormulaType> = NormalFunctionClause<T> | ChainFunctionClause<T>
