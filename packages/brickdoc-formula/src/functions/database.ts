@@ -9,16 +9,9 @@ import {
   PredicateFunction,
   StringResult,
   AnyTypeResult,
-  ArrayResult,
-  DatabaseFactory,
-  DatabaseInitializer,
-  Column,
-  Row,
-  RecordResult,
   BooleanResult,
   buildPredicate
 } from '..'
-import { v4 as uuid } from 'uuid'
 
 export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
   const database = ctx.formulaContext.findDatabase(column.namespaceId)
@@ -28,76 +21,6 @@ export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): Num
 
   const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
-}
-
-export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
-  const defaultData: RecordResult[] = [
-    {
-      type: 'Record',
-      subType: 'string',
-      result: { Column1: { type: 'string', result: '1' }, Column2: { type: 'string', result: '2' } }
-    },
-    {
-      type: 'Record',
-      subType: 'string',
-      result: { Column1: { type: 'string', result: '3' }, Column2: { type: 'string', result: '4' } }
-    }
-  ]
-
-  const recordData: RecordResult[] = result.length ? (result as RecordResult[]) : defaultData
-
-  const nonRecordElement = recordData.find(e => e.type !== 'Record')
-  if (nonRecordElement) {
-    return { type: 'Error', result: 'Table must be an array of records', errorKind: 'runtime' }
-  }
-
-  const blockId = uuid()
-  const tableName = 'Dynamic'
-  const columns: Column[] = []
-  const rows: Row[] = []
-
-  if (recordData.length) {
-    const data = recordData.map(e => e.result)
-    const keys = Object.keys(data[0])
-    const keyWithIds = keys.map(key => ({ key, uuid: uuid() }))
-
-    columns.push(
-      ...keys.map((key, index) => ({
-        namespaceId: blockId,
-        columnId: keyWithIds.find(k => k.key === key)!.uuid,
-        name: key,
-        index,
-        spreadsheetName: tableName,
-        type: 'text',
-        rows: data.map(e => String(e[key].result || ''))
-      }))
-    )
-
-    rows.push(
-      ...data.map(source => {
-        const row: Row = { id: uuid() }
-
-        keyWithIds.forEach(({ key, uuid }) => {
-          row[uuid] = String(source[key].result || '')
-        })
-
-        return row
-      })
-    )
-  }
-
-  // console.log({ recordData, rows, columns })
-
-  const databaseDefinition: DatabaseInitializer = {
-    blockId,
-    dynamic: true,
-    name: () => tableName,
-    listColumns: () => columns,
-    listRows: () => rows
-  }
-
-  const database = new DatabaseFactory(databaseDefinition)
-  return { type: 'Spreadsheet', result: database }
 }
 
 export const MAX = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
@@ -316,23 +239,6 @@ const VLOOKUP_CLAUSE: BasicFunctionClause<'string'> = {
   reference: VLOOKUP
 }
 
-const TABLE_CLAUSE: BasicFunctionClause<'Spreadsheet'> = {
-  name: 'Table',
-  async: false,
-  pure: false,
-  lazy: false,
-  acceptError: false,
-  effect: false,
-  examples: [{ input: '=123', output: null }],
-  description: 'Returns the table.',
-  group: 'core',
-  args: [{ name: 'array', type: 'Array' }],
-  returns: 'Spreadsheet',
-  testCases: [],
-  chain: true,
-  reference: Table
-}
-
 const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   {
     name: 'SUM',
@@ -549,4 +455,4 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   }
 ]
 
-export const CORE_DATABASE_CLAUSES = [TABLE_CLAUSE, VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]
+export const CORE_DATABASE_CLAUSES = [VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]
