@@ -189,7 +189,7 @@ describe('Database Functions', () => {
       expect(errorMessages).toEqual([])
       expect(codeFragments).toMatchSnapshot()
       const result = (
-        await interpret({ cst, meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } })
+        await interpret({ cst, ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } } })
       ).variableValue.result.result
       if (value === SNAPSHOT_FLAG) {
         // eslint-disable-next-line jest/no-conditional-expect

@@ -138,14 +138,12 @@ describe('Controls', () => {
       expect(errorMessages[0]?.message).toEqual(parseErrorMessage)
 
       if (success) {
-        const {
-          success: interpretSuccess,
-          variableValue,
-          errorMessages: interpretErrorMessages
-        } = await interpret({ cst, meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } })
+        const { variableValue } = await interpret({
+          cst,
+          ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
+        })
 
-        expect(interpretSuccess).toBe(true)
-        expect(interpretErrorMessages).toEqual([])
+        expect(variableValue.success).toBe(true)
         if (result === SNAPSHOT_FLAG) {
           expect(variableValue.result).toMatchSnapshot()
         } else {

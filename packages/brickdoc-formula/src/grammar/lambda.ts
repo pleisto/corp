@@ -20,7 +20,7 @@ export const functionResult2lambda = <T extends ControlType>(
       const cstdata = cst.result as CstNode
 
       if (reference.kind === 'variable') {
-        const variable = ctx.ctx.findVariable(reference.namespaceId, reference.variableId)!
+        const variable = ctx.formulaContext.findVariable(reference.namespaceId, reference.variableId)!
 
         if (variable.t.kind === 'expression') {
           throw new Error('Only constant variable is supported')

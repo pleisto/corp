@@ -1,12 +1,4 @@
-import {
-  AnyTypeResult,
-  ArrayResult,
-  BasicFunctionClause,
-  CstResult,
-  ErrorResult,
-  FunctionContext,
-  StringResult
-} from '..'
+import { ArrayResult, BasicFunctionClause, CstResult, ErrorResult, FunctionContext, StringResult } from '..'
 
 export const Join = (
   ctx: FunctionContext,
@@ -25,7 +17,22 @@ export const Map = (
   { subType, result: array }: ArrayResult,
   { result: cst }: CstResult
 ): ArrayResult | ErrorResult => {
-  // TODO: map body
+  // const { variableValue } = await interpret({
+  //   cst: this.t.cst,
+  //   formulaContext: this.formulaContext,
+  //   meta: this.meta(),
+  //   interpretContext
+  // })
+
+  const interpretContexts = array.map(a => ({ ctx: ctx.interpretContext.ctx, arguments: [a] }))
+  console.log({ interpretContexts })
+
+  // const newResult = interpretContexts.map(interpretContext => {
+  //   const { success, result } = ctx.formulaContext.interpret(cst, interpretContext)
+  //   return success ? result : { type: 'Error', result: 'Map failed', errorKind: 'runtime' }
+  // })
+
+  // TODO: support await
   return { type: 'Array', result: array, subType }
 }
 

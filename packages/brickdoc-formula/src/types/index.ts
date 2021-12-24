@@ -100,7 +100,7 @@ export type Features = Feature[]
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set' | 'Lambda'
-export interface BaseResult {
+interface BaseResult {
   result: any
   type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
@@ -180,7 +180,7 @@ export interface PredicateResult extends BaseResult {
   column?: Column
   operator: PredicateOperator
 }
-export interface FormulaFunction {
+interface FormulaFunction {
   name: FormulaFunctionKind
   args: Array<ReferenceResult | CstResult>
 }
@@ -227,18 +227,18 @@ export interface AnyResult extends BaseResult {
 
 export type Reference = VariableReference | SelfReference
 
-export interface BaseReference {
+interface BaseReference {
   attribute?: string
   kind: 'variable' | 'self'
 }
 
-export interface VariableReference extends BaseReference {
+interface VariableReference extends BaseReference {
   kind: 'variable'
   variableId: VariableId
   namespaceId: NamespaceId
 }
 
-export interface SelfReference extends BaseReference {
+interface SelfReference extends BaseReference {
   kind: 'self'
 }
 
@@ -294,7 +294,7 @@ export interface Argument {
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column'
 
-export interface BaseCompletion {
+interface BaseCompletion {
   readonly kind: CompletionKind
   readonly weight: number
   readonly replacements: string[]
@@ -359,12 +359,12 @@ export interface ContextInterface {
   reset: () => void
 }
 
-export interface TestCase {
+interface TestCase {
   readonly input: any[]
   readonly output: any
 }
 
-export interface Example<T extends FormulaType> {
+interface Example<T extends FormulaType> {
   readonly input: Definition
   readonly output: AnyFunctionResult<T> | null
 }
@@ -374,7 +374,7 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
 }
 
 export interface FunctionContext {
-  readonly ctx: ContextInterface
+  readonly formulaContext: ContextInterface
   readonly meta: VariableMetadata
   readonly interpretContext: InterpretContext
 }
@@ -424,7 +424,7 @@ export interface FunctionClause<T extends FormulaType> extends BaseFunctionClaus
   readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
 }
 
-export interface BaseCodeFragment {
+interface BaseCodeFragment {
   readonly code: string
   readonly name: string
   readonly spaceBefore: boolean
@@ -467,19 +467,19 @@ export interface VariableDependency {
   readonly namespaceId: NamespaceId
 }
 
-export interface BaseVariableValue {
+interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
   readonly result: AnyTypeResult
   readonly cacheValue: AnyTypeResult
 }
 
-export interface SuccessVariableValue extends BaseVariableValue {
+interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
   readonly result: AnyTypeResult
 }
 
-export interface ErrorVariableValue extends BaseVariableValue {
+interface ErrorVariableValue extends BaseVariableValue {
   readonly success: false
   readonly result: ErrorResult
 }
