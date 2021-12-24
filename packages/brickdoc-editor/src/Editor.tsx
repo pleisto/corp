@@ -17,7 +17,8 @@ import {
   EventHandlerExtension,
   BubbleMenu,
   UserBlockExtension,
-  PageLinkBlockExtension
+  PageLinkBlockExtension,
+  IndentExtension
 } from './extensions'
 import './styles.less'
 import { useEditorI18n } from './hooks'
@@ -88,6 +89,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       PageLinkBlockExtension,
       PlaceholderExtension,
       brickListExtension,
+      IndentExtension,
       UniqueID.configure({
         attributeName: 'uuid',
         types: typesWithUuid
