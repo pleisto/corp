@@ -12,7 +12,7 @@ import { TableRender } from '../../../components/Table/TableRender'
 import { useEditorI18n } from '../../../hooks'
 import { Column } from 'react-table'
 import { DatabaseRows } from '../..'
-import { DatabaseColumns } from '../../../components/Table/useColumns'
+import { DatabaseColumns, DEFAULT_GROUP_ID } from '../../../components/Table/useColumns'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -93,7 +93,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   }
 
   const renderTable = (result: Database): React.ReactNode => {
-    // eslint-disable-next-line no-case-declarations
     const columns: Column[] = result.listColumns().map(c => ({
       Header: c.name,
       accessor: c.columnId,
@@ -103,12 +102,10 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       dateIncludeTime: undefined
     }))
 
-    const fakeColumns = [{ id: '__defaultGroup', columns }] as unknown as Column[]
+    const fakeColumns = [{ id: DEFAULT_GROUP_ID, columns }] as unknown as Column[]
 
-    // eslint-disable-next-line no-case-declarations
     const rows: DatabaseRows = result.listRows()
 
-    // eslint-disable-next-line no-case-declarations
     const databaseColumns: DatabaseColumns = result.listColumns().map(c => ({
       index: c.index,
       key: c.columnId,
