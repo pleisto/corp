@@ -10,10 +10,14 @@ export function useFormulaDatabase(
   title: string,
   tableColumns: Column[],
   tableData: DatabaseRows,
-  formulaContext: ContextInterface | null | undefined
+  formulaContext: ContextInterface | null | undefined,
+  dynamic: boolean
 ): void {
   // TODO pass column Type
   React.useEffect(() => {
+    if (dynamic) {
+      return
+    }
     const spreadsheetName = title ?? 'Untitled'
     const columns: ColumnType[] = tableColumns.map(column => ({
       namespaceId: blockId,
@@ -42,5 +46,5 @@ export function useFormulaDatabase(
     return () => {
       formulaContext?.removeDatabase(blockId)
     }
-  }, [blockId, title, formulaContext, tableColumns, tableData])
+  }, [blockId, title, formulaContext, tableColumns, tableData, dynamic])
 }
