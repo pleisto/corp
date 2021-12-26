@@ -42,7 +42,7 @@ export const SUMIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.database.blockId !== column2.database.blockId) {
+  if (column1.namespaceId !== column2.namespaceId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -66,7 +66,7 @@ export const AVERAGEIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.database.blockId !== column2.database.blockId) {
+  if (column1.namespaceId !== column2.namespaceId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -113,7 +113,7 @@ export const SUMPRODUCT = (
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult
 ): NumberResult | ErrorResult => {
-  if (column1.database.blockId !== column2.database.blockId) {
+  if (column1.namespaceId !== column2.namespaceId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -128,6 +128,45 @@ export const SUMPRODUCT = (
   return { type: 'number', result: sum }
 }
 
+export const XLOOKUP = (
+  ctx: FunctionContext,
+  { result: lookupValue }: AnyTypeResult,
+  { result: lookupColumn }: ColumnResult,
+  { result: returnColumn }: ColumnResult,
+  notFoundValue: StringResult,
+  { result: matchMode }: NumberResult
+): StringResult | ErrorResult => {
+  if (lookupColumn.namespaceId !== returnColumn.namespaceId) {
+    return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
+  }
+
+  let result: StringResult = notFoundValue
+
+  lookupColumn.database.listRows().forEach(row => {
+    let bol = false
+    const compareData = Number(lookupValue)
+    const data = Number(row[lookupColumn.columnId])
+
+    switch (matchMode) {
+      case 0:
+        bol = data === compareData
+        break
+      case 1:
+        bol = data >= compareData
+        break
+      case 2:
+        bol = data <= compareData
+        break
+    }
+
+    if (bol) {
+      result = { type: 'string', result: row[returnColumn.columnId] ?? '' }
+    }
+  })
+
+  return result
+}
+
 export const VLOOKUP = (
   ctx: FunctionContext,
   { result: match }: AnyTypeResult,
@@ -135,7 +174,7 @@ export const VLOOKUP = (
   { result: column }: ColumnResult,
   { result: range }: BooleanResult
 ): StringResult | ErrorResult => {
-  if (database.blockId !== column.database.blockId) {
+  if (database.blockId !== column.namespaceId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -169,42 +208,80 @@ export const VLOOKUP = (
   return result
 }
 
-const VLOOKUP_CLAUSE: BasicFunctionClause<'string'> = {
-  name: 'VLOOKUP',
-  async: false,
-  pure: false,
-  lazy: false,
-  acceptError: false,
-  effect: false,
-  examples: [{ input: '=123', output: { type: 'string', result: 'foo' } }],
-  description: 'Returns the value of the column in the database that matches the match value.',
-  group: 'core',
-  args: [
-    {
-      name: 'match',
-      type: 'any'
-    },
-    {
-      name: 'database',
-      type: 'Spreadsheet'
-    },
-    {
-      name: 'column',
-      type: 'Column'
-    },
-    {
-      name: 'range',
-      type: 'boolean',
-      default: { type: 'boolean', result: true }
-    }
-  ],
-  returns: 'string',
-  testCases: [],
-  chain: true,
-  reference: VLOOKUP
-}
-
-const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
+export const CORE_DATABASE_CLAUSES: Array<BasicFunctionClause<'number' | 'string'>> = [
+  {
+    name: 'VLOOKUP',
+    async: false,
+    pure: false,
+    lazy: false,
+    acceptError: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'string', result: 'foo' } }],
+    description: 'Returns the value of the column in the database that matches the match value.',
+    group: 'core',
+    args: [
+      {
+        name: 'match',
+        type: 'any'
+      },
+      {
+        name: 'database',
+        type: 'Spreadsheet'
+      },
+      {
+        name: 'column',
+        type: 'Column'
+      },
+      {
+        name: 'range',
+        type: 'boolean',
+        default: { type: 'boolean', result: true }
+      }
+    ],
+    returns: 'string',
+    testCases: [],
+    chain: true,
+    reference: VLOOKUP
+  },
+  {
+    name: 'XLOOKUP',
+    async: false,
+    pure: false,
+    lazy: false,
+    acceptError: false,
+    effect: false,
+    examples: [{ input: '=123', output: { type: 'string', result: 'foo' } }],
+    description: 'Returns the value of the column in the database that matches the match value.',
+    group: 'core',
+    args: [
+      {
+        name: 'lookupValue',
+        type: 'any'
+      },
+      {
+        name: 'lookupColumn',
+        type: 'Column'
+      },
+      {
+        name: 'returnColumn',
+        type: 'Column'
+      },
+      {
+        name: 'notFoundValue',
+        type: 'string',
+        default: { type: 'string', result: '' }
+      },
+      {
+        name: 'matchMode',
+        type: 'number',
+        default: { type: 'number', result: 0 }
+      }
+    ],
+    returns: 'string',
+    testCases: [],
+    chain: true,
+    reference: XLOOKUP
+  },
   {
     name: 'SUM',
     async: false,
@@ -419,5 +496,3 @@ const NUMBER_CLAUSES: Array<BasicFunctionClause<'number'>> = [
     reference: COUNTA
   }
 ]
-
-export const CORE_DATABASE_CLAUSES = [VLOOKUP_CLAUSE, ...NUMBER_CLAUSES]

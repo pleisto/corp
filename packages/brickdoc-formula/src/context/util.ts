@@ -45,14 +45,14 @@ export const database2completion = (database: DatabaseType): SpreadsheetCompleti
 }
 
 export const column2completion = (column: ColumnType): ColumnCompletion => {
-  const value = columnKey(column.database.blockId, column.columnId)
+  const value = columnKey(column.namespaceId, column.columnId)
   return {
     kind: 'column',
     replacements: [
       `${column.name}`,
-      `${spreadsheetKey(column.database.blockId)}.${column.name}`,
-      `${spreadsheetKey(column.database.blockId)}.`,
-      `${spreadsheetKey(column.database.blockId)}`
+      `${spreadsheetKey(column.namespaceId)}.${column.name}`,
+      `${spreadsheetKey(column.namespaceId)}.`,
+      `${spreadsheetKey(column.namespaceId)}`
     ],
     weight: -3,
     name: column.name,

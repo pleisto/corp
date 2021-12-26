@@ -207,11 +207,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
           />
         )
       case 'Spreadsheet':
-        if (result.result.dynamic) {
-          return renderTable(result.result)
-        } else {
-          return renderOther(variable)
-        }
+        return renderTable(result.result)
       default:
         return renderOther(variable)
     }
