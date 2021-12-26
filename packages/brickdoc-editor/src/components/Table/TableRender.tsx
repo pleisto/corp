@@ -218,7 +218,8 @@ export const TableRender: React.FC<TableRenderProps> = ({
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
         container?.classList.add('table-block-node-view-wrapper')
-      }}>
+      }}
+    >
       {contextHolder}
       {(dynamic || fetched.current) && (
         <TableToolbar
@@ -249,7 +250,8 @@ export const TableRender: React.FC<TableRenderProps> = ({
                 <div
                   {...headerGroupProps}
                   style={{ ...headerGroupProps.style, display: 'inline-flex' }}
-                  key={headerGroupProps.key}>
+                  key={headerGroupProps.key}
+                >
                   {headerGroup.headers.map(column => {
                     const headerProps = column.getHeaderProps(headerPropsGetter)
                     const resizerProps: any = {
@@ -280,6 +282,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
 
                     return (
                       <ColumnMenu
+                        dynamic={dynamic}
                         key={column.id}
                         columnName={column.Header as string}
                         columnType={column.columnType}
@@ -287,7 +290,8 @@ export const TableRender: React.FC<TableRenderProps> = ({
                         onColumnTypeChange={type => {
                           void handleColumnTypeChange(type, column.parent?.id ?? '', column.id)
                         }}
-                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
+                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}
+                      >
                         {Header}
                       </ColumnMenu>
                     )
@@ -305,6 +309,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
                   <TableRow
                     {...rowProps}
                     row={row}
+                    dynamic={dynamic}
                     // TODO: fix type
                     rowActive={isRowActive((row.original as any).id)}
                     onAddNewRow={addNewRow}
@@ -317,13 +322,15 @@ export const TableRender: React.FC<TableRenderProps> = ({
                 )
               })}
             </DndProvider>
-            <div className="table-block-row">
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-              <div className="table-block-add-new-row" role="button" tabIndex={-1} onClick={() => addNewRow()}>
-                <Icon.Plus />
-                New
+            {!dynamic && (
+              <div className="table-block-row">
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                <div className="table-block-add-new-row" role="button" tabIndex={-1} onClick={() => addNewRow()}>
+                  <Icon.Plus />
+                  New
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
