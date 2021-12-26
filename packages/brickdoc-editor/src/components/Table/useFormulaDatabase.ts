@@ -1,6 +1,6 @@
 import React from 'react'
 import { Column } from 'react-table'
-import { ContextInterface, Database, Column as ColumnType, DatabaseFactory } from '@brickdoc/formula'
+import { ContextInterface, DatabaseType, DatabaseClass, ColumnInitializer } from '@brickdoc/formula'
 import { BlockTableLoaded, BrickdocEventBus } from '@brickdoc/schema'
 import { DatabaseRows } from '../../extensions/table'
 
@@ -19,17 +19,16 @@ export function useFormulaDatabase(
       return
     }
     const spreadsheetName = title ?? 'Untitled'
-    const columns: ColumnType[] = tableColumns.map(column => ({
-      namespaceId: blockId,
+    const columns: ColumnInitializer[] = tableColumns.map(column => ({
       columnId: column.accessor as string,
+      namespaceId: blockId,
       name: column.Header as string,
-      spreadsheetName,
       type: (column as any).columnType,
       index: (column as any).index,
       rows: tableData.map(row => row[column.accessor as string])
     }))
 
-    const database: Database = new DatabaseFactory({
+    const database: DatabaseType = new DatabaseClass({
       blockId,
       dynamic: false,
       name: () => spreadsheetName,

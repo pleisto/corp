@@ -15,12 +15,12 @@ import {
   SwitchClass,
   SelectClass,
   InputClass,
-  Column,
-  DatabaseFactory,
   DatabaseInitializer,
   RecordResult,
   Row,
-  SpreadsheetResult
+  SpreadsheetResult,
+  DatabaseClass,
+  ColumnInitializer
 } from '..'
 import { FORMULA_FEATURE_CONTROL } from '../context'
 import { v4 as uuid } from 'uuid'
@@ -48,7 +48,7 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
 
   const blockId = uuid()
   const tableName = 'Dynamic'
-  const columns: Column[] = []
+  const columns: ColumnInitializer[] = []
   const rows: Row[] = []
 
   if (recordData.length) {
@@ -91,7 +91,7 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
     listRows: () => rows
   }
 
-  const database = new DatabaseFactory(databaseDefinition)
+  const database = new DatabaseClass(databaseDefinition)
   return { type: 'Spreadsheet', result: database }
 }
 

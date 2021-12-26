@@ -14,32 +14,17 @@ import {
 } from '..'
 
 export const SUM = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.formulaContext.findDatabase(column.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
-  }
-
-  const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
+  const rows: number[] = column.database.listRows().map(row => Number(row[column.columnId]) || 0)
   return { type: 'number', result: rows.reduce((a, b) => a + b, 0) }
 }
 
 export const MAX = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.formulaContext.findDatabase(column.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
-  }
-
-  const rows: number[] = database.listRows().map(row => Number(row[column.columnId]) || 0)
+  const rows: number[] = column.database.listRows().map(row => Number(row[column.columnId]) || 0)
   return { type: 'number', result: Math.max(...rows) }
 }
 
 export const COUNTA = (ctx: FunctionContext, { result: column }: ColumnResult): NumberResult | ErrorResult => {
-  const database = ctx.formulaContext.findDatabase(column.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
-  }
-
-  const counta = database.listRows().filter(row => !!row[column.columnId]).length
+  const counta = column.database.listRows().filter(row => !!row[column.columnId]).length
   return { type: 'number', result: counta }
 }
 
@@ -57,19 +42,14 @@ export const SUMIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.database.blockId !== column2.database.blockId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
-  }
-
-  const database = ctx.formulaContext.findDatabase(column1.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
 
   const predicateFunction: PredicateFunction = buildPredicate(predicate)
   let sum: number = 0
 
-  database.listRows().forEach(row => {
+  column1.database.listRows().forEach(row => {
     const value1 = Number(row[column1.columnId])
     const value2 = Number(row[column2.columnId])
     if (value1 && predicateFunction(value2)) {
@@ -86,20 +66,15 @@ export const AVERAGEIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.database.blockId !== column2.database.blockId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
-  }
-
-  const database = ctx.formulaContext.findDatabase(column1.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
 
   const predicateFunction: PredicateFunction = buildPredicate(predicate)
   let sum: number = 0
   let count: number = 0
 
-  database.listRows().forEach(row => {
+  column1.database.listRows().forEach(row => {
     const value1 = Number(row[column1.columnId])
     const value2 = Number(row[column2.columnId])
     if (value1 && predicateFunction(value2)) {
@@ -120,15 +95,10 @@ export const COUNTIFS = (
   { result: column }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  const database = ctx.formulaContext.findDatabase(column.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
-  }
-
   const predicateFunction: PredicateFunction = buildPredicate(predicate)
   let sum: number = 0
 
-  database.listRows().forEach(row => {
+  column.database.listRows().forEach(row => {
     const value = Number(row[column.columnId])
     if (predicateFunction(value)) {
       sum += 1
@@ -143,18 +113,13 @@ export const SUMPRODUCT = (
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.database.blockId !== column2.database.blockId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
-  }
-
-  const database = ctx.formulaContext.findDatabase(column1.namespaceId)
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
   }
 
   let sum: number = 0
 
-  database.listRows().forEach(row => {
+  column1.database.listRows().forEach(row => {
     const value1 = Number(row[column1.columnId])
     const value2 = Number(row[column2.columnId])
     sum += value1 * value2
@@ -170,7 +135,7 @@ export const VLOOKUP = (
   { result: column }: ColumnResult,
   { result: range }: BooleanResult
 ): StringResult | ErrorResult => {
-  if (database.blockId !== column.namespaceId) {
+  if (database.blockId !== column.database.blockId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
 

@@ -2727,7 +2727,6 @@ Array [
       "3",
       "5",
     ],
-    "spreadsheetName": "MyTable",
     "type": "text",
   },
   Object {
@@ -2740,7 +2739,6 @@ Array [
       "4",
       "6",
     ],
-    "spreadsheetName": "MyTable",
     "type": "text",
   },
   Object {
@@ -2753,7 +2751,6 @@ Array [
       "",
       "Foo",
     ],
-    "spreadsheetName": "MyTable",
     "type": "text",
   },
 ]
@@ -2874,7 +2871,7 @@ Object {
   "kind": "spreadsheet",
   "name": "MyTable",
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
-  "preview": DatabaseFactory {
+  "preview": DatabaseClass {
     "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "dynamic": false,
     "listColumns": [Function],
@@ -2971,6 +2968,13 @@ Object {
   "namespace": "MyTable",
   "preview": Object {
     "columnId": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "database": DatabaseClass {
+      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "dynamic": false,
+      "listColumns": [Function],
+      "listRows": [Function],
+      "name": [Function],
+    },
     "index": 0,
     "name": "first",
     "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
@@ -2979,7 +2983,6 @@ Object {
       "3",
       "5",
     ],
-    "spreadsheetName": "MyTable",
     "type": "text",
   },
   "replacements": Array [
