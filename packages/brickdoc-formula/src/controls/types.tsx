@@ -20,7 +20,7 @@ export interface ButtonType extends ControlType {
   kind: 'Button'
   name: string
   fn: FunctionResult
-  onClick?: () => void
+  onClick?: VoidFunction
 }
 
 export interface ColumnInitializer {

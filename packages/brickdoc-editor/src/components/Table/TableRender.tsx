@@ -170,7 +170,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
     })
   }
 
-  const addNewColColumn = useAddNewColumn(addNewColumn)
+  const addNewColColumn = useAddNewColumn(addNewColumn, dynamic)
 
   const [sorterOptions, { add: addNewSorter, remove: removeSorter, update: updateSorter, sort }] = useSorter([])
   const [
@@ -192,6 +192,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
     {
       columns,
       data,
+      dynamic,
       defaultColumn: defaultColumnConfig,
       updateActiveStatus,
       resetActiveStatus,
@@ -218,11 +219,11 @@ export const TableRender: React.FC<TableRenderProps> = ({
         // TODO: need a better way to add this class
         container?.parentElement?.classList.add('table-block-react-renderer')
         container?.classList.add('table-block-node-view-wrapper')
-      }}
-    >
+      }}>
       {contextHolder}
       {(dynamic || fetched.current) && (
         <TableToolbar
+          dynamic={dynamic}
           title={prevData.title}
           setTitle={setTitle}
           onAddNewRow={addNewRow}
@@ -250,8 +251,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
                 <div
                   {...headerGroupProps}
                   style={{ ...headerGroupProps.style, display: 'inline-flex' }}
-                  key={headerGroupProps.key}
-                >
+                  key={headerGroupProps.key}>
                   {headerGroup.headers.map(column => {
                     const headerProps = column.getHeaderProps(headerPropsGetter)
                     const resizerProps: any = {
@@ -290,8 +290,7 @@ export const TableRender: React.FC<TableRenderProps> = ({
                         onColumnTypeChange={type => {
                           void handleColumnTypeChange(type, column.parent?.id ?? '', column.id)
                         }}
-                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}
-                      >
+                        onRemoveColumn={() => removeColumn(column.parent?.id ?? '', column.id)}>
                         {Header}
                       </ColumnMenu>
                     )

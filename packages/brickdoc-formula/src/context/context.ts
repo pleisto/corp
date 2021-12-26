@@ -35,7 +35,8 @@ import {
   column2completion,
   FORMULA_PARSER_VERSION,
   Features,
-  ColumnClass
+  ColumnClass,
+  ColumnInitializer
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, FormulaLexer } from '../grammar'
@@ -190,7 +191,11 @@ export class FormulaContext implements ContextInterface {
         return v.t.variableValue.result.type === 'Spreadsheet' && v.t.variableValue.result.result.dynamic
       })
       .flatMap(([key, v]) => {
-        return v.t.variableValue.result.result.listColumns().map((column: ColumnType) => column2completion(column))
+        return v.t.variableValue.result.result
+          .listColumns()
+          .map((column: ColumnInitializer) =>
+            column2completion({ ...column, database: v.t.variableValue.result.result })
+          )
       })
     return [...functions, ...variables, ...spreadsheets, ...columns, ...dynamicColumns].sort(
       (a, b) => b.weight - a.weight

@@ -356,7 +356,7 @@ export interface ContextInterface {
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<any> | undefined
-  reset: () => void
+  reset: VoidFunction
 }
 
 interface TestCase {
@@ -521,12 +521,12 @@ export interface VariableInterface {
   t: VariableData
   buildFormula: () => Formula
   namespaceName: () => string
-  reparse: () => void
+  reparse: VoidFunction
   meta: () => VariableMetadata
   updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
-  afterUpdate: () => void
+  afterUpdate: VoidFunction
   interpret: (context: InterpretContext) => Promise<void>
   updateAndPersist: () => Promise<void>
   refresh: (context: InterpretContext) => Promise<void>
