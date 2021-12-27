@@ -38,7 +38,6 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
       HandleKeyDownExtension(keyDownHandler)
     ],
     onUpdate: ({ editor, transaction }) => {
-      updateContent?.(editor)
       if (transaction.selection.from === transaction.selection.to) {
         const position = transaction.selection.from - 1
 
@@ -67,6 +66,8 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
           length += blockLength
         }
       }
+
+      updateContent?.(editor)
     }
   })
 
@@ -81,7 +82,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
       } else {
         editor.commands.replaceRoot(content)
       }
-      console.log({ content, editor, pos: pos?.current, label: 'after replace root' })
+      // console.log({ content, editor, pos: pos?.current, label: 'after replace root' })
     }
   }, [editor, content, pos])
 

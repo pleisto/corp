@@ -15,6 +15,15 @@ Object {
       "type": "number",
     },
     Object {
+      "code": "Space",
+      "errors": Array [],
+      "name": " ",
+      "render": undefined,
+      "spaceAfter": false,
+      "spaceBefore": false,
+      "type": "any",
+    },
+    Object {
       "code": "Plus",
       "errors": Array [],
       "name": "+",
@@ -22,6 +31,15 @@ Object {
       "spaceAfter": true,
       "spaceBefore": true,
       "type": "number",
+    },
+    Object {
+      "code": "Space",
+      "errors": Array [],
+      "name": " ",
+      "render": undefined,
+      "spaceAfter": false,
+      "spaceBefore": false,
+      "type": "any",
     },
     Object {
       "code": "Variable",

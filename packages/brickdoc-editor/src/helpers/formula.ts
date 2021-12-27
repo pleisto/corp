@@ -1,8 +1,6 @@
 import { CodeFragment, FormulaCodeFragmentAttrs } from '@brickdoc/formula'
 import { JSONContent } from '@tiptap/core'
 
-const spaceContent: JSONContent = { type: 'text', text: ' ' }
-
 export const codeFragmentsToJSONContentTotal = (
   codeFragments: CodeFragment[] | undefined,
   blockId: string
@@ -11,17 +9,9 @@ export const codeFragmentsToJSONContentTotal = (
   if (codeFragments.length === 0) return undefined
 
   const content: JSONContent[] = []
-  let lastSpace = false
 
   codeFragments.forEach(codeFragment => {
-    if (codeFragment.spaceBefore && !lastSpace) {
-      content.push(spaceContent)
-    }
     content.push(...codeFragmentToJSONContentArray(codeFragment, blockId))
-    if (codeFragment.spaceAfter) {
-      content.push(spaceContent)
-      lastSpace = true
-    }
   })
 
   const jsonContent = { type: 'doc', content: [{ type: 'paragraph', content }] }

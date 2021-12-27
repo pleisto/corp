@@ -45,6 +45,7 @@ const calculate = async ({
   variable,
   name,
   input,
+  position,
   activeCompletion,
   formulaContext
 }: {
@@ -53,22 +54,28 @@ const calculate = async ({
   activeCompletion: Completion | undefined
   name: string
   input: string
+  position: number
   formulaContext: ContextInterface
 }): Promise<{
   completions: Completion[]
   newVariable: VariableInterface
   errors: ErrorMessage[]
+  newPosition: number
   parseResult: ParseResult
   interpretResult: InterpretResult
 }> => {
   const variableId = variable ? variable.t.variableId : uuid()
   const meta = { namespaceId, variableId, name, input }
   const view: View = {}
-  const parseResult = parse({ formulaContext, meta, activeCompletion })
+  const parseResult = parse({ formulaContext, meta, activeCompletion, position })
 
   console.log({
     parseResult,
     input,
+    position,
+    newPosition: parseResult.position,
+    lastChar: input[position - 1],
+    nextChar: input[position],
     newInput: parseResult.input,
     codeFragments: parseResult.codeFragments,
     activeCompletion
@@ -110,6 +117,7 @@ const calculate = async ({
   const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
 
   return {
+    newPosition: parseResult.position,
     completions,
     newVariable,
     errors: parseResult.errorMessages,
@@ -319,6 +327,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       namespaceId: rootId,
       activeCompletion: latestActiveCompletion.current,
       variable,
+      position: latestPosition.current,
       name: finalName,
       input: finalInput,
       formulaContext
@@ -326,14 +335,15 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     if (!result) return
 
-    const { interpretResult, parseResult, completions, newVariable, errors } = result
+    const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
+    setPosition(newPosition)
 
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
     } else if (parseResult.input !== input && parseResult.input !== '=') {
       const content = { type: 'doc', content: [{ type: 'text', text: parseResult.input }] }
-      console.log({ content, newINput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
+      console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
       setContent(content)
       setInput(parseResult.input)
     }
