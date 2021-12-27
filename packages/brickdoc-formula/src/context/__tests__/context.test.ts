@@ -1,12 +1,4 @@
-import {
-  appendFormulas,
-  buildVariable,
-  Formula,
-  interpret,
-  parse,
-  SuccessInterpretResult,
-  SuccessParseResult
-} from '../..'
+import { appendFormulas, buildVariable, Formula, interpret, parse, SuccessParseResult } from '../..'
 import { FormulaContext } from '..'
 
 describe('Context', () => {
@@ -40,7 +32,7 @@ describe('Context', () => {
       name: 'bar',
       id: barVariableId,
       blockId: barNamespaceId,
-      definition: `=ABS(120) + $${fooNamespaceId}@${fooVariableId}`,
+      definition: `=ABS(120) + #${fooNamespaceId}@${fooVariableId}`,
       kind: 'expression',
       updatedAt: new Date().toDateString(),
       createdAt: 0,
@@ -115,7 +107,7 @@ describe('Context', () => {
   })
 
   it('if', () => {
-    const input = `=IF(($${fooNamespaceId}@${fooVariableId}), 1, 2)`
+    const input = `=IF((#${fooNamespaceId}@${fooVariableId}), 1, 2)`
     const name = 'ifname'
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
@@ -126,7 +118,7 @@ describe('Context', () => {
 
     const parseResult2 = parse({
       formulaContext,
-      meta: { ...meta, input: `=IF(($${fooNamespaceId}@${fooVariableId} = 3), 1, 2)` }
+      meta: { ...meta, input: `=IF((#${fooNamespaceId}@${fooVariableId} = 3), 1, 2)` }
     })
     expect(parseResult2.errorMessages).toEqual([])
   })
@@ -135,7 +127,7 @@ describe('Context', () => {
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const name = 'baz'
-    const input = `=$${fooNamespaceId}@${fooVariableId} + $${barNamespaceId}@${barVariableId}`
+    const input = `=#${fooNamespaceId}@${fooVariableId} + #${barNamespaceId}@${barVariableId}`
     const meta = { namespaceId, variableId, name, input }
     const view = {}
     const parseInput = { formulaContext, meta }
@@ -143,14 +135,16 @@ describe('Context', () => {
 
     expect(parseResult.success).toEqual(true)
 
-    const interpretResult = (await interpret({
+    const interpretResult = await interpret({
       cst: parseResult.cst,
-      formulaContext,
-      meta,
-      interpretContext: {}
-    })) as SuccessInterpretResult
+      ctx: {
+        formulaContext,
+        meta,
+        interpretContext: { ctx: {}, arguments: [] }
+      }
+    })
 
-    expect(interpretResult.success).toEqual(true)
+    expect(interpretResult.variableValue.success).toEqual(true)
 
     const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
 

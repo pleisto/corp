@@ -1,13 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import {
-  buildVariable,
-  interpret,
-  parse,
-  quickInsert,
-  SuccessInterpretResult,
-  SuccessParseResult,
-  VariableMetadata
-} from '../..'
+import { buildVariable, interpret, parse, quickInsert, SuccessParseResult, VariableMetadata } from '../..'
 import { FormulaContext } from '..'
 
 const formulaContext = new FormulaContext({})
@@ -51,7 +43,7 @@ describe('Dependency', () => {
       namespaceId,
       variableId: variableWithNames.find(v => v.name === name)!.variableId,
       input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
-        return `$${namespaceId}@${variableWithNames.find(v => v.name === variableName)!.variableId}`
+        return `#${namespaceId}@${variableWithNames.find(v => v.name === variableName)!.variableId}`
       })
     }))
 
@@ -80,25 +72,27 @@ describe('Dependency', () => {
   })
 
   it('circular dependency check', () => {
-    const input = `=$${namespaceId}@${variableIds[6]}`
+    const input = `=#${namespaceId}@${variableIds[6]}`
     const meta = { namespaceId, variableId: variableIds[0], name: 'num0', input }
     const { errorMessages } = parse({ formulaContext, meta })
     expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 
   it('dependency automatic update', async () => {
-    const input = `=$${namespaceId}@${variableIds[0]} * 2 + 100`
+    const input = `=#${namespaceId}@${variableIds[0]} * 2 + 100`
     const meta = { namespaceId, variableId: variableIds[1], name: 'num1', input }
     const parseResult = parse({ formulaContext, meta }) as SuccessParseResult
     expect(parseResult.errorMessages).toEqual([])
     const view = {}
-    const interpretResult = (await interpret({
+    const interpretResult = await interpret({
       cst: parseResult.cst,
-      formulaContext,
-      meta,
-      interpretContext: {}
-    })) as SuccessInterpretResult
-    expect(interpretResult.errorMessages).toEqual([])
+      ctx: {
+        formulaContext,
+        meta,
+        interpretContext: { ctx: {}, arguments: [] }
+      }
+    })
+    expect(interpretResult.variableValue.success).toEqual(true)
 
     const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
     await formulaContext.commitVariable({ variable })
@@ -108,7 +102,11 @@ describe('Dependency', () => {
     // expect(formulaContext.findVariable(namespaceId, variableIds[6]).t.variableValue.value).toEqual(104)
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
     expect(
-      Object.values(formulaContext.context).map(v => ({ ...v.t, cst: null, variableValue: { ...v.t.variableValue, updatedAt: null } }))
+      Object.values(formulaContext.context).map(v => ({
+        ...v.t,
+        cst: null,
+        variableValue: { ...v.t.variableValue, updatedAt: null }
+      }))
     ).toMatchSnapshot()
   })
 })

@@ -1,7 +1,6 @@
 import { CstElement, CstNode, IToken, tokenMatcher } from 'chevrotain'
 import {
   buildFunctionKey,
-  ContextInterface,
   AnyTypeResult,
   ColumnResult,
   NullResult,
@@ -13,9 +12,9 @@ import {
   PredicateOperator,
   Row,
   ErrorResult,
-  VariableMetadata,
-  InterpretContext,
-  Argument
+  Argument,
+  extractSubType,
+  FunctionContext
 } from '..'
 import { BaseCstVisitor } from './parser'
 import {
@@ -37,9 +36,7 @@ import {
 } from './lexer'
 
 interface InterpreterConfig {
-  formulaContext: ContextInterface
-  meta: VariableMetadata
-  interpretContext: InterpretContext
+  ctx: FunctionContext
 }
 
 interface ExpressionArgument {
@@ -48,15 +45,12 @@ interface ExpressionArgument {
 }
 
 export class FormulaInterpreter extends BaseCstVisitor {
-  formulaContext: ContextInterface
-  meta: VariableMetadata
-  interpretContext: InterpretContext
+  ctx: FunctionContext
+  lazy: boolean = false
 
-  constructor({ formulaContext, meta, interpretContext }: InterpreterConfig) {
+  constructor({ ctx }: InterpreterConfig) {
     super()
-    this.formulaContext = formulaContext
-    this.interpretContext = interpretContext
-    this.meta = meta
+    this.ctx = ctx
     // This helper will detect any missing or redundant methods on this visitor
     this.validateVisitor()
   }
@@ -267,7 +261,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (result2.type === 'Column') {
       const match = String(result.result)
       const column = result2.result
-      const database = this.formulaContext.findDatabase(column.namespaceId)
+      const database = this.ctx.formulaContext.findDatabase(column.namespaceId)
       if (!database) {
         return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
       }
@@ -567,12 +561,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (ctx.Arguments) {
       args.push(...this.visit(ctx.Arguments, a))
     }
-    return { type: 'Array', result: args }
+
+    return { type: 'Array', subType: extractSubType(args), result: args }
   }
 
   recordExpression(ctx: any, type: ExpressionArgument): AnyTypeResult {
     if (!ctx.recordField) {
-      return { type: 'Record', result: {} }
+      return { type: 'Record', subType: 'void', result: {} }
     }
 
     const result: Record<string, AnyTypeResult> = {}
@@ -580,7 +575,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       const { key, value } = this.visit(c, type)
       result[key] = value
     })
-    return { type: 'Record', result }
+
+    return { type: 'Record', subType: extractSubType(Object.values(result)), result }
   }
 
   recordField(ctx: any, args: ExpressionArgument): { key: string; value: AnyTypeResult } {
@@ -633,7 +629,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): ColumnResult | NullResult {
     const [namespaceId, columnId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
-    const column = this.formulaContext.findColumn(namespaceId, columnId)
+    const column = this.ctx.formulaContext.findColumn(namespaceId, columnId)
 
     if (column) {
       return { type: 'Column', result: column }
@@ -647,7 +643,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): SpreadsheetResult | NullResult {
     const namespaceId = ctx.UUID[0].image
-    const database = this.formulaContext.findDatabase(namespaceId)
+    const database = this.ctx.formulaContext.findDatabase(namespaceId)
 
     if (database) {
       return { type: 'Spreadsheet', result: database }
@@ -665,8 +661,20 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.variableExpression, args)
     } else if (ctx.Self) {
       return { type: 'Reference', result: { kind: 'self' } }
+    } else if (ctx.LambdaArgumentNumber) {
+      const number = Number(ctx.LambdaArgumentNumber[0].image.substring(1))
+      const result = this.ctx.interpretContext.arguments[number - 1]
+
+      if (result) {
+        return result
+      }
+      return { type: 'Error', result: `Argument ${number} not found`, errorKind: 'runtime' }
     } else if (ctx.Input) {
-      return { type: 'Record', result: this.interpretContext }
+      return {
+        type: 'Record',
+        subType: extractSubType(Object.values(this.ctx.interpretContext.ctx)),
+        result: this.ctx.interpretContext.ctx
+      }
     } else {
       // console.log({ ctx })
       throw new Error('unsupported expression')
@@ -683,7 +691,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
     }
 
-    const variable = this.formulaContext.findVariable(namespaceId, variableId)
+    const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
     if (!variable) {
       throw new Error(`Variable not found: ${variableId}`)
     }
@@ -712,12 +720,12 @@ export class FormulaInterpreter extends BaseCstVisitor {
       Arguments: CstNode[]
     },
     a: ExpressionArgument
-  ): AnyTypeResult {
+  ): AnyTypeResult | Promise<AnyTypeResult> {
     const chainArgs = a?.chainArgs
     const names = ctx.FunctionName.map(group => group.image)
     const [group, name] = names.length === 1 ? ['core', ...names] : names
 
-    const clause = this.formulaContext.findFunctionClause(group, name)
+    const clause = this.ctx.formulaContext.findFunctionClause(group, name)
 
     const functionKey = buildFunctionKey(group, name)
 
@@ -725,32 +733,36 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Function ${functionKey} not found`)
     }
 
+    if (clause.feature && !this.ctx.formulaContext.features.includes(clause.feature)) {
+      throw new Error(`Feature ${clause.feature} not enabled`)
+    }
+
     let args: AnyTypeResult[] = []
+
+    if (clause.chain && chainArgs) {
+      args.push(chainArgs)
+    }
 
     if (clause.lazy) {
       const argsTypes = clause.args.map(arg => arg.type)
 
-      if (!ctx.Arguments) {
-        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
-      }
-      if (!ctx.Arguments[0].children?.expression) {
-        return { type: 'Function', result: [{ name: functionKey, args: [] }] }
+      if (!ctx.Arguments || !ctx.Arguments[0].children?.expression) {
+        return { type: 'Error', result: 'Function is empty', errorKind: 'runtime' }
       }
 
-      args = ctx.Arguments[0].children?.expression.map((element: CstElement, index: number) => {
-        const argType = argsTypes[index]
+      ctx.Arguments[0].children?.expression.forEach((e: CstElement, index: number) => {
+        const argType = argsTypes[clause.chain && chainArgs ? index + 1 : index]
 
-        if (argType === 'Reference') {
-          return this.visit(element as CstNode, { lazy: true })
+        const element = e as CstNode
+
+        if (argType === 'Cst') {
+          this.lazy = true
+          args.push({ type: 'Cst', result: element })
         } else {
-          return { type: 'Cst', result: element }
+          args.push(this.visit(element, { lazy: argType === 'Reference' }))
         }
       })
     } else {
-      if (clause.chain && chainArgs) {
-        args.push(chainArgs)
-      }
-
       if (ctx.Arguments) {
         const argResult = this.visit(ctx.Arguments, a)
         args.push(...argResult)
@@ -779,9 +791,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
       })
     }
 
-    const functionContext = { ctx: this.formulaContext, meta: this.meta, interpretContext: this.interpretContext }
+    // console.log({ args })
 
-    return clause.reference(functionContext, ...args)
+    return clause.reference(this.ctx, ...args)
   }
 
   Arguments(ctx: { expression: any[] }, a: ExpressionArgument): AnyTypeResult[] {

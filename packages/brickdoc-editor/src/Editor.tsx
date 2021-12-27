@@ -15,7 +15,6 @@ import {
   brickListExtension,
   SyncExtensionOptions,
   EventHandlerExtension,
-  BubbleMenu,
   UserBlockExtension,
   PageLinkBlockExtension,
   IndentExtension
@@ -24,6 +23,7 @@ import './styles.less'
 import { useEditorI18n } from './hooks'
 import { EditorDataSource, EditorDataSourceContext } from './dataSource/DataSource'
 import { EditorContext, EditorContextData } from './context/EditorContext'
+import { BubbleMenu } from './components'
 
 export { useEditorI18n }
 
@@ -78,7 +78,10 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
   return useTiptapEditor({
     extensions: [
       BasicRichtextExtension.configure({
-        gapcursor: false
+        gapcursor: false,
+        link: {
+          autolink: false
+        }
       }),
       EventHandlerExtension,
       SlashCommandsExtension,
