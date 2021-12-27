@@ -1,10 +1,8 @@
 import React from 'react'
-import { mergeProps } from '@react-aria/utils'
-import { AriaMenuItemProps, useMenuItem } from '@react-aria/menu'
-import { usePress } from '@react-aria/interactions'
-import { ItemContext } from './itemContainer'
+import { AriaMenuItemProps } from '@react-aria/menu'
 import { styled, theme } from '../../themes'
 import { itemMinHeight, itemSpacing } from './styles/index.style'
+import { MenuContext } from './context'
 
 const danger = {
   true: {
@@ -29,6 +27,21 @@ const ItemRoot = styled('li', {
   padding: `0 ${itemSpacing}`,
   '&:hover, &:focus, &:active': {
     background: theme.colors.secondaryHover
+  },
+  input: {
+    background: theme.colors.ceramicQuaternary,
+    border: `1px solid ${theme.colors.borderPrimary}`,
+    borderRadius: '4px',
+    fontSize: theme.fontSizes.subHeadline,
+    fontWeight: 500,
+    lineHeight: '1.25rem',
+    margin: `${itemSpacing} 0`,
+    height: '28px',
+    outline: 'none',
+    padding: '.5rem .625rem',
+    '&::placeholder': {
+      color: theme.colors.typeThirdary
+    }
   },
   variants: {
     danger
@@ -70,56 +83,51 @@ const ItemDescription = styled('span', {
   lineHeight: '16px'
 })
 
-export interface MenuItemProps extends AriaMenuItemProps {
+export interface MenuItemProps {
   'aria-label'?: AriaMenuItemProps['aria-label']
   danger?: boolean
   description?: string | React.ReactElement
   icon?: React.ReactNode
+  itemKey: string
   label?: string | React.ReactElement
+  onAction?: (key: string) => void
   tip?: string | React.ReactElement
 }
 
 const getReactElement = (element?: string | React.ReactElement): React.ReactElement =>
   typeof element === 'string' ? <span>{element}</span> : element
 
-export const Item: React.FC<MenuItemProps> = ({ children, danger, icon, label, description, tip, ...otherProps }) => {
-  const { state, item, onAction, onClose } = React.useContext(ItemContext)
-  const isDisabled = React.useMemo(() => state.disabledKeys.has(item.key), [item.key, state.disabledKeys])
-
-  const innerRef = React.useRef<HTMLLIElement>()
-  const { menuItemProps, labelProps, descriptionProps, keyboardShortcutProps } = useMenuItem(
-    {
-      key: item.key,
-      isDisabled,
-      onAction,
-      onClose,
-      ...otherProps
-
-    },
-    state,
-    innerRef
-  )
-  const { pressProps } = usePress({})
+export const Item: React.FC<MenuItemProps> = ({
+  children,
+  itemKey,
+  danger,
+  icon,
+  label,
+  description,
+  tip,
+  onAction,
+  ...props
+}) => {
+  const context = React.useContext(MenuContext)
+  const onClick = (event: React.MouseEvent<HTMLLIElement>): void => {
+    ;(props as any).onClick?.(event)
+    onAction?.(itemKey)
+    context.onAction?.(itemKey)
+  }
 
   return (
-    <ItemRoot
-      {...mergeProps(menuItemProps, pressProps)}
-      danger={danger && typeof children === 'string'}
-      css={{}}
-      ref={innerRef}>
+    <ItemRoot {...props} onClick={onClick} role="menuitem" danger={danger && typeof children === 'string'} css={{}}>
       {children}
       {!children && (
         <ItemContent>
           {icon && <ItemIcon>{icon}</ItemIcon>}
           {(label || description) && (
             <ItemMain>
-              {label && <ItemLabel danger={danger}>{React.cloneElement(getReactElement(label), labelProps)}</ItemLabel>}
-              {description && (
-                <ItemDescription>{React.cloneElement(getReactElement(description), descriptionProps)}</ItemDescription>
-              )}
+              {label && <ItemLabel danger={danger}>{React.cloneElement(getReactElement(label))}</ItemLabel>}
+              {description && <ItemDescription>{React.cloneElement(getReactElement(description))}</ItemDescription>}
             </ItemMain>
           )}
-          {tip && React.cloneElement(getReactElement(tip), keyboardShortcutProps)}
+          {tip && React.cloneElement(getReactElement(tip))}
         </ItemContent>
       )}
     </ItemRoot>

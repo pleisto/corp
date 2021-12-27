@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType, SelectType, SwitchType } from '../controls'
+import { ButtonType, InputType, ColumnType, DatabaseType, SelectType, SwitchType } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
@@ -18,7 +18,7 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any'
+export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -36,6 +36,7 @@ export type SpecialDefaultVariableName =
   | 'var'
   | 'null'
   | 'error'
+  | 'void'
   | 'predicate'
   | 'spreadsheet'
   | 'reference'
@@ -59,7 +60,6 @@ export type Definition = string
 
 export type VariableKind = 'constant' | 'expression'
 
-export type VariableTypeMeta = `error_${VariableKind}` | `success_${FormulaType}`
 export type ErrorType =
   | 'type'
   | 'syntax'
@@ -75,9 +75,9 @@ export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
 export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
-export type VariableKey = `$${NamespaceId}@${VariableId}`
-export type SpreadsheetKey = `$${NamespaceId}`
-export type ColumnKey = `$${NamespaceId}#${ColumnId}`
+export type VariableKey = `#${NamespaceId}@${VariableId}`
+export type SpreadsheetKey = `#${NamespaceId}`
+export type ColumnKey = `#${NamespaceId}#${ColumnId}`
 
 // TODO blockName -> string
 export type BlockName = NamespaceId
@@ -94,12 +94,16 @@ export type NamespaceId = uuid
 export type VariableId = uuid
 export type ColumnId = uuid
 
+export type Feature = string
+export type Features = Feature[]
+
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
-export type FormulaFunctionKind = 'Set'
-export interface BaseResult {
+export type FormulaFunctionKind = 'Set' | 'Lambda'
+interface BaseResult {
   result: any
-  type: FormulaType
+  type: Exclude<FormulaType, 'void'>
+  subType?: FormulaType
   errorKind?: ErrorType
   operator?: PredicateOperator
 }
@@ -124,13 +128,14 @@ export interface NullResult extends BaseResult {
 }
 
 export interface BlankResult extends BaseResult {
-  result: any
+  result: never
   type: 'Blank'
 }
 
 export interface ArrayResult extends BaseResult {
   result: AnyTypeResult[]
   type: 'Array'
+  subType: FormulaType
 }
 
 export interface RecordType {
@@ -139,6 +144,7 @@ export interface RecordType {
 
 export interface RecordResult extends BaseResult {
   result: RecordType
+  subType: FormulaType
   type: 'Record'
 }
 
@@ -148,12 +154,12 @@ export interface DateResult extends BaseResult {
 }
 
 export interface ColumnResult extends BaseResult {
-  result: Column
+  result: ColumnType
   type: 'Column'
 }
 
 export interface SpreadsheetResult extends BaseResult {
-  result: Database
+  result: DatabaseType
   type: 'Spreadsheet'
 }
 
@@ -171,17 +177,17 @@ export interface ErrorResult extends BaseResult {
 export interface PredicateResult extends BaseResult {
   type: 'Predicate'
   result: AnyTypeResult
-  column?: Column
+  column?: ColumnType
   operator: PredicateOperator
 }
-export interface FormulaFunction {
-  name: FunctionNameType
+interface FormulaFunction {
+  name: FormulaFunctionKind
   args: Array<ReferenceResult | CstResult>
 }
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
-  result: FormulaFunction[]
+  result: [FormulaFunction, ...FormulaFunction[]]
 }
 
 export interface CstResult extends BaseResult {
@@ -198,6 +204,12 @@ export interface ButtonResult extends BaseResult {
   type: 'Button'
   result: ButtonType
 }
+
+export interface InputResult extends BaseResult {
+  type: 'Input'
+  result: InputType
+}
+
 export interface SwitchResult extends BaseResult {
   type: 'Switch'
   result: SwitchType
@@ -215,18 +227,18 @@ export interface AnyResult extends BaseResult {
 
 export type Reference = VariableReference | SelfReference
 
-export interface BaseReference {
+interface BaseReference {
   attribute?: string
   kind: 'variable' | 'self'
 }
 
-export interface VariableReference extends BaseReference {
+interface VariableReference extends BaseReference {
   kind: 'variable'
   variableId: VariableId
   namespaceId: NamespaceId
 }
 
-export interface SelfReference extends BaseReference {
+interface SelfReference extends BaseReference {
   kind: 'self'
 }
 
@@ -246,6 +258,7 @@ export type AnyTypeResult =
   | ButtonResult
   | SwitchResult
   | SelectResult
+  | InputResult
   | ErrorResult
   | FunctionResult
   | CstResult
@@ -271,51 +284,6 @@ export interface Formula {
   kind: string
   view: View
 }
-export interface Column {
-  namespaceId: NamespaceId
-  columnId: ColumnId
-  name: ColumnName
-  spreadsheetName: SpreadsheetName
-  index: number
-  type: string
-  rows: string[]
-}
-
-export interface Row {
-  id: string
-  [key: string]: string
-}
-
-export interface DatabaseDefinition {
-  blockId: NamespaceId
-  dynamic: boolean
-  name: () => string
-  listColumns: () => Column[]
-  listRows: () => Row[]
-}
-
-export interface DatabasePersistence {
-  blockId: NamespaceId
-  tableName: string
-  columns: Column[]
-  rows: Row[]
-}
-
-export interface Database {
-  blockId: NamespaceId
-  dynamic: boolean
-  persistence?: DatabasePersistence
-  columnCount: () => number
-  rowCount: () => number
-  name: () => string
-  listColumns: () => Column[]
-  listRows: () => Row[]
-  getRow: (rowId: uuid) => Row | undefined
-  getColumn: (columnId: ColumnId) => Column | undefined
-  toArray: () => string[][]
-  toRecord: () => Array<{ [key: string]: any }>
-  persist: () => DatabasePersistence
-}
 
 export interface Argument {
   readonly name: string
@@ -326,7 +294,7 @@ export interface Argument {
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column'
 
-export interface BaseCompletion {
+interface BaseCompletion {
   readonly kind: CompletionKind
   readonly weight: number
   readonly replacements: string[]
@@ -354,29 +322,30 @@ export interface ColumnCompletion extends BaseCompletion {
   readonly kind: 'column'
   readonly namespace: SpreadsheetName
   readonly value: ColumnKey
-  readonly preview: Column
+  readonly preview: ColumnType
 }
 
 export interface SpreadsheetCompletion extends BaseCompletion {
   readonly kind: 'spreadsheet'
   readonly namespace: BlockName
   readonly value: SpreadsheetKey
-  readonly preview: Database
+  readonly preview: DatabaseType
 }
 
 export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
 
 export interface ContextInterface {
-  databases: { [key: NamespaceId]: Database }
+  features: string[]
+  databases: { [key: NamespaceId]: DatabaseType }
   blockNameMap: { [key: NamespaceId]: string }
   reservedNames: string[]
   backendActions: BackendActions | undefined
   variableCount: () => number
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
-  findDatabase: (namespaceId: NamespaceId) => Database | undefined
-  findColumn: (namespaceId: NamespaceId, variableId: VariableId) => Column | undefined
-  setDatabase: (namespaceId: NamespaceId, database: Database) => void
+  findDatabase: (namespaceId: NamespaceId) => DatabaseType | undefined
+  findColumn: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
+  setDatabase: (namespaceId: NamespaceId, database: DatabaseType) => void
   removeDatabase: (namespaceId: NamespaceId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
@@ -387,15 +356,15 @@ export interface ContextInterface {
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<any> | undefined
-  reset: () => void
+  reset: VoidFunction
 }
 
-export interface TestCase {
+interface TestCase {
   readonly input: any[]
   readonly output: any
 }
 
-export interface Example<T extends FormulaType> {
+interface Example<T extends FormulaType> {
   readonly input: Definition
   readonly output: AnyFunctionResult<T> | null
 }
@@ -405,17 +374,21 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
 }
 
 export interface FunctionContext {
-  readonly ctx: ContextInterface
+  readonly formulaContext: ContextInterface
   readonly meta: VariableMetadata
   readonly interpretContext: InterpretContext
 }
 
-export type InterpretContext = RecordType
+export interface InterpretContext {
+  readonly ctx: RecordType
+  readonly arguments: AnyTypeResult[]
+}
 
 export interface BaseFunctionClause<T extends FormulaType> {
   readonly name: FunctionNameType
   readonly pure: boolean
   readonly effect: false
+  readonly feature?: Feature
   readonly lazy: boolean
   readonly async: false
   readonly chain: boolean
@@ -426,7 +399,7 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly args: Argument[]
   readonly returns: T
   readonly testCases: TestCase[]
-  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
 }
 
 export interface NormalFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
@@ -438,7 +411,11 @@ export interface ChainFunctionClause<T extends FormulaType> extends BaseFunction
   readonly chain: true
   readonly returns: T
   readonly args: [Argument, ...Argument[]]
-  readonly reference: (ctx: FunctionContext, chainResult: any, ...args: any[]) => AnyFunctionResult<T>
+  readonly reference: (
+    ctx: FunctionContext,
+    chainResult: any,
+    ...args: any[]
+  ) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
 }
 
 export type BasicFunctionClause<T extends FormulaType> = NormalFunctionClause<T> | ChainFunctionClause<T>
@@ -451,7 +428,7 @@ export interface FunctionClause<T extends FormulaType> extends BaseFunctionClaus
   readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
 }
 
-export interface BaseCodeFragment {
+interface BaseCodeFragment {
   readonly code: string
   readonly name: string
   readonly spaceBefore: boolean
@@ -494,19 +471,19 @@ export interface VariableDependency {
   readonly namespaceId: NamespaceId
 }
 
-export interface BaseVariableValue {
+interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
   readonly result: AnyTypeResult
   readonly cacheValue: AnyTypeResult
 }
 
-export interface SuccessVariableValue extends BaseVariableValue {
+interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
   readonly result: AnyTypeResult
 }
 
-export interface ErrorVariableValue extends BaseVariableValue {
+interface ErrorVariableValue extends BaseVariableValue {
   readonly success: false
   readonly result: ErrorResult
 }
@@ -527,7 +504,7 @@ export interface VariableData {
   variableValue: VariableValue
   cst?: CstNode
   codeFragments: CodeFragment[]
-  flattenVariableDependencies: Set<VariableDependency>
+  flattenVariableDependencies: VariableDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
   functionDependencies: Array<FunctionClause<any>>
@@ -544,12 +521,13 @@ export interface VariableInterface {
   t: VariableData
   buildFormula: () => Formula
   namespaceName: () => string
-  reparse: () => void
+  reparse: VoidFunction
   meta: () => VariableMetadata
   updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
-  afterUpdate: () => void
+  afterUpdate: VoidFunction
+  interpret: (context: InterpretContext) => Promise<void>
   updateAndPersist: () => Promise<void>
   refresh: (context: InterpretContext) => Promise<void>
 }

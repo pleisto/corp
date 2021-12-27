@@ -8,15 +8,16 @@ import {
   VariableMetadata,
   Formula,
   AnyTypeResult,
-  DatabaseFactory,
+  DatabaseClass,
   DatabasePersistence,
   VariableValue,
   FunctionContext,
-  InterpretContext
+  InterpretContext,
+  SwitchClass,
+  ButtonClass,
+  SelectClass,
+  ColumnClass
 } from '..'
-import { ButtonClass } from '../controls/button'
-import { SelectClass } from '../controls/select'
-import { SwitchClass } from '../controls/switch'
 import { parse } from '../grammar'
 
 export const displayValue = (v: AnyTypeResult): string => {
@@ -33,7 +34,7 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'Spreadsheet':
       return `#<Spreadsheet> ${v.result.name()}`
     case 'Column':
-      return `#<Column> ${v.result.spreadsheetName}.${v.result.name}`
+      return `#<Column> ${v.result.database.name()}.${v.result.name}`
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result)}`
     case 'Record':
@@ -55,7 +56,7 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'Cst':
       return '#<Cst>'
     case 'Blank':
-      return `#<Blank>`
+      return `#N/A`
   }
 
   return JSON.stringify(v.result)
@@ -69,12 +70,12 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTy
     }
   }
 
-  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof DatabaseFactory)) {
+  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof DatabaseClass)) {
     if (cacheValue.result.dynamic) {
       const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence!
       return {
         type: 'Spreadsheet',
-        result: new DatabaseFactory({
+        result: new DatabaseClass({
           blockId,
           dynamic: true,
           name: () => tableName,
@@ -83,12 +84,21 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTy
         })
       }
     } else {
-      const database = ctx.ctx.findDatabase(cacheValue.result.blockId)
+      const database = ctx.formulaContext.findDatabase(cacheValue.result.blockId)
       if (database) {
         return { type: 'Spreadsheet', result: database }
       } else {
         return { type: 'Error', result: `Database ${cacheValue.result.blockId} not found`, errorKind: 'deps' }
       }
+    }
+  }
+
+  if (cacheValue.type === 'Column' && !(cacheValue.result instanceof ColumnClass)) {
+    const database = ctx.formulaContext.findDatabase(cacheValue.result.namespaceId)
+    if (database) {
+      return { type: 'Column', result: new ColumnClass(database, cacheValue.result) }
+    } else {
+      return { type: 'Error', result: `Database ${cacheValue.result.namespaceId} not found`, errorKind: 'deps' }
     }
   }
 
@@ -119,7 +129,10 @@ export const castVariable = (
   const namespaceId = blockId
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
-  const castedValue: AnyTypeResult = parseCacheValue({ ctx: formulaContext, meta, interpretContext: {} }, cacheValue)
+  const castedValue: AnyTypeResult = parseCacheValue(
+    { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } },
+    cacheValue
+  )
   const parseInput = { formulaContext, meta }
   const {
     success,
@@ -241,19 +254,22 @@ export class VariableClass implements VariableInterface {
 
   public refresh = async (interpretContext: InterpretContext): Promise<void> => {
     await this.interpret(interpretContext)
-    this.afterUpdate()
     await this.invokeBackendUpdate()
     this.formulaContext.handleBroadcast(this)
   }
 
-  private readonly interpret = async (interpretContext: InterpretContext): Promise<void> => {
+  public interpret = async (interpretContext: InterpretContext): Promise<void> => {
     const { variableValue } = await interpret({
       cst: this.t.cst,
-      formulaContext: this.formulaContext,
-      meta: this.meta(),
-      interpretContext
+      ctx: {
+        formulaContext: this.formulaContext,
+        meta: this.meta(),
+        interpretContext
+      }
     })
 
     this.t = { ...this.t, variableValue }
+
+    this.afterUpdate()
   }
 }

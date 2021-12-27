@@ -1,7 +1,7 @@
 import { CstNode, ILexingResult } from 'chevrotain'
 import {
-  Column,
-  Database,
+  ColumnType,
+  DatabaseType,
   ContextInterface,
   FunctionClause,
   NamespaceId,
@@ -32,24 +32,31 @@ import {
   variable2completion,
   variableKey,
   ColumnCompletion,
-  column2completion
+  column2completion,
+  FORMULA_PARSER_VERSION,
+  Features,
+  ColumnClass,
+  ColumnInitializer
 } from '..'
 import { BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor, FormulaLexer } from '../grammar'
 import { BlockNameLoad, BlockTableLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
+import { FORMULA_FEATURE_CONTROL } from '.'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
   backendActions?: BackendActions
+  features?: string[]
 }
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|void|date|predicate|reference|spreadsheet|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: { [key in FormulaType]: SpecialDefaultVariableName } = {
   string: 'str',
   number: 'num',
   boolean: 'bool',
+  void: 'void',
   Blank: 'blank',
   Cst: 'cst',
   Switch: 'switch',
@@ -82,16 +89,18 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
 ) as { [key in SpecialDefaultVariableName]: FormulaType }
 
 export class FormulaContext implements ContextInterface {
+  features: Features
   context: { [key: VariableKey]: VariableInterface } = {}
   functionWeights: { [key: FunctionKey]: number } = {}
   variableWeights: { [key: VariableKey]: number } = {}
-  databases: { [key: NamespaceId]: Database } = {}
+  databases: { [key: NamespaceId]: DatabaseType } = {}
   blockNameMap: { [key: NamespaceId]: string } = {}
   variableNameCounter: { [key in FormulaType]: { [n: NamespaceId]: number } } = {
     string: {},
     number: {},
     Button: {},
     Switch: {},
+    void: {},
     Select: {},
     Slider: {},
     Input: {},
@@ -120,11 +129,15 @@ export class FormulaContext implements ContextInterface {
   backendActions: BackendActions | undefined
   reservedNames: string[] = []
 
-  constructor({ functionClauses = [], backendActions }: FormulaContextArgs) {
+  constructor({ functionClauses = [], backendActions, features = [FORMULA_FEATURE_CONTROL] }: FormulaContextArgs) {
+    this.features = features
     if (backendActions) {
       this.backendActions = backendActions
     }
-    const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses]
+    const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
+      f => !f.feature || this.features.includes(f.feature)
+    )
+
     this.reservedNames = baseFunctionClauses.map(({ name }) => name.toUpperCase())
     this.functionClausesMap = baseFunctionClauses.reduce(
       (o: { [key: FunctionKey]: BaseFunctionClauseWithKey<any> }, acc: BaseFunctionClause<any>) => {
@@ -170,7 +183,7 @@ export class FormulaContext implements ContextInterface {
     })
 
     const columns: ColumnCompletion[] = Object.entries(this.databases).flatMap(([key, database]) => {
-      return database.listColumns().map(column => column2completion(column))
+      return database.listColumns().map(column => column2completion({ ...column, database }))
     })
 
     const dynamicColumns: ColumnCompletion[] = completionVariables
@@ -178,7 +191,11 @@ export class FormulaContext implements ContextInterface {
         return v.t.variableValue.result.type === 'Spreadsheet' && v.t.variableValue.result.result.dynamic
       })
       .flatMap(([key, v]) => {
-        return v.t.variableValue.result.result.listColumns().map((column: Column) => column2completion(column))
+        return v.t.variableValue.result.result
+          .listColumns()
+          .map((column: ColumnInitializer) =>
+            column2completion({ ...column, database: v.t.variableValue.result.result })
+          )
       })
     return [...functions, ...variables, ...spreadsheets, ...columns, ...dynamicColumns].sort(
       (a, b) => b.weight - a.weight
@@ -194,20 +211,26 @@ export class FormulaContext implements ContextInterface {
     return Object.keys(this.context).length
   }
 
-  public findDatabase = (namespaceId: NamespaceId): Database | undefined => {
+  public findDatabase = (namespaceId: NamespaceId): DatabaseType | undefined => {
     return this.databases[namespaceId]
   }
 
-  public findColumn = (namespaceId: NamespaceId, variableId: VariableId): Column | undefined => {
+  public findColumn = (namespaceId: NamespaceId, variableId: VariableId): ColumnType | undefined => {
     const database = this.findDatabase(namespaceId)
     if (!database) {
       return undefined
     }
 
-    return database.getColumn(variableId)
+    const column = database.getColumn(variableId)
+
+    if (!column) {
+      return undefined
+    }
+
+    return new ColumnClass(database, column)
   }
 
-  public setDatabase = (namespaceId: NamespaceId, database: Database): void => {
+  public setDatabase = (namespaceId: NamespaceId, database: DatabaseType): void => {
     this.databases[namespaceId] = database
   }
 
@@ -312,7 +335,7 @@ export class FormulaContext implements ContextInterface {
     // console.log('handleBroadcast', dependencyKey, this.reverseVariableDependencies[dependencyKey])
     this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
       const childrenVariable = this.context[variableKey(namespaceId, variableId)]!
-      void childrenVariable.refresh({})
+      void childrenVariable.refresh({ ctx: {}, arguments: [] })
     })
   }
 
@@ -354,6 +377,10 @@ export class FormulaContext implements ContextInterface {
     if (isNew) {
       if (!skipCreate) {
         void variable.invokeBackendCreate()
+      }
+
+      if (variable.t.version < FORMULA_PARSER_VERSION) {
+        void variable.interpret({ ctx: {}, arguments: [] })
       }
     } else {
       void variable.invokeBackendUpdate()

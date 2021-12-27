@@ -198,7 +198,7 @@ const testCases: TestCase[] = [
   },
   {
     input: '=[[]]',
-    value: [{ type: 'Array', result: [] }]
+    value: [{ type: 'Array', subType: 'void', result: [] }]
   },
   {
     input: '=[',
@@ -235,21 +235,41 @@ const testCases: TestCase[] = [
       { type: 'boolean', result: true }
     ]
   },
+  {
+    input: '=[2, "foo", true, null].Map(1)',
+    label: 'Array Map',
+    value: [
+      { type: 'number', result: 1 },
+      { type: 'number', result: 1 },
+      { type: 'number', result: 1 },
+      { type: 'number', result: 1 }
+    ]
+  },
+  {
+    input: '=[2, "foo", true, null].Map($1)',
+    label: 'Array Map $1',
+    value: [
+      { type: 'number', result: 2 },
+      { type: 'string', result: 'foo' },
+      { type: 'boolean', result: true },
+      { type: 'null', result: null }
+    ]
+  },
   // Reference
   {
     input: `=Self`,
     value: { kind: 'self' }
   },
   {
-    input: `=$${barNamespaceId}@${barVariableId}`,
+    input: `=#${barNamespaceId}@${barVariableId}`,
     value: 24
   },
   {
-    input: `=&$${barNamespaceId}@${barVariableId}`,
+    input: `=&#${barNamespaceId}@${barVariableId}`,
     value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId }
   },
   {
-    input: `=&$${barNamespaceId}@${barVariableId}.foo`,
+    input: `=&#${barNamespaceId}@${barVariableId}.foo`,
     value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId, attribute: 'foo' }
   },
   {
@@ -270,8 +290,8 @@ const testCases: TestCase[] = [
     value: {
       foo: { type: 'number', result: 1 },
       bar: { type: 'string', result: 'baz' },
-      obj: { type: 'Record', result: {} },
-      array: { type: 'Array', result: [{ type: 'number', result: 1 }] }
+      obj: { type: 'Record', subType: 'void', result: {} },
+      array: { type: 'Array', subType: 'number', result: [{ type: 'number', result: 1 }] }
     }
   },
   {
@@ -459,6 +479,14 @@ const testCases: TestCase[] = [
   {
     input: '=Input.bar',
     value: 'bar123'
+  },
+  {
+    input: '=$1',
+    value: 'Foo1234123'
+  },
+  {
+    input: '=$2',
+    value: 'Argument 2 not found'
   },
   // Error
   {
@@ -912,25 +940,25 @@ describe('Simple test case', () => {
       }
 
       if (value !== undefined) {
-        const {
-          success: interpretSuccess,
-          variableValue,
-          errorMessages: interpretErrorMessages
-        } = await interpret({
+        const { variableValue } = await interpret({
           cst,
-          meta: newMeta,
-          formulaContext,
-          interpretContext: { bar: { type: 'string', result: 'bar123' } }
+          ctx: {
+            meta: newMeta,
+            formulaContext,
+            interpretContext: {
+              ctx: { bar: { type: 'string', result: 'bar123' } },
+              arguments: [{ type: 'string', result: 'Foo1234123' }]
+            }
+          }
         })
 
         expect(errorMessages).toEqual([])
-        expect(interpretErrorMessages).toEqual([])
 
         expect(errorType).toEqual(undefined)
         expect(success).toEqual(true)
 
         expect(variableValue.result.result).toEqual(value)
-        expect(interpretSuccess).toEqual(true)
+        expect(variableValue.success).toEqual(true)
       } else if (parseErrorType) {
         expect(errorMessages[0]!.message).toContain(errorMessage)
         expect(errorType).toEqual(parseErrorType)

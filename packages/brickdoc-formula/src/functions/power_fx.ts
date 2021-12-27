@@ -5,9 +5,14 @@ import {
   SpreadsheetResult,
   PredicateResult,
   ErrorResult,
-  PredicateFunction
+  PredicateFunction,
+  buildPredicate
 } from '..'
-import { buildPredicate } from '../grammar/predicate'
+
+// TODO https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/functions/function-filter-lookup
+// Filter Search LookUp
+// https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/functions/function-clear-collect-clearcollect
+// TODO database refactor to collection
 
 export const CountIf = (
   ctx: FunctionContext,
@@ -18,9 +23,7 @@ export const CountIf = (
   if (!column) {
     return { type: 'Error', result: 'Column is missing', errorKind: 'runtime' }
   }
-  if (!database) {
-    return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
-  }
+
   if (database.blockId !== column.namespaceId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
@@ -43,7 +46,7 @@ export const CountIf = (
   return { result: sum, type: 'number' }
 }
 
-export const CORE_POWERFX_CLAUSES: Array<BasicFunctionClause<any>> = [
+export const CORE_POWERFX_CLAUSES: Array<BasicFunctionClause<'number'>> = [
   {
     name: 'CountIf',
     async: false,
