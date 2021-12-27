@@ -47,7 +47,7 @@ const errorProvider: IParserErrorMessageProvider = {
   },
   buildNotAllInputParsedMessage(options) {
     // changing the template of the error message #1
-    return `TODO build not all input parsed :${options.firstRedundant.startOffset}`
+    return `Not all input parsed: ${options.firstRedundant.image}`
   },
 
   buildNoViableAltMessage(options) {

@@ -1510,7 +1510,7 @@ Array [
     "code": "other",
     "errors": Array [
       Object {
-        "message": "TODO build not all input parsed :3",
+        "message": "Not all input parsed: START_WITH",
         "type": "syntax",
       },
     ],
@@ -2460,7 +2460,7 @@ Array [
     "code": "other",
     "errors": Array [
       Object {
-        "message": "TODO build not all input parsed :7",
+        "message": "Not all input parsed: lo",
         "type": "syntax",
       },
     ],
@@ -3234,7 +3234,7 @@ Array [
     "code": "other",
     "errors": Array [
       Object {
-        "message": "TODO build not all input parsed :3",
+        "message": "Not all input parsed: T",
         "type": "syntax",
       },
     ],
