@@ -1,17 +1,14 @@
 import { Popover } from './index'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Button } from '../'
-import { overlayArgTypes } from '../Tooltip/overlay.docs'
+import { triggerArgTypes } from '../Tooltip/trigger.docs'
+
 export default {
   title: 'Components/Popover',
   component: Popover,
   args: {
     placement: 'top',
-    trigger: 'click',
-    role: 'dialog',
-    interactiveBorder: 2,
-    hasArrow: true,
-    removeOnHide: true
+    trigger: 'click'
   },
   argTypes: {
     title: {
@@ -20,7 +17,7 @@ export default {
     content: {
       description: `\`ReactNode\` The content of the popover`
     },
-    ...overlayArgTypes
+    ...triggerArgTypes
   },
   parameters: {
     docs: {
@@ -33,12 +30,6 @@ The floating card popped by clicking or hovering.
 - A simple popup menu to provide extra information or operations.
 
 - Comparing with popover, besides information Popover card can also provide action elements like links and buttons.
-
-#### Notes
-
-** We use \`Press\` event instead of \`Click\` event ** to improve the accessibility. If you want use custom
-component as click trigger, you might need \`import { usePress } from '@brickdoc/design-system' \`.
-See [React Aria Docs](https://react-spectrum.adobe.com/react-aria/usePress.html) for more information.
 
 `
       }
@@ -72,7 +63,7 @@ export const ContextMenu = Template.bind({})
 ContextMenu.args = {
   title: 'Answer',
   content: <p>42 is the meaning of life</p>,
-  trigger: 'contextmenu',
+  trigger: 'contextMenu',
   children: (
     <div
       style={{

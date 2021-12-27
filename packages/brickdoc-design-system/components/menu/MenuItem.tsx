@@ -3,7 +3,6 @@ import { Item, MenuItemProps as RcMenuItemProps } from 'rc-menu'
 import toArray from 'rc-util/lib/Children/toArray'
 import classNames from 'classnames'
 import MenuContext, { MenuContextProps } from './MenuContext'
-import { Tooltip } from '../tooltip'
 import { isValidElement, cloneElement } from '../_util/reactNode'
 
 export interface MenuItemProps extends Omit<RcMenuItemProps, 'title'> {
@@ -33,7 +32,7 @@ export default class MenuItem extends React.Component<MenuItemProps> {
   }
 
   renderItem = () => {
-    const { prefixCls, firstLevel, inlineCollapsed, direction } = this.context
+    const { prefixCls, firstLevel, inlineCollapsed } = this.context
     const { className, children } = this.props
     const { title, icon, danger, ...rest } = this.props
 
@@ -52,23 +51,21 @@ export default class MenuItem extends React.Component<MenuItemProps> {
     }
     const childrenLength = toArray(children).length
     return (
-      <Tooltip {...tooltipProps} placement={direction === 'rtl' ? 'left' : 'right'}>
-        <Item
-          {...rest}
-          className={classNames(
-            {
-              [`${prefixCls}-item-danger`]: danger,
-              [`${prefixCls}-item-only-child`]: (icon ? childrenLength + 1 : childrenLength) === 1
-            },
-            className
-          )}
-          title={typeof title === 'string' ? title : undefined}>
-          {cloneElement(icon, {
-            className: classNames(isValidElement(icon) ? icon.props?.className : '', `${prefixCls}-item-icon`)
-          })}
-          {this.renderItemChildren(inlineCollapsed)}
-        </Item>
-      </Tooltip>
+      <Item
+        {...rest}
+        className={classNames(
+          {
+            [`${prefixCls}-item-danger`]: danger,
+            [`${prefixCls}-item-only-child`]: (icon ? childrenLength + 1 : childrenLength) === 1
+          },
+          className
+        )}
+        title={typeof title === 'string' ? title : undefined}>
+        {cloneElement(icon, {
+          className: classNames(isValidElement(icon) ? icon.props?.className : '', `${prefixCls}-item-icon`)
+        })}
+        {this.renderItemChildren(inlineCollapsed)}
+      </Item>
     )
   }
 

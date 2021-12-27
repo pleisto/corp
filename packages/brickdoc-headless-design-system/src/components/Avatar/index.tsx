@@ -15,6 +15,7 @@ export interface AvatarProps extends FocusableProps, FocusableDOMProps {
   src?: React.ReactNode | string
   className?: string
   style?: React.CSSProperties
+  children?: React.ReactNode
 }
 
 const AvatarWrapper = styled('span', {

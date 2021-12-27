@@ -1,8 +1,8 @@
 import { composeStories } from '@storybook/testing-react'
 import { a11yTest } from '../../../testHelper'
 import { FC } from 'react'
-import * as TooltipStories from '../tooltip.stories'
+import * as PopoverStories from '../popover.stories'
 
-const { Basic } = composeStories(TooltipStories)
+const { Basic } = composeStories(PopoverStories)
 
 it('Tooltip Should be passed a11y test', async () => await a11yTest(Basic as FC))

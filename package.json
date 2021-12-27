@@ -51,7 +51,7 @@
     "@rails/activestorage": "^7.0.0",
     "@sentry/react": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
-    "ahooks": "^3.0.8",
+    "ahooks": "^3.1.1",
     "dayjs": "^1.10.7",
     "graphql": "^16.2.0",
     "graphql-ruby-client": "^1.10.5",
@@ -64,7 +64,7 @@
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.2.2",
     "react-i18next": "^11.15.1",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.1.1"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "workspace:packages/eslint-plugin-brickdoc",
@@ -133,7 +133,7 @@
     "typescript": "^4.5.4",
     "vite": "^2.7.6",
     "vite-plugin-pwa": "^0.11.12",
-    "vite-plugin-ruby": "^3.0.4"
+    "vite-plugin-ruby": "^3.0.5"
   },
   "packageManager": "yarn@3.1.1",
   "resolutions": {

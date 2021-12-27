@@ -1,58 +1,36 @@
-import { FC, useRef } from 'react'
-import { OverlayTrigger, OverlayTriggerProps, TippyRefElement } from '../Tooltip/OverlayTrigger'
-import { theme, css, prefix, styled } from '../../themes'
-import { DismissButton } from '@react-aria/overlays'
-export interface PopoverProps extends Omit<OverlayTriggerProps, 'overlay'> {
+import { forwardRef, ForwardRefRenderFunction } from 'react'
+import { Tooltip } from '../Tooltip'
+import { AbstractTriggerProps, TriggerPlacement } from '../Tooltip/trigger'
+import { DismissButton } from '../DismissButton'
+import { getRenderPropValue } from '../../utilities'
+import { popoverStyle } from './styles/index.style'
+
+export interface PopoverProps extends AbstractTriggerProps {
   title?: React.ReactNode
-  content: React.ReactNode
+  content?: React.ReactNode
 }
 
-const popoverStyle = css({
-  include: ['refractionPrimary'],
-  display: 'inline-flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  wordBreak: 'break-word',
-  backgroundColor: theme.colors.white,
-  // borderColor could append to the color of the arrow
-  borderColor: theme.colors.white,
-  color: theme.colors.typePrimary,
-  textDecoration: 'none',
-  padding: '12px 20px',
-  minHeight: '3rem',
-  borderRadius: '2px',
-  minWidth: '10rem',
-  '& > [data-overlay-arrow]': {
-    [`--${prefix}-overlay-arrow-width`]: '8px'
-  }
-})
+const Popover: ForwardRefRenderFunction<unknown, PopoverProps> = (props, ref) => {
+  const { title, content, role = 'dialog', ...otherProps } = props
+  const prefixCls = props.prefixCls || popoverStyle()
 
-const PopoverTitle = styled('div', {
-  textAlign: 'left',
-  fontWeight: 500,
-  padding: '.5rem 0'
-})
-
-export const Popover: FC<PopoverProps> = props => {
-  const { title, content, trigger = 'click', children, role = 'dialog', overlayClassName, ...otherProps } = props
-  const ref = useRef<TippyRefElement>()
-  // DismissButton allow screen reader users to dismiss a popover when there is no visual affordance to do so
   const overlay = (
-    <div>
-      {title && <PopoverTitle>{title}</PopoverTitle>}
-      {content}
-      <DismissButton onDismiss={() => ref.current?._tippy.hide()} />
-    </div>
+    <>
+      {title && <div className={`${prefixCls}-title`}>{getRenderPropValue(title)}</div>}
+      <div>{getRenderPropValue(content)}</div>
+      <DismissButton />
+    </>
   )
-  return (
-    <OverlayTrigger
-      overlay={overlay}
-      overlayClassName={`${popoverStyle()} ${overlayClassName}`}
-      trigger={trigger}
-      role={role}
-      ref={ref}
-      {...otherProps}>
-      {children}
-    </OverlayTrigger>
-  )
+
+  return <Tooltip {...otherProps} ref={ref} overlay={overlay} prefixCls={prefixCls} role={role} />
 }
+
+const _Popover = forwardRef(Popover)
+_Popover.displayName = 'Popover'
+_Popover.defaultProps = {
+  placement: 'top' as TriggerPlacement,
+  trigger: 'click',
+  mouseEnterDelay: 0.1,
+  mouseLeaveDelay: 0.1
+}
+export { _Popover as Popover }

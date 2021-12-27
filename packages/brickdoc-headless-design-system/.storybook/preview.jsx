@@ -26,10 +26,6 @@ export const parameters = {
         value: 'var(--brd-colors-ceramicSecondary)'
       },
       {
-        name: 'Ceramic Thirdary',
-        value: 'var(--brd-colors-ceramicThirdary)'
-      },
-      {
         name: 'Ceramic Quaternary',
         value: 'var(--brd-colors-ceramicQuaternary)'
       },

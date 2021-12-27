@@ -1,29 +1,29 @@
-import { FC, useState } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Tooltip } from './index'
-import { Button, Switch } from '../'
-import { overlayArgTypes } from './overlay.docs'
+import { Button } from '../'
+import { triggerArgTypes } from './trigger.docs'
 export default {
   title: 'Components/Tooltip',
   component: Tooltip,
   args: {
+    arrowPointAtCenter: false,
+    autoAdjustOverflow: true,
+    defaultVisible: false,
+    destroyTooltipOnHide: false,
+    mouseEnterDelay: 0.1,
+    mouseLeaveDelay: 0.1,
     placement: 'top',
-    delay: 300,
-    trigger: 'mouseenter focus',
-    role: 'tooltip',
-    touch: ['hold', 1000],
-    interactiveBorder: 2,
-    hasArrow: true,
-    removeOnHide: true
+    trigger: ['hover', 'focus'],
+    visible: false
   },
   argTypes: {
-    ...overlayArgTypes,
     title: {
       description: '`ReactNode` The text shown in the tooltip',
       control: {
         type: 'text'
       }
-    }
+    },
+    ...triggerArgTypes
   },
   parameters: {
     docs: {
@@ -59,30 +59,3 @@ const Template: ComponentStory<typeof Tooltip> = args => (
 
 export const Basic = Template.bind({})
 Basic.args = { title: '42 is the meaning of life', children: <Button>What does 42 mean?</Button> }
-
-export const ControlledMode: FC = () => {
-  const [isVisible, setIsVisible] = useState(false)
-  return (
-    <div>
-      <Switch onChange={visible => setIsVisible(visible)}>Tooltip Visible</Switch>
-      <br />
-      <br />
-      <Tooltip title="It's work" isVisible={isVisible}>
-        <div
-          style={{
-            textAlign: 'center',
-            border: '1px solid #ccc',
-            paddingTop: '1rem'
-          }}
-          role="button"
-          tabIndex={0}>
-          <h4>This is children</h4>
-          <p>
-            If you are using a un-focusable element like there, ensure you add <code>tabindex="0"</code> so that it can
-            receive focus.
-          </p>
-        </div>
-      </Tooltip>
-    </div>
-  )
-}

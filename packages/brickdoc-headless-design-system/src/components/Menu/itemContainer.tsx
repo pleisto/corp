@@ -6,8 +6,8 @@ import { MenuItemProps } from './item'
 export interface ItemContainerProps {
   item: Node<React.ReactElement>
   state: TreeState<React.ReactElement>
-  onAction: MenuItemProps['onAction']
-  onClose: MenuItemProps['onClose']
+  onAction?: MenuItemProps['onAction']
+  onClose?: MenuItemProps['onClose']
 }
 
 export interface ItemContextProps extends ItemContainerProps {}

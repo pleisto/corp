@@ -162,8 +162,9 @@ export {
   Loading,
   globalCss,
   globalStyleSheet,
-  Provider,
-  Tree,
+  usePress,
+  // Provider,
+  Tree
 } from '@brickdoc/brickdoc-headless-design-system'
 
 export type { ButtonProps } from './button'
@@ -186,3 +187,6 @@ export { Popover } from './popover'
 
 export type { DropdownProps } from './dropdown'
 export { Dropdown } from './dropdown'
+
+export type { ConfigProviderProps } from './config-provider'
+export { default as ConfigProvider } from './config-provider'

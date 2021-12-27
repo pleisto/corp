@@ -1,25 +1,62 @@
 import { Dropdown } from './index'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Button, Menu } from '../'
-import { overlayArgTypes } from '../Tooltip/overlay.docs'
-import { omit } from 'lodash-es'
 export default {
   title: 'Components/Dropdown',
   component: Dropdown,
   args: {
-    placement: 'bottom-start',
+    placement: 'bottomStart',
     trigger: 'click',
-    interactiveBorder: 2,
-    removeOnHide: true
+    destroyPopupOnHide: 'false'
   },
   argTypes: {
-    title: {
-      description: '`ReactNode|undefined` The text shown in the popover'
+    disabled: {
+      description: 'Whether the dropdown menu is disabled	',
+      control: {
+        type: 'boolean'
+      }
     },
-    content: {
-      description: `\`ReactNode\` The content of the popover`
+    destroyPopupOnHide: {
+      description: `Whether destroy dropdown when hidden`,
+      control: {
+        type: 'boolean'
+      }
     },
-    ...omit(overlayArgTypes, ['role', 'hasArrow'])
+    getPopupContainer: {
+      description: '`() => HTMLElement` The DOM element that the tooltip is appended to'
+    },
+    overlay: {
+      description: '`ReactElement | ()=>ReactElement` The content of the overlay'
+    },
+    overlayClassName: {
+      description: '`string` The class name of the overlay'
+    },
+    overlayStyle: {
+      description: '`object` The style of the overlay'
+    },
+    placement: {
+      description: 'The position of the overlay',
+      control: {
+        type: 'select',
+        options: ['bottomStart', 'bottomCenter', 'bottomEnd', 'topStart', 'topCenter', 'topEnd']
+      }
+    },
+    trigger: {
+      description: 'The trigger type of the dropdown.  Could be multiple by passing an array',
+      control: {
+        type: 'radio',
+        options: ['hover', 'focus', 'click']
+      }
+    },
+    visible: {
+      description: '`boolean` Whether the overlay is visible',
+      control: {
+        type: 'boolean'
+      }
+    },
+    onVisibleChange: {
+      description: '`(visible: boolean) => void` Callback when the visibility of the overlay is changed'
+    }
   },
   parameters: {
     docs: {
@@ -66,3 +103,4 @@ Basic.args = {
   ),
   children: <Button>What does 42 mean?</Button>
 }
+

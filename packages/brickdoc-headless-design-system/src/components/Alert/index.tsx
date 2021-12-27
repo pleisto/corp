@@ -7,7 +7,7 @@ import * as AlertRoot from './style/index.style'
 export type Type = 'info' | 'error' | 'warning' | 'success'
 
 type AriaRoleProps = AriaAttributes & {
-  'aria-role'?: AriaRole
+  role?: AriaRole
 }
 
 export interface AlertProps {
@@ -48,11 +48,11 @@ export const Alert: FC<AlertProps> = props => {
   const ariaRoleProps: AriaRoleProps =
     type === 'info' || type === 'success'
       ? {
-          'aria-role': 'status',
+          role: 'status',
           'aria-live': 'polite'
         }
       : {
-          'aria-role': 'alert',
+          role: 'alert',
           'aria-live': 'assertive'
         }
 
@@ -61,7 +61,7 @@ export const Alert: FC<AlertProps> = props => {
   const actionDom = action ? <AlertRoot.ContentAction>{action}</AlertRoot.ContentAction> : null
 
   const closeDom = closeIcon ? (
-    <AlertRoot.ContentClose type="text" onPress={handleClose} aria-label="Dismiss Button">
+    <AlertRoot.ContentClose type="text" onClick={handleClose} aria-label="Dismiss Button">
       <Close />
     </AlertRoot.ContentClose>
   ) : null
