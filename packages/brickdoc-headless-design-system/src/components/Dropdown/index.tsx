@@ -1,7 +1,8 @@
 import { cloneElement, ReactElement, forwardRef, ForwardRefRenderFunction, Children, ReactNode } from 'react'
 import RcDropdown from 'rc-dropdown'
-import { useId, RenderFunction } from '../../utilities'
+import { RenderFunction } from '../../utilities'
 import { defaultPopupContainer } from '../Tooltip'
+import classNames from 'classnames'
 import { dropdownStyle } from './styles/index.style'
 /**
  * Use `start` and `end` instead of `top` and `bottom` to ensure
@@ -57,8 +58,6 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (props, ref) 
   const { prefixCls: customPrefixCls, children, trigger, disabled, getPopupContainer, overlayClassName } = props
   const prefixCls = customPrefixCls || dropdownStyle()
 
-  const triggerId = useId()
-
   const overlayRender = (): ReactElement => {
     /**
      * rc-dropdown already can process the function of overlay, but we have check logic here.
@@ -68,9 +67,7 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (props, ref) 
 
     let overlayNode = typeof overlay === 'function' ? (overlay as RenderFunction)() : overlay
     overlayNode = Children.only(typeof overlayNode === 'string' ? <span>{overlayNode}</span> : overlayNode)
-    return cloneElement(overlayNode as ReactElement, {
-      id: triggerId
-    })
+    return overlayNode as ReactElement
   }
 
   const getPlacement = (): string => {
@@ -92,11 +89,11 @@ const Dropdown: ForwardRefRenderFunction<unknown, DropdownProps> = (props, ref) 
       getPopupContainer={getPopupContainer || defaultPopupContainer}
       trigger={triggerActions}
       overlay={() => overlayRender()}
-      placement={getPlacement()}>
+      placement={getPlacement()}
+    >
       {cloneElement(child, {
-        className: `${prefixCls}-trigger`,
+        className: classNames(`${prefixCls}-trigger`, child?.props?.className),
         'aria-haspopup': 'menu',
-        'aria-controls': triggerId,
         disabled
       })}
     </RcDropdown>

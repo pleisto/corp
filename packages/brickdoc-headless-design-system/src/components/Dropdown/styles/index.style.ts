@@ -1,5 +1,5 @@
 import { theme, css } from '../../../themes'
-
+import { deprecatedMenuStyle } from './deprecatedMenu.style'
 export const dropdownStyle = css({
   position: 'absolute',
   top: '-9999px',
@@ -18,5 +18,6 @@ export const dropdownStyle = css({
     zIndex: -9999,
     opacity: 0.00001,
     content: ' '
-  }
+  },
+  ...deprecatedMenuStyle
 })

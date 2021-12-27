@@ -1,5 +1,4 @@
 export * from './colors'
-export * from './ref'
 export * from './hooks'
 export * from './renderFunction'
 export { mergeProps } from '@react-aria/utils'

@@ -85,7 +85,8 @@ const Template: ComponentStory<typeof Dropdown> = args => (
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
-    }}>
+    }}
+  >
     <Dropdown {...args} />
   </div>
 )
@@ -94,13 +95,12 @@ export const Basic = Template.bind({})
 Basic.args = {
   overlay: (
     <Menu>
-      <Menu.Item key="one" label="One" onAction={() => console.log(123)}>
+      <Menu.Item itemKey="one" label="One" onAction={() => console.log(123)}>
         Brickdoc
       </Menu.Item>
-      <Menu.Item key="two">Two</Menu.Item>
-      <Menu.Item key="three">Three</Menu.Item>
+      <Menu.Item itemKey="two">Two</Menu.Item>
+      <Menu.Item itemKey="three">Three</Menu.Item>
     </Menu>
   ),
   children: <Button>What does 42 mean?</Button>
 }
-

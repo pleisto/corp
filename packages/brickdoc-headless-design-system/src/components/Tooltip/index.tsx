@@ -96,14 +96,15 @@ const Tooltip: ForwardRefRenderFunction<unknown, TooltipProps> = (props, ref) =>
       visible={tempVisible}
       onVisibleChange={onVisibleChange}
       onPopupAlign={onPopupAlign}
-      arrowContent={<span className={`${prefixCls}-arrow-content`} aria-hidden />}>
+      arrowContent={<span className={`${prefixCls}-arrow-content`} aria-hidden />}
+    >
       {cloneElement(child, {
         /**
          *  A tooltip is not considered to be a popup in this context, as is not interactive.
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup
          */
         'aria-haspopup': role === 'tooltip' ? false : role,
-        'aria-controls': overlayId,
+        'aria-controls': tempVisible ? overlayId : undefined,
         ...(role === 'tooltip' ? { 'aria-describedby': overlayId } : {})
       })}
     </RcTooltip>

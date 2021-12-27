@@ -10,7 +10,6 @@ export interface MenuProps extends PressEvents {
   className?: string
   searchable?: boolean
   onAction?: MenuItemProps['onAction']
-  onClose?: MenuItemProps['onClose']
 }
 
 const MenuRoot = styled('ul', {
