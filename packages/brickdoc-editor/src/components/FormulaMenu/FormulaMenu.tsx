@@ -422,12 +422,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-divider" />
       <AutocompleteList
         blockId={rootId}
-        completions={latestCompletions}
+        completions={completions}
         handleSelectActiveCompletion={handleSelectActiveCompletion}
-        setActiveCompletion={latestSetActiveCompletion}
-        activeCompletionIndex={latestActiveCompletionIndex}
-        setActiveCompletionIndex={latestSetActiveCompletionIndex}
-        activeCompletion={latestActiveCompletion}
+        setActiveCompletion={setActiveCompletion}
+        activeCompletionIndex={activeCompletionIndex}
+        setActiveCompletionIndex={setActiveCompletionIndex}
+        activeCompletion={activeCompletion}
       />
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>

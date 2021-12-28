@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { MutableRefObject } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import { Icon } from '@brickdoc/design-system'
 import {
@@ -14,13 +14,13 @@ import './AutocompleteList.less'
 import { FormulaEditor } from '../../../extensions/formula/FormulaEditor/FormulaEditor'
 import { codeFragmentsToJSONContentTotal } from '../../../helpers/formula'
 export interface AutocompleteListProps {
-  completions: MutableRefObject<Completion[]>
+  completions: Completion[]
   blockId: string
   handleSelectActiveCompletion: () => void
-  setActiveCompletion: MutableRefObject<React.Dispatch<React.SetStateAction<Completion | undefined>>>
-  setActiveCompletionIndex: MutableRefObject<React.Dispatch<React.SetStateAction<number>>>
-  activeCompletionIndex: MutableRefObject<number>
-  activeCompletion: MutableRefObject<Completion | undefined>
+  setActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
+  setActiveCompletionIndex: React.Dispatch<React.SetStateAction<number>>
+  activeCompletionIndex: number
+  activeCompletion: Completion | undefined
 }
 
 const COMPLETION_STYLE_META: {
@@ -177,8 +177,8 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
   activeCompletion,
   handleSelectActiveCompletion
 }) => {
-  const preview = activeCompletion.current
-    ? COMPLETION_STYLE_META[activeCompletion.current.kind].render(activeCompletion.current, blockId)
+  const preview = activeCompletion
+    ? COMPLETION_STYLE_META[activeCompletion.kind].render(activeCompletion, blockId)
     : 'Empty!'
 
   const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
@@ -192,16 +192,14 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
         handleSelectActiveCompletion()
         break
       case 'ArrowDown':
-        newIndex =
-          activeCompletionIndex.current + 1 > completions.current.length - 1 ? 0 : activeCompletionIndex.current + 1
-        setActiveCompletion.current(completions.current[newIndex])
-        setActiveCompletionIndex.current(newIndex)
+        newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
+        setActiveCompletion(completions[newIndex])
+        setActiveCompletionIndex(newIndex)
         break
       case 'ArrowUp':
-        newIndex =
-          activeCompletionIndex.current - 1 < 0 ? completions.current.length - 1 : activeCompletionIndex.current - 1
-        setActiveCompletion.current(completions.current[newIndex])
-        setActiveCompletionIndex.current(newIndex)
+        newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
+        setActiveCompletion(completions[newIndex])
+        setActiveCompletionIndex(newIndex)
         break
     }
   }
@@ -209,21 +207,20 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
   return (
     <div className="formula-autocomplete">
       <div className="formula-autocomplete-list">
-        {completions.current.map((completion, index) => {
+        {completions.map((completion, index) => {
           const styleMeta = COMPLETION_STYLE_META[completion.kind]
           return (
             <div
               role="button"
               tabIndex={-1}
               onClick={() => {
-                console.log('click 选中', completion)
-                setActiveCompletion.current(completion)
-                setActiveCompletionIndex.current(index)
+                setActiveCompletion(completion)
+                setActiveCompletionIndex(index)
               }}
               key={completion.value}
               onKeyDown={onKeyDown}
               className={cx('autocomplete-list-item', {
-                active: completion.value === activeCompletion.current?.value
+                active: completion.value === activeCompletion?.value
               })}>
               {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, { className: 'autocomplete-list-item-icon' })}
               <div className="autocomplete-list-item-content">
