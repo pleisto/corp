@@ -89,7 +89,7 @@ export const parse = ({
   activeCompletion,
   position: pos
 }: ParseInput): ParseResult => {
-  let position = pos ?? 0
+  const position = pos ?? 0
   let level = 0
   let variableDependencies: VariableDependency[] = []
   let functionDependencies: Array<FunctionClause<any>> = []
@@ -241,21 +241,21 @@ export const parse = ({
   }
 
   // TODO support space
-  let lastSpace = false
+  // let lastSpace = false
   codeFragments.forEach(codeFragment => {
-    if (codeFragment.spaceBefore && !lastSpace) {
-      finalCodeFragments.push(spaceCodeFragment)
-    }
+    // if (codeFragment.spaceBefore && !lastSpace) {
+    //   finalCodeFragments.push(spaceCodeFragment)
+    // }
 
     finalCodeFragments.push(codeFragment)
 
-    if (codeFragment.spaceAfter) {
-      finalCodeFragments.push(spaceCodeFragment)
-      position += 1
-      lastSpace = true
-    } else {
-      lastSpace = false
-    }
+    // if (codeFragment.spaceAfter) {
+    //   finalCodeFragments.push(spaceCodeFragment)
+    //   position += 1
+    //   lastSpace = true
+    // } else {
+    //   lastSpace = false
+    // }
   })
 
   const spaceCount = input.length - input.trimEnd().length
