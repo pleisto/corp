@@ -1605,7 +1605,7 @@ Array [
     "level": 0,
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
-    "valid": true,
+    "valid": false,
     "variableDependencies": Array [],
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableValue": Object {
@@ -1614,7 +1614,7 @@ Array [
         "type": "number",
       },
       "result": Object {
-        "errorKind": "syntax",
+        "errorKind": "parse",
         "result": "Expecting: one of these possible Token sequences:
   1. [EqualCompareOperator]
   2. [CompareOperator]

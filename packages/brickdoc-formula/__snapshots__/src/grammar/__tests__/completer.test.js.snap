@@ -44,7 +44,7 @@ Array [
   3. [StringLiteral]
   4. [FunctionName]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": ".",
@@ -100,7 +100,7 @@ Array [
   3. [StringLiteral]
   4. [FunctionName]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": ".",
@@ -171,7 +171,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "arvar",
@@ -212,7 +212,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "arvar",
@@ -253,7 +253,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "var",

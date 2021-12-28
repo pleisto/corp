@@ -46,13 +46,16 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, block
   return result
 }
 
+export const textToJSONContent = (text: string): JSONContent => {
+  return { type: 'text', text }
+}
+
 export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
   return { type: 'text', text: attrs.display, marks: [{ type: 'FormulaType', attrs }] }
 }
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
   const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
-  // console.log({ content, input })
   return input
 }
 

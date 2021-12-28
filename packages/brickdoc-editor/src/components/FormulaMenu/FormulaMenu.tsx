@@ -27,7 +27,8 @@ import {
   codeFragmentsToJSONContentTotal,
   codeFragmentToJSONContentArray,
   contentArrayToInput,
-  fetchJSONContentArray
+  fetchJSONContentArray,
+  textToJSONContent
 } from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { useKeydownHandler } from './useKeyDownHandler'
@@ -157,12 +158,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const formulaValue = variable?.t.valid
     ? `=${variable.t.codeFragments.map(fragment => fragment.name).join('')}`
     : variable?.t.definition
-  const definition = formulaValue?.substring(1)
+  const definition = formulaValue?.substring(1) ?? ''
 
   const codeFragments = variable?.t.codeFragments
   const defaultContent = variable?.t.valid
     ? codeFragmentsToJSONContentTotal(codeFragments, rootId)
-    : { type: 'doc', content: [{ type: 'text', text: definition }] }
+    : buildJSONContentByArray([textToJSONContent(definition)])
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
@@ -355,7 +356,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
     } else if (parseResult.input !== input && parseResult.input !== '=') {
-      const content = { type: 'doc', content: [{ type: 'text', text: parseResult.input }] }
+      const content = buildJSONContentByArray([textToJSONContent(parseResult.input.substring(1))])
       console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
       setContent(content)
       setInput(parseResult.input)

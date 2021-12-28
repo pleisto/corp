@@ -62,6 +62,7 @@ export type VariableKind = 'constant' | 'expression'
 
 export type ErrorType =
   | 'type'
+  | 'parse'
   | 'syntax'
   | 'runtime'
   | 'fatal'

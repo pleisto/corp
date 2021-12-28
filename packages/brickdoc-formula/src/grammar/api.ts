@@ -205,7 +205,7 @@ export const parse = ({
   if (lexResult.errors.length > 0 || parseErrors.length > 0) {
     const errorMessages = (lexResult.errors.length ? lexResult.errors : parseErrors).map(e => ({
       message: e.message,
-      type: 'syntax'
+      type: 'parse'
     })) as [ErrorMessage, ...ErrorMessage[]]
 
     finalErrorMessages.push(...errorMessages)
@@ -266,7 +266,7 @@ export const parse = ({
   if (finalErrorMessages.length) {
     return {
       success: false,
-      valid: codeFragments.length > 0,
+      valid: finalErrorMessages[0].type !== 'parse' && codeFragments.length > 0,
       input: newInput,
       inputImage,
       parseImage: image,

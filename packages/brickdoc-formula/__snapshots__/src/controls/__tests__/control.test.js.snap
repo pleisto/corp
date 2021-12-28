@@ -2797,7 +2797,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "a",

@@ -341,7 +341,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token parenthesisExpression",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -373,7 +373,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token parenthesisExpression",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -409,7 +409,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "ABS",
@@ -446,7 +446,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "ABS",
@@ -513,7 +513,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "POWER",
@@ -578,7 +578,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "POWER",
@@ -925,7 +925,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": ";",
@@ -997,7 +997,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ''hello''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "'hello'",
@@ -1062,7 +1062,7 @@ Array [
   3. [Self]
   4. [Input]
 but found: '123'",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "\\"foo\\"",
@@ -1104,7 +1104,7 @@ but found: '123'",
   3. [Self]
   4. [Input]
 but found: '123'",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "123",
@@ -1196,7 +1196,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Not all input parsed: START_WITH",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "START_WITH(\\"123\\")",
@@ -1236,7 +1236,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: '中文'",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "中文",
@@ -1259,7 +1259,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "varvarabc",
@@ -1273,7 +1273,7 @@ Array [
     "errors": Array [
       Object {
         "message": "TODO mismatch token FunctionCall",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "中文var",
@@ -1365,7 +1365,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token recordExpression",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "{",
@@ -1379,7 +1379,7 @@ Array [
     "errors": Array [
       Object {
         "message": "TODO mismatch token recordExpression",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "1:\\"a\\"}",
@@ -1402,7 +1402,7 @@ Array [
       },
       Object {
         "message": "TODO mismatch token NumberLiteralExpression",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "-",
@@ -1455,7 +1455,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ']'",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "1",
@@ -1885,7 +1885,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Not all input parsed: lo",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "lo\\"",
@@ -2011,7 +2011,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ';'",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "Expecting: one of these possible Token sequences:
@@ -2036,7 +2036,7 @@ but found: ';'",
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": ";",
@@ -2130,7 +2130,7 @@ Array [
   19. [Sharp, UUID, Sharp, UUID]
   20. [Sharp, UUID]
 but found: ''",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": ";",
@@ -2371,7 +2371,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Not all input parsed: T",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "T()",
