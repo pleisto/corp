@@ -1,6 +1,5 @@
 import { Extension } from '@tiptap/core'
 import { isAnyListType } from '../brickList'
-import { ExtensionBaseOptions } from '../baseOptions'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -11,7 +10,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const IndentExtension = Extension.create<ExtensionBaseOptions>({
+export const IndentExtension = Extension.create({
   name: 'indent',
 
   addCommands() {
