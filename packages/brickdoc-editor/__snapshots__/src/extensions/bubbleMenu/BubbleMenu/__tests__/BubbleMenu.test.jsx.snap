@@ -12,7 +12,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
       class="bubble-menu-group"
     >
       <button
-        aria-describedby="react-aria5889824239-1"
+        aria-describedby="react-aria4391946717-1"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -41,7 +41,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-2"
+        aria-describedby="react-aria4391946717-2"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -70,7 +70,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-3"
+        aria-describedby="react-aria4391946717-3"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -99,7 +99,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-4"
+        aria-describedby="react-aria4391946717-4"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -130,7 +130,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-5"
+        aria-describedby="react-aria4391946717-5"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -165,7 +165,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
       class="bubble-menu-group"
     >
       <button
-        aria-describedby="react-aria5889824239-6"
+        aria-describedby="react-aria4391946717-6"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -190,7 +190,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-7"
+        aria-describedby="react-aria4391946717-7"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -215,7 +215,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-8"
+        aria-describedby="react-aria4391946717-8"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -244,7 +244,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-9"
+        aria-describedby="react-aria4391946717-9"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -325,7 +325,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
       class="bubble-menu-group"
     >
       <button
-        aria-describedby="react-aria5889824239-11"
+        aria-describedby="react-aria4391946717-11"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
@@ -350,7 +350,7 @@ exports[`BubbleMenu matches correct snapshot 1`] = `
         </span>
       </button>
       <button
-        aria-describedby="react-aria5889824239-12"
+        aria-describedby="react-aria4391946717-12"
         aria-haspopup="false"
         class="brd-c-cLOgmF brd-c-cLOgmF-eWWUXK-btnType-text brd-c-cLOgmF-lKjfQ-size-medium bubble-menu-item"
         role="menuitem"
