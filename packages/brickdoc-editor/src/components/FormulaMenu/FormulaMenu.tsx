@@ -21,7 +21,14 @@ import { Editor, JSONContent } from '@tiptap/core'
 import { FormulaBlockProps } from '../../extensions/formula/FormulaBlock'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
-import { codeFragmentsToJSONContentTotal, codeFragmentToJSONContentArray, contentToInput } from '../../helpers/formula'
+import {
+  attrsToJSONContent,
+  buildJSONContentByArray,
+  codeFragmentsToJSONContentTotal,
+  codeFragmentToJSONContentArray,
+  contentArrayToInput,
+  fetchJSONContentArray
+} from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { useKeydownHandler } from './useKeyDownHandler'
 
@@ -245,23 +252,28 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       return
     }
 
-    let oldContent = currentContent?.content ?? []
+    let oldContent = fetchJSONContentArray(currentContent)
+    let positionChange: number = currentCompletion.codeFragment.name.length
     const oldContentLast = oldContent[oldContent.length - 1]
-    // console.log('Before replace', { oldContentLast, currentCompletion })
-    if (oldContentLast && oldContentLast.type === 'codeFragmentBlock' && currentCompletion.replacements.length) {
-      const text = contentToInput(currentContent!)
+    const text = contentArrayToInput(oldContent)
+
+    // console.log('Before replace', { oldContentLast, text, currentContent, currentCompletion })
+    if (oldContentLast && currentCompletion.replacements.length) {
       // console.log('start replace', { oldContentLast, currentCompletion, currentContent, text })
-      if (!text || currentCompletion.replacements.includes(text)) {
+      if (!text) {
         oldContent = []
         // console.log('remove last one...', oldContent)
+      } else if (currentCompletion.replacements.includes(text)) {
+        positionChange -= text.length
+        oldContent = []
       } else {
         const replacement = currentCompletion.replacements.find(replacement => text.endsWith(replacement))
         if (!replacement) {
           console.info('replacement not found 1', { text, currentCompletion })
         } else {
+          positionChange = positionChange - text.length + replacement.length
           const newText = text.substring(0, text.length - replacement.length)
-          const oldCodeFragment = oldContentLast.attrs as CodeFragment
-          oldContent = codeFragmentToJSONContentArray({ ...oldCodeFragment, name: newText }, rootId)
+          oldContent = [attrsToJSONContent({ display: newText, value: newText, code: 'ANY', type: 'any', error: '' })]
         }
         // console.log('replace..', newText, oldContent)
       }
@@ -269,9 +281,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment, rootId)
     const newContent = [...oldContent, ...completionContents]
-    const finalContent = { type: 'doc', content: newContent }
-    const finalInput = `=${contentToInput(finalContent)}`
+    const finalContent = buildJSONContentByArray(newContent)
+    const finalInput = `=${contentArrayToInput(fetchJSONContentArray(finalContent))}`
     setContent(finalContent)
+    setPosition(position + positionChange)
     setInput(finalInput)
     console.log({ currentCompletion, content, label: 'selectCompletion', newContent, finalInput })
     void doCalculate({ newInput: finalInput })
@@ -288,7 +301,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   })
 
   const handleValueChange = (editor: Editor): void => {
-    const text = `=${contentToInput(editor.getJSON().content?.[0] ?? [])}`
+    const text = `=${contentArrayToInput(fetchJSONContentArray(editor.getJSON()))}`
     // console.log({ content, json: editor.getJSON(), editor, text, formulaContext, label: 'updateValue' })
     setInput(text)
     // setContent(editor.getJSON() as JSONContent)

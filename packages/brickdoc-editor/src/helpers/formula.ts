@@ -1,6 +1,14 @@
 import { CodeFragment, FormulaCodeFragmentAttrs } from '@brickdoc/formula'
 import { JSONContent } from '@tiptap/core'
 
+export const buildJSONContentByArray = (content: JSONContent[]): JSONContent => {
+  return { type: 'doc', content: [{ type: 'paragraph', content }] }
+}
+
+export const fetchJSONContentArray = (content: JSONContent | undefined): JSONContent[] => {
+  return content?.content?.[0]?.content ?? []
+}
+
 export const codeFragmentsToJSONContentTotal = (
   codeFragments: CodeFragment[] | undefined,
   blockId: string
@@ -14,8 +22,7 @@ export const codeFragmentsToJSONContentTotal = (
     content.push(...codeFragmentToJSONContentArray(codeFragment, blockId))
   })
 
-  const jsonContent = { type: 'doc', content: [{ type: 'paragraph', content }] }
-  return jsonContent
+  return buildJSONContentByArray(content)
 }
 
 export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, blockId: string): JSONContent[] => {
@@ -39,12 +46,12 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, block
   return result
 }
 
-const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
+export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
   return { type: 'text', text: attrs.display, marks: [{ type: 'FormulaType', attrs }] }
 }
 
-export const contentToInput = (content: JSONContent): string => {
-  const input = content.content?.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+export const contentArrayToInput = (content: JSONContent[]): string => {
+  const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
   // console.log({ content, input })
   return input
 }
