@@ -1,11 +1,12 @@
 import { Extension } from '@tiptap/core'
-import { isListType } from '../brickList'
+import { isAnyListType } from '../brickList'
 import { ExtensionBaseOptions } from '../baseOptions'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     indent: {
       indent: () => ReturnType
+      deindent: () => ReturnType
     }
   }
 }
@@ -18,23 +19,42 @@ export const IndentExtension = Extension.create<ExtensionBaseOptions>({
       indent:
         () =>
         ({ editor, tr, state, dispatch }) => {
-          const isList = isListType('bulletList')(editor) || isListType('orderedList')(editor)
-          if (isList) {
+          if (isAnyListType(editor)) {
             return false
           }
-          tr.insertText('\t')
-          if (tr.docChanged) {
-            // eslint-disable-next-line no-unused-expressions
-            dispatch?.(tr)?.scrollIntoView()
-            return true
+          const lineText = state.doc.textBetween(state.selection.$from.before(), state.selection.$from.pos)
+          if (lineText.match(/^[\t]*$/)) {
+            tr.insertText('\t')
+            if (tr.docChanged) {
+              // eslint-disable-next-line no-unused-expressions
+              dispatch?.(tr)?.scrollIntoView()
+            }
           }
-          return false
+          return true
+        },
+      deindent:
+        () =>
+        ({ editor, tr, state, dispatch }) => {
+          if (isAnyListType(editor)) {
+            return false
+          }
+          const { selection } = state
+          const lineText = state.doc.textBetween(selection.$from.before(), selection.$from.pos)
+          if (lineText.match(/^[\t]*$/)) {
+            tr.delete(selection.from - 1, selection.from)
+            if (tr.docChanged) {
+              // eslint-disable-next-line no-unused-expressions
+              dispatch?.(tr)?.scrollIntoView()
+            }
+          }
+          return true
         }
     }
   },
   addKeyboardShortcuts() {
     return {
-      Tab: () => this.editor.commands.indent()
+      Tab: () => this.editor.commands.indent(),
+      'Shift-Tab': () => this.editor.commands.deindent()
     }
   }
 })
