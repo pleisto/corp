@@ -161,7 +161,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const [name, setName] = React.useState(variable?.t.name)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
-  const [input, setInput] = React.useState(definition)
+  const [input, setInput] = React.useState(formulaValue)
 
   const [error, setError] = React.useState<ErrorMessage | undefined>()
   const [visible, setVisible] = React.useState(defaultVisible)
@@ -217,7 +217,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       setName(variable?.t.name)
       setDefaultName(contextDefaultName)
       setCompletions(contextCompletions)
-      setInput(definition)
+      setInput(formulaValue)
       setActiveCompletion(completions[0])
       setActiveCompletionIndex(0)
       setError(undefined)
@@ -307,7 +307,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     }
 
     const finalName = newName ?? name ?? defaultName
-    const finalInput = newInput ?? `=${input}`
+    const finalInput = newInput ?? input ?? ''
 
     if (finalInput.trim() === '=') {
       return
@@ -340,7 +340,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
-      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
+      setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
     } else if (parseResult.input !== input && parseResult.input !== '=') {
       const content = { type: 'doc', content: [{ type: 'text', text: parseResult.input }] }
       console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
@@ -365,7 +365,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const finalName = name ?? defaultName
 
     variable.t.name = finalName
-    variable.t.definition = `=${input}`
+    variable.t.definition = input
 
     if (updateFormula) {
       updateFormula(variable.t.variableId)
