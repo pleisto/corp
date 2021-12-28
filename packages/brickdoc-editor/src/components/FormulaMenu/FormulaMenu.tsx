@@ -291,7 +291,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const text = `=${contentToInput(editor.getJSON().content?.[0] ?? [])}`
     // console.log({ content, json: editor.getJSON(), editor, text, formulaContext, label: 'updateValue' })
     setInput(text)
-    setContent(editor.getJSON() as JSONContent)
+    // setContent(editor.getJSON() as JSONContent)
     void doCalculate({ newInput: text })
   }
 

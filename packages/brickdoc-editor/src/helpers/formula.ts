@@ -44,8 +44,44 @@ const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
 }
 
 export const contentToInput = (content: JSONContent): string => {
-  // const input = content.content?.map((c: JSONContent) => c.marks?.[0]?.attrs?.value || c.text || '').join('') ?? ''
-  return (
-    content.content?.map((c: JSONContent) => (c.type === 'text' ? c.text : c.content?.[0].text ?? '')).join('') ?? ''
-  )
+  const input = content.content?.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+  // console.log({ content, input })
+  return input
+}
+
+export const JSONContentToText = (c: JSONContent): string => {
+  if (c.type !== 'text') {
+    console.error('JSONContentToText: not text', c)
+    return ''
+  }
+
+  const text = c.text ?? ''
+
+  if (!c.marks) {
+    return text
+  }
+
+  const mark = c.marks[0]
+
+  if (!mark) {
+    return text
+  }
+
+  if (mark.type !== 'FormulaType') {
+    console.error('JSONContentToText: not FormulaType', c)
+    return text
+  }
+
+  const attrs: FormulaCodeFragmentAttrs | undefined = mark.attrs as FormulaCodeFragmentAttrs
+
+  if (!attrs) {
+    console.error('JSONContentToText: no attrs', c)
+    return text
+  }
+
+  if (attrs.display !== text) {
+    return text
+  }
+
+  return attrs.value
 }
