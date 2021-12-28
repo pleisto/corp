@@ -63,8 +63,9 @@ export const brickListExtension = Extension.create<brickListOptions>({
               return true
             } else if (lineText.length === 0) {
               if (parentListItem) {
-                return originalLiftListItem(itemType)(state, dispatch)
+                originalLiftListItem(itemType)(state, dispatch)
               }
+              return originalJoinBackward(state, dispatch)
             }
           } else {
             const prevPos = selection.$from.before() - 1
