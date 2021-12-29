@@ -75,7 +75,7 @@
     "@graphql-codegen/typescript": "^2.4.1",
     "@graphql-codegen/typescript-operations": "^2.2.1",
     "@graphql-codegen/typescript-react-apollo": "^3.2.2",
-    "@swc/core": "^1.2.123",
+    "@swc/core": "^1.2.124",
     "@swc/jest": "^0.2.15",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.1",
