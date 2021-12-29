@@ -40,15 +40,16 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, block
     const attrs = codeFragment.render(blockId)
     attrs.forEach(a => result.push(attrsToJSONContent(a)))
   } else {
-    result.push(
-      attrsToJSONContent({
-        display: codeFragment.name,
-        value: codeFragment.name,
-        code: codeFragment.code,
-        type: codeFragment.type,
-        error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
-      })
-    )
+    const attr = attrsToJSONContent({
+      display: codeFragment.name,
+      value: codeFragment.name,
+      code: codeFragment.code,
+      type: codeFragment.type,
+      error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
+    })
+    if (codeFragment.name) {
+      result.push(attr)
+    }
   }
 
   return result

@@ -224,7 +224,13 @@ export const parse = ({
         })
       }
     } else {
-      console.error({ ParseErrorTODO: { input, newInput, inputImages: inputImage, image } })
+      console.error('ParseErrorTODO', {
+        input,
+        codeFragments,
+        newInput,
+        inputImagesWithoutSpace: inputImage,
+        codeFragmentImage: image
+      })
     }
   }
 

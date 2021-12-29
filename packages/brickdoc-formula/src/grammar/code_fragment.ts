@@ -825,7 +825,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const images: string[] = []
     const codeFragments: CodeFragment[] = []
 
-    images.push('{')
+    images.push(ctx.LBrace[0].image)
     const rBraceErrorMessages: ErrorMessage[] = ctx.RBrace
       ? []
       : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
@@ -876,7 +876,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     if (ctx.RBrace) {
       codeFragments.push(token2fragment(ctx.RBrace[0], 'any'))
-      images.push('}')
+      images.push(ctx.RBrace[0].image)
     }
 
     const { errorMessages, newType } = intersectType(type, parentType, 'recordExpression')
@@ -1317,7 +1317,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           ? [{ message: 'Miss argument', type: 'deps' }]
           : []
 
-      images.push('(', image, ctx.RParen ? ')' : '')
+      images.push(ctx.LParen[0].image, image, ctx.RParen ? ctx.RParen[0].image : '')
 
       const { errorMessages, newType } = intersectType(type, clause.returns, 'FunctionCall')
       return {
@@ -1338,7 +1338,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
         ? (this.visit(ctx.Arguments, null) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
-      images.push('(', image, ctx.RParen ? ')' : '')
+      images.push(ctx.LParen[0].image, image, ctx.RParen ? ctx.RParen[0].image : '')
 
       return {
         codeFragments: [
