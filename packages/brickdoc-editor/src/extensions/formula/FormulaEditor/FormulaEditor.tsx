@@ -1,5 +1,4 @@
 import React, { MutableRefObject, useEffect } from 'react'
-import { Editor } from '@tiptap/core'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -7,13 +6,14 @@ import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
 import { HandleKeyDownExtension, KeyDownHandlerType } from './extensions/handleKeyDown'
 import './FormulaEditor.less'
 import { FormulaTypeExtension } from './extensions/formulaType'
+import { contentArrayToInput, fetchJSONContentArray } from '../../../helpers'
 
 export interface FormulaEditorProps {
   content: JSONContent | undefined
   editable: boolean
   position?: MutableRefObject<number>
   updatePosition?: MutableRefObject<React.Dispatch<React.SetStateAction<number>>>
-  updateContent?: (editor: Editor) => void
+  updateContent?: (text: string) => void
   keyDownHandler?: KeyDownHandlerType
 }
 
@@ -38,12 +38,11 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
       HandleKeyDownExtension(keyDownHandler)
     ],
     onUpdate: ({ editor, transaction }) => {
-      if (transaction.selection.from === transaction.selection.to) {
-        const position = transaction.selection.from - 1
-
+      const jsonContent = editor.getJSON()
+      const text = `=${contentArrayToInput(fetchJSONContentArray(jsonContent))}`
+      const position = transaction.selection.from - 1
+      if (transaction.selection.from === transaction.selection.to && position >= 1) {
         updatePosition?.current(position)
-
-        if (position < 1) return
         const blocks: JSONContent[] = editor.getJSON().content?.[0].content ?? []
         let length = 0
 
@@ -67,7 +66,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
         }
       }
 
-      updateContent?.(editor)
+      updateContent?.(text)
     }
   })
 

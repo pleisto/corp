@@ -301,10 +301,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setActiveCompletionIndex: latestSetActiveCompletionIndex
   })
 
-  const handleValueChange = (editor: Editor): void => {
-    const jsonContent = editor.getJSON()
-    const text = `=${contentArrayToInput(fetchJSONContentArray(jsonContent))}`
-    console.log({ content, jsonContent, text })
+  const handleValueChange = (text: string): void => {
     setInput(text)
     // setContent(editor.getJSON() as JSONContent)
     void doCalculate({ newInput: text })
@@ -323,10 +320,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const finalName = newName ?? name ?? defaultName
     const finalInput = newInput ?? input ?? ''
-
-    if (finalInput.trim() === '=') {
-      return
-    }
+    // const inputIsEmpty = finalInput.trim() === '='
 
     const result = await calculate({
       namespaceId: rootId,
