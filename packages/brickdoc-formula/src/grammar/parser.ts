@@ -1,4 +1,4 @@
-import { CstParser, defaultParserErrorProvider, IParserErrorMessageProvider } from 'chevrotain'
+import { CstParser, IParserErrorMessageProvider } from 'chevrotain'
 import { allTokens } from '.'
 import { ContextInterface } from '..'
 import {

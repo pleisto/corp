@@ -302,8 +302,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   })
 
   const handleValueChange = (editor: Editor): void => {
-    const text = `=${contentArrayToInput(fetchJSONContentArray(editor.getJSON()))}`
-    // console.log({ content, json: editor.getJSON(), editor, text, formulaContext, label: 'updateValue' })
+    const jsonContent = editor.getJSON()
+    const text = `=${contentArrayToInput(fetchJSONContentArray(jsonContent))}`
+    console.log({ content, jsonContent, text })
     setInput(text)
     // setContent(editor.getJSON() as JSONContent)
     void doCalculate({ newInput: text })
@@ -327,16 +328,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       return
     }
 
-    // console.log({
-    //   finalName,
-    //   newName,
-    //   newInput,
-    //   input,
-    //   finalInput,
-    //   activeCompletion,
-    //   latestActiveCompletion: latestActiveCompletion.current
-    // })
-
     const result = await calculate({
       namespaceId: rootId,
       activeCompletion: latestActiveCompletion.current,
@@ -347,6 +338,17 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       formulaContext
     })
 
+    console.log('calculate result', {
+      finalName,
+      newName,
+      newInput,
+      input,
+      finalInput,
+      activeCompletion,
+      result,
+      latestActiveCompletion: latestActiveCompletion.current
+    })
+
     if (!result) return
 
     const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
@@ -355,11 +357,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
-      // } else if (parseResult.input !== input && parseResult.input !== '=') {
-      // const content = buildJSONContentByDefinition(parseResult.input.substring(1))
-      // console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
-      // setContent(content)
-      // setInput(parseResult.input)
+    } else if (parseResult.input !== input && parseResult.input !== '=') {
+      const content = buildJSONContentByDefinition(parseResult.input.substring(1))
+      console.log('ReplaceInput', { content, newInput: parseResult.input, input, parseResult })
+      setContent(content)
+      setInput(parseResult.input)
     }
 
     updateVariable?.(newVariable)

@@ -1195,7 +1195,16 @@ exports[`Simple test case [TODO missing suffix expression] =1+ // => ✗ 1`] = `
 Array [
   Object {
     "code": "NumberLiteral",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Missing right expression",
+        "type": "syntax",
+      },
+      Object {
+        "message": "Parse error: \\"\\"",
+        "type": "parse",
+      },
+    ],
     "name": "1",
     "render": undefined,
     "spaceAfter": false,
@@ -1204,7 +1213,12 @@ Array [
   },
   Object {
     "code": "Plus",
-    "errors": Array [],
+    "errors": Array [
+      Object {
+        "message": "Missing right expression",
+        "type": "syntax",
+      },
+    ],
     "name": "+",
     "render": undefined,
     "spaceAfter": true,
