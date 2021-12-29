@@ -72,8 +72,8 @@ export { default as Layout } from './layout'
 export type { ListProps } from './list'
 export { default as List } from './list'
 
-export type { ArgsProps as MessageArgsProps } from './message'
-export { default as message } from './message'
+// export type { ArgsProps as MessageArgsProps } from './message'
+// export { default as message } from './message'
 
 export type {
   MenuProps as DeprecatedMenuProps,
@@ -89,7 +89,7 @@ export { Menu } from './menu'
 export type { ModalProps, ModalFuncProps } from './modal'
 export { default as Modal } from './modal'
 
-export { default as notification } from './notification'
+// export { default as notification } from './notification'
 
 /*
 export type { PaginationProps } from './pagination'
@@ -163,7 +163,8 @@ export {
   globalCss,
   globalStyleSheet,
   usePress,
-  // Provider,
+  Provider,
+  toast,
   Tree
 } from '@brickdoc/brickdoc-headless-design-system'
 
