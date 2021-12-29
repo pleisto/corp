@@ -3,6 +3,7 @@ import { Icon, styled, theme } from '@brickdoc/design-system'
 import { isEmpty } from 'lodash'
 import { TocNode } from './tocTree'
 import { EditorContext } from '../../context/EditorContext'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 export interface TocNodePanelProps {
   tocNode: TocNode
@@ -157,13 +158,23 @@ export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
   }, [editor, tocNode.item.nodeSize, tocNode.item.position])
 
   return (
-    <TocStyledItem>
-      <TocItemTitle level={tocNode.item.level} onClick={onItemClick}>
-        {tocNode.children.length > 0 && <ToggleIcon collapse={collapse} onClick={toggleCollapse} />}
+    <TocStyledItem role="menuitem" data-testid={TEST_ID_ENUM.editor.tocBlock.item.id}>
+      <TocItemTitle
+        level={tocNode.item.level}
+        onClick={onItemClick}
+        data-testid={TEST_ID_ENUM.editor.tocBlock.item.title.id}
+      >
+        {tocNode.children.length > 0 && (
+          <ToggleIcon
+            data-testid={TEST_ID_ENUM.editor.tocBlock.item.toggleIcon.id}
+            collapse={collapse}
+            onClick={toggleCollapse}
+          />
+        )}
         {/* TODO: handle inline block case */}
         {isEmpty(tocNode.item.text) ? t('toc.untitled') : tocNode.item.text}
       </TocItemTitle>
-      <TocItemContent ref={contentRef}>
+      <TocItemContent data-testid={TEST_ID_ENUM.editor.tocBlock.item.contentPanel.id} ref={contentRef}>
         {tocNode.children.map((node, index) => (
           <TocNodePanel key={index} tocNode={node} />
         ))}
