@@ -24,11 +24,11 @@ import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEdi
 import {
   attrsToJSONContent,
   buildJSONContentByArray,
+  buildJSONContentByDefinition,
   codeFragmentsToJSONContentTotal,
   codeFragmentToJSONContentArray,
   contentArrayToInput,
-  fetchJSONContentArray,
-  textToJSONContent
+  fetchJSONContentArray
 } from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { useKeydownHandler } from './useKeyDownHandler'
@@ -163,7 +163,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const codeFragments = variable?.t.codeFragments
   const defaultContent = variable?.t.valid
     ? codeFragmentsToJSONContentTotal(codeFragments, rootId)
-    : buildJSONContentByArray([textToJSONContent(definition)])
+    : buildJSONContentByDefinition(definition)
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
@@ -355,11 +355,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
-    } else if (parseResult.input !== input && parseResult.input !== '=') {
-      const content = buildJSONContentByArray([textToJSONContent(parseResult.input.substring(1))])
-      console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
-      setContent(content)
-      setInput(parseResult.input)
+      // } else if (parseResult.input !== input && parseResult.input !== '=') {
+      // const content = buildJSONContentByDefinition(parseResult.input.substring(1))
+      // console.log({ content, newInput: parseResult.input, input, parseResult, label: 'ReplaceInput' })
+      // setContent(content)
+      // setInput(parseResult.input)
     }
 
     updateVariable?.(newVariable)
@@ -468,7 +468,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {children}
     </Popover>
   )

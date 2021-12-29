@@ -1,6 +1,14 @@
 import { CodeFragment, FormulaCodeFragmentAttrs } from '@brickdoc/formula'
 import { JSONContent } from '@tiptap/core'
 
+export const buildJSONContentByDefinition = (definition: string | undefined): JSONContent | undefined => {
+  if (!definition) {
+    return undefined
+  }
+
+  return buildJSONContentByArray([{ type: 'text', text: definition }])
+}
+
 export const buildJSONContentByArray = (content: JSONContent[]): JSONContent => {
   return { type: 'doc', content: [{ type: 'paragraph', content }] }
 }
@@ -44,10 +52,6 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, block
   }
 
   return result
-}
-
-export const textToJSONContent = (text: string): JSONContent => {
-  return { type: 'text', text }
 }
 
 export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {

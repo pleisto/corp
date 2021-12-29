@@ -526,6 +526,7 @@ export interface VariableMetadata {
 export interface VariableInterface {
   t: VariableData
   buildFormula: () => Formula
+  isDraft: () => boolean
   namespaceName: () => string
   reparse: VoidFunction
   meta: () => VariableMetadata

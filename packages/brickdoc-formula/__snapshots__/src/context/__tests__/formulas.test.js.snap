@@ -1615,28 +1615,7 @@ Array [
       },
       "result": Object {
         "errorKind": "parse",
-        "result": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''",
+        "result": "Parse error: \\"\\"",
         "type": "Error",
       },
       "success": false,

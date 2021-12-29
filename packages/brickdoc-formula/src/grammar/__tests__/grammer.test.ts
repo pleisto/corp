@@ -307,7 +307,7 @@ const testCases: TestCase[] = [
   {
     input: '={a: }',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences'
+    errorMessage: 'Parse error:'
   },
   {
     input: '={a: 1',
@@ -323,7 +323,7 @@ const testCases: TestCase[] = [
   {
     input: '={"foo":}',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences'
+    errorMessage: 'Parse error:'
   },
   {
     input: '={"fo o": 123}',
@@ -404,7 +404,7 @@ const testCases: TestCase[] = [
     input: "= 'hello'",
     label: 'Single quote => parseError',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences'
+    errorMessage: 'Parse error:'
   },
   // **
   {
@@ -525,7 +525,7 @@ const testCases: TestCase[] = [
     input: '=1+',
     parseErrorType: 'syntax',
     label: 'TODO missing suffix expression',
-    errorMessage: 'Expecting: one of these possible Token sequences:'
+    errorMessage: 'Parse error:'
   },
   {
     input: '=(1',
@@ -566,7 +566,7 @@ const testCases: TestCase[] = [
   {
     input: '= 1+$',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences:'
+    errorMessage: 'Parse error:'
   },
   {
     input: '= 1;',
@@ -592,7 +592,7 @@ const testCases: TestCase[] = [
   {
     input: '=1**2',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences:'
+    errorMessage: 'Parse error:'
   },
   // Function Call
   {
@@ -849,14 +849,14 @@ const testCases: TestCase[] = [
     input: '=;123',
     label: 'multiline error 3',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences'
+    errorMessage: 'Parse error:'
   },
   // TODO List
   {
     input: '= 中文',
     label: 'TODO chinese',
     parseErrorType: 'syntax',
-    errorMessage: 'Expecting: one of these possible Token sequences'
+    errorMessage: 'Parse error:'
   },
   {
     input: '=varvarabc中文var',

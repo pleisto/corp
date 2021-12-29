@@ -491,28 +491,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
@@ -903,28 +882,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
@@ -975,28 +933,7 @@ Array [
     "code": "other",
     "errors": Array [
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''hello''",
+        "message": "Parse error: \\"'hello'\\"",
         "type": "parse",
       },
     ],
@@ -1056,12 +993,7 @@ Array [
         "type": "type",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [Sharp]
-  2. [LambdaArgumentNumber]
-  3. [Self]
-  4. [Input]
-but found: '123'",
+        "message": "Parse error: \\"123\\"",
         "type": "parse",
       },
     ],
@@ -1098,12 +1030,7 @@ but found: '123'",
     "code": "other",
     "errors": Array [
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [Sharp]
-  2. [LambdaArgumentNumber]
-  3. [Self]
-  4. [Input]
-but found: '123'",
+        "message": "Parse error: \\"123\\"",
         "type": "parse",
       },
     ],
@@ -1214,28 +1141,7 @@ Array [
     "code": "other",
     "errors": Array [
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: '中文'",
+        "message": "Parse error: \\"中文\\"",
         "type": "parse",
       },
     ],
@@ -1433,28 +1339,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ']'",
+        "message": "Parse error: \\"]\\"",
         "type": "parse",
       },
     ],
@@ -1989,53 +1874,11 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ';'",
+        "message": "Parse error: \\";\\"",
         "type": "parse",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
@@ -2108,28 +1951,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [EqualCompareOperator]
-  2. [CompareOperator]
-  3. [Sharp, UUID, Sharp, UUID, EqualCompareOperator]
-  4. [Sharp, UUID, Sharp, UUID, CompareOperator]
-  5. [Ampersand]
-  6. [LParen]
-  7. [LBracket]
-  8. [LBrace]
-  9. [Minus]
-  10. [NumberLiteral]
-  11. [BooleanLiteral]
-  12. [StringLiteral]
-  13. [NullLiteral]
-  14. [LambdaArgumentNumber]
-  15. [Self]
-  16. [Input]
-  17. [FunctionName]
-  18. [Sharp, UUID, At]
-  19. [Sharp, UUID, Sharp, UUID]
-  20. [Sharp, UUID]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],

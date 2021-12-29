@@ -51,8 +51,10 @@ const errorProvider: IParserErrorMessageProvider = {
   },
 
   buildNoViableAltMessage(options) {
+    return `Parse error: ${JSON.stringify(options.actual[0].image)}`
+    // console.log(options)
     // defer to the default implementation for `buildNoViableAltMessage`
-    return defaultParserErrorProvider.buildNoViableAltMessage(options)
+    // return defaultParserErrorProvider.buildNoViableAltMessage(options)
   },
 
   buildEarlyExitMessage(options) {

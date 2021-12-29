@@ -38,12 +38,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [FunctionName, DoubleColon]
-  2. [FunctionName, LParen]
-  3. [StringLiteral]
-  4. [FunctionName]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
@@ -94,12 +89,7 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "Expecting: one of these possible Token sequences:
-  1. [FunctionName, DoubleColon]
-  2. [FunctionName, LParen]
-  3. [StringLiteral]
-  4. [FunctionName]
-but found: ''",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
