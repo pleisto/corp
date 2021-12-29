@@ -93,9 +93,17 @@ export const JSONContentToText = (c: JSONContent): string => {
     return text
   }
 
-  if (attrs.display !== text) {
-    return text
+  if (attrs.display === text) {
+    return attrs.value
   }
 
-  return attrs.value
+  if (text.startsWith(attrs.display)) {
+    return `${attrs.value}${text.slice(attrs.display.length)}`
+  }
+
+  if (text.endsWith(attrs.display)) {
+    return `${text.slice(0, -attrs.display.length)}${attrs.value}`
+  }
+
+  return text
 }

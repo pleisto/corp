@@ -357,11 +357,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
-    } else if (parseResult.input !== input && parseResult.input !== '=') {
-      const content = buildJSONContentByDefinition(parseResult.input.substring(1))
-      console.log('ReplaceInput', { content, newInput: parseResult.input, input, parseResult })
-      setContent(content)
-      setInput(parseResult.input)
+      // } else if (parseResult.input !== input && parseResult.input !== '=') {
+      //   const content = buildJSONContentByDefinition(parseResult.input.substring(1))
+      //   console.log('ReplaceInput', { content, newInput: parseResult.input, input, parseResult })
+      //   setContent(content)
+      //   setInput(parseResult.input)
     }
 
     updateVariable?.(newVariable)
