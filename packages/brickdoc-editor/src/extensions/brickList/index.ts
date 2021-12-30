@@ -26,7 +26,8 @@ export const isListType = (nameOrType: string | NodeType) => (editor: Editor) =>
   return parentList ? parentList.node.type === itemType : false
 }
 
-export const isAnyListType = (editor: Editor) => isListType('bulletList')(editor) || isListType('orderedList')(editor)
+export const isAnyListType = (editor: Editor): boolean =>
+  isListType('bulletList')(editor) || isListType('orderedList')(editor)
 
 export const brickListExtension = Extension.create<brickListOptions>({
   name: 'brickList',
