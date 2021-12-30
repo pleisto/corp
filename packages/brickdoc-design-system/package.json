@@ -24,10 +24,10 @@
     "rc-checkbox": "^2.3.2",
     "rc-dialog": "^8.6.0",
     "rc-field-form": "^1.22.0",
-    "rc-menu": "^9.0.14",
+    "rc-menu": "^9.1.1",
     "rc-motion": "^2.4.4",
-    "rc-picker": "^2.5.19",
-    "rc-select": "^13.2.1",
+    "rc-picker": "^2.6.0",
+    "rc-select": "^14.0.0-alpha.18",
     "rc-textarea": "^0.3.7",
     "rc-util": "^5.16.1",
     "scroll-into-view-if-needed": "^2.2.28"
