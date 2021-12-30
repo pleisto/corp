@@ -337,7 +337,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "TODO mismatch token parenthesisExpression",
@@ -369,7 +369,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "TODO mismatch token parenthesisExpression",
@@ -401,7 +401,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "Miss argument",
@@ -423,7 +423,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -442,7 +442,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
@@ -460,7 +460,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -488,7 +488,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "Parse error: \\"\\"",
@@ -506,7 +506,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -553,7 +553,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "TODO mismatch token FunctionCall",
@@ -571,7 +571,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
     ],
     "name": "(",
@@ -1281,7 +1281,7 @@ Array [
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
-        "type": "syntax",
+        "type": "parse",
       },
       Object {
         "message": "TODO mismatch token recordExpression",
