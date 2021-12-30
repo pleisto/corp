@@ -39,7 +39,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       onOk: async () => {
         if (!variable || !getPos || !node) return
         const position = getPos()
-        void (await formulaContext?.removeVariable(variable.t.namespaceId, variable.t.variableId))
+        await variable.destroy()
+        // void (await formulaContext?.removeVariable(variable.t.namespaceId, variable.t.variableId))
         editor.commands.deleteRange({ from: position, to: position + node.nodeSize })
       }
     })
@@ -227,12 +228,9 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   return (
     <BlockContainer inline={true}>
       <FormulaMenu
-        node={node}
-        getPos={getPos}
         defaultVisible={node.attrs.isNew}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         handleDelete={handleDelete}
-        editor={editor}
         updateFormula={updateFormula}
         variable={variable}
         updateVariable={setVariable}>

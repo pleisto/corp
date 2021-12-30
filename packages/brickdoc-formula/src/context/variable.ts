@@ -207,6 +207,14 @@ export class VariableClass implements VariableInterface {
     }
   }
 
+  public destroy = async (): Promise<void> => {
+    await this.formulaContext.removeVariable(this.t.namespaceId, this.t.variableId)
+  }
+
+  public save = async (): Promise<void> => {
+    await this.formulaContext.commitVariable({ variable: this })
+  }
+
   public buildFormula = (): Formula => {
     return {
       blockId: this.t.namespaceId,
