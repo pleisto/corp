@@ -2,7 +2,6 @@ import { Editor, Extension, findParentNode, getNodeType, isList } from '@tiptap/
 import { joinBackward as originalJoinBackward, liftEmptyBlock as originalLiftEmptyBlock } from 'prosemirror-commands'
 import { NodeType } from 'prosemirror-model'
 import { liftListItem as originalLiftListItem } from 'prosemirror-schema-list'
-import { Selection } from 'prosemirror-state'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface brickListOptions {}
@@ -41,41 +40,17 @@ export const brickListExtension = Extension.create<brickListOptions>({
       joinBackward:
         () =>
         ({ editor, commands, state, tr, dispatch }) => {
-          const itemType = getNodeType('listItem', state.schema)
           const { selection } = state
-
+          const itemType = getNodeType('listItem', state.schema)
           const listItem = findParentNode(node => node.type === itemType)(selection)
-          const lineText = state.doc.textBetween(selection.$from.before(), selection.$from.pos)
-          if (listItem) {
-            const listItemNode = listItem.node
-            const parentListItem = findParentNode(node => node.type === itemType && node !== listItemNode)(selection)
-            if (listItemNode.textContent.length === 0) {
-              if (parentListItem) {
-                originalLiftListItem(itemType)(state, dispatch)
-                return commands.splitListItem(itemType)
-              }
-
-              let deleteFrom = listItem.pos - 1
-              if (deleteFrom < 0) deleteFrom = 0
-              tr.delete(deleteFrom, listItem.start + listItemNode.nodeSize)
-              const newSelection = Selection.findFrom(tr.doc.resolve(tr.mapping.map(listItem.pos, -1)), -1)
-              if (newSelection) tr.setSelection(newSelection)
-              if (dispatch) dispatch(tr.scrollIntoView())
-              return true
-            } else if (lineText.length === 0) {
-              if (parentListItem) {
-                originalLiftListItem(itemType)(state, dispatch)
-              }
-              return originalJoinBackward(state, dispatch)
-            }
-          } else {
-            const prevPos = selection.$from.before() - 1
-            if (prevPos > 0) {
-              const prevNode = tr.doc.resolve(prevPos).parent
+          const prevText = state.doc.textBetween(selection.$from.before(), selection.$from.pos)
+          if (prevText.length === 0) {
+            if (listItem) {
+              return originalLiftListItem(itemType)(state, dispatch)
+            } else {
+              const prevNode = tr.doc.resolve(selection.$from.before() - 1).parent
               if (prevNode.type.name.endsWith('List')) {
-                tr.delete(selection.$from.before() - 1, selection.$to.after())
-                if (dispatch) dispatch(tr.scrollIntoView())
-                return true
+                throw new Error('for the right backward.')
               }
             }
           }
