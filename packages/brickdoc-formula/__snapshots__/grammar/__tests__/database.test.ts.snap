@@ -1272,7 +1272,7 @@ Array [
 ]
 `;
 
-exports[`Database Functions [Table] =Table([1,2,3]).toArray() 2`] = `"Table must be an array of records"`;
+exports[`Database Functions [Table] =Table([1,2,3]).toArray() 2`] = `"Table type unmatched: number"`;
 
 exports[`Database Functions [VLOOKUP 2 range default] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [

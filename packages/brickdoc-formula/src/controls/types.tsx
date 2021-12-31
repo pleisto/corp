@@ -44,7 +44,7 @@ export interface Row {
 export interface DatabaseInitializer {
   blockId: NamespaceId
   dynamic: boolean
-  name: () => string
+  name: string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
 }

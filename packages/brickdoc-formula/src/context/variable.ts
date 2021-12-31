@@ -72,7 +72,7 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTy
         result: new DatabaseClass({
           blockId,
           dynamic: true,
-          name: () => tableName,
+          name: tableName,
           listColumns: () => columns,
           listRows: () => rows
         })

@@ -794,7 +794,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       ? (this.visit(ctx.Arguments) as CodeFragmentResult)
       : { codeFragments: [], image: '' }
     const rBracketCodeFragments = ctx.RBracket ? [token2fragment(ctx.RBracket[0], 'any')] : []
-    const finalImage = ctx.RBracket ? `[${image}]` : `[${image}`
+    const finalImage = ctx.RBracket
+      ? `${ctx.LBracket[0].image}${image}${ctx.RBracket[0].image}`
+      : `${ctx.LBracket[0].image}${image}`
 
     const { errorMessages, newType } = intersectType(type, parentType, 'arrayExpression')
 
@@ -862,8 +864,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
         if (ctx.Comma?.[commaIndex]) {
           codeFragments.push(token2fragment(ctx.Comma[commaIndex], 'any'))
+          images.push(ctx.Comma[commaIndex].image)
           commaIndex += 1
-          images.push(',')
         }
       })
 
@@ -902,7 +904,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     images.push(keyImage)
 
     if (ctx.Colon) {
-      images.push(':')
+      images.push(ctx.Colon[0].image)
       codeFragments.push(token2fragment(ctx.Colon[0], 'any'))
     }
 
@@ -931,7 +933,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       : [{ message: 'Missing closing parenthesis', type: 'parse' }]
     const { codeFragments, type: expressionType, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
     const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], expressionType)] : []
-    const finalImage = ctx.RParen ? `(${image})` : `(${image}`
+    const finalImage = ctx.RParen
+      ? `${ctx.LParen[0].image}${image}${ctx.RParen[0].image}`
+      : `${ctx.LParen[0].image}${image}`
 
     return {
       codeFragments: [
@@ -1006,7 +1010,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     if (ctx.Minus) {
       const errorMessages: ErrorMessage[] = ctx.NumberLiteral ? [] : [{ message: 'Missing number', type: 'syntax' }]
       codeFragments.push({ ...token2fragment(ctx.Minus[0], 'any'), spaceAfter: false, errors: errorMessages })
-      images.push('-')
+      images.push(ctx.Minus[0].image)
     }
 
     const { errorMessages } = intersectType(type, parentType, 'NumberLiteralExpression')
@@ -1383,8 +1387,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
       if (ctx.Comma?.[commaIndex]) {
         codeFragments.push(token2fragment(ctx.Comma[commaIndex], 'any'))
+        images.push(ctx.Comma[commaIndex].image)
         commaIndex += 1
-        images.push(',')
       }
     })
 

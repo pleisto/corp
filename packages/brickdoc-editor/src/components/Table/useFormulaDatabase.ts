@@ -31,7 +31,7 @@ export function useFormulaDatabase(
     const database: DatabaseType = new DatabaseClass({
       blockId,
       dynamic: false,
-      name: () => spreadsheetName,
+      name: spreadsheetName,
       listColumns: () => columns,
       listRows: () => tableData
     })

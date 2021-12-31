@@ -12,7 +12,7 @@ export class DatabaseClass implements DatabaseType {
   constructor({ blockId, name, listColumns, listRows, dynamic }: DatabaseInitializer) {
     this.dynamic = dynamic
     this.blockId = blockId
-    this.name = name
+    this.name = () => name
     this.listColumns = listColumns
     this.listRows = listRows
 

@@ -27,7 +27,7 @@ import {
 import { FORMULA_FEATURE_CONTROL } from '../context'
 import { v4 as uuid } from 'uuid'
 
-export const Table = (ctx: FunctionContext, { result }: ArrayResult): SpreadsheetResult | ErrorResult => {
+export const Table = (ctx: FunctionContext, { result, subType }: ArrayResult): SpreadsheetResult | ErrorResult => {
   const defaultData: RecordResult[] = [
     {
       type: 'Record',
@@ -43,13 +43,12 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
 
   const recordData: RecordResult[] = result.length ? (result as RecordResult[]) : defaultData
 
-  const nonRecordElement = recordData.find(e => e.type !== 'Record')
-  if (nonRecordElement) {
-    return { type: 'Error', result: 'Table must be an array of records', errorKind: 'runtime' }
+  if (!['void', 'Record'].includes(subType)) {
+    return { type: 'Error', result: `Table type unmatched: ${subType}`, errorKind: 'runtime' }
   }
 
   const blockId = uuid()
-  const tableName = 'Dynamic'
+  const defaultTableName = 'Dynamic Table'
   const columns: ColumnInitializer[] = []
   const rows: Row[] = []
 
@@ -64,7 +63,6 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
         columnId: keyWithIds.find(k => k.key === key)!.uuid,
         name: key,
         index,
-        spreadsheetName: tableName,
         type: 'text',
         rows: data.map(e => String(e[key].result || ''))
       }))
@@ -88,7 +86,7 @@ export const Table = (ctx: FunctionContext, { result }: ArrayResult): Spreadshee
   const databaseDefinition: DatabaseInitializer = {
     blockId,
     dynamic: true,
-    name: () => tableName,
+    name: defaultTableName,
     listColumns: () => columns,
     listRows: () => rows
   }

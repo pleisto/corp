@@ -47,7 +47,7 @@ const columns: ColumnInitializer[] = [
 ]
 
 const database: DatabaseType = new DatabaseClass({
-  name: () => 'MyTable',
+  name: 'MyTable',
   dynamic: false,
   blockId: databaseNamespaceId,
   listColumns: () => columns,
