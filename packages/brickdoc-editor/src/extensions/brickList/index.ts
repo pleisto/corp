@@ -64,7 +64,7 @@ export const brickListExtension = Extension.create<brickListOptions>({
                   }
                   if ($prev) {
                     const curNode = tr.doc.resolve(selection.from).parent
-                    tr.deleteRange(selection.from, selection.from + curNode.nodeSize - 2)
+                    tr.deleteRange(selection.from, selection.from + curNode.nodeSize)
                     tr.insert($prev.pos, curNode.content)
                     const newSelection = new TextSelection(tr.doc.resolve($prev.pos))
                     if (newSelection) tr.setSelection(newSelection)
