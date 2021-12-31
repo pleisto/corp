@@ -2,6 +2,7 @@ import { Editor, Extension, findParentNode, getNodeType, isList } from '@tiptap/
 import { joinBackward as originalJoinBackward, liftEmptyBlock as originalLiftEmptyBlock } from 'prosemirror-commands'
 import { NodeType } from 'prosemirror-model'
 import { liftListItem as originalLiftListItem } from 'prosemirror-schema-list'
+import { TextSelection } from 'prosemirror-state'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface brickListOptions {}
@@ -43,14 +44,35 @@ export const brickListExtension = Extension.create<brickListOptions>({
           const { selection } = state
           const itemType = getNodeType('listItem', state.schema)
           const listItem = findParentNode(node => node.type === itemType)(selection)
-          const prevText = state.doc.textBetween(selection.$from.before(), selection.$from.pos)
+          const prevText = state.doc.textBetween(listItem?.start ?? selection.$from.before(), selection.$from.pos)
           if (prevText.length === 0) {
             if (listItem) {
               return originalLiftListItem(itemType)(state, dispatch)
             } else {
-              const prevNode = tr.doc.resolve(selection.$from.before() - 1).parent
-              if (prevNode.type.name.endsWith('List')) {
-                throw new Error('for the right backward.')
+              const pos = selection.$from.before()
+              if (pos > 1) {
+                const prevNode = tr.doc.resolve(pos - 1).parent
+                if (prevNode.type.name.endsWith('List')) {
+                  let pos = selection.$from.before() - 1
+                  let $prev = null
+                  while (pos > 0) {
+                    $prev = tr.doc.resolve(pos)
+                    if (!$prev.parent.type.name.endsWith('List') && $prev.parent.type !== itemType) {
+                      break
+                    }
+                    pos -= 1
+                  }
+                  if ($prev) {
+                    const curNode = tr.doc.resolve(selection.from).parent
+                    tr.deleteRange(selection.from, selection.from + curNode.nodeSize - 2)
+                    tr.insert($prev.pos, curNode.content)
+                    const newSelection = new TextSelection(tr.doc.resolve($prev.pos))
+                    if (newSelection) tr.setSelection(newSelection)
+                    dispatch?.(tr.scrollIntoView())
+                    return true
+                  }
+                  // throw new Error('for the right backward.')
+                }
               }
             }
           }
