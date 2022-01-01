@@ -88,6 +88,7 @@ jobs:
         if: steps.changed-es-files.outputs.any_changed == 'true'
         with:
           node-version: 16
+          cache: yarn
       - name: Run yarn install
         run: yarn install --immutable
         if: steps.changed-es-files.outputs.any_changed == 'true'
