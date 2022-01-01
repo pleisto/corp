@@ -3,6 +3,7 @@ module.exports = {
   esbuild: {
     // Any esbuild build or transform options go here
     target: 'esnext',
-    splitting: false
+    treeShaking: false
+    // splitting: false
   }
 }
