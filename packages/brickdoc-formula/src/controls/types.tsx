@@ -2,15 +2,18 @@ import {
   ColumnId,
   ColumnName,
   FormulaControlType,
+  BaseFunctionContext,
   FunctionResult,
   NamespaceId,
   StringResult,
   uuid,
-  VariableMetadata
+  VariableMetadata,
+  ContextInterface
 } from '../types'
 
 export interface ControlType {
-  meta: VariableMetadata
+  _formulaContext: ContextInterface
+  _meta: VariableMetadata
   kind: FormulaControlType
   disabled: boolean
 }
@@ -43,6 +46,7 @@ export interface Row {
 
 export interface DatabaseInitializer {
   blockId: NamespaceId
+  ctx: BaseFunctionContext
   dynamic: boolean
   name: string
   listColumns: () => ColumnInitializer[]

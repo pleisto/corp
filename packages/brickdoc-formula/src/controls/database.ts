@@ -9,10 +9,20 @@ export class DatabaseClass implements DatabaseType {
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
 
-  constructor({ blockId, name, listColumns, listRows, dynamic }: DatabaseInitializer) {
+  constructor({ blockId, name, listColumns, listRows, dynamic, ctx: { meta, formulaContext } }: DatabaseInitializer) {
     this.dynamic = dynamic
     this.blockId = blockId
-    this.name = () => name
+    if (meta) {
+      this.name = () => {
+        const v = formulaContext.findVariable(meta.namespaceId, meta.variableId)
+        if (v) {
+          return v.t.name
+        }
+        return name
+      }
+    } else {
+      this.name = () => name
+    }
     this.listColumns = listColumns
     this.listRows = listRows
 

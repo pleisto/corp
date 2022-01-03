@@ -49,6 +49,7 @@ const columns: ColumnInitializer[] = [
 const database: DatabaseType = new DatabaseClass({
   name: 'MyTable',
   dynamic: false,
+  ctx: { formulaContext: new FormulaContext({}) },
   blockId: databaseNamespaceId,
   listColumns: () => columns,
   listRows: () => tableData

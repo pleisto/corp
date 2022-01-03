@@ -18,6 +18,11 @@ export function useFormulaDatabase(
     if (dynamic) {
       return
     }
+
+    if (!formulaContext) {
+      return
+    }
+
     const spreadsheetName = title ?? 'Untitled'
     const columns: ColumnInitializer[] = tableColumns.map(column => ({
       columnId: column.accessor as string,
@@ -29,6 +34,7 @@ export function useFormulaDatabase(
     }))
 
     const database: DatabaseType = new DatabaseClass({
+      ctx: { formulaContext },
       blockId,
       dynamic: false,
       name: spreadsheetName,
@@ -36,14 +42,14 @@ export function useFormulaDatabase(
       listRows: () => tableData
     })
 
-    formulaContext?.setDatabase(blockId, database)
+    formulaContext.setDatabase(blockId, database)
 
     if (formulaContext) {
       BrickdocEventBus.dispatch(BlockTableLoaded({ id: blockId }))
     }
 
     return () => {
-      formulaContext?.removeDatabase(blockId)
+      formulaContext.removeDatabase(blockId)
     }
   }, [blockId, title, formulaContext, tableColumns, tableData, dynamic])
 }

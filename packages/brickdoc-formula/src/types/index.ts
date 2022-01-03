@@ -375,8 +375,11 @@ export interface ExampleWithCodeFragments<T extends FormulaType> extends Example
   readonly codeFragments: CodeFragment[]
 }
 
-export interface FunctionContext {
+export interface BaseFunctionContext {
   readonly formulaContext: ContextInterface
+  readonly meta?: VariableMetadata
+}
+export interface FunctionContext extends BaseFunctionContext {
   readonly meta: VariableMetadata
   readonly interpretContext: InterpretContext
 }

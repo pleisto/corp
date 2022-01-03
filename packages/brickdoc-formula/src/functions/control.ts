@@ -84,6 +84,7 @@ export const Table = (ctx: FunctionContext, { result, subType }: ArrayResult): S
   // console.log({ recordData, rows, columns })
 
   const databaseDefinition: DatabaseInitializer = {
+    ctx,
     blockId,
     dynamic: true,
     name: defaultTableName,

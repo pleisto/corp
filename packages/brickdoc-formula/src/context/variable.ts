@@ -70,6 +70,7 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTy
       return {
         type: 'Spreadsheet',
         result: new DatabaseClass({
+          ctx,
           blockId,
           dynamic: true,
           name: tableName,
