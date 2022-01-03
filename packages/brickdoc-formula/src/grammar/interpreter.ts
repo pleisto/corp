@@ -34,11 +34,6 @@ import {
   Or,
   Caret
 } from './lexer'
-
-interface InterpreterConfig {
-  ctx: FunctionContext
-}
-
 interface ExpressionArgument {
   lazy?: boolean
   chainArgs?: any
@@ -48,7 +43,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   ctx: FunctionContext
   lazy: boolean = false
 
-  constructor({ ctx }: InterpreterConfig) {
+  constructor({ ctx }: { ctx: FunctionContext }) {
     super()
     this.ctx = ctx
     // This helper will detect any missing or redundant methods on this visitor
@@ -605,16 +600,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
     return { result: ctx.FunctionName[0].image, type: 'string' }
   }
 
-  constantExpression(ctx: {
-    NumberLiteralExpression: CstNode | CstNode[]
-    BooleanLiteralExpression: CstNode | CstNode[]
-    NullLiteral: CstNode | CstNode[]
-    StringLiteral: Array<{ image: any }>
-  }): AnyTypeResult {
+  constantExpression(
+    ctx: {
+      NumberLiteralExpression: CstNode | CstNode[]
+      BooleanLiteralExpression: CstNode | CstNode[]
+      NullLiteral: CstNode | CstNode[]
+      StringLiteral: Array<{ image: any }>
+    },
+    args: ExpressionArgument
+  ): AnyTypeResult {
     if (ctx.NumberLiteralExpression) {
-      return this.visit(ctx.NumberLiteralExpression)
+      return this.visit(ctx.NumberLiteralExpression, args)
     } else if (ctx.BooleanLiteralExpression) {
-      return this.visit(ctx.BooleanLiteralExpression)
+      return this.visit(ctx.BooleanLiteralExpression, args)
     } else if (ctx.NullLiteral) {
       return { type: 'null', result: null }
     } else if (ctx.StringLiteral) {
@@ -653,7 +651,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   referenceExpression(ctx: { lazyVariableExpression: CstNode | CstNode[] }, args: ExpressionArgument): ReferenceResult {
-    return this.visit(ctx.lazyVariableExpression, { lazy: true })
+    return this.visit(ctx.lazyVariableExpression, { ...args, lazy: true })
   }
 
   lazyVariableExpression(ctx: any, args: ExpressionArgument): AnyTypeResult {
@@ -700,7 +698,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return variable.t.variableValue.result
     }
 
-    return this.visit(variable.t.cst!)
+    return this.visit(variable.t.cst!, a)
   }
 
   NumberLiteralExpression(ctx: { NumberLiteral: Array<{ image: any }>; Sign: any; Minus: any }): NumberResult {

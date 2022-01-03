@@ -1,5 +1,6 @@
-import { parse, interpret, DatabaseType, Row, DatabaseClass, ColumnInitializer } from '../..'
+import { parse, interpret } from '../api'
 import { FormulaContext } from '../../context'
+import { Row, ColumnInitializer, DatabaseType, DatabaseClass } from '../../controls'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
@@ -179,12 +180,12 @@ const testCases: TestCase[] = [
 describe('Database Functions', () => {
   const formulaContext = new FormulaContext({})
   formulaContext.setDatabase(databaseNamespaceId, database)
-  const parseInput = { formulaContext, meta }
+  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 
   testCases.forEach(({ input, label, value }) => {
     it(`[${label}] ${input}`, async () => {
       const newMeta = { ...meta, input }
-      const { codeFragments, cst, errorMessages } = parse({ ...parseInput, meta: newMeta, formulaContext })
+      const { codeFragments, cst, errorMessages } = parse({ ctx: { ...ctx, meta: newMeta } })
       expect(errorMessages).toEqual([])
       expect(codeFragments).toMatchSnapshot()
       const result = (
@@ -215,16 +216,14 @@ describe('Database Functions', () => {
 
     const input1 = `=#${databaseNamespaceId}#${firstColumnId}.`
     const { completions: input1Completions } = parse({
-      formulaContext,
-      meta: { namespaceId: testNamespaceId, variableId: testVariableId, name: 'foo', input: input1 }
+      ctx: { ...ctx, meta: { namespaceId: testNamespaceId, variableId: testVariableId, name: 'foo', input: input1 } }
     })
     expect(input1Completions[0]).toMatchSnapshot()
     expect(input1Completions[0].kind).toEqual('function')
 
     const input2 = `=#${databaseNamespaceId}.`
     const { completions: input2Completions } = parse({
-      formulaContext,
-      meta: { namespaceId: testNamespaceId, variableId: testVariableId, name: 'foo', input: input2 }
+      ctx: { ...ctx, meta: { namespaceId: testNamespaceId, variableId: testVariableId, name: 'foo', input: input2 } }
     })
     expect(input2Completions[0].kind).toEqual('column')
     expect(input2Completions[0]).toMatchSnapshot()

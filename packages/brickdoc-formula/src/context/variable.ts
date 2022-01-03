@@ -124,11 +124,8 @@ export const castVariable = (
   const namespaceId = blockId
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
-  const castedValue: AnyTypeResult = parseCacheValue(
-    { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } },
-    cacheValue
-  )
-  const parseInput = { formulaContext, meta }
+  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+  const castedValue: AnyTypeResult = parseCacheValue(ctx, cacheValue)
   const {
     success,
     cst,
@@ -141,7 +138,7 @@ export const castVariable = (
     codeFragments,
     functionDependencies,
     level
-  } = parse(parseInput)
+  } = parse({ ctx })
 
   const variableValue: VariableValue = success
     ? {

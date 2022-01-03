@@ -27,10 +27,9 @@ import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './code_fragment'
 export interface ParseInput {
-  readonly meta: VariableMetadata
+  readonly ctx: FunctionContext
   readonly activeCompletion?: Completion
   readonly position?: number
-  readonly formulaContext: ContextInterface
 }
 
 export interface BaseParseResult {
@@ -82,12 +81,11 @@ export interface InterpretResult {
 }
 
 // eslint-disable-next-line complexity
-export const parse = ({
-  formulaContext,
-  meta: { namespaceId, variableId, input, name },
-  activeCompletion,
-  position: pos
-}: ParseInput): ParseResult => {
+export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): ParseResult => {
+  const {
+    formulaContext,
+    meta: { namespaceId, variableId, input, name }
+  } = ctx
   const position = pos ?? 0
   let level = 0
   let variableDependencies: VariableDependency[] = []
@@ -117,11 +115,11 @@ export const parse = ({
       flattenVariableDependencies
     }
   }
-  const baseCompletion = formulaContext?.completions(namespaceId, variableId) ?? []
+  const baseCompletion = formulaContext.completions(namespaceId, variableId)
   let completions: Completion[] = baseCompletion
 
-  const parser = new FormulaParser({ formulaContext })
-  const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext })
+  const parser = new FormulaParser()
+  const codeFragmentVisitor = new CodeFragmentVisitor({ ctx })
 
   const lexer = FormulaLexer
 
@@ -492,17 +490,13 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: Formu
 }
 
 // NOTE: only for test
-export const quickInsert = async ({
-  formulaContext,
-  meta: { namespaceId, variableId, name, input }
-}: {
-  meta: VariableMetadata
-  formulaContext: ContextInterface
-}): Promise<void> => {
-  const meta = { namespaceId, variableId, name, input }
+export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<void> => {
+  const {
+    formulaContext,
+    meta: { namespaceId, variableId, name, input }
+  } = ctx
   const view: View = {}
 
-  const parseInput = { formulaContext, meta }
   const {
     success,
     cst,
@@ -515,20 +509,13 @@ export const quickInsert = async ({
     functionDependencies,
     blockDependencies,
     flattenVariableDependencies
-  } = parse(parseInput)
+  } = parse({ ctx })
 
   if (!success) {
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue, lazy } = await interpret({
-    cst,
-    ctx: {
-      formulaContext,
-      meta,
-      interpretContext: { ctx: {}, arguments: [] }
-    }
-  })
+  const { variableValue, lazy } = await interpret({ cst, ctx })
 
   const variable: VariableData = {
     namespaceId,

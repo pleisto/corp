@@ -70,7 +70,12 @@ const calculate = async ({
   const variableId = variable ? variable.t.variableId : uuid()
   const meta = { namespaceId, variableId, name, input }
   const view: View = {}
-  const parseResult = parse({ formulaContext, meta, activeCompletion, position })
+  const ctx = {
+    formulaContext,
+    meta,
+    interpretContext: { ctx: {}, arguments: [] }
+  }
+  const parseResult = parse({ ctx, activeCompletion, position })
 
   console.log({
     parseResult,
@@ -89,14 +94,7 @@ const calculate = async ({
   let interpretResult: InterpretResult
 
   if (parseResult.success) {
-    interpretResult = await interpret({
-      cst: parseResult.cst,
-      ctx: {
-        formulaContext,
-        meta,
-        interpretContext: { ctx: {}, arguments: [] }
-      }
-    })
+    interpretResult = await interpret({ cst: parseResult.cst, ctx })
   } else {
     interpretResult = {
       lazy: false,

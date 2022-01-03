@@ -2,7 +2,6 @@ import { CstNode, IToken } from 'chevrotain'
 import {
   CodeFragment,
   ErrorMessage,
-  ContextInterface,
   FormulaType,
   Argument,
   VariableKind,
@@ -11,14 +10,12 @@ import {
   OtherCodeFragment,
   CodeFragmentResult,
   FormulaCheckType,
-  NamespaceId
+  NamespaceId,
+  FunctionContext
 } from '../types'
 import { renderColumn, renderDatabase, renderVariable } from '../context/util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
-interface InterpreterConfig {
-  readonly formulaContext?: ContextInterface
-}
 
 const SpaceBeforeTypes = [
   'In',
@@ -131,7 +128,7 @@ const intersectType = (
 }
 
 export class CodeFragmentVisitor extends BaseCstVisitor {
-  formulaContext?: ContextInterface
+  ctx: FunctionContext
   variableDependencies: VariableDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
   blockDependencies: NamespaceId[] = []
@@ -139,9 +136,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   level: number = 0
   kind: VariableKind = 'constant'
 
-  constructor({ formulaContext }: InterpreterConfig) {
+  constructor({ ctx }: { ctx: FunctionContext }) {
     super()
-    this.formulaContext = formulaContext
+    this.ctx = ctx
     this.validateVisitor()
   }
 
@@ -1056,7 +1053,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     this.blockDependencies.push(namespaceId)
 
-    const column = this.formulaContext?.findColumn(namespaceId, columnId)
+    const column = this.ctx.formulaContext.findColumn(namespaceId, columnId)
 
     const parentType: ExpressionType = 'Column'
 
@@ -1101,7 +1098,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const namespaceId = namespaceToken.image
 
     this.blockDependencies.push(namespaceId)
-    const database = this.formulaContext?.findDatabase(namespaceId)
+    const database = this.ctx.formulaContext.findDatabase(namespaceId)
 
     const parentType: FormulaType = 'Spreadsheet'
 
@@ -1170,7 +1167,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const variableFragment = token2fragment(variableToken, 'any')
 
-    const variable = this.formulaContext?.findVariable(namespaceId, variableId)
+    const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
 
     this.kind = 'expression'
 
@@ -1251,7 +1248,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       images.push(group, '::', name)
     }
 
-    const clause = this.formulaContext?.findFunctionClause(group, name)
+    const clause = this.ctx.formulaContext.findFunctionClause(group, name)
 
     const functionKey = buildFunctionKey(group, name)
 
@@ -1287,7 +1284,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const clauseErrorMessages: ErrorMessage[] = []
     if (!clause) {
       clauseErrorMessages.push({ message: `Function ${functionKey} not found`, type: 'deps' })
-    } else if (clause.feature && this.formulaContext && !this.formulaContext.features.includes(clause.feature)) {
+    } else if (clause.feature && !this.ctx.formulaContext.features.includes(clause.feature)) {
       clauseErrorMessages.push({ message: `Feature ${clause.feature} not enabled`, type: 'deps' })
     }
 

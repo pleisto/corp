@@ -414,8 +414,14 @@ export class FormulaContext implements ContextInterface {
     if (lexResult.errors.length > 0) {
       return []
     }
-    const parser = new FormulaParser({ formulaContext: this })
-    const codeFragmentVisitor = new CodeFragmentVisitor({ formulaContext: this })
+    const parser = new FormulaParser()
+    const codeFragmentVisitor = new CodeFragmentVisitor({
+      ctx: {
+        formulaContext: this,
+        meta: { name: 'unknown', input, namespaceId: '', variableId: '' },
+        interpretContext: { ctx: {}, arguments: [] }
+      }
+    })
     const tokens = lexResult.tokens
     parser.input = tokens
 
