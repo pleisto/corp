@@ -30,7 +30,7 @@ export interface ParseInput {
   readonly meta: VariableMetadata
   readonly activeCompletion?: Completion
   readonly position?: number
-  readonly formulaContext?: ContextInterface
+  readonly formulaContext: ContextInterface
 }
 
 export interface BaseParseResult {
