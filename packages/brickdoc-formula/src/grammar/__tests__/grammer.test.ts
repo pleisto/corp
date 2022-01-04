@@ -944,7 +944,7 @@ describe('Simple test case', () => {
       }
 
       if (value !== undefined) {
-        const { variableValue } = await interpret({ cst, ctx: { ...ctx, meta: newMeta } })
+        const { variableValue } = await interpret({ cst: cst!, ctx: { ...ctx, meta: newMeta } })
 
         expect(errorMessages).toEqual([])
 

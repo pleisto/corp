@@ -189,12 +189,11 @@ describe('Spreadsheet Functions', () => {
   testCases.forEach(({ input, label, value }) => {
     it(`[${label}] ${input}`, async () => {
       const newMeta = { ...meta, input }
-      const { codeFragments, cst, errorMessages } = parse({ ctx: { ...ctx, meta: newMeta } })
+      const newCtx = { ...ctx, meta: newMeta }
+      const { codeFragments, cst, errorMessages } = parse({ ctx: newCtx })
       expect(errorMessages).toEqual([])
       expect(codeFragments).toMatchSnapshot()
-      const result = (
-        await interpret({ cst, ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } } })
-      ).variableValue.result.result
+      const result = (await interpret({ cst: cst!, ctx: newCtx })).variableValue.result.result
       if (value === SNAPSHOT_FLAG) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toMatchSnapshot()

@@ -148,7 +148,7 @@ describe('Controls', () => {
 
       if (success) {
         const { variableValue } = await interpret({
-          cst,
+          cst: cst!,
           ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
 

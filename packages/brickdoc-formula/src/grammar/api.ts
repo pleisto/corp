@@ -71,7 +71,7 @@ export interface ErrorParseResult extends BaseParseResult {
 export type ParseResult = SuccessParseResult | ErrorParseResult
 
 export interface InterpretInput {
-  readonly cst?: CstNode
+  readonly cst: CstNode
   readonly ctx: FunctionContext
 }
 
@@ -380,18 +380,6 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
 }
 
 export const interpret = async ({ cst, ctx }: InterpretInput): Promise<InterpretResult> => {
-  if (!cst) {
-    const message = 'CST is undefined'
-    return {
-      lazy: false,
-      variableValue: {
-        updatedAt: new Date(),
-        success: false,
-        cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
-        result: { result: message, type: 'Error', errorKind: 'fatal' }
-      }
-    }
-  }
   try {
     const interpreter = new FormulaInterpreter({ ctx })
     const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })
@@ -475,10 +463,9 @@ export const buildVariable = ({
 }
 
 export const appendFormulas = (formulaContext: ContextInterface, formulas: Formula[]): void => {
-  // TODO sort by dependency
   const dupFormulas = [...formulas]
   dupFormulas
-    .sort((a, b) => a.createdAt - b.createdAt)
+    .sort((a, b) => a.level - b.level)
     .forEach(formula => {
       const variable = castVariable(formulaContext, formula)
 
@@ -515,7 +502,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue, lazy } = await interpret({ cst, ctx })
+  const { variableValue, lazy } = await interpret({ cst: cst!, ctx })
 
   const variable: VariableData = {
     namespaceId,
@@ -536,8 +523,6 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     functionDependencies,
     flattenVariableDependencies
   }
-  // return new VariableClass({ t: variable, backendActions: formulaContext.backendActions })
-  void (await formulaContext.commitVariable({
-    variable: new VariableClass({ t: variable, formulaContext })
-  }))
+
+  void (await formulaContext.commitVariable({ variable: new VariableClass({ t: variable, formulaContext }) }))
 }

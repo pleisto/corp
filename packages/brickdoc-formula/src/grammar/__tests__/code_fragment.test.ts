@@ -86,9 +86,3 @@ describe('Code fragment ok', () => {
     })
   })
 })
-
-describe('Code fragment error TODO', () => {
-  it('zzz', () => {
-    expect(true).toBe(true)
-  })
-})
