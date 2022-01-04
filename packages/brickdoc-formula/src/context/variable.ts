@@ -12,7 +12,14 @@ import {
   InterpretContext,
   Definition
 } from '../types'
-import { SwitchClass, ButtonClass, SelectClass, ColumnClass, DatabaseClass, DatabasePersistence } from '../controls'
+import {
+  SwitchClass,
+  ButtonClass,
+  SelectClass,
+  ColumnClass,
+  SpreadsheetClass,
+  SpreadsheetPersistence
+} from '../controls'
 import { parse, interpret } from '../grammar/api'
 
 export const displayValue = (v: AnyTypeResult): string => {
@@ -29,7 +36,7 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'Spreadsheet':
       return `#<Spreadsheet> ${v.result.name()}`
     case 'Column':
-      return `#<Column> ${v.result.database.name()}.${v.result.name}`
+      return `#<Column> ${v.result.spreadsheet.name()}.${v.result.name}`
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result)}`
     case 'Record':
@@ -65,36 +72,36 @@ const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTy
     }
   }
 
-  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof DatabaseClass)) {
+  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof SpreadsheetClass)) {
     if (cacheValue.result.dynamic) {
-      const { blockId, tableName, columns, rows }: DatabasePersistence = cacheValue.result.persistence!
+      const { blockId, spreadsheetName, columns, rows }: SpreadsheetPersistence = cacheValue.result.persistence!
       return {
         type: 'Spreadsheet',
-        result: new DatabaseClass({
+        result: new SpreadsheetClass({
           ctx,
           blockId,
           dynamic: true,
-          name: tableName,
+          name: spreadsheetName,
           listColumns: () => columns,
           listRows: () => rows
         })
       }
     } else {
-      const database = ctx.formulaContext.findDatabase(cacheValue.result.blockId)
-      if (database) {
-        return { type: 'Spreadsheet', result: database }
+      const spreadsheet = ctx.formulaContext.findSpreadsheet(cacheValue.result.blockId)
+      if (spreadsheet) {
+        return { type: 'Spreadsheet', result: spreadsheet }
       } else {
-        return { type: 'Error', result: `Database ${cacheValue.result.blockId} not found`, errorKind: 'deps' }
+        return { type: 'Error', result: `Spreadsheet ${cacheValue.result.blockId} not found`, errorKind: 'deps' }
       }
     }
   }
 
   if (cacheValue.type === 'Column' && !(cacheValue.result instanceof ColumnClass)) {
-    const database = ctx.formulaContext.findDatabase(cacheValue.result.namespaceId)
-    if (database) {
-      return { type: 'Column', result: new ColumnClass(database, cacheValue.result) }
+    const spreadsheet = ctx.formulaContext.findSpreadsheet(cacheValue.result.namespaceId)
+    if (spreadsheet) {
+      return { type: 'Column', result: new ColumnClass(spreadsheet, cacheValue.result) }
     } else {
-      return { type: 'Error', result: `Database ${cacheValue.result.namespaceId} not found`, errorKind: 'deps' }
+      return { type: 'Error', result: `Spreadsheet ${cacheValue.result.namespaceId} not found`, errorKind: 'deps' }
     }
   }
 

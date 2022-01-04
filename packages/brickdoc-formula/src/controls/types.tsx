@@ -36,7 +36,7 @@ export interface ColumnInitializer {
 }
 
 export interface ColumnType extends ColumnInitializer {
-  database: DatabaseType
+  spreadsheet: SpreadsheetType
 }
 
 export interface Row {
@@ -44,7 +44,7 @@ export interface Row {
   [key: string]: string
 }
 
-export interface DatabaseInitializer {
+export interface SpreadsheetInitializer {
   blockId: NamespaceId
   ctx: BaseFunctionContext
   dynamic: boolean
@@ -53,17 +53,17 @@ export interface DatabaseInitializer {
   listRows: () => Row[]
 }
 
-export interface DatabasePersistence {
+export interface SpreadsheetPersistence {
   blockId: NamespaceId
-  tableName: string
+  spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
 }
 
-export interface DatabaseType {
+export interface SpreadsheetType {
   blockId: NamespaceId
   dynamic: boolean
-  persistence?: DatabasePersistence
+  persistence?: SpreadsheetPersistence
   columnCount: () => number
   rowCount: () => number
   name: () => string
@@ -73,7 +73,7 @@ export interface DatabaseType {
   getColumn: (columnId: ColumnId) => ColumnInitializer | undefined
   toArray: () => string[][]
   toRecord: () => Array<Record<string, StringResult>>
-  persist: () => DatabasePersistence
+  persist: () => SpreadsheetPersistence
 }
 
 export interface ButtonInitializer extends ControlInitializer {

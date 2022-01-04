@@ -14,7 +14,7 @@ import {
   FunctionContext,
   ExpressionType
 } from '../types'
-import { renderColumn, renderDatabase, renderVariable } from '../context/util'
+import { renderColumn, renderSpreadsheet, renderVariable } from '../context/util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
@@ -1051,13 +1051,13 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const namespaceId = namespaceToken.image
 
     this.blockDependencies.push(namespaceId)
-    const database = this.ctx.formulaContext.findDatabase(namespaceId)
+    const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
 
     const parentType: FormulaType = 'Spreadsheet'
 
     this.kind = 'expression'
 
-    if (database) {
+    if (spreadsheet) {
       const { errorMessages, newType } = intersectType(type, parentType, 'spreadsheetExpression')
       return {
         codeFragments: [
@@ -1065,8 +1065,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...token2fragment(namespaceToken, 'any'),
             code: 'Spreadsheet',
             type: parentType,
-            render: renderDatabase(database, errorMessages),
-            namespaceId: database.blockId,
+            render: renderSpreadsheet(spreadsheet, errorMessages),
+            namespaceId: spreadsheet.blockId,
             name: `#${namespaceId}`,
             errors: errorMessages
           }
@@ -1080,7 +1080,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           SharpFragment,
           {
             ...token2fragment(namespaceToken, 'any'),
-            errors: [{ message: `Database not found: ${namespaceId}`, type: 'deps' }]
+            errors: [{ message: `Spreadsheet not found: ${namespaceId}`, type: 'deps' }]
           }
         ],
         image: `#${namespaceId}`,

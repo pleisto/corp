@@ -293,16 +293,16 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     if (result2.type === 'Spreadsheet') {
       const match = String(result.result)
-      const database = result2.result
+      const spreadsheet = result2.result
 
-      const columns = database.listColumns()
+      const columns = spreadsheet.listColumns()
 
       const firstColumn = columns[0]
       if (!firstColumn) {
-        return { type: 'Error', result: 'Database is empty', errorKind: 'runtime' }
+        return { type: 'Error', result: 'Spreadsheet is empty', errorKind: 'runtime' }
       }
 
-      const row = database.listRows().find((row: Row) => {
+      const row = spreadsheet.listRows().find((row: Row) => {
         if (operator === 'ExactIn') {
           return row[firstColumn.columnId] === match
         } else {
@@ -316,12 +316,12 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (result2.type === 'Column') {
       const match = String(result.result)
       const column = result2.result
-      const database = this.ctx.formulaContext.findDatabase(column.namespaceId)
-      if (!database) {
-        return { type: 'Error', result: 'Database not found', errorKind: 'runtime' }
+      const spreadsheet = this.ctx.formulaContext.findSpreadsheet(column.namespaceId)
+      if (!spreadsheet) {
+        return { type: 'Error', result: 'Spreadsheet not found', errorKind: 'runtime' }
       }
 
-      const row = database.listRows().find((row: Row) => {
+      const row = spreadsheet.listRows().find((row: Row) => {
         if (operator === 'ExactIn') {
           return row[column.columnId] === match
         } else {
@@ -785,10 +785,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     const namespaceId = ctx.UUID[0].image
-    const database = this.ctx.formulaContext.findDatabase(namespaceId)
+    const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
 
-    if (database) {
-      return { type: 'Spreadsheet', result: database }
+    if (spreadsheet) {
+      return { type: 'Spreadsheet', result: spreadsheet }
     } else {
       return { type: 'null', result: null }
     }

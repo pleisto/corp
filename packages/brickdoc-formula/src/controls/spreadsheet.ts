@@ -1,15 +1,22 @@
 import { NamespaceId, StringResult } from '../types'
-import { DatabaseType, DatabaseInitializer, DatabasePersistence, Row, ColumnInitializer } from './types'
+import { SpreadsheetType, SpreadsheetInitializer, SpreadsheetPersistence, Row, ColumnInitializer } from './types'
 
-export class DatabaseClass implements DatabaseType {
+export class SpreadsheetClass implements SpreadsheetType {
   blockId: NamespaceId
   dynamic: boolean
-  persistence?: DatabasePersistence
+  persistence?: SpreadsheetPersistence
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
 
-  constructor({ blockId, name, listColumns, listRows, dynamic, ctx: { meta, formulaContext } }: DatabaseInitializer) {
+  constructor({
+    blockId,
+    name,
+    listColumns,
+    listRows,
+    dynamic,
+    ctx: { meta, formulaContext }
+  }: SpreadsheetInitializer) {
     this.dynamic = dynamic
     this.blockId = blockId
     if (meta) {
@@ -31,10 +38,10 @@ export class DatabaseClass implements DatabaseType {
     }
   }
 
-  persist(): DatabasePersistence {
+  persist(): SpreadsheetPersistence {
     return {
       blockId: this.blockId,
-      tableName: this.name(),
+      spreadsheetName: this.name(),
       columns: this.listColumns(),
       rows: this.listRows()
     }
