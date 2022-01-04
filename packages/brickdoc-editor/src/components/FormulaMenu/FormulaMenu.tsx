@@ -308,7 +308,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const finalName = newName ?? name ?? defaultName
     const finalInput = newInput ?? input ?? ''
-    // const inputIsEmpty = finalInput.trim() === '='
+    const inputIsEmpty = finalInput.trim() === '='
 
     const result = await calculate({
       namespaceId: rootId,
@@ -346,10 +346,16 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       //   setInput(parseResult.input)
     }
 
-    updateVariable(newVariable)
     setCompletions(completions)
     setActiveCompletion(completions[0])
-    setError(errors.length ? errors[0] : undefined)
+
+    if (inputIsEmpty) {
+      updateVariable(undefined)
+      setError(undefined)
+    } else {
+      updateVariable(newVariable)
+      setError(errors.length ? errors[0] : undefined)
+    }
 
     if (interpretResult.variableValue.success) {
       const type = interpretResult.variableValue.result.type
