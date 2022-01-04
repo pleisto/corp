@@ -9,7 +9,8 @@ import {
   AnyTypeResult,
   VariableValue,
   FunctionContext,
-  InterpretContext
+  InterpretContext,
+  Definition
 } from '../types'
 import { SwitchClass, ButtonClass, SelectClass, ColumnClass, DatabaseClass, DatabasePersistence } from '../controls'
 import { parse, interpret } from '../grammar/api'
@@ -254,6 +255,13 @@ export class VariableClass implements VariableInterface {
   public updateCst = (cst: CstNode, interpretContext: InterpretContext): void => {
     this.t.cst = cst
     void this.refresh(interpretContext)
+  }
+
+  public updateDefinition = async (definition: Definition): Promise<void> => {
+    this.t.definition = definition
+    const formula = this.buildFormula()
+    this.t = castVariable(this.formulaContext, formula)
+    await this.refresh({ ctx: {}, arguments: [] })
   }
 
   public refresh = async (interpretContext: InterpretContext): Promise<void> => {

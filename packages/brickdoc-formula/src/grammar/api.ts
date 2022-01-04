@@ -394,7 +394,7 @@ export const interpret = async ({ cst, ctx }: InterpretInput): Promise<Interpret
   }
   try {
     const interpreter = new FormulaInterpreter({ ctx })
-    const result: AnyTypeResult = await interpreter.visit(cst)
+    const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })
     const lazy = interpreter.lazy
 
     return {

@@ -22,6 +22,8 @@ export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlT
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
+export type ExpressionType = FormulaCheckType | undefined
+
 export type SpecialDefaultVariableName =
   | 'str'
   | 'num'
@@ -534,6 +536,7 @@ export interface VariableInterface {
   isDraft: () => boolean
   namespaceName: () => string
   reparse: VoidFunction
+  updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
   updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>

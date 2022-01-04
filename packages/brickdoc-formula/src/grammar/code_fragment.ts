@@ -11,11 +11,13 @@ import {
   CodeFragmentResult,
   FormulaCheckType,
   NamespaceId,
-  FunctionContext
+  FunctionContext,
+  ExpressionType
 } from '../types'
 import { renderColumn, renderDatabase, renderVariable } from '../context/util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
+import { intersectType } from './util'
 
 const SpaceBeforeTypes = [
   'In',
@@ -73,58 +75,9 @@ const token2fragment = (token: IToken, type: FormulaType): OtherCodeFragment => 
   return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, render: undefined }
 }
 
-type ExpressionType = FormulaCheckType | undefined
-
 interface ExpressionArgument {
   readonly type: ExpressionType
   readonly firstArgumentType?: FormulaType
-}
-
-const intersectType = (
-  expectedArgumentType: ExpressionType,
-  contextResultType: FormulaType,
-  label: string
-): { errorMessages: ErrorMessage[]; newType: FormulaType } => {
-  if (expectedArgumentType === undefined) {
-    return { errorMessages: [], newType: contextResultType }
-  }
-
-  if (expectedArgumentType === 'any') {
-    return { errorMessages: [], newType: contextResultType }
-  }
-
-  if (contextResultType === 'any') {
-    return {
-      errorMessages: [],
-      newType: expectedArgumentType instanceof Array ? expectedArgumentType[0] : expectedArgumentType
-    }
-  }
-
-  if (expectedArgumentType instanceof Array && expectedArgumentType.includes(contextResultType)) {
-    return { errorMessages: [], newType: contextResultType }
-  }
-
-  if (expectedArgumentType === contextResultType) {
-    return { errorMessages: [], newType: expectedArgumentType }
-  }
-
-  if (expectedArgumentType === 'Reference') {
-    return { errorMessages: [], newType: expectedArgumentType }
-  }
-  if (expectedArgumentType === 'Cst') {
-    return { errorMessages: [], newType: expectedArgumentType }
-  }
-
-  if (expectedArgumentType === 'Predicate') {
-    return { errorMessages: [], newType: contextResultType }
-  }
-
-  // console.log({ expectedArgumentType, contextResultType, label })
-
-  return {
-    errorMessages: [{ type: 'type', message: `Expected ${expectedArgumentType} but got ${contextResultType}` }],
-    newType: contextResultType
-  }
 }
 
 export class CodeFragmentVisitor extends BaseCstVisitor {
