@@ -1,4 +1,6 @@
 import { Tag } from './index'
+import { TagGroup } from './tagGroup'
+
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 export default {
@@ -50,12 +52,29 @@ Tag component for feedback.
   }
 } as ComponentMeta<typeof Tag>
 
-const Template: ComponentStory<typeof Tag> = args => (
+const Template: ComponentStory<typeof Tag> = () => (
   <>
+    <Tag>default</Tag>
+    <Tag size="sm" closable={true}>
+      test2
+    </Tag>
     <Tag color="red">red</Tag>
     <Tag size="lg">test1</Tag>
-    <Tag size="sm">test2</Tag>
+    <Tag size="lg" border={false}>
+      no-border
+    </Tag>
   </>
 )
 export const Basic = Template.bind({})
 Basic.args = {}
+
+const TemplateGroup: ComponentStory<typeof TagGroup> = arg => (
+  <>
+    <TagGroup tagList={arg.tagList} size="lg" />
+  </>
+)
+
+export const GroupTags = TemplateGroup.bind({})
+TemplateGroup.args = {
+  tagList: [{ children: 'doc' }, { children: 'test' }, { children: 'tag' }, { children: 'tags' }]
+}

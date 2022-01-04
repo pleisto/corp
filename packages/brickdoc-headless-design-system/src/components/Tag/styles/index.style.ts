@@ -1,14 +1,19 @@
-import { theme, styled } from '../../../themes'
+import { theme, styled, prefix } from '../../../themes'
 
 export const TagRoot = styled('div', {
-  display: 'flex',
+  display: 'inline-block',
   include: ['flexCenter'],
   padding: '4px 12px',
   background: theme.colors.backgroundPrimary,
   border: `1px solid ${theme.colors.borderPrimary}`,
   borderRadius: 20,
   color: theme.colors.typePrimary,
-  cursor: 'pointer',
+  cursor: 'default',
+
+  [`& .${prefix}-icon`]: {
+    cursor: 'pointer',
+    marginLeft: 2
+  },
 
   variants: {
     size: {
@@ -30,7 +35,8 @@ export const TagRoot = styled('div', {
         border: `1px solid ${theme.colors.borderPrimary}`
       },
       false: {
-        border: 'none'
+        border: 'none',
+        background: 'transparent'
       }
     },
     color: {
