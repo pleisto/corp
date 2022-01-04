@@ -320,21 +320,23 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       formulaContext
     })
 
-    console.log('calculate result', {
-      finalName,
-      newName,
-      newInput,
-      input,
-      finalInput,
-      activeCompletion,
-      result,
-      latestActiveCompletion: latestActiveCompletion.current
-    })
-
     if (!result) return
 
     const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
-    setPosition(newPosition)
+
+    // console.log('calculate result', {
+    //   finalName,
+    //   newName,
+    //   newInput,
+    //   input,
+    //   finalInput,
+    //   activeCompletion,
+    //   latestPosition: latestPosition.current,
+    //   position,
+    //   newPosition,
+    //   result,
+    //   latestActiveCompletion: latestActiveCompletion.current
+    // })
 
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
@@ -348,6 +350,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     setCompletions(completions)
     setActiveCompletion(completions[0])
+    setPosition(newPosition)
 
     if (inputIsEmpty) {
       updateVariable(undefined)

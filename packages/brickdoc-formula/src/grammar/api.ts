@@ -174,9 +174,7 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
   const inputImage = tokens.map(t => t.image).join('')
 
   const cst: CstNode = parser.startExpression()
-  const { codeFragments, image }: CodeFragmentResult = codeFragmentVisitor.visit(cst, {
-    type: 'any'
-  })
+  const { codeFragments, image }: CodeFragmentResult = codeFragmentVisitor.visit(cst, { type: 'any' })
 
   const errorCodeFragment = codeFragments.find(f => f.errors.length)
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
