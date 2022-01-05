@@ -31,7 +31,7 @@ const asyncForEach = async (
 
 describe('Dependency', () => {
   beforeAll(async () => {
-    formulaContext.reset()
+    formulaContext.resetFormula()
 
     const metas: VariableMetadata[] = [
       { name: 'num0', input: '=1' },

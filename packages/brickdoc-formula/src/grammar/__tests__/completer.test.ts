@@ -147,7 +147,7 @@ describe('Complete', () => {
       weight: 125,
       expectParseImage: `=1+#${namespaceId}@${variableId}.`,
       expectInputImage: `=1+#${namespaceId}@${variableId}.`,
-      expectNewInput: `= 1 + #${namespaceId}@${variableId}.`
+      expectNewInput: `=1+#${namespaceId}@${variableId}.`
     },
     {
       label: 'dot equal different namespaceId',
@@ -157,7 +157,7 @@ describe('Complete', () => {
       weight: 125,
       expectParseImage: `=1+#${namespaceId}@${variableId}.`,
       expectInputImage: `=1+#${namespaceId}@${variableId}.`,
-      expectNewInput: `= 1 + #${namespaceId}@${variableId}.`
+      expectNewInput: `=1+#${namespaceId}@${variableId}.`
     }
   ]
 
@@ -173,19 +173,6 @@ describe('Complete', () => {
       expectNewInput
     }) => {
       it(`[${label}] ${input}`, async () => {
-        const { completions: oldCompletions } = parse({
-          ctx: {
-            formulaContext,
-            interpretContext,
-            meta: {
-              namespaceId: testcaseNamespaceId,
-              variableId: testVariableId,
-              name: 'foo',
-              input: input.slice(0, -1)
-            }
-          }
-        })
-
         const {
           errorMessages,
           valid,
@@ -199,8 +186,7 @@ describe('Complete', () => {
             formulaContext,
             interpretContext,
             meta: { namespaceId: testcaseNamespaceId, variableId: testVariableId, name: 'foo', input }
-          },
-          activeCompletion: oldCompletions[0]
+          }
         })
 
         expect(valid).toBe(true)

@@ -192,7 +192,8 @@ export class VariableClass implements VariableInterface {
     this.formulaContext = formulaContext
   }
 
-  public namespaceName = () => this.formulaContext.blockNameMap[this.t.namespaceId] || 'Untitled'
+  public namespaceName = () =>
+    this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')?.name ?? 'Untitled'
 
   public isDraft = () => {
     return !this.formulaContext.findVariable(this.t.namespaceId, this.t.variableId)

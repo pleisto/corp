@@ -79,7 +79,7 @@ export type ParseErrorType = 'parse' | 'syntax'
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
 export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
 export type VariableKey = `#${NamespaceId}@${VariableId}`
-export type SpreadsheetKey = `#${NamespaceId}`
+export type BlockKey = `#${NamespaceId}`
 export type ColumnKey = `#${NamespaceId}#${ColumnId}`
 
 // TODO blockName -> string
@@ -332,16 +332,23 @@ export interface ColumnCompletion extends BaseCompletion {
 export interface SpreadsheetCompletion extends BaseCompletion {
   readonly kind: 'spreadsheet'
   readonly namespace: BlockName
-  readonly value: SpreadsheetKey
+  readonly value: BlockKey
   readonly preview: SpreadsheetType
 }
 
 export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
 
+export interface FormulaName {
+  kind: 'Variable' | 'Block'
+  value: string
+  key: string
+  name: string
+}
+
 export interface ContextInterface {
   features: string[]
   spreadsheets: Record<NamespaceId, SpreadsheetType>
-  blockNameMap: Record<NamespaceId, string>
+  formulaNames: FormulaName[]
   reservedNames: string[]
   backendActions: BackendActions | undefined
   variableCount: () => number
@@ -353,14 +360,13 @@ export interface ContextInterface {
   removeSpreadsheet: (namespaceId: NamespaceId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
-  findVariableByName: (namespaceId: NamespaceId, name: VariableName) => VariableInterface | undefined
   clearDependency: (namespaceId: NamespaceId, variableId: VariableId) => void
   trackDependency: (variable: VariableInterface) => void
   handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<any> | undefined
-  reset: VoidFunction
+  resetFormula: VoidFunction
 }
 
 interface TestCase {

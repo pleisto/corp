@@ -49,12 +49,10 @@ const calculate = async ({
   name,
   input,
   position,
-  activeCompletion,
   formulaContext
 }: {
   namespaceId: string
   variable: VariableInterface | undefined
-  activeCompletion: Completion | undefined
   name: string
   input: string
   position: number
@@ -75,7 +73,7 @@ const calculate = async ({
     meta,
     interpretContext: { ctx: {}, arguments: [] }
   }
-  const parseResult = parse({ ctx, activeCompletion, position })
+  const parseResult = parse({ ctx, position })
 
   console.log({
     parseResult,
@@ -85,8 +83,7 @@ const calculate = async ({
     lastChar: input[position - 1],
     nextChar: input[position],
     newInput: parseResult.input,
-    codeFragments: parseResult.codeFragments,
-    activeCompletion
+    codeFragments: parseResult.codeFragments
   })
 
   const completions = parseResult.completions
@@ -312,7 +309,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const result = await calculate({
       namespaceId: rootId,
-      activeCompletion: latestActiveCompletion.current,
       variable,
       position: latestPosition.current,
       name: finalName,
@@ -385,7 +381,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setName(finalName)
     updateVariable(variable)
 
-    console.log({ label: 'save ...', input, variable, updateVariable, formulaContext })
+    console.log('save ...', { input, variable, updateVariable, formulaContext })
     close()
   }
 
@@ -446,8 +442,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}
-        >
+          disabled={isDisableSave()}>
           {t(`${i18nKey}.save`)}
         </Button>
         <Button className="formula-menu-button" size="small" type="text" danger={true} onClick={handleDelete}>
@@ -466,8 +461,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {children}
     </Popover>
   )

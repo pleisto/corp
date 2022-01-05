@@ -59,7 +59,7 @@ describe('Context', () => {
     expect(reverseVariableDependencies).toMatchSnapshot()
     expect(formulaContext.variableCount()).toEqual(2)
 
-    formulaContext.reset()
+    formulaContext.resetFormula()
 
     expect(formulaContext.reverseFunctionDependencies).toEqual({})
     expect(formulaContext.reverseVariableDependencies).toEqual({})
@@ -84,7 +84,7 @@ describe('Context', () => {
     expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 
-    formulaContext.reset()
+    formulaContext.resetFormula()
     await appendFormulas(formulaContext, formulas)
   })
 
@@ -171,7 +171,7 @@ describe('Context', () => {
 
     expect(formulaContext.variableCount()).toEqual(3)
 
-    formulaContext.reset()
+    formulaContext.resetFormula()
     void appendFormulas(formulaContext, formulas)
   })
 })

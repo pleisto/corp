@@ -26,12 +26,6 @@ import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './code_fragment'
-export interface ParseInput {
-  readonly ctx: FunctionContext
-  readonly activeCompletion?: Completion
-  readonly position?: number
-}
-
 export interface BaseParseResult {
   readonly success: boolean
   readonly valid: boolean
@@ -69,19 +63,63 @@ export interface ErrorParseResult extends BaseParseResult {
 }
 
 export type ParseResult = SuccessParseResult | ErrorParseResult
-
-export interface InterpretInput {
-  readonly cst: CstNode
-  readonly ctx: FunctionContext
-}
-
 export interface InterpretResult {
   readonly variableValue: VariableValue
   readonly lazy: boolean
 }
 
-// eslint-disable-next-line complexity
-export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): ParseResult => {
+export const abbrev = ({
+  ctx: { formulaContext },
+  input
+}: {
+  ctx: FunctionContext
+  input: string
+}): { lexResult: ILexingResult; newInput: string } => {
+  const lexer = FormulaLexer
+  const lexResult: ILexingResult = lexer.tokenize(input)
+  const tokens = lexResult.tokens
+  let modified = false
+  const finalInputs: string[] = []
+
+  tokens.forEach((token, index) => {
+    if (token.tokenType.name !== 'FunctionName') {
+      finalInputs.push(token.image)
+      return
+    }
+
+    const nextToken = tokens[index + 1]
+
+    if (nextToken && ['LParen', 'Colon'].includes(nextToken.tokenType.name)) {
+      finalInputs.push(token.image)
+      return
+    }
+
+    const prevToken = tokens[index - 1]
+    if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
+      finalInputs.push(token.image)
+      return
+    }
+
+    const formulaName = formulaContext.formulaNames.find(n => n.kind === 'Variable' && n.name === token.image)
+
+    if (!formulaName) {
+      finalInputs.push(token.image)
+      return
+    }
+
+    finalInputs.push(formulaName.value)
+    modified = true
+  })
+
+  if (modified) {
+    const newInput = finalInputs.join('')
+    return { lexResult: lexer.tokenize(newInput), newInput }
+  } else {
+    return { lexResult, newInput: input }
+  }
+}
+
+export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
     meta: { namespaceId, variableId, input, name }
@@ -92,7 +130,6 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
   let functionDependencies: Array<FunctionClause<any>> = []
   let blockDependencies: NamespaceId[] = []
   let flattenVariableDependencies: VariableDependency[] = []
-  let newInput = input
   const version = FORMULA_PARSER_VERSION
   if (!variableId) {
     return {
@@ -101,7 +138,7 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
       parseImage: '',
       valid: false,
       cst: undefined,
-      input: newInput,
+      input,
       position,
       version,
       level,
@@ -121,54 +158,10 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
   const parser = new FormulaParser()
   const codeFragmentVisitor = new CodeFragmentVisitor({ ctx })
 
-  const lexer = FormulaLexer
-
-  let lexResult: ILexingResult = lexer.tokenize(input)
-  let tokens = lexResult.tokens
-
-  const endChar = input[input.length - 1]
-
-  const specialChars = ['.', ' ', ',', '(', ')', '+', '-', '*', '/', '=', '>', '<', '[', ']', '{', '}']
-  const endCharIsSpecial = specialChars.includes(endChar)
-
-  const index = endCharIsSpecial ? tokens.length - 2 : tokens.length - 1
-  const lastToken = tokens[index]
-
-  const currentCompletion = activeCompletion
-
-  // console.log({ endChar, lastToken, input, tokens, currentCompletion })
-  if (
-    lastToken &&
-    currentCompletion &&
-    lastToken.image.length > 2 &&
-    currentCompletion.replacements.find(replacement => replacement.toUpperCase() === lastToken.image.toUpperCase())
-  ) {
-    // TODO spreadsheet && column completion (should in same codefragment)
-
-    let image = lastToken.image
-    let firstReplacement
-
-    if (endCharIsSpecial) {
-      firstReplacement = currentCompletion.replacements.find(replacement => input.endsWith(replacement.concat(endChar)))
-      if (firstReplacement) {
-        image = firstReplacement
-      } else {
-        console.error('replacement not found', { currentCompletion, lastToken, input, endChar })
-      }
-
-      newInput = input
-        .slice(0, input.length - image.length - 1)
-        .concat(currentCompletion.value)
-        .concat(endChar)
-    } else {
-      newInput = input.slice(0, input.length - image.length).concat(currentCompletion.value)
-    }
-
-    // console.log({ input, image, currentCompletion, lastToken })
-
-    lexResult = lexer.tokenize(newInput)
-    tokens = lexResult.tokens
-  }
+  const {
+    lexResult: { tokens, errors: lexErrors },
+    newInput
+  } = abbrev({ ctx, input })
 
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
@@ -197,8 +190,8 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
     variableId
   })
 
-  if (lexResult.errors.length > 0 || parseErrors.length > 0) {
-    const errorMessages = (lexResult.errors.length ? lexResult.errors : parseErrors).map(e => ({
+  if (lexErrors.length > 0 || parseErrors.length > 0) {
+    const errorMessages = (lexErrors.length ? lexErrors : parseErrors).map(e => ({
       message: e.message,
       type: 'parse'
     })) as [ErrorMessage, ...ErrorMessage[]]
@@ -308,7 +301,7 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
     }
   }
 
-  if (formulaContext?.reservedNames.includes(name.toUpperCase())) {
+  if (formulaContext.reservedNames.includes(name.toUpperCase())) {
     return {
       success: false,
       valid: true,
@@ -331,7 +324,7 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
   }
 
   const sameNameVariable = formulaContext
-    ?.listVariables(namespaceId)
+    .listVariables(namespaceId)
     .find(v => v.t.variableId !== variableId && v.t.name.toUpperCase() === name.toUpperCase())
 
   if (sameNameVariable) {
@@ -377,7 +370,7 @@ export const parse = ({ ctx, activeCompletion, position: pos }: ParseInput): Par
   }
 }
 
-export const interpret = async ({ cst, ctx }: InterpretInput): Promise<InterpretResult> => {
+export const interpret = async ({ cst, ctx }: { cst: CstNode; ctx: FunctionContext }): Promise<InterpretResult> => {
   try {
     const interpreter = new FormulaInterpreter({ ctx })
     const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })

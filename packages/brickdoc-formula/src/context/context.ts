@@ -15,7 +15,6 @@ import {
   FunctionGroup,
   FunctionKey,
   VariableKey,
-  VariableName,
   DefaultVariableName,
   CodeFragment,
   ExampleWithCodeFragments,
@@ -25,13 +24,15 @@ import {
   VariableCompletion,
   SpreadsheetCompletion,
   ColumnCompletion,
-  Features
+  Features,
+  FormulaName
 } from '../types'
 import {
   function2completion,
   spreadsheet2completion,
   variable2completion,
   variableKey,
+  blockKey,
   column2completion
 } from './util'
 import { FORMULA_PARSER_VERSION } from '../version'
@@ -45,6 +46,7 @@ import { FORMULA_FEATURE_CONTROL } from './features'
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
   backendActions?: BackendActions
+  formulaNames?: FormulaName[]
   features?: string[]
 }
 
@@ -93,7 +95,6 @@ export class FormulaContext implements ContextInterface {
   functionWeights: Record<FunctionKey, number> = {}
   variableWeights: Record<VariableKey, number> = {}
   spreadsheets: Record<NamespaceId, SpreadsheetType> = {}
-  blockNameMap: Record<NamespaceId, string> = {}
   variableNameCounter: Record<FormulaType, Record<NamespaceId, number>> = {
     string: {},
     number: {},
@@ -127,12 +128,23 @@ export class FormulaContext implements ContextInterface {
   functionClausesMap: Record<FunctionKey, FunctionClause<any>>
   backendActions: BackendActions | undefined
   reservedNames: string[] = []
+  formulaNames: FormulaName[] = []
 
-  constructor({ functionClauses = [], backendActions, features = [FORMULA_FEATURE_CONTROL] }: FormulaContextArgs) {
+  constructor({
+    functionClauses = [],
+    backendActions,
+    formulaNames,
+    features = [FORMULA_FEATURE_CONTROL]
+  }: FormulaContextArgs) {
     this.features = features
     if (backendActions) {
       this.backendActions = backendActions
     }
+
+    if (formulaNames) {
+      this.formulaNames = formulaNames
+    }
+
     const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
       f => !f.feature || this.features.includes(f.feature)
     )
@@ -246,12 +258,6 @@ export class FormulaContext implements ContextInterface {
     return Object.values(this.context).filter(v => v.t.namespaceId === namespaceId)
   }
 
-  public findVariableByName = (namespaceId: NamespaceId, name: VariableName): VariableInterface | undefined => {
-    return Object.values(this.context).find(
-      (v: VariableInterface) => v.t.namespaceId === namespaceId && v.t.name === name
-    )
-  }
-
   // TODO flattenVariableDependencies
   public clearDependency = (namespaceId: NamespaceId, variableId: VariableId): void => {
     const variable = this.findVariable(namespaceId, variableId)
@@ -282,15 +288,23 @@ export class FormulaContext implements ContextInterface {
   // TODO update level
   public trackDependency = (variable: VariableInterface): void => {
     const {
-      t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies }
+      t: { variableDependencies, blockDependencies, namespaceId, name, variableId, functionDependencies }
     } = variable
     BrickdocEventBus.subscribe(
       BlockNameLoad,
       e => {
-        this.blockNameMap[namespaceId] = e.payload.name
+        this.formulaNames = this.formulaNames
+          .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
+          .concat({ kind: 'Block', name: e.payload.name, value: blockKey(namespaceId), key: namespaceId })
       },
       { eventId: namespaceId, subscribeId: variableId }
     )
+
+    const value = variableKey(namespaceId, variableId)
+    const key = variableId
+    this.formulaNames = this.formulaNames
+      .filter(n => !(n.kind === 'Variable' && n.key === key))
+      .concat({ kind: 'Variable', name, value, key })
 
     BrickdocEventBus.subscribe(
       FormulaInnerRefresh,
@@ -409,8 +423,9 @@ export class FormulaContext implements ContextInterface {
     return this.functionClausesMap[buildFunctionKey(group, name)]
   }
 
-  public reset = (): void => {
+  public resetFormula = (): void => {
     this.context = {}
+    this.formulaNames = []
     this.reverseVariableDependencies = {}
     this.reverseFunctionDependencies = {}
   }

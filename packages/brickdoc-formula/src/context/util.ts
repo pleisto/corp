@@ -6,7 +6,7 @@ import {
   FunctionCompletion,
   NamespaceId,
   SpreadsheetCompletion,
-  SpreadsheetKey,
+  BlockKey,
   VariableCompletion,
   VariableId,
   VariableInterface,
@@ -19,7 +19,7 @@ import { ColumnType, SpreadsheetType } from '../controls'
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}@${variableId}`
 
-export const spreadsheetKey = (namespaceId: NamespaceId): SpreadsheetKey => `#${namespaceId}`
+export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}#${columnId}`
 
@@ -30,7 +30,7 @@ export const renderSpreadsheet = (
   const error = errorMessages.length === 0 ? '' : errorMessages[0].message
   return blockId => [
     {
-      value: spreadsheetKey(spreadsheet.blockId),
+      value: blockKey(spreadsheet.blockId),
       display: spreadsheet.name(),
       error,
       code: 'Spreadsheet',
@@ -43,7 +43,7 @@ export const renderColumn = (column: ColumnType, errorMessages: ErrorMessage[]):
   const error = errorMessages.length === 0 ? '' : errorMessages[0].message
   return blockId => [
     {
-      value: spreadsheetKey(column.namespaceId),
+      value: blockKey(column.namespaceId),
       display: column.spreadsheet.name(),
       error,
       code: 'Spreadsheet',
@@ -108,7 +108,7 @@ export const renderVariable = (
 }
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType): SpreadsheetCompletion => {
-  const value = spreadsheetKey(spreadsheet.blockId)
+  const value = blockKey(spreadsheet.blockId)
   return {
     kind: 'spreadsheet',
     replacements: [spreadsheet.name()],
@@ -137,9 +137,9 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
     kind: 'column',
     replacements: [
       `${column.name}`,
-      `${spreadsheetKey(column.namespaceId)}.${column.name}`,
-      `${spreadsheetKey(column.namespaceId)}.`,
-      `${spreadsheetKey(column.namespaceId)}`
+      `${blockKey(column.namespaceId)}.${column.name}`,
+      `${blockKey(column.namespaceId)}.`,
+      `${blockKey(column.namespaceId)}`
     ],
     weight: -3,
     name: column.name,
