@@ -132,9 +132,6 @@ export type { TreeSelectProps } from './tree-select'
 export { default as TreeSelect } from './tree-select'
 */
 
-/* export type { TagProps, TagType } from './tag'
- * export { default as Tag } from './tag' */
-
 export type { TimePickerProps, TimeRangePickerProps } from './time-picker'
 export { default as TimePicker } from './time-picker'
 
