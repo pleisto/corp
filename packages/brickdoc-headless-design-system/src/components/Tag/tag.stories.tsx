@@ -1,5 +1,4 @@
 import { Tag } from './index'
-import { TagGroup } from './tagGroup'
 
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
@@ -7,29 +6,57 @@ export default {
   title: 'Components/Tag',
   component: Tag,
   args: {
-    type: 'line'
+    text: 'default',
+    value: 1
   },
   argTypes: {
-    type: {
-      options: ['line', 'card', 'editable-card'],
+    text: {
+      description: ``,
       control: {
-        type: 'radio'
+        type: 'text'
       }
     },
-    hideAdd: {
-      control: 'boolean'
+    value: {
+      description: '`string | number`',
+      control: {
+        type: 'string'
+      }
     },
-    centered: {
-      control: 'boolean'
+    closable: {
+      description: `Toggle whether the tag can be closed`,
+      control: {
+        type: 'boolean'
+      }
     },
-    addIcon: {
-      description: '`React.ReactNode`'
+    size: {
+      control: {
+        type: 'radio',
+        options: ['sm', 'md', 'lg']
+      }
     },
-    onEdit: {
-      description: `(e: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => void`
+    color: {
+      control: {
+        type: 'select',
+        options: ['none', 'primary', 'red', 'cyan', 'blue']
+      },
+      defaultValue: 'primary'
     },
-    className: {
+    border: {
+      control: {
+        type: 'boolean'
+      }
+    },
+    prefixCls: {
       description: '`string`'
+    },
+    onClick: {
+      description: '`(e: MouseEvent<HTMLElement> | PressEvent) => void`'
+    },
+    onClose: {
+      description: '`(e: MouseEvent<HTMLElement>, value: ReactNode) => void`'
+    },
+    children: {
+      description: '`ReactNode`'
     }
   },
   parameters: {
@@ -52,29 +79,6 @@ Tag component for feedback.
   }
 } as ComponentMeta<typeof Tag>
 
-const Template: ComponentStory<typeof Tag> = () => (
-  <>
-    <Tag>default</Tag>
-    <Tag size="sm" closable={true}>
-      test2
-    </Tag>
-    <Tag color="red">red</Tag>
-    <Tag size="lg">test1</Tag>
-    <Tag size="lg" border={false}>
-      no-border
-    </Tag>
-  </>
-)
-export const Basic = Template.bind({})
-Basic.args = {}
-
-const TemplateGroup: ComponentStory<typeof TagGroup> = arg => (
-  <>
-    <TagGroup tagList={arg.tagList} size="lg" />
-  </>
-)
-
-export const GroupTags = TemplateGroup.bind({})
-TemplateGroup.args = {
-  tagList: [{ children: 'doc' }, { children: 'test' }, { children: 'tag' }, { children: 'tags' }]
-}
+const Template: ComponentStory<typeof Tag> = args => <Tag {...args} />
+export const TagBasic = Template.bind({})
+TagBasic.args = {}

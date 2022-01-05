@@ -1,30 +1,36 @@
+import { FC } from 'react'
 import { render } from '@testing-library/react'
 import { composeStories } from '@storybook/testing-react'
 import { a11yTest } from '../../../testHelper'
-import { FC } from 'react'
-import * as TabsStories from '../tabs.stories'
-import { Tabs } from '../index'
+import { TagProps } from '../constants'
+import * as TagStories from '../tag.stories'
+import * as TagGroupStories from '../tagGroup.stories'
+import { Tag } from '../index'
+import { TagGroup } from '../tagGroup'
 
-const { Basic } = composeStories(TabsStories)
+const { TagBasic } = composeStories(TagStories)
+const { Basic } = composeStories(TagGroupStories)
 
-it('Tabs Should be passed a11y test', async () => await a11yTest(Basic as FC))
+it('Tag Should be passed a11y test', async () => await a11yTest(TagBasic as FC))
+it('TagGroup Should be passed a11y test', async () => await a11yTest(Basic as FC))
 
-describe('Tabs', () => {
+describe('tag', () => {
   it(`matches snapshot correctly`, () => {
-    const { container } = render(
-      <Tabs defaultActiveKey="2">
-        <Tabs.TabPane tab="tab 1" key="1">
-          first
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="tab 2" key="2">
-          second
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="tab 3" key="3">
-          third
-        </Tabs.TabPane>
-      </Tabs>
-    )
+    const { container } = render(<Tag text="test" value="1" />)
+    expect(container.firstChild).toMatchSnapshot()
+  })
+})
 
+describe('tagGroup', () => {
+  it(`matches snapshot correctly`, () => {
+    const tagList: TagProps[] = [
+      { color: 'primary', text: 'Abc', value: '1' },
+      { color: 'blue', text: 'Hotsoon', value: '2' },
+      { color: 'cyan', text: 'Toutiao', value: '3' },
+      { color: 'red', text: 'Pipixia', value: '4' }
+    ]
+
+    const { container } = render(<TagGroup tagList={tagList} size="lg" />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })

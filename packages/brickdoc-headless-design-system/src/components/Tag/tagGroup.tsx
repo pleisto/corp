@@ -1,23 +1,22 @@
-import { forwardRef, ForwardRefRenderFunction } from 'react'
+import { FC } from 'react'
 import { Tag } from './'
 
 import type { TagGroupProps } from './constants'
-import { prefix } from '../../themes'
 
-const TagGroup: ForwardRefRenderFunction<unknown, TagGroupProps> = (props, ref) => {
-  const { children, tagList = [], size = 'md', ...otherProps } = props
+const TagGroup: FC<TagGroupProps> = props => {
+  const { tagList = [], size = 'md', ...otherProps } = props
 
   return (
-    <div>
+    <>
       {tagList.map((i, key) => (
-        <Tag size={size} {...i} key={key} {...otherProps} />
+        <Tag size={size} key={key} {...i} {...otherProps} />
       ))}
-    </div>
+    </>
   )
 }
 
-const _TagGroup = forwardRef(TagGroup)
+const _TagGroup = TagGroup
 
-_TagGroup.displayName = `${prefix}TagGroup`
+_TagGroup.displayName = `TagGroup`
 
 export { _TagGroup as TagGroup }
