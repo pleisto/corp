@@ -8,10 +8,10 @@ exports[`SelectCell matches correct snapshot 1`] = `
   tabindex="-1"
 >
   <div
-    class="brd-c-gsZMAK brd-c-gsZMAK-jhuSHf-size-md table-block-select-cell-tag"
+    class="brd-c-gsZMAK brd-c-gsZMAK-jhuSHf-size-md"
     style="color: rgb(62, 62, 62);"
   >
-    
+    label
   </div>
 </div>
 `;
