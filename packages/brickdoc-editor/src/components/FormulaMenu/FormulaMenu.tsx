@@ -335,6 +335,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     //   latestActiveCompletion: latestActiveCompletion.current
     // })
 
+    setCompletions(completions)
+    setActiveCompletion(completions[0])
+    // setPosition(newPosition)
+    latestSetPosition.current(newPosition)
+
     if (parseResult.valid) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
@@ -345,9 +350,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       //   setInput(parseResult.input)
     }
 
-    setCompletions(completions)
-    setActiveCompletion(completions[0])
-    setPosition(newPosition)
 
     if (inputIsEmpty) {
       updateVariable(undefined)

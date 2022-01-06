@@ -35,7 +35,8 @@ import {
   variable2completion,
   variableKey,
   blockKey,
-  column2completion
+  column2completion,
+  renderBlock
 } from './util'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
@@ -44,6 +45,7 @@ import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
 import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
+import { renderSpreadsheet, renderVariable } from '.'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
@@ -259,7 +261,8 @@ export class FormulaContext implements ContextInterface {
         kind: 'Spreadsheet',
         name: spreadsheet.name(),
         value: blockKey(spreadsheet.blockId),
-        key: spreadsheet.blockId
+        key: spreadsheet.blockId,
+        render: renderSpreadsheet(spreadsheet, [])
       })
     this.spreadsheets[spreadsheet.blockId] = spreadsheet
   }
@@ -312,9 +315,16 @@ export class FormulaContext implements ContextInterface {
     BrickdocEventBus.subscribe(
       BlockNameLoad,
       e => {
+        const name = e.payload.name || 'Untitled'
         this.formulaNames = this.formulaNames
           .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
-          .concat({ kind: 'Block', name: e.payload.name || 'Untitled', value: blockKey(namespaceId), key: namespaceId })
+          .concat({
+            kind: 'Block',
+            name,
+            value: blockKey(namespaceId),
+            key: namespaceId,
+            render: renderBlock(namespaceId, () => name, [])
+          })
       },
       { eventId: namespaceId, subscribeId: variableId }
     )
@@ -323,7 +333,7 @@ export class FormulaContext implements ContextInterface {
     const key = variableId
     this.formulaNames = this.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === key))
-      .concat({ kind: 'Variable', name, value, key })
+      .concat({ kind: 'Variable', name, value, key, render: renderVariable(variable, []) })
 
     BrickdocEventBus.subscribe(
       FormulaInnerRefresh,

@@ -1087,7 +1087,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...token2fragment(namespaceToken, 'any'),
             code: 'Block',
             type: parentType,
-            render: renderBlock(block, errorMessages),
+            render: renderBlock(block.id, block.name, errorMessages),
             namespaceId: block.id,
             name: `#${namespaceId}`,
             errors: errorMessages

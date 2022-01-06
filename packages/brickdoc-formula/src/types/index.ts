@@ -347,6 +347,7 @@ export interface FormulaName {
   value: string
   key: string
   name: string
+  render: RenderCodeFragmentFunction
 }
 
 export interface ContextInterface {

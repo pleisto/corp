@@ -68,52 +68,68 @@ export interface InterpretResult {
 
 export const abbrev = ({
   ctx: { formulaContext },
+  position,
+  namespaceId,
   input
 }: {
+  namespaceId: NamespaceId
   ctx: FunctionContext
+  position: number
   input: string
-}): { lexResult: ILexingResult; newInput: string } => {
+}): { lexResult: ILexingResult; newInput: string; newPosition: number } => {
   const lexer = FormulaLexer
   const lexResult: ILexingResult = lexer.tokenize(input)
   const tokens = lexResult.tokens
+  let image = ''
   let modified = false
-  const finalInputs: string[] = []
+  let newInput = ''
+  let newPosition = position
 
   tokens.forEach((token, index) => {
+    image = image.concat(token.image)
     if (token.tokenType.name !== 'FunctionName') {
-      finalInputs.push(token.image)
+      newInput = newInput.concat(token.image)
       return
     }
 
     const nextToken = tokens[index + 1]
 
     if (nextToken && ['LParen', 'Colon'].includes(nextToken.tokenType.name)) {
-      finalInputs.push(token.image)
+      newInput = newInput.concat(token.image)
       return
     }
 
     const prevToken = tokens[index - 1]
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
-      finalInputs.push(token.image)
+      newInput = newInput.concat(token.image)
       return
     }
 
     const formulaName = formulaContext.formulaNames.find(n => n.name === token.image)
 
     if (!formulaName) {
-      finalInputs.push(token.image)
+      newInput = newInput.concat(token.image)
       return
     }
 
-    finalInputs.push(formulaName.value)
+    if (image.length <= position + 1) {
+      // Modify position
+      newPosition +=
+        formulaName
+          .render(namespaceId)
+          .map(e => e.display)
+          .join('').length - token.image.length
+      // console.log({ newInput, position, newPosition, image }, formulaName.render(namespaceId))
+    }
+
+    newInput = newInput.concat(formulaName.value)
     modified = true
   })
 
   if (modified) {
-    const newInput = finalInputs.join('')
-    return { lexResult: lexer.tokenize(newInput), newInput }
+    return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
   } else {
-    return { lexResult, newInput: input }
+    return { lexResult, newInput: input, newPosition }
   }
 }
 
@@ -164,8 +180,9 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const {
     lexResult: { tokens, errors: lexErrors },
-    newInput
-  } = abbrev({ ctx, input })
+    newInput,
+    newPosition
+  } = abbrev({ ctx, input, position, namespaceId })
 
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
@@ -196,7 +213,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   returnValue.cst = cst
   returnValue.input = newInput
-  returnValue.position = position
+  returnValue.position = newPosition
   returnValue.parseImage = image
   returnValue.completions = completions
 
