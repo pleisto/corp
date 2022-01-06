@@ -323,9 +323,9 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     }
   }
 
-  const sameNameVariable = formulaContext
-    .listVariables(namespaceId)
-    .find(v => v.t.variableId !== variableId && v.t.name.toUpperCase() === name.toUpperCase())
+  const sameNameVariable = formulaContext.formulaNames.find(
+    v => v.name.toUpperCase() === name.toUpperCase() && v.key !== variableId
+  )
 
   if (sameNameVariable) {
     return {
@@ -340,7 +340,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
       version,
       errorType: 'syntax',
       completions,
-      errorMessages: [{ message: 'Variable name exist in same namespace', type: 'name_unique' }],
+      errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }],
       flattenVariableDependencies,
       blockDependencies,
       variableDependencies,

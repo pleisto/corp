@@ -92,9 +92,7 @@ describe('Context', () => {
     const input = '=123'
     const meta = { namespaceId: fooNamespaceId, variableId: newFooVariableId, name, input }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
-    expect(parseResult.errorMessages).toEqual([
-      { message: 'Variable name exist in same namespace', type: 'name_unique' }
-    ])
+    expect(parseResult.errorMessages).toEqual([{ message: 'Name exist in same namespace', type: 'name_unique' }])
   })
 
   it('reserved name check', () => {
