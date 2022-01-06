@@ -1,4 +1,4 @@
-import { appendFormulas, buildVariable, interpret, parse, SuccessParseResult } from '../../grammar/api'
+import { appendFormulas, buildVariable, interpret, parse, SuccessParseResult } from '../../grammar/core'
 import { Formula } from '../../types'
 import { FormulaContext } from '../context'
 

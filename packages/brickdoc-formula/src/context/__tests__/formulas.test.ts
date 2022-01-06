@@ -1,4 +1,4 @@
-import { appendFormulas } from '../../grammar/api'
+import { appendFormulas } from '../../grammar/core'
 import { Formula } from '../../types'
 import { FormulaContext } from '../context'
 

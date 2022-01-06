@@ -1,6 +1,7 @@
-import { parse, interpret, quickInsert } from '../api'
+import { parse, interpret } from '../core'
 import { FormulaContext } from '../../context'
 import { BaseFunctionClause, NumberResult } from '../../types'
+import { quickInsert } from '../testHelper'
 
 const functionClauses: Array<BaseFunctionClause<any>> = [
   {

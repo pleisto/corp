@@ -1,4 +1,4 @@
-import { parse, interpret } from '../api'
+import { parse, interpret } from '../core'
 import { FormulaContext } from '../../context'
 import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass } from '../../controls'
 

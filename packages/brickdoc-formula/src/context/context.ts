@@ -37,7 +37,7 @@ import {
 } from './util'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
-import { CodeFragmentVisitor } from '../grammar/code_fragment'
+import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
 import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
@@ -295,7 +295,7 @@ export class FormulaContext implements ContextInterface {
       e => {
         this.formulaNames = this.formulaNames
           .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
-          .concat({ kind: 'Block', name: e.payload.name, value: blockKey(namespaceId), key: namespaceId })
+          .concat({ kind: 'Block', name: e.payload.name || 'Untitled', value: blockKey(namespaceId), key: namespaceId })
       },
       { eventId: namespaceId, subscribeId: variableId }
     )

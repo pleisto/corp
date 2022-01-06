@@ -1,8 +1,9 @@
-import { parse, quickInsert } from '../api'
+import { parse } from '../core'
 import { CodeFragment } from '../../types'
 import { FormulaContext } from '../../context'
 import { FormulaLexer } from '../lexer'
 import { complete } from '../completer'
+import { quickInsert } from '../testHelper'
 
 const formulaContext = new FormulaContext({})
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'

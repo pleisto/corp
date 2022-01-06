@@ -11,7 +11,7 @@ import {
   Definition,
   Formula
 } from '../types'
-import { parse, interpret } from '../grammar/api'
+import { parse, interpret } from '../grammar/core'
 import { castValue, loadValue } from './persist'
 
 export const displayValue = (v: AnyTypeResult): string => {
@@ -123,8 +123,14 @@ export class VariableClass implements VariableInterface {
     this.formulaContext = formulaContext
   }
 
-  public namespaceName = () =>
-    this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')?.name ?? 'Untitled'
+  public namespaceName = () => {
+    const formulaName = this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')
+    if (formulaName) {
+      return formulaName.name
+    }
+
+    return 'Untitled'
+  }
 
   public isDraft = () => {
     return !this.formulaContext.findVariable(this.t.namespaceId, this.t.variableId)

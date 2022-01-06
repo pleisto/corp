@@ -1,5 +1,6 @@
 /* eslint-disable max-nested-callbacks */
-import { buildVariable, interpret, parse, quickInsert, SuccessParseResult } from '../../grammar/api'
+import { buildVariable, interpret, parse, SuccessParseResult } from '../../grammar/core'
+import { quickInsert } from '../../grammar/testHelper'
 import { VariableMetadata } from '../../types'
 import { FormulaContext } from '../context'
 

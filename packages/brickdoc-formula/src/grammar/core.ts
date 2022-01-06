@@ -25,41 +25,39 @@ import { FORMULA_PARSER_VERSION } from '../version'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
-import { CodeFragmentVisitor } from './code_fragment'
+import { CodeFragmentVisitor } from './codeFragment'
 export interface BaseParseResult {
-  readonly success: boolean
-  readonly valid: boolean
-  readonly input: string
-  readonly version: number
-  readonly position: number
-  readonly inputImage: string
-  readonly parseImage: string
-  readonly cst?: CstNode
-  readonly errorType?: ParseErrorType
-  readonly kind?: VariableKind
-  readonly level: number
-  readonly errorMessages: ErrorMessage[]
-  readonly variableDependencies: VariableDependency[]
-  readonly functionDependencies: Array<FunctionClause<any>>
-  readonly blockDependencies: NamespaceId[]
-  readonly codeFragments: CodeFragment[]
-  readonly flattenVariableDependencies: VariableDependency[]
-  readonly completions: Completion[]
+  success: boolean
+  valid: boolean
+  input: string
+  version: number
+  position: number
+  inputImage: string
+  parseImage: string
+  cst?: CstNode
+  errorType?: ParseErrorType
+  kind: VariableKind
+  level: number
+  errorMessages: ErrorMessage[]
+  variableDependencies: VariableDependency[]
+  functionDependencies: Array<FunctionClause<any>>
+  blockDependencies: NamespaceId[]
+  codeFragments: CodeFragment[]
+  flattenVariableDependencies: VariableDependency[]
+  completions: Completion[]
 }
 
 export interface SuccessParseResult extends BaseParseResult {
-  readonly success: true
-  readonly valid: true
-  readonly errorMessages: []
-  readonly cst: CstNode
-  readonly kind: VariableKind
+  success: true
+  valid: true
+  errorMessages: []
+  cst: CstNode
 }
 
 export interface ErrorParseResult extends BaseParseResult {
-  readonly success: false
-  readonly cst?: CstNode
-  readonly errorType: ParseErrorType
-  readonly errorMessages: [ErrorMessage, ...ErrorMessage[]]
+  success: false
+  errorType: ParseErrorType
+  errorMessages: [ErrorMessage, ...ErrorMessage[]]
 }
 
 export type ParseResult = SuccessParseResult | ErrorParseResult
@@ -125,31 +123,37 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     meta: { namespaceId, variableId, input, name }
   } = ctx
   const position = pos ?? 0
-  let level = 0
-  let variableDependencies: VariableDependency[] = []
-  let functionDependencies: Array<FunctionClause<any>> = []
-  let blockDependencies: NamespaceId[] = []
-  let flattenVariableDependencies: VariableDependency[] = []
+  const level = 0
   const version = FORMULA_PARSER_VERSION
+
+  const returnValue: BaseParseResult = {
+    success: false,
+    inputImage: '',
+    parseImage: '',
+    valid: true,
+    cst: undefined,
+    input,
+    position,
+    version,
+    level,
+    kind: 'constant',
+    errorType: 'parse',
+    errorMessages: [{ type: 'parse', message: '' }],
+    completions: [],
+    codeFragments: [],
+    variableDependencies: [],
+    functionDependencies: [],
+    blockDependencies: [],
+    flattenVariableDependencies: []
+  }
+
   if (!variableId) {
     return {
-      success: false,
-      inputImage: '',
-      parseImage: '',
+      ...returnValue,
       valid: false,
-      cst: undefined,
-      input,
-      position,
-      version,
-      level,
+      success: false,
       errorType: 'parse',
-      completions: [],
-      errorMessages: [{ message: 'Miss variableId', type: 'fatal' }],
-      codeFragments: [],
-      variableDependencies,
-      functionDependencies,
-      blockDependencies,
-      flattenVariableDependencies
+      errorMessages: [{ message: 'Miss variableId', type: 'fatal' }]
     }
   }
   const baseCompletion = formulaContext.completions(namespaceId, variableId)
@@ -172,14 +176,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const errorCodeFragment = codeFragments.find(f => f.errors.length)
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
-  level = codeFragmentVisitor.level
-  variableDependencies = codeFragmentVisitor.variableDependencies
-  functionDependencies = codeFragmentVisitor.functionDependencies
-  blockDependencies = codeFragmentVisitor.blockDependencies
-  flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
-
-  const parseErrors: IRecognitionException[] = parser.errors
-
   completions = complete({
     input,
     cacheCompletions: baseCompletion,
@@ -189,6 +185,22 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     namespaceId,
     variableId
   })
+
+  returnValue.level = codeFragmentVisitor.level
+  returnValue.kind = codeFragmentVisitor.kind
+  returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
+  returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
+  returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
+  returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
+  returnValue.inputImage = inputImage
+
+  returnValue.cst = cst
+  returnValue.input = newInput
+  returnValue.position = position
+  returnValue.parseImage = image
+  returnValue.completions = completions
+
+  const parseErrors: IRecognitionException[] = parser.errors
 
   if (lexErrors.length > 0 || parseErrors.length > 0) {
     const errorMessages = (lexErrors.length ? lexErrors : parseErrors).map(e => ({
@@ -257,69 +269,37 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     finalCodeFragments.push({ ...spaceCodeFragment, name: ' '.repeat(spaceCount) })
   }
 
+  returnValue.codeFragments = finalCodeFragments
+
   if (finalErrorMessages.length) {
     return {
+      ...returnValue,
       success: false,
       valid: finalErrorMessages[0].type !== 'parse' && codeFragments.length > 0,
-      input: newInput,
-      inputImage,
-      parseImage: image,
-      version,
-      position,
-      cst,
-      level,
       errorType: 'syntax',
-      completions,
-      errorMessages: finalErrorMessages as [ErrorMessage, ...ErrorMessage[]],
-      codeFragments: finalCodeFragments,
-      variableDependencies,
-      functionDependencies,
-      blockDependencies,
-      flattenVariableDependencies
+      errorMessages: finalErrorMessages as [ErrorMessage, ...ErrorMessage[]]
     }
   }
 
-  if ([...flattenVariableDependencies].find(v => v.namespaceId === namespaceId && v.variableId === variableId)) {
+  if (
+    codeFragmentVisitor.flattenVariableDependencies.find(
+      v => v.namespaceId === namespaceId && v.variableId === variableId
+    )
+  ) {
     return {
+      ...returnValue,
       success: false,
-      valid: true,
-      input: newInput,
-      inputImage,
-      position,
-      parseImage: image,
       errorType: 'syntax',
-      errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }],
-      level,
-      version,
-      completions,
-      cst,
-      flattenVariableDependencies,
-      variableDependencies,
-      functionDependencies,
-      blockDependencies,
-      codeFragments: finalCodeFragments
+      errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }]
     }
   }
 
   if (formulaContext.reservedNames.includes(name.toUpperCase())) {
     return {
+      ...returnValue,
       success: false,
-      valid: true,
-      input: newInput,
-      inputImage,
-      parseImage: image,
-      cst,
-      position,
-      level,
-      version,
       errorType: 'syntax',
-      completions,
-      errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }],
-      flattenVariableDependencies,
-      blockDependencies,
-      variableDependencies,
-      functionDependencies,
-      codeFragments: finalCodeFragments
+      errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }]
     }
   }
 
@@ -329,44 +309,20 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   if (sameNameVariable) {
     return {
+      ...returnValue,
       success: false,
-      valid: true,
-      input: newInput,
-      inputImage,
-      parseImage: image,
-      position,
-      cst,
-      level,
-      version,
       errorType: 'syntax',
-      completions,
-      errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }],
-      flattenVariableDependencies,
-      blockDependencies,
-      variableDependencies,
-      functionDependencies,
-      codeFragments: finalCodeFragments
+      errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }]
     }
   }
 
   return {
-    success: true,
+    ...returnValue,
+    cst: cst!,
+    errorType: undefined,
     valid: true,
-    input: newInput,
-    inputImage,
-    parseImage: image,
-    position,
-    cst,
-    level,
-    version,
-    errorMessages: [],
-    completions,
-    kind: codeFragmentVisitor.kind,
-    flattenVariableDependencies,
-    blockDependencies,
-    variableDependencies,
-    functionDependencies,
-    codeFragments: finalCodeFragments
+    success: true,
+    errorMessages: []
   }
 }
 
@@ -465,55 +421,4 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: Formu
         skipCreate: true
       })
     })
-}
-
-// NOTE: only for test
-export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<void> => {
-  const {
-    formulaContext,
-    meta: { namespaceId, variableId, name, input }
-  } = ctx
-  const view: View = {}
-
-  const {
-    success,
-    cst,
-    codeFragments,
-    kind,
-    level,
-    version,
-    errorMessages,
-    variableDependencies,
-    functionDependencies,
-    blockDependencies,
-    flattenVariableDependencies
-  } = parse({ ctx })
-
-  if (!success) {
-    throw new Error(errorMessages[0]!.message)
-  }
-
-  const { variableValue, lazy } = await interpret({ cst: cst!, ctx })
-
-  const variable: VariableData = {
-    namespaceId,
-    variableId,
-    name,
-    dirty: false,
-    valid: true,
-    view,
-    definition: input,
-    cst,
-    version: lazy ? -1 : version,
-    kind: kind ?? 'constant',
-    codeFragments,
-    variableValue,
-    level,
-    blockDependencies,
-    variableDependencies,
-    functionDependencies,
-    flattenVariableDependencies
-  }
-
-  void (await formulaContext.commitVariable({ variable: new VariableClass({ t: variable, formulaContext }) }))
 }
