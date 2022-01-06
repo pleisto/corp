@@ -7,10 +7,7 @@ import { FocusRing } from '../FocusRing'
 import { root, checkbox } from './styles/index.style'
 
 export interface CheckboxProps extends Omit<ReakitCheckboxProps, 'size' | 'onChange' | 'ref' | 'css'> {
-  className?: string
-  style?: React.CSSProperties
   labelFirst?: boolean
-  disabled?: boolean
   defaultChecked?: boolean
   checked?: boolean
   onChange?: (checked: boolean, event: React.ChangeEvent) => void
