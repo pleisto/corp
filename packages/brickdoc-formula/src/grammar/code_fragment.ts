@@ -739,7 +739,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const parentType = 'Array'
     const rParenErrorMessages: ErrorMessage[] = ctx.RBracket
       ? []
-      : [{ message: 'Missing closing parenthesis', type: 'parse' }]
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const { codeFragments, image } = ctx.Arguments
       ? (this.visit(ctx.Arguments) as CodeFragmentResult)
       : { codeFragments: [], image: '' }
@@ -778,7 +778,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     images.push(ctx.LBrace[0].image)
     const rBraceErrorMessages: ErrorMessage[] = ctx.RBrace
       ? []
-      : [{ message: 'Missing closing parenthesis', type: 'parse' }]
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     codeFragments.push({ ...token2fragment(ctx.LBrace[0], 'any'), errors: rBraceErrorMessages })
 
     const parentType = 'Record'
@@ -880,7 +880,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
     const rParenErrorMessages: ErrorMessage[] = ctx.RParen
       ? []
-      : [{ message: 'Missing closing parenthesis', type: 'parse' }]
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const { codeFragments, type: expressionType, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
     const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], expressionType)] : []
     const finalImage = ctx.RParen
@@ -1231,7 +1231,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     const rParenErrorMessages: ErrorMessage[] = ctx.RParen
       ? []
-      : [{ message: 'Missing closing parenthesis', type: 'parse' }]
+      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
     const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], clause ? clause.returns : 'any')] : []
 
     const clauseErrorMessages: ErrorMessage[] = []
@@ -1277,7 +1277,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           {
             ...nameFragment,
             code: 'Function',
-            errors: [...rParenErrorMessages, ...chainError, ...errorMessages, ...argsErrorMessages]
+            errors: [...chainError, ...errorMessages, ...argsErrorMessages]
           },
           { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
           ...argsCodeFragments,

@@ -33,4 +33,11 @@ export class InputClass implements InputType {
       )
     }
   }
+
+  persistence(): InputInitializer {
+    return {
+      value: this.value,
+      fn: this.fn
+    }
+  }
 }

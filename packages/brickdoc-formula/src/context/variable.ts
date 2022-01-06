@@ -5,22 +5,14 @@ import {
   VariableData,
   VariableInterface,
   VariableMetadata,
-  Formula,
   AnyTypeResult,
   VariableValue,
-  FunctionContext,
   InterpretContext,
-  Definition
+  Definition,
+  Formula
 } from '../types'
-import {
-  SwitchClass,
-  ButtonClass,
-  SelectClass,
-  ColumnClass,
-  SpreadsheetClass,
-  SpreadsheetPersistence
-} from '../controls'
 import { parse, interpret } from '../grammar/api'
+import { castValue, loadValue } from './persist'
 
 export const displayValue = (v: AnyTypeResult): string => {
   switch (v.type) {
@@ -64,67 +56,6 @@ export const displayValue = (v: AnyTypeResult): string => {
   return JSON.stringify(v.result)
 }
 
-const parseCacheValue = (ctx: FunctionContext, cacheValue: AnyTypeResult): AnyTypeResult => {
-  if (cacheValue.type === 'Date' && !(cacheValue.result instanceof Date)) {
-    return {
-      type: 'Date',
-      result: new Date(cacheValue.result)
-    }
-  }
-
-  if (cacheValue.type === 'Spreadsheet' && !(cacheValue.result instanceof SpreadsheetClass)) {
-    if (cacheValue.result.dynamic) {
-      const { blockId, spreadsheetName, columns, rows }: SpreadsheetPersistence = cacheValue.result.persistence!
-      return {
-        type: 'Spreadsheet',
-        result: new SpreadsheetClass({
-          ctx,
-          blockId,
-          dynamic: true,
-          name: spreadsheetName,
-          listColumns: () => columns,
-          listRows: () => rows
-        })
-      }
-    } else {
-      const spreadsheet = ctx.formulaContext.findSpreadsheet(cacheValue.result.blockId)
-      if (spreadsheet) {
-        return { type: 'Spreadsheet', result: spreadsheet }
-      } else {
-        return { type: 'Error', result: `Spreadsheet ${cacheValue.result.blockId} not found`, errorKind: 'deps' }
-      }
-    }
-  }
-
-  if (cacheValue.type === 'Column' && !(cacheValue.result instanceof ColumnClass)) {
-    const spreadsheet = ctx.formulaContext.findSpreadsheet(cacheValue.result.namespaceId)
-    if (spreadsheet) {
-      return { type: 'Column', result: new ColumnClass(spreadsheet, cacheValue.result) }
-    } else {
-      return { type: 'Error', result: `Spreadsheet ${cacheValue.result.namespaceId} not found`, errorKind: 'deps' }
-    }
-  }
-
-  if (cacheValue.type === 'Button' && !(cacheValue.result instanceof ButtonClass)) {
-    const buttonResult = new ButtonClass(ctx, cacheValue.result)
-    return { type: 'Button', result: buttonResult }
-  }
-
-  if (cacheValue.type === 'Switch' && !(cacheValue.result instanceof SwitchClass)) {
-    const switchResult = new SwitchClass(ctx, cacheValue.result)
-    return { type: 'Switch', result: switchResult }
-  }
-
-  if (cacheValue.type === 'Select' && !(cacheValue.result instanceof SelectClass)) {
-    const selectResult = new SelectClass(ctx, cacheValue.result)
-    return { type: 'Select', result: selectResult }
-  }
-
-  // console.log({ cacheValue })
-
-  return cacheValue
-}
-
 export const castVariable = (
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, view }: Formula
@@ -133,7 +64,7 @@ export const castVariable = (
   const variableId = id
   const meta = { namespaceId, variableId, name, input: definition }
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
-  const castedValue: AnyTypeResult = parseCacheValue(ctx, cacheValue)
+  const castedValue: AnyTypeResult = loadValue(ctx, cacheValue)
   const {
     success,
     cst,
@@ -217,6 +148,7 @@ export class VariableClass implements VariableInterface {
   }
 
   public buildFormula = (): Formula => {
+    const ctx = { formulaContext: this.formulaContext, meta: this.meta(), interpretContext: { ctx: {}, arguments: [] } }
     return {
       blockId: this.t.namespaceId,
       definition: this.t.definition,
@@ -225,22 +157,23 @@ export class VariableClass implements VariableInterface {
       version: this.t.version,
       kind: this.t.kind,
       level: this.t.level,
-      updatedAt: new Date().toISOString(),
-      createdAt: new Date().getTime(),
-      cacheValue: this.t.variableValue.cacheValue,
-      view: this.t.view
+      // updatedAt: new Date().toISOString(),
+      // createdAt: new Date().getTime(),
+      cacheValue: castValue(ctx, this.t.variableValue.cacheValue),
+      view: this.t.view,
+      dependencyIds: this.t.variableDependencies.map(dependency => dependency.variableId)
     }
   }
 
   public invokeBackendCreate = async (): Promise<void> => {
     if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.createVariable(this)
+      await this.formulaContext.backendActions.createVariable(this.buildFormula())
     }
   }
 
   public invokeBackendUpdate = async (): Promise<void> => {
     if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.updateVariable(this)
+      await this.formulaContext.backendActions.updateVariable(this.buildFormula())
     }
   }
 

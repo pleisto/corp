@@ -35,4 +35,12 @@ export class SelectClass implements SelectType {
       )
     }
   }
+
+  persistence(): SelectInitializer {
+    return {
+      options: this.options,
+      value: this.value,
+      fn: this.fn
+    }
+  }
 }

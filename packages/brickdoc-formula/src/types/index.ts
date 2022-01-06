@@ -103,7 +103,7 @@ export type Features = Feature[]
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set' | 'Lambda'
-interface BaseResult {
+export interface BaseResult {
   result: any
   type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
@@ -279,13 +279,17 @@ export interface Formula {
   definition: string
   id: uuid
   name: VariableName
-  updatedAt: string
-  createdAt: number
-  cacheValue: AnyTypeResult
+  cacheValue: BaseResult
   level: number
   version: number
   kind: string
   view: View
+  dependencyIds: uuid[]
+}
+
+export interface FormulaWithTime extends Formula {
+  updatedAt: string
+  createdAt: number
 }
 
 export interface Argument {
@@ -492,7 +496,7 @@ interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
   readonly result: AnyTypeResult
-  readonly cacheValue: AnyTypeResult
+  readonly cacheValue: BaseResult
 }
 
 interface SuccessVariableValue extends BaseVariableValue {
@@ -554,9 +558,9 @@ export interface VariableInterface {
 }
 
 export interface BackendActions {
-  createVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
-  updateVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
-  deleteVariable: (variable: VariableInterface) => Promise<{ success: boolean }>
+  createVariable: (formula: Formula) => Promise<{ success: boolean }>
+  updateVariable: (formula: Formula) => Promise<{ success: boolean }>
+  deleteVariable: (formula: Formula) => Promise<{ success: boolean }>
 }
 
 export interface ErrorMessage {

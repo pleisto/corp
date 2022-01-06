@@ -2,7 +2,6 @@ import { CstNode, ILexingResult, IRecognitionException } from 'chevrotain'
 import {
   CodeFragment,
   ErrorMessage,
-  Formula,
   ContextInterface,
   FunctionClause,
   VariableData,
@@ -17,7 +16,8 @@ import {
   ParseErrorType,
   CodeFragmentResult,
   NamespaceId,
-  FunctionContext
+  FunctionContext,
+  Formula
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'

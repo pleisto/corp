@@ -20,8 +20,7 @@ describe('Context', () => {
       blockId: fooNamespaceId,
       definition: '=123',
       kind: 'constant',
-      updatedAt: new Date().toDateString(),
-      createdAt: 0,
+      dependencyIds: [],
       version: 0,
       level: 0,
       cacheValue: {
@@ -34,10 +33,9 @@ describe('Context', () => {
       name: 'bar',
       id: barVariableId,
       blockId: barNamespaceId,
+      dependencyIds: [fooVariableId],
       definition: `=ABS(120) + #${fooNamespaceId}@${fooVariableId}`,
       kind: 'expression',
-      updatedAt: new Date().toDateString(),
-      createdAt: 0,
       version: 0,
       level: 0,
       cacheValue: {

@@ -414,7 +414,7 @@ export class FormulaContext implements ContextInterface {
       delete this.context[key]
 
       if (this.backendActions) {
-        await this.backendActions.deleteVariable(variable)
+        await this.backendActions.deleteVariable(variable.buildFormula())
       }
     }
   }

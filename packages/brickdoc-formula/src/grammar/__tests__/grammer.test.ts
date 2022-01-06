@@ -544,7 +544,7 @@ const testCases: TestCase[] = [
     input: '=ABS(',
     parseErrorType: 'syntax',
     label: 'Missing closing parenthesis2',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Miss argument'
   },
   {
     input: '=ABS(1',

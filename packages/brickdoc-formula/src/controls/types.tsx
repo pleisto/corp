@@ -16,6 +16,7 @@ export interface ControlType {
   _meta: VariableMetadata
   kind: FormulaControlType
   disabled: boolean
+  persistence: () => ControlInitializer
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ControlInitializer {}
