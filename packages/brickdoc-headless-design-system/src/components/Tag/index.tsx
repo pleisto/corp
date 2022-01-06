@@ -20,23 +20,30 @@ const Tag: ForwardRefRenderFunction<unknown, TagProps> = (props, ref) => {
   const { pressProps, isPressed } = usePress({
     onPress: e => {
       if (e.type === 'press') {
-        onClick?.(e, value)
+        onClick?.(e, value ?? text)
       }
     }
   })
 
   const handleClose = useCallback(
     e => {
-      onClose?.(e, value)
+      onClose?.(e, value ?? text)
     },
-    [onClose, value]
+    [onClose, value, text]
   )
 
   const icon = closable ? <CloseOutlined onClick={handleClose} /> : <></>
 
   return (
     <>
-      <TagRoot ref={ref} color={color} size={size} pressed={isPressed} {...(pressProps as any)} {...otherProps}>
+      <TagRoot
+        ref={ref}
+        color={color ?? 'primary'}
+        size={size}
+        pressed={isPressed}
+        {...(pressProps as any)}
+        {...otherProps}
+      >
         {text ?? ''}
         {icon}
       </TagRoot>
