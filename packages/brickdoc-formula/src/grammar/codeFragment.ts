@@ -14,10 +14,11 @@ import {
   FunctionContext,
   ExpressionType
 } from '../types'
-import { renderColumn, renderSpreadsheet, renderVariable } from '../context/util'
+import { renderBlock, renderColumn, renderSpreadsheet, renderVariable } from '../context/util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
+import { BlockClass } from '../controls/block'
 
 const SpaceBeforeTypes = [
   'In',
@@ -1050,14 +1051,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const namespaceToken = ctx.UUID[0]
     const namespaceId = namespaceToken.image
 
+    this.kind = 'expression'
     this.blockDependencies.push(namespaceId)
     const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
 
-    const parentType: FormulaType = 'Spreadsheet'
-
-    this.kind = 'expression'
-
     if (spreadsheet) {
+      const parentType: FormulaType = 'Spreadsheet'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
       return {
         codeFragments: [
@@ -1074,18 +1073,41 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         image: `#${namespaceId}`,
         type: newType
       }
-    } else {
+    }
+
+    const formulaName = this.ctx.formulaContext.formulaNames.find(f => f.kind === 'Block' && f.key === namespaceId)
+    if (formulaName) {
+      const parentType: FormulaType = 'Block'
+      const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
+      const block = new BlockClass(this.ctx, { id: namespaceId })
+
       return {
         codeFragments: [
-          SharpFragment,
           {
             ...token2fragment(namespaceToken, 'any'),
-            errors: [{ message: `Spreadsheet not found: ${namespaceId}`, type: 'deps' }]
+            code: 'Block',
+            type: parentType,
+            render: renderBlock(block, errorMessages),
+            namespaceId: block.id,
+            name: `#${namespaceId}`,
+            errors: errorMessages
           }
         ],
         image: `#${namespaceId}`,
-        type: parentType
+        type: newType
       }
+    }
+
+    return {
+      codeFragments: [
+        SharpFragment,
+        {
+          ...token2fragment(namespaceToken, 'any'),
+          errors: [{ message: `Block not found: ${namespaceId}`, type: 'deps' }]
+        }
+      ],
+      image: `#${namespaceId}`,
+      type: 'Block'
     }
   }
 

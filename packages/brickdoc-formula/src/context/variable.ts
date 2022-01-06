@@ -27,6 +27,8 @@ export const displayValue = (v: AnyTypeResult): string => {
       return `#<Error> ${v.result}`
     case 'Spreadsheet':
       return `#<Spreadsheet> ${v.result.name()}`
+    case 'Block':
+      return `#<Block> ${v.result.name()}`
     case 'Column':
       return `#<Column> ${v.result.spreadsheet.name()}.${v.result.name}`
     case 'Predicate':
@@ -129,7 +131,7 @@ export class VariableClass implements VariableInterface {
       return formulaName.name
     }
 
-    return 'Untitled'
+    return 'Unknown'
   }
 
   public isDraft = () => {

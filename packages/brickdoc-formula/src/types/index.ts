@@ -1,5 +1,5 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType, InputType, ColumnType, SpreadsheetType, SelectType, SwitchType } from '../controls'
+import { ButtonType, InputType, ColumnType, SpreadsheetType, SelectType, SwitchType, BlockType } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
@@ -167,7 +167,7 @@ export interface SpreadsheetResult extends BaseResult {
 }
 
 export interface BlockResult extends BaseResult {
-  result: never
+  result: BlockType
   type: 'Block'
 }
 
@@ -468,14 +468,16 @@ interface BaseCodeFragment {
   readonly errors: ErrorMessage[]
 }
 
+export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
+
 export interface SpecialCodeFragment extends BaseCodeFragment {
-  readonly code: 'Spreadsheet' | 'Column' | 'Variable'
+  readonly code: SpecialCodeFragmentType
   readonly render: RenderCodeFragmentFunction
   readonly namespaceId: NamespaceId
 }
 
 export interface OtherCodeFragment extends BaseCodeFragment {
-  readonly code: Exclude<string, 'Variable' | 'Column' | 'Spreadsheet'>
+  readonly code: Exclude<string, SpecialCodeFragmentType>
   readonly render: undefined
 }
 

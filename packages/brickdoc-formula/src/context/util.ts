@@ -14,7 +14,7 @@ import {
   RenderCodeFragmentFunction,
   ErrorMessage
 } from '../types'
-import { ColumnType, SpreadsheetType } from '../controls'
+import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}@${variableId}`
@@ -22,6 +22,19 @@ export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): V
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}#${columnId}`
+
+export const renderBlock = (block: BlockType, errorMessages: ErrorMessage[]): RenderCodeFragmentFunction => {
+  const error = errorMessages.length === 0 ? '' : errorMessages[0].message
+  return blockId => [
+    {
+      value: blockKey(block.id),
+      display: blockId === block.id ? 'Current Block' : block.name(),
+      error,
+      code: 'Block',
+      type: 'Block'
+    }
+  ]
+}
 
 export const renderSpreadsheet = (
   spreadsheet: SpreadsheetType,

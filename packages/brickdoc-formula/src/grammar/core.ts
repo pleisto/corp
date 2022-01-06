@@ -98,7 +98,7 @@ export const abbrev = ({
       return
     }
 
-    const formulaName = formulaContext.formulaNames.find(n => n.kind === 'Variable' && n.name === token.image)
+    const formulaName = formulaContext.formulaNames.find(n => n.name === token.image)
 
     if (!formulaName) {
       finalInputs.push(token.image)

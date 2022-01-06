@@ -7,10 +7,12 @@ import {
   SpreadsheetClass,
   SpreadsheetPersistence
 } from '../controls'
+import { BlockClass } from '../controls/block'
 
 export const castValue = (ctx: FunctionContext, cacheValue: BaseResult): BaseResult => {
   if (
     cacheValue.result instanceof ColumnClass ||
+    cacheValue.result instanceof BlockClass ||
     cacheValue.result instanceof ButtonClass ||
     cacheValue.result instanceof SelectClass ||
     cacheValue.result instanceof SwitchClass
@@ -60,6 +62,11 @@ export const loadValue = (ctx: FunctionContext, cacheValue: BaseResult): AnyType
     } else {
       return { type: 'Error', result: `Spreadsheet ${cacheValue.result.namespaceId} not found`, errorKind: 'deps' }
     }
+  }
+
+  if (cacheValue.type === 'Block' && !(cacheValue.result instanceof BlockClass)) {
+    const blockResult = new BlockClass(ctx, cacheValue.result)
+    return { type: 'Block', result: blockResult }
   }
 
   if (cacheValue.type === 'Button' && !(cacheValue.result instanceof ButtonClass)) {

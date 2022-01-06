@@ -27,6 +27,16 @@ export interface ButtonType extends ControlType {
   onClick?: VoidFunction
 }
 
+export interface BlockInitializer {
+  id: NamespaceId
+}
+
+export interface BlockType extends BlockInitializer {
+  _formulaContext: ContextInterface
+  name: () => string
+  persistence: () => BlockInitializer
+}
+
 export interface ColumnInitializer {
   columnId: ColumnId
   namespaceId: NamespaceId
