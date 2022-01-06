@@ -343,7 +343,7 @@ export interface SpreadsheetCompletion extends BaseCompletion {
 export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
 
 export interface FormulaName {
-  kind: 'Variable' | 'Block'
+  kind: SpecialCodeFragmentType
   value: string
   key: string
   name: string
@@ -354,13 +354,14 @@ export interface ContextInterface {
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
   reservedNames: string[]
+  invoke: (name: FunctionNameType, ctx: FunctionContext, ...args: any[]) => Promise<AnyTypeResult>
   backendActions: BackendActions | undefined
   variableCount: () => number
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findSpreadsheet: (namespaceId: NamespaceId) => SpreadsheetType | undefined
   findColumn: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
-  setSpreadsheet: (namespaceId: NamespaceId, spreadsheet: SpreadsheetType) => void
+  setSpreadsheet: (spreadsheet: SpreadsheetType) => void
   removeSpreadsheet: (namespaceId: NamespaceId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined

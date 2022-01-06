@@ -25,7 +25,9 @@ import {
   SpreadsheetCompletion,
   ColumnCompletion,
   Features,
-  FormulaName
+  FormulaName,
+  AnyTypeResult,
+  FunctionContext
 } from '../types'
 import {
   function2completion,
@@ -177,6 +179,15 @@ export class FormulaContext implements ContextInterface {
     )
   }
 
+  public invoke = async (name: string, ctx: FunctionContext, ...args: any[]): Promise<AnyTypeResult> => {
+    const clause = this.functionClausesMap[name]
+    if (!clause) {
+      return { type: 'Error', result: `Function ${name} not found`, errorKind: 'fatal' }
+    }
+
+    return await clause.reference(ctx, ...args)
+  }
+
   public completions = (namespaceId: NamespaceId, variableId: VariableId | undefined): Completion[] => {
     const functions: FunctionCompletion[] = Object.entries(this.functionClausesMap).map(([key, f]) => {
       const weight: number = this.functionWeights[key as FunctionKey] || 0
@@ -241,8 +252,16 @@ export class FormulaContext implements ContextInterface {
     return new ColumnClass(spreadsheet, column)
   }
 
-  public setSpreadsheet = (namespaceId: NamespaceId, spreadsheet: SpreadsheetType): void => {
-    this.spreadsheets[namespaceId] = spreadsheet
+  public setSpreadsheet = (spreadsheet: SpreadsheetType): void => {
+    this.formulaNames = this.formulaNames
+      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
+      .concat({
+        kind: 'Spreadsheet',
+        name: spreadsheet.name(),
+        value: blockKey(spreadsheet.blockId),
+        key: spreadsheet.blockId
+      })
+    this.spreadsheets[spreadsheet.blockId] = spreadsheet
   }
 
   public removeSpreadsheet = (namespaceId: NamespaceId): void => {

@@ -87,6 +87,16 @@ describe('Custom Function', () => {
     expect(cst).toMatchSnapshot()
   })
 
+  it('invoke', async () => {
+    const result = await ctx.formulaContext.invoke(
+      'custom::PLUS',
+      { ...ctx, meta: { ...ctx.meta, input: '' } },
+      { type: 'number', result: 1 },
+      { type: 'number', result: 1 }
+    )
+    expect(result).toEqual({ type: 'number', result: 2 })
+  })
+
   it('Function dependencies', () => {
     const newMeta = { ...meta, input: '=custom::PLUS(1, 1)' }
     const finalCtx = { ...ctx, meta: newMeta, formulaContext: localFormulaContext }

@@ -75,7 +75,8 @@ const calculate = async ({
   }
   const parseResult = parse({ ctx, position })
 
-  console.log({
+  console.log('calculate', {
+    ctx,
     parseResult,
     input,
     position,
@@ -365,6 +366,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const isDisableSave = (): boolean => {
     if (!(name ?? defaultName) || !input || !variable) return true
     if (!formulaContext) return true
+
+    if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
   }
