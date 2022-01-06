@@ -574,7 +574,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     ctx: {
       simpleAtomicExpression: CstNode | CstNode[]
       columnExpression: CstNode | CstNode[]
-      spreadsheetExpression: CstNode | CstNode[]
+      blockExpression: CstNode | CstNode[]
       referenceExpression: CstNode | CstNode[]
       predicateExpression: CstNode | CstNode[]
     },
@@ -586,8 +586,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.columnExpression, args)
     } else if (ctx.referenceExpression) {
       return this.visit(ctx.referenceExpression, args)
-    } else if (ctx.spreadsheetExpression) {
-      return this.visit(ctx.spreadsheetExpression, args)
+    } else if (ctx.blockExpression) {
+      return this.visit(ctx.blockExpression, args)
     } else if (ctx.predicateExpression) {
       return this.visit(ctx.predicateExpression, args)
     } else {
@@ -774,12 +774,12 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  spreadsheetExpression(
+  blockExpression(
     ctx: { UUID: Array<{ image: any }> },
     args: ExpressionArgument
   ): SpreadsheetResult | NullResult | ErrorResult {
     const parentType: FormulaType = 'Spreadsheet'
-    const typeError = runtimeCheckType(args.type, parentType, 'spreadsheetExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'blockExpression')
     if (typeError) {
       return typeError
     }

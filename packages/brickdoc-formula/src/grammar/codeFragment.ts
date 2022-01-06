@@ -605,7 +605,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       simpleAtomicExpression: CstNode | CstNode[]
       columnExpression: CstNode | CstNode[]
       referenceExpression: CstNode | CstNode[]
-      spreadsheetExpression: CstNode | CstNode[]
+      blockExpression: CstNode | CstNode[]
       predicateExpression: CstNode | CstNode[]
     },
     { type }: ExpressionArgument
@@ -616,8 +616,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       return this.visit(ctx.columnExpression, { type })
     } else if (ctx.referenceExpression) {
       return this.visit(ctx.referenceExpression, { type })
-    } else if (ctx.spreadsheetExpression) {
-      return this.visit(ctx.spreadsheetExpression, { type })
+    } else if (ctx.blockExpression) {
+      return this.visit(ctx.blockExpression, { type })
     } else if (ctx.predicateExpression) {
       return this.visit(ctx.predicateExpression, { type })
     }
@@ -1045,7 +1045,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  spreadsheetExpression(ctx: { Sharp: IToken[]; UUID: any[] }, { type }: ExpressionArgument): CodeFragmentResult {
+  blockExpression(ctx: { Sharp: IToken[]; UUID: any[] }, { type }: ExpressionArgument): CodeFragmentResult {
     const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
     const namespaceToken = ctx.UUID[0]
     const namespaceId = namespaceToken.image
@@ -1058,7 +1058,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     this.kind = 'expression'
 
     if (spreadsheet) {
-      const { errorMessages, newType } = intersectType(type, parentType, 'spreadsheetExpression')
+      const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
       return {
         codeFragments: [
           {
