@@ -1,7 +1,8 @@
-import { ForwardRefRenderFunction, createRef, forwardRef } from 'react'
+import { ForwardRefRenderFunction, createRef, forwardRef, KeyboardEventHandler } from 'react'
 import { Input, InputProps } from 'reakit'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { css, theme } from '../../themes'
+import { usePressEnterHandler } from '../Input/usePressEnterHandler'
 import cx from 'classnames'
 
 export interface AutoSizeType {
@@ -10,7 +11,7 @@ export interface AutoSizeType {
 }
 
 export interface TextAreaProps extends Omit<InputProps, 'as' | 'ref' | 'css'> {
-  onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
+  onPressEnter?: KeyboardEventHandler<HTMLInputElement>
   autoSize?: boolean | AutoSizeType
 }
 
@@ -21,18 +22,44 @@ const textareaStyle = css({
   verticalAlign: 'bottom',
   color: theme.colors.typePrimary,
   borderColor: theme.colors.borderSecondary,
-  backgroundColor: theme.colors.ceramicQuaternary,
+  backgroundColor: theme.colors.backgroundOverlayPrimary,
   padding: '5px 12px',
-  lineHeight: theme.lineHeights.body
+  lineHeight: theme.lineHeights.body,
+  '&::placeholder': {
+    color: theme.colors.typeDisabled
+  },
+  '&:hover:not(:disabled)': {
+    borderColor: theme.colors.borderOverlayThirdary
+  },
+  '&:focus-visible': {
+    outlineColor: theme.colors.borderOverlayThirdary,
+    borderColor: 'transparent'
+  },
+  '&:disabled': {
+    cursor: 'not-allowed',
+    color: theme.colors.typeDisabled,
+    background: theme.colors.secondaryHover
+  },
+  '&:invalid, &[aria-invalid="true"]': {
+    borderColor: theme.colors.errorDefault,
+    boxShadow: `0 0 0 2px ${theme.colors.errorBorder}`,
+    backgroundColor: theme.colors.errorBg,
+    color: theme.colors.errorDefault,
+    '&:focus-visible': {
+      outlineColor: theme.colors.errorDefault
+    }
+  }
 })
 
 const TextArea: ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps> = (props, ref) => {
-  const { autoSize = false, className, ...otherProps } = props
+  const { autoSize = false, className, onKeyDown, onPressEnter, ...otherProps } = props
   const inputRef = ref ?? createRef<HTMLTextAreaElement>()
+  const keydownHandler = usePressEnterHandler(onPressEnter, onKeyDown)
   const commonProps = {
     ...otherProps,
     ref: inputRef,
-    className: cx(textareaStyle(), className)
+    className: cx(textareaStyle(), className),
+    onKeyDown: keydownHandler
   }
 
   return autoSize ? (
