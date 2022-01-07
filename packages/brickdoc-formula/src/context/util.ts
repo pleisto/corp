@@ -115,7 +115,7 @@ export const renderVariable = (
             type: 'any'
           },
           {
-            value: variableKey(variable.t.namespaceId, variable.t.variableId),
+            value: variable.t.variableId,
             display: variable.t.name,
             error,
             code: 'Variable',
