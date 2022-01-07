@@ -1704,7 +1704,7 @@ Array [
         "code": "Variable",
         "errors": Array [
           Object {
-            "message": "Variable not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",
+            "message": "Not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",
             "type": "deps",
           },
         ],
@@ -2305,7 +2305,7 @@ Array [
       },
       "result": Object {
         "errorKind": "deps",
-        "result": "Variable not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",
+        "result": "Not found: 1588aedf-06e1-47f1-9282-d2ffe865974c",
         "type": "Error",
       },
       "success": false,

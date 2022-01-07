@@ -1,7 +1,6 @@
 import { CstElement, CstNode, IToken, tokenMatcher } from 'chevrotain'
 import {
   AnyTypeResult,
-  ColumnResult,
   NullResult,
   SpreadsheetResult,
   NumberResult,
@@ -575,7 +574,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
   atomicExpression(
     ctx: {
       simpleAtomicExpression: CstNode | CstNode[]
-      columnExpression: CstNode | CstNode[]
       blockExpression: CstNode | CstNode[]
       referenceExpression: CstNode | CstNode[]
       predicateExpression: CstNode | CstNode[]
@@ -584,8 +582,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
   ): AnyTypeResult {
     if (ctx.simpleAtomicExpression) {
       return this.visit(ctx.simpleAtomicExpression, args)
-    } else if (ctx.columnExpression) {
-      return this.visit(ctx.columnExpression, args)
     } else if (ctx.referenceExpression) {
       return this.visit(ctx.referenceExpression, args)
     } else if (ctx.blockExpression) {
@@ -602,7 +598,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     ctx: {
       EqualCompareOperator: IToken[]
       CompareOperator: IToken[]
-      columnExpression: CstNode | CstNode[]
+      variableExpression: CstNode | CstNode[]
       simpleAtomicExpression: CstNode | CstNode[]
     },
     args: ExpressionArgument
@@ -642,16 +638,16 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return result
     }
 
-    if (!ctx.columnExpression) {
+    if (!ctx.variableExpression) {
       return { type: 'Predicate', result, operator }
     }
 
-    const { type, result: column } = this.visit(ctx.columnExpression, { ...args, type: 'Column' })
-    if (type === 'null') {
-      return { type: 'Error', result: 'Column not found', errorKind: 'runtime' }
+    const { type, result: column } = this.visit(ctx.variableExpression, { ...args, type: 'Column' })
+    if (type === 'Column') {
+      return { type: 'Predicate', result, operator, column }
     }
 
-    return { type: 'Predicate', result, operator, column }
+    return { type: 'Error', result: 'Not found', errorKind: 'runtime' }
   }
 
   arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeResult {
@@ -757,25 +753,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
   }
 
-  columnExpression(
-    ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } },
-    args: ExpressionArgument
-  ): ColumnResult | NullResult | ErrorResult {
-    const parentType: FormulaType = 'Column'
-    const typeError = runtimeCheckType(args.type, parentType, 'columnExpression')
-    if (typeError) {
-      return typeError
-    }
-    const [namespaceId, columnId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
-    const column = this.ctx.formulaContext.findColumn(namespaceId, columnId)
-
-    if (column) {
-      return { type: 'Column', result: column }
-    } else {
-      return { type: 'null', result: null }
-    }
-  }
-
   blockExpression(
     ctx: { UUID: Array<{ image: any }> },
     args: ExpressionArgument
@@ -849,26 +826,43 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): AnyTypeResult {
     const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
+    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
 
-    if (args?.lazy) {
-      return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
-    }
-
-    const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
-    if (!variable) {
-      throw new Error(`Variable not found: ${variableId}`)
-    }
-
-    if (variable.t.kind === 'constant') {
-      const typeError = runtimeCheckType(args.type, variable.t.variableValue.result.type, 'variableExpression')
+    if (namespaceType === 'Spreadsheet') {
+      const typeError = runtimeCheckType(args.type, 'Column', 'variableExpression')
       if (typeError) {
         return typeError
       }
 
-      return variable.t.variableValue.result
+      const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
+
+      if (column) {
+        return { type: 'Column', result: column }
+      } else {
+        return { type: 'null', result: null }
+      }
+    } else if (namespaceType === 'Block') {
+      if (args?.lazy) {
+        return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
+      }
+
+      // eslint-disable-next-line no-case-declarations
+      const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
+      if (variable) {
+        if (variable.t.kind === 'constant') {
+          const typeError = runtimeCheckType(args.type, variable.t.variableValue.result.type, 'variableExpression')
+          if (typeError) {
+            return typeError
+          }
+
+          return variable.t.variableValue.result
+        }
+
+        return this.visit(variable.t.cst!, args)
+      }
     }
 
-    return this.visit(variable.t.cst!, args)
+    throw new Error(`Variable not found: ${variableId}`)
   }
 
   NumberLiteralExpression(

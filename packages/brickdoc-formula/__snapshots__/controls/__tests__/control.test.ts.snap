@@ -4722,7 +4722,7 @@ Array [
     "code": "Variable",
     "errors": Array [
       Object {
-        "message": "Variable not found: 99499117-5694-4d83-9ccd-85a3ab0b8f25",
+        "message": "Not found: 99499117-5694-4d83-9ccd-85a3ab0b8f25",
         "type": "deps",
       },
     ],

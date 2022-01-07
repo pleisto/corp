@@ -26,6 +26,7 @@ import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './codeFragment'
+import { variableKey } from '..'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -321,7 +322,10 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   }
 
   const sameNameVariable = formulaContext.formulaNames.find(
-    v => v.name.toUpperCase() === name.toUpperCase() && v.key !== variableId
+    v =>
+      v.name.toUpperCase() === name.toUpperCase() &&
+      v.key !== variableId &&
+      v.value !== variableKey(namespaceId, variableId)
   )
 
   if (sameNameVariable) {

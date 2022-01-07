@@ -95,6 +95,7 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
 
 export class FormulaContext implements ContextInterface {
   features: Features
+  blocks: Record<NamespaceId, 'Block' | 'Spreadsheet'> = {}
   context: Record<VariableKey, VariableInterface> = {}
   functionWeights: Record<FunctionKey, number> = {}
   variableWeights: Record<VariableKey, number> = {}
@@ -264,6 +265,7 @@ export class FormulaContext implements ContextInterface {
         key: spreadsheet.blockId,
         render: renderSpreadsheet(spreadsheet, [])
       })
+    this.blocks[spreadsheet.blockId] = 'Spreadsheet'
     this.spreadsheets[spreadsheet.blockId] = spreadsheet
   }
 
@@ -334,6 +336,7 @@ export class FormulaContext implements ContextInterface {
     this.formulaNames = this.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === key))
       .concat({ kind: 'Variable', name, value, key, render: renderVariable(variable, []) })
+    this.blocks[namespaceId] = 'Block'
 
     BrickdocEventBus.subscribe(
       FormulaInnerRefresh,

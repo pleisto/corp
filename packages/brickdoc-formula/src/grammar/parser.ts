@@ -183,7 +183,6 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.SUBRULE(this.predicateExpression) },
       { ALT: () => this.SUBRULE(this.referenceExpression) },
       { ALT: () => this.SUBRULE(this.simpleAtomicExpression) },
-      { ALT: () => this.SUBRULE(this.columnExpression) },
       { ALT: () => this.SUBRULE(this.blockExpression) }
     ])
   })
@@ -216,19 +215,12 @@ export class FormulaParser extends CstParser {
   })
 
   public predicateExpression = this.RULE('predicateExpression', () => {
-    this.OPTION(() => {
-      this.SUBRULE(this.columnExpression)
-    })
+    // this.OPTION(() => {
+    //   this.SUBRULE(this.variableExpression)
+    // })
     this.OR([{ ALT: () => this.CONSUME(EqualCompareOperator) }, { ALT: () => this.CONSUME(CompareOperator) }])
 
     this.SUBRULE(this.simpleAtomicExpression)
-  })
-
-  public columnExpression = this.RULE('columnExpression', () => {
-    this.CONSUME(Sharp)
-    this.CONSUME(UUID)
-    this.CONSUME2(Sharp)
-    this.CONSUME2(UUID)
   })
 
   public referenceExpression = this.RULE('referenceExpression', () => {

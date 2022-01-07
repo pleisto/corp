@@ -69,7 +69,7 @@ Array [
 ]
 `;
 
-exports[`Power Fx Functions [CountIf ok] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 >= 3) 1`] = `
+exports[`Power Fx Functions [CountIf ok] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a@62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 >= 3) 1`] = `
 Array [
   Object {
     "code": "Function",
@@ -110,8 +110,13 @@ Array [
   },
   Object {
     "code": "Column",
-    "errors": Array [],
-    "name": "#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Column",
+        "type": "type",
+      },
+    ],
+    "name": "#28e28190-63bd-4f70-aeca-26e72574c01a@62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "render": [Function],
     "spaceAfter": false,
@@ -123,9 +128,9 @@ Array [
     "errors": Array [],
     "name": ">=",
     "render": undefined,
-    "spaceAfter": false,
-    "spaceBefore": false,
-    "type": "any",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "boolean",
   },
   Object {
     "code": "NumberLiteral",

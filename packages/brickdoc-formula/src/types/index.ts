@@ -342,7 +342,7 @@ export interface SpreadsheetCompletion extends BaseCompletion {
 
 export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
 
-export interface FormulaName {
+export interface BaseFormulaName {
   kind: SpecialCodeFragmentType
   value: string
   key: string
@@ -350,8 +350,32 @@ export interface FormulaName {
   render: RenderCodeFragmentFunction
 }
 
+export interface VariableFormulaName extends BaseFormulaName {
+  kind: 'Variable'
+  name: VariableName
+  value: VariableKey
+  key: VariableId
+}
+
+export interface BlockFormulaName extends BaseFormulaName {
+  kind: 'Block'
+  name: BlockName
+  value: BlockKey
+  key: NamespaceId
+}
+
+export interface SpreadsheetFormulaName extends BaseFormulaName {
+  kind: 'Spreadsheet'
+  name: SpreadsheetName
+  value: BlockKey
+  key: NamespaceId
+}
+
+export type FormulaName = VariableFormulaName | BlockFormulaName | SpreadsheetFormulaName
+
 export interface ContextInterface {
   features: string[]
+  blocks: Record<NamespaceId, 'Block' | 'Spreadsheet'>
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
   reservedNames: string[]
