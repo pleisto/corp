@@ -20,18 +20,10 @@ export interface TabsProps extends Omit<RcTabsProps, 'editable'> {
   onEdit?: (e: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => void
 }
 
-const Tabs = ({
-  type,
-  className,
-  onEdit,
-  hideAdd,
-  centered,
-  addIcon,
-  size = 'md',
-  ...props
-}: TabsProps): React.ReactElement => {
-  const { moreIcon = <EllipsisOutlined /> } = props
+const Tabs: React.ForwardRefRenderFunction<HTMLDivElement, TabsProps> = (props, ref) => {
+  const { moreIcon = <EllipsisOutlined />, type, onEdit, hideAdd, addIcon } = props
   const prefixCls = props.prefixCls ?? tabsStyle()
+  const tabsRef = ref ?? React.createRef<HTMLDivElement>()
 
   let editable: EditableConfig | undefined
   if (type === 'editable-card') {
@@ -46,17 +38,21 @@ const Tabs = ({
   }
 
   return (
-    <>
-      <RcTabs
-        moreTransitionName={`${prefix}-slide-up`}
-        {...props}
-        editable={editable}
-        moreIcon={moreIcon}
-        prefixCls={prefixCls}
-      />
-    </>
+    <RcTabs
+      ref={tabsRef}
+      {...props}
+      moreTransitionName={`${prefix}-slide-up`}
+      editable={editable}
+      moreIcon={moreIcon}
+      prefixCls={prefixCls}
+    />
   )
 }
 
-Tabs.TabPane = TabPane
-export { Tabs }
+const _Tabs = React.forwardRef(Tabs)
+const _TabPane = React.forwardRef(TabPane)
+
+_Tabs.displayName = 'Tabs'
+_TabPane.displayName = 'TabPane'
+
+export { _Tabs as Tabs, _TabPane as TabPane }
