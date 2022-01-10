@@ -81,6 +81,16 @@ describe('Complete', () => {
       expectNewInput: '= 1 + var'
     },
     {
+      label: 'block completion',
+      input: `=#${namespaceId}.`,
+      namespaceId,
+      errorMessage: 'Missing expression',
+      weight: 1001,
+      expectParseImage: `=#${namespaceId}.`,
+      expectInputImage: `=#${namespaceId}.`,
+      expectNewInput: `=#${namespaceId}.`
+    },
+    {
       label: 'var equal different namespaceId',
       input: `=${testName1}`,
       namespaceId: testNamespaceId,
@@ -191,7 +201,7 @@ describe('Complete', () => {
         })
 
         expect(valid).toBe(true)
-        expect(codeFragments).toMatchSnapshot()
+        expect({ codeFragments, firstCompletion: completions[0] }).toMatchSnapshot()
         expect({ inputImage, parseImage, newInput }).toEqual({
           inputImage: expectInputImage,
           parseImage: expectParseImage,

@@ -95,7 +95,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'boolean'
     const childrenType: FormulaType = 'boolean'
-    const typeError = runtimeCheckType(args.type, parentType, 'combineExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'combineExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -139,7 +139,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'boolean'
     const childrenType: FormulaType = 'any'
-    const typeError = runtimeCheckType(args.type, parentType, 'notExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'notExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -171,7 +171,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'boolean'
     const childrenType: FormulaType = 'any'
-    const typeError = runtimeCheckType(args.type, parentType, 'equalCompareExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'equalCompareExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -220,7 +220,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'boolean'
     const childrenType: FormulaType = 'number'
-    const typeError = runtimeCheckType(args.type, parentType, 'compareExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'compareExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -274,7 +274,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
 
     const parentType: FormulaType = 'boolean'
-    const typeError = runtimeCheckType(args.type, parentType, 'inExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'inExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -358,7 +358,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'string'
     const childrenType: FormulaType = 'string'
-    const typeError = runtimeCheckType(args.type, parentType, 'concatExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'concatExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -401,7 +401,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'number'
     const childrenType: FormulaType = 'number'
-    const typeError = runtimeCheckType(args.type, parentType, 'additionExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'additionExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -453,7 +453,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     const parentType: FormulaType = 'number'
     const childrenType: FormulaType = 'number'
-    const typeError = runtimeCheckType(args.type, parentType, 'multiplicationExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'multiplicationExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -583,7 +583,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Unexpected CST node ${cst.name}`)
     })
 
-    const typeError = runtimeCheckType(args.type, result.type, 'chainExpression')
+    const typeError = runtimeCheckType(args.type, result.type, 'chainExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -662,7 +662,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): PredicateResult | ErrorResult {
     const parentType: FormulaType = 'Predicate'
-    const typeError = runtimeCheckType(args.type, parentType, 'predicateExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'predicateExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -711,7 +711,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeResult {
     const parentType: FormulaType = 'Array'
-    const typeError = runtimeCheckType(args.type, parentType, 'arrayExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'arrayExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -727,7 +727,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   recordExpression(ctx: any, args: ExpressionArgument): AnyTypeResult {
     const parentType: FormulaType = 'Record'
-    const typeError = runtimeCheckType(args.type, parentType, 'recordExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'recordExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -766,7 +766,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): AnyTypeResult {
     const parentType: FormulaType = 'string'
-    const typeError = runtimeCheckType(args.type, parentType, 'StringLiteralExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'StringLiteralExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -777,7 +777,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
   FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }, args: ExpressionArgument): AnyTypeResult {
     const parentType: FormulaType = 'string'
-    const typeError = runtimeCheckType(args.type, parentType, 'FunctionNameExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'FunctionNameExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -799,7 +799,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.BooleanLiteralExpression, args)
     } else if (ctx.NullLiteral) {
       const parentType: FormulaType = 'null'
-      const typeError = runtimeCheckType(args.type, parentType, 'constantExpression')
+      const typeError = runtimeCheckType(args.type, parentType, 'constantExpression', this.ctx)
       if (typeError) {
         return typeError
       }
@@ -821,7 +821,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     if (namespaceType === 'Spreadsheet') {
       const parentType: FormulaType = 'Spreadsheet'
-      const typeError = runtimeCheckType(args.type, parentType, 'blockExpression')
+      const typeError = runtimeCheckType(args.type, parentType, 'blockExpression', this.ctx)
       if (typeError) {
         return typeError
       }
@@ -835,7 +835,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     if (namespaceType === 'Block') {
       const parentType: FormulaType = 'Block'
-      const typeError = runtimeCheckType(args.type, parentType, 'blockExpression')
+      const typeError = runtimeCheckType(args.type, parentType, 'blockExpression', this.ctx)
       if (typeError) {
         return typeError
       }
@@ -867,7 +867,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return { type: 'Error', result: `Argument ${number} not found`, errorKind: 'runtime' }
     } else if (ctx.Input) {
       const parentType: FormulaType = 'Record'
-      const typeError = runtimeCheckType(args.type, parentType, 'lazyVariableExpression')
+      const typeError = runtimeCheckType(args.type, parentType, 'lazyVariableExpression', this.ctx)
       if (typeError) {
         return typeError
       }
@@ -887,7 +887,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): NumberResult | ErrorResult {
     const parentType: FormulaType = 'number'
-    const typeError = runtimeCheckType(args.type, parentType, 'NumberLiteralExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'NumberLiteralExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -903,7 +903,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): BooleanResult | ErrorResult {
     const parentType: FormulaType = 'boolean'
-    const typeError = runtimeCheckType(args.type, parentType, 'BooleanLiteralExpression')
+    const typeError = runtimeCheckType(args.type, parentType, 'BooleanLiteralExpression', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -933,7 +933,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Feature ${clause.feature} not enabled`)
     }
 
-    const typeError = runtimeCheckType(args.type, clause.returns, 'FunctionCall')
+    const typeError = runtimeCheckType(args.type, clause.returns, 'FunctionCall', this.ctx)
     if (typeError) {
       return typeError
     }
@@ -942,7 +942,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     if (clause.chain && chainArgs) {
       const firstArgs = clause.args[0]
-      const typeError = runtimeCheckType(chainArgs.type, firstArgs.type, 'FunctionCallFirstArg')
+      const typeError = runtimeCheckType(chainArgs.type, firstArgs.type, 'FunctionCallFirstArg', this.ctx)
       if (typeError) {
         return typeError
       }
