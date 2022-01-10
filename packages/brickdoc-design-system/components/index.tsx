@@ -7,8 +7,8 @@ export type { AnchorProps, AnchorLinkProps } from './anchor'
 export { default as Anchor } from './anchor'
 */
 
-export type { AutoCompleteProps } from './auto-complete'
-export { default as AutoComplete } from './auto-complete'
+// export type { AutoCompleteProps } from './auto-complete'
+// export { default as AutoComplete } from './auto-complete'
 
 /*
 export type { BackTopProps } from './back-top'
