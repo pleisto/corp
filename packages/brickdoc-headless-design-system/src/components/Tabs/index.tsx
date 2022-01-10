@@ -1,5 +1,5 @@
 import * as React from 'react'
-import RcTabs, { TabPane, TabsProps as RcTabsProps, TabPaneProps } from 'rc-tabs'
+import RcTabs, { TabsProps as RcTabsProps, TabPaneProps } from 'rc-tabs'
 import { EditableConfig } from 'rc-tabs/lib/interface'
 import { Close as CloseOutlined, Plus as PlusOutlined, More as EllipsisOutlined } from '@brickdoc/design-icons'
 
@@ -50,9 +50,8 @@ const Tabs: React.ForwardRefRenderFunction<HTMLDivElement, TabsProps> = (props, 
 }
 
 const _Tabs = React.forwardRef(Tabs)
-const _TabPane = React.forwardRef(TabPane)
 
 _Tabs.displayName = 'Tabs'
-_TabPane.displayName = 'TabPane'
 
-export { _Tabs as Tabs, _TabPane as TabPane }
+export { TabPane } from 'rc-tabs'
+export { _Tabs as Tabs }
