@@ -244,13 +244,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const oldContentLast = oldContent[oldContent.length - 1]
     const text = contentArrayToInput(oldContent)
 
-    // console.log('Before replace', { oldContentLast, text, currentContent, currentCompletion })
-    if (oldContentLast && currentCompletion.replacements.length) {
+    // console.log('Before replace', { oldContentLast, oldContent, text, currentContent, currentCompletion })
+    if (oldContentLast && text && currentCompletion.replacements.length) {
       // console.log('start replace', { oldContentLast, currentCompletion, currentContent, text })
-      if (!text) {
-        oldContent = []
-        // console.log('remove last one...', oldContent)
-      } else if (currentCompletion.replacements.includes(text)) {
+      if (currentCompletion.replacements.includes(text)) {
         positionChange -= text.length
         oldContent = []
       } else {
@@ -329,6 +326,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     //   newInput,
     //   input,
     //   finalInput,
+    //   parseResult,
     //   activeCompletion,
     //   latestPosition: latestPosition.current,
     //   position,
@@ -342,7 +340,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     // setPosition(newPosition)
     latestSetPosition.current(newPosition)
 
-    if (parseResult.valid) {
+    if (parseResult.valid || inputIsEmpty) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
       // } else if (parseResult.input !== input && parseResult.input !== '=') {
