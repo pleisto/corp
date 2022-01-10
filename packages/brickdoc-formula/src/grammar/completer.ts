@@ -40,7 +40,7 @@ export const complete = ({
   const lowerCaseName = name.toLowerCase()
   const lastTokenText = lastToken.image
 
-  // console.log({ name, code, input, lastCodeFragment, tokens, codeFragments, completions })
+  console.log({ name, code, input, lastCodeFragment, tokens, codeFragments, completions })
 
   if (code === 'Dot') {
     const last2CodeFragment = codeFragments[codeFragments.length - 2]
@@ -82,7 +82,7 @@ export const complete = ({
     })
   }
 
-  if (['other', 'NumberLiteral', 'Function'].includes(code)) {
+  if (['FunctionName'].includes(code)) {
     completions = completions.map(c => {
       const replacements = c.kind === 'column' ? [`${blockKey(c.preview.namespaceId)}.${name}`, name] : [name]
 
