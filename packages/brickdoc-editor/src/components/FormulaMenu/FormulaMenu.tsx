@@ -260,7 +260,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         } else {
           positionChange = positionChange - text.length + (replacement.length as number)
           const newText = text.substring(0, text.length - replacement.length)
-          oldContent = [attrsToJSONContent({ display: newText, value: newText, code: 'ANY', type: 'any', error: '' })]
+          oldContent = [
+            attrsToJSONContent({ display: newText, value: newText, code: 'ANY', type: 'any', error: '', hidden: false })
+          ]
         }
         // console.log('replace..', newText, oldContent)
       }

@@ -347,7 +347,6 @@ export interface BaseFormulaName {
   value: string
   key: string
   name: string
-  render: RenderCodeFragmentFunction
 }
 
 export interface VariableFormulaName extends BaseFormulaName {
@@ -477,19 +476,17 @@ export interface FormulaCodeFragmentAttrs {
   readonly code: string
   readonly type: FormulaType
   readonly error: string
+  readonly hidden: boolean
 }
-
-export type RenderCodeFragmentFunction = (
-  blockId: NamespaceId
-) => [FormulaCodeFragmentAttrs, ...FormulaCodeFragmentAttrs[]]
 
 interface BaseCodeFragment {
   readonly code: string
+  readonly hidden: boolean
   readonly name: string
   readonly spaceBefore: boolean
   readonly namespaceId?: NamespaceId
   readonly spaceAfter: boolean
-  readonly render?: RenderCodeFragmentFunction
+  readonly display: string
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }
@@ -498,13 +495,11 @@ export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'B
 
 export interface SpecialCodeFragment extends BaseCodeFragment {
   readonly code: SpecialCodeFragmentType
-  readonly render: RenderCodeFragmentFunction
   readonly namespaceId: NamespaceId
 }
 
 export interface OtherCodeFragment extends BaseCodeFragment {
   readonly code: Exclude<string, SpecialCodeFragmentType>
-  readonly render: undefined
 }
 
 export type CodeFragment = SpecialCodeFragment | OtherCodeFragment

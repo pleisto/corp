@@ -14,7 +14,6 @@ import {
   FunctionContext,
   ExpressionType
 } from '../types'
-import { renderBlock, renderColumn, renderSpreadsheet, renderVariable } from '../context/util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
@@ -73,7 +72,16 @@ const SpaceAfterTypes = [
 const token2fragment = (token: IToken, type: FormulaType): OtherCodeFragment => {
   const spaceBefore = SpaceBeforeTypes.includes(token.tokenType.name)
   const spaceAfter = SpaceAfterTypes.includes(token.tokenType.name)
-  return { name: token.image, code: token.tokenType.name, errors: [], type, spaceBefore, spaceAfter, render: undefined }
+  return {
+    name: token.image,
+    code: token.tokenType.name,
+    errors: [],
+    hidden: false,
+    type,
+    spaceBefore,
+    spaceAfter,
+    display: token.image
+  }
 }
 
 interface ExpressionArgument {
@@ -397,10 +405,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           name: '&',
           code: 'Ampersand',
           type: 'any',
+          hidden: false,
           errors: [],
           spaceBefore: true,
           spaceAfter: true,
-          render: undefined
+          display: '&'
         },
         ...rhsValue
       )
@@ -525,10 +534,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       codeFragments.push({
         name: '.',
         code: 'Dot',
+        hidden: false,
         type: 'any',
         spaceBefore: false,
         spaceAfter: false,
-        render: undefined,
+        display: '.',
         errors: missingRhsErrors
       })
       images.push('.')
@@ -583,7 +593,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               namespaceId,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
-              render: renderVariable(variable, [])
+              display: variable.t.name
             }
 
             firstArgumentType = variable.t.variableValue.result.type
@@ -620,7 +630,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               namespaceId,
               code: 'Column',
               type: 'Column',
-              render: renderColumn(column, [])
+              display: column.name
             }
           } else {
             errorMessages.push({ type: 'syntax', message: 'Unknown column' })
@@ -785,18 +795,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     )
 
-    codeFragments.push(
-      {
-        name: token.image,
-        code: token.tokenType.name,
-        errors: [],
-        render: undefined,
-        spaceBefore: false,
-        spaceAfter: false,
-        type: 'any'
-      },
-      ...expressionCodeFragments
-    )
+    codeFragments.push(token2fragment(token, 'any'), ...expressionCodeFragments)
     images.push(token.image, image)
 
     const { errorMessages, newType } = intersectType(type, parentType, 'predicateExpression')
@@ -1096,7 +1095,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               ...token2fragment(namespaceToken, 'any'),
               code: 'Spreadsheet',
               type: parentType,
-              render: renderSpreadsheet(spreadsheet, errorMessages),
+              display: spreadsheet.name(),
               namespaceId: spreadsheet.blockId,
               name: `#${namespaceId}`,
               errors: errorMessages
@@ -1119,7 +1118,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...token2fragment(namespaceToken, 'any'),
             code: 'Block',
             type: parentType,
-            render: renderBlock(block.id, block.name, errorMessages),
+            display: block.name(),
             namespaceId: block.id,
             name: `#${namespaceId}`,
             errors: errorMessages
@@ -1192,10 +1191,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       name: functionKey,
       code: 'FunctionName',
       errors: [],
+      hidden: false,
       type: 'any',
       spaceBefore: false,
       spaceAfter: false,
-      render: undefined
+      display: functionKey
     }
 
     if (!ctx.LParen) {

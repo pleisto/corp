@@ -36,20 +36,16 @@ export const codeFragmentsToJSONContentTotal = (
 export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, blockId: string): JSONContent[] => {
   const result: JSONContent[] = []
 
-  if (codeFragment.render) {
-    const attrs = codeFragment.render(blockId)
-    attrs.forEach(a => result.push(attrsToJSONContent(a)))
-  } else {
-    const attr = attrsToJSONContent({
-      display: codeFragment.name,
-      value: codeFragment.name,
-      code: codeFragment.code,
-      type: codeFragment.type,
-      error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
-    })
-    if (codeFragment.name) {
-      result.push(attr)
-    }
+  const attr = attrsToJSONContent({
+    hidden: codeFragment.hidden,
+    display: codeFragment.display,
+    value: codeFragment.name,
+    code: codeFragment.code,
+    type: codeFragment.type,
+    error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
+  })
+  if (codeFragment.display) {
+    result.push(attr)
   }
 
   return result

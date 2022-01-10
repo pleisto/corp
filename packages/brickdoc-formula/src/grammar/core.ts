@@ -84,7 +84,7 @@ export const abbrev = ({
   let image = ''
   let modified = false
   let newInput = ''
-  let newPosition = position
+  const newPosition = position
 
   tokens.forEach((token, index) => {
     image = image.concat(token.image)
@@ -102,8 +102,12 @@ export const abbrev = ({
 
     const prevToken = tokens[index - 1]
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
-      newInput = newInput.concat(token.image)
-      return
+      const prev2Token = tokens[index - 2]
+
+      if (prev2Token && prev2Token.tokenType.name !== 'UUID') {
+        newInput = newInput.concat(token.image)
+        return
+      }
     }
 
     const formulaName = formulaContext.formulaNames.find(n => n.name === token.image)
@@ -115,11 +119,11 @@ export const abbrev = ({
 
     if (image.length <= position + 1) {
       // Modify position
-      newPosition +=
-        formulaName
-          .render(namespaceId)
-          .map(e => e.display)
-          .join('').length - token.image.length
+      // newPosition +=
+      //   formulaName
+      //     .render(namespaceId)
+      //     .map(e => e.display)
+      //     .join('').length - token.image.length
       // console.log({ newInput, position, newPosition, image }, formulaName.render(namespaceId))
     }
 
@@ -235,9 +239,10 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           name: restImages,
           spaceAfter: false,
+          hidden: false,
           spaceBefore: false,
           type: 'any',
-          render: undefined,
+          display: restImages,
           errors: errorMessages
         })
       }
@@ -257,10 +262,11 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     name: ' ',
+    hidden: false,
     spaceAfter: false,
     spaceBefore: false,
     type: 'any',
-    render: undefined,
+    display: ' ',
     errors: []
   }
 
