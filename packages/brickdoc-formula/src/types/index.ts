@@ -299,7 +299,7 @@ export interface Argument {
   readonly spread?: boolean
 }
 
-export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column'
+export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
 
 interface BaseCompletion {
   readonly kind: CompletionKind
@@ -332,7 +332,12 @@ export interface ColumnCompletion extends BaseCompletion {
   readonly value: ColumnKey
   readonly preview: ColumnType
 }
-
+export interface BlockCompletion extends BaseCompletion {
+  readonly kind: 'block'
+  readonly namespace: BlockName
+  readonly value: BlockKey
+  readonly preview: BlockType
+}
 export interface SpreadsheetCompletion extends BaseCompletion {
   readonly kind: 'spreadsheet'
   readonly namespace: BlockName
@@ -340,7 +345,12 @@ export interface SpreadsheetCompletion extends BaseCompletion {
   readonly preview: SpreadsheetType
 }
 
-export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
+export type Completion =
+  | FunctionCompletion
+  | VariableCompletion
+  | SpreadsheetCompletion
+  | ColumnCompletion
+  | BlockCompletion
 
 export interface BaseFormulaName {
   kind: SpecialCodeFragmentType

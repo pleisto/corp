@@ -840,7 +840,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         return typeError
       }
 
-      const block = new BlockClass(this.ctx, { id: namespaceId })
+      const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
       return { type: 'Block', result: block }
     }
 

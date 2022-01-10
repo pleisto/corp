@@ -1110,7 +1110,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     if (namespaceType === 'Block') {
       const parentType: FormulaType = 'Block'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
-      const block = new BlockClass(this.ctx, { id: namespaceId })
+      const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
 
       return {
         codeFragments: [

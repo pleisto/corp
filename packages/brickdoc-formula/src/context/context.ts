@@ -27,7 +27,9 @@ import {
   Features,
   FormulaName,
   AnyTypeResult,
-  FunctionContext
+  FunctionContext,
+  BlockCompletion,
+  BlockFormulaName
 } from '../types'
 import {
   function2completion,
@@ -35,7 +37,8 @@ import {
   variable2completion,
   variableKey,
   blockKey,
-  column2completion
+  column2completion,
+  block2completion
 } from './util'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
@@ -205,6 +208,12 @@ export class FormulaContext implements ContextInterface {
       return spreadsheet2completion(spreadsheet)
     })
 
+    const blocks: BlockCompletion[] = this.formulaNames
+      .filter(f => f.kind === 'Block')
+      .map(f => {
+        return block2completion(this, f as BlockFormulaName, f.key === namespaceId ? 1 : -1)
+      })
+
     const columns: ColumnCompletion[] = Object.entries(this.spreadsheets).flatMap(([key, spreadsheet]) => {
       return spreadsheet.listColumns().map(column => column2completion({ ...column, spreadsheet }))
     })
@@ -220,7 +229,7 @@ export class FormulaContext implements ContextInterface {
             column2completion({ ...column, spreadsheet: v.t.variableValue.result.result })
           )
       })
-    return [...functions, ...variables, ...spreadsheets, ...columns, ...dynamicColumns].sort(
+    return [...functions, ...variables, ...blocks, ...spreadsheets, ...columns, ...dynamicColumns].sort(
       (a, b) => b.weight - a.weight
     )
   }
@@ -331,12 +340,19 @@ export class FormulaContext implements ContextInterface {
       { eventId: namespaceId, subscribeId: variableId }
     )
 
-    const render = (exist: boolean): string => exist ? variableId : variableKey(namespaceId, variableId)
+    const render = (exist: boolean): string => (exist ? variableId : variableKey(namespaceId, variableId))
     const key = variableId
     const value = variableKey(namespaceId, variableId)
     this.formulaNames = this.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === key))
-      .concat({ kind: 'Variable', name, render, key, value, prefixLength: (exist) => exist ? 0 : variable.namespaceName().length+1 })
+      .concat({
+        kind: 'Variable',
+        name,
+        render,
+        key,
+        value,
+        prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
+      })
     this.blocks[namespaceId] = 'Block'
 
     BrickdocEventBus.subscribe(

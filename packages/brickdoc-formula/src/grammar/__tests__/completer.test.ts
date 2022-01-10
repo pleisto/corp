@@ -201,7 +201,7 @@ describe('Complete', () => {
         })
 
         expect(valid).toBe(true)
-        expect({ codeFragments, firstCompletion: completions[0] }).toMatchSnapshot()
+        expect({ codeFragments, firstCompletion: { ...completions[0], preview: undefined } }).toMatchSnapshot()
         expect({ inputImage, parseImage, newInput }).toEqual({
           inputImage: expectInputImage,
           parseImage: expectParseImage,

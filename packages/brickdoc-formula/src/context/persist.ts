@@ -65,7 +65,7 @@ export const loadValue = (ctx: FunctionContext, cacheValue: BaseResult): AnyType
   }
 
   if (cacheValue.type === 'Block' && !(cacheValue.result instanceof BlockClass)) {
-    const blockResult = new BlockClass(ctx, cacheValue.result)
+    const blockResult = new BlockClass(ctx.formulaContext, cacheValue.result)
     return { type: 'Block', result: blockResult }
   }
 

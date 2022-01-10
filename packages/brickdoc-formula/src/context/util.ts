@@ -10,9 +10,13 @@ import {
   VariableCompletion,
   VariableId,
   VariableInterface,
-  VariableKey
+  VariableKey,
+  BlockCompletion,
+  BlockFormulaName,
+  ContextInterface
 } from '../types'
 import { ColumnType, SpreadsheetType } from '../controls'
+import { BlockClass } from '../controls/block'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
@@ -20,6 +24,34 @@ export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): V
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
+
+export const block2completion = (
+  ctx: ContextInterface,
+  { key, name, value }: BlockFormulaName,
+  weight: number
+): BlockCompletion => {
+  return {
+    kind: 'block',
+    weight: weight + 0,
+    replacements: [name],
+    name,
+    namespace: key,
+    value,
+    preview: new BlockClass(ctx, { id: key }),
+    renderDescription: blockId => '',
+    codeFragment: {
+      namespaceId: key,
+      hidden: false,
+      display: name,
+      errors: [],
+      name: value,
+      code: 'Block',
+      spaceBefore: false,
+      spaceAfter: false,
+      type: 'any'
+    }
+  }
+}
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType): SpreadsheetCompletion => {
   const value = blockKey(spreadsheet.blockId)

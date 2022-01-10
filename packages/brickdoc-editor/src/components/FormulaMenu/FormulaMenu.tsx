@@ -246,7 +246,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     // console.log('Before replace', { oldContentLast, oldContent, text, currentContent, currentCompletion })
     if (oldContentLast && text && currentCompletion.replacements.length) {
-      // console.log('start replace', { oldContentLast, currentCompletion, currentContent, text })
+      console.log('start replace', { oldContentLast, currentCompletion, currentContent, text })
       if (currentCompletion.replacements.includes(text)) {
         positionChange -= text.length
         oldContent = []
