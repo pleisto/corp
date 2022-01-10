@@ -17,23 +17,20 @@ export const fetchJSONContentArray = (content: JSONContent | undefined): JSONCon
   return content?.content?.[0]?.content ?? []
 }
 
-export const codeFragmentsToJSONContentTotal = (
-  codeFragments: CodeFragment[] | undefined,
-  blockId: string
-): JSONContent | undefined => {
+export const codeFragmentsToJSONContentTotal = (codeFragments: CodeFragment[] | undefined): JSONContent | undefined => {
   if (!codeFragments) return undefined
   if (codeFragments.length === 0) return undefined
 
   const content: JSONContent[] = []
 
   codeFragments.forEach(codeFragment => {
-    content.push(...codeFragmentToJSONContentArray(codeFragment, blockId))
+    content.push(...codeFragmentToJSONContentArray(codeFragment))
   })
 
   return buildJSONContentByArray(content)
 }
 
-export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment, blockId: string): JSONContent[] => {
+export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSONContent[] => {
   const result: JSONContent[] = []
 
   const attr = attrsToJSONContent({

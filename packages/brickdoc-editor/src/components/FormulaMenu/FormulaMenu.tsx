@@ -149,7 +149,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const codeFragments = variable?.t.codeFragments
   const defaultContent = variable?.t.valid
-    ? codeFragmentsToJSONContentTotal(codeFragments, rootId)
+    ? codeFragmentsToJSONContentTotal(codeFragments)
     : buildJSONContentByDefinition(definition)
 
   const [completions, setCompletions] = React.useState(contextCompletions)
@@ -268,14 +268,14 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       }
     }
 
-    const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment, rootId)
+    const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)
     const newContent = [...oldContent, ...completionContents]
     const finalContent = buildJSONContentByArray(newContent)
     const finalInput = `=${contentArrayToInput(fetchJSONContentArray(finalContent))}`
     setContent(finalContent)
     setPosition(position + positionChange)
     setInput(finalInput)
-    console.log({ currentCompletion, content, label: 'selectCompletion', newContent, finalInput })
+    console.log('selectCompletion', { currentCompletion, content, newContent, finalInput })
     void doCalculate({ newInput: finalInput })
   }
 
@@ -343,7 +343,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     latestSetPosition.current(newPosition)
 
     if (parseResult.valid) {
-      setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments, rootId))
+      setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments))
       setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
       // } else if (parseResult.input !== input && parseResult.input !== '=') {
       //   const content = buildJSONContentByDefinition(parseResult.input.substring(1))
@@ -351,7 +351,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       //   setContent(content)
       //   setInput(parseResult.input)
     }
-
 
     if (inputIsEmpty) {
       updateVariable(undefined)
