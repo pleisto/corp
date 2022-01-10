@@ -7,7 +7,6 @@ import {
   LParen,
   RParen,
   Comma,
-  At,
   CompareOperator,
   Equal,
   BooleanLiteral,
@@ -240,7 +239,7 @@ export class FormulaParser extends CstParser {
   public variableExpression = this.RULE('variableExpression', () => {
     this.CONSUME(Sharp)
     this.CONSUME(UUID)
-    this.CONSUME(At)
+    this.CONSUME(Dot)
     this.CONSUME2(UUID)
   })
 

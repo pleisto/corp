@@ -3310,7 +3310,7 @@ Array [
 ]
 `;
 
-exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0@cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 1`] = `
+exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 1`] = `
 Object {
   "children": Object {
     "Equal": Array [
@@ -3433,25 +3433,25 @@ Object {
                                                                                   "variableExpression": Array [
                                                                                     Object {
                                                                                       "children": Object {
-                                                                                        "At": Array [
+                                                                                        "Dot": Array [
                                                                                           Object {
                                                                                             "endColumn": 39,
                                                                                             "endLine": 1,
                                                                                             "endOffset": 38,
-                                                                                            "image": "@",
+                                                                                            "image": ".",
                                                                                             "startColumn": 39,
                                                                                             "startLine": 1,
                                                                                             "startOffset": 38,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /@/,
+                                                                                              "PATTERN": /\\\\\\./,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
-                                                                                              "name": "At",
-                                                                                              "tokenTypeIdx": 29,
+                                                                                              "name": "Dot",
+                                                                                              "tokenTypeIdx": 31,
                                                                                             },
-                                                                                            "tokenTypeIdx": 29,
+                                                                                            "tokenTypeIdx": 31,
                                                                                           },
                                                                                         ],
                                                                                         "Sharp": Array [
@@ -3639,7 +3639,7 @@ Object {
 }
 `;
 
-exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0@cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 2`] = `
+exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 2`] = `
 Array [
   Object {
     "code": "Sharp",
@@ -3658,7 +3658,7 @@ Array [
         "type": "deps",
       },
     ],
-    "name": "#57622108-1337-4edd-833a-2557835bcfe0@cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+    "name": "#57622108-1337-4edd-833a-2557835bcfe0.cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "render": undefined,
     "spaceAfter": false,
     "spaceBefore": false,
@@ -3685,7 +3685,7 @@ Array [
 ]
 `;
 
-exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0@d986e871-cb85-4bd5-b675-87307f60b882 + 1 1`] = `
+exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.d986e871-cb85-4bd5-b675-87307f60b882 + 1 1`] = `
 Object {
   "children": Object {
     "Equal": Array [
@@ -3808,25 +3808,25 @@ Object {
                                                                                   "variableExpression": Array [
                                                                                     Object {
                                                                                       "children": Object {
-                                                                                        "At": Array [
+                                                                                        "Dot": Array [
                                                                                           Object {
                                                                                             "endColumn": 39,
                                                                                             "endLine": 1,
                                                                                             "endOffset": 38,
-                                                                                            "image": "@",
+                                                                                            "image": ".",
                                                                                             "startColumn": 39,
                                                                                             "startLine": 1,
                                                                                             "startOffset": 38,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /@/,
+                                                                                              "PATTERN": /\\\\\\./,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
-                                                                                              "name": "At",
-                                                                                              "tokenTypeIdx": 29,
+                                                                                              "name": "Dot",
+                                                                                              "tokenTypeIdx": 31,
                                                                                             },
-                                                                                            "tokenTypeIdx": 29,
+                                                                                            "tokenTypeIdx": 31,
                                                                                           },
                                                                                         ],
                                                                                         "Sharp": Array [
@@ -4014,7 +4014,7 @@ Object {
 }
 `;
 
-exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0@d986e871-cb85-4bd5-b675-87307f60b882 + 1 2`] = `
+exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.d986e871-cb85-4bd5-b675-87307f60b882 + 1 2`] = `
 Array [
   Object {
     "code": "Sharp",
@@ -4033,7 +4033,7 @@ Array [
         "type": "deps",
       },
     ],
-    "name": "#57622108-1337-4edd-833a-2557835bcfe0@d986e871-cb85-4bd5-b675-87307f60b882",
+    "name": "#57622108-1337-4edd-833a-2557835bcfe0.d986e871-cb85-4bd5-b675-87307f60b882",
     "render": undefined,
     "spaceAfter": false,
     "spaceBefore": false,
@@ -4060,7 +4060,7 @@ Array [
 ]
 `;
 
-exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e@d986e871-cb85-4bd5-b675-87307f60b882 + 2 1`] = `
+exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.d986e871-cb85-4bd5-b675-87307f60b882 + 2 1`] = `
 Object {
   "children": Object {
     "Equal": Array [
@@ -4183,25 +4183,25 @@ Object {
                                                                                   "variableExpression": Array [
                                                                                     Object {
                                                                                       "children": Object {
-                                                                                        "At": Array [
+                                                                                        "Dot": Array [
                                                                                           Object {
                                                                                             "endColumn": 39,
                                                                                             "endLine": 1,
                                                                                             "endOffset": 38,
-                                                                                            "image": "@",
+                                                                                            "image": ".",
                                                                                             "startColumn": 39,
                                                                                             "startLine": 1,
                                                                                             "startOffset": 38,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /@/,
+                                                                                              "PATTERN": /\\\\\\./,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
-                                                                                              "name": "At",
-                                                                                              "tokenTypeIdx": 29,
+                                                                                              "name": "Dot",
+                                                                                              "tokenTypeIdx": 31,
                                                                                             },
-                                                                                            "tokenTypeIdx": 29,
+                                                                                            "tokenTypeIdx": 31,
                                                                                           },
                                                                                         ],
                                                                                         "Sharp": Array [
@@ -4389,7 +4389,7 @@ Object {
 }
 `;
 
-exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e@d986e871-cb85-4bd5-b675-87307f60b882 + 2 2`] = `
+exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.d986e871-cb85-4bd5-b675-87307f60b882 + 2 2`] = `
 Array [
   Object {
     "code": "Sharp",
@@ -4408,7 +4408,7 @@ Array [
         "type": "deps",
       },
     ],
-    "name": "#cd4f6e1e-765e-4064-badd-b5585c7eff8e@d986e871-cb85-4bd5-b675-87307f60b882",
+    "name": "#cd4f6e1e-765e-4064-badd-b5585c7eff8e.d986e871-cb85-4bd5-b675-87307f60b882",
     "render": undefined,
     "spaceAfter": false,
     "spaceBefore": false,

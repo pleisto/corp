@@ -692,7 +692,7 @@ Array [
       Object {
         "code": "Variable",
         "errors": Array [],
-        "name": "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+        "name": "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
         "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
         "render": [Function],
         "spaceAfter": false,
@@ -1046,25 +1046,25 @@ Array [
                                                                                       "variableExpression": Array [
                                                                                         Object {
                                                                                           "children": Object {
-                                                                                            "At": Array [
+                                                                                            "Dot": Array [
                                                                                               Object {
                                                                                                 "endColumn": 50,
                                                                                                 "endLine": 1,
                                                                                                 "endOffset": 49,
-                                                                                                "image": "@",
+                                                                                                "image": ".",
                                                                                                 "startColumn": 50,
                                                                                                 "startLine": 1,
                                                                                                 "startOffset": 49,
                                                                                                 "tokenType": Object {
                                                                                                   "CATEGORIES": Array [],
-                                                                                                  "PATTERN": /@/,
+                                                                                                  "PATTERN": /\\\\\\./,
                                                                                                   "categoryMatches": Array [],
                                                                                                   "categoryMatchesMap": Object {},
                                                                                                   "isParent": false,
-                                                                                                  "name": "At",
-                                                                                                  "tokenTypeIdx": 29,
+                                                                                                  "name": "Dot",
+                                                                                                  "tokenTypeIdx": 31,
                                                                                                 },
-                                                                                                "tokenTypeIdx": 29,
+                                                                                                "tokenTypeIdx": 31,
                                                                                               },
                                                                                             ],
                                                                                             "Sharp": Array [
@@ -1187,7 +1187,7 @@ Array [
       },
       "name": "startExpression",
     },
-    "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+    "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
     "dirty": false,
     "flattenVariableDependencies": Array [
       Object {
@@ -1330,7 +1330,7 @@ Object {
 
 exports[`appendFormulas expression 3`] = `
 Object {
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
@@ -1708,7 +1708,7 @@ Array [
             "type": "deps",
           },
         ],
-        "name": "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+        "name": "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
         "render": undefined,
         "spaceAfter": false,
         "spaceBefore": false,
@@ -2061,25 +2061,25 @@ Array [
                                                                                       "variableExpression": Array [
                                                                                         Object {
                                                                                           "children": Object {
-                                                                                            "At": Array [
+                                                                                            "Dot": Array [
                                                                                               Object {
                                                                                                 "endColumn": 50,
                                                                                                 "endLine": 1,
                                                                                                 "endOffset": 49,
-                                                                                                "image": "@",
+                                                                                                "image": ".",
                                                                                                 "startColumn": 50,
                                                                                                 "startLine": 1,
                                                                                                 "startOffset": 49,
                                                                                                 "tokenType": Object {
                                                                                                   "CATEGORIES": Array [],
-                                                                                                  "PATTERN": /@/,
+                                                                                                  "PATTERN": /\\\\\\./,
                                                                                                   "categoryMatches": Array [],
                                                                                                   "categoryMatchesMap": Object {},
                                                                                                   "isParent": false,
-                                                                                                  "name": "At",
-                                                                                                  "tokenTypeIdx": 29,
+                                                                                                  "name": "Dot",
+                                                                                                  "tokenTypeIdx": 31,
                                                                                                 },
-                                                                                                "tokenTypeIdx": 29,
+                                                                                                "tokenTypeIdx": 31,
                                                                                               },
                                                                                             ],
                                                                                             "Sharp": Array [
@@ -2202,7 +2202,7 @@ Array [
       },
       "name": "startExpression",
     },
-    "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+    "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
     "dirty": false,
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [

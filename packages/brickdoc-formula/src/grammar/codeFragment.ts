@@ -1126,11 +1126,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               type: newType,
               render: renderVariable(variable, errorMessages),
               namespaceId: variable.t.namespaceId,
-              name: `#${namespaceId}@${variableId}`,
+              name: `#${namespaceId}.${variableId}`,
               errors: errorMessages
             }
           ],
-          image: `#${namespaceId}@${variableId}`,
+          image: `#${namespaceId}.${variableId}`,
           type: newType
         }
       }
@@ -1149,14 +1149,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               ...variableFragment,
               code: 'Column',
               type: parentType,
-              name: `#${namespaceId}@${variableId}`,
+              name: `#${namespaceId}.${variableId}`,
               render: renderColumn(column, errorMessages),
               namespaceId: column.namespaceId,
               errors: errorMessages
             }
           ],
           type: newType,
-          image: `#${namespaceId}@${variableId}`
+          image: `#${namespaceId}.${variableId}`
         }
       }
     }
@@ -1167,11 +1167,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         {
           ...variableFragment,
           code: 'Variable',
-          name: `#${namespaceId}@${variableId}`,
+          name: `#${namespaceId}.${variableId}`,
           errors: [{ message: `Not found: ${variableId}`, type: 'deps' }]
         }
       ],
-      image: `#${namespaceId}@${variableId}`,
+      image: `#${namespaceId}.${variableId}`,
       type: 'any'
     }
   }

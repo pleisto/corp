@@ -7,7 +7,7 @@ Object {
     Object {
       "code": "Variable",
       "errors": Array [],
-      "name": "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+      "name": "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
       "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       "render": [Function],
       "spaceAfter": false,
@@ -26,7 +26,7 @@ Object {
     Object {
       "code": "Variable",
       "errors": Array [],
-      "name": "#615d7f74-dc97-4aae-8690-b6cba1072a6a@475d9e73-e52a-42b3-8a95-477596812900",
+      "name": "#615d7f74-dc97-4aae-8690-b6cba1072a6a.475d9e73-e52a-42b3-8a95-477596812900",
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "render": [Function],
       "spaceAfter": false,
@@ -156,25 +156,25 @@ Object {
                                                                                     "variableExpression": Array [
                                                                                       Object {
                                                                                         "children": Object {
-                                                                                          "At": Array [
+                                                                                          "Dot": Array [
                                                                                             Object {
                                                                                               "endColumn": 39,
                                                                                               "endLine": 1,
                                                                                               "endOffset": 38,
-                                                                                              "image": "@",
+                                                                                              "image": ".",
                                                                                               "startColumn": 39,
                                                                                               "startLine": 1,
                                                                                               "startOffset": 38,
                                                                                               "tokenType": Object {
                                                                                                 "CATEGORIES": Array [],
-                                                                                                "PATTERN": /@/,
+                                                                                                "PATTERN": /\\\\\\./,
                                                                                                 "categoryMatches": Array [],
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
-                                                                                                "name": "At",
-                                                                                                "tokenTypeIdx": 29,
+                                                                                                "name": "Dot",
+                                                                                                "tokenTypeIdx": 31,
                                                                                               },
-                                                                                              "tokenTypeIdx": 29,
+                                                                                              "tokenTypeIdx": 31,
                                                                                             },
                                                                                           ],
                                                                                           "Sharp": Array [
@@ -280,25 +280,25 @@ Object {
                                                                                     "variableExpression": Array [
                                                                                       Object {
                                                                                         "children": Object {
-                                                                                          "At": Array [
+                                                                                          "Dot": Array [
                                                                                             Object {
                                                                                               "endColumn": 116,
                                                                                               "endLine": 1,
                                                                                               "endOffset": 115,
-                                                                                              "image": "@",
+                                                                                              "image": ".",
                                                                                               "startColumn": 116,
                                                                                               "startLine": 1,
                                                                                               "startOffset": 115,
                                                                                               "tokenType": Object {
                                                                                                 "CATEGORIES": Array [],
-                                                                                                "PATTERN": /@/,
+                                                                                                "PATTERN": /\\\\\\./,
                                                                                                 "categoryMatches": Array [],
                                                                                                 "categoryMatchesMap": Object {},
                                                                                                 "isParent": false,
-                                                                                                "name": "At",
-                                                                                                "tokenTypeIdx": 29,
+                                                                                                "name": "Dot",
+                                                                                                "tokenTypeIdx": 31,
                                                                                               },
-                                                                                              "tokenTypeIdx": 29,
+                                                                                              "tokenTypeIdx": 31,
                                                                                             },
                                                                                           ],
                                                                                           "Sharp": Array [
@@ -421,7 +421,7 @@ Object {
     },
     "name": "startExpression",
   },
-  "definition": "=#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c + #615d7f74-dc97-4aae-8690-b6cba1072a6a@475d9e73-e52a-42b3-8a95-477596812900",
+  "definition": "=#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c + #615d7f74-dc97-4aae-8690-b6cba1072a6a.475d9e73-e52a-42b3-8a95-477596812900",
   "dirty": false,
   "flattenVariableDependencies": Array [
     Object {
@@ -480,13 +480,13 @@ Object {
 
 exports[`Context commitVariable normal 3`] = `
 Object {
-  "#615d7f74-dc97-4aae-8690-b6cba1072a6a@475d9e73-e52a-42b3-8a95-477596812900": Array [
+  "#615d7f74-dc97-4aae-8690-b6cba1072a6a.475d9e73-e52a-42b3-8a95-477596812900": Array [
     Object {
       "namespaceId": "37198be0-d10d-42dc-ae8b-20d45a95401b",
       "variableId": "b4289606-2a52-48e3-a50f-77ee321dd84e",
     },
   ],
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
@@ -609,7 +609,7 @@ Object {
 
 exports[`Context removeVariable 1`] = `
 Array [
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
 ]
 `;
 
@@ -621,14 +621,14 @@ Object {
 
 exports[`Context removeVariable 3`] = `
 Object {
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c": Array [],
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c": Array [],
 }
 `;
 
 exports[`Context reset 1`] = `
 Array [
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c",
-  "#615d7f74-dc97-4aae-8690-b6cba1072a6a@475d9e73-e52a-42b3-8a95-477596812900",
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c",
+  "#615d7f74-dc97-4aae-8690-b6cba1072a6a.475d9e73-e52a-42b3-8a95-477596812900",
 ]
 `;
 
@@ -645,7 +645,7 @@ Object {
 
 exports[`Context reset 3`] = `
 Object {
-  "#d986e871-cb85-4bd5-b675-87307f60b882@1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
+  "#d986e871-cb85-4bd5-b675-87307f60b882.1588aedf-06e1-47f1-9282-d2ffe865974c": Array [
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",

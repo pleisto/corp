@@ -263,15 +263,15 @@ const testCases: TestCase[] = [
     value: { kind: 'self' }
   },
   {
-    input: `=#${barNamespaceId}@${barVariableId}`,
+    input: `=#${barNamespaceId}.${barVariableId}`,
     value: 24
   },
   {
-    input: `=&#${barNamespaceId}@${barVariableId}`,
+    input: `=&#${barNamespaceId}.${barVariableId}`,
     value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId }
   },
   {
-    input: `=&#${barNamespaceId}@${barVariableId}.foo`,
+    input: `=&#${barNamespaceId}.${barVariableId}.foo`,
     value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId, attribute: 'foo' }
   },
   {

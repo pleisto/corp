@@ -17,11 +17,11 @@ import {
 import { ColumnType, SpreadsheetType } from '../controls'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
-  `#${namespaceId}@${variableId}`
+  `#${namespaceId}.${variableId}`
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
-export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}#${columnId}`
+export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
 export const renderBlock = (
   id: NamespaceId,
@@ -67,7 +67,7 @@ export const renderColumn = (column: ColumnType, errorMessages: ErrorMessage[]):
       type: 'Spreadsheet'
     },
     {
-      value: '#',
+      value: '.',
       display: '.',
       error,
       code: 'Dot',
@@ -108,7 +108,7 @@ export const renderVariable = (
             type: 'Block'
           },
           {
-            value: '@',
+            value: '.',
             display: '.',
             error,
             code: 'Dot',

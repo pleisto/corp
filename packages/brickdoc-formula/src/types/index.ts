@@ -78,9 +78,9 @@ export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
 export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
-export type VariableKey = `#${NamespaceId}@${VariableId}`
+export type VariableKey = `#${NamespaceId}.${VariableId}`
 export type BlockKey = `#${NamespaceId}`
-export type ColumnKey = `#${NamespaceId}#${ColumnId}`
+export type ColumnKey = `#${NamespaceId}.${ColumnId}`
 
 // TODO blockName -> string
 export type BlockName = NamespaceId
