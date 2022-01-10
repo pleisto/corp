@@ -260,6 +260,8 @@ export class FormulaContext implements ContextInterface {
         kind: 'Spreadsheet',
         name: spreadsheet.name(),
         value: blockKey(spreadsheet.blockId),
+        render: () => blockKey(spreadsheet.blockId),
+        prefixLength: () => 0,
         key: spreadsheet.blockId
       })
     this.blocks[spreadsheet.blockId] = 'Spreadsheet'
@@ -321,17 +323,20 @@ export class FormulaContext implements ContextInterface {
             kind: 'Block',
             name,
             value: blockKey(namespaceId),
+            render: () => blockKey(namespaceId),
+            prefixLength: () => 0,
             key: namespaceId
           })
       },
       { eventId: namespaceId, subscribeId: variableId }
     )
 
-    const value = variableKey(namespaceId, variableId)
+    const render = (exist: boolean): string => exist ? variableId : variableKey(namespaceId, variableId)
     const key = variableId
+    const value = variableKey(namespaceId, variableId)
     this.formulaNames = this.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === key))
-      .concat({ kind: 'Variable', name, value, key })
+      .concat({ kind: 'Variable', name, render, key, value, prefixLength: (exist) => exist ? 0 : variable.namespaceName().length+1 })
     this.blocks[namespaceId] = 'Block'
 
     BrickdocEventBus.subscribe(

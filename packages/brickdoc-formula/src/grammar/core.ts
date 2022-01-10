@@ -84,7 +84,7 @@ export const abbrev = ({
   let image = ''
   let modified = false
   let newInput = ''
-  const newPosition = position
+  let newPosition: number = position
 
   tokens.forEach((token, index) => {
     image = image.concat(token.image)
@@ -101,6 +101,9 @@ export const abbrev = ({
     }
 
     const prevToken = tokens[index - 1]
+
+    let namespaceIsExist = false
+
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
       const prev2Token = tokens[index - 2]
 
@@ -108,6 +111,8 @@ export const abbrev = ({
         newInput = newInput.concat(token.image)
         return
       }
+
+      namespaceIsExist = true
     }
 
     const formulaName = formulaContext.formulaNames.find(n => n.name === token.image)
@@ -117,17 +122,8 @@ export const abbrev = ({
       return
     }
 
-    if (image.length <= position + 1) {
-      // Modify position
-      // newPosition +=
-      //   formulaName
-      //     .render(namespaceId)
-      //     .map(e => e.display)
-      //     .join('').length - token.image.length
-      // console.log({ newInput, position, newPosition, image }, formulaName.render(namespaceId))
-    }
-
-    newInput = newInput.concat(formulaName.value)
+    newPosition += formulaName.prefixLength(namespaceIsExist)
+    newInput = newInput.concat(formulaName.render(namespaceIsExist))
     modified = true
   })
 

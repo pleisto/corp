@@ -344,7 +344,8 @@ export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCo
 
 export interface BaseFormulaName {
   kind: SpecialCodeFragmentType
-  value: string
+  render: (namespaceIsExist: boolean) => string
+  prefixLength: (namespaceIsExist: boolean) => number
   key: string
   name: string
 }
