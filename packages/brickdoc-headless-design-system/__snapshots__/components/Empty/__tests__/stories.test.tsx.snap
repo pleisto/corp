@@ -14,15 +14,15 @@ exports[`tag matches snapshot correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        filter="url(#a)"
+        filter="url(#a-react-aria6456836292-7)"
       >
         <path
           d="M34.642 32.597A1.23 1.23 0 0 1 35.697 32H72.11c.426 0 .822.22 1.046.582l5.658 9.12c.121.195.185.42.185.649v24.418c0 .68-.551 1.231-1.23 1.231H30.23A1.23 1.23 0 0 1 29 66.77V42.34c0-.222.06-.441.175-.632l5.466-9.11Z"
-          fill="url(#b)"
+          fill="url(#b-react-aria6456836292-7)"
         />
       </g>
       <g
-        filter="url(#c)"
+        filter="url(#c-react-aria6456836292-7)"
       >
         <path
           d="M44.171 43.028A1.23 1.23 0 0 0 42.957 42H30.231c-.68 0-1.231.551-1.231 1.23v23.54c0 .679.551 1.23 1.23 1.23h47.54c.679 0 1.23-.551 1.23-1.23V43a1 1 0 0 0-1-1H65.043a1.23 1.23 0 0 0-1.214 1.028l-.658 3.944A1.23 1.23 0 0 1 61.957 48H46.043a1.23 1.23 0 0 1-1.214-1.028l-.658-3.944Z"
@@ -38,20 +38,20 @@ exports[`tag matches snapshot correctly 1`] = `
       />
       <path
         d="M31.06 24.493a1.967 1.967 0 1 1 2.284-3.18l7.562 6.663a.96.96 0 0 1-1.115 1.553l-8.73-5.036Z"
-        fill="url(#d)"
+        fill="url(#d-react-aria6456836292-7)"
       />
       <path
         d="M39.658 14.761a1.608 1.608 0 1 1 3.038-1.032l3.068 11.72a.742.742 0 0 1-1.402.476l-4.704-11.164Z"
-        fill="url(#e)"
+        fill="url(#e-react-aria6456836292-7)"
       />
       <path
         d="M53.71 12.915a1.795 1.795 0 1 1 3.526.635l-3.393 13.37a.826.826 0 0 1-1.623-.293l1.49-13.712Z"
-        fill="url(#f)"
+        fill="url(#f-react-aria6456836292-7)"
       />
       <defs>
         <lineargradient
           gradientUnits="userSpaceOnUse"
-          id="d"
+          id="d-react-aria6456836292-7"
           x1="30.446"
           x2="41.051"
           y1="21.642"
@@ -68,7 +68,7 @@ exports[`tag matches snapshot correctly 1`] = `
         </lineargradient>
         <lineargradient
           gradientUnits="userSpaceOnUse"
-          id="e"
+          id="e-react-aria6456836292-7"
           x1="40.623"
           x2="45.285"
           y1="12.614"
@@ -85,7 +85,7 @@ exports[`tag matches snapshot correctly 1`] = `
         </lineargradient>
         <lineargradient
           gradientUnits="userSpaceOnUse"
-          id="f"
+          id="f-react-aria6456836292-7"
           x1="55.814"
           x2="52.895"
           y1="11.342"
@@ -104,7 +104,7 @@ exports[`tag matches snapshot correctly 1`] = `
           color-interpolation-filters="sRGB"
           filterUnits="userSpaceOnUse"
           height="44"
-          id="a"
+          id="a-react-aria6456836292-7"
           width="58"
           x="25"
           y="28"
@@ -168,7 +168,7 @@ exports[`tag matches snapshot correctly 1`] = `
           color-interpolation-filters="sRGB"
           filterUnits="userSpaceOnUse"
           height="36.692"
-          id="c"
+          id="c-react-aria6456836292-7"
           width="58"
           x="25"
           y="38.308"
@@ -261,7 +261,7 @@ exports[`tag matches snapshot correctly 1`] = `
           cy="0"
           gradientTransform="matrix(0 36 -60.1967 0 54 32)"
           gradientUnits="userSpaceOnUse"
-          id="b"
+          id="b-react-aria6456836292-7"
           r="1"
         >
           <stop

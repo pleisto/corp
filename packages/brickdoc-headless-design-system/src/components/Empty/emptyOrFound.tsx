@@ -1,8 +1,10 @@
 import { FC } from 'react'
+import { useId } from '@react-aria/utils'
 import { EmptyOrFoundProps, EmptyType } from './constants'
 
 export const EmptyOrFound: FC<EmptyOrFoundProps> = props => {
   const { prefixCls, type } = props
+  const uid = useId()
 
   const hasSearchIcon =
     type === EmptyType.Found ? (
@@ -29,13 +31,13 @@ export const EmptyOrFound: FC<EmptyOrFoundProps> = props => {
 
   return (
     <svg className={prefixCls} width="108" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g filter="url(#a)">
+      <g filter={`url(#a-${uid})`}>
         <path
           d="M34.642 32.597A1.23 1.23 0 0 1 35.697 32H72.11c.426 0 .822.22 1.046.582l5.658 9.12c.121.195.185.42.185.649v24.418c0 .68-.551 1.231-1.23 1.231H30.23A1.23 1.23 0 0 1 29 66.77V42.34c0-.222.06-.441.175-.632l5.466-9.11Z"
-          fill="url(#b)"
+          fill={`url(#b-${uid})`}
         />
       </g>
-      <g filter="url(#c)">
+      <g filter={`url(#c-${uid})`}>
         <path
           d="M44.171 43.028A1.23 1.23 0 0 0 42.957 42H30.231c-.68 0-1.231.551-1.231 1.23v23.54c0 .679.551 1.23 1.23 1.23h47.54c.679 0 1.23-.551 1.23-1.23V43a1 1 0 0 0-1-1H65.043a1.23 1.23 0 0 0-1.214 1.028l-.658 3.944A1.23 1.23 0 0 1 61.957 48H46.043a1.23 1.23 0 0 1-1.214-1.028l-.658-3.944Z"
           fill="#fff"
@@ -46,32 +48,32 @@ export const EmptyOrFound: FC<EmptyOrFoundProps> = props => {
       <path fill="#1A2A64" fillOpacity=".05" d="M69 59h5v5h-5z" />
       <path
         d="M31.06 24.493a1.967 1.967 0 1 1 2.284-3.18l7.562 6.663a.96.96 0 0 1-1.115 1.553l-8.73-5.036Z"
-        fill="url(#d)"
+        fill={`url(#d-${uid})`}
       />
       <path
         d="M39.658 14.761a1.608 1.608 0 1 1 3.038-1.032l3.068 11.72a.742.742 0 0 1-1.402.476l-4.704-11.164Z"
-        fill="url(#e)"
+        fill={`url(#e-${uid})`}
       />
       <path
         d="M53.71 12.915a1.795 1.795 0 1 1 3.526.635l-3.393 13.37a.826.826 0 0 1-1.623-.293l1.49-13.712Z"
-        fill="url(#f)"
+        fill={`url(#f-${uid})`}
       />
       {hasSearchIcon}
       <defs>
-        <linearGradient id="d" x1="30.446" y1="21.642" x2="41.051" y2="29.257" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`d-${uid}`} x1="30.446" y1="21.642" x2="41.051" y2="29.257" gradientUnits="userSpaceOnUse">
           <stop stopColor="#E0E5EE" />
           <stop offset="1" stopColor="#F8F9FB" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="e" x1="40.623" y1="12.614" x2="45.285" y2="26.34" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`e-${uid}`} x1="40.623" y1="12.614" x2="45.285" y2="26.34" gradientUnits="userSpaceOnUse">
           <stop stopColor="#E0E5EE" />
           <stop offset="1" stopColor="#F8F9FB" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="f" x1="55.814" y1="11.342" x2="52.895" y2="27.529" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`f-${uid}`} x1="55.814" y1="11.342" x2="52.895" y2="27.529" gradientUnits="userSpaceOnUse">
           <stop stopColor="#E0E5EE" />
           <stop offset="1" stopColor="#F8F9FB" stopOpacity="0" />
         </linearGradient>
         <filter
-          id="a"
+          id={`a-${uid}`}
           x="25"
           y="28"
           width="58"
@@ -95,7 +97,7 @@ export const EmptyOrFound: FC<EmptyOrFoundProps> = props => {
           <feBlend in2="shape" result="effect2_innerShadow_1168_164" />
         </filter>
         <filter
-          id="c"
+          id={`c-${uid}`}
           x="25"
           y="38.308"
           width="58"
@@ -125,7 +127,7 @@ export const EmptyOrFound: FC<EmptyOrFoundProps> = props => {
           <feBlend in2="shape" result="effect4_innerShadow_1168_164" />
         </filter>
         <radialGradient
-          id="b"
+          id={`b-${uid}`}
           cx="0"
           cy="0"
           r="1"

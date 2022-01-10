@@ -23,10 +23,7 @@ export default {
     },
 
     description: {
-      description: '`string`',
-      control: {
-        type: 'string'
-      }
+      description: '`string`'
     },
 
     action: {
@@ -47,7 +44,7 @@ Empty state placeholder.
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/YcVOEbdec2oqyKrYFSkeYW/Components-Base?node-id=4443%3A2286'
+      url: 'https://www.figma.com/file/YcVOEbdec2oqyKrYFSkeYW/Components-Base?node-id=5054%3A2169'
     }
   }
 } as ComponentMeta<typeof Empty>
