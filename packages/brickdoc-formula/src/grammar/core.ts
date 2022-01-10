@@ -195,13 +195,11 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
   completions = complete({
-    input,
+    position: newPosition,
     cacheCompletions: baseCompletion,
     codeFragments,
     tokens,
-    formulaContext,
-    namespaceId,
-    variableId
+    ctx
   })
 
   returnValue.level = codeFragmentVisitor.level

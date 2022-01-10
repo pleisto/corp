@@ -52,12 +52,35 @@ export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent
   return { type: 'text', text: attrs.display, marks: [{ type: 'FormulaType', attrs }] }
 }
 
+export const positionBasedContentArrayToInput = (
+  content: JSONContent[],
+  position: number
+): { prevText: string; nextText: string } => {
+  const prevTexts: string[] = []
+  const nextTexts: string[] = []
+  let input = ''
+
+  content.forEach((c: JSONContent) => {
+    const text = JSONContentToText(c)
+    input = input.concat(c.text ?? '')
+    if (input.length > position) {
+      nextTexts.push(text)
+    } else {
+      prevTexts.push(text)
+    }
+  })
+
+  console.log({ prevTexts, nextTexts, input, position, content })
+  return { prevText: prevTexts.join(''), nextText: nextTexts.join('') }
+}
+
 export const contentArrayToInput = (content: JSONContent[]): string => {
   const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+  // console.log({ content, input })
   return input
 }
 
-export const JSONContentToText = (c: JSONContent): string => {
+const JSONContentToText = (c: JSONContent): string => {
   if (c.type !== 'text') {
     console.error('JSONContentToText: not text', c)
     return ''
@@ -91,13 +114,13 @@ export const JSONContentToText = (c: JSONContent): string => {
     return attrs.value
   }
 
-  if (text.startsWith(attrs.display)) {
-    return `${attrs.value}${text.slice(attrs.display.length)}`
-  }
+  // if (text.startsWith(attrs.display)) {
+  //   return `${attrs.value}${text.slice(attrs.display.length)}`
+  // }
 
-  if (text.endsWith(attrs.display)) {
-    return `${text.slice(0, -attrs.display.length)}${attrs.value}`
-  }
+  // if (text.endsWith(attrs.display)) {
+  //   return `${text.slice(0, -attrs.display.length)}${attrs.value}`
+  // }
 
   return text
 }

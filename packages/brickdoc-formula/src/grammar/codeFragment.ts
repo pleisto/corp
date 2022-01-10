@@ -574,7 +574,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       if (rhsCst.tokenType.name === 'UUID') {
         this.kind = 'expression'
 
-        const namespaceId = codeFragments[codeFragments.length - 2].namespaceId!
+        const namespaceId = codeFragments[codeFragments.length - 2]?.namespaceId as string
         const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
         const errorMessages: ErrorMessage[] = []
         const variableId = rhsCst.image

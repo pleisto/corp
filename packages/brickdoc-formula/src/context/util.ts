@@ -83,10 +83,10 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
   return {
     kind: 'column',
     replacements: [
-      `${column.name}`,
       `${blockKey(column.namespaceId)}.${column.name}`,
       `${blockKey(column.namespaceId)}.`,
-      `${blockKey(column.namespaceId)}`
+      `${blockKey(column.namespaceId)}`,
+      `${column.name}`
     ],
     weight: -3,
     name: column.name,
@@ -112,7 +112,7 @@ export const variable2completion = (variable: VariableInterface, weight: number)
   const value = variableKey(variable.t.namespaceId, variable.t.variableId)
   return {
     kind: 'variable',
-    replacements: [variable.t.name],
+    replacements: [`${blockKey(variable.t.namespaceId)}.`, blockKey(variable.t.namespaceId), variable.t.name],
     weight,
     name: variable.t.name,
     namespace: variable.namespaceName(),
