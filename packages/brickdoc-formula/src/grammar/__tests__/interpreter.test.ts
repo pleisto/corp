@@ -206,7 +206,7 @@ describe('Context', () => {
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Not found: ${fooVariableId}`, type: 'deps' }])
+    expect(errorMessages).toEqual([{ message: `Block not found: ${unknownId}`, type: 'deps' }])
   })
 
   it('unknown variable', () => {
@@ -214,6 +214,6 @@ describe('Context', () => {
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Not found: ${unknownId}`, type: 'deps' }])
+    expect(errorMessages).toEqual([{ message: `Unknown variable: ${unknownId}`, type: 'syntax' }])
   })
 })

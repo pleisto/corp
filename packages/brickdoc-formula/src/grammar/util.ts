@@ -54,11 +54,11 @@ export const intersectType = (
     return { errorMessages: [], newType: contextResultType }
   }
 
-  if (expectedArgumentType === 'Error') {
+  if (contextResultType === 'Error') {
     return { errorMessages: [], newType: contextResultType }
   }
 
-  // console.log({ expectedArgumentType, contextResultType, label })
+  console.log({ expectedArgumentType, contextResultType, label })
 
   return {
     errorMessages: [{ type: 'type', message: `Expected ${expectedArgumentType} but got ${contextResultType}` }],

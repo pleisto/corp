@@ -268,11 +268,15 @@ const testCases: TestCase[] = [
   },
   {
     input: `=&#${barNamespaceId}.${barVariableId}`,
-    value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId }
+    // value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId }
+    parseErrorType: 'syntax',
+    errorMessage: 'Unknown namespace undefined'
   },
   {
     input: `=&#${barNamespaceId}.${barVariableId}.foo`,
-    value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId, attribute: 'foo' }
+    // value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId, attribute: 'foo' }
+    parseErrorType: 'syntax',
+    errorMessage: 'Unknown namespace undefined'
   },
   {
     input: '=&Self',

@@ -516,7 +516,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     codeFragments.push(...lhsCodeFragments)
     images.push(image)
 
-    let firstArgumentType = lhsType
+    let firstArgumentType: FormulaType = lhsType
 
     ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
       const rhsCst = ctx.rhs?.[idx]
@@ -533,22 +533,106 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       })
       images.push('.')
 
-      if (rhsCst) {
+      if (!rhsCst) {
+        return
+      }
+
+      if (rhsCst.name === 'FunctionCall') {
+        const args = { type: 'any', firstArgumentType }
+        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
+
+        firstArgumentType = 'any'
+        images.push(rhsImage)
+        codeFragments.push(...rhsCodeFragments)
+        return
+      }
+
+      if (rhsCst.name === 'keyExpression') {
         const accessErrorMessages: ErrorMessage[] =
-          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) &&
-          type !== 'Reference' &&
-          rhsCst.name !== 'FunctionCall'
+          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
-
-        const args = rhsCst.name === 'FunctionCall' ? { type: 'any', firstArgumentType } : { type: 'string' }
-
+        const args = { type: 'string' }
         const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
 
         firstArgumentType = 'any'
         images.push(rhsImage)
         codeFragments.push(...rhsCodeFragments.map(f => ({ ...f, errors: [...accessErrorMessages, ...f.errors] })))
+        return
       }
+
+      if (rhsCst.tokenType.name === 'UUID') {
+        this.kind = 'expression'
+
+        const namespaceId = codeFragments[codeFragments.length - 2].namespaceId!
+        const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
+        const errorMessages: ErrorMessage[] = []
+        const variableId = rhsCst.image
+        let codeFragment: CodeFragment = token2fragment(rhsCst, 'any')
+
+        if (!namespaceType) {
+          errorMessages.push({ type: 'syntax', message: `Unknown namespace ${namespaceId}` })
+        }
+
+        if (namespaceType === 'Block') {
+          const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
+
+          if (variable) {
+            codeFragment = {
+              ...codeFragment,
+              namespaceId,
+              code: 'Variable',
+              type: variable.t.variableValue.result.type,
+              render: renderVariable(variable, [])
+            }
+
+            firstArgumentType = variable.t.variableValue.result.type
+
+            this.variableDependencies = [
+              ...new Map(
+                [...this.variableDependencies, { namespaceId, variableId }].map(item => [item.variableId, item])
+              ).values()
+            ]
+
+            this.flattenVariableDependencies = [
+              ...new Map(
+                [
+                  ...this.flattenVariableDependencies,
+                  ...variable.t.flattenVariableDependencies,
+                  { namespaceId, variableId }
+                ].map(item => [item.variableId, item])
+              ).values()
+            ]
+
+            this.level = Math.max(this.level, variable.t.level + 1)
+          } else {
+            errorMessages.push({ type: 'syntax', message: `Unknown variable: ${variableId}` })
+          }
+        }
+
+        if (namespaceType === 'Spreadsheet') {
+          this.blockDependencies.push(namespaceId)
+          const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
+          firstArgumentType = 'Column'
+          if (column) {
+            codeFragment = {
+              ...codeFragment,
+              namespaceId,
+              code: 'Column',
+              type: 'Column',
+              render: renderColumn(column, [])
+            }
+          } else {
+            errorMessages.push({ type: 'syntax', message: 'Unknown column' })
+          }
+        }
+
+        images.push(variableId)
+        codeFragments.push({ ...codeFragment, errors: errorMessages })
+        return
+      }
+
+      throw new Error(`Unexpected rhs type ${rhsCst.tokenType.name}`)
     })
 
     const { errorMessages, newType } = intersectType(type, firstArgumentType, 'chainExpression')
@@ -665,7 +749,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx: {
       EqualCompareOperator: IToken[]
       CompareOperator: IToken[]
-      variableExpression: CstNode | CstNode[]
       simpleAtomicExpression: CstNode | CstNode[]
     },
     { type }: ExpressionArgument
@@ -683,16 +766,16 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
 
-    if (ctx.variableExpression) {
-      const { codeFragments: columnCodeFragments, image: columnImage }: CodeFragmentResult = this.visit(
-        ctx.variableExpression,
-        {
-          type: 'any'
-        }
-      )
-      codeFragments.push(...columnCodeFragments)
-      images.push(columnImage)
-    }
+    // if (ctx.variableExpression) {
+    //   const { codeFragments: columnCodeFragments, image: columnImage }: CodeFragmentResult = this.visit(
+    //     ctx.variableExpression,
+    //     {
+    //       type: 'any'
+    //     }
+    //   )
+    //   codeFragments.push(...columnCodeFragments)
+    //   images.push(columnImage)
+    // }
 
     const parentType: FormulaType = 'Predicate'
     const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(
@@ -1000,30 +1083,32 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     this.kind = 'expression'
     this.blockDependencies.push(namespaceId)
-    const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
 
-    if (spreadsheet) {
-      const parentType: FormulaType = 'Spreadsheet'
-      const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
-      return {
-        codeFragments: [
-          {
-            ...token2fragment(namespaceToken, 'any'),
-            code: 'Spreadsheet',
-            type: parentType,
-            render: renderSpreadsheet(spreadsheet, errorMessages),
-            namespaceId: spreadsheet.blockId,
-            name: `#${namespaceId}`,
-            errors: errorMessages
-          }
-        ],
-        image: `#${namespaceId}`,
-        type: newType
+    if (namespaceType === 'Spreadsheet') {
+      const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+      if (spreadsheet) {
+        const parentType: FormulaType = 'Spreadsheet'
+        const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
+        return {
+          codeFragments: [
+            {
+              ...token2fragment(namespaceToken, 'any'),
+              code: 'Spreadsheet',
+              type: parentType,
+              render: renderSpreadsheet(spreadsheet, errorMessages),
+              namespaceId: spreadsheet.blockId,
+              name: `#${namespaceId}`,
+              errors: errorMessages
+            }
+          ],
+          image: `#${namespaceId}`,
+          type: newType
+        }
       }
     }
 
-    const formulaName = this.ctx.formulaContext.formulaNames.find(f => f.kind === 'Block' && f.key === namespaceId)
-    if (formulaName) {
+    if (namespaceType === 'Block') {
       const parentType: FormulaType = 'Block'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression')
       const block = new BlockClass(this.ctx, { id: namespaceId })
@@ -1059,9 +1144,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   }
 
   lazyVariableExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
-    if (ctx.variableExpression) {
-      return this.visit(ctx.variableExpression, { type })
-    } else if (ctx.Self) {
+    if (ctx.Self) {
       return { codeFragments: [token2fragment(ctx.Self[0], 'Reference')], type: 'Reference', image: ctx.Self[0].image }
     } else if (ctx.Input) {
       return {
@@ -1077,102 +1160,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     } else {
       return { codeFragments: [], type: 'any', image: '' }
-    }
-  }
-
-  variableExpression(ctx: { Sharp: IToken[]; UUID: [any, any] }, { type }: ExpressionArgument): CodeFragmentResult {
-    const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
-    const [namespaceToken, variableToken] = ctx.UUID
-
-    const namespaceId = namespaceToken.image
-    const variableId = variableToken.image
-
-    const variableFragment = token2fragment(variableToken, 'any')
-
-    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
-    this.kind = 'expression'
-
-    if (namespaceType === 'Block') {
-      const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
-      if (variable) {
-        this.variableDependencies = [
-          ...new Map(
-            [...this.variableDependencies, { namespaceId, variableId }].map(item => [item.variableId, item])
-          ).values()
-        ]
-
-        this.flattenVariableDependencies = [
-          ...new Map(
-            [
-              ...this.flattenVariableDependencies,
-              ...variable.t.flattenVariableDependencies,
-              { namespaceId, variableId }
-            ].map(item => [item.variableId, item])
-          ).values()
-        ]
-
-        this.level = Math.max(this.level, variable.t.level + 1)
-
-        const { errorMessages, newType } = intersectType(
-          type,
-          variable.t.variableValue.result.type ?? 'any',
-          'variableExpression'
-        )
-        return {
-          codeFragments: [
-            {
-              ...variableFragment,
-              code: 'Variable',
-              type: newType,
-              render: renderVariable(variable, errorMessages),
-              namespaceId: variable.t.namespaceId,
-              name: `#${namespaceId}.${variableId}`,
-              errors: errorMessages
-            }
-          ],
-          image: `#${namespaceId}.${variableId}`,
-          type: newType
-        }
-      }
-    } else if (namespaceType === 'Spreadsheet') {
-      this.blockDependencies.push(namespaceId)
-
-      const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
-
-      const parentType: ExpressionType = 'Column'
-
-      if (column) {
-        const { errorMessages, newType } = intersectType(type, parentType, 'variableExpression')
-        return {
-          codeFragments: [
-            {
-              ...variableFragment,
-              code: 'Column',
-              type: parentType,
-              name: `#${namespaceId}.${variableId}`,
-              render: renderColumn(column, errorMessages),
-              namespaceId: column.namespaceId,
-              errors: errorMessages
-            }
-          ],
-          type: newType,
-          image: `#${namespaceId}.${variableId}`
-        }
-      }
-    }
-
-    return {
-      codeFragments: [
-        SharpFragment,
-        {
-          ...variableFragment,
-          code: 'Variable',
-          name: `#${namespaceId}.${variableId}`,
-          errors: [{ message: `Not found: ${variableId}`, type: 'deps' }]
-        }
-      ],
-      image: `#${namespaceId}.${variableId}`,
-      type: 'any'
     }
   }
 

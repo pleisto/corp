@@ -58,7 +58,7 @@ describe('Controls', () => {
     {
       label: 'set unknown',
       input: `=Set(#${namespaceId}.${unknownVariableId}, 1)`,
-      parseErrorMessage: `Not found: ${unknownVariableId}`,
+      parseErrorMessage: `Unknown variable: ${unknownVariableId}`,
       result: null
     },
     {

@@ -157,7 +157,8 @@ export class FormulaParser extends CstParser {
 
       this.OR([
         { ALT: () => this.SUBRULE(this.FunctionCall, { LABEL: 'rhs' }) },
-        { ALT: () => this.SUBRULE(this.keyExpression, { LABEL: 'rhs' }) }
+        { ALT: () => this.SUBRULE(this.keyExpression, { LABEL: 'rhs' }) },
+        { ALT: () => this.CONSUME(UUID, { LABEL: 'rhs' }) }
       ])
     })
   })
@@ -229,18 +230,11 @@ export class FormulaParser extends CstParser {
 
   public lazyVariableExpression = this.RULE('lazyVariableExpression', () => {
     this.OR([
-      { ALT: () => this.SUBRULE(this.variableExpression) },
+      // { ALT: () => this.SUBRULE(this.variableExpression) },
       { ALT: () => this.CONSUME(LambdaArgumentNumber) },
       { ALT: () => this.CONSUME(Self) },
       { ALT: () => this.CONSUME(Input) }
     ])
-  })
-
-  public variableExpression = this.RULE('variableExpression', () => {
-    this.CONSUME(Sharp)
-    this.CONSUME(UUID)
-    this.CONSUME(Dot)
-    this.CONSUME2(UUID)
   })
 
   public blockExpression = this.RULE('blockExpression', () => {

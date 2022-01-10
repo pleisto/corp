@@ -501,33 +501,92 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return this.visit(ctx.lhs, args)
     }
 
-    let result = this.visit(ctx.lhs, args)
+    let result: AnyTypeResult = this.visit(ctx.lhs, { ...args, type: 'any' })
 
-    ctx.rhs.forEach(cst => {
+    ctx.rhs.every(cst => {
       if (cst.name === 'FunctionCall') {
         if (result.type === 'Error') {
-          return
+          return false
         }
         result = this.visit(cst, { ...args, chainArgs: result })
-      } else {
+        return true
+      }
+
+      if (cst.name === 'keyExpression') {
         const { result: key } = this.visit(cst, args)
 
         if (result.type === 'Error' && ['errorKind', 'result'].includes(key)) {
-          result = { type: 'string', result: result[key] }
-        } else if (result.type === 'Record') {
+          result = { type: 'string', result: result[key as keyof ErrorResult]! }
+
+          return true
+        }
+
+        if (result.type === 'Record') {
           const value = result.result[key]
           if (value) {
             result = value
           } else {
             result = { type: 'Error', result: `Key ${key} not found`, errorKind: 'runtime' }
           }
-        } else if (result.type === 'Reference') {
-          result = { type: 'Reference', result: { ...result.result, attribute: key } }
-        } else {
-          result = { type: 'Error', result: `Access not supported for ${result.type}`, errorKind: 'runtime' }
+
+          return true
         }
+
+        if (result.type === 'Reference') {
+          result = { type: 'Reference', result: { ...result.result, attribute: key } }
+          return true
+        }
+
+        result = { type: 'Error', result: `Access not supported for ${result.type}`, errorKind: 'runtime' }
+        return true
       }
+
+      if (cst.tokenType.name === 'UUID') {
+
+        if (result.type === 'Error') {
+          return true
+        }
+
+        const key = cst.image
+        if (result.type === 'Block') {
+          if (args?.lazy) {
+            result = { type: 'Reference', result: { kind: 'variable', namespaceId: result.result.id, variableId: key } }
+            return true
+          }
+
+          const variable = this.ctx.formulaContext.findVariable(result.result.id, key)
+          if (!variable) {
+            result = { type: 'Error', result: `Variable ${key} not found`, errorKind: 'runtime' }
+            return true
+          }
+
+          if (variable.t.kind === 'constant') {
+            result = variable.t.variableValue.result
+          }
+
+          result = this.visit(variable.t.cst!, args)
+          return true
+        }
+
+        if (result.type === 'Spreadsheet') {
+          const column = result.result.getColumn(key)
+          result = column
+            ? { type: 'Column', result: { ...column, spreadsheet: result.result } }
+            : { type: 'Error', result: `Column ${key} not found`, errorKind: 'runtime' }
+          return true
+        }
+
+        result = { type: 'Error', result: `Access not supported for ${result.type}`, errorKind: 'runtime' }
+        return true
+      }
+
+      throw new Error(`Unexpected CST node ${cst.name}`)
     })
+
+    const typeError = runtimeCheckType(args.type, result.type, 'chainExpression')
+    if (typeError) {
+      return typeError
+    }
 
     return result
   }
@@ -598,7 +657,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
     ctx: {
       EqualCompareOperator: IToken[]
       CompareOperator: IToken[]
-      variableExpression: CstNode | CstNode[]
       simpleAtomicExpression: CstNode | CstNode[]
     },
     args: ExpressionArgument
@@ -638,16 +696,17 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return result
     }
 
-    if (!ctx.variableExpression) {
-      return { type: 'Predicate', result, operator }
-    }
+    return { type: 'Predicate', result, operator }
 
-    const { type, result: column } = this.visit(ctx.variableExpression, { ...args, type: 'Column' })
-    if (type === 'Column') {
-      return { type: 'Predicate', result, operator, column }
-    }
+    // if (!ctx.variableExpression) {
+    // }
 
-    return { type: 'Error', result: 'Not found', errorKind: 'runtime' }
+    // const { type, result: column } = this.visit(ctx.variableExpression, { ...args, type: 'Column' })
+    // if (type === 'Column') {
+    //   return { type: 'Predicate', result, operator, column }
+    // }
+
+    // return { type: 'Error', result: 'Not found', errorKind: 'runtime' }
   }
 
   arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: ExpressionArgument): AnyTypeResult {
@@ -758,19 +817,23 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): SpreadsheetResult | BlockResult | NullResult | ErrorResult {
     const namespaceId = ctx.UUID[0].image
-    const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
 
-    if (spreadsheet) {
+    if (namespaceType === 'Spreadsheet') {
       const parentType: FormulaType = 'Spreadsheet'
       const typeError = runtimeCheckType(args.type, parentType, 'blockExpression')
       if (typeError) {
         return typeError
       }
+
+      const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+      if (!spreadsheet) {
+        return { type: 'Error', result: `Spreadsheet ${namespaceId} not found`, errorKind: 'runtime' }
+      }
       return { type: 'Spreadsheet', result: spreadsheet }
     }
 
-    const formulaName = this.ctx.formulaContext.formulaNames.find(f => f.kind === 'Block' && f.key === namespaceId)
-    if (formulaName) {
+    if (namespaceType === 'Block') {
       const parentType: FormulaType = 'Block'
       const typeError = runtimeCheckType(args.type, parentType, 'blockExpression')
       if (typeError) {
@@ -790,9 +853,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   lazyVariableExpression(ctx: any, args: ExpressionArgument): AnyTypeResult {
-    if (ctx.variableExpression) {
-      return this.visit(ctx.variableExpression, args)
-    } else if (ctx.Self) {
+    if (ctx.Self) {
       // TODO runtime type check
       return { type: 'Reference', result: { kind: 'self' } }
     } else if (ctx.LambdaArgumentNumber) {
@@ -819,50 +880,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
       // console.log({ ctx })
       throw new Error('unsupported expression')
     }
-  }
-
-  variableExpression(
-    ctx: { UUID: { map: (arg0: (uuid: any) => any) => [any, any] } },
-    args: ExpressionArgument
-  ): AnyTypeResult {
-    const [namespaceId, variableId] = ctx.UUID.map((uuid: { image: any }) => uuid.image)
-    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
-
-    if (namespaceType === 'Spreadsheet') {
-      const typeError = runtimeCheckType(args.type, 'Column', 'variableExpression')
-      if (typeError) {
-        return typeError
-      }
-
-      const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
-
-      if (column) {
-        return { type: 'Column', result: column }
-      } else {
-        return { type: 'null', result: null }
-      }
-    } else if (namespaceType === 'Block') {
-      if (args?.lazy) {
-        return { type: 'Reference', result: { kind: 'variable', namespaceId, variableId } }
-      }
-
-      // eslint-disable-next-line no-case-declarations
-      const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
-      if (variable) {
-        if (variable.t.kind === 'constant') {
-          const typeError = runtimeCheckType(args.type, variable.t.variableValue.result.type, 'variableExpression')
-          if (typeError) {
-            return typeError
-          }
-
-          return variable.t.variableValue.result
-        }
-
-        return this.visit(variable.t.cst!, args)
-      }
-    }
-
-    throw new Error(`Variable not found: ${variableId}`)
   }
 
   NumberLiteralExpression(

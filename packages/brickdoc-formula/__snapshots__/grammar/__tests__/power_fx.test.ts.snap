@@ -109,6 +109,35 @@ Array [
     "type": "any",
   },
   Object {
+    "code": "Spreadsheet",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Column",
+        "type": "type",
+      },
+    ],
+    "name": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    "render": [Function],
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "code": "Dot",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Column",
+        "type": "type",
+      },
+    ],
+    "name": ".",
+    "render": undefined,
+    "spaceAfter": false,
+    "spaceBefore": false,
+    "type": "any",
+  },
+  Object {
     "code": "Column",
     "errors": Array [
       Object {
@@ -116,7 +145,7 @@ Array [
         "type": "type",
       },
     ],
-    "name": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "name": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "render": [Function],
     "spaceAfter": false,
