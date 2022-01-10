@@ -15,6 +15,13 @@ export default {
       }
     },
 
+    id: {
+      description: 'globally unique ID',
+      control: {
+        type: 'string'
+      }
+    },
+
     type: {
       description: '`Switching display types` ',
       options: [EmptyType.Empty, EmptyType.Found],

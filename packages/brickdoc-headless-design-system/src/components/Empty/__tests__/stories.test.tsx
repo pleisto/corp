@@ -17,6 +17,7 @@ describe('tag', () => {
     const args = {
       description: 'There is empty.',
       type: EmptyType.Empty,
+      id: 'testid',
       action: (
         <Button size="small" type="primary">
           go to

@@ -8,6 +8,7 @@ export enum EmptyType {
 export interface EmptyOrFoundProps {
   prefixCls?: string
   type?: EmptyType
+  uid: string
 }
 
 export interface EmptyProps {
@@ -17,4 +18,5 @@ export interface EmptyProps {
   description?: ReactNode
   action?: ReactNode
   type?: EmptyType
+  id?: string
 }
