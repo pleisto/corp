@@ -249,3 +249,17 @@ export const queryDatabaseRowBlocks = gql`
     }
   }
 `
+
+export const querySpreadsheetBlocks = gql`
+  query GetSpreadsheetBlocks($parentId: String!, $snapshotVersion: Int!) {
+    spreadsheetBlocks(parentId: $parentId, snapshotVersion: $snapshotVersion) {
+      id
+      sort
+      parentId
+      type
+      text
+      content
+      data
+    }
+  }
+`

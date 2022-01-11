@@ -1,0 +1,21 @@
+@import '@brickdoc/design-system/components/style/themes';
+.brickdoc {
+  .ProseMirror {
+    .brickdoc-spreadsheet-block {
+      overflow:auto;
+      white-space: nowrap;
+      padding-bottom: 30px;
+      table {
+        border-collapse: collapse;
+        thead {
+          background: rgba(0, 0, 0, 3%); // palette/type/thirdary
+        }
+        td, th {
+          min-width: 164px;
+          border: 1px solid #BDBDBD; // palette/divider/secondary
+          padding: 3px;
+        }
+      }
+    }
+  }
+}

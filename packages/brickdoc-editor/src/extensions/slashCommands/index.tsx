@@ -110,15 +110,15 @@ const menuItems: SlashMenuItem[] = [
     }
   },
   {
-    key: 'table',
+    key: 'spreadsheet',
+    alias: ['table'],
     icon: <Icon.Table className="menu-item-icon" />,
     command: ({ editor, range }) => {
       editor
         .chain()
         .focus()
         .deleteRange(range)
-        .setTableBlock(range.from - 1)
-        .splitBlock()
+        .setSpreadsheetBlock(range.from - 1)
         .run()
     }
   },

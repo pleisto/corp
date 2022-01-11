@@ -28,6 +28,7 @@ import { ImageBlockExtension, ImageBlockOptions } from '../image'
 import { PdfSectionExtension, PdfSectionOptions } from '../pdfSection'
 import { EmbedBlockExtension, EmbedBlockOptions } from '../embed'
 import { TableBlockExtension, TableBlockOptions } from '../table'
+import { SpreadsheetBlockExtension, SpreadsheetBlockOptions } from '../spreadsheet'
 import { FormulaExtension, FormulaOptions } from '../formula'
 import { CodeBlock, DividerBlock } from '../../components'
 import { ReactNodeViewRenderer } from '@tiptap/react'
@@ -61,6 +62,7 @@ export interface BasicRichtextOptions {
   embedBlock: Partial<EmbedBlockOptions> | false
   pdfSection: Partial<PdfSectionOptions> | false
   tableBlock: Partial<TableBlockOptions> | false
+  spreadsheetBlock: Partial<SpreadsheetBlockOptions> | false
 }
 
 export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
@@ -118,6 +120,8 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.fontColor !== false) extensions.push(FontColorExtension.configure(this.options?.fontColor))
     if (this.options.formula !== false) extensions.push(FormulaExtension.configure(this.options?.formula))
     if (this.options.tableBlock !== false) extensions.push(TableBlockExtension.configure(this.options?.tableBlock))
+    if (this.options.spreadsheetBlock !== false)
+      extensions.push(SpreadsheetBlockExtension.configure(this.options?.spreadsheetBlock))
     if (this.options.link !== false) extensions.push(Link.configure(this.options?.link))
     /* eslint-enable @typescript-eslint/no-unnecessary-boolean-literal-compare */
 

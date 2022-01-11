@@ -7,6 +7,27 @@ export const BlockUpdated = event<Block>()('BlockUpdated', (block: Block) => {
 export const BlockDeleted = event<Block>()('BlockDeleted', (block: Block) => {
   return { id: block.id }
 })
+export const UpdateBlock = event<{ block: Block; commit: boolean }>()('UpdateBlock', ({ block, commit }) => {
+  return { id: block.id }
+})
+export const DeleteBlock = event<{ block: Block; commit: boolean }>()('DeleteBlock', ({ block, commit }) => {
+  return { id: block.id }
+})
+export const CommitBlocks = event<{}>()('CommitBlocks', () => {
+  return { id: 'commit' }
+})
+
+export const loadSpreadsheetBlocks = event<string>()('loadSpreadsheetBlocks', (parentId: string) => {
+  return { id: parentId }
+})
+
+export const SpreadsheetBlocksLoaded = event<{ parentId: string; blocks: Block[] }>()(
+  'SpreadsheetBlocksLoaded',
+  ({ parentId, blocks }) => {
+    return { id: parentId }
+  }
+)
+
 export const BlockSpreadsheetLoaded = event<{ id: string }>()('BlockSpreadsheetLoaded', ({ id }) => {
   return { id }
 })

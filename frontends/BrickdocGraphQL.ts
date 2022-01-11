@@ -1014,6 +1014,7 @@ export type RootQuery = {
   pods: Array<Pod>
   /** return preview box data of url */
   previewBox: Preview_Box
+  spreadsheetBlocks?: Maybe<Array<Block>>
   trashBlocks?: Maybe<Array<Block>>
   /** return images from unsplash by search */
   unsplashImage?: Maybe<Array<Unsplash_Image>>
@@ -1083,6 +1084,11 @@ export type RootQueryPodSearchArgs = {
 
 export type RootQueryPreviewBoxArgs = {
   url: Scalars['String']
+}
+
+export type RootQuerySpreadsheetBlocksArgs = {
+  parentId: Scalars['String']
+  snapshotVersion: Scalars['Int']
 }
 
 export type RootQueryTrashBlocksArgs = {
@@ -2409,6 +2415,28 @@ export type GetDatabaseRowBlocksQueryVariables = Exact<{
 export type GetDatabaseRowBlocksQuery = {
   __typename?: 'RootQuery'
   databaseRowBlocks?:
+    | Array<{
+        __typename?: 'block'
+        id: string
+        sort: any
+        parentId?: string | null | undefined
+        type: string
+        text: string
+        content: Array<any>
+        data: any
+      }>
+    | null
+    | undefined
+}
+
+export type GetSpreadsheetBlocksQueryVariables = Exact<{
+  parentId: Scalars['String']
+  snapshotVersion: Scalars['Int']
+}>
+
+export type GetSpreadsheetBlocksQuery = {
+  __typename?: 'RootQuery'
+  spreadsheetBlocks?:
     | Array<{
         __typename?: 'block'
         id: string
@@ -4832,4 +4860,59 @@ export type GetDatabaseRowBlocksLazyQueryHookResult = ReturnType<typeof useGetDa
 export type GetDatabaseRowBlocksQueryResult = Apollo.QueryResult<
   GetDatabaseRowBlocksQuery,
   GetDatabaseRowBlocksQueryVariables
+>
+export const GetSpreadsheetBlocksDocument = gql`
+  query GetSpreadsheetBlocks($parentId: String!, $snapshotVersion: Int!) {
+    spreadsheetBlocks(parentId: $parentId, snapshotVersion: $snapshotVersion) {
+      id
+      sort
+      parentId
+      type
+      text
+      content
+      data
+    }
+  }
+`
+
+/**
+ * __useGetSpreadsheetBlocksQuery__
+ *
+ * To run a query within a React component, call `useGetSpreadsheetBlocksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSpreadsheetBlocksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSpreadsheetBlocksQuery({
+ *   variables: {
+ *      parentId: // value for 'parentId'
+ *      snapshotVersion: // value for 'snapshotVersion'
+ *   },
+ * });
+ */
+export function useGetSpreadsheetBlocksQuery(
+  baseOptions: Apollo.QueryHookOptions<GetSpreadsheetBlocksQuery, GetSpreadsheetBlocksQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetSpreadsheetBlocksQuery, GetSpreadsheetBlocksQueryVariables>(
+    GetSpreadsheetBlocksDocument,
+    options
+  )
+}
+export function useGetSpreadsheetBlocksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetSpreadsheetBlocksQuery, GetSpreadsheetBlocksQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetSpreadsheetBlocksQuery, GetSpreadsheetBlocksQueryVariables>(
+    GetSpreadsheetBlocksDocument,
+    options
+  )
+}
+export type GetSpreadsheetBlocksQueryHookResult = ReturnType<typeof useGetSpreadsheetBlocksQuery>
+export type GetSpreadsheetBlocksLazyQueryHookResult = ReturnType<typeof useGetSpreadsheetBlocksLazyQuery>
+export type GetSpreadsheetBlocksQueryResult = Apollo.QueryResult<
+  GetSpreadsheetBlocksQuery,
+  GetSpreadsheetBlocksQueryVariables
 >

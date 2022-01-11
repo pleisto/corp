@@ -2,11 +2,28 @@
 import React from 'react'
 import { Node } from 'prosemirror-model'
 import { useApolloClient } from '@apollo/client'
-import { BlockInput, Block, useGetChildrenBlocksQuery, useBlockSyncBatchMutation } from '@/BrickdocGraphQL'
+import {
+  BlockInput,
+  Block,
+  useGetChildrenBlocksQuery,
+  useBlockSyncBatchMutation,
+  GetSpreadsheetBlocksDocument
+} from '@/BrickdocGraphQL'
 import { isEqual } from 'lodash-es'
 import { isSavingVar } from '../../reactiveVars'
 import { nodeToBlock } from '../../common/blocks'
-import { BrickdocEventBus, Event, BlockUpdated, BlockDeleted, BlockNameLoad } from '@brickdoc/schema'
+import {
+  BrickdocEventBus,
+  Event,
+  BlockUpdated,
+  BlockDeleted,
+  BlockNameLoad,
+  UpdateBlock,
+  DeleteBlock,
+  CommitBlocks,
+  loadSpreadsheetBlocks,
+  SpreadsheetBlocksLoaded
+} from '@brickdoc/schema'
 
 export type UpdateBlocks = (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
 
@@ -51,7 +68,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     rootBlock.current = docBlocksMap.current.get(rootId.current)
   }, [queryVariables, data?.childrenBlocks])
 
-  const commitDirty = async () => {
+  const commitDirty = async (): Promise<void> => {
     if (committing.current) return
 
     committing.current = true
@@ -164,7 +181,66 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     { subscribeId: 'SyncProvider' }
   )
 
-  const updateBlocks = async (blocks: BlockInput[], toDeleteIds: string[]) => {
+  BrickdocEventBus.subscribe(
+    UpdateBlock,
+    (e: Event) => {
+      const { block, commit } = e.payload
+      dirtyBlocksMap.current.set(block.id, block)
+      if (commit) {
+        isSavingVar(true)
+        void commitDirty()
+      }
+    },
+    { subscribeId: 'SyncProvider' }
+  )
+
+  BrickdocEventBus.subscribe(
+    DeleteBlock,
+    (e: Event) => {
+      const { block, commit } = e.payload
+      dirtyToDeleteIds.current.add(block.id)
+      if (commit) {
+        isSavingVar(true)
+        void commitDirty()
+      }
+    },
+    { subscribeId: 'SyncProvider' }
+  )
+
+  BrickdocEventBus.subscribe(
+    CommitBlocks,
+    (e: Event) => {
+      isSavingVar(true)
+      void commitDirty()
+    },
+    { subscribeId: 'SyncProvider' }
+  )
+
+  BrickdocEventBus.subscribe(
+    loadSpreadsheetBlocks,
+    (e: Event) => {
+      const parentId = e.payload
+      console.log(`loading spreadsheet ${parentId}`)
+      void (async () => {
+        const { data } = await client.query({
+          query: GetSpreadsheetBlocksDocument,
+          variables: {
+            parentId,
+            snapshotVersion: 0
+          }
+        })
+        BrickdocEventBus.dispatch(
+          SpreadsheetBlocksLoaded({
+            parentId,
+            blocks: data.spreadsheetBlocks
+          })
+        )
+      })()
+    },
+    { subscribeId: 'SyncProvider' }
+  )
+
+  const updateBlocks = async (blocks: BlockInput[], toDeleteIds: string[]): Promise<void> => {
     isSavingVar(true)
     blocks.forEach(block => dirtyBlocksMap.current.set(block.id, block))
     toDeleteIds.forEach(id => dirtyToDeleteIds.current.add(id))

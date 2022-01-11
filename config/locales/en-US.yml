@@ -788,9 +788,9 @@ en-US:
         image:
           title: Image
           desc: Upload or embed with a link
-        table:
-          title: Table
-          desc: Create a table
+        spreadsheet:
+          title: Spreadsheet
+          desc: Create a spreadsheet
         formula:
           title: Formula
           desc: Create a formula

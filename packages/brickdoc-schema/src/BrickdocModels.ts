@@ -1011,6 +1011,7 @@ export type RootQuery = {
   pods: Array<Pod>
   /** return preview box data of url */
   previewBox: Preview_Box
+  spreadsheetBlocks?: Maybe<Array<Block>>
   trashBlocks?: Maybe<Array<Block>>
   /** return images from unsplash by search */
   unsplashImage?: Maybe<Array<Unsplash_Image>>
@@ -1080,6 +1081,11 @@ export type RootQueryPodSearchArgs = {
 
 export type RootQueryPreviewBoxArgs = {
   url: Scalars['String']
+}
+
+export type RootQuerySpreadsheetBlocksArgs = {
+  parentId: Scalars['String']
+  snapshotVersion: Scalars['Int']
 }
 
 export type RootQueryTrashBlocksArgs = {
