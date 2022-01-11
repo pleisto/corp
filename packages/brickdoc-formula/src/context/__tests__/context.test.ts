@@ -26,8 +26,7 @@ describe('Context', () => {
       cacheValue: {
         type: 'number',
         result: 123
-      },
-      view: {}
+      }
     },
     {
       name: 'bar',
@@ -41,8 +40,7 @@ describe('Context', () => {
       cacheValue: {
         type: 'number',
         result: 243
-      },
-      view: {}
+      }
     }
   ]
 

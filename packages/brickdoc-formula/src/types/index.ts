@@ -283,7 +283,6 @@ export interface Formula {
   level: number
   version: number
   kind: string
-  view: View
   dependencyIds: uuid[]
 }
 
