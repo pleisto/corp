@@ -1,3 +1,4 @@
+import { SpreadsheetType } from '../controls/types'
 import {
   AnyTypeResult,
   ArrayResult,
@@ -47,14 +48,14 @@ export const toArray = (ctx: FunctionContext, { result, type }: AnyTypeResult): 
       return {
         type: 'Array',
         subType: 'Array',
-        result: result.toArray().map((row: string[]) => ({
+        result: (result as SpreadsheetType).toArray().map((row: string[]) => ({
           type: 'Array',
           subType: 'string',
           result: row.map(r => ({ type: 'string', result: r }))
         }))
       }
     case 'number':
-      if (result < 0) {
+      if ((result as number) < 0) {
         return { type: 'Error', result: 'Number should be positive', errorKind: 'runtime' }
       }
       return {

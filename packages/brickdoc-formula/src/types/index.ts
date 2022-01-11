@@ -179,7 +179,7 @@ export interface ErrorResult extends BaseResult {
 
 export interface PredicateResult extends BaseResult {
   type: 'Predicate'
-  result: AnyTypeResult
+  result: NumberResult | StringResult
   column?: ColumnType
   operator: PredicateOperator
 }
@@ -266,7 +266,6 @@ export type AnyTypeResult =
   | FunctionResult
   | CstResult
   | ReferenceResult
-  | AnyResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
@@ -315,7 +314,7 @@ export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
   readonly namespace: FunctionGroup
   readonly value: FunctionCompletionValue
-  readonly preview: FunctionClause<any>
+  readonly preview: FunctionClause<FormulaType>
 }
 
 export interface VariableCompletion extends BaseCompletion {
@@ -404,7 +403,7 @@ export interface ContextInterface {
   handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
-  findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<any> | undefined
+  findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
   resetFormula: VoidFunction
 }
 
@@ -560,7 +559,7 @@ export interface VariableData {
   flattenVariableDependencies: VariableDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
-  functionDependencies: Array<FunctionClause<any>>
+  functionDependencies: Array<FunctionClause<FormulaType>>
 }
 
 export interface VariableMetadata {

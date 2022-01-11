@@ -13,7 +13,8 @@ import {
   FunctionContext,
   FormulaType,
   ExpressionType,
-  BlockResult
+  BlockResult,
+  StringResult
 } from '../types'
 import { Row } from '../controls'
 import { extractSubType, runtimeCheckType } from './util'
@@ -345,7 +346,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       const match = result.result.toUpperCase()
       const finalresult = result2.result
         .filter((e: AnyTypeResult) => e.type === 'string')
-        .map((e: AnyTypeResult) => e.result.toUpperCase())
+        .map((e: StringResult) => e.result.toUpperCase())
 
       return { result: finalresult.includes(match), type: 'boolean' }
     }
@@ -542,7 +543,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
       }
 
       if (cst.tokenType.name === 'UUID') {
-
         if (result.type === 'Error') {
           return true
         }
@@ -691,7 +691,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       throw new Error(`Unexpected operator ${token.image}`)
     }
 
-    const result = this.visit(ctx.simpleAtomicExpression, { ...args, type: ['string', 'number', 'null', 'boolean'] })
+    const result = this.visit(ctx.simpleAtomicExpression, { ...args, type: ['number', 'string'] })
     if (result.type === 'Error') {
       return result
     }
@@ -994,8 +994,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
           throw new Error(`Argument ${index} is not defined`)
         }
 
-        if (argType.type === 'Predicate' && v.type !== 'Predicate') {
-          return { type: 'Predicate', result: v, operator: 'equal' }
+        if (argType.type === 'Predicate' && ['number', 'string'].includes(v.type)) {
+          return { type: 'Predicate', result: v as PredicateResult['result'], operator: 'equal' }
         } else {
           return v
         }
