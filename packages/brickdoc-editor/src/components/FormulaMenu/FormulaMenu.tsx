@@ -276,7 +276,14 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           positionChange = positionChange - prevText.length + (replacement.length as number)
           const newText = prevText.substring(0, prevText.length - replacement.length)
           oldContent = [
-            attrsToJSONContent({ display: newText, value: newText, code: 'ANY', type: 'any', error: '', hidden: false })
+            attrsToJSONContent({
+              display: () => newText,
+              value: newText,
+              code: 'ANY',
+              type: 'any',
+              error: '',
+              hidden: false
+            })
           ]
         }
         // console.log('replace..', newText, oldContent)
@@ -284,7 +291,16 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     }
 
     const nextContents = nextText
-      ? [attrsToJSONContent({ display: nextText, value: nextText, code: 'ANY', type: 'any', error: '', hidden: false })]
+      ? [
+          attrsToJSONContent({
+            display: () => nextText,
+            value: nextText,
+            code: 'ANY',
+            type: 'any',
+            error: '',
+            hidden: false
+          })
+        ]
       : []
 
     const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)

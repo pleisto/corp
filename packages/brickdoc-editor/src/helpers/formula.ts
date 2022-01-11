@@ -41,7 +41,7 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
     type: codeFragment.type,
     error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
   })
-  if (codeFragment.display) {
+  if (codeFragment.display()) {
     result.push(attr)
   }
 
@@ -49,7 +49,7 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
 }
 
 export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
-  return { type: 'text', text: attrs.display, marks: [{ type: 'FormulaType', attrs }] }
+  return { type: 'text', text: attrs.display(), marks: [{ type: 'FormulaType', attrs }] }
 }
 
 export const positionBasedContentArrayToInput = (
@@ -75,18 +75,22 @@ export const positionBasedContentArrayToInput = (
 }
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
-  const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+  const input = content.map((c: JSONContent) => JSONContentToText(c, true)).join('') ?? ''
   // console.log({ content, input })
   return input
 }
 
-const JSONContentToText = (c: JSONContent): string => {
+const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string => {
   if (c.type !== 'text') {
     console.error('JSONContentToText: not text', c)
     return ''
   }
 
   const text = c.text ?? ''
+
+  if (textOnly) {
+    return text
+  }
 
   if (!c.marks) {
     return text
@@ -110,7 +114,7 @@ const JSONContentToText = (c: JSONContent): string => {
     return text
   }
 
-  if (attrs.display === text) {
+  if (attrs.display() === text) {
     return attrs.value
   }
 

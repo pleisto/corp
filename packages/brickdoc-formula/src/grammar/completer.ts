@@ -33,7 +33,7 @@ export const complete = ({
   let input = ''
 
   codeFragments.every(codeFragment => {
-    input = input.concat(codeFragment.display)
+    input = input.concat(codeFragment.display())
     if (input.length < position) {
       return true
     }

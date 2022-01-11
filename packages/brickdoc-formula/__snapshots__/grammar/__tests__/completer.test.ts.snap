@@ -5,7 +5,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "Block",
-      "display": "Unknown",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0",
@@ -16,7 +16,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Missing expression",
@@ -37,7 +37,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -67,7 +67,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "NumberLiteral",
-      "display": "1",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "1",
@@ -77,7 +77,7 @@ Object {
     },
     Object {
       "code": "Plus",
-      "display": "+",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "+",
@@ -87,7 +87,7 @@ Object {
     },
     Object {
       "code": "Block",
-      "display": "Unknown",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0",
@@ -98,7 +98,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": ".",
@@ -108,7 +108,7 @@ Object {
     },
     Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -119,7 +119,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Missing expression",
@@ -140,7 +140,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Function",
-      "display": "VLOOKUP",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "VLOOKUP",
@@ -167,7 +167,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "NumberLiteral",
-      "display": "1",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "1",
@@ -177,7 +177,7 @@ Object {
     },
     Object {
       "code": "Plus",
-      "display": "+",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "+",
@@ -187,7 +187,7 @@ Object {
     },
     Object {
       "code": "Block",
-      "display": "Unknown",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0",
@@ -198,7 +198,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": ".",
@@ -208,7 +208,7 @@ Object {
     },
     Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -219,7 +219,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Missing expression",
@@ -240,7 +240,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Function",
-      "display": "VLOOKUP",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "VLOOKUP",
@@ -267,7 +267,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "Block",
-      "display": "Unknown",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0",
@@ -278,7 +278,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": ".",
@@ -288,7 +288,7 @@ Object {
     },
     Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -301,7 +301,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Function",
-      "display": "LEN",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "LEN",
@@ -328,7 +328,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "Block",
-      "display": "Unknown",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0",
@@ -339,7 +339,7 @@ Object {
     },
     Object {
       "code": "Dot",
-      "display": ".",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": ".",
@@ -349,7 +349,7 @@ Object {
     },
     Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -362,7 +362,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -392,7 +392,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "NumberLiteral",
-      "display": "1",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "1",
@@ -402,7 +402,7 @@ Object {
     },
     Object {
       "code": "Plus",
-      "display": "+",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "+",
@@ -412,7 +412,7 @@ Object {
     },
     Object {
       "code": "Function",
-      "display": "arvar",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Unknown function arvar",
@@ -433,7 +433,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -465,7 +465,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "NumberLiteral",
-      "display": "1",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "1",
@@ -475,7 +475,7 @@ Object {
     },
     Object {
       "code": "Plus",
-      "display": "+",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "+",
@@ -485,7 +485,7 @@ Object {
     },
     Object {
       "code": "Function",
-      "display": "arvar",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Unknown function arvar",
@@ -506,7 +506,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0",
@@ -538,7 +538,7 @@ Object {
   "codeFragments": Array [
     Object {
       "code": "NumberLiteral",
-      "display": "1",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "1",
@@ -548,7 +548,7 @@ Object {
     },
     Object {
       "code": "Plus",
-      "display": "+",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "+",
@@ -558,7 +558,7 @@ Object {
     },
     Object {
       "code": "Function",
-      "display": "var",
+      "display": [Function],
       "errors": Array [
         Object {
           "message": "Unknown function var",
@@ -579,7 +579,7 @@ Object {
   "firstCompletion": Object {
     "codeFragment": Object {
       "code": "Variable",
-      "display": "varvarabcvar",
+      "display": [Function],
       "errors": Array [],
       "hidden": false,
       "name": "#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0",
