@@ -77,7 +77,6 @@ export type ErrorType =
 export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
-export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
 export type VariableKey = `#${NamespaceId}.${VariableId}`
 export type BlockKey = `#${NamespaceId}`
 export type ColumnKey = `#${NamespaceId}.${ColumnId}`
@@ -327,6 +326,7 @@ interface BaseCompletion {
   readonly weight: number
   readonly replacements: string[]
   readonly namespace: string
+  readonly positionChange: number
   readonly name: string
   readonly value: any
   readonly preview: any
@@ -336,7 +336,7 @@ interface BaseCompletion {
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
   readonly namespace: FunctionGroup
-  readonly value: FunctionCompletionValue
+  readonly value: `${FunctionKey}()`
   readonly preview: FunctionClause<FormulaType>
 }
 

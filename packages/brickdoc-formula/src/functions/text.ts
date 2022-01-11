@@ -34,7 +34,7 @@ export const CORE_TEXT_CLAUSES: Array<BasicFunctionClause<'string' | 'number'>> 
       }
     ],
     examples: [{ input: '=LEN("foo")', output: { type: 'number', result: 3 } }],
-    chain: true,
+    chain: false,
     reference: LEN
   },
   {
