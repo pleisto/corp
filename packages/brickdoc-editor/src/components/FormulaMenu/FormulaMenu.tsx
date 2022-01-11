@@ -11,8 +11,7 @@ import {
   InterpretResult,
   parse,
   ParseResult,
-  VariableInterface,
-  View
+  VariableInterface
 } from '@brickdoc/formula'
 import { v4 as uuid } from 'uuid'
 import { useEditorI18n } from '../../hooks'
@@ -68,7 +67,6 @@ const calculate = async ({
 }> => {
   const variableId = variable ? variable.t.variableId : uuid()
   const meta = { namespaceId, variableId, name, input }
-  const view: View = {}
   const ctx = {
     formulaContext,
     meta,
@@ -114,7 +112,7 @@ const calculate = async ({
     }
   }
 
-  const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
+  const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult })
 
   return {
     newPosition: parseResult.position,

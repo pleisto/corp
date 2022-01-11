@@ -553,7 +553,6 @@ export interface VariableData {
   definition: Definition
   dirty: boolean
   valid: boolean
-  view: View
   kind: VariableKind
   variableValue: VariableValue
   cst?: CstNode

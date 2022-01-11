@@ -101,7 +101,6 @@ export const castVariable = (
     variableValue,
     name,
     cst,
-    view: {},
     valid,
     version,
     definition,
