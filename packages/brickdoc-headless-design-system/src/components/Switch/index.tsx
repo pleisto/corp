@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, forwardRef, createRef, ForwardRefRenderFunction } from 'react'
 import { VisuallyHidden } from 'reakit/VisuallyHidden'
 import { Checkbox, CheckboxProps } from 'reakit/Checkbox'
 import { Rotation } from '@brickdoc/design-icons'
@@ -21,7 +21,7 @@ export interface SwitchProps extends Omit<CheckboxProps, 'size' | 'onChange' | '
 const SwitchLabel = styled('label', root)
 const Switcher = styled('div', switcher)
 
-export const Switch: React.FC<SwitchProps> = props => {
+const Switch: ForwardRefRenderFunction<HTMLInputElement, SwitchProps> = (props, ref) => {
   const {
     labelFirst = false,
     loading = false,
@@ -37,15 +37,16 @@ export const Switch: React.FC<SwitchProps> = props => {
   } = props
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const isDisabled = disabled || loading
-  const ref = React.useRef<HTMLInputElement>()
+  const inputRef = ref ?? createRef<HTMLInputElement>()
   const [unControlledChecked, setUnControlledChecked] = useState(defaultChecked)
   const unControlledToggle = (): void => setUnControlledChecked(!unControlledChecked)
+  const isChecked = checked ?? unControlledChecked
 
   return (
     <SwitchLabel className={className} style={style}>
       {labelFirst && children && <span>{children}</span>}
       <FocusRing within={true}>
-        <Switcher checked={checked ?? unControlledChecked} loading={loading} disabled={isDisabled} size={size}>
+        <Switcher checked={isChecked} loading={loading} disabled={isDisabled} size={size}>
           <VisuallyHidden>
             <Checkbox
               {...otherProps}
@@ -56,8 +57,8 @@ export const Switch: React.FC<SwitchProps> = props => {
                     }
                   : unControlledToggle
               }
-              checked={checked ?? unControlledChecked}
-              ref={ref as any}
+              checked={isChecked}
+              ref={inputRef}
               unstable_clickOnEnter
               unstable_clickOnSpace
               disabled={isDisabled}
@@ -70,3 +71,8 @@ export const Switch: React.FC<SwitchProps> = props => {
     </SwitchLabel>
   )
 }
+
+const _Switch = forwardRef(Switch)
+_Switch.displayName = 'Switch'
+
+export { _Switch as Switch }
