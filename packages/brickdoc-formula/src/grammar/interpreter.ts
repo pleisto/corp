@@ -63,7 +63,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
   }
 
   expression(ctx: { lhs: CstNode | CstNode[]; rhs: any }, args: ExpressionArgument): AnyTypeResult {
-    let result = this.visit(ctx.lhs, args)
+    let result: AnyTypeResult = this.visit(ctx.lhs, args)
 
     if (!ctx.rhs) {
       return result
@@ -102,7 +102,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
     const newArgs = { ...args, type: childrenType }
 
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -145,7 +145,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return typeError
     }
     const newArgs = { ...args, type: childrenType }
-    let result = this.visit(ctx.rhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.rhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -177,7 +177,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return typeError
     }
     const newArgs = { ...args, type: childrenType }
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -226,7 +226,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return typeError
     }
     const newArgs = { ...args, type: childrenType }
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -246,14 +246,16 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
       const operator = ctx.CompareOperator[idx]
 
+      const lhsResult = result.result as number
+
       if (tokenMatcher(operator, GreaterThan)) {
-        result = { result: result.result > rhsValue.result, type: 'boolean' }
+        result = { result: lhsResult > rhsValue.result, type: 'boolean' }
       } else if (tokenMatcher(operator, LessThan)) {
-        result = { result: result.result < rhsValue.result, type: 'boolean' }
+        result = { result: lhsResult < rhsValue.result, type: 'boolean' }
       } else if (tokenMatcher(operator, GreaterThanEqual)) {
-        result = { result: result.result >= rhsValue.result, type: 'boolean' }
+        result = { result: lhsResult >= rhsValue.result, type: 'boolean' }
       } else if (tokenMatcher(operator, LessThanEqual)) {
-        result = { result: result.result <= rhsValue.result, type: 'boolean' }
+        result = { result: lhsResult <= rhsValue.result, type: 'boolean' }
       } else {
         throw new Error(`Unexpected operator ${operator.image}`)
       }
@@ -364,7 +366,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return typeError
     }
     const newArgs = { ...args, type: childrenType }
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -382,7 +384,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         return
       }
 
-      result = { result: result.result.concat(rhsValue.result), type: 'string' }
+      result = { result: (result as StringResult).result.concat(rhsValue.result), type: 'string' }
     })
 
     return result
@@ -408,7 +410,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
     const newArgs = { ...args, type: childrenType }
 
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -426,12 +428,13 @@ export class FormulaInterpreter extends BaseCstVisitor {
       }
 
       const operator = ctx.AdditionOperator[idx]
+      const lhsResult = result.result as number
+      const rhsResult = rhsValue.result as number
 
       if (tokenMatcher(operator, Plus)) {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        result = { result: result.result + rhsValue.result, type: 'number' }
+        result = { result: lhsResult + rhsResult, type: 'number' }
       } else if (tokenMatcher(operator, Minus)) {
-        result = { result: result.result - rhsValue.result, type: 'number' }
+        result = { result: lhsResult - rhsResult, type: 'number' }
       } else {
         throw new Error(`Unexpected operator ${operator.image}`)
       }
@@ -460,7 +463,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     }
     const newArgs = { ...args, type: childrenType }
 
-    let result = this.visit(ctx.lhs, newArgs)
+    let result: AnyTypeResult = this.visit(ctx.lhs, newArgs)
 
     if (result.type === 'Error') {
       return result
@@ -478,16 +481,19 @@ export class FormulaInterpreter extends BaseCstVisitor {
       }
       const operator = ctx.MultiplicationOperator[idx]
 
+      const lhsResult = result.result as number
+      const rhsResult = rhsValue.result as number
+
       if (tokenMatcher(operator, Multi)) {
-        result = { result: result.result * rhsValue.result, type: 'number' }
+        result = { result: lhsResult * rhsResult, type: 'number' }
       } else if (tokenMatcher(operator, Div)) {
         if (rhsValue.result === 0) {
           result = { type: 'Error', result: 'Division by zero', errorKind: 'runtime' }
         } else {
-          result = { result: result.result / rhsValue.result, type: 'number' }
+          result = { result: lhsResult / rhsResult, type: 'number' }
         }
       } else if (tokenMatcher(operator, Caret)) {
-        result = { result: result.result ** rhsValue.result, type: 'number' }
+        result = { result: lhsResult ** rhsResult, type: 'number' }
       } else {
         throw new Error(`Unexpected operator ${operator.image}`)
       }
@@ -517,7 +523,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         const { result: key } = this.visit(cst, args)
 
         if (result.type === 'Error' && ['errorKind', 'result'].includes(key)) {
-          result = { type: 'string', result: result[key as keyof ErrorResult]! }
+          result = { type: 'string', result: result[key as 'errorKind' | 'result'] }
 
           return true
         }

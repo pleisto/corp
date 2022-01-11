@@ -103,8 +103,15 @@ export type Features = Feature[]
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set' | 'Lambda'
+
+export type ViewType = FormulaType
+export interface View<T extends ViewType> {
+  type: T
+  attrs: Record<string, any>
+}
 export interface BaseResult {
   result: any
+  view?: View<ViewType>
   type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
   errorKind?: ErrorType
@@ -112,31 +119,37 @@ export interface BaseResult {
 }
 export interface NumberResult extends BaseResult {
   result: number
+  view?: View<'number'>
   type: 'number'
 }
 
 export interface BooleanResult extends BaseResult {
   result: boolean
+  view?: View<'boolean'>
   type: 'boolean'
 }
 
 export interface StringResult extends BaseResult {
   result: string
+  view?: View<'string'>
   type: 'string'
 }
 
 export interface NullResult extends BaseResult {
   result: null
+  view?: View<'null'>
   type: 'null'
 }
 
 export interface BlankResult extends BaseResult {
   result: never
+  view?: View<'Blank'>
   type: 'Blank'
 }
 
 export interface ArrayResult extends BaseResult {
   result: AnyTypeResult[]
+  view?: View<'Array'>
   type: 'Array'
   subType: FormulaType
 }
@@ -148,37 +161,44 @@ export interface RecordType {
 export interface RecordResult extends BaseResult {
   result: RecordType
   subType: FormulaType
+  view?: View<'Record'>
   type: 'Record'
 }
 
 export interface DateResult extends BaseResult {
   result: Date
+  view?: View<'Date'>
   type: 'Date'
 }
 
 export interface ColumnResult extends BaseResult {
   result: ColumnType
+  view?: View<'Column'>
   type: 'Column'
 }
 
 export interface SpreadsheetResult extends BaseResult {
   result: SpreadsheetType
+  view?: View<'Spreadsheet'>
   type: 'Spreadsheet'
 }
 
 export interface BlockResult extends BaseResult {
   result: BlockType
+  view?: View<'Block'>
   type: 'Block'
 }
 
 export interface ErrorResult extends BaseResult {
   result: string
   type: 'Error'
+  view?: View<'Error'>
   errorKind: ErrorType
 }
 
 export interface PredicateResult extends BaseResult {
   type: 'Predicate'
+  view?: View<'Predicate'>
   result: NumberResult | StringResult
   column?: ColumnType
   operator: PredicateOperator
@@ -190,41 +210,49 @@ interface FormulaFunction {
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
+  view?: View<'Function'>
   result: [FormulaFunction, ...FormulaFunction[]]
 }
 
 export interface CstResult extends BaseResult {
   type: 'Cst'
+  view?: View<'Cst'>
   result: CstNode
 }
 
 export interface ReferenceResult extends BaseResult {
   type: 'Reference'
+  view?: View<'Reference'>
   result: Reference
 }
 
 export interface ButtonResult extends BaseResult {
   type: 'Button'
+  view?: View<'Button'>
   result: ButtonType
 }
 
 export interface InputResult extends BaseResult {
   type: 'Input'
+  view?: View<'Input'>
   result: InputType
 }
 
 export interface SwitchResult extends BaseResult {
   type: 'Switch'
+  view?: View<'Switch'>
   result: SwitchType
 }
 
 export interface SelectResult extends BaseResult {
   type: 'Select'
+  view?: View<'Select'>
   result: SelectType
 }
 
 export interface AnyResult extends BaseResult {
   result: any
+  view?: View<'any'>
   type: 'any'
 }
 
@@ -268,11 +296,6 @@ export type AnyTypeResult =
   | ReferenceResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
-
-export interface View {
-  [key: string]: any
-}
-
 export interface Formula {
   blockId: uuid
   definition: string
