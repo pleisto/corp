@@ -21,6 +21,10 @@ export const toNumber = (ctx: FunctionContext, string: StringResult): NumberResu
   return { type: 'number', result }
 }
 
+export const toQrcode = (ctx: FunctionContext, { result }: StringResult): StringResult => {
+  return { type: 'string', result, view: { type: 'Qrcode', attrs: {} } }
+}
+
 export const toRecord = (ctx: FunctionContext, { type, result }: AnyTypeResult): RecordResult | ErrorResult => {
   if (!['Date'].includes(type)) {
     return { type: 'Error', result: 'Not support', errorKind: 'runtime' }
@@ -76,7 +80,7 @@ export const toRecordArray = (ctx: FunctionContext, { result: spreadsheet }: Spr
   }
 }
 
-export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' | 'Record'>> = [
+export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'string' | 'Array' | 'Record'>> = [
   {
     name: 'toNumber',
     async: false,
@@ -100,6 +104,29 @@ export const CORE_CONVERT_CLAUSES: Array<BasicFunctionClause<'number' | 'Array' 
     testCases: [],
     chain: true,
     reference: toNumber
+  },
+  {
+    name: 'toQrcode',
+    async: false,
+    lazy: false,
+    acceptError: false,
+    pure: true,
+    effect: false,
+    description: 'Converts a string to a qrcode',
+    group: 'core',
+    args: [
+      {
+        name: 'string',
+        type: 'string'
+      }
+    ],
+    examples: [
+      { input: '=toQrcode("123")', output: { type: 'string', result: '123', view: { type: 'Qrcode', attrs: {} } } }
+    ],
+    returns: 'string',
+    testCases: [],
+    chain: true,
+    reference: toQrcode
   },
   {
     name: 'toRecordArray',

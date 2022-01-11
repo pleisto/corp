@@ -104,7 +104,7 @@ export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterT
 
 export type FormulaFunctionKind = 'Set' | 'Lambda'
 
-export type ViewType = FormulaType
+export type ViewType = FormulaType | 'Qrcode'
 export interface View<T extends ViewType> {
   type: T
   attrs: Record<string, any>
@@ -131,7 +131,7 @@ export interface BooleanResult extends BaseResult {
 
 export interface StringResult extends BaseResult {
   result: string
-  view?: View<'string'>
+  view?: View<'string' | 'Qrcode'>
   type: 'string'
 }
 
