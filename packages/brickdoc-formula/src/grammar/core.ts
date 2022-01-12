@@ -420,7 +420,7 @@ export const buildVariable = ({
     version: lazy ? -1 : version,
     codeFragments,
     definition: input,
-    dirty: false,
+    dirty: true,
     variableValue,
     valid,
     level,
@@ -446,10 +446,6 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: Formu
     .sort((a, b) => a.level - b.level)
     .forEach(formula => {
       const variable = castVariable(formulaContext, formula)
-
-      void formulaContext.commitVariable({
-        variable: new VariableClass({ t: variable, formulaContext }),
-        skipCreate: true
-      })
+      void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
     })
 }

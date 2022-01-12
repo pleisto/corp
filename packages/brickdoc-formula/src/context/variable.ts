@@ -111,7 +111,7 @@ export const castVariable = (
     variableDependencies,
     flattenVariableDependencies,
     functionDependencies,
-    dirty: false
+    dirty: true
   }
 }
 
@@ -172,15 +172,23 @@ export class VariableClass implements VariableInterface {
   }
 
   public invokeBackendCreate = async (): Promise<void> => {
+    if (!this.t.dirty) {
+      return
+    }
     if (this.formulaContext.backendActions) {
       await this.formulaContext.backendActions.createVariable(this.buildFormula())
     }
+    this.t.dirty = false
   }
 
   public invokeBackendUpdate = async (): Promise<void> => {
+    if (!this.t.dirty) {
+      return
+    }
     if (this.formulaContext.backendActions) {
       await this.formulaContext.backendActions.updateVariable(this.buildFormula())
     }
+    this.t.dirty = false
   }
 
   public afterUpdate = (): void => {

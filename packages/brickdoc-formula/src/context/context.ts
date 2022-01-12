@@ -416,13 +416,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   // TODO update dependencies and check circular references
-  public commitVariable = async ({
-    variable,
-    skipCreate
-  }: {
-    variable: VariableInterface
-    skipCreate?: boolean
-  }): Promise<void> => {
+  public commitVariable = async ({ variable }: { variable: VariableInterface }): Promise<void> => {
     const { namespaceId, variableId } = variable.t
     const isNew = !this.context[variableKey(namespaceId, variableId)]
 
@@ -451,9 +445,7 @@ export class FormulaContext implements ContextInterface {
 
     // 5. persist
     if (isNew) {
-      if (!skipCreate) {
-        void variable.invokeBackendCreate()
-      }
+      void variable.invokeBackendCreate()
 
       if (variable.t.version < FORMULA_PARSER_VERSION) {
         void variable.interpret({ ctx: {}, arguments: [] })
