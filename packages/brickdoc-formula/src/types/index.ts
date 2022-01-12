@@ -77,10 +77,9 @@ export type ErrorType =
 export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
-export type FunctionCompletionValue = FunctionKey | `${FunctionKey}()`
-export type VariableKey = `#${NamespaceId}@${VariableId}`
+export type VariableKey = `#${NamespaceId}.${VariableId}`
 export type BlockKey = `#${NamespaceId}`
-export type ColumnKey = `#${NamespaceId}#${ColumnId}`
+export type ColumnKey = `#${NamespaceId}.${ColumnId}`
 
 // TODO blockName -> string
 export type BlockName = NamespaceId
@@ -103,8 +102,15 @@ export type Features = Feature[]
 export type PredicateOperator = 'equal' | 'notEqual' | 'greaterThan' | 'greaterThanEqual' | 'lessThan' | 'lessThanEqual'
 
 export type FormulaFunctionKind = 'Set' | 'Lambda'
+
+export type ViewType = FormulaType | 'Qrcode'
+export interface View<T extends ViewType> {
+  type: T
+  attrs: Record<string, any>
+}
 export interface BaseResult {
   result: any
+  view?: View<ViewType>
   type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
   errorKind?: ErrorType
@@ -112,31 +118,37 @@ export interface BaseResult {
 }
 export interface NumberResult extends BaseResult {
   result: number
+  view?: View<'number'>
   type: 'number'
 }
 
 export interface BooleanResult extends BaseResult {
   result: boolean
+  view?: View<'boolean'>
   type: 'boolean'
 }
 
 export interface StringResult extends BaseResult {
   result: string
+  view?: View<'string' | 'Qrcode'>
   type: 'string'
 }
 
 export interface NullResult extends BaseResult {
   result: null
+  view?: View<'null'>
   type: 'null'
 }
 
 export interface BlankResult extends BaseResult {
   result: never
+  view?: View<'Blank'>
   type: 'Blank'
 }
 
 export interface ArrayResult extends BaseResult {
   result: AnyTypeResult[]
+  view?: View<'Array'>
   type: 'Array'
   subType: FormulaType
 }
@@ -148,38 +160,45 @@ export interface RecordType {
 export interface RecordResult extends BaseResult {
   result: RecordType
   subType: FormulaType
+  view?: View<'Record'>
   type: 'Record'
 }
 
 export interface DateResult extends BaseResult {
   result: Date
+  view?: View<'Date'>
   type: 'Date'
 }
 
 export interface ColumnResult extends BaseResult {
   result: ColumnType
+  view?: View<'Column'>
   type: 'Column'
 }
 
 export interface SpreadsheetResult extends BaseResult {
   result: SpreadsheetType
+  view?: View<'Spreadsheet'>
   type: 'Spreadsheet'
 }
 
 export interface BlockResult extends BaseResult {
   result: BlockType
+  view?: View<'Block'>
   type: 'Block'
 }
 
 export interface ErrorResult extends BaseResult {
   result: string
   type: 'Error'
+  view?: View<'Error'>
   errorKind: ErrorType
 }
 
 export interface PredicateResult extends BaseResult {
   type: 'Predicate'
-  result: AnyTypeResult
+  view?: View<'Predicate'>
+  result: NumberResult | StringResult
   column?: ColumnType
   operator: PredicateOperator
 }
@@ -190,41 +209,49 @@ interface FormulaFunction {
 
 export interface FunctionResult extends BaseResult {
   type: 'Function'
+  view?: View<'Function'>
   result: [FormulaFunction, ...FormulaFunction[]]
 }
 
 export interface CstResult extends BaseResult {
   type: 'Cst'
+  view?: View<'Cst'>
   result: CstNode
 }
 
 export interface ReferenceResult extends BaseResult {
   type: 'Reference'
+  view?: View<'Reference'>
   result: Reference
 }
 
 export interface ButtonResult extends BaseResult {
   type: 'Button'
+  view?: View<'Button'>
   result: ButtonType
 }
 
 export interface InputResult extends BaseResult {
   type: 'Input'
+  view?: View<'Input'>
   result: InputType
 }
 
 export interface SwitchResult extends BaseResult {
   type: 'Switch'
+  view?: View<'Switch'>
   result: SwitchType
 }
 
 export interface SelectResult extends BaseResult {
   type: 'Select'
+  view?: View<'Select'>
   result: SelectType
 }
 
 export interface AnyResult extends BaseResult {
   result: any
+  view?: View<'any'>
   type: 'any'
 }
 
@@ -266,14 +293,8 @@ export type AnyTypeResult =
   | FunctionResult
   | CstResult
   | ReferenceResult
-  | AnyResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
-
-export interface View {
-  [key: string]: any
-}
-
 export interface Formula {
   blockId: uuid
   definition: string
@@ -283,7 +304,6 @@ export interface Formula {
   level: number
   version: number
   kind: string
-  view: View
   dependencyIds: uuid[]
 }
 
@@ -299,13 +319,14 @@ export interface Argument {
   readonly spread?: boolean
 }
 
-export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column'
+export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
 
 interface BaseCompletion {
   readonly kind: CompletionKind
   readonly weight: number
   readonly replacements: string[]
   readonly namespace: string
+  readonly positionChange: number
   readonly name: string
   readonly value: any
   readonly preview: any
@@ -315,8 +336,8 @@ interface BaseCompletion {
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
   readonly namespace: FunctionGroup
-  readonly value: FunctionCompletionValue
-  readonly preview: FunctionClause<any>
+  readonly value: `${FunctionKey}()`
+  readonly preview: FunctionClause<FormulaType>
 }
 
 export interface VariableCompletion extends BaseCompletion {
@@ -332,7 +353,12 @@ export interface ColumnCompletion extends BaseCompletion {
   readonly value: ColumnKey
   readonly preview: ColumnType
 }
-
+export interface BlockCompletion extends BaseCompletion {
+  readonly kind: 'block'
+  readonly namespace: BlockName
+  readonly value: BlockKey
+  readonly preview: BlockType
+}
 export interface SpreadsheetCompletion extends BaseCompletion {
   readonly kind: 'spreadsheet'
   readonly namespace: BlockName
@@ -340,18 +366,47 @@ export interface SpreadsheetCompletion extends BaseCompletion {
   readonly preview: SpreadsheetType
 }
 
-export type Completion = FunctionCompletion | VariableCompletion | SpreadsheetCompletion | ColumnCompletion
+export type Completion =
+  | FunctionCompletion
+  | VariableCompletion
+  | SpreadsheetCompletion
+  | ColumnCompletion
+  | BlockCompletion
 
-export interface FormulaName {
+export interface BaseFormulaName {
   kind: SpecialCodeFragmentType
-  value: string
+  render: (namespaceIsExist: boolean) => string
+  prefixLength: (namespaceIsExist: boolean) => number
   key: string
   name: string
-  render: RenderCodeFragmentFunction
 }
+
+export interface VariableFormulaName extends BaseFormulaName {
+  kind: 'Variable'
+  name: VariableName
+  value: VariableKey
+  key: VariableId
+}
+
+export interface BlockFormulaName extends BaseFormulaName {
+  kind: 'Block'
+  name: BlockName
+  value: BlockKey
+  key: NamespaceId
+}
+
+export interface SpreadsheetFormulaName extends BaseFormulaName {
+  kind: 'Spreadsheet'
+  name: SpreadsheetName
+  value: BlockKey
+  key: NamespaceId
+}
+
+export type FormulaName = VariableFormulaName | BlockFormulaName | SpreadsheetFormulaName
 
 export interface ContextInterface {
   features: string[]
+  blocks: Record<NamespaceId, 'Block' | 'Spreadsheet'>
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
   reservedNames: string[]
@@ -371,7 +426,7 @@ export interface ContextInterface {
   handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
-  findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<any> | undefined
+  findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
   resetFormula: VoidFunction
 }
 
@@ -448,24 +503,22 @@ export interface FunctionClause<T extends FormulaType> extends BaseFunctionClaus
 }
 
 export interface FormulaCodeFragmentAttrs {
-  readonly display: string
+  readonly display: () => string
   readonly value: string
   readonly code: string
   readonly type: FormulaType
   readonly error: string
+  readonly hidden: boolean
 }
-
-export type RenderCodeFragmentFunction = (
-  blockId: NamespaceId
-) => [FormulaCodeFragmentAttrs, ...FormulaCodeFragmentAttrs[]]
 
 interface BaseCodeFragment {
   readonly code: string
+  readonly hidden: boolean
   readonly name: string
   readonly spaceBefore: boolean
   readonly namespaceId?: NamespaceId
   readonly spaceAfter: boolean
-  readonly render?: RenderCodeFragmentFunction
+  readonly display: () => string
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }
@@ -474,13 +527,11 @@ export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'B
 
 export interface SpecialCodeFragment extends BaseCodeFragment {
   readonly code: SpecialCodeFragmentType
-  readonly render: RenderCodeFragmentFunction
   readonly namespaceId: NamespaceId
 }
 
 export interface OtherCodeFragment extends BaseCodeFragment {
   readonly code: Exclude<string, SpecialCodeFragmentType>
-  readonly render: undefined
 }
 
 export type CodeFragment = SpecialCodeFragment | OtherCodeFragment
@@ -524,7 +575,6 @@ export interface VariableData {
   definition: Definition
   dirty: boolean
   valid: boolean
-  view: View
   kind: VariableKind
   variableValue: VariableValue
   cst?: CstNode
@@ -532,7 +582,7 @@ export interface VariableData {
   flattenVariableDependencies: VariableDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
-  functionDependencies: Array<FunctionClause<any>>
+  functionDependencies: Array<FunctionClause<FormulaType>>
 }
 
 export interface VariableMetadata {

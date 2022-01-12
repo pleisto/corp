@@ -12,7 +12,7 @@ import {
   Formula
 } from '../types'
 import { parse, interpret } from '../grammar/core'
-import { castValue, loadValue } from './persist'
+import { dumpValue, loadValue } from './persist'
 
 export const displayValue = (v: AnyTypeResult): string => {
   switch (v.type) {
@@ -60,7 +60,7 @@ export const displayValue = (v: AnyTypeResult): string => {
 
 export const castVariable = (
   formulaContext: ContextInterface,
-  { name, definition, cacheValue, version, blockId, id, view }: Formula
+  { name, definition, cacheValue, version, blockId, id }: Formula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
@@ -101,7 +101,6 @@ export const castVariable = (
     variableValue,
     name,
     cst,
-    view,
     valid,
     version,
     definition,
@@ -167,8 +166,7 @@ export class VariableClass implements VariableInterface {
       level: this.t.level,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),
-      cacheValue: castValue(ctx, this.t.variableValue.cacheValue),
-      view: this.t.view,
+      cacheValue: dumpValue(ctx, this.t.variableValue.cacheValue),
       dependencyIds: this.t.variableDependencies.map(dependency => dependency.variableId)
     }
   }

@@ -9,7 +9,6 @@ import {
   VariableKind,
   VariableMetadata,
   VariableValue,
-  View,
   VariableInterface,
   Completion,
   AnyTypeResult,
@@ -26,6 +25,7 @@ import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './codeFragment'
+import { variableKey } from '..'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -83,7 +83,7 @@ export const abbrev = ({
   let image = ''
   let modified = false
   let newInput = ''
-  let newPosition = position
+  let newPosition: number = position
 
   tokens.forEach((token, index) => {
     image = image.concat(token.image)
@@ -94,15 +94,27 @@ export const abbrev = ({
 
     const nextToken = tokens[index + 1]
 
+    // Foo(
+    // foo:
     if (nextToken && ['LParen', 'Colon'].includes(nextToken.tokenType.name)) {
       newInput = newInput.concat(token.image)
       return
     }
 
     const prevToken = tokens[index - 1]
+
+    let namespaceIsExist = false
+
+    // foo.bar
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
-      newInput = newInput.concat(token.image)
-      return
+      const prev2Token = tokens[index - 2]
+
+      if (prev2Token && prev2Token.tokenType.name !== 'UUID') {
+        newInput = newInput.concat(token.image)
+        return
+      }
+
+      namespaceIsExist = true
     }
 
     const formulaName = formulaContext.formulaNames.find(n => n.name === token.image)
@@ -112,19 +124,13 @@ export const abbrev = ({
       return
     }
 
-    if (image.length <= position + 1) {
-      // Modify position
-      newPosition +=
-        formulaName
-          .render(namespaceId)
-          .map(e => e.display)
-          .join('').length - token.image.length
-      // console.log({ newInput, position, newPosition, image }, formulaName.render(namespaceId))
-    }
-
-    newInput = newInput.concat(formulaName.value)
+    newPosition += formulaName.prefixLength(namespaceIsExist)
+    newInput = newInput.concat(formulaName.render(namespaceIsExist))
+    tokens[index] = { ...token, tokenType: { ...token.tokenType, name: 'UUID' } }
     modified = true
   })
+
+  // console.log({ newInput, input })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
@@ -194,13 +200,11 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
   completions = complete({
-    input,
+    position: newPosition,
     cacheCompletions: baseCompletion,
     codeFragments,
     tokens,
-    formulaContext,
-    namespaceId,
-    variableId
+    ctx
   })
 
   returnValue.level = codeFragmentVisitor.level
@@ -234,9 +238,10 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           name: restImages,
           spaceAfter: false,
+          hidden: false,
           spaceBefore: false,
           type: 'any',
-          render: undefined,
+          display: () => restImages,
           errors: errorMessages
         })
       }
@@ -256,10 +261,11 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     name: ' ',
+    hidden: false,
     spaceAfter: false,
     spaceBefore: false,
     type: 'any',
-    render: undefined,
+    display: () => ' ',
     errors: []
   }
 
@@ -321,7 +327,10 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   }
 
   const sameNameVariable = formulaContext.formulaNames.find(
-    v => v.name.toUpperCase() === name.toUpperCase() && v.key !== variableId
+    v =>
+      v.name.toUpperCase() === name.toUpperCase() &&
+      v.key !== variableId &&
+      v.value !== variableKey(namespaceId, variableId)
   )
 
   if (sameNameVariable) {
@@ -376,7 +385,6 @@ export const interpret = async ({ cst, ctx }: { cst: CstNode; ctx: FunctionConte
 export const buildVariable = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId },
-  view,
   parseResult: {
     valid,
     cst,
@@ -393,7 +401,6 @@ export const buildVariable = ({
 }: {
   formulaContext: ContextInterface
   meta: VariableMetadata
-  view: View
   parseResult: ParseResult
   interpretResult: InterpretResult
 }): VariableInterface => {
@@ -402,7 +409,6 @@ export const buildVariable = ({
     variableId,
     name,
     cst,
-    view,
     version: lazy ? -1 : version,
     codeFragments,
     definition: input,

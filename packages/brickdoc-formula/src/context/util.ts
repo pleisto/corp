@@ -11,117 +11,48 @@ import {
   VariableId,
   VariableInterface,
   VariableKey,
-  RenderCodeFragmentFunction,
-  ErrorMessage
+  BlockCompletion,
+  BlockFormulaName,
+  ContextInterface
 } from '../types'
 import { ColumnType, SpreadsheetType } from '../controls'
+import { BlockClass } from '../controls/block'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
-  `#${namespaceId}@${variableId}`
+  `#${namespaceId}.${variableId}`
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
-export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}#${columnId}`
+export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
-export const renderBlock = (
-  id: NamespaceId,
-  name: () => string,
-  errorMessages: ErrorMessage[]
-): RenderCodeFragmentFunction => {
-  const error = errorMessages.length === 0 ? '' : errorMessages[0].message
-  return blockId => [
-    {
-      value: blockKey(id),
-      display: blockId === id ? 'Current Block' : name(),
-      error,
+export const block2completion = (
+  ctx: ContextInterface,
+  { key, name, value }: BlockFormulaName,
+  weight: number
+): BlockCompletion => {
+  const block = new BlockClass(ctx, { id: key })
+  return {
+    kind: 'block',
+    weight: weight + 0,
+    replacements: [name],
+    positionChange: value.length,
+    name,
+    namespace: key,
+    value,
+    preview: block,
+    renderDescription: blockId => '',
+    codeFragment: {
+      namespaceId: key,
+      hidden: false,
+      display: block.name,
+      errors: [],
+      name: value,
       code: 'Block',
-      type: 'Block'
-    }
-  ]
-}
-
-export const renderSpreadsheet = (
-  spreadsheet: SpreadsheetType,
-  errorMessages: ErrorMessage[]
-): RenderCodeFragmentFunction => {
-  const error = errorMessages.length === 0 ? '' : errorMessages[0].message
-  return blockId => [
-    {
-      value: blockKey(spreadsheet.blockId),
-      display: spreadsheet.name(),
-      error,
-      code: 'Spreadsheet',
-      type: 'Spreadsheet'
-    }
-  ]
-}
-
-export const renderColumn = (column: ColumnType, errorMessages: ErrorMessage[]): RenderCodeFragmentFunction => {
-  const error = errorMessages.length === 0 ? '' : errorMessages[0].message
-  return blockId => [
-    {
-      value: blockKey(column.namespaceId),
-      display: column.spreadsheet.name(),
-      error,
-      code: 'Spreadsheet',
-      type: 'Spreadsheet'
-    },
-    {
-      value: '#',
-      display: '.',
-      error,
-      code: 'Dot',
+      spaceBefore: false,
+      spaceAfter: false,
       type: 'any'
-    },
-    {
-      value: column.columnId,
-      display: column.name,
-      error,
-      code: 'Column',
-      type: 'Column'
     }
-  ]
-}
-
-export const renderVariable = (
-  variable: VariableInterface,
-  errorMessages: ErrorMessage[]
-): RenderCodeFragmentFunction => {
-  const error = errorMessages.length === 0 ? '' : errorMessages[0].message
-  return blockId =>
-    blockId === variable.t.namespaceId
-      ? [
-          {
-            value: variableKey(variable.t.namespaceId, variable.t.variableId),
-            display: variable.t.name,
-            error,
-            code: 'Variable',
-            type: variable.t.variableValue.result.type
-          }
-        ]
-      : [
-          {
-            value: `#${variable.t.namespaceId}`,
-            display: variable.namespaceName(),
-            error,
-            code: 'Block',
-            type: 'Block'
-          },
-          {
-            value: '@',
-            display: '.',
-            error,
-            code: 'Dot',
-            type: 'any'
-          },
-          {
-            value: variable.t.variableId,
-            display: variable.t.name,
-            error,
-            code: 'Variable',
-            type: variable.t.variableValue.result.type
-          }
-        ]
+  }
 }
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType): SpreadsheetCompletion => {
@@ -131,13 +62,15 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType): Spreadshee
     replacements: [spreadsheet.name()],
     weight: 10,
     name: spreadsheet.name(),
+    positionChange: value.length,
     namespace: spreadsheet.blockId,
     value,
     preview: spreadsheet,
     renderDescription: blockId => '',
     codeFragment: {
       namespaceId: spreadsheet.blockId,
-      render: renderSpreadsheet(spreadsheet, []),
+      hidden: false,
+      display: spreadsheet.name,
       errors: [],
       name: value,
       code: 'Spreadsheet',
@@ -153,20 +86,22 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
   return {
     kind: 'column',
     replacements: [
-      `${column.name}`,
       `${blockKey(column.namespaceId)}.${column.name}`,
       `${blockKey(column.namespaceId)}.`,
-      `${blockKey(column.namespaceId)}`
+      `${blockKey(column.namespaceId)}`,
+      `${column.name}`
     ],
     weight: -3,
     name: column.name,
+    positionChange: value.length,
     namespace: column.spreadsheet.name(),
     value,
     preview: column,
     renderDescription: blockId => column.spreadsheet.name(),
     codeFragment: {
       namespaceId: column.namespaceId,
-      render: renderColumn(column, []),
+      hidden: false,
+      display: () => column.name,
       errors: [],
       name: value,
       code: 'Column',
@@ -181,16 +116,18 @@ export const variable2completion = (variable: VariableInterface, weight: number)
   const value = variableKey(variable.t.namespaceId, variable.t.variableId)
   return {
     kind: 'variable',
-    replacements: [variable.t.name],
+    replacements: [`${blockKey(variable.t.namespaceId)}.`, blockKey(variable.t.namespaceId), variable.t.name],
     weight,
     name: variable.t.name,
     namespace: variable.namespaceName(),
     value,
     preview: variable,
+    positionChange: value.length,
     renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
     codeFragment: {
       namespaceId: variable.t.namespaceId,
-      render: renderVariable(variable, []),
+      hidden: false,
+      display: () => variable.t.name,
       errors: [],
       name: value,
       code: 'Variable',
@@ -202,7 +139,7 @@ export const variable2completion = (variable: VariableInterface, weight: number)
 }
 
 export const function2completion = (functionClause: FunctionClause<any>, weight: number): FunctionCompletion => {
-  const value = functionClause.args.length ? functionClause.key : `${functionClause.key}()`
+  const value = `${functionClause.key}()`
   return {
     kind: 'function',
     replacements: [functionClause.name],
@@ -211,9 +148,11 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     namespace: functionClause.group,
     value,
     preview: functionClause,
+    positionChange: value.length - 1,
     renderDescription: blockId => (functionClause.group === 'core' ? '' : functionClause.group),
     codeFragment: {
-      render: undefined,
+      display: () => value,
+      hidden: false,
       errors: [],
       name: value,
       code: 'Function',

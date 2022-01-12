@@ -47,7 +47,7 @@ describe('Dependency', () => {
       namespaceId,
       variableId: variableWithNames.find(v => v.name === name)!.variableId,
       input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
-        return `#${namespaceId}@${variableWithNames.find(v => v.name === variableName)!.variableId}`
+        return `#${namespaceId}.${variableWithNames.find(v => v.name === variableName)!.variableId}`
       })
     }))
 
@@ -76,18 +76,17 @@ describe('Dependency', () => {
   })
 
   it('circular dependency check', () => {
-    const input = `=#${namespaceId}@${variableIds[6]}`
+    const input = `=#${namespaceId}.${variableIds[6]}`
     const meta = { namespaceId, variableId: variableIds[0], name: 'num0', input }
     const { errorMessages } = parse({ ctx: { formulaContext, meta, interpretContext } })
     expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 
   it('dependency automatic update', async () => {
-    const input = `=#${namespaceId}@${variableIds[0]} * 2 + 100`
+    const input = `=#${namespaceId}.${variableIds[0]} * 2 + 100`
     const meta = { namespaceId, variableId: variableIds[1], name: 'num1', input }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } }) as SuccessParseResult
     expect(parseResult.errorMessages).toEqual([])
-    const view = {}
     const interpretResult = await interpret({
       cst: parseResult.cst,
       ctx: {
@@ -98,7 +97,7 @@ describe('Dependency', () => {
     })
     expect(interpretResult.variableValue.success).toEqual(true)
 
-    const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult, view })
+    const variable = buildVariable({ formulaContext, meta, parseResult, interpretResult })
     await formulaContext.commitVariable({ variable })
 
     // TODO automatic update dependency

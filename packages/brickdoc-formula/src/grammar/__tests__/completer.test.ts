@@ -37,22 +37,26 @@ describe('Complete', () => {
     const codeFragments: CodeFragment[] = []
 
     const completions = complete({
-      formulaContext,
-      input,
+      ctx: {
+        formulaContext,
+        interpretContext: { ctx: {}, arguments: [] },
+        meta: { namespaceId, variableId: testVariableId, name: 'foo', input }
+      },
       tokens,
-      variableId: testVariableId,
-      namespaceId,
+      position: input.length,
       codeFragments
     })
     expect(completions.length).not.toBe(0)
     expect(completions[0].kind).toBe('variable')
 
     const completions2 = complete({
-      formulaContext,
-      input,
+      ctx: {
+        formulaContext,
+        interpretContext: { ctx: {}, arguments: [] },
+        meta: { namespaceId: testNamespaceId, variableId: testVariableId, name: 'foo', input }
+      },
       tokens,
-      variableId: testVariableId,
-      namespaceId: testNamespaceId,
+      position: input.length,
       codeFragments
     })
     expect(completions2[0].kind).toBe('function')
@@ -81,14 +85,24 @@ describe('Complete', () => {
       expectNewInput: '= 1 + var'
     },
     {
+      label: 'block completion',
+      input: `=#${namespaceId}.`,
+      namespaceId,
+      errorMessage: 'Missing expression',
+      weight: 1001,
+      expectParseImage: `=#${namespaceId}.`,
+      expectInputImage: `=#${namespaceId}.`,
+      expectNewInput: `=#${namespaceId}.`
+    },
+    {
       label: 'var equal different namespaceId',
       input: `=${testName1}`,
       namespaceId: testNamespaceId,
       errorMessage: undefined,
       weight: 0,
-      expectParseImage: `=#${namespaceId}@${variableId}`,
-      expectInputImage: `=#${namespaceId}@${variableId}`,
-      expectNewInput: `=#${namespaceId}@${variableId}`
+      expectParseImage: `=#${namespaceId}.${variableId}`,
+      expectInputImage: `=#${namespaceId}.${variableId}`,
+      expectNewInput: `=#${namespaceId}.${variableId}`
     },
     {
       label: 'var equal same namespaceId',
@@ -96,9 +110,9 @@ describe('Complete', () => {
       namespaceId,
       errorMessage: undefined,
       weight: 1,
-      expectParseImage: `=#${namespaceId}@${variableId}`,
-      expectInputImage: `=#${namespaceId}@${variableId}`,
-      expectNewInput: `=#${namespaceId}@${variableId}`
+      expectParseImage: `=#${namespaceId}.${variableId}`,
+      expectInputImage: `=#${namespaceId}.${variableId}`,
+      expectNewInput: `=#${namespaceId}.${variableId}`
     },
     {
       label: 'var include same namespaceId',
@@ -126,9 +140,9 @@ describe('Complete', () => {
     //   namespaceId,
     //   errorMessage: undefined,
     //   weight: 1001,
-    //   expectParseImage: `=1+#${namespaceId}@${variableId}`,
-    //   expectInputImage: `=1+#${namespaceId}@${variableId}`,
-    //   expectNewInput: `= 1 + #${namespaceId}@${variableId} `
+    //   expectParseImage: `=1+#${namespaceId}.${variableId}`,
+    //   expectInputImage: `=1+#${namespaceId}.${variableId}`,
+    //   expectNewInput: `= 1 + #${namespaceId}.${variableId} `
     // },
     // {
     //   label: 'space equal same namespaceId',
@@ -136,29 +150,29 @@ describe('Complete', () => {
     //   namespaceId: testNamespaceId,
     //   errorMessage: undefined,
     //   weight: 999,
-    //   expectParseImage: `=1+#${namespaceId}@${variableId}`,
-    //   expectInputImage: `=1+#${namespaceId}@${variableId}`,
-    //   expectNewInput: `= 1 + #${namespaceId}@${variableId} `
+    //   expectParseImage: `=1+#${namespaceId}.${variableId}`,
+    //   expectInputImage: `=1+#${namespaceId}.${variableId}`,
+    //   expectNewInput: `= 1 + #${namespaceId}.${variableId} `
     // },
     {
       label: 'dot equal same namespaceId',
       input: `= 1 + ${testName1}.`,
       namespaceId,
       errorMessage: 'Missing expression',
-      weight: 125,
-      expectParseImage: `=1+#${namespaceId}@${variableId}.`,
-      expectInputImage: `=1+#${namespaceId}@${variableId}.`,
-      expectNewInput: `=1+#${namespaceId}@${variableId}.`
+      weight: 250,
+      expectParseImage: `=1+#${namespaceId}.${variableId}.`,
+      expectInputImage: `=1+#${namespaceId}.${variableId}.`,
+      expectNewInput: `=1+#${namespaceId}.${variableId}.`
     },
     {
       label: 'dot equal different namespaceId',
       input: `= 1 + ${testName1}.`,
       namespaceId: testNamespaceId,
       errorMessage: 'Missing expression',
-      weight: 125,
-      expectParseImage: `=1+#${namespaceId}@${variableId}.`,
-      expectInputImage: `=1+#${namespaceId}@${variableId}.`,
-      expectNewInput: `=1+#${namespaceId}@${variableId}.`
+      weight: 250,
+      expectParseImage: `=1+#${namespaceId}.${variableId}.`,
+      expectInputImage: `=1+#${namespaceId}.${variableId}.`,
+      expectNewInput: `=1+#${namespaceId}.${variableId}.`
     }
   ]
 
@@ -187,11 +201,12 @@ describe('Complete', () => {
             formulaContext,
             interpretContext,
             meta: { namespaceId: testcaseNamespaceId, variableId: testVariableId, name: 'foo', input }
-          }
+          },
+          position: input.length
         })
 
         expect(valid).toBe(true)
-        expect(codeFragments).toMatchSnapshot()
+        expect({ codeFragments, firstCompletion: { ...completions[0], preview: undefined } }).toMatchSnapshot()
         expect({ inputImage, parseImage, newInput }).toEqual({
           inputImage: expectInputImage,
           parseImage: expectParseImage,

@@ -39,8 +39,8 @@ export type { DrawerProps } from './drawer'
 export { default as Drawer } from './drawer'
 */
 
-export type { EmptyProps } from './empty'
-export { default as Empty } from './empty'
+/* export type { EmptyProps } from './empty'
+ * export { default as Empty } from './empty' */
 
 export type {
   FormInstance,
@@ -58,6 +58,7 @@ export type { InputProps } from './input'
 export { default as Input } from './input'
 
 import * as Icon from './icon'
+export type { IconProps } from './icon'
 export { Icon }
 
 /*
@@ -76,7 +77,7 @@ export { default as List } from './list'
 // export { default as message } from './message'
 
 export type { MenuProps, MenuGroupProps, MenuSeparatorProps, MenuItemProps } from './menu'
-export { Menu } from './menu'
+export { Menu, menuItemSpacing } from './menu'
 
 export type { ModalProps, ModalFuncProps } from './modal'
 export { default as Modal } from './modal'
@@ -154,8 +155,11 @@ export {
   toast,
   Tree,
   Tabs,
+  TabPane,
   Tag,
-  TagGroup
+  TagGroup,
+  Empty,
+  EmptyType
 } from '@brickdoc/brickdoc-headless-design-system'
 
 export type { ButtonProps } from './button'
