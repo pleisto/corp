@@ -13,7 +13,9 @@ import {
   ButtonResult,
   InputResult,
   SpreadsheetResult,
-  StringResult
+  StringResult,
+  AnyTypeResult,
+  VariableData
 } from '@brickdoc/formula'
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 import { TableRender } from '../../../components/Table/TableRender'
@@ -23,14 +25,24 @@ import { DatabaseColumns, DEFAULT_GROUP_ID } from '../../../components/Table/use
 
 export interface FormulaBlockRenderProps {
   formulaId: string
+  rootId: string
   handleDelete: (variable: VariableInterface) => void
+  cacheT?: VariableData
   updateFormula: (id: string) => void
 }
 
-export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaId, updateFormula, handleDelete }) => {
+export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
+  formulaId,
+  rootId,
+  updateFormula,
+  handleDelete,
+  cacheT
+}) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
   const [variable, setVariable] = React.useState(formulaContext?.findVariable(editorDataSource.rootId, formulaId))
+  const variableT = cacheT ?? variable?.t
+  const isDraft = variable?.isDraft() === true
 
   BrickdocEventBus.subscribe(
     FormulaUpdated,
@@ -38,8 +50,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaI
       setVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
     },
     {
-      eventId: `${editorDataSource.rootId},${formulaId}`,
-      subscribeId: `${editorDataSource.rootId},${formulaId}`
+      eventId: `${rootId},${formulaId}`,
+      subscribeId: `${rootId},${formulaId}`
     }
   )
 
@@ -71,7 +83,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaI
     Array: 6
   }
 
-  const activeColorIndex = variable ? COLOR_ARRAY[variable.t.variableValue.result.type as FormulaType] || 0 : 0
+  const activeColorIndex = variableT ? COLOR_ARRAY[variableT.variableValue.result.type as FormulaType] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     // if (!visible && node.attrs.isNew) {
@@ -151,19 +163,17 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaI
     )
   }
 
-  const renderOther = (variable: VariableInterface): React.ReactNode => {
+  const renderOther = (result: AnyTypeResult): React.ReactNode => {
     return (
-      <Tooltip title={variable.t.name}>
-        <span
-          className="brickdoc-formula"
-          style={{
-            color: activeColor.color,
-            borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
-            background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-          }}>
-          {displayValue(variable.t.variableValue.result)}
-        </span>
-      </Tooltip>
+      <span
+        className="brickdoc-formula"
+        style={{
+          color: activeColor.color,
+          borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
+          background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
+        }}>
+        {displayValue(result)}
+      </span>
     )
   }
 
@@ -189,44 +199,27 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaI
     return <span>[QRCODE] {result.result}</span>
   }
 
-  const renderVariable = (variable: VariableInterface | undefined): React.ReactNode => {
-    if (!variable) return renderEmpty()
-    if (variable.isDraft()) return renderEmpty()
-
-    const result = variable.t.variableValue.result
-
+  const renderResult = (result: AnyTypeResult): React.ReactNode => {
     switch (result.view?.type ?? result.type) {
       case 'Button':
         return renderButton(result as ButtonResult)
       case 'Input':
         return renderInput(result as InputResult)
-      case 'Switch':
-        return (
-          <span>Unsupported Switch</span>
-          // <Switch
-          //   disabled={result.result.disabled}
-          //   size="large"
-          //   checked={result.result.checked}
-          //   onChange={result.result.onChange}
-          // />
-        )
-      case 'Select':
-        return (
-          <span>Unsupported Select</span>
-          // <Select
-          //   disabled={result.result.disabled}
-          //   options={result.result.options.map(o => ({ value: o, label: o }))}
-          //   onChange={result.result.onChange}
-          //   value={result.result.value}
-          // />
-        )
       case 'Spreadsheet':
         return renderTable(result as SpreadsheetResult)
       case 'Qrcode':
         return renderQrcode(result as StringResult)
       default:
-        return renderOther(variable)
+        return renderOther(result)
     }
+  }
+
+  const renderVariable = (t: VariableData | undefined): React.ReactNode => {
+    if (isDraft) return renderEmpty()
+    if (!t) return renderEmpty()
+
+    const result = t.variableValue.result
+    return <Tooltip title={t.name}>{renderResult(result)}</Tooltip>
   }
 
   return (
@@ -238,7 +231,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({ formulaI
         updateFormula={updateFormula}
         variable={variable}
         updateVariable={setVariable}>
-        {renderVariable(variable)}
+        {renderVariable(variableT)}
       </FormulaMenu>
     </BlockContainer>
   )

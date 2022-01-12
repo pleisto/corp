@@ -6,6 +6,7 @@ import './FormulaBlock.less'
 import { VariableInterface } from '@brickdoc/formula'
 import { useEditorI18n } from '../../../hooks'
 import { FormulaBlockRender } from './FormulaBlockRender'
+import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -15,6 +16,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const { t } = useEditorI18n()
   const attributes = node.attrs.formula
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
+  const editorDataSource = React.useContext(EditorDataSourceContext)
 
   const handleDelete = (variable: VariableInterface): void => {
     Modal.confirm({
@@ -34,5 +36,12 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     })
   }
 
-  return <FormulaBlockRender handleDelete={handleDelete} formulaId={attributes.id} updateFormula={updateFormula} />
+  return (
+    <FormulaBlockRender
+      handleDelete={handleDelete}
+      rootId={editorDataSource.rootId}
+      formulaId={attributes.id}
+      updateFormula={updateFormula}
+    />
+  )
 }
