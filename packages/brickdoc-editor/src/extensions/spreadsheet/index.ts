@@ -31,8 +31,11 @@ export const SpreadsheetBlockExtension = Node.create<SpreadsheetBlockOptions>({
       data: {
         default: {
           columns: [],
-          title: ''
+          rowsCount: 0
         }
+      },
+      title: {
+        default: ''
       }
     }
   },

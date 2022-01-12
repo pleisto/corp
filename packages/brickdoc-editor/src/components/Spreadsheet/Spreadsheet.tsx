@@ -12,7 +12,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
 
-  const [title, setTitle] = React.useState<string>(node.text ?? '')
+  const [title, setTitle] = React.useState<string>(node.attrs.title ?? '')
 
   const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
@@ -29,7 +29,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const title = event.target.value
-    // TODO: save title to node.text
+    updateAttributes({ title })
+    console.log(title)
     setTitle(title)
   }
 

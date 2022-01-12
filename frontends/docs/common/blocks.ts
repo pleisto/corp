@@ -27,11 +27,15 @@ export const nodeToBlock = (node: Node, level: number): BlockInput[] => {
   const { uuid, sort, seq, data, ...rest } = node.attrs
 
   // TODO check if has child
+  const childrenNodes = nodeChildren(node)
   const hasChildren =
     level === 0 ||
-    (node.type.name === 'paragraph' && nodeChildren(node) && nodeChildren(node).length && nodeChildren(node)[0].type.name === 'paragraph')
+    (node.type.name === 'paragraph' &&
+      childrenNodes &&
+      childrenNodes.length &&
+      nodeChildren(node)[0].type.name === 'paragraph')
 
-  const text = level === 0 ? rest.title || '' : node.textContent
+  const text = rest.title ?? (level === 0 ? '' : node.textContent)
 
   const content: JSONContent[] = hasChildren ? [] : withoutUUID((node.toJSON() as JSONContent).content)
 
@@ -49,7 +53,7 @@ export const nodeToBlock = (node: Node, level: number): BlockInput[] => {
     data: data || {}
   }
 
-  const childrenNodes: Node[] = hasChildren ? nodeChildren(node) : []
+  // const childrenNodes: Node[] = hasChildren ? nodeChildren(node) : []
   // NOTE collect sort and compact
   // NOTE exclude '0' / 0 / null / undefined / duplicated
   const sorts: Array<number | null> = childrenNodes
@@ -80,7 +84,8 @@ export const nodeToBlock = (node: Node, level: number): BlockInput[] => {
           const beforeNonNilIndexReverse = [...realtimeSorts]
             .reverse()
             .findIndex((s: number | null, i: number) => !isNil(s) && i > realtimeSorts.length - 1 - index)
-          const beforeNonNilIndex = beforeNonNilIndexReverse === -1 ? -1 : realtimeSorts.length - 1 - beforeNonNilIndexReverse
+          const beforeNonNilIndex =
+            beforeNonNilIndexReverse === -1 ? -1 : realtimeSorts.length - 1 - beforeNonNilIndexReverse
 
           const afterSort = realtimeSorts[afterNonNilIndex]
           const beforeSort = realtimeSorts[beforeNonNilIndex]
@@ -114,11 +119,11 @@ export const nodeToBlock = (node: Node, level: number): BlockInput[] => {
   }
 
   const children = childrenNodes
-    .map((node: Node, index: number) => {
-      node.attrs.sort = finalSorts[index]
-      return node
+    .filter((n: Node) => n.attrs.uuid && (n.type.name !== 'paragraph' || n.content.size))
+    .flatMap((n: Node, i: number) => {
+      n.attrs.sort = finalSorts[i]
+      return nodeToBlock(n, level + 1).map((i: BlockInput) => ({ parentId: parent.id, ...i }))
     })
-    .flatMap((n: Node) => nodeToBlock(n, level + 1).map((i: BlockInput) => ({ parentId: parent.id, ...i })))
 
   return [parent, ...children]
 }
@@ -155,6 +160,8 @@ export const blockToNode = (block: Block): JSONContent => {
 
 export const blocksToJSONContents = (blocks: Block[], filterId?: string): JSONContent[] =>
   blocks
-    .filter(block => block.parentId === filterId || ((isNil(block.parentId) || block.rootId === block.id) && isNil(filterId)))
+    .filter(
+      block => block.parentId === filterId || ((isNil(block.parentId) || block.rootId === block.id) && isNil(filterId))
+    )
     .sort((a, b) => Number(a.sort) - Number(b.sort))
     .map(block => ({ content: blocksToJSONContents(blocks, block.id), ...blockToNode(block) }))
