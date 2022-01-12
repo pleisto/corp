@@ -10,8 +10,8 @@ export const BlockDeleted = event<Block>()('BlockDeleted', (block: Block) => {
 export const UpdateBlock = event<{ block: Block; commit: boolean }>()('UpdateBlock', ({ block, commit }) => {
   return { id: block.id }
 })
-export const DeleteBlock = event<{ block: Block; commit: boolean }>()('DeleteBlock', ({ block, commit }) => {
-  return { id: block.id }
+export const DeleteBlock = event<{ blockId: string; commit: boolean }>()('DeleteBlock', ({ blockId, commit }) => {
+  return { id: blockId }
 })
 export const CommitBlocks = event<{}>()('CommitBlocks', () => {
   return { id: 'commit' }

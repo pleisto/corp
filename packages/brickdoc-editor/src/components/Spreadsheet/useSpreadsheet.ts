@@ -5,6 +5,7 @@ import {
   BrickdocEventBus,
   Event,
   UpdateBlock,
+  DeleteBlock,
   CommitBlocks,
   loadSpreadsheetBlocks,
   SpreadsheetBlocksLoaded,
@@ -37,8 +38,6 @@ export const useSpreadsheet = (options: {
   removeRow: (index: number) => void
   getCellBlock: (rowId: string, columnId: string) => BlockInput
   saveCellBlock: (block: BlockInput) => void
-  title: string
-  changeTitle: (title: string) => void
 } => {
   const { parentId, data, updateAttributeData } = options
   const columns = data.columns ?? []
@@ -48,15 +47,12 @@ export const useSpreadsheet = (options: {
 
   const [rows, setRows] = React.useState<SpreadsheetRows>([])
 
-  const latestTitle = React.useRef<string>(data.title ?? '')
-
   const blocksMap = React.useRef<Map<string, BlockInput>>(new Map<string, BlockInput>())
   const cellsMap = React.useRef<SpreadsheetCellsMap>(new Map<string, Map<string, BlockInput>>())
 
   const updateSpreadsheetAttributes = React.useCallback((): void => {
     updateAttributeData({
       ...data,
-      title: latestTitle.current,
       columns: latestColumns.current,
       rowsCount: latestRowsCount.current
     })
@@ -102,7 +98,7 @@ export const useSpreadsheet = (options: {
       blocks.forEach((block: BlockInput) => {
         blocksMap.current.set(block.id, block)
         if (block.type === 'spreadsheetRow') {
-          newRows[block.sort] = block
+          newRows[parseInt(block.sort, 10)] = block
         } else if (block.type === 'spreadsheetCell') {
           setBlockToCellsMap(block)
         }
@@ -115,24 +111,38 @@ export const useSpreadsheet = (options: {
 
   const saveRowBlocks = React.useCallback(
     (newRows: SpreadsheetRows): void => {
+      const toDeleteRowIds = new Set(rows.map(r => r.id))
       setRows(
         newRows
           .filter(b => typeof b !== 'undefined')
           .map((block, i) => {
+            toDeleteRowIds.delete(block.id)
             const oldBlock = blocksMap.current.get(block.id)
             const newBlock = { ...block, sort: i }
             if (!isEqual(oldBlock, newBlock)) {
+              console.log(`Saving row block ${newBlock.id}`)
               BrickdocEventBus.dispatch(UpdateBlock({ block: newBlock }))
               blocksMap.current.set(block.id, newBlock)
             }
             return newBlock
           })
       )
+      toDeleteRowIds.forEach(rowId => {
+        BrickdocEventBus.dispatch(DeleteBlock({ blockId: rowId }))
+        const rowCellsMap = cellsMap.current.get(rowId)
+        if (rowCellsMap) {
+          rowCellsMap.forEach(block => {
+            if (blocksMap.current.get(block.id)) {
+              BrickdocEventBus.dispatch(DeleteBlock({ blockId: block.id }))
+            }
+          })
+        }
+      })
       latestRowsCount.current = newRows.length
       updateSpreadsheetAttributes()
       BrickdocEventBus.dispatch(CommitBlocks({}))
     },
-    [updateSpreadsheetAttributes]
+    [updateSpreadsheetAttributes, rows]
   )
 
   const updateColumn = React.useCallback(
@@ -164,6 +174,7 @@ export const useSpreadsheet = (options: {
         .filter(c => c.uuid !== column.uuid)
         .map((c, i) => ({ ...c, sort: i }))
       updateSpreadsheetAttributes()
+      // TODO: remove cell blocks of column
     },
     [updateSpreadsheetAttributes]
   )
@@ -186,14 +197,6 @@ export const useSpreadsheet = (options: {
     [rows, saveRowBlocks]
   )
 
-  const changeTitle = React.useCallback(
-    (title: string): void => {
-      latestTitle.current = title
-      updateSpreadsheetAttributes()
-    },
-    [updateSpreadsheetAttributes]
-  )
-
   const getCellBlock = (rowId: string, columnId: string): BlockInput => {
     let block = cellsMap.current.get(rowId)?.get(columnId)
     if (!block) {
@@ -214,8 +217,8 @@ export const useSpreadsheet = (options: {
 
   const saveCellBlock = React.useCallback((block: BlockInput): void => {
     console.log(`Saving cell block ${block.id}`)
-    console.log(block)
     setBlockToCellsMap(block)
+    blocksMap.current.set(block.id, block)
     BrickdocEventBus.dispatch(UpdateBlock({ block }))
     BrickdocEventBus.dispatch(CommitBlocks({}))
   }, [])
@@ -243,8 +246,6 @@ export const useSpreadsheet = (options: {
     addRow,
     removeRow,
     getCellBlock,
-    saveCellBlock,
-    title: latestTitle.current,
-    changeTitle
+    saveCellBlock
   }
 }

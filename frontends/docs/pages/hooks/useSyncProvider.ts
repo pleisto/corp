@@ -48,7 +48,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   const committing = React.useRef(false)
 
-  // const cachedBlocksMap = React.useRef(new Map<string, Block>())
+  const cachedBlocksMap = React.useRef(new Map<string, Block>())
   const docBlocksMap = React.useRef(new Map<string, Block>())
   const rootBlock = React.useRef<Block | undefined>()
 
@@ -57,6 +57,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   React.useEffect(() => {
     rootId.current = queryVariables.rootId
+    cachedBlocksMap.current = new Map<string, Block>()
     docBlocksMap.current = new Map<string, Block>()
     dirtyBlocksMap.current = new Map<string, Block>()
     dirtyToDeleteIds.current = new Set<string>()
@@ -75,14 +76,22 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     committing.current = true
 
     try {
-      const blocks: BlockInput[] = Array.from(dirtyBlocksMap.current.values()).filter(
-        // commit only if parent block in doc
-        ({ parentId, id }) =>
-          !parentId ||
-          id === rootId.current ||
-          docBlocksMap.current.get(parentId) ||
-          dirtyBlocksMap.current.get(parentId)
-      )
+      const blocks: BlockInput[] = Array.from(dirtyBlocksMap.current.values())
+        .filter(
+          // commit only if parent block in doc
+          ({ parentId, id }) =>
+            !parentId ||
+            id === rootId.current ||
+            cachedBlocksMap.current.get(parentId) ||
+            docBlocksMap.current.get(parentId) ||
+            dirtyBlocksMap.current.get(parentId)
+        )
+        .map(b => {
+          // HACK: delete all __typename
+          const block = { __typename: undefined, ...b, meta: b.meta ?? {} }
+          delete block.__typename
+          return block
+        })
       const deletedIds = [...dirtyToDeleteIds.current]
 
       if (blocks.length > 0 || deletedIds.length > 0) {
@@ -155,6 +164,8 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       if (docBlocksMap.current.get(block.id)) {
         // update only on doc blocks
         docBlocksMap.current.set(block.id, { ...oldBlock, ...block })
+      } else {
+        cachedBlocksMap.current.set(block.id, { ...oldBlock, ...block })
       }
       if (block.id === rootId.current) {
         client.cache.modify({
@@ -190,10 +201,10 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   BrickdocEventBus.subscribe(
     UpdateBlock,
     (e: Event) => {
+      // isSavingVar(true)
       const { block, commit } = e.payload
       dirtyBlocksMap.current.set(block.id, block)
       if (commit) {
-        isSavingVar(true)
         void commitDirty()
       }
     },
@@ -203,10 +214,10 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   BrickdocEventBus.subscribe(
     DeleteBlock,
     (e: Event) => {
-      const { block, commit } = e.payload
-      dirtyToDeleteIds.current.add(block.id)
+      // isSavingVar(true)
+      const { blockId, commit } = e.payload
+      dirtyToDeleteIds.current.add(blockId)
       if (commit) {
-        isSavingVar(true)
         void commitDirty()
       }
     },
@@ -237,7 +248,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           fetchPolicy: 'no-cache'
         })
         data.spreadsheetBlocks.forEach((block: Block) => {
-          docBlocksMap.current.set(block.id, block)
+          cachedBlocksMap.current.set(block.id, block)
         })
         BrickdocEventBus.dispatch(
           SpreadsheetBlocksLoaded({

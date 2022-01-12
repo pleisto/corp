@@ -12,32 +12,25 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
 
+  const [title, setTitle] = React.useState<string>(node.text ?? '')
+
   const updateAttributeData = (data: Record<string, any>): void => {
     updateAttributes({
       data: { ...prevData, ...data }
     })
   }
 
-  const {
-    columns,
-    addColumn,
-    updateColumn,
-    removeColumn,
-    rows,
-    addRow,
-    removeRow,
-    title,
-    changeTitle,
-    getCellBlock,
-    saveCellBlock
-  } = useSpreadsheet({
-    parentId,
-    data: prevData,
-    updateAttributeData
-  })
+  const { columns, addColumn, updateColumn, removeColumn, rows, addRow, removeRow, getCellBlock, saveCellBlock } =
+    useSpreadsheet({
+      parentId,
+      data: prevData,
+      updateAttributeData
+    })
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    changeTitle(event.target.value)
+    const title = event.target.value
+    // TODO: save title to node.text
+    setTitle(title)
   }
 
   return (
