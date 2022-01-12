@@ -31,7 +31,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     namespaceId,
     variableId,
     name,
-    dirty: false,
+    dirty: true,
     valid: true,
     definition: input,
     cst,
@@ -46,5 +46,5 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     flattenVariableDependencies
   }
 
-  await formulaContext.commitVariable({ variable: new VariableClass({ t: variable, formulaContext }) })
+  await new VariableClass({ t: variable, formulaContext }).save()
 }

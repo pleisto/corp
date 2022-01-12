@@ -38,7 +38,7 @@ export interface FormulaMenuProps {
   variable?: VariableInterface
   updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>
   updateFormula: (id: string) => void
-  handleDelete: () => void
+  handleDelete: (variable: VariableInterface) => void
 }
 
 const i18nKey = 'formula.menu'
@@ -426,7 +426,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     variable!.t.definition = input!
     updateFormula(variable!.t.variableId)
 
-    await formulaContext!.commitVariable({ variable: variable! })
+    await variable!.save()
+    // await formulaContext!.commitVariable({ variable: variable! })
     setName(finalName)
     updateVariable(variable)
 
@@ -494,7 +495,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           disabled={isDisableSave()}>
           {t(`${i18nKey}.save`)}
         </Button>
-        <Button className="formula-menu-button" size="small" type="text" danger={true} onClick={handleDelete}>
+        <Button
+          className="formula-menu-button"
+          size="small"
+          type="text"
+          danger={true}
+          onClick={() => handleDelete(variable!)}>
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
