@@ -18,10 +18,6 @@ import {
   VariableData
 } from '@brickdoc/formula'
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
-import { TableRender } from '../../../components/Table/TableRender'
-import { Column } from 'react-table'
-import { DatabaseRows } from '../..'
-import { DatabaseColumns, DEFAULT_GROUP_ID } from '../../../components/Table/useColumns'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -96,67 +92,68 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   }
 
   const renderTable = (result: SpreadsheetResult): React.ReactNode => {
-    const columns: Column[] = result.result.listColumns().map(c => ({
-      Header: c.name,
-      accessor: c.columnId,
-      columnType: c.type,
-      index: c.index,
-      dateFormat: undefined,
-      dateIncludeTime: undefined
-    }))
+    return <div />
+    // const columns: Column[] = result.result.listColumns().map(c => ({
+    //   Header: c.name,
+    //   accessor: c.columnId,
+    //   columnType: c.type,
+    //   index: c.index,
+    //   dateFormat: undefined,
+    //   dateIncludeTime: undefined
+    // }))
 
-    const fakeColumns = [{ id: DEFAULT_GROUP_ID, columns }] as unknown as Column[]
+    // const fakeColumns = [{ id: DEFAULT_GROUP_ID, columns }] as unknown as Column[]
 
-    const rows: DatabaseRows = result.result.listRows()
+    // const rows: DatabaseRows = result.result.listRows()
 
-    const databaseColumns: DatabaseColumns = result.result.listColumns().map(c => ({
-      index: c.index,
-      key: c.columnId,
-      type: c.type,
-      title: c.name
-    }))
-    return (
-      <TableRender
-        dynamic={true}
-        useActiveStatusUtils={{
-          isCellActive: (rowId: string, cellIndex: number) => false,
-          isRowActive: (rowId: string) => false,
-          update: () => {},
-          reset: () => {}
-        }}
-        useColumnsProps={[
-          fakeColumns,
-          {
-            setColumns: () => {},
-            add: () => {},
-            remove: () => {},
-            updateName: () => {},
-            updateType: () => {},
-            updateWidth: () => {}
-          }
-        ]}
-        tableRowsProps={[
-          rows,
-          {
-            updateData: () => {},
-            batchDeleteDataByValue: () => {},
-            batchUpdateDataByColumn: () => {},
-            addNewRow: () => {},
-            moveRow: () => {},
-            updateRows: async (): Promise<void> => {},
-            fetchRows: async (): Promise<void> => {},
-            removeRow: () => {}
-          }
-        ]}
-        deleteNode={() => {}}
-        updateAttributes={(attributes: Record<string, any>) => {}}
-        parentId={result.result.blockId}
-        prevData={{
-          title: result.result.name(),
-          columns: databaseColumns
-        }}
-      />
-    )
+    // const databaseColumns: DatabaseColumns = result.result.listColumns().map(c => ({
+    //   index: c.index,
+    //   key: c.columnId,
+    //   type: c.type,
+    //   title: c.name
+    // }))
+    // return (
+    //   <TableRender
+    //     dynamic={true}
+    //     useActiveStatusUtils={{
+    //       isCellActive: (rowId: string, cellIndex: number) => false,
+    //       isRowActive: (rowId: string) => false,
+    //       update: () => {},
+    //       reset: () => {}
+    //     }}
+    //     useColumnsProps={[
+    //       fakeColumns,
+    //       {
+    //         setColumns: () => {},
+    //         add: () => {},
+    //         remove: () => {},
+    //         updateName: () => {},
+    //         updateType: () => {},
+    //         updateWidth: () => {}
+    //       }
+    //     ]}
+    //     tableRowsProps={[
+    //       rows,
+    //       {
+    //         updateData: () => {},
+    //         batchDeleteDataByValue: () => {},
+    //         batchUpdateDataByColumn: () => {},
+    //         addNewRow: () => {},
+    //         moveRow: () => {},
+    //         updateRows: async (): Promise<void> => {},
+    //         fetchRows: async (): Promise<void> => {},
+    //         removeRow: () => {}
+    //       }
+    //     ]}
+    //     deleteNode={() => {}}
+    //     updateAttributes={(attributes: Record<string, any>) => {}}
+    //     parentId={result.result.blockId}
+    //     prevData={{
+    //       title: result.result.name(),
+    //       columns: databaseColumns
+    //     }}
+    //   />
+    // )
   }
 
   const renderEmpty = (): React.ReactNode => {
@@ -175,7 +172,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
+        }}
+      >
         {displayValue(result)}
       </span>
     )
@@ -234,7 +232,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
         handleDelete={handleDelete}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}>
+        updateVariable={setVariable}
+      >
         {renderVariable(variableT)}
       </FormulaMenu>
     </BlockContainer>
