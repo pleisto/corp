@@ -1,9 +1,7 @@
 import React from 'react'
 
-import { BlockContainer } from '../BlockContainer'
-
 export const SpreadsheetContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <BlockContainer className="brickdoc-spreadsheet-block">{children}</BlockContainer>
+  return <div className="brickdoc-spreadsheet-block">{children}</div>
 }
 
 export const SpreadsheetView: React.FC<{ children: React.ReactNode }> = ({ children }) => {
