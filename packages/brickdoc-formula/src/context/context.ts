@@ -317,8 +317,8 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  // TODO flattenVariableDependencies
-  // TODO update level
+  // TODO refresh flattenVariableDependencies
+  // TODO update other variable's level
   public trackDependency = (variable: VariableInterface): void => {
     const {
       t: { variableDependencies, blockDependencies, namespaceId, name, variableId, functionDependencies }
