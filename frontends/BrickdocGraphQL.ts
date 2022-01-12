@@ -973,7 +973,6 @@ export type RootQuery = {
   blockSnapshots?: Maybe<Array<BlockSnapshot>>
   childrenBlocks?: Maybe<Array<Block>>
   currentPodWebid: Scalars['String']
-  databaseRowBlocks?: Maybe<Array<Block>>
   /**
    * Check email available.
    * Required `context[:entrypoints]` is `[:internal]`.
@@ -1044,11 +1043,6 @@ export type RootQueryBlockSnapshotsArgs = {
 
 export type RootQueryChildrenBlocksArgs = {
   rootId: Scalars['String']
-  snapshotVersion: Scalars['Int']
-}
-
-export type RootQueryDatabaseRowBlocksArgs = {
-  parentId: Scalars['String']
   snapshotVersion: Scalars['Int']
 }
 
@@ -2395,28 +2389,6 @@ export type GetChildrenBlocksQuery = {
             | null
             | undefined
         }
-      }>
-    | null
-    | undefined
-}
-
-export type GetDatabaseRowBlocksQueryVariables = Exact<{
-  parentId: Scalars['String']
-  snapshotVersion: Scalars['Int']
-}>
-
-export type GetDatabaseRowBlocksQuery = {
-  __typename?: 'RootQuery'
-  databaseRowBlocks?:
-    | Array<{
-        __typename?: 'block'
-        id: string
-        sort: any
-        parentId?: string | null | undefined
-        type: string
-        text: string
-        content: Array<any>
-        data: any
       }>
     | null
     | undefined
@@ -4798,61 +4770,6 @@ export function useGetChildrenBlocksLazyQuery(
 export type GetChildrenBlocksQueryHookResult = ReturnType<typeof useGetChildrenBlocksQuery>
 export type GetChildrenBlocksLazyQueryHookResult = ReturnType<typeof useGetChildrenBlocksLazyQuery>
 export type GetChildrenBlocksQueryResult = Apollo.QueryResult<GetChildrenBlocksQuery, GetChildrenBlocksQueryVariables>
-export const GetDatabaseRowBlocksDocument = gql`
-  query GetDatabaseRowBlocks($parentId: String!, $snapshotVersion: Int!) {
-    databaseRowBlocks(parentId: $parentId, snapshotVersion: $snapshotVersion) {
-      id
-      sort
-      parentId
-      type
-      text
-      content
-      data
-    }
-  }
-`
-
-/**
- * __useGetDatabaseRowBlocksQuery__
- *
- * To run a query within a React component, call `useGetDatabaseRowBlocksQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDatabaseRowBlocksQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetDatabaseRowBlocksQuery({
- *   variables: {
- *      parentId: // value for 'parentId'
- *      snapshotVersion: // value for 'snapshotVersion'
- *   },
- * });
- */
-export function useGetDatabaseRowBlocksQuery(
-  baseOptions: Apollo.QueryHookOptions<GetDatabaseRowBlocksQuery, GetDatabaseRowBlocksQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetDatabaseRowBlocksQuery, GetDatabaseRowBlocksQueryVariables>(
-    GetDatabaseRowBlocksDocument,
-    options
-  )
-}
-export function useGetDatabaseRowBlocksLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetDatabaseRowBlocksQuery, GetDatabaseRowBlocksQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetDatabaseRowBlocksQuery, GetDatabaseRowBlocksQueryVariables>(
-    GetDatabaseRowBlocksDocument,
-    options
-  )
-}
-export type GetDatabaseRowBlocksQueryHookResult = ReturnType<typeof useGetDatabaseRowBlocksQuery>
-export type GetDatabaseRowBlocksLazyQueryHookResult = ReturnType<typeof useGetDatabaseRowBlocksLazyQuery>
-export type GetDatabaseRowBlocksQueryResult = Apollo.QueryResult<
-  GetDatabaseRowBlocksQuery,
-  GetDatabaseRowBlocksQueryVariables
->
 export const GetSpreadsheetBlocksDocument = gql`
   query GetSpreadsheetBlocks($parentId: String!, $snapshotVersion: Int!) {
     spreadsheetBlocks(parentId: $parentId, snapshotVersion: $snapshotVersion) {

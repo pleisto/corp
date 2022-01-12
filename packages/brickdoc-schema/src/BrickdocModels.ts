@@ -970,7 +970,6 @@ export type RootQuery = {
   blockSnapshots?: Maybe<Array<BlockSnapshot>>
   childrenBlocks?: Maybe<Array<Block>>
   currentPodWebid: Scalars['String']
-  databaseRowBlocks?: Maybe<Array<Block>>
   /**
    * Check email available.
    * Required `context[:entrypoints]` is `[:internal]`.
@@ -1041,11 +1040,6 @@ export type RootQueryBlockSnapshotsArgs = {
 
 export type RootQueryChildrenBlocksArgs = {
   rootId: Scalars['String']
-  snapshotVersion: Scalars['Int']
-}
-
-export type RootQueryDatabaseRowBlocksArgs = {
-  parentId: Scalars['String']
   snapshotVersion: Scalars['Int']
 }
 
