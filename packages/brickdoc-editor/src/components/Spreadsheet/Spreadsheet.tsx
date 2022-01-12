@@ -5,6 +5,7 @@ import { BlockContainer } from '../BlockContainer'
 import { useSpreadsheet } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
 
+import { SpreadsheetCell } from './SpreadsheetCell'
 import './Spreadsheet.less'
 
 export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
@@ -22,14 +23,13 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     addColumn,
     updateColumn,
     removeColumn,
-    rowsCount,
     rows,
     addRow,
     removeRow,
     title,
     changeTitle,
-    getCell,
-    setCell
+    getCellBlock,
+    saveCellBlock
   } = useSpreadsheet({
     parentId,
     data: prevData,
@@ -64,19 +64,12 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
           </tr>
         </thead>
         <tbody>
-          {[...Array(rowsCount)].map((_, rowIdx) => {
-            const row = rows[rowIdx]
+          {rows.map((rowBlock, rowIdx) => {
             return (
-              <tr key={row?.uuid ?? rowIdx}>
-                {columns.map((column, _) => {
-                  const changeCell = (event: React.ChangeEvent<HTMLInputElement>): void => {
-                    setCell(rowIdx, column.idx, event.target.value)
-                  }
-                  return (
-                    <td key={column.idx}>
-                      <Input value={getCell(rowIdx, column.idx)} onChange={changeCell} />
-                    </td>
-                  )
+              <tr key={rowIdx}>
+                {columns.map((column, columnIdx) => {
+                  const block = getCellBlock(rowBlock.id, column.uuid)
+                  return <SpreadsheetCell key={block.id} block={block} saveBlock={saveCellBlock} />
                 })}
                 <td>
                   <Button onClick={() => addRow(rowIdx)}>+</Button>

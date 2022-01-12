@@ -69,6 +69,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   }, [queryVariables, data?.childrenBlocks])
 
   const commitDirty = async (): Promise<void> => {
+    if (!dirtyBlocksMap.current.size && !dirtyToDeleteIds.current.size) return
     if (committing.current) return
 
     committing.current = true
@@ -79,33 +80,34 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         ({ parentId, id }) =>
           !parentId ||
           id === rootId.current ||
-          parentId === rootId.current ||
           docBlocksMap.current.get(parentId) ||
           dirtyBlocksMap.current.get(parentId)
       )
       const deletedIds = [...dirtyToDeleteIds.current]
-      blocks.forEach(b => {
-        BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
-        BrickdocEventBus.dispatch(BlockUpdated(b))
-        dirtyBlocksMap.current.delete(b.id)
-      })
-      deletedIds.forEach(id => {
-        BrickdocEventBus.dispatch(BlockDeleted({ id }))
-        dirtyToDeleteIds.current.delete(id)
-      })
 
-      const syncPromise = blockSyncBatch({
-        variables: {
-          input: {
-            blocks,
-            deletedIds,
-            rootId: rootId.current,
-            operatorId: globalThis.brickdocContext.uuid
+      if (blocks.length > 0 || deletedIds.length > 0) {
+        blocks.forEach(b => {
+          BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
+          BrickdocEventBus.dispatch(BlockUpdated(b))
+          dirtyBlocksMap.current.delete(b.id)
+        })
+        deletedIds.forEach(id => {
+          BrickdocEventBus.dispatch(BlockDeleted({ id }))
+          dirtyToDeleteIds.current.delete(id)
+        })
+
+        const syncPromise = blockSyncBatch({
+          variables: {
+            input: {
+              blocks,
+              deletedIds,
+              rootId: rootId.current,
+              operatorId: globalThis.brickdocContext.uuid
+            }
           }
-        }
-      })
-
-      await syncPromise
+        })
+        await syncPromise
+      }
     } catch {
       // Ignored
     } finally {
@@ -129,6 +131,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     docBlocks.forEach(newBlock => {
       newBlock.sort = `${newBlock.sort}`
       const oldBlock = docBlocksMap.current.get(newBlock.id)
+      // TODO: Improve dirty check
       if (!oldBlock || !isEqual(oldBlock, newBlock)) {
         dirtyBlocksMap.current.set(newBlock.id, newBlock)
         docBlocksMap.current.set(newBlock.id, newBlock as Block)
@@ -149,7 +152,10 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     (e: Event) => {
       const block: Block = e.payload
       const oldBlock = docBlocksMap.current.get(block.id) ?? {}
-      docBlocksMap.current.set(block.id, { ...oldBlock, ...block })
+      if (docBlocksMap.current.get(block.id)) {
+        // update only on doc blocks
+        docBlocksMap.current.set(block.id, { ...oldBlock, ...block })
+      }
       if (block.id === rootId.current) {
         client.cache.modify({
           id: client.cache.identify({ __typename: 'BlockInfo', id: block.id }),
@@ -227,7 +233,11 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           variables: {
             parentId,
             snapshotVersion: 0
-          }
+          },
+          fetchPolicy: 'no-cache'
+        })
+        data.spreadsheetBlocks.forEach((block: Block) => {
+          docBlocksMap.current.set(block.id, block)
         })
         BrickdocEventBus.dispatch(
           SpreadsheetBlocksLoaded({

@@ -11,10 +11,11 @@ module Docs
 
     def resolve(parent_id:, snapshot_version:)
       if snapshot_version.zero?
-        Docs::Block.where(parent_id: parent_id, type: ['spreadsheetRow', 'spreadsheetCell']).non_deleted.to_a
+        rows = Docs::Block.where(parent_id: parent_id, type: ['spreadsheetRow']).non_deleted.to_a
+        cells = Docs::Block.where(parent_id: rows.map(&:id), type: ['spreadsheetCell']).non_deleted.to_a
+        rows + cells
       else
-        # TODO: filter blocks type only database_row
-        Docs::Snapshot.find_by!(block_id: parent_id, snapshot_version: snapshot_version).blocks.graphql_normalize
+        []
       end
     end
   end
