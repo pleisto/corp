@@ -1,7 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import { Button, Icon, Input, Tooltip } from '@brickdoc/design-system'
-import { BlockContainer, FormulaMenu } from '../../../components'
+import {
+  BlockContainer,
+  FormulaMenu,
+  SpreadsheetContainer,
+  SpreadsheetView,
+  SpreadsheetHeader,
+  SpreadsheetHeaderColumn,
+  SpreadsheetBody,
+  SpreadsheetRow,
+  SpreadsheetCellContainer
+} from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
@@ -17,6 +27,7 @@ import {
   AnyTypeResult,
   VariableData
 } from '@brickdoc/formula'
+
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 
 export interface FormulaBlockRenderProps {
@@ -92,68 +103,30 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   }
 
   const renderTable = (result: SpreadsheetResult): React.ReactNode => {
-    return <div />
-    // const columns: Column[] = result.result.listColumns().map(c => ({
-    //   Header: c.name,
-    //   accessor: c.columnId,
-    //   columnType: c.type,
-    //   index: c.index,
-    //   dateFormat: undefined,
-    //   dateIncludeTime: undefined
-    // }))
-
-    // const fakeColumns = [{ id: DEFAULT_GROUP_ID, columns }] as unknown as Column[]
-
-    // const rows: DatabaseRows = result.result.listRows()
-
-    // const databaseColumns: DatabaseColumns = result.result.listColumns().map(c => ({
-    //   index: c.index,
-    //   key: c.columnId,
-    //   type: c.type,
-    //   title: c.name
-    // }))
-    // return (
-    //   <TableRender
-    //     dynamic={true}
-    //     useActiveStatusUtils={{
-    //       isCellActive: (rowId: string, cellIndex: number) => false,
-    //       isRowActive: (rowId: string) => false,
-    //       update: () => {},
-    //       reset: () => {}
-    //     }}
-    //     useColumnsProps={[
-    //       fakeColumns,
-    //       {
-    //         setColumns: () => {},
-    //         add: () => {},
-    //         remove: () => {},
-    //         updateName: () => {},
-    //         updateType: () => {},
-    //         updateWidth: () => {}
-    //       }
-    //     ]}
-    //     tableRowsProps={[
-    //       rows,
-    //       {
-    //         updateData: () => {},
-    //         batchDeleteDataByValue: () => {},
-    //         batchUpdateDataByColumn: () => {},
-    //         addNewRow: () => {},
-    //         moveRow: () => {},
-    //         updateRows: async (): Promise<void> => {},
-    //         fetchRows: async (): Promise<void> => {},
-    //         removeRow: () => {}
-    //       }
-    //     ]}
-    //     deleteNode={() => {}}
-    //     updateAttributes={(attributes: Record<string, any>) => {}}
-    //     parentId={result.result.blockId}
-    //     prevData={{
-    //       title: result.result.name(),
-    //       columns: databaseColumns
-    //     }}
-    //   />
-    // )
+    const columns = result.result.listColumns()
+    const rows = result.result.listRows()
+    return (
+      <SpreadsheetContainer>
+        {result.result.name()}
+        <SpreadsheetView>
+          <SpreadsheetHeader>
+            <SpreadsheetHeaderColumn />
+            {columns.map(c => (
+              <SpreadsheetHeaderColumn key={c.columnId}>{c.name}</SpreadsheetHeaderColumn>
+            ))}
+          </SpreadsheetHeader>
+          <SpreadsheetBody>
+            {rows.map((row, rowIdx) => (
+              <SpreadsheetRow key={rowIdx} rowIdx={rowIdx}>
+                {columns.map(c => (
+                  <SpreadsheetCellContainer key={c.columnId}>{row[c.columnId]}</SpreadsheetCellContainer>
+                ))}
+              </SpreadsheetRow>
+            ))}
+          </SpreadsheetBody>
+        </SpreadsheetView>
+      </SpreadsheetContainer>
+    )
   }
 
   const renderEmpty = (): React.ReactNode => {
