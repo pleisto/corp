@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import { NodeViewProps } from '@tiptap/core'
-import { Button, Icon, Input, Modal } from '@brickdoc/design-system'
+import { Button, Icon, Input, Modal, Tooltip } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
@@ -176,15 +176,18 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   const renderOther = (variable: VariableInterface): React.ReactNode => {
     return (
-      <span
-        className="brickdoc-formula"
-        style={{
-          color: activeColor.color,
-          borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
-          background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
-        {variable.t.name}: {displayValue(variable.t.variableValue.result)}
-      </span>
+      <Tooltip title={variable.t.name}>
+        <span
+          className="brickdoc-formula"
+          style={{
+            color: activeColor.color,
+            borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
+            background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
+          }}>
+          <Icon.Formula className="brickdoc-formula-placeholder-icon" />
+          {displayValue(variable.t.variableValue.result)}
+        </span>
+      </Tooltip>
     )
   }
 
