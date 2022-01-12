@@ -26,6 +26,8 @@ import { DatabaseColumns, DEFAULT_GROUP_ID } from '../../../components/Table/use
 export interface FormulaBlockRenderProps {
   formulaId: string
   rootId: string
+  defaultVisible: boolean
+  handleTurnOffVisible: () => void
   handleDelete: (variable: VariableInterface) => void
   cacheT?: VariableData
   updateFormula: (id: string) => void
@@ -34,6 +36,8 @@ export interface FormulaBlockRenderProps {
 export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
+  handleTurnOffVisible,
+  defaultVisible,
   updateFormula,
   handleDelete,
   cacheT
@@ -86,9 +90,9 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const activeColorIndex = variableT ? COLOR_ARRAY[variableT.variableValue.result.type as FormulaType] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
-    // if (!visible && node.attrs.isNew) {
-    //   updateAttributes({ isNew: false })
-    // }
+    if (!visible && defaultVisible) {
+      handleTurnOffVisible()
+    }
   }
 
   const renderTable = (result: SpreadsheetResult): React.ReactNode => {
@@ -225,7 +229,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   return (
     <BlockContainer inline={true}>
       <FormulaMenu
-        defaultVisible={false}
+        defaultVisible={defaultVisible}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         handleDelete={handleDelete}
         updateFormula={updateFormula}

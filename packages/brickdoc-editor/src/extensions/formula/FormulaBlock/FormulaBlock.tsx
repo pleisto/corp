@@ -15,6 +15,7 @@ const i18nKey = 'formula.menu'
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
   const { t } = useEditorI18n()
   const attributes = node.attrs.formula
+  const isNew = node.attrs.isNew
   const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
   const editorDataSource = React.useContext(EditorDataSourceContext)
 
@@ -38,6 +39,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
 
   return (
     <FormulaBlockRender
+      defaultVisible={isNew}
+      handleTurnOffVisible={() => updateAttributes({ isNew: false })}
       handleDelete={handleDelete}
       rootId={editorDataSource.rootId}
       formulaId={attributes.id}
