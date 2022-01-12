@@ -426,7 +426,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     variable!.t.definition = input!
     updateFormula(variable!.t.variableId)
 
-    await formulaContext!.commitVariable({ variable: variable! })
+    await variable!.save()
+    // await formulaContext!.commitVariable({ variable: variable! })
     setName(finalName)
     updateVariable(variable)
 
