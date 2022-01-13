@@ -19,14 +19,21 @@
       padding-bottom: 30px;
       position: relative;
       table {
+        font-size: 14px;
         border-collapse: collapse;
         thead {
           background: @table-bg;
         }
+        th {
+          color: @table-header-color;
+          text-align: center;
+          font-weight: normal;
+        }
         td, th {
           min-width: 164px;
           border: 1px solid @table-border-color;
-          padding: 3px;
+          padding: 8px 10px;
+          line-height: 22px;
           &.row-action-panel {
             padding: 0;
             width: 0;
@@ -73,6 +80,8 @@
               color: @table-action-hover-color;
             }
             .row-number {
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
               background: @table-action-hover-bg;
               border-bottom: 1px solid @table-action-border-color;
             }
