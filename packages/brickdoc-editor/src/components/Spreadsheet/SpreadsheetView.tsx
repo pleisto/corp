@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dropdown, Menu } from '@brickdoc/design-system'
+import { Dropdown, Menu, Button } from '@brickdoc/design-system'
 
 import { useEditorI18n } from '../../hooks'
 
@@ -46,10 +46,30 @@ export const SpreadsheetRow: React.FC<{
   rowActions?: SpreadsheetActionItem[]
 }> = ({ children, rowNumber, rowActions }) => {
   const { t } = useEditorI18n()
+  const [selected, setSelected] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
   const onDropdownVisibleChange = (value: boolean): void => {
     setDropdownVisible(value)
+    if (value) {
+      selectRow()
+    }
+  }
+
+  const onClickRowNumber = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
+    e.preventDefault()
+    e.stopPropagation()
+    selectRow()
+  }
+
+  const unselectRow = (): void => {
+    setSelected(false)
+    document.removeEventListener('mousedown', unselectRow)
+  }
+
+  const selectRow = (): void => {
+    setSelected(true)
+    document.addEventListener('mousedown', unselectRow)
   }
 
   const menu = (
@@ -75,10 +95,12 @@ export const SpreadsheetRow: React.FC<{
   )
 
   return (
-    <tr>
+    <tr className={selected ? 'selected' : ''}>
       <td className="row-action-panel">
         <div className="row-action-panel-layer">
-          <div className="row-number">{rowNumber}</div>
+          <Button className="row-number" onClick={onClickRowNumber}>
+            {rowNumber}
+          </Button>
           {rowActions?.length ? (
             <Dropdown
               className="row-action"
