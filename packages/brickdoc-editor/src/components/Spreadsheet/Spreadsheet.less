@@ -1,19 +1,82 @@
 @import '@brickdoc/design-system/components/style/themes';
+
+@table-header-color: #908B9C;       // palette/type/thirdary
+@table-bg: rgba(0, 0, 0, 3%);       // palette/type/thirdary
+@table-border-color: #BDBDBD;       // palette/type/thirdary
+
+@table-action-layer-width: 200px; // 36px;
+@table-action-border-color: rgba(0, 0, 0, 5%);   // palette/divider/overlay-primary
+@table-action-hover-bg: rgba(44, 91, 255, 0.18); // palette/secondary/selected
+@table-action-hover-color: #356CF9;              // palette/primary/default
+
 .brickdoc {
   .ProseMirror {
     .brickdoc-spreadsheet-block {
       overflow:auto;
       white-space: nowrap;
+      margin-left: 0 - @table-action-layer-width;
+      padding-left: @table-action-layer-width;
       padding-bottom: 30px;
+      position: relative;
       table {
         border-collapse: collapse;
         thead {
-          background: rgba(0, 0, 0, 3%); // palette/type/thirdary
+          background: @table-bg;
         }
         td, th {
           min-width: 164px;
-          border: 1px solid #BDBDBD; // palette/divider/secondary
+          border: 1px solid @table-border-color;
           padding: 3px;
+          &.row-action-panel {
+            padding: 0;
+            width: 0;
+            min-width: 0;
+            border: 0;
+            position: relative;
+            .row-action-panel-layer {
+              position: absolute;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              color: @table-header-color;
+              .row-number {
+                border-top: 1px solid @table-action-border-color;
+                border-bottom: 1px solid transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                right: 14px;
+                height: 100%;
+                font-size: 12px;
+                line-height: 18px;
+                background: @table-bg;
+                width: 22px;
+              }
+            }
+          }
+        }
+        tbody > tr:first-child > td.row-action-panel {
+          .row-number {
+            border-top: 0;
+            border-radius: 4px 4px 0 0;
+          }
+        }
+        tbody > tr:last-child > td.row-action-panel {
+          .row-number {
+            border-radius: 0 0 4px 4px;
+          }
+        }
+        tbody > tr:hover {
+          td.row-action-panel {
+            .row-action-panel-layer {
+              color: @table-action-hover-color;
+            }
+            .row-number {
+              background: @table-action-hover-bg;
+              border-bottom: 1px solid @table-action-border-color;
+            }
+          }
         }
       }
     }

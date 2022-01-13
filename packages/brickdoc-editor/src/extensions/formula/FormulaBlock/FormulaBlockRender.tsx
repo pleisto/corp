@@ -111,14 +111,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           {result.result.name()}
           <SpreadsheetView>
             <SpreadsheetHeader>
-              <SpreadsheetHeaderColumn />
+              <SpreadsheetHeaderColumn className="row-action-panel" />
               {columns.map(c => (
                 <SpreadsheetHeaderColumn key={c.columnId}>{c.name}</SpreadsheetHeaderColumn>
               ))}
             </SpreadsheetHeader>
             <SpreadsheetBody>
               {rows.map((row, rowIdx) => (
-                <SpreadsheetRow key={rowIdx} rowIdx={rowIdx}>
+                <SpreadsheetRow key={rowIdx} rowNumber={`${rowIdx + 1}`}>
                   {columns.map(c => (
                     <SpreadsheetCellContainer key={c.columnId}>{row[c.columnId]}</SpreadsheetCellContainer>
                   ))}

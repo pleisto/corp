@@ -16,8 +16,11 @@ export const SpreadsheetHeader: React.FC<{ children: React.ReactNode }> = ({ chi
   )
 }
 
-export const SpreadsheetHeaderColumn: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return <th>{children}</th>
+export const SpreadsheetHeaderColumn: React.FC<{ children?: React.ReactNode; className?: string }> = ({
+  children,
+  className
+}) => {
+  return <th className={className}>{children}</th>
 }
 
 export const SpreadsheetBody: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -26,13 +29,23 @@ export const SpreadsheetBody: React.FC<{ children: React.ReactNode }> = ({ child
 
 export const SpreadsheetRow: React.FC<{
   children: React.ReactNode
-  rowIdx: number
+  rowNumber?: string
   rowActions?: React.ReactNode
-}> = ({ children, rowIdx, rowActions }) => {
+}> = ({ children, rowNumber, rowActions }) => {
   return (
     <tr>
-      <td>
-        {rowActions}#{rowIdx}
+      <td className="row-action-panel">
+        <div className="row-action-panel-layer">
+          <div
+            style={{
+              position: 'absolute',
+              right: '40px'
+            }}
+          >
+            {rowActions}
+          </div>
+          <div className="row-number">{rowNumber}</div>
+        </div>
       </td>
       {children}
     </tr>
