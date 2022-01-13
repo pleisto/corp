@@ -77,10 +77,10 @@ describe('Custom Function', () => {
     const input = '=custom::PLUS(1, 1)'
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta, formulaContext: localFormulaContext }
-    const { success, cst } = parse({ ctx: finalCtx })
+    const { success, cst, kind } = parse({ ctx: finalCtx })
     expect(success).toEqual(true)
     const result = await interpret({
-      cst: cst!,
+      parseResult: { cst, kind },
       ctx: finalCtx
     })
     expect(result.variableValue.result.result).toEqual(2)
@@ -128,9 +128,9 @@ describe('Custom Function', () => {
     const input = '=custom::FORTY_TWO()'
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta, formulaContext: localFormulaContext }
-    const { success, cst } = parse({ ctx: finalCtx })
+    const { success, cst, kind } = parse({ ctx: finalCtx })
     expect(success).toEqual(true)
-    expect((await interpret({ cst: cst!, ctx: finalCtx })).variableValue.result.result).toEqual(42)
+    expect((await interpret({ parseResult: { cst, kind }, ctx: finalCtx })).variableValue.result.result).toEqual(42)
   })
 })
 
@@ -146,12 +146,12 @@ describe('Context', () => {
     const input = `=#${namespaceId}.${fooVariableId}`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
-    const { cst, errorMessages } = parse({ ctx: finalCtx })
+    const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
     expect(errorMessages).toEqual([])
     expect(
       (
         await interpret({
-          cst: cst!,
+          parseResult: { cst, kind },
           ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
       ).variableValue.result.result
@@ -188,9 +188,9 @@ describe('Context', () => {
     const input = `= custom::PLUS(10, #${namespaceId}.${fooVariableId})`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
-    const { cst, errorMessages } = parse({ ctx: finalCtx })
+    const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
     expect(errorMessages).toEqual([])
-    expect((await interpret({ cst: cst!, ctx: finalCtx })).variableValue.result.result).toEqual(34)
+    expect((await interpret({ parseResult: { cst, kind }, ctx: finalCtx })).variableValue.result.result).toEqual(34)
   })
 
   it('Type', () => {

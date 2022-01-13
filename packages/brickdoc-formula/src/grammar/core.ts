@@ -17,7 +17,8 @@ import {
   NamespaceId,
   FunctionContext,
   Formula,
-  BlockKey
+  BlockKey,
+  StringResult
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -52,16 +53,26 @@ export interface SuccessParseResult extends BaseParseResult {
   success: true
   valid: true
   errorMessages: []
+  kind: Exclude<VariableKind, 'literal'>
   cst: CstNode
+}
+
+export interface LiteralParseResult extends BaseParseResult {
+  success: true
+  valid: true
+  errorMessages: []
+  kind: 'literal'
+  cst: undefined
 }
 
 export interface ErrorParseResult extends BaseParseResult {
   success: false
+  kind: 'unknown'
   errorType: ParseErrorType
   errorMessages: [ErrorMessage, ...ErrorMessage[]]
 }
 
-export type ParseResult = SuccessParseResult | ErrorParseResult
+export type ParseResult = SuccessParseResult | ErrorParseResult | LiteralParseResult
 export interface InterpretResult {
   readonly variableValue: VariableValue
   readonly lazy: boolean
@@ -124,7 +135,7 @@ export const abbrev = ({
       n => n.name === token.image && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
     )
 
-    console.log({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
+    // console.log({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
 
     if (!formulaName) {
       newInput = newInput.concat(token.image)
@@ -166,7 +177,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     position,
     version,
     level,
-    kind: 'constant',
+    kind: 'unknown',
     errorType: 'parse',
     errorMessages: [{ type: 'parse', message: '' }],
     completions: [],
@@ -177,11 +188,36 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     flattenVariableDependencies: []
   }
 
+  if (!input.startsWith('=')) {
+    return {
+      ...returnValue,
+      valid: true,
+      kind: 'literal',
+      cst: undefined,
+      errorType: undefined,
+      success: true,
+      errorMessages: [],
+      codeFragments: [
+        {
+          code: 'other',
+          name: input,
+          spaceAfter: false,
+          hidden: false,
+          spaceBefore: false,
+          type: 'any',
+          display: () => input,
+          errors: []
+        }
+      ]
+    }
+  }
+
   if (!variableId) {
     return {
       ...returnValue,
       valid: false,
       success: false,
+      kind: 'unknown',
       errorType: 'parse',
       errorMessages: [{ message: 'Miss variableId', type: 'fatal' }]
     }
@@ -306,6 +342,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     return {
       ...returnValue,
       success: false,
+      kind: 'unknown',
       valid: finalErrorMessages[0].type !== 'parse' && codeFragments.length > 0,
       errorType: 'syntax',
       errorMessages: finalErrorMessages as [ErrorMessage, ...ErrorMessage[]]
@@ -320,6 +357,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     return {
       ...returnValue,
       success: false,
+      kind: 'unknown',
       errorType: 'syntax',
       errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }]
     }
@@ -329,6 +367,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     return {
       ...returnValue,
       success: false,
+      kind: 'unknown',
       errorType: 'syntax',
       errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }]
     }
@@ -345,6 +384,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     return {
       ...returnValue,
       success: false,
+      kind: 'unknown',
       errorType: 'syntax',
       errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }]
     }
@@ -353,6 +393,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   return {
     ...returnValue,
     cst: cst!,
+    kind: codeFragmentVisitor.kind,
     errorType: undefined,
     valid: true,
     success: true,
@@ -360,7 +401,26 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   }
 }
 
-export const interpret = async ({ cst, ctx }: { cst: CstNode; ctx: FunctionContext }): Promise<InterpretResult> => {
+export const interpret = async ({
+  parseResult: { cst, kind },
+  ctx
+}: {
+  parseResult: { cst: CstNode | undefined; kind: VariableKind }
+  ctx: FunctionContext
+}): Promise<InterpretResult> => {
+  if (!cst || kind === 'literal') {
+    const result: StringResult = { type: 'string', result: ctx.meta.input }
+    return {
+      lazy: false,
+      variableValue: {
+        success: true,
+        updatedAt: new Date(),
+        cacheValue: result,
+        result
+      }
+    }
+  }
+
   try {
     const interpreter = new FormulaInterpreter({ ctx })
     const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })

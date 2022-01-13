@@ -115,7 +115,7 @@ describe('Dependency', () => {
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } }) as SuccessParseResult
     expect(parseResult.errorMessages).toEqual([])
     const interpretResult = await interpret({
-      cst: parseResult.cst,
+      parseResult,
       ctx: {
         formulaContext,
         meta,

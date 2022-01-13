@@ -135,7 +135,7 @@ describe('Controls', () => {
   testCases.forEach(({ input, label, parseErrorMessage, result }) => {
     it(`[${label}] ${input}`, async () => {
       const meta = { namespaceId, variableId: testVariableId, name: 'foo', input }
-      const { errorMessages, valid, codeFragments, cst, success } = parse({
+      const { errorMessages, kind, valid, codeFragments, cst, success } = parse({
         ctx: {
           formulaContext,
           meta,
@@ -149,7 +149,7 @@ describe('Controls', () => {
 
       if (success) {
         const { variableValue } = await interpret({
-          cst: cst!,
+          parseResult: { cst, kind },
           ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
 

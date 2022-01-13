@@ -4,7 +4,6 @@ import {
   ErrorMessage,
   FormulaType,
   Argument,
-  VariableKind,
   VariableDependency,
   FunctionClause,
   OtherCodeFragment,
@@ -96,7 +95,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: VariableDependency[] = []
   level: number = 0
-  kind: VariableKind = 'constant'
+  kind: 'constant' | 'expression' = 'constant'
 
   constructor({ ctx }: { ctx: FunctionContext }) {
     super()

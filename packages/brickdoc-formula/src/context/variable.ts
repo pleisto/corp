@@ -229,7 +229,7 @@ export class VariableClass implements VariableInterface {
 
   public interpret = async (interpretContext: InterpretContext): Promise<void> => {
     const { variableValue } = await interpret({
-      cst: this.t.cst!,
+      parseResult: { cst: this.t.cst!, kind: this.t.kind },
       ctx: {
         formulaContext: this.formulaContext,
         meta: this.meta(),

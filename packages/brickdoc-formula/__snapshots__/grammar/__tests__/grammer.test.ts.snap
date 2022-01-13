@@ -2227,47 +2227,32 @@ Array [
 ]
 `;
 
-exports[`Simple test case [missing prefix equal] 1+1 // => ✗ 1`] = `
+exports[`Simple test case [literal1] 1+1 // => 1+1 1`] = `
 Array [
   Object {
-    "code": "Equal",
+    "code": "other",
     "display": [Function],
     "errors": Array [],
     "hidden": false,
-    "name": "",
-    "spaceAfter": true,
-    "spaceBefore": true,
+    "name": "1+1",
+    "spaceAfter": false,
+    "spaceBefore": false,
     "type": "any",
   },
+]
+`;
+
+exports[`Simple test case [literal2] 1+1 asd n,san 中文测试 asdasd // => 1+1 asd n,san 中文测试 asdasd 1`] = `
+Array [
   Object {
-    "code": "NumberLiteral",
+    "code": "other",
     "display": [Function],
     "errors": Array [],
     "hidden": false,
-    "name": "1",
+    "name": "1+1 asd n,san 中文测试 asdasd",
     "spaceAfter": false,
     "spaceBefore": false,
-    "type": "number",
-  },
-  Object {
-    "code": "Plus",
-    "display": [Function],
-    "errors": Array [],
-    "hidden": false,
-    "name": "+",
-    "spaceAfter": true,
-    "spaceBefore": true,
-    "type": "number",
-  },
-  Object {
-    "code": "NumberLiteral",
-    "display": [Function],
-    "errors": Array [],
-    "hidden": false,
-    "name": "1",
-    "spaceAfter": false,
-    "spaceBefore": false,
-    "type": "number",
+    "type": "any",
   },
 ]
 `;

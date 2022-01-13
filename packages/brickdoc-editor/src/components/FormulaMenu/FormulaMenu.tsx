@@ -91,7 +91,7 @@ const calculate = async ({
   let interpretResult: InterpretResult
 
   if (parseResult.success) {
-    interpretResult = await interpret({ cst: parseResult.cst, ctx })
+    interpretResult = await interpret({ parseResult, ctx })
   } else {
     interpretResult = {
       lazy: false,
