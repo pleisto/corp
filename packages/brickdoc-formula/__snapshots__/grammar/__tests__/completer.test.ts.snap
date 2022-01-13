@@ -4,6 +4,16 @@ exports[`Complete [block completion] =#57622108-1337-4edd-833a-2557835bcfe0. 1`]
 Object {
   "codeFragments": Array [
     Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
+    Object {
       "code": "Block",
       "display": [Function],
       "errors": Array [],
@@ -66,6 +76,16 @@ Object {
 exports[`Complete [dot equal different namespaceId] = 1 + varvarabcvar. 1`] = `
 Object {
   "codeFragments": Array [
+    Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
     Object {
       "code": "NumberLiteral",
       "display": [Function],
@@ -154,6 +174,16 @@ Object {
 exports[`Complete [dot equal same namespaceId] = 1 + varvarabcvar. 1`] = `
 Object {
   "codeFragments": Array [
+    Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
     Object {
       "code": "NumberLiteral",
       "display": [Function],
@@ -256,6 +286,16 @@ exports[`Complete [var equal different namespaceId with namespaceId] =Untitled.v
 Object {
   "codeFragments": Array [
     Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
+    Object {
       "code": "Block",
       "display": [Function],
       "errors": Array [],
@@ -318,6 +358,16 @@ exports[`Complete [var equal different namespaceId] =varvarabcvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
+    Object {
       "code": "Function",
       "display": [Function],
       "errors": Array [
@@ -371,6 +421,16 @@ Object {
 exports[`Complete [var equal same namespaceId] =varvarabcvar 1`] = `
 Object {
   "codeFragments": Array [
+    Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
     Object {
       "code": "Block",
       "display": [Function],
@@ -436,6 +496,16 @@ Object {
 exports[`Complete [var include different namespaceId] =1+arvar 1`] = `
 Object {
   "codeFragments": Array [
+    Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
     Object {
       "code": "NumberLiteral",
       "display": [Function],
@@ -511,6 +581,16 @@ exports[`Complete [var include same namespaceId] =1+arvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
+    Object {
       "code": "NumberLiteral",
       "display": [Function],
       "errors": Array [],
@@ -584,6 +664,16 @@ Object {
 exports[`Complete [var startWith same namespace] = 1 + var 1`] = `
 Object {
   "codeFragments": Array [
+    Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
     Object {
       "code": "NumberLiteral",
       "display": [Function],

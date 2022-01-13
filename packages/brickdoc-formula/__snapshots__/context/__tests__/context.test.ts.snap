@@ -8,6 +8,16 @@ Object {
   ],
   "codeFragments": Array [
     Object {
+      "code": "Equal",
+      "display": [Function],
+      "errors": Array [],
+      "hidden": false,
+      "name": "=",
+      "spaceAfter": true,
+      "spaceBefore": true,
+      "type": "any",
+    },
+    Object {
       "code": "Block",
       "display": [Function],
       "errors": Array [],
@@ -550,6 +560,16 @@ Object {
         "examples": Array [
           Object {
             "codeFragments": Array [
+              Object {
+                "code": "Equal",
+                "display": [Function],
+                "errors": Array [],
+                "hidden": false,
+                "name": "=",
+                "spaceAfter": true,
+                "spaceBefore": true,
+                "type": "any",
+              },
               Object {
                 "code": "Function",
                 "display": [Function],

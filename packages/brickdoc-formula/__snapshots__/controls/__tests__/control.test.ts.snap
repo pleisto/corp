@@ -3,6 +3,16 @@
 exports[`Controls [button multiple set] =Button("Foo", Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -1019,6 +1029,16 @@ Object {
 exports[`Controls [button] =Button("Foo", Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0))) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -1657,6 +1677,16 @@ Object {
 exports[`Controls [input ok] =CInput(Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0))) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -2275,6 +2305,16 @@ Object {
 exports[`Controls [select [[]]] =Select([[]], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -2462,6 +2502,16 @@ Array [
 exports[`Controls [select []] =Select([], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -2628,6 +2678,16 @@ Array [
 
 exports[`Controls [select ok] =Select([1,2,3], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Function",
     "display": [Function],
@@ -3050,6 +3110,16 @@ Object {
 exports[`Controls [set error] = Set(a, 1) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -3123,6 +3193,16 @@ Array [
 
 exports[`Controls [set expression] =Set(#57622108-1337-4edd-833a-2557835bcfe0.28e28190-63bd-4f70-aeca-26e72574c01a, 1) 1`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Function",
     "display": [Function],
@@ -3210,6 +3290,16 @@ Array [
 
 exports[`Controls [set multiple line] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123)) 1`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Function",
     "display": [Function],
@@ -4161,6 +4251,16 @@ Object {
 exports[`Controls [set ok 2] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -4920,6 +5020,16 @@ Object {
 exports[`Controls [set ok] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, 1) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -5148,6 +5258,16 @@ Object {
 exports[`Controls [set unknown] =Set(#57622108-1337-4edd-833a-2557835bcfe0.99499117-5694-4d83-9ccd-85a3ab0b8f25, 1) 1`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -5238,6 +5358,16 @@ Array [
 
 exports[`Controls [switch set] =Switch(true, Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 1`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Function",
     "display": [Function],

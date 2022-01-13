@@ -65,6 +65,16 @@ Array [
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
+      Object {
         "code": "NumberLiteral",
         "display": [Function],
         "errors": Array [],
@@ -106,6 +116,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -221,6 +241,16 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
+      Object {
         "code": "Block",
         "display": [Function],
         "errors": Array [],
@@ -295,6 +325,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -425,6 +465,16 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
+      Object {
         "code": "Block",
         "display": [Function],
         "errors": Array [],
@@ -550,6 +600,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -729,6 +789,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -920,6 +990,16 @@ Array [
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
+      Object {
         "code": "NumberLiteral",
         "display": [Function],
         "errors": Array [],
@@ -959,6 +1039,16 @@ Array [
   Object {
     "blockDependencies": Array [],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "NumberLiteral",
         "display": [Function],
@@ -1001,6 +1091,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -1076,6 +1176,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -1206,6 +1316,16 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
+      Object {
         "code": "Block",
         "display": [Function],
         "errors": Array [],
@@ -1331,6 +1451,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
@@ -1510,6 +1640,16 @@ Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
+      Object {
+        "code": "Equal",
+        "display": [Function],
+        "errors": Array [],
+        "hidden": false,
+        "name": "=",
+        "spaceAfter": true,
+        "spaceBefore": true,
+        "type": "any",
+      },
       Object {
         "code": "Block",
         "display": [Function],
