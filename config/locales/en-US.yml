@@ -947,8 +947,8 @@ en-US:
         delete: Delete
       column:
         actions: Actions
-        add_left: Add column left
-        add_right: Add column right
+        add_left: Add column to the left
+        add_right: Add column to the right
         delete: Delete
     table:
       untitled: Untitled
