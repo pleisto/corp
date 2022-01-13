@@ -15,7 +15,11 @@ const SPREADSHEET = {
   alias: ['table'],
   icon: <EditorIcon.Table />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
-    editor.chain().focus().deleteRange(range).setSpreadsheetBlock(range.from - 1).run()
+    editor
+      .chain()
+      .deleteRange(range)
+      .setSpreadsheetBlock(range.from - 1)
+      .run()
   }
 }
 const UPLOAD = {

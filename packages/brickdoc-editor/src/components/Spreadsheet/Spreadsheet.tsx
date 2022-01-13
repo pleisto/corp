@@ -61,6 +61,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                 <SpreadsheetHeaderColumn key={column.uuid}>
                   <Button onClick={() => addColumn(i + 1)}>+</Button>
                   <Button onClick={() => removeColumn(column)}>x</Button>
+                  <br />
                   <Input value={columnDisplayTitle(column)} onChange={handleTitleChange} />
                 </SpreadsheetHeaderColumn>
               )

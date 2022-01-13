@@ -106,26 +106,28 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     const columns = result.result.listColumns()
     const rows = result.result.listRows()
     return (
-      <SpreadsheetContainer>
-        {result.result.name()}
-        <SpreadsheetView>
-          <SpreadsheetHeader>
-            <SpreadsheetHeaderColumn />
-            {columns.map(c => (
-              <SpreadsheetHeaderColumn key={c.columnId}>{c.name}</SpreadsheetHeaderColumn>
-            ))}
-          </SpreadsheetHeader>
-          <SpreadsheetBody>
-            {rows.map((row, rowIdx) => (
-              <SpreadsheetRow key={rowIdx} rowIdx={rowIdx}>
-                {columns.map(c => (
-                  <SpreadsheetCellContainer key={c.columnId}>{row[c.columnId]}</SpreadsheetCellContainer>
-                ))}
-              </SpreadsheetRow>
-            ))}
-          </SpreadsheetBody>
-        </SpreadsheetView>
-      </SpreadsheetContainer>
+      <span className="brickdoc-formula-spreadsheet">
+        <SpreadsheetContainer>
+          {result.result.name()}
+          <SpreadsheetView>
+            <SpreadsheetHeader>
+              <SpreadsheetHeaderColumn />
+              {columns.map(c => (
+                <SpreadsheetHeaderColumn key={c.columnId}>{c.name}</SpreadsheetHeaderColumn>
+              ))}
+            </SpreadsheetHeader>
+            <SpreadsheetBody>
+              {rows.map((row, rowIdx) => (
+                <SpreadsheetRow key={rowIdx} rowIdx={rowIdx}>
+                  {columns.map(c => (
+                    <SpreadsheetCellContainer key={c.columnId}>{row[c.columnId]}</SpreadsheetCellContainer>
+                  ))}
+                </SpreadsheetRow>
+              ))}
+            </SpreadsheetBody>
+          </SpreadsheetView>
+        </SpreadsheetContainer>
+      </span>
     )
   }
 
