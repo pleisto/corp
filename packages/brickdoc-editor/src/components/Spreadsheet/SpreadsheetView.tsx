@@ -61,16 +61,14 @@ export const SpreadsheetHeaderColumn: React.FC<{
   children?: React.ReactNode
   className?: string
   columnActions?: SpreadsheetActionItem[]
-}> = ({ children, className, columnActions }) => {
+}> = ({ children, className = '', columnActions }) => {
   const { t } = useEditorI18n()
   const [selected, setSelected] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
   const onDropdownVisibleChange = (value: boolean): void => {
     setDropdownVisible(value)
-    if (value) {
-      setSelected(true)
-    }
+    setSelected(value)
   }
 
   return (
