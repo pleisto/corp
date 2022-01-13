@@ -1,6 +1,7 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/react'
-import { Button, Input } from '@brickdoc/design-system'
+import { Button, Input, Icon } from '@brickdoc/design-system'
+import { useEditorI18n } from '../../hooks'
 
 import { BlockContainer, BlockContainerProps } from '../BlockContainer'
 
@@ -23,6 +24,8 @@ import './Spreadsheet.less'
 export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
+
+  const { t } = useEditorI18n()
 
   const [title, setTitle] = React.useState<string>(node.attrs.title ?? '')
 
@@ -84,16 +87,26 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                   <SpreadsheetRow
                     key={rowIdx}
                     rowNumber={`${rowIdx + 1}`}
-                    rowActions={
-                      <div>
-                        <Button size="small" onClick={() => addRow(rowIdx)}>
-                          +
-                        </Button>
-                        <Button size="small" onClick={() => removeRow(rowIdx)}>
-                          x
-                        </Button>
-                      </div>
-                    }
+                    rowActions={[
+                      {
+                        name: 'addRowAbove',
+                        title: t('spreadsheet.row.add_above'),
+                        icon: <Icon.ArrowUp />,
+                        onAction: () => addRow(rowIdx)
+                      },
+                      {
+                        name: 'addRowBelow',
+                        title: t('spreadsheet.row.add_below'),
+                        icon: <Icon.ArrowDown />,
+                        onAction: () => addRow(rowIdx + 1)
+                      },
+                      {
+                        name: 'deleteRow',
+                        title: t('spreadsheet.row.delete'),
+                        icon: <Icon.Delete />,
+                        onAction: () => removeRow(rowIdx)
+                      }
+                    ]}
                   >
                     {columns.map((column, columnIdx) => {
                       const block = getCellBlock(rowBlock.id, column.uuid)

@@ -939,6 +939,12 @@ en-US:
       page_link:
         head: LINK TO PAGE
         no_content: PAGE NO RESULT
+    spreadsheet:
+      row:
+        actions: Actions
+        add_above: Add row above
+        add_below: Add row below
+        delete: Delete
     table:
       untitled: Untitled
       new_row:

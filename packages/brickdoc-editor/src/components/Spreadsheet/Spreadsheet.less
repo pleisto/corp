@@ -46,19 +46,33 @@
               top: 0;
               bottom: 0;
               color: @table-header-color;
-              .row-number {
-                border-top: 1px solid @table-action-border-color;
-                border-bottom: 1px solid transparent;
+              .row-number, .row-action {
+                position: absolute;
+                top: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                position: relative;
-                right: 14px;
                 height: 100%;
                 font-size: 12px;
                 line-height: 18px;
                 background: @table-bg;
+              }
+              .row-number {
+                border-top: 1px solid @table-action-border-color;
+                border-bottom: 1px solid transparent;
+                right: 14px;
                 width: 22px;
+              }
+              .row-action {
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.3s;
+                border-radius: 0 4px 4px 0;
+                right: 2px;
+                width: 12px;
+                user-select: none;
+                padding: 0;
+                min-width: 0;
               }
             }
           }
@@ -76,12 +90,25 @@
         }
         tbody > tr:hover {
           td.row-action-panel {
+            .row-action {
+              opacity: 1;
+            }
+          }
+        }
+        tbody > tr:hover, tbody > tr.selected {
+          td.row-action-panel {
+            .row-number {
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          }
+        }
+        tbody > tr.selected {
+          td.row-action-panel {
             .row-action-panel-layer {
               color: @table-action-hover-color;
             }
             .row-number {
-              border-top-right-radius: 0;
-              border-bottom-right-radius: 0;
               background: @table-action-hover-bg;
               border-bottom: 1px solid @table-action-border-color;
             }
