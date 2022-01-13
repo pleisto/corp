@@ -634,6 +634,10 @@ export type Formula = {
   level: Scalars['Int']
   /** formula name */
   name: Scalars['String']
+  /** path ids */
+  pathIds: Array<Scalars['UUID']>
+  /** type */
+  type: Scalars['String']
   /** updated at */
   updatedAt: Scalars['ISO8601DateTime']
   /** version */
@@ -660,6 +664,10 @@ export type FormulaCreateInput = {
   level?: InputMaybe<Scalars['Int']>
   /** name */
   name: Scalars['String']
+  /** path ids */
+  pathIds: Array<Scalars['UUID']>
+  /** type */
+  type?: InputMaybe<Scalars['String']>
   /** version */
   version?: InputMaybe<Scalars['Int']>
 }
@@ -712,6 +720,10 @@ export type FormulaUpdateInput = {
   level?: InputMaybe<Scalars['Int']>
   /** name */
   name?: InputMaybe<Scalars['String']>
+  /** path ids */
+  pathIds?: InputMaybe<Array<Scalars['UUID']>>
+  /** type */
+  type?: InputMaybe<Scalars['String']>
   /** version */
   version?: InputMaybe<Scalars['Int']>
 }
@@ -2199,6 +2211,8 @@ export type GetFormulasQuery = {
         level: number
         version: number
         kind: string
+        type: string
+        pathIds: Array<string>
       }>
     | null
     | undefined
@@ -4505,6 +4519,8 @@ export const GetFormulasDocument = gql`
       level
       version
       kind
+      type
+      pathIds
     }
   }
 `

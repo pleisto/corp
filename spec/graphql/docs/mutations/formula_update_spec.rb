@@ -22,7 +22,7 @@ describe Docs::Mutations::FormulaUpdate, type: :mutation do
 
       formula = Docs::Formula.create!(
         block_id: block.id, id: SecureRandom.uuid, name: 'formula update',
-        view: {}, dependency_ids: [], definition: "=123", cache_value: { type: 'string', value: '123' }
+        dependency_ids: [], definition: "=123", cache_value: { type: 'string', value: '123' }, path_ids: []
       )
 
       new_name = "formula update name"
@@ -32,7 +32,8 @@ describe Docs::Mutations::FormulaUpdate, type: :mutation do
         id: formula.id,
         blockId: block.id,
         name: new_name,
-        definition: '=123 + 1'
+        definition: '=123 + 1',
+        pathIds: []
       } }
 
       internal_graphql_execute(mutation, input)

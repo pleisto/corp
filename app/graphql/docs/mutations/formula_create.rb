@@ -10,6 +10,8 @@ module Docs
     argument :version, Integer, 'version', required: false
     argument :level, Integer, 'level', required: false
     argument :kind, String, 'kind', required: false
+    argument :type, String, 'type', required: false
+    argument :path_ids, [BrickGraphQL::Scalars::UUID], 'path ids', required: true
 
     def resolve(args)
       Docs::Formula.create!(args.to_h)
