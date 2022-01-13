@@ -60,7 +60,7 @@ export type SpreadsheetName = string
 
 export type Definition = string
 
-export type VariableKind = 'constant' | 'expression'
+export type VariableKind = 'literal' | 'constant' | 'expression' | 'unknown'
 
 export type ErrorType =
   | 'type'

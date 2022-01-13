@@ -138,7 +138,7 @@ describe('Context', () => {
     expect(parseResult.success).toEqual(true)
 
     const interpretResult = await interpret({
-      cst: parseResult.cst,
+      parseResult,
       ctx: {
         formulaContext,
         meta,

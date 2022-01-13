@@ -94,7 +94,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     Array: 6
   }
 
-  const activeColorIndex = variableT ? COLOR_ARRAY[variableT.variableValue.result.type as FormulaType] || 0 : 0
+  const activeColorIndex =
+    variableT && variableT.kind !== 'literal' ? COLOR_ARRAY[variableT.variableValue.result.type as FormulaType] || 0 : 0
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && defaultVisible) {
@@ -147,8 +148,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}
-      >
+        }}>
         {displayValue(result)}
       </span>
     )
@@ -191,11 +191,29 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     }
   }
 
+  const renderLiteral = (result: AnyTypeResult): React.ReactNode => {
+    return (
+      <span
+        className="brickdoc-formula"
+        style={{
+          color: activeColor.color,
+          borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
+          background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
+        }}>
+        {result.result}
+      </span>
+    )
+  }
+
   const renderVariable = (t: VariableData | undefined): React.ReactNode => {
     if (isDraft) return renderEmpty()
     if (!t) return renderEmpty()
-
     const result = t.variableValue.result
+
+    if (t.kind === 'literal') {
+      return renderLiteral(result)
+    }
+
     return <Tooltip title={t.name}>{renderResult(result)}</Tooltip>
   }
 

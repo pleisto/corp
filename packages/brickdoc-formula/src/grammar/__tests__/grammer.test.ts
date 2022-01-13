@@ -523,9 +523,13 @@ const testCases: TestCase[] = [
   },
   {
     input: '1+1',
-    parseErrorType: 'syntax',
-    label: 'missing prefix equal',
-    errorMessage: 'TODO mismatch token startExpression'
+    label: 'literal1',
+    value: '1+1'
+  },
+  {
+    input: '1+1 asd n,san 中文测试 asdasd',
+    label: 'literal2',
+    value: '1+1 asd n,san 中文测试 asdasd'
   },
   {
     input: '=1+',
@@ -928,6 +932,7 @@ describe('Simple test case', () => {
       const {
         success,
         cst,
+        kind,
         errorType,
         errorMessages,
         codeFragments,
@@ -937,7 +942,11 @@ describe('Simple test case', () => {
         parseImage
       } = parse({ ctx: { ...ctx, meta: newMeta } })
 
-      expect(completions.length).not.toEqual(0)
+      if (kind === 'literal') {
+        expect(completions.length).toEqual(0)
+      } else {
+        expect(completions.length).not.toEqual(0)
+      }
 
       if (label) {
         expect(codeFragments).toMatchSnapshot()
@@ -949,7 +958,7 @@ describe('Simple test case', () => {
       }
 
       if (value !== undefined) {
-        const { variableValue } = await interpret({ cst: cst!, ctx: { ...ctx, meta: newMeta } })
+        const { variableValue } = await interpret({ parseResult: { cst, kind }, ctx: { ...ctx, meta: newMeta } })
 
         expect(errorMessages).toEqual([])
 

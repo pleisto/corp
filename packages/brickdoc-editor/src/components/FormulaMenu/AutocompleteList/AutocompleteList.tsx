@@ -209,6 +209,10 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
     }
   }
 
+  if (!completions.length) {
+    return <></>
+  }
+
   return (
     <div className="formula-autocomplete">
       <div className="formula-autocomplete-list">
