@@ -109,19 +109,23 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     return (
       <span className="brickdoc-formula-spreadsheet">
         <SpreadsheetContainer>
-          {result.result.name()}
+          <div className="spreadsheet-title">{result.result.name()}</div>
           <SpreadsheetView>
             <SpreadsheetHeader>
               <SpreadsheetHeaderColumn className="row-action-panel" />
               {columns.map(c => (
-                <SpreadsheetHeaderColumn key={c.columnId}>{c.name}</SpreadsheetHeaderColumn>
+                <SpreadsheetHeaderColumn key={c.columnId}>
+                  <div className="column">{c.name}</div>
+                </SpreadsheetHeaderColumn>
               ))}
             </SpreadsheetHeader>
             <SpreadsheetBody>
               {rows.map((row, rowIdx) => (
                 <SpreadsheetRow key={rowIdx} rowNumber={String((rowIdx as number) + 1)}>
                   {columns.map(c => (
-                    <SpreadsheetCellContainer key={c.columnId}>{row[c.columnId]}</SpreadsheetCellContainer>
+                    <SpreadsheetCellContainer key={c.columnId}>
+                      <div className="column">{row[c.columnId]}</div>
+                    </SpreadsheetCellContainer>
                   ))}
                 </SpreadsheetRow>
               ))}
@@ -148,7 +152,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
+        }}
+      >
         {displayValue(result)}
       </span>
     )
@@ -199,7 +204,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
+        }}
+      >
         {result.result}
       </span>
     )

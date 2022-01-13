@@ -55,12 +55,19 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions}>
       <span>
         <SpreadsheetContainer>
-          <Input value={title} placeholder="Untitled Spreadsheet" onChange={handleTitleChange} />
+          <Input
+            className="spreadsheet-title"
+            value={title}
+            placeholder="Untitled Spreadsheet"
+            onChange={handleTitleChange}
+          />
           <SpreadsheetView>
             <SpreadsheetHeader>
               <SpreadsheetHeaderColumn className="row-action-panel">
                 <div className="row-action-panel-layer">
-                  <Button onClick={() => addColumn(0)}>+</Button>
+                  <Button size="small" onClick={() => addRow(0)}>
+                    +row
+                  </Button>
                 </div>
               </SpreadsheetHeaderColumn>
               {columns.map((column, i) => {
@@ -68,15 +75,30 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                   updateColumn({ ...column, title: event.target.value })
                 }
                 return (
-                  <SpreadsheetHeaderColumn key={column.uuid}>
-                    <Button size="small" onClick={() => addColumn(i + 1)}>
-                      +
-                    </Button>
-                    <Button size="small" onClick={() => removeColumn(column)}>
-                      x
-                    </Button>
-                    <br />
-                    <Input value={columnDisplayTitle(column)} onChange={handleTitleChange} />
+                  <SpreadsheetHeaderColumn
+                    key={column.uuid}
+                    columnActions={[
+                      {
+                        name: 'addColumnLeft',
+                        title: t('spreadsheet.column.add_left'),
+                        icon: <Icon.ArrowLeft />,
+                        onAction: () => addColumn(i)
+                      },
+                      {
+                        name: 'addColumnRight',
+                        title: t('spreadsheet.column.add_right'),
+                        icon: <Icon.ArrowRight />,
+                        onAction: () => addColumn(i + 1)
+                      },
+                      {
+                        name: 'deleteColumn',
+                        title: t('spreadsheet.column.delete'),
+                        icon: <Icon.Delete />,
+                        onAction: () => removeColumn(column)
+                      }
+                    ]}
+                  >
+                    <Input className="column" value={columnDisplayTitle(column)} onChange={handleTitleChange} />
                   </SpreadsheetHeaderColumn>
                 )
               })}
@@ -119,11 +141,6 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                   </SpreadsheetRow>
                 )
               })}
-              <SpreadsheetRow rowNumber="+">
-                <td colSpan={columns.length}>
-                  <Button onClick={() => addRow()}>+</Button>
-                </td>
-              </SpreadsheetRow>
             </SpreadsheetBody>
           </SpreadsheetView>
         </SpreadsheetContainer>

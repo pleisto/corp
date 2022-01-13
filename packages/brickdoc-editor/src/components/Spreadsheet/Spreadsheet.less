@@ -19,6 +19,23 @@
       padding-left: @table-action-layer-width;
       padding-bottom: 30px;
       position: relative;
+      input {
+        font-weight: normal;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        &:focus {
+          border: 0;
+        }
+      }
+      .spreadsheet-title {
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 8px;
+      }
       table {
         font-size: 14px;
         border-collapse: collapse;
@@ -33,7 +50,6 @@
         td, th {
           min-width: 164px;
           border: 1px solid @table-border-color;
-          padding: 8px 10px;
           line-height: 22px;
           &.row-action-panel {
             padding: 0;
@@ -71,13 +87,56 @@
               }
               .row-action {
                 cursor: pointer;
+                user-select: none;
                 opacity: 0;
                 transition: all 0.3s var(--brd-transitions-easeInOut);
                 border-radius: 0 4px 4px 0;
                 right: 2px;
                 width: 12px;
-                user-select: none;
               }
+            }
+          }
+        }
+        td, th {
+          position: relative;
+          .column, .cell {
+            width: 100%;
+            position: relative;
+            padding: 8px 10px;
+            display: block;
+          }
+          input {
+            display: block;
+            &:focus {
+              outline: 2px solid @table-action-hover-color;
+            }
+          }
+        }
+        th {
+          input {
+            color: @table-header-color;
+            text-align: center;
+            &:focus {
+              color: @deep-purple-9;
+            }
+          }
+          .column-action {
+            opacity: 0;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            height: 100%;
+            width: 30px;
+            right: 0;
+            top: 0;
+            transition: all 0.3s var(--brd-transitions-easeInOut);
+          }
+          &:hover, &.selected {
+            .column-action {
+              opacity: 1;
             }
           }
         }

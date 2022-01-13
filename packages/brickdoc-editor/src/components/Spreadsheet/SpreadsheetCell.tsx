@@ -23,5 +23,5 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ block, saveBlo
     })
   }
 
-  return <Input value={cellBlock.text} onChange={changeCellText} />
+  return <Input className="cell" value={cellBlock.text} onChange={changeCellText} />
 }

@@ -945,6 +945,11 @@ en-US:
         add_above: Add row above
         add_below: Add row below
         delete: Delete
+      column:
+        actions: Actions
+        add_left: Add column left
+        add_right: Add column right
+        delete: Delete
     table:
       untitled: Untitled
       new_row:

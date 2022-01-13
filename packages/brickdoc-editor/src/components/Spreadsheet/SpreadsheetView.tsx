@@ -13,6 +13,34 @@ export interface SpreadsheetActionItem {
   onAction?: (key: React.Key) => void
 }
 
+export const SpreadsheetMenu = (options: {
+  items: SpreadsheetActionItem[]
+  onAction?: (key: string) => void
+}): JSX.Element => {
+  const { items, onAction } = options
+  return (
+    <Menu>
+      {items.map(item => {
+        const title = item.title ?? item.name
+        return (
+          <Menu.Item
+            key={item.name}
+            itemKey={item.name}
+            icon={<MenuIcon>{item.icon}</MenuIcon>}
+            label={title}
+            onAction={key => {
+              item.onAction?.(key)
+              onAction?.(key)
+            }}
+          >
+            {title}
+          </Menu.Item>
+        )
+      })}
+    </Menu>
+  )
+}
+
 export const SpreadsheetContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div className="brickdoc-spreadsheet-block">{children}</div>
 }
@@ -29,11 +57,44 @@ export const SpreadsheetHeader: React.FC<{ children: React.ReactNode }> = ({ chi
   )
 }
 
-export const SpreadsheetHeaderColumn: React.FC<{ children?: React.ReactNode; className?: string }> = ({
-  children,
-  className
-}) => {
-  return <th className={className}>{children}</th>
+export const SpreadsheetHeaderColumn: React.FC<{
+  children?: React.ReactNode
+  className?: string
+  columnActions?: SpreadsheetActionItem[]
+}> = ({ children, className, columnActions }) => {
+  const { t } = useEditorI18n()
+  const [selected, setSelected] = React.useState(false)
+  const [dropdownVisible, setDropdownVisible] = React.useState(false)
+
+  const onDropdownVisibleChange = (value: boolean): void => {
+    setDropdownVisible(value)
+    if (value) {
+      setSelected(true)
+    }
+  }
+
+  return (
+    <th className={`${selected ? 'selected' : ''} ${className}`}>
+      {children}
+      {columnActions ? (
+        <Dropdown
+          className="column-action"
+          trigger={['click', 'contextMenu']}
+          overlay={SpreadsheetMenu({
+            items: columnActions,
+            onAction: key => setDropdownVisible(false)
+          })}
+          visible={dropdownVisible}
+          onVisibleChange={onDropdownVisibleChange}
+          aria-label={t('spreadsheet.column.actions')}
+        >
+          <span>⌄</span>
+        </Dropdown>
+      ) : (
+        ''
+      )}
+    </th>
+  )
 }
 
 export const SpreadsheetBody: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -72,28 +133,6 @@ export const SpreadsheetRow: React.FC<{
     document.addEventListener('mousedown', unselectRow)
   }
 
-  const menu = (
-    <Menu>
-      {rowActions?.map(item => {
-        const title = item.title ?? item.name
-        return (
-          <Menu.Item
-            key={item.name}
-            itemKey={item.name}
-            icon={<MenuIcon>{item.icon}</MenuIcon>}
-            label={title}
-            onAction={key => {
-              item.onAction?.(key)
-              setDropdownVisible(false)
-            }}
-          >
-            {title}
-          </Menu.Item>
-        )
-      })}
-    </Menu>
-  )
-
   return (
     <tr className={selected ? 'selected' : ''}>
       <td className="row-action-panel">
@@ -101,11 +140,14 @@ export const SpreadsheetRow: React.FC<{
           <Button className="row-number" onClick={onClickRowNumber}>
             {rowNumber}
           </Button>
-          {rowActions?.length ? (
+          {rowActions ? (
             <Dropdown
               className="row-action"
               trigger={['click', 'contextMenu']}
-              overlay={menu}
+              overlay={SpreadsheetMenu({
+                items: rowActions,
+                onAction: key => setDropdownVisible(false)
+              })}
               visible={dropdownVisible}
               onVisibleChange={onDropdownVisibleChange}
               aria-label={t('spreadsheet.row.actions')}
