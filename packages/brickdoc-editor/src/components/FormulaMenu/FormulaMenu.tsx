@@ -142,9 +142,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
   const contextCompletions = formulaContext ? formulaContext.completions(rootId, variable?.t.variableId) : []
   const formulaValue = variable?.t.valid
-    ? `=${variable.t.codeFragments.map(fragment => fragment.name).join('')}`
+    ? variable.t.codeFragments.map(fragment => fragment.name).join('')
     : variable?.t.definition
-  const definition = formulaValue?.substring(1) ?? ''
+  const definition = formulaValue ?? ''
 
   const codeFragments = variable?.t.codeFragments
   const defaultContent = variable?.t.valid
@@ -305,7 +305,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)
     const newContent = [...oldContent, ...completionContents, ...nextContents]
     const finalContent = buildJSONContentByArray(newContent)
-    const finalInput = `=${contentArrayToInput(fetchJSONContentArray(finalContent))}`
+    const finalInput = `${contentArrayToInput(fetchJSONContentArray(finalContent))}`
     setContent(finalContent)
     const newPosition = latestPosition.current + positionChange
     setPosition(newPosition)
@@ -350,7 +350,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const finalName = newName ?? name ?? defaultName
     const finalInput = newInput ?? input ?? ''
-    const inputIsEmpty = finalInput.trim() === '='
+    const inputIsEmpty = finalInput.trim() === ''
 
     const result = await calculate({
       namespaceId: rootId,
@@ -387,7 +387,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     if (parseResult.valid || inputIsEmpty) {
       setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments))
-      setInput(`=${parseResult.codeFragments.map(fragment => fragment.name).join('')}`)
+      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
       // } else if (parseResult.input !== input && parseResult.input !== '=') {
       //   const content = buildJSONContentByDefinition(parseResult.input.substring(1))
       //   console.log('ReplaceInput', { content, newInput: parseResult.input, input, parseResult })
@@ -464,7 +464,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       </div>
       <div className="formula-menu-divider" />
       <div className="formula-menu-result">
-        <span className="formula-menu-result-label">=</span>
         {error && (
           <span className="formula-menu-result-error">
             <span className="formula-menu-result-error-type">{error.type}</span>

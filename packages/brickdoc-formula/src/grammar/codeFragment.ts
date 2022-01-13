@@ -108,10 +108,13 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     ctx: { expression: CstNode | CstNode[]; Equal: any },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
-    // const operator = ctx.Equal[0] as IToken
-    // return [token2fragment(operator), ...this.visit(ctx.expression)]
+    const operator = ctx.Equal[0] as IToken
     const { type: newType, codeFragments, image } = this.visit(ctx.expression, { type })
-    return { type: newType, codeFragments, image: `${ctx.Equal[0].image}${image}` }
+    return {
+      type: newType,
+      codeFragments: [token2fragment(operator, 'any'), ...codeFragments],
+      image: `${ctx.Equal[0].image}${image}`
+    }
   }
 
   expression(

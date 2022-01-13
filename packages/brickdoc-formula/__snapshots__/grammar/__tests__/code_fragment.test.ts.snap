@@ -1296,6 +1296,16 @@ Object {
 exports[`Code fragment ok = (1 + 1) / 2 * 0.1 == (!!true and false or true) == "123" 2`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "LParen",
     "display": [Function],
     "errors": Array [],
@@ -1832,6 +1842,16 @@ Object {
 
 exports[`Code fragment ok = ABS("123") 2`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Function",
     "display": [Function],
@@ -2698,6 +2718,16 @@ Object {
 exports[`Code fragment ok = custom::PLUS((custom::FORTY_TWO()), 1 + 1) 2`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Function",
     "display": [Function],
     "errors": Array [],
@@ -3246,6 +3276,16 @@ Object {
 exports[`Code fragment ok ="FOO".T().T() & "Zzz" 2`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "StringLiteral",
     "display": [Function],
     "errors": Array [],
@@ -3678,6 +3718,16 @@ Object {
 exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 2`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Block",
     "display": [Function],
     "errors": Array [
@@ -4070,6 +4120,16 @@ Object {
 exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.d986e871-cb85-4bd5-b675-87307f60b882 + 1 2`] = `
 Array [
   Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
+  Object {
     "code": "Block",
     "display": [Function],
     "errors": Array [
@@ -4461,6 +4521,16 @@ Object {
 
 exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.d986e871-cb85-4bd5-b675-87307f60b882 + 2 2`] = `
 Array [
+  Object {
+    "code": "Equal",
+    "display": [Function],
+    "errors": Array [],
+    "hidden": false,
+    "name": "=",
+    "spaceAfter": true,
+    "spaceBefore": true,
+    "type": "any",
+  },
   Object {
     "code": "Sharp",
     "display": [Function],
