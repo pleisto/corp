@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dropdown, Menu, Button } from '@brickdoc/design-system'
+import { Dropdown, Menu } from '@brickdoc/design-system'
 
 import { useEditorI18n } from '../../hooks'
 
@@ -52,12 +52,6 @@ export const SpreadsheetRow: React.FC<{
     setDropdownVisible(value)
   }
 
-  const onClickMoreButton = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDropdownVisible(true)
-  }
-
   const menu = (
     <Menu>
       {rowActions?.map(item => {
@@ -88,14 +82,13 @@ export const SpreadsheetRow: React.FC<{
           {rowActions?.length ? (
             <Dropdown
               className="row-action"
-              trigger={['contextMenu']}
+              trigger={['click', 'contextMenu']}
               overlay={menu}
               visible={dropdownVisible}
               onVisibleChange={onDropdownVisibleChange}
+              aria-label={t('spreadsheet.row.actions')}
             >
-              <Button type="text" onClick={onClickMoreButton} aria-label={t('spreadsheet.row.actions')}>
-                ⌄
-              </Button>
+              <span>⌄</span>
             </Dropdown>
           ) : (
             ''
