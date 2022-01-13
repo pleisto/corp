@@ -12,5 +12,7 @@ module Docs
     field :level, Integer, 'level', null: false
     field :version, Integer, 'version', null: false
     field :kind, String, 'kind', null: false
+    field :type, String, 'type', null: false
+    field :path_ids, [BrickGraphQL::Scalars::UUID], 'path ids', null: false
   end
 end

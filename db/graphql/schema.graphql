@@ -1195,6 +1195,16 @@ type Formula {
   name: String!
 
   """
+  path ids
+  """
+  pathIds: [UUID!]!
+
+  """
+  type
+  """
+  type: String!
+
+  """
   updated at
   """
   updatedAt: ISO8601DateTime!
@@ -1253,6 +1263,16 @@ input FormulaCreateInput {
   name
   """
   name: String!
+
+  """
+  path ids
+  """
+  pathIds: [UUID!]!
+
+  """
+  type
+  """
+  type: String
 
   """
   version
@@ -1358,6 +1378,16 @@ input FormulaUpdateInput {
   name
   """
   name: String
+
+  """
+  path ids
+  """
+  pathIds: [UUID!]
+
+  """
+  type
+  """
+  type: String
 
   """
   version

@@ -7,7 +7,6 @@
 #  pod_id         :integer          not null
 #  block_id       :uuid             not null
 #  name           :string           not null
-#  view           :json             default("{}"), not null
 #  definition     :text             not null
 #  cache_value    :json             not null
 #  dependency_ids :uuid             default("{}"), not null, is an Array
@@ -16,6 +15,8 @@
 #  level          :integer          default("0"), not null
 #  version        :integer          default("0"), not null
 #  kind           :string           default("expression"), not null
+#  path_ids       :uuid             default("{}"), not null, is an Array
+#  type           :integer          default("0"), not null
 #
 # Indexes
 #
@@ -30,7 +31,10 @@ class Docs::Formula < ApplicationRecord
   belongs_to :block, class_name: 'Docs::Block'
   belongs_to :pod, optional: true
 
-  # TODO: remove view field
+  enum type: {
+    normal: 0,
+    spreadsheet: 1
+  }
 
   before_create do
     self.pod_id = block.pod_id
