@@ -8,7 +8,7 @@ import {
   DeleteBlock,
   CommitBlocks,
   loadSpreadsheetBlocks,
-  SpreadsheetBlocksLoaded,
+  SpreadsheetLoaded,
   BlockInput
 } from '@brickdoc/schema'
 
@@ -89,7 +89,7 @@ export const useSpreadsheet = (options: {
   }
 
   BrickdocEventBus.subscribe(
-    SpreadsheetBlocksLoaded,
+    SpreadsheetLoaded,
     (e: Event) => {
       const { parentId, blocks } = e.payload
       console.log(`loaded spreadsheet ${parentId}`)

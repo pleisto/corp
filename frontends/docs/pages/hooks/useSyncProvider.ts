@@ -7,7 +7,7 @@ import {
   Block,
   useGetChildrenBlocksQuery,
   useBlockSyncBatchMutation,
-  GetSpreadsheetBlocksDocument
+  GetSpreadsheetChildrenDocument
 } from '@/BrickdocGraphQL'
 import { isEqual } from 'lodash-es'
 import { isSavingVar } from '../../reactiveVars'
@@ -22,7 +22,7 @@ import {
   DeleteBlock,
   CommitBlocks,
   loadSpreadsheetBlocks,
-  SpreadsheetBlocksLoaded
+  SpreadsheetLoaded
 } from '@brickdoc/schema'
 
 export type UpdateBlocks = (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
@@ -240,20 +240,20 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       console.log(`loading spreadsheet ${parentId}`)
       void (async () => {
         const { data } = await client.query({
-          query: GetSpreadsheetBlocksDocument,
+          query: GetSpreadsheetChildrenDocument,
           variables: {
-            parentId,
-            snapshotVersion: 0
+            parentId
           },
           fetchPolicy: 'no-cache'
         })
-        data.spreadsheetBlocks.forEach((block: Block) => {
+        const { blocks } = data.spreadsheetChildren
+        blocks.forEach((block: Block) => {
           cachedBlocksMap.current.set(block.id, block)
         })
         BrickdocEventBus.dispatch(
-          SpreadsheetBlocksLoaded({
+          SpreadsheetLoaded({
             parentId,
-            blocks: data.spreadsheetBlocks
+            blocks
           })
         )
       })()

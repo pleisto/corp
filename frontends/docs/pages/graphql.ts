@@ -235,16 +235,31 @@ export const queryChildrenBlocks = gql`
   }
 `
 
-export const querySpreadsheetBlocks = gql`
-  query GetSpreadsheetBlocks($parentId: String!, $snapshotVersion: Int!) {
-    spreadsheetBlocks(parentId: $parentId, snapshotVersion: $snapshotVersion) {
-      id
-      sort
-      parentId
-      type
-      text
-      content
-      data
+export const querySpreadsheetChildren = gql`
+  query GetSpreadsheetChildren($parentId: String!) {
+    spreadsheetChildren(parentId: $parentId) {
+      blocks {
+        id
+        sort
+        parentId
+        type
+        text
+        content
+        data
+      }
+      formulas {
+        id
+        name
+        cacheValue
+        blockId
+        definition
+        dependencyIds
+        updatedAt
+        createdAt
+        level
+        version
+        kind
+      }
     }
   }
 `

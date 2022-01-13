@@ -21,8 +21,8 @@ export const loadSpreadsheetBlocks = event<string>()('loadSpreadsheetBlocks', (p
   return { id: parentId }
 })
 
-export const SpreadsheetBlocksLoaded = event<{ parentId: string; blocks: Block[] }>()(
-  'SpreadsheetBlocksLoaded',
+export const SpreadsheetLoaded = event<{ parentId: string; blocks: Block[] }>()(
+  'SpreadsheetLoaded',
   ({ parentId, blocks }) => {
     return { id: parentId }
   }
