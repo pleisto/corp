@@ -70,6 +70,12 @@ export const SpreadsheetHeaderColumn: React.FC<{
   const selected = context.selection.columnIds?.includes(columnId)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
+  const onDoubleClickColumn = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
+    e.preventDefault()
+    e.stopPropagation()
+    selectColumn()
+  }
+
   const unselectColumn = (): void => {
     context.clearSelection()
     document.removeEventListener('mousedown', unselectColumn)
@@ -88,7 +94,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
   }
 
   return (
-    <th className={`${selected ? 'selected' : ''} ${className}`}>
+    <th className={`${selected ? 'selected' : ''} ${className}`} onDoubleClick={onDoubleClickColumn}>
       {children}
       {columnActions ? (
         <Dropdown
