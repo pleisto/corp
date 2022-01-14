@@ -14,11 +14,11 @@ const i18nKey = 'formula.menu'
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, extension, getPos }) => {
   const { t } = useEditorI18n()
-  const attributes = node.attrs.formula
   const isNew = node.attrs.isNew
-  const updateFormula = (variable: VariableInterface): void =>
-    updateAttributes({ formula: { type: 'FORMULA', id: variable.t.variableId } })
+  const formulaId = node.attrs.uuid
+  const updateFormula = (variable: VariableInterface): void => {}
   const editorDataSource = React.useContext(EditorDataSourceContext)
+  const rootId = editorDataSource.rootId
 
   const handleDelete = (variable: VariableInterface): void => {
     Modal.confirm({
@@ -43,8 +43,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       defaultVisible={isNew}
       handleTurnOffVisible={() => updateAttributes({ isNew: false })}
       handleDelete={handleDelete}
-      rootId={editorDataSource.rootId}
-      formulaId={attributes.id}
+      rootId={rootId}
+      formulaId={formulaId}
       updateFormula={updateFormula}
     />
   )
