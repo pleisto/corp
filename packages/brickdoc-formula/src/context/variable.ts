@@ -20,7 +20,7 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'boolean':
       return String(v.result)
     case 'string':
-      return `"${v.result}"`
+      return v.result
     case 'Date':
       return v.result.toISOString()
     case 'Error':

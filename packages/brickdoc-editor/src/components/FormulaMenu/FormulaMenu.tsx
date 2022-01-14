@@ -30,6 +30,7 @@ import {
 } from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { useKeydownHandler } from './useKeyDownHandler'
+import { v4 as uuid } from 'uuid'
 
 export interface FormulaMenuProps {
   defaultVisible: boolean
@@ -69,7 +70,7 @@ const calculate = async ({
   parseResult: ParseResult
   interpretResult: InterpretResult
 }> => {
-  const variableId = variable ? variable.t.variableId : formulaId
+  const variableId = variable ? variable.t.variableId : formulaId ?? uuid()
   const meta = { namespaceId, variableId, name, input }
   const ctx = {
     formulaContext,
