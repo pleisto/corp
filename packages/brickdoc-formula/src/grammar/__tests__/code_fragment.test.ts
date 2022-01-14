@@ -1,6 +1,6 @@
 import { parse } from '../core'
 import { FormulaContext } from '../../context'
-import { BaseFunctionClause, NumberResult } from '../../types'
+import { BaseFunctionClause, NumberResult, VariableMetadata } from '../../types'
 import { quickInsert } from '../testHelper'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
@@ -54,7 +54,7 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
 
 const formulaContext = new FormulaContext({ functionClauses })
 
-const meta = { namespaceId, variableId, name: 'foo', input: '=24' }
+const meta: VariableMetadata = { namespaceId, variableId, name: 'foo', input: '=24', type: 'normal' }
 
 const testCases = [
   '= (1 + 1) / 2 * 0.1 == (!!true and false or true) == "123"',

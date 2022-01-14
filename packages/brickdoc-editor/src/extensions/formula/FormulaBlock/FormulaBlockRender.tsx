@@ -26,7 +26,8 @@ import {
   SpreadsheetResult,
   StringResult,
   AnyTypeResult,
-  VariableData
+  VariableData,
+  FormulaSourceType
 } from '@brickdoc/formula'
 
 import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
@@ -34,6 +35,7 @@ import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 export interface FormulaBlockRenderProps {
   formulaId: string
   formulaName?: string
+  formulaType: FormulaSourceType
   rootId: string
   defaultVisible?: boolean
   handleTurnOffVisible?: () => void
@@ -46,6 +48,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
   formulaName,
+  formulaType,
   handleTurnOffVisible,
   defaultVisible = false,
   updateFormula,
@@ -238,6 +241,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     <BlockContainer inline={true}>
       <FormulaMenu
         formulaId={formulaId}
+        formulaType={formulaType}
         formulaName={formulaName}
         rootId={rootId}
         defaultVisible={defaultVisible}

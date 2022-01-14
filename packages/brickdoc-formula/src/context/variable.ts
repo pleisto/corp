@@ -9,7 +9,9 @@ import {
   VariableValue,
   InterpretContext,
   Definition,
-  Formula
+  Formula,
+  BaseFormula,
+  FormulaSourceType
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -60,11 +62,12 @@ export const displayValue = (v: AnyTypeResult): string => {
 
 export const castVariable = (
   formulaContext: ContextInterface,
-  { name, definition, cacheValue, version, blockId, id }: Formula
+  { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
 ): VariableData => {
   const namespaceId = blockId
   const variableId = id
-  const meta = { namespaceId, variableId, name, input: definition }
+  const type = unknownType as FormulaSourceType
+  const meta: VariableMetadata = { namespaceId, variableId, name, input: definition, type }
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
   const castedValue: AnyTypeResult = loadValue(ctx, cacheValue)
   const {
@@ -107,6 +110,7 @@ export const castVariable = (
     codeFragments,
     level,
     kind: kind ?? 'constant',
+    type,
     blockDependencies,
     variableDependencies,
     flattenVariableDependencies,
@@ -142,7 +146,8 @@ export class VariableClass implements VariableInterface {
       namespaceId: this.t.namespaceId,
       variableId: this.t.variableId,
       name: this.t.name,
-      input: this.t.definition
+      input: this.t.definition,
+      type: this.t.type
     }
   }
 
@@ -164,7 +169,7 @@ export class VariableClass implements VariableInterface {
       version: this.t.version,
       kind: this.t.kind,
       level: this.t.level,
-      type: 'normal',
+      type: this.t.type,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),
       cacheValue: dumpValue(ctx, this.t.variableValue.cacheValue),

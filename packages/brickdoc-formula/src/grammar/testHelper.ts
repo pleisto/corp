@@ -5,7 +5,7 @@ import { interpret, parse } from './core'
 export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<void> => {
   const {
     formulaContext,
-    meta: { namespaceId, variableId, name, input }
+    meta: { namespaceId, variableId, name, input, type }
   } = ctx
   const {
     success,
@@ -35,6 +35,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     valid: true,
     definition: input,
     cst,
+    type,
     version: lazy ? -1 : version,
     kind: kind ?? 'constant',
     codeFragments,

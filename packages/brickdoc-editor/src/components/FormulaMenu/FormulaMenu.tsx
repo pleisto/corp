@@ -7,6 +7,7 @@ import {
   ContextInterface,
   displayValue,
   ErrorMessage,
+  FormulaSourceType,
   interpret,
   InterpretResult,
   parse,
@@ -35,6 +36,7 @@ export interface FormulaMenuProps {
   defaultVisible: boolean
   formulaId: string
   formulaName?: string
+  formulaType: FormulaSourceType
   rootId: string
   onVisibleChange: (visible: boolean) => void
   variable?: VariableInterface
@@ -52,11 +54,13 @@ const calculate = async ({
   name,
   input,
   position,
+  formulaType,
   formulaContext
 }: {
   namespaceId: string
   formulaId: string
   variable: VariableInterface | undefined
+  formulaType: FormulaSourceType
   name: string
   input: string
   position: number
@@ -70,7 +74,7 @@ const calculate = async ({
   interpretResult: InterpretResult
 }> => {
   const variableId = variable ? variable.t.variableId : formulaId
-  const meta = { namespaceId, variableId, name, input }
+  const meta = { namespaceId, variableId, name, input, type: formulaType }
   const ctx = {
     formulaContext,
     meta,
@@ -134,6 +138,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   rootId,
   formulaId,
   formulaName,
+  formulaType,
   defaultVisible,
   onVisibleChange,
   variable,
@@ -362,6 +367,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       namespaceId: rootId,
       formulaId,
       variable,
+      formulaType,
       position: latestPosition.current,
       name: finalName,
       input: finalInput,
@@ -446,10 +452,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     close()
   }
 
+  const formulaIsNormal = formulaType === 'normal'
+
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
-      {!formulaName && (
+      {formulaIsNormal && (
         <div className="formula-menu-row">
           <div className="formula-menu-item">
             <label className="formula-menu-label">

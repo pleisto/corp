@@ -295,7 +295,9 @@ export type AnyTypeResult =
   | ReferenceResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
-export interface Formula {
+
+export type FormulaSourceType = 'normal' | 'spreadsheet'
+export interface BaseFormula {
   blockId: uuid
   definition: string
   id: uuid
@@ -306,6 +308,12 @@ export interface Formula {
   kind: string
   dependencyIds: uuid[]
   type: string
+}
+
+export interface Formula extends BaseFormula {
+  definition: Definition
+  type: FormulaSourceType
+  kind: VariableKind
 }
 
 export interface FormulaWithTime extends Formula {
@@ -577,6 +585,7 @@ export interface VariableData {
   definition: Definition
   dirty: boolean
   valid: boolean
+  type: FormulaSourceType
   kind: VariableKind
   variableValue: VariableValue
   cst?: CstNode
@@ -592,6 +601,7 @@ export interface VariableMetadata {
   readonly variableId: VariableId
   readonly input: string
   readonly name: VariableName
+  readonly type: FormulaSourceType
 }
 
 export interface VariableInterface {

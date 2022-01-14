@@ -30,6 +30,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, bloc
       formulaId={formulaId}
       handleDelete={handleDelete}
       updateFormula={updateFormula}
+      formulaType="spreadsheet"
     />
   )
 }

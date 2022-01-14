@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import { parse, interpret } from '../core'
-import { FunctionContext, ParseErrorType } from '../../types'
+import { FunctionContext, ParseErrorType, VariableMetadata } from '../../types'
 import { FormulaContext } from '../../context'
 import { quickInsert } from '../testHelper'
 
@@ -906,7 +906,7 @@ const testCases: TestCase[] = [
 const formulaContext = new FormulaContext({})
 
 const name = 'foo'
-const meta = { variableId, namespaceId, name, input: '!!!' }
+const meta: VariableMetadata = { variableId, namespaceId, name, input: '!!!', type: 'normal' }
 
 const ctx: FunctionContext = {
   formulaContext,
@@ -920,7 +920,10 @@ const ctx: FunctionContext = {
 describe('Simple test case', () => {
   beforeAll(async () => {
     await quickInsert({
-      ctx: { ...ctx, meta: { namespaceId: barNamespaceId, name: 'bar', variableId: barVariableId, input: '=24' } }
+      ctx: {
+        ...ctx,
+        meta: { namespaceId: barNamespaceId, name: 'bar', variableId: barVariableId, input: '=24', type: 'normal' }
+      }
     })
   })
 

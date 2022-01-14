@@ -1,6 +1,7 @@
 import { parse, interpret } from '../core'
 import { FormulaContext } from '../../context'
 import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass } from '../../controls'
+import { VariableMetadata } from '../..'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
@@ -13,7 +14,7 @@ const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
 const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
 const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
-const meta = { namespaceId, variableId, name: 'example' }
+const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', type: 'normal' }
 
 const spreadsheetData: Row[] = [
   { id: firstRowId, [firstColumnId]: '1', [secondColumnId]: '2', [thirdColumnId]: '3', sort: '100' },

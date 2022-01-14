@@ -16,9 +16,9 @@ import {
   CodeFragmentResult,
   NamespaceId,
   FunctionContext,
-  Formula,
   BlockKey,
-  StringResult
+  StringResult,
+  BaseFormula
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -452,7 +452,7 @@ export const interpret = async ({
 
 export const buildVariable = ({
   formulaContext,
-  meta: { name, input, namespaceId, variableId },
+  meta: { name, input, namespaceId, variableId, type },
   parseResult: {
     valid,
     cst,
@@ -477,6 +477,7 @@ export const buildVariable = ({
     variableId,
     name,
     cst,
+    type,
     version: lazy ? -1 : version,
     codeFragments,
     definition: input,
@@ -500,7 +501,7 @@ export const buildVariable = ({
   }
 }
 
-export const appendFormulas = (formulaContext: ContextInterface, formulas: Formula[]): void => {
+export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {
   const dupFormulas = [...formulas]
   dupFormulas
     .sort((a, b) => a.level - b.level)
