@@ -1,6 +1,9 @@
 import { ForwardRefRenderFunction, forwardRef, createRef } from 'react'
-import StateSelect from 'react-select'
+import StateSelect, { createFilter } from 'react-select'
 import { theme } from '../../themes'
+import { VirtualMenuList } from './VirtualMenuList'
+import { DropdownIndicator, IndicatorSeparator, IndicatorsContainer } from './Indicator'
+import { CeramicsMixins } from '../../themes/ceramic-light/colors/ceramics'
 
 type StateSelectProps = Parameters<typeof StateSelect>[0]
 export interface SelectProps
@@ -31,7 +34,9 @@ const Select: ForwardRefRenderFunction<unknown, SelectProps> = (
     focused = false,
     selected = false,
     menuPortalTarget = document.body,
+    filterOption,
     styles,
+    components,
     ...otherProps
   },
   ref
@@ -47,16 +52,48 @@ const Select: ForwardRefRenderFunction<unknown, SelectProps> = (
     isFocused: focused,
     isSelected: selected,
     menuPortalTarget,
+    filterOption: filterOption ?? createFilter({ ignoreAccents: false }),
     ...otherProps
   }
   return (
     <StateSelect
       {...selectProps}
       ref={selectRef}
+      components={{
+        MenuList: VirtualMenuList,
+        DropdownIndicator,
+        IndicatorSeparator,
+        IndicatorsContainer,
+        ...components
+      }}
       styles={{
+        // `react-select` use emotion.css as css-in-js library.
+        control: () => ({
+          display: 'flex',
+          alignItems: 'center',
+          border: `1px solid ${theme.colors.borderSecondary}`,
+          borderRadius: '4px',
+          background: `${theme.colors.ceramicQuaternary}`,
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          minHeight: '38px',
+          outline: '0 !important',
+          position: 'relative',
+          transition: 'all 100ms'
+        }),
         menuPortal: base => ({
           ...base,
-          zIndex: theme.zIndices.dropdown as unknown as number
+          zIndex: `${theme.zIndices.dropdown}` as unknown as number
+        }),
+        menu: base => ({
+          ...base,
+          ...CeramicsMixins.ceramicPrimary
+        }),
+        option: (base, state) => ({
+          ...base,
+          color: `${theme.colors.typePrimary}`,
+          cursor: 'pointer',
+          background: state.isFocused || state.isSelected ? `${theme.colors.secondaryHover}` : 'transparent'
         }),
         ...styles
       }}

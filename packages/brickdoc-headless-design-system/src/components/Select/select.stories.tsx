@@ -257,3 +257,8 @@ SearchableSelect.args = {
   searchable: true,
   clearable: true
 }
+
+export const LargeDataSet = Template.bind({})
+LargeDataSet.args = {
+  options: [...Array(1000).keys()].map(i => ({ value: i, label: `label${i}` }))
+}
