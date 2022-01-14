@@ -1,27 +1,33 @@
 import React from 'react'
 
-import { Input } from '@brickdoc/design-system'
 import { BlockInput } from '@brickdoc/schema'
+import { FormulaBlockRender } from '../../extensions/formula/FormulaBlock/FormulaBlockRender'
+import { displayValue, VariableInterface } from '@brickdoc/formula'
 
 export interface SpreadsheetCellProps {
   block: BlockInput
+  parentId: string
   saveBlock: (block: BlockInput) => void
 }
 
-export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ block, saveBlock }) => {
-  const [cellBlock, setCellBlock] = React.useState<BlockInput>(block)
+export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, block, saveBlock }) => {
+  const formulaId = block.data.formulaId
 
-  const updateCellBlack = (block: BlockInput): void => {
-    saveBlock(block)
-    setCellBlock(block)
-  }
-
-  const changeCellText = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    updateCellBlack({
-      ...cellBlock,
-      text: event.target.value
+  const handleDelete = (): void => {}
+  const updateFormula = (variable: VariableInterface): void => {
+    saveBlock({
+      ...block,
+      text: displayValue(variable.t.variableValue.result)
     })
+    console.log('updateFormula', { variable, parentId, formulaId })
   }
 
-  return <Input className="cell" value={cellBlock.text} onChange={changeCellText} />
+  return (
+    <FormulaBlockRender
+      rootId={parentId}
+      formulaId={formulaId}
+      handleDelete={handleDelete}
+      updateFormula={updateFormula}
+    />
+  )
 }

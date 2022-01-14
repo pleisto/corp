@@ -34,27 +34,29 @@ import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 export interface FormulaBlockRenderProps {
   formulaId: string
   rootId: string
-  defaultVisible: boolean
-  handleTurnOffVisible: () => void
+  defaultVisible?: boolean
+  handleTurnOffVisible?: () => void
   handleDelete: (variable: VariableInterface) => void
   cacheT?: VariableData
-  updateFormula: (id: string) => void
+  updateFormula: (variable: VariableInterface) => void
 }
 
 export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
   handleTurnOffVisible,
-  defaultVisible,
+  defaultVisible = false,
   updateFormula,
   handleDelete,
   cacheT
 }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
-  const [variable, setVariable] = React.useState(formulaContext?.findVariable(editorDataSource.rootId, formulaId))
+  const [variable, setVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
   const variableT = cacheT ?? variable?.t
   const isDraft = variable?.isDraft() === true
+
+  console.log({ variable, formulaContext, formulaId, rootId })
 
   BrickdocEventBus.subscribe(
     FormulaUpdated,
@@ -100,7 +102,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const activeColor = COLOR[activeColorIndex]
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && defaultVisible) {
-      handleTurnOffVisible()
+      handleTurnOffVisible?.()
     }
   }
 
@@ -131,8 +133,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
                       <SpreadsheetCellContainer
                         key={c.columnId}
                         context={spreadsheetContext}
-                        cellId={{ rowId: rowNumber, columnId: c.columnId }}
-                      >
+                        cellId={{ rowId: rowNumber, columnId: c.columnId }}>
                         <div className="column">{row[c.columnId]}</div>
                       </SpreadsheetCellContainer>
                     ))}
@@ -162,8 +163,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}
-      >
+        }}>
         {displayValue(result)}
       </span>
     )
@@ -214,8 +214,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}
-      >
+        }}>
         {result.result}
       </span>
     )
@@ -236,13 +235,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   return (
     <BlockContainer inline={true}>
       <FormulaMenu
+        formulaId={formulaId}
+        rootId={rootId}
         defaultVisible={defaultVisible}
         onVisibleChange={handleDefaultPopoverVisibleChange}
         handleDelete={handleDelete}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}
-      >
+        updateVariable={setVariable}>
         {renderVariable(variableT)}
       </FormulaMenu>
     </BlockContainer>

@@ -144,9 +144,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                         <SpreadsheetCellContainer
                           key={block.id}
                           context={spreadsheetContext}
-                          cellId={{ rowId: rowBlock.id, columnId: column.uuid }}
-                        >
-                          <SpreadsheetCell key={block.id} block={block} saveBlock={saveCellBlock} />
+                          cellId={{ rowId: rowBlock.id, columnId: column.uuid }}>
+                          <SpreadsheetCell parentId={parentId} key={block.id} block={block} saveBlock={saveCellBlock} />
                         </SpreadsheetCellContainer>
                       )
                     })}

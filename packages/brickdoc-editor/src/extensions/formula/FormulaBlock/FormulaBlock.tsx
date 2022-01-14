@@ -16,7 +16,8 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const { t } = useEditorI18n()
   const attributes = node.attrs.formula
   const isNew = node.attrs.isNew
-  const updateFormula = (id: string): void => updateAttributes({ formula: { type: 'FORMULA', id } })
+  const updateFormula = (variable: VariableInterface): void =>
+    updateAttributes({ formula: { type: 'FORMULA', id: variable.t.variableId } })
   const editorDataSource = React.useContext(EditorDataSourceContext)
 
   const handleDelete = (variable: VariableInterface): void => {

@@ -208,7 +208,7 @@ export const useSpreadsheet = (options: {
         content: [],
         meta: {},
         text: '',
-        data: { columnId }
+        data: { columnId, formulaId: uuid() }
       }
       setBlockToCellsMap(block)
     }
@@ -216,7 +216,7 @@ export const useSpreadsheet = (options: {
   }
 
   const saveCellBlock = React.useCallback((block: BlockInput): void => {
-    console.log(`Saving cell block ${block.id}`)
+    console.log(`Saving cell block`, block)
     setBlockToCellsMap(block)
     blocksMap.current.set(block.id, block)
     BrickdocEventBus.dispatch(UpdateBlock({ block }))

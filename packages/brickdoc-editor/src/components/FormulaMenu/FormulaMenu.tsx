@@ -13,7 +13,6 @@ import {
   ParseResult,
   VariableInterface
 } from '@brickdoc/formula'
-import { v4 as uuid } from 'uuid'
 import { useEditorI18n } from '../../hooks'
 import './FormulaMenu.less'
 import { JSONContent } from '@tiptap/core'
@@ -34,10 +33,12 @@ import { useKeydownHandler } from './useKeyDownHandler'
 
 export interface FormulaMenuProps {
   defaultVisible: boolean
+  formulaId: string
+  rootId: string
   onVisibleChange: (visible: boolean) => void
   variable?: VariableInterface
   updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>
-  updateFormula: (id: string) => void
+  updateFormula: (variable: VariableInterface) => void
   handleDelete: (variable: VariableInterface) => void
 }
 
@@ -46,12 +47,14 @@ const i18nKey = 'formula.menu'
 const calculate = async ({
   namespaceId,
   variable,
+  formulaId,
   name,
   input,
   position,
   formulaContext
 }: {
   namespaceId: string
+  formulaId: string
   variable: VariableInterface | undefined
   name: string
   input: string
@@ -65,7 +68,7 @@ const calculate = async ({
   parseResult: ParseResult
   interpretResult: InterpretResult
 }> => {
-  const variableId = variable ? variable.t.variableId : uuid()
+  const variableId = variable ? variable.t.variableId : formulaId
   const meta = { namespaceId, variableId, name, input }
   const ctx = {
     formulaContext,
@@ -127,6 +130,8 @@ export type CodeFragmentWithBlockId = CodeFragment & { blockId: string }
 
 export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   children,
+  rootId,
+  formulaId,
   defaultVisible,
   onVisibleChange,
   variable,
@@ -136,7 +141,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 }) => {
   const { t } = useEditorI18n()
   const editorDataSource = React.useContext(EditorDataSourceContext)
-  const rootId = editorDataSource.rootId
   const formulaContext = editorDataSource.formulaContext
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
@@ -354,6 +358,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const result = await calculate({
       namespaceId: rootId,
+      formulaId,
       variable,
       position: latestPosition.current,
       name: finalName,
@@ -424,7 +429,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     variable!.t.name = finalName
     variable!.t.definition = input!
-    updateFormula(variable!.t.variableId)
+    updateFormula(variable!)
 
     await variable!.save()
     // await formulaContext!.commitVariable({ variable: variable! })
