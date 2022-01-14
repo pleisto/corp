@@ -28,13 +28,14 @@ export const SpreadsheetMenu = (options: {
           <Menu.Item
             key={item.name}
             itemKey={item.name}
-            icon={<MenuIcon>{item.icon}</MenuIcon>}
+            // icon={<MenuIcon>{item.icon}</MenuIcon>} TODO: bugfix
             label={title}
             onAction={key => {
               item.onAction?.(key)
               onAction?.(key)
             }}
           >
+            <MenuIcon style={{ marginRight: '10px' }}>{item.icon}</MenuIcon>
             {title}
           </Menu.Item>
         )
@@ -104,6 +105,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
             items: columnActions,
             onAction: key => setDropdownVisible(false)
           })}
+          placement="bottomStart"
           visible={dropdownVisible}
           onVisibleChange={onDropdownVisibleChange}
           aria-label={t('spreadsheet.column.actions')}
@@ -172,6 +174,7 @@ export const SpreadsheetRow: React.FC<{
                 items: rowActions,
                 onAction: key => setDropdownVisible(false)
               })}
+              placement="bottomStart"
               visible={dropdownVisible}
               onVisibleChange={onDropdownVisibleChange}
               aria-label={t('spreadsheet.row.actions')}

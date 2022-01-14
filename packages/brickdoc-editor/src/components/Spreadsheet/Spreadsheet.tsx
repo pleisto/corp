@@ -99,7 +99,12 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
             <SpreadsheetHeader>
               <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="">
                 <div className="row-action-panel-layer">
-                  <Dropdown className="spreadsheet-menu-button" trigger={['click', 'contextMenu']} overlay={menu}>
+                  <Dropdown
+                    className="spreadsheet-menu-button"
+                    trigger={['click', 'contextMenu']}
+                    placement="bottomEnd"
+                    overlay={menu}
+                  >
                     <Icon.HamburgerButton />
                   </Dropdown>
                 </div>
