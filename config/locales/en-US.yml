@@ -940,6 +940,7 @@ en-US:
         head: LINK TO PAGE
         no_content: PAGE NO RESULT
     spreadsheet:
+      delete: Delete
       row:
         actions: Actions
         add_above: Add row above

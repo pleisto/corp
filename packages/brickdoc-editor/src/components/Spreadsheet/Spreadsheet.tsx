@@ -1,6 +1,7 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/react'
-import { Button, Input, Icon } from '@brickdoc/design-system'
+import { Menu, Input, Dropdown, Icon } from '@brickdoc/design-system'
+import { MenuIcon } from '../SlashMenu/styled'
 import { useEditorI18n } from '../../hooks'
 
 import { BlockContainer, BlockContainerProps } from '../BlockContainer'
@@ -53,7 +54,36 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     setTitle(title)
   }
 
-  const actionOptions: BlockContainerProps['actionOptions'] = ['delete']
+  const menu = (
+    <Menu>
+      <Menu.Item
+        itemKey="delete"
+        icon={
+          <MenuIcon>
+            <Icon.Delete />
+          </MenuIcon>
+        }
+        label={t('spreadsheet.delete')}
+        onAction={deleteNode}
+      >
+        {t('spreadsheet.delete')}
+      </Menu.Item>
+      <Menu.Item
+        itemKey="addRow"
+        icon={
+          <MenuIcon>
+            <Icon.ArrowDown />
+          </MenuIcon>
+        }
+        label={t('spreadsheet.row.add_below')}
+        onAction={() => addRow(0)}
+      >
+        {t('spreadsheet.row.add_below')}
+      </Menu.Item>
+    </Menu>
+  )
+
+  const actionOptions: BlockContainerProps['actionOptions'] = []
 
   return (
     <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions}>
@@ -69,9 +99,9 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
             <SpreadsheetHeader>
               <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="">
                 <div className="row-action-panel-layer">
-                  <Button size="small" onClick={() => addRow(0)}>
-                    +row
-                  </Button>
+                  <Dropdown className="spreadsheet-menu-button" trigger={['click', 'contextMenu']} overlay={menu}>
+                    <Icon.HamburgerButton />
+                  </Dropdown>
                 </div>
               </SpreadsheetHeaderColumn>
               {columns.map((column, i) => {
@@ -144,7 +174,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                         <SpreadsheetCellContainer
                           key={block.id}
                           context={spreadsheetContext}
-                          cellId={{ rowId: rowBlock.id, columnId: column.uuid }}>
+                          cellId={{ rowId: rowBlock.id, columnId: column.uuid }}
+                        >
                           <SpreadsheetCell parentId={parentId} key={block.id} block={block} saveBlock={saveCellBlock} />
                         </SpreadsheetCellContainer>
                       )
