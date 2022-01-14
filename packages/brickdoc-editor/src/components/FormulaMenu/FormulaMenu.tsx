@@ -34,6 +34,7 @@ import { useKeydownHandler } from './useKeyDownHandler'
 export interface FormulaMenuProps {
   defaultVisible: boolean
   formulaId: string
+  formulaName?: string
   rootId: string
   onVisibleChange: (visible: boolean) => void
   variable?: VariableInterface
@@ -132,6 +133,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   children,
   rootId,
   formulaId,
+  formulaName,
   defaultVisible,
   onVisibleChange,
   variable,
@@ -157,7 +159,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
-  const [name, setName] = React.useState(variable?.t.name)
+  const [name, setName] = React.useState(formulaName ?? variable?.t.name)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
   const [input, setInput] = React.useState(formulaValue)
 
@@ -309,7 +311,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)
     const newContent = [...oldContent, ...completionContents, ...nextContents]
     const finalContent = buildJSONContentByArray(newContent)
-    const finalInput = `${contentArrayToInput(fetchJSONContentArray(finalContent))}`
+    const finalInput = contentArrayToInput(fetchJSONContentArray(finalContent))
     setContent(finalContent)
     const newPosition = latestPosition.current + positionChange
     setPosition(newPosition)
@@ -447,14 +449,21 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
-      <div className="formula-menu-row">
-        <div className="formula-menu-item">
-          <label className="formula-menu-label">
-            <span className="formula-menu-label-text">{t(`${i18nKey}.name`)}</span>
-            <Input className="formula-menu-field" placeholder={defaultName} value={name} onChange={handleNameChange} />
-          </label>
+      {!formulaName && (
+        <div className="formula-menu-row">
+          <div className="formula-menu-item">
+            <label className="formula-menu-label">
+              <span className="formula-menu-label-text">{t(`${i18nKey}.name`)}</span>
+              <Input
+                className="formula-menu-field"
+                placeholder={defaultName}
+                value={name}
+                onChange={handleNameChange}
+              />
+            </label>
+          </div>
         </div>
-      </div>
+      )}
       <div className="formula-menu-row">
         <div className="formula-menu-item">
           <FormulaEditor

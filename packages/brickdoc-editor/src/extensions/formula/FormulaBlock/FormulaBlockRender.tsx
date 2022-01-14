@@ -33,6 +33,7 @@ import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
+  formulaName?: string
   rootId: string
   defaultVisible?: boolean
   handleTurnOffVisible?: () => void
@@ -44,6 +45,7 @@ export interface FormulaBlockRenderProps {
 export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
+  formulaName,
   handleTurnOffVisible,
   defaultVisible = false,
   updateFormula,
@@ -236,6 +238,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     <BlockContainer inline={true}>
       <FormulaMenu
         formulaId={formulaId}
+        formulaName={formulaName}
         rootId={rootId}
         defaultVisible={defaultVisible}
         onVisibleChange={handleDefaultPopoverVisibleChange}

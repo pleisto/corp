@@ -12,6 +12,7 @@ export interface SpreadsheetCellProps {
 
 export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, block, saveBlock }) => {
   const formulaId = block.data.formulaId
+  const formulaName = `${block.parentId}_${block.data.columnId}`
 
   const handleDelete = (): void => {}
   const updateFormula = (variable: VariableInterface): void => {
@@ -24,6 +25,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, bloc
 
   return (
     <FormulaBlockRender
+      formulaName={formulaName}
       rootId={parentId}
       formulaId={formulaId}
       handleDelete={handleDelete}
