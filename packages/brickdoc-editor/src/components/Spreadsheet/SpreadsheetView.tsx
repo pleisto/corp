@@ -6,6 +6,8 @@ import { useEditorI18n } from '../../hooks'
 
 import { MenuIcon } from '../SlashMenu/styled'
 
+import { SpreadsheetContext, SpreadsheetSelectionCellId } from './SpreadsheetContext'
+
 export interface SpreadsheetActionItem {
   name: string
   title?: string
@@ -58,17 +60,31 @@ export const SpreadsheetHeader: React.FC<{ children: React.ReactNode }> = ({ chi
 }
 
 export const SpreadsheetHeaderColumn: React.FC<{
+  context: SpreadsheetContext
+  columnId: string
   children?: React.ReactNode
   className?: string
   columnActions?: SpreadsheetActionItem[]
-}> = ({ children, className = '', columnActions }) => {
+}> = ({ context, columnId, children, className = '', columnActions }) => {
   const { t } = useEditorI18n()
-  const [selected, setSelected] = React.useState(false)
+  const selected = context.selection.columnIds?.includes(columnId)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
+
+  const unselectColumn = (): void => {
+    context.clearSelection()
+    document.removeEventListener('mousedown', unselectColumn)
+  }
+
+  const selectColumn = (): void => {
+    context.selectColumns([columnId])
+    document.addEventListener('mousedown', unselectColumn)
+  }
 
   const onDropdownVisibleChange = (value: boolean): void => {
     setDropdownVisible(value)
-    setSelected(value)
+    if (value) {
+      selectColumn()
+    }
   }
 
   return (
@@ -100,20 +116,17 @@ export const SpreadsheetBody: React.FC<{ children: React.ReactNode }> = ({ child
 }
 
 export const SpreadsheetRow: React.FC<{
+  context: SpreadsheetContext
+  rowId: string
   children: React.ReactNode
   rowNumber?: string
   rowActions?: SpreadsheetActionItem[]
-}> = ({ children, rowNumber, rowActions }) => {
+}> = ({ context, rowId, children, rowNumber, rowActions }) => {
   const { t } = useEditorI18n()
-  const [selected, setSelected] = React.useState(false)
-  const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
-  const onDropdownVisibleChange = (value: boolean): void => {
-    setDropdownVisible(value)
-    if (value) {
-      selectRow()
-    }
-  }
+  const selected = context.selection.rowIds?.includes(rowId)
+
+  const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
   const onClickRowNumber = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
     e.preventDefault()
@@ -122,13 +135,20 @@ export const SpreadsheetRow: React.FC<{
   }
 
   const unselectRow = (): void => {
-    setSelected(false)
+    context.clearSelection()
     document.removeEventListener('mousedown', unselectRow)
   }
 
   const selectRow = (): void => {
-    setSelected(true)
+    context.selectRows([rowId])
     document.addEventListener('mousedown', unselectRow)
+  }
+
+  const onDropdownVisibleChange = (value: boolean): void => {
+    setDropdownVisible(value)
+    if (value) {
+      selectRow()
+    }
   }
 
   return (
@@ -162,6 +182,17 @@ export const SpreadsheetRow: React.FC<{
   )
 }
 
-export const SpreadsheetCellContainer: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return <td>{children}</td>
+export const SpreadsheetCellContainer: React.FC<{
+  context: SpreadsheetContext
+  cellId: SpreadsheetSelectionCellId
+  children?: React.ReactNode
+}> = ({ children, context, cellId }) => {
+  const cellIdStr = `${cellId.rowId},${cellId.columnId}`
+  const { selection } = context
+  const selected =
+    selection.cellIds?.includes(cellIdStr) ??
+    selection.rowIds?.includes(cellId.rowId) ??
+    selection.columnIds?.includes(cellId.columnId)
+
+  return <td className={selected ? 'selected' : ''}>{children}</td>
 }

@@ -162,11 +162,12 @@
             }
           }
         }
+        tr.selected td, th.selected, td.selected {
+          background: @table-select-bg;
+          border-color: @table-select-border-color;
+
+        }
         tbody > tr.selected {
-          td {
-            background: @table-select-bg;
-            border-color: @table-select-border-color;
-          }
           td.row-action-panel {
             .row-action-panel-layer {
               color: @table-action-hover-color;

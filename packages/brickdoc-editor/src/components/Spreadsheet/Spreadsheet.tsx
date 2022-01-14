@@ -18,12 +18,16 @@ import {
   SpreadsheetCellContainer
 } from './SpreadsheetView'
 
+import { useSpreadsheetContext } from './SpreadsheetContext'
+
 import { SpreadsheetCell } from './SpreadsheetCell'
 import './Spreadsheet.less'
 
 export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
+
+  const spreadsheetContext = useSpreadsheetContext()
 
   const { t } = useEditorI18n()
 
@@ -63,7 +67,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
           />
           <SpreadsheetView>
             <SpreadsheetHeader>
-              <SpreadsheetHeaderColumn className="row-action-panel">
+              <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="">
                 <div className="row-action-panel-layer">
                   <Button size="small" onClick={() => addRow(0)}>
                     +row
@@ -77,6 +81,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                 return (
                   <SpreadsheetHeaderColumn
                     key={column.uuid}
+                    context={spreadsheetContext}
+                    columnId={column.uuid}
                     columnActions={[
                       {
                         name: 'addColumnLeft',
@@ -108,6 +114,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                 return (
                   <SpreadsheetRow
                     key={rowIdx}
+                    context={spreadsheetContext}
+                    rowId={rowBlock.id}
                     rowNumber={`${rowIdx + 1}`}
                     rowActions={[
                       {
@@ -133,7 +141,11 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                     {columns.map((column, columnIdx) => {
                       const block = getCellBlock(rowBlock.id, column.uuid)
                       return (
-                        <SpreadsheetCellContainer key={block.id}>
+                        <SpreadsheetCellContainer
+                          key={block.id}
+                          context={spreadsheetContext}
+                          cellId={{ rowId: rowBlock.id, columnId: column.uuid }}
+                        >
                           <SpreadsheetCell key={block.id} block={block} saveBlock={saveCellBlock} />
                         </SpreadsheetCellContainer>
                       )

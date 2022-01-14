@@ -10,7 +10,8 @@ import {
   SpreadsheetHeaderColumn,
   SpreadsheetBody,
   SpreadsheetRow,
-  SpreadsheetCellContainer
+  SpreadsheetCellContainer,
+  useSpreadsheetContext
 } from '../../../components'
 import { COLOR } from '../../../helpers/color'
 import './FormulaBlock.less'
@@ -104,6 +105,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   }
 
   const renderTable = (result: SpreadsheetResult): React.ReactNode => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const spreadsheetContext = useSpreadsheetContext()
     const columns = result.result.listColumns()
     const rows = result.result.listRows()
     return (
@@ -112,23 +115,30 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           <div className="spreadsheet-title">{result.result.name()}</div>
           <SpreadsheetView>
             <SpreadsheetHeader>
-              <SpreadsheetHeaderColumn className="row-action-panel" />
+              <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="" />
               {columns.map(c => (
-                <SpreadsheetHeaderColumn key={c.columnId}>
+                <SpreadsheetHeaderColumn key={c.columnId} context={spreadsheetContext} columnId={c.columnId}>
                   <div className="column">{c.name}</div>
                 </SpreadsheetHeaderColumn>
               ))}
             </SpreadsheetHeader>
             <SpreadsheetBody>
-              {rows.map((row, rowIdx) => (
-                <SpreadsheetRow key={rowIdx} rowNumber={String((rowIdx as number) + 1)}>
-                  {columns.map(c => (
-                    <SpreadsheetCellContainer key={c.columnId}>
-                      <div className="column">{row[c.columnId]}</div>
-                    </SpreadsheetCellContainer>
-                  ))}
-                </SpreadsheetRow>
-              ))}
+              {rows.map((row, rowIdx) => {
+                const rowNumber = String((rowIdx as number) + 1)
+                return (
+                  <SpreadsheetRow key={rowIdx} context={spreadsheetContext} rowId={rowNumber} rowNumber={rowNumber}>
+                    {columns.map(c => (
+                      <SpreadsheetCellContainer
+                        key={c.columnId}
+                        context={spreadsheetContext}
+                        cellId={{ rowId: rowNumber, columnId: c.columnId }}
+                      >
+                        <div className="column">{row[c.columnId]}</div>
+                      </SpreadsheetCellContainer>
+                    ))}
+                  </SpreadsheetRow>
+                )
+              })}
             </SpreadsheetBody>
           </SpreadsheetView>
         </SpreadsheetContainer>
