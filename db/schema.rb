@@ -159,7 +159,6 @@ ActiveRecord::Schema.define(version: 2022_01_13_023021) do
     t.integer "level", default: 0, null: false
     t.integer "version", default: 0, null: false
     t.string "kind", default: "expression", null: false
-    t.uuid "path_ids", default: [], null: false, array: true
     t.integer "type", default: 0, null: false
     t.index ["block_id", "name"], name: "index_docs_formulas_on_block_id_and_name", unique: true
     t.index ["dependency_ids"], name: "index_docs_formulas_on_dependency_ids", using: :gin

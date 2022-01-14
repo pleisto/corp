@@ -22,7 +22,6 @@ describe('appendFormulas', () => {
         dependencyIds: [],
         definition: '=123',
         kind: 'constant',
-        pathIds: [],
         type: 'normal',
         cacheValue: {
           type: 'number',
@@ -64,7 +63,6 @@ describe('appendFormulas', () => {
         version: 0,
         level: 0,
         dependencyIds: [],
-        pathIds: [],
         type: 'normal',
         cacheValue: {
           type: 'number',
@@ -80,7 +78,6 @@ describe('appendFormulas', () => {
         kind: 'expression',
         dependencyIds: [fooVariableId],
         definition: `=ABS(123) + #${fooNamespaceId}.${fooVariableId}`,
-        pathIds: [],
         type: 'normal',
         cacheValue: {
           type: 'number',
@@ -122,7 +119,6 @@ describe('appendFormulas', () => {
         level: 0,
         kind: 'expression',
         dependencyIds: [fooVariableId],
-        pathIds: [],
         type: 'normal',
         definition: `=ABS(123) + #${fooNamespaceId}.${fooVariableId}`,
         cacheValue: {
@@ -160,7 +156,6 @@ describe('appendFormulas', () => {
         version: 0,
         level: 0,
         dependencyIds: [],
-        pathIds: [],
         type: 'normal',
         definition: '= 123 +',
         kind: 'constant',

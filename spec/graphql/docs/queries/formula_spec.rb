@@ -15,7 +15,6 @@ describe Docs::Queries::Formulas, type: :query do
           dependencyIds
           type
           kind
-          pathIds
           updatedAt
           createdAt
         }
@@ -30,7 +29,7 @@ describe Docs::Queries::Formulas, type: :query do
       block = create(:docs_block, pod: user.personal_pod)
       formula = Docs::Formula.create!(
         block_id: block.id, id: SecureRandom.uuid, name: 'foo',
-        dependency_ids: [], cache_value: { "type" => 'string', 'value' => '123' }, definition: "=123", path_ids: []
+        dependency_ids: [], cache_value: { "type" => 'string', 'value' => '123' }, definition: "=123"
       )
 
       internal_graphql_execute(query, { webid: block.pod.webid })
@@ -41,7 +40,6 @@ describe Docs::Queries::Formulas, type: :query do
         'blockId' => formula.block_id,
         'type' => formula.type,
         'kind' => formula.kind,
-        'pathIds' => formula.path_ids,
         'name' => formula.name,
         'definition' => formula.definition,
         'dependencyIds' => formula.dependency_ids,

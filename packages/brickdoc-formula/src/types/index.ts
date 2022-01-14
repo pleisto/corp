@@ -306,7 +306,6 @@ export interface Formula {
   kind: string
   dependencyIds: uuid[]
   type: string
-  pathIds: uuid[]
 }
 
 export interface FormulaWithTime extends Formula {

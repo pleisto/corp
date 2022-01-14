@@ -1195,11 +1195,6 @@ type Formula {
   name: String!
 
   """
-  path ids
-  """
-  pathIds: [UUID!]!
-
-  """
   type
   """
   type: String!
@@ -1263,11 +1258,6 @@ input FormulaCreateInput {
   name
   """
   name: String!
-
-  """
-  path ids
-  """
-  pathIds: [UUID!]!
 
   """
   type
@@ -1378,11 +1368,6 @@ input FormulaUpdateInput {
   name
   """
   name: String
-
-  """
-  path ids
-  """
-  pathIds: [UUID!]
 
   """
   type

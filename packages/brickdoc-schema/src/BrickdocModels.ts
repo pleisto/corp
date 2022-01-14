@@ -631,8 +631,6 @@ export type Formula = {
   level: Scalars['Int']
   /** formula name */
   name: Scalars['String']
-  /** path ids */
-  pathIds: Array<Scalars['UUID']>
   /** type */
   type: Scalars['String']
   /** updated at */
@@ -661,8 +659,6 @@ export type FormulaCreateInput = {
   level?: InputMaybe<Scalars['Int']>
   /** name */
   name: Scalars['String']
-  /** path ids */
-  pathIds: Array<Scalars['UUID']>
   /** type */
   type?: InputMaybe<Scalars['String']>
   /** version */
@@ -717,8 +713,6 @@ export type FormulaUpdateInput = {
   level?: InputMaybe<Scalars['Int']>
   /** name */
   name?: InputMaybe<Scalars['String']>
-  /** path ids */
-  pathIds?: InputMaybe<Array<Scalars['UUID']>>
   /** type */
   type?: InputMaybe<Scalars['String']>
   /** version */

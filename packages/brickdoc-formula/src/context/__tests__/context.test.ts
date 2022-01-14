@@ -23,7 +23,6 @@ describe('Context', () => {
       dependencyIds: [],
       version: 0,
       level: 0,
-      pathIds: [],
       type: 'normal',
       cacheValue: {
         type: 'number',
@@ -39,7 +38,6 @@ describe('Context', () => {
       kind: 'expression',
       version: 0,
       level: 0,
-      pathIds: [],
       type: 'normal',
       cacheValue: {
         type: 'number',

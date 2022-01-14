@@ -59,7 +59,6 @@ export const queryFormulas = gql`
       version
       kind
       type
-      pathIds
     }
   }
 `

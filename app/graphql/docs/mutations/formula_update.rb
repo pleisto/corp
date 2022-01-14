@@ -11,7 +11,6 @@ module Docs
     argument :level, Integer, 'level', required: false
     argument :kind, String, 'kind', required: false
     argument :type, String, 'type', required: false
-    argument :path_ids, [BrickGraphQL::Scalars::UUID], 'path ids', required: false
 
     def resolve(args)
       formula = Docs::Formula.find_by!(id: args[:id], block_id: args[:block_id])
@@ -25,8 +24,7 @@ module Docs
         version: args[:version],
         level: args[:level],
         kind: args[:kind],
-        type: args[:type],
-        path_ids: args[:path_ids]
+        type: args[:type]
       }.compact
       formula.update!(update_params)
 

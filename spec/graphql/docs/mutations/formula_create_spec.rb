@@ -25,7 +25,6 @@ describe Docs::Mutations::FormulaCreate, type: :mutation do
         id: SecureRandom.uuid,
         blockId: block.id,
         type: 'normal',
-        pathIds: [],
         name: 'create formula',
         cacheValue: { type: 'string', value: '123' }, definition: '=123'
       } }

@@ -15,7 +15,6 @@
 #  level          :integer          default("0"), not null
 #  version        :integer          default("0"), not null
 #  kind           :string           default("expression"), not null
-#  path_ids       :uuid             default("{}"), not null, is an Array
 #  type           :integer          default("0"), not null
 #
 # Indexes

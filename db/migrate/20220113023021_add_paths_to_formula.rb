@@ -8,13 +8,11 @@ class AddPathsToFormula < ActiveRecord::Migration[7.0]
   # include Brickdoc::Database::MigrationHelper
 
   def up
-    add_column :docs_formulas, :path_ids, :uuid, null: false, default: [], array: true
     add_column :docs_formulas, :type, :integer, null: false, default: 0
     remove_column :docs_formulas, :view
   end
 
   def down
-    remove_column :docs_formulas, :path_ids
     remove_column :docs_formulas, :type
     add_column :docs_formulas, :view, :json, null: false, default: {}
   end
