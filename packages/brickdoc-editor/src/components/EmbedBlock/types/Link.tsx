@@ -110,13 +110,13 @@ export const LinkTypeEmbedBlock: React.FC<LinkTypeEmbedBlockProps> = ({
               prefix={<Icon.Link />}
               placeholder={t('embed_block.types.link.panel.link.placeholder')}
               onPressEnter={handleSubmit}
+              data-testid={TEST_ID_ENUM.editor.embedBlock.link.input.id}
               value={url}
               onChange={handleLinkChange}
             />
           </InputPanel>
         }
-        placement="bottom"
-      >
+        placement="bottom">
         <EmbedBlockPlaceholder
           data-testid={TEST_ID_ENUM.editor.embedBlock.addButton.id}
           icon={<Icon.Link />}
