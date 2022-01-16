@@ -17,25 +17,21 @@ module Brickdoc
 
     def self.preview(url)
       response = @connection.get('/api/iframely', { url: url })
+      thumbnail = response.body.dig('links', 'thumbnail') || []
+      medium = response.body.dig('meta', 'medium')
 
       if response.status == 200
-        body = response.body || {}
-        meta = body["meta"] || {}
-        links = body["links"] || {}
-        thumbnail = (links["thumbnail"] || [])[0] || {}
-        files = (links["file"] || [])
-
         data = {
-          title: meta["title"] || url,
-          description: meta["description"],
-          cover: thumbnail["href"],
+          title: response.body.dig('meta', 'title') || url,
+          description: response.body.dig('meta', 'description'),
+          cover: thumbnail[0]&.dig('href') || '',
           type: "website"
         }
 
-        if meta["medium"] == "image"
+        if medium == "image"
           data[:type] = "image"
-        elsif meta["medium"] == 'file'
-          file = files.detect { |f| f["href"] == url } || {}
+        elsif medium == 'file'
+          file = (response.body.dig('links', 'file') || []).detect { |f| f["href"] == url } || {}
           data[:type] = file["type"] || "unknown"
           data[:size] = file["content_length"]
         end
