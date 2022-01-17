@@ -58,10 +58,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
   const [variable, setVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
-  const variableT = cacheT ?? variable?.t
+  const [variableT, setVariableT] = React.useState(cacheT ?? variable?.t)
   const isDraft = variable?.isDraft() === true
 
-  console.log({ variable, formulaContext, formulaId, rootId })
+  React.useEffect(() => {
+    if (variable) {
+      setVariableT(variable.t)
+    }
+  }, [variable])
 
   BrickdocEventBus.subscribe(
     FormulaUpdated,
@@ -73,6 +77,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       subscribeId: `${rootId},${formulaId}`
     }
   )
+
+  // console.log({ variable, formulaContext, formulaId, rootId })
 
   const COLOR_ARRAY: { [key in FormulaType]: number } = {
     Date: 6,
