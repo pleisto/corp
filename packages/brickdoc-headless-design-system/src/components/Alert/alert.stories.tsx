@@ -1,5 +1,5 @@
-import { Alert } from './index'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Alert, Button } from '..'
 
 export default {
   title: 'Components/Alert',
@@ -71,8 +71,16 @@ Basic.args = {
   type: 'info'
 }
 
-export const onlyMessage = Template.bind({})
-onlyMessage.args = {
+export const MessageOnly = Template.bind({})
+MessageOnly.args = {
   message: 'Oops! Something went wrong.',
   type: 'error'
+}
+
+export const WithAction = Template.bind({})
+WithAction.args = {
+  title: 'Complete your profile',
+  message: 'Please complete your profile to allow us recommend personalized content to you.',
+  type: 'warning',
+  action: <Button type="primary">View details</Button>
 }
