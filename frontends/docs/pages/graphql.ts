@@ -185,6 +185,10 @@ export const queryChildrenBlocks = gql`
           name
           avatarUrl
         }
+        embedMeta {
+          type
+          embedType
+        }
         attachment {
           type
           source

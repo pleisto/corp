@@ -1,7 +1,7 @@
 import React from 'react'
 import { ContextInterface } from '@brickdoc/formula'
 import { DashboardPluginOptions } from '@brickdoc/uploader'
-import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuTrigger } from '@brickdoc/schema'
+import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuTrigger, Preview_Box } from '@brickdoc/schema'
 
 export interface WebsiteMeta {
   url: string
@@ -34,7 +34,7 @@ export interface EditorDatabase {
 
   fetchUnsplashImages: Exclude<DashboardPluginOptions['fetchUnsplashImages'], undefined>
 
-  fetchWebsiteMeta: (url: string) => Promise<{ success: boolean; data: WebsiteMeta }>
+  fetchWebsiteMeta: (url: string) => Promise<{ success: boolean; data: Omit<Preview_Box, '__typename'> }>
 
   prepareFileUpload: Exclude<DashboardPluginOptions['prepareFileUpload'], undefined>
 

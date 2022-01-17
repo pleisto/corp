@@ -30,34 +30,34 @@ const asyncForEach = async (
   }
 }
 
+const metas: VariableMetadata[] = [
+  { name: 'num0', input: '=1' },
+  { name: 'num1', input: '=2' },
+  { name: 'num2', input: '=$num0' },
+  { name: 'num3', input: '=$num2 + $num1' },
+  { name: 'num4', input: '=$num2 + $num0' },
+  { name: 'num5', input: '=$num3 + $num0 + $num2' },
+  { name: 'num6', input: '=$num4 + $num1' }
+].map(({ name, input }) => ({
+  name,
+  namespaceId,
+  type: 'normal',
+  variableId: variableWithNames.find(v => v.name === name)!.variableId,
+  input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
+    return `#${namespaceId}.${variableWithNames.find(v => v.name === variableName)!.variableId}`
+  })
+}))
+
 describe('Dependency', () => {
   beforeEach(async () => {
     formulaContext.resetFormula()
-
-    const metas: VariableMetadata[] = [
-      { name: 'num0', input: '=1' },
-      { name: 'num1', input: '=2' },
-      { name: 'num2', input: '=$num0' },
-      { name: 'num3', input: '=$num2 + $num1' },
-      { name: 'num4', input: '=$num2 + $num0' },
-      { name: 'num5', input: '=$num3 + $num0 + $num2' },
-      { name: 'num6', input: '=$num4 + $num1' }
-    ].map(({ name, input }) => ({
-      name,
-      namespaceId,
-      type: 'normal',
-      variableId: variableWithNames.find(v => v.name === name)!.variableId,
-      input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
-        return `#${namespaceId}.${variableWithNames.find(v => v.name === variableName)!.variableId}`
-      })
-    }))
 
     await asyncForEach(metas, async (meta: VariableMetadata) => {
       await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
     })
   })
 
-  it('snapshot', () => {
+  it('snapshot', async () => {
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
     expect(formulaContext.findVariable(namespaceId, variableIds[5])!.t.variableValue.result).toEqual({
       result: 5,
@@ -76,7 +76,7 @@ describe('Dependency', () => {
     ).toMatchSnapshot()
   })
 
-  it('circular dependency check', () => {
+  it('circular dependency check', async () => {
     const input = `=#${namespaceId}.${variableIds[6]}`
     const meta: VariableMetadata = { namespaceId, variableId: variableIds[0], name: 'num0', input, type: 'normal' }
     const { errorMessages } = parse({ ctx: { formulaContext, meta, interpretContext } })
