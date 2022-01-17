@@ -19,9 +19,7 @@ describe('appendFormulas', () => {
         blockId: fooNamespaceId,
         version: 0,
         level: 0,
-        dependencyIds: [],
         definition: '=123',
-        kind: 'constant',
         type: 'normal',
         cacheValue: {
           type: 'number',
@@ -59,10 +57,8 @@ describe('appendFormulas', () => {
         id: fooVariableId,
         blockId: fooNamespaceId,
         definition: '= 123 + RAND()',
-        kind: 'constant',
         version: 0,
         level: 0,
-        dependencyIds: [],
         type: 'normal',
         cacheValue: {
           type: 'number',
@@ -75,8 +71,6 @@ describe('appendFormulas', () => {
         blockId: barNamespaceId,
         version: 0,
         level: 0,
-        kind: 'expression',
-        dependencyIds: [fooVariableId],
         definition: `=ABS(123) + #${fooNamespaceId}.${fooVariableId}`,
         type: 'normal',
         cacheValue: {
@@ -117,8 +111,6 @@ describe('appendFormulas', () => {
         blockId: barNamespaceId,
         version: 0,
         level: 0,
-        kind: 'expression',
-        dependencyIds: [fooVariableId],
         type: 'normal',
         definition: `=ABS(123) + #${fooNamespaceId}.${fooVariableId}`,
         cacheValue: {
@@ -155,10 +147,8 @@ describe('appendFormulas', () => {
         blockId: fooNamespaceId,
         version: 0,
         level: 0,
-        dependencyIds: [],
         type: 'normal',
         definition: '= 123 +',
-        kind: 'constant',
         cacheValue: {
           type: 'number',
           result: 123

@@ -11,8 +11,7 @@ module Docs
       rows = Docs::Block.where(parent_id: parent_id, type: ['spreadsheetRow']).non_deleted.to_a
       cells = Docs::Block.where(parent_id: rows.map(&:id), type: ['spreadsheetCell']).non_deleted.to_a
       {
-        blocks: rows + cells,
-        formulas: []
+        blocks: rows + cells
       }
     end
   end

@@ -167,13 +167,11 @@ export class VariableClass implements VariableInterface {
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
-      kind: this.t.kind,
       level: this.t.level,
       type: this.t.type,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),
-      cacheValue: dumpValue(ctx, this.t.variableValue.cacheValue),
-      dependencyIds: this.t.variableDependencies.map(dependency => dependency.variableId)
+      cacheValue: dumpValue(ctx, this.t.variableValue.cacheValue)
     }
   }
 

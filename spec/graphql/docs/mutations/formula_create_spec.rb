@@ -21,7 +21,6 @@ describe Docs::Mutations::FormulaCreate, type: :mutation do
       self.current_pod = user.personal_pod.as_session_context
 
       input = { input: {
-        dependencyIds: [],
         id: SecureRandom.uuid,
         blockId: block.id,
         type: 'normal',

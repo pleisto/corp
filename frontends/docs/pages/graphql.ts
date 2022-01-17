@@ -52,12 +52,10 @@ export const queryFormulas = gql`
       cacheValue
       blockId
       definition
-      dependencyIds
       updatedAt
       createdAt
       level
       version
-      kind
       type
     }
   }
@@ -251,19 +249,6 @@ export const querySpreadsheetChildren = gql`
         text
         content
         data
-      }
-      formulas {
-        id
-        name
-        cacheValue
-        blockId
-        definition
-        dependencyIds
-        updatedAt
-        createdAt
-        level
-        version
-        kind
       }
     }
   }

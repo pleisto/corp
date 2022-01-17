@@ -1239,19 +1239,9 @@ type Formula {
   definition: String!
 
   """
-  formula dependencies
-  """
-  dependencyIds: [UUID!]!
-
-  """
   object unique id
   """
   id: UUID!
-
-  """
-  kind
-  """
-  kind: String!
 
   """
   level
@@ -1304,19 +1294,9 @@ input FormulaCreateInput {
   definition: String!
 
   """
-  dependencies
-  """
-  dependencyIds: [UUID!]!
-
-  """
   id
   """
   id: UUID!
-
-  """
-  kind
-  """
-  kind: String
 
   """
   level
@@ -1414,19 +1394,9 @@ input FormulaUpdateInput {
   definition: String
 
   """
-  dependencies
-  """
-  dependencyIds: [UUID!]
-
-  """
   id
   """
   id: UUID!
-
-  """
-  kind
-  """
-  kind: String
 
   """
   level
@@ -1437,11 +1407,6 @@ input FormulaUpdateInput {
   name
   """
   name: String
-
-  """
-  type
-  """
-  type: String
 
   """
   version
@@ -2019,11 +1984,6 @@ type SpreadsheetChildren {
   blocks
   """
   blocks: [block!]
-
-  """
-  formulas
-  """
-  formulas: [Formula!]
 }
 
 """

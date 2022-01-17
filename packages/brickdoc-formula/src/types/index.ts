@@ -305,15 +305,12 @@ export interface BaseFormula {
   cacheValue: BaseResult
   level: number
   version: number
-  kind: string
-  dependencyIds: uuid[]
   type: string
 }
 
 export interface Formula extends BaseFormula {
   definition: Definition
   type: FormulaSourceType
-  kind: VariableKind
 }
 
 export interface FormulaWithTime extends Formula {

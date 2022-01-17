@@ -10,10 +10,14 @@ class AddPathsToFormula < ActiveRecord::Migration[7.0]
   def up
     add_column :docs_formulas, :type, :integer, null: false, default: 0
     remove_column :docs_formulas, :view
+    remove_column :docs_formulas, :dependency_ids
+    remove_column :docs_formulas, :kind
   end
 
   def down
     remove_column :docs_formulas, :type
     add_column :docs_formulas, :view, :json, null: false, default: {}
+    add_column :docs_formulas, :dependency_ids, :uuid, array: true, null: false, default: []
+    add_column :docs_formulas, :kind, :string, null: false, default: 'expression'
   end
 end
