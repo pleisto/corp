@@ -18,7 +18,8 @@ module ApplicationHelper
       featureFlags: Flipper.features.map(&:name),
       settings: BrickdocConfig.to_frontend,
       serverMessage: flash[:alert],
-      sentryDsn: BrickdocConfig.sentry_dsn
+      sentryDsn: BrickdocConfig.sentry_dsn,
+      zammadFormSrc: BrickdocConfig.zammad_form_src
     }
   end
 

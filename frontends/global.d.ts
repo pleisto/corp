@@ -24,6 +24,7 @@ declare global {
     featureFlags: string[]
     serverMessage: string
     sentryDsn: string
+    zammadFormSrc: string
   }
   interface BrickdocClientContext {
     wsCable: ActionCable.Consumer

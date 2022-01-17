@@ -19,6 +19,7 @@ import { validate as isValidUUID } from 'uuid'
 import { appendFormulas, FormulaContext, FormulaName } from '@brickdoc/formula'
 import { useFormulaQuery } from './hooks'
 import { useFormulaBackendActions } from './hooks/useFormulaBackendActions'
+import { Feedback } from './components/Feedback'
 
 type Collaborator = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['collaborators'][0]
 type Path = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['pathArray'][0]
@@ -43,6 +44,7 @@ export interface DocMeta {
   path: string
   collaborators: Collaborator[]
   pathArray: Path[]
+  featureFlags: string[]
   documentInfoLoading: boolean
   shareable: boolean
   editable: boolean
@@ -122,10 +124,11 @@ export const DocumentContentPage: React.FC = () => {
       collaborators,
       pathArray,
       icon,
+      featureFlags,
       documentInfoLoading: loading,
       snapshotVersion: Number(snapshotVersion ?? '0')
     }
-  }, [data, docid, host, isAnonymous, loading, loginWebid, snapshotVersion, state, t, webid])
+  }, [data, docid, host, isAnonymous, loading, loginWebid, snapshotVersion, state, t, webid, featureFlags])
 
   const getFormulas = useFormulaQuery(docMeta)
   const backendActions = useFormulaBackendActions()
@@ -188,6 +191,7 @@ export const DocumentContentPage: React.FC = () => {
             <nav>
               <PageTree docMeta={docMeta} />
               <NewPage docMeta={docMeta} />
+              <Feedback docMeta={docMeta} />
               <TrashButton docMeta={docMeta} />
             </nav>
 

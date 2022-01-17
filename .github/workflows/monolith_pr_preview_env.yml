@@ -104,6 +104,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_GLOBAL_CORP_SECRET }}
           APP_ENV_HOST: ${{ env.domain }}
           APP_ENV_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          APP_ENV_ZAMMAD_FORM_SRC: ${{ secrets.ZAMMAD_FORM_SRC }}
           APP_ENV_AWS_REGION: us-east-1
           APP_ENV_AWS_PUBLIC_BUCKET: brickdoc-trunk-public
           APP_ENV_AWS_PRIVATE_BUCKET: brickdoc-trunk-private
