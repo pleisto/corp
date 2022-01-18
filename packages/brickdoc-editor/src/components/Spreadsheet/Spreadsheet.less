@@ -46,6 +46,11 @@
         margin: 0;
         padding: 0;
         border: 2px solid @btn-default-border;
+        cursor: pointer;
+        &:hover {
+          // color: @table-action-hover-color;
+          // border-color: @table-action-hover-color;
+        }
       }
       table {
         font-size: 14px;
@@ -117,15 +122,19 @@
           position: relative;
           .column, .cell {
             width: 100%;
+            min-width: 230px;
+            overflow-x: hidden;
             position: relative;
             display: block;
             line-height: 22px;
             font-size: 14px;
+            min-height: 22px;
           }
           input {
             display: block;
             line-height: 22px;
             font-size: 14px;
+            width: 100%;
             &:focus {
               outline: 2px solid @table-action-hover-color;
             }

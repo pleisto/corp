@@ -144,8 +144,9 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
                       <SpreadsheetCellContainer
                         key={c.columnId}
                         context={spreadsheetContext}
-                        cellId={{ rowId: rowNumber, columnId: c.columnId }}>
-                        <div className="column">{row[c.columnId]}</div>
+                        cellId={{ rowId: rowNumber, columnId: c.columnId }}
+                      >
+                        <div className="cell">{row[c.columnId]}</div>
                       </SpreadsheetCellContainer>
                     ))}
                   </SpreadsheetRow>
@@ -174,7 +175,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
+        }}
+      >
         {displayValue(result)}
       </span>
     )
@@ -225,7 +227,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           color: activeColor.color,
           borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
           background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-        }}>
+        }}
+      >
         {result.result}
       </span>
     )
@@ -255,7 +258,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
         handleDelete={handleDelete}
         updateFormula={updateFormula}
         variable={variable}
-        updateVariable={setVariable}>
+        updateVariable={setVariable}
+      >
         {renderVariable(variableT)}
       </FormulaMenu>
     </BlockContainer>

@@ -16,7 +16,8 @@ import {
   SpreadsheetHeaderColumn,
   SpreadsheetBody,
   SpreadsheetRow,
-  SpreadsheetCellContainer
+  SpreadsheetCellContainer,
+  SpreadsheetEditable
 } from './SpreadsheetView'
 
 import { useSpreadsheetContext } from './SpreadsheetContext'
@@ -110,8 +111,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                 </div>
               </SpreadsheetHeaderColumn>
               {columns.map((column, i) => {
-                const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-                  updateColumn({ ...column, title: event.target.value })
+                const handleTitleSave = (value: string): void => {
+                  updateColumn({ ...column, title: value })
                 }
                 return (
                   <SpreadsheetHeaderColumn
@@ -139,7 +140,12 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                       }
                     ]}
                   >
-                    <Input className="column" value={columnDisplayTitle(column)} onChange={handleTitleChange} />
+                    <SpreadsheetEditable
+                      context={spreadsheetContext}
+                      className="column"
+                      value={columnDisplayTitle(column)}
+                      onSave={handleTitleSave}
+                    />
                   </SpreadsheetHeaderColumn>
                 )
               })}
@@ -181,7 +187,13 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                           context={spreadsheetContext}
                           cellId={{ rowId: rowBlock.id, columnId: column.uuid }}
                         >
-                          <SpreadsheetCell parentId={parentId} key={block.id} block={block} saveBlock={saveCellBlock} />
+                          <SpreadsheetCell
+                            context={spreadsheetContext}
+                            parentId={parentId}
+                            key={block.id}
+                            block={block}
+                            saveBlock={saveCellBlock}
+                          />
                         </SpreadsheetCellContainer>
                       )
                     })}

@@ -71,12 +71,6 @@ export const SpreadsheetHeaderColumn: React.FC<{
   const selected = context.selection.columnIds?.includes(columnId)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
-  const onDoubleClickColumn = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
-    e.preventDefault()
-    e.stopPropagation()
-    selectColumn()
-  }
-
   const unselectColumn = (): void => {
     context.clearSelection()
     document.removeEventListener('mousedown', unselectColumn)
@@ -95,7 +89,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
   }
 
   return (
-    <th className={`${selected ? 'selected' : ''} ${className}`} onDoubleClick={onDoubleClickColumn}>
+    <th className={`${selected ? 'selected' : ''} ${className}`} onClick={selectColumn}>
       {children}
       {columnActions ? (
         <Dropdown
@@ -203,5 +197,48 @@ export const SpreadsheetCellContainer: React.FC<{
     selection.rowIds?.includes(cellId.rowId) ??
     selection.columnIds?.includes(cellId.columnId)
 
-  return <td className={selected ? 'selected' : ''}>{children}</td>
+  const unselectCell = (): void => {
+    context.clearSelection()
+    document.removeEventListener('mousedown', unselectCell)
+  }
+
+  const selectCell = (): void => {
+    context.selectCell(cellIdStr)
+    document.addEventListener('mousedown', unselectCell)
+  }
+
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+  return (
+    <td className={selected ? 'selected' : ''} onClick={selectCell}>
+      {children}
+    </td>
+  )
+}
+
+export const SpreadsheetEditable: React.FC<{
+  context?: SpreadsheetContext
+  className?: string
+  value?: string
+  onSave?: (value: string) => void
+}> = ({ className, value, onSave, context }) => {
+  const [editing, setEditing] = React.useState(false)
+
+  const handleEnterEdit = (): void => {
+    context?.clearSelection()
+    setEditing(true)
+  }
+
+  const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e): void => {
+    setEditing(false)
+    onSave?.(e.target.value)
+  }
+
+  return editing ? (
+    // eslint-disable-next-line jsx-a11y/no-autofocus
+    <input autoFocus className={className} defaultValue={value} onBlur={handleBlur} />
+  ) : (
+    <div onDoubleClick={handleEnterEdit} className={className}>
+      {value}
+    </div>
+  )
 }

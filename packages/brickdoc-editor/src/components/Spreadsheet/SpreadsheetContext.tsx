@@ -18,6 +18,7 @@ export interface SpreadsheetContext {
   clearSelection: () => void
   selectRows: (rowIds: string[]) => void
   selectColumns: (columnIds: string[]) => void
+  selectCell: (cellId: string) => void
 }
 
 export const useSpreadsheetContext = (): SpreadsheetContext => {
@@ -35,11 +36,16 @@ export const useSpreadsheetContext = (): SpreadsheetContext => {
     setSelection({ columnIds })
   }
 
+  const selectCell = (cellId: string): void => {
+    setSelection({ cellIds: [...(selection.cellIds ?? []), cellId] })
+  }
+
   return {
     selection,
     setSelection,
     clearSelection,
     selectRows,
-    selectColumns
+    selectColumns,
+    selectCell
   }
 }

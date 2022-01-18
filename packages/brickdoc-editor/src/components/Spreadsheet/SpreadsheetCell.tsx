@@ -3,14 +3,18 @@ import React from 'react'
 import { BlockInput } from '@brickdoc/schema'
 import { FormulaBlockRender } from '../../extensions/formula/FormulaBlock/FormulaBlockRender'
 import { displayValue, VariableInterface } from '@brickdoc/formula'
+import { SpreadsheetContext } from './SpreadsheetContext'
 
 export interface SpreadsheetCellProps {
+  context: SpreadsheetContext
   block: BlockInput
   parentId: string
   saveBlock: (block: BlockInput) => void
 }
 
-export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, block, saveBlock }) => {
+export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, parentId, block, saveBlock }) => {
+  const [editing, setEditing] = React.useState(false)
+
   const formulaId = block.data.formulaId
   const formulaName = `${block.parentId}_${block.data.columnId}`
 
@@ -21,10 +25,17 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, bloc
       text: displayValue(variable.t.variableValue.result)
     })
     console.log('updateFormula', { variable, parentId, formulaId })
+    setEditing(false)
   }
 
-  return (
+  const handleEnterEdit = (): void => {
+    context.clearSelection()
+    setEditing(true)
+  }
+
+  return editing ? (
     <FormulaBlockRender
+      defaultVisible={true}
       formulaName={formulaName}
       rootId={parentId}
       formulaId={formulaId}
@@ -32,5 +43,9 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, bloc
       updateFormula={updateFormula}
       formulaType="spreadsheet"
     />
+  ) : (
+    <div className="cell" onDoubleClick={handleEnterEdit}>
+      {block.text}
+    </div>
   )
 }
