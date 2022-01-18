@@ -20,7 +20,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ parentId, bloc
       ...block,
       text: displayValue(variable.t.variableValue.result)
     })
-    console.log('updateFormula', { variable, parentId, formulaId })
+    // console.log('updateFormula', { variable, parentId, formulaId })
   }
 
   return (

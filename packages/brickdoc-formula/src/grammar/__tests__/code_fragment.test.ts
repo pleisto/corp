@@ -65,6 +65,7 @@ const testCases = [
   `=#${unknownId}.${fooVariableId} + 2`,
   `=#${namespaceId}.${unknownId} + 3`,
   `=foo + 1`,
+  `=#${namespaceId}.foo + 1`,
   `=Untitled.foo + 1`,
   `=Bar.foo + 2`,
   `=Untitled.bar + 3`

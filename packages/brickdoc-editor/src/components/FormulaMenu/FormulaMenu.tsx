@@ -160,9 +160,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     : variable?.t.definition
   const realDefinition = maybeRemoveDefinitionEqual(formulaValue, formulaIsNormal)
 
-  const codeFragments = variable?.t.codeFragments
+  const oldCodeFragments = maybeRemoveCodeFragmentsEqual(variable?.t.codeFragments, formulaIsNormal)
   const defaultContent = variable?.t.valid
-    ? codeFragmentsToJSONContentTotal(codeFragments)
+    ? codeFragmentsToJSONContentTotal(oldCodeFragments)
     : buildJSONContentByDefinition(realDefinition)
 
   const contextCompletions =
@@ -411,7 +411,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (parseResult.valid || inputIsEmpty) {
       const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
       setContent(codeFragmentsToJSONContentTotal(codeFragments))
-      setInput(parseResult.codeFragments.map(fragment => fragment.display()).join(''))
+      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
     }
 
     if (inputIsEmpty) {

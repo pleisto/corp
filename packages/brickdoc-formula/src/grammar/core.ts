@@ -128,7 +128,7 @@ export const abbrev = ({
       }
 
       namespaceIsExist = true
-      variableNamespace = prev2Token.image as BlockKey
+      variableNamespace = prev2Token.image.startsWith('#') ? (prev2Token.image as BlockKey) : blockKey(prev2Token.image)
     }
 
     const formulaName = formulaContext.formulaNames.find(

@@ -593,6 +593,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             codeFragment = {
               ...codeFragment,
               namespaceId,
+              name: variable.t.name,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
               display: () => variable.t.name

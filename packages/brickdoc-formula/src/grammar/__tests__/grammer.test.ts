@@ -267,6 +267,10 @@ const testCases: TestCase[] = [
     value: 24
   },
   {
+    input: `=#${barNamespaceId}.bar`,
+    value: 24
+  },
+  {
     input: `=bar`,
     parseErrorType: 'syntax',
     errorMessage: 'Unknown function bar'
