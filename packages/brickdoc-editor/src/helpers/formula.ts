@@ -111,56 +111,9 @@ export const positionBasedContentArrayToInput = (
 }
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
-  const input = content.map((c: JSONContent) => JSONContentToText(c, true)).join('') ?? ''
+  const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
   // console.log({ content, input })
   return input
 }
 
-const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string => {
-  if (c.type !== 'text') {
-    console.error('JSONContentToText: not text', c)
-    return ''
-  }
-
-  const text = c.text ?? ''
-
-  if (textOnly) {
-    return text
-  }
-
-  if (!c.marks) {
-    return text
-  }
-
-  const mark = c.marks[0]
-
-  if (!mark) {
-    return text
-  }
-
-  if (mark.type !== 'FormulaType') {
-    console.error('JSONContentToText: not FormulaType', c)
-    return text
-  }
-
-  const attrs: FormulaCodeFragmentAttrs | undefined = mark.attrs as FormulaCodeFragmentAttrs
-
-  if (!attrs) {
-    console.error('JSONContentToText: no attrs', c)
-    return text
-  }
-
-  if (attrs.display() === text) {
-    return attrs.value
-  }
-
-  // if (text.startsWith(attrs.display)) {
-  //   return `${attrs.value}${text.slice(attrs.display.length)}`
-  // }
-
-  // if (text.endsWith(attrs.display)) {
-  //   return `${text.slice(0, -attrs.display.length)}${attrs.value}`
-  // }
-
-  return text
-}
+const JSONContentToText = (c: JSONContent): string => c.text ?? ''

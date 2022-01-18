@@ -1409,6 +1409,11 @@ input FormulaUpdateInput {
   name: String
 
   """
+  type
+  """
+  type: String
+
+  """
   version
   """
   version: Int

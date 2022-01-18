@@ -8,6 +8,7 @@ module Docs
     argument :cache_value, GraphQL::Types::JSON, 'dump value', required: false
     argument :version, Integer, 'version', required: false
     argument :level, Integer, 'level', required: false
+    argument :type, String, 'type', required: false
 
     def resolve(args)
       formula = Docs::Formula.find_by!(id: args[:id], block_id: args[:block_id])

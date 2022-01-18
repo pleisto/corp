@@ -143,7 +143,7 @@ describe('Context', () => {
   })
 
   it('constant variable', async () => {
-    const input = `=#${namespaceId}.${fooVariableId}`
+    const input = `=Untitled.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
@@ -161,7 +161,7 @@ describe('Context', () => {
   it('expression variable', async () => {
     const anotherBlockId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
     const anotherVariableId = '45e4260c-5bf1-4120-957e-1214c5ea7c20'
-    const barInput = `=10 + #${namespaceId}.${fooVariableId}`
+    const barInput = `=10 + Untitled.foo`
 
     // Insert bar
     const meta = { namespaceId: anotherBlockId, variableId: anotherVariableId, name: 'bar' }
@@ -194,7 +194,7 @@ describe('Context', () => {
   })
 
   it('Type', () => {
-    const input = `= "foo" & #${namespaceId}.${fooVariableId}`
+    const input = `= "foo" & Untitled.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
@@ -202,18 +202,18 @@ describe('Context', () => {
   })
 
   it('unknown namespace', () => {
-    const input = `=#${unknownId}.${fooVariableId}`
+    const input = `=Unknown.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Block not found: ${unknownId}`, type: 'deps' }])
+    expect(errorMessages).toEqual([{ message: 'Unknown function Unknown', type: 'syntax' }])
   })
 
   it('unknown variable', () => {
-    const input = `=#${namespaceId}.${unknownId}`
+    const input = `=Untitled.unknown`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Unknown variable: ${unknownId}`, type: 'syntax' }])
+    expect(errorMessages).toEqual([{ message: 'Access error', type: 'syntax' }])
   })
 })

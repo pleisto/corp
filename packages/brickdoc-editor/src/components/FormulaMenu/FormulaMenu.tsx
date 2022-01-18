@@ -411,7 +411,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     if (parseResult.valid || inputIsEmpty) {
       const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
       setContent(codeFragmentsToJSONContentTotal(codeFragments))
-      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
+      setInput(parseResult.codeFragments.map(fragment => fragment.display()).join(''))
     }
 
     if (inputIsEmpty) {
