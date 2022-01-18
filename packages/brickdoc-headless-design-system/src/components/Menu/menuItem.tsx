@@ -92,7 +92,7 @@ const ItemDescription = styled('span', {
 
 type RenderElement = string | React.ReactElement
 
-export interface MenuItemProps extends MenuItemHTMLProps {
+export interface MenuItemProps extends Omit<MenuItemHTMLProps, 'css'> {
   danger?: boolean
   label?: RenderElement
   description?: RenderElement

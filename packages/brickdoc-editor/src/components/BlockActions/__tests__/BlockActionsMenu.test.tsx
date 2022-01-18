@@ -10,8 +10,8 @@ describe('BlockActionsMenu', () => {
         icon: <span>icon</span>
       },
       {
-        type: 'dropdown',
-        name: 'dropdown',
+        type: 'subMenu',
+        name: 'subMenu',
         items: [
           {
             type: 'item',
@@ -22,13 +22,16 @@ describe('BlockActionsMenu', () => {
       }
     ]
 
-    const basicOptions: BlockActionsMenuProps['basicOptions'] = [
-      {
-        type: 'item',
-        name: 'delete',
-        icon: <span>delete</span>
-      }
-    ]
+    const basicOptions: BlockActionsMenuProps['basicOptions'] = {
+      type: 'group',
+      items: [
+        {
+          type: 'item',
+          name: 'delete',
+          icon: <span>delete</span>
+        }
+      ]
+    }
     const { container } = render(<BlockActionsMenu extraOptions={extraOptions} basicOptions={basicOptions} />)
 
     expect(container.firstChild).toMatchSnapshot()
@@ -43,13 +46,16 @@ describe('BlockActionsMenu', () => {
       }
     ]
 
-    const basicOptions: BlockActionsMenuProps['basicOptions'] = [
-      {
-        type: 'item',
-        name: 'delete',
-        icon: <span>delete</span>
-      }
-    ]
+    const basicOptions: BlockActionsMenuProps['basicOptions'] = {
+      type: 'group',
+      items: [
+        {
+          type: 'item',
+          name: 'delete',
+          icon: <span>delete</span>
+        }
+      ]
+    }
 
     render(<BlockActionsMenu extraOptions={extraOptions} basicOptions={basicOptions} />)
 
@@ -61,13 +67,16 @@ describe('BlockActionsMenu', () => {
 
     const name = 'delete'
 
-    const basicOptions: BlockActionsMenuProps['basicOptions'] = [
-      {
-        type: 'item',
-        name,
-        icon: <span>{name}</span>
-      }
-    ]
+    const basicOptions: BlockActionsMenuProps['basicOptions'] = {
+      type: 'group',
+      items: [
+        {
+          type: 'item',
+          name,
+          icon: <span>{name}</span>
+        }
+      ]
+    }
 
     render(<BlockActionsMenu extraOptions={extraOptions} basicOptions={basicOptions} />)
 
