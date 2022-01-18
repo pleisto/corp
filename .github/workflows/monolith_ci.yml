@@ -65,6 +65,7 @@ env:
   IFRAMELY_API_ACCESS_KEY: ${{ secrets.IFRAMELY_API_ACCESS_KEY }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   ZAMMAD_FORM_SRC: ${{ secrets.ZAMMAD_FORM_SRC }}
+  ZAMMAD_CHAT_SRC: ${{ secrets.ZAMMAD_CHAT_SRC }}
   # GitHub-hosted runner have 7 gb RAM.
   # 5250mb === 7gb * 0.75
   NODE_OPTIONS: '--max-old-space-size=5250'

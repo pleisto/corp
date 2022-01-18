@@ -106,6 +106,7 @@ jobs:
           APP_ENV_SMTP_FROM: brickdoc-ce-trunk@intl-email-service.brickdoc.app
           APP_ENV_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           APP_ENV_ZAMMAD_FORM_SRC: ${{ secrets.ZAMMAD_FORM_SRC }}
+          APP_ENV_ZAMMAD_CHAT_SRC: ${{ secrets.ZAMMAD_CHAT_SRC }}
           APP_SECRET_SMTP_URL: ${{ secrets.TRUNK_SMTP_URL }}
           APP_ENV_GITHUB_KEY: 70835aac65b5971f7774
           APP_SECRET_GITHUB_SECRET: ${{ secrets.TRUNK_GITHUB_SECRET }}

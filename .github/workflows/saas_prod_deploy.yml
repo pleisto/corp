@@ -105,6 +105,7 @@ jobs:
           APP_ENV_SMTP_FROM: saas-no-reply@push-service.brickdoc.com
           APP_ENV_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           APP_ENV_ZAMMAD_FORM_SRC: ${{ secrets.ZAMMAD_FORM_SRC }}
+          APP_ENV_ZAMMAD_CHAT_SRC: ${{ secrets.ZAMMAD_CHAT_SRC }}
           APP_SECRET_SMTP_URL: ${{ secrets.SAAS_PROD_SMTP_URL }}
           APP_ENV_HOST: ${{ env.domain }}
           APP_ENV_ASSET_HOST: https://s3.brickapis.com/globalcdn/brickdoc-saas-prod

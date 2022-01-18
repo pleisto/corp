@@ -19,7 +19,8 @@ module ApplicationHelper
       settings: BrickdocConfig.to_frontend,
       serverMessage: flash[:alert],
       sentryDsn: BrickdocConfig.sentry_dsn,
-      zammadFormSrc: BrickdocConfig.zammad_form_src
+      zammadFormSrc: BrickdocConfig.zammad_form_src,
+      zammadChatSrc: BrickdocConfig.zammad_chat_src
     }
   end
 

@@ -115,6 +115,7 @@ class BrickdocConfig < ApplicationRecord
   field :unsplash_api_secret, default: ENV['UNSPLASH_API_SECRET']
 
   field :zammad_form_src, default: ENV['ZAMMAD_FORM_SRC']
+  field :zammad_chat_src, default: ENV['ZAMMAD_CHAT_SRC']
 
   field :iframely_api_access_key, default: ENV['IFRAMELY_API_ACCESS_KEY']
 

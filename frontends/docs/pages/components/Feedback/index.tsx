@@ -7,16 +7,23 @@ import { BrickdocContext } from '@/common/brickdocContext'
 
 declare global {
   const $: any
+  const ZammadChat: any
 }
 
 export const Feedback: React.FC<DocMetaProps> = ({ docMeta: { featureFlags, webid } }) => {
   // TODO add feedback
   // if (!featureFlags.includes('feedback')) return <></>
+  const [showChat, setShowChat] = React.useState(false)
 
   const jquerySrc = 'https://code.jquery.com/jquery-3.6.0.min.js'
-  const { zammadFormSrc } = useContext(BrickdocContext)
+  const { zammadFormSrc, zammadChatSrc } = useContext(BrickdocContext)
 
-  // const zammadFormSrc = 'http://10.1.21.13:8080/assets/form/form.js'
+  // const zammadFormSrc = 'http://10.1.21.13/assets/form/form.js'
+  // const zammadChatSrc = 'http://10.1.21.13/assets/chat/chat.js'
+
+  const onClick = (): void => {
+    setShowChat(true)
+  }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -75,13 +82,31 @@ export const Feedback: React.FC<DocMetaProps> = ({ docMeta: { featureFlags, webi
       }
       script.src = zammadFormSrc
       document.body.appendChild(script)
+
+      const script2 = document.createElement('script')
+      script2.id = 'zammad_chat_script'
+      script2.async = true
+      script2.src = zammadChatSrc
+      script2.onload = () => {
+        // eslint-disable-next-line no-new
+        new ZammadChat({
+          show: showChat,
+          fontSize: '12px',
+          chatId: 1
+        })
+      }
+      document.body.appendChild(script2)
     }
 
     document.body.appendChild(script)
-  }, [zammadFormSrc])
+  }, [zammadFormSrc, zammadChatSrc, showChat])
 
   return (
-    <Button className={classNames([styles.feedbackBtn, 'brd-btn-text'])} id="feedback-form" type="text">
+    <Button
+      className={classNames([styles.feedbackBtn, 'brd-btn-text'])}
+      id="feedback-form"
+      type="text"
+      onClick={onClick}>
       Feedback
     </Button>
   )
