@@ -45,6 +45,7 @@ export type ToolbarSubMenuItemsRender = () => React.ReactNode
 
 export interface ToolbarSubMenuOption extends ToolbarOptionBase {
   type: 'subMenu'
+  baseId?: string
   items: Array<ToolbarItemGroupOption | ToolbarItemOption> | ToolbarSubMenuItemsRender
 }
 

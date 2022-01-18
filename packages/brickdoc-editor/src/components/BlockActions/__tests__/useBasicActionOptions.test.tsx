@@ -59,7 +59,6 @@ describe('useBasicActionOptions', () => {
         <Demo />
       </EditorDataSourceContext.Provider>
     )
-    expect(screen.getByRole('group')).toBeInTheDocument()
     expect(screen.getByText('copy')).toBeInTheDocument()
     expect(screen.getByText('delete')).toBeInTheDocument()
     expect(screen.getByText('duplicate')).toBeInTheDocument()

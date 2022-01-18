@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled } from '@brickdoc/design-system'
+import { MenuProps, styled } from '@brickdoc/design-system'
 import { BasicActionOptionType, useBasicActionOptions } from './useBasicActionOptions'
 import {
   ToolbarSubMenuOption,
@@ -29,6 +29,7 @@ export type ActionOptionGroup = ToolbarOptionGroup
 export type BlockActionOptions = Array<ToolbarGroupOption | ToolbarItemOption | BasicActionOptionType>
 
 export interface BlockActionsProps {
+  baseId?: MenuProps['baseId']
   options: BlockActionOptions
 }
 
@@ -50,7 +51,7 @@ const BlockActionsContainer = styled('div', {
   }
 })
 
-export const BlockActions: React.FC<BlockActionsProps> = ({ options, children }) => {
+export const BlockActions: React.FC<BlockActionsProps> = ({ options, baseId, children }) => {
   const basicOptionTypes = React.useMemo<BasicActionOptionType[]>(
     () => options.filter(option => typeof option === 'string') as BasicActionOptionType[],
     [options]
@@ -64,7 +65,7 @@ export const BlockActions: React.FC<BlockActionsProps> = ({ options, children })
   return (
     <BlockActionsContainer>
       {children}
-      <BlockActionButtonContainer extraOptions={extraOptions} basicOptions={basicOptions} />
+      <BlockActionButtonContainer baseId={baseId} extraOptions={extraOptions} basicOptions={basicOptions} />
     </BlockActionsContainer>
   )
 }
