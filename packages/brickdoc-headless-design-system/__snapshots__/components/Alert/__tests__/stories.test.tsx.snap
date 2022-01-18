@@ -18,8 +18,8 @@ exports[`Basic should match the snapshot 1`] = `
           class="brd-c-jeVcRd"
           role="presentation"
         >
-          <span
-            data-mock="brickdoc-icon-Info"
+          <i
+            data-mock-icon="Info"
           />
         </div>
         <div
@@ -43,8 +43,8 @@ exports[`Basic should match the snapshot 1`] = `
           role="button"
           type="button"
         >
-          <span
-            data-mock="brickdoc-icon-Close"
+          <i
+            data-mock-icon="Close"
           />
         </button>
       </div>
@@ -71,8 +71,8 @@ exports[`MessageOnly should match the snapshot 1`] = `
           class="brd-c-jeVcRd"
           role="presentation"
         >
-          <span
-            data-mock="brickdoc-icon-CloseOne"
+          <i
+            data-mock-icon="CloseOne"
           />
         </div>
         <div
@@ -91,8 +91,8 @@ exports[`MessageOnly should match the snapshot 1`] = `
           role="button"
           type="button"
         >
-          <span
-            data-mock="brickdoc-icon-Close"
+          <i
+            data-mock-icon="Close"
           />
         </button>
       </div>
@@ -119,8 +119,8 @@ exports[`WithAction should match the snapshot 1`] = `
           class="brd-c-jeVcRd"
           role="presentation"
         >
-          <span
-            data-mock="brickdoc-icon-Caution"
+          <i
+            data-mock-icon="Caution"
           />
         </div>
         <div
@@ -157,8 +157,8 @@ exports[`WithAction should match the snapshot 1`] = `
           role="button"
           type="button"
         >
-          <span
-            data-mock="brickdoc-icon-Close"
+          <i
+            data-mock-icon="Close"
           />
         </button>
       </div>
