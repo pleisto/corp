@@ -80,7 +80,7 @@ MessageOnly.args = {
 export const WithAction = Template.bind({})
 WithAction.args = {
   title: 'Complete your profile',
-  message: 'Please complete your profile to allow us recommend personalized content to you.',
+  message: 'Please complete your profile to allow us recommending personalized content to you.',
   type: 'warning',
   action: <Button type="primary">View details</Button>
 }

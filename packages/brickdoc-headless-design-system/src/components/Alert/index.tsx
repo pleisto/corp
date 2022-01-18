@@ -19,7 +19,6 @@ type AriaRoleProps = AriaAttributes & {
 export interface AlertProps {
   type?: Type
   className?: string
-  fullMode?: boolean
   title?: React.ReactNode
   message?: React.ReactNode
   closeIcon?: boolean
@@ -30,7 +29,7 @@ export interface AlertProps {
 
 export const Alert: FC<AlertProps> = props => {
   const { action, type = 'success', className, icon = true, title, message, onClose } = props
-  // closeIcon default to true if title is provided
+  // closeIcon default to true if title is not provided
   const closeIcon = props.closeIcon ?? !title
   const [visible, setVisible] = useState<boolean>(true)
   const contentId = useId()
