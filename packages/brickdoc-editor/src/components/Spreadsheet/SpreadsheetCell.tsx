@@ -15,18 +15,21 @@ export interface SpreadsheetCellProps {
 
 export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, parentId, block, saveBlock }) => {
   const [editing, setEditing] = React.useState(false)
+  const [currentBlock, setCurrentBlock] = React.useState(block)
 
-  const formulaId = block.data.formulaId
-  const formulaName = `${block.parentId}_${block.data.columnId}`
+  const formulaId = currentBlock.data.formulaId
+  const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
 
   const handleDelete = (): void => {}
   const updateFormula = (variable: VariableInterface): void => {
-    saveBlock({
+    const newBlock = {
       ...block,
       data: { ...block.data, t: variable.result() },
       text: displayValue(variable.t.variableValue.result)
-    })
-    // console.log('updateFormula', { variable, parentId, formulaId })
+    }
+    setCurrentBlock(newBlock)
+    saveBlock(newBlock)
+    // console.log('updateFormula', { variable, block, newBlock, parentId, formulaId })
     setEditing(false)
   }
 
@@ -51,8 +54,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
 
   return (
     <div className="cell" onDoubleClick={handleEnterEdit}>
-      {/* {block.text} */}
-      <FormulaRender t={block.data.t} formulaType="spreadsheet" />
+      <FormulaRender t={currentBlock.data.t} formulaType="spreadsheet" />
     </div>
   )
 }
