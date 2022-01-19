@@ -63,7 +63,12 @@ const testCases = [
   '="FOO".T().T() & "Zzz"',
   `=#${namespaceId}.${fooVariableId} + 1`,
   `=#${unknownId}.${fooVariableId} + 2`,
-  `=#${namespaceId}.${unknownId} + 3`
+  `=#${namespaceId}.${unknownId} + 3`,
+  `=foo + 1`,
+  `=#${namespaceId}.foo + 1`,
+  `=Untitled.foo + 1`,
+  `=Bar.foo + 2`,
+  `=Untitled.bar + 3`
 ]
 
 const ctx = {

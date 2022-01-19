@@ -27,6 +27,8 @@ import {
   codeFragmentToJSONContentArray,
   contentArrayToInput,
   fetchJSONContentArray,
+  maybeRemoveCodeFragmentsEqual,
+  maybeRemoveDefinitionEqual,
   positionBasedContentArrayToInput
 } from '../../helpers/formula'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
@@ -149,18 +151,24 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const { t } = useEditorI18n()
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
+  const formulaIsNormal = formulaType === 'normal'
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
-  const contextCompletions = formulaContext ? formulaContext.completions(rootId, variable?.t.variableId) : []
+
   const formulaValue = variable?.t.valid
     ? variable.t.codeFragments.map(fragment => fragment.name).join('')
     : variable?.t.definition
-  const definition = formulaValue ?? ''
+  const realDefinition = maybeRemoveDefinitionEqual(formulaValue, formulaIsNormal)
 
-  const codeFragments = variable?.t.codeFragments
+  const oldCodeFragments = maybeRemoveCodeFragmentsEqual(variable?.t.codeFragments, formulaIsNormal)
   const defaultContent = variable?.t.valid
-    ? codeFragmentsToJSONContentTotal(codeFragments)
-    : buildJSONContentByDefinition(definition)
+    ? codeFragmentsToJSONContentTotal(oldCodeFragments)
+    : buildJSONContentByDefinition(realDefinition)
+
+  const contextCompletions =
+    formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
+      ? formulaContext.completions(rootId, variable?.t.variableId)
+      : []
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
@@ -296,7 +304,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
             })
           ]
         }
-        // console.log('replace..', newText, oldContent)
       }
     }
 
@@ -314,22 +321,26 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       : []
 
     const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)
-    const newContent = [...oldContent, ...completionContents, ...nextContents]
+    const newContent: JSONContent[] = [...oldContent, ...completionContents, ...nextContents]
     const finalContent = buildJSONContentByArray(newContent)
     const finalInput = contentArrayToInput(fetchJSONContentArray(finalContent))
-    setContent(finalContent)
+    const finalInputAfterEqual = formulaIsNormal ? `=${finalInput}` : finalInput
     const newPosition = latestPosition.current + positionChange
+
+    setContent(finalContent)
     setPosition(newPosition)
-    // latestSetPosition.current(newPosition)
-    setInput(finalInput)
+    setInput(finalInputAfterEqual)
+
     console.log('selectCompletion', {
+      finalContent,
       currentCompletion,
       newPosition,
       content,
       newContent,
-      finalInput
+      finalInput,
+      finalInputAfterEqual
     })
-    void doCalculate({ newInput: finalInput })
+    void doCalculate({ newInput: finalInputAfterEqual })
   }
 
   const keyDownHandler = useKeydownHandler({
@@ -343,9 +354,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   })
 
   const handleValueChange = (text: string): void => {
-    setInput(text)
-    // setContent(editor.getJSON() as JSONContent)
-    void doCalculate({ newInput: text })
+    const value = formulaIsNormal ? `=${text}` : text
+    setInput(value)
+    void doCalculate({ newInput: value })
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -361,7 +372,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     const finalName = newName ?? name ?? defaultName
     const finalInput = newInput ?? input ?? ''
-    const inputIsEmpty = finalInput.trim() === ''
+    const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
     const result = await calculate({
       namespaceId: rootId,
@@ -395,17 +406,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
     setCompletions(completions)
     setActiveCompletion(completions[0])
-    // setPosition(newPosition)
     latestSetPosition.current(newPosition)
 
     if (parseResult.valid || inputIsEmpty) {
-      setContent(codeFragmentsToJSONContentTotal(parseResult.codeFragments))
+      const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
+      setContent(codeFragmentsToJSONContentTotal(codeFragments))
       setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
-      // } else if (parseResult.input !== input && parseResult.input !== '=') {
-      //   const content = buildJSONContentByDefinition(parseResult.input.substring(1))
-      //   console.log('ReplaceInput', { content, newInput: parseResult.input, input, parseResult })
-      //   setContent(content)
-      //   setInput(parseResult.input)
     }
 
     if (inputIsEmpty) {
@@ -440,7 +446,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     updateFormula(variable!)
 
     await variable!.save()
-    // await formulaContext!.commitVariable({ variable: variable! })
     setName(finalName)
     updateVariable(variable)
 
@@ -451,8 +456,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleCancel = (): void => {
     close()
   }
-
-  const formulaIsNormal = formulaType === 'normal'
 
   const menu = (
     <div className="brickdoc-formula-menu">
@@ -473,6 +476,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         </div>
       )}
       <div className="formula-menu-row">
+        {formulaIsNormal && <span className="formula-menu-result-label">=</span>}
         <div className="formula-menu-item">
           <FormulaEditor
             content={content}
@@ -513,7 +517,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}>
+          disabled={isDisableSave()}
+        >
           {t(`${i18nKey}.save`)}
         </Button>
         <Button
@@ -521,7 +526,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="text"
           danger={true}
-          onClick={() => handleDelete(variable!)}>
+          onClick={() => handleDelete(variable!)}
+        >
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
@@ -537,7 +543,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {children}
     </Popover>
   )

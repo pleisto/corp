@@ -561,7 +561,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
       if (rhsCst.name === 'keyExpression') {
         const accessErrorMessages: ErrorMessage[] =
-          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
+          ['null', 'string', 'boolean', 'number', 'Block'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
         const args = { type: 'string' }
@@ -593,6 +593,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             codeFragment = {
               ...codeFragment,
               namespaceId,
+              name: variable.t.name,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
               display: () => variable.t.name

@@ -267,6 +267,19 @@ const testCases: TestCase[] = [
     value: 24
   },
   {
+    input: `=#${barNamespaceId}.bar`,
+    value: 24
+  },
+  {
+    input: `=bar`,
+    parseErrorType: 'syntax',
+    errorMessage: 'Unknown function bar'
+  },
+  {
+    input: `=Untitled.bar`,
+    value: 24
+  },
+  {
     input: `=&#${barNamespaceId}.${barVariableId}`,
     // value: { kind: 'variable', namespaceId: barNamespaceId, variableId: barVariableId }
     parseErrorType: 'syntax',

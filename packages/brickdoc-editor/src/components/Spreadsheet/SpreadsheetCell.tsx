@@ -24,7 +24,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
       ...block,
       text: displayValue(variable.t.variableValue.result)
     })
-    console.log('updateFormula', { variable, parentId, formulaId })
+    // console.log('updateFormula', { variable, parentId, formulaId })
     setEditing(false)
   }
 

@@ -737,6 +737,8 @@ export type FormulaUpdateInput = {
   level?: InputMaybe<Scalars['Int']>
   /** name */
   name?: InputMaybe<Scalars['String']>
+  /** type */
+  type?: InputMaybe<Scalars['String']>
   /** version */
   version?: InputMaybe<Scalars['Int']>
 }

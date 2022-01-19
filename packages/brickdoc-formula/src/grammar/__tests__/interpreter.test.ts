@@ -49,7 +49,6 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const fooVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
-const unknownId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
 
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 
@@ -143,7 +142,7 @@ describe('Context', () => {
   })
 
   it('constant variable', async () => {
-    const input = `=#${namespaceId}.${fooVariableId}`
+    const input = `=#${namespaceId}.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
@@ -161,7 +160,7 @@ describe('Context', () => {
   it('expression variable', async () => {
     const anotherBlockId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
     const anotherVariableId = '45e4260c-5bf1-4120-957e-1214c5ea7c20'
-    const barInput = `=10 + #${namespaceId}.${fooVariableId}`
+    const barInput = `=10 + #${namespaceId}.foo`
 
     // Insert bar
     const meta = { namespaceId: anotherBlockId, variableId: anotherVariableId, name: 'bar' }
@@ -194,7 +193,7 @@ describe('Context', () => {
   })
 
   it('Type', () => {
-    const input = `= "foo" & #${namespaceId}.${fooVariableId}`
+    const input = `= "foo" & #${namespaceId}.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
@@ -202,18 +201,21 @@ describe('Context', () => {
   })
 
   it('unknown namespace', () => {
-    const input = `=#${unknownId}.${fooVariableId}`
+    const input = `=Unknown.foo`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Block not found: ${unknownId}`, type: 'deps' }])
+    expect(errorMessages).toEqual([
+      { message: 'Unknown function Unknown', type: 'syntax' },
+      { message: 'TODO mismatch token FunctionCall', type: 'parse' }
+    ])
   })
 
   it('unknown variable', () => {
-    const input = `=#${namespaceId}.${unknownId}`
+    const input = `=Untitled.unknown`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: `Unknown variable: ${unknownId}`, type: 'syntax' }])
+    expect(errorMessages).toEqual([{ message: 'Access error', type: 'syntax' }])
   })
 })
