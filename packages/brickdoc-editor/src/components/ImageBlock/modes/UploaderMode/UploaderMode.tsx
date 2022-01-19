@@ -11,10 +11,11 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 export interface UploaderModeProps {
   node: NodeViewProps['node']
   deleteNode: NodeViewProps['deleteNode']
+  getPos: NodeViewProps['getPos']
   updateImageAttributes: (attrs: Record<string, any>) => void
 }
 
-export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, updateImageAttributes }) => {
+export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, getPos, updateImageAttributes }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const { t } = React.useContext(EditorContext)
 
@@ -49,7 +50,7 @@ export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, up
   )
 
   return (
-    <BlockContainer deleteNode={deleteNode} actionOptions={['delete']}>
+    <BlockContainer deleteNode={deleteNode} getPos={getPos} actionOptions={['delete']}>
       <Popover
         overlayClassName="brickdoc-block-image-section-popover"
         trigger="click"

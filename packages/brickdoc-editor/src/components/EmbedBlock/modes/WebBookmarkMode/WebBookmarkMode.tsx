@@ -7,15 +7,23 @@ import { BlockContainer } from '../../../../components'
 export interface WebBookmarkModeProps {
   editor: NodeViewProps['editor']
   deleteNode: NodeViewProps['deleteNode']
+  getPos: NodeViewProps['getPos']
   cover: string
   title: string
   description: string
   linkUrl: string
 }
 
-export const WebBookmarkMode: React.FC<WebBookmarkModeProps> = ({ linkUrl, cover, title, description, deleteNode }) => {
+export const WebBookmarkMode: React.FC<WebBookmarkModeProps> = ({
+  linkUrl,
+  cover,
+  title,
+  description,
+  getPos,
+  deleteNode
+}) => {
   return (
-    <BlockContainer contentForCopy={linkUrl} deleteNode={deleteNode} actionOptions={['copy', 'delete']}>
+    <BlockContainer contentForCopy={linkUrl} deleteNode={deleteNode} getPos={getPos} actionOptions={['copy', 'delete']}>
       <Button
         data-testid={TEST_ID_ENUM.editor.embedBlock.link.id}
         className="brickdoc-link-block-link"
