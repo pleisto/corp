@@ -225,15 +225,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }, [setActiveCompletionIndex])
 
   const close = (): void => {
-    // setContent(defaultContent)
-    // setName(variable?.t.name)
-    // setDefaultName(contextDefaultName)
-    // setCompletions(contextCompletions)
-    // setInput(formulaValue)
-    // setActiveCompletion(completions[0])
-    // setActiveCompletionIndex(0)
-    // setError(undefined)
-
     setVisible(false)
     onVisibleChange?.(false)
   }
@@ -457,6 +448,30 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     close()
   }
 
+  const result = (
+    <>
+      <div className="formula-menu-result">
+        {error && (
+          <span className="formula-menu-result-error">
+            <span className="formula-menu-result-error-type">{error.type}</span>
+            <span className="formula-menu-result-error-message">{error.message}</span>
+          </span>
+        )}
+        {!error && variable && displayValue(variable.t.variableValue.result)}
+      </div>
+      <div className="formula-menu-divider" />
+      <AutocompleteList
+        blockId={rootId}
+        completions={completions}
+        handleSelectActiveCompletion={handleSelectActiveCompletion}
+        setActiveCompletion={setActiveCompletion}
+        activeCompletionIndex={activeCompletionIndex}
+        setActiveCompletionIndex={setActiveCompletionIndex}
+        activeCompletion={activeCompletion}
+      />
+    </>
+  )
+
   const menu = (
     <div className="brickdoc-formula-menu">
       <div className="formula-menu-header">{t(`${i18nKey}.header`)}</div>
@@ -489,25 +504,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         </div>
       </div>
       <div className="formula-menu-divider" />
-      <div className="formula-menu-result">
-        {error && (
-          <span className="formula-menu-result-error">
-            <span className="formula-menu-result-error-type">{error.type}</span>
-            <span className="formula-menu-result-error-message">{error.message}</span>
-          </span>
-        )}
-        {!error && variable && displayValue(variable.t.variableValue.result)}
-      </div>
-      <div className="formula-menu-divider" />
-      <AutocompleteList
-        blockId={rootId}
-        completions={completions}
-        handleSelectActiveCompletion={handleSelectActiveCompletion}
-        setActiveCompletion={setActiveCompletion}
-        activeCompletionIndex={activeCompletionIndex}
-        setActiveCompletionIndex={setActiveCompletionIndex}
-        activeCompletion={activeCompletion}
-      />
+      {result}
       <div className="formula-menu-footer">
         <Button className="formula-menu-button" size="small" type="text" onClick={handleCancel}>
           {t(`${i18nKey}.cancel`)}
@@ -517,8 +514,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}
-        >
+          disabled={isDisableSave()}>
           {t(`${i18nKey}.save`)}
         </Button>
         <Button
@@ -526,13 +522,15 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="text"
           danger={true}
-          onClick={() => handleDelete(variable!)}
-        >
+          onClick={() => handleDelete(variable!)}>
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
     </div>
   )
+
+  // const menuContent = formulaIsNormal ? menu : result
+  const menuContent = menu
 
   return (
     <Popover
@@ -541,10 +539,9 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       visible={visible}
       overlayClassName="brickdoc-formula-menu-popover"
       destroyTooltipOnHide={true}
-      content={menu}
+      content={menuContent}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {children}
     </Popover>
   )

@@ -263,17 +263,17 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.formulaNames = this.formulaNames
-      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
-      .concat({
-        kind: 'Spreadsheet',
-        namespaceId: spreadsheet.blockId,
-        name: spreadsheet.name(),
-        value: blockKey(spreadsheet.blockId),
-        render: () => blockKey(spreadsheet.blockId),
-        prefixLength: () => 0,
-        key: spreadsheet.blockId
-      })
+    // this.formulaNames = this.formulaNames
+    //   .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
+    //   .concat({
+    //     kind: 'Spreadsheet',
+    //     namespaceId: spreadsheet.blockId,
+    //     name: spreadsheet.name(),
+    //     value: blockKey(spreadsheet.blockId),
+    //     render: () => blockKey(spreadsheet.blockId),
+    //     prefixLength: () => 0,
+    //     key: spreadsheet.blockId
+    //   })
     this.blocks[spreadsheet.blockId] = 'Spreadsheet'
     this.spreadsheets[spreadsheet.blockId] = spreadsheet
   }
@@ -321,7 +321,7 @@ export class FormulaContext implements ContextInterface {
   // TODO update other variable's level
   public trackDependency(variable: VariableInterface): void {
     const {
-      t: { variableDependencies, blockDependencies, namespaceId, name, variableId, functionDependencies }
+      t: { variableDependencies, blockDependencies, namespaceId, name, variableId, functionDependencies, type }
     } = variable
     BrickdocEventBus.subscribe(
       BlockNameLoad,
@@ -356,7 +356,7 @@ export class FormulaContext implements ContextInterface {
         namespaceId,
         prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
       })
-    if (!this.formulaNames.find(n => n.kind === 'Block' && n.key === namespaceId)) {
+    if (!this.formulaNames.find(n => n.kind === 'Block' && n.key === namespaceId) && type === 'normal' ) {
       this.formulaNames.push({
         kind: 'Block',
         name: 'Untitled',

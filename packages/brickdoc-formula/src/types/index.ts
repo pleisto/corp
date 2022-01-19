@@ -573,18 +573,20 @@ interface ErrorVariableValue extends BaseVariableValue {
 
 export type VariableValue = SuccessVariableValue | ErrorVariableValue
 
-export interface VariableData {
+export interface VariableResult {
+  definition: Definition
+  variableValue: VariableValue
+  kind: VariableKind
+  type: FormulaSourceType
+}
+export interface VariableData extends VariableResult {
   name: VariableName
   level: number
   version: number
   namespaceId: NamespaceId
   variableId: VariableId
-  definition: Definition
   dirty: boolean
   valid: boolean
-  type: FormulaSourceType
-  kind: VariableKind
-  variableValue: VariableValue
   cst?: CstNode
   codeFragments: CodeFragment[]
   flattenVariableDependencies: VariableDependency[]
@@ -611,6 +613,7 @@ export interface VariableInterface {
   reparse: VoidFunction
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
+  result: () => VariableResult
   updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>

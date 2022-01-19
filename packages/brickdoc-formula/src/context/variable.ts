@@ -11,7 +11,8 @@ import {
   Definition,
   Formula,
   BaseFormula,
-  FormulaSourceType
+  FormulaSourceType,
+  VariableResult
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -148,6 +149,15 @@ export class VariableClass implements VariableInterface {
       name: this.t.name,
       input: this.t.definition,
       type: this.t.type
+    }
+  }
+
+  result(): VariableResult {
+    return {
+      definition: this.t.definition,
+      variableValue: this.t.variableValue,
+      type: this.t.type,
+      kind: this.t.kind
     }
   }
 
