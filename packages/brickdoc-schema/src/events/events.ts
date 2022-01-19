@@ -52,6 +52,17 @@ export const SlashMenuKeyboardEventTrigger = event<{ key: string }>()('SlashMenu
   return { key }
 })
 
+export const FormulaKeyboardEventTrigger = event<{ key: string }>()('FormulaKeyboardEventTrigger', ({ key }) => {
+  return { key }
+})
+
+export const FormulaEditorUpdateEventTrigger = event<{ input: string; position: number }>()(
+  'FormulaEditorUpdateEventTrigger',
+  ({ input, position }) => {
+    return { input, position }
+  }
+)
+
 export interface ExplorerMenuItem {
   label: React.ReactElement
   labelText: string

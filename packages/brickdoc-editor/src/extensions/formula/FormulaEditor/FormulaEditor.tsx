@@ -1,47 +1,32 @@
-import React, { MutableRefObject, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
-import { HandleKeyDownExtension, KeyDownHandlerType } from './extensions/handleKeyDown'
+import { HandleKeyDownExtension } from './extensions/handleKeyDown'
 import './FormulaEditor.less'
 import { FormulaTypeExtension } from './extensions/formulaType'
 import { contentArrayToInput, fetchJSONContentArray } from '../../../helpers'
+import { BrickdocEventBus, FormulaEditorUpdateEventTrigger } from '@brickdoc/schema'
 
 export interface FormulaEditorProps {
   content: JSONContent | undefined
   editable: boolean
-  position?: MutableRefObject<number>
-  updatePosition?: MutableRefObject<React.Dispatch<React.SetStateAction<number>>>
-  updateContent?: (text: string) => void
-  keyDownHandler?: KeyDownHandlerType
+  position?: number
 }
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({
-  content,
-  editable,
-  position: pos,
-  updatePosition,
-  updateContent,
-  keyDownHandler
-}) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, position }) => {
   const editor = useEditor({
     editable,
-    extensions: [
-      Document,
-      Text,
-      Paragraph,
-      FormulaTypeExtension.configure({ editable }),
-      HandleKeyDownExtension(keyDownHandler)
-    ],
+    extensions: [Document, Text, Paragraph, FormulaTypeExtension.configure({ editable }), HandleKeyDownExtension],
     onUpdate: ({ editor, transaction }) => {
       const jsonContent = editor.getJSON()
-      const text = contentArrayToInput(fetchJSONContentArray(jsonContent))
-      const position = transaction.selection.from - 1
-      if (transaction.selection.from === transaction.selection.to && position >= 1) {
+      const input = contentArrayToInput(fetchJSONContentArray(jsonContent))
+      const editorPosition = transaction.selection.from - 1
+      if (transaction.selection.from === transaction.selection.to && editorPosition >= 1) {
         const blocks: JSONContent[] = editor.getJSON().content?.[0].content ?? []
         let length = 0
 
@@ -54,37 +39,36 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
           }
 
           // matched
-          if (length + blockLength >= position) {
+          if (length + blockLength >= editorPosition) {
             if (block.type !== 'text') break
 
-            const word = findNearestWord(block.text!, position - length - 1)
-            console.info({ word, pos: position - length - 1 })
+            const word = findNearestWord(block.text!, editorPosition - length - 1)
+            console.info({ word, position: editorPosition - length - 1 })
           }
 
           length += blockLength
         }
       }
 
-      updatePosition?.current(position)
-      updateContent?.(text)
+      BrickdocEventBus.dispatch(FormulaEditorUpdateEventTrigger({ position: editorPosition, input }))
     }
   })
 
   useEffect(() => {
     if (editor && !editor.isDestroyed && content) {
-      if (pos) {
+      if (position) {
         editor
           .chain()
           .replaceRoot(content)
-          .setTextSelection(pos.current + 1)
+          .setTextSelection(position + 1)
           .run()
       } else {
         editor.commands.replaceRoot(content)
       }
 
-      if (editable) console.log('after replace root', { content, editor, pos: pos?.current })
+      if (editable) console.log('after replace root', { content, editor, position })
     }
-  }, [editor, content, pos, editable])
+  }, [editor, content, position, editable])
 
   return (
     <>
