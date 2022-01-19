@@ -255,6 +255,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     input,
     name,
     position,
+    setContent,
+    setActiveCompletion,
+    setCompletions,
+    setPosition,
+    setInput,
     rootId,
     updateVariable,
     variable
@@ -353,7 +358,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       finalInputAfterEqual
     })
     void doCalculate()
-  }, [activeCompletion, content, doCalculate, formulaIsNormal, position])
+  }, [activeCompletion, content, setContent, setPosition, setInput, doCalculate, formulaIsNormal, position])
 
   const handleEditorUpdate = React.useCallback(
     ({ input: newInput, position: newPosition }: { input: string; position: number }): void => {
@@ -363,7 +368,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       console.log({ value, input, debug: value === input })
       void doCalculate()
     },
-    [doCalculate, formulaIsNormal, input]
+    [doCalculate, formulaIsNormal, setInput, setPosition, input]
   )
 
   React.useEffect(() => {
