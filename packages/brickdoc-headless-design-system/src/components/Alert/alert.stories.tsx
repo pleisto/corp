@@ -22,9 +22,6 @@ export default {
     icon: {
       control: 'boolean'
     },
-    fullMode: {
-      control: 'boolean'
-    },
     onClose: {
       description: '`(e: PressEvent) => void`'
     },
