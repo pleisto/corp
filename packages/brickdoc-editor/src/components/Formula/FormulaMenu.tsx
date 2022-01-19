@@ -184,84 +184,81 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const [position, setPosition] = React.useState(0)
 
-  const doCalculate = React.useCallback(
-    async ({ newName, newInput }: { newName?: string; newInput?: string }): Promise<void> => {
-      if (!formulaContext || !(newInput ?? input)) {
-        console.log('no final input!')
-        return
-      }
+  const doCalculate = React.useCallback(async (): Promise<void> => {
+    if (!formulaContext || !input) {
+      console.log('no final input!')
+      return
+    }
 
-      const finalName = newName ?? name ?? defaultName
-      const finalInput = newInput ?? input ?? ''
-      const inputIsEmpty = ['', '='].includes(finalInput.trim())
+    const finalName = name ?? defaultName
+    const finalInput = input ?? ''
+    const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
-      const result = await calculate({
-        namespaceId: rootId,
-        formulaId,
-        variable,
-        formulaType,
-        position,
-        name: finalName,
-        input: finalInput,
-        formulaContext
-      })
-
-      if (!result) return
-
-      const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
-
-      // console.log('calculate result', {
-      //   finalName,
-      //   newName,
-      //   newInput,
-      //   input,
-      //   finalInput,
-      //   parseResult,
-      //   activeCompletion,
-      //   latestPosition: latestPosition.current,
-      //   position,
-      //   newPosition,
-      //   result,
-      //   latestActiveCompletion: latestActiveCompletion.current
-      // })
-
-      setCompletions(completions)
-      setActiveCompletion(completions[0])
-      setPosition(newPosition)
-
-      if (parseResult.valid || inputIsEmpty) {
-        const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
-        setContent(codeFragmentsToJSONContentTotal(codeFragments))
-        setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
-      }
-
-      if (inputIsEmpty) {
-        updateVariable(undefined)
-        setError(undefined)
-      } else {
-        updateVariable(newVariable)
-        setError(errors.length ? errors[0] : undefined)
-      }
-
-      if (interpretResult.variableValue.success) {
-        const type = interpretResult.variableValue.result.type
-        setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
-      }
-    },
-    [
-      defaultName,
-      formulaContext,
+    const result = await calculate({
+      namespaceId: rootId,
       formulaId,
-      formulaIsNormal,
+      variable,
       formulaType,
-      input,
-      name,
       position,
-      rootId,
-      updateVariable,
-      variable
-    ]
-  )
+      name: finalName,
+      input: finalInput,
+      formulaContext
+    })
+
+    if (!result) return
+
+    const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
+
+    // console.log('calculate result', {
+    //   finalName,
+    //   newName,
+    //   newInput,
+    //   input,
+    //   finalInput,
+    //   parseResult,
+    //   activeCompletion,
+    //   latestPosition: latestPosition.current,
+    //   position,
+    //   newPosition,
+    //   result,
+    //   latestActiveCompletion: latestActiveCompletion.current
+    // })
+
+    setCompletions(completions)
+    setActiveCompletion(completions[0])
+    setPosition(newPosition)
+
+    if (parseResult.valid || inputIsEmpty) {
+      const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
+      setContent(codeFragmentsToJSONContentTotal(codeFragments))
+      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
+    }
+
+    if (inputIsEmpty) {
+      updateVariable(undefined)
+      setError(undefined)
+    } else {
+      updateVariable(newVariable)
+      setError(errors.length ? errors[0] : undefined)
+    }
+
+    if (interpretResult.variableValue.success) {
+      const type = interpretResult.variableValue.result.type
+      setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
+    }
+  }, [
+    defaultName,
+    formulaContext,
+    formulaId,
+    formulaIsNormal,
+    formulaType,
+    input,
+    name,
+    position,
+    rootId,
+    updateVariable,
+    variable
+  ])
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
     const currentCompletion = activeCompletion
@@ -355,8 +352,19 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       finalInput,
       finalInputAfterEqual
     })
-    void doCalculate({ newInput: finalInputAfterEqual })
+    void doCalculate()
   }, [activeCompletion, content, doCalculate, formulaIsNormal, position])
+
+  const handleEditorUpdate = React.useCallback(
+    ({ input: newInput, position: newPosition }: { input: string; position: number }): void => {
+      const value = formulaIsNormal ? `=${newInput}` : newInput
+      setPosition(newPosition)
+      setInput(value)
+      console.log({ value, input, debug: value === input })
+      void doCalculate()
+    },
+    [doCalculate, formulaIsNormal, input]
+  )
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(FormulaKeyboardEventTrigger, event => {
@@ -387,19 +395,10 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(FormulaEditorUpdateEventTrigger, event => {
       console.log('update subscribe', { event })
-
-      setPosition(event.payload.position)
-      handleValueChange(event.payload.input)
+      handleEditorUpdate({ input: event.payload.input, position: event.payload.position })
     })
     return () => listener.unsubscribe()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const handleValueChange = (text: string): void => {
-    const value = formulaIsNormal ? `=${text}` : text
-    setInput(value)
-    void doCalculate({ newInput: value })
-  }
+  }, [handleEditorUpdate])
 
   const close = (): void => {
     setVisible(false)
@@ -418,7 +417,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value)
-    void doCalculate({ newName: e.target.value })
+    void doCalculate()
   }
 
   const isDisableSave = (): boolean => {
