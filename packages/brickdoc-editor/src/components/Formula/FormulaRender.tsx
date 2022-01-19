@@ -51,7 +51,7 @@ const COLOR_ARRAY: { [key in FormulaType]: number } = {
   Array: 6
 }
 
-const renderTable = (result: SpreadsheetResult): React.ReactNode => {
+const renderTable = (result: SpreadsheetResult): React.ReactElement => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const spreadsheetContext = useSpreadsheetContext()
   const columns = result.result.listColumns()
@@ -92,7 +92,7 @@ const renderTable = (result: SpreadsheetResult): React.ReactNode => {
   )
 }
 
-const renderOther = (result: AnyTypeResult, type: FormulaSourceType): React.ReactNode => {
+const renderOther = (result: AnyTypeResult, type: FormulaSourceType): React.ReactElement => {
   const activeColorIndex = COLOR_ARRAY[result.type] || 0
   const activeColor = COLOR[activeColorIndex]
 
@@ -109,7 +109,7 @@ const renderOther = (result: AnyTypeResult, type: FormulaSourceType): React.Reac
   )
 }
 
-const renderButton = (result: ButtonResult): React.ReactNode => {
+const renderButton = (result: ButtonResult): React.ReactElement => {
   return (
     <Button disabled={result.result.disabled} onClick={result.result.onClick}>
       {result.result.name}
@@ -117,7 +117,7 @@ const renderButton = (result: ButtonResult): React.ReactNode => {
   )
 }
 
-const renderInput = (result: InputResult): React.ReactNode => {
+const renderInput = (result: InputResult): React.ReactElement => {
   return (
     <Input
       disabled={result.result.disabled}
@@ -127,11 +127,11 @@ const renderInput = (result: InputResult): React.ReactNode => {
   )
 }
 
-const renderQrcode = (result: StringResult): React.ReactNode => {
+const renderQrcode = (result: StringResult): React.ReactElement => {
   return <span>[QRCODE] {result.result}</span>
 }
 
-const renderLiteral = (result: AnyTypeResult): React.ReactNode => {
+const renderLiteral = (result: AnyTypeResult): React.ReactElement => {
   return <span>{result.result}</span>
 }
 
