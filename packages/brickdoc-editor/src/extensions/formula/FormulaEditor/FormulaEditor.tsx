@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
-import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
+import { useEditor, EditorContent, JSONContent, EditorEvents } from '@tiptap/react'
 import { HandleKeyDownExtension } from './extensions/handleKeyDown'
 import './FormulaEditor.less'
 import { FormulaTypeExtension } from './extensions/formulaType'
@@ -13,15 +13,17 @@ export interface FormulaEditorProps {
   content: JSONContent | undefined
   editable: boolean
   position?: number
+  onBlur?: (props: EditorEvents['blur']) => void
 }
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, position }) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, position, onBlur }) => {
   const editor = useEditor({
     editable,
     extensions: [Document, Text, Paragraph, FormulaTypeExtension.configure({ editable }), HandleKeyDownExtension],
+    onBlur,
     onUpdate: ({ editor, transaction }) => {
       const jsonContent = editor.getJSON()
       const input = contentArrayToInput(fetchJSONContentArray(jsonContent))

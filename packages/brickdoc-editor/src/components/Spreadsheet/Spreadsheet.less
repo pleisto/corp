@@ -139,6 +139,21 @@
               outline: 2px solid @table-action-hover-color;
             }
           }
+          .ProseMirror {
+            // background: none;
+            padding: 8px 10px;
+            border: 0;
+            border-radius: 0;
+            line-height: 22px;
+            font-size: 14px;
+            p {
+              line-height: 22px;
+              font-size: 14px;
+            }
+            &:focus {
+              outline: 2px solid @table-action-hover-color;
+            }
+          }
         }
         th {
           .column, .cell {
@@ -146,7 +161,9 @@
           }
         }
         td {
-          padding: 8px 10px;
+          .cell {
+            padding: 8px 10px;
+          }
         }
         th {
           input {

@@ -16,6 +16,7 @@ export interface FormulaBlockRenderProps {
   formulaType: FormulaSourceType
   rootId: string
   defaultVisible?: boolean
+  saveOnBlur?: boolean
   handleTurnOffVisible?: () => void
   handleDelete: (variable: VariableInterface) => void
   updateFormula: (variable: VariableInterface) => void
@@ -28,6 +29,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaType,
   handleTurnOffVisible,
   defaultVisible = false,
+  saveOnBlur = false,
   updateFormula,
   handleDelete
 }) => {
@@ -111,14 +113,21 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           variable={variable}
           defaultName={defaultName}
           name={name}
-          handleDelete={handleDelete}>
+          handleDelete={handleDelete}
+        >
           {renderData}
         </FormulaMenu>
       </BlockContainer>
     )
   }
 
-  const editor = <FormulaEditor content={content} position={position} editable={true} />
+  const onEditorBlur = (): void => {
+    if (saveOnBlur) {
+      void doHandleSave()
+    }
+  }
+
+  const editor = <FormulaEditor content={content} position={position} editable={true} onBlur={onEditorBlur} />
 
   if (!variableT || variableT.kind === 'literal') {
     return editor
@@ -132,7 +141,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {editor}
     </Popover>
   )

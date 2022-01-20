@@ -42,6 +42,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
     return (
       <FormulaBlockRender
         defaultVisible={true}
+        saveOnBlur={true}
         formulaName={formulaName}
         rootId={parentId}
         formulaId={formulaId}
