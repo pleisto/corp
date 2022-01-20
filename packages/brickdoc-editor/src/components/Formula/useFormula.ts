@@ -8,9 +8,15 @@ import {
   InterpretResult,
   parse,
   ParseResult,
+  VariableClass,
   VariableInterface
 } from '@brickdoc/formula'
-import { BrickdocEventBus, FormulaEditorUpdateEventTrigger, FormulaKeyboardEventTrigger } from '@brickdoc/schema'
+import {
+  BrickdocEventBus,
+  FormulaEditorUpdateEventTrigger,
+  FormulaKeyboardEventTrigger,
+  FormulaUpdated
+} from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import React from 'react'
 import {
@@ -432,6 +438,20 @@ export const useFormula = ({
     })
     return () => listener.unsubscribe()
   }, [handleEditorUpdate])
+
+  React.useEffect(() => {
+    const listener = BrickdocEventBus.subscribe(
+      FormulaUpdated,
+      e => {
+        updateVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `${rootId},${formulaId}`
+      }
+    )
+    return () => listener.unsubscribe()
+  }, [formulaId, rootId, updateVariable])
 
   return {
     doCalculate,

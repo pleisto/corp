@@ -1,13 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { Icon, Tooltip } from '@brickdoc/design-system'
+import { Icon, Popover, Tooltip } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '../../../components'
 import './FormulaBlock.less'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
-import { VariableClass, VariableInterface, VariableData, FormulaSourceType } from '@brickdoc/formula'
-
-import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
+import { VariableInterface, FormulaSourceType } from '@brickdoc/formula'
 import { FormulaRender } from '../../../components/Formula/FormulaRender'
+import { useFormula } from '../../../components/Formula/useFormula'
+import { FormulaResult } from '../../../components/Formula/FormulaResult'
+import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -17,7 +18,6 @@ export interface FormulaBlockRenderProps {
   defaultVisible?: boolean
   handleTurnOffVisible?: () => void
   handleDelete: (variable: VariableInterface) => void
-  cacheT?: VariableData
   updateFormula: (variable: VariableInterface) => void
 }
 
@@ -29,33 +29,41 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   handleTurnOffVisible,
   defaultVisible = false,
   updateFormula,
-  handleDelete,
-  cacheT
+  handleDelete
 }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
-  const [variable, setVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
-  const [variableT, setVariableT] = React.useState(cacheT ?? variable?.t)
-  const isDraft = variable?.isDraft() === true && formulaType === 'normal'
+  const [variable, updateVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
+  const isDraft = variable?.isDraft() === true
+  const variableT = variable?.t
 
-  React.useEffect(() => {
-    if (variable) {
-      setVariableT(variable.t)
-    }
-  }, [variable])
-
-  BrickdocEventBus.subscribe(
-    FormulaUpdated,
-    e => {
-      setVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
-    },
-    {
-      eventId: `${rootId},${formulaId}`,
-      subscribeId: `${rootId},${formulaId}`
-    }
-  )
-
-  // console.log({ variable, formulaContext, formulaId, rootId })
+  const {
+    doCalculate,
+    setName,
+    isDisableSave,
+    name,
+    error,
+    doHandleSave,
+    formulaIsNormal,
+    defaultName,
+    content,
+    position,
+    completions,
+    handleSelectActiveCompletion,
+    setActiveCompletion,
+    activeCompletionIndex,
+    setActiveCompletionIndex,
+    activeCompletion
+  } = useFormula({
+    rootId,
+    formulaId,
+    formulaContext,
+    updateFormula,
+    formulaType,
+    variable,
+    updateVariable,
+    formulaName
+  })
 
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && defaultVisible) {
@@ -63,53 +71,69 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     }
   }
 
-  const renderEmpty = (): React.ReactNode => {
+  const formulaResult = (
+    <FormulaResult
+      error={error}
+      rootId={rootId}
+      variable={variable}
+      completions={completions}
+      handleSelectActiveCompletion={handleSelectActiveCompletion}
+      setActiveCompletion={setActiveCompletion}
+      activeCompletionIndex={activeCompletionIndex}
+      setActiveCompletionIndex={setActiveCompletionIndex}
+      activeCompletion={activeCompletion}
+    />
+  )
+
+  if (formulaIsNormal) {
+    const resultData = <FormulaRender t={variableT} formulaType={formulaType} />
+    const renderData =
+      !variableT || isDraft ? (
+        <span className="brickdoc-formula-placeholder">
+          <Icon.Formula className="brickdoc-formula-placeholder-icon" />
+        </span>
+      ) : (
+        <Tooltip title={variableT.name}>{resultData}</Tooltip>
+      )
+
     return (
-      <span className="brickdoc-formula-placeholder">
-        <Icon.Formula className="brickdoc-formula-placeholder-icon" />
-      </span>
+      <BlockContainer inline={true}>
+        <FormulaMenu
+          doCalculate={doCalculate}
+          setName={setName}
+          formulaResult={formulaResult}
+          content={content}
+          position={position}
+          defaultVisible={defaultVisible}
+          onVisibleChange={handleDefaultPopoverVisibleChange}
+          isDisableSave={isDisableSave}
+          doHandleSave={doHandleSave}
+          variable={variable}
+          defaultName={defaultName}
+          name={name}
+          handleDelete={handleDelete}>
+          {renderData}
+        </FormulaMenu>
+      </BlockContainer>
     )
   }
 
-  const menuContainer = (node: React.ReactNode): React.ReactNode => {
-    return (
-      <FormulaMenu
-        formulaId={formulaId}
-        formulaType={formulaType}
-        formulaName={formulaName}
-        rootId={rootId}
-        defaultVisible={defaultVisible}
-        onVisibleChange={handleDefaultPopoverVisibleChange}
-        handleDelete={handleDelete}
-        updateFormula={updateFormula}
-        variable={variable}
-        updateVariable={setVariable}>
-        {node}
-      </FormulaMenu>
-    )
+  const editor = <FormulaEditor content={content} position={position} editable={true} />
+
+  if (!variableT || variableT.kind === 'literal') {
+    return editor
   }
 
-  if (!variableT || isDraft) {
-    return <BlockContainer inline={true}>{menuContainer(renderEmpty())}</BlockContainer>
-  }
-
-  const resultData = <FormulaRender t={variableT} formulaType={formulaType} />
-  const tooltipData = variableT.type === 'normal' ? <Tooltip title={variableT.name}>{resultData}</Tooltip> : resultData
-
-  if (formulaType === 'normal') {
-    return <BlockContainer inline={true}>{menuContainer(tooltipData)}</BlockContainer>
-  }
-
-  /*
-<FormulaEditor
-  content={content}
-  keyDownHandler={keyDownHandler}
-  position={latestPosition}
-  updatePosition={latestSetPosition}
-  updateContent={handleValueChange}
-  editable={true}
-/>
-*/
-
-  return <BlockContainer inline={true}>{menuContainer(tooltipData)}</BlockContainer>
+  return (
+    <Popover
+      defaultVisible={defaultVisible}
+      visible={true}
+      overlayClassName="brickdoc-formula-menu-popover"
+      destroyTooltipOnHide={true}
+      content={formulaResult}
+      placement="bottom"
+      trigger={['click']}>
+      {editor}
+    </Popover>
+  )
 }
