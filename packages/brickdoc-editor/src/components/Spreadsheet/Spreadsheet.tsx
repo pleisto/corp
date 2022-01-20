@@ -70,12 +70,13 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   React.useEffect(() => {
     const onDraggingMouseMove = (e: MouseEvent): void => {
       if (dragging.rowId ?? dragging.columnId) {
-        const tr = (e.target as Element).closest('tr')
+        const trs = document.elementsFromPoint(e.clientX, e.clientY).map(el => el.closest('tr'))
+        const tr = trs?.find(el => el?.dataset.rowId && el.dataset.rowId !== dragging.rowId)
         spreadsheetContext.setDragging({
           ...dragging,
           movementX: (dragging.movementX ?? 0) + e.movementX,
           movementY: (dragging.movementY ?? 0) + e.movementY,
-          overRowId: tr?.dataset?.rowId
+          overRowId: tr?.dataset?.rowId ?? dragging.rowId
         })
       }
     }
