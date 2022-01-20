@@ -7,6 +7,7 @@ export const BlockUpdated = event<Block>()('BlockUpdated', (block: Block) => {
 export const BlockDeleted = event<Block>()('BlockDeleted', (block: Block) => {
   return { id: block.id }
 })
+
 export const UpdateBlock = event<{ block: Block; commit: boolean }>()('UpdateBlock', ({ block, commit }) => {
   return { id: block.id }
 })
@@ -27,6 +28,10 @@ export const SpreadsheetLoaded = event<{ parentId: string; blocks: Block[] }>()(
     return { id: parentId }
   }
 )
+
+export const BlockSynced = event<Block>()('BlockSynced', (block: Block) => {
+  return { id: block.id }
+})
 
 export const BlockSpreadsheetLoaded = event<{ id: string }>()('BlockSpreadsheetLoaded', ({ id }) => {
   return { id }

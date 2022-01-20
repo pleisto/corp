@@ -18,6 +18,7 @@ import {
   BlockUpdated,
   BlockDeleted,
   BlockNameLoad,
+  BlockSynced,
   UpdateBlock,
   DeleteBlock,
   CommitBlocks,
@@ -116,6 +117,9 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           }
         })
         await syncPromise
+        blocks.forEach(b => {
+          BrickdocEventBus.dispatch(BlockSynced(b))
+        })
       }
     } catch {
       // Ignored
