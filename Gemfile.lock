@@ -5,6 +5,19 @@ GIT
     default_value_for (3.4.0)
       activerecord (>= 3.2.0, < 8.0)
 
+GIT
+  remote: https://github.com/getsentry/sentry-ruby.git
+  revision: fa56bc9f2dde22384a8c7f8841f9948c1ea3ecca
+  specs:
+    sentry-rails (4.9.2)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 4.9.2)
+    sentry-ruby (4.9.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sentry-ruby-core (= 4.9.2)
+    sentry-ruby-core (4.9.2)
+      concurrent-ruby
+
 PATH
   remote: gems/brickdoc_settings
   specs:
@@ -444,16 +457,6 @@ GEM
     second_level_cache (2.7.0)
       activerecord (>= 6.0)
       activesupport (>= 6.0)
-    sentry-rails (4.9.0)
-      railties (>= 5.0)
-      sentry-ruby-core (~> 4.9.0)
-    sentry-ruby (4.9.0)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      faraday (~> 1.0)
-      sentry-ruby-core (= 4.9.0)
-    sentry-ruby-core (4.9.0)
-      concurrent-ruby
-      faraday
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     sidekiq (6.3.1)
@@ -593,8 +596,8 @@ DEPENDENCIES
   rubocop (>= 1.24.0)
   rubocop-brickdoc!
   second_level_cache (~> 2.7)
-  sentry-rails
-  sentry-ruby
+  sentry-rails!
+  sentry-ruby!
   shoulda-matchers
   sidekiq (~> 6.3, >= 6.3.1)
   sidekiq-cron (~> 1.2)
