@@ -46,6 +46,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     addColumn,
     updateColumn,
     removeColumn,
+    moveColumn,
     rows,
     addRow,
     removeRow,
@@ -70,14 +71,22 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   React.useEffect(() => {
     const onDraggingMouseMove = (e: MouseEvent): void => {
       if (dragging.rowId ?? dragging.columnId) {
-        const trs = document.elementsFromPoint(e.clientX, e.clientY).map(el => el.closest('tr'))
-        const tr = trs?.find(el => el?.dataset.rowId && el.dataset.rowId !== dragging.rowId)
-        spreadsheetContext.setDragging({
+        const newDragging = {
           ...dragging,
           movementX: (dragging.movementX ?? 0) + e.movementX,
-          movementY: (dragging.movementY ?? 0) + e.movementY,
-          overRowId: tr?.dataset?.rowId ?? dragging.rowId
-        })
+          movementY: (dragging.movementY ?? 0) + e.movementY
+        }
+        if (dragging.rowId) {
+          const trs = document.elementsFromPoint(e.clientX, e.clientY).map(el => el.closest('tr'))
+          const tr = trs?.find(el => el?.dataset.rowId && el.dataset.rowId !== dragging.rowId)
+          newDragging.overRowId = tr?.dataset?.rowId ?? dragging.rowId
+        }
+        if (dragging.columnId) {
+          const ths = document.elementsFromPoint(e.clientX, e.clientY).map(el => el.closest('th'))
+          const th = ths?.find(el => el?.dataset.columnId && el.dataset.columnId !== dragging.columnId)
+          newDragging.overColumnId = th?.dataset?.columnId ?? dragging.columnId
+        }
+        spreadsheetContext.setDragging(newDragging)
       }
     }
 
@@ -87,6 +96,9 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
         if (dragging.rowId && dragging.overRowId) {
           moveRow(dragging.rowId, dragging.overRowId)
         }
+        if (dragging.columnId && dragging.overColumnId) {
+          moveColumn(dragging.columnId, dragging.overColumnId)
+        }
       }
     }
     document.addEventListener('mousemove', onDraggingMouseMove)
@@ -95,7 +107,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
       document.removeEventListener('mousemove', onDraggingMouseMove)
       document.removeEventListener('mouseup', onDraggingMouseUp)
     }
-  }, [dragging, moveRow, spreadsheetContext])
+  }, [dragging, moveRow, moveColumn, spreadsheetContext])
 
   const menu = (
     <Menu>
@@ -181,6 +193,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                         onAction: () => removeColumn(column)
                       }
                     ]}
+                    draggable={true}
                   >
                     <SpreadsheetEditable
                       context={spreadsheetContext}
@@ -220,6 +233,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                         onAction: () => removeRow(rowIdx)
                       }
                     ]}
+                    draggable={true}
                   >
                     {columns.map((column, columnIdx) => {
                       const block = getCellBlock(rowBlock.id, column.uuid)

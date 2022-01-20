@@ -69,9 +69,12 @@ export const SpreadsheetHeaderColumn: React.FC<{
   children?: React.ReactNode
   className?: string
   columnActions?: SpreadsheetActionItem[]
-}> = ({ context, columnId, children, className = '', columnActions }) => {
+  draggable?: boolean
+}> = ({ context, columnId, children, className = '', columnActions, draggable }) => {
   const { t } = useEditorI18n()
   const selected = context.selection.columnIds?.includes(columnId)
+  const dragging = context.dragging.columnId === columnId
+  const draggingOver = context.dragging.overColumnId === columnId
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
   const unselectColumn = (): void => {
@@ -91,8 +94,27 @@ export const SpreadsheetHeaderColumn: React.FC<{
     }
   }
 
+  const onMouseDown: React.MouseEventHandler<HTMLElement> = (e): void => {
+    if (e.button !== 0 || !draggable) return
+    context.setDragging({ columnId })
+  }
+
   return (
-    <th className={`${selected ? 'selected' : ''} ${className}`} onClick={selectColumn}>
+    <th
+      data-column-id={columnId}
+      className={`${className} ${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${
+        draggingOver ? 'dragging-over' : ''
+      }`}
+      onClick={selectColumn}
+      style={
+        dragging
+          ? {
+              transform: `translateX(${context.dragging.movementX}px)`
+            }
+          : {}
+      }
+      onMouseDown={onMouseDown}
+    >
       {children}
       {columnActions ? (
         <Dropdown
@@ -126,7 +148,8 @@ export const SpreadsheetRow: React.FC<{
   children: React.ReactNode
   rowNumber?: string
   rowActions?: SpreadsheetActionItem[]
-}> = ({ context, rowId, children, rowNumber, rowActions }) => {
+  draggable?: boolean
+}> = ({ context, rowId, children, rowNumber, rowActions, draggable }) => {
   const { t } = useEditorI18n()
 
   const selected = context.selection.rowIds?.includes(rowId)
@@ -159,7 +182,7 @@ export const SpreadsheetRow: React.FC<{
   }
 
   const onMouseDown: React.MouseEventHandler<HTMLElement> = (e): void => {
-    if (e.button !== 0) return
+    if (e.button !== 0 || !draggable) return
     context.setDragging({ rowId })
   }
 

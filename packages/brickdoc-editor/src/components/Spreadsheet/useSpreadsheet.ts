@@ -33,6 +33,7 @@ export const useSpreadsheet = (options: {
   addColumn: (index?: number) => void
   updateColumn: (column: SpreadsheetColumn) => void
   removeColumn: (column: SpreadsheetColumn) => void
+  moveColumn: (srcId: string, targetId: string) => void
   rows: SpreadsheetRows
   addRow: (index?: number) => void
   removeRow: (index: number) => void
@@ -180,6 +181,23 @@ export const useSpreadsheet = (options: {
     [updateSpreadsheetAttributes]
   )
 
+  const moveColumn = React.useCallback(
+    (srcId: string, targetId: string): void => {
+      if (srcId !== targetId) {
+        const oldColumn = latestColumns.current.find(c => c.uuid === srcId)
+        if (oldColumn) {
+          const oldColumns = latestColumns.current.filter(c => c.uuid !== srcId)
+          const targetIdx = oldColumns.findIndex(c => c.uuid === targetId) + 1
+          latestColumns.current = [...oldColumns.slice(0, targetIdx), oldColumn, ...oldColumns.slice(targetIdx)].map(
+            (c, i) => ({ ...c, sort: i })
+          )
+          updateSpreadsheetAttributes()
+        }
+      }
+    },
+    [updateSpreadsheetAttributes]
+  )
+
   const addRow = React.useCallback(
     (index = -1): void => {
       const oldRows = [...rows]
@@ -258,6 +276,7 @@ export const useSpreadsheet = (options: {
     addColumn,
     updateColumn,
     removeColumn,
+    moveColumn,
     rows,
     addRow,
     removeRow,
