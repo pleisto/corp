@@ -52,6 +52,7 @@ const GalleryImageList = styled('div', {
   flexDirection: 'row',
   flexWrap: 'wrap',
   justifyContent: 'center',
+  paddingBottom: '.1rem',
   [`${GalleryImage}:nth-child(4n)`]: {
     marginRight: 0
   }
