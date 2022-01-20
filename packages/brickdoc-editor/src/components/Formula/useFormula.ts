@@ -184,7 +184,8 @@ export const useFormula = ({
 
   const [name, setName] = React.useState(formulaName ?? variable?.t.name)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
-  const [input, setInput] = React.useState(formulaValue)
+
+  const inputRef = React.useRef(formulaValue)
 
   const [error, setError] = React.useState<ErrorMessage | undefined>()
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
@@ -194,13 +195,13 @@ export const useFormula = ({
   const [position, setPosition] = React.useState(0)
 
   const doCalculate = React.useCallback(async (): Promise<void> => {
-    if (!formulaContext || !input) {
+    if (!formulaContext || !inputRef.current) {
       console.log('no final input!')
       return
     }
 
     const finalName = name ?? defaultName
-    const finalInput = input ?? ''
+    const finalInput = inputRef.current ?? ''
     const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
     const result = await calculate({
@@ -240,14 +241,14 @@ export const useFormula = ({
     if (parseResult.valid || inputIsEmpty) {
       const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
       setContent(codeFragmentsToJSONContentTotal(codeFragments))
-      setInput(parseResult.codeFragments.map(fragment => fragment.name).join(''))
+      inputRef.current = parseResult.codeFragments.map(fragment => fragment.name).join('')
     }
 
     if (inputIsEmpty) {
       updateVariable(undefined)
       setError(undefined)
     } else {
-      updateVariable(newVariable)
+      updateVariable(new VariableClass({ t: newVariable.t, formulaContext }))
       setError(errors.length ? errors[0] : undefined)
     }
 
@@ -261,14 +262,8 @@ export const useFormula = ({
     formulaId,
     formulaIsNormal,
     formulaType,
-    input,
     name,
     position,
-    setContent,
-    setActiveCompletion,
-    setCompletions,
-    setPosition,
-    setInput,
     rootId,
     updateVariable,
     variable
@@ -355,7 +350,7 @@ export const useFormula = ({
 
     setContent(finalContent)
     setPosition(newPosition)
-    setInput(finalInputAfterEqual)
+    inputRef.current = finalInputAfterEqual
 
     console.log('selectCompletion', {
       finalContent,
@@ -367,43 +362,32 @@ export const useFormula = ({
       finalInputAfterEqual
     })
     void doCalculate()
-  }, [activeCompletion, content, setContent, setPosition, setInput, doCalculate, formulaIsNormal, position])
-
-  const handleEditorUpdate = React.useCallback(
-    ({ input: newInput, position: newPosition }: { input: string; position: number }): void => {
-      const value = formulaIsNormal ? `=${newInput}` : newInput
-      setPosition(newPosition)
-      setInput(value)
-      console.log({ value, input, debug: value === input })
-      void doCalculate()
-    },
-    [doCalculate, formulaIsNormal, setInput, setPosition, input]
-  )
+  }, [activeCompletion, content, doCalculate, formulaIsNormal, position])
 
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
     if (!variable) return true
     if (!(name ?? defaultName)) return true
-    if (!input) return true
+    if (!inputRef.current) return true
     if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
-  }, [defaultName, error, formulaContext, input, name, variable])
+  }, [defaultName, error, formulaContext, name, variable])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
     if (isDisableSave()) return
     const finalName = name ?? defaultName
 
     variable!.t.name = finalName
-    variable!.t.definition = input!
+    variable!.t.definition = inputRef.current!
     updateFormula(variable!)
 
     await variable!.save()
     setName(finalName)
     updateVariable(variable)
 
-    console.log('save ...', { input, variable, updateVariable, formulaContext })
-  }, [defaultName, isDisableSave, formulaContext, input, name, updateFormula, updateVariable, variable])
+    console.log('save ...', { input: inputRef.current!, variable, updateVariable, formulaContext })
+  }, [defaultName, formulaContext, isDisableSave, name, updateFormula, updateVariable, variable])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(FormulaKeyboardEventTrigger, event => {
@@ -428,16 +412,20 @@ export const useFormula = ({
       }
     })
     return () => listener.unsubscribe()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCompletionIndex, completions])
+  }, [activeCompletionIndex, completions, doHandleSave, handleSelectActiveCompletion])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(FormulaEditorUpdateEventTrigger, event => {
       console.log('update subscribe', { event })
-      handleEditorUpdate({ input: event.payload.input, position: event.payload.position })
+      const newInput = event.payload.input
+      const newPosition = event.payload.position
+      const value = formulaIsNormal ? `=${newInput}` : newInput
+      setPosition(newPosition)
+      inputRef.current = value
+      void doCalculate()
     })
     return () => listener.unsubscribe()
-  }, [handleEditorUpdate])
+  }, [doCalculate, formulaIsNormal])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(

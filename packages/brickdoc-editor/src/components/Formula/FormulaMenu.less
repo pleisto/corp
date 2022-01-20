@@ -12,6 +12,28 @@
   }
 }
 
+.formula-menu-result {
+  color: @basic-color;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 20px;
+
+  .formula-menu-result-error {
+    display: inline-flex;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 20px;
+
+    .formula-menu-result-error-type {
+      color: #df5641;
+    }
+
+    .formula-menu-result-error-message {
+      color: #bfbcc6;
+    }
+  }
+}
+
 .brickdoc-formula-menu {
   min-width: 600px;
   padding: 0.8rem 1.2rem;
@@ -61,28 +83,6 @@
     padding: 0 12px;
     background: @border-color-split;
     height: 1px;
-  }
-
-  .formula-menu-result {
-    color: @basic-color;
-    margin: 12px 0;
-    font-size: 14px;
-    line-height: 20px;
-
-    .formula-menu-result-error {
-      display: inline-flex;
-      flex-direction: column;
-      font-size: 14px;
-      line-height: 20px;
-
-      .formula-menu-result-error-type {
-        color: #df5641;
-      }
-
-      .formula-menu-result-error-message {
-        color: #bfbcc6;
-      }
-    }
   }
 
   .formula-menu-result-label {
