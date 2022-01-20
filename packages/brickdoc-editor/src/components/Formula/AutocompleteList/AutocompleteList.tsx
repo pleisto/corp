@@ -19,8 +19,8 @@ export interface AutocompleteListProps {
   completions: Completion[]
   blockId: string
   handleSelectActiveCompletion: () => void
-  setActiveCompletion: React.Dispatch<React.SetStateAction<Completion | undefined>>
-  setActiveCompletionIndex: React.Dispatch<React.SetStateAction<number>>
+  setActiveCompletion: (completion: Completion) => void
+  setActiveCompletionIndex: (index: number) => void
   activeCompletionIndex: number
   activeCompletion: Completion | undefined
 }
