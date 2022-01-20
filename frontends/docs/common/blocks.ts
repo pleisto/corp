@@ -7,13 +7,17 @@ export const nodeChildren = (node: Node): Node[] => (node.content as any)?.conte
 
 export const SIZE_GAP = 2 ** 32
 
+const INLINE_TYPES = ['formulaBlock']
+
 export const withoutUUID = (content: JSONContent[] | undefined): JSONContent[] => {
   if (!content) {
     return []
   }
   return content.map(i => {
-    const { uuid, sort, seq, ...attrs } = i.attrs ?? {}
-    const result = { ...i, attrs }
+    const isInline = INLINE_TYPES.includes(i.type!)
+    const originalAttrs = i.attrs ?? {}
+    const { uuid, sort, seq, ...attrs } = originalAttrs
+    const result = { ...i, attrs: isInline ? originalAttrs : attrs }
     if (i.content) {
       return { ...result, content: withoutUUID(i.content) }
     } else {
