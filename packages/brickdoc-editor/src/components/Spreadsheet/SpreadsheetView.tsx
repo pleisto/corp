@@ -8,6 +8,9 @@ import { MenuIcon } from '../SlashMenu/styled'
 
 import { SpreadsheetContext, SpreadsheetSelectionCellId } from './SpreadsheetContext'
 
+/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus,
+  jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
+
 export interface SpreadsheetActionItem {
   name: string
   title?: string
@@ -127,6 +130,8 @@ export const SpreadsheetRow: React.FC<{
   const { t } = useEditorI18n()
 
   const selected = context.selection.rowIds?.includes(rowId)
+  const dragging = context.dragging.rowId === rowId
+  const draggingOver = context.dragging.overRowId === rowId
 
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
@@ -153,10 +158,25 @@ export const SpreadsheetRow: React.FC<{
     }
   }
 
+  const onMouseDown: React.MouseEventHandler<HTMLElement> = (e): void => {
+    if (e.button !== 0) return
+    context.setDragging({ rowId })
+  }
+
   return (
-    <tr className={selected ? 'selected' : ''}>
+    <tr
+      className={`${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${draggingOver ? 'dragging-over' : ''}`}
+      style={
+        dragging
+          ? {
+              transform: `translateY(${context.dragging.movementY}px)`
+            }
+          : {}
+      }
+      data-row-id={rowId}
+    >
       <td className="row-action-panel">
-        <div className="row-action-panel-layer">
+        <div className="row-action-panel-layer" onMouseDown={onMouseDown}>
           <Button className="row-number" onClick={onClickRowNumber}>
             {rowNumber}
           </Button>
@@ -207,7 +227,6 @@ export const SpreadsheetCellContainer: React.FC<{
     document.addEventListener('mousedown', unselectCell)
   }
 
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
   return (
     <td className={selected ? 'selected' : ''} onClick={selectCell}>
       {children}

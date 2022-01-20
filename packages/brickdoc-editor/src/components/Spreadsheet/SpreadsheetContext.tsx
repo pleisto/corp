@@ -12,6 +12,15 @@ export interface SpreadsheetSelection {
   cellIds?: string[]
 }
 
+export interface SpreadsheetDragging {
+  columnId?: string
+  rowId?: string
+  movementX?: number
+  movementY?: number
+  overColumnId?: string
+  overRowId?: string
+}
+
 export interface SpreadsheetContext {
   selection: SpreadsheetSelection
   setSelection: (selection: SpreadsheetSelection) => void
@@ -19,10 +28,13 @@ export interface SpreadsheetContext {
   selectRows: (rowIds: string[]) => void
   selectColumns: (columnIds: string[]) => void
   selectCell: (cellId: string) => void
+  dragging: SpreadsheetDragging
+  setDragging: (dragging: SpreadsheetDragging) => void
 }
 
 export const useSpreadsheetContext = (): SpreadsheetContext => {
   const [selection, setSelection] = React.useState<SpreadsheetSelection>({})
+  const [dragging, setDragging] = React.useState<SpreadsheetDragging>({})
 
   const clearSelection = (): void => {
     setSelection({})
@@ -46,6 +58,8 @@ export const useSpreadsheetContext = (): SpreadsheetContext => {
     clearSelection,
     selectRows,
     selectColumns,
-    selectCell
+    selectCell,
+    dragging,
+    setDragging
   }
 }

@@ -41,12 +41,22 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     })
   }
 
-  const { columns, addColumn, updateColumn, removeColumn, rows, addRow, removeRow, getCellBlock, saveCellBlock } =
-    useSpreadsheet({
-      parentId,
-      data: prevData,
-      updateAttributeData
-    })
+  const {
+    columns,
+    addColumn,
+    updateColumn,
+    removeColumn,
+    rows,
+    addRow,
+    removeRow,
+    moveRow,
+    getCellBlock,
+    saveCellBlock
+  } = useSpreadsheet({
+    parentId,
+    data: prevData,
+    updateAttributeData
+  })
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const title = event.target.value
@@ -54,6 +64,37 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     console.log(title)
     setTitle(title)
   }
+
+  const { dragging } = spreadsheetContext
+
+  React.useEffect(() => {
+    const onDraggingMouseMove = (e: MouseEvent): void => {
+      if (dragging.rowId ?? dragging.columnId) {
+        const tr = (e.target as Element).closest('tr')
+        spreadsheetContext.setDragging({
+          ...dragging,
+          movementX: (dragging.movementX ?? 0) + e.movementX,
+          movementY: (dragging.movementY ?? 0) + e.movementY,
+          overRowId: tr?.dataset?.rowId
+        })
+      }
+    }
+
+    const onDraggingMouseUp = (e: MouseEvent): void => {
+      if (dragging.rowId ?? dragging.columnId) {
+        spreadsheetContext.setDragging({})
+        if (dragging.rowId && dragging.overRowId) {
+          moveRow(dragging.rowId, dragging.overRowId)
+        }
+      }
+    }
+    document.addEventListener('mousemove', onDraggingMouseMove)
+    document.addEventListener('mouseup', onDraggingMouseUp)
+    return () => {
+      document.removeEventListener('mousemove', onDraggingMouseMove)
+      document.removeEventListener('mouseup', onDraggingMouseUp)
+    }
+  }, [dragging, moveRow, spreadsheetContext])
 
   const menu = (
     <Menu>

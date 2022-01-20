@@ -189,7 +189,7 @@
             border-radius: 0 0 4px 4px;
           }
         }
-        tbody > tr:hover, tbody > tr.selected {
+        tbody > tr:hover, tbody > tr.selected, tbody > tr.dragging {
           td.row-action-panel {
             .row-action {
               opacity: 1;
@@ -200,12 +200,31 @@
             }
           }
         }
-        tr.selected td, th.selected, td.selected {
+        tbody > tr {
+          z-index: 10;
+        }
+        tbody > tr.dragging {
+          z-index: 0;
+          td.row-action-panel {
+            .row-action-panel-layer {
+              cursor: grabbing;
+              button, .row-action {
+                cursor: grabbing;
+              }
+            }
+          }
+        }
+        tbody > tr.dragging-over {
+          td {
+            border-bottom: 3px solid @table-select-border-color;
+          }
+        }
+        tr.selected td, tr.dragging td, th.selected, td.selected {
           background: @table-select-bg;
           border-color: @table-select-border-color;
 
         }
-        tbody > tr.selected {
+        tbody > tr.selected, tbody > tr.dragging {
           td.row-action-panel {
             .row-action-panel-layer {
               color: @table-action-hover-color;

@@ -36,6 +36,7 @@ export const useSpreadsheet = (options: {
   rows: SpreadsheetRows
   addRow: (index?: number) => void
   removeRow: (index: number) => void
+  moveRow: (srcId: string, targetId: string) => void
   getCellBlock: (rowId: string, columnId: string) => BlockInput
   saveCellBlock: (block: BlockInput) => void
 } => {
@@ -197,6 +198,21 @@ export const useSpreadsheet = (options: {
     [rows, saveRowBlocks]
   )
 
+  const moveRow = React.useCallback(
+    (srcId: string, targetId: string): void => {
+      if (srcId !== targetId) {
+        const oldRows = rows.filter(r => r.id !== srcId)
+        const targetIdx = oldRows.findIndex(r => r.id === targetId) + 1
+        saveRowBlocks([
+          ...oldRows.slice(0, targetIdx),
+          blocksMap.current.get(srcId) as BlockInput,
+          ...oldRows.slice(targetIdx)
+        ])
+      }
+    },
+    [rows, saveRowBlocks]
+  )
+
   const getCellBlock = (rowId: string, columnId: string): BlockInput => {
     let block = cellsMap.current.get(rowId)?.get(columnId)
     if (!block) {
@@ -245,6 +261,7 @@ export const useSpreadsheet = (options: {
     rows,
     addRow,
     removeRow,
+    moveRow,
     getCellBlock,
     saveCellBlock
   }
