@@ -1,7 +1,6 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/react'
-import { Menu, Input, Dropdown, Icon } from '@brickdoc/design-system'
-import { MenuIcon } from '../SlashMenu/styled'
+import { Input, Dropdown, Icon } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../hooks'
 
 import { BlockContainer, BlockContainerProps } from '../BlockContainer'
@@ -10,6 +9,7 @@ import { useSpreadsheet } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
 
 import {
+  SpreadsheetMenu,
   SpreadsheetContainer,
   SpreadsheetView,
   SpreadsheetHeader,
@@ -109,34 +109,22 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     }
   }, [dragging, moveRow, moveColumn, spreadsheetContext])
 
-  const menu = (
-    <Menu>
-      <Menu.Item
-        itemKey="delete"
-        icon={
-          <MenuIcon>
-            <Icon.Delete />
-          </MenuIcon>
-        }
-        label={t('spreadsheet.delete')}
-        onAction={deleteNode}
-      >
-        {t('spreadsheet.delete')}
-      </Menu.Item>
-      <Menu.Item
-        itemKey="addRow"
-        icon={
-          <MenuIcon>
-            <Icon.ArrowDown />
-          </MenuIcon>
-        }
-        label={t('spreadsheet.row.add_below')}
-        onAction={() => addRow(0)}
-      >
-        {t('spreadsheet.row.add_below')}
-      </Menu.Item>
-    </Menu>
-  )
+  const menu = SpreadsheetMenu({
+    items: [
+      {
+        name: 'delete',
+        title: t('spreadsheet.delete'),
+        icon: <Icon.Delete />,
+        onAction: deleteNode
+      },
+      {
+        name: 'addRow',
+        title: t('spreadsheet.row.add_below'),
+        icon: <Icon.ArrowDown />,
+        onAction: () => addRow(0)
+      }
+    ]
+  })
 
   const actionOptions: BlockContainerProps['actionOptions'] = []
 
