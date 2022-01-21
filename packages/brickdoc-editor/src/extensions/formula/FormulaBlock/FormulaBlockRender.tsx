@@ -126,7 +126,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 
   const onEditorBlur = (): void => {
     if (saveOnBlur) {
-      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ id: formulaId }))
+      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
     }
   }
 
