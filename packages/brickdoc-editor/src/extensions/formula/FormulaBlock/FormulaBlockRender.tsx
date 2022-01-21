@@ -3,7 +3,6 @@ import React from 'react'
 import { Icon, Popover, Tooltip } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '../../../components'
 import './FormulaBlock.less'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { VariableInterface, FormulaSourceType } from '@brickdoc/formula'
 import { FormulaRender } from '../../../components/Formula/FormulaRender'
 import { useFormula } from '../../../components/Formula/useFormula'
@@ -34,14 +33,9 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   updateFormula,
   handleDelete
 }) => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
-  const [variable, updateVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
-  const isDraft = variable?.isDraft() === true
-  const variableT = variable?.t
-
   const {
     doCalculate,
+    variable,
     setName,
     isDisableSave,
     name,
@@ -60,13 +54,13 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   } = useFormula({
     rootId,
     formulaId,
-    formulaContext,
     updateFormula,
     formulaType,
-    variable,
-    updateVariable,
     formulaName
   })
+
+  const isDraft = variable?.isDraft() === true
+  const variableT = variable?.t
 
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && defaultVisible) {
@@ -116,8 +110,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           variable={variable}
           defaultName={defaultName}
           name={name}
-          handleDelete={handleDelete}
-        >
+          handleDelete={handleDelete}>
           {renderData}
         </FormulaMenu>
       </BlockContainer>
@@ -153,8 +146,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {editor}
     </Popover>
   )

@@ -20,6 +20,7 @@ import {
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import React from 'react'
+import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import {
   attrsToJSONContent,
   buildJSONContentByArray,
@@ -37,14 +38,12 @@ export interface UseFormulaInput {
   rootId: string
   formulaId: string
   formulaName?: string
-  formulaContext: ContextInterface | null | undefined
   updateFormula: (variable: VariableInterface | undefined) => void
   formulaType: FormulaSourceType
-  variable: VariableInterface | undefined
-  updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>
 }
 
 export interface UseFormulaOutput {
+  variable: VariableInterface | undefined
   doCalculate: () => Promise<void>
   setName: (name: string) => void
   name: string | undefined
@@ -155,13 +154,15 @@ const calculate = async ({
 export const useFormula = ({
   rootId,
   formulaId,
-  formulaContext,
   updateFormula,
   formulaType,
-  variable,
-  updateVariable,
   formulaName
 }: UseFormulaInput): UseFormulaOutput => {
+  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const formulaContext = editorDataSource.formulaContext
+
+  const [variable, updateVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
+
   const formulaIsNormal = formulaType === 'normal'
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
@@ -187,6 +188,7 @@ export const useFormula = ({
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
 
   const inputRef = React.useRef(formulaValue)
+  const variableRef = React.useRef(variable)
 
   const [error, setError] = React.useState<ErrorMessage | undefined>()
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
@@ -197,12 +199,12 @@ export const useFormula = ({
 
   const doCalculate = React.useCallback(async (): Promise<void> => {
     if (!formulaContext || !inputRef.current) {
-      console.log('no final input!')
+      console.log('formula no input!')
       return
     }
 
     const finalName = name ?? defaultName
-    const finalInput = inputRef.current ?? ''
+    const finalInput = inputRef.current
     const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
     const result = await calculate({
@@ -247,13 +249,16 @@ export const useFormula = ({
 
     if (inputIsEmpty) {
       updateVariable(undefined)
+      variableRef.current = undefined
       setError(undefined)
     } else {
-      updateVariable(new VariableClass({ t: newVariable.t, formulaContext }))
+      const newVariableClone = new VariableClass({ t: newVariable.t, formulaContext })
+      variableRef.current = newVariableClone
+      updateVariable(newVariableClone)
       setError(errors.length ? errors[0] : undefined)
     }
 
-    console.log({ variable, finalInput, inputIsEmpty, parseResult, newVariable })
+    console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
     if (interpretResult.variableValue.success) {
       const type = interpretResult.variableValue.result.type
@@ -369,34 +374,34 @@ export const useFormula = ({
 
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
-    if (!variable) return true
+    if (!variableRef.current) return true
     if (!(name ?? defaultName)) return true
     // if (!inputRef.current) return true
     // if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
-  }, [defaultName, formulaContext, name, variable])
+  }, [defaultName, formulaContext, name])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
-    console.log({ variable, name, defaultName })
-    if (!variable) {
-      updateFormula(variable)
+    console.log({ variable: variableRef.current, name, defaultName })
+    if (!variableRef.current) {
+      updateFormula(undefined)
       return
     }
 
     if (isDisableSave()) return
     const finalName = name ?? defaultName
 
-    variable!.t.name = finalName
-    variable!.t.definition = inputRef.current!
-    updateFormula(variable!)
+    variableRef.current!.t.name = finalName
+    variableRef.current!.t.definition = inputRef.current!
+    updateFormula(variableRef.current!)
 
-    await variable!.save()
+    await variableRef.current!.save()
     setName(finalName)
-    updateVariable(variable)
+    updateVariable(variableRef.current!)
 
-    console.log('save ...', { input: inputRef.current!, variable, updateVariable, formulaContext })
-  }, [defaultName, formulaContext, isDisableSave, name, updateFormula, updateVariable, variable])
+    console.log('save ...', { input: inputRef.current!, updateVariable, formulaContext })
+  }, [defaultName, formulaContext, isDisableSave, name, updateFormula, updateVariable])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
@@ -468,7 +473,9 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdated,
       e => {
-        updateVariable(new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext }))
+        const variableClone = new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext })
+        variableRef.current = variableClone
+        updateVariable(variableClone)
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -479,6 +486,7 @@ export const useFormula = ({
   }, [formulaId, rootId, updateVariable])
 
   return {
+    variable,
     doCalculate,
     setName,
     name,
