@@ -9,6 +9,7 @@ import { FormulaRender } from '../../../components/Formula/FormulaRender'
 import { useFormula } from '../../../components/Formula/useFormula'
 import { FormulaResult } from '../../../components/Formula/FormulaResult'
 import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
+import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -19,7 +20,7 @@ export interface FormulaBlockRenderProps {
   saveOnBlur?: boolean
   handleTurnOffVisible?: () => void
   handleDelete: (variable: VariableInterface) => void
-  updateFormula: (variable: VariableInterface) => void
+  updateFormula: (variable: VariableInterface | undefined) => void
 }
 
 export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
@@ -101,6 +102,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     return (
       <BlockContainer inline={true}>
         <FormulaMenu
+          rootId={rootId}
+          formulaId={formulaId}
           doCalculate={doCalculate}
           setName={setName}
           formulaResult={formulaResult}
@@ -123,11 +126,20 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 
   const onEditorBlur = (): void => {
     if (saveOnBlur) {
-      void doHandleSave()
+      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ id: formulaId }))
     }
   }
 
-  const editor = <FormulaEditor content={content} position={position} editable={true} onBlur={onEditorBlur} />
+  const editor = (
+    <FormulaEditor
+      content={content}
+      position={position}
+      editable={true}
+      onBlur={onEditorBlur}
+      formulaId={formulaId}
+      rootId={rootId}
+    />
+  )
 
   if (!variableT || variableT.kind === 'literal') {
     return editor

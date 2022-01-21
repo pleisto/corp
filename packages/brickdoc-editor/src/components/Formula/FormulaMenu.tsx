@@ -7,6 +7,8 @@ import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEdi
 import { JSONContent } from '@tiptap/core'
 
 export interface FormulaMenuProps {
+  formulaId: string
+  rootId: string
   defaultVisible: boolean
   onVisibleChange: (visible: boolean) => void
   variable?: VariableInterface
@@ -26,6 +28,8 @@ const i18nKey = 'formula.menu'
 
 export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   children,
+  formulaId,
+  rootId,
   doCalculate,
   setName,
   handleDelete,
@@ -87,7 +91,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-row">
         <span className="formula-menu-result-label">=</span>
         <div className="formula-menu-item">
-          <FormulaEditor content={content} position={position} editable={true} />
+          <FormulaEditor content={content} position={position} editable={true} formulaId={formulaId} rootId={rootId} />
         </div>
       </div>
       <div className="formula-menu-divider" />
@@ -101,7 +105,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}>
+          disabled={isDisableSave()}
+        >
           {t(`${i18nKey}.save`)}
         </Button>
         <Button
@@ -109,7 +114,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="text"
           danger={true}
-          onClick={() => handleDelete(variable!)}>
+          onClick={() => handleDelete(variable!)}
+        >
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
@@ -125,7 +131,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {children}
     </Popover>
   )

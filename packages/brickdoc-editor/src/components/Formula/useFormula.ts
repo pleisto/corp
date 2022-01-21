@@ -13,6 +13,7 @@ import {
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
+  FormulaEditorSaveEventTrigger,
   FormulaEditorUpdateEventTrigger,
   FormulaKeyboardEventTrigger,
   FormulaUpdated
@@ -37,7 +38,7 @@ export interface UseFormulaInput {
   formulaId: string
   formulaName?: string
   formulaContext: ContextInterface | null | undefined
-  updateFormula: (variable: VariableInterface) => void
+  updateFormula: (variable: VariableInterface | undefined) => void
   formulaType: FormulaSourceType
   variable: VariableInterface | undefined
   updateVariable: React.Dispatch<React.SetStateAction<VariableInterface | undefined>>
@@ -252,6 +253,8 @@ export const useFormula = ({
       setError(errors.length ? errors[0] : undefined)
     }
 
+    console.log({ variable, finalInput, inputIsEmpty, parseResult, newVariable })
+
     if (interpretResult.variableValue.success) {
       const type = interpretResult.variableValue.result.type
       setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
@@ -368,13 +371,19 @@ export const useFormula = ({
     if (!formulaContext) return true
     if (!variable) return true
     if (!(name ?? defaultName)) return true
-    if (!inputRef.current) return true
-    if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
+    // if (!inputRef.current) return true
+    // if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
-  }, [defaultName, error, formulaContext, name, variable])
+  }, [defaultName, formulaContext, name, variable])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
+    console.log({ variable, name, defaultName })
+    if (!variable) {
+      updateFormula(variable)
+      return
+    }
+
     if (isDisableSave()) return
     const finalName = name ?? defaultName
 
@@ -390,42 +399,70 @@ export const useFormula = ({
   }, [defaultName, formulaContext, isDisableSave, name, updateFormula, updateVariable, variable])
 
   React.useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(FormulaKeyboardEventTrigger, event => {
-      let newIndex: number
-      switch (event.payload.key) {
-        case 'ArrowUp':
-          newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
-          setActiveCompletion(completions[newIndex])
-          setActiveCompletionIndex(newIndex)
-          break
-        case 'ArrowDown':
-          newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
-          setActiveCompletion(completions[newIndex])
-          setActiveCompletionIndex(newIndex)
-          break
-        case 'Tab':
-          handleSelectActiveCompletion()
-          break
-        case 'Enter':
-          void doHandleSave()
-          break
+    const listener = BrickdocEventBus.subscribe(
+      FormulaKeyboardEventTrigger,
+      event => {
+        let newIndex: number
+        switch (event.payload.key) {
+          case 'ArrowUp':
+            newIndex = activeCompletionIndex - 1 < 0 ? completions.length - 1 : activeCompletionIndex - 1
+            setActiveCompletion(completions[newIndex])
+            setActiveCompletionIndex(newIndex)
+            break
+          case 'ArrowDown':
+            newIndex = activeCompletionIndex + 1 > completions.length - 1 ? 0 : activeCompletionIndex + 1
+            setActiveCompletion(completions[newIndex])
+            setActiveCompletionIndex(newIndex)
+            break
+          case 'Tab':
+            handleSelectActiveCompletion()
+            break
+          case 'Enter':
+            void doHandleSave()
+            break
+        }
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `${rootId},${formulaId}`
       }
-    })
+    )
     return () => listener.unsubscribe()
-  }, [activeCompletionIndex, completions, doHandleSave, handleSelectActiveCompletion])
+  }, [activeCompletionIndex, completions, doHandleSave, formulaId, handleSelectActiveCompletion, rootId])
 
   React.useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(FormulaEditorUpdateEventTrigger, event => {
-      console.log('update subscribe', { event })
-      const newInput = event.payload.input
-      const newPosition = event.payload.position
-      const value = formulaIsNormal ? `=${newInput}` : newInput
-      setPosition(newPosition)
-      inputRef.current = value
-      void doCalculate()
-    })
+    const listener = BrickdocEventBus.subscribe(
+      FormulaEditorSaveEventTrigger,
+      event => {
+        void doHandleSave()
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `${rootId},${formulaId}`
+      }
+    )
     return () => listener.unsubscribe()
-  }, [doCalculate, formulaIsNormal])
+  }, [doHandleSave, formulaId, rootId])
+
+  React.useEffect(() => {
+    const listener = BrickdocEventBus.subscribe(
+      FormulaEditorUpdateEventTrigger,
+      event => {
+        // console.log('update subscribe', { event })
+        const newInput = event.payload.input
+        const newPosition = event.payload.position
+        const value = formulaIsNormal ? `=${newInput}` : newInput
+        setPosition(newPosition)
+        inputRef.current = value
+        void doCalculate()
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `${rootId},${formulaId}`
+      }
+    )
+    return () => listener.unsubscribe()
+  }, [doCalculate, formulaId, formulaIsNormal, rootId])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(

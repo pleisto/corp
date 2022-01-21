@@ -57,16 +57,28 @@ export const SlashMenuKeyboardEventTrigger = event<{ key: string }>()('SlashMenu
   return { key }
 })
 
-export const FormulaKeyboardEventTrigger = event<{ key: string }>()('FormulaKeyboardEventTrigger', ({ key }) => {
-  return { key }
-})
-
-export const FormulaEditorUpdateEventTrigger = event<{ input: string; position: number }>()(
-  'FormulaEditorUpdateEventTrigger',
-  ({ input, position }) => {
-    return { input, position }
+export const FormulaKeyboardEventTrigger = event<{ key: string; formulaId: string; rootId: string }>()(
+  'FormulaKeyboardEventTrigger',
+  ({ key, formulaId, rootId }) => {
+    return { key, id: `${rootId},${formulaId}` }
   }
 )
+
+export const FormulaEditorSaveEventTrigger = event<{ formulaId: string; rootId: string }>()(
+  'FormulaEditorSaveEventTrigger',
+  ({ formulaId, rootId }) => {
+    return { id: `${rootId},${formulaId}` }
+  }
+)
+
+export const FormulaEditorUpdateEventTrigger = event<{
+  input: string
+  position: number
+  rootId: string
+  formulaId: string
+}>()('FormulaEditorUpdateEventTrigger', ({ input, position, formulaId, rootId }) => {
+  return { input, position, id: `${rootId},${formulaId}` }
+})
 
 export interface ExplorerMenuItem {
   label: React.ReactElement

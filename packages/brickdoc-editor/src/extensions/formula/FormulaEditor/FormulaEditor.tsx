@@ -14,15 +14,30 @@ export interface FormulaEditorProps {
   editable: boolean
   position?: number
   onBlur?: (props: EditorEvents['blur']) => void
+  rootId?: string
+  formulaId?: string
 }
 
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable, position, onBlur }) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({
+  content,
+  editable,
+  position,
+  onBlur,
+  rootId,
+  formulaId
+}) => {
   const editor = useEditor({
     editable,
-    extensions: [Document, Text, Paragraph, FormulaTypeExtension.configure({ editable }), HandleKeyDownExtension],
+    extensions: [
+      Document,
+      Text,
+      Paragraph,
+      FormulaTypeExtension.configure({ editable }),
+      HandleKeyDownExtension({ formulaId, rootId })
+    ],
     onBlur,
     onUpdate: ({ editor, transaction }) => {
       const jsonContent = editor.getJSON()
@@ -52,7 +67,11 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ content, editable,
         }
       }
 
-      BrickdocEventBus.dispatch(FormulaEditorUpdateEventTrigger({ position: editorPosition, input }))
+      if (rootId && formulaId) {
+        BrickdocEventBus.dispatch(
+          FormulaEditorUpdateEventTrigger({ position: editorPosition, input, formulaId, rootId })
+        )
+      }
     }
   })
 

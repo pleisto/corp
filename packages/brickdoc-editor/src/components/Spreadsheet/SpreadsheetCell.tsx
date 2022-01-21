@@ -21,14 +21,16 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
   const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
 
   const handleDelete = (): void => {}
-  const updateFormula = (variable: VariableInterface): void => {
-    const newBlock = {
-      ...block,
-      data: { ...block.data, t: variable.result() },
-      text: displayValue(variable.t.variableValue.result)
+  const updateFormula = (variable: VariableInterface | undefined): void => {
+    if (variable) {
+      const newBlock = {
+        ...block,
+        data: { ...block.data, t: variable.result() },
+        text: displayValue(variable.t.variableValue.result)
+      }
+      setCurrentBlock(newBlock)
+      saveBlock(newBlock)
     }
-    setCurrentBlock(newBlock)
-    saveBlock(newBlock)
     // console.log('updateFormula', { variable, block, newBlock, parentId, formulaId })
     setEditing(false)
   }
