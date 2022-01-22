@@ -61,7 +61,7 @@ const renderTable = (result: SpreadsheetResult): React.ReactElement => {
       <SpreadsheetContainer>
         <div className="spreadsheet-title">{result.result.name()}</div>
         <SpreadsheetView>
-          <SpreadsheetHeader>
+          <SpreadsheetHeader context={spreadsheetContext}>
             <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="" />
             {columns.map(c => (
               <SpreadsheetHeaderColumn key={c.columnId} context={spreadsheetContext} columnId={c.columnId}>
@@ -78,7 +78,8 @@ const renderTable = (result: SpreadsheetResult): React.ReactElement => {
                     <SpreadsheetCellContainer
                       key={c.columnId}
                       context={spreadsheetContext}
-                      cellId={{ rowId: rowNumber, columnId: c.columnId }}>
+                      cellId={{ rowId: rowNumber, columnId: c.columnId }}
+                    >
                       <div className="column">{row[c.columnId]}</div>
                     </SpreadsheetCellContainer>
                   ))}
@@ -103,7 +104,8 @@ const renderOther = (result: AnyTypeResult, type: FormulaSourceType): React.Reac
         color: activeColor.color,
         borderColor: `rgb(${activeColor.rgb.join(',')}, 0.3)`,
         background: activeColor.label === 'Default' ? 'unset' : `rgb(${activeColor.rgb.join(',')}, 0.1)`
-      }}>
+      }}
+    >
       {displayValue(result)}
     </span>
   )

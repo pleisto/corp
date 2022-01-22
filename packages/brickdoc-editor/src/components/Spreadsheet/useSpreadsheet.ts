@@ -187,7 +187,7 @@ export const useSpreadsheet = (options: {
         const oldColumn = latestColumns.current.find(c => c.uuid === srcId)
         if (oldColumn) {
           const oldColumns = latestColumns.current.filter(c => c.uuid !== srcId)
-          const targetIdx = oldColumns.findIndex(c => c.uuid === targetId) + 1
+          const targetIdx = targetId === 'first' ? 0 : oldColumns.findIndex(c => c.uuid === targetId) + 1
           latestColumns.current = [...oldColumns.slice(0, targetIdx), oldColumn, ...oldColumns.slice(targetIdx)].map(
             (c, i) => ({ ...c, sort: i })
           )
@@ -220,7 +220,7 @@ export const useSpreadsheet = (options: {
     (srcId: string, targetId: string): void => {
       if (srcId !== targetId) {
         const oldRows = rows.filter(r => r.id !== srcId)
-        const targetIdx = oldRows.findIndex(r => r.id === targetId) + 1
+        const targetIdx = targetId === 'first' ? 0 : oldRows.findIndex(r => r.id === targetId) + 1
         saveRowBlocks([
           ...oldRows.slice(0, targetIdx),
           blocksMap.current.get(srcId) as BlockInput,

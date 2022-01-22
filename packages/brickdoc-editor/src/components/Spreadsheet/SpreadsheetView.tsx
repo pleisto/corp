@@ -55,10 +55,17 @@ export const SpreadsheetView: React.FC<{ children: React.ReactNode }> = ({ child
   return <table>{children}</table>
 }
 
-export const SpreadsheetHeader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SpreadsheetHeader: React.FC<{
+  children: React.ReactNode
+  rowId?: string
+  context: SpreadsheetContext
+}> = ({ children, rowId, context }) => {
+  const draggingOver = context.dragging.overRowId === rowId
   return (
     <thead>
-      <tr>{children}</tr>
+      <tr data-row-id={rowId} className={`${draggingOver ? 'dragging-over' : ''}`}>
+        {children}
+      </tr>
     </thead>
   )
 }

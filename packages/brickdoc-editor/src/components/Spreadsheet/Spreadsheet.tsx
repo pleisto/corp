@@ -139,8 +139,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
             onChange={handleTitleChange}
           />
           <SpreadsheetView>
-            <SpreadsheetHeader>
-              <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="">
+            <SpreadsheetHeader rowId="first" context={spreadsheetContext}>
+              <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="first">
                 <div className="row-action-panel-layer">
                   <Dropdown
                     className="spreadsheet-menu-button"
