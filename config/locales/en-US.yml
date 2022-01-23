@@ -774,7 +774,7 @@ en-US:
         numbered_list: Numbered list
         bulleted_list: Bulleted list
         formula: Formula
-        code: code
+        code: Code
     slash_menu:
       title: Slash menu
       recent: Recently used
@@ -928,6 +928,8 @@ en-US:
           label: Add a link to web or file.
           description: You can add a link to web or file.
           panel:
+            link_validate: Please input valid link first.
+            submit_error: Please make sure link is valid and then try again.
             head: Link
             text:
               placeholder: Text to display
@@ -960,6 +962,18 @@ en-US:
       page_link:
         head: LINK TO PAGE
         no_content: PAGE NO RESULT
+    spreadsheet:
+      delete: Delete
+      row:
+        actions: Actions
+        add_above: Add row above
+        add_below: Add row below
+        delete: Delete
+      column:
+        actions: Actions
+        add_left: Add column to the left
+        add_right: Add column to the right
+        delete: Delete
     table:
       untitled: Untitled
       new_row:
