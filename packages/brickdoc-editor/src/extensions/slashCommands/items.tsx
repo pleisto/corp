@@ -6,7 +6,7 @@ import { getRecentItemKey } from './recentItemsManager'
 const FORMULA = {
   key: 'formula',
   alias: ['for'],
-  icon: <EditorIcon.Formula />,
+  icon: <EditorIcon.Formula square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setFormulaBlock().run()
   }
@@ -14,7 +14,7 @@ const FORMULA = {
 const SPREADSHEET = {
   key: 'spreadsheet',
   alias: ['table'],
-  icon: <EditorIcon.Table />,
+  icon: <EditorIcon.Table square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor
       .chain()
@@ -26,7 +26,7 @@ const SPREADSHEET = {
 const UPLOAD = {
   key: 'upload',
   alias: ['up', 'file', 'pdf', 'excel', 'ppt', 'image', 'img'],
-  icon: <EditorIcon.Upload />,
+  icon: <EditorIcon.Upload square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().deleteRange(range).setEmbedBlock(Embedtype.Upload).run()
   }
@@ -34,7 +34,7 @@ const UPLOAD = {
 const GALLERY = {
   key: 'gallery',
   alias: ['gal'],
-  icon: <EditorIcon.Unsplash />,
+  icon: <EditorIcon.Unsplash square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().deleteRange(range).setEmbedBlock(Embedtype.Gallery).run()
   }
@@ -42,7 +42,7 @@ const GALLERY = {
 const LINK = {
   key: 'link',
   alias: ['link'],
-  icon: <EditorIcon.Link />,
+  icon: <EditorIcon.Link square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().deleteRange(range).setEmbedBlock(Embedtype.Link).run()
   }
@@ -51,7 +51,7 @@ const LINK = {
 const HEADING_1 = {
   key: 'h1',
   alias: ['h1', 'heading 1'],
-  icon: <EditorIcon.RteH1 />,
+  icon: <EditorIcon.RteH1 square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setNode('heading', { level: 1 }).run()
   }
@@ -59,7 +59,7 @@ const HEADING_1 = {
 const HEADING_2 = {
   key: 'h2',
   alias: ['h2', 'heading 2'],
-  icon: <EditorIcon.RteH2 />,
+  icon: <EditorIcon.RteH2 square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setNode('heading', { level: 2 }).run()
   }
@@ -67,7 +67,7 @@ const HEADING_2 = {
 const HEADING_3 = {
   key: 'h3',
   alias: ['h3', 'heading 3'],
-  icon: <EditorIcon.RteH3 />,
+  icon: <EditorIcon.RteH3 square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setNode('heading', { level: 3 }).run()
   }
@@ -75,7 +75,7 @@ const HEADING_3 = {
 const HEADING_4 = {
   key: 'h4',
   alias: ['h4', 'heading 4'],
-  icon: <EditorIcon.RteH4 />,
+  icon: <EditorIcon.RteH4 square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setNode('heading', { level: 4 }).run()
   }
@@ -83,7 +83,7 @@ const HEADING_4 = {
 const HEADING_5 = {
   key: 'h5',
   alias: ['h5', 'heading 5'],
-  icon: <EditorIcon.RteH5 />,
+  icon: <EditorIcon.RteH5 square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setNode('heading', { level: 5 }).run()
   }
@@ -91,7 +91,7 @@ const HEADING_5 = {
 const BULLETED_LIST = {
   key: 'bulletedList',
   alias: ['bul'],
-  icon: <EditorIcon.ListUnordered />,
+  icon: <EditorIcon.ListUnordered square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).wrapInBrickList('bulletList').run()
   }
@@ -99,7 +99,7 @@ const BULLETED_LIST = {
 const ORDERED_LIST = {
   key: 'orderedList',
   alias: ['num', 'numberedList'],
-  icon: <EditorIcon.ListOrdered />,
+  icon: <EditorIcon.ListOrdered square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).wrapInBrickList('orderedList').run()
   }
@@ -107,7 +107,7 @@ const ORDERED_LIST = {
 const CODE = {
   key: 'code',
   alias: ['co'],
-  icon: <EditorIcon.Code />,
+  icon: <EditorIcon.Code square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setCodeBlock().run()
   }
@@ -115,7 +115,7 @@ const CODE = {
 const DIVIDER = {
   key: 'divider',
   alias: ['div', 'hr'],
-  icon: <EditorIcon.Divider />,
+  icon: <EditorIcon.Divider square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setHorizontalRule().run()
   }
@@ -123,7 +123,7 @@ const DIVIDER = {
 const TOC = {
   key: 'toc',
   alias: ['toc', 'table of content'],
-  icon: <EditorIcon.Toc />,
+  icon: <EditorIcon.Toc square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setTocBlock().run()
   }
@@ -131,7 +131,7 @@ const TOC = {
 const SUB_PAGE_MENU = {
   key: 'subPageMenu',
   alias: ['sub'],
-  icon: <EditorIcon.MindmapList />,
+  icon: <EditorIcon.MindmapList square={true} />,
   command: ({ editor, range }: Parameters<SlashMenuItem['command']>[0]) => {
     editor.chain().focus().deleteRange(range).setSubPageMenuBlock().run()
   }

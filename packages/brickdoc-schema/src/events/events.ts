@@ -83,7 +83,7 @@ export const FormulaEditorUpdateEventTrigger = event<{
 export interface ExplorerMenuItem {
   label: React.ReactElement
   labelText: string
-  icon: React.ReactNode
+  icon: React.ReactElement
   onAction?: () => void
   items?: ExplorerMenuItem[]
 }
