@@ -15,7 +15,9 @@ describe('Avatar intials', () => {
     { name: 'John Smith', expected: 'JS' },
     { name: 'John Doe Smith', expected: 'JS' },
     { name: '1 2', expected: '12' },
-    { name: '赵 钱', expected: '赵钱' }
+    { name: '赵 钱', expected: '赵钱' },
+    // edge case
+    { name: '    ', expected: '' }
   ])('should have "$expected" as the initials of "$name"', ({ name, expected }) => {
     expect(name2Initials(name)).toBe(expected)
   })
