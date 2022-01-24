@@ -29,7 +29,7 @@ export const Semantics = {
   /**
    * Secondary
    */
-  secondaryHover: Atomics.black_5p,
+  secondaryHover: Atomics.blue6_10p,
   secondaryPressed: Atomics.black_10p,
   secondarySelected: Atomics.blue6_18p,
   secondaryDrag: Atomics.blue6_12p,
@@ -46,7 +46,7 @@ export const Semantics = {
   backgroundPrimary: Palettes.grey1,
   backgroundSecondary: Palettes.grey2,
   backgroundThirdary: Palettes.grey4,
-  backgroundOverlayPrimary: Atomics.black_35p,
+  backgroundOverlayPrimary: Atomics.white_80p,
   backgroundOverlaySecondary: Atomics.black_3p,
   backgroundOverlayThirdary: Atomics.grey2_50p,
   backgroundOverlayQuaternary: Atomics.grey2_90p,
