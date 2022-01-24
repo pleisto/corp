@@ -13,8 +13,7 @@ export interface FormulaMenuProps {
   onVisibleChange: (visible: boolean) => void
   variable?: VariableInterface
   handleDelete: (variable: VariableInterface) => void
-  doCalculate: () => Promise<void>
-  setName: (name: string) => void
+  doCalculate: (newName?: string) => Promise<void>
   name: string | undefined
   defaultName: string
   content: JSONContent | undefined
@@ -31,7 +30,6 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   formulaId,
   rootId,
   doCalculate,
-  setName,
   handleDelete,
   content,
   position,
@@ -63,8 +61,8 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(e.target.value)
-    void doCalculate()
+    // setName(e.target.value)
+    void doCalculate(e.target.value)
   }
 
   const handleSave = async (): Promise<void> => {
@@ -105,8 +103,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}
-        >
+          disabled={isDisableSave()}>
           {t(`${i18nKey}.save`)}
         </Button>
         <Button
@@ -114,8 +111,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="small"
           type="text"
           danger={true}
-          onClick={() => handleDelete(variable!)}
-        >
+          onClick={() => handleDelete(variable!)}>
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
@@ -131,8 +127,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {children}
     </Popover>
   )

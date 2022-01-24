@@ -36,7 +36,6 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const {
     doCalculate,
     variable,
-    setName,
     isDisableSave,
     name,
     error,
@@ -99,7 +98,6 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           rootId={rootId}
           formulaId={formulaId}
           doCalculate={doCalculate}
-          setName={setName}
           formulaResult={formulaResult}
           content={content}
           position={position}

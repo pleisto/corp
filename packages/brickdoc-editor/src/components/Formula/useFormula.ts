@@ -45,7 +45,6 @@ export interface UseFormulaInput {
 export interface UseFormulaOutput {
   variable: VariableInterface | undefined
   doCalculate: () => Promise<void>
-  setName: (name: string) => void
   name: string | undefined
   error: ErrorMessage | undefined
   defaultName: string
@@ -184,7 +183,8 @@ export const useFormula = ({
 
   const [completions, setCompletions] = React.useState(contextCompletions)
 
-  const [name, setName] = React.useState(formulaName ?? variable?.t.name)
+  const nameRef = React.useRef(formulaName ?? variable?.t.name)
+  // const [name, setName] = React.useState(formulaName ?? variable?.t.name)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
 
   const inputRef = React.useRef(formulaValue)
@@ -197,85 +197,80 @@ export const useFormula = ({
 
   const [position, setPosition] = React.useState(0)
 
-  const doCalculate = React.useCallback(async (): Promise<void> => {
-    if (!formulaContext || !inputRef.current) {
-      console.log('formula no input!')
-      return
-    }
+  const doCalculate = React.useCallback(
+    async (newName?: string): Promise<void> => {
+      if (!formulaContext || !inputRef.current) {
+        console.log('formula no input!')
+        return
+      }
 
-    const finalName = name ?? defaultName
-    const finalInput = inputRef.current
-    const inputIsEmpty = ['', '='].includes(finalInput.trim())
+      if (newName) {
+        nameRef.current = newName
+      }
 
-    const result = await calculate({
-      namespaceId: rootId,
-      formulaId,
-      variable,
-      formulaType,
-      position,
-      name: finalName,
-      input: finalInput,
-      formulaContext
-    })
+      const finalInput = inputRef.current
+      const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
-    if (!result) return
+      const result = await calculate({
+        namespaceId: rootId,
+        formulaId,
+        variable,
+        formulaType,
+        position,
+        name: nameRef.current ?? defaultName,
+        input: finalInput,
+        formulaContext
+      })
 
-    const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
+      if (!result) return
 
-    // console.log('calculate result', {
-    //   finalName,
-    //   newName,
-    //   newInput,
-    //   input,
-    //   finalInput,
-    //   parseResult,
-    //   activeCompletion,
-    //   latestPosition: latestPosition.current,
-    //   position,
-    //   newPosition,
-    //   result,
-    //   latestActiveCompletion: latestActiveCompletion.current
-    // })
+      const { interpretResult, newPosition, parseResult, completions, newVariable, errors } = result
 
-    setCompletions(completions)
-    setActiveCompletion(completions[0])
-    setPosition(newPosition)
+      // console.log('calculate result', {
+      //   finalName,
+      //   newName,
+      //   newInput,
+      //   input,
+      //   finalInput,
+      //   parseResult,
+      //   activeCompletion,
+      //   latestPosition: latestPosition.current,
+      //   position,
+      //   newPosition,
+      //   result,
+      //   latestActiveCompletion: latestActiveCompletion.current
+      // })
 
-    if (parseResult.valid || inputIsEmpty) {
-      const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
-      setContent(codeFragmentsToJSONContentTotal(codeFragments))
-      inputRef.current = parseResult.codeFragments.map(fragment => fragment.name).join('')
-    }
+      setCompletions(completions)
+      setActiveCompletion(completions[0])
+      setPosition(newPosition)
 
-    if (inputIsEmpty) {
-      updateVariable(undefined)
-      variableRef.current = undefined
-      setError(undefined)
-    } else {
-      const newVariableClone = new VariableClass({ t: newVariable.t, formulaContext })
-      variableRef.current = newVariableClone
-      updateVariable(newVariableClone)
-      setError(errors.length ? errors[0] : undefined)
-    }
+      if (parseResult.valid || inputIsEmpty) {
+        const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
+        setContent(codeFragmentsToJSONContentTotal(codeFragments))
+        inputRef.current = parseResult.codeFragments.map(fragment => fragment.name).join('')
+      }
 
-    // console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
+      if (inputIsEmpty) {
+        updateVariable(undefined)
+        variableRef.current = undefined
+        setError(undefined)
+      } else {
+        const newVariableClone = new VariableClass({ t: newVariable.t, formulaContext })
+        variableRef.current = newVariableClone
+        updateVariable(newVariableClone)
+        setError(errors.length ? errors[0] : undefined)
+      }
 
-    if (interpretResult.variableValue.success) {
-      const type = interpretResult.variableValue.result.type
-      setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
-    }
-  }, [
-    defaultName,
-    formulaContext,
-    formulaId,
-    formulaIsNormal,
-    formulaType,
-    name,
-    position,
-    rootId,
-    updateVariable,
-    variable
-  ])
+      // console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
+
+      if (interpretResult.variableValue.success) {
+        const type = interpretResult.variableValue.result.type
+        setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
+      }
+    },
+    [defaultName, formulaContext, formulaId, formulaIsNormal, formulaType, position, rootId, updateVariable, variable]
+  )
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
     const currentCompletion = activeCompletion
@@ -375,12 +370,12 @@ export const useFormula = ({
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
     if (!variableRef.current) return true
-    if (!(name ?? defaultName)) return true
+    if (!(nameRef.current ?? defaultName)) return true
     // if (!inputRef.current) return true
     // if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
-  }, [defaultName, formulaContext, name])
+  }, [defaultName, formulaContext])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
     // console.log({ variable: variableRef.current, name, defaultName })
@@ -390,18 +385,20 @@ export const useFormula = ({
     }
 
     if (isDisableSave()) return
-    const finalName = name ?? defaultName
 
-    variableRef.current!.t.name = finalName
+    if(!nameRef.current) {
+      nameRef.current = defaultName
+    }
+
     variableRef.current!.t.definition = inputRef.current!
+    variableRef.current!.t.name = nameRef.current!
     updateFormula(variableRef.current!)
 
     await variableRef.current!.save()
-    setName(finalName)
     updateVariable(variableRef.current!)
 
     console.log('save ...', { input: inputRef.current!, updateVariable, formulaContext })
-  }, [defaultName, formulaContext, isDisableSave, name, updateFormula, updateVariable])
+  }, [defaultName, formulaContext, isDisableSave, updateFormula])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
@@ -420,7 +417,7 @@ export const useFormula = ({
             setActiveCompletionIndex(newIndex)
             break
           case 'Tab':
-            handleSelectActiveCompletion()
+            if (activeCompletion) handleSelectActiveCompletion()
             break
           case 'Enter':
             void doHandleSave()
@@ -433,7 +430,15 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [activeCompletionIndex, completions, doHandleSave, formulaId, handleSelectActiveCompletion, rootId])
+  }, [
+    activeCompletion,
+    activeCompletionIndex,
+    completions,
+    doHandleSave,
+    formulaId,
+    handleSelectActiveCompletion,
+    rootId
+  ])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
@@ -488,8 +493,7 @@ export const useFormula = ({
   return {
     variable,
     doCalculate,
-    setName,
-    name,
+    name: nameRef.current,
     error,
     isDisableSave,
     doHandleSave,
