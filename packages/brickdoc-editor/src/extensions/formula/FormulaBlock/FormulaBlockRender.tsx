@@ -44,12 +44,9 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     defaultName,
     content,
     position,
-    completions,
     handleSelectActiveCompletion,
-    setActiveCompletion,
-    activeCompletionIndex,
-    setActiveCompletionIndex,
-    activeCompletion
+    completion,
+    setCompletion
   } = useFormula({
     rootId,
     formulaId,
@@ -72,25 +69,23 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       <FormulaResult variable={variable} />
       <AutocompleteList
         blockId={rootId}
-        completions={completions}
+        completion={completion}
         handleSelectActiveCompletion={handleSelectActiveCompletion}
-        setActiveCompletion={setActiveCompletion}
-        activeCompletionIndex={activeCompletionIndex}
-        setActiveCompletionIndex={setActiveCompletionIndex}
-        activeCompletion={activeCompletion}
+        setCompletion={setCompletion}
       />
     </>
   )
 
   if (formulaIsNormal) {
-    const resultData = <FormulaRender t={variableT} formulaType={formulaType} />
     const renderData =
       !variableT || isDraft ? (
         <span className="brickdoc-formula-placeholder">
           <Icon.Formula className="brickdoc-formula-placeholder-icon" />
         </span>
       ) : (
-        <Tooltip title={variableT.name}>{resultData}</Tooltip>
+        <Tooltip title={variableT.name}>
+          <FormulaRender t={variableT} formulaType={formulaType} />
+        </Tooltip>
       )
 
     return (
