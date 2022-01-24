@@ -3,7 +3,7 @@ import React from 'react'
 import { Icon, Popover, Tooltip } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '../../../components'
 import './FormulaBlock.less'
-import { VariableInterface, FormulaSourceType } from '@brickdoc/formula'
+import { VariableInterface, FormulaSourceType, VariableData } from '@brickdoc/formula'
 import { FormulaRender } from '../../../components/Formula/FormulaRender'
 import { useFormula } from '../../../components/Formula/useFormula'
 import { FormulaResult } from '../../../components/Formula/FormulaResult'
@@ -19,7 +19,7 @@ export interface FormulaBlockRenderProps {
   defaultVisible?: boolean
   saveOnBlur?: boolean
   handleTurnOffVisible?: () => void
-  handleDelete: (variable: VariableInterface) => void
+  handleDelete: (variable?: VariableData) => void
   updateFormula: (variable: VariableInterface | undefined) => void
 }
 
@@ -36,14 +36,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 }) => {
   const {
     doCalculate,
-    variable,
+    variableT,
+    isDraft,
     isDisableSave,
     name,
     doHandleSave,
     formulaIsNormal,
     defaultName,
-    content,
-    position,
+    editorContent,
     handleSelectActiveCompletion,
     completion,
     setCompletion
@@ -55,9 +55,6 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     formulaName
   })
 
-  const isDraft = variable?.isDraft() === true
-  const variableT = variable?.t
-
   const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
     if (!visible && defaultVisible) {
       handleTurnOffVisible?.()
@@ -66,7 +63,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 
   const formulaResult = (
     <>
-      <FormulaResult variable={variable} />
+      <FormulaResult variableT={variableT} />
       <AutocompleteList
         blockId={rootId}
         completion={completion}
@@ -95,13 +92,12 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           formulaId={formulaId}
           doCalculate={doCalculate}
           formulaResult={formulaResult}
-          content={content}
-          position={position}
+          editorContent={editorContent}
           defaultVisible={defaultVisible}
           onVisibleChange={handleDefaultPopoverVisibleChange}
           isDisableSave={isDisableSave}
           doHandleSave={doHandleSave}
-          variable={variable}
+          variableT={variableT}
           defaultName={defaultName}
           name={name}
           handleDelete={handleDelete}>
@@ -119,8 +115,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 
   const editor = (
     <FormulaEditor
-      content={content}
-      position={position}
+      editorContent={editorContent}
       editable={true}
       onBlur={onEditorBlur}
       formulaId={formulaId}

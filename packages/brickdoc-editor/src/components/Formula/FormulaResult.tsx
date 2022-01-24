@@ -1,17 +1,17 @@
 import React from 'react'
-import { displayValue, ErrorMessage, VariableInterface } from '@brickdoc/formula'
+import { displayValue, ErrorMessage, VariableData } from '@brickdoc/formula'
 import './FormulaMenu.less'
 
 export interface FormulaResultProps {
-  variable: VariableInterface | undefined
+  variableT: VariableData | undefined
 }
 
-export const FormulaResult: React.FC<FormulaResultProps> = ({ variable }) => {
-  if (!variable) {
+export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT }) => {
+  if (!variableT) {
     return <></>
   }
 
-  const variableValue = variable.t.variableValue
+  const variableValue = variableT.variableValue
 
   const error: ErrorMessage | undefined = variableValue.success
     ? undefined

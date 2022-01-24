@@ -99,13 +99,13 @@ const COMPLETION_STYLE_META: {
       return (
         <div className="formula-autocomplete-preview-function">
           <div className="autocomplete-preview-name">
-            {preview.name} ({' '}
+            {preview.name} (
             {preview.args.map((arg, index) => (
               <span className="autocomplete-preview-arg" key={arg.name}>
                 {arg.name}
                 {index !== preview.args.length - 1 && <span className="autocomplete-preview-arg-separator"> , </span>}
               </span>
-            ))}{' '}
+            ))}
             )
           </div>
           <div className="autocomplete-preview-desc">{preview.description}</div>
@@ -128,7 +128,10 @@ const COMPLETION_STYLE_META: {
               <div className="autocomplete-preview-section-head">Example</div>
               {preview.examples.map((example, index) => (
                 <div key={index} className="autocomplete-preview-example">
-                  <FormulaEditor content={codeFragmentsToJSONContentTotal(example.codeFragments)} editable={false} />
+                  <FormulaEditor
+                    editorContent={{ content: codeFragmentsToJSONContentTotal(example.codeFragments), position: 0 }}
+                    editable={false}
+                  />
                   <br />
                   <span className="autocomplete-preview-example-result">
                     ={JSON.stringify(example?.output?.result)}
@@ -154,7 +157,7 @@ const COMPLETION_STYLE_META: {
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Definition</div>
             <div className="autocomplete-preview-definition">
-              <FormulaEditor content={content} editable={false} />
+              <FormulaEditor editorContent={{ content, position: 0 }} editable={false} />
             </div>
           </div>
           <div className="autocomplete-preview-section">
