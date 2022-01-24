@@ -258,7 +258,7 @@ export const useFormula = ({
       setError(errors.length ? errors[0] : undefined)
     }
 
-    console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
+    // console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
     if (interpretResult.variableValue.success) {
       const type = interpretResult.variableValue.result.type
@@ -383,7 +383,7 @@ export const useFormula = ({
   }, [defaultName, formulaContext, name])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
-    console.log({ variable: variableRef.current, name, defaultName })
+    // console.log({ variable: variableRef.current, name, defaultName })
     if (!variableRef.current) {
       updateFormula(undefined)
       return
