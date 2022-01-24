@@ -46,7 +46,6 @@ export interface UseFormulaOutput {
   variable: VariableInterface | undefined
   doCalculate: () => Promise<void>
   name: string | undefined
-  error: ErrorMessage | undefined
   defaultName: string
   formulaIsNormal: boolean
   content: JSONContent | undefined
@@ -160,7 +159,7 @@ export const useFormula = ({
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
 
-  const [variable, updateVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
+  const [variable, setVariable] = React.useState(formulaContext?.findVariable(rootId, formulaId))
 
   const formulaIsNormal = formulaType === 'normal'
 
@@ -181,21 +180,16 @@ export const useFormula = ({
       ? formulaContext.completions(rootId, variable?.t.variableId)
       : []
 
-  const [completions, setCompletions] = React.useState(contextCompletions)
-
   const nameRef = React.useRef(formulaName ?? variable?.t.name)
-  // const [name, setName] = React.useState(formulaName ?? variable?.t.name)
-  const [defaultName, setDefaultName] = React.useState(contextDefaultName)
-
   const inputRef = React.useRef(formulaValue)
   const variableRef = React.useRef(variable)
+  const positionRef = React.useRef(0)
 
-  const [error, setError] = React.useState<ErrorMessage | undefined>()
+  const [defaultName, setDefaultName] = React.useState(contextDefaultName)
+  const [completions, setCompletions] = React.useState(contextCompletions)
   const [content, setContent] = React.useState<JSONContent | undefined>(defaultContent)
   const [activeCompletion, setActiveCompletion] = React.useState<Completion | undefined>(completions[0])
   const [activeCompletionIndex, setActiveCompletionIndex] = React.useState<number>(0)
-
-  const [position, setPosition] = React.useState(0)
 
   const doCalculate = React.useCallback(
     async (newName?: string): Promise<void> => {
@@ -216,7 +210,7 @@ export const useFormula = ({
         formulaId,
         variable,
         formulaType,
-        position,
+        position: positionRef.current,
         name: nameRef.current ?? defaultName,
         input: finalInput,
         formulaContext
@@ -243,7 +237,7 @@ export const useFormula = ({
 
       setCompletions(completions)
       setActiveCompletion(completions[0])
-      setPosition(newPosition)
+      positionRef.current = newPosition
 
       if (parseResult.valid || inputIsEmpty) {
         const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
@@ -252,14 +246,12 @@ export const useFormula = ({
       }
 
       if (inputIsEmpty) {
-        updateVariable(undefined)
+        setVariable(undefined)
         variableRef.current = undefined
-        setError(undefined)
       } else {
         const newVariableClone = new VariableClass({ t: newVariable.t, formulaContext })
         variableRef.current = newVariableClone
-        updateVariable(newVariableClone)
-        setError(errors.length ? errors[0] : undefined)
+        setVariable(newVariableClone)
       }
 
       // console.log({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
@@ -269,7 +261,7 @@ export const useFormula = ({
         setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
       }
     },
-    [defaultName, formulaContext, formulaId, formulaIsNormal, formulaType, position, rootId, updateVariable, variable]
+    [defaultName, formulaContext, formulaId, formulaIsNormal, formulaType, rootId, setVariable, variable]
   )
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
@@ -284,7 +276,7 @@ export const useFormula = ({
     let oldContent = fetchJSONContentArray(currentContent)
     let positionChange: number = currentCompletion.positionChange
     const oldContentLast = oldContent[oldContent.length - 1]
-    const { prevText, nextText } = positionBasedContentArrayToInput(oldContent, position)
+    const { prevText, nextText } = positionBasedContentArrayToInput(oldContent, positionRef.current)
 
     // console.log('Before replace', {
     //   oldContentLast,
@@ -349,10 +341,10 @@ export const useFormula = ({
     const finalContent = buildJSONContentByArray(newContent)
     const finalInput = contentArrayToInput(fetchJSONContentArray(finalContent))
     const finalInputAfterEqual = formulaIsNormal ? `=${finalInput}` : finalInput
-    const newPosition = position + positionChange
+    const newPosition = positionRef.current + positionChange
 
     setContent(finalContent)
-    setPosition(newPosition)
+    positionRef.current = newPosition
     inputRef.current = finalInputAfterEqual
 
     console.log('selectCompletion', {
@@ -365,7 +357,7 @@ export const useFormula = ({
       finalInputAfterEqual
     })
     void doCalculate()
-  }, [activeCompletion, content, doCalculate, formulaIsNormal, position])
+  }, [activeCompletion, content, doCalculate, formulaIsNormal])
 
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
@@ -386,7 +378,7 @@ export const useFormula = ({
 
     if (isDisableSave()) return
 
-    if(!nameRef.current) {
+    if (!nameRef.current) {
       nameRef.current = defaultName
     }
 
@@ -395,9 +387,9 @@ export const useFormula = ({
     updateFormula(variableRef.current!)
 
     await variableRef.current!.save()
-    updateVariable(variableRef.current!)
+    setVariable(variableRef.current!)
 
-    console.log('save ...', { input: inputRef.current!, updateVariable, formulaContext })
+    console.log('save ...', { input: inputRef.current!, updateVariable: setVariable, formulaContext })
   }, [defaultName, formulaContext, isDisableSave, updateFormula])
 
   React.useEffect(() => {
@@ -462,7 +454,7 @@ export const useFormula = ({
         const newInput = event.payload.input
         const newPosition = event.payload.position
         const value = formulaIsNormal ? `=${newInput}` : newInput
-        setPosition(newPosition)
+        positionRef.current = newPosition
         inputRef.current = value
         void doCalculate()
       },
@@ -480,7 +472,7 @@ export const useFormula = ({
       e => {
         const variableClone = new VariableClass({ t: e.payload.t, formulaContext: e.payload.formulaContext })
         variableRef.current = variableClone
-        updateVariable(variableClone)
+        setVariable(variableClone)
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -488,19 +480,18 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [formulaId, rootId, updateVariable])
+  }, [formulaId, rootId, setVariable])
 
   return {
     variable,
     doCalculate,
     name: nameRef.current,
-    error,
     isDisableSave,
     doHandleSave,
     formulaIsNormal,
     defaultName,
     content,
-    position,
+    position: positionRef.current,
     completions,
     handleSelectActiveCompletion,
     setActiveCompletion,

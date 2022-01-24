@@ -9,6 +9,7 @@ import { useFormula } from '../../../components/Formula/useFormula'
 import { FormulaResult } from '../../../components/Formula/FormulaResult'
 import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
+import { AutocompleteList } from '../../../components/Formula/AutocompleteList/AutocompleteList'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -38,7 +39,6 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     variable,
     isDisableSave,
     name,
-    error,
     doHandleSave,
     formulaIsNormal,
     defaultName,
@@ -68,17 +68,18 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   }
 
   const formulaResult = (
-    <FormulaResult
-      error={error}
-      rootId={rootId}
-      variable={variable}
-      completions={completions}
-      handleSelectActiveCompletion={handleSelectActiveCompletion}
-      setActiveCompletion={setActiveCompletion}
-      activeCompletionIndex={activeCompletionIndex}
-      setActiveCompletionIndex={setActiveCompletionIndex}
-      activeCompletion={activeCompletion}
-    />
+    <>
+      <FormulaResult variable={variable} />
+      <AutocompleteList
+        blockId={rootId}
+        completions={completions}
+        handleSelectActiveCompletion={handleSelectActiveCompletion}
+        setActiveCompletion={setActiveCompletion}
+        activeCompletionIndex={activeCompletionIndex}
+        setActiveCompletionIndex={setActiveCompletionIndex}
+        activeCompletion={activeCompletion}
+      />
+    </>
   )
 
   if (formulaIsNormal) {
