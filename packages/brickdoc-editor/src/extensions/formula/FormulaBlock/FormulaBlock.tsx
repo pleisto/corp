@@ -15,32 +15,38 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const { t } = useEditorI18n()
   const isNew = node.attrs.isNew
   const formulaId = node.attrs.uuid
-  const updateFormula = (variable: VariableInterface | undefined): void => {}
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const rootId = editorDataSource.rootId
   const formulaContext = editorDataSource.formulaContext
 
-  const handleDelete = (variableT?: VariableData): void => {
-    Modal.confirm({
-      zIndex: 1070,
-      title: t(`${i18nKey}.delete_confirm.title`),
-      okText: t(`${i18nKey}.delete_confirm.ok`),
-      okButtonProps: { danger: true },
-      cancelText: t(`${i18nKey}.delete_confirm.cancel`),
-      icon: null,
-      onOk: async () => {
-        if (!variableT || !getPos || !node || !formulaContext) return
-        const position = getPos()
-        void (await formulaContext?.removeVariable(variableT.namespaceId, variableT.variableId))
-        editor.commands.deleteRange({ from: position, to: position + node.nodeSize })
-      }
-    })
-  }
+  const updateFormula = React.useCallback((variable: VariableInterface | undefined): void => {}, [])
+
+  const handleDelete = React.useCallback(
+    (variableT?: VariableData): void => {
+      Modal.confirm({
+        zIndex: 1070,
+        title: t(`${i18nKey}.delete_confirm.title`),
+        okText: t(`${i18nKey}.delete_confirm.ok`),
+        okButtonProps: { danger: true },
+        cancelText: t(`${i18nKey}.delete_confirm.cancel`),
+        icon: null,
+        onOk: async () => {
+          if (!variableT || !getPos || !node || !formulaContext) return
+          const position = getPos()
+          void (await formulaContext?.removeVariable(variableT.namespaceId, variableT.variableId))
+          editor.commands.deleteRange({ from: position, to: position + node.nodeSize })
+        }
+      })
+    },
+    [editor.commands, formulaContext, getPos, node, t]
+  )
+
+  const handleTurnOffVisible = React.useCallback(() => updateAttributes({ isNew: false }), [updateAttributes])
 
   return (
     <FormulaBlockRender
       defaultVisible={isNew}
-      handleTurnOffVisible={() => updateAttributes({ isNew: false })}
+      handleTurnOffVisible={handleTurnOffVisible}
       handleDelete={handleDelete}
       rootId={rootId}
       formulaId={formulaId}

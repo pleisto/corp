@@ -20,25 +20,30 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
   const formulaId = currentBlock.data.formulaId
   const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
 
-  const handleDelete = (): void => {}
-  const updateFormula = (variable: VariableInterface | undefined): void => {
-    if (variable) {
-      const newBlock = {
-        ...block,
-        data: { ...block.data, t: variable.result() },
-        text: displayValue(variable.t.variableValue.result)
+  const handleDelete = React.useCallback((): void => {}, [])
+  const updateFormula = React.useCallback(
+    (variable: VariableInterface | undefined): void => {
+      if (variable) {
+        const newBlock = {
+          ...block,
+          data: { ...block.data, t: variable.result() },
+          text: displayValue(variable.t.variableValue.result)
+        }
+        setCurrentBlock(newBlock)
+        saveBlock(newBlock)
       }
-      setCurrentBlock(newBlock)
-      saveBlock(newBlock)
-    }
-    // console.log('updateFormula', { variable, block, newBlock, parentId, formulaId })
-    setEditing(false)
-  }
+      // console.log('updateFormula', { variable, block, newBlock, parentId, formulaId })
+      setEditing(false)
+    },
+    [block, saveBlock]
+  )
 
   const handleEnterEdit = (): void => {
     context.clearSelection()
     setEditing(true)
   }
+
+  console.log('render cell', { context, parentId, block, saveBlock })
 
   if (editing) {
     return (

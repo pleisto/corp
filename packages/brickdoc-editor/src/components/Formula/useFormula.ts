@@ -44,6 +44,7 @@ export interface UseFormulaInput {
 
 export interface UseFormulaOutput {
   variableT: VariableData | undefined
+  savedVariableT: VariableData | undefined
   isDraft: boolean
   doCalculate: () => Promise<void>
   name: string | undefined
@@ -189,9 +190,11 @@ export const useFormula = ({
   const variableRef = React.useRef(defaultVariable)
   const editorContentRef = React.useRef(defaultEditorContent)
   const isDraftRef = React.useRef(defaultVariable?.isDraft() === true)
+  const defaultNameRef = React.useRef(contextDefaultName)
 
   // States
   const [variableT, setVariableT] = React.useState(defaultVariable?.t)
+  const [savedVariableT, setSavedVariableT] = React.useState(defaultVariable?.t)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
   const [editorContent, setEditorContent] = React.useState<EditorContentType>(defaultEditorContent)
   const [completion, setCompletion] = React.useState<CompletionType>({
@@ -199,6 +202,8 @@ export const useFormula = ({
     activeCompletion: contextCompletions[0],
     activeCompletionIndex: 0
   })
+
+  console.log('render hook...', { rootId, formulaId, updateFormula, formulaType, formulaName })
 
   // Callbacks
   const doCalculate = React.useCallback(
@@ -221,7 +226,7 @@ export const useFormula = ({
         variable: variableRef.current,
         formulaType,
         editorContent: editorContentRef.current,
-        name: nameRef.current ?? defaultName,
+        name: nameRef.current ?? defaultNameRef.current,
         input: finalInput,
         formulaContext
       })
@@ -254,10 +259,12 @@ export const useFormula = ({
 
       if (interpretResult.variableValue.success) {
         const type = interpretResult.variableValue.result.type
-        setDefaultName(formulaContext.getDefaultVariableName(rootId, type))
+        const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
+        defaultNameRef.current = newDefaultName
+        setDefaultName(newDefaultName)
       }
     },
-    [defaultName, formulaContext, formulaId, formulaIsNormal, formulaType, rootId]
+    [formulaContext, formulaId, formulaIsNormal, formulaType, rootId]
   )
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
@@ -358,12 +365,12 @@ export const useFormula = ({
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
     if (!variableRef.current) return true
-    if (!(nameRef.current ?? defaultName)) return true
+    if (!(nameRef.current ?? defaultNameRef.current)) return true
     // if (!inputRef.current) return true
     // if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
 
     return false
-  }, [defaultName, formulaContext])
+  }, [formulaContext])
 
   const doHandleSave = React.useCallback(async (): Promise<void> => {
     // console.log({ variable: variableRef.current, name, defaultName })
@@ -375,7 +382,7 @@ export const useFormula = ({
     if (isDisableSave()) return
 
     if (!nameRef.current) {
-      nameRef.current = defaultName
+      nameRef.current = defaultNameRef.current
     }
 
     const v = variableRef.current
@@ -388,9 +395,10 @@ export const useFormula = ({
     variableRef.current = v
     isDraftRef.current = false
     setVariableT(v.t)
+    setSavedVariableT(v.t)
 
     console.log('save ...', { input: inputRef.current, variable: variableRef.current, formulaContext })
-  }, [defaultName, formulaContext, isDisableSave, updateFormula])
+  }, [formulaContext, isDisableSave, updateFormula])
 
   // Effects
   React.useEffect(() => {
@@ -480,6 +488,7 @@ export const useFormula = ({
 
   return {
     variableT,
+    savedVariableT,
     isDraft: isDraftRef.current,
     doCalculate,
     name: nameRef.current,

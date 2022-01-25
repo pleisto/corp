@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { Icon, Popover, Tooltip } from '@brickdoc/design-system'
+import { Icon, Popover } from '@brickdoc/design-system'
 import { BlockContainer, FormulaMenu } from '..'
 import './FormulaBlockRender.less'
 import { VariableInterface, FormulaSourceType, VariableData } from '@brickdoc/formula'
@@ -37,6 +37,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const {
     doCalculate,
     variableT,
+    savedVariableT,
     isDraft,
     isDisableSave,
     name,
@@ -55,11 +56,26 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     formulaName
   })
 
-  const handleDefaultPopoverVisibleChange = (visible: boolean): void => {
-    if (!visible && defaultVisible) {
-      handleTurnOffVisible?.()
-    }
-  }
+  console.log('render render', {
+    formulaId,
+    rootId,
+    formulaName,
+    formulaType,
+    handleTurnOffVisible,
+    defaultVisible,
+    saveOnBlur,
+    updateFormula,
+    handleDelete
+  })
+
+  const handleDefaultPopoverVisibleChange = React.useCallback(
+    (visible: boolean): void => {
+      if (!visible && defaultVisible) {
+        handleTurnOffVisible?.()
+      }
+    },
+    [defaultVisible, handleTurnOffVisible]
+  )
 
   const formulaResult = (
     <>
@@ -73,14 +89,20 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     </>
   )
 
+  const onEditorBlur = React.useCallback((): void => {
+    if (saveOnBlur) {
+      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
+    }
+  }, [formulaId, rootId, saveOnBlur])
+
   if (formulaIsNormal) {
     const renderData =
-      !variableT || isDraft ? (
+      !savedVariableT || isDraft ? (
         <span className="brickdoc-formula-placeholder">
           <Icon.Formula className="brickdoc-formula-placeholder-icon" />
         </span>
       ) : (
-        <FormulaRender t={variableT} formulaType={formulaType} />
+        <FormulaRender t={savedVariableT} formulaType={formulaType} />
       )
 
     return (
@@ -105,11 +127,6 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     )
   }
 
-  const onEditorBlur = (): void => {
-    if (saveOnBlur) {
-      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
-    }
-  }
 
   const editor = (
     <FormulaEditor
