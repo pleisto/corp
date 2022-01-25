@@ -48,12 +48,11 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }
 
   const onPopoverVisibleChange = (visible: boolean): void => {
-    onVisibleChange?.(visible)
-
     if (!visible) {
       close()
       return
     }
+    onVisibleChange?.(visible)
     setVisible(visible)
   }
 
@@ -123,7 +122,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       overlayClassName="brickdoc-formula-menu-popover"
       destroyTooltipOnHide={true}
       content={menu}
-      placement="bottom"
+      // placement="bottom"
       trigger={['click']}>
       {children}
     </Popover>

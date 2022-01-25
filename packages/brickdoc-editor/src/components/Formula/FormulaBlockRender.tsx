@@ -80,9 +80,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           <Icon.Formula className="brickdoc-formula-placeholder-icon" />
         </span>
       ) : (
-        <Tooltip title={variableT.name}>
-          <FormulaRender t={variableT} formulaType={formulaType} />
-        </Tooltip>
+        <FormulaRender t={variableT} formulaType={formulaType} />
       )
 
     return (
@@ -100,8 +98,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           variableT={variableT}
           defaultName={defaultName}
           name={name}
-          handleDelete={handleDelete}
-        >
+          handleDelete={handleDelete}>
           {renderData}
         </FormulaMenu>
       </BlockContainer>
@@ -124,7 +121,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     />
   )
 
-  if (!variableT || variableT.kind === 'literal') {
+  if (!completion.completions.length && (!variableT || variableT.kind === 'literal')) {
     return editor
   }
 

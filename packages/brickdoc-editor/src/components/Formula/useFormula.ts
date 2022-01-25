@@ -242,7 +242,7 @@ export const useFormula = ({
         inputRef.current = parseResult.codeFragments.map(fragment => fragment.name).join('')
       }
 
-      if (inputIsEmpty) {
+      if (formulaIsNormal && inputIsEmpty) {
         setVariableT(undefined)
         variableRef.current = undefined
       } else {

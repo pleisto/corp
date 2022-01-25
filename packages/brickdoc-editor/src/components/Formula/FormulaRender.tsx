@@ -142,11 +142,11 @@ export interface FormulaRenderProps {
   formulaType: FormulaSourceType
 }
 
-export const FormulaRender: React.FC<FormulaRenderProps> = ({ t, formulaType }) => {
+export const FormulaRender: React.FC<FormulaRenderProps> = ({ t, formulaType, ...props }) => {
   if (!t) {
     if (formulaType === 'normal') {
       return (
-        <span className="brickdoc-formula-placeholder">
+        <span {...props} className="brickdoc-formula-placeholder">
           <Icon.Formula className="brickdoc-formula-placeholder-icon" />
         </span>
       )
@@ -160,20 +160,28 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({ t, formulaType }) 
     type
   } = t
 
+  let data: React.ReactElement | null = null
   if (kind === 'literal') {
-    return renderLiteral(result)
+    data = renderLiteral(result)
+  } else {
+    switch (result.view?.type ?? result.type) {
+      case 'Button':
+        data = renderButton(result as ButtonResult)
+        break
+      case 'Input':
+        data = renderInput(result as InputResult)
+        break
+      case 'Spreadsheet':
+        data = renderTable(result as SpreadsheetResult)
+        break
+      case 'Qrcode':
+        data = renderQrcode(result as StringResult)
+        break
+      default:
+        data = renderOther(result, type)
+        break
+    }
   }
 
-  switch (result.view?.type ?? result.type) {
-    case 'Button':
-      return renderButton(result as ButtonResult)
-    case 'Input':
-      return renderInput(result as InputResult)
-    case 'Spreadsheet':
-      return renderTable(result as SpreadsheetResult)
-    case 'Qrcode':
-      return renderQrcode(result as StringResult)
-    default:
-      return renderOther(result, type)
-  }
+  return <div {...props}>{data}</div>
 }
