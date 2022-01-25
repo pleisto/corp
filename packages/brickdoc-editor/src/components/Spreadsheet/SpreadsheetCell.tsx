@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { BlockInput } from '@brickdoc/schema'
-import { FormulaBlockRender } from '../../extensions/formula/FormulaBlock/FormulaBlockRender'
+import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
 import { displayValue, VariableInterface } from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { FormulaRender } from '../Formula/FormulaRender'

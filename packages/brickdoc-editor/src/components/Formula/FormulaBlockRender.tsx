@@ -1,15 +1,15 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import { Icon, Popover, Tooltip } from '@brickdoc/design-system'
-import { BlockContainer, FormulaMenu } from '../../../components'
-import './FormulaBlock.less'
+import { BlockContainer, FormulaMenu } from '..'
+import './FormulaBlockRender.less'
 import { VariableInterface, FormulaSourceType, VariableData } from '@brickdoc/formula'
-import { FormulaRender } from '../../../components/Formula/FormulaRender'
-import { useFormula } from '../../../components/Formula/useFormula'
-import { FormulaResult } from '../../../components/Formula/FormulaResult'
-import { FormulaEditor } from '../FormulaEditor/FormulaEditor'
+import { FormulaRender } from './FormulaRender'
+import { useFormula } from './useFormula'
+import { FormulaResult } from './FormulaResult'
+import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
-import { AutocompleteList } from '../../../components/Formula/AutocompleteList/AutocompleteList'
+import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -100,7 +100,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
           variableT={variableT}
           defaultName={defaultName}
           name={name}
-          handleDelete={handleDelete}>
+          handleDelete={handleDelete}
+        >
           {renderData}
         </FormulaMenu>
       </BlockContainer>
@@ -135,7 +136,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {editor}
     </Popover>
   )

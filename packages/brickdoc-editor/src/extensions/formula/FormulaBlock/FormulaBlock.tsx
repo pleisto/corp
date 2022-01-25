@@ -4,8 +4,8 @@ import { NodeViewProps } from '@tiptap/core'
 import { Modal } from '@brickdoc/design-system'
 import { VariableData, VariableInterface } from '@brickdoc/formula'
 import { useEditorI18n } from '../../../hooks'
-import { FormulaBlockRender } from './FormulaBlockRender'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
+import { FormulaBlockRender } from '../../../components/Formula/FormulaBlockRender'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
