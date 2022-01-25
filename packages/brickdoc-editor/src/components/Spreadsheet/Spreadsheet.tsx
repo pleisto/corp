@@ -1,8 +1,7 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/react'
 import { Input, Dropdown, Icon } from '@brickdoc/design-system'
-import { useEditorI18n } from '../../hooks'
-// import { EditorDataSourceContext } from '../../dataSource/DataSource'
+import { useEditorI18n, useDocumentEditable } from '../../hooks'
 import { BlockContainer, BlockContainerProps } from '../BlockContainer'
 
 import { useSpreadsheet } from './useSpreadsheet'
@@ -26,9 +25,7 @@ import { SpreadsheetCell } from './SpreadsheetCell'
 import './Spreadsheet.less'
 
 export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
-  // const editorDataSource = React.useContext(EditorDataSourceContext)
-  // const editable = editorDataSource.documentEditable
-  const editable = true
+  const [documentEditable] = useDocumentEditable()
 
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
@@ -114,7 +111,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   }, [dragging, moveRow, moveColumn, spreadsheetContext])
 
   const menu = SpreadsheetMenu({
-    items: editable
+    items: documentEditable
       ? [
           {
             name: 'delete',
@@ -138,7 +135,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions}>
       <span>
         <SpreadsheetContainer>
-          {editable ? (
+          {documentEditable ? (
             <Input
               className="spreadsheet-title"
               value={title}
@@ -172,7 +169,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                     context={spreadsheetContext}
                     columnId={column.uuid}
                     columnActions={
-                      editable
+                      documentEditable
                         ? [
                             {
                               name: 'addColumnLeft',
@@ -195,9 +192,9 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                           ]
                         : []
                     }
-                    draggable={editable}
+                    draggable={documentEditable}
                   >
-                    {editable ? (
+                    {documentEditable ? (
                       <SpreadsheetEditable
                         context={spreadsheetContext}
                         className="column"
@@ -220,7 +217,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                     rowId={rowBlock.id}
                     rowNumber={`${rowIdx + 1}`}
                     rowActions={
-                      editable
+                      documentEditable
                         ? [
                             {
                               name: 'addRowAbove',
@@ -243,7 +240,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                           ]
                         : []
                     }
-                    draggable={editable}
+                    draggable={documentEditable}
                   >
                     {columns.map((column, columnIdx) => {
                       const block = getCellBlock(rowBlock.id, column.uuid)
@@ -253,7 +250,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
                           context={spreadsheetContext}
                           cellId={{ rowId: rowBlock.id, columnId: column.uuid }}
                         >
-                          {editable ? (
+                          {documentEditable ? (
                             <SpreadsheetCell
                               context={spreadsheetContext}
                               parentId={parentId}
