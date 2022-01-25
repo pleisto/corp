@@ -58,11 +58,9 @@ export const selectStyle = css({
     color: theme.colors.typeThirdary
   },
 
-  '&-single': {
-    // color: 'red',
-  },
+  '&-single': {},
 
-  '&-selection-item': {
+  '&-selection-search + &-selection-item': {
     flex: 1,
     overflow: 'hidden',
     fontWeight: 'normal',
@@ -186,5 +184,27 @@ export const selectStyle = css({
     display: 'block',
     minHeight: '1.5em',
     cursor: 'pointer'
+  },
+
+  '&-multiple &-selection-overflow': {
+    fontSize: theme.fontSizes.callout,
+    lineHeight: theme.lineHeights.callout,
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%'
+  },
+  '&-multiple &-selection-overflow > &-selection-overflow-item': {
+    marginRight: 6,
+    fontSize: theme.fontSizes.callout,
+    lineHeight: theme.lineHeights.callout,
+    height: theme.lineHeights.callout
+  },
+  '&-select-selection-overflow-item-suffix': {
+    flex: 'none'
+  },
+  '&-selection-search': {
+    lineHeight: theme.lineHeights.callout,
+    height: theme.lineHeights.callout,
+    maxWidth: '100%'
   }
 })
