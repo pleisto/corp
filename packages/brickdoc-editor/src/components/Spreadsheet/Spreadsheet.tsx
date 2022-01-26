@@ -25,7 +25,7 @@ import { SpreadsheetCell } from './SpreadsheetCell'
 import './Spreadsheet.less'
 
 export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode, updateAttributes }) => {
-  const [documentEditable] = useDocumentEditable()
+  const [documentEditable] = useDocumentEditable(undefined)
 
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}

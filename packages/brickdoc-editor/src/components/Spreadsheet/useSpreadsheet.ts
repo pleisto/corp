@@ -60,7 +60,7 @@ export const useSpreadsheet = (options: {
     })
   }, [updateAttributeData, data])
 
-  const loaded = React.useRef(false)
+  const loaded = React.useRef(columns.length === 0 && data.rowsCount === 0)
 
   const getRowBlock = React.useCallback(
     (index: number) => {
