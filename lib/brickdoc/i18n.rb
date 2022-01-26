@@ -5,7 +5,7 @@ module Brickdoc
     extend self
     AVAILABLE_LANGUAGES = {
       'en-US': 'English',
-      'zh-CN': '简体中文',
+      'zh-CN': '简体中文'
       # 'ja-JP': '日本語',
       # 'ar-SA': 'اَلْعَرَبِيَّةُ',
       # 'zh-HK': '繁體中文'
