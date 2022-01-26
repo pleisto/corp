@@ -20,7 +20,6 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
   const formulaId = currentBlock.data.formulaId
   const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
 
-  const handleDelete = React.useCallback((): void => {}, [])
   const updateFormula = React.useCallback(
     (variable: VariableInterface | undefined): void => {
       if (variable) {
@@ -43,17 +42,13 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
     setEditing(true)
   }
 
-  console.log('render cell', { context, parentId, block, saveBlock })
-
   if (editing) {
     return (
       <FormulaBlockRender
-        defaultVisible={true}
         saveOnBlur={true}
         formulaName={formulaName}
         rootId={parentId}
         formulaId={formulaId}
-        handleDelete={handleDelete}
         updateFormula={updateFormula}
         formulaType="spreadsheet"
       />

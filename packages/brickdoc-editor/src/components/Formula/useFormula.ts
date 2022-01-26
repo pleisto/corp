@@ -161,16 +161,34 @@ export const useFormula = ({
 }: UseFormulaInput): UseFormulaOutput => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
-
-  const defaultVariable = formulaContext?.findVariable(rootId, formulaId)
-
   const formulaIsNormal = formulaType === 'normal'
 
-  const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
+  const defaultVariable = React.useMemo(
+    () => formulaContext?.findVariable(rootId, formulaId),
+    [formulaContext, formulaId, rootId]
+  )
 
-  const formulaValue = defaultVariable?.t.valid
-    ? defaultVariable.t.codeFragments.map(fragment => fragment.name).join('')
-    : defaultVariable?.t.definition
+  const formulaValue = React.useMemo(
+    () =>
+      defaultVariable?.t.valid
+        ? defaultVariable.t.codeFragments.map(fragment => fragment.name).join('')
+        : defaultVariable?.t.definition,
+    [defaultVariable]
+  )
+
+  const contextDefaultName = React.useMemo(
+    () => (formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''),
+    [formulaContext, rootId]
+  )
+
+  const contextCompletions = React.useMemo(
+    () =>
+      formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
+        ? formulaContext.completions(rootId, formulaId)
+        : [],
+    [formulaId, formulaContext, formulaIsNormal, formulaValue, rootId]
+  )
+
   const realDefinition = maybeRemoveDefinitionEqual(formulaValue, formulaIsNormal)
 
   const oldCodeFragments = maybeRemoveCodeFragmentsEqual(defaultVariable?.t.codeFragments, formulaIsNormal)
@@ -178,10 +196,6 @@ export const useFormula = ({
     ? codeFragmentsToJSONContentTotal(oldCodeFragments)
     : buildJSONContentByDefinition(realDefinition)
 
-  const contextCompletions =
-    formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
-      ? formulaContext.completions(rootId, defaultVariable?.t.variableId)
-      : []
   const defaultEditorContent: EditorContentType = { content: defaultContent, position: 0 }
 
   // Refs
@@ -202,8 +216,6 @@ export const useFormula = ({
     activeCompletion: contextCompletions[0],
     activeCompletionIndex: 0
   })
-
-  console.log('render hook...', { rootId, formulaId, updateFormula, formulaType, formulaName })
 
   // Callbacks
   const doCalculate = React.useCallback(
