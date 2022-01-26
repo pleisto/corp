@@ -8,6 +8,7 @@ import {
   ExplorerHeaderTitle,
   ExplorerHeaderTitleIcon,
   ExplorerOverlay,
+  exploreWidth,
   InnerMenu,
   InnerMenuContainer,
   MenuGroupLabel,
@@ -78,8 +79,15 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   }, [])
 
   return (
-    <ExplorerOverlay visible={visible} onClick={handleClose}>
-      <StyledExplorerMenu visible={visible} onClick={handleExplorerMenuClick}>
+    <>
+      <ExplorerOverlay visible={visible} onClick={handleClose} />
+      <StyledExplorerMenu
+        animate={{ right: visible ? '0rem' : `-${exploreWidth}` }}
+        transition={{
+          right: visible ? { type: 'spring', stiffness: 1400, damping: 80 } : { ease: 'linear', duration: 0 }
+        }}
+        onClick={handleExplorerMenuClick}
+      >
         <ExplorerHeader>
           <ExplorerHeaderTitle>
             <ExplorerHeaderTitleIcon />
@@ -96,12 +104,15 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
           />
         </SearchInputContainer>
         <InnerMenuContainer>
-          <InnerMenu>
+          <InnerMenu type="ghost">
             {groups?.map((group, index) => (
               <Menu.Group key={index} label={<MenuGroupLabel>{group.label}</MenuGroupLabel>}>
                 {group.items.map((item, index) => (
                   <MenuItem
-                    onAction={item.onAction}
+                    onAction={() => {
+                      item.onAction?.()
+                      handleClose()
+                    }}
                     key={index}
                     itemKey={`item-${index}`}
                     label={item.label}
@@ -113,6 +124,6 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
           </InnerMenu>
         </InnerMenuContainer>
       </StyledExplorerMenu>
-    </ExplorerOverlay>
+    </>
   )
 }

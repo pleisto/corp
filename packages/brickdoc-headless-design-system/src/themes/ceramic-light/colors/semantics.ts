@@ -14,7 +14,7 @@ export const Semantics = {
    * Type
    */
   typePrimary: Palettes.deepPurple7,
-  typeSecondary: Palettes.deepPurple5,
+  typeSecondary: Palettes.deepPurple6,
   typeThirdary: Palettes.deepPurple4,
   typeDisabled: Palettes.deepPurple3,
 
@@ -22,7 +22,7 @@ export const Semantics = {
    * Icon
    */
   iconPrimary: Palettes.deepPurple7,
-  iconSecondary: Palettes.deepPurple5,
+  iconSecondary: Palettes.deepPurple6,
   iconThirdary: Palettes.deepPurple4,
   iconDisable: Palettes.deepPurple3,
 
@@ -49,13 +49,13 @@ export const Semantics = {
   backgroundOverlayPrimary: Atomics.white_80p,
   backgroundOverlaySecondary: Atomics.black_3p,
   backgroundOverlayThirdary: Atomics.grey2_50p,
-  backgroundOverlayQuaternary: Atomics.grey2_90p,
+  backgroundOverlayQuaternary: Atomics.grey9_90p,
 
   /**
    * Border
    */
   borderPrimary: Palettes.grey2,
-  borderSecondary: Palettes.grey4,
+  borderSecondary: Palettes.grey3,
   borderThirdary: Palettes.grey8,
   borderOverlayPrimary: Atomics.white_20p,
   borderOverlaySecondary: Atomics.blue6_4p,
@@ -68,12 +68,13 @@ export const Semantics = {
   dividerSecondary: Palettes.grey5,
   dividerOverlayPrimary: Atomics.black_5p,
   dividerOverlaySecondary: Atomics.black_10p,
+  dividerOverlayThirdary: Atomics.blue6_60p,
 
   /**
    * Overlays
    */
   overlayPrimary: Atomics.black_35p,
-  overlaySecondary: Atomics.black_3p,
+  overlaySecondary: Atomics.grey4_40p,
 
   /**
    * Error
