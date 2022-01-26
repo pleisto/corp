@@ -135,7 +135,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       overlayClassName="brickdoc-formula-menu-popover"
       destroyTooltipOnHide={true}
       content={menu}
-      // placement="bottom"
+      placement="bottom"
       trigger={['click']}>
       {children}
     </Popover>
