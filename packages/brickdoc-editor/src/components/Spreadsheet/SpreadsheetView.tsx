@@ -4,7 +4,7 @@ import { Dropdown, Menu, Button } from '@brickdoc/design-system'
 
 import { useEditorI18n } from '../../hooks'
 
-import { MenuIcon } from '../SlashMenu/styled'
+import { menuIconStyle } from '../SlashMenu/styled'
 
 import { SpreadsheetContext, SpreadsheetSelectionCellId } from './SpreadsheetContext'
 
@@ -31,14 +31,13 @@ export const SpreadsheetMenu = (options: {
           <Menu.Item
             key={item.name}
             itemKey={item.name}
-            // icon={<MenuIcon>{item.icon}</MenuIcon>} TODO: bugfix
+            icon={item.icon ? React.cloneElement(item.icon, { className: menuIconStyle() }) : null}
             label={title}
             onAction={key => {
               item.onAction?.(key)
               onAction?.(key)
             }}
           >
-            <MenuIcon css={{ marginRight: '10px' }}>{item.icon}</MenuIcon>
             {title}
           </Menu.Item>
         )
