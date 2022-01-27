@@ -5,6 +5,7 @@ import { Dropdown, Menu, Button } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../hooks'
 
 import { menuIconStyle } from '../SlashMenu/styled'
+import * as EditorIcon from '../Icon'
 
 import { SpreadsheetContext, SpreadsheetSelectionCellId } from './SpreadsheetContext'
 
@@ -25,23 +26,31 @@ export const SpreadsheetMenu = (options: {
   const { items, onAction } = options
   return (
     <Menu>
-      {items.map(item => {
-        const title = item.title ?? item.name
-        return (
-          <Menu.Item
-            key={item.name}
-            itemKey={item.name}
-            icon={item.icon ? React.cloneElement(item.icon, { className: menuIconStyle() }) : null}
-            label={title}
-            onAction={key => {
-              item.onAction?.(key)
-              onAction?.(key)
-            }}
-          >
-            {title}
-          </Menu.Item>
-        )
-      })}
+      <Menu.Group>
+        {items.map(item => {
+          const title = item.title ?? item.name
+          return (
+            <Menu.Item
+              key={item.name}
+              itemKey={item.name}
+              icon={
+                item.icon ? (
+                  <EditorIcon.IconBackground>
+                    {React.cloneElement(item.icon, { className: menuIconStyle() })}
+                  </EditorIcon.IconBackground>
+                ) : null
+              }
+              label={title}
+              onAction={key => {
+                item.onAction?.(key)
+                onAction?.(key)
+              }}
+            >
+              {title}
+            </Menu.Item>
+          )
+        })}
+      </Menu.Group>
     </Menu>
   )
 }

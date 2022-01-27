@@ -3,6 +3,7 @@ import { NodeViewProps } from '@tiptap/react'
 import { DeprecatedInput, Icon } from '@brickdoc/design-system'
 import { useEditorI18n, useDocumentEditable } from '../../hooks'
 import { BlockContainer, BlockContainerProps } from '../BlockContainer'
+import * as EditorIcon from '../Icon'
 
 import { useSpreadsheet } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
@@ -116,7 +117,11 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
           type: 'item',
           name: 'addRow',
           label: t('spreadsheet.row.add_below'),
-          icon: <Icon.ArrowDown />,
+          icon: (
+            <EditorIcon.IconBackground>
+              <Icon.ArrowDown />
+            </EditorIcon.IconBackground>
+          ),
           onAction: () => addRow(0)
         }
       ]
