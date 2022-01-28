@@ -27,10 +27,22 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
   const spreadsheet = result.result
   const columns = spreadsheet.listColumns()
   const rows = spreadsheet.listRows()
+
+  const valuesMatrix = new Map(
+    rows.map(r => {
+      const { rowId } = r
+      return [
+        r.rowId,
+        new Map(columns.map(c => [c.columnId, spreadsheet.findCellValue({ columnId: c.columnId, rowId }) ?? '']))
+      ]
+    })
+  )
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const spreadsheetContext = useSpreadsheetContext({
     rowIds: rows.map(r => r.rowId),
-    columnIds: columns.map(c => c.columnId)
+    columnIds: columns.map(c => c.columnId),
+    valuesMatrix
   })
   return (
     <span className="brickdoc-formula-spreadsheet">
@@ -56,7 +68,7 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
                       context={spreadsheetContext}
                       cellId={{ rowId, columnId: c.columnId }}
                     >
-                      <div className="column">{spreadsheet.findCellValue({ columnId: c.columnId, rowId })}</div>
+                      <div className="column">{valuesMatrix.get(rowId)?.get(c.columnId)}</div>
                     </SpreadsheetCellContainer>
                   ))}
                 </SpreadsheetRow>

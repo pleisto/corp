@@ -43,7 +43,7 @@ export const useSpreadsheet = (options: {
   // getCellBlockByIdx: (rowIdx: number, columnIdx: number) => BlockInput
   // getCellIdxByBlockId: (cellId: string) => ([number, number] | undefined)
   saveCellBlock: (block: BlockInput) => void
-  // cellsMap: SpreadsheetCellsMap
+  cellsMap: SpreadsheetCellsMap
 } => {
   const { isNew, parentId, data, updateAttributeData } = options
   const [columns, setColumns] = React.useState<SpreadsheetColumns>(data.columns ?? [])
@@ -314,7 +314,7 @@ export const useSpreadsheet = (options: {
     getCellBlock,
     // getCellBlockByIdx,
     // getCellIdxByBlock,
-    saveCellBlock
-    // cellsMap: cellsMap.current
+    saveCellBlock,
+    cellsMap: cellsMap.current
   }
 }

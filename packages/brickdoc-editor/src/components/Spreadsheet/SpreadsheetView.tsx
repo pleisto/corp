@@ -239,6 +239,8 @@ export const SpreadsheetCellContainer: React.FC<{
   cellId: SpreadsheetSelectionCellId
   children?: React.ReactNode
 }> = ({ children, context, cellId }) => {
+  const { t } = useEditorI18n()
+
   const cellIdStr = `${cellId.rowId},${cellId.columnId}`
   const { selection } = context
   const selected =
@@ -246,9 +248,15 @@ export const SpreadsheetCellContainer: React.FC<{
     selection.rowIds?.includes(cellId.rowId) ??
     selection.columnIds?.includes(cellId.columnId)
 
-  const unselectCell = (): void => {
-    context.clearSelection()
-    document.removeEventListener('mousedown', unselectCell)
+  const [dropdownVisible, setDropdownVisible] = React.useState(false)
+
+  const unselectCell = (e: MouseEvent): void => {
+    const li = (e.target as Element).closest('li[role=menuitem]')
+    if (!li) {
+      context.clearSelection()
+      setDropdownVisible(false)
+      document.removeEventListener('mousedown', unselectCell)
+    }
   }
 
   const selectCell = (): void => {
@@ -256,9 +264,44 @@ export const SpreadsheetCellContainer: React.FC<{
     document.addEventListener('mousedown', unselectCell)
   }
 
+  const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
+    selectCell()
+    setDropdownVisible(true)
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  const cellActions = [
+    {
+      name: 'copy',
+      title: t('spreadsheet.copy'),
+      // icon: <Icon.ArrowUp />,
+      onAction: () => {
+        context.copyToClipboard({ cellIds: [cellIdStr] })
+      }
+    }
+  ]
+
   return (
-    <td className={selected ? 'selected' : ''} onClick={selectCell}>
-      {children}
+    <td
+      className={selected ? 'selected' : ''}
+      onClick={selectCell}
+      onContextMenu={onContextMenu}
+      data-cell-id={cellIdStr}
+    >
+      <Dropdown
+        overlay={SpreadsheetMenu({
+          items: cellActions,
+          onAction: key => {
+            setDropdownVisible(false)
+          }
+        })}
+        placement="bottomStart"
+        visible={dropdownVisible}
+        aria-label={t('spreadsheet.cell.actions')}
+      >
+        {children}
+      </Dropdown>
     </td>
   )
 }

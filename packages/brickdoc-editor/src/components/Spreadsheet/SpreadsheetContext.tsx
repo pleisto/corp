@@ -30,6 +30,7 @@ export interface SpreadsheetContext {
   selectCell: (cellId: string) => void
   dragging: SpreadsheetDragging
   setDragging: (dragging: SpreadsheetDragging) => void
+  copyToClipboard: (curSelections?: { columnIds?: string[]; rowIds?: string[]; cellIds?: string[] }) => void
 }
 
 export const keyDownMovements: { [key: string]: [number, number] } = {
@@ -39,11 +40,15 @@ export const keyDownMovements: { [key: string]: [number, number] } = {
   ArrowRight: [0, 1]
 }
 
-export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: string[] }): SpreadsheetContext => {
+export const useSpreadsheetContext = (options: {
+  columnIds: string[]
+  rowIds: string[]
+  valuesMatrix: Map<string, Map<string, string>>
+}): SpreadsheetContext => {
   const [selection, setSelection] = React.useState<SpreadsheetSelection>({})
   const [dragging, setDragging] = React.useState<SpreadsheetDragging>({})
 
-  const { columnIds, rowIds } = options ?? {}
+  const { columnIds, rowIds, valuesMatrix } = options ?? {}
 
   const clearSelection = (): void => {
     setSelection({})
@@ -60,6 +65,20 @@ export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: st
   const selectCell = (cellId: string): void => {
     setSelection({ cellIds: [...(selection.cellIds ?? []), cellId] })
   }
+
+  const copyToClipboard = React.useCallback(
+    (curSelections?: { columnIds?: string[]; rowIds?: string[]; cellIds?: string[] }): void => {
+      const { cellIds } = curSelections ?? selection
+      if (cellIds?.length === 1) {
+        const [rowId, columnId] = cellIds[0].split(',')
+        const value = valuesMatrix.get(rowId)?.get(columnId)
+        if (value) {
+          void navigator.clipboard.writeText(value)
+        }
+      }
+    },
+    [selection, valuesMatrix]
+  )
 
   React.useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
@@ -93,16 +112,19 @@ export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: st
           } else {
             setSelection({ cellIds: [`${rowIds[nRowIdx]},${columnIds[nColumnIdx]}`] })
           }
+          e.preventDefault()
+          e.stopPropagation()
         }
-        e.preventDefault()
-        e.stopPropagation()
+      }
+      if (e.code === 'KeyC') {
+        copyToClipboard()
       }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => {
       document.removeEventListener('keydown', onKeyDown)
     }
-  }, [selection, rowIds, columnIds])
+  }, [selection, rowIds, columnIds, copyToClipboard])
 
   return {
     selection,
@@ -112,6 +134,7 @@ export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: st
     selectColumns,
     selectCell,
     dragging,
-    setDragging
+    setDragging,
+    copyToClipboard
   }
 }

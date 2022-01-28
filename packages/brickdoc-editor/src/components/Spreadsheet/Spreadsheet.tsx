@@ -52,7 +52,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     removeRow,
     moveRow,
     getCellBlock,
-    saveCellBlock
+    saveCellBlock,
+    cellsMap
   } = useSpreadsheet({
     isNew: node.attrs.isNew,
     parentId,
@@ -60,9 +61,17 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     updateAttributeData
   })
 
+  const valuesMatrix = new Map(
+    Array.from(cellsMap.entries()).map(([rowId, row]) => [
+      rowId,
+      new Map(Array.from(row.entries()).map(([columnId, cell]) => [columnId, cell.text]))
+    ])
+  )
+
   const spreadsheetContext = useSpreadsheetContext({
     columnIds: columns.map(c => c.uuid),
-    rowIds: rows.map(r => r.id)
+    rowIds: rows.map(r => r.id),
+    valuesMatrix
   })
 
   useFormulaSpreadsheet({ blockId: parentId, rows, columns, getCellBlock, title })
