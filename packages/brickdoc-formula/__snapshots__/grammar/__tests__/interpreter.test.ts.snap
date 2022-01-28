@@ -22,6 +22,7 @@ Array [
       Object {
         "codeFragments": Array [
           Object {
+            "attrs": undefined,
             "code": "Equal",
             "display": "=",
             "errors": Array [],
@@ -29,6 +30,7 @@ Array [
             "value": "=",
           },
           Object {
+            "attrs": undefined,
             "code": "NumberLiteral",
             "display": "1",
             "errors": Array [],

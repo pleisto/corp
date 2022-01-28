@@ -10,20 +10,23 @@ import {
   FormulaCheckType,
   NamespaceId,
   FunctionContext,
-  ExpressionType
+  ExpressionType,
+  SimpleCodeFragmentType
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
 import { BlockClass } from '../controls/block'
+import { block2attrs, column2attrs, spreadsheet2attrs, variable2attrs } from '../context'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
     value: token.image,
-    code: token.tokenType.name,
+    code: token.tokenType.name as SimpleCodeFragmentType,
     errors: [],
     type,
-    display: token.image
+    display: token.image,
+    attrs: undefined
   }
 }
 
@@ -505,7 +508,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       if (rhsCst.tokenType.name === 'UUID') {
         this.kind = 'expression'
 
-        const namespaceId = codeFragments[codeFragments.length - 2]?.namespaceId as string
+        const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
         const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
         const errorMessages: ErrorMessage[] = []
         const variableId = rhsCst.image
@@ -524,7 +527,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               value: variable.t.name,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
-              display: variable.t.name
+              display: variable.t.name,
+              attrs: variable2attrs(variable)
             }
 
             firstArgumentType = variable.t.variableValue.result.type
@@ -558,10 +562,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (column) {
             codeFragment = {
               ...codeFragment,
-              namespaceId,
               code: 'Column',
               type: 'Column',
-              display: column.name
+              display: column.name,
+              attrs: column2attrs(column)
             }
           } else {
             errorMessages.push({ type: 'syntax', message: 'Unknown column' })
@@ -1022,9 +1026,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               code: 'Spreadsheet',
               type: parentType,
               display: spreadsheet.name(),
-              namespaceId: spreadsheet.blockId,
               value: `#${namespaceId}`,
-              errors: errorMessages
+              errors: errorMessages,
+              attrs: spreadsheet2attrs(spreadsheet)
             }
           ],
           image: `#${namespaceId}`,
@@ -1045,9 +1049,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             code: 'Block',
             type: parentType,
             display: block.name(),
-            namespaceId: block.id,
             value: `#${namespaceId}`,
-            errors: errorMessages
+            errors: errorMessages,
+            attrs: block2attrs(block)
           }
         ],
         image: `#${namespaceId}`,
@@ -1118,7 +1122,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       code: 'FunctionName',
       errors: [],
       type: 'any',
-      display: functionKey
+      display: functionKey,
+      attrs: undefined
     }
 
     if (!ctx.LParen) {

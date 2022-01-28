@@ -3,6 +3,7 @@
 exports[`Controls [button multiple set] =Button("Foo", Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -10,6 +11,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Button",
     "errors": Array [],
@@ -17,6 +19,7 @@ Array [
     "value": "Button",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -24,6 +27,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"Foo\\"",
     "errors": Array [],
@@ -31,6 +35,7 @@ Array [
     "value": "\\"Foo\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -38,6 +43,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -45,6 +51,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -52,14 +59,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -67,6 +80,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -74,6 +93,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -81,6 +101,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -88,6 +109,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -95,6 +117,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -102,14 +125,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -117,6 +146,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -124,6 +159,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -131,6 +167,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -138,6 +175,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Semicolon",
     "display": ";",
     "errors": Array [],
@@ -145,6 +183,7 @@ Array [
     "value": ";",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -152,6 +191,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -159,14 +199,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -174,6 +220,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -181,6 +233,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -188,6 +241,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -195,6 +249,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "123",
     "errors": Array [],
@@ -202,6 +257,7 @@ Array [
     "value": "123",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -209,6 +265,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -216,6 +273,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -934,6 +992,7 @@ Object {
 exports[`Controls [button] =Button("Foo", Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0))) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -941,6 +1000,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Button",
     "errors": Array [],
@@ -948,6 +1008,7 @@ Array [
     "value": "Button",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -955,6 +1016,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"Foo\\"",
     "errors": Array [],
@@ -962,6 +1024,7 @@ Array [
     "value": "\\"Foo\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -969,6 +1032,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -976,6 +1040,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -983,14 +1048,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -998,6 +1069,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -1005,6 +1082,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1012,6 +1090,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1019,6 +1098,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1026,6 +1106,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -1033,14 +1114,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1048,6 +1135,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -1055,6 +1148,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1062,6 +1156,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1069,6 +1164,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1521,6 +1617,7 @@ Object {
 exports[`Controls [input ok] =CInput(Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0))) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1528,6 +1625,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "CInput",
     "errors": Array [],
@@ -1535,6 +1633,7 @@ Array [
     "value": "CInput",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1542,6 +1641,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -1549,6 +1649,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1556,14 +1657,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1571,6 +1678,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -1578,6 +1691,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1585,6 +1699,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1592,6 +1707,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1599,6 +1715,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -1606,14 +1723,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1621,6 +1744,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -1628,6 +1757,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1635,6 +1765,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1642,6 +1773,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2094,6 +2226,7 @@ Object {
 exports[`Controls [select [[]]] =Select([[]], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2101,6 +2234,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Select",
     "errors": Array [],
@@ -2108,6 +2242,7 @@ Array [
     "value": "Select",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2115,6 +2250,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -2122,6 +2258,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -2129,6 +2266,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -2136,6 +2274,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -2143,6 +2282,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2150,6 +2290,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2157,6 +2298,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2164,14 +2306,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2179,6 +2327,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -2186,6 +2340,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2193,6 +2348,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Input",
     "display": "Input",
     "errors": Array [],
@@ -2200,6 +2356,7 @@ Array [
     "value": "Input",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2207,6 +2364,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "selected",
     "errors": Array [],
@@ -2214,6 +2372,7 @@ Array [
     "value": "selected",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2221,6 +2380,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2233,6 +2393,7 @@ Array [
 exports[`Controls [select []] =Select([], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2240,6 +2401,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Select",
     "errors": Array [],
@@ -2247,6 +2409,7 @@ Array [
     "value": "Select",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2254,6 +2417,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -2261,6 +2425,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -2268,6 +2433,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2275,6 +2441,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2282,6 +2449,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2289,14 +2457,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2304,6 +2478,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -2311,6 +2491,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2318,6 +2499,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Input",
     "display": "Input",
     "errors": Array [],
@@ -2325,6 +2507,7 @@ Array [
     "value": "Input",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2332,6 +2515,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "selected",
     "errors": Array [],
@@ -2339,6 +2523,7 @@ Array [
     "value": "selected",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2346,6 +2531,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2358,6 +2544,7 @@ Array [
 exports[`Controls [select ok] =Select([1,2,3], Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, Input.selected)) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2365,6 +2552,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Select",
     "errors": Array [],
@@ -2372,6 +2560,7 @@ Array [
     "value": "Select",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2379,6 +2568,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -2386,6 +2576,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2393,6 +2584,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2400,6 +2592,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -2407,6 +2600,7 @@ Array [
     "value": "2",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2414,6 +2608,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -2421,6 +2616,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -2428,6 +2624,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2435,6 +2632,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2442,6 +2640,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2449,14 +2648,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2464,6 +2669,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -2471,6 +2682,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2478,6 +2690,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Input",
     "display": "Input",
     "errors": Array [],
@@ -2485,6 +2698,7 @@ Array [
     "value": "Input",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2492,6 +2706,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "selected",
     "errors": Array [],
@@ -2499,6 +2714,7 @@ Array [
     "value": "selected",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2506,6 +2722,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2723,6 +2940,7 @@ Object {
 exports[`Controls [set error] = Set(a, 1) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2730,6 +2948,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2737,6 +2956,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2744,6 +2964,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "a",
     "errors": Array [
@@ -2760,6 +2981,7 @@ Array [
     "value": "a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2767,6 +2989,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2774,6 +2997,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2786,6 +3010,7 @@ Array [
 exports[`Controls [set expression] =Set(#57622108-1337-4edd-833a-2557835bcfe0.28e28190-63bd-4f70-aeca-26e72574c01a, 1) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2793,6 +3018,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2800,6 +3026,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2807,14 +3034,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2822,6 +3055,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Variable",
+      "name": "bar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "bar",
     "errors": Array [],
@@ -2829,6 +3068,7 @@ Array [
     "value": "bar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2836,6 +3076,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2843,6 +3084,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2855,6 +3097,7 @@ Array [
 exports[`Controls [set multiple line] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123)) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2862,6 +3105,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2869,6 +3113,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2876,14 +3121,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2891,6 +3142,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -2898,6 +3155,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2905,6 +3163,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2912,6 +3171,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2919,6 +3179,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -2926,14 +3187,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2941,6 +3208,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -2948,6 +3221,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2955,6 +3229,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2962,6 +3237,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Semicolon",
     "display": ";",
     "errors": Array [],
@@ -2969,6 +3245,7 @@ Array [
     "value": ";",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -2976,6 +3253,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2983,14 +3261,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2998,6 +3282,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -3005,6 +3295,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -3012,6 +3303,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -3019,6 +3311,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "123",
     "errors": Array [],
@@ -3026,6 +3319,7 @@ Array [
     "value": "123",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3033,6 +3327,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3734,6 +4029,7 @@ Object {
 exports[`Controls [set ok 2] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -3741,6 +4037,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -3748,6 +4045,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -3755,14 +4053,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -3770,6 +4074,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -3777,6 +4087,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -3784,6 +4095,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -3791,6 +4103,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -3798,6 +4111,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -3805,14 +4119,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -3820,6 +4140,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -3827,6 +4153,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -3834,14 +4161,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -3849,6 +4182,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -3856,6 +4195,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3863,6 +4203,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4443,6 +4784,7 @@ Object {
 exports[`Controls [set ok] =Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, 1) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -4450,6 +4792,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -4457,6 +4800,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4464,14 +4808,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4479,6 +4829,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -4486,6 +4842,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -4493,6 +4850,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -4500,6 +4858,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4653,6 +5012,7 @@ Object {
 exports[`Controls [set unknown] =Set(#57622108-1337-4edd-833a-2557835bcfe0.99499117-5694-4d83-9ccd-85a3ab0b8f25, 1) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -4660,6 +5020,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -4667,6 +5028,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4674,14 +5036,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4689,6 +5057,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "UUID",
     "display": "99499117-5694-4d83-9ccd-85a3ab0b8f25",
     "errors": Array [
@@ -4701,6 +5070,7 @@ Array [
     "value": "99499117-5694-4d83-9ccd-85a3ab0b8f25",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -4708,6 +5078,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -4715,6 +5086,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4727,6 +5099,7 @@ Array [
 exports[`Controls [switch set] =Switch(true, Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (1 + #57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0)); Set(#57622108-1337-4edd-833a-2557835bcfe0.481b6dd1-e668-4477-9e47-cfe5cb1239d0, (123))) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -4734,6 +5107,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Switch",
     "errors": Array [],
@@ -4741,6 +5115,7 @@ Array [
     "value": "Switch",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4748,6 +5123,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "true",
     "errors": Array [],
@@ -4755,6 +5131,7 @@ Array [
     "value": "true",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -4762,6 +5139,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -4769,6 +5147,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4776,14 +5155,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4791,6 +5176,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -4798,6 +5189,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -4805,6 +5197,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4812,6 +5205,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -4819,6 +5213,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -4826,14 +5221,20 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4841,6 +5242,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -4848,6 +5255,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4855,6 +5263,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4862,6 +5271,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Semicolon",
     "display": ";",
     "errors": Array [],
@@ -4869,6 +5279,7 @@ Array [
     "value": ";",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Set",
     "errors": Array [],
@@ -4876,6 +5287,7 @@ Array [
     "value": "Set",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4883,14 +5295,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4898,6 +5316,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "varvarabcvar",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "varvarabcvar",
     "errors": Array [],
@@ -4905,6 +5329,7 @@ Array [
     "value": "varvarabcvar",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -4912,6 +5337,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -4919,6 +5345,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "123",
     "errors": Array [],
@@ -4926,6 +5353,7 @@ Array [
     "value": "123",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4933,6 +5361,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -4940,6 +5369,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],

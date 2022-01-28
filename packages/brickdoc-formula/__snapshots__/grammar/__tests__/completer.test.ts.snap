@@ -4,6 +4,7 @@ exports[`Complete [block completion] =#57622108-1337-4edd-833a-2557835bcfe0. 1`]
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -11,14 +12,20 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": Object {
+        "id": "57622108-1337-4edd-833a-2557835bcfe0",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "Block",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [
@@ -37,10 +44,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },
@@ -65,6 +77,7 @@ exports[`Complete [dot equal different namespaceId] = 1 + varvarabcvar. 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -72,6 +85,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -79,6 +93,7 @@ Object {
       "value": "1",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -86,6 +101,7 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "varvarabcvar",
       "errors": Array [
@@ -106,6 +122,7 @@ Object {
       "value": "varvarabcvar",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [
@@ -120,6 +137,7 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "VLOOKUP()",
       "errors": Array [],
@@ -145,6 +163,7 @@ exports[`Complete [dot equal same namespaceId] = 1 + varvarabcvar. 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -152,6 +171,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -159,6 +179,7 @@ Object {
       "value": "1",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -166,14 +187,20 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": Object {
+        "id": "57622108-1337-4edd-833a-2557835bcfe0",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "Block",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [],
@@ -181,6 +208,12 @@ Object {
       "value": ".",
     },
     Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
@@ -188,6 +221,7 @@ Object {
       "value": "varvarabcvar",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [
@@ -206,6 +240,7 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "custom::ADD()",
       "errors": Array [],
@@ -231,6 +266,7 @@ exports[`Complete [var equal different namespaceId with namespaceId] =Untitled.v
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -238,14 +274,20 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": Object {
+        "id": "57622108-1337-4edd-833a-2557835bcfe0",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "Block",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [],
@@ -253,6 +295,12 @@ Object {
       "value": ".",
     },
     Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
@@ -262,6 +310,7 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "LEN()",
       "errors": Array [],
@@ -287,6 +336,7 @@ exports[`Complete [var equal different namespaceId] =varvarabcvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -294,6 +344,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "varvarabcvar",
       "errors": Array [
@@ -312,10 +363,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },
@@ -342,6 +398,7 @@ exports[`Complete [var equal same namespaceId] =varvarabcvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -349,14 +406,20 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": Object {
+        "id": "57622108-1337-4edd-833a-2557835bcfe0",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "Block",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [],
@@ -364,6 +427,12 @@ Object {
       "value": ".",
     },
     Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
@@ -373,10 +442,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },
@@ -401,6 +475,7 @@ exports[`Complete [var include different namespaceId] =1+arvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -408,6 +483,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -415,6 +491,7 @@ Object {
       "value": "1",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -422,6 +499,7 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "arvar",
       "errors": Array [
@@ -440,10 +518,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },
@@ -470,6 +553,7 @@ exports[`Complete [var include same namespaceId] =1+arvar 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -477,6 +561,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -484,6 +569,7 @@ Object {
       "value": "1",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -491,6 +577,7 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "arvar",
       "errors": Array [
@@ -509,10 +596,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },
@@ -539,6 +631,7 @@ exports[`Complete [var startWith same namespace] = 1 + var 1`] = `
 Object {
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -546,6 +639,7 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -553,6 +647,7 @@ Object {
       "value": "1",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -560,6 +655,7 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": undefined,
       "code": "Function",
       "display": "var",
       "errors": Array [
@@ -578,10 +674,15 @@ Object {
   ],
   "firstCompletion": Object {
     "codeFragment": Object {
+      "attrs": Object {
+        "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+        "kind": "Variable",
+        "name": "varvarabcvar",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "code": "Variable",
       "display": "varvarabcvar",
       "errors": Array [],
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
       "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
     },

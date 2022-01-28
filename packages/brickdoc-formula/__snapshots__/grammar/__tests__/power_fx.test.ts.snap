@@ -3,6 +3,7 @@
 exports[`Power Fx Functions [CountIf error1] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, >= 3) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -10,6 +11,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "CountIf",
     "errors": Array [],
@@ -17,6 +19,7 @@ Array [
     "value": "CountIf",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -24,14 +27,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -39,6 +48,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThanEqual",
     "display": ">=",
     "errors": Array [],
@@ -46,6 +56,7 @@ Array [
     "value": ">=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -53,6 +64,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -65,6 +77,7 @@ Array [
 exports[`Power Fx Functions [CountIf ok] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 >= 3) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -72,6 +85,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "CountIf",
     "errors": Array [],
@@ -79,6 +93,7 @@ Array [
     "value": "CountIf",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -86,14 +101,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -101,6 +122,12 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [
@@ -109,11 +136,11 @@ Array [
         "type": "type",
       },
     ],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [
@@ -126,6 +153,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [
@@ -134,11 +167,11 @@ Array [
         "type": "type",
       },
     ],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThanEqual",
     "display": ">=",
     "errors": Array [],
@@ -146,6 +179,7 @@ Array [
     "value": ">=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -153,6 +187,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],

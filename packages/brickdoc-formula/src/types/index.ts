@@ -330,6 +330,18 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
+export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
+export type SimpleCodeFragmentType =
+  | 'FunctionName'
+  | 'Function'
+  | 'StringLiteral'
+  | 'NumberLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
+  | 'Dot'
+  | 'Equal'
+export type SpecialCodeFragmentType = 'unknown' | 'other' | 'Space'
+export type CodeFragmentCodes = ComplexCodeFragmentType | SimpleCodeFragmentType | SpecialCodeFragmentType
 
 interface BaseCompletion {
   readonly kind: CompletionKind
@@ -383,9 +395,8 @@ export type Completion =
   | ColumnCompletion
   | BlockCompletion
 
-export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
 export interface BaseFormulaName {
-  kind: SpecialCodeFragmentType
+  kind: ComplexCodeFragmentType
   render: (namespaceIsExist: boolean) => string
   prefixLength: (namespaceIsExist: boolean) => number
   key: string
@@ -513,14 +524,32 @@ export interface BaseFunctionClauseWithKey<T extends FormulaType> extends BaseFu
 export interface FunctionClause<T extends FormulaType> extends BaseFunctionClauseWithKey<T> {
   readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
 }
-export interface CodeFragment {
-  readonly code: string
+
+export interface BaseCodeFragment {
+  readonly code: CodeFragmentCodes
   readonly value: string
   readonly display: string
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
-  readonly namespaceId?: NamespaceId
 }
+export interface SpecialCodeFragment extends BaseCodeFragment {
+  readonly code: ComplexCodeFragmentType
+  readonly attrs: CodeFragmentAttrs
+}
+export interface OtherCodeFragment extends BaseCodeFragment {
+  readonly code: Exclude<CodeFragmentCodes, ComplexCodeFragmentType>
+  readonly attrs: undefined
+}
+
+export interface CodeFragmentAttrs {
+  readonly kind: ComplexCodeFragmentType
+  readonly namespaceId: NamespaceId
+  readonly id: uuid
+  readonly name: string
+}
+
+export type CodeFragment = SpecialCodeFragment | OtherCodeFragment
+
 export interface CodeFragmentResult {
   readonly codeFragments: CodeFragment[]
   readonly type: FormulaType

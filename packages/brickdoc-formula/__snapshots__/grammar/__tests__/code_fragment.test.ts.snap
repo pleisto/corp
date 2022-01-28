@@ -1296,6 +1296,7 @@ Object {
 exports[`Code fragment ok = (1 + 1) / 2 * 0.1 == (!!true and false or true) == "123" 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1303,6 +1304,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1310,6 +1312,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1317,6 +1320,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -1324,6 +1328,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1331,6 +1336,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1338,6 +1344,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Div",
     "display": "/",
     "errors": Array [],
@@ -1345,6 +1352,7 @@ Array [
     "value": "/",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -1352,6 +1360,7 @@ Array [
     "value": "2",
   },
   Object {
+    "attrs": undefined,
     "code": "Multi",
     "display": "*",
     "errors": Array [],
@@ -1359,6 +1368,7 @@ Array [
     "value": "*",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "0.1",
     "errors": Array [],
@@ -1366,6 +1376,7 @@ Array [
     "value": "0.1",
   },
   Object {
+    "attrs": undefined,
     "code": "Equal2",
     "display": "==",
     "errors": Array [],
@@ -1373,6 +1384,7 @@ Array [
     "value": "==",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1380,6 +1392,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "Not",
     "display": "!",
     "errors": Array [],
@@ -1387,6 +1400,7 @@ Array [
     "value": "!",
   },
   Object {
+    "attrs": undefined,
     "code": "Not",
     "display": "!",
     "errors": Array [],
@@ -1394,6 +1408,7 @@ Array [
     "value": "!",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "true",
     "errors": Array [],
@@ -1401,6 +1416,7 @@ Array [
     "value": "true",
   },
   Object {
+    "attrs": undefined,
     "code": "And",
     "display": "and",
     "errors": Array [],
@@ -1408,6 +1424,7 @@ Array [
     "value": "and",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "false",
     "errors": Array [],
@@ -1415,6 +1432,7 @@ Array [
     "value": "false",
   },
   Object {
+    "attrs": undefined,
     "code": "Or",
     "display": "or",
     "errors": Array [],
@@ -1422,6 +1440,7 @@ Array [
     "value": "or",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "true",
     "errors": Array [],
@@ -1429,6 +1448,7 @@ Array [
     "value": "true",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1436,6 +1456,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Equal2",
     "display": "==",
     "errors": Array [],
@@ -1443,6 +1464,7 @@ Array [
     "value": "==",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"123\\"",
     "errors": Array [],
@@ -1777,6 +1799,7 @@ Object {
 exports[`Code fragment ok = ABS("123") 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1784,6 +1807,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "ABS",
     "errors": Array [],
@@ -1791,6 +1815,7 @@ Array [
     "value": "ABS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1798,6 +1823,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"123\\"",
     "errors": Array [
@@ -1810,6 +1836,7 @@ Array [
     "value": "\\"123\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2637,6 +2664,7 @@ Object {
 exports[`Code fragment ok = custom::PLUS((custom::FORTY_TWO()), 1 + 1) 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2644,6 +2672,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "custom::PLUS",
     "errors": Array [],
@@ -2651,6 +2680,7 @@ Array [
     "value": "custom::PLUS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2658,6 +2688,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2665,6 +2696,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "custom::FORTY_TWO",
     "errors": Array [],
@@ -2672,6 +2704,7 @@ Array [
     "value": "custom::FORTY_TWO",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2679,6 +2712,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2686,6 +2720,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2693,6 +2728,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2700,6 +2736,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2707,6 +2744,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -2714,6 +2752,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2721,6 +2760,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3156,6 +3196,7 @@ Object {
 exports[`Code fragment ok ="FOO".T().T() & "Zzz" 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -3163,6 +3204,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"FOO\\"",
     "errors": Array [],
@@ -3170,6 +3212,7 @@ Array [
     "value": "\\"FOO\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -3177,6 +3220,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "T",
     "errors": Array [],
@@ -3184,6 +3228,7 @@ Array [
     "value": "T",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -3191,6 +3236,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3198,6 +3244,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -3205,6 +3252,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "T",
     "errors": Array [],
@@ -3212,6 +3260,7 @@ Array [
     "value": "T",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -3219,6 +3268,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3226,6 +3276,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Ampersand",
     "display": "&",
     "errors": Array [],
@@ -3233,6 +3284,7 @@ Array [
     "value": "&",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"Zzz\\"",
     "errors": Array [],
@@ -3562,6 +3614,7 @@ Object {
 exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.cd4f6e1e-765e-4064-badd-b5585c7eff8e + 3 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -3569,6 +3622,12 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [
@@ -3577,11 +3636,11 @@ Array [
         "type": "type",
       },
     ],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [
@@ -3594,6 +3653,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "UUID",
     "display": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "errors": Array [
@@ -3610,6 +3670,7 @@ Array [
     "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -3617,6 +3678,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -3946,6 +4008,7 @@ Object {
 exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.d986e871-cb85-4bd5-b675-87307f60b882 + 1 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -3953,6 +4016,12 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [
@@ -3961,11 +4030,11 @@ Array [
         "type": "type",
       },
     ],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [
@@ -3978,6 +4047,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "UUID",
     "display": "d986e871-cb85-4bd5-b675-87307f60b882",
     "errors": Array [
@@ -3994,6 +4064,7 @@ Array [
     "value": "d986e871-cb85-4bd5-b675-87307f60b882",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -4001,6 +4072,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -4330,6 +4402,7 @@ Object {
 exports[`Code fragment ok =#57622108-1337-4edd-833a-2557835bcfe0.foo + 1 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -4337,14 +4410,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -4352,6 +4431,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "foo",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "foo",
     "errors": Array [],
@@ -4359,6 +4444,7 @@ Array [
     "value": "foo",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -4366,6 +4452,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -4695,6 +4782,7 @@ Object {
 exports[`Code fragment ok =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.d986e871-cb85-4bd5-b675-87307f60b882 + 2 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -4702,6 +4790,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Sharp",
     "display": "#",
     "errors": Array [
@@ -4714,6 +4803,7 @@ Array [
     "value": "#",
   },
   Object {
+    "attrs": undefined,
     "code": "UUID",
     "display": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "errors": Array [
@@ -4730,6 +4820,7 @@ Array [
     "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [
@@ -4742,6 +4833,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "UUID",
     "display": "d986e871-cb85-4bd5-b675-87307f60b882",
     "errors": Array [
@@ -4758,6 +4850,7 @@ Array [
     "value": "d986e871-cb85-4bd5-b675-87307f60b882",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -4765,6 +4858,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -5090,6 +5184,7 @@ Object {
 exports[`Code fragment ok =Bar.foo + 2 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -5097,6 +5192,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Bar",
     "errors": Array [
@@ -5113,6 +5209,7 @@ Array [
     "value": "Bar",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -5120,6 +5217,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "foo",
     "errors": Array [],
@@ -5127,6 +5225,7 @@ Array [
     "value": "foo",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -5134,6 +5233,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -5470,6 +5570,7 @@ Object {
 exports[`Code fragment ok =Untitled.bar + 3 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -5477,14 +5578,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -5492,6 +5599,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "bar",
     "errors": Array [
@@ -5504,6 +5612,7 @@ Array [
     "value": "bar",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -5511,6 +5620,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -5840,6 +5950,7 @@ Object {
 exports[`Code fragment ok =Untitled.foo + 1 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -5847,14 +5958,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -5862,6 +5979,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "foo",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "foo",
     "errors": Array [],
@@ -5869,6 +5992,7 @@ Array [
     "value": "foo",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -5876,6 +6000,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -6205,6 +6330,7 @@ Object {
 exports[`Code fragment ok =foo + 1 2`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -6212,14 +6338,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "type": "Block",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -6227,6 +6359,12 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "foo",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
     "code": "Variable",
     "display": "foo",
     "errors": Array [],
@@ -6234,6 +6372,7 @@ Array [
     "value": "foo",
   },
   Object {
+    "attrs": undefined,
     "code": "Plus",
     "display": "+",
     "errors": Array [],
@@ -6241,6 +6380,7 @@ Array [
     "value": "+",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],

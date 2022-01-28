@@ -3,6 +3,7 @@
 exports[`Spreadsheet Functions [AVERAGEIFS 4] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >3) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -10,6 +11,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "AVERAGEIFS",
     "errors": Array [],
@@ -17,6 +19,7 @@ Array [
     "value": "AVERAGEIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -24,14 +27,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -39,14 +48,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -54,14 +69,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -69,14 +90,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -84,6 +111,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThan",
     "display": ">",
     "errors": Array [],
@@ -91,6 +119,7 @@ Array [
     "value": ">",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -98,6 +127,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -110,6 +140,7 @@ Array [
 exports[`Spreadsheet Functions [AVERAGEIFS 100] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >100) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -117,6 +148,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "AVERAGEIFS",
     "errors": Array [],
@@ -124,6 +156,7 @@ Array [
     "value": "AVERAGEIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -131,14 +164,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -146,14 +185,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -161,14 +206,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -176,14 +227,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -191,6 +248,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThan",
     "display": ">",
     "errors": Array [],
@@ -198,6 +256,7 @@ Array [
     "value": ">",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "100",
     "errors": Array [],
@@ -205,6 +264,7 @@ Array [
     "value": "100",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -217,6 +277,7 @@ Array [
 exports[`Spreadsheet Functions [COLUMN_COUNT] =#28e28190-63bd-4f70-aeca-26e72574c01a.COLUMN_COUNT() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -224,14 +285,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -239,6 +306,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COLUMN_COUNT",
     "errors": Array [],
@@ -246,6 +314,7 @@ Array [
     "value": "COLUMN_COUNT",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -253,6 +322,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -265,6 +335,7 @@ Array [
 exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.COUNTA() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -272,14 +343,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -287,14 +364,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -302,6 +385,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COUNTA",
     "errors": Array [],
@@ -309,6 +393,7 @@ Array [
     "value": "COUNTA",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -316,6 +401,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -328,6 +414,7 @@ Array [
 exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64.COUNTA() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -335,14 +422,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -350,14 +443,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+      "kind": "Column",
+      "name": "third",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "third",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -365,6 +464,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COUNTA",
     "errors": Array [],
@@ -372,6 +472,7 @@ Array [
     "value": "COUNTA",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -379,6 +480,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -391,6 +493,7 @@ Array [
 exports[`Spreadsheet Functions [COUNTIFS =1] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, 3) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -398,6 +501,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COUNTIFS",
     "errors": Array [],
@@ -405,6 +509,7 @@ Array [
     "value": "COUNTIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -412,14 +517,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -427,14 +538,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -442,6 +559,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -449,6 +567,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -461,6 +580,7 @@ Array [
 exports[`Spreadsheet Functions [COUNTIFS >2] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, >2) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -468,6 +588,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COUNTIFS",
     "errors": Array [],
@@ -475,6 +596,7 @@ Array [
     "value": "COUNTIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -482,14 +604,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -497,14 +625,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -512,6 +646,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThan",
     "display": ">",
     "errors": Array [],
@@ -519,6 +654,7 @@ Array [
     "value": ">",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -526,6 +662,7 @@ Array [
     "value": "2",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -538,6 +675,7 @@ Array [
 exports[`Spreadsheet Functions [MAX] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.MAX() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -545,14 +683,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -560,14 +704,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -575,6 +725,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "MAX",
     "errors": Array [],
@@ -582,6 +733,7 @@ Array [
     "value": "MAX",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -589,6 +741,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -601,6 +754,7 @@ Array [
 exports[`Spreadsheet Functions [SUM] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.SUM() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -608,14 +762,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -623,14 +783,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -638,6 +804,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "SUM",
     "errors": Array [],
@@ -645,6 +812,7 @@ Array [
     "value": "SUM",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -652,6 +820,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -664,6 +833,7 @@ Array [
 exports[`Spreadsheet Functions [SUMIFS >3] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >3) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -671,6 +841,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "SUMIFS",
     "errors": Array [],
@@ -678,6 +849,7 @@ Array [
     "value": "SUMIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -685,14 +857,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -700,14 +878,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -715,14 +899,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -730,14 +920,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -745,6 +941,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "GreaterThan",
     "display": ">",
     "errors": Array [],
@@ -752,6 +949,7 @@ Array [
     "value": ">",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -759,6 +957,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -771,6 +970,7 @@ Array [
 exports[`Spreadsheet Functions [SUMIFS 4] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, 4) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -778,6 +978,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "SUMIFS",
     "errors": Array [],
@@ -785,6 +986,7 @@ Array [
     "value": "SUMIFS",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -792,14 +994,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -807,14 +1015,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -822,14 +1036,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -837,14 +1057,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -852,6 +1078,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "4",
     "errors": Array [],
@@ -859,6 +1086,7 @@ Array [
     "value": "4",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -871,6 +1099,7 @@ Array [
 exports[`Spreadsheet Functions [SUMPRODUCT] =SUMPRODUCT(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -878,6 +1107,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "SUMPRODUCT",
     "errors": Array [],
@@ -885,6 +1115,7 @@ Array [
     "value": "SUMPRODUCT",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -892,14 +1123,20 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -907,14 +1144,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -922,14 +1165,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -937,14 +1186,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -957,6 +1212,7 @@ Array [
 exports[`Spreadsheet Functions [Spreadsheet] =Spreadsheet([]).toArray() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -964,6 +1220,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Spreadsheet",
     "errors": Array [],
@@ -971,6 +1228,7 @@ Array [
     "value": "Spreadsheet",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -978,6 +1236,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -985,6 +1244,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -992,6 +1252,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -999,6 +1260,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1006,6 +1268,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "toArray",
     "errors": Array [],
@@ -1013,6 +1276,7 @@ Array [
     "value": "toArray",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1020,6 +1284,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1079,6 +1344,7 @@ Array [
 exports[`Spreadsheet Functions [Spreadsheet] =Spreadsheet([{a: 1}, {a: 2}]).toArray() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1086,6 +1352,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Spreadsheet",
     "errors": Array [],
@@ -1093,6 +1360,7 @@ Array [
     "value": "Spreadsheet",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1100,6 +1368,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -1107,6 +1376,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "LBrace",
     "display": "{",
     "errors": Array [],
@@ -1114,6 +1384,7 @@ Array [
     "value": "{",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "a",
     "errors": Array [],
@@ -1121,6 +1392,7 @@ Array [
     "value": "a",
   },
   Object {
+    "attrs": undefined,
     "code": "Colon",
     "display": ":",
     "errors": Array [],
@@ -1128,6 +1400,7 @@ Array [
     "value": ":",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1135,6 +1408,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "RBrace",
     "display": "}",
     "errors": Array [],
@@ -1142,6 +1416,7 @@ Array [
     "value": "}",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1149,6 +1424,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "LBrace",
     "display": "{",
     "errors": Array [],
@@ -1156,6 +1432,7 @@ Array [
     "value": "{",
   },
   Object {
+    "attrs": undefined,
     "code": "FunctionName",
     "display": "a",
     "errors": Array [],
@@ -1163,6 +1440,7 @@ Array [
     "value": "a",
   },
   Object {
+    "attrs": undefined,
     "code": "Colon",
     "display": ":",
     "errors": Array [],
@@ -1170,6 +1448,7 @@ Array [
     "value": ":",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -1177,6 +1456,7 @@ Array [
     "value": "2",
   },
   Object {
+    "attrs": undefined,
     "code": "RBrace",
     "display": "}",
     "errors": Array [],
@@ -1184,6 +1464,7 @@ Array [
     "value": "}",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -1191,6 +1472,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1198,6 +1480,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1205,6 +1488,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "toArray",
     "errors": Array [],
@@ -1212,6 +1496,7 @@ Array [
     "value": "toArray",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1219,6 +1504,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1266,6 +1552,7 @@ Array [
 exports[`Spreadsheet Functions [Spreadsheet] =Spreadsheet([1,2,3]).toArray() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1273,6 +1560,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "Spreadsheet",
     "errors": Array [],
@@ -1280,6 +1568,7 @@ Array [
     "value": "Spreadsheet",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1287,6 +1576,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "LBracket",
     "display": "[",
     "errors": Array [],
@@ -1294,6 +1584,7 @@ Array [
     "value": "[",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1301,6 +1592,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1308,6 +1600,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "2",
     "errors": Array [],
@@ -1315,6 +1608,7 @@ Array [
     "value": "2",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1322,6 +1616,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -1329,6 +1624,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "RBracket",
     "display": "]",
     "errors": Array [],
@@ -1336,6 +1632,7 @@ Array [
     "value": "]",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1343,6 +1640,7 @@ Array [
     "value": ")",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1350,6 +1648,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "toArray",
     "errors": Array [],
@@ -1357,6 +1656,7 @@ Array [
     "value": "toArray",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1364,6 +1664,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1378,6 +1679,7 @@ exports[`Spreadsheet Functions [Spreadsheet] =Spreadsheet([1,2,3]).toArray() 2`]
 exports[`Spreadsheet Functions [VLOOKUP 2 range default] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1385,6 +1687,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1392,6 +1695,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1399,6 +1703,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"2\\"",
     "errors": Array [],
@@ -1406,6 +1711,7 @@ Array [
     "value": "\\"2\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1413,14 +1719,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1428,14 +1740,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1443,14 +1761,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1463,6 +1787,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP 2 range true] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1470,6 +1795,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1477,6 +1803,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1484,6 +1811,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"2\\"",
     "errors": Array [],
@@ -1491,6 +1819,7 @@ Array [
     "value": "\\"2\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1498,14 +1827,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1513,14 +1848,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1528,14 +1869,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1543,6 +1890,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "true",
     "errors": Array [],
@@ -1550,6 +1898,7 @@ Array [
     "value": "true",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1562,6 +1911,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP Column check] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1569,6 +1919,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1576,6 +1927,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1583,6 +1935,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"\\"",
     "errors": Array [],
@@ -1590,6 +1943,7 @@ Array [
     "value": "\\"\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1597,14 +1951,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1612,14 +1972,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1627,14 +1993,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1647,6 +2019,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP Not found 2 range false] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1654,6 +2027,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1661,6 +2035,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1668,6 +2043,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"2\\"",
     "errors": Array [],
@@ -1675,6 +2051,7 @@ Array [
     "value": "\\"2\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1682,14 +2059,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1697,14 +2080,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1712,14 +2101,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1727,6 +2122,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "false",
     "errors": Array [],
@@ -1734,6 +2130,7 @@ Array [
     "value": "false",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1746,6 +2143,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP Not found] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1753,6 +2151,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1760,6 +2159,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1767,6 +2167,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"\\"",
     "errors": Array [],
@@ -1774,6 +2175,7 @@ Array [
     "value": "\\"\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1781,14 +2183,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1796,14 +2204,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1811,14 +2225,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1831,6 +2251,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1838,6 +2259,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1845,6 +2267,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1852,6 +2275,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1859,6 +2283,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1866,14 +2291,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1881,14 +2312,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1896,14 +2333,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -1916,6 +2359,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -1923,6 +2367,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -1930,6 +2375,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1937,6 +2383,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1944,6 +2391,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1951,14 +2399,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1966,14 +2420,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -1981,14 +2441,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -1996,6 +2462,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "false",
     "errors": Array [],
@@ -2003,6 +2470,7 @@ Array [
     "value": "false",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2015,6 +2483,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2022,6 +2491,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -2029,6 +2499,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2036,6 +2507,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -2043,6 +2515,7 @@ Array [
     "value": "1",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2050,14 +2523,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2065,14 +2544,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2080,14 +2565,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2095,6 +2586,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "BooleanLiteral",
     "display": "true",
     "errors": Array [],
@@ -2102,6 +2594,7 @@ Array [
     "value": "true",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2114,6 +2607,7 @@ Array [
 exports[`Spreadsheet Functions [VLOOKUP ok string] =VLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2121,6 +2615,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "VLOOKUP",
     "errors": Array [],
@@ -2128,6 +2623,7 @@ Array [
     "value": "VLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2135,6 +2631,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"1\\"",
     "errors": Array [],
@@ -2142,6 +2639,7 @@ Array [
     "value": "\\"1\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2149,14 +2647,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2164,14 +2668,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2179,14 +2689,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2199,6 +2715,7 @@ Array [
 exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2206,6 +2723,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "XLOOKUP",
     "errors": Array [],
@@ -2213,6 +2731,7 @@ Array [
     "value": "XLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2220,6 +2739,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"1\\"",
     "errors": Array [],
@@ -2227,6 +2747,7 @@ Array [
     "value": "\\"1\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2234,14 +2755,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2249,14 +2776,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2264,14 +2797,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2279,14 +2818,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2299,6 +2844,7 @@ Array [
 exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("123", #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, "100") 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2306,6 +2852,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "XLOOKUP",
     "errors": Array [],
@@ -2313,6 +2860,7 @@ Array [
     "value": "XLOOKUP",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2320,6 +2868,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"123\\"",
     "errors": Array [],
@@ -2327,6 +2876,7 @@ Array [
     "value": "\\"123\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2334,14 +2884,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2349,14 +2905,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2364,14 +2926,20 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2379,14 +2947,20 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
   Object {
+    "attrs": undefined,
     "code": "Comma",
     "display": ",",
     "errors": Array [],
@@ -2394,6 +2968,7 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"100\\"",
     "errors": Array [],
@@ -2401,6 +2976,7 @@ Array [
     "value": "\\"100\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2413,6 +2989,7 @@ Array [
 exports[`Spreadsheet Functions [column] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2420,14 +2997,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2435,10 +3018,15 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
@@ -2448,6 +3036,7 @@ Array [
 exports[`Spreadsheet Functions [exactin column true] ="foo" in #28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2455,6 +3044,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"foo\\"",
     "errors": Array [],
@@ -2462,6 +3052,7 @@ Array [
     "value": "\\"foo\\"",
   },
   Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -2469,14 +3060,20 @@ Array [
     "value": "in",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2484,10 +3081,15 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+      "kind": "Column",
+      "name": "third",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "third",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
   },
@@ -2497,6 +3099,7 @@ Array [
 exports[`Spreadsheet Functions [in column false] =4 in #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2504,6 +3107,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "4",
     "errors": Array [],
@@ -2511,6 +3115,7 @@ Array [
     "value": "4",
   },
   Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -2518,14 +3123,20 @@ Array [
     "value": "in",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2533,10 +3144,15 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
@@ -2546,6 +3162,7 @@ Array [
 exports[`Spreadsheet Functions [in column true] =3 in #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2553,6 +3170,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -2560,6 +3178,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -2567,14 +3186,20 @@ Array [
     "value": "in",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2582,10 +3207,15 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "name": "second",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Column",
     "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
   },
@@ -2595,6 +3225,7 @@ Array [
 exports[`Spreadsheet Functions [in spreadsheet false] =4 in #28e28190-63bd-4f70-aeca-26e72574c01a 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2602,6 +3233,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "4",
     "errors": Array [],
@@ -2609,6 +3241,7 @@ Array [
     "value": "4",
   },
   Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -2616,10 +3249,15 @@ Array [
     "value": "in",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
@@ -2629,6 +3267,7 @@ Array [
 exports[`Spreadsheet Functions [in spreadsheet true] =3 in #28e28190-63bd-4f70-aeca-26e72574c01a 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2636,6 +3275,7 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "3",
     "errors": Array [],
@@ -2643,6 +3283,7 @@ Array [
     "value": "3",
   },
   Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -2650,10 +3291,15 @@ Array [
     "value": "in",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
@@ -2663,6 +3309,7 @@ Array [
 exports[`Spreadsheet Functions [toArray] =#28e28190-63bd-4f70-aeca-26e72574c01a.toArray() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2670,14 +3317,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2685,6 +3338,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "toArray",
     "errors": Array [],
@@ -2692,6 +3346,7 @@ Array [
     "value": "toArray",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2699,6 +3354,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -2788,6 +3444,7 @@ Array [
 exports[`Spreadsheet Functions [toRecordArray] =#28e28190-63bd-4f70-aeca-26e72574c01a.toRecordArray() 1`] = `
 Array [
   Object {
+    "attrs": undefined,
     "code": "Equal",
     "display": "=",
     "errors": Array [],
@@ -2795,14 +3452,20 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
+    "attrs": undefined,
     "code": "Dot",
     "display": ".",
     "errors": Array [],
@@ -2810,6 +3473,7 @@ Array [
     "value": ".",
   },
   Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "toRecordArray",
     "errors": Array [],
@@ -2817,6 +3481,7 @@ Array [
     "value": "toRecordArray",
   },
   Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -2824,6 +3489,7 @@ Array [
     "value": "(",
   },
   Object {
+    "attrs": undefined,
     "code": "RParen",
     "display": ")",
     "errors": Array [],
@@ -3004,10 +3670,15 @@ Array [
 exports[`Spreadsheet Functions completion 1`] = `
 Object {
   "codeFragment": Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
@@ -3035,6 +3706,7 @@ Object {
 exports[`Spreadsheet Functions completion 2`] = `
 Object {
   "codeFragment": Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "SUM()",
     "errors": Array [],
@@ -3061,6 +3733,7 @@ Object {
       Object {
         "codeFragments": Array [
           Object {
+            "attrs": undefined,
             "code": "Equal",
             "display": "=",
             "errors": Array [],
@@ -3068,6 +3741,7 @@ Object {
             "value": "=",
           },
           Object {
+            "attrs": undefined,
             "code": "NumberLiteral",
             "display": "123",
             "errors": Array [],
@@ -3103,10 +3777,15 @@ Object {
 exports[`Spreadsheet Functions completion 3`] = `
 Object {
   "codeFragment": Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
   },
@@ -3143,6 +3822,7 @@ Object {
 exports[`Spreadsheet Functions completion 4`] = `
 Object {
   "codeFragment": Object {
+    "attrs": undefined,
     "code": "Function",
     "display": "COLUMN_COUNT()",
     "errors": Array [],
@@ -3169,6 +3849,7 @@ Object {
       Object {
         "codeFragments": Array [
           Object {
+            "attrs": undefined,
             "code": "Equal",
             "display": "=",
             "errors": Array [],
@@ -3176,6 +3857,7 @@ Object {
             "value": "=",
           },
           Object {
+            "attrs": undefined,
             "code": "NumberLiteral",
             "display": "123",
             "errors": Array [],

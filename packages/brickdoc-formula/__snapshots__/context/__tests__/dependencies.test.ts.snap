@@ -65,6 +65,7 @@ Array [
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -72,6 +73,7 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "1",
         "errors": Array [],
@@ -112,6 +114,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -119,14 +122,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -134,6 +143,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -141,6 +156,7 @@ Array [
         "value": "num0",
       },
       Object {
+        "attrs": undefined,
         "code": "Multi",
         "display": "*",
         "errors": Array [],
@@ -148,6 +164,7 @@ Array [
         "value": "*",
       },
       Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "2",
         "errors": Array [],
@@ -155,6 +172,7 @@ Array [
         "value": "2",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -162,6 +180,7 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "100",
         "errors": Array [],
@@ -212,6 +231,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -219,14 +239,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -234,6 +260,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -285,6 +317,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -292,14 +325,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -307,6 +346,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -314,6 +359,7 @@ Array [
         "value": "num2",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -321,14 +367,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -336,6 +388,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+          "kind": "Variable",
+          "name": "num1",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num1",
         "errors": Array [],
@@ -399,6 +457,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -406,14 +465,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -421,6 +486,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -428,6 +499,7 @@ Array [
         "value": "num2",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -435,14 +507,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -450,6 +528,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -510,6 +594,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -517,14 +602,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -532,6 +623,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
+          "kind": "Variable",
+          "name": "num3",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num3",
         "errors": Array [],
@@ -539,6 +636,7 @@ Array [
         "value": "num3",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -546,14 +644,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -561,6 +665,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -568,6 +678,7 @@ Array [
         "value": "num0",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -575,14 +686,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -590,6 +707,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -661,6 +784,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -668,14 +792,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -683,6 +813,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
+          "kind": "Variable",
+          "name": "num4",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num4",
         "errors": Array [],
@@ -690,6 +826,7 @@ Array [
         "value": "num4",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -697,14 +834,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -712,6 +855,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+          "kind": "Variable",
+          "name": "num1",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num1",
         "errors": Array [],
@@ -836,6 +985,7 @@ Array [
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -843,6 +993,7 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "1",
         "errors": Array [],
@@ -881,6 +1032,7 @@ Array [
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -888,6 +1040,7 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "2",
         "errors": Array [],
@@ -928,6 +1081,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -935,14 +1089,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -950,6 +1110,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -1001,6 +1167,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -1008,14 +1175,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1023,6 +1196,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -1030,6 +1209,7 @@ Array [
         "value": "num2",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -1037,14 +1217,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1052,6 +1238,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+          "kind": "Variable",
+          "name": "num1",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num1",
         "errors": Array [],
@@ -1115,6 +1307,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -1122,14 +1315,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1137,6 +1336,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -1144,6 +1349,7 @@ Array [
         "value": "num2",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -1151,14 +1357,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1166,6 +1378,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -1226,6 +1444,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -1233,14 +1452,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1248,6 +1473,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
+          "kind": "Variable",
+          "name": "num3",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num3",
         "errors": Array [],
@@ -1255,6 +1486,7 @@ Array [
         "value": "num3",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -1262,14 +1494,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1277,6 +1515,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "cd0755b8-0000-4326-876d-853e59cb0259",
+          "kind": "Variable",
+          "name": "num0",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num0",
         "errors": Array [],
@@ -1284,6 +1528,7 @@ Array [
         "value": "num0",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -1291,14 +1536,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1306,6 +1557,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
+          "kind": "Variable",
+          "name": "num2",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num2",
         "errors": Array [],
@@ -1377,6 +1634,7 @@ Array [
     ],
     "codeFragments": Array [
       Object {
+        "attrs": undefined,
         "code": "Equal",
         "display": "=",
         "errors": Array [],
@@ -1384,14 +1642,20 @@ Array [
         "value": "=",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1399,6 +1663,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
+          "kind": "Variable",
+          "name": "num4",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num4",
         "errors": Array [],
@@ -1406,6 +1676,7 @@ Array [
         "value": "num4",
       },
       Object {
+        "attrs": undefined,
         "code": "Plus",
         "display": "+",
         "errors": Array [],
@@ -1413,14 +1684,20 @@ Array [
         "value": "+",
       },
       Object {
+        "attrs": Object {
+          "id": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+          "kind": "Block",
+          "name": "Untitled",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Block",
         "display": "Untitled",
         "errors": Array [],
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
         "type": "Block",
         "value": "#9dda8306-dbe1-49d3-868d-1a7c86f27328",
       },
       Object {
+        "attrs": undefined,
         "code": "Dot",
         "display": ".",
         "errors": Array [],
@@ -1428,6 +1705,12 @@ Array [
         "value": ".",
       },
       Object {
+        "attrs": Object {
+          "id": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
+          "kind": "Variable",
+          "name": "num1",
+          "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+        },
         "code": "Variable",
         "display": "num1",
         "errors": Array [],

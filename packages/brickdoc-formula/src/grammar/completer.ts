@@ -65,14 +65,14 @@ export const complete = ({
       switch (last2CodeFragment.type) {
         case 'Spreadsheet':
           completions = completions.map(c => {
-            return c.kind === 'column' && c.preview.namespaceId === last2CodeFragment.namespaceId
+            return c.kind === 'column' && c.preview.namespaceId === last2CodeFragment.attrs?.id
               ? { ...c, weight: c.weight + 1000 }
               : c
           })
           break
         case 'Block':
           completions = completions.map(c => {
-            return c.kind === 'variable' && c.preview.t.namespaceId === last2CodeFragment.namespaceId
+            return c.kind === 'variable' && c.preview.t.namespaceId === last2CodeFragment.attrs?.id
               ? { ...c, weight: c.weight + 1000 }
               : c
           })

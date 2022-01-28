@@ -8,6 +8,7 @@ Object {
   ],
   "codeFragments": Array [
     Object {
+      "attrs": undefined,
       "code": "Equal",
       "display": "=",
       "errors": Array [],
@@ -15,14 +16,20 @@ Object {
       "value": "=",
     },
     Object {
+      "attrs": Object {
+        "id": "d986e871-cb85-4bd5-b675-87307f60b882",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       "type": "Block",
       "value": "#d986e871-cb85-4bd5-b675-87307f60b882",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [],
@@ -30,6 +37,12 @@ Object {
       "value": ".",
     },
     Object {
+      "attrs": Object {
+        "id": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+        "kind": "Variable",
+        "name": "foo",
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+      },
       "code": "Variable",
       "display": "foo",
       "errors": Array [],
@@ -37,6 +50,7 @@ Object {
       "value": "foo",
     },
     Object {
+      "attrs": undefined,
       "code": "Plus",
       "display": "+",
       "errors": Array [],
@@ -44,14 +58,20 @@ Object {
       "value": "+",
     },
     Object {
+      "attrs": Object {
+        "id": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+      },
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "type": "Block",
       "value": "#615d7f74-dc97-4aae-8690-b6cba1072a6a",
     },
     Object {
+      "attrs": undefined,
       "code": "Dot",
       "display": ".",
       "errors": Array [],
@@ -59,6 +79,12 @@ Object {
       "value": ".",
     },
     Object {
+      "attrs": Object {
+        "id": "475d9e73-e52a-42b3-8a95-477596812900",
+        "kind": "Variable",
+        "name": "bar",
+        "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+      },
       "code": "Variable",
       "display": "bar",
       "errors": Array [],
@@ -536,6 +562,7 @@ Object {
           Object {
             "codeFragments": Array [
               Object {
+                "attrs": undefined,
                 "code": "Equal",
                 "display": "=",
                 "errors": Array [],
@@ -543,6 +570,7 @@ Object {
                 "value": "=",
               },
               Object {
+                "attrs": undefined,
                 "code": "Function",
                 "display": "ABS",
                 "errors": Array [],
@@ -550,6 +578,7 @@ Object {
                 "value": "ABS",
               },
               Object {
+                "attrs": undefined,
                 "code": "LParen",
                 "display": "(",
                 "errors": Array [],
@@ -557,6 +586,7 @@ Object {
                 "value": "(",
               },
               Object {
+                "attrs": undefined,
                 "code": "Minus",
                 "display": "-",
                 "errors": Array [],
@@ -564,6 +594,7 @@ Object {
                 "value": "-",
               },
               Object {
+                "attrs": undefined,
                 "code": "NumberLiteral",
                 "display": "1",
                 "errors": Array [],
@@ -571,6 +602,7 @@ Object {
                 "value": "1",
               },
               Object {
+                "attrs": undefined,
                 "code": "RParen",
                 "display": ")",
                 "errors": Array [],

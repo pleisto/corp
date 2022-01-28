@@ -203,7 +203,8 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           value: input,
           type: 'any',
           display: input,
-          errors: []
+          errors: [],
+          attrs: undefined
         }
       ]
     }
@@ -280,7 +281,8 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           value: restImages,
           type: 'any',
           display: restImages,
-          errors: errorMessages
+          errors: errorMessages,
+          attrs: undefined
         })
       }
     } else {
@@ -301,7 +303,8 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     value: ' ',
     type: 'any',
     display: ' ',
-    errors: []
+    errors: [],
+    attrs: undefined
   }
 
   // TODO support space
