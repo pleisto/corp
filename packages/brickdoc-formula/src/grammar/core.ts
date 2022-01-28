@@ -149,7 +149,7 @@ export const abbrev = ({
     modified = true
   })
 
-  // console.log({ newInput, input })
+  // console.log({ newInput, input, tokens })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
