@@ -68,13 +68,24 @@ export const useSpreadsheetContext = (options: {
 
   const copyToClipboard = React.useCallback(
     (curSelections?: { columnIds?: string[]; rowIds?: string[]; cellIds?: string[] }): void => {
-      const { cellIds } = curSelections ?? selection
+      const { cellIds, columnIds: selectedColumnIds, rowIds: selectedRowIds } = selection
       if (cellIds?.length === 1) {
         const [rowId, columnId] = cellIds[0].split(',')
         const value = valuesMatrix.get(rowId)?.get(columnId)
         if (value) {
           void navigator.clipboard.writeText(value)
         }
+      } else if (selectedRowIds?.length) {
+        const text = selectedRowIds
+          .map(rowId => Array.from(valuesMatrix.get(rowId)?.values() ?? []).join('\t'))
+          .join('\n')
+        void navigator.clipboard.writeText(text)
+      } else if (selectedColumnIds?.length) {
+        // TODO: should copy column header also
+        const text = Array.from(valuesMatrix.values())
+          .map(row => selectedColumnIds.map(columnId => row.get(columnId) ?? '').join('\t'))
+          .join('\n')
+        void navigator.clipboard.writeText(text)
       }
     },
     [selection, valuesMatrix]

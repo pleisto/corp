@@ -105,6 +105,13 @@ export const SpreadsheetHeaderColumn: React.FC<{
     context.setDragging({ columnId })
   }
 
+  const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
+    selectColumn()
+    setDropdownVisible(true)
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   return (
     <th
       data-column-id={columnId}
@@ -120,6 +127,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
           : {}
       }
       onMouseDown={onMouseDown}
+      onContextMenu={onContextMenu}
     >
       {children}
       {columnActions ? (
@@ -192,6 +200,13 @@ export const SpreadsheetRow: React.FC<{
     context.setDragging({ rowId })
   }
 
+  const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
+    selectRow()
+    setDropdownVisible(true)
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   return (
     <tr
       className={`${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${draggingOver ? 'dragging-over' : ''}`}
@@ -204,7 +219,7 @@ export const SpreadsheetRow: React.FC<{
       }
       data-row-id={rowId}
     >
-      <td className="row-action-panel">
+      <td className="row-action-panel" onContextMenu={onContextMenu}>
         <div className="row-action-panel-layer" onMouseDown={onMouseDown}>
           <Button className="row-number" onClick={onClickRowNumber}>
             {rowNumber}
