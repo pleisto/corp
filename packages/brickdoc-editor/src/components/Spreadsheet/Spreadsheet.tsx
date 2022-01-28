@@ -31,8 +31,6 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   const parentId: string = node.attrs.uuid
   const prevData = node.attrs.data || {}
 
-  const spreadsheetContext = useSpreadsheetContext()
-
   const { t } = useEditorI18n()
 
   const [title, setTitle] = React.useState<string>(node.attrs.title ?? '')
@@ -56,9 +54,15 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     getCellBlock,
     saveCellBlock
   } = useSpreadsheet({
+    isNew: node.attrs.isNew,
     parentId,
     data: prevData,
     updateAttributeData
+  })
+
+  const spreadsheetContext = useSpreadsheetContext({
+    columnIds: columns.map(c => c.uuid),
+    rowIds: rows.map(r => r.id)
   })
 
   useFormulaSpreadsheet({ blockId: parentId, rows, columns, getCellBlock, title })

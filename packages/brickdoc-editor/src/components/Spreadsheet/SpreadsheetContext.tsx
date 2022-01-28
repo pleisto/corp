@@ -32,9 +32,18 @@ export interface SpreadsheetContext {
   setDragging: (dragging: SpreadsheetDragging) => void
 }
 
-export const useSpreadsheetContext = (): SpreadsheetContext => {
+export const keyDownMovements: { [key: string]: [number, number] } = {
+  ArrowUp: [-1, 0],
+  ArrowDown: [1, 0],
+  ArrowLeft: [0, -1],
+  ArrowRight: [0, 1]
+}
+
+export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: string[] }): SpreadsheetContext => {
   const [selection, setSelection] = React.useState<SpreadsheetSelection>({})
   const [dragging, setDragging] = React.useState<SpreadsheetDragging>({})
+
+  const { columnIds, rowIds } = options ?? {}
 
   const clearSelection = (): void => {
     setSelection({})
@@ -51,6 +60,34 @@ export const useSpreadsheetContext = (): SpreadsheetContext => {
   const selectCell = (cellId: string): void => {
     setSelection({ cellIds: [...(selection.cellIds ?? []), cellId] })
   }
+
+  React.useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent): void => {
+      console.log(`key down ${e.code}`)
+      const { cellIds } = selection
+      if (cellIds?.length === 1 && columnIds && rowIds) {
+        const movement = keyDownMovements[e.code]
+        if (movement) {
+          const [rowId, columnId] = cellIds[0].split(',')
+          const rowIdx = rowIds.indexOf(rowId)
+          const columnIdx = columnIds.indexOf(columnId)
+          let nRowIdx = rowIdx + movement[0]
+          let nColumnIdx = columnIdx + movement[1]
+          if (nRowIdx >= rowIds.length) nRowIdx = 0
+          if (nRowIdx < 0) nRowIdx = rowIds.length - 1
+          if (nColumnIdx >= columnIds.length) nColumnIdx = 0
+          if (nColumnIdx < 0) nColumnIdx = columnIds.length - 1
+          setSelection({ cellIds: [`${rowIds[nRowIdx]},${columnIds[nColumnIdx]}`] })
+        }
+        e.preventDefault()
+        e.stopPropagation()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [selection, rowIds, columnIds])
 
   return {
     selection,

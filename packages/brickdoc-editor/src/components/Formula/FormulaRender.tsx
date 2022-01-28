@@ -24,11 +24,14 @@ import {
 import { FORMULA_COLORS } from '../../helpers/color'
 
 const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType): React.ReactElement => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const spreadsheetContext = useSpreadsheetContext()
   const spreadsheet = result.result
   const columns = spreadsheet.listColumns()
   const rows = spreadsheet.listRows()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const spreadsheetContext = useSpreadsheetContext({
+    rowIds: rows.map(r => r.rowId),
+    columnIds: columns.map(c => c.columnId)
+  })
   return (
     <span className="brickdoc-formula-spreadsheet">
       <SpreadsheetContainer>
@@ -51,7 +54,8 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
                     <SpreadsheetCellContainer
                       key={c.columnId}
                       context={spreadsheetContext}
-                      cellId={{ rowId, columnId: c.columnId }}>
+                      cellId={{ rowId, columnId: c.columnId }}
+                    >
                       <div className="column">{spreadsheet.findCellValue({ columnId: c.columnId, rowId })}</div>
                     </SpreadsheetCellContainer>
                   ))}
