@@ -201,9 +201,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
         {
           code: 'other',
           name: input,
-          spaceAfter: false,
-          hidden: false,
-          spaceBefore: false,
           type: 'any',
           display: () => input,
           errors: []
@@ -281,9 +278,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
         codeFragments.push({
           code: 'other',
           name: restImages,
-          spaceAfter: false,
-          hidden: false,
-          spaceBefore: false,
           type: 'any',
           display: () => restImages,
           errors: errorMessages
@@ -305,9 +299,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     name: ' ',
-    hidden: false,
-    spaceAfter: false,
-    spaceBefore: false,
     type: 'any',
     display: () => ' ',
     errors: []

@@ -383,6 +383,7 @@ export type Completion =
   | ColumnCompletion
   | BlockCompletion
 
+export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
 export interface BaseFormulaName {
   kind: SpecialCodeFragmentType
   render: (namespaceIsExist: boolean) => string
@@ -519,33 +520,18 @@ export interface FormulaCodeFragmentAttrs {
   readonly code: string
   readonly type: FormulaType
   readonly error: string
-  readonly hidden: boolean
 }
 
 interface BaseCodeFragment {
   readonly code: string
-  readonly hidden: boolean
   readonly name: string
-  readonly spaceBefore: boolean
-  readonly namespaceId?: NamespaceId
-  readonly spaceAfter: boolean
   readonly display: () => string
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
+  readonly namespaceId?: NamespaceId
 }
 
-export type SpecialCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
-
-export interface SpecialCodeFragment extends BaseCodeFragment {
-  readonly code: SpecialCodeFragmentType
-  readonly namespaceId: NamespaceId
-}
-
-export interface OtherCodeFragment extends BaseCodeFragment {
-  readonly code: Exclude<string, SpecialCodeFragmentType>
-}
-
-export type CodeFragment = SpecialCodeFragment | OtherCodeFragment
+export type CodeFragment = BaseCodeFragment
 
 export interface CodeFragmentResult {
   readonly codeFragments: CodeFragment[]

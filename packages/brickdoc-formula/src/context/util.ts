@@ -44,13 +44,10 @@ export const block2completion = (
     renderDescription: blockId => '',
     codeFragment: {
       namespaceId: key,
-      hidden: false,
       display: block.name,
       errors: [],
       name: value,
       code: 'Block',
-      spaceBefore: false,
-      spaceAfter: false,
       type: 'any'
     }
   }
@@ -70,13 +67,10 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType): Spreadshee
     renderDescription: blockId => '',
     codeFragment: {
       namespaceId: spreadsheet.blockId,
-      hidden: false,
       display: spreadsheet.name,
       errors: [],
       name: value,
       code: 'Spreadsheet',
-      spaceBefore: false,
-      spaceAfter: false,
       type: 'any'
     }
   }
@@ -101,13 +95,10 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
     renderDescription: blockId => column.spreadsheet.name(),
     codeFragment: {
       namespaceId: column.namespaceId,
-      hidden: false,
       display: () => column.name,
       errors: [],
       name: value,
       code: 'Column',
-      spaceBefore: false,
-      spaceAfter: false,
       type: 'any'
     }
   }
@@ -127,13 +118,10 @@ export const variable2completion = (variable: VariableInterface, weight: number)
     renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
     codeFragment: {
       namespaceId: variable.t.namespaceId,
-      hidden: false,
       display: () => variable.t.name,
       errors: [],
       name: value,
       code: 'Variable',
-      spaceBefore: false,
-      spaceAfter: false,
       type: 'any'
     }
   }
@@ -153,12 +141,9 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     renderDescription: blockId => (functionClause.group === 'core' ? '' : functionClause.group),
     codeFragment: {
       display: () => value,
-      hidden: false,
       errors: [],
       name: value,
       code: 'Function',
-      spaceBefore: false,
-      spaceAfter: false,
       type: 'any'
     }
   }

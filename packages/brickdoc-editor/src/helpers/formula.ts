@@ -71,7 +71,6 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
   const result: JSONContent[] = []
 
   const attr = attrsToJSONContent({
-    hidden: codeFragment.hidden,
     display: codeFragment.display,
     value: codeFragment.name,
     code: codeFragment.code,

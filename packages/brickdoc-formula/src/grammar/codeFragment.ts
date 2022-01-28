@@ -6,7 +6,6 @@ import {
   Argument,
   VariableDependency,
   FunctionClause,
-  OtherCodeFragment,
   CodeFragmentResult,
   FormulaCheckType,
   NamespaceId,
@@ -18,67 +17,12 @@ import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
 import { BlockClass } from '../controls/block'
 
-const SpaceBeforeTypes = [
-  'In',
-  'ExactIn',
-  'Semicolon',
-  'RParen',
-  'RBracket',
-  'RBrace',
-  'Plus',
-  'Div',
-  'Minus',
-  'Multi',
-  'Caret',
-  'And',
-  'Or',
-  'Equal',
-  'NotEqual',
-  'Equal2',
-  'NotEqual2',
-  'LessThanEqual',
-  'LessThan',
-  'GreaterThan',
-  'GreaterThanEqual'
-]
-
-const SpaceAfterTypes = [
-  'In',
-  'ExactIn',
-  'Comma',
-  'Colon',
-  'Semicolon',
-  'LParen',
-  'LBracket',
-  'LBrace',
-  'Plus',
-  'Div',
-  'Minus',
-  'Multi',
-  'Caret',
-  'And',
-  'Or',
-  'Equal',
-  'NotEqual',
-  'Equal2',
-  'NotEqual2',
-  'LessThanEqual',
-  'LessThan',
-  'GreaterThan',
-  'GreaterThanEqual'
-]
-
-const token2fragment = (token: IToken, type: FormulaType): OtherCodeFragment => {
-  const spaceBefore = SpaceBeforeTypes.includes(token.tokenType.name)
-  const spaceAfter = SpaceAfterTypes.includes(token.tokenType.name)
+const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
     name: token.image,
     code: token.tokenType.name,
     errors: [],
-    hidden: false,
     type,
-    spaceBefore,
-    spaceAfter,
     display: () => token.image
   }
 }
@@ -380,7 +324,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  concatExpression(ctx: { rhs: any[]; lhs: CstNode | CstNode[] }, { type }: ExpressionArgument): CodeFragmentResult {
+  concatExpression(
+    ctx: { rhs: Array<CstNode | CstNode[]>; lhs: CstNode | CstNode[]; Ampersand: IToken[] },
+    { type }: ExpressionArgument
+  ): CodeFragmentResult {
     if (!ctx.rhs) {
       return this.visit(ctx.lhs, { type })
     }
@@ -402,20 +349,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         missingTokenErrorMessages.push({ message: 'Missing right expression', type: 'syntax' })
       }
 
-      codeFragments.push(
-        {
-          name: '&',
-          code: 'Ampersand',
-          type: 'any',
-          hidden: false,
-          errors: [],
-          spaceBefore: true,
-          spaceAfter: true,
-          display: () => '&'
-        },
-        ...rhsValue
-      )
-      images.push('&', image)
+      codeFragments.push(token2fragment(ctx.Ampersand[0], 'any'), ...rhsValue)
+      images.push(ctx.Ampersand[0].image, image)
     })
 
     const { errorMessages, newType } = intersectType(type, parentType, 'concatExpression', this.ctx)
@@ -534,16 +469,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
 
       codeFragments.push({
-        name: '.',
-        code: 'Dot',
-        hidden: false,
-        type: 'any',
-        spaceBefore: false,
-        spaceAfter: false,
-        display: () => '.',
+        ...token2fragment(ctx.Dot[0], 'any'),
         errors: missingRhsErrors
       })
-      images.push('.')
+      images.push(ctx.Dot[0].image)
 
       if (!rhsCst) {
         return
@@ -592,7 +521,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (variable) {
             codeFragment = {
               ...codeFragment,
-              namespaceId,
               name: variable.t.name,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
@@ -1042,7 +970,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     if (ctx.Minus) {
       const errorMessages: ErrorMessage[] = ctx.NumberLiteral ? [] : [{ message: 'Missing number', type: 'syntax' }]
-      codeFragments.push({ ...token2fragment(ctx.Minus[0], 'any'), spaceAfter: false, errors: errorMessages })
+      codeFragments.push({ ...token2fragment(ctx.Minus[0], 'any'), errors: errorMessages })
       images.push(ctx.Minus[0].image)
     }
 
@@ -1194,10 +1122,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       name: functionKey,
       code: 'FunctionName',
       errors: [],
-      hidden: false,
       type: 'any',
-      spaceBefore: false,
-      spaceAfter: false,
       display: () => functionKey
     }
 

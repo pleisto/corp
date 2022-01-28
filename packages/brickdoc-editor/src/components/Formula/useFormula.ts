@@ -329,8 +329,7 @@ export const useFormula = ({
               value: newText,
               code: 'ANY',
               type: 'any',
-              error: '',
-              hidden: false
+              error: ''
             })
           ]
         }
@@ -344,8 +343,7 @@ export const useFormula = ({
             value: nextText,
             code: 'ANY',
             type: 'any',
-            error: '',
-            hidden: false
+            error: ''
           })
         ]
       : []
