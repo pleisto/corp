@@ -1076,6 +1076,40 @@ Array [
 ]
 `;
 
+exports[`Simple test case [TODO 1a1] = 1a1 // => ✗ 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "type": "number",
+    "value": "1",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "other",
+    "display": "a1",
+    "errors": Array [
+      Object {
+        "message": "Not all input parsed: a1",
+        "type": "parse",
+      },
+    ],
+    "type": "any",
+    "value": "a1",
+  },
+]
+`;
+
 exports[`Simple test case [TODO chain type 2] =true.START_WITH("123") // => ✗ 1`] = `
 Array [
   Object {
