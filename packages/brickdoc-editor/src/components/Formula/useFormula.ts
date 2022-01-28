@@ -326,10 +326,10 @@ export const useFormula = ({
           oldContent = [
             attrsToJSONContent({
               display: () => newText,
-              value: newText,
+              name: newText,
               code: 'ANY',
               type: 'any',
-              error: ''
+              errors: []
             })
           ]
         }
@@ -340,10 +340,10 @@ export const useFormula = ({
       ? [
           attrsToJSONContent({
             display: () => nextText,
-            value: nextText,
+            name: nextText,
             code: 'ANY',
             type: 'any',
-            error: ''
+            errors: []
           })
         ]
       : []

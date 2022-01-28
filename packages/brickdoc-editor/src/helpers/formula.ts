@@ -1,4 +1,4 @@
-import { CodeFragment, FormulaCodeFragmentAttrs } from '@brickdoc/formula'
+import { CodeFragment } from '@brickdoc/formula'
 import { JSONContent } from '@tiptap/core'
 
 export const buildJSONContentByDefinition = (definition: string | undefined): JSONContent | undefined => {
@@ -70,13 +70,7 @@ export const codeFragmentsToJSONContentTotal = (codeFragments: CodeFragment[] | 
 export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSONContent[] => {
   const result: JSONContent[] = []
 
-  const attr = attrsToJSONContent({
-    display: codeFragment.display,
-    value: codeFragment.name,
-    code: codeFragment.code,
-    type: codeFragment.type,
-    error: codeFragment.errors.length === 0 ? '' : codeFragment.errors[0].message
-  })
+  const attr = attrsToJSONContent(codeFragment)
   if (codeFragment.display()) {
     result.push(attr)
   }
@@ -84,7 +78,7 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
   return result
 }
 
-export const attrsToJSONContent = (attrs: FormulaCodeFragmentAttrs): JSONContent => {
+export const attrsToJSONContent = (attrs: CodeFragment): JSONContent => {
   return { type: 'text', text: attrs.display(), marks: [{ type: 'FormulaType', attrs }] }
 }
 
@@ -143,7 +137,7 @@ const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string =>
     return text
   }
 
-  const attrs: FormulaCodeFragmentAttrs | undefined = mark.attrs as FormulaCodeFragmentAttrs
+  const attrs: CodeFragment | undefined = mark.attrs as CodeFragment
 
   if (!attrs) {
     console.error('JSONContentToText: no attrs', c)
@@ -151,7 +145,7 @@ const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string =>
   }
 
   if (attrs.display() === text) {
-    return attrs.value
+    return attrs.name
   }
 
   // if (text.startsWith(attrs.display)) {

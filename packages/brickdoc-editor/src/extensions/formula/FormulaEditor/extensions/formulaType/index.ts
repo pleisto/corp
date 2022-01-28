@@ -1,4 +1,4 @@
-import { attrsToColorType, FormulaCodeFragmentAttrs } from '@brickdoc/formula'
+import { attrsToColorType, CodeFragment } from '@brickdoc/formula'
 import { JSONContent, Mark, mergeAttributes } from '@tiptap/core'
 import { FORMULA_COLORS } from '../../../../../helpers/color'
 import { SetDocAttrStep } from '../../../../sync/SetDocAttrStep'
@@ -37,7 +37,7 @@ export const FormulaTypeExtension = Mark.create<FormulaTypeOptions>({
             return {}
           }
 
-          const colorMeta = FORMULA_COLORS[attrsToColorType(attributes as FormulaCodeFragmentAttrs)]
+          const colorMeta = FORMULA_COLORS[attrsToColorType(attributes as CodeFragment)]
 
           if (!colorMeta) {
             return {
@@ -56,12 +56,13 @@ export const FormulaTypeExtension = Mark.create<FormulaTypeOptions>({
         default: null,
         parseHTML: element => element.getAttribute('data-error'),
         renderHTML: attributes => {
-          if (!attributes.error) {
+          const errors = attributes.errors
+          if (!errors || errors.length === 0) {
             return {}
           }
 
           return {
-            'data-error': attributes.error,
+            'data-error': attributes.errors[0].message,
             // TODO refactor this
             style: 'text-decoration: underline; text-decoration-color: #D43730;'
           }

@@ -513,16 +513,7 @@ export interface BaseFunctionClauseWithKey<T extends FormulaType> extends BaseFu
 export interface FunctionClause<T extends FormulaType> extends BaseFunctionClauseWithKey<T> {
   readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
 }
-
-export interface FormulaCodeFragmentAttrs {
-  readonly display: () => string
-  readonly value: string
-  readonly code: string
-  readonly type: FormulaType
-  readonly error: string
-}
-
-interface BaseCodeFragment {
+export interface CodeFragment {
   readonly code: string
   readonly name: string
   readonly display: () => string
@@ -530,9 +521,6 @@ interface BaseCodeFragment {
   readonly errors: ErrorMessage[]
   readonly namespaceId?: NamespaceId
 }
-
-export type CodeFragment = BaseCodeFragment
-
 export interface CodeFragmentResult {
   readonly codeFragments: CodeFragment[]
   readonly type: FormulaType
