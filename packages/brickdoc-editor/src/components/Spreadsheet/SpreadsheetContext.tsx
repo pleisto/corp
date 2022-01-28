@@ -64,20 +64,35 @@ export const useSpreadsheetContext = (options: { columnIds: string[]; rowIds: st
   React.useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
       console.log(`key down ${e.code}`)
-      const { cellIds } = selection
-      if (cellIds?.length === 1 && columnIds && rowIds) {
+      const { cellIds, columnIds: selectedColumnIds, rowIds: selectedRowIds } = selection
+      const thisSelected = cellIds?.length ?? selectedRowIds?.length ?? selectedColumnIds?.length
+      if (thisSelected && columnIds && rowIds) {
         const movement = keyDownMovements[e.code]
         if (movement) {
-          const [rowId, columnId] = cellIds[0].split(',')
-          const rowIdx = rowIds.indexOf(rowId)
-          const columnIdx = columnIds.indexOf(columnId)
+          let rowIdx = rowIds.length
+          let columnIdx = columnIds.length
+          if (cellIds?.length === 1) {
+            const [rowId, columnId] = cellIds[0].split(',')
+            rowIdx = rowIds.indexOf(rowId)
+            columnIdx = columnIds.indexOf(columnId)
+          } else if (selectedColumnIds?.length === 1) {
+            columnIdx = columnIds.indexOf(selectedColumnIds[0])
+          } else if (selectedRowIds?.length === 1) {
+            rowIdx = rowIds.indexOf(selectedRowIds[0])
+          }
           let nRowIdx = rowIdx + movement[0]
           let nColumnIdx = columnIdx + movement[1]
-          if (nRowIdx >= rowIds.length) nRowIdx = 0
-          if (nRowIdx < 0) nRowIdx = rowIds.length - 1
-          if (nColumnIdx >= columnIds.length) nColumnIdx = 0
-          if (nColumnIdx < 0) nColumnIdx = columnIds.length - 1
-          setSelection({ cellIds: [`${rowIds[nRowIdx]},${columnIds[nColumnIdx]}`] })
+          if (nRowIdx > rowIds.length) nRowIdx = 0
+          if (nRowIdx < 0) nRowIdx = rowIds.length
+          if (nColumnIdx > columnIds.length) nColumnIdx = 0
+          if (nColumnIdx < 0) nColumnIdx = columnIds.length
+          if (nRowIdx === rowIds.length) {
+            setSelection({ columnIds: [columnIds[nColumnIdx]] })
+          } else if (nColumnIdx === columnIds.length) {
+            setSelection({ rowIds: [rowIds[nRowIdx]] })
+          } else {
+            setSelection({ cellIds: [`${rowIds[nRowIdx]},${columnIds[nColumnIdx]}`] })
+          }
         }
         e.preventDefault()
         e.stopPropagation()
