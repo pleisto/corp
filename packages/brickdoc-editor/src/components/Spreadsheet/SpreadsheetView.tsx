@@ -18,6 +18,22 @@ export interface SpreadsheetActionItem {
   onAction?: (key: React.Key) => void
 }
 
+export const unselectFn = (options: {
+  context: SpreadsheetContext
+  setDropdownVisible: (dropdownVisible: boolean) => void
+}): ((e: MouseEvent) => void) => {
+  const { context, setDropdownVisible } = options
+  const fn = (e: MouseEvent): void => {
+    const li = (e.target as Element).closest('li[role=menuitem]')
+    if (!li) {
+      document.removeEventListener('mousedown', fn)
+      context.clearSelection()
+      setDropdownVisible(false)
+    }
+  }
+  return fn
+}
+
 export const SpreadsheetMenu = (options: {
   items: SpreadsheetActionItem[]
   onAction?: (key: string) => void
@@ -83,14 +99,10 @@ export const SpreadsheetHeaderColumn: React.FC<{
   const draggingOver = context.dragging.overColumnId === columnId
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
-  const unselectColumn = (e: MouseEvent): void => {
-    const li = (e.target as Element).closest('li[role=menuitem]')
-    if (!li) {
-      context.clearSelection()
-      setDropdownVisible(false)
-      document.removeEventListener('mousedown', unselectColumn)
-    }
-  }
+  const unselectColumn = unselectFn({
+    context,
+    setDropdownVisible
+  })
 
   const selectColumn = (): void => {
     context.selectColumns([columnId])
@@ -110,7 +122,9 @@ export const SpreadsheetHeaderColumn: React.FC<{
   }
 
   const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
-    selectColumn()
+    if (!selected) {
+      selectColumn()
+    }
     setDropdownVisible(true)
     e.preventDefault()
     e.stopPropagation()
@@ -192,14 +206,10 @@ export const SpreadsheetRow: React.FC<{
     selectRow()
   }
 
-  const unselectRow = (e: MouseEvent): void => {
-    const li = (e.target as Element).closest('li[role=menuitem]')
-    if (!li) {
-      context.clearSelection()
-      setDropdownVisible(false)
-      document.removeEventListener('mousedown', unselectRow)
-    }
-  }
+  const unselectRow = unselectFn({
+    context,
+    setDropdownVisible
+  })
 
   const selectRow = (): void => {
     context.selectRows([rowId])
@@ -219,7 +229,9 @@ export const SpreadsheetRow: React.FC<{
   }
 
   const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
-    selectRow()
+    if (!selected) {
+      selectRow()
+    }
     setDropdownVisible(true)
     e.preventDefault()
     e.stopPropagation()
@@ -293,14 +305,10 @@ export const SpreadsheetCellContainer: React.FC<{
 
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
-  const unselectCell = (e: MouseEvent): void => {
-    const li = (e.target as Element).closest('li[role=menuitem]')
-    if (!li) {
-      context.clearSelection()
-      setDropdownVisible(false)
-      document.removeEventListener('mousedown', unselectCell)
-    }
-  }
+  const unselectCell = unselectFn({
+    context,
+    setDropdownVisible
+  })
 
   const selectCell = (): void => {
     context.selectCell(cellIdStr)
@@ -308,7 +316,9 @@ export const SpreadsheetCellContainer: React.FC<{
   }
 
   const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
-    selectCell()
+    if (!selected) {
+      selectCell()
+    }
     setDropdownVisible(true)
     e.preventDefault()
     e.stopPropagation()
