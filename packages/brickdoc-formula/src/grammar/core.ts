@@ -200,9 +200,9 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
       codeFragments: [
         {
           code: 'other',
-          name: input,
+          value: input,
           type: 'any',
-          display: () => input,
+          display: input,
           errors: []
         }
       ]
@@ -277,9 +277,9 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
       if (restImages.length > 0) {
         codeFragments.push({
           code: 'other',
-          name: restImages,
+          value: restImages,
           type: 'any',
-          display: () => restImages,
+          display: restImages,
           errors: errorMessages
         })
       }
@@ -298,9 +298,9 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
-    name: ' ',
+    value: ' ',
     type: 'any',
-    display: () => ' ',
+    display: ' ',
     errors: []
   }
 
@@ -324,7 +324,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const spaceCount = input.length - input.trimEnd().length
   if (spaceCount) {
-    finalCodeFragments.push({ ...spaceCodeFragment, name: ' '.repeat(spaceCount) })
+    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(spaceCount) })
   }
 
   returnValue.codeFragments = finalCodeFragments

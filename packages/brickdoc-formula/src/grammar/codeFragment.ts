@@ -19,11 +19,11 @@ import { BlockClass } from '../controls/block'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
-    name: token.image,
+    value: token.image,
     code: token.tokenType.name,
     errors: [],
     type,
-    display: () => token.image
+    display: token.image
   }
 }
 
@@ -52,7 +52,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     { type }: ExpressionArgument
   ): CodeFragmentResult {
     const operator = ctx.Equal[0] as IToken
-    const { type: newType, codeFragments, image } = this.visit(ctx.expression, { type })
+    const { type: newType, codeFragments, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
     return {
       type: newType,
       codeFragments: [token2fragment(operator, 'any'), ...codeFragments],
@@ -521,10 +521,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (variable) {
             codeFragment = {
               ...codeFragment,
-              name: variable.t.name,
+              value: variable.t.name,
               code: 'Variable',
               type: variable.t.variableValue.result.type,
-              display: () => variable.t.name
+              display: variable.t.name
             }
 
             firstArgumentType = variable.t.variableValue.result.type
@@ -561,7 +561,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               namespaceId,
               code: 'Column',
               type: 'Column',
-              display: () => column.name
+              display: column.name
             }
           } else {
             errorMessages.push({ type: 'syntax', message: 'Unknown column' })
@@ -707,17 +707,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
 
-    // if (ctx.variableExpression) {
-    //   const { codeFragments: columnCodeFragments, image: columnImage }: CodeFragmentResult = this.visit(
-    //     ctx.variableExpression,
-    //     {
-    //       type: 'any'
-    //     }
-    //   )
-    //   codeFragments.push(...columnCodeFragments)
-    //   images.push(columnImage)
-    // }
-
     const parentType: FormulaType = 'Predicate'
     const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(
       ctx.simpleAtomicExpression,
@@ -802,10 +791,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const keyArray: string[] = []
 
       ctx.recordField.forEach((arg: CstNode | CstNode[], idx: number) => {
-        const { codeFragments: fieldCodeFragments, image: fieldImage } = this.visit(arg, { type: childrenType })
+        const { codeFragments: fieldCodeFragments, image: fieldImage }: CodeFragmentResult = this.visit(arg, {
+          type: childrenType
+        })
         let nameDuplicateErrors: ErrorMessage[] = []
         if (fieldCodeFragments[0]) {
-          const str = fieldCodeFragments[0].name
+          const str = fieldCodeFragments[0].value
           const finalStr =
             fieldCodeFragments[0].code === 'StringLiteral' ? str.substring(1, str.length - 1).replace(/""/g, '"') : str
           if (keyArray.includes(finalStr)) {
@@ -860,7 +851,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const codeFragments: CodeFragment[] = []
     const missingColonErrors: ErrorMessage[] = ctx.Colon ? [] : [{ message: 'Missing colon', type: 'syntax' }]
 
-    const { codeFragments: keyCodeFragments, image: keyImage } = this.visit(ctx.keyExpression, { type: 'string' })
+    const { codeFragments: keyCodeFragments, image: keyImage }: CodeFragmentResult = this.visit(ctx.keyExpression, {
+      type: 'string'
+    })
     codeFragments.push(...keyCodeFragments.map((e: CodeFragment) => ({ ...e, errors: missingColonErrors })))
     images.push(keyImage)
 
@@ -870,7 +863,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
 
     if (ctx.expression) {
-      const { codeFragments: expressionCodeFragments, image } = this.visit(ctx.expression, { type: 'any' })
+      const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(ctx.expression, {
+        type: 'any'
+      })
       images.push(image)
       codeFragments.push(...expressionCodeFragments)
     }
@@ -1026,9 +1021,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               ...token2fragment(namespaceToken, 'any'),
               code: 'Spreadsheet',
               type: parentType,
-              display: spreadsheet.name,
+              display: spreadsheet.name(),
               namespaceId: spreadsheet.blockId,
-              name: `#${namespaceId}`,
+              value: `#${namespaceId}`,
               errors: errorMessages
             }
           ],
@@ -1049,9 +1044,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             ...token2fragment(namespaceToken, 'any'),
             code: 'Block',
             type: parentType,
-            display: block.name,
+            display: block.name(),
             namespaceId: block.id,
-            name: `#${namespaceId}`,
+            value: `#${namespaceId}`,
             errors: errorMessages
           }
         ],
@@ -1119,11 +1114,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     const functionKey = buildFunctionKey(group, name)
 
     const nameFragment: CodeFragment = {
-      name: functionKey,
+      value: functionKey,
       code: 'FunctionName',
       errors: [],
       type: 'any',
-      display: () => functionKey
+      display: functionKey
     }
 
     if (!ctx.LParen) {

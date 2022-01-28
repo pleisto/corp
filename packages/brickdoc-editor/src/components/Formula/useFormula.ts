@@ -171,7 +171,7 @@ export const useFormula = ({
   const formulaValue = React.useMemo(
     () =>
       defaultVariable?.t.valid
-        ? defaultVariable.t.codeFragments.map(fragment => fragment.name).join('')
+        ? defaultVariable.t.codeFragments.map(fragment => fragment.value).join('')
         : defaultVariable?.t.definition,
     [defaultVariable]
   )
@@ -256,12 +256,12 @@ export const useFormula = ({
         const editorContent = { content: codeFragmentsToJSONContentTotal(codeFragments), position: newPosition }
         editorContentRef.current = editorContent
         setEditorContent(editorContent)
-        inputRef.current = parseResult.codeFragments.map(fragment => fragment.name).join('')
+        inputRef.current = parseResult.codeFragments.map(fragment => fragment.value).join('')
       }
 
       if (formulaIsNormal && inputIsEmpty) {
-        setVariableT(undefined)
         variableRef.current = undefined
+        setVariableT(undefined)
       } else {
         variableRef.current = newVariable
         setVariableT(newVariable.t)
@@ -325,8 +325,8 @@ export const useFormula = ({
           const newText = prevText.substring(0, prevText.length - replacement.length)
           oldContent = [
             attrsToJSONContent({
-              display: () => newText,
-              name: newText,
+              display: newText,
+              value: newText,
               code: 'ANY',
               type: 'any',
               errors: []
@@ -339,8 +339,8 @@ export const useFormula = ({
     const nextContents = nextText
       ? [
           attrsToJSONContent({
-            display: () => nextText,
-            name: nextText,
+            display: nextText,
+            value: nextText,
             code: 'ANY',
             type: 'any',
             errors: []
@@ -466,8 +466,9 @@ export const useFormula = ({
       FormulaEditorUpdateEventTrigger,
       event => {
         // console.log('update subscribe', { event })
-        const newInput = event.payload.input
+        const newContent = event.payload.content
         const newPosition = event.payload.position
+        const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
         const value = formulaIsNormal ? `=${newInput}` : newInput
         editorContentRef.current = { ...editorContentRef.current, position: newPosition }
         inputRef.current = value

@@ -4,108 +4,108 @@ exports[`Simple test case [Array Map $1] =[2, "foo", true, null].Map($1) // => [
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LBracket",
-    "display": [Function],
+    "display": "[",
     "errors": Array [],
-    "name": "[",
     "type": "any",
+    "value": "[",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"foo\\"",
     "errors": Array [],
-    "name": "\\"foo\\"",
     "type": "string",
+    "value": "\\"foo\\"",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NullLiteral",
-    "display": [Function],
+    "display": "null",
     "errors": Array [],
-    "name": "null",
     "type": "null",
+    "value": "null",
   },
   Object {
     "code": "RBracket",
-    "display": [Function],
+    "display": "]",
     "errors": Array [],
-    "name": "]",
     "type": "any",
+    "value": "]",
   },
   Object {
     "code": "Dot",
-    "display": [Function],
+    "display": ".",
     "errors": Array [],
-    "name": ".",
     "type": "any",
+    "value": ".",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "Map",
     "errors": Array [],
-    "name": "Map",
     "type": "any",
+    "value": "Map",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "LambdaArgumentNumber",
-    "display": [Function],
+    "display": "$1",
     "errors": Array [],
-    "name": "$1",
     "type": "Reference",
+    "value": "$1",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "Array",
+    "value": ")",
   },
 ]
 `;
@@ -114,108 +114,108 @@ exports[`Simple test case [Array Map] =[2, "foo", true, null].Map(1) // => [obje
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LBracket",
-    "display": [Function],
+    "display": "[",
     "errors": Array [],
-    "name": "[",
     "type": "any",
+    "value": "[",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"foo\\"",
     "errors": Array [],
-    "name": "\\"foo\\"",
     "type": "string",
+    "value": "\\"foo\\"",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NullLiteral",
-    "display": [Function],
+    "display": "null",
     "errors": Array [],
-    "name": "null",
     "type": "null",
+    "value": "null",
   },
   Object {
     "code": "RBracket",
-    "display": [Function],
+    "display": "]",
     "errors": Array [],
-    "name": "]",
     "type": "any",
+    "value": "]",
   },
   Object {
     "code": "Dot",
-    "display": [Function],
+    "display": ".",
     "errors": Array [],
-    "name": ".",
     "type": "any",
+    "value": ".",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "Map",
     "errors": Array [],
-    "name": "Map",
     "type": "any",
+    "value": "Map",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "Array",
+    "value": ")",
   },
 ]
 `;
@@ -224,59 +224,59 @@ exports[`Simple test case [Array ok] =[2, "foo", true] // => [object Object],[ob
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LBracket",
-    "display": [Function],
+    "display": "[",
     "errors": Array [],
-    "name": "[",
     "type": "any",
+    "value": "[",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"foo\\"",
     "errors": Array [],
-    "name": "\\"foo\\"",
     "type": "string",
+    "value": "\\"foo\\"",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
   Object {
     "code": "RBracket",
-    "display": [Function],
+    "display": "]",
     "errors": Array [],
-    "name": "]",
     "type": "any",
+    "value": "]",
   },
 ]
 `;
@@ -285,14 +285,14 @@ exports[`Simple test case [Missing closing parenthesis1] =(1 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -303,15 +303,15 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
 ]
 `;
@@ -320,14 +320,14 @@ exports[`Simple test case [Missing closing parenthesis1] =(1 // => ✗ 2`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -338,15 +338,15 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
 ]
 `;
@@ -355,14 +355,14 @@ exports[`Simple test case [Missing closing parenthesis2] =ABS( // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "ABS",
     "errors": Array [
       Object {
         "message": "Miss argument",
@@ -373,20 +373,20 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "ABS",
     "type": "any",
+    "value": "ABS",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
         "type": "syntax",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
 ]
 `;
@@ -395,21 +395,21 @@ exports[`Simple test case [Missing closing parenthesis3] =ABS(1 // => ✗ 1`] = 
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "ABS",
     "errors": Array [],
-    "name": "ABS",
     "type": "any",
+    "value": "ABS",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -420,15 +420,15 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
 ]
 `;
@@ -437,21 +437,21 @@ exports[`Simple test case [Missing closing parenthesis4] =POWER(1, // => ✗ 1`]
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "POWER",
     "errors": Array [],
-    "name": "POWER",
     "type": "any",
+    "value": "POWER",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -462,32 +462,32 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [
       Object {
         "message": "Expression count mismatch",
         "type": "syntax",
       },
     ],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [
       Object {
         "message": "Expression count mismatch",
         "type": "syntax",
       },
     ],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
 ]
 `;
@@ -496,21 +496,21 @@ exports[`Simple test case [Missing closing parenthesis5] =POWER(1,2 // => ✗ 1`
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "POWER",
     "errors": Array [],
-    "name": "POWER",
     "type": "any",
+    "value": "POWER",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -521,29 +521,29 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
 ]
 `;
@@ -552,29 +552,29 @@ exports[`Simple test case [Predicate check type] =>=true // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "GreaterThanEqual",
-    "display": [Function],
+    "display": ">=",
     "errors": Array [],
-    "name": ">=",
     "type": "any",
+    "value": ">=",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
 ]
 `;
@@ -808,21 +808,21 @@ exports[`Simple test case [Semicolon 1] = 1; // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [
       Object {
         "message": "Missing expression",
@@ -833,8 +833,8 @@ Array [
         "type": "parse",
       },
     ],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
 ]
 `;
@@ -843,31 +843,31 @@ exports[`Simple test case [Semicolon 2] = 1; 2 // => 2 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
 ]
 `;
@@ -876,22 +876,22 @@ exports[`Simple test case [Single quote => parseError] = 'hello' // => ✗ 1`] =
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "'hello'",
     "errors": Array [
       Object {
         "message": "Parse error: \\"'hello'\\"",
         "type": "parse",
       },
     ],
-    "name": "'hello'",
     "type": "any",
+    "value": "'hello'",
   },
 ]
 `;
@@ -900,36 +900,36 @@ exports[`Simple test case [Spread operator with no argument] =AVERAGE() // => �
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "AVERAGE",
     "errors": Array [
       Object {
         "message": "Miss argument",
         "type": "deps",
       },
     ],
-    "name": "AVERAGE",
     "type": "any",
+    "value": "AVERAGE",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
 ]
 `;
@@ -938,14 +938,14 @@ exports[`Simple test case [TODO &&&] ="foo" &&& 123 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"foo\\"",
     "errors": Array [
       Object {
         "message": "Expected boolean but got string",
@@ -956,39 +956,39 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "\\"foo\\"",
     "type": "string",
+    "value": "\\"foo\\"",
   },
   Object {
     "code": "And",
-    "display": [Function],
+    "display": "&&",
     "errors": Array [],
-    "name": "&&",
     "type": "boolean",
+    "value": "&&",
   },
   Object {
     "code": "Ampersand",
-    "display": [Function],
+    "display": "&",
     "errors": Array [
       Object {
         "message": "Expected boolean but got Reference",
         "type": "type",
       },
     ],
-    "name": "&",
     "type": "any",
+    "value": "&",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "123",
     "errors": Array [
       Object {
         "message": "Parse error: \\"123\\"",
         "type": "parse",
       },
     ],
-    "name": "123",
     "type": "any",
+    "value": "123",
   },
 ]
 `;
@@ -997,57 +997,57 @@ exports[`Simple test case [TODO chain type 2] =true.START_WITH("123") // => ✗ 
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
   Object {
     "code": "Dot",
-    "display": [Function],
+    "display": ".",
     "errors": Array [],
-    "name": ".",
     "type": "any",
+    "value": ".",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "START_WITH",
     "errors": Array [
       Object {
         "message": "Expected string but got boolean",
         "type": "type",
       },
     ],
-    "name": "START_WITH",
     "type": "any",
+    "value": "START_WITH",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"123\\"",
     "errors": Array [],
-    "name": "\\"123\\"",
     "type": "string",
+    "value": "\\"123\\"",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "boolean",
+    "value": ")",
   },
 ]
 `;
@@ -1056,29 +1056,29 @@ exports[`Simple test case [TODO chain type 3] =1.START_WITH("123") // => ✗ 1`]
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1.",
     "errors": Array [],
-    "name": "1.",
     "type": "number",
+    "value": "1.",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "START_WITH(\\"123\\")",
     "errors": Array [
       Object {
         "message": "Not all input parsed: START_WITH",
         "type": "parse",
       },
     ],
-    "name": "START_WITH(\\"123\\")",
     "type": "any",
+    "value": "START_WITH(\\"123\\")",
   },
 ]
 `;
@@ -1087,22 +1087,22 @@ exports[`Simple test case [TODO chinese] = 中文 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "中文",
     "errors": Array [
       Object {
         "message": "Parse error: \\"中文\\"",
         "type": "parse",
       },
     ],
-    "name": "中文",
     "type": "any",
+    "value": "中文",
   },
 ]
 `;
@@ -1111,14 +1111,14 @@ exports[`Simple test case [TODO chinese2] =varvarabc中文var // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "varvarabc",
     "errors": Array [
       Object {
         "message": "Unknown function varvarabc",
@@ -1129,20 +1129,20 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "varvarabc",
     "type": "any",
+    "value": "varvarabc",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "中文var",
     "errors": Array [
       Object {
         "message": "TODO mismatch token FunctionCall",
         "type": "parse",
       },
     ],
-    "name": "中文var",
     "type": "any",
+    "value": "中文var",
   },
 ]
 `;
@@ -1151,14 +1151,14 @@ exports[`Simple test case [TODO missing suffix expression] =1+ // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [
       Object {
         "message": "Missing right expression",
@@ -1169,20 +1169,20 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Plus",
-    "display": [Function],
+    "display": "+",
     "errors": Array [
       Object {
         "message": "Missing right expression",
         "type": "syntax",
       },
     ],
-    "name": "+",
     "type": "number",
+    "value": "+",
   },
 ]
 `;
@@ -1191,24 +1191,24 @@ exports[`Simple test case [TODO not is a operator] = nottrue // => false 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Not",
-    "display": [Function],
+    "display": "not",
     "errors": Array [],
-    "name": "not",
     "type": "boolean",
+    "value": "not",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
 ]
 `;
@@ -1217,24 +1217,24 @@ exports[`Simple test case [TODO predicate ==1] ==1 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "",
     "errors": Array [],
-    "name": "",
     "type": "any",
+    "value": "",
   },
   Object {
     "code": "Equal2",
-    "display": [Function],
+    "display": "==",
     "errors": Array [],
-    "name": "==",
     "type": "any",
+    "value": "==",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
 ]
 `;
@@ -1243,14 +1243,14 @@ exports[`Simple test case [TODO record number as key] ={1: "a"} // => ✗ 1`] = 
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LBrace",
-    "display": [Function],
+    "display": "{",
     "errors": Array [
       Object {
         "message": "Missing closing parenthesis",
@@ -1261,20 +1261,20 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "{",
     "type": "any",
+    "value": "{",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "1:\\"a\\"}",
     "errors": Array [
       Object {
         "message": "TODO mismatch token recordExpression",
         "type": "parse",
       },
     ],
-    "name": "1:\\"a\\"}",
     "type": "any",
+    "value": "1:\\"a\\"}",
   },
 ]
 `;
@@ -1283,14 +1283,14 @@ exports[`Simple test case [Without number] = - // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Minus",
-    "display": [Function],
+    "display": "-",
     "errors": Array [
       Object {
         "message": "Missing number",
@@ -1301,8 +1301,8 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "-",
     "type": "any",
+    "value": "-",
   },
 ]
 `;
@@ -1311,21 +1311,21 @@ exports[`Simple test case [array edit] =[1,] // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LBracket",
-    "display": [Function],
+    "display": "[",
     "errors": Array [],
-    "name": "[",
     "type": "any",
+    "value": "[",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [
       Object {
         "message": "Expression count mismatch",
@@ -1336,27 +1336,27 @@ Array [
         "type": "parse",
       },
     ],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [
       Object {
         "message": "Expression count mismatch",
         "type": "syntax",
       },
     ],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "RBracket",
-    "display": [Function],
+    "display": "]",
     "errors": Array [],
-    "name": "]",
     "type": "any",
+    "value": "]",
   },
 ]
 `;
@@ -1365,31 +1365,31 @@ exports[`Simple test case [caret and sign] = -0.123% // => -0.00123 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Minus",
-    "display": [Function],
+    "display": "-",
     "errors": Array [],
-    "name": "-",
     "type": "any",
+    "value": "-",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "0.123",
     "errors": Array [],
-    "name": "0.123",
     "type": "number",
+    "value": "0.123",
   },
   Object {
     "code": "Sign",
-    "display": [Function],
+    "display": "%",
     "errors": Array [],
-    "name": "%",
     "type": "any",
+    "value": "%",
   },
 ]
 `;
@@ -1398,57 +1398,57 @@ exports[`Simple test case [chain type 1] ="foo".START_WITH(123) // => ✗ 1`] = 
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"foo\\"",
     "errors": Array [],
-    "name": "\\"foo\\"",
     "type": "string",
+    "value": "\\"foo\\"",
   },
   Object {
     "code": "Dot",
-    "display": [Function],
+    "display": ".",
     "errors": Array [],
-    "name": ".",
     "type": "any",
+    "value": ".",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "START_WITH",
     "errors": Array [],
-    "name": "START_WITH",
     "type": "any",
+    "value": "START_WITH",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "123",
     "errors": Array [
       Object {
         "message": "Expected string but got number",
         "type": "type",
       },
     ],
-    "name": "123",
     "type": "number",
+    "value": "123",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "boolean",
+    "value": ")",
   },
 ]
 `;
@@ -1457,74 +1457,74 @@ exports[`Simple test case [compare chain] = (1 = 1) > 3 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "=",
     "type": "boolean",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "boolean",
+    "value": ")",
   },
   Object {
     "code": "GreaterThan",
-    "display": [Function],
+    "display": ">",
     "errors": Array [],
-    "name": ">",
     "type": "boolean",
+    "value": ">",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
 ]
 `;
@@ -1533,45 +1533,45 @@ exports[`Simple test case [compare chain] = 1 = 1 > 3 // => false 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "boolean",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "GreaterThan",
-    "display": [Function],
+    "display": ">",
     "errors": Array [],
-    "name": ">",
     "type": "boolean",
+    "value": ">",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
 ]
 `;
@@ -1580,45 +1580,45 @@ exports[`Simple test case [compare chain] = 1 > 1 = 3 // => false 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "GreaterThan",
-    "display": [Function],
+    "display": ">",
     "errors": Array [],
-    "name": ">",
     "type": "boolean",
+    "value": ">",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "boolean",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
 ]
 `;
@@ -1627,85 +1627,85 @@ exports[`Simple test case [downcase] =if(true, 1+2, "2") // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "if",
     "errors": Array [
       Object {
         "message": "Function if not found",
         "type": "deps",
       },
     ],
-    "name": "if",
     "type": "any",
+    "value": "if",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "BooleanLiteral",
-    "display": [Function],
+    "display": "true",
     "errors": Array [],
-    "name": "true",
     "type": "boolean",
+    "value": "true",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Plus",
-    "display": [Function],
+    "display": "+",
     "errors": Array [],
-    "name": "+",
     "type": "number",
+    "value": "+",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"2\\"",
     "errors": Array [],
-    "name": "\\"2\\"",
     "type": "string",
+    "value": "\\"2\\"",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "any",
+    "value": ")",
   },
 ]
 `;
@@ -1714,29 +1714,29 @@ exports[`Simple test case [lex error when parse "hel"lo" => parseError] = "hel"l
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "StringLiteral",
-    "display": [Function],
+    "display": "\\"hel\\"",
     "errors": Array [],
-    "name": "\\"hel\\"",
     "type": "string",
+    "value": "\\"hel\\"",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "lo\\"",
     "errors": Array [
       Object {
         "message": "Not all input parsed: lo",
         "type": "parse",
       },
     ],
-    "name": "lo\\"",
     "type": "any",
+    "value": "lo\\"",
   },
 ]
 `;
@@ -1745,10 +1745,10 @@ exports[`Simple test case [literal1] 1+1 // => 1+1 1`] = `
 Array [
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "1+1",
     "errors": Array [],
-    "name": "1+1",
     "type": "any",
+    "value": "1+1",
   },
 ]
 `;
@@ -1757,10 +1757,10 @@ exports[`Simple test case [literal2] 1+1 asd n,san 中文测试 asdasd // => 1+1
 Array [
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "1+1 asd n,san 中文测试 asdasd",
     "errors": Array [],
-    "name": "1+1 asd n,san 中文测试 asdasd",
     "type": "any",
+    "value": "1+1 asd n,san 中文测试 asdasd",
   },
 ]
 `;
@@ -1769,45 +1769,45 @@ exports[`Simple test case [mul > add] = 1 + 2 * 3 // => 7 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Plus",
-    "display": [Function],
+    "display": "+",
     "errors": Array [],
-    "name": "+",
     "type": "number",
+    "value": "+",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Multi",
-    "display": [Function],
+    "display": "*",
     "errors": Array [],
-    "name": "*",
     "type": "number",
+    "value": "*",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
 ]
 `;
@@ -1816,14 +1816,14 @@ exports[`Simple test case [multiline error 2] =; // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [
       Object {
         "message": "Missing expression",
@@ -1838,8 +1838,8 @@ Array [
         "type": "parse",
       },
     ],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
 ]
 `;
@@ -1848,24 +1848,24 @@ exports[`Simple test case [multiline error 3] =;123 // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "123",
     "errors": Array [],
-    "name": "123",
     "type": "number",
+    "value": "123",
   },
 ]
 `;
@@ -1874,35 +1874,35 @@ exports[`Simple test case [multiline error] =1; 2; // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [
       Object {
         "message": "Missing expression",
@@ -1913,8 +1913,8 @@ Array [
         "type": "parse",
       },
     ],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
 ]
 `;
@@ -1923,94 +1923,94 @@ exports[`Simple test case [multiline function call ok] =ABS(1; 2; (1+3)) // => 4
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "ABS",
     "errors": Array [],
-    "name": "ABS",
     "type": "any",
+    "value": "ABS",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Plus",
-    "display": [Function],
+    "display": "+",
     "errors": Array [],
-    "name": "+",
     "type": "number",
+    "value": "+",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
 ]
 `;
@@ -2019,73 +2019,73 @@ exports[`Simple test case [multiline ok] =1; 2; (1+3) // => 4 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Semicolon",
-    "display": [Function],
+    "display": ";",
     "errors": Array [],
-    "name": ";",
     "type": "any",
+    "value": ";",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Plus",
-    "display": [Function],
+    "display": "+",
     "errors": Array [],
-    "name": "+",
     "type": "number",
+    "value": "+",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
 ]
 `;
@@ -2094,17 +2094,17 @@ exports[`Simple test case [should error] =1. // => 1 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1.",
     "errors": Array [],
-    "name": "1.",
     "type": "number",
+    "value": "1.",
   },
 ]
 `;
@@ -2113,29 +2113,29 @@ exports[`Simple test case [should success] =1.T() // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1.",
     "errors": Array [],
-    "name": "1.",
     "type": "number",
+    "value": "1.",
   },
   Object {
     "code": "other",
-    "display": [Function],
+    "display": "T()",
     "errors": Array [
       Object {
         "message": "Not all input parsed: T",
         "type": "parse",
       },
     ],
-    "name": "T()",
     "type": "any",
+    "value": "T()",
   },
 ]
 `;
@@ -2144,38 +2144,38 @@ exports[`Simple test case [spread operator] =AVERAGE(1) // => 1 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "AVERAGE",
     "errors": Array [],
-    "name": "AVERAGE",
     "type": "any",
+    "value": "AVERAGE",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
 ]
 `;
@@ -2184,66 +2184,66 @@ exports[`Simple test case [spread operator] =AVERAGE(1, 2, 3) // => 2 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "Function",
-    "display": [Function],
+    "display": "AVERAGE",
     "errors": Array [],
-    "name": "AVERAGE",
     "type": "any",
+    "value": "AVERAGE",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "1",
     "errors": Array [],
-    "name": "1",
     "type": "number",
+    "value": "1",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Comma",
-    "display": [Function],
+    "display": ",",
     "errors": Array [],
-    "name": ",",
     "type": "any",
+    "value": ",",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "3",
     "errors": Array [],
-    "name": "3",
     "type": "number",
+    "value": "3",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "number",
+    "value": ")",
   },
 ]
 `;
@@ -2252,74 +2252,74 @@ exports[`Simple test case [type check] = 2 * (2 = 4) // => ✗ 1`] = `
 Array [
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [],
-    "name": "=",
     "type": "any",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Multi",
-    "display": [Function],
+    "display": "*",
     "errors": Array [],
-    "name": "*",
     "type": "number",
+    "value": "*",
   },
   Object {
     "code": "LParen",
-    "display": [Function],
+    "display": "(",
     "errors": Array [],
-    "name": "(",
     "type": "any",
+    "value": "(",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "2",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "2",
     "type": "number",
+    "value": "2",
   },
   Object {
     "code": "Equal",
-    "display": [Function],
+    "display": "=",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "=",
     "type": "boolean",
+    "value": "=",
   },
   Object {
     "code": "NumberLiteral",
-    "display": [Function],
+    "display": "4",
     "errors": Array [
       Object {
         "message": "Expected number but got boolean",
         "type": "type",
       },
     ],
-    "name": "4",
     "type": "number",
+    "value": "4",
   },
   Object {
     "code": "RParen",
-    "display": [Function],
+    "display": ")",
     "errors": Array [],
-    "name": ")",
     "type": "boolean",
+    "value": ")",
   },
 ]
 `;

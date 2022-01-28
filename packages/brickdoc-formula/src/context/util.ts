@@ -44,9 +44,9 @@ export const block2completion = (
     renderDescription: blockId => '',
     codeFragment: {
       namespaceId: key,
-      display: block.name,
+      display: block.name(),
       errors: [],
-      name: value,
+      value,
       code: 'Block',
       type: 'any'
     }
@@ -67,9 +67,9 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType): Spreadshee
     renderDescription: blockId => '',
     codeFragment: {
       namespaceId: spreadsheet.blockId,
-      display: spreadsheet.name,
+      display: spreadsheet.name(),
       errors: [],
-      name: value,
+      value,
       code: 'Spreadsheet',
       type: 'any'
     }
@@ -95,9 +95,9 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
     renderDescription: blockId => column.spreadsheet.name(),
     codeFragment: {
       namespaceId: column.namespaceId,
-      display: () => column.name,
+      display: column.name,
       errors: [],
-      name: value,
+      value,
       code: 'Column',
       type: 'any'
     }
@@ -118,9 +118,9 @@ export const variable2completion = (variable: VariableInterface, weight: number)
     renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
     codeFragment: {
       namespaceId: variable.t.namespaceId,
-      display: () => variable.t.name,
+      display: variable.t.name,
       errors: [],
-      name: value,
+      value,
       code: 'Variable',
       type: 'any'
     }
@@ -140,9 +140,9 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     positionChange: value.length - 1,
     renderDescription: blockId => (functionClause.group === 'core' ? '' : functionClause.group),
     codeFragment: {
-      display: () => value,
+      display: value,
       errors: [],
-      name: value,
+      value,
       code: 'Function',
       type: 'any'
     }

@@ -515,8 +515,8 @@ export interface FunctionClause<T extends FormulaType> extends BaseFunctionClaus
 }
 export interface CodeFragment {
   readonly code: string
-  readonly name: string
-  readonly display: () => string
+  readonly value: string
+  readonly display: string
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
   readonly namespaceId?: NamespaceId

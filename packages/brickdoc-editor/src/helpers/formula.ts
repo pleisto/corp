@@ -71,7 +71,7 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
   const result: JSONContent[] = []
 
   const attr = attrsToJSONContent(codeFragment)
-  if (codeFragment.display()) {
+  if (codeFragment.display) {
     result.push(attr)
   }
 
@@ -79,7 +79,7 @@ export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSON
 }
 
 export const attrsToJSONContent = (attrs: CodeFragment): JSONContent => {
-  return { type: 'text', text: attrs.display(), marks: [{ type: 'FormulaType', attrs }] }
+  return { type: 'text', text: attrs.display, marks: [{ type: 'FormulaType', attrs }] }
 }
 
 export const positionBasedContentArrayToInput = (
@@ -144,17 +144,9 @@ const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string =>
     return text
   }
 
-  if (attrs.display() === text) {
-    return attrs.name
+  if (attrs.display === text) {
+    return attrs.value
   }
-
-  // if (text.startsWith(attrs.display)) {
-  //   return `${attrs.value}${text.slice(attrs.display.length)}`
-  // }
-
-  // if (text.endsWith(attrs.display)) {
-  //   return `${text.slice(0, -attrs.display.length)}${attrs.value}`
-  // }
 
   return text
 }
