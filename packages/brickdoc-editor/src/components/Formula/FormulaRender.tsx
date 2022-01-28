@@ -42,6 +42,7 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
   const spreadsheetContext = useSpreadsheetContext({
     rowIds: rows.map(r => r.rowId),
     columnIds: columns.map(c => c.columnId),
+    columnHeaders: new Map(columns.map(c => [c.columnId, c.name])),
     valuesMatrix
   })
   return (

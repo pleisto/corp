@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dropdown, Menu, Button } from '@brickdoc/design-system'
+import { Dropdown, Menu, Button, Icon } from '@brickdoc/design-system'
 
 import { useEditorI18n } from '../../hooks'
 
@@ -83,9 +83,13 @@ export const SpreadsheetHeaderColumn: React.FC<{
   const draggingOver = context.dragging.overColumnId === columnId
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
 
-  const unselectColumn = (): void => {
-    context.clearSelection()
-    document.removeEventListener('mousedown', unselectColumn)
+  const unselectColumn = (e: MouseEvent): void => {
+    const li = (e.target as Element).closest('li[role=menuitem]')
+    if (!li) {
+      context.clearSelection()
+      setDropdownVisible(false)
+      document.removeEventListener('mousedown', unselectColumn)
+    }
   }
 
   const selectColumn = (): void => {
@@ -135,7 +139,17 @@ export const SpreadsheetHeaderColumn: React.FC<{
           className="column-action"
           trigger={['click', 'contextMenu']}
           overlay={SpreadsheetMenu({
-            items: columnActions,
+            items: [
+              {
+                name: 'copy',
+                title: t('spreadsheet.copy'),
+                icon: <Icon.Copy />,
+                onAction: () => {
+                  context.copyToClipboard({ columnIds: [columnId] })
+                }
+              },
+              ...columnActions
+            ],
             onAction: key => setDropdownVisible(false)
           })}
           placement="bottomStart"
@@ -178,9 +192,13 @@ export const SpreadsheetRow: React.FC<{
     selectRow()
   }
 
-  const unselectRow = (): void => {
-    context.clearSelection()
-    document.removeEventListener('mousedown', unselectRow)
+  const unselectRow = (e: MouseEvent): void => {
+    const li = (e.target as Element).closest('li[role=menuitem]')
+    if (!li) {
+      context.clearSelection()
+      setDropdownVisible(false)
+      document.removeEventListener('mousedown', unselectRow)
+    }
   }
 
   const selectRow = (): void => {
@@ -229,7 +247,17 @@ export const SpreadsheetRow: React.FC<{
               className="row-action"
               trigger={['click', 'contextMenu']}
               overlay={SpreadsheetMenu({
-                items: rowActions,
+                items: [
+                  {
+                    name: 'copy',
+                    title: t('spreadsheet.copy'),
+                    icon: <Icon.Copy />,
+                    onAction: () => {
+                      context.copyToClipboard({ rowIds: [rowId] })
+                    }
+                  },
+                  ...rowActions
+                ],
                 onAction: key => setDropdownVisible(false)
               })}
               placement="bottomStart"
@@ -290,7 +318,7 @@ export const SpreadsheetCellContainer: React.FC<{
     {
       name: 'copy',
       title: t('spreadsheet.copy'),
-      // icon: <Icon.ArrowUp />,
+      icon: <Icon.Copy />,
       onAction: () => {
         context.copyToClipboard({ cellIds: [cellIdStr] })
       }

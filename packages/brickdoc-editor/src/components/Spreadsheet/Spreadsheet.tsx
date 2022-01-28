@@ -71,6 +71,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
   const spreadsheetContext = useSpreadsheetContext({
     columnIds: columns.map(c => c.uuid),
     rowIds: rows.map(r => r.id),
+    columnHeaders: new Map(columns.map(c => [c.uuid, columnDisplayTitle(c)])),
     valuesMatrix
   })
 

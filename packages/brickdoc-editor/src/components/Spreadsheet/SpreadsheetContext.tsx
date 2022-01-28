@@ -43,12 +43,13 @@ export const keyDownMovements: { [key: string]: [number, number] } = {
 export const useSpreadsheetContext = (options: {
   columnIds: string[]
   rowIds: string[]
+  columnHeaders: Map<string, string>
   valuesMatrix: Map<string, Map<string, string>>
 }): SpreadsheetContext => {
   const [selection, setSelection] = React.useState<SpreadsheetSelection>({})
   const [dragging, setDragging] = React.useState<SpreadsheetDragging>({})
 
-  const { columnIds, rowIds, valuesMatrix } = options ?? {}
+  const { columnIds, rowIds, columnHeaders, valuesMatrix } = options ?? {}
 
   const clearSelection = (): void => {
     setSelection({})
@@ -81,14 +82,16 @@ export const useSpreadsheetContext = (options: {
           .join('\n')
         void navigator.clipboard.writeText(text)
       } else if (selectedColumnIds?.length) {
-        // TODO: should copy column header also
-        const text = Array.from(valuesMatrix.values())
-          .map(row => selectedColumnIds.map(columnId => row.get(columnId) ?? '').join('\t'))
-          .join('\n')
+        const text = [
+          selectedColumnIds.map(columnId => columnHeaders.get(columnId) ?? '').join('\t'),
+          ...Array.from(valuesMatrix.values()).map(row =>
+            selectedColumnIds.map(columnId => row.get(columnId) ?? '').join('\t')
+          )
+        ].join('\n')
         void navigator.clipboard.writeText(text)
       }
     },
-    [selection, valuesMatrix]
+    [selection, columnHeaders, valuesMatrix]
   )
 
   React.useEffect(() => {
