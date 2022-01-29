@@ -105,6 +105,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
   })
 
   const selectColumn = (): void => {
+    window.getSelection()?.removeAllRanges()
     context.selectColumns([columnId])
     document.addEventListener('mousedown', unselectColumn)
   }
@@ -212,6 +213,7 @@ export const SpreadsheetRow: React.FC<{
   })
 
   const selectRow = (): void => {
+    window.getSelection()?.removeAllRanges()
     context.selectRows([rowId])
     document.addEventListener('mousedown', unselectRow)
   }
@@ -311,6 +313,7 @@ export const SpreadsheetCellContainer: React.FC<{
   })
 
   const selectCell = (): void => {
+    window.getSelection()?.removeAllRanges()
     context.selectCell(cellIdStr)
     document.addEventListener('mousedown', unselectCell)
   }
