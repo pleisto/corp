@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import Portal from '@mui/base/Portal'
+import { Portal } from '../Portal'
 import { Toaster as HotToaster, ToastPosition } from 'react-hot-toast'
 import { toast, placementMaps } from './toastApi'
 import { Info, CheckOne, CloseOne, Rotation } from '@brickdoc/design-icons'
@@ -13,7 +13,7 @@ export interface ToasterProps extends Omit<HotToasterProps, 'position'> {
 export const ToasterPortal: FC<ToasterProps> = props => {
   const { position = 'topCenter', ...otherProps } = props
   return (
-    <Portal container={document.body}>
+    <Portal>
       <HotToaster
         position={placementMaps[position] as ToastPosition}
         toastOptions={{
@@ -35,8 +35,7 @@ export const ToasterPortal: FC<ToasterProps> = props => {
             duration: 10_000
           }
         }}
-        {...otherProps}
-      >
+        {...otherProps}>
         {t => <ToastBar toast={t} />}
       </HotToaster>
     </Portal>

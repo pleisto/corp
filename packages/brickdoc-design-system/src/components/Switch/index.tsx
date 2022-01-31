@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, forwardRef, createRef, ForwardRefRenderFunction, useMemo } from 'react'
-import { VisuallyHidden } from 'reakit/VisuallyHidden'
+import { VisuallyHidden } from '../VisuallyHidden'
 import { Checkbox, CheckboxProps } from 'reakit/Checkbox'
 import { motion } from 'framer-motion'
 import { Rotation } from '@brickdoc/design-icons'

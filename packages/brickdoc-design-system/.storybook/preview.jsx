@@ -1,4 +1,3 @@
-import { globalStyle } from '../src/themes'
 import { Provider } from '../src/components/Provider'
 
 export const parameters = {
@@ -47,7 +46,6 @@ export const parameters = {
 }
 export const decorators = [
   Story => {
-    globalStyle()
     return (
       <Provider>
         <Story />

@@ -1,21 +1,29 @@
-import { colors } from './colors'
-import { transitions } from './transitions'
-import { fontSizes } from './fontSizes'
-import { space } from './space'
-import { fonts } from './fonts'
-import { borderStyles } from './borderStyles'
-import { zIndices } from './zIndices'
-import { lineHeights } from './lineHeights'
+import { colors, breakpoints, radii, spacing, transitions, typography, zIndices, semanticTokens } from './foundations'
+import * as components from './components'
+import { globalStyle } from './globalStyle.style'
+import { prefix } from '../common'
 
-export { mixins as ceramicLightMixins } from './mixins'
-
-export const ceramicLightTheme = {
+export const ceramicLight = {
+  direction: 'ltr',
   colors,
+  semanticTokens,
+  breakpoints,
+  radii,
+  space: spacing,
   transitions,
-  fontSizes,
-  fonts,
-  space,
-  borderStyles,
+  ...typography,
   zIndices,
-  lineHeights
+  components,
+  styles: {
+    global: globalStyle
+  },
+  config: {
+    cssVarPrefix: prefix,
+    initialColorMode: 'light',
+    useSystemColorMode: false
+  }
 }
+
+// for chakra ui
+// eslint-disable-next-line import/no-default-export
+export default ceramicLight

@@ -1,0 +1,139 @@
+import { fontFaceSets } from './fontFaceSets.style'
+
+export const globalStyle = {
+  ...fontFaceSets,
+  html: {
+    fontFamily: 'sans-serif',
+    fontSize: '100%',
+    textSizeAdjust: '100%',
+    '--webkit-font-smoothing': 'antialiased',
+    '-moz-osx-font-smoothing': 'grayscale'
+  },
+  '*, *::before, *::after': {
+    boxSizing: 'border-box'
+  },
+  small: {
+    fontSize: '0.8em'
+  },
+  'b, strong': {
+    fontWeight: 'bold'
+  },
+  'button ,input, select, textarea': {
+    margin: 0
+  },
+  button: {
+    textTransform: 'none'
+  },
+  ':-moz-ui-invalid': {
+    boxShadow: 'none'
+  },
+  body: {
+    margin: 0,
+    height: '100%',
+    width: '100%',
+    color: 'typePrimary',
+    fontSize: 'base',
+    lineHeight: 'base',
+    backgroundColor: 'backgroundPrimary',
+    OverlayScrollBehaviorY: 'none'
+  },
+  'body,input,textarea, [data-fontset="sans"]': {
+    fontFamily: 'sans'
+  },
+  'pre, code, kbd, samp': {
+    fontSize: '1em'
+  },
+  'pre, code, kbd, samp, [data-fontset="monospace"]': {
+    fontFamily: 'mono'
+  },
+  'h1, h2, h3, h4, h5, h6': {
+    marginTop: 0,
+    marginBottom: '0.5em',
+    fontWeight: '500',
+    color: 'typePrimary'
+  },
+  p: {
+    marginTop: 0,
+    marginBottom: '1em'
+  },
+  'input, button, select, optgroup, textarea': {
+    margin: 0,
+    color: 'inherit',
+    fontFamily: 'inherit',
+    lineHeight: 'inherit'
+  },
+  blockquote: {
+    margin: '0 0 1em'
+  },
+  'blockquote, [data-fontset="serif"]': {
+    fontFamily: 'serif'
+  },
+  'img, iframe': {
+    border: 0
+  },
+  img: {
+    objectFit: 'cover'
+  },
+  a: {
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'color 0.2s',
+    color: 'blue.9',
+    display: 'inline-block',
+    '&:hover': {
+      textDecoration: 'underline'
+    },
+    '&[disabled]': {
+      color: 'typeDisabled',
+      cursor: 'not-allowed',
+      pointerEvents: 'none'
+    }
+  },
+  table: {
+    borderCollapse: 'revert'
+  },
+  summary: {
+    display: 'list-item'
+  },
+  'dialog:not([open])': {
+    display: 'none'
+  },
+  hr: {
+    color: 'inherit'
+  },
+  '.brd-icon': {
+    display: 'inline-block',
+    color: 'inherit',
+    fontStyle: 'normal',
+    lineHeight: '0',
+    textAlign: 'center',
+    textTransform: 'none',
+    verticalAlign: '-0.125em',
+    textRendering: 'optimizeLegibility',
+    fontSize: 'inherit',
+    fill: 'currentColor',
+    '& > *': {
+      lineHeight: '1',
+      width: '1em',
+      height: '1em'
+    },
+    '&-rtl': {
+      transform: 'scaleX(-1)'
+    },
+    '&-spin svg': {
+      animation: 'brd-icon-spin 1s linear infinite'
+    },
+    '& brd-image': {
+      width: '1em',
+      height: '1em'
+    },
+    '&[tabindex]': {
+      cursor: 'pointer'
+    }
+  },
+  '@keyframes brd-icon-spin': {
+    '100%': {
+      transform: 'rotate(360deg)'
+    }
+  }
+}

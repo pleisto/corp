@@ -35,15 +35,6 @@ export enum Shade {
 }
 
 /**
- * Palette Token name
- */
-type PaletteToken<T extends string> = `${T}${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
-
-type PaletteObject<T extends string> = {
-  [key in PaletteToken<T>]: string
-}
-
-/**
  * Returns true if the argument is a valid Shade value
  * @param shade - The Shade value to validate.
  */
@@ -145,24 +136,23 @@ export function colorWithShade(color: Color, shade: Shade, isInverted: boolean =
  * @example
  * ` generatePalette('cyan', '#39b3e8')`
  */
-export const generatePalette = <T extends string>(
-  name: T,
+export const generatePalette = (
   baseColorHex: string,
   isInverted = false
-): PaletteObject<T> => {
+) => {
   const baseColor = cssStr2color(baseColorHex)
   if (!baseColor) throw new Error(`[@brickdoc/design-colors] invalid base color: ${baseColorHex}`)
   const paletteStr = (shade: Shade): string => color2cssStr(colorWithShade(baseColor, shade, isInverted)!)
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return {
-    [`${name}1`]: paletteStr(Shade.Shade1),
-    [`${name}2`]: paletteStr(Shade.Shade2),
-    [`${name}3`]: paletteStr(Shade.Shade3),
-    [`${name}4`]: paletteStr(Shade.Shade4),
-    [`${name}5`]: paletteStr(Shade.Shade5),
-    [`${name}6`]: baseColorHex,
-    [`${name}7`]: paletteStr(Shade.Shade6),
-    [`${name}8`]: paletteStr(Shade.Shade7),
-    [`${name}9`]: paletteStr(Shade.Shade8)
-  } as PaletteObject<T>
+    1: paletteStr(Shade.Shade1),
+    2: paletteStr(Shade.Shade2),
+    3: paletteStr(Shade.Shade3),
+    4: paletteStr(Shade.Shade4),
+    5: paletteStr(Shade.Shade5),
+    6: baseColorHex,
+    7: paletteStr(Shade.Shade6),
+    8: paletteStr(Shade.Shade7),
+    9: paletteStr(Shade.Shade8)
+  }
 }

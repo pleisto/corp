@@ -1,5 +1,5 @@
 import { ForwardRefRenderFunction, createRef, useState, forwardRef } from 'react'
-import { VisuallyHidden } from 'reakit/VisuallyHidden'
+import { VisuallyHidden } from '../VisuallyHidden'
 import { Checkbox as ReakitCheckbox, CheckboxProps as ReakitCheckboxProps } from 'reakit/Checkbox'
 import { styled } from '../../themes'
 import { CheckBox as Check } from '@brickdoc/design-icons'

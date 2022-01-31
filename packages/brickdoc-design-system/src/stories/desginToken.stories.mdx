@@ -1,8 +1,7 @@
 import { Meta } from '@storybook/addon-docs'
 import { Figma } from 'storybook-addon-designs/blocks'
 import ReactJson from 'react-json-view'
-import { ceramicLightTheme } from '../themes/ceramic-light'
-import { utils } from '../themes'
+import { ceramicLight } from '../themes/ceramic-light'
 
 <Meta title="Docs/Design Token" />
 
@@ -15,17 +14,14 @@ Design tokens are directly integrated into our component libraries and UI kits. 
 ## All Tokens
 
 <ReactJson
-  name="CeramicLightTheme"
+  name="ceramicLight"
   indentWidth={2}
   collapsed={1}
   onDelete={false}
   displayDataTypes={false}
-  src={ceramicLightTheme}
+  src={ceramicLight}
 />
 
-## All Utils
-
-<ReactJson name="Utils" indentWidth={2} collapsed={true} onDelete={false} displayDataTypes={false} src={utils} />
 
 ## Colors
 

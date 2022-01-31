@@ -1,6 +1,6 @@
 import { ForwardRefRenderFunction, createRef, forwardRef, KeyboardEventHandler } from 'react'
 import { Input, InputProps } from 'reakit'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
+import ResizeTextarea from 'react-textarea-autosize'
 import { css, theme } from '../../themes'
 import { usePressEnterHandler } from '../Input/usePressEnterHandler'
 import cx from 'classnames'
@@ -64,10 +64,10 @@ const TextArea: ForwardRefRenderFunction<HTMLTextAreaElement, TextAreaProps> = (
 
   return autoSize ? (
     <Input
-      {...commonProps}
+      {...(commonProps as any)}
       maxRows={typeof autoSize === 'object' ? autoSize.maxRows : undefined}
       minRows={typeof autoSize === 'object' ? autoSize.minRows : undefined}
-      as={TextareaAutosize}
+      as={ResizeTextarea}
     />
   ) : (
     <Input {...commonProps} as="textarea" />
