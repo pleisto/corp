@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/testing-react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, prettyDOM, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonHTMLProps } from 'reakit/ts'
 import { BtnType, Size } from '..'
@@ -78,13 +78,71 @@ describe('Button', () => {
       render(getForm('submit'))
       userEvent.click(screen.getByRole('button'))
       expect(onSubmit).toBeCalledTimes(1)
-      expect(onReset).toBeCalledTimes(0)
+      expect(onReset).not.toBeCalled()
     })
     it('should reset the form when being clicked by htmlType="reset"', () => {
       render(getForm('reset'))
       userEvent.click(screen.getByRole('button'))
-      expect(onSubmit).toBeCalledTimes(0)
+      expect(onSubmit).not.toBeCalled()
       expect(onReset).toBeCalledTimes(1)
+    })
+  })
+
+  describe('loading state', () => {
+    beforeEach(() => {
+      jest.useFakeTimers()
+    })
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+    const delay = 1000
+    it('should be able to show the loading state on delay', () => {
+      function findLoadingIcon() {
+        return screen.queryByTestId('mock-icon-Rotation')
+      }
+
+      const { container } = render(<Basic loading={{ delay }} />)
+      expect(findLoadingIcon()).not.toBeInTheDocument()
+      jest.advanceTimersByTime(1000)
+      console.log(prettyDOM(container))
+      expect(findLoadingIcon()).toBeInTheDocument()
+    })
+    it('should call clearTimeout when disposing the component', () => {
+      const spySetTimer = jest.spyOn(global, 'setTimeout')
+      const spyClearTimer = jest.spyOn(global, 'clearTimeout')
+      render(<Basic loading={{ delay }} />)
+      expect(setTimeout).toBeCalledTimes(1)
+      expect(setTimeout).lastCalledWith(expect.any(Function), delay)
+      // The clearTimeout should be called only on disposal.
+      expect(clearTimeout).not.toBeCalled()
+      cleanup()
+      expect(clearTimeout).toBeCalledTimes(1)
+      spySetTimer.mockRestore()
+      spyClearTimer.mockRestore()
+    })
+    it('should call clearTimeout on rendering a different loading state', () => {
+      const spySetTimer = jest.spyOn(global, 'setTimeout')
+      const spyClearTimer = jest.spyOn(global, 'clearTimeout')
+      render(<Basic loading={{ delay }} />)
+      expect(setTimeout).toBeCalledTimes(1)
+      expect(setTimeout).lastCalledWith(expect.any(Function), delay)
+      expect(clearTimeout).not.toBeCalled()
+      render(<Basic loading={{ delay: 2000 }} />)
+      expect(clearTimeout).toBeCalledTimes(1)
+      expect(setTimeout).toBeCalledTimes(2)
+      expect(setTimeout).lastCalledWith(expect.any(Function), 2000)
+      spySetTimer.mockRestore()
+      spyClearTimer.mockRestore()
+    })
+    it('should not operate on the timer if "loading" is a boolean', () => {
+      const spySetTimer = jest.spyOn(global, 'setTimeout')
+      const spyClearTimer = jest.spyOn(global, 'clearTimeout')
+      render(<Basic loading />)
+      expect(setTimeout).not.toBeCalled()
+      cleanup()
+      expect(clearTimeout).not.toBeCalled()
+      spySetTimer.mockRestore()
+      spyClearTimer.mockRestore()
     })
   })
 })
