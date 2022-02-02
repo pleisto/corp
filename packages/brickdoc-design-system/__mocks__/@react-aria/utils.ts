@@ -1,9 +1,9 @@
-import * as utils from '@react-aria/utils'
+import * as hooks from '../../src/hooks'
 import { type GeneralModule } from '../../src/utilities/testing'
 export {}
 
 const INDEX_CACHE = new Map<string, number>()
-const mockedUtils = new Proxy(utils, {
+const mockedUtils = new Proxy(hooks, {
   get(target: GeneralModule, key) {
     if (key === 'useId') {
       // Generate a DOM id based on the current test name
