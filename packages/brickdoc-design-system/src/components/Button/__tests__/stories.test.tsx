@@ -1,6 +1,7 @@
 import { composeStories } from '@storybook/testing-react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { ButtonHTMLProps } from 'reakit/ts'
 import { BtnType, Size } from '..'
 import { a11yTest, toStoryTable } from '../../../utilities/testing'
 import * as ButtonStories from '../button.stories'
@@ -50,7 +51,7 @@ describe('Button', () => {
       // Because `userEvent` will throw an error saying that the element is not
       // receiving a user interaction.
       fireEvent.click(screen.getByRole('button'))
-      expect(onClick).not.toBeCalled()
+      expect(onClick).not.toBeCalledTimes(1)
     })
     it('should not throw an error if the onClick callback is not set', () => {
       render(<Basic />)
@@ -58,6 +59,32 @@ describe('Button', () => {
         userEvent.click(screen.getByRole('button'))
       }
       expect(doClick).not.toThrow()
+    })
+  })
+
+  describe('as a form button', () => {
+    const onSubmit = jest.fn(e => e.preventDefault())
+    const onReset = jest.fn()
+    const getForm = (htmlType: ButtonHTMLProps['type']) => (
+      <form onSubmit={onSubmit} onReset={onReset}>
+        <input type="text" name="foo" />
+        <Basic htmlType={htmlType} />
+      </form>
+    )
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+    it('should submit the form when being clicked by htmlType="submit"', () => {
+      render(getForm('submit'))
+      userEvent.click(screen.getByRole('button'))
+      expect(onSubmit).toBeCalledTimes(1)
+      expect(onReset).toBeCalledTimes(0)
+    })
+    it('should reset the form when being clicked by htmlType="reset"', () => {
+      render(getForm('reset'))
+      userEvent.click(screen.getByRole('button'))
+      expect(onSubmit).toBeCalledTimes(0)
+      expect(onReset).toBeCalledTimes(1)
     })
   })
 })
