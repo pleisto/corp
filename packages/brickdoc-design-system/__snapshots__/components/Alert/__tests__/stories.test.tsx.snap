@@ -3,7 +3,7 @@
 exports[`Alert Basic should match the snapshot 1`] = `
 <div>
   <div
-    aria-labelledby="brd-instance1618359686-4"
+    aria-labelledby="brd-instance3107550171-4"
     aria-live="polite"
     class="brd-c-hzAqKw brd-c-hzAqKw-lcPgHC-size-lg brd-c-hzAqKw-dDDEqJ-variant-info"
     role="status"
@@ -24,7 +24,7 @@ exports[`Alert Basic should match the snapshot 1`] = `
         </div>
         <div
           class="brd-c-fNvXDc"
-          id="brd-instance1618359686-4"
+          id="brd-instance3107550171-4"
         >
           <div
             class="brd-c-ehEcEk"
@@ -57,7 +57,7 @@ exports[`Alert Basic should match the snapshot 1`] = `
 exports[`Alert MessageOnly should match the snapshot 1`] = `
 <div>
   <div
-    aria-labelledby="brd-instance1618359686-5"
+    aria-labelledby="brd-instance3107550171-5"
     aria-live="assertive"
     class="brd-c-hzAqKw brd-c-hzAqKw-dzGVlg-size-sm brd-c-hzAqKw-dznTNE-variant-error"
     role="alert"
@@ -81,7 +81,7 @@ exports[`Alert MessageOnly should match the snapshot 1`] = `
         >
           <div
             class="brd-c-jUtCOJ"
-            id="brd-instance1618359686-5"
+            id="brd-instance3107550171-5"
           >
             Oops! Something went wrong.
           </div>
@@ -106,7 +106,7 @@ exports[`Alert MessageOnly should match the snapshot 1`] = `
 exports[`Alert WithAction should match the snapshot 1`] = `
 <div>
   <div
-    aria-labelledby="brd-instance1618359686-6"
+    aria-labelledby="brd-instance3107550171-6"
     aria-live="assertive"
     class="brd-c-hzAqKw brd-c-hzAqKw-lcPgHC-size-lg brd-c-hzAqKw-enADiq-variant-warning"
     role="alert"
@@ -127,7 +127,7 @@ exports[`Alert WithAction should match the snapshot 1`] = `
         </div>
         <div
           class="brd-c-fNvXDc"
-          id="brd-instance1618359686-6"
+          id="brd-instance3107550171-6"
         >
           <div
             class="brd-c-ehEcEk"
