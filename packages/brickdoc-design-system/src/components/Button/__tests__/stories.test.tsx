@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/testing-react'
-import { render, screen, fireEvent, prettyDOM, cleanup } from '@testing-library/react'
+import { render, screen, fireEvent, cleanup, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonHTMLProps } from 'reakit/ts'
 import { BtnType, Size } from '..'
@@ -95,24 +95,33 @@ describe('Button', () => {
     afterEach(() => {
       jest.useRealTimers()
     })
-    const delay = 1000
-    it('should show the loading state on delay', () => {
-      function findLoadingIcon() {
-        return screen.queryByTestId('mock-icon-Rotation')
-      }
+    const POSITIVE_DELAY = 1000
+    function findLoadingIcon() {
+      return screen.queryByTestId('mock-icon-Rotation')
+    }
 
-      const { container } = render(<Basic loading={{ delay }} />)
-      console.log(prettyDOM(container))
+    it('should show the loading state on a positive delay', () => {
+      render(<Basic loading={{ delay: POSITIVE_DELAY }} />)
       expect(findLoadingIcon()).not.toBeInTheDocument()
-      jest.advanceTimersByTime(1000)
+      act(() => {
+        jest.advanceTimersByTime(POSITIVE_DELAY)
+      })
+      expect(findLoadingIcon()).toBeInTheDocument()
+    })
+    it('should show the loading state immedialy if delay is 0', () => {
+      render(<Basic loading={{ delay: 0 }} />)
+      expect(findLoadingIcon()).toBeInTheDocument()
+    })
+    it('should show the loading state immedialy on an empty loading object', () => {
+      render(<Basic loading={{}} />)
       expect(findLoadingIcon()).toBeInTheDocument()
     })
     it('should call clearTimeout when disposing the component', () => {
       const spySetTimer = jest.spyOn(global, 'setTimeout')
       const spyClearTimer = jest.spyOn(global, 'clearTimeout')
-      render(<Basic loading={{ delay }} />)
+      render(<Basic loading={{ delay: POSITIVE_DELAY }} />)
       expect(setTimeout).toBeCalledTimes(1)
-      expect(setTimeout).lastCalledWith(expect.any(Function), delay)
+      expect(setTimeout).lastCalledWith(expect.any(Function), POSITIVE_DELAY)
       // The clearTimeout should be called only on disposal.
       expect(clearTimeout).not.toBeCalled()
       cleanup()
@@ -123,9 +132,9 @@ describe('Button', () => {
     it('should call clearTimeout when rendering a different loading state', () => {
       const spySetTimer = jest.spyOn(global, 'setTimeout')
       const spyClearTimer = jest.spyOn(global, 'clearTimeout')
-      const { rerender } = render(<Basic loading={{ delay }} />)
+      const { rerender } = render(<Basic loading={{ delay: POSITIVE_DELAY }} />)
       expect(setTimeout).toBeCalledTimes(1)
-      expect(setTimeout).lastCalledWith(expect.any(Function), delay)
+      expect(setTimeout).lastCalledWith(expect.any(Function), POSITIVE_DELAY)
       expect(clearTimeout).not.toBeCalled()
       rerender(<Basic loading={{ delay: 2000 }} />)
       expect(clearTimeout).toBeCalledTimes(1)

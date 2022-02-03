@@ -50,6 +50,21 @@ exports[`Button rendering Loading should match the snapshot 1`] = `
 </div>
 `;
 
+exports[`Button rendering LoadingAfter5Seconds should match the snapshot 1`] = `
+<div>
+  <button
+    class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-kEEMvd-btnType-secondary brd-c-dsuUsp-lKjfQ-size-md"
+    role="button"
+    tabindex="0"
+    type="button"
+  >
+    <span>
+      Loading after 5 seconds...
+    </span>
+  </button>
+</div>
+`;
+
 exports[`Button rendering WithEndIcon should match the snapshot 1`] = `
 <div>
   <button

@@ -122,3 +122,6 @@ IconOnly.args = { icon: <Add />, 'aria-label': 'Add Record', circle: true, size:
 
 export const Loading = Template.bind({})
 Loading.args = { loading: true, children: 'Loading...' }
+
+export const LoadingAfter5Seconds = Template.bind({})
+LoadingAfter5Seconds.args = { loading: { delay: 5000 }, children: 'Loading after 5 seconds...' }

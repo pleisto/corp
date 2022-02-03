@@ -20,6 +20,14 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
    * older versions of the design system
    */
   danger?: boolean
+  /**
+   * For a boolean value:
+   * - `true`: enable the loading state immediately.
+   * - `false`: disable the loading state.
+   * For an object value:
+   * - `delay <= 0` or omitted: enable the loading state immediately (same as `true`).
+   * - `delay > 0`: enabled the loading state after `delay` milliseconds.
+   */
   loading?: boolean | { delay?: number }
 
   /**
@@ -62,19 +70,22 @@ const Button: React.ForwardRefRenderFunction<unknown, ButtonProps> = (props, ref
 
   const priorityType: BtnType = danger ? 'danger' : type
 
-  const [innerLoading, setLoading] = useState<Loading>(!!loading)
-  const buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>()
-
   /**
    * Update Loading
    */
   let loadingOrDelay: Loading
-  if (typeof loading === 'object' && loading.delay) {
-    loadingOrDelay = loading.delay || true
+  if (typeof loading === 'object' && loading.delay && loading.delay > 0) {
+    loadingOrDelay = loading.delay
   } else {
+    // For `loading.delay` other than a positive number, it will be treated as `true`.
     loadingOrDelay = !!loading
   }
 
+  const [innerLoading, setLoading] = useState<Loading>(
+    // If a delayed loading is expected, the initial state will always be `false`.
+    typeof loadingOrDelay === 'boolean' ? loadingOrDelay : false
+  )
+  const buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>()
   useEffect(() => {
     if (typeof loadingOrDelay === 'number') {
       const timeout = window.setTimeout(() => {
