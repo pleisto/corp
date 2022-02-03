@@ -6,7 +6,7 @@ import { devWarning } from '../../utilities'
 
 const idsUpdaterMap: Map<string, (v: string) => void> = new Map()
 
-const canUseDOM = Boolean(typeof window !== 'undefined' && window.document && window.document.createElement)
+const canUseDOM = Boolean(window?.document?.createElement)
 
 /**
  * @internal
