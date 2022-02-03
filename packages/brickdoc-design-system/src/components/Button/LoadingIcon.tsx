@@ -7,6 +7,7 @@ export interface LoadingIconProps {
 }
 
 export const LoadingIcon: React.FC<LoadingIconProps> = ({ loading }) => {
+  console.log('loading', loading)
   if (!loading) return null
 
   return <Rotation className={`${prefix}-icon-spin`} />

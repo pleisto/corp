@@ -96,15 +96,15 @@ describe('Button', () => {
       jest.useRealTimers()
     })
     const delay = 1000
-    it('should be able to show the loading state on delay', () => {
+    it('should show the loading state on delay', () => {
       function findLoadingIcon() {
         return screen.queryByTestId('mock-icon-Rotation')
       }
 
       const { container } = render(<Basic loading={{ delay }} />)
+      console.log(prettyDOM(container))
       expect(findLoadingIcon()).not.toBeInTheDocument()
       jest.advanceTimersByTime(1000)
-      console.log(prettyDOM(container))
       expect(findLoadingIcon()).toBeInTheDocument()
     })
     it('should call clearTimeout when disposing the component', () => {
@@ -120,14 +120,14 @@ describe('Button', () => {
       spySetTimer.mockRestore()
       spyClearTimer.mockRestore()
     })
-    it('should call clearTimeout on rendering a different loading state', () => {
+    it('should call clearTimeout when rendering a different loading state', () => {
       const spySetTimer = jest.spyOn(global, 'setTimeout')
       const spyClearTimer = jest.spyOn(global, 'clearTimeout')
-      render(<Basic loading={{ delay }} />)
+      const { rerender } = render(<Basic loading={{ delay }} />)
       expect(setTimeout).toBeCalledTimes(1)
       expect(setTimeout).lastCalledWith(expect.any(Function), delay)
       expect(clearTimeout).not.toBeCalled()
-      render(<Basic loading={{ delay: 2000 }} />)
+      rerender(<Basic loading={{ delay: 2000 }} />)
       expect(clearTimeout).toBeCalledTimes(1)
       expect(setTimeout).toBeCalledTimes(2)
       expect(setTimeout).lastCalledWith(expect.any(Function), 2000)

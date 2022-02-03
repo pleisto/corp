@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, ButtonHTMLAttributes, Ref, RefObject, createRef, forwardRef } from 'react'
+import { useEffect, useState, ButtonHTMLAttributes, Ref, RefObject, createRef, forwardRef } from 'react'
 import ButtonUnstyled, { ButtonUnstyledActions } from '@mui/base/ButtonUnstyled'
 import { LoadingIcon } from './LoadingIcon'
 import { styled } from '../../themes'
@@ -63,7 +63,6 @@ const Button: React.ForwardRefRenderFunction<unknown, ButtonProps> = (props, ref
   const priorityType: BtnType = danger ? 'danger' : type
 
   const [innerLoading, setLoading] = useState<Loading>(!!loading)
-  const delayTimeoutRef = useRef<number>()
   const buttonRef = (ref as RefObject<HTMLButtonElement>) || createRef<HTMLButtonElement>()
 
   /**
@@ -77,14 +76,15 @@ const Button: React.ForwardRefRenderFunction<unknown, ButtonProps> = (props, ref
   }
 
   useEffect(() => {
-    clearTimeout(delayTimeoutRef.current)
     if (typeof loadingOrDelay === 'number') {
-      delayTimeoutRef.current = window.setTimeout(() => {
+      const timeout = window.setTimeout(() => {
         setLoading(loadingOrDelay)
       }, loadingOrDelay)
-    } else {
-      setLoading(loadingOrDelay)
+      return () => {
+        clearTimeout(timeout)
+      }
     }
+    setLoading(loadingOrDelay)
   }, [loadingOrDelay])
 
   const iconNode = icon && !innerLoading ? icon : <LoadingIcon loading={!!innerLoading} />
