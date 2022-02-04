@@ -75,9 +75,7 @@ export default defineConfig({
         manualChunks: {
           common: ['react', 'react-dom', 'lodash-es', 'i18next', '@apollo/client', 'yup'],
           telemetry: ['@sentry/react', '@sentry/tracing', '@sentry/integrations'],
-          editor: ['@brickdoc/editor', '@brickdoc/uploader'],
-          'design-system': ['@brickdoc/design-system', '@brickdoc/design-icons', 'framer-motion'],
-          interpreter: ['@brickdoc/formula']
+          'design-system': ['@brickdoc/design-system', '@brickdoc/design-icons', 'framer-motion']
         }
       }
     }
