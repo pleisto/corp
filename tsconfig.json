@@ -3,6 +3,7 @@
 {
   "extends": "./tsconfig.shared.json",
   "compilerOptions": {
+    "allowJs": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
