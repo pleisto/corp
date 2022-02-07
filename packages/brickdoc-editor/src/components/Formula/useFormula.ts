@@ -26,7 +26,7 @@ import {
   buildJSONContentByArray,
   buildJSONContentByDefinition,
   codeFragmentsToJSONContentTotal,
-  codeFragmentToJSONContentArray,
+  codeFragmentsToJSONContentArray,
   contentArrayToInput,
   fetchJSONContentArray,
   maybeRemoveCodeFragmentsEqual,
@@ -353,7 +353,7 @@ export const useFormula = ({
         ]
       : []
 
-    const completionContents: JSONContent[] = codeFragmentToJSONContentArray(currentCompletion.codeFragment)
+    const completionContents: JSONContent[] = codeFragmentsToJSONContentArray(currentCompletion.codeFragments)
     const newContent: JSONContent[] = [...oldContent, ...completionContents, ...nextContents]
     const finalContent = buildJSONContentByArray(newContent)
     const finalInput = contentArrayToInput(fetchJSONContentArray(finalContent))

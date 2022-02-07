@@ -71,14 +71,16 @@ export const block2completion = (
     value,
     preview: block,
     renderDescription: blockId => '',
-    codeFragment: {
-      display: block.name(),
-      errors: [],
-      value,
-      code: 'Block',
-      type: 'any',
-      attrs: block2attrs(block)
-    }
+    codeFragments: [
+      {
+        display: block.name(),
+        errors: [],
+        value,
+        code: 'Block',
+        type: 'any',
+        attrs: block2attrs(block)
+      }
+    ]
   }
 }
 
@@ -94,14 +96,16 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType): Spreadshee
     value,
     preview: spreadsheet,
     renderDescription: blockId => '',
-    codeFragment: {
-      display: spreadsheet.name(),
-      errors: [],
-      value,
-      code: 'Spreadsheet',
-      type: 'any',
-      attrs: spreadsheet2attrs(spreadsheet)
-    }
+    codeFragments: [
+      {
+        display: spreadsheet.name(),
+        errors: [],
+        value,
+        code: 'Spreadsheet',
+        type: 'any',
+        attrs: spreadsheet2attrs(spreadsheet)
+      }
+    ]
   }
 }
 
@@ -122,19 +126,22 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
     value,
     preview: column,
     renderDescription: blockId => column.spreadsheet.name(),
-    codeFragment: {
-      display: column.name,
-      errors: [],
-      value,
-      code: 'Column',
-      type: 'any',
-      attrs: column2attrs(column)
-    }
+    codeFragments: [
+      {
+        display: column.name,
+        errors: [],
+        value,
+        code: 'Column',
+        type: 'any',
+        attrs: column2attrs(column)
+      }
+    ]
   }
 }
 
 export const variable2completion = (variable: VariableInterface, weight: number): VariableCompletion => {
   const value: VariableKey = `${blockKey(variable.t.namespaceId)}.${variable.t.name}`
+  const block = new BlockClass(variable.formulaContext, { id: variable.t.namespaceId })
   return {
     kind: 'variable',
     replacements: [`${blockKey(variable.t.namespaceId)}.`, blockKey(variable.t.namespaceId), variable.t.name],
@@ -145,14 +152,32 @@ export const variable2completion = (variable: VariableInterface, weight: number)
     preview: variable,
     positionChange: value.length,
     renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
-    codeFragment: {
-      display: variable.t.name,
-      errors: [],
-      value,
-      code: 'Variable',
-      type: 'any',
-      attrs: variable2attrs(variable)
-    }
+    codeFragments: [
+      {
+        display: block.name(),
+        errors: [],
+        value: blockKey(variable.t.namespaceId),
+        code: 'Block',
+        type: 'any',
+        attrs: block2attrs(block)
+      },
+      {
+        display: '.',
+        errors: [],
+        value: '.',
+        code: 'Dot',
+        type: 'any',
+        attrs: undefined
+      },
+      {
+        display: variable.t.name,
+        errors: [],
+        value: variable.t.name,
+        code: 'Variable',
+        type: 'any',
+        attrs: variable2attrs(variable)
+      }
+    ]
   }
 }
 
@@ -168,13 +193,15 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     preview: functionClause,
     positionChange: value.length - 1,
     renderDescription: blockId => (functionClause.group === 'core' ? '' : functionClause.group),
-    codeFragment: {
-      display: value,
-      errors: [],
-      value,
-      code: 'Function',
-      type: 'any',
-      attrs: undefined
-    }
+    codeFragments: [
+      {
+        display: value,
+        errors: [],
+        value,
+        code: 'Function',
+        type: 'any',
+        attrs: undefined
+      }
+    ]
   }
 }

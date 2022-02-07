@@ -353,7 +353,7 @@ interface BaseCompletion {
   readonly value: any
   readonly preview: any
   readonly renderDescription: (blockId: NamespaceId) => string
-  readonly codeFragment: CodeFragment
+  readonly codeFragments: CodeFragment[]
 }
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'
@@ -612,6 +612,7 @@ export interface VariableMetadata {
 
 export interface VariableInterface {
   t: VariableData
+  formulaContext: ContextInterface
   buildFormula: () => Formula
   clone: () => VariableInterface
   destroy: () => Promise<void>

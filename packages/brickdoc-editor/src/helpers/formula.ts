@@ -59,22 +59,18 @@ export const codeFragmentsToJSONContentTotal = (codeFragments: CodeFragment[] | 
   if (!codeFragments) return undefined
   if (codeFragments.length === 0) return undefined
 
-  const content: JSONContent[] = []
-
-  codeFragments.forEach(codeFragment => {
-    content.push(...codeFragmentToJSONContentArray(codeFragment))
-  })
-
-  return buildJSONContentByArray(content)
+  return buildJSONContentByArray(codeFragmentsToJSONContentArray(codeFragments))
 }
 
-export const codeFragmentToJSONContentArray = (codeFragment: CodeFragment): JSONContent[] => {
+export const codeFragmentsToJSONContentArray = (codeFragments: CodeFragment[]): JSONContent[] => {
   const result: JSONContent[] = []
 
-  const attr = attrsToJSONContent(codeFragment)
-  if (codeFragment.display) {
-    result.push(attr)
-  }
+  codeFragments.forEach(codeFragment => {
+    const attr = attrsToJSONContent(codeFragment)
+    if (codeFragment.display) {
+      result.push(attr)
+    }
+  })
 
   return result
 }

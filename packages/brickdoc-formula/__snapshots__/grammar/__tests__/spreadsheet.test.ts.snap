@@ -3669,19 +3669,21 @@ Array [
 
 exports[`Spreadsheet Functions completion 1`] = `
 Object {
-  "codeFragment": Object {
-    "attrs": Object {
-      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
-      "kind": "Spreadsheet",
-      "name": "MySpreadsheet",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+  "codeFragments": Array [
+    Object {
+      "attrs": Object {
+        "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "name": "MySpreadsheet",
+        "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
+      "code": "Spreadsheet",
+      "display": "MySpreadsheet",
+      "errors": Array [],
+      "type": "any",
+      "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Spreadsheet",
-    "display": "MySpreadsheet",
-    "errors": Array [],
-    "type": "any",
-    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-  },
+  ],
   "kind": "spreadsheet",
   "name": "MySpreadsheet",
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
@@ -3705,14 +3707,16 @@ Object {
 
 exports[`Spreadsheet Functions completion 2`] = `
 Object {
-  "codeFragment": Object {
-    "attrs": undefined,
-    "code": "Function",
-    "display": "SUM()",
-    "errors": Array [],
-    "type": "any",
-    "value": "SUM()",
-  },
+  "codeFragments": Array [
+    Object {
+      "attrs": undefined,
+      "code": "Function",
+      "display": "SUM()",
+      "errors": Array [],
+      "type": "any",
+      "value": "SUM()",
+    },
+  ],
   "kind": "function",
   "name": "SUM",
   "namespace": "core",
@@ -3776,19 +3780,21 @@ Object {
 
 exports[`Spreadsheet Functions completion 3`] = `
 Object {
-  "codeFragment": Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+  "codeFragments": Array [
+    Object {
+      "attrs": Object {
+        "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        "kind": "Column",
+        "name": "first",
+        "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
+      "code": "Column",
+      "display": "first",
+      "errors": Array [],
+      "type": "any",
+      "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     },
-    "code": "Column",
-    "display": "first",
-    "errors": Array [],
-    "type": "any",
-    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-  },
+  ],
   "kind": "column",
   "name": "first",
   "namespace": "MySpreadsheet",
@@ -3821,14 +3827,16 @@ Object {
 
 exports[`Spreadsheet Functions completion 4`] = `
 Object {
-  "codeFragment": Object {
-    "attrs": undefined,
-    "code": "Function",
-    "display": "COLUMN_COUNT()",
-    "errors": Array [],
-    "type": "any",
-    "value": "COLUMN_COUNT()",
-  },
+  "codeFragments": Array [
+    Object {
+      "attrs": undefined,
+      "code": "Function",
+      "display": "COLUMN_COUNT()",
+      "errors": Array [],
+      "type": "any",
+      "value": "COLUMN_COUNT()",
+    },
+  ],
   "kind": "function",
   "name": "COLUMN_COUNT",
   "namespace": "core",
