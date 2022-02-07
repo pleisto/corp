@@ -20,7 +20,6 @@ import {
 import { JSONContent } from '@tiptap/core'
 import { devLog, devWarning } from '@brickdoc/design-system'
 import React from 'react'
-import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { EditorContentType } from '../../extensions/formula/FormulaEditor/FormulaEditor'
 import {
   attrsToJSONContent,
@@ -41,6 +40,7 @@ export interface UseFormulaInput {
   formulaName?: string
   updateFormula: (variable: VariableInterface | undefined) => void
   formulaType: FormulaSourceType
+  formulaContext: ContextInterface | undefined | null
 }
 
 export interface UseFormulaOutput {
@@ -158,10 +158,9 @@ export const useFormula = ({
   formulaId,
   updateFormula,
   formulaType,
-  formulaName
+  formulaName,
+  formulaContext
 }: UseFormulaInput): UseFormulaOutput => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
   const formulaIsNormal = formulaType === 'normal'
 
   const defaultVariable = React.useMemo(
@@ -254,10 +253,13 @@ export const useFormula = ({
 
       if (parseResult.valid || inputIsEmpty) {
         const codeFragments = maybeRemoveCodeFragmentsEqual(parseResult.codeFragments, formulaIsNormal)
-        const editorContent = { content: codeFragmentsToJSONContentTotal(codeFragments), position: newPosition }
+        const newContent = codeFragmentsToJSONContentTotal(codeFragments)
+        const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
+        const newInputWithEqual = formulaIsNormal ? `=${newInput}` : newInput
+        const editorContent = { content: newContent, position: newPosition }
         editorContentRef.current = editorContent
         setEditorContent(editorContent)
-        inputRef.current = parseResult.codeFragments.map(fragment => fragment.value).join('')
+        inputRef.current = newInputWithEqual
       }
 
       if (formulaIsNormal && inputIsEmpty) {

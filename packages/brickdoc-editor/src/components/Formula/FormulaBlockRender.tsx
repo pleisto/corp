@@ -8,6 +8,7 @@ import { FormulaResult } from './FormulaResult'
 import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
+import { EditorDataSourceContext } from '../../dataSource/DataSource'
 
 export interface FormulaBlockRenderProps {
   formulaId: string
@@ -26,12 +27,15 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   saveOnBlur,
   updateFormula
 }) => {
+  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const formulaContext = editorDataSource.formulaContext
   const { variableT, editorContent, handleSelectActiveCompletion, completion, setCompletion } = useFormula({
     rootId,
     formulaId,
     updateFormula,
     formulaType,
-    formulaName
+    formulaName,
+    formulaContext
   })
 
   const formulaResult = (
@@ -74,7 +78,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {editor}
     </Popover>
   )

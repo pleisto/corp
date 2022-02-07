@@ -107,7 +107,7 @@ export const positionBasedContentArrayToInput = (
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
   const input = content.map((c: JSONContent) => JSONContentToText(c, true)).join('') ?? ''
-  // devLog({ content, input })
+  // devLog('contentArrayToInput', { content, input })
   return input
 }
 

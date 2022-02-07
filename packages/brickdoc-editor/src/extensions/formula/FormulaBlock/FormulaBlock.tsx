@@ -50,6 +50,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
     rootId,
     formulaId,
     updateFormula,
+    formulaContext,
     formulaType,
     formulaName
   })

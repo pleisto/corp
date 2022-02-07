@@ -45,7 +45,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
       // = -> =1
       // =1 -> =
       if (props.event.relatedTarget) {
-        console.debug('FormulaEditor:onBlur', props)
+        devLog('FormulaEditor:onBlur', props)
         onBlur?.()
       }
     },
@@ -68,7 +68,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
             if (block.type !== 'text') break
 
             const word = findNearestWord(block.text!, editorPosition - length - 1)
-            console.info({ word, position: editorPosition - length - 1 })
+            devLog('matched', { word, position: editorPosition - length - 1 })
           }
 
           length += blockLength
@@ -77,6 +77,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
 
       if (rootId && formulaId) {
         const jsonContent = editor.getJSON()
+        devLog({ jsonContent, editorContent })
         BrickdocEventBus.dispatch(
           FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
         )
