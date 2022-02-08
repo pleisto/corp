@@ -15,13 +15,16 @@ import {
   BlockFormulaName,
   ContextInterface,
   FunctionKey,
-  CodeFragmentAttrs
+  CodeFragmentAttrs,
+  VariableFormulaName
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
+
+export const variableValue = (variable: VariableInterface): string => `Variable("${variable.t.name}")`
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
@@ -54,6 +57,36 @@ export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   id: column.columnId,
   name: column.name
 })
+
+export const block2name = (block: BlockType): BlockFormulaName => {
+  return {
+    kind: 'Block',
+    name: block.name(),
+    namespaceId: block.id,
+    value: blockKey(block.id),
+    render: () => blockKey(block.id),
+    prefixLength: () => 0,
+    key: block.id
+  }
+}
+
+export const variable2name = (variable: VariableInterface): VariableFormulaName => {
+  const {
+    t: { namespaceId, name, variableId }
+  } = variable
+  const render = (exist: boolean): string => (exist ? variableId : variableKey(namespaceId, variableId))
+  const key = variableId
+  const value = variableKey(namespaceId, variableId)
+  return {
+    kind: 'Variable',
+    name,
+    render,
+    key,
+    value,
+    namespaceId,
+    prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
+  }
+}
 
 export const block2completion = (
   ctx: ContextInterface,
@@ -141,7 +174,6 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
 
 export const variable2completion = (variable: VariableInterface, weight: number): VariableCompletion => {
   const value: VariableKey = `${blockKey(variable.t.namespaceId)}.${variable.t.name}`
-  const block = new BlockClass(variable.formulaContext, { id: variable.t.namespaceId })
   return {
     kind: 'variable',
     replacements: [`${blockKey(variable.t.namespaceId)}.`, blockKey(variable.t.namespaceId), variable.t.name],
@@ -154,25 +186,9 @@ export const variable2completion = (variable: VariableInterface, weight: number)
     renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
     codeFragments: [
       {
-        display: block.name(),
-        errors: [],
-        value: blockKey(variable.t.namespaceId),
-        code: 'Block',
-        type: 'any',
-        attrs: block2attrs(block)
-      },
-      {
-        display: '.',
-        errors: [],
-        value: '.',
-        code: 'Dot',
-        type: 'any',
-        attrs: undefined
-      },
-      {
         display: variable.t.name,
         errors: [],
-        value: variable.t.name,
+        value: variableValue(variable),
         code: 'Variable',
         type: 'any',
         attrs: variable2attrs(variable)

@@ -13,6 +13,8 @@ export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/, catego
 export const Self = createToken({ name: 'Self', pattern: /Self/ })
 export const Input = createToken({ name: 'Input', pattern: /Input/ })
 
+// export const VariableOperator = createToken({ name: 'Variable', pattern: /Variable/ })
+
 export const And = createToken({
   name: 'And',
   pattern: /and|&&/,
@@ -271,6 +273,7 @@ export const allTokens = [
 
   Self, // Self
   Input, // Input
+  // VariableOperator, // Variable
   // FunctionName,
   FunctionName,
 

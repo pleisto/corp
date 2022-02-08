@@ -37,9 +37,10 @@ import {
   spreadsheet2completion,
   variable2completion,
   variableKey,
-  blockKey,
   column2completion,
-  block2completion
+  block2completion,
+  variable2name,
+  block2name
 } from './util'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
@@ -48,6 +49,7 @@ import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
 import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
+import { BlockClass } from '../controls/block'
 
 export interface FormulaContextArgs {
   functionClauses?: Array<BaseFunctionClause<any>>
@@ -137,6 +139,7 @@ export class FormulaContext implements ContextInterface {
   reservedNames: string[] = []
   formulaNames: FormulaName[] = []
 
+  // TODO refactor this.formulaNames and this.blocks
   constructor({
     functionClauses = [],
     backendActions,
@@ -151,6 +154,15 @@ export class FormulaContext implements ContextInterface {
     if (formulaNames) {
       this.formulaNames = formulaNames
     }
+
+    BrickdocEventBus.subscribe(BlockNameLoad, e => {
+      const namespaceId = e.payload.id
+      const name = e.payload.name || 'Untitled'
+      const block = new BlockClass(this, { id: namespaceId })
+      this.formulaNames = this.formulaNames
+        .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
+        .concat({ ...block2name(block), name })
+    })
 
     const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
       f => !f.feature || this.features.includes(f.feature)
@@ -263,17 +275,6 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    // this.formulaNames = this.formulaNames
-    //   .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
-    //   .concat({
-    //     kind: 'Spreadsheet',
-    //     namespaceId: spreadsheet.blockId,
-    //     name: spreadsheet.name(),
-    //     value: blockKey(spreadsheet.blockId),
-    //     render: () => blockKey(spreadsheet.blockId),
-    //     prefixLength: () => 0,
-    //     key: spreadsheet.blockId
-    //   })
     this.blocks[spreadsheet.blockId] = 'Spreadsheet'
     this.spreadsheets[spreadsheet.blockId] = spreadsheet
 
@@ -287,6 +288,10 @@ export class FormulaContext implements ContextInterface {
 
   public findVariable(namespaceId: NamespaceId, variableId: VariableId): VariableInterface | undefined {
     return this.context[variableKey(namespaceId, variableId)]
+  }
+
+  public findVariableByName(namespaceId: NamespaceId, name: string): VariableInterface | undefined {
+    return Object.values(this.context).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
   }
 
   public listVariables(namespaceId: NamespaceId): VariableInterface[] {
@@ -323,51 +328,15 @@ export class FormulaContext implements ContextInterface {
   // TODO update other variable's level
   public trackDependency(variable: VariableInterface): void {
     const {
-      t: { variableDependencies, blockDependencies, namespaceId, name, variableId, functionDependencies, type }
+      t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies, type }
     } = variable
-    BrickdocEventBus.subscribe(
-      BlockNameLoad,
-      e => {
-        const name = e.payload.name || 'Untitled'
-        this.formulaNames = this.formulaNames
-          .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
-          .concat({
-            kind: 'Block',
-            name,
-            namespaceId,
-            value: blockKey(namespaceId),
-            render: () => blockKey(namespaceId),
-            prefixLength: () => 0,
-            key: namespaceId
-          })
-      },
-      { eventId: namespaceId, subscribeId: variableId }
-    )
-
-    const render = (exist: boolean): string => (exist ? variableId : variableKey(namespaceId, variableId))
-    const key = variableId
-    const value = variableKey(namespaceId, variableId)
     this.formulaNames = this.formulaNames
-      .filter(n => !(n.kind === 'Variable' && n.key === key))
-      .concat({
-        kind: 'Variable',
-        name,
-        render,
-        key,
-        value,
-        namespaceId,
-        prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
-      })
+      .filter(n => !(n.kind === 'Variable' && n.key === variableId))
+      .concat(variable2name(variable))
+
     if (!this.formulaNames.find(n => n.kind === 'Block' && n.key === namespaceId) && type === 'normal') {
-      this.formulaNames.push({
-        kind: 'Block',
-        name: 'Untitled',
-        namespaceId,
-        value: blockKey(namespaceId),
-        render: () => blockKey(namespaceId),
-        prefixLength: () => 0,
-        key: namespaceId
-      })
+      const block = new BlockClass(this, { id: namespaceId })
+      this.formulaNames.push({ ...block2name(block), name: 'Untitled' })
     }
     this.blocks[namespaceId] = 'Block'
 
@@ -469,6 +438,8 @@ export class FormulaContext implements ContextInterface {
       void this.clearDependency(namespaceId, variableId)
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.context[key]
+
+      this.formulaNames = this.formulaNames.filter(n => !(n.kind === 'Variable' && n.key === variableId))
 
       if (this.backendActions) {
         await this.backendActions.deleteVariable(variable.buildFormula())

@@ -102,22 +102,18 @@ export const positionBasedContentArrayToInput = (
 }
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
-  const input = content.map((c: JSONContent) => JSONContentToText(c, true)).join('') ?? ''
-  // devLog('contentArrayToInput', { content, input })
+  const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+  devWarning(true, 'contentArrayToInput', { content, input })
   return input
 }
 
-const JSONContentToText = (c: JSONContent, textOnly: boolean = false): string => {
+const JSONContentToText = (c: JSONContent): string => {
   if (c.type !== 'text') {
     devWarning(true, 'JSONContentToText: not text', c)
     return ''
   }
 
   const text = c.text ?? ''
-
-  if (textOnly) {
-    return text
-  }
 
   if (!c.marks) {
     return text

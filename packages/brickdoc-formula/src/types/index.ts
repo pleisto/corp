@@ -444,6 +444,7 @@ export interface ContextInterface {
   removeSpreadsheet: (namespaceId: NamespaceId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
+  findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
   clearDependency: (namespaceId: NamespaceId, variableId: VariableId) => void
   trackDependency: (variable: VariableInterface) => void
   handleBroadcast: (variable: VariableInterface) => void

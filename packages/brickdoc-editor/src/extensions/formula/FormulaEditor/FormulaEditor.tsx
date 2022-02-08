@@ -77,7 +77,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
 
       if (rootId && formulaId) {
         const jsonContent = editor.getJSON()
-        devLog({ jsonContent, editorContent })
+        devLog('formualEditor debug', { jsonContent, editorContent })
         BrickdocEventBus.dispatch(
           FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
         )

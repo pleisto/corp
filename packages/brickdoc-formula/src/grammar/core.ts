@@ -28,6 +28,7 @@ import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './codeFragment'
 import { blockKey, variableKey } from '..'
+import { devLog } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -149,7 +150,7 @@ export const abbrev = ({
     modified = true
   })
 
-  // devLog({ newInput, input, tokens })
+  devLog('abbrev', { newInput, input, tokens })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
