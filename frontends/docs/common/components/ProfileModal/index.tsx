@@ -36,7 +36,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ pod, visible, title,
 
   const handleOk = (): void => {
     setConfirmLoading(true)
-    form.handleSubmit(
+    void form.handleSubmit(
       async (values: any) => {
         const input: CreateOrUpdatePodInput = {
           type,

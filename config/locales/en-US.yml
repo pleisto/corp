@@ -956,6 +956,8 @@ en-US:
           Show recently contacted customers.
   settings:
     app_title: Brickdoc Settings
+    personal_pod_desc: Your Personal Pod
+    group_pod_desc: Group Pod
     menu:
       general: General
       account: My Account
@@ -967,3 +969,5 @@ en-US:
       update_profile: Update Profile
       change_webid: Change username
       change_webid_desc: Changing your username can have <0>unintended consequences</0>.
+      avatar_updated: Avatar updated successfully.
+      profile_updated: Profile updated successfully.
