@@ -47,8 +47,8 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
   })
   return (
     <span className="brickdoc-formula-spreadsheet">
+      <div className="spreadsheet-title">{spreadsheet.name()}</div>
       <SpreadsheetContainer>
-        <div className="spreadsheet-title">{spreadsheet.name()}</div>
         <SpreadsheetView>
           <SpreadsheetHeader context={spreadsheetContext}>
             <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="" />

@@ -149,19 +149,19 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
 
   return (
     <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions}>
+      {documentEditable ? (
+        <Input
+          bordered={false}
+          className="spreadsheet-title"
+          value={title}
+          placeholder="Untitled Spreadsheet"
+          onChange={handleTitleChange}
+        />
+      ) : (
+        <div className="spreadsheet-title">{title}</div>
+      )}
       <span>
         <SpreadsheetContainer>
-          {documentEditable ? (
-            <Input
-              bordered={false}
-              className="spreadsheet-title"
-              value={title}
-              placeholder="Untitled Spreadsheet"
-              onChange={handleTitleChange}
-            />
-          ) : (
-            <div className="spreadsheet-title">{title}</div>
-          )}
           <SpreadsheetView>
             <SpreadsheetHeader rowId="first" context={spreadsheetContext}>
               <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="first" />

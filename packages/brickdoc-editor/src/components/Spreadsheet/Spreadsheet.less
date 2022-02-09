@@ -10,12 +10,22 @@
 @table-select-border-color: #C0CDFF;
 @table-action-hover-color: #356CF9;              // palette/primary/default
 
+.brickdoc .ProseMirror .node-spreadsheetBlock, .brickdoc-formula-spreadsheet {
+  .spreadsheet-title {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    padding: 0;
+  }
+}
+
 .brickdoc {
   .ProseMirror {
     .node-spreadsheetBlock {
       .spreadsheet-action {
         position: absolute;
-        top: 35px;
+        top: 4px;
+        left: -2px;
       }
     }
     .brickdoc-spreadsheet-block {
@@ -38,23 +48,18 @@
           border: 0;
         }
       }
-      .spreadsheet-title {
-        font-size: 16px;
-        line-height: 24px;
-        margin-bottom: 8px;
-      }
-      .spreadsheet-menu-button {
-        background: transparent;
-        border-radius: 11px;
-        width: 22px;
-        height: 22px;
-        line-height: 22px;
-        font-size: 12px;
-        margin: 0;
-        padding: 0;
-        border: 2px solid var(--brd-colors-grey5);
-        cursor: pointer;
-      }
+      // .spreadsheet-menu-button {
+      //   background: transparent;
+      //   border-radius: 11px;
+      //   width: 22px;
+      //   height: 22px;
+      //   line-height: 22px;
+      //   font-size: 12px;
+      //   margin: 0;
+      //   padding: 0;
+      //   border: 2px solid var(--brd-colors-grey5);
+      //   cursor: pointer;
+      // }
       table {
         font-size: 14px;
         border-collapse: collapse;
