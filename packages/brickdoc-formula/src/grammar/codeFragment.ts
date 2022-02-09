@@ -17,7 +17,7 @@ import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
 import { BlockClass } from '../controls/block'
-import { block2attrs, column2attrs, spreadsheet2attrs, variable2attrs } from '../context'
+import { block2attrs, column2attrs, spreadsheet2attrs, variable2attrs } from './convert'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {

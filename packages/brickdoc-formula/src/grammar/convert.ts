@@ -24,7 +24,7 @@ import { BlockClass } from '../controls/block'
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
 
-export const variableValue = (variable: VariableInterface): string => `Variable("${variable.t.name}")`
+export const variableNameValue = (variable: VariableInterface): string => `"${variable.t.name}"`
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
@@ -188,7 +188,7 @@ export const variable2completion = (variable: VariableInterface, weight: number)
       {
         display: variable.t.name,
         errors: [],
-        value: variableValue(variable),
+        value: variableNameValue(variable),
         code: 'Variable',
         type: 'any',
         attrs: variable2attrs(variable)

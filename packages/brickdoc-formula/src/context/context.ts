@@ -41,7 +41,7 @@ import {
   block2completion,
   variable2name,
   block2name
-} from './util'
+} from '../grammar/convert'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
