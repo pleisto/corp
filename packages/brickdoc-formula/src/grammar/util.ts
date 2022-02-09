@@ -9,6 +9,11 @@ import {
   FunctionContext
 } from '../types'
 
+// TODO: dirty hack to get the string literal value
+export const parseString = (str: string): string => {
+  return str.substring(1, str.length - 1).replace(/""/g, '"')
+}
+
 export const extractSubType = (array: AnyTypeResult[]): FormulaType => {
   const types = array.map(a => a.type)
   const uniqTypes = [...new Set(types)]

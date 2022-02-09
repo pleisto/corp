@@ -28,7 +28,7 @@ export const FormulaTypeExtension = Mark.create<FormulaTypeOptions>({
   },
 
   addAttributes() {
-    const attrs: Record<Exclude<keyof CodeFragment, 'attrs'>, Attribute> = {
+    const attrs: Record<Exclude<keyof CodeFragment, 'attrs' | 'wrapQuote'>, Attribute> = {
       code: {
         default: null,
         keepOnSplit: true,

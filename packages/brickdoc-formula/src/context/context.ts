@@ -299,9 +299,11 @@ export class FormulaContext implements ContextInterface {
   }
 
   // TODO flattenVariableDependencies
-  public clearDependency(namespaceId: NamespaceId, variableId: VariableId): void {
+  private clearDependency(namespaceId: NamespaceId, variableId: VariableId): void {
     const variable = this.findVariable(namespaceId, variableId)
     if (variable) {
+      variable.unsubscripeEvents()
+
       variable.t.variableDependencies.forEach(dependency => {
         const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
         const variableDependencies = this.reverseVariableDependencies[dependencyKey]
@@ -326,9 +328,9 @@ export class FormulaContext implements ContextInterface {
 
   // TODO refresh flattenVariableDependencies
   // TODO update other variable's level
-  public trackDependency(variable: VariableInterface): void {
+  private trackDependency(variable: VariableInterface): void {
     const {
-      t: { variableDependencies, blockDependencies, namespaceId, variableId, functionDependencies, type }
+      t: { variableDependencies, namespaceId, variableId, functionDependencies, type }
     } = variable
     this.formulaNames = this.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === variableId))
@@ -339,24 +341,6 @@ export class FormulaContext implements ContextInterface {
       this.formulaNames.push({ ...block2name(block), name: 'Untitled' })
     }
     this.blocks[namespaceId] = 'Block'
-
-    BrickdocEventBus.subscribe(
-      FormulaInnerRefresh,
-      e => {
-        void variable.updateAndPersist()
-      },
-      { eventId: `${namespaceId},${variableId}`, subscribeId: variableId }
-    )
-
-    blockDependencies.forEach(blockId => {
-      BrickdocEventBus.subscribe(
-        BlockSpreadsheetLoaded,
-        e => {
-          variable.reparse()
-        },
-        { eventId: blockId, subscribeId: variableId }
-      )
-    })
 
     variableDependencies.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
@@ -377,19 +361,10 @@ export class FormulaContext implements ContextInterface {
     })
   }
 
-  public handleBroadcast(variable: VariableInterface): void {
-    const dependencyKey = variableKey(variable.t.namespaceId, variable.t.variableId)
-    // devLog('handleBroadcast', dependencyKey, this.reverseVariableDependencies[dependencyKey])
-    this.reverseVariableDependencies[dependencyKey]?.forEach(({ namespaceId, variableId }) => {
-      const childrenVariable = this.context[variableKey(namespaceId, variableId)]!
-      void childrenVariable.refresh({ ctx: {}, arguments: [] })
-    })
-  }
-
   // TODO update dependencies and check circular references
   public async commitVariable({ variable }: { variable: VariableInterface }): Promise<void> {
     const { namespaceId, variableId } = variable.t
-    const isNew = !this.context[variableKey(namespaceId, variableId)]
+    const isNew = variable.isDraft()
 
     // 1. clear old dependencies
     if (!isNew) {
@@ -400,7 +375,10 @@ export class FormulaContext implements ContextInterface {
     // 2. replace variable object
     this.context[variableKey(namespaceId, variableId)] = variable
 
-    // 3. update name counter
+    // 3. subscripe events
+    variable.subscripeEvents()
+
+    // 4. update name counter
     const match = variable.t.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
@@ -411,24 +389,21 @@ export class FormulaContext implements ContextInterface {
       )
     }
 
-    // 4. track dependencies
+    // 5. track dependencies
     this.trackDependency(variable)
 
-    // 5. persist
+    // 6. persist
     if (isNew) {
-      void variable.invokeBackendCreate()
-
       if (variable.t.version < FORMULA_PARSER_VERSION) {
-        void variable.interpret({ ctx: {}, arguments: [] })
+        await variable.interpret({ ctx: {}, arguments: [] })
       }
+      await variable.invokeBackendCreate()
     } else {
-      void variable.invokeBackendUpdate()
+      await variable.invokeBackendUpdate()
     }
 
-    void variable.afterUpdate()
-
-    // 6. broadcast update
-    void this.handleBroadcast(variable)
+    // 7. broadcast update
+    variable.afterUpdate()
   }
 
   public async removeVariable(namespaceId: NamespaceId, variableId: VariableId): Promise<void> {

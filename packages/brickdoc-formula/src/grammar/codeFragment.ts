@@ -15,7 +15,7 @@ import {
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
-import { intersectType } from './util'
+import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
 import { block2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
 import { column2codeFragment } from '..'
@@ -804,7 +804,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         if (fieldCodeFragments[0]) {
           const str = fieldCodeFragments[0].value
           const finalStr =
-            fieldCodeFragments[0].code === 'StringLiteral' ? str.substring(1, str.length - 1).replace(/""/g, '"') : str
+            fieldCodeFragments[0].code === 'StringLiteral' ? parseString(str) : str
           if (keyArray.includes(finalStr)) {
             nameDuplicateErrors = [{ message: 'Record key duplicated', type: 'syntax' }]
           }

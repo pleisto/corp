@@ -28,6 +28,7 @@ import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './codeFragment'
 import { blockKey, variableKey } from './convert'
+import { parseString } from './util'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -99,7 +100,7 @@ export const abbrev = ({
 
   tokens.forEach((token, index) => {
     image = image.concat(token.image)
-    if (token.tokenType.name !== 'FunctionName') {
+    if (!['FunctionName', 'StringLiteral'].includes(token.tokenType.name)) {
       newInput = newInput.concat(token.image)
       return
     }
@@ -131,8 +132,10 @@ export const abbrev = ({
       variableNamespace = prev2Token.image.startsWith('#') ? (prev2Token.image as BlockKey) : blockKey(prev2Token.image)
     }
 
+    const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image
+
     const formulaName = formulaContext.formulaNames.find(
-      n => n.name === token.image && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
+      n => n.name === match && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
     )
 
     // devLog({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
@@ -149,7 +152,7 @@ export const abbrev = ({
     modified = true
   })
 
-  // devLog('abbrev', { newInput, input, tokens })
+  console.log('abbrev', { newInput, input, tokens })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
@@ -492,7 +495,7 @@ export const buildVariable = ({
   const oldVariable = formulaContext.findVariable(namespaceId, variableId)
   if (oldVariable) {
     oldVariable.t = t
-    return oldVariable
+    return oldVariable.clone()
   } else {
     return new VariableClass({ t, formulaContext })
   }

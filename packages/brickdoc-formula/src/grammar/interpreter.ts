@@ -17,7 +17,7 @@ import {
   StringResult
 } from '../types'
 import { ColumnClass, Row, SpreadsheetType } from '../controls'
-import { extractSubType, runtimeCheckType } from './util'
+import { extractSubType, parseString, runtimeCheckType } from './util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import {
@@ -786,9 +786,8 @@ export class FormulaInterpreter extends BaseCstVisitor {
     if (typeError) {
       return typeError
     }
-    // TODO: dirty hack to get the string literal value
     const str = ctx.StringLiteral[0].image
-    return { result: str.substring(1, str.length - 1).replace(/""/g, '"'), type: 'string' }
+    return { result: parseString(str), type: 'string' }
   }
 
   FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }, args: ExpressionArgument): AnyTypeResult {

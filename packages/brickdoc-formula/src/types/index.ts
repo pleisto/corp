@@ -445,9 +445,6 @@ export interface ContextInterface {
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariable: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
-  clearDependency: (namespaceId: NamespaceId, variableId: VariableId) => void
-  trackDependency: (variable: VariableInterface) => void
-  handleBroadcast: (variable: VariableInterface) => void
   commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
@@ -621,17 +618,16 @@ export interface VariableInterface {
   save: () => Promise<void>
   isDraft: () => boolean
   namespaceName: () => string
-  reparse: VoidFunction
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
   result: () => VariableResult
   updateCst: (cst: CstNode, context: InterpretContext) => void
+  subscripeEvents: VoidFunction
+  unsubscripeEvents: VoidFunction
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: VoidFunction
   interpret: (context: InterpretContext) => Promise<void>
-  updateAndPersist: () => Promise<void>
-  refresh: (context: InterpretContext) => Promise<void>
 }
 
 export interface BackendActions {

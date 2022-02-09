@@ -1,4 +1,10 @@
-import { BrickdocEventBus, FormulaUpdated } from '@brickdoc/schema'
+import {
+  BlockSpreadsheetLoaded,
+  BrickdocEventBus,
+  EventSubscribed,
+  FormulaInnerRefresh,
+  FormulaUpdated
+} from '@brickdoc/schema'
 import { CstNode } from 'chevrotain'
 import {
   ContextInterface,
@@ -16,6 +22,7 @@ import {
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
+import { devLog } from '@brickdoc/design-system'
 
 export const displayValue = (v: AnyTypeResult): string => {
   switch (v.type) {
@@ -123,10 +130,59 @@ export const castVariable = (
 export class VariableClass implements VariableInterface {
   t: VariableData
   formulaContext: ContextInterface
+  eventListeners: EventSubscribed[] = []
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
     this.formulaContext = formulaContext
+  }
+
+  public subscripeEvents(): void {
+    const t = this.t
+    const innerRefreshSubscription = BrickdocEventBus.subscribe(
+      FormulaInnerRefresh,
+      e => {
+        void this.updateAndPersist()
+      },
+      { eventId: `${t.namespaceId},${t.variableId}`, subscribeId: t.variableId }
+    )
+    this.eventListeners.push(innerRefreshSubscription)
+
+    t.blockDependencies.forEach(blockId => {
+      const result = BrickdocEventBus.subscribe(
+        BlockSpreadsheetLoaded,
+        e => {
+          this.reparse()
+        },
+        { eventId: blockId, subscribeId: t.variableId }
+      )
+      this.eventListeners.push(result)
+    })
+
+    t.variableDependencies.forEach(({ variableId, namespaceId }) => {
+      const result = BrickdocEventBus.subscribe(
+        FormulaUpdated,
+        e => {
+          void this.reparseAndRefresh()
+        },
+        {
+          eventId: `${namespaceId},${variableId}`,
+          subscribeId: `${namespaceId},${variableId}`
+        }
+      )
+      this.eventListeners.push(result)
+    })
+  }
+
+  public unsubscripeEvents(): void {
+    this.eventListeners.forEach(listener => {
+      listener.unsubscribe()
+    })
+  }
+
+  public afterUpdate(): void {
+    devLog('after update', this.t.name, this.t.variableId)
+    BrickdocEventBus.dispatch(FormulaUpdated(this))
   }
 
   public clone(): VariableInterface {
@@ -209,17 +265,19 @@ export class VariableClass implements VariableInterface {
     this.t.dirty = false
   }
 
-  public afterUpdate(): void {
-    // devLog('after update', this.t.name, this.t.variableId)
-    BrickdocEventBus.dispatch(FormulaUpdated(this))
-  }
-
-  public async updateAndPersist(): Promise<void> {
+  private async updateAndPersist(): Promise<void> {
     await this.invokeBackendUpdate()
     this.afterUpdate()
   }
 
-  public reparse(): void {
+  private async reparseAndRefresh(): Promise<void> {
+    const formula = this.buildFormula()
+    this.t = castVariable(this.formulaContext, formula)
+    console.log('reparseAndRefresh', this.t)
+    await this.refresh({ ctx: {}, arguments: [] })
+  }
+
+  private reparse(): void {
     const formula = this.buildFormula()
     this.t = castVariable(this.formulaContext, formula)
     this.afterUpdate()
@@ -232,15 +290,13 @@ export class VariableClass implements VariableInterface {
 
   public async updateDefinition(definition: Definition): Promise<void> {
     this.t.definition = definition
-    const formula = this.buildFormula()
-    this.t = castVariable(this.formulaContext, formula)
-    await this.refresh({ ctx: {}, arguments: [] })
+    await this.reparseAndRefresh()
   }
 
-  public async refresh(interpretContext: InterpretContext): Promise<void> {
+  private async refresh(interpretContext: InterpretContext): Promise<void> {
     await this.interpret(interpretContext)
     await this.invokeBackendUpdate()
-    this.formulaContext.handleBroadcast(this)
+    this.afterUpdate()
   }
 
   public async interpret(interpretContext: InterpretContext): Promise<void> {
@@ -254,7 +310,5 @@ export class VariableClass implements VariableInterface {
     })
 
     this.t = { ...this.t, variableValue }
-
-    this.afterUpdate()
   }
 }
