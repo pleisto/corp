@@ -9,6 +9,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -17,6 +18,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "CountIf",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -25,6 +27,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -36,8 +39,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -46,6 +50,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -54,6 +59,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -62,6 +68,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -70,6 +77,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -83,6 +91,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -91,6 +100,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "CountIf",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -99,6 +109,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -110,8 +121,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -120,6 +132,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -136,8 +149,9 @@ Array [
         "type": "type",
       },
     ],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -151,6 +165,7 @@ Array [
     ],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -167,8 +182,9 @@ Array [
         "type": "type",
       },
     ],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -177,6 +193,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ">=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -185,6 +202,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -193,6 +211,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;

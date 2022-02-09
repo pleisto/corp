@@ -17,13 +17,15 @@ import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType } from './util'
 import { BlockClass } from '../controls/block'
-import { block2attrs, column2attrs, spreadsheet2attrs, variable2attrs } from './convert'
+import { block2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
+import { column2codeFragment } from '..'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
     value: token.image,
     code: token.tokenType.name as SimpleCodeFragmentType,
     errors: [],
+    wrapQuote: false,
     type,
     display: token.image,
     attrs: undefined
@@ -493,15 +495,22 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
       if (rhsCst.name === 'keyExpression') {
         const accessErrorMessages: ErrorMessage[] =
-          ['null', 'string', 'boolean', 'number', 'Block'].includes(firstArgumentType) && type !== 'Reference'
+          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
         const args = { type: 'string' }
         const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
+        const unknownVariableError: ErrorMessage[] =
+          firstArgumentType === 'Block' ? [{ type: 'syntax', message: `Variable ${rhsImage} not found` }] : []
 
         firstArgumentType = 'any'
         images.push(rhsImage)
-        codeFragments.push(...rhsCodeFragments.map(f => ({ ...f, errors: [...accessErrorMessages, ...f.errors] })))
+        codeFragments.push(
+          ...rhsCodeFragments.map(f => ({
+            ...f,
+            errors: [...unknownVariableError, ...accessErrorMessages, ...f.errors]
+          }))
+        )
         return
       }
 
@@ -524,11 +533,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (variable) {
             codeFragment = {
               ...codeFragment,
-              value: variable.t.name,
-              code: 'Variable',
-              type: variable.t.variableValue.result.type,
-              display: variable.t.name,
-              attrs: variable2attrs(variable)
+              ...variable2codeFragment(variable)
             }
 
             firstArgumentType = variable.t.variableValue.result.type
@@ -562,10 +567,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (column) {
             codeFragment = {
               ...codeFragment,
-              code: 'Column',
-              type: 'Column',
-              display: column.name,
-              attrs: column2attrs(column)
+              ...column2codeFragment(column)
             }
           } else {
             errorMessages.push({ type: 'syntax', message: 'Unknown column' })
@@ -1023,12 +1025,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           codeFragments: [
             {
               ...token2fragment(namespaceToken, 'any'),
-              code: 'Spreadsheet',
-              type: parentType,
-              display: spreadsheet.name(),
-              value: `#${namespaceId}`,
-              errors: errorMessages,
-              attrs: spreadsheet2attrs(spreadsheet)
+              ...spreadsheet2codeFragment(spreadsheet),
+              errors: errorMessages
             }
           ],
           image: `#${namespaceId}`,
@@ -1046,12 +1044,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         codeFragments: [
           {
             ...token2fragment(namespaceToken, 'any'),
-            code: 'Block',
-            type: parentType,
-            display: block.name(),
-            value: `#${namespaceId}`,
-            errors: errorMessages,
-            attrs: block2attrs(block)
+            ...block2codeFragment(block),
+            errors: errorMessages
           }
         ],
         image: `#${namespaceId}`,
@@ -1121,6 +1115,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       value: functionKey,
       code: 'FunctionName',
       errors: [],
+      wrapQuote: false,
       type: 'any',
       display: functionKey,
       attrs: undefined

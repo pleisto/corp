@@ -202,6 +202,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           value: input,
           type: 'any',
+          wrapQuote: false,
           display: input,
           errors: [],
           attrs: undefined
@@ -280,6 +281,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           value: restImages,
           type: 'any',
+          wrapQuote: false,
           display: restImages,
           errors: errorMessages,
           attrs: undefined
@@ -301,6 +303,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     value: ' ',
+    wrapQuote: false,
     type: 'any',
     display: ' ',
     errors: [],

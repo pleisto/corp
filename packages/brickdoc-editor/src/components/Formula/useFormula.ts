@@ -247,7 +247,7 @@ export const useFormula = ({
 
       const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-      // devLog('calculate result', { newPosition, result })
+      // devWarning(true, 'calculate result', { newPosition, result })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 
@@ -332,6 +332,7 @@ export const useFormula = ({
               value: newText,
               code: 'unknown',
               type: 'any',
+              wrapQuote: false,
               errors: [],
               attrs: undefined
             })
@@ -347,6 +348,7 @@ export const useFormula = ({
             value: nextText,
             code: 'unknown',
             type: 'any',
+            wrapQuote: false,
             errors: [],
             attrs: undefined
           })

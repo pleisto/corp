@@ -530,6 +530,7 @@ export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
   readonly value: string
   readonly display: string
+  readonly wrapQuote: boolean
   readonly type: FormulaType
   readonly errors: ErrorMessage[]
 }

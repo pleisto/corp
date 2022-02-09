@@ -10,6 +10,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -21,8 +22,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -40,37 +42,32 @@ Object {
       ],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
     "codeFragments": Array [
       Object {
-        "attrs": Object {
-          "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
-          "kind": "Variable",
-          "name": "varvarabcvar",
-          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-        },
-        "code": "Variable",
-        "display": "varvarabcvar",
+        "attrs": undefined,
+        "code": "Function",
+        "display": "VLOOKUP()",
         "errors": Array [],
         "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "value": "VLOOKUP()",
+        "wrapQuote": false,
       },
     ],
-    "kind": "variable",
-    "name": "varvarabcvar",
-    "namespace": "Untitled",
-    "positionChange": 50,
+    "kind": "function",
+    "name": "VLOOKUP",
+    "namespace": "core",
+    "positionChange": 8,
     "preview": undefined,
     "renderDescription": [Function],
     "replacements": Array [
-      "#57622108-1337-4edd-833a-2557835bcfe0.",
-      "#57622108-1337-4edd-833a-2557835bcfe0",
-      "varvarabcvar",
+      "VLOOKUP",
     ],
-    "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
-    "weight": 1001,
+    "value": "VLOOKUP()",
+    "weight": 250,
   },
 }
 `;
@@ -85,6 +82,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -93,6 +91,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "1",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -101,6 +100,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -122,6 +122,7 @@ Object {
       ],
       "type": "any",
       "value": "varvarabcvar",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -135,6 +136,7 @@ Object {
       ],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -146,6 +148,7 @@ Object {
         "errors": Array [],
         "type": "any",
         "value": "VLOOKUP()",
+        "wrapQuote": false,
       },
     ],
     "kind": "function",
@@ -173,6 +176,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -181,6 +185,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "1",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -189,6 +194,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -200,8 +206,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -210,6 +217,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -223,6 +231,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "varvarabcvar",
+      "wrapQuote": true,
     },
     Object {
       "attrs": undefined,
@@ -240,6 +249,7 @@ Object {
       ],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -251,6 +261,7 @@ Object {
         "errors": Array [],
         "type": "any",
         "value": "custom::ADD()",
+        "wrapQuote": false,
       },
     ],
     "kind": "function",
@@ -278,6 +289,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -289,8 +301,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -299,6 +312,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -312,6 +326,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "varvarabcvar",
+      "wrapQuote": true,
     },
   ],
   "firstCompletion": Object {
@@ -323,6 +338,7 @@ Object {
         "errors": Array [],
         "type": "any",
         "value": "LEN()",
+        "wrapQuote": false,
       },
     ],
     "kind": "function",
@@ -350,6 +366,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -367,6 +384,7 @@ Object {
       ],
       "type": "any",
       "value": "varvarabcvar",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -381,8 +399,9 @@ Object {
         "code": "Variable",
         "display": "varvarabcvar",
         "errors": Array [],
-        "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "type": "number",
+        "value": "varvarabcvar",
+        "wrapQuote": true,
       },
     ],
     "kind": "variable",
@@ -396,6 +415,7 @@ Object {
       "varvarabcvar",
       "#57622108-1337-4edd-833a-2557835bcfe0.",
       "#57622108-1337-4edd-833a-2557835bcfe0",
+      "varvarabcvar",
       "varvarabcvar",
     ],
     "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
@@ -414,6 +434,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -425,8 +446,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -435,6 +457,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -448,6 +471,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "varvarabcvar",
+      "wrapQuote": true,
     },
   ],
   "firstCompletion": Object {
@@ -462,8 +486,9 @@ Object {
         "code": "Variable",
         "display": "varvarabcvar",
         "errors": Array [],
-        "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "type": "number",
+        "value": "varvarabcvar",
+        "wrapQuote": true,
       },
     ],
     "kind": "variable",
@@ -475,6 +500,7 @@ Object {
     "replacements": Array [
       "#57622108-1337-4edd-833a-2557835bcfe0.",
       "#57622108-1337-4edd-833a-2557835bcfe0",
+      "varvarabcvar",
       "varvarabcvar",
     ],
     "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
@@ -493,6 +519,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -501,6 +528,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "1",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -509,6 +537,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -526,6 +555,7 @@ Object {
       ],
       "type": "any",
       "value": "arvar",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -540,8 +570,9 @@ Object {
         "code": "Variable",
         "display": "varvarabcvar",
         "errors": Array [],
-        "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "type": "number",
+        "value": "varvarabcvar",
+        "wrapQuote": true,
       },
     ],
     "kind": "variable",
@@ -555,6 +586,7 @@ Object {
       "arvar",
       "#57622108-1337-4edd-833a-2557835bcfe0.",
       "#57622108-1337-4edd-833a-2557835bcfe0",
+      "varvarabcvar",
       "varvarabcvar",
     ],
     "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
@@ -573,6 +605,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -581,6 +614,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "1",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -589,6 +623,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -606,6 +641,7 @@ Object {
       ],
       "type": "any",
       "value": "arvar",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -620,8 +656,9 @@ Object {
         "code": "Variable",
         "display": "varvarabcvar",
         "errors": Array [],
-        "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "type": "number",
+        "value": "varvarabcvar",
+        "wrapQuote": true,
       },
     ],
     "kind": "variable",
@@ -635,6 +672,7 @@ Object {
       "arvar",
       "#57622108-1337-4edd-833a-2557835bcfe0.",
       "#57622108-1337-4edd-833a-2557835bcfe0",
+      "varvarabcvar",
       "varvarabcvar",
     ],
     "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",
@@ -653,6 +691,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -661,6 +700,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "1",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -669,6 +709,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -686,6 +727,7 @@ Object {
       ],
       "type": "any",
       "value": "var",
+      "wrapQuote": false,
     },
   ],
   "firstCompletion": Object {
@@ -700,8 +742,9 @@ Object {
         "code": "Variable",
         "display": "varvarabcvar",
         "errors": Array [],
-        "type": "any",
-        "value": "\\"varvarabcvar\\"",
+        "type": "number",
+        "value": "varvarabcvar",
+        "wrapQuote": true,
       },
     ],
     "kind": "variable",
@@ -715,6 +758,7 @@ Object {
       "var",
       "#57622108-1337-4edd-833a-2557835bcfe0.",
       "#57622108-1337-4edd-833a-2557835bcfe0",
+      "varvarabcvar",
       "varvarabcvar",
     ],
     "value": "#57622108-1337-4edd-833a-2557835bcfe0.varvarabcvar",

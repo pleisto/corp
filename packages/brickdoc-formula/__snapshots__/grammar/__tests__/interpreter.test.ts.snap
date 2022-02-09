@@ -28,6 +28,7 @@ Array [
             "errors": Array [],
             "type": "any",
             "value": "=",
+            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -36,6 +37,7 @@ Array [
             "errors": Array [],
             "type": "number",
             "value": "1",
+            "wrapQuote": false,
           },
         ],
         "input": "=1",

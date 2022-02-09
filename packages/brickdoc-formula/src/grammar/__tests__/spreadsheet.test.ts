@@ -249,7 +249,7 @@ describe('Spreadsheet Functions', () => {
       },
       position: input2.length
     })
-    expect(input2Completions[0].kind).toEqual('column')
+    expect(input2Completions[0].kind).toEqual('function')
     expect(input2Completions[0]).toMatchSnapshot()
     expect(input2Completions.find(c => c.kind === 'function')).toMatchSnapshot()
   })

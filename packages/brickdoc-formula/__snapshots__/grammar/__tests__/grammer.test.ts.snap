@@ -9,6 +9,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -17,6 +18,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -25,6 +27,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -33,6 +36,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -41,6 +45,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -49,6 +54,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -57,6 +63,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -65,6 +72,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -73,6 +81,7 @@ Array [
     "errors": Array [],
     "type": "null",
     "value": "null",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -81,6 +90,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -89,6 +99,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -97,6 +108,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "Map",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -105,6 +117,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -113,6 +126,7 @@ Array [
     "errors": Array [],
     "type": "Reference",
     "value": "$1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -121,6 +135,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -134,6 +149,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -142,6 +158,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -150,6 +167,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -158,6 +176,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -166,6 +185,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -174,6 +194,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -182,6 +203,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -190,6 +212,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -198,6 +221,7 @@ Array [
     "errors": Array [],
     "type": "null",
     "value": "null",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -206,6 +230,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -214,6 +239,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -222,6 +248,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "Map",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -230,6 +257,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -238,6 +266,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -246,6 +275,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -259,6 +289,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -267,6 +298,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -275,6 +307,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -283,6 +316,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -291,6 +325,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -299,6 +334,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -307,6 +343,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -315,6 +352,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -328,6 +366,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -345,6 +384,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -353,6 +393,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -366,6 +407,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -383,6 +425,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -391,6 +434,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -404,6 +448,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -421,6 +466,7 @@ Array [
     ],
     "type": "any",
     "value": "ABS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -434,6 +480,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -447,6 +494,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -455,6 +503,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "ABS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -472,6 +521,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -480,6 +530,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -493,6 +544,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -501,6 +553,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "POWER",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -518,6 +571,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -531,6 +585,7 @@ Array [
     ],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -544,6 +599,7 @@ Array [
     ],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -557,6 +613,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -565,6 +622,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "POWER",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -582,6 +640,7 @@ Array [
     ],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -590,6 +649,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -598,6 +658,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -606,6 +667,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -619,6 +681,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -627,6 +690,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -640,6 +704,7 @@ Array [
     ],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -878,6 +943,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -886,6 +952,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -903,6 +970,7 @@ Array [
     ],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -916,6 +984,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -924,6 +993,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -932,6 +1002,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -940,6 +1011,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -953,6 +1025,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -966,6 +1039,7 @@ Array [
     ],
     "type": "any",
     "value": "'hello'",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -979,6 +1053,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -992,6 +1067,7 @@ Array [
     ],
     "type": "any",
     "value": "AVERAGE",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1000,6 +1076,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1008,6 +1085,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1021,6 +1099,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1038,6 +1117,7 @@ Array [
     ],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1046,6 +1126,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "&&",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1059,6 +1140,7 @@ Array [
     ],
     "type": "any",
     "value": "&",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1072,6 +1154,7 @@ Array [
     ],
     "type": "any",
     "value": "123",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1085,6 +1168,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1093,6 +1177,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1106,6 +1191,7 @@ Array [
     ],
     "type": "any",
     "value": "a1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1119,6 +1205,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1127,6 +1214,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1135,6 +1223,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1148,6 +1237,7 @@ Array [
     ],
     "type": "any",
     "value": "START_WITH",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1156,6 +1246,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1164,6 +1255,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"123\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1172,6 +1264,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1185,6 +1278,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1193,6 +1287,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1.",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1206,6 +1301,7 @@ Array [
     ],
     "type": "any",
     "value": "START_WITH(\\"123\\")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1219,6 +1315,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1232,6 +1329,7 @@ Array [
     ],
     "type": "any",
     "value": "中文",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1245,6 +1343,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1262,6 +1361,7 @@ Array [
     ],
     "type": "any",
     "value": "varvarabc",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1275,6 +1375,7 @@ Array [
     ],
     "type": "any",
     "value": "中文var",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1288,6 +1389,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1305,6 +1407,7 @@ Array [
     ],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1318,6 +1421,7 @@ Array [
     ],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1331,6 +1435,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1339,6 +1444,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "not",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1347,6 +1453,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1360,6 +1467,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1368,6 +1476,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "==",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1376,6 +1485,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1389,6 +1499,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1406,6 +1517,7 @@ Array [
     ],
     "type": "any",
     "value": "{",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1419,6 +1531,7 @@ Array [
     ],
     "type": "any",
     "value": "1:\\"a\\"}",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1432,6 +1545,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1449,6 +1563,7 @@ Array [
     ],
     "type": "any",
     "value": "-",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1462,6 +1577,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1470,6 +1586,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1487,6 +1604,7 @@ Array [
     ],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1500,6 +1618,7 @@ Array [
     ],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1508,6 +1627,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1521,6 +1641,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1529,6 +1650,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "-",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1537,6 +1659,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "0.123",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1545,6 +1668,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "%",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1558,6 +1682,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1566,6 +1691,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1574,6 +1700,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1582,6 +1709,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "START_WITH",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1590,6 +1718,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1603,6 +1732,7 @@ Array [
     ],
     "type": "number",
     "value": "123",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1611,6 +1741,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1624,6 +1755,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1632,6 +1764,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1645,6 +1778,7 @@ Array [
     ],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1658,6 +1792,7 @@ Array [
     ],
     "type": "boolean",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1671,6 +1806,7 @@ Array [
     ],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1679,6 +1815,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1687,6 +1824,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1695,6 +1833,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1708,6 +1847,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1716,6 +1856,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1724,6 +1865,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1732,6 +1874,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1740,6 +1883,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1748,6 +1892,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1761,6 +1906,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1769,6 +1915,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1777,6 +1924,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1785,6 +1933,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1793,6 +1942,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1801,6 +1951,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1814,6 +1965,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1827,6 +1979,7 @@ Array [
     ],
     "type": "any",
     "value": "if",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1835,6 +1988,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1843,6 +1997,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1851,6 +2006,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1859,6 +2015,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1867,6 +2024,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1875,6 +2033,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1883,6 +2042,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1891,6 +2051,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"2\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1899,6 +2060,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1912,6 +2074,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1920,6 +2083,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"hel\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1933,6 +2097,7 @@ Array [
     ],
     "type": "any",
     "value": "lo\\"",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1946,6 +2111,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "1+1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1959,6 +2125,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "1+1 asd n,san 中文测试 asdasd",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1972,6 +2139,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1980,6 +2148,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1988,6 +2157,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1996,6 +2166,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2004,6 +2175,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "*",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2012,6 +2184,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2025,6 +2198,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2046,6 +2220,7 @@ Array [
     ],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2059,6 +2234,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2067,6 +2243,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2075,6 +2252,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "123",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2088,6 +2266,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2096,6 +2275,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2104,6 +2284,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2112,6 +2293,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2129,6 +2311,7 @@ Array [
     ],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2142,6 +2325,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2150,6 +2334,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "ABS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2158,6 +2343,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2166,6 +2352,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2174,6 +2361,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2182,6 +2370,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2190,6 +2379,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2198,6 +2388,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2206,6 +2397,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2214,6 +2406,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2222,6 +2415,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2230,6 +2424,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2238,6 +2433,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2251,6 +2447,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2259,6 +2456,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2267,6 +2465,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2275,6 +2474,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2283,6 +2483,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ";",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2291,6 +2492,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2299,6 +2501,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2307,6 +2510,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2315,6 +2519,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2323,6 +2528,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2336,6 +2542,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2344,6 +2551,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1.",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2357,6 +2565,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2365,6 +2574,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1.",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2378,6 +2588,7 @@ Array [
     ],
     "type": "any",
     "value": "T()",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2391,6 +2602,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2399,6 +2611,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "AVERAGE",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2407,6 +2620,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2415,6 +2629,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2423,6 +2638,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2436,6 +2652,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2444,6 +2661,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "AVERAGE",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2452,6 +2670,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2460,6 +2679,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2468,6 +2688,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2476,6 +2697,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2484,6 +2706,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2492,6 +2715,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2500,6 +2724,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2513,6 +2738,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2521,6 +2747,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2529,6 +2756,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "*",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2537,6 +2765,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2550,6 +2779,7 @@ Array [
     ],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2563,6 +2793,7 @@ Array [
     ],
     "type": "boolean",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2576,6 +2807,7 @@ Array [
     ],
     "type": "number",
     "value": "4",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2584,6 +2816,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;

@@ -211,11 +211,19 @@ describe('Context', () => {
     ])
   })
 
-  it('unknown variable', () => {
+  it('unknown variable 1', () => {
     const input = `=Untitled.unknown`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: 'Access error', type: 'syntax' }])
+    expect(errorMessages).toEqual([{ message: 'Variable unknown not found', type: 'syntax' }])
+  })
+
+  it('unknown variable 2', () => {
+    const input = `=Untitled."unknown"`
+    const newMeta = { ...meta, input }
+    const finalCtx = { ...ctx, meta: newMeta }
+    const { errorMessages } = parse({ ctx: finalCtx })
+    expect(errorMessages).toEqual([{ message: 'Variable "unknown" not found', type: 'syntax' }])
   })
 })

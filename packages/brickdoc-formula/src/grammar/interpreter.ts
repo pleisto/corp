@@ -527,6 +527,11 @@ export class FormulaInterpreter extends BaseCstVisitor {
       if (cst.name === 'keyExpression') {
         const { result: key } = this.visit(cst, args)
 
+        if (result.type === 'Block') {
+          result = { type: 'Error', result: `Variable ${key} not found`, errorKind: 'runtime' }
+          return true
+        }
+
         if (result.type === 'Error' && ['errorKind', 'result'].includes(key)) {
           result = { type: 'string', result: result[key as 'errorKind' | 'result'] }
 

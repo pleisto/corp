@@ -99,11 +99,13 @@ const testCases = [
             {
               type: 'FormulaType',
               attrs: {
+                attrs: undefined,
                 code: 'NumberLiteral',
                 errors: [],
                 type: 'number',
                 display: '12',
-                value: '12'
+                value: '12',
+                wrapQuote: false
               }
             }
           ]

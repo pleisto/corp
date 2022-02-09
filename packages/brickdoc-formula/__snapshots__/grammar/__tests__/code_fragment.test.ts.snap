@@ -1302,6 +1302,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1310,6 +1311,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1318,6 +1320,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1326,6 +1329,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1334,6 +1338,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1342,6 +1347,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1350,6 +1356,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "/",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1358,6 +1365,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1366,6 +1374,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "*",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1374,6 +1383,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "0.1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1382,6 +1392,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "==",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1390,6 +1401,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1398,6 +1410,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "!",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1406,6 +1419,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "!",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1414,6 +1428,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1422,6 +1437,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "and",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1430,6 +1446,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "false",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1438,6 +1455,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "or",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1446,6 +1464,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1454,6 +1473,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1462,6 +1482,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "==",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1470,6 +1491,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"123\\"",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1805,6 +1827,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1813,6 +1836,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "ABS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1821,6 +1845,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1834,6 +1859,7 @@ Array [
     ],
     "type": "string",
     "value": "\\"123\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1842,6 +1868,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2670,6 +2697,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2678,6 +2706,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "custom::PLUS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2686,6 +2715,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2694,6 +2724,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2702,6 +2733,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "custom::FORTY_TWO",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2710,6 +2742,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2718,6 +2751,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2726,6 +2760,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2734,6 +2769,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2742,6 +2778,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2750,6 +2787,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2758,6 +2796,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2766,6 +2805,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3202,6 +3242,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3210,6 +3251,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"FOO\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3218,6 +3260,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3226,6 +3269,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "T",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3234,6 +3278,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3242,6 +3287,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3250,6 +3296,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3258,6 +3305,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "T",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3266,6 +3314,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3274,6 +3323,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3282,6 +3332,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "&",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3290,6 +3341,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"Zzz\\"",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3620,6 +3672,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3636,8 +3689,9 @@ Array [
         "type": "type",
       },
     ],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3651,6 +3705,7 @@ Array [
     ],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3668,6 +3723,7 @@ Array [
     ],
     "type": "any",
     "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3676,6 +3732,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3684,6 +3741,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -4014,6 +4072,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4030,8 +4089,9 @@ Array [
         "type": "type",
       },
     ],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4045,6 +4105,7 @@ Array [
     ],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4062,6 +4123,7 @@ Array [
     ],
     "type": "any",
     "value": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4070,6 +4132,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4078,6 +4141,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -4408,6 +4472,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4419,8 +4484,9 @@ Array [
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4429,6 +4495,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4442,6 +4509,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "foo",
+    "wrapQuote": true,
   },
   Object {
     "attrs": undefined,
@@ -4450,6 +4518,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4458,6 +4527,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -4788,6 +4858,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4801,6 +4872,7 @@ Array [
     ],
     "type": "any",
     "value": "#",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4818,6 +4890,7 @@ Array [
     ],
     "type": "any",
     "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4831,6 +4904,7 @@ Array [
     ],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4848,6 +4922,7 @@ Array [
     ],
     "type": "any",
     "value": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4856,6 +4931,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4864,6 +4940,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -5190,6 +5267,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5207,6 +5285,7 @@ Array [
     ],
     "type": "any",
     "value": "Bar",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5215,6 +5294,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5223,6 +5303,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "foo",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5231,6 +5312,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5239,6 +5321,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -5576,6 +5659,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -5587,8 +5671,9 @@ Array [
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5597,6 +5682,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5604,12 +5690,13 @@ Array [
     "display": "bar",
     "errors": Array [
       Object {
-        "message": "Access error",
+        "message": "Variable bar not found",
         "type": "syntax",
       },
     ],
     "type": "string",
     "value": "bar",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5618,6 +5705,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5626,6 +5714,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -5956,6 +6045,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -5967,8 +6057,9 @@ Array [
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -5977,6 +6068,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -5990,6 +6082,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "foo",
+    "wrapQuote": true,
   },
   Object {
     "attrs": undefined,
@@ -5998,6 +6091,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -6006,6 +6100,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -6336,6 +6431,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -6347,8 +6443,9 @@ Array [
     "code": "Block",
     "display": "Untitled",
     "errors": Array [],
-    "type": "Block",
+    "type": "any",
     "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -6357,6 +6454,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -6370,6 +6468,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "foo",
+    "wrapQuote": true,
   },
   Object {
     "attrs": undefined,
@@ -6378,6 +6477,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "+",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -6386,6 +6486,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
 ]
 `;

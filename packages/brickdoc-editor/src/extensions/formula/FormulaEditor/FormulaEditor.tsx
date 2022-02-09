@@ -77,7 +77,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
 
       if (rootId && formulaId) {
         const jsonContent = editor.getJSON()
-        devLog('formualEditor debug', { jsonContent, editorContent })
+        // devLog('formualEditor debug', { jsonContent, editorContent })
         BrickdocEventBus.dispatch(
           FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
         )
@@ -97,7 +97,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
         editor.commands.replaceRoot(editorContent.content)
       }
 
-      if (editable) devLog('after replace root', { editorContent, editor })
+      if (editable) devLog(true, 'after replace root', { editorContent, editor })
     }
   }, [editor, editorContent, editable])
 

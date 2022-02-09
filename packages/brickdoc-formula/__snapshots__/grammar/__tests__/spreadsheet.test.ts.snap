@@ -9,6 +9,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -17,6 +18,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "AVERAGEIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -25,6 +27,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -36,8 +39,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -46,6 +50,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -57,8 +62,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -67,6 +73,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -78,8 +85,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -88,6 +96,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -99,8 +108,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -109,6 +119,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -117,6 +128,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -125,6 +137,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -133,6 +146,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -146,6 +160,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -154,6 +169,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "AVERAGEIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -162,6 +178,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -173,8 +190,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -183,6 +201,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -194,8 +213,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -204,6 +224,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -215,8 +236,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -225,6 +247,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -236,8 +259,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -246,6 +270,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -254,6 +279,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -262,6 +288,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "100",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -270,6 +297,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -283,6 +311,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -294,8 +323,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -304,6 +334,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -312,6 +343,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "COLUMN_COUNT",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -320,6 +352,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -328,6 +361,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -341,6 +375,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -352,8 +387,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -362,6 +398,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -373,8 +410,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -383,6 +421,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -391,6 +430,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "COUNTA",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -399,6 +439,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -407,6 +448,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -420,6 +462,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -431,8 +474,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -441,6 +485,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -452,8 +497,9 @@ Array [
     "code": "Column",
     "display": "third",
     "errors": Array [],
-    "type": "Column",
-    "value": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -462,6 +508,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -470,6 +517,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "COUNTA",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -478,6 +526,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -486,6 +535,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -499,6 +549,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -507,6 +558,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "COUNTIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -515,6 +567,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -526,8 +579,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -536,6 +590,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -547,8 +602,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -557,6 +613,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -565,6 +622,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -573,6 +631,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -586,6 +645,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -594,6 +654,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "COUNTIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -602,6 +663,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -613,8 +675,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -623,6 +686,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -634,8 +698,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -644,6 +709,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -652,6 +718,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -660,6 +727,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -668,6 +736,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -681,6 +750,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -692,8 +762,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -702,6 +773,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -713,8 +785,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -723,6 +796,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -731,6 +805,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "MAX",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -739,6 +814,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -747,6 +823,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -760,6 +837,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -771,8 +849,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -781,6 +860,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -792,8 +872,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -802,6 +883,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -810,6 +892,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "SUM",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -818,6 +901,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -826,6 +910,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -839,6 +924,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -847,6 +933,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "SUMIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -855,6 +942,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -866,8 +954,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -876,6 +965,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -887,8 +977,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -897,6 +988,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -908,8 +1000,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -918,6 +1011,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -929,8 +1023,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -939,6 +1034,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -947,6 +1043,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ">",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -955,6 +1052,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -963,6 +1061,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -976,6 +1075,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -984,6 +1084,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "SUMIFS",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -992,6 +1093,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1003,8 +1105,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1013,6 +1116,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1024,8 +1128,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1034,6 +1139,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1045,8 +1151,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1055,6 +1162,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1066,8 +1174,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1076,6 +1185,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1084,6 +1194,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "4",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1092,6 +1203,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1105,6 +1217,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1113,6 +1226,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "SUMPRODUCT",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1121,6 +1235,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1132,8 +1247,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1142,6 +1258,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1153,8 +1270,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1163,6 +1281,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1174,8 +1293,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1184,6 +1304,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1195,8 +1316,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1205,6 +1327,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1218,6 +1341,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1226,6 +1350,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "Spreadsheet",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1234,6 +1359,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1242,6 +1368,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1250,6 +1377,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1258,6 +1386,7 @@ Array [
     "errors": Array [],
     "type": "Spreadsheet",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1266,6 +1395,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1274,6 +1404,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "toArray",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1282,6 +1413,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1290,6 +1422,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1350,6 +1483,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1358,6 +1492,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "Spreadsheet",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1366,6 +1501,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1374,6 +1510,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1382,6 +1519,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "{",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1390,6 +1528,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1398,6 +1537,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ":",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1406,6 +1546,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1414,6 +1555,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "}",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1422,6 +1564,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1430,6 +1573,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "{",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1438,6 +1582,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1446,6 +1591,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ":",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1454,6 +1600,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1462,6 +1609,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "}",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1470,6 +1618,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1478,6 +1627,7 @@ Array [
     "errors": Array [],
     "type": "Spreadsheet",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1486,6 +1636,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1494,6 +1645,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "toArray",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1502,6 +1654,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1510,6 +1663,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1558,6 +1712,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1566,6 +1721,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "Spreadsheet",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1574,6 +1730,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1582,6 +1739,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "[",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1590,6 +1748,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1598,6 +1757,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1606,6 +1766,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "2",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1614,6 +1775,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1622,6 +1784,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1630,6 +1793,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "]",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1638,6 +1802,7 @@ Array [
     "errors": Array [],
     "type": "Spreadsheet",
     "value": ")",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1646,6 +1811,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1654,6 +1820,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "toArray",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1662,6 +1829,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1670,6 +1838,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1685,6 +1854,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1693,6 +1863,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1701,6 +1872,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1709,6 +1881,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"2\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1717,6 +1890,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1728,8 +1902,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1738,6 +1913,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1749,8 +1925,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1759,6 +1936,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1770,8 +1948,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1780,6 +1959,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1793,6 +1973,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1801,6 +1982,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1809,6 +1991,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1817,6 +2000,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"2\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1825,6 +2009,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1836,8 +2021,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1846,6 +2032,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1857,8 +2044,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1867,6 +2055,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1878,8 +2067,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1888,6 +2078,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1896,6 +2087,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1904,6 +2096,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -1917,6 +2110,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1925,6 +2119,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1933,6 +2128,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1941,6 +2137,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1949,6 +2146,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1960,8 +2158,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1970,6 +2169,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1981,8 +2181,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1991,6 +2192,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2002,8 +2204,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2012,6 +2215,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2025,6 +2229,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2033,6 +2238,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2041,6 +2247,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2049,6 +2256,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"2\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2057,6 +2265,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2068,8 +2277,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2078,6 +2288,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2089,8 +2300,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2099,6 +2311,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2110,8 +2323,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2120,6 +2334,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2128,6 +2343,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "false",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2136,6 +2352,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2149,6 +2366,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2157,6 +2375,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2165,6 +2384,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2173,6 +2393,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2181,6 +2402,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2192,8 +2414,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2202,6 +2425,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2213,8 +2437,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2223,6 +2448,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2234,8 +2460,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2244,6 +2471,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2257,6 +2485,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2265,6 +2494,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2273,6 +2503,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2281,6 +2512,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2289,6 +2521,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2300,8 +2533,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2310,6 +2544,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2321,8 +2556,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2331,6 +2567,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2342,8 +2579,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2352,6 +2590,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2365,6 +2604,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2373,6 +2613,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2381,6 +2622,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2389,6 +2631,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2397,6 +2640,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2408,8 +2652,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2418,6 +2663,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2429,8 +2675,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2439,6 +2686,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2450,8 +2698,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2460,6 +2709,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2468,6 +2718,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "false",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2476,6 +2727,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2489,6 +2741,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2497,6 +2750,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2505,6 +2759,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2513,6 +2768,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "1",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2521,6 +2777,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2532,8 +2789,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2542,6 +2800,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2553,8 +2812,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2563,6 +2823,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2574,8 +2835,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2584,6 +2846,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2592,6 +2855,7 @@ Array [
     "errors": Array [],
     "type": "boolean",
     "value": "true",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2600,6 +2864,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2613,6 +2878,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2621,6 +2887,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "VLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2629,6 +2896,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2637,6 +2905,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"1\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2645,6 +2914,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2656,8 +2926,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2666,6 +2937,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2677,8 +2949,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2687,6 +2960,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2698,8 +2972,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2708,6 +2983,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2721,6 +2997,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2729,6 +3006,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "XLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2737,6 +3015,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2745,6 +3024,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"1\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2753,6 +3033,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2764,8 +3045,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2774,6 +3056,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2785,8 +3068,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2795,6 +3079,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2806,8 +3091,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2816,6 +3102,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2827,8 +3114,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2837,6 +3125,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2850,6 +3139,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2858,6 +3148,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "XLOOKUP",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2866,6 +3157,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2874,6 +3166,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"123\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2882,6 +3175,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2893,8 +3187,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2903,6 +3198,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2914,8 +3210,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2924,6 +3221,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2935,8 +3233,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2945,6 +3244,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2956,8 +3256,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2966,6 +3267,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ",",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2974,6 +3276,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"100\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2982,6 +3285,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -2995,6 +3299,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3006,8 +3311,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3016,6 +3322,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3027,8 +3334,9 @@ Array [
     "code": "Column",
     "display": "first",
     "errors": Array [],
-    "type": "Column",
-    "value": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3042,6 +3350,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3050,6 +3359,7 @@ Array [
     "errors": Array [],
     "type": "string",
     "value": "\\"foo\\"",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3058,6 +3368,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "in",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3069,8 +3380,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3079,6 +3391,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3090,8 +3403,9 @@ Array [
     "code": "Column",
     "display": "third",
     "errors": Array [],
-    "type": "Column",
-    "value": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3105,6 +3419,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3113,6 +3428,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "4",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3121,6 +3437,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "in",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3132,8 +3449,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3142,6 +3460,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3153,8 +3472,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3168,6 +3488,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3176,6 +3497,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3184,6 +3506,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "in",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3195,8 +3518,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3205,6 +3529,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3216,8 +3541,9 @@ Array [
     "code": "Column",
     "display": "second",
     "errors": Array [],
-    "type": "Column",
-    "value": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "type": "any",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3231,6 +3557,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3239,6 +3566,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "4",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3247,6 +3575,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "in",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3258,8 +3587,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3273,6 +3603,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3281,6 +3612,7 @@ Array [
     "errors": Array [],
     "type": "number",
     "value": "3",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3289,6 +3621,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "in",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3300,8 +3633,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3315,6 +3649,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3326,8 +3661,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3336,6 +3672,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3344,6 +3681,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "toArray",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3352,6 +3690,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3360,6 +3699,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3450,6 +3790,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3461,8 +3802,9 @@ Array [
     "code": "Spreadsheet",
     "display": "MySpreadsheet",
     "errors": Array [],
-    "type": "Spreadsheet",
+    "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3471,6 +3813,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": ".",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3479,6 +3822,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "toRecordArray",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3487,6 +3831,7 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "(",
+    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3495,6 +3840,7 @@ Array [
     "errors": Array [],
     "type": "Array",
     "value": ")",
+    "wrapQuote": false,
   },
 ]
 `;
@@ -3682,6 +4028,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "wrapQuote": false,
     },
   ],
   "kind": "spreadsheet",
@@ -3711,27 +4058,44 @@ Object {
     Object {
       "attrs": undefined,
       "code": "Function",
-      "display": "SUM()",
+      "display": "VLOOKUP()",
       "errors": Array [],
       "type": "any",
-      "value": "SUM()",
+      "value": "VLOOKUP()",
+      "wrapQuote": false,
     },
   ],
   "kind": "function",
-  "name": "SUM",
+  "name": "VLOOKUP",
   "namespace": "core",
-  "positionChange": 4,
+  "positionChange": 8,
   "preview": Object {
     "acceptError": false,
     "args": Array [
       Object {
+        "name": "match",
+        "type": "any",
+      },
+      Object {
+        "name": "spreadsheet",
+        "type": "Spreadsheet",
+      },
+      Object {
         "name": "column",
         "type": "Column",
+      },
+      Object {
+        "default": Object {
+          "result": true,
+          "type": "boolean",
+        },
+        "name": "range",
+        "type": "boolean",
       },
     ],
     "async": false,
     "chain": true,
-    "description": "Returns the sum of the column in the spreadsheet.",
+    "description": "Returns the value of the column in the spreadsheet that matches the match value.",
     "effect": false,
     "examples": Array [
       Object {
@@ -3743,6 +4107,7 @@ Object {
             "errors": Array [],
             "type": "any",
             "value": "=",
+            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -3751,29 +4116,30 @@ Object {
             "errors": Array [],
             "type": "number",
             "value": "123",
+            "wrapQuote": false,
           },
         ],
         "input": "=123",
         "output": Object {
-          "result": 123,
-          "type": "number",
+          "result": "foo",
+          "type": "string",
         },
       },
     ],
     "group": "core",
-    "key": "SUM",
+    "key": "VLOOKUP",
     "lazy": false,
-    "name": "SUM",
+    "name": "VLOOKUP",
     "pure": false,
     "reference": [Function],
-    "returns": "number",
+    "returns": "string",
     "testCases": Array [],
   },
   "renderDescription": [Function],
   "replacements": Array [
-    "SUM",
+    "VLOOKUP",
   ],
-  "value": "SUM()",
+  "value": "VLOOKUP()",
   "weight": 250,
 }
 `;
@@ -3782,46 +4148,91 @@ exports[`Spreadsheet Functions completion 3`] = `
 Object {
   "codeFragments": Array [
     Object {
-      "attrs": Object {
-        "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-        "kind": "Column",
-        "name": "first",
-        "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-      },
-      "code": "Column",
-      "display": "first",
+      "attrs": undefined,
+      "code": "Function",
+      "display": "VLOOKUP()",
       "errors": Array [],
       "type": "any",
-      "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "value": "VLOOKUP()",
+      "wrapQuote": false,
     },
   ],
-  "kind": "column",
-  "name": "first",
-  "namespace": "MySpreadsheet",
-  "positionChange": 74,
-  "preview": ColumnClass {
-    "columnId": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "index": 0,
-    "name": "first",
-    "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    "spreadsheet": SpreadsheetClass {
-      "blockId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-      "dynamic": false,
-      "listCells": [Function],
-      "listColumns": [Function],
-      "listRows": [Function],
-      "name": [Function],
-    },
+  "kind": "function",
+  "name": "VLOOKUP",
+  "namespace": "core",
+  "positionChange": 8,
+  "preview": Object {
+    "acceptError": false,
+    "args": Array [
+      Object {
+        "name": "match",
+        "type": "any",
+      },
+      Object {
+        "name": "spreadsheet",
+        "type": "Spreadsheet",
+      },
+      Object {
+        "name": "column",
+        "type": "Column",
+      },
+      Object {
+        "default": Object {
+          "result": true,
+          "type": "boolean",
+        },
+        "name": "range",
+        "type": "boolean",
+      },
+    ],
+    "async": false,
+    "chain": true,
+    "description": "Returns the value of the column in the spreadsheet that matches the match value.",
+    "effect": false,
+    "examples": Array [
+      Object {
+        "codeFragments": Array [
+          Object {
+            "attrs": undefined,
+            "code": "Equal",
+            "display": "=",
+            "errors": Array [],
+            "type": "any",
+            "value": "=",
+            "wrapQuote": false,
+          },
+          Object {
+            "attrs": undefined,
+            "code": "NumberLiteral",
+            "display": "123",
+            "errors": Array [],
+            "type": "number",
+            "value": "123",
+            "wrapQuote": false,
+          },
+        ],
+        "input": "=123",
+        "output": Object {
+          "result": "foo",
+          "type": "string",
+        },
+      },
+    ],
+    "group": "core",
+    "key": "VLOOKUP",
+    "lazy": false,
+    "name": "VLOOKUP",
+    "pure": false,
+    "reference": [Function],
+    "returns": "string",
+    "testCases": Array [],
   },
   "renderDescription": [Function],
   "replacements": Array [
-    "#28e28190-63bd-4f70-aeca-26e72574c01a.first",
-    "#28e28190-63bd-4f70-aeca-26e72574c01a.",
-    "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "first",
+    "VLOOKUP",
   ],
-  "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-  "weight": 997,
+  "value": "VLOOKUP()",
+  "weight": 250,
 }
 `;
 
@@ -3831,27 +4242,44 @@ Object {
     Object {
       "attrs": undefined,
       "code": "Function",
-      "display": "COLUMN_COUNT()",
+      "display": "VLOOKUP()",
       "errors": Array [],
       "type": "any",
-      "value": "COLUMN_COUNT()",
+      "value": "VLOOKUP()",
+      "wrapQuote": false,
     },
   ],
   "kind": "function",
-  "name": "COLUMN_COUNT",
+  "name": "VLOOKUP",
   "namespace": "core",
-  "positionChange": 13,
+  "positionChange": 8,
   "preview": Object {
     "acceptError": false,
     "args": Array [
       Object {
+        "name": "match",
+        "type": "any",
+      },
+      Object {
         "name": "spreadsheet",
         "type": "Spreadsheet",
+      },
+      Object {
+        "name": "column",
+        "type": "Column",
+      },
+      Object {
+        "default": Object {
+          "result": true,
+          "type": "boolean",
+        },
+        "name": "range",
+        "type": "boolean",
       },
     ],
     "async": false,
     "chain": true,
-    "description": "Returns the column size of the spreadsheet.",
+    "description": "Returns the value of the column in the spreadsheet that matches the match value.",
     "effect": false,
     "examples": Array [
       Object {
@@ -3863,6 +4291,7 @@ Object {
             "errors": Array [],
             "type": "any",
             "value": "=",
+            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -3871,29 +4300,30 @@ Object {
             "errors": Array [],
             "type": "number",
             "value": "123",
+            "wrapQuote": false,
           },
         ],
         "input": "=123",
         "output": Object {
-          "result": 123,
-          "type": "number",
+          "result": "foo",
+          "type": "string",
         },
       },
     ],
     "group": "core",
-    "key": "COLUMN_COUNT",
+    "key": "VLOOKUP",
     "lazy": false,
-    "name": "COLUMN_COUNT",
+    "name": "VLOOKUP",
     "pure": false,
     "reference": [Function],
-    "returns": "number",
+    "returns": "string",
     "testCases": Array [],
   },
   "renderDescription": [Function],
   "replacements": Array [
-    "COLUMN_COUNT",
+    "VLOOKUP",
   ],
-  "value": "COLUMN_COUNT()",
+  "value": "VLOOKUP()",
   "weight": 250,
 }
 `;

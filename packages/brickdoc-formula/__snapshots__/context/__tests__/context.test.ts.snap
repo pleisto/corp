@@ -14,6 +14,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -25,8 +26,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#d986e871-cb85-4bd5-b675-87307f60b882",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -35,6 +37,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -48,6 +51,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "foo",
+      "wrapQuote": true,
     },
     Object {
       "attrs": undefined,
@@ -56,6 +60,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "+",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -67,8 +72,9 @@ Object {
       "code": "Block",
       "display": "Untitled",
       "errors": Array [],
-      "type": "Block",
+      "type": "any",
       "value": "#615d7f74-dc97-4aae-8690-b6cba1072a6a",
+      "wrapQuote": false,
     },
     Object {
       "attrs": undefined,
@@ -77,6 +83,7 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": ".",
+      "wrapQuote": false,
     },
     Object {
       "attrs": Object {
@@ -90,6 +97,7 @@ Object {
       "errors": Array [],
       "type": "number",
       "value": "bar",
+      "wrapQuote": true,
     },
   ],
   "cst": Object {
@@ -568,6 +576,7 @@ Object {
                 "errors": Array [],
                 "type": "any",
                 "value": "=",
+                "wrapQuote": false,
               },
               Object {
                 "attrs": undefined,
@@ -576,6 +585,7 @@ Object {
                 "errors": Array [],
                 "type": "any",
                 "value": "ABS",
+                "wrapQuote": false,
               },
               Object {
                 "attrs": undefined,
@@ -584,6 +594,7 @@ Object {
                 "errors": Array [],
                 "type": "any",
                 "value": "(",
+                "wrapQuote": false,
               },
               Object {
                 "attrs": undefined,
@@ -592,6 +603,7 @@ Object {
                 "errors": Array [],
                 "type": "any",
                 "value": "-",
+                "wrapQuote": false,
               },
               Object {
                 "attrs": undefined,
@@ -600,6 +612,7 @@ Object {
                 "errors": Array [],
                 "type": "number",
                 "value": "1",
+                "wrapQuote": false,
               },
               Object {
                 "attrs": undefined,
@@ -608,6 +621,7 @@ Object {
                 "errors": Array [],
                 "type": "number",
                 "value": ")",
+                "wrapQuote": false,
               },
             ],
             "input": "=ABS(-1)",
