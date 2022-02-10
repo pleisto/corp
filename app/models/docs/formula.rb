@@ -3,25 +3,21 @@
 #
 # Table name: docs_formulas
 #
-#  id             :uuid             not null, primary key
-#  pod_id         :integer          not null
-#  block_id       :uuid             not null
-#  name           :string           not null
-#  definition     :text             not null
-#  cache_value    :json             not null
-#  dependency_ids :uuid             default("{}"), not null, is an Array
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  level          :integer          default("0"), not null
-#  version        :integer          default("0"), not null
-#  kind           :string           default("expression"), not null
-#  path_ids       :uuid             default("{}"), not null, is an Array
-#  type           :integer          default("0"), not null
+#  id          :uuid             not null, primary key
+#  pod_id      :integer          not null
+#  block_id    :uuid             not null
+#  name        :string           not null
+#  definition  :text             not null
+#  cache_value :json             not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  level       :integer          default("0"), not null
+#  version     :integer          default("0"), not null
+#  type        :integer          default("0"), not null
 #
 # Indexes
 #
 #  index_docs_formulas_on_block_id_and_name  (block_id,name) UNIQUE
-#  index_docs_formulas_on_dependency_ids     (dependency_ids)
 #  index_docs_formulas_on_pod_id             (pod_id)
 #
 
