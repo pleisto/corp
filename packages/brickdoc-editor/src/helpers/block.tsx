@@ -25,11 +25,11 @@ import {
   RteH5,
   TextStyle
 } from '../components/Icon'
-import { FormulaBlock } from '../extensions/formula/FormulaBlock'
-import { SpreadsheetBlockExtension } from '../extensions/spreadsheet'
-import { EmbedBlockExtension } from '../extensions/embed'
-import { SubPageMenuBlockExtension } from '../extensions/subPageMenu'
-import { TocBlockExtension } from '../extensions/toc'
+import { name as FormulaBlockType } from '../extensions/formula/name'
+import { name as SpreadsheetBlockType } from '../extensions/spreadsheet/name'
+import { name as EmbedBlockType } from '../extensions/embed/name'
+import { name as SubPageMenuBlockType } from '../extensions/subPageMenu/name'
+import { name as TocBlockType } from '../extensions/toc/name'
 
 export type BlockItemKey =
   | 'text'
@@ -73,7 +73,7 @@ export const TEXT: BlockCommandItem = {
 
 export const FORMULA: BlockCommandItem = {
   key: 'formula',
-  blockType: FormulaBlock.name,
+  blockType: FormulaBlockType,
   alias: ['for'],
   squareIcon: <Formula square={true} />,
   icon: <Formula />,
@@ -84,7 +84,7 @@ export const FORMULA: BlockCommandItem = {
 
 export const SPREADSHEET: BlockCommandItem = {
   key: 'spreadsheet',
-  blockType: SpreadsheetBlockExtension.name,
+  blockType: SpreadsheetBlockType,
   alias: ['table'],
   squareIcon: <Table square={true} />,
   icon: <Table />,
@@ -95,7 +95,7 @@ export const SPREADSHEET: BlockCommandItem = {
 
 export const UPLOAD: BlockCommandItem = {
   key: 'upload',
-  blockType: EmbedBlockExtension.name,
+  blockType: EmbedBlockType,
   alias: ['up', 'file', 'pdf', 'excel', 'ppt', 'image', 'img'],
   squareIcon: <Upload square={true} />,
   icon: <Upload />,
@@ -106,7 +106,7 @@ export const UPLOAD: BlockCommandItem = {
 
 export const GALLERY: BlockCommandItem = {
   key: 'gallery',
-  blockType: EmbedBlockExtension.name,
+  blockType: EmbedBlockType,
   alias: ['gal'],
   squareIcon: <Unsplash square={true} />,
   icon: <Unsplash />,
@@ -117,7 +117,7 @@ export const GALLERY: BlockCommandItem = {
 
 export const LINK: BlockCommandItem = {
   key: 'link',
-  blockType: EmbedBlockExtension.name,
+  blockType: EmbedBlockType,
   alias: ['link'],
   squareIcon: <Link square={true} />,
   icon: <Link />,
@@ -229,7 +229,7 @@ export const DIVIDER: BlockCommandItem = {
 
 export const TOC: BlockCommandItem = {
   key: 'toc',
-  blockType: TocBlockExtension.name,
+  blockType: TocBlockType,
   alias: ['toc', 'table of content'],
   squareIcon: <Toc square={true} />,
   icon: <Toc />,
@@ -240,7 +240,7 @@ export const TOC: BlockCommandItem = {
 
 export const SUB_PAGE_MENU: BlockCommandItem = {
   key: 'subPageMenu',
-  blockType: SubPageMenuBlockExtension.name,
+  blockType: SubPageMenuBlockType,
   alias: ['sub'],
   squareIcon: <MindmapList square={true} />,
   icon: <MindmapList />,
@@ -315,12 +315,12 @@ export const sortBlock =
 
 export const unselectableBlockType = [
   'imageBlock',
-  EmbedBlockExtension.name,
+  EmbedBlockType,
   'pdfSection',
   'tableBlock',
   HorizontalRule.name,
-  TocBlockExtension.name,
-  SubPageMenuBlockExtension.name,
-  SpreadsheetBlockExtension.name
+  TocBlockType,
+  SubPageMenuBlockType,
+  SpreadsheetBlockType
 ]
 export const paragraphLikeBlockType = [Paragraph.name, Heading.name]
