@@ -307,7 +307,6 @@ export interface BaseFormula {
   id: uuid
   name: VariableName
   cacheValue: BaseResult
-  level: number
   version: number
   type: string
 }
@@ -587,7 +586,6 @@ export interface VariableResult {
 }
 export interface VariableData extends VariableResult {
   name: VariableName
-  level: number
   version: number
   namespaceId: NamespaceId
   variableId: VariableId

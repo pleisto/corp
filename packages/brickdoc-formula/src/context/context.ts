@@ -47,7 +47,7 @@ import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
-import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaInnerRefresh } from '@brickdoc/schema'
+import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 
@@ -298,7 +298,6 @@ export class FormulaContext implements ContextInterface {
     return Object.values(this.context).filter(v => v.t.namespaceId === namespaceId)
   }
 
-  // TODO flattenVariableDependencies
   private clearDependency(namespaceId: NamespaceId, variableId: VariableId): void {
     const variable = this.findVariable(namespaceId, variableId)
     if (variable) {
@@ -326,8 +325,6 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  // TODO refresh flattenVariableDependencies
-  // TODO update other variable's level
   private trackDependency(variable: VariableInterface): void {
     const {
       t: { variableDependencies, namespaceId, variableId, functionDependencies, type }

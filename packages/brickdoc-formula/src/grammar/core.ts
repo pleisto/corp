@@ -40,7 +40,6 @@ export interface BaseParseResult {
   cst?: CstNode
   errorType?: ParseErrorType
   kind: VariableKind
-  level: number
   errorMessages: ErrorMessage[]
   variableDependencies: VariableDependency[]
   functionDependencies: Array<FunctionClause<any>>
@@ -167,7 +166,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     meta: { namespaceId, variableId, input, name }
   } = ctx
   const position = pos ?? 0
-  const level = 0
   const version = FORMULA_PARSER_VERSION
 
   const returnValue: BaseParseResult = {
@@ -179,7 +177,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     input,
     position,
     version,
-    level,
     kind: 'unknown',
     errorType: 'parse',
     errorMessages: [{ type: 'parse', message: '' }],
@@ -253,7 +250,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     ctx
   })
 
-  returnValue.level = codeFragmentVisitor.level
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
@@ -462,7 +458,6 @@ export const buildVariable = ({
     variableDependencies,
     functionDependencies,
     blockDependencies,
-    level,
     flattenVariableDependencies
   },
   interpretResult: { variableValue, lazy }
@@ -484,7 +479,6 @@ export const buildVariable = ({
     dirty: true,
     variableValue,
     valid,
-    level,
     kind: kind ?? 'constant',
     variableDependencies,
     flattenVariableDependencies,
@@ -503,10 +497,8 @@ export const buildVariable = ({
 
 export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {
   const dupFormulas = [...formulas]
-  dupFormulas
-    .sort((a, b) => a.level - b.level)
-    .forEach(formula => {
-      const variable = castVariable(formulaContext, formula)
-      void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
-    })
+  dupFormulas.forEach(formula => {
+    const variable = castVariable(formulaContext, formula)
+    void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
+  })
 }

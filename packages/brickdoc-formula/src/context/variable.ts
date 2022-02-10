@@ -88,8 +88,7 @@ export const castVariable = (
     variableDependencies,
     flattenVariableDependencies,
     codeFragments,
-    functionDependencies,
-    level
+    functionDependencies
   } = parse({ ctx })
 
   const variableValue: VariableValue = success
@@ -116,7 +115,6 @@ export const castVariable = (
     version,
     definition,
     codeFragments,
-    level,
     kind: kind ?? 'constant',
     type,
     blockDependencies,
@@ -237,7 +235,6 @@ export class VariableClass implements VariableInterface {
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
-      level: this.t.level,
       type: this.t.type,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),

@@ -477,7 +477,6 @@ Object {
   ],
   "functionDependencies": Array [],
   "kind": "expression",
-  "level": 2,
   "name": "baz",
   "namespaceId": "37198be0-d10d-42dc-ae8b-20d45a95401b",
   "type": "normal",

@@ -43,7 +43,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   functionDependencies: Array<FunctionClause<any>> = []
   blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: VariableDependency[] = []
-  level: number = 0
   kind: 'constant' | 'expression' = 'constant'
 
   constructor({ ctx }: { ctx: FunctionContext }) {
@@ -553,8 +552,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
                 ].map(item => [item.variableId, item])
               ).values()
             ]
-
-            this.level = Math.max(this.level, variable.t.level + 1)
           } else {
             errorMessages.push({ type: 'syntax', message: `Unknown variable: ${variableId}` })
           }
@@ -803,8 +800,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         let nameDuplicateErrors: ErrorMessage[] = []
         if (fieldCodeFragments[0]) {
           const str = fieldCodeFragments[0].value
-          const finalStr =
-            fieldCodeFragments[0].code === 'StringLiteral' ? parseString(str) : str
+          const finalStr = fieldCodeFragments[0].code === 'StringLiteral' ? parseString(str) : str
           if (keyArray.includes(finalStr)) {
             nameDuplicateErrors = [{ message: 'Record key duplicated', type: 'syntax' }]
           }

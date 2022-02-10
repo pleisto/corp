@@ -20,7 +20,6 @@ describe('Context', () => {
       blockId: fooNamespaceId,
       definition: '=123',
       version: 0,
-      level: 0,
       type: 'normal',
       cacheValue: {
         type: 'number',
@@ -33,7 +32,6 @@ describe('Context', () => {
       blockId: barNamespaceId,
       definition: `=ABS(120) + #${fooNamespaceId}.${fooVariableId}`,
       version: 0,
-      level: 0,
       type: 'normal',
       cacheValue: {
         type: 'number',
