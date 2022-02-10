@@ -128,6 +128,22 @@ const testCases = [
       position: 12,
       content: SNAPSHOT_FLAG
     }
+  },
+  {
+    title: 'Not all input parsed: asdasd',
+    input: {
+      position: 0,
+      content: [
+        {
+          type: 'text',
+          text: '123asdasd'
+        }
+      ]
+    },
+    output: {
+      position: 0,
+      content: SNAPSHOT_FLAG
+    }
   }
 ]
 

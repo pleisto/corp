@@ -12,6 +12,7 @@ import {
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
+  FormulaEditorReplaceRootTrigger,
   FormulaEditorSaveEventTrigger,
   FormulaEditorUpdateEventTrigger,
   FormulaKeyboardEventTrigger,
@@ -147,6 +148,25 @@ const calculate = async ({
   }
 }
 
+const replaceRoot = ({
+  editorContent,
+  rootId,
+  formulaId
+}: {
+  editorContent: EditorContentType
+  rootId: string
+  formulaId: string
+}): void => {
+  BrickdocEventBus.dispatch(
+    FormulaEditorReplaceRootTrigger({
+      position: editorContent.position,
+      content: editorContent.content,
+      formulaId,
+      rootId
+    })
+  )
+}
+
 export interface CompletionType {
   completions: Completion[]
   activeCompletion: Completion | undefined
@@ -210,7 +230,6 @@ export const useFormula = ({
   const [variableT, setVariableT] = React.useState(defaultVariable?.t)
   const [savedVariableT, setSavedVariableT] = React.useState(defaultVariable?.t)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
-  const [editorContent, setEditorContent] = React.useState<EditorContentType>(defaultEditorContent)
   const [completion, setCompletion] = React.useState<CompletionType>({
     completions: contextCompletions,
     activeCompletion: contextCompletions[0],
@@ -247,7 +266,7 @@ export const useFormula = ({
 
       const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-      // devWarning(true, 'calculate result', { newPosition, result })
+      console.log('calculate result', { newPosition, result })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 
@@ -257,8 +276,9 @@ export const useFormula = ({
         const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
         const newInputWithEqual = formulaIsNormal ? `=${newInput}` : newInput
         const editorContent = { content: newContent, position: newPosition }
+        console.log('replace editorContent', editorContent)
         editorContentRef.current = editorContent
-        setEditorContent(editorContent)
+        replaceRoot({ editorContent, rootId, formulaId })
         inputRef.current = newInputWithEqual
       }
 
@@ -364,7 +384,7 @@ export const useFormula = ({
 
     const newEditorContent: EditorContentType = { content: finalContent, position: newPosition }
     editorContentRef.current = newEditorContent
-    setEditorContent(newEditorContent)
+    replaceRoot({ editorContent: newEditorContent, rootId, formulaId })
     inputRef.current = finalInputAfterEqual
 
     devLog('selectCompletion', {
@@ -377,7 +397,7 @@ export const useFormula = ({
       finalInputAfterEqual
     })
     void doCalculate()
-  }, [completion.activeCompletion, doCalculate, formulaIsNormal])
+  }, [completion.activeCompletion, doCalculate, formulaId, formulaIsNormal, rootId])
 
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
@@ -509,13 +529,13 @@ export const useFormula = ({
     variableT,
     savedVariableT,
     isDraft: isDraftRef.current,
+    editorContent: editorContentRef.current,
     doCalculate,
     name: nameRef.current,
     isDisableSave,
     doHandleSave,
     formulaIsNormal,
     defaultName,
-    editorContent,
     handleSelectActiveCompletion,
     completion,
     setCompletion

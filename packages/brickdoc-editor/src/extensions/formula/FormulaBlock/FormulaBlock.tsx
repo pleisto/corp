@@ -90,8 +90,7 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
         completion={completion}
         handleSelectActiveCompletion={handleSelectActiveCompletion}
         setCompletion={setCompletion}
-        handleDelete={handleDelete}
-      >
+        handleDelete={handleDelete}>
         {renderData}
       </FormulaMenu>
     </BlockContainer>
