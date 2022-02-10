@@ -39,7 +39,6 @@ import {
   variableKey,
   column2completion,
   block2completion,
-  variable2name,
   block2name
 } from '../grammar/convert'
 import { FORMULA_PARSER_VERSION } from '../version'
@@ -298,81 +297,20 @@ export class FormulaContext implements ContextInterface {
     return Object.values(this.context).filter(v => v.t.namespaceId === namespaceId)
   }
 
-  private clearDependency(namespaceId: NamespaceId, variableId: VariableId): void {
-    const variable = this.findVariable(namespaceId, variableId)
-    if (variable) {
-      variable.unsubscripeEvents()
-
-      variable.t.variableDependencies.forEach(dependency => {
-        const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
-        const variableDependencies = this.reverseVariableDependencies[dependencyKey]
-          ? this.reverseVariableDependencies[dependencyKey].filter(
-              x => !(x.namespaceId === namespaceId && x.variableId === variableId)
-            )
-          : []
-        this.reverseVariableDependencies[dependencyKey] = [...variableDependencies]
-      })
-
-      variable.t.functionDependencies.forEach(dependency => {
-        const dependencyKey = dependency.key
-        const functionDependencies = this.reverseFunctionDependencies[dependencyKey]
-          ? this.reverseFunctionDependencies[dependencyKey].filter(
-              x => !(x.namespaceId === namespaceId && x.variableId === variableId)
-            )
-          : []
-        this.reverseFunctionDependencies[dependencyKey] = [...functionDependencies]
-      })
-    }
-  }
-
-  private trackDependency(variable: VariableInterface): void {
-    const {
-      t: { variableDependencies, namespaceId, variableId, functionDependencies, type }
-    } = variable
-    this.formulaNames = this.formulaNames
-      .filter(n => !(n.kind === 'Variable' && n.key === variableId))
-      .concat(variable2name(variable))
-
-    if (!this.formulaNames.find(n => n.kind === 'Block' && n.key === namespaceId) && type === 'normal') {
-      const block = new BlockClass(this, { id: namespaceId })
-      this.formulaNames.push({ ...block2name(block), name: 'Untitled' })
-    }
-    this.blocks[namespaceId] = 'Block'
-
-    variableDependencies.forEach(dependency => {
-      const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
-      this.reverseVariableDependencies[dependencyKey] ||= []
-      this.reverseVariableDependencies[dependencyKey] = [
-        ...this.reverseVariableDependencies[dependencyKey],
-        { namespaceId, variableId }
-      ]
-    })
-
-    functionDependencies.forEach(dependency => {
-      const dependencyKey = dependency.key
-      this.reverseFunctionDependencies[dependencyKey] ||= []
-      this.reverseFunctionDependencies[dependencyKey] = [
-        ...this.reverseFunctionDependencies[dependencyKey],
-        { namespaceId, variableId }
-      ]
-    })
-  }
-
   public async commitVariable({ variable }: { variable: VariableInterface }): Promise<void> {
     const { namespaceId, variableId } = variable.t
-    const isNew = variable.isDraft()
+    const oldVariable = this.findVariable(namespaceId, variableId)
 
     // 1. clear old dependencies
-    if (!isNew) {
-      // Update
-      this.clearDependency(namespaceId, variableId)
+    if (oldVariable) {
+      oldVariable.clearDependency()
     }
 
     // 2. replace variable object
     this.context[variableKey(namespaceId, variableId)] = variable
 
-    // 3. subscripe events
-    variable.subscripeEvents()
+    // 3. track dependencies
+    variable.trackDependency()
 
     // 4. update name counter
     const match = variable.t.name.match(matchRegex)
@@ -385,20 +323,17 @@ export class FormulaContext implements ContextInterface {
       )
     }
 
-    // 5. track dependencies
-    this.trackDependency(variable)
-
-    // 6. persist
-    if (isNew) {
+    // 5. persist
+    if (oldVariable) {
+      await variable.invokeBackendUpdate()
+    } else {
       if (variable.t.version < FORMULA_PARSER_VERSION) {
         await variable.interpret({ ctx: {}, arguments: [] })
       }
       await variable.invokeBackendCreate()
-    } else {
-      await variable.invokeBackendUpdate()
     }
 
-    // 7. broadcast update
+    // 6. broadcast update
     variable.afterUpdate()
   }
 
@@ -406,7 +341,7 @@ export class FormulaContext implements ContextInterface {
     const key = variableKey(namespaceId, variableId)
     const variable = this.context[key]
     if (variable) {
-      void this.clearDependency(namespaceId, variableId)
+      variable.clearDependency()
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.context[key]
 

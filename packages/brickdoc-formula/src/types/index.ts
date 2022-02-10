@@ -432,6 +432,8 @@ export interface ContextInterface {
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
   reservedNames: string[]
+  reverseVariableDependencies: Record<VariableKey, VariableDependency[]>
+  reverseFunctionDependencies: Record<FunctionKey, VariableDependency[]>
   invoke: (name: FunctionNameType, ctx: FunctionContext, ...args: any[]) => Promise<AnyTypeResult>
   backendActions: BackendActions | undefined
   variableCount: () => number
@@ -612,6 +614,8 @@ export interface VariableInterface {
   formulaContext: ContextInterface
   buildFormula: () => Formula
   clone: () => VariableInterface
+  clearDependency: VoidFunction
+  trackDependency: VoidFunction
   destroy: () => Promise<void>
   save: () => Promise<void>
   isDraft: () => boolean
@@ -620,8 +624,6 @@ export interface VariableInterface {
   meta: () => VariableMetadata
   result: () => VariableResult
   updateCst: (cst: CstNode, context: InterpretContext) => void
-  subscripeEvents: VoidFunction
-  unsubscripeEvents: VoidFunction
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
   afterUpdate: VoidFunction

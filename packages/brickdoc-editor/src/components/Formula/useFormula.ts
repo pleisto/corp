@@ -15,7 +15,7 @@ import {
   FormulaEditorSaveEventTrigger,
   FormulaEditorUpdateEventTrigger,
   FormulaKeyboardEventTrigger,
-  FormulaUpdated
+  FormulaUpdatedViaId
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import { devLog, devWarning } from '@brickdoc/design-system'
@@ -448,7 +448,7 @@ export const useFormula = ({
       },
       {
         eventId: `${rootId},${formulaId}`,
-        subscribeId: `${rootId},${formulaId}`
+        subscribeId: `UseFormula#${rootId},${formulaId}`
       }
     )
     return () => listener.unsubscribe()
@@ -462,7 +462,7 @@ export const useFormula = ({
       },
       {
         eventId: `${rootId},${formulaId}`,
-        subscribeId: `${rootId},${formulaId}`
+        subscribeId: `UseFormula#${rootId},${formulaId}`
       }
     )
     return () => listener.unsubscribe()
@@ -483,7 +483,7 @@ export const useFormula = ({
       },
       {
         eventId: `${rootId},${formulaId}`,
-        subscribeId: `${rootId},${formulaId}`
+        subscribeId: `UseFormula#${rootId},${formulaId}`
       }
     )
     return () => listener.unsubscribe()
@@ -491,7 +491,7 @@ export const useFormula = ({
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
-      FormulaUpdated,
+      FormulaUpdatedViaId,
       e => {
         variableRef.current = e.payload
         setVariableT(e.payload.t)
@@ -499,7 +499,7 @@ export const useFormula = ({
       },
       {
         eventId: `${rootId},${formulaId}`,
-        subscribeId: `${rootId},${formulaId}`
+        subscribeId: `UseFormula#${rootId},${formulaId}`
       }
     )
     return () => listener.unsubscribe()
