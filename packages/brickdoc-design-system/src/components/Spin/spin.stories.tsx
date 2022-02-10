@@ -7,24 +7,6 @@ export default {
   component: Spin,
   args: {},
   argTypes: {
-    text: {
-      description: ``,
-      control: {
-        type: 'text'
-      }
-    },
-    value: {
-      description: '`string | number`',
-      control: {
-        type: 'string'
-      }
-    },
-    closable: {
-      description: `Toggle whether the tag can be closed`,
-      control: {
-        type: 'boolean'
-      }
-    },
     size: {
       control: {
         type: 'radio',
@@ -34,43 +16,24 @@ export default {
     color: {
       control: {
         type: 'select',
-        options: ['none', 'primary', 'red', 'cyan', 'blue']
+        options: ['light', 'dark']
       }
-    },
-    border: {
-      control: {
-        type: 'boolean'
-      }
-    },
-    prefixCls: {
-      description: '`string`'
-    },
-    onClick: {
-      description: '`(e: MouseEvent<HTMLElement> | PressEvent) => void`'
-    },
-    onClose: {
-      description: '`(e: MouseEvent<HTMLElement>, value: ReactNode) => void`'
-    },
-    children: {
-      description: '`ReactNode`'
     }
   },
   parameters: {
     docs: {
       description: {
         component: `
-Tag component for feedback.
-
 ## When To Use
 
-- Tag component is used to display a collection of concise information for rapid identification and grouping.
+- Spin is used to inform the user that the content is loading and may take an uncertain period of time.
 
 `
       }
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/YcVOEbdec2oqyKrYFSkeYW/Components-Base?node-id=697%3A2440'
+      url: 'https://www.figma.com/file/1jTDo6mGYGT2qoweGlYP4E/Icons?node-id=1231%3A1177'
     }
   }
 } as ComponentMeta<typeof Spin>

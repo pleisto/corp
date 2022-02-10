@@ -1,17 +1,34 @@
-import { css } from '../../../themes'
+import { css, theme } from '../../../themes'
 
 export const spinStyle = css({
+  display: 'inline-block',
   position: 'relative',
   opacity: 0,
-  transform: 'scale(3)',
-  marginLeft: '20px',
-  marginTop: '10px',
+  padding: 2,
 
   variants: {
     size: {
-      sm: {},
-      md: {},
-      lg: {}
+      sm: {
+        transform: 'scale(0.6)'
+      },
+      md: {
+        transform: 'scale(0.)'
+      },
+      lg: {
+        transform: 'scale(1)'
+      }
+    },
+    color: {
+      light: {
+        '& circle': {
+          stroke: theme.colors.white
+        }
+      },
+      dark: {
+        '& > circle': {
+          stroke: theme.colors.iconPrimary
+        }
+      }
     }
   }
 })

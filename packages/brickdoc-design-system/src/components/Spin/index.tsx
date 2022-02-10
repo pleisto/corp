@@ -4,12 +4,13 @@ import { styled } from '../../themes'
 import { spinStyle } from './styles/index.style'
 
 export type Size = 'lg' | 'md' | 'sm'
+export type Color = 'dark' | 'light'
 
 export interface SpinProps {
   size?: Size
+  color?: Color
 }
 
-// TODO: Complete design drawing missing
 const SpinRoot = styled(motion.svg, spinStyle)
 
 /** Spin
@@ -19,7 +20,7 @@ const SpinRoot = styled(motion.svg, spinStyle)
  * ```
  */
 const Spin: FC<SpinProps> = props => {
-  const { size = 'md', ...otherProps } = props
+  const { size = 'md', color = 'dark', ...otherProps } = props
 
   const controls = useAnimation()
   const spinnerRef = useRef<SVGSVGElement>(null)
@@ -79,10 +80,11 @@ const Spin: FC<SpinProps> = props => {
     <SpinRoot
       {...otherProps}
       ref={spinnerRef}
-      size={size}
       width="20"
       height="20"
       viewBox="0 0 20 20"
+      size={size}
+      color={color}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
