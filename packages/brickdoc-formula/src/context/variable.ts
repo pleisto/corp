@@ -165,7 +165,7 @@ export class VariableClass implements VariableInterface {
         },
         {
           eventId: `${namespaceId},${variableId}`,
-          subscribeId: `${namespaceId},${variableId}`
+          subscribeId: `${t.namespaceId},${t.variableId}`
         }
       )
       this.eventListeners.push(result)
@@ -176,6 +176,7 @@ export class VariableClass implements VariableInterface {
     this.eventListeners.forEach(listener => {
       listener.unsubscribe()
     })
+    this.eventListeners = []
   }
 
   public afterUpdate(): void {
@@ -270,7 +271,6 @@ export class VariableClass implements VariableInterface {
   private async reparseAndRefresh(): Promise<void> {
     const formula = this.buildFormula()
     this.t = castVariable(this.formulaContext, formula)
-    console.log('reparseAndRefresh', this.t)
     await this.refresh({ ctx: {}, arguments: [] })
   }
 

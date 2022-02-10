@@ -358,7 +358,6 @@ export class FormulaContext implements ContextInterface {
     })
   }
 
-  // TODO update dependencies and check circular references
   public async commitVariable({ variable }: { variable: VariableInterface }): Promise<void> {
     const { namespaceId, variableId } = variable.t
     const isNew = variable.isDraft()

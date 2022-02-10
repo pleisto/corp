@@ -495,6 +495,7 @@ export const useFormula = ({
       e => {
         variableRef.current = e.payload
         setVariableT(e.payload.t)
+        setSavedVariableT(e.payload.t)
       },
       {
         eventId: `${rootId},${formulaId}`,
