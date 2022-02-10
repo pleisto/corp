@@ -6,7 +6,7 @@ export interface SkeletonProps extends IContentLoaderProps {
   type?: 'list' | 'bullet-list' | 'article'
 }
 
-const Skeleton: ForwardRefRenderFunction<unknown, SkeletonProps> = props => {
+const Skeleton: ForwardRefRenderFunction<unknown, SkeletonProps> = (props, ref) => {
   const { type, children, ...otherProps } = props
 
   if (children) return <ContentLoader {...otherProps}>{children}</ContentLoader>
