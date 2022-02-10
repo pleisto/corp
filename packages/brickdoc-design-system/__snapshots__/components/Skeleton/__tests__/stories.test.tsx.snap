@@ -3,29 +3,29 @@
 exports[`Skeleton rendering Basic should match the snapshot 1`] = `
 <div>
   <svg
-    aria-labelledby="9ed1fcw-aria"
+    aria-labelledby="jxjy0p-aria"
     height="800"
     role="img"
     viewBox="0 0 850 800"
     width="850"
   >
     <title
-      id="9ed1fcw-aria"
+      id="jxjy0p-aria"
     >
       Loading...
     </title>
     <rect
-      clip-path="url(#9ed1fcw-diff)"
+      clip-path="url(#jxjy0p-diff)"
       height="100%"
       role="presentation"
-      style="fill: url(#9ed1fcw-animated-diff);"
+      style="fill: url(#jxjy0p-animated-diff);"
       width="100%"
       x="0"
       y="0"
     />
     <defs>
       <clippath
-        id="9ed1fcw-diff"
+        id="jxjy0p-diff"
       >
         <rect
           height="29"
@@ -143,7 +143,7 @@ exports[`Skeleton rendering Basic should match the snapshot 1`] = `
         />
       </clippath>
       <lineargradient
-        id="9ed1fcw-animated-diff"
+        id="jxjy0p-animated-diff"
       >
         <stop
           offset="0%"
