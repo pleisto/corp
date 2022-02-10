@@ -81,6 +81,8 @@
             min-width: 0;
             border: 0;
             position: relative;
+            opacity: 0;
+            transition: opacity 0.3s var(--brd-transitions-easeInOut);
             .row-action-panel-layer {
               position: absolute;
               right: 0;
@@ -262,6 +264,11 @@
               border-color: @table-bg;
             }
           }
+        }
+      }
+      &:hover {
+        .row-action-panel {
+          opacity: 1;
         }
       }
     }
