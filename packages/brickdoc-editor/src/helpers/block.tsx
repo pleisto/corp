@@ -25,6 +25,11 @@ import {
   RteH5,
   TextStyle
 } from '../components/Icon'
+import { FormulaBlock } from '../extensions/formula/FormulaBlock'
+import { SpreadsheetBlockExtension } from '../extensions/spreadsheet'
+import { EmbedBlockExtension } from '../extensions/embed'
+import { SubPageMenuBlockExtension } from '../extensions/subPageMenu'
+import { TocBlockExtension } from '../extensions/toc'
 
 export type BlockItemKey =
   | 'text'
@@ -47,6 +52,7 @@ export type BlockItemKey =
 
 export interface BlockCommandItem {
   key: BlockItemKey
+  blockType: string
   alias?: string[]
   squareIcon: React.ReactElement
   icon: React.ReactElement
@@ -57,6 +63,7 @@ export interface BlockCommandItem {
 
 export const TEXT: BlockCommandItem = {
   key: 'text',
+  blockType: Paragraph.name,
   squareIcon: <TextStyle square={true} />,
   icon: <TextStyle />,
   setBlock: chain => chain.setParagraph(),
@@ -66,6 +73,7 @@ export const TEXT: BlockCommandItem = {
 
 export const FORMULA: BlockCommandItem = {
   key: 'formula',
+  blockType: FormulaBlock.name,
   alias: ['for'],
   squareIcon: <Formula square={true} />,
   icon: <Formula />,
@@ -76,6 +84,7 @@ export const FORMULA: BlockCommandItem = {
 
 export const SPREADSHEET: BlockCommandItem = {
   key: 'spreadsheet',
+  blockType: SpreadsheetBlockExtension.name,
   alias: ['table'],
   squareIcon: <Table square={true} />,
   icon: <Table />,
@@ -86,6 +95,7 @@ export const SPREADSHEET: BlockCommandItem = {
 
 export const UPLOAD: BlockCommandItem = {
   key: 'upload',
+  blockType: EmbedBlockExtension.name,
   alias: ['up', 'file', 'pdf', 'excel', 'ppt', 'image', 'img'],
   squareIcon: <Upload square={true} />,
   icon: <Upload />,
@@ -96,6 +106,7 @@ export const UPLOAD: BlockCommandItem = {
 
 export const GALLERY: BlockCommandItem = {
   key: 'gallery',
+  blockType: EmbedBlockExtension.name,
   alias: ['gal'],
   squareIcon: <Unsplash square={true} />,
   icon: <Unsplash />,
@@ -106,6 +117,7 @@ export const GALLERY: BlockCommandItem = {
 
 export const LINK: BlockCommandItem = {
   key: 'link',
+  blockType: EmbedBlockExtension.name,
   alias: ['link'],
   squareIcon: <Link square={true} />,
   icon: <Link />,
@@ -116,6 +128,7 @@ export const LINK: BlockCommandItem = {
 
 export const HEADING_1: BlockCommandItem = {
   key: 'h1',
+  blockType: Heading.name,
   alias: ['h1', 'heading 1'],
   squareIcon: <RteH1 square={true} />,
   icon: <RteH1 />,
@@ -126,6 +139,7 @@ export const HEADING_1: BlockCommandItem = {
 
 export const HEADING_2: BlockCommandItem = {
   key: 'h2',
+  blockType: Heading.name,
   alias: ['h2', 'heading 2'],
   squareIcon: <RteH2 square={true} />,
   icon: <RteH2 />,
@@ -136,6 +150,7 @@ export const HEADING_2: BlockCommandItem = {
 
 export const HEADING_3: BlockCommandItem = {
   key: 'h3',
+  blockType: Heading.name,
   alias: ['h3', 'heading 3'],
   squareIcon: <RteH3 square={true} />,
   icon: <RteH3 />,
@@ -146,6 +161,7 @@ export const HEADING_3: BlockCommandItem = {
 
 export const HEADING_4: BlockCommandItem = {
   key: 'h4',
+  blockType: Heading.name,
   alias: ['h4', 'heading 4'],
   squareIcon: <RteH4 square={true} />,
   icon: <RteH4 />,
@@ -156,6 +172,7 @@ export const HEADING_4: BlockCommandItem = {
 
 export const HEADING_5: BlockCommandItem = {
   key: 'h5',
+  blockType: Heading.name,
   alias: ['h5', 'heading 5'],
   squareIcon: <RteH5 square={true} />,
   icon: <RteH5 />,
@@ -166,6 +183,7 @@ export const HEADING_5: BlockCommandItem = {
 
 export const BULLETED_LIST: BlockCommandItem = {
   key: 'bulletedList',
+  blockType: BulletList.name,
   alias: ['bul'],
   squareIcon: <ListUnordered square={true} />,
   icon: <ListUnordered />,
@@ -177,6 +195,7 @@ export const BULLETED_LIST: BlockCommandItem = {
 
 export const ORDERED_LIST: BlockCommandItem = {
   key: 'orderedList',
+  blockType: OrderedList.name,
   alias: ['num', 'numberedList'],
   squareIcon: <ListOrdered square={true} />,
   icon: <ListOrdered />,
@@ -188,6 +207,7 @@ export const ORDERED_LIST: BlockCommandItem = {
 
 export const CODE: BlockCommandItem = {
   key: 'code',
+  blockType: CodeBlock.name,
   alias: ['co'],
   squareIcon: <Code square={true} />,
   icon: <Code />,
@@ -198,6 +218,7 @@ export const CODE: BlockCommandItem = {
 
 export const DIVIDER: BlockCommandItem = {
   key: 'divider',
+  blockType: HorizontalRule.name,
   alias: ['div', 'hr'],
   squareIcon: <Divider square={true} />,
   icon: <Divider />,
@@ -208,6 +229,7 @@ export const DIVIDER: BlockCommandItem = {
 
 export const TOC: BlockCommandItem = {
   key: 'toc',
+  blockType: TocBlockExtension.name,
   alias: ['toc', 'table of content'],
   squareIcon: <Toc square={true} />,
   icon: <Toc />,
@@ -218,6 +240,7 @@ export const TOC: BlockCommandItem = {
 
 export const SUB_PAGE_MENU: BlockCommandItem = {
   key: 'subPageMenu',
+  blockType: SubPageMenuBlockExtension.name,
   alias: ['sub'],
   squareIcon: <MindmapList square={true} />,
   icon: <MindmapList />,
@@ -289,3 +312,15 @@ export const sortBlock =
     if (indexA === indexB) return 0
     return -1
   }
+
+export const unselectableBlockType = [
+  'imageBlock',
+  EmbedBlockExtension.name,
+  'pdfSection',
+  'tableBlock',
+  HorizontalRule.name,
+  TocBlockExtension.name,
+  SubPageMenuBlockExtension.name,
+  SpreadsheetBlockExtension.name
+]
+export const paragraphLikeBlockType = [Paragraph.name, Heading.name]
