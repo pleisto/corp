@@ -93,6 +93,20 @@ describe('Dependency', () => {
     expect(num2.t.variableValue.result.result).toEqual(30)
   })
 
+  it('modify num0 => invalid', async () => {
+    const num0 = formulaContext.findVariable(namespaceId, variableIds[0])!
+
+    await num0.updateDefinition('=30foobar')
+    expect(num0.t.variableValue.result.result).toEqual('Not all input parsed: foobar')
+
+    const num2 = formulaContext.findVariable(namespaceId, variableIds[2])!
+    expect(num2.t.variableValue.result.result).toEqual('Not all input parsed: foobar')
+
+    await num0.updateDefinition('=233')
+    expect(num0.t.variableValue.result.result).toEqual(233)
+    expect(num2.t.variableValue.result.result).toEqual(233)
+  })
+
   it('modify num0 => boolean', async () => {
     const num0 = formulaContext.findVariable(namespaceId, variableIds[0])!
 

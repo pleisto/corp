@@ -19,7 +19,8 @@ import {
   Formula,
   BaseFormula,
   FormulaSourceType,
-  VariableResult
+  VariableResult,
+  ErrorMessage
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -311,9 +312,18 @@ export class VariableClass implements VariableInterface {
     this.afterUpdate()
   }
 
+  private errorMessages(): ErrorMessage[] {
+    const { result, success } = this.t.variableValue
+    if (result.type === 'Error' && !success) {
+      return [{ message: result.result, type: result.errorKind }]
+    } else {
+      return []
+    }
+  }
+
   public async interpret(interpretContext: InterpretContext): Promise<void> {
     const { variableValue } = await interpret({
-      parseResult: { cst: this.t.cst!, kind: this.t.kind },
+      parseResult: { cst: this.t.cst!, kind: this.t.kind, errorMessages: this.errorMessages() },
       ctx: {
         formulaContext: this.formulaContext,
         meta: this.meta(),

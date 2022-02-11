@@ -576,8 +576,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
             return true
           }
 
-          if (variable.t.kind === 'constant') {
+          if (['constant', 'unknown'].includes(variable.t.kind)) {
             result = variable.t.variableValue.result
+            return true
           }
 
           result = this.visit(variable.t.cst!, args)

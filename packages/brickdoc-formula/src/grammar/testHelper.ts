@@ -24,7 +24,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     throw new Error(errorMessages[0]!.message)
   }
 
-  const { variableValue, lazy } = await interpret({ parseResult: { cst, kind }, ctx })
+  const { variableValue, lazy } = await interpret({ parseResult: { cst, kind, errorMessages }, ctx })
 
   const variable: VariableData = {
     namespaceId,

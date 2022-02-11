@@ -142,7 +142,12 @@ const testCases = [
     },
     output: {
       position: 0,
-      content: SNAPSHOT_FLAG
+      content: [
+        {
+          type: 'text',
+          text: '123asdasd'
+        }
+      ]
     }
   }
 ]

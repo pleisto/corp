@@ -266,7 +266,7 @@ export const useFormula = ({
 
       const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-      console.log('calculate result', { newPosition, result })
+      // console.log('calculate result', { newPosition, result })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 
@@ -276,7 +276,7 @@ export const useFormula = ({
         const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
         const newInputWithEqual = formulaIsNormal ? `=${newInput}` : newInput
         const editorContent = { content: newContent, position: newPosition }
-        console.log('replace editorContent', editorContent)
+        // console.log('replace editorContent', editorContent)
         editorContentRef.current = editorContent
         replaceRoot({ editorContent, rootId, formulaId })
         inputRef.current = newInputWithEqual
@@ -497,7 +497,7 @@ export const useFormula = ({
         const newPosition = event.payload.position
         const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
         const value = formulaIsNormal ? `=${newInput}` : newInput
-        editorContentRef.current = { ...editorContentRef.current, position: newPosition }
+        editorContentRef.current = { content: newContent, position: newPosition }
         inputRef.current = value
         void doCalculate()
       },

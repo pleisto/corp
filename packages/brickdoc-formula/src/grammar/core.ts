@@ -18,7 +18,8 @@ import {
   FunctionContext,
   BlockKey,
   StringResult,
-  BaseFormula
+  BaseFormula,
+  ErrorResult
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -151,7 +152,7 @@ export const abbrev = ({
     modified = true
   })
 
-  console.log('abbrev', { newInput, input, tokens })
+  // console.log('abbrev', { newInput, input, tokens })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
@@ -398,12 +399,24 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 }
 
 export const interpret = async ({
-  parseResult: { cst, kind },
+  parseResult: { cst, kind, errorMessages },
   ctx
 }: {
-  parseResult: { cst: CstNode | undefined; kind: VariableKind }
+  parseResult: { cst: CstNode | undefined; kind: VariableKind; errorMessages: ErrorMessage[] }
   ctx: FunctionContext
 }): Promise<InterpretResult> => {
+  if (errorMessages.length > 0) {
+    const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
+    return {
+      lazy: false,
+      variableValue: {
+        success: true,
+        updatedAt: new Date(),
+        cacheValue: result,
+        result
+      }
+    }
+  }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
     return {
