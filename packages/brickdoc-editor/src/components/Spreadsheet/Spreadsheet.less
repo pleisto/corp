@@ -29,7 +29,6 @@
         z-index: 100;
       }
       table.spreadsheet-row-actions {
-        z-index: 150;
         opacity: 0;
         transition: opacity 0.3s var(--brd-transitions-easeInOut);
         position: absolute;
@@ -116,6 +115,7 @@
           }
         }
         tbody > tr.dragging {
+          z-index: 150;
           td.row-action-panel {
             .row-action-panel-layer {
               cursor: grabbing;
