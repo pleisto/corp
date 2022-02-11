@@ -30,6 +30,7 @@ import { FormulaInterpreter } from './interpreter'
 import { CodeFragmentVisitor } from './codeFragment'
 import { blockKey, variableKey } from './convert'
 import { parseString } from './util'
+import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -162,6 +163,7 @@ const abbrev = ({
 }
 
 const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] => {
+  const finalCodeFragments: CodeFragment[] = []
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     value: ' ',
@@ -171,39 +173,49 @@ const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] 
     errors: [],
     attrs: undefined
   }
-  const finalCodeFragments: CodeFragment[] = []
 
-  const [equalCodeFragment, ...restCodeFragments] = codeFragments
-  if (equalCodeFragment) {
-    finalCodeFragments.push(equalCodeFragment)
-  }
+  let restInput = input
+  let error = false
+  let image = ''
+  codeFragments.forEach(codeFragment => {
+    let match = false
+    if (error) return
+    image = codeFragment.value
 
-  const inputWithoutEqual = input.substring(1)
-  const prefixSpaceCount = inputWithoutEqual.length - inputWithoutEqual.trimStart().length
-  if (prefixSpaceCount) {
-    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(prefixSpaceCount) })
-  }
+    if (restInput.startsWith(image)) {
+      finalCodeFragments.push(codeFragment)
+      restInput = restInput.substring(image.length)
+      match = true
+    }
 
-  // let lastSpace = false
-  restCodeFragments.forEach(codeFragment => {
-    // if (codeFragment.spaceBefore && !lastSpace) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    // }
+    if (restInput.startsWith(' ')) {
+      const prefixSpaceCount = restInput.length - restInput.trimStart().length
+      const spaceValue = ' '.repeat(prefixSpaceCount)
+      finalCodeFragments.push({ ...spaceCodeFragment, value: spaceValue, display: spaceValue })
+      restInput = restInput.substring(prefixSpaceCount)
+    }
 
-    finalCodeFragments.push(codeFragment)
-
-    // if (codeFragment.spaceAfter) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    //   position += 1
-    //   lastSpace = true
-    // } else {
-    //   lastSpace = false
-    // }
+    if (!match) {
+      error = true
+    }
   })
 
-  const suffixSpaceCount = input.length - input.trimEnd().length
-  if (suffixSpaceCount) {
-    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(suffixSpaceCount) })
+  if (error) {
+    devWarning(true, 'addSpaceError', { input, codeFragments, restInput, finalCodeFragments, image })
+    // const errorMessage = `[Parse Error] ${input}`
+    // return [
+    //   {
+    //     code: 'other',
+    //     value: errorMessage,
+    //     type: 'any',
+    //     wrapQuote: false,
+    //     display: errorMessage,
+    //     errors: [],
+    //     attrs: undefined
+    //   }
+    // ]
+
+    return codeFragments
   }
 
   return finalCodeFragments
@@ -336,7 +348,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
         })
       }
     } else {
-      console.error('ParseErrorTODO', {
+      devWarning(true, 'Parse Error', {
         input,
         codeFragments,
         newInput,

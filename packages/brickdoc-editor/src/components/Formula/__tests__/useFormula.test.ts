@@ -76,14 +76,16 @@ const metas: VariableMetadata[] = [
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
 const simpleCommonTestCases = [
+  { input: '  123     ', resultData: 123 },
   { input: '123asdasd', resultData: 'Not all input parsed: asdasd' },
   { input: '1 1', resultData: 'Not all input parsed: 1' },
   { input: '1  1', resultData: 'Not all input parsed: 1' },
   { input: '1  a', resultData: 'Not all input parsed: a' },
-  { input: 'a a', todoInput: 'aa', resultData: 'Function a not found' },
-  { input: 'a123 1', todoInput: 'a1231', resultData: 'Function a123 not found' },
+  { input: 'a a', resultData: 'Function a not found' },
+  { input: 'a123 1', resultData: 'Function a123 not found' },
   { input: 'a123 ', resultData: 'Unknown function a123' },
-  { input: ' 123 + 123 ', todoInput: ' 123+123 ', resultData: 246 },
+  { input: ' 123   + 123 ', resultData: 246 },
+  { input: ' barasd asd 123   + 123 1 ', resultData: 'Function barasd not found' },
   { input: ' 123 ', resultData: 123 },
   { input: ' a123', resultData: 'Unknown function a123' },
   { input: '    a123 ', resultData: 'Unknown function a123' }
@@ -99,9 +101,7 @@ const simpleSpreadsheetTestCases = [
   { input: ' foo bar ', resultData: ' foo bar ' },
   { input: '   ', resultData: '   ' },
 
-  ...simpleCommonTestCases.map(({ input, todoInput, resultData }) => {
-    return { input: `=${input}`, todoInput: todoInput ? `=${todoInput}` : undefined, resultData }
-  })
+  ...simpleCommonTestCases.map(({ input, resultData }) => ({ input: `=${input}`, resultData }))
 ]
 
 const normalTestCases = [
@@ -273,7 +273,7 @@ describe('useFormula', () => {
     expect(result.current.defaultName).toBe('var1')
   })
 
-  it.each(simpleNormalTestCases)('normal: "$input" -> "$resultData"', async ({ input, todoInput, resultData }) => {
+  it.each(simpleNormalTestCases)('normal: "$input" -> "$resultData"', async ({ input, resultData }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
 
     const editorPosition = 0
@@ -293,40 +293,35 @@ describe('useFormula', () => {
     await waitForNextUpdate()
 
     expect(result.current.editorContent.position).toEqual(0)
-    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(todoInput ?? input)
+    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(input)
 
     expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
   })
 
-  it.each(simpleSpreadsheetTestCases)(
-    'spreadsheet: "$input" -> "$resultData"',
-    async ({ input, todoInput, resultData }) => {
-      const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
+  it.each(simpleSpreadsheetTestCases)('spreadsheet: "$input" -> "$resultData"', async ({ input, resultData }) => {
+    const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
 
-      const editorPosition = 0
-      const jsonContent = buildJSONContentByArray([
-        {
-          type: 'text',
-          text: input
-        }
-      ])
+    const editorPosition = 0
+    const jsonContent = buildJSONContentByArray([
+      {
+        type: 'text',
+        text: input
+      }
+    ])
 
-      act(() => {
-        BrickdocEventBus.dispatch(
-          FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
-        )
-      })
-
-      await waitForNextUpdate()
-
-      expect(result.current.editorContent.position).toEqual(0)
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
-        todoInput ?? input
+    act(() => {
+      BrickdocEventBus.dispatch(
+        FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
       )
+    })
 
-      expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
-    }
-  )
+    await waitForNextUpdate()
+
+    expect(result.current.editorContent.position).toEqual(0)
+    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(input)
+
+    expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
+  })
 
   it.each(normalTestCases)('normal $title', async ({ input, output }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
