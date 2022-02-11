@@ -294,7 +294,7 @@ export const useSpreadsheet = (options: {
   React.useEffect(() => {
     if (isNewRef.current) {
       // TODO: temp fix for delay tiptap doc quick update
-      setTimeout(() => saveRowBlocks([getRowBlock(0), getRowBlock(1), getRowBlock(2)]), 100)
+      setTimeout(() => saveRowBlocks([getRowBlock(0), getRowBlock(1), getRowBlock(2)]), 50)
       isNewRef.current = false
       loaded.current = true
     } else if (!loaded.current) {

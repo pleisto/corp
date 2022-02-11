@@ -34,6 +34,9 @@
         position: absolute;
         border-collapse: collapse;
         left: 0px - @table-action-layer-width;
+        &.dragging {
+          z-index: 150;
+        }
         thead th {
           height: 33px;
         }
@@ -115,7 +118,6 @@
           }
         }
         tbody > tr.dragging {
-          z-index: 150;
           td.row-action-panel {
             .row-action-panel-layer {
               cursor: grabbing;
