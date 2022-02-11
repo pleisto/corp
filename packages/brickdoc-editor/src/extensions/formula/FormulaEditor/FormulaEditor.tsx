@@ -93,14 +93,16 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
         e => {
           const content = e.payload.content
           const position: number = e.payload.position
-          if (position) {
-            editor
-              .chain()
-              .replaceRoot(content)
-              .setTextSelection(position + 1)
-              .run()
-          } else {
-            editor.commands.replaceRoot(content)
+          if (content) {
+            if (position) {
+              editor
+                .chain()
+                .replaceRoot(content)
+                .setTextSelection(position + 1)
+                .run()
+            } else {
+              editor.commands.replaceRoot(content)
+            }
           }
 
           if (editable) console.log('after replace root', { content, position })

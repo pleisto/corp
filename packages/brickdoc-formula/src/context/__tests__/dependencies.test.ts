@@ -120,6 +120,9 @@ describe('Dependency', () => {
     expect(num2.t.variableValue.result.result).toEqual(true)
 
     const num3 = formulaContext.findVariable(namespaceId, variableIds[3])!
+
+    // const num1 = formulaContext.findVariable(namespaceId, variableIds[1])!
+    // num3 = num2 + num1 = 3
     // TODO fix this
     expect(num3.t.variableValue.result.result).toEqual(3)
   })
