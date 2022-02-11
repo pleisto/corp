@@ -219,6 +219,9 @@ export const SpreadsheetRowAction: React.FC<{
 }> = ({ context, rowId, children, rowNumber, rowActions, draggable }) => {
   const { t } = useEditorI18n()
 
+  const { hoverRowId } = context
+
+  const hover = hoverRowId === rowId
   const selected = context.selection.rowIds?.includes(rowId)
   const dragging = context.dragging.rowId === rowId
   const draggingOver = context.dragging.overRowId === rowId
@@ -265,7 +268,9 @@ export const SpreadsheetRowAction: React.FC<{
 
   return (
     <tr
-      className={`${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${draggingOver ? 'dragging-over' : ''}`}
+      className={`${hover ? 'hover' : ''} ${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${
+        draggingOver ? 'dragging-over' : ''
+      }`}
       style={
         dragging
           ? {
@@ -319,9 +324,14 @@ export const SpreadsheetRow: React.FC<{
   rowId: string
   children: React.ReactNode
 }> = ({ context, rowId, children }) => {
+  const { setHoverRowId } = context
+
   const selected = context.selection.rowIds?.includes(rowId)
   const dragging = context.dragging.rowId === rowId
   const draggingOver = context.dragging.overRowId === rowId
+
+  const onOver = () => setHoverRowId(rowId)
+  const onOut = () => setHoverRowId('')
 
   return (
     <tr
@@ -334,6 +344,10 @@ export const SpreadsheetRow: React.FC<{
           : {}
       }
       data-row-id={rowId}
+      onMouseOver={onOver}
+      onFocus={onOver}
+      onMouseOut={onOut}
+      onBlur={onOut}
     >
       {children}
     </tr>
