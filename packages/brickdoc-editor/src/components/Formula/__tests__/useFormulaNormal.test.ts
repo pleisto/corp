@@ -2,7 +2,7 @@ import { FormulaContext, FormulaSourceType, quickInsert, VariableMetadata } from
 import { BrickdocEventBus, FormulaEditorUpdateEventTrigger } from '@brickdoc/schema'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { JSONContent } from '@tiptap/core'
-import { buildJSONContentByArray } from '../../../helpers'
+import { buildJSONContentByArray, contentArrayToInput, fetchJSONContentArray } from '../../../helpers'
 import { useFormula } from '../useFormula'
 
 const rootId = 'eb373fbc-a6e9-40a6-8c4b-45cda7230dda'
@@ -65,7 +65,19 @@ const metas: VariableMetadata[] = [
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
-const errorTestCases = ['123asdasd', '1 1', '1  1', '1  a']
+const simpleTestCases = [
+  { input: '', resultData: undefined },
+
+  { input: '123asdasd', resultData: 'Not all input parsed: asdasd' },
+  { input: '1 1', resultData: 'Not all input parsed: 1' },
+  { input: '1  1', resultData: 'Not all input parsed: 1' },
+  { input: '1  a', resultData: 'Not all input parsed: a' },
+  { input: 'a123 ', resultData: 'Unknown function a123' },
+  { input: ' 123 + 123 ', todoInput: '123+123 ', resultData: 246 },
+  { input: ' 123 ', todoInput: '123 ', resultData: 123 },
+  { input: ' a123', todoInput: 'a123', resultData: 'Unknown function a123' },
+  { input: ' a123 ', todoInput: 'a123 ', resultData: 'Unknown function a123' }
+]
 
 const testCases = [
   {
@@ -153,7 +165,7 @@ describe('useFormula', () => {
     expect(result.current.defaultName).toBe('var1')
   })
 
-  it.each(errorTestCases)('invalid input: %s', async input => {
+  it.each(simpleTestCases)('input: "$input" -> "$resultData"', async ({ input, todoInput, resultData }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
 
     const editorPosition = 0
@@ -173,18 +185,9 @@ describe('useFormula', () => {
     await waitForNextUpdate()
 
     expect(result.current.editorContent.position).toEqual(0)
-    expect(result.current.editorContent.content).toEqual(
-      buildJSONContentByArray([
-        {
-          type: 'text',
-          text: input
-        }
-      ])
-    )
+    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(todoInput ?? input)
 
-    expect(result.current.variableT!.variableValue.result.result?.toString().startsWith('Not all input parsed: ')).toBe(
-      true
-    )
+    expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
   })
 
   it.each(testCases)('$title', async ({ input, output }) => {

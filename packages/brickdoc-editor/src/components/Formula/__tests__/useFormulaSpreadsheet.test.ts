@@ -65,9 +65,10 @@ const metas: VariableMetadata[] = [
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
-const errorTestCases = [
+const simpleTestCases = [
   { input: '', resultData: '' },
-  { input: '=', resultData: 'Parse error: ""' },
+  { input: '=', resultData: '=' },
+  { input: '=  ', resultData: '=  ' },
 
   { input: ' =', resultData: ' =' },
   { input: ' foo bar ', resultData: ' foo bar ' },
@@ -176,7 +177,7 @@ describe('useFormula', () => {
     expect(result.current.defaultName).toBe('var1')
   })
 
-  it.each(errorTestCases)('invalid input: "$input" -> "$resultData"', async ({ input, todoInput, resultData }) => {
+  it.each(simpleTestCases)('input: "$input" -> "$resultData"', async ({ input, todoInput, resultData }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
 
     const editorPosition = 0

@@ -164,7 +164,7 @@ export const abbrev = ({
 export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
-    meta: { namespaceId, variableId, input, name }
+    meta: { namespaceId, variableId, input, name, type }
   } = ctx
   const position = pos ?? 0
   const version = FORMULA_PARSER_VERSION
@@ -189,7 +189,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     flattenVariableDependencies: []
   }
 
-  if (!input.startsWith('=')) {
+  if (!input.startsWith('=') || (type !== 'normal' && input.trim() === '=')) {
     return {
       ...returnValue,
       valid: true,
