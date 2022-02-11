@@ -4,7 +4,7 @@
 @table-bg: rgba(0, 0, 0, 3%);       // palette/type/thirdary
 @table-border-color: #BDBDBD;       // palette/type/thirdary
 
-// @table-action-layer-width: 200px; // 36px;
+@table-action-layer-width: 36px;
 @table-action-border-color: rgba(0, 0, 0, 5%);   // palette/divider/overlay-primary
 @table-select-bg: rgba(44, 91, 255, 0.18); // palette/secondary/selected
 @table-select-border-color: #C0CDFF;
@@ -21,25 +21,28 @@
 
 .brickdoc {
   .ProseMirror {
-    .node-spreadsheetBlock {
+    .node-spreadsheetBlock, .brickdoc-formula-spreadsheet {
       position: relative;
       .spreadsheet-action {
         position: absolute;
         top: 42px;
+        z-index: 100;
       }
       table.spreadsheet-row-actions {
+        z-index: 150;
         opacity: 0;
         transition: opacity 0.3s var(--brd-transitions-easeInOut);
         position: absolute;
         border-collapse: collapse;
-        left: 0;
-        thead tr {
-          height: 34px;
+        left: 0px - @table-action-layer-width;
+        thead th {
+          height: 33px;
         }
         td.row-action-panel {
           padding: 0;
           border: 0;
           height: 40px;
+          width: @table-action-layer-width;
           position: relative;
           .row-action-panel-layer {
             color: @table-header-color;
@@ -123,7 +126,7 @@
           }
         }
       }
-      &:hover {
+      &:hover, .hover, &.hover {
         table.spreadsheet-row-actions {
           opacity: 1;
         }

@@ -10,6 +10,7 @@ import { columnDisplayTitle } from './helper'
 
 import {
   SpreadsheetContainer,
+  SpreadsheetScrollView,
   SpreadsheetPanel,
   SpreadsheetView,
   SpreadsheetHeader,
@@ -162,7 +163,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
       ) : (
         <div className="spreadsheet-title">{title}</div>
       )}
-      <span>
+      <SpreadsheetContainer context={spreadsheetContext}>
         <SpreadsheetPanel>
           {rows.map((rowBlock, rowIdx) => {
             return (
@@ -200,7 +201,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
             )
           })}
         </SpreadsheetPanel>
-        <SpreadsheetContainer>
+        <SpreadsheetScrollView>
           <SpreadsheetView>
             <SpreadsheetHeader rowId="first" context={spreadsheetContext}>
               {columns.map((column, i) => {
@@ -283,8 +284,8 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
               })}
             </SpreadsheetBody>
           </SpreadsheetView>
-        </SpreadsheetContainer>
-      </span>
+        </SpreadsheetScrollView>
+      </SpreadsheetContainer>
     </BlockContainer>
   )
 }

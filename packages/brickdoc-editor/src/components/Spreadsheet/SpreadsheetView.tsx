@@ -62,7 +62,19 @@ export const SpreadsheetMenu = (options: {
   )
 }
 
-export const SpreadsheetContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SpreadsheetContainer: React.FC<{
+  children: React.ReactNode
+  context: SpreadsheetContext
+  className?: string
+}> = ({ children, context, className = '' }) => {
+  const { selection } = context
+
+  const hover = selection.all ?? selection.columnIds?.length ?? selection.rowIds?.length ?? selection.cellIds?.length
+
+  return <span className={`${className} ${hover ? 'hover' : ''}`}>{children}</span>
+}
+
+export const SpreadsheetScrollView: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div className="brickdoc-spreadsheet-block">{children}</div>
 }
 
@@ -74,7 +86,9 @@ export const SpreadsheetPanel: React.FC<{ children: React.ReactNode }> = ({ chil
   return (
     <table className="spreadsheet-row-actions">
       <thead>
-        <tr />
+        <tr data-row-id="first">
+          <th />
+        </tr>
       </thead>
       <tbody>{children}</tbody>
     </table>

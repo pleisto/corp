@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button, Icon, Input } from '@brickdoc/design-system'
 import {
+  SpreadsheetContainer,
   SpreadsheetPanel,
   SpreadsheetRowAction,
-  SpreadsheetContainer,
+  SpreadsheetScrollView,
   SpreadsheetView,
   SpreadsheetHeader,
   SpreadsheetHeaderColumn,
@@ -48,7 +49,7 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
     valuesMatrix
   })
   return (
-    <span className="brickdoc-formula-spreadsheet">
+    <SpreadsheetContainer context={spreadsheetContext} className="brickdoc-formula-spreadsheet">
       <div className="spreadsheet-title">{spreadsheet.name()}</div>
       <SpreadsheetPanel>
         {rows.map(({ rowId }, rowIdx) => {
@@ -56,7 +57,7 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
           return <SpreadsheetRowAction key={rowIdx} context={spreadsheetContext} rowId={rowId} rowNumber={rowNumber} />
         })}
       </SpreadsheetPanel>
-      <SpreadsheetContainer>
+      <SpreadsheetScrollView>
         <SpreadsheetView>
           <SpreadsheetHeader context={spreadsheetContext}>
             <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="" />
@@ -84,8 +85,8 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
             })}
           </SpreadsheetBody>
         </SpreadsheetView>
-      </SpreadsheetContainer>
-    </span>
+      </SpreadsheetScrollView>
+    </SpreadsheetContainer>
   )
 }
 
