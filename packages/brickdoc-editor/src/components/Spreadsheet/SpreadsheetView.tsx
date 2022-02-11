@@ -67,7 +67,18 @@ export const SpreadsheetContainer: React.FC<{ children: React.ReactNode }> = ({ 
 }
 
 export const SpreadsheetView: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <table>{children}</table>
+  return <table className="spreadsheet-rows">{children}</table>
+}
+
+export const SpreadsheetPanel: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <table className="spreadsheet-row-actions">
+      <thead>
+        <tr />
+      </thead>
+      <tbody>{children}</tbody>
+    </table>
+  )
 }
 
 export const SpreadsheetHeader: React.FC<{
@@ -185,10 +196,9 @@ export const SpreadsheetBody: React.FC<{ children: React.ReactNode }> = ({ child
   return <tbody>{children}</tbody>
 }
 
-export const SpreadsheetRow: React.FC<{
+export const SpreadsheetRowAction: React.FC<{
   context: SpreadsheetContext
   rowId: string
-  children: React.ReactNode
   rowNumber?: string
   rowActions?: SpreadsheetActionItem[]
   draggable?: boolean
@@ -286,6 +296,31 @@ export const SpreadsheetRow: React.FC<{
           )}
         </div>
       </td>
+    </tr>
+  )
+}
+
+export const SpreadsheetRow: React.FC<{
+  context: SpreadsheetContext
+  rowId: string
+  children: React.ReactNode
+}> = ({ context, rowId, children }) => {
+  const selected = context.selection.rowIds?.includes(rowId)
+  const dragging = context.dragging.rowId === rowId
+  const draggingOver = context.dragging.overRowId === rowId
+
+  return (
+    <tr
+      className={`${selected ? 'selected' : ''} ${dragging ? 'dragging' : ''} ${draggingOver ? 'dragging-over' : ''}`}
+      style={
+        dragging
+          ? {
+              transform: `translateY(${context.dragging.movementY}px)`
+            }
+          : {}
+      }
+      data-row-id={rowId}
+    >
       {children}
     </tr>
   )

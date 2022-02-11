@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Icon, Input } from '@brickdoc/design-system'
 import {
+  SpreadsheetPanel,
+  SpreadsheetRowAction,
   SpreadsheetContainer,
   SpreadsheetView,
   SpreadsheetHeader,
@@ -48,6 +50,12 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
   return (
     <span className="brickdoc-formula-spreadsheet">
       <div className="spreadsheet-title">{spreadsheet.name()}</div>
+      <SpreadsheetPanel>
+        {rows.map(({ rowId }, rowIdx) => {
+          const rowNumber = String((rowIdx as number) + 1)
+          return <SpreadsheetRowAction key={rowIdx} context={spreadsheetContext} rowId={rowId} rowNumber={rowNumber} />
+        })}
+      </SpreadsheetPanel>
       <SpreadsheetContainer>
         <SpreadsheetView>
           <SpreadsheetHeader context={spreadsheetContext}>
@@ -60,9 +68,8 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
           </SpreadsheetHeader>
           <SpreadsheetBody>
             {rows.map(({ rowId }, rowIdx) => {
-              const rowNumber = String((rowIdx as number) + 1)
               return (
-                <SpreadsheetRow key={rowIdx} context={spreadsheetContext} rowId={rowId} rowNumber={rowNumber}>
+                <SpreadsheetRow key={rowIdx} context={spreadsheetContext} rowId={rowId}>
                   {columns.map(c => (
                     <SpreadsheetCellContainer
                       key={c.columnId}

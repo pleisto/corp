@@ -10,11 +10,13 @@ import { columnDisplayTitle } from './helper'
 
 import {
   SpreadsheetContainer,
+  SpreadsheetPanel,
   SpreadsheetView,
   SpreadsheetHeader,
   SpreadsheetHeaderColumn,
   SpreadsheetBody,
   SpreadsheetRow,
+  SpreadsheetRowAction,
   SpreadsheetCellContainer,
   SpreadsheetEditable
 } from './SpreadsheetView'
@@ -161,10 +163,46 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
         <div className="spreadsheet-title">{title}</div>
       )}
       <span>
+        <SpreadsheetPanel>
+          {rows.map((rowBlock, rowIdx) => {
+            return (
+              <SpreadsheetRowAction
+                key={rowIdx}
+                context={spreadsheetContext}
+                rowId={rowBlock.id}
+                rowNumber={`${rowIdx + 1}`}
+                rowActions={
+                  documentEditable
+                    ? [
+                        {
+                          name: 'addRowAbove',
+                          title: t('spreadsheet.row.add_above'),
+                          icon: <Icon.ArrowUp />,
+                          onAction: () => addRow(rowIdx)
+                        },
+                        {
+                          name: 'addRowBelow',
+                          title: t('spreadsheet.row.add_below'),
+                          icon: <Icon.ArrowDown />,
+                          onAction: () => addRow(rowIdx + 1)
+                        },
+                        {
+                          name: 'deleteRow',
+                          title: t('spreadsheet.row.delete'),
+                          icon: <Icon.Delete />,
+                          onAction: () => removeRow(rowIdx)
+                        }
+                      ]
+                    : []
+                }
+                draggable={documentEditable}
+              />
+            )
+          })}
+        </SpreadsheetPanel>
         <SpreadsheetContainer>
           <SpreadsheetView>
             <SpreadsheetHeader rowId="first" context={spreadsheetContext}>
-              <SpreadsheetHeaderColumn className="row-action-panel" context={spreadsheetContext} columnId="first" />
               {columns.map((column, i) => {
                 const handleTitleSave = (value: string): void => {
                   updateColumn({ ...column, title: value })
@@ -217,37 +255,7 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
             <SpreadsheetBody>
               {rows.map((rowBlock, rowIdx) => {
                 return (
-                  <SpreadsheetRow
-                    key={rowIdx}
-                    context={spreadsheetContext}
-                    rowId={rowBlock.id}
-                    rowNumber={`${rowIdx + 1}`}
-                    rowActions={
-                      documentEditable
-                        ? [
-                            {
-                              name: 'addRowAbove',
-                              title: t('spreadsheet.row.add_above'),
-                              icon: <Icon.ArrowUp />,
-                              onAction: () => addRow(rowIdx)
-                            },
-                            {
-                              name: 'addRowBelow',
-                              title: t('spreadsheet.row.add_below'),
-                              icon: <Icon.ArrowDown />,
-                              onAction: () => addRow(rowIdx + 1)
-                            },
-                            {
-                              name: 'deleteRow',
-                              title: t('spreadsheet.row.delete'),
-                              icon: <Icon.Delete />,
-                              onAction: () => removeRow(rowIdx)
-                            }
-                          ]
-                        : []
-                    }
-                    draggable={documentEditable}
-                  >
+                  <SpreadsheetRow key={rowIdx} context={spreadsheetContext} rowId={rowBlock.id}>
                     {columns.map((column, columnIdx) => {
                       const block = getCellBlock(rowBlock.id, column.uuid)
                       return (
