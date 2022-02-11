@@ -99,17 +99,17 @@ const calculate = async ({
   }
   const parseResult = parse({ ctx, position })
 
-  devLog('calculate', {
-    ctx,
-    parseResult,
-    input,
-    position,
-    newPosition: parseResult.position,
-    lastChar: input[position - 1],
-    nextChar: input[position],
-    newInput: parseResult.input,
-    codeFragments: parseResult.codeFragments
-  })
+  // devLog('calculate', {
+  //   ctx,
+  //   parseResult,
+  //   input,
+  //   position,
+  //   newPosition: parseResult.position,
+  //   lastChar: input[position - 1],
+  //   nextChar: input[position],
+  //   newInput: parseResult.input,
+  //   codeFragments: parseResult.codeFragments
+  // })
 
   const completions = parseResult.completions
 
@@ -239,7 +239,7 @@ export const useFormula = ({
   // Callbacks
   const doCalculate = React.useCallback(
     async (newName?: string): Promise<void> => {
-      if (!formulaContext || !inputRef.current) {
+      if (!formulaContext) {
         devLog('formula no input!')
         return
       }
@@ -248,7 +248,7 @@ export const useFormula = ({
         nameRef.current = newName
       }
 
-      const finalInput = inputRef.current
+      const finalInput = inputRef.current ?? ''
       const inputIsEmpty = ['', '='].includes(finalInput.trim())
 
       const result = await calculate({
@@ -492,7 +492,7 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorUpdateEventTrigger,
       event => {
-        // devLog('update subscribe', { event })
+        devLog('update subscribe', { event })
         const newContent = event.payload.content
         const newPosition = event.payload.position
         const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
