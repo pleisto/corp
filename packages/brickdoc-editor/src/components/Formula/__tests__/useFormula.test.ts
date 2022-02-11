@@ -65,6 +65,8 @@ const metas: VariableMetadata[] = [
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
+const errorTestCases = ['123asdasd', '1 1', '1  1', '1  a']
+
 const testCases = [
   {
     title: 'constant 1',
@@ -128,27 +130,6 @@ const testCases = [
       position: 12,
       content: SNAPSHOT_FLAG
     }
-  },
-  {
-    title: 'Not all input parsed: asdasd',
-    input: {
-      position: 0,
-      content: [
-        {
-          type: 'text',
-          text: '123asdasd'
-        }
-      ]
-    },
-    output: {
-      position: 0,
-      content: [
-        {
-          type: 'text',
-          text: '123asdasd'
-        }
-      ]
-    }
   }
 ]
 
@@ -170,6 +151,40 @@ describe('useFormula', () => {
     })
     expect(result.current.name).toBe(undefined)
     expect(result.current.defaultName).toBe('var1')
+  })
+
+  it.each(errorTestCases)('invalid input: %s', async input => {
+    const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
+
+    const editorPosition = 0
+    const jsonContent = buildJSONContentByArray([
+      {
+        type: 'text',
+        text: input
+      }
+    ])
+
+    act(() => {
+      BrickdocEventBus.dispatch(
+        FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
+      )
+    })
+
+    await waitForNextUpdate()
+
+    expect(result.current.editorContent.position).toEqual(0)
+    expect(result.current.editorContent.content).toEqual(
+      buildJSONContentByArray([
+        {
+          type: 'text',
+          text: input
+        }
+      ])
+    )
+
+    expect(result.current.variableT!.variableValue.result.result?.toString().startsWith('Not all input parsed: ')).toBe(
+      true
+    )
   })
 
   it.each(testCases)('$title', async ({ input, output }) => {
