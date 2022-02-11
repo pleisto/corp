@@ -1306,6 +1306,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1827,6 +1836,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -2697,6 +2715,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {

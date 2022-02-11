@@ -947,6 +947,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -988,6 +997,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1025,6 +1043,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -1168,6 +1195,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -1319,6 +1355,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "other",
     "display": "中文",
     "errors": Array [
@@ -1439,6 +1484,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "Not",
     "display": "not",
     "errors": Array [],
@@ -1549,6 +1603,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "Minus",
     "display": "-",
     "errors": Array [
@@ -1641,6 +1704,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -1759,6 +1831,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "LParen",
     "display": "(",
     "errors": Array [],
@@ -1851,6 +1932,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
     "errors": Array [],
@@ -1906,6 +1996,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -2078,6 +2177,15 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
     "code": "StringLiteral",
     "display": "\\"hel\\"",
     "errors": Array [],
@@ -2139,6 +2247,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {
@@ -2738,6 +2855,15 @@ Array [
     "errors": Array [],
     "type": "any",
     "value": "=",
+    "wrapQuote": false,
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "type": "any",
+    "value": " ",
     "wrapQuote": false,
   },
   Object {

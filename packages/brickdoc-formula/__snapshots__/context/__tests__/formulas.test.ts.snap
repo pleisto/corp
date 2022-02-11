@@ -233,6 +233,15 @@ Array [
       },
       Object {
         "attrs": undefined,
+        "code": "Space",
+        "display": " ",
+        "errors": Array [],
+        "type": "any",
+        "value": " ",
+        "wrapQuote": false,
+      },
+      Object {
+        "attrs": undefined,
         "code": "NumberLiteral",
         "display": "123",
         "errors": Array [],
@@ -1410,6 +1419,15 @@ Array [
         "errors": Array [],
         "type": "any",
         "value": "=",
+        "wrapQuote": false,
+      },
+      Object {
+        "attrs": undefined,
+        "code": "Space",
+        "display": " ",
+        "errors": Array [],
+        "type": "any",
+        "value": " ",
         "wrapQuote": false,
       },
       Object {

@@ -79,7 +79,7 @@ export interface InterpretResult {
   readonly lazy: boolean
 }
 
-export const abbrev = ({
+const abbrev = ({
   ctx: { formulaContext },
   position,
   namespaceId,
@@ -159,6 +159,54 @@ export const abbrev = ({
   } else {
     return { lexResult, newInput: input, newPosition }
   }
+}
+
+const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] => {
+  const spaceCodeFragment: CodeFragment = {
+    code: 'Space',
+    value: ' ',
+    wrapQuote: false,
+    type: 'any',
+    display: ' ',
+    errors: [],
+    attrs: undefined
+  }
+  const finalCodeFragments: CodeFragment[] = []
+
+  const [equalCodeFragment, ...restCodeFragments] = codeFragments
+  if (equalCodeFragment) {
+    finalCodeFragments.push(equalCodeFragment)
+  }
+
+  const inputWithoutEqual = input.substring(1)
+  const prefixSpaceCount = inputWithoutEqual.length - inputWithoutEqual.trimStart().length
+  if (prefixSpaceCount) {
+    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(prefixSpaceCount) })
+  }
+
+  // let lastSpace = false
+  restCodeFragments.forEach(codeFragment => {
+    // if (codeFragment.spaceBefore && !lastSpace) {
+    //   finalCodeFragments.push(spaceCodeFragment)
+    // }
+
+    finalCodeFragments.push(codeFragment)
+
+    // if (codeFragment.spaceAfter) {
+    //   finalCodeFragments.push(spaceCodeFragment)
+    //   position += 1
+    //   lastSpace = true
+    // } else {
+    //   lastSpace = false
+    // }
+  })
+
+  const suffixSpaceCount = input.length - input.trimEnd().length
+  if (suffixSpaceCount) {
+    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(suffixSpaceCount) })
+  }
+
+  return finalCodeFragments
 }
 
 export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
@@ -298,41 +346,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     }
   }
 
-  const finalCodeFragments: CodeFragment[] = []
-
-  const spaceCodeFragment: CodeFragment = {
-    code: 'Space',
-    value: ' ',
-    wrapQuote: false,
-    type: 'any',
-    display: ' ',
-    errors: [],
-    attrs: undefined
-  }
-
-  // TODO support space
-  // let lastSpace = false
-  codeFragments.forEach(codeFragment => {
-    // if (codeFragment.spaceBefore && !lastSpace) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    // }
-
-    finalCodeFragments.push(codeFragment)
-
-    // if (codeFragment.spaceAfter) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    //   position += 1
-    //   lastSpace = true
-    // } else {
-    //   lastSpace = false
-    // }
-  })
-
-  const spaceCount = input.length - input.trimEnd().length
-  if (spaceCount) {
-    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(spaceCount) })
-  }
-
+  const finalCodeFragments = addSpace(codeFragments, input)
   returnValue.codeFragments = finalCodeFragments
 
   if (finalErrorMessages.length) {

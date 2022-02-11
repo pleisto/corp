@@ -86,6 +86,15 @@ Object {
     },
     Object {
       "attrs": undefined,
+      "code": "Space",
+      "display": " ",
+      "errors": Array [],
+      "type": "any",
+      "value": " ",
+      "wrapQuote": false,
+    },
+    Object {
+      "attrs": undefined,
       "code": "NumberLiteral",
       "display": "1",
       "errors": Array [],
@@ -176,6 +185,15 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
+    },
+    Object {
+      "attrs": undefined,
+      "code": "Space",
+      "display": " ",
+      "errors": Array [],
+      "type": "any",
+      "value": " ",
       "wrapQuote": false,
     },
     Object {
@@ -691,6 +709,15 @@ Object {
       "errors": Array [],
       "type": "any",
       "value": "=",
+      "wrapQuote": false,
+    },
+    Object {
+      "attrs": undefined,
+      "code": "Space",
+      "display": " ",
+      "errors": Array [],
+      "type": "any",
+      "value": " ",
       "wrapQuote": false,
     },
     Object {

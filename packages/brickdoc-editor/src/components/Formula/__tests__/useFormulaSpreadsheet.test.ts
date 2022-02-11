@@ -79,10 +79,10 @@ const simpleTestCases = [
   { input: '=1  1', resultData: 'Not all input parsed: 1' },
   { input: '=1  a', resultData: 'Not all input parsed: a' },
   { input: '=a123 ', resultData: 'Unknown function a123' },
-  { input: '= 123 + 123 ', todoInput: '=123+123 ', resultData: 246 },
-  { input: '= 123 ', todoInput: '=123 ', resultData: 123 },
-  { input: '= a123', todoInput: '=a123', resultData: 'Unknown function a123' },
-  { input: '= a123 ', todoInput: '=a123 ', resultData: 'Unknown function a123' }
+  { input: '= 123 + 123 ', todoInput: '= 123+123 ', resultData: 246 },
+  { input: '= 123 ', resultData: 123 },
+  { input: '= a123', resultData: 'Unknown function a123' },
+  { input: '=       a123 ', resultData: 'Unknown function a123' }
 ]
 
 const testCases = [
