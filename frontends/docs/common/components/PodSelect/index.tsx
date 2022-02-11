@@ -77,7 +77,7 @@ export const PodSelect: React.FC<DocMetaProps> = ({ docMeta }) => {
             key={p.webid}
             className={css(menuItemStyle)()}
           >
-            <PodCard pod={p} label={p.personal ? 'Your Personal Pod' : false} />
+            <PodCard pod={p} label={p.personal ? 'My Space' : false} />
             <Tooltip title={t(p.personal ? 'user_setting.text' : 'pod_setting.text')}>
               <Button type="unstyled" icon={<Setting />} onClick={onClickPodSetting(p.webid)} />
             </Tooltip>

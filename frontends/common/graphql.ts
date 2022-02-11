@@ -44,6 +44,7 @@ export const queryPods = gql`
       email
       personal
       inviteEnable
+      owned
       avatarData {
         url
         downloadUrl

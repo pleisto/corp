@@ -1,9 +1,10 @@
 import { FC, useMemo } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Loading } from '@brickdoc/design-system'
-import { Setting, People, Me, Agreement } from '@brickdoc/design-icons'
+import { Setting, People, Me } from '@brickdoc/design-icons'
 import { SettingsLayout } from './common/layout'
 import { GeneralPage } from './general/GeneralPage'
+import { AccountPage } from './account/AccountPage'
 import { useGetCurrentPodQuery, GetCurrentPodQuery } from '@/BrickdocGraphQL'
 import { SettingsContext } from './SettingContext'
 
@@ -17,7 +18,7 @@ const getRoutes = (currentPod: GetCurrentPodQuery['pod'] | undefined) => {
       available: true
     },
     {
-      key: 'member',
+      key: 'team',
       icon: <People />,
       page: <GeneralPage />,
       available: !isPersonal
@@ -25,14 +26,8 @@ const getRoutes = (currentPod: GetCurrentPodQuery['pod'] | undefined) => {
     {
       key: 'account',
       icon: <Me />,
-      page: <GeneralPage />,
+      page: <AccountPage />,
       available: isPersonal
-    },
-    {
-      key: 'logs',
-      icon: <Agreement />,
-      page: <GeneralPage />,
-      available: true
     }
   ].filter(i => i.available)
 }

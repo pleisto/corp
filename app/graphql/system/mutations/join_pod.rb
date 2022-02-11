@@ -4,7 +4,7 @@ module System
     argument :invite_secret, String, "invite secret", required: false
 
     def resolve(invite_secret:)
-      pod = Pod.find_by(invite_secret: invite_secret)
+      pod = Pod.find_by(invite_secret: invite_secret, personal: false)
       raise BrickGraphQL::Errors::ArgumentError, :invalid_pod if pod.nil?
 
       raise BrickGraphQL::Errors::ArgumentError, :pod_disable_invite unless pod.invite_enable

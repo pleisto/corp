@@ -24,6 +24,7 @@
 #  index_pods_on_owner_id          (owner_id)
 #
 class Pod < ApplicationRecord
+  acts_as_paranoid
   belongs_to :owner, class_name: 'Accounts::User'
   validates :webid, presence: true, webid: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
@@ -105,7 +106,26 @@ class Pod < ApplicationRecord
     end
   end
 
+  def hashed_id
+    BrickGraphQL::ReversibleIntHash.encode(id)
+  end
+
   def as_session_context
-    attributes.slice('id', 'webid', 'owner_id').merge('id_hash' => BrickGraphQL::ReversibleIntHash.encode(id))
+    attributes.slice('id', 'webid', 'owner_id').merge('id_hash' => hashed_id)
+  end
+
+  def destroy_pod!
+    ActiveRecord::Base.transaction do
+      share_links.destroy_all
+      # all validatrs and callbacks are skipped
+      update_columns(
+        name: "delete user #{hashed_id}",
+        webid: "deleted_user_#{hashed_id}",
+        bio: "masked webid #{webid.to_data_masking} has ben deleted",
+        invite_enable: false
+      )
+      destroy!
+      true
+    end
   end
 end

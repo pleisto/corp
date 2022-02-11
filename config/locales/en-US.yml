@@ -477,10 +477,10 @@ en-US:
     errors:
       invalid_operation_type: 'Invalid operation type'
       invalid_pod_webid: 'No access to the username'
-      pod_has_already_switched: 'Pod has already switched'
-      pod_exist: 'Pod has already exist'
+      pod_has_already_switched: 'Space has already switched'
+      pod_exist: 'Space has already exist'
       user_not_exist: "User doesn't exist"
-      pod_not_exist: "Pod doesn't exist"
+      pod_not_exist: "Space doesn't exist"
   docs:
     app_title: Brickdoc
     saving: Saving
@@ -490,7 +490,7 @@ en-US:
       member: Member
       account: Account
     pod_setting:
-      text: Pod Setting
+      text: Space Setting
     anonymous:
       edit_button: Edit
     search:
@@ -571,7 +571,7 @@ en-US:
       update:
         success: Update successfully.
     menu:
-      create_new_pod: Create other pod
+      create_new_pod: Create other space
       logout: Log out
     title:
       add_icon: Add icon
@@ -956,12 +956,12 @@ en-US:
           Show recently contacted customers.
   settings:
     app_title: Brickdoc Settings
-    personal_pod_desc: Your Personal Pod
-    group_pod_desc: Group Pod
+    personal_pod_desc: My Space
+    group_pod_desc: Team Space
     menu:
       general: General
       account: My Account
-      member: Members
+      team: My Team
       logs: Security Logs
     general:
       user_profile: User Profile
@@ -976,3 +976,16 @@ en-US:
       timezone: Timezone
       locale: Language
       update_appearance: Save Appearance
+    account:
+      delete_account: Delete account
+      delete_account_desc: Since you delete your account, there is no going back. Please be certain.
+      delete_account_unavailable: |
+        Your account is currently an owner or member in these team spaces: <strong>%{spaces}</strong><br/>
+        You cannot delete your account until you remove yourself, transfer ownership, or delete these team spaces.
+      delete_account_btn: Delete your account
+      delete_account_modal_title: Are you sure you want to delete your account?
+      delete_account_modal_desc: |
+        This is a non-reversible action that will permanently delete all your data and cannot be undone.<br/><br/>
+        You will no longer be billed, and your username will be available for anyone to use. <br/><br/>
+      delete_account_confirm: 'To verify, type your webid %{webid} below:'
+      delete_account_confirm_btn: Confirm Delete
