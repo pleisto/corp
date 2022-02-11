@@ -19,6 +19,7 @@ import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
 import { block2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
 import { column2codeFragment } from '..'
+import { devWarning } from '@brickdoc/design-system'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
@@ -26,6 +27,7 @@ const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
     code: token.tokenType.name as SimpleCodeFragmentType,
     errors: [],
     wrapQuote: false,
+    hide: false,
     type,
     display: token.image,
     attrs: undefined
@@ -1035,12 +1037,14 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       const parentType: FormulaType = 'Block'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
       const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
+      const hide = namespaceId === this.ctx.meta.namespaceId
 
       return {
         codeFragments: [
           {
             ...token2fragment(namespaceToken, 'any'),
             ...block2codeFragment(block),
+            hide,
             errors: errorMessages
           }
         ],
@@ -1112,6 +1116,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       code: 'FunctionName',
       errors: [],
       wrapQuote: false,
+      hide: false,
       type: 'any',
       display: functionKey,
       attrs: undefined
@@ -1260,4 +1265,77 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       type: 'any'
     }
   }
+}
+
+export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
+  return codeFragments.map((c, idx, arr) => {
+    if (c.code === 'Dot' && !c.hide) {
+      const prevCodeFragment = arr[idx - 1]
+      if (prevCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
+        return { ...c, hide: true }
+      }
+    }
+
+    return c
+  })
+}
+
+export const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] => {
+  const finalCodeFragments: CodeFragment[] = []
+  const spaceCodeFragment: CodeFragment = {
+    code: 'Space',
+    value: ' ',
+    wrapQuote: false,
+    hide: false,
+    type: 'any',
+    display: ' ',
+    errors: [],
+    attrs: undefined
+  }
+
+  let restInput = input
+  let error = false
+  let image = ''
+  codeFragments.forEach(codeFragment => {
+    let match = false
+    if (error) return
+    image = codeFragment.value
+
+    if (restInput.startsWith(image)) {
+      finalCodeFragments.push(codeFragment)
+      restInput = restInput.substring(image.length)
+      match = true
+    }
+
+    if (restInput.startsWith(' ')) {
+      const prefixSpaceCount = restInput.length - restInput.trimStart().length
+      const spaceValue = ' '.repeat(prefixSpaceCount)
+      finalCodeFragments.push({ ...spaceCodeFragment, value: spaceValue, display: spaceValue })
+      restInput = restInput.substring(prefixSpaceCount)
+    }
+
+    if (!match) {
+      error = true
+    }
+  })
+
+  if (error) {
+    devWarning(true, 'addSpaceError', { input, codeFragments, restInput, finalCodeFragments, image })
+    // const errorMessage = `[Parse Error] ${input}`
+    // return [
+    //   {
+    //     code: 'other',
+    //     value: errorMessage,
+    //     type: 'any',
+    //     wrapQuote: false,
+    //     display: errorMessage,
+    //     errors: [],
+    //     attrs: undefined
+    //   }
+    // ]
+
+    return codeFragments
+  }
+
+  return finalCodeFragments
 }

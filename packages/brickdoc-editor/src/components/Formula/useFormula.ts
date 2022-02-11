@@ -353,6 +353,7 @@ export const useFormula = ({
               code: 'unknown',
               type: 'any',
               wrapQuote: false,
+              hide: false,
               errors: [],
               attrs: undefined
             })
@@ -369,6 +370,7 @@ export const useFormula = ({
             code: 'unknown',
             type: 'any',
             wrapQuote: false,
+            hide: false,
             errors: [],
             attrs: undefined
           })

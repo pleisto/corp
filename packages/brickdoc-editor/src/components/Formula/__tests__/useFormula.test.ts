@@ -144,7 +144,8 @@ const normalTestCases = [
                 type: 'number',
                 display: '12',
                 value: '12',
-                wrapQuote: false
+                wrapQuote: false,
+                hide: false
               }
             }
           ]
@@ -198,7 +199,8 @@ const spreadsheetTestCases = [
                 type: 'any',
                 display: '=',
                 value: '=',
-                wrapQuote: false
+                wrapQuote: false,
+                hide: false
               }
             }
           ]
@@ -216,7 +218,8 @@ const spreadsheetTestCases = [
                 type: 'number',
                 display: '12',
                 value: '12',
-                wrapQuote: false
+                wrapQuote: false,
+                hide: false
               }
             }
           ]

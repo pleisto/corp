@@ -98,6 +98,21 @@ export const FormulaTypeExtension = Mark.create<FormulaTypeOptions>({
           }
         }
       },
+      hide: {
+        default: null,
+        keepOnSplit: true,
+        parseHTML: element => element.getAttribute('data-hide'),
+        renderHTML: attributes => {
+          if (!attributes.hide) {
+            return {}
+          }
+
+          return {
+            'data-hide': attributes.hide,
+            style: 'font-size: 0 !important;'
+          }
+        }
+      },
       value: {
         default: null,
         keepOnSplit: true,

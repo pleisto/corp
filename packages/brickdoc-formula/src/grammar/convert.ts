@@ -62,6 +62,7 @@ export const block2codeFragment = (block: BlockType): CodeFragment => {
     display: block.name(),
     errors: [],
     wrapQuote: false,
+    hide: false,
     value: blockKey(block.id),
     code: 'Block',
     type: 'any',
@@ -76,6 +77,7 @@ export const variable2codeFragment = (variable: VariableInterface): CodeFragment
     value: variable.t.name,
     code: 'Variable',
     wrapQuote: true,
+    hide: false,
     type: variable.t.variableValue.result.type,
     attrs: variable2attrs(variable)
   }
@@ -90,6 +92,7 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType): CodeFrag
     code: 'Spreadsheet',
     type: 'any',
     wrapQuote: false,
+    hide: false,
     attrs: spreadsheet2attrs(spreadsheet)
   }
 }
@@ -103,6 +106,7 @@ export const column2codeFragment = (column: ColumnType): CodeFragment => {
     code: 'Column',
     type: 'any',
     wrapQuote: false,
+    hide: false,
     attrs: column2attrs(column)
   }
 }
@@ -231,6 +235,7 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
         code: 'Function',
         type: 'any',
         wrapQuote: false,
+        hide: false,
         attrs: undefined
       }
     ]

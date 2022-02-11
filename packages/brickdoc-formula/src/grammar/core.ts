@@ -27,7 +27,7 @@ import { FORMULA_PARSER_VERSION } from '../version'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
-import { CodeFragmentVisitor } from './codeFragment'
+import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey, variableKey } from './convert'
 import { parseString } from './util'
 import { devWarning } from '@brickdoc/design-system'
@@ -162,65 +162,6 @@ const abbrev = ({
   }
 }
 
-const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] => {
-  const finalCodeFragments: CodeFragment[] = []
-  const spaceCodeFragment: CodeFragment = {
-    code: 'Space',
-    value: ' ',
-    wrapQuote: false,
-    type: 'any',
-    display: ' ',
-    errors: [],
-    attrs: undefined
-  }
-
-  let restInput = input
-  let error = false
-  let image = ''
-  codeFragments.forEach(codeFragment => {
-    let match = false
-    if (error) return
-    image = codeFragment.value
-
-    if (restInput.startsWith(image)) {
-      finalCodeFragments.push(codeFragment)
-      restInput = restInput.substring(image.length)
-      match = true
-    }
-
-    if (restInput.startsWith(' ')) {
-      const prefixSpaceCount = restInput.length - restInput.trimStart().length
-      const spaceValue = ' '.repeat(prefixSpaceCount)
-      finalCodeFragments.push({ ...spaceCodeFragment, value: spaceValue, display: spaceValue })
-      restInput = restInput.substring(prefixSpaceCount)
-    }
-
-    if (!match) {
-      error = true
-    }
-  })
-
-  if (error) {
-    devWarning(true, 'addSpaceError', { input, codeFragments, restInput, finalCodeFragments, image })
-    // const errorMessage = `[Parse Error] ${input}`
-    // return [
-    //   {
-    //     code: 'other',
-    //     value: errorMessage,
-    //     type: 'any',
-    //     wrapQuote: false,
-    //     display: errorMessage,
-    //     errors: [],
-    //     attrs: undefined
-    //   }
-    // ]
-
-    return codeFragments
-  }
-
-  return finalCodeFragments
-}
-
 export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
@@ -264,6 +205,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           value: input,
           type: 'any',
           wrapQuote: false,
+          hide: false,
           display: input,
           errors: [],
           attrs: undefined
@@ -342,6 +284,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           value: restImages,
           type: 'any',
           wrapQuote: false,
+          hide: false,
           display: restImages,
           errors: errorMessages,
           attrs: undefined
@@ -358,7 +301,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     }
   }
 
-  const finalCodeFragments = addSpace(codeFragments, input)
+  const finalCodeFragments = addSpace(hideDot(codeFragments), input)
   returnValue.codeFragments = finalCodeFragments
 
   if (finalErrorMessages.length) {
