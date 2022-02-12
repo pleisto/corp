@@ -1,3 +1,4 @@
+import { ILexingResult } from 'chevrotain'
 import {
   AnyTypeResult,
   CodeFragment,
@@ -8,6 +9,7 @@ import {
   FormulaType,
   FunctionContext
 } from '../types'
+import { FormulaLexer } from './lexer'
 
 // TODO: dirty hack to get the string literal value
 export const parseString = (str: string): string => {
@@ -17,13 +19,21 @@ export const parseString = (str: string): string => {
   return str.substring(1, str.length - 1).replace(/""/g, '"')
 }
 
+const checkValidToken = (input: string): boolean => {
+  const lexer = FormulaLexer
+  const lexResult: ILexingResult = lexer.tokenize(input)
+  const tokens = lexResult.tokens
+  return tokens.length === 1
+}
+
 export const maybeEncodeString = (str: string): string => {
-  // TODO "abc" -> true
-  // TODO "foo bar" -> false
+  if (checkValidToken(str)) {
+    return str
+  }
   return encodeString(str)
 }
 
-export const encodeString = (str: string): string => {
+const encodeString = (str: string): string => {
   return `"${str}"`
 }
 

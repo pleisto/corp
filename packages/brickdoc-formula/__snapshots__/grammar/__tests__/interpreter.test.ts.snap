@@ -64,7 +64,7 @@ Array [
   },
   Object {
     "attrs": undefined,
-    "code": "StringLiteral",
+    "code": "FunctionName",
     "display": "foo",
     "errors": Array [
       Object {
@@ -73,9 +73,9 @@ Array [
       },
     ],
     "hide": false,
-    "renderText": [Function],
+    "renderText": undefined,
     "type": "string",
-    "value": "\\"foo\\"",
+    "value": "foo",
   },
 ]
 `;

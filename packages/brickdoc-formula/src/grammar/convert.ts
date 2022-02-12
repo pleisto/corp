@@ -22,7 +22,7 @@ import {
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
-import { encodeString, maybeEncodeString } from './util'
+import { maybeEncodeString } from './util'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
@@ -87,7 +87,7 @@ export const variable2codeFragment = (variable: VariableInterface): CodeFragment
   return {
     display: variable.t.name,
     errors: [],
-    value: encodeString(variable.t.name),
+    value: maybeEncodeString(variable.t.name),
     code: 'Variable',
     renderText: variableRenderText(variable),
     hide: false,
@@ -154,7 +154,7 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   const {
     t: { namespaceId, name, variableId }
   } = variable
-  const nameToken = { image: encodeString(name), type: 'StringLiteral' }
+  const nameToken = { image: maybeEncodeString(name), type: 'StringLiteral' }
   return {
     kind: 'Variable',
     name,

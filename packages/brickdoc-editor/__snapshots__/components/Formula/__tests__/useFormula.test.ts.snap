@@ -10,13 +10,13 @@ Object {
             Object {
               "attrs": Object {
                 "attrs": undefined,
-                "code": "StringLiteral",
+                "code": "FunctionName",
                 "display": "num1",
                 "errors": Array [],
                 "hide": false,
-                "renderText": [Function],
+                "renderText": undefined,
                 "type": "string",
-                "value": "\\"num1\\"",
+                "value": "num1",
               },
               "type": "FormulaType",
             },
@@ -61,13 +61,13 @@ Object {
             Object {
               "attrs": Object {
                 "attrs": undefined,
-                "code": "StringLiteral",
+                "code": "FunctionName",
                 "display": "num1",
                 "errors": Array [],
                 "hide": false,
-                "renderText": [Function],
+                "renderText": undefined,
                 "type": "string",
-                "value": "\\"num1\\"",
+                "value": "num1",
               },
               "type": "FormulaType",
             },

@@ -55,7 +55,7 @@ Object {
       "hide": false,
       "renderText": [Function],
       "type": "number",
-      "value": "\\"foo\\"",
+      "value": "foo",
     },
     Object {
       "attrs": undefined,
@@ -105,7 +105,7 @@ Object {
       "hide": false,
       "renderText": [Function],
       "type": "number",
-      "value": "\\"bar\\"",
+      "value": "bar",
     },
   ],
   "cst": Object {

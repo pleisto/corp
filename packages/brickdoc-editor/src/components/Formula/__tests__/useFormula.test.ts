@@ -100,20 +100,20 @@ const simpleCommonTestCases = [
   { input: `  #${namespaceId}  .`, resultData: 'Missing expression' },
 
   // Variable
-  { input: 'num1', newInput: '"num1"', resultData: 2 },
-  { input: '"num1"', resultData: 2 },
-  { input: `#${namespaceId}.num1`, newInput: '"num1"', resultData: 2 },
-  { input: `#${namespaceId}."num1"`, newInput: '"num1"', resultData: 2 },
+  { input: 'num1', resultData: 2 },
+  { input: '"num1"', newInput: 'num1', resultData: 2 },
+  { input: `#${namespaceId}.num1`, newInput: 'num1', resultData: 2 },
+  { input: `#${namespaceId}."num1"`, newInput: 'num1', resultData: 2 },
 
   // Variable with space
-  { input: ' num1 + 1 ', newInput: ' "num1" + 1 ', resultData: 3 },
-  { input: ' "num1" + 1 ', resultData: 3 },
-  { input: ` #${namespaceId}.num1 + 1 `, newInput: ' "num1" + 1 ', resultData: 3 },
-  { input: ` #${namespaceId}."num1" + 1 `, newInput: ' "num1" + 1 ', resultData: 3 },
+  { input: ' num1 + 1 ', resultData: 3 },
+  { input: ' "num1" + 1 ', newInput: ' num1 + 1 ', resultData: 3 },
+  { input: ` #${namespaceId}.num1 + 1 `, newInput: ' num1 + 1 ', resultData: 3 },
+  { input: ` #${namespaceId}."num1" + 1 `, newInput: ' num1 + 1 ', resultData: 3 },
 
   // Variable with error
-  { input: ' " " & "num1" ', resultData: 'Expected string but got number' },
-  { input: ' "num1" & " "', resultData: 'Expected string but got number' }
+  { input: ' " " & num1 ', resultData: 'Expected string but got number' },
+  { input: ' num1 & " "', resultData: 'Expected string but got number' }
 ]
 
 const simpleNormalTestCases = [{ input: '', newInput: undefined, resultData: undefined }, ...simpleCommonTestCases]

@@ -811,7 +811,7 @@ Array [
         "hide": false,
         "renderText": [Function],
         "type": "number",
-        "value": "\\"foo\\"",
+        "value": "foo",
       },
     ],
     "cst": Object {
