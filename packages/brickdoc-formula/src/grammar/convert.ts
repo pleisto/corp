@@ -116,7 +116,6 @@ export const block2name = (block: BlockType): BlockFormulaName => {
     kind: 'Block',
     name: block.name(),
     namespaceId: block.id,
-    value: blockKey(block.id),
     render: () => blockKey(block.id),
     prefixLength: () => 0,
     key: block.id
@@ -129,13 +128,11 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   } = variable
   const render = (exist: boolean): string => (exist ? variableId : variableKey(namespaceId, variableId))
   const key = variableId
-  const value = variableKey(namespaceId, variableId)
   return {
     kind: 'Variable',
     name,
     render,
     key,
-    value,
     namespaceId,
     prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
   }
@@ -143,10 +140,11 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
 
 export const block2completion = (
   ctx: ContextInterface,
-  { key, name, value }: BlockFormulaName,
+  { key, name }: BlockFormulaName,
   weight: number
 ): BlockCompletion => {
   const block = new BlockClass(ctx, { id: key })
+  const value = blockKey(key)
   return {
     kind: 'block',
     weight: weight + 0,

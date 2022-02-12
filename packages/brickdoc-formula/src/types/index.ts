@@ -406,21 +406,18 @@ export interface BaseFormulaName {
 export interface VariableFormulaName extends BaseFormulaName {
   kind: 'Variable'
   name: VariableName
-  value: VariableKey
   key: VariableId
 }
 
 export interface BlockFormulaName extends BaseFormulaName {
   kind: 'Block'
   name: BlockName
-  value: BlockKey
   key: NamespaceId
 }
 
 export interface SpreadsheetFormulaName extends BaseFormulaName {
   kind: 'Spreadsheet'
   name: SpreadsheetName
-  value: BlockKey
   key: NamespaceId
 }
 
