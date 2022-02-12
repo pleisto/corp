@@ -21,6 +21,7 @@ import {
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
+import { encodeString } from './util'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
@@ -116,8 +117,10 @@ export const block2name = (block: BlockType): BlockFormulaName => {
     kind: 'Block',
     name: block.name(),
     namespaceId: block.id,
-    render: () => blockKey(block.id),
-    prefixLength: () => 0,
+    renderTokens: () => [
+      { image: '#', type: 'Sharp' },
+      { image: block.id, type: 'UUID' }
+    ],
     key: block.id
   }
 }
@@ -126,15 +129,17 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   const {
     t: { namespaceId, name, variableId }
   } = variable
-  const render = (exist: boolean): string => (exist ? variableId : variableKey(namespaceId, variableId))
   const key = variableId
+  const nameToken = { image: encodeString(name), type: 'StringLiteral' }
   return {
     kind: 'Variable',
     name,
-    render,
+    renderTokens: (namespaceIsExist: boolean) =>
+      namespaceIsExist
+        ? [nameToken]
+        : [{ image: '#', type: 'Sharp' }, { image: namespaceId, type: 'UUID' }, { image: '.', type: 'Dot' }, nameToken],
     key,
-    namespaceId,
-    prefixLength: exist => (exist ? 0 : variable.namespaceName().length + 1)
+    namespaceId
   }
 }
 

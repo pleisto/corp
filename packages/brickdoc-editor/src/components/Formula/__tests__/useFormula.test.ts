@@ -88,20 +88,34 @@ const simpleCommonTestCases = [
   { input: ' barasd asd 123   + 123 1 ', resultData: 'Function barasd not found' },
   { input: ' 123 ', resultData: 123 },
   { input: ' a123', resultData: 'Unknown function a123' },
-  { input: '    a123 ', resultData: 'Unknown function a123' }
+  { input: '    a123 ', resultData: 'Unknown function a123' },
+
+  { input: 'num1', newInput: '"num1"', resultData: 2 },
+  { input: '"num1"', resultData: 2 },
+  { input: `#${namespaceId}.num1`, newInput: '"num1"', resultData: 2 },
+  { input: `#${namespaceId}."num1"`, newInput: '"num1"', resultData: 2 },
+
+  { input: ' num1 + 1 ', newInput: ' "num1" + 1 ', resultData: 3 },
+  { input: ' "num1" + 1 ', resultData: 3 },
+  { input: ` #${namespaceId}.num1 + 1 `, newInput: ' "num1" + 1 ', resultData: 3 },
+  { input: ` #${namespaceId}."num1" + 1 `, newInput: ' "num1" + 1 ', resultData: 3 }
 ]
 
-const simpleNormalTestCases = [{ input: '', todoInput: undefined, resultData: undefined }, ...simpleCommonTestCases]
+const simpleNormalTestCases = [{ input: '', newInput: undefined, resultData: undefined }, ...simpleCommonTestCases]
 const simpleSpreadsheetTestCases = [
-  { input: '', resultData: '' },
-  { input: '=', resultData: '=' },
-  { input: '=  ', resultData: '=  ' },
+  { input: '', newInput: undefined, resultData: '' },
+  { input: '=', newInput: undefined, resultData: '=' },
+  { input: '=  ', newInput: undefined, resultData: '=  ' },
 
-  { input: ' =', resultData: ' =' },
-  { input: ' foo bar ', resultData: ' foo bar ' },
-  { input: '   ', resultData: '   ' },
+  { input: ' =', newInput: undefined, resultData: ' =' },
+  { input: ' foo bar ', newInput: undefined, resultData: ' foo bar ' },
+  { input: '   ', newInput: undefined, resultData: '   ' },
 
-  ...simpleCommonTestCases.map(({ input, resultData }) => ({ input: `=${input}`, resultData }))
+  ...simpleCommonTestCases.map(({ input, newInput, resultData }) => ({
+    input: `=${input}`,
+    newInput: newInput ? `=${newInput}` : undefined,
+    resultData
+  }))
 ]
 
 const normalTestCases = [
@@ -165,7 +179,7 @@ const normalTestCases = [
       ]
     },
     output: {
-      position: 12,
+      position: 3,
       content: SNAPSHOT_FLAG
     }
   }
@@ -239,7 +253,7 @@ const spreadsheetTestCases = [
       ]
     },
     output: {
-      position: 12,
+      position: 3,
       content: SNAPSHOT_FLAG
     }
   }
@@ -276,7 +290,7 @@ describe('useFormula', () => {
     expect(result.current.defaultName).toBe('var1')
   })
 
-  it.each(simpleNormalTestCases)('normal: "$input" -> "$resultData"', async ({ input, resultData }) => {
+  it.each(simpleNormalTestCases)('normal: "$input" -> "$resultData"', async ({ input, newInput, resultData }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
 
     const editorPosition = 0
@@ -296,35 +310,40 @@ describe('useFormula', () => {
     await waitForNextUpdate()
 
     expect(result.current.editorContent.position).toEqual(0)
-    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(input)
+    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(newInput ?? input)
 
     expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
   })
 
-  it.each(simpleSpreadsheetTestCases)('spreadsheet: "$input" -> "$resultData"', async ({ input, resultData }) => {
-    const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
+  it.each(simpleSpreadsheetTestCases)(
+    'spreadsheet: "$input" -> "$resultData"',
+    async ({ input, newInput, resultData }) => {
+      const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
 
-    const editorPosition = 0
-    const jsonContent = buildJSONContentByArray([
-      {
-        type: 'text',
-        text: input
-      }
-    ])
+      const editorPosition = 0
+      const jsonContent = buildJSONContentByArray([
+        {
+          type: 'text',
+          text: input
+        }
+      ])
 
-    act(() => {
-      BrickdocEventBus.dispatch(
-        FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
+      act(() => {
+        BrickdocEventBus.dispatch(
+          FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
+        )
+      })
+
+      await waitForNextUpdate()
+
+      expect(result.current.editorContent.position).toEqual(0)
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
+        newInput ?? input
       )
-    })
 
-    await waitForNextUpdate()
-
-    expect(result.current.editorContent.position).toEqual(0)
-    expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(input)
-
-    expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
-  })
+      expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
+    }
+  )
 
   it.each(normalTestCases)('normal $title', async ({ input, output }) => {
     const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))

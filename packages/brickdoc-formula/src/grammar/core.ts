@@ -1,4 +1,4 @@
-import { CstNode, ILexingResult, IRecognitionException } from 'chevrotain'
+import { CstNode, ILexingResult, IRecognitionException, IToken } from 'chevrotain'
 import {
   CodeFragment,
   ErrorMessage,
@@ -28,7 +28,7 @@ import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
-import { blockKey, variableKey } from './convert'
+import { blockKey } from './convert'
 import { parseString } from './util'
 import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
@@ -94,13 +94,26 @@ const abbrev = ({
   const lexer = FormulaLexer
   const lexResult: ILexingResult = lexer.tokenize(input)
   const tokens = lexResult.tokens
-  let image = ''
   let modified = false
+  let restInput = input
   let newInput = ''
-  let newPosition: number = position
+  const newPosition: number = position
+  const newTokens: IToken[] = []
 
   tokens.forEach((token, index) => {
-    image = image.concat(token.image)
+    newTokens.push(token)
+
+    if (restInput.startsWith(' ')) {
+      const prefixSpaceCount = restInput.length - restInput.trimStart().length
+      const spaceValue = ' '.repeat(prefixSpaceCount)
+      newInput = newInput.concat(spaceValue)
+      restInput = restInput.substring(prefixSpaceCount)
+    }
+
+    if (restInput.startsWith(token.image)) {
+      restInput = restInput.substring(token.image.length)
+    }
+
     if (!['FunctionName', 'StringLiteral'].includes(token.tokenType.name)) {
       newInput = newInput.concat(token.image)
       return
@@ -115,22 +128,23 @@ const abbrev = ({
       return
     }
 
-    const prevToken = tokens[index - 1]
+    const newIndex = newTokens.length - 1
+    const prevToken = newTokens[newIndex - 1]
 
     let variableNamespace = blockKey(namespaceId)
     let namespaceIsExist = false
 
     // foo.bar
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
-      const prev2Token = tokens[index - 2]
+      const prev2Token = newTokens[newIndex - 2]
 
       if (prev2Token && prev2Token.tokenType.name !== 'UUID') {
         newInput = newInput.concat(token.image)
         return
       }
 
-      namespaceIsExist = true
       variableNamespace = prev2Token.image.startsWith('#') ? (prev2Token.image as BlockKey) : blockKey(prev2Token.image)
+      namespaceIsExist = true
     }
 
     const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image
@@ -146,13 +160,29 @@ const abbrev = ({
       return
     }
 
-    newPosition += formulaName.prefixLength(namespaceIsExist)
-    const render = formulaName.render(namespaceIsExist)
-    newInput = newInput.concat(render)
-    tokens[index] = { ...token, image: render, tokenType: { ...token.tokenType, name: 'UUID' } }
+    const renderTokens = formulaName.renderTokens(namespaceIsExist)
+
+    newTokens.pop()
+    newTokens.push(
+      ...renderTokens.map(({ image, type }) => ({ ...token, image, tokenType: { ...token.tokenType, name: type } }))
+    )
+
+    const value = renderTokens.map(t => t.image).join('')
+    newInput = newInput.concat(value)
     modified = true
   })
 
+  // NOTE tail space
+  if (restInput.startsWith(' ')) {
+    const prefixSpaceCount = restInput.length - restInput.trimStart().length
+    const spaceValue = ' '.repeat(prefixSpaceCount)
+    newInput = newInput.concat(spaceValue)
+    restInput = restInput.substring(prefixSpaceCount)
+  }
+
+  if (restInput !== '') {
+    console.error('abbrev error', { restInput, input, tokens, newInput })
+  }
   // console.log('abbrev', { newInput, input, tokens })
 
   if (modified) {
@@ -301,7 +331,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     }
   }
 
-  const finalCodeFragments = addSpace(hideDot(codeFragments), input)
+  const finalCodeFragments = hideDot(addSpace(codeFragments, newInput))
   returnValue.codeFragments = finalCodeFragments
 
   if (finalErrorMessages.length) {

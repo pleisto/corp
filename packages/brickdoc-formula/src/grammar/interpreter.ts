@@ -525,16 +525,28 @@ export class FormulaInterpreter extends BaseCstVisitor {
       }
 
       if (cst.name === 'keyExpression') {
-        const { result: key } = this.visit(cst, args)
-
-        if (result.type === 'Block') {
-          result = { type: 'Error', result: `Variable ${key} not found`, errorKind: 'runtime' }
-          return true
-        }
+        const { result: key } = this.visit(cst, { ...args, type: 'any' })
 
         if (result.type === 'Error' && ['errorKind', 'result'].includes(key)) {
           result = { type: 'string', result: result[key as 'errorKind' | 'result'] }
 
+          return true
+        }
+
+        if (result.type === 'Block') {
+          const name = key
+          const variable = this.ctx.formulaContext.findVariableByName(result.result.id, name)
+          if (!variable) {
+            result = { type: 'Error', result: `Variable "${name}" not found`, errorKind: 'runtime' }
+            return true
+          }
+
+          if (['constant', 'unknown'].includes(variable.t.kind)) {
+            result = variable.t.variableValue.result
+            return true
+          }
+
+          result = this.visit(variable.t.cst!, args)
           return true
         }
 
@@ -558,6 +570,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         return true
       }
 
+      // TODO remove this
       if (cst.tokenType.name === 'UUID') {
         if (result.type === 'Error') {
           return true

@@ -17,8 +17,7 @@ import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
-import { block2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
-import { column2codeFragment } from '..'
+import { block2codeFragment, column2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
 import { devWarning } from '@brickdoc/design-system'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
@@ -501,13 +500,48 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             : []
         const args = { type: 'string' }
         const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
-        const unknownVariableError: ErrorMessage[] =
-          firstArgumentType === 'Block' ? [{ type: 'syntax', message: `Variable ${rhsImage} not found` }] : []
+        const unknownVariableError: ErrorMessage[] = []
+        let finalRhsCodeFragments = rhsCodeFragments
+        const finalRhsImage = rhsImage
 
-        firstArgumentType = 'any'
-        images.push(rhsImage)
+        if (firstArgumentType === 'Block') {
+          const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
+          const variableName = parseString(rhsImage)
+          const variable = this.ctx.formulaContext.findVariableByName(namespaceId, variableName)
+
+          if (variable) {
+            firstArgumentType = variable.t.variableValue.result.type
+
+            this.variableDependencies = [
+              ...new Map(
+                [...this.variableDependencies, { namespaceId, variableId: variable.t.variableId }].map(item => [
+                  item.variableId,
+                  item
+                ])
+              ).values()
+            ]
+
+            this.flattenVariableDependencies = [
+              ...new Map(
+                [
+                  ...this.flattenVariableDependencies,
+                  ...variable.t.flattenVariableDependencies,
+                  { namespaceId, variableId: variable.t.variableId }
+                ].map(item => [item.variableId, item])
+              ).values()
+            ]
+          } else {
+            unknownVariableError.push({ type: 'syntax', message: `Variable "${variableName}" not found` })
+          }
+
+          if (finalRhsCodeFragments[0].code === 'StringLiteral' && variable) {
+            finalRhsCodeFragments = [{ ...finalRhsCodeFragments[0], display: variableName }]
+          }
+        }
+
+        images.push(finalRhsImage)
         codeFragments.push(
-          ...rhsCodeFragments.map(f => ({
+          ...finalRhsCodeFragments.map(f => ({
             ...f,
             errors: [...unknownVariableError, ...accessErrorMessages, ...f.errors]
           }))
@@ -528,6 +562,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           errorMessages.push({ type: 'syntax', message: `Unknown namespace ${namespaceId}` })
         }
 
+        // TODO remove this
         if (namespaceType === 'Block') {
           const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
 

@@ -11,7 +11,14 @@ import {
 
 // TODO: dirty hack to get the string literal value
 export const parseString = (str: string): string => {
+  if (!str.startsWith('"')) {
+    return str
+  }
   return str.substring(1, str.length - 1).replace(/""/g, '"')
+}
+
+export const encodeString = (str: string): string => {
+  return `"${str}"`
 }
 
 export const extractSubType = (array: AnyTypeResult[]): FormulaType => {

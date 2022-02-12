@@ -159,6 +159,22 @@ describe('Context', () => {
     ).toEqual(24)
   })
 
+  it('constant variable 2', async () => {
+    const input = `=#${namespaceId}."foo"`
+    const newMeta = { ...meta, input }
+    const finalCtx = { ...ctx, meta: newMeta }
+    const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
+    expect(errorMessages).toEqual([])
+    expect(
+      (
+        await interpret({
+          parseResult: { cst, kind, errorMessages },
+          ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
+        })
+      ).variableValue.result.result
+    ).toEqual(24)
+  })
+
   it('expression variable', async () => {
     const anotherBlockId = '9dda8306-dbe1-49d3-868d-1a7c86f27328'
     const anotherVariableId = '45e4260c-5bf1-4120-957e-1214c5ea7c20'
@@ -197,10 +213,11 @@ describe('Context', () => {
   })
 
   it('Type', () => {
-    const input = `= "foo" & #${namespaceId}.foo`
+    const input = `= "barbarbar" & #${namespaceId}."foo"`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
-    const { errorMessages } = parse({ ctx: finalCtx })
+    const { errorMessages, codeFragments } = parse({ ctx: finalCtx })
+    expect(codeFragments).toMatchSnapshot()
     expect(errorMessages).toEqual([{ message: 'Expected string but got number', type: 'type' }])
   })
 
@@ -220,14 +237,14 @@ describe('Context', () => {
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: 'Variable unknown not found', type: 'syntax' }])
+    expect(errorMessages).toEqual([{ message: 'Variable "unknown" not found', type: 'syntax' }])
   })
 
   it('unknown variable 2', () => {
-    const input = `=Untitled."unknown"`
+    const input = `=Untitled."unknown variable"`
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: 'Variable "unknown" not found', type: 'syntax' }])
+    expect(errorMessages).toEqual([{ message: 'Variable "unknown variable" not found', type: 'syntax' }])
   })
 })

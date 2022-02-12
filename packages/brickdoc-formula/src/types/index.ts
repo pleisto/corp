@@ -394,10 +394,14 @@ export type Completion =
   | ColumnCompletion
   | BlockCompletion
 
+export interface FormulaNameToken {
+  image: string
+  type: string
+}
+
 export interface BaseFormulaName {
   kind: ComplexCodeFragmentType
-  render: (namespaceIsExist: boolean) => string
-  prefixLength: (namespaceIsExist: boolean) => number
+  renderTokens: (namespaceIsExist: boolean) => FormulaNameToken[]
   key: string
   name: string
   namespaceId: string
