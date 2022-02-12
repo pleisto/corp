@@ -370,7 +370,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   }
 
   const sameNameVariable = formulaContext.formulaNames.find(
-    v => v.name.toUpperCase() === name.toUpperCase() && v.key !== variableId
+    v => v.name.toUpperCase() === name.toUpperCase() && v.namespaceId === namespaceId && v.key !== variableId
   )
 
   if (sameNameVariable) {
