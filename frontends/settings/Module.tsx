@@ -5,6 +5,7 @@ import { Setting, People, Me } from '@brickdoc/design-icons'
 import { SettingsLayout } from './common/layout'
 import { GeneralPage } from './general/GeneralPage'
 import { AccountPage } from './account/AccountPage'
+import { TeamPage } from './team/TeamPage'
 import { useGetCurrentPodQuery, GetCurrentPodQuery } from '@/BrickdocGraphQL'
 import { SettingsContext } from './SettingContext'
 
@@ -20,7 +21,7 @@ const getRoutes = (currentPod: GetCurrentPodQuery['pod'] | undefined) => {
     {
       key: 'team',
       icon: <People />,
-      page: <GeneralPage />,
+      page: <TeamPage />,
       available: !isPersonal
     },
     {
@@ -44,6 +45,8 @@ const SettingsModule: FC = () => {
   }, [pod])
 
   if (loading) return <Loading />
+  // only owner could use settings
+  if (!pod?.owned) return <div>403 Forbidden</div>
 
   return (
     <SettingsContext.Provider value={context}>

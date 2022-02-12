@@ -31,3 +31,11 @@ export const PodDestroy = gql`
     }
   }
 `
+
+export const PodLeave = gql`
+  mutation PodLeave($input: PodLeaveInput!) {
+    podLeave(input: $input) {
+      errors
+    }
+  }
+`

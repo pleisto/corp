@@ -5,14 +5,14 @@ module System
 
     def resolve(invite_secret:)
       pod = Pod.find_by(invite_secret: invite_secret, personal: false)
-      raise BrickGraphQL::Errors::ArgumentError, :invalid_pod if pod.nil?
+      return { errors: [I18n.t('errors.graphql.argument_error.invalid_pod')] } if pod.nil?
 
-      raise BrickGraphQL::Errors::ArgumentError, :pod_disable_invite unless pod.invite_enable
+      return { errors: [I18n.t('errors.graphql.argument_error.pod_disable_invite')] } unless pod.invite_enable
 
       member = pod.all_members.find_by(user_id: current_user.id)
 
       if member
-        raise BrickGraphQL::Errors::ArgumentError, :already_invited if member.enabled?
+        return { errors: [I18n.t('errors.graphql.argument_error.already_invited')] } if member.enabled?
         member.enabled!
       else
         pod.members.create!(user_id: current_user.id, role: 'member')

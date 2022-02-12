@@ -37,6 +37,7 @@ class Pod < ApplicationRecord
   has_many :users, class_name: 'Accounts::User', through: :members
 
   after_create :ensure_owner_member!
+  before_save :set_invite_secret
 
   ANYONE_WEBID = 'anyone'
   ANONYMOUS_WEBID = 'anonymous'
@@ -112,6 +113,19 @@ class Pod < ApplicationRecord
 
   def as_session_context
     attributes.slice('id', 'webid', 'owner_id').merge('id_hash' => hashed_id)
+  end
+
+  def generate_invite_secret
+    secret = Blake3::Hasher.hexdigest("#{id}-#{Time.now.to_i}", key: Brickdoc::Crypto.derive_key(:hash_salt))
+    "#{secret[0...16]}#{hashed_id}#{secret[60..64]}"
+  end
+
+  def set_invite_secret
+    if invite_enable
+      self.invite_secret = generate_invite_secret if invite_secret.blank?
+    else
+      self.invite_secret = nil
+    end
   end
 
   def destroy_pod!

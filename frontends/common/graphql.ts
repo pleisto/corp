@@ -82,6 +82,7 @@ export const queryCurrentPod = gql`
       webid
       name
       personal
+      owned
       inviteEnable
       inviteSecret
       avatarData {
