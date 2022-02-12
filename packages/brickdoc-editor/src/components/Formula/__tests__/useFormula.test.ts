@@ -90,15 +90,30 @@ const simpleCommonTestCases = [
   { input: ' a123', resultData: 'Unknown function a123' },
   { input: '    a123 ', resultData: 'Unknown function a123' },
 
+  // Block
+  { input: ' Untitled', newInput: ` #${namespaceId}`, resultData: 'BlockClass' },
+  { input: `#${namespaceId}`, resultData: 'BlockClass' },
+
+  // Block dot
+  { input: 'Untitled.', newInput: `#${namespaceId}.`, resultData: 'Missing expression' },
+  { input: `#${namespaceId}.`, resultData: 'Missing expression' },
+  { input: `  #${namespaceId}  .`, resultData: 'Missing expression' },
+
+  // Variable
   { input: 'num1', newInput: '"num1"', resultData: 2 },
   { input: '"num1"', resultData: 2 },
   { input: `#${namespaceId}.num1`, newInput: '"num1"', resultData: 2 },
   { input: `#${namespaceId}."num1"`, newInput: '"num1"', resultData: 2 },
 
+  // Variable with space
   { input: ' num1 + 1 ', newInput: ' "num1" + 1 ', resultData: 3 },
   { input: ' "num1" + 1 ', resultData: 3 },
   { input: ` #${namespaceId}.num1 + 1 `, newInput: ' "num1" + 1 ', resultData: 3 },
-  { input: ` #${namespaceId}."num1" + 1 `, newInput: ' "num1" + 1 ', resultData: 3 }
+  { input: ` #${namespaceId}."num1" + 1 `, newInput: ' "num1" + 1 ', resultData: 3 },
+
+  // Variable with error
+  { input: ' " " & "num1" ', resultData: 'Expected string but got number' },
+  { input: ' "num1" & " "', resultData: 'Expected string but got number' }
 ]
 
 const simpleNormalTestCases = [{ input: '', newInput: undefined, resultData: undefined }, ...simpleCommonTestCases]
@@ -312,7 +327,14 @@ describe('useFormula', () => {
     expect(result.current.editorContent.position).toEqual(0)
     expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(newInput ?? input)
 
-    expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
+    const data = result.current.variableT?.variableValue.result.result
+    if (typeof data === 'object') {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(data!.constructor.name).toEqual(resultData)
+    } else {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(data).toEqual(resultData)
+    }
   })
 
   it.each(simpleSpreadsheetTestCases)(
@@ -341,7 +363,14 @@ describe('useFormula', () => {
         newInput ?? input
       )
 
-      expect(result.current.variableT?.variableValue.result.result).toBe(resultData)
+      const data = result.current.variableT?.variableValue.result.result
+      if (typeof data === 'object') {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(data!.constructor.name).toEqual(resultData)
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(data).toEqual(resultData)
+      }
     }
   )
 

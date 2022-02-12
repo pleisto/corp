@@ -13,6 +13,40 @@ Object {
       "type": "any",
       "value": "=",
     },
+    Object {
+      "attrs": Object {
+        "id": "57622108-1337-4edd-833a-2557835bcfe0",
+        "kind": "Block",
+        "name": "Untitled",
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
+      "code": "Block",
+      "display": "Untitled",
+      "errors": Array [],
+      "hide": true,
+      "renderText": undefined,
+      "type": "any",
+      "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    Object {
+      "attrs": undefined,
+      "code": "Dot",
+      "display": ".",
+      "errors": Array [
+        Object {
+          "message": "Missing expression",
+          "type": "syntax",
+        },
+        Object {
+          "message": "Parse error: \\"\\"",
+          "type": "parse",
+        },
+      ],
+      "hide": false,
+      "renderText": undefined,
+      "type": "any",
+      "value": ".",
+    },
   ],
   "firstCompletion": Object {
     "codeFragments": Array [

@@ -187,7 +187,6 @@ export class VariableClass implements VariableInterface {
       const block = new BlockClass(this.formulaContext, { id: this.t.namespaceId })
       this.formulaContext.formulaNames.push({ ...block2name(block), name: 'Untitled' })
     }
-    this.formulaContext.blocks[this.t.namespaceId] = 'Block'
 
     this.t.variableDependencies.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)

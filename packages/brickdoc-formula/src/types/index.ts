@@ -429,7 +429,6 @@ export type FormulaName = VariableFormulaName | BlockFormulaName | SpreadsheetFo
 
 export interface ContextInterface {
   features: string[]
-  blocks: Record<NamespaceId, 'Block' | 'Spreadsheet'>
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
   reservedNames: string[]
@@ -438,6 +437,7 @@ export interface ContextInterface {
   invoke: (name: FunctionNameType, ctx: FunctionContext, ...args: any[]) => Promise<AnyTypeResult>
   backendActions: BackendActions | undefined
   variableCount: () => number
+  findFormulaName: (namespaceId: NamespaceId) => FormulaName | undefined
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findSpreadsheet: (namespaceId: NamespaceId) => SpreadsheetType | undefined

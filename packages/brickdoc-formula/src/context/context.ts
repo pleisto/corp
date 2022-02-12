@@ -39,7 +39,8 @@ import {
   variableKey,
   column2completion,
   block2completion,
-  block2name
+  block2name,
+  spreadsheet2name
 } from '../grammar/convert'
 import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
@@ -98,7 +99,6 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
 
 export class FormulaContext implements ContextInterface {
   features: Features
-  blocks: Record<NamespaceId, 'Block' | 'Spreadsheet'> = {}
   context: Record<VariableKey, VariableInterface> = {}
   functionWeights: Record<FunctionKey, number> = {}
   variableWeights: Record<VariableKey, number> = {}
@@ -138,7 +138,6 @@ export class FormulaContext implements ContextInterface {
   reservedNames: string[] = []
   formulaNames: FormulaName[] = []
 
-  // TODO refactor this.formulaNames and this.blocks
   constructor({
     functionClauses = [],
     backendActions,
@@ -258,6 +257,10 @@ export class FormulaContext implements ContextInterface {
     return this.spreadsheets[namespaceId]
   }
 
+  public findFormulaName(namespaceId: NamespaceId): FormulaName | undefined {
+    return this.formulaNames.find(f => f.key === namespaceId)
+  }
+
   public findColumn(namespaceId: NamespaceId, variableId: VariableId): ColumnType | undefined {
     const spreadsheet = this.findSpreadsheet(namespaceId)
     if (!spreadsheet) {
@@ -274,9 +277,10 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.blocks[spreadsheet.blockId] = 'Spreadsheet'
     this.spreadsheets[spreadsheet.blockId] = spreadsheet
-
+    this.formulaNames = this.formulaNames
+      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
+      .concat(spreadsheet2name(spreadsheet))
     BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.blockId }))
   }
 

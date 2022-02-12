@@ -17,7 +17,8 @@ import {
   FunctionKey,
   CodeFragmentAttrs,
   VariableFormulaName,
-  CodeFragment
+  CodeFragment,
+  SpreadsheetFormulaName
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
@@ -129,11 +130,23 @@ export const block2name = (block: BlockType): BlockFormulaName => {
   }
 }
 
+export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormulaName => {
+  return {
+    kind: 'Spreadsheet',
+    name: spreadsheet.name(),
+    namespaceId: spreadsheet.blockId,
+    renderTokens: () => [
+      { image: '#', type: 'Sharp' },
+      { image: spreadsheet.blockId, type: 'UUID' }
+    ],
+    key: spreadsheet.blockId
+  }
+}
+
 export const variable2name = (variable: VariableInterface): VariableFormulaName => {
   const {
     t: { namespaceId, name, variableId }
   } = variable
-  const key = variableId
   const nameToken = { image: encodeString(name), type: 'StringLiteral' }
   return {
     kind: 'Variable',
@@ -142,7 +155,7 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
       namespaceIsExist
         ? [nameToken]
         : [{ image: '#', type: 'Sharp' }, { image: namespaceId, type: 'UUID' }, { image: '.', type: 'Dot' }, nameToken],
-    key,
+    key: variableId,
     namespaceId
   }
 }

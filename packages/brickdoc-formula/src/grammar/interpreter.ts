@@ -846,9 +846,9 @@ export class FormulaInterpreter extends BaseCstVisitor {
     args: ExpressionArgument
   ): SpreadsheetResult | BlockResult | NullResult | ErrorResult {
     const namespaceId = ctx.UUID[0].image
-    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
+    const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
 
-    if (namespaceType === 'Spreadsheet') {
+    if (formulaName?.kind === 'Spreadsheet') {
       const parentType: FormulaType = 'Spreadsheet'
       const typeError = runtimeCheckType(args.type, parentType, 'blockExpression', this.ctx)
       if (typeError) {
@@ -862,7 +862,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       return { type: 'Spreadsheet', result: spreadsheet }
     }
 
-    if (namespaceType === 'Block') {
+    if (formulaName?.kind === 'Block') {
       const parentType: FormulaType = 'Block'
       const typeError = runtimeCheckType(args.type, parentType, 'blockExpression', this.ctx)
       if (typeError) {

@@ -557,21 +557,21 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         return
       }
 
+      // TODO remove this
       if (rhsCst.tokenType.name === 'UUID') {
         this.kind = 'expression'
 
         const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
-        const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
+        const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
         const errorMessages: ErrorMessage[] = []
         const variableId = rhsCst.image
         let codeFragment: CodeFragment = token2fragment(rhsCst, 'any')
 
-        if (!namespaceType) {
+        if (!formulaName) {
           errorMessages.push({ type: 'syntax', message: `Unknown namespace ${namespaceId}` })
         }
 
-        // TODO remove this
-        if (namespaceType === 'Block') {
+        if (formulaName?.kind === 'Block') {
           const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
 
           if (variable) {
@@ -602,7 +602,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           }
         }
 
-        if (namespaceType === 'Spreadsheet') {
+        if (formulaName?.kind === 'Spreadsheet') {
           this.blockDependencies.push(namespaceId)
           const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
           firstArgumentType = 'Column'
@@ -1055,9 +1055,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     this.kind = 'expression'
     this.blockDependencies.push(namespaceId)
-    const namespaceType = this.ctx.formulaContext.blocks[namespaceId]
+    const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
 
-    if (namespaceType === 'Spreadsheet') {
+    if (formulaName?.kind === 'Spreadsheet') {
       const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
       if (spreadsheet) {
         const parentType: FormulaType = 'Spreadsheet'
@@ -1076,7 +1076,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     }
 
-    if (namespaceType === 'Block') {
+    if (formulaName?.kind === 'Block') {
       const parentType: FormulaType = 'Block'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
       const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
@@ -1315,9 +1315,13 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
   codeFragments.forEach((c, idx) => {
     if (c.code === 'Dot' && !c.hide) {
       const prevCodeFragment = codeFragments[idx - 1]
-      if (prevCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
-        finalCodeFragments.pop()
-        return
+      const nextCodeFragment = codeFragments[idx + 1]
+      if (prevCodeFragment && nextCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
+        const nextErrors = nextCodeFragment.errors
+        if (nextErrors.length <= 1 || nextErrors[0].type === 'type') {
+          finalCodeFragments.pop()
+          return
+        }
       }
     }
 
