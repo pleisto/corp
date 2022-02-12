@@ -8,9 +8,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -18,9 +18,9 @@ Array [
     "display": "CountIf",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "CountIf",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -28,9 +28,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -43,9 +43,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -53,9 +53,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -63,9 +63,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -73,9 +73,9 @@ Array [
     "display": ">=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ">=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -83,9 +83,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -93,9 +93,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -103,9 +103,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -118,9 +118,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -128,9 +128,9 @@ Array [
     "display": "CountIf",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "CountIf",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -138,9 +138,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -153,9 +153,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -163,9 +163,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -183,9 +183,9 @@ Array [
       },
     ],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -198,9 +198,9 @@ Array [
       },
     ],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -218,9 +218,9 @@ Array [
       },
     ],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -228,9 +228,9 @@ Array [
     "display": ">=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "boolean",
     "value": ">=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -238,9 +238,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -248,9 +248,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;

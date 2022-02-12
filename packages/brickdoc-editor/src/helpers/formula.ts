@@ -137,7 +137,13 @@ const JSONContentToText = (c: JSONContent): string => {
     return text
   }
 
-  const finalText = attrs.display === text ? attrs.value : text
+  if (attrs.display === text) {
+    return attrs.value
+  }
 
-  return attrs.wrapQuote ? `"${finalText}"` : finalText
+  if (!attrs.renderText) {
+    return text
+  }
+
+  return attrs.renderText(text)
 }

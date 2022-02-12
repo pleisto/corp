@@ -8,9 +8,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -18,9 +18,9 @@ Array [
     "display": "AVERAGEIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "AVERAGEIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -28,9 +28,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -43,9 +43,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -53,9 +53,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -68,9 +68,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -78,9 +78,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -93,9 +93,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -103,9 +103,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -118,9 +118,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -128,9 +128,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -138,9 +138,9 @@ Array [
     "display": ">",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ">",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -148,9 +148,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -158,9 +158,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -173,9 +173,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -183,9 +183,9 @@ Array [
     "display": "AVERAGEIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "AVERAGEIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -193,9 +193,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -208,9 +208,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -218,9 +218,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -233,9 +233,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -243,9 +243,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -258,9 +258,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -268,9 +268,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -283,9 +283,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -293,9 +293,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -303,9 +303,9 @@ Array [
     "display": ">",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ">",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -313,9 +313,9 @@ Array [
     "display": "100",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "100",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -323,9 +323,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -338,9 +338,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -353,9 +353,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -363,9 +363,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -373,9 +373,9 @@ Array [
     "display": "COLUMN_COUNT",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "COLUMN_COUNT",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -383,9 +383,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -393,9 +393,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -408,9 +408,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -423,9 +423,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -433,9 +433,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -448,9 +448,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -458,9 +458,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -468,9 +468,9 @@ Array [
     "display": "COUNTA",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "COUNTA",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -478,9 +478,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -488,9 +488,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -503,9 +503,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -518,9 +518,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -528,9 +528,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -543,9 +543,9 @@ Array [
     "display": "third",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -553,9 +553,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -563,9 +563,9 @@ Array [
     "display": "COUNTA",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "COUNTA",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -573,9 +573,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -583,9 +583,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -598,9 +598,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -608,9 +608,9 @@ Array [
     "display": "COUNTIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "COUNTIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -618,9 +618,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -633,9 +633,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -643,9 +643,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -658,9 +658,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -668,9 +668,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -678,9 +678,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -688,9 +688,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -703,9 +703,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -713,9 +713,9 @@ Array [
     "display": "COUNTIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "COUNTIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -723,9 +723,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -738,9 +738,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -748,9 +748,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -763,9 +763,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -773,9 +773,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -783,9 +783,9 @@ Array [
     "display": ">",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ">",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -793,9 +793,9 @@ Array [
     "display": "2",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "2",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -803,9 +803,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -818,9 +818,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -833,9 +833,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -843,9 +843,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -858,9 +858,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -868,9 +868,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -878,9 +878,9 @@ Array [
     "display": "MAX",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "MAX",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -888,9 +888,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -898,9 +898,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -913,9 +913,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -928,9 +928,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -938,9 +938,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -953,9 +953,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -963,9 +963,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -973,9 +973,9 @@ Array [
     "display": "SUM",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "SUM",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -983,9 +983,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -993,9 +993,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1008,9 +1008,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1018,9 +1018,9 @@ Array [
     "display": "SUMIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "SUMIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1028,9 +1028,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1043,9 +1043,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1053,9 +1053,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1068,9 +1068,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1078,9 +1078,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1093,9 +1093,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1103,9 +1103,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1118,9 +1118,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1128,9 +1128,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1138,9 +1138,9 @@ Array [
     "display": ">",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ">",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1148,9 +1148,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1158,9 +1158,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1173,9 +1173,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1183,9 +1183,9 @@ Array [
     "display": "SUMIFS",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "SUMIFS",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1193,9 +1193,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1208,9 +1208,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1218,9 +1218,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1233,9 +1233,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1243,9 +1243,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1258,9 +1258,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1268,9 +1268,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1283,9 +1283,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1293,9 +1293,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1303,9 +1303,9 @@ Array [
     "display": "4",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "4",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1313,9 +1313,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1328,9 +1328,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1338,9 +1338,9 @@ Array [
     "display": "SUMPRODUCT",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "SUMPRODUCT",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1348,9 +1348,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1363,9 +1363,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1373,9 +1373,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1388,9 +1388,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1398,9 +1398,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1413,9 +1413,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1423,9 +1423,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -1438,9 +1438,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1448,9 +1448,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1463,9 +1463,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1473,9 +1473,9 @@ Array [
     "display": "Spreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "Spreadsheet",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1483,9 +1483,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1493,9 +1493,9 @@ Array [
     "display": "[",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "[",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1503,9 +1503,9 @@ Array [
     "display": "]",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "]",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1513,9 +1513,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Spreadsheet",
     "value": ")",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1523,9 +1523,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1533,9 +1533,9 @@ Array [
     "display": "toArray",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "toArray",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1543,9 +1543,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1553,9 +1553,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Array",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1615,9 +1615,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1625,9 +1625,9 @@ Array [
     "display": "Spreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "Spreadsheet",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1635,9 +1635,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1645,9 +1645,9 @@ Array [
     "display": "[",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "[",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1655,9 +1655,9 @@ Array [
     "display": "{",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "{",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1665,9 +1665,9 @@ Array [
     "display": "a",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1675,9 +1675,9 @@ Array [
     "display": ":",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ":",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1685,9 +1685,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1695,9 +1695,9 @@ Array [
     "display": "1",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "1",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1705,9 +1705,9 @@ Array [
     "display": "}",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "}",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1715,9 +1715,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1725,9 +1725,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1735,9 +1735,9 @@ Array [
     "display": "{",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "{",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1745,9 +1745,9 @@ Array [
     "display": "a",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1755,9 +1755,9 @@ Array [
     "display": ":",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ":",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1765,9 +1765,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1775,9 +1775,9 @@ Array [
     "display": "2",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "2",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1785,9 +1785,9 @@ Array [
     "display": "}",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "}",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1795,9 +1795,9 @@ Array [
     "display": "]",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "]",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1805,9 +1805,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Spreadsheet",
     "value": ")",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1815,9 +1815,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1825,9 +1825,9 @@ Array [
     "display": "toArray",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "toArray",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1835,9 +1835,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1845,9 +1845,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Array",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -1895,9 +1895,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1905,9 +1905,9 @@ Array [
     "display": "Spreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "Spreadsheet",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1915,9 +1915,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1925,9 +1925,9 @@ Array [
     "display": "[",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "[",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1935,9 +1935,9 @@ Array [
     "display": "1",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "1",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1945,9 +1945,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1955,9 +1955,9 @@ Array [
     "display": "2",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "2",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1965,9 +1965,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1975,9 +1975,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1985,9 +1985,9 @@ Array [
     "display": "]",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "]",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -1995,9 +1995,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Spreadsheet",
     "value": ")",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2005,9 +2005,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2015,9 +2015,9 @@ Array [
     "display": "toArray",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "toArray",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2025,9 +2025,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2035,9 +2035,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Array",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2052,9 +2052,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2062,9 +2062,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2072,9 +2072,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2082,9 +2082,9 @@ Array [
     "display": "\\"2\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"2\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2092,9 +2092,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2107,9 +2107,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2117,9 +2117,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2132,9 +2132,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2142,9 +2142,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2157,9 +2157,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2167,9 +2167,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2182,9 +2182,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2192,9 +2192,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2202,9 +2202,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2212,9 +2212,9 @@ Array [
     "display": "\\"2\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"2\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2222,9 +2222,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2237,9 +2237,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2247,9 +2247,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2262,9 +2262,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2272,9 +2272,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2287,9 +2287,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2297,9 +2297,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2307,9 +2307,9 @@ Array [
     "display": "true",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "boolean",
     "value": "true",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2317,9 +2317,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2332,9 +2332,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2342,9 +2342,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2352,9 +2352,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2362,9 +2362,9 @@ Array [
     "display": "\\"\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2372,9 +2372,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2387,9 +2387,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2397,9 +2397,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2412,9 +2412,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2422,9 +2422,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2437,9 +2437,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2447,9 +2447,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2462,9 +2462,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2472,9 +2472,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2482,9 +2482,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2492,9 +2492,9 @@ Array [
     "display": "\\"2\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"2\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2502,9 +2502,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2517,9 +2517,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2527,9 +2527,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2542,9 +2542,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2552,9 +2552,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2567,9 +2567,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2577,9 +2577,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2587,9 +2587,9 @@ Array [
     "display": "false",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "boolean",
     "value": "false",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2597,9 +2597,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2612,9 +2612,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2622,9 +2622,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2632,9 +2632,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2642,9 +2642,9 @@ Array [
     "display": "\\"\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2652,9 +2652,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2667,9 +2667,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2677,9 +2677,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2692,9 +2692,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2702,9 +2702,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2717,9 +2717,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2727,9 +2727,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2742,9 +2742,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2752,9 +2752,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2762,9 +2762,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2772,9 +2772,9 @@ Array [
     "display": "1",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "1",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2782,9 +2782,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2797,9 +2797,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2807,9 +2807,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2822,9 +2822,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2832,9 +2832,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2847,9 +2847,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2857,9 +2857,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -2872,9 +2872,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2882,9 +2882,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2892,9 +2892,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2902,9 +2902,9 @@ Array [
     "display": "1",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "1",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2912,9 +2912,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2927,9 +2927,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2937,9 +2937,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2952,9 +2952,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2962,9 +2962,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -2977,9 +2977,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2987,9 +2987,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -2997,9 +2997,9 @@ Array [
     "display": "false",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "boolean",
     "value": "false",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3007,9 +3007,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3022,9 +3022,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3032,9 +3032,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3042,9 +3042,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3052,9 +3052,9 @@ Array [
     "display": "1",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "1",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3062,9 +3062,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3077,9 +3077,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3087,9 +3087,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3102,9 +3102,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3112,9 +3112,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3127,9 +3127,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3137,9 +3137,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3147,9 +3147,9 @@ Array [
     "display": "true",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "boolean",
     "value": "true",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3157,9 +3157,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3172,9 +3172,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3182,9 +3182,9 @@ Array [
     "display": "VLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "VLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3192,9 +3192,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3202,9 +3202,9 @@ Array [
     "display": "\\"1\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"1\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3212,9 +3212,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3227,9 +3227,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3237,9 +3237,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3252,9 +3252,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3262,9 +3262,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3277,9 +3277,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3287,9 +3287,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3302,9 +3302,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3312,9 +3312,9 @@ Array [
     "display": "XLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "XLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3322,9 +3322,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3332,9 +3332,9 @@ Array [
     "display": "\\"1\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"1\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3342,9 +3342,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3357,9 +3357,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3367,9 +3367,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3382,9 +3382,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3392,9 +3392,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3407,9 +3407,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3417,9 +3417,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3432,9 +3432,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3442,9 +3442,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3457,9 +3457,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3467,9 +3467,9 @@ Array [
     "display": "XLOOKUP",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "XLOOKUP",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3477,9 +3477,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3487,9 +3487,9 @@ Array [
     "display": "\\"123\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"123\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3497,9 +3497,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3512,9 +3512,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3522,9 +3522,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3537,9 +3537,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3547,9 +3547,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3562,9 +3562,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3572,9 +3572,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3587,9 +3587,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3597,9 +3597,9 @@ Array [
     "display": ",",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ",",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3607,9 +3607,9 @@ Array [
     "display": "\\"100\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"100\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3617,9 +3617,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3632,9 +3632,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3647,9 +3647,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3657,9 +3657,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3672,9 +3672,9 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3687,9 +3687,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3697,9 +3697,9 @@ Array [
     "display": "\\"foo\\"",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "string",
     "value": "\\"foo\\"",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3707,9 +3707,9 @@ Array [
     "display": "in",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "in",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3722,9 +3722,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3732,9 +3732,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3747,9 +3747,9 @@ Array [
     "display": "third",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3762,9 +3762,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3772,9 +3772,9 @@ Array [
     "display": "4",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "4",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3782,9 +3782,9 @@ Array [
     "display": "in",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "in",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3797,9 +3797,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3807,9 +3807,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3822,9 +3822,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3837,9 +3837,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3847,9 +3847,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3857,9 +3857,9 @@ Array [
     "display": "in",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "in",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3872,9 +3872,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3882,9 +3882,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3897,9 +3897,9 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3912,9 +3912,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3922,9 +3922,9 @@ Array [
     "display": "4",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "4",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3932,9 +3932,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3942,9 +3942,9 @@ Array [
     "display": "in",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "in",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3952,9 +3952,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -3967,9 +3967,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -3982,9 +3982,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -3992,9 +3992,9 @@ Array [
     "display": "3",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "number",
     "value": "3",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4002,9 +4002,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4012,9 +4012,9 @@ Array [
     "display": "in",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "in",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4022,9 +4022,9 @@ Array [
     "display": " ",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": " ",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4037,9 +4037,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -4052,9 +4052,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4067,9 +4067,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4077,9 +4077,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4087,9 +4087,9 @@ Array [
     "display": "toArray",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "toArray",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4097,9 +4097,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4107,9 +4107,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Array",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -4199,9 +4199,9 @@ Array [
     "display": "=",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "=",
-    "wrapQuote": false,
   },
   Object {
     "attrs": Object {
@@ -4214,9 +4214,9 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4224,9 +4224,9 @@ Array [
     "display": ".",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": ".",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4234,9 +4234,9 @@ Array [
     "display": "toRecordArray",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "toRecordArray",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4244,9 +4244,9 @@ Array [
     "display": "(",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "any",
     "value": "(",
-    "wrapQuote": false,
   },
   Object {
     "attrs": undefined,
@@ -4254,9 +4254,9 @@ Array [
     "display": ")",
     "errors": Array [],
     "hide": false,
+    "renderText": undefined,
     "type": "Array",
     "value": ")",
-    "wrapQuote": false,
   },
 ]
 `;
@@ -4443,9 +4443,9 @@ Object {
       "display": "MySpreadsheet",
       "errors": Array [],
       "hide": false,
+      "renderText": undefined,
       "type": "any",
       "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
-      "wrapQuote": false,
     },
   ],
   "kind": "spreadsheet",
@@ -4478,9 +4478,9 @@ Object {
       "display": "VLOOKUP()",
       "errors": Array [],
       "hide": false,
+      "renderText": undefined,
       "type": "any",
       "value": "VLOOKUP()",
-      "wrapQuote": false,
     },
   ],
   "kind": "function",
@@ -4524,9 +4524,9 @@ Object {
             "display": "=",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "any",
             "value": "=",
-            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -4534,9 +4534,9 @@ Object {
             "display": "123",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "number",
             "value": "123",
-            "wrapQuote": false,
           },
         ],
         "input": "=123",
@@ -4573,9 +4573,9 @@ Object {
       "display": "VLOOKUP()",
       "errors": Array [],
       "hide": false,
+      "renderText": undefined,
       "type": "any",
       "value": "VLOOKUP()",
-      "wrapQuote": false,
     },
   ],
   "kind": "function",
@@ -4619,9 +4619,9 @@ Object {
             "display": "=",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "any",
             "value": "=",
-            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -4629,9 +4629,9 @@ Object {
             "display": "123",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "number",
             "value": "123",
-            "wrapQuote": false,
           },
         ],
         "input": "=123",
@@ -4668,9 +4668,9 @@ Object {
       "display": "VLOOKUP()",
       "errors": Array [],
       "hide": false,
+      "renderText": undefined,
       "type": "any",
       "value": "VLOOKUP()",
-      "wrapQuote": false,
     },
   ],
   "kind": "function",
@@ -4714,9 +4714,9 @@ Object {
             "display": "=",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "any",
             "value": "=",
-            "wrapQuote": false,
           },
           Object {
             "attrs": undefined,
@@ -4724,9 +4724,9 @@ Object {
             "display": "123",
             "errors": Array [],
             "hide": false,
+            "renderText": undefined,
             "type": "number",
             "value": "123",
-            "wrapQuote": false,
           },
         ],
         "input": "=123",

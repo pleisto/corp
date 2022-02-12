@@ -30,6 +30,10 @@ export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
+export const variableRenderText = (variable: VariableInterface): CodeFragment['renderText'] => {
+  return text => encodeString(text)
+}
+
 const block2attrs = (block: BlockType): CodeFragmentAttrs => ({
   kind: 'Block',
   namespaceId: block.id,
@@ -62,7 +66,7 @@ export const block2codeFragment = (block: BlockType): CodeFragment => {
   return {
     display: block.name(),
     errors: [],
-    wrapQuote: false,
+    renderText: undefined,
     hide: false,
     value: blockKey(block.id),
     code: 'Block',
@@ -75,9 +79,9 @@ export const variable2codeFragment = (variable: VariableInterface): CodeFragment
   return {
     display: variable.t.name,
     errors: [],
-    value: variable.t.name,
+    value: encodeString(variable.t.name),
     code: 'Variable',
-    wrapQuote: true,
+    renderText: variableRenderText(variable),
     hide: false,
     type: variable.t.variableValue.result.type,
     attrs: variable2attrs(variable)
@@ -92,7 +96,7 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType): CodeFrag
     value,
     code: 'Spreadsheet',
     type: 'any',
-    wrapQuote: false,
+    renderText: undefined,
     hide: false,
     attrs: spreadsheet2attrs(spreadsheet)
   }
@@ -106,7 +110,7 @@ export const column2codeFragment = (column: ColumnType): CodeFragment => {
     value,
     code: 'Column',
     type: 'any',
-    wrapQuote: false,
+    renderText: undefined,
     hide: false,
     attrs: column2attrs(column)
   }
@@ -237,7 +241,7 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
         value,
         code: 'Function',
         type: 'any',
-        wrapQuote: false,
+        renderText: undefined,
         hide: false,
         attrs: undefined
       }

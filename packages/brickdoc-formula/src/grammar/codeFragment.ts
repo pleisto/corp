@@ -17,7 +17,13 @@ import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
-import { block2codeFragment, column2codeFragment, spreadsheet2codeFragment, variable2codeFragment } from './convert'
+import {
+  block2codeFragment,
+  column2codeFragment,
+  spreadsheet2codeFragment,
+  variable2codeFragment,
+  variableRenderText
+} from './convert'
 import { devWarning } from '@brickdoc/design-system'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
@@ -25,7 +31,7 @@ const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
     value: token.image,
     code: token.tokenType.name as SimpleCodeFragmentType,
     errors: [],
-    wrapQuote: false,
+    renderText: undefined,
     hide: false,
     type,
     display: token.image,
@@ -535,7 +541,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           }
 
           if (finalRhsCodeFragments[0].code === 'StringLiteral' && variable) {
-            finalRhsCodeFragments = [{ ...finalRhsCodeFragments[0], display: variableName }]
+            finalRhsCodeFragments = [
+              { ...finalRhsCodeFragments[0], display: variableName, renderText: variableRenderText(variable) }
+            ]
           }
         }
 
@@ -1150,7 +1158,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       value: functionKey,
       code: 'FunctionName',
       errors: [],
-      wrapQuote: false,
+      renderText: undefined,
       hide: false,
       type: 'any',
       display: functionKey,
@@ -1324,7 +1332,7 @@ export const addSpace = (codeFragments: CodeFragment[], input: string): CodeFrag
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     value: ' ',
-    wrapQuote: false,
+    renderText: undefined,
     hide: false,
     type: 'any',
     display: ' ',
@@ -1366,7 +1374,7 @@ export const addSpace = (codeFragments: CodeFragment[], input: string): CodeFrag
     //     code: 'other',
     //     value: errorMessage,
     //     type: 'any',
-    //     wrapQuote: false,
+    //     renderText: undefined,
     //     display: errorMessage,
     //     errors: [],
     //     attrs: undefined
