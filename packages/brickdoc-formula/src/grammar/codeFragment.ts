@@ -1318,7 +1318,7 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
       const nextCodeFragment = codeFragments[idx + 1]
       if (prevCodeFragment && nextCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
         const nextErrors = nextCodeFragment.errors
-        if (nextErrors.length <= 1 || nextErrors[0].type === 'type') {
+        if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type === 'type')) {
           finalCodeFragments.pop()
           return
         }
@@ -1327,6 +1327,8 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
 
     finalCodeFragments.push(c)
   })
+
+  // console.log({ codeFragments, finalCodeFragments })
 
   return finalCodeFragments
 }

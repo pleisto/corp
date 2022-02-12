@@ -3948,6 +3948,41 @@ Array [
     "value": "=",
   },
   Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "Block",
+    "display": "Untitled",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": true,
+    "renderText": undefined,
+    "type": "any",
+    "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
     "attrs": undefined,
     "code": "UUID",
     "display": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
@@ -4337,6 +4372,41 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "=",
+  },
+  Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "Block",
+    "display": "Untitled",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": true,
+    "renderText": undefined,
+    "type": "any",
+    "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -5971,6 +6041,41 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "=",
+  },
+  Object {
+    "attrs": Object {
+      "id": "57622108-1337-4edd-833a-2557835bcfe0",
+      "kind": "Block",
+      "name": "Untitled",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "Block",
+    "display": "Untitled",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": true,
+    "renderText": undefined,
+    "type": "any",
+    "value": "#57622108-1337-4edd-833a-2557835bcfe0",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [
+      Object {
+        "message": "Expected number but got Block",
+        "type": "type",
+      },
+    ],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
   },
   Object {
     "attrs": undefined,

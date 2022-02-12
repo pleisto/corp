@@ -22,7 +22,7 @@ import {
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
-import { encodeString } from './util'
+import { encodeString, maybeEncodeString } from './util'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
   `#${namespaceId}.${variableId}`
@@ -32,7 +32,14 @@ export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
 export const variableRenderText = (variable: VariableInterface): CodeFragment['renderText'] => {
-  return text => encodeString(text)
+  return (text, prevText) => {
+    const finalText = maybeEncodeString(text)
+    if (prevText === '.') {
+      return finalText
+    } else {
+      return `#${variable.t.namespaceId}.${finalText}`
+    }
+  }
 }
 
 const block2attrs = (block: BlockType): CodeFragmentAttrs => ({

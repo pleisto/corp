@@ -87,8 +87,8 @@ export const positionBasedContentArrayToInput = (
   const nextTexts: string[] = []
   let input = ''
 
-  content.forEach((c: JSONContent) => {
-    const text = JSONContentToText(c)
+  content.forEach((c: JSONContent, idx) => {
+    const text = JSONContentToText(c, content[idx - 1])
     input = input.concat(c.text ?? '')
     if (input.length > position) {
       nextTexts.push(text)
@@ -102,12 +102,12 @@ export const positionBasedContentArrayToInput = (
 }
 
 export const contentArrayToInput = (content: JSONContent[]): string => {
-  const input = content.map((c: JSONContent) => JSONContentToText(c)).join('') ?? ''
+  const input = content.map((c: JSONContent, idx) => JSONContentToText(c, content[idx - 1])).join('') ?? ''
   devWarning(true, 'contentArrayToInput', { content, input })
   return input
 }
 
-const JSONContentToText = (c: JSONContent): string => {
+const JSONContentToText = (c: JSONContent, prevC: JSONContent | undefined): string => {
   if (c.type !== 'text') {
     devWarning(true, 'JSONContentToText: not text', c)
     return ''
@@ -145,5 +145,7 @@ const JSONContentToText = (c: JSONContent): string => {
     return text
   }
 
-  return attrs.renderText(text)
+  const prevText = prevC?.text ?? ''
+
+  return attrs.renderText(text, prevText)
 }

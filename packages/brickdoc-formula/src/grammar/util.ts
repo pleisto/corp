@@ -17,6 +17,12 @@ export const parseString = (str: string): string => {
   return str.substring(1, str.length - 1).replace(/""/g, '"')
 }
 
+export const maybeEncodeString = (str: string): string => {
+  // TODO "abc" -> true
+  // TODO "foo bar" -> false
+  return encodeString(str)
+}
+
 export const encodeString = (str: string): string => {
   return `"${str}"`
 }
