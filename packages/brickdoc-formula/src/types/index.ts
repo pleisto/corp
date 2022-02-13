@@ -22,7 +22,7 @@ export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlT
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
-export type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable'
+export type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName'
 
 export type FormulaColorType = Exclude<FormulaType, 'boolean'> | FormulaCodeFragmentType
 

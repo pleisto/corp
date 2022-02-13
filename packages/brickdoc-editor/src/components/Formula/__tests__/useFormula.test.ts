@@ -113,7 +113,10 @@ const simpleCommonTestCases = [
 
   // Variable with error
   { input: ' " " & num1 ', resultData: 'Expected string but got number' },
-  { input: ' num1 & " "', resultData: 'Expected string but got number' }
+  { input: ' num1 & " "', resultData: 'Expected string but got number' },
+
+  // TODO parse error
+  { input: 'a+num1', newInput: 'a.num1', resultData: 'Unknown function a' }
 ]
 
 const simpleNormalTestCases = [{ input: '', newInput: undefined, resultData: undefined }, ...simpleCommonTestCases]

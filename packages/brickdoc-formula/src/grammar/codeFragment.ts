@@ -537,7 +537,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               ).values()
             ]
           } else {
-            unknownVariableError.push({ type: 'syntax', message: `Variable "${variableName}" not found` })
+            unknownVariableError.push({ type: 'deps', message: `Variable "${variableName}" not found` })
           }
 
           if (finalRhsCodeFragments[0].code === 'StringLiteral' && variable) {
@@ -1318,7 +1318,7 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
       const nextCodeFragment = codeFragments[idx + 1]
       if (prevCodeFragment && nextCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
         const nextErrors = nextCodeFragment.errors
-        if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type === 'type')) {
+        if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
           finalCodeFragments.pop()
           return
         }

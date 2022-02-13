@@ -323,6 +323,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     } else {
       devWarning(true, 'Parse Error', {
         input,
+        tokens,
         codeFragments,
         newInput,
         inputImagesWithoutSpace: inputImage,
