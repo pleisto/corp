@@ -93,6 +93,14 @@ export const FormulaEditorReplaceRootTrigger = event<{
   return { content, position, id: `${rootId},${formulaId}` }
 })
 
+export const FormulaEditorUpdateNameTrigger = event<{
+  name: string
+  rootId: string
+  formulaId: string
+}>()('FormulaEditorUpdateNameTrigger', ({ name, formulaId, rootId }) => {
+  return { name, id: `${rootId},${formulaId}` }
+})
+
 export interface ExplorerMenuItem {
   label: React.ReactElement
   labelText: string

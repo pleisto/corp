@@ -105,7 +105,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
             }
           }
 
-          if (editable) console.log('after replace root', { content, position })
+          // if (editable) console.log('after replace root', { content, position })
         },
         {
           eventId: `${rootId},${formulaId}`,

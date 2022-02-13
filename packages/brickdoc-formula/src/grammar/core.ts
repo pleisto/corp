@@ -82,22 +82,19 @@ export interface InterpretResult {
 
 const abbrev = ({
   ctx: { formulaContext },
-  position,
   namespaceId,
   input
 }: {
   namespaceId: NamespaceId
   ctx: FunctionContext
-  position: number
   input: string
-}): { lexResult: ILexingResult; newInput: string; newPosition: number } => {
+}): { lexResult: ILexingResult; newInput: string } => {
   const lexer = FormulaLexer
   const lexResult: ILexingResult = lexer.tokenize(input)
   const tokens = lexResult.tokens
   let modified = false
   let restInput = input
   let newInput = ''
-  const newPosition: number = position
   const newTokens: IToken[] = []
 
   tokens.forEach((token, index) => {
@@ -186,9 +183,9 @@ const abbrev = ({
   // console.log('abbrev', { newInput, input, tokens })
 
   if (modified) {
-    return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
+    return { lexResult: lexer.tokenize(newInput), newInput }
   } else {
-    return { lexResult, newInput: input, newPosition }
+    return { lexResult, newInput: input }
   }
 }
 
@@ -262,9 +259,8 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const {
     lexResult: { tokens, errors: lexErrors },
-    newInput,
-    newPosition
-  } = abbrev({ ctx, input, position, namespaceId })
+    newInput
+  } = abbrev({ ctx, input, namespaceId })
 
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
@@ -276,7 +272,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
   completions = complete({
-    position: newPosition,
+    position,
     cacheCompletions: baseCompletion,
     codeFragments,
     tokens,
@@ -292,7 +288,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   returnValue.cst = cst
   returnValue.input = newInput
-  returnValue.position = newPosition
   returnValue.parseImage = image
   returnValue.completions = completions
 
@@ -334,6 +329,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const finalCodeFragments = hideDot(addSpace(codeFragments, newInput))
   returnValue.codeFragments = finalCodeFragments
+  returnValue.position = position
 
   if (finalErrorMessages.length) {
     return {

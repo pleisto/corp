@@ -34,7 +34,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
   const formulaName = undefined
 
   const {
-    doCalculate,
     variableT,
     savedVariableT,
     isDraft,
@@ -78,7 +77,6 @@ export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, update
       <FormulaMenu
         rootId={rootId}
         formulaId={formulaId}
-        doCalculate={doCalculate}
         editorContent={editorContent}
         defaultVisible={defaultVisible}
         onVisibleChange={handleDefaultPopoverVisibleChange}
