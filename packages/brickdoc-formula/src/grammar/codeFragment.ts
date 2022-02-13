@@ -1310,8 +1310,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
   }
 }
 
-export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
+export const hideDot = (
+  codeFragments: CodeFragment[],
+  position: number
+): { finalCodeFragments: CodeFragment[]; newPositionAfterHide: number } => {
   const finalCodeFragments: CodeFragment[] = []
+  let newPositionAfterHide = position
   codeFragments.forEach((c, idx) => {
     if (c.code === 'Dot' && !c.hide) {
       const prevCodeFragment = codeFragments[idx - 1]
@@ -1320,6 +1324,7 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
         const nextErrors = nextCodeFragment.errors
         if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
           finalCodeFragments.pop()
+          newPositionAfterHide -= 2 + prevCodeFragment.display.length
           return
         }
       }
@@ -1328,9 +1333,9 @@ export const hideDot = (codeFragments: CodeFragment[]): CodeFragment[] => {
     finalCodeFragments.push(c)
   })
 
-  // console.log({ codeFragments, finalCodeFragments })
+  // console.log({ codeFragments, finalCodeFragments, newPositionAfterHide, position })
 
-  return finalCodeFragments
+  return { finalCodeFragments, newPositionAfterHide }
 }
 
 export const addSpace = (codeFragments: CodeFragment[], input: string): CodeFragment[] => {

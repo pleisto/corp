@@ -261,7 +261,7 @@ export const useFormula = ({
 
     const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-    // console.log('calculate result', { newPosition, result })
+    // console.log('calculate result', { newPosition, result, editorContent: editorContentRef.current })
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 
@@ -397,6 +397,7 @@ export const useFormula = ({
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
     if (!variableRef.current) return true
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (!(nameRef.current || defaultNameRef.current)) return true
     // if (!inputRef.current) return true
     // if (error && ['name_unique', 'name_check', 'fatal'].includes(error.type)) return true
