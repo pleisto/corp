@@ -529,7 +529,7 @@ export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
   readonly value: string
   readonly display: string
-  readonly renderText: undefined | ((text: string, prevText: string) => string)
+  readonly renderText: undefined | ((text: string, attrs: CodeFragment, prevText: string) => string)
   readonly hide: boolean
   readonly type: FormulaType
   readonly errors: ErrorMessage[]

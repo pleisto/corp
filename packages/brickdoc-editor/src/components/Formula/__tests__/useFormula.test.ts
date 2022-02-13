@@ -197,8 +197,8 @@ const normalTestCases = [
       ]
     },
     output: {
-      // TODO fix 31
-      position: 31,
+      // TODO fix 41
+      position: 41,
       content: SNAPSHOT_FLAG
     }
   }
@@ -272,7 +272,7 @@ const spreadsheetTestCases = [
       ]
     },
     output: {
-      position: 31,
+      position: 41,
       content: SNAPSHOT_FLAG
     }
   }

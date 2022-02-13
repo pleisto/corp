@@ -26,11 +26,12 @@ const checkValidToken = (input: string): boolean => {
   return tokens.length === 1
 }
 
-export const maybeEncodeString = (str: string): string => {
-  if (checkValidToken(str)) {
-    return str
+export const maybeEncodeString = (str: string): [boolean, string] => {
+  const valid = checkValidToken(str)
+  if (valid) {
+    return [true, str]
   }
-  return encodeString(str)
+  return [false, encodeString(str)]
 }
 
 const encodeString = (str: string): string => {

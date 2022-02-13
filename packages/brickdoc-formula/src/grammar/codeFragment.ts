@@ -1343,7 +1343,7 @@ export const hideDot = (
   position: number
 ): { finalCodeFragments: CodeFragment[]; newPositionAfterHide: number } => {
   const finalCodeFragments: CodeFragment[] = []
-  let newPositionAfterHide = position
+  const newPositionAfterHide = position
   codeFragments.forEach((c, idx) => {
     if (c.code === 'Dot' && !c.hide) {
       const prevCodeFragment = codeFragments[idx - 1]
@@ -1352,7 +1352,7 @@ export const hideDot = (
         const nextErrors = nextCodeFragment.errors
         if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
           finalCodeFragments.pop()
-          newPositionAfterHide -= 2 + prevCodeFragment.display.length
+          // newPositionAfterHide -= 2 + prevCodeFragment.display.length
           return
         }
       }

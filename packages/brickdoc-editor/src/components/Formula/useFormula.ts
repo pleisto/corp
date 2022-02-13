@@ -308,27 +308,16 @@ export const useFormula = ({
     const oldContentLast = oldContent[oldContent.length - 1]
     const { prevText, nextText } = positionBasedContentArrayToInput(oldContent, position)
 
-    // devLog('Before replace', {
+    // console.log('Before replace', {
     //   oldContentLast,
     //   oldContent,
     //   prevText,
-    //   currentPosition: latestPosition.current,
     //   position,
     //   nextText,
     //   positionChange,
     //   currentCompletion
     // })
-
     if (oldContentLast && prevText && currentCompletion.replacements.length) {
-      // devLog('start replace', {
-      //   oldContentLast,
-      //   currentCompletion,
-      //   currentContent,
-      //   prevText,
-      //   position,
-      //   nextText,
-      //   currentPosition: latestPosition.current
-      // })
       if (currentCompletion.replacements.includes(prevText)) {
         positionChange -= prevText.length
         oldContent = []
@@ -372,6 +361,7 @@ export const useFormula = ({
 
     const completionContents: JSONContent[] = codeFragmentsToJSONContentArray(currentCompletion.codeFragments)
     const newContent: JSONContent[] = [...oldContent, ...completionContents, ...nextContents]
+
     const finalContent = buildJSONContentByArray(newContent)
     const finalInput = contentArrayToInput(fetchJSONContentArray(finalContent))
     const finalInputAfterEqual = formulaIsNormal ? `=${finalInput}` : finalInput

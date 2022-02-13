@@ -32,13 +32,26 @@ export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
 export const variableRenderText = (variable: VariableInterface): CodeFragment['renderText'] => {
-  return (text, prevText) => {
-    const finalText = maybeEncodeString(text)
-    if (prevText === '.') {
-      return finalText
-    } else {
-      return `#${variable.t.namespaceId}.${finalText}`
+  return (text, { display }, prevText) => {
+    const [valid, finalText] = maybeEncodeString(text)
+    let result = finalText
+    let prefix = ''
+
+    if (!valid && text !== display) {
+      if (text.startsWith(display)) {
+        const body = maybeEncodeString(display)[1]
+        const rest = text.substring(display.length)
+        result = body.concat(rest)
+      }
+
+      if (text.endsWith(display)) {
+        result = maybeEncodeString(display)[1]
+        prefix = text.substring(0, text.length - display.length)
+      }
     }
+
+    const resultAfterNamespace = prevText === '.' ? result : `#${variable.t.namespaceId}.${result}`
+    return prefix.concat(resultAfterNamespace)
   }
 }
 
@@ -87,7 +100,7 @@ export const variable2codeFragment = (variable: VariableInterface): CodeFragment
   return {
     display: variable.t.name,
     errors: [],
-    value: maybeEncodeString(variable.t.name),
+    value: maybeEncodeString(variable.t.name)[1],
     code: 'Variable',
     renderText: variableRenderText(variable),
     hide: false,
@@ -154,7 +167,7 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   const {
     t: { namespaceId, name, variableId }
   } = variable
-  const nameToken = { image: maybeEncodeString(name), type: 'StringLiteral' }
+  const nameToken = { image: maybeEncodeString(name)[1], type: 'StringLiteral' }
   return {
     kind: 'Variable',
     name,
