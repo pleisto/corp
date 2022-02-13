@@ -19,7 +19,8 @@ import {
   BlockKey,
   StringResult,
   BaseFormula,
-  ErrorResult
+  ErrorResult,
+  VariableNameDependency
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -44,6 +45,7 @@ export interface BaseParseResult {
   kind: VariableKind
   errorMessages: ErrorMessage[]
   variableDependencies: VariableDependency[]
+  variableNameDependencies: VariableNameDependency[]
   functionDependencies: Array<FunctionClause<any>>
   blockDependencies: NamespaceId[]
   codeFragments: CodeFragment[]
@@ -216,6 +218,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     completions: [],
     codeFragments: [],
     variableDependencies: [],
+    variableNameDependencies: [],
     functionDependencies: [],
     blockDependencies: [],
     flattenVariableDependencies: []
@@ -286,6 +289,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
+  returnValue.variableNameDependencies = codeFragmentVisitor.variableNameDependencies
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
   returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
   returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
@@ -467,6 +471,7 @@ export const buildVariable = ({
     codeFragments,
     version,
     variableDependencies,
+    variableNameDependencies,
     functionDependencies,
     blockDependencies,
     flattenVariableDependencies
@@ -492,6 +497,7 @@ export const buildVariable = ({
     valid,
     kind: kind ?? 'constant',
     variableDependencies,
+    variableNameDependencies,
     flattenVariableDependencies,
     blockDependencies,
     functionDependencies

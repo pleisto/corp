@@ -137,11 +137,11 @@ const JSONContentToText = (c: JSONContent, prevC: JSONContent | undefined): stri
     return text
   }
 
-  if (attrs.display === text) {
-    return attrs.value
-  }
-
   if (!attrs.renderText) {
+    if (attrs.display === text) {
+      return attrs.value
+    }
+
     return text
   }
 

@@ -15,6 +15,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     version,
     errorMessages,
     variableDependencies,
+    variableNameDependencies,
     functionDependencies,
     blockDependencies,
     flattenVariableDependencies
@@ -41,6 +42,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     variableValue,
     blockDependencies,
     variableDependencies,
+    variableNameDependencies,
     functionDependencies,
     flattenVariableDependencies
   }

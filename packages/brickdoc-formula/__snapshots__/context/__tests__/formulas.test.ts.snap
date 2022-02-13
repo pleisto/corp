@@ -202,6 +202,7 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+    "variableNameDependencies": Array [],
     "variableValue": Object {
       "cacheValue": Object {
         "result": 123,
@@ -694,6 +695,7 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+    "variableNameDependencies": Array [],
     "variableValue": Object {
       "cacheValue": Object {
         "result": 123,
@@ -1410,6 +1412,12 @@ Array [
       },
     ],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
+    "variableNameDependencies": Array [
+      Object {
+        "name": "foo",
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+      },
+    ],
     "variableValue": Object {
       "cacheValue": Object {
         "result": 456,
@@ -1770,6 +1778,7 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+    "variableNameDependencies": Array [],
     "variableValue": Object {
       "cacheValue": Object {
         "result": 123,
@@ -1879,12 +1888,7 @@ Array [
         "attrs": undefined,
         "code": "Sharp",
         "display": "#",
-        "errors": Array [
-          Object {
-            "message": "Expected number but got Block",
-            "type": "type",
-          },
-        ],
+        "errors": Array [],
         "hide": false,
         "renderText": undefined,
         "type": "any",
@@ -1895,10 +1899,6 @@ Array [
         "code": "UUID",
         "display": "d986e871-cb85-4bd5-b675-87307f60b882",
         "errors": Array [
-          Object {
-            "message": "Expected number but got Block",
-            "type": "type",
-          },
           Object {
             "message": "Block not found: d986e871-cb85-4bd5-b675-87307f60b882",
             "type": "deps",
@@ -1913,12 +1913,7 @@ Array [
         "attrs": undefined,
         "code": "Dot",
         "display": ".",
-        "errors": Array [
-          Object {
-            "message": "Expected number but got Block",
-            "type": "type",
-          },
-        ],
+        "errors": Array [],
         "hide": false,
         "renderText": undefined,
         "type": "any",
@@ -1929,10 +1924,6 @@ Array [
         "code": "UUID",
         "display": "1588aedf-06e1-47f1-9282-d2ffe865974c",
         "errors": Array [
-          Object {
-            "message": "Expected number but got Block",
-            "type": "type",
-          },
           Object {
             "message": "Unknown namespace undefined",
             "type": "syntax",
@@ -2530,14 +2521,15 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
+    "variableNameDependencies": Array [],
     "variableValue": Object {
       "cacheValue": Object {
         "result": 456,
         "type": "number",
       },
       "result": Object {
-        "errorKind": "type",
-        "result": "Expected number but got Block",
+        "errorKind": "deps",
+        "result": "Block not found: d986e871-cb85-4bd5-b675-87307f60b882",
         "type": "Error",
       },
       "success": false,

@@ -500,6 +500,16 @@ Object {
     },
   ],
   "variableId": "b4289606-2a52-48e3-a50f-77ee321dd84e",
+  "variableNameDependencies": Array [
+    Object {
+      "name": "foo",
+      "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    },
+    Object {
+      "name": "bar",
+      "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+    },
+  ],
   "variableValue": Object {
     "cacheValue": Object {
       "result": 366,
@@ -551,6 +561,7 @@ Object {
 exports[`Context findVariable 1`] = `
 Object {
   "foo": Array [
+    Array [],
     Array [],
     Array [],
   ],
@@ -665,6 +676,12 @@ Object {
       Object {
         "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
         "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+      },
+    ],
+    Array [
+      Object {
+        "name": "foo",
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       },
     ],
   ],

@@ -3948,49 +3948,10 @@ Array [
     "value": "=",
   },
   Object {
-    "attrs": Object {
-      "id": "57622108-1337-4edd-833a-2557835bcfe0",
-      "kind": "Block",
-      "name": "Untitled",
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-    },
-    "code": "Block",
-    "display": "Untitled",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
-    "hide": true,
-    "renderText": undefined,
-    "type": "any",
-    "value": "#57622108-1337-4edd-833a-2557835bcfe0",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "Dot",
-    "display": ".",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": ".",
-  },
-  Object {
     "attrs": undefined,
     "code": "UUID",
     "display": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
       Object {
         "message": "Unknown variable: cd4f6e1e-765e-4064-badd-b5585c7eff8e",
         "type": "syntax",
@@ -4374,49 +4335,10 @@ Array [
     "value": "=",
   },
   Object {
-    "attrs": Object {
-      "id": "57622108-1337-4edd-833a-2557835bcfe0",
-      "kind": "Block",
-      "name": "Untitled",
-      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-    },
-    "code": "Block",
-    "display": "Untitled",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
-    "hide": true,
-    "renderText": undefined,
-    "type": "any",
-    "value": "#57622108-1337-4edd-833a-2557835bcfe0",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "Dot",
-    "display": ".",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": ".",
-  },
-  Object {
     "attrs": undefined,
     "code": "UUID",
     "display": "d986e871-cb85-4bd5-b675-87307f60b882",
     "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
       Object {
         "message": "Unknown variable: d986e871-cb85-4bd5-b675-87307f60b882",
         "type": "syntax",
@@ -4812,7 +4734,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "renderText": undefined,
+    "renderText": [Function],
     "type": "string",
     "value": "foo",
   },
@@ -5192,12 +5114,7 @@ Array [
     "attrs": undefined,
     "code": "Sharp",
     "display": "#",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -5208,10 +5125,6 @@ Array [
     "code": "UUID",
     "display": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
     "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
       Object {
         "message": "Block not found: cd4f6e1e-765e-4064-badd-b5585c7eff8e",
         "type": "deps",
@@ -5226,12 +5139,7 @@ Array [
     "attrs": undefined,
     "code": "Dot",
     "display": ".",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -5242,10 +5150,6 @@ Array [
     "code": "UUID",
     "display": "d986e871-cb85-4bd5-b675-87307f60b882",
     "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
       Object {
         "message": "Unknown namespace undefined",
         "type": "syntax",
@@ -6051,12 +5955,7 @@ Array [
     },
     "code": "Block",
     "display": "Untitled",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": true,
     "renderText": undefined,
     "type": "any",
@@ -6066,12 +5965,7 @@ Array [
     "attrs": undefined,
     "code": "Dot",
     "display": ".",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -6082,10 +5976,6 @@ Array [
     "code": "FunctionName",
     "display": "bar",
     "errors": Array [
-      Object {
-        "message": "Expected number but got Block",
-        "type": "type",
-      },
       Object {
         "message": "Variable \\"bar\\" not found",
         "type": "deps",
@@ -6481,7 +6371,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "renderText": undefined,
+    "renderText": [Function],
     "type": "string",
     "value": "foo",
   },
@@ -6870,7 +6760,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "renderText": undefined,
+    "renderText": [Function],
     "type": "string",
     "value": "foo",
   },

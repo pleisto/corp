@@ -73,7 +73,7 @@ Array [
       },
     ],
     "hide": false,
-    "renderText": undefined,
+    "renderText": [Function],
     "type": "string",
     "value": "foo",
   },

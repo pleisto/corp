@@ -108,9 +108,10 @@ describe('Custom Function', () => {
     const input = '=NOW()'
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta, formulaContext: localFormulaContext }
-    const { success, cst, variableDependencies } = parse({ ctx: finalCtx })
+    const { success, cst, variableDependencies, variableNameDependencies } = parse({ ctx: finalCtx })
     expect(success).toEqual(true)
     expect(variableDependencies).toEqual([])
+    expect(variableNameDependencies).toEqual([])
     expect(cst).toMatchSnapshot()
   })
 
@@ -188,6 +189,7 @@ describe('Context', () => {
 
     expect(bar.t.functionDependencies).toEqual([])
     expect(bar.t.variableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
+    expect(bar.t.variableNameDependencies).toEqual([{ namespaceId, name: 'foo' }])
     expect(bar.t.flattenVariableDependencies).toEqual([{ namespaceId, variableId: fooVariableId }])
 
     const input = `=#${anotherBlockId}.${anotherVariableId}`

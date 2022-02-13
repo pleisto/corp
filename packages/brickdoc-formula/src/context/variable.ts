@@ -24,7 +24,6 @@ import {
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
-import { devLog } from '@brickdoc/design-system'
 import { block2name, variable2name, variableKey } from '../grammar/convert'
 import { BlockClass } from '../controls/block'
 
@@ -90,6 +89,7 @@ export const castVariable = (
     errorMessages,
     blockDependencies,
     variableDependencies,
+    variableNameDependencies,
     flattenVariableDependencies,
     codeFragments,
     functionDependencies
@@ -123,6 +123,7 @@ export const castVariable = (
     type,
     blockDependencies,
     variableDependencies,
+    variableNameDependencies,
     flattenVariableDependencies,
     functionDependencies,
     dirty: true
@@ -140,7 +141,7 @@ export class VariableClass implements VariableInterface {
   }
 
   public afterUpdate(): void {
-    devLog('after update', this.t.name, this.t.variableId)
+    // console.log('after update', this.t.name, this.t.variableId, this.t.namespaceId)
     BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
   }
@@ -288,6 +289,7 @@ export class VariableClass implements VariableInterface {
   }
 
   private async reparse(): Promise<void> {
+    // console.log('reparse', this.t.variableId, this.t.name)
     const formula = this.buildFormula()
     this.clearDependency()
     this.t = castVariable(this.formulaContext, formula)
@@ -363,6 +365,21 @@ export class VariableClass implements VariableInterface {
         },
         {
           eventId: `${namespaceId},${variableId}`,
+          subscribeId: `Dependency#${t.namespaceId},${t.variableId}`
+        }
+      )
+      this.eventListeners.push(result)
+    })
+
+    // TODO uniq event
+    t.variableNameDependencies.forEach(({ name, namespaceId }) => {
+      const result = BrickdocEventBus.subscribe(
+        FormulaUpdatedViaName,
+        e => {
+          void this.reparse()
+        },
+        {
+          eventId: `${namespaceId}#${name}`,
           subscribeId: `Dependency#${t.namespaceId},${t.variableId}`
         }
       )

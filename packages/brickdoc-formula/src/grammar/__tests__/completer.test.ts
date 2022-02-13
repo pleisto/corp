@@ -175,7 +175,7 @@ describe('Complete', () => {
       input: `= 1 + ${testName1}.`,
       namespaceId,
       errorMessage: 'Missing expression',
-      weight: 1001,
+      weight: 250,
       expectParseImage: `=1+#${namespaceId}.${testName1}.`,
       expectInputImage: `=1+#${namespaceId}.${testName1}.`,
       expectNewInput: `= 1 + #${namespaceId}.${testName1}.`

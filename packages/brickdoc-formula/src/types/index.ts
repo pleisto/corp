@@ -563,6 +563,11 @@ export interface VariableDependency {
   readonly namespaceId: NamespaceId
 }
 
+export interface VariableNameDependency {
+  readonly namespaceId: NamespaceId
+  readonly name: string
+}
+
 interface BaseVariableValue {
   updatedAt: Date
   readonly success: boolean
@@ -598,6 +603,7 @@ export interface VariableData extends VariableResult {
   cst?: CstNode
   codeFragments: CodeFragment[]
   flattenVariableDependencies: VariableDependency[]
+  variableNameDependencies: VariableNameDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
   functionDependencies: Array<FunctionClause<FormulaType>>

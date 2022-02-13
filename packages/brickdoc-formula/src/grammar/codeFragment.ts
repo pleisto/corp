@@ -11,7 +11,8 @@ import {
   NamespaceId,
   FunctionContext,
   ExpressionType,
-  SimpleCodeFragmentType
+  SimpleCodeFragmentType,
+  VariableNameDependency
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
@@ -47,6 +48,7 @@ interface ExpressionArgument {
 export class CodeFragmentVisitor extends BaseCstVisitor {
   ctx: FunctionContext
   variableDependencies: VariableDependency[] = []
+  variableNameDependencies: VariableNameDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
   blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: VariableDependency[] = []
@@ -515,6 +517,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           const variableName = parseString(rhsImage)
           const variable = this.ctx.formulaContext.findVariableByName(namespaceId, variableName)
 
+          this.variableNameDependencies = [
+            ...new Map(
+              [...this.variableNameDependencies, { namespaceId, name: variableName }].map(item => [
+                `${item.namespaceId},${item.name}`,
+                item
+              ])
+            ).values()
+          ]
+
           if (variable) {
             firstArgumentType = variable.t.variableValue.result.type
 
@@ -540,7 +551,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             unknownVariableError.push({ type: 'deps', message: `Variable "${variableName}" not found` })
           }
 
-          if (finalRhsCodeFragments[0].code === 'StringLiteral' && variable) {
+          if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code) && variable) {
             finalRhsCodeFragments = [
               { ...finalRhsCodeFragments[0], display: variableName, renderText: variableRenderText(variable) }
             ]
@@ -588,6 +599,15 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
               ).values()
             ]
 
+            this.variableNameDependencies = [
+              ...new Map(
+                [...this.variableNameDependencies, { namespaceId, name: variable.t.name }].map(item => [
+                  `${item.namespaceId},${item.name}`,
+                  item
+                ])
+              ).values()
+            ]
+
             this.flattenVariableDependencies = [
               ...new Map(
                 [
@@ -624,12 +644,20 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       throw new Error(`Unexpected rhs type ${rhsCst.tokenType.name}`)
     })
 
+    if (codeFragments.find(c => c.errors.length > 0)) {
+      return {
+        image: images.join(''),
+        codeFragments,
+        type: firstArgumentType
+      }
+    }
+
     const { errorMessages, newType } = intersectType(type, firstArgumentType, 'chainExpression', this.ctx)
     return {
       image: images.join(''),
       codeFragments: codeFragments.map(codeFragment => ({
         ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
+        errors: [...codeFragment.errors, ...errorMessages]
       })),
       type: newType
     }
