@@ -2,9 +2,8 @@ import { NestFactory } from '@nestjs/core'
 import { NestApplicationContextOptions } from '@nestjs/common/interfaces/nest-application-context-options.interface'
 import { ServerModule } from '../../server.module'
 
-// @ts-expect-error
 export const v8InspectorEnabled =
-  typeof globalThis?.v8debug === 'object' || /--debug|--inspect/.test(process.execArgv.join(' '))
+  typeof (globalThis as any).v8debug === 'object' || /--debug|--inspect/.test(process.execArgv.join(' '))
 
 /**
  * Inject Context to Debugger console or REPL Runtime.

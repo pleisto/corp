@@ -8,6 +8,7 @@
     "prisma": "ts-node --swc ./src/dotenvBin.ts prisma"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0-alpha.6",
     "@nestjs/testing": "^8.2.6",
     "cross-spawn": "^7.0.3",
     "leaked-handles": "^5.2.0",

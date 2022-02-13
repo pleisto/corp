@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { configOptions } from '../../config'
 import { KMSModule } from '../kms.module'
 import { KMSService } from '../kms.service'
-import { lorem } from 'faker/locale/en'
+import { faker } from '@faker-js/faker'
 
 describe('KMSService', () => {
   let kms: KMSService
@@ -20,7 +20,7 @@ describe('KMSService', () => {
   })
 
   it('should dataMasking work and it is pure function', async () => {
-    const text = lorem.slug()
+    const text = faker.lorem.slug()
     const masked = kms.dataMasking(text)
     expect(masked).toMatch(/^[a-f0-9]{64}$/)
 
@@ -29,7 +29,7 @@ describe('KMSService', () => {
   })
 
   it('should symmetricEncrypt work', async () => {
-    const text = lorem.slug()
+    const text = faker.lorem.slug()
     const context = '{userId: 1}'
     const encrypted = kms.symmetricEncrypt(text, context)
     expect(kms.symmetricDecrypt(encrypted, context)).toEqual(text)

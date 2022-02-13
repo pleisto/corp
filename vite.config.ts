@@ -69,7 +69,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 1024,
     sourcemap: false,
     cssCodeSplit: false,
-    target: ['chrome74', 'ios13', 'safari'],
+    target: ['chrome74', 'ios13', 'safari13'],
     rollupOptions: {
       output: {
         manualChunks: {

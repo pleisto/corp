@@ -2107,6 +2107,7 @@ __metadata:
     "@brickdoc/active-support": "workspace:^"
     "@brickdoc/cypherpunk": "workspace:^"
     "@brickdoc/dotenv": "workspace:^"
+    "@faker-js/faker": ^6.0.0-alpha.6
     "@grpc/grpc-js": ^1.5.5
     "@grpc/proto-loader": ^0.6.9
     "@nestjs/apollo": ^10.0.2
@@ -2721,6 +2722,13 @@ __metadata:
     minimatch: ^3.0.4
     strip-json-comments: ^3.1.1
   checksum: b35b50d7b65bd8acd92a05b6fb15ac62c0cefa40dfef0324ca5bf8632bf3679bab6e173c53b3ad1e1d837701cecdbd9c144b35f46588cdf4e046a9caa272488d
+  languageName: node
+  linkType: hard
+
+"@faker-js/faker@npm:^6.0.0-alpha.6":
+  version: 6.0.0-alpha.6
+  resolution: "@faker-js/faker@npm:6.0.0-alpha.6"
+  checksum: 7da62a22a8e1bfbcd8b6517a6f3aa74cf468a681cea4b3cd306a285ec670dc591d48cb5191fc1131fba9fc669ba12f9c1b4849eb47f9be50c8476f72705bcc99
   languageName: node
   linkType: hard
 
