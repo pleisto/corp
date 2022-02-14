@@ -229,12 +229,17 @@ export const useFormula = ({
 
     const inputIsEmpty = ['', '='].includes(editorContentRef.current.input.trim())
 
+    const realInputs = positionBasedContentArrayToInput(
+      fetchJSONContentArray(editorContentRef.current.content),
+      editorContentRef.current.position
+    )
+
     const result = await calculate({
       namespaceId: rootId,
       formulaId,
       variable: variableRef.current,
       formulaType,
-      editorContent: editorContentRef.current,
+      editorContent: { ...editorContentRef.current, position: realInputs.prevText.length },
       name: nameRef.current ?? defaultNameRef.current,
       formulaContext
     })
@@ -243,7 +248,7 @@ export const useFormula = ({
 
     const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-    console.log('calculate result', { newPosition, result, editorContent: editorContentRef.current })
+    console.log('calculate result', { newPosition, result, editorContent: editorContentRef.current, realInputs })
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 
@@ -252,10 +257,9 @@ export const useFormula = ({
       const newContent = codeFragmentsToJSONContentTotal(codeFragments)
       const newInput = contentArrayToInput(fetchJSONContentArray(newContent))
       const newInputWithEqual = formulaIsNormal ? `=${newInput}` : newInput
-      const editorContent = { content: newContent, input: newInputWithEqual, position: newPosition }
-      // console.log('replace editorContent', editorContent)
-      editorContentRef.current = editorContent
-      replaceRoot({ editorContent, rootId, formulaId })
+      editorContentRef.current = { content: newContent, input: newInputWithEqual, position: newPosition }
+      // console.log('replace editorContent', editorContentRef.current)
+      replaceRoot({ editorContent: editorContentRef.current, rootId, formulaId })
     }
 
     if (formulaIsNormal && inputIsEmpty) {
@@ -348,13 +352,12 @@ export const useFormula = ({
     const finalInputAfterEqual = formulaIsNormal ? `=${finalInput}` : finalInput
     const newPosition = editorContentRef.current.position + positionChange
 
-    const newEditorContent: EditorContentType = {
+    editorContentRef.current = {
       content: finalContent,
       input: finalInputAfterEqual,
       position: newPosition
     }
-    editorContentRef.current = newEditorContent
-    replaceRoot({ editorContent: newEditorContent, rootId, formulaId })
+    replaceRoot({ editorContent: editorContentRef.current, rootId, formulaId })
 
     devLog('selectCompletion', {
       finalContent,
