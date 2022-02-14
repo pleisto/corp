@@ -88,13 +88,13 @@ const calculate = async ({
   formulaContext
 }: CalculateInput): Promise<CalculateOutput> => {
   const variableId = variable ? variable.t.variableId : formulaId
-  const meta = { namespaceId, variableId, name, input, type: formulaType }
+  const meta = { namespaceId, variableId, name, input, position, type: formulaType }
   const ctx = {
     formulaContext,
     meta,
     interpretContext: { ctx: {}, arguments: [] }
   }
-  const parseResult = parse({ ctx, position })
+  const parseResult = parse({ ctx })
   const completions = parseResult.completions
 
   let interpretResult: InterpretResult

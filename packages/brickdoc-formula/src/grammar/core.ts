@@ -195,12 +195,11 @@ const abbrev = ({
   }
 }
 
-export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
+export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
-    meta: { namespaceId, variableId, input, name, type }
+    meta: { namespaceId, variableId, input, name, type, position }
   } = ctx
-  const position = pos ?? 0
   const version = FORMULA_PARSER_VERSION
 
   const returnValue: BaseParseResult = {

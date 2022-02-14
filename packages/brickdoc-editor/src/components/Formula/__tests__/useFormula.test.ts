@@ -67,6 +67,7 @@ const simpleMetas: VariableMetadata[] = [
   name,
   namespaceId,
   type: 'normal',
+  position: 0,
   variableId: variableWithNames.find(v => v.name === name)!.variableId,
   input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
     return `#${namespaceId}.${variableWithNames.find(v => v.name === variableName)!.variableId}`
@@ -74,7 +75,14 @@ const simpleMetas: VariableMetadata[] = [
 }))
 
 const complexMetas: VariableMetadata[] = [
-  { name: 'foo bar', input: '=123123', namespaceId, type: 'normal', variableId: '781a575f-37a6-4e03-b125-595b72b8d6fe' }
+  {
+    name: 'foo bar',
+    input: '=123123',
+    position: 0,
+    namespaceId,
+    type: 'normal',
+    variableId: '781a575f-37a6-4e03-b125-595b72b8d6fe'
+  }
 ]
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
