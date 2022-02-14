@@ -55,7 +55,7 @@ const asyncForEach = async (
   }
 }
 
-const metas: VariableMetadata[] = [
+const simpleMetas: VariableMetadata[] = [
   { name: 'num0', input: '=1' },
   { name: 'num1', input: '=2' },
   { name: 'num2', input: '=$num0' },
@@ -72,6 +72,10 @@ const metas: VariableMetadata[] = [
     return `#${namespaceId}.${variableWithNames.find(v => v.name === variableName)!.variableId}`
   })
 }))
+
+const complexMetas: VariableMetadata[] = [
+  { name: 'foo bar', input: '=123123', namespaceId, type: 'normal', variableId: '781a575f-37a6-4e03-b125-595b72b8d6fe' }
+]
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
@@ -99,17 +103,26 @@ const simpleCommonTestCases = [
   { input: `#${namespaceId}.`, resultData: 'Missing expression' },
   { input: `  #${namespaceId}  .`, resultData: 'Missing expression' },
 
-  // Variable
+  // Variable simple
   { input: 'num1', newInput: `#${namespaceId}.num1`, resultData: 2 },
   { input: '"num1"', newInput: `#${namespaceId}.num1`, resultData: 2 },
   { input: `#${namespaceId}.num1`, resultData: 2 },
   { input: `#${namespaceId}."num1"`, newInput: `#${namespaceId}.num1`, resultData: 2 },
+
+  // Variable complex
+  { input: '"foo bar"', newInput: `#${namespaceId}."foo bar"`, resultData: 123123 },
+  { input: `#${namespaceId}."foo bar"`, resultData: 123123 },
 
   // Variable with space
   { input: ' num1 + 1 ', newInput: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
   { input: ' "num1" + 1 ', newInput: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
   { input: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
   { input: ` #${namespaceId}."num1" + 1 `, newInput: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
+
+  // Variable complex input
+  { input: `+#${namespaceId}."foo bar"`, resultData: 'Parse error: "+"' },
+  { input: `#${namespaceId}."foo bar"+`, resultData: 'Missing right expression' },
+  { input: `#${namespaceId}."foo ba1r"`, resultData: 'Variable "foo ba1r" not found' },
 
   // Variable with error
   { input: ' " " & num1 ', newInput: ` " " & #${namespaceId}.num1 `, resultData: 'Expected string but got number' },
@@ -126,7 +139,7 @@ const simpleSpreadsheetTestCases = [
   { input: '=  ', newInput: undefined, resultData: '=  ' },
 
   { input: ' =', newInput: undefined, resultData: ' =' },
-  { input: ' foo bar ', newInput: undefined, resultData: ' foo bar ' },
+  { input: ' foo baz ', newInput: undefined, resultData: ' foo baz ' },
   { input: '   ', newInput: undefined, resultData: '   ' },
 
   ...simpleCommonTestCases.map(({ input, newInput, resultData }) => ({
@@ -282,7 +295,7 @@ describe('useFormula', () => {
   beforeEach(async () => {
     formulaContext.resetFormula()
 
-    await asyncForEach(metas, async (meta: VariableMetadata) => {
+    await asyncForEach([...simpleMetas, ...complexMetas], async (meta: VariableMetadata) => {
       await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
     })
   })
