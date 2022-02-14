@@ -305,6 +305,7 @@ describe('useFormula', () => {
     expect(result.current.variableT).toBe(undefined)
     expect(result.current.editorContent).toEqual({
       content: undefined,
+      input: '',
       position: 0
     })
     expect(result.current.name).toBe(undefined)
@@ -316,6 +317,7 @@ describe('useFormula', () => {
     expect(result.current.variableT).toBe(undefined)
     expect(result.current.editorContent).toEqual({
       content: undefined,
+      input: '',
       position: 0
     })
     expect(result.current.name).toBe(undefined)

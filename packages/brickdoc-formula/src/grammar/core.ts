@@ -186,7 +186,7 @@ const abbrev = ({
   if (restInput !== '') {
     console.error('abbrev error', { restInput, input, tokens, newInput })
   }
-  // console.log('abbrev', { newInput, input, tokens, position, newPosition })
+  console.log('abbrev', { newInput, input, tokens, newTokens, position, newPosition })
 
   if (modified) {
     return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
