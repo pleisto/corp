@@ -134,6 +134,7 @@ export class VariableClass implements VariableInterface {
   t: VariableData
   formulaContext: ContextInterface
   eventListeners: EventSubscribed[] = []
+  reparsing: boolean = false
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
@@ -288,13 +289,18 @@ export class VariableClass implements VariableInterface {
     this.afterUpdate()
   }
 
-  private async reparse(): Promise<void> {
+  private async maybeReparse(): Promise<void> {
     // console.log('reparse', this.t.variableId, this.t.name)
+    if (this.reparsing) {
+      return
+    }
+    this.reparsing = true
     const formula = this.buildFormula()
     this.clearDependency()
     this.t = castVariable(this.formulaContext, formula)
     this.trackDependency()
     await this.refresh({ ctx: {}, arguments: [] })
+    this.reparsing = false
   }
 
   public updateCst(cst: CstNode, interpretContext: InterpretContext): void {
@@ -304,7 +310,7 @@ export class VariableClass implements VariableInterface {
 
   public async updateDefinition(definition: Definition): Promise<void> {
     this.t.definition = definition
-    await this.reparse()
+    await this.maybeReparse()
   }
 
   private async refresh(interpretContext: InterpretContext): Promise<void> {
@@ -350,7 +356,7 @@ export class VariableClass implements VariableInterface {
       const result = BrickdocEventBus.subscribe(
         BlockSpreadsheetLoaded,
         e => {
-          void this.reparse()
+          void this.maybeReparse()
         },
         { eventId: blockId, subscribeId: `SpreadsheetDependency#${t.variableId}` }
       )
@@ -361,7 +367,7 @@ export class VariableClass implements VariableInterface {
       const result = BrickdocEventBus.subscribe(
         FormulaUpdatedViaId,
         e => {
-          void this.reparse()
+          void this.maybeReparse()
         },
         {
           eventId: `${namespaceId},${variableId}`,
@@ -371,12 +377,11 @@ export class VariableClass implements VariableInterface {
       this.eventListeners.push(result)
     })
 
-    // TODO uniq event
     t.variableNameDependencies.forEach(({ name, namespaceId }) => {
       const result = BrickdocEventBus.subscribe(
         FormulaUpdatedViaName,
         e => {
-          void this.reparse()
+          void this.maybeReparse()
         },
         {
           eventId: `${namespaceId}#${name}`,
