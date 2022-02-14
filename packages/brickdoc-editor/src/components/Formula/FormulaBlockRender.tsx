@@ -38,16 +38,19 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     formulaContext
   })
 
-  const formulaResult = (
-    <>
-      <FormulaResult variableT={variableT} />
-      <AutocompleteList
-        blockId={rootId}
-        completion={completion}
-        handleSelectActiveCompletion={handleSelectActiveCompletion}
-        setCompletion={setCompletion}
-      />
-    </>
+  const formulaResult = React.useMemo(
+    () => (
+      <>
+        <FormulaResult variableT={variableT} />
+        <AutocompleteList
+          blockId={rootId}
+          completion={completion}
+          handleSelectActiveCompletion={handleSelectActiveCompletion}
+          setCompletion={setCompletion}
+        />
+      </>
+    ),
+    [completion, handleSelectActiveCompletion, rootId, setCompletion, variableT]
   )
 
   const onEditorBlur = React.useCallback((): void => {
@@ -56,14 +59,17 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     }
   }, [formulaId, rootId, saveOnBlur])
 
-  const editor = (
-    <FormulaEditor
-      editorContent={editorContent}
-      editable={true}
-      onBlur={onEditorBlur}
-      formulaId={formulaId}
-      rootId={rootId}
-    />
+  const editor = React.useMemo(
+    () => (
+      <FormulaEditor
+        editorContent={editorContent}
+        editable={true}
+        onBlur={onEditorBlur}
+        formulaId={formulaId}
+        rootId={rootId}
+      />
+    ),
+    [editorContent, formulaId, onEditorBlur, rootId]
   )
 
   if (!completion.completions.length && (!variableT || variableT.kind === 'literal')) {
@@ -78,8 +84,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {editor}
     </Popover>
   )
