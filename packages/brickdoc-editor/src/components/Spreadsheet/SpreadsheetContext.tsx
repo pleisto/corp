@@ -31,6 +31,8 @@ export interface SpreadsheetContext {
   selectRows: (rowIds: string[]) => void
   selectColumns: (columnIds: string[]) => void
   selectCell: (cellId: string) => void
+  editingCellId: string
+  setEditingCellId: (editingCellId: string) => void
   dragging: SpreadsheetDragging
   setDragging: (dragging: SpreadsheetDragging) => void
   copyToClipboard: (curSelections?: { columnIds?: string[]; rowIds?: string[]; cellIds?: string[] }) => void
@@ -52,6 +54,7 @@ export const useSpreadsheetContext = (options: {
   const [selection, setSelection] = React.useState<SpreadsheetSelection>({})
   const [dragging, setDragging] = React.useState<SpreadsheetDragging>({})
   const [hoverRowId, setHoverRowId] = React.useState<string>('')
+  const [editingCellId, setEditingCellId] = React.useState<string>('')
 
   const { columnIds, rowIds, columnHeaders, valuesMatrix } = options ?? {}
 
@@ -153,6 +156,8 @@ export const useSpreadsheetContext = (options: {
     selectRows,
     selectColumns,
     selectCell,
+    editingCellId,
+    setEditingCellId,
     dragging,
     setDragging,
     copyToClipboard

@@ -14,11 +14,17 @@ export interface SpreadsheetCellProps {
 }
 
 export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, parentId, block, saveBlock }) => {
-  const [editing, setEditing] = React.useState(false)
   const [currentBlock, setCurrentBlock] = React.useState(block)
 
   const formulaId = currentBlock.data.formulaId
   const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
+
+  const editing = context?.editingCellId === formulaName
+  const { setEditingCellId } = context
+  const setEditing = React.useCallback(
+    (editing: boolean) => setEditingCellId(editing ? formulaName : ''),
+    [setEditingCellId, formulaName]
+  )
 
   const updateFormula = React.useCallback(
     (variable: VariableInterface | undefined): void => {
@@ -34,7 +40,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, paren
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       setEditing(false)
     },
-    [block, saveBlock]
+    [block, saveBlock, setEditing]
   )
 
   const handleEnterEdit = (): void => {
