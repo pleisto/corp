@@ -82,24 +82,27 @@ export interface InterpretResult {
   readonly lazy: boolean
 }
 
+interface PositionFragment {
+  readonly tokenIndex: number
+  readonly prefix: string
+}
+
 const abbrev = ({
   ctx: { formulaContext },
   namespaceId,
-  input,
-  position
+  position,
+  input
 }: {
   namespaceId: NamespaceId
   ctx: FunctionContext
   input: string
   position: number
-}): { lexResult: ILexingResult; newInput: string; newPosition: number } => {
-  const lexer = FormulaLexer
-  const lexResult: ILexingResult = lexer.tokenize(input)
-  const tokens = lexResult.tokens
+}): { lexResult: ILexingResult; newInput: string; positionFragment: PositionFragment } => {
+  const oldLexResult: ILexingResult = FormulaLexer.tokenize(input)
+  const tokens = oldLexResult.tokens
   let modified = false
   let restInput = input
   let newInput = ''
-  let newPosition = position
   const newTokens: IToken[] = []
 
   tokens.forEach((token, index) => {
@@ -171,7 +174,7 @@ const abbrev = ({
 
     const value = renderTokens.map(t => t.image).join('')
     newInput = newInput.concat(value)
-    newPosition += value.length - token.image.length
+    // newPosition += value.length - token.image.length
     modified = true
   })
 
@@ -186,13 +189,27 @@ const abbrev = ({
   if (restInput !== '') {
     console.error('abbrev error', { restInput, input, tokens, newInput })
   }
-  console.log('abbrev', { newInput, input, tokens, newTokens, position, newPosition })
+  console.log('abbrev', { newInput, input, tokens, newTokens })
+
+  // TODO fix me
+  const positionFragment = { tokenIndex: 0, prefix: '' }
 
   if (modified) {
-    return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
+    return { lexResult: FormulaLexer.tokenize(newInput), newInput, positionFragment }
   } else {
-    return { lexResult, newInput: input, newPosition }
+    return { lexResult: oldLexResult, newInput: input, positionFragment }
   }
+}
+
+const changePosition = (
+  codeFragments: CodeFragment[],
+  input: string,
+  position: number,
+  positionFragment: PositionFragment
+): number => {
+  const newPosition = position
+  console.log('TODO change position', { codeFragments, input, position, newPosition, positionFragment })
+  return newPosition
 }
 
 export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): ParseResult => {
@@ -265,8 +282,8 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 
   const {
     lexResult: { tokens, errors: lexErrors },
-    newPosition,
-    newInput
+    newInput,
+    positionFragment
   } = abbrev({ ctx, input, namespaceId, position })
 
   parser.input = tokens
@@ -279,7 +296,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
   completions = complete({
-    position: newPosition,
+    position,
     cacheCompletions: baseCompletion,
     codeFragments,
     tokens,
@@ -335,9 +352,10 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     }
   }
 
-  const { finalCodeFragments, newPositionAfterHide } = hideDot(addSpace(codeFragments, newInput), newPosition)
+  const finalCodeFragments = hideDot(addSpace(codeFragments, newInput))
+  const newPosition = changePosition(finalCodeFragments, input, position, positionFragment)
   returnValue.codeFragments = finalCodeFragments
-  returnValue.position = newPositionAfterHide
+  returnValue.position = newPosition
 
   if (finalErrorMessages.length) {
     return {
