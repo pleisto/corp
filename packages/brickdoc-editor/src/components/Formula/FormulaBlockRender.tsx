@@ -62,7 +62,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const editor = React.useMemo(
     () => (
       <FormulaEditor
-        editorContentRef={editorContentRef}
+        editorContent={editorContentRef.current}
         editable={true}
         onBlur={onEditorBlur}
         formulaId={formulaId}

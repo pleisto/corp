@@ -16,7 +16,7 @@ export interface EditorContentType {
 }
 
 export interface FormulaEditorProps {
-  editorContentRef: React.MutableRefObject<EditorContentType>
+  editorContent: EditorContentType
   editable: boolean
   onBlur?: () => void
   rootId?: string
@@ -26,24 +26,18 @@ export interface FormulaEditorProps {
 const findNearestWord = (content: string, targetIndex: number): string | undefined =>
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({
-  editable,
-  editorContentRef,
-  onBlur,
-  rootId,
-  formulaId
-}) => {
+export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorContent, onBlur, rootId, formulaId }) => {
   console.log('render editor')
   const editor = useEditor({
     editable,
     autofocus: 'end',
-    content: editorContentRef.current.content,
+    content: editorContent.content,
     extensions: [
       Document,
       Text,
       Paragraph,
       FormulaTypeExtension.configure({ editable }),
-      HandleKeyDownExtension({ formulaId, rootId })
+      HandleKeyDownExtension.configure({ formulaId, rootId })
     ],
     onFocus: (props: EditorEvents['focus']) => {
       // console.debug('FormulaEditor:onFocus', props)

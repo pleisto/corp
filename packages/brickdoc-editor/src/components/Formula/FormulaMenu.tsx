@@ -96,7 +96,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-row">
         <span className="formula-menu-result-label">=</span>
         <div className="formula-menu-item">
-          <FormulaEditor editorContentRef={editorContentRef} editable={true} formulaId={formulaId} rootId={rootId} />
+          <FormulaEditor
+            editorContent={editorContentRef.current}
+            editable={true}
+            formulaId={formulaId}
+            rootId={rootId}
+          />
         </div>
       </div>
       <div className="formula-menu-divider" />
