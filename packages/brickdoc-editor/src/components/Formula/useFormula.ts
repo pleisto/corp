@@ -52,7 +52,7 @@ export interface UseFormulaOutput {
   name: string | undefined
   defaultName: string
   formulaIsNormal: boolean
-  editorContent: EditorContentType
+  editorContentRef: React.MutableRefObject<EditorContentType>
   isDisableSave: () => boolean
   doHandleSave: () => Promise<void>
   handleSelectActiveCompletion: () => void
@@ -517,7 +517,7 @@ export const useFormula = ({
     variableT,
     savedVariableT,
     isDraft: isDraftRef.current,
-    editorContent: editorContentRef.current,
+    editorContentRef,
     name: nameRef.current,
     isDisableSave,
     doHandleSave,

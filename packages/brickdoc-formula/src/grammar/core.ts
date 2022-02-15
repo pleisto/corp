@@ -82,9 +82,9 @@ export interface InterpretResult {
   readonly lazy: boolean
 }
 
-interface PositionFragment {
+export interface PositionFragment {
   readonly tokenIndex: number
-  readonly prefix: string
+  readonly offset: number
 }
 
 const abbrev = ({
@@ -104,6 +104,11 @@ const abbrev = ({
   let restInput = input
   let newInput = ''
   const newTokens: IToken[] = []
+  let inputImage = ''
+  let positionMatched = false
+  let tokenIndex = 0
+  let offset = 0
+  let renderTokenNumberChange = 0
 
   tokens.forEach((token, index) => {
     newTokens.push(token)
@@ -113,10 +118,22 @@ const abbrev = ({
       const spaceValue = ' '.repeat(prefixSpaceCount)
       newInput = newInput.concat(spaceValue)
       restInput = restInput.substring(prefixSpaceCount)
+      inputImage = inputImage.concat(spaceValue)
+      if (!positionMatched && inputImage.length > position) {
+        positionMatched = true
+        tokenIndex = index - 1
+        offset = prefixSpaceCount - (inputImage.length - position)
+      }
     }
 
     if (restInput.startsWith(token.image)) {
       restInput = restInput.substring(token.image.length)
+      inputImage = inputImage.concat(token.image)
+      if (!positionMatched && inputImage.length > position) {
+        positionMatched = true
+        tokenIndex = index
+        offset = inputImage.length - position - token.image.length
+      }
     }
 
     if (!['FunctionName', 'StringLiteral'].includes(token.tokenType.name)) {
@@ -168,9 +185,13 @@ const abbrev = ({
     const renderTokens = formulaName.renderTokens(namespaceIsExist)
 
     newTokens.pop()
-    newTokens.push(
-      ...renderTokens.map(({ image, type }) => ({ ...token, image, tokenType: { ...token.tokenType, name: type } }))
-    )
+    const newRenderTokens = renderTokens.map(({ image, type }) => ({
+      ...token,
+      image,
+      tokenType: { ...token.tokenType, name: type }
+    }))
+    newTokens.push(...newRenderTokens)
+    renderTokenNumberChange += newRenderTokens.length - 1
 
     const value = renderTokens.map(t => t.image).join('')
     newInput = newInput.concat(value)
@@ -184,15 +205,20 @@ const abbrev = ({
     const spaceValue = ' '.repeat(prefixSpaceCount)
     newInput = newInput.concat(spaceValue)
     restInput = restInput.substring(prefixSpaceCount)
+    inputImage = inputImage.concat(spaceValue)
+    if (!positionMatched && inputImage.length > position) {
+      positionMatched = true
+      tokenIndex = tokens.length
+      offset = prefixSpaceCount - (inputImage.length - position)
+    }
   }
 
   if (restInput !== '') {
     console.error('abbrev error', { restInput, input, tokens, newInput })
   }
-  console.log('abbrev', { newInput, input, tokens, newTokens })
 
-  // TODO fix me
-  const positionFragment = { tokenIndex: 0, prefix: '' }
+  const positionFragment = { tokenIndex: tokenIndex + renderTokenNumberChange, offset }
+  console.log('abbrev', { newInput, input, tokens, newTokens, positionFragment })
 
   if (modified) {
     return { lexResult: FormulaLexer.tokenize(newInput), newInput, positionFragment }
@@ -203,12 +229,21 @@ const abbrev = ({
 
 const changePosition = (
   codeFragments: CodeFragment[],
-  input: string,
   position: number,
-  positionFragment: PositionFragment
+  input: string,
+  { offset, tokenIndex }: PositionFragment
 ): number => {
-  const newPosition = position
-  console.log('TODO change position', { codeFragments, input, position, newPosition, positionFragment })
+  let newPosition: number = 0
+
+  codeFragments.forEach((codeFragment, idx) => {
+    if (idx <= tokenIndex) {
+      newPosition += Number(codeFragment.display.length)
+    }
+  })
+
+  newPosition += offset
+
+  console.log('TODO change position', { codeFragments, input, position, offset, tokenIndex, newPosition })
   return newPosition
 }
 
@@ -352,8 +387,14 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     }
   }
 
-  const finalCodeFragments = hideDot(addSpace(codeFragments, newInput))
-  const newPosition = changePosition(finalCodeFragments, input, position, positionFragment)
+  const { finalCodeFragments: addSpaceCodeFragment, finalPositionFragment: addSpacePositionFragment } = addSpace(
+    codeFragments,
+    newInput,
+    positionFragment
+  )
+
+  const { finalCodeFragments, finalPositionFragment } = hideDot(addSpaceCodeFragment, addSpacePositionFragment)
+  const newPosition = changePosition(finalCodeFragments, position, input, finalPositionFragment)
   returnValue.codeFragments = finalCodeFragments
   returnValue.position = newPosition
 

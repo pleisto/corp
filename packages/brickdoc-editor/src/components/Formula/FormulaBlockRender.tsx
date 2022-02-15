@@ -29,7 +29,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
-  const { variableT, editorContent, handleSelectActiveCompletion, completion, setCompletion } = useFormula({
+  const { variableT, editorContentRef, handleSelectActiveCompletion, completion, setCompletion } = useFormula({
     rootId,
     formulaId,
     updateFormula,
@@ -62,14 +62,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   const editor = React.useMemo(
     () => (
       <FormulaEditor
-        editorContent={editorContent}
+        editorContentRef={editorContentRef}
         editable={true}
         onBlur={onEditorBlur}
         formulaId={formulaId}
         rootId={rootId}
       />
     ),
-    [editorContent, formulaId, onEditorBlur, rootId]
+    [editorContentRef, formulaId, onEditorBlur, rootId]
   )
 
   if (!completion.completions.length && (!variableT || variableT.kind === 'literal')) {
