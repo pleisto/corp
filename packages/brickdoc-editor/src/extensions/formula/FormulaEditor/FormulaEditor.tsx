@@ -27,7 +27,6 @@ const findNearestWord = (content: string, targetIndex: number): string | undefin
   content.split(' ').find((word, index) => index + word.length >= targetIndex)
 
 export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorContent, onBlur, rootId, formulaId }) => {
-  console.log('render editor')
   const editor = useEditor({
     editable,
     autofocus: 'end',

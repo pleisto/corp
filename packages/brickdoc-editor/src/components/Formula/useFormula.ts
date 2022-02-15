@@ -248,7 +248,7 @@ export const useFormula = ({
 
     const { interpretResult, newPosition, parseResult, completions, newVariable } = result
 
-    console.log('calculate result', { newPosition, result, editorContent: editorContentRef.current, realInputs })
+    // console.log('calculate result', { newPosition, result, editorContent: editorContentRef.current, realInputs })
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0 })
 

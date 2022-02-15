@@ -119,20 +119,24 @@ const abbrev = ({
       newInput = newInput.concat(spaceValue)
       restInput = restInput.substring(prefixSpaceCount)
       inputImage = inputImage.concat(spaceValue)
-      if (!positionMatched && inputImage.length > position) {
+      if (!positionMatched && inputImage.length < position) {
+        renderTokenNumberChange += 1
+      }
+      if (!positionMatched && inputImage.length >= position) {
         positionMatched = true
-        tokenIndex = index - 1
-        offset = prefixSpaceCount - (inputImage.length - position)
+        tokenIndex = index
+        offset = position - inputImage.length
+        // console.log('match space', { offset, tokenIndex, position, inputImage, renderTokenNumberChange, tokens })
       }
     }
 
     if (restInput.startsWith(token.image)) {
       restInput = restInput.substring(token.image.length)
       inputImage = inputImage.concat(token.image)
-      if (!positionMatched && inputImage.length > position) {
+      if (!positionMatched && inputImage.length >= position) {
         positionMatched = true
         tokenIndex = index
-        offset = inputImage.length - position - token.image.length
+        offset = position - inputImage.length
       }
     }
 
@@ -206,10 +210,10 @@ const abbrev = ({
     newInput = newInput.concat(spaceValue)
     restInput = restInput.substring(prefixSpaceCount)
     inputImage = inputImage.concat(spaceValue)
-    if (!positionMatched && inputImage.length > position) {
+    if (!positionMatched && inputImage.length >= position) {
       positionMatched = true
       tokenIndex = tokens.length
-      offset = prefixSpaceCount - (inputImage.length - position)
+      offset = position - inputImage.length
     }
   }
 
@@ -218,7 +222,7 @@ const abbrev = ({
   }
 
   const positionFragment = { tokenIndex: tokenIndex + renderTokenNumberChange, offset }
-  console.log('abbrev', { newInput, input, tokens, newTokens, positionFragment })
+  // console.log('abbrev', { newInput, input, tokens, position, newTokens, positionFragment })
 
   if (modified) {
     return { lexResult: FormulaLexer.tokenize(newInput), newInput, positionFragment }
@@ -234,16 +238,24 @@ const changePosition = (
   { offset, tokenIndex }: PositionFragment
 ): number => {
   let newPosition: number = 0
+  let specialCodeFragmentCount = 0
 
   codeFragments.forEach((codeFragment, idx) => {
-    if (idx <= tokenIndex) {
+    if (codeFragment.code === 'Block') {
+      specialCodeFragmentCount += 1
+    }
+
+    if (codeFragment.value === '') {
+      specialCodeFragmentCount -= 1
+    }
+    if (idx <= tokenIndex - specialCodeFragmentCount) {
       newPosition += Number(codeFragment.display.length)
     }
   })
 
   newPosition += offset
 
-  console.log('TODO change position', { codeFragments, input, position, offset, tokenIndex, newPosition })
+  // console.log('change position', { codeFragments, input, position, offset, tokenIndex, newPosition })
   return newPosition
 }
 
@@ -314,12 +326,13 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 
   const parser = new FormulaParser()
   const codeFragmentVisitor = new CodeFragmentVisitor({ ctx })
+  const positionWithEqual = type === 'normal' ? position + 1 : position
 
   const {
     lexResult: { tokens, errors: lexErrors },
     newInput,
     positionFragment
-  } = abbrev({ ctx, input, namespaceId, position })
+  } = abbrev({ ctx, input, namespaceId, position: positionWithEqual })
 
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
@@ -394,9 +407,12 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   )
 
   const { finalCodeFragments, finalPositionFragment } = hideDot(addSpaceCodeFragment, addSpacePositionFragment)
+
   const newPosition = changePosition(finalCodeFragments, position, input, finalPositionFragment)
+  const newPositionWithoutEqual = type === 'normal' ? newPosition - 1 : newPosition
+
   returnValue.codeFragments = finalCodeFragments
-  returnValue.position = newPosition
+  returnValue.position = newPositionWithoutEqual
 
   if (finalErrorMessages.length) {
     return {

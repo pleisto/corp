@@ -1354,7 +1354,7 @@ export const hideDot = (
         if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
           finalCodeFragments.pop()
           if (finalPositionFragment.tokenIndex >= idx - 1) {
-            finalPositionFragment = { ...finalPositionFragment, tokenIndex: finalPositionFragment.tokenIndex - 2 }
+            finalPositionFragment = { ...finalPositionFragment, tokenIndex: finalPositionFragment.tokenIndex - 3 }
           }
           return
         }
@@ -1374,7 +1374,6 @@ export const addSpace = (
   positionFragment: PositionFragment
 ): { finalCodeFragments: CodeFragment[]; finalPositionFragment: PositionFragment } => {
   const finalCodeFragments: CodeFragment[] = []
-  let finalPositionFragment = positionFragment
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     value: ' ',
@@ -1405,9 +1404,6 @@ export const addSpace = (
       const spaceValue = ' '.repeat(prefixSpaceCount)
       finalCodeFragments.push({ ...spaceCodeFragment, value: spaceValue, display: spaceValue })
       restInput = restInput.substring(prefixSpaceCount)
-      if(idx <= positionFragment.tokenIndex) {
-        finalPositionFragment = { ...finalPositionFragment, tokenIndex: finalPositionFragment.tokenIndex + 1 }
-      }
     }
 
     if (!match) {
@@ -1433,5 +1429,5 @@ export const addSpace = (
     return { finalCodeFragments: codeFragments, finalPositionFragment: positionFragment }
   }
 
-  return { finalCodeFragments, finalPositionFragment }
+  return { finalCodeFragments, finalPositionFragment: positionFragment }
 }
