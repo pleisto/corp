@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -7,10 +7,11 @@ import { devLog } from '@brickdoc/design-system'
 import { HandleKeyDownExtension } from './extensions/handleKeyDown'
 import './FormulaEditor.less'
 import { FormulaTypeExtension } from './extensions/formulaType'
-import { BrickdocEventBus, FormulaEditorUpdateEventTrigger } from '@brickdoc/schema'
+import { BrickdocEventBus, FormulaEditorReplaceRootTrigger, FormulaEditorUpdateEventTrigger } from '@brickdoc/schema'
 
 export interface EditorContentType {
   content: JSONContent | undefined
+  input: string
   position: number
 }
 
@@ -29,12 +30,13 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
   const editor = useEditor({
     editable,
     autofocus: 'end',
+    content: editorContent.content,
     extensions: [
       Document,
       Text,
       Paragraph,
       FormulaTypeExtension.configure({ editable }),
-      HandleKeyDownExtension({ formulaId, rootId })
+      HandleKeyDownExtension.configure({ formulaId, rootId })
     ],
     onFocus: (props: EditorEvents['focus']) => {
       // console.debug('FormulaEditor:onFocus', props)
@@ -45,7 +47,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
       // = -> =1
       // =1 -> =
       if (props.event.relatedTarget) {
-        console.debug('FormulaEditor:onBlur', props)
+        devLog('FormulaEditor:onBlur', props)
         onBlur?.()
       }
     },
@@ -68,7 +70,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
             if (block.type !== 'text') break
 
             const word = findNearestWord(block.text!, editorPosition - length - 1)
-            console.info({ word, position: editorPosition - length - 1 })
+            devLog('matched', { word, position: editorPosition - length - 1 })
           }
 
           length += blockLength
@@ -77,6 +79,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
 
       if (rootId && formulaId) {
         const jsonContent = editor.getJSON()
+        // devLog('formualEditor debug', { jsonContent, editorContent })
         BrickdocEventBus.dispatch(
           FormulaEditorUpdateEventTrigger({ position: editorPosition, content: jsonContent, formulaId, rootId })
         )
@@ -84,21 +87,31 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({ editable, editorCo
     }
   })
 
-  useEffect(() => {
-    if (editor && !editor.isDestroyed && editorContent.content) {
-      if (editorContent.position) {
-        editor
-          .chain()
-          .replaceRoot(editorContent.content)
-          .setTextSelection(editorContent.position + 1)
-          .run()
-      } else {
-        editor.commands.replaceRoot(editorContent.content)
-      }
+  React.useEffect(() => {
+    if (editor && !editor.isDestroyed && editable && rootId && formulaId) {
+      const listener = BrickdocEventBus.subscribe(
+        FormulaEditorReplaceRootTrigger,
+        e => {
+          const content = e.payload.content
+          const position: number = e.payload.position
+          if (content) {
+            editor
+              .chain()
+              .replaceRoot(content)
+              .setTextSelection(position + 1)
+              .run()
+          }
 
-      if (editable) devLog('after replace root', { editorContent, editor })
+          // if (editable) console.log('after replace root', { content, position })
+        },
+        {
+          eventId: `${rootId},${formulaId}`,
+          subscribeId: `FormulaEditor#${rootId},${formulaId}`
+        }
+      )
+      return () => listener.unsubscribe()
     }
-  }, [editor, editorContent, editable])
+  }, [formulaId, rootId, editor, editable])
 
   return (
     <>

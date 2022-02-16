@@ -10,7 +10,7 @@ import {
   useBlockSyncBatchMutation,
   GetSpreadsheetChildrenDocument
 } from '@/BrickdocGraphQL'
-import { isEqual } from 'lodash-es'
+import { isEqual } from '@brickdoc/active-support'
 import { isSavingVar } from '../../reactiveVars'
 import { nodeToBlock } from '../../common/blocks'
 import {
@@ -99,7 +99,9 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
       if (blocks.length > 0 || deletedIds.length > 0) {
         blocks.forEach(b => {
-          BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
+          if (!b.parentId || b.type === 'doc') {
+            BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
+          }
           BrickdocEventBus.dispatch(BlockUpdated(b))
           dirtyBlocksMap.current.delete(b.id)
         })

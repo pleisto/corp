@@ -14,7 +14,7 @@ const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
 const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
 const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
-const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', type: 'normal' }
+const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', position: 0, type: 'normal' }
 
 const rows: Row[] = [{ rowId: firstRowId }, { rowId: secondRowId }, { rowId: thirdRowId }]
 
@@ -112,7 +112,8 @@ describe('Power Fx Functions', () => {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(errorMessages).toEqual([])
 
-        const result = (await interpret({ parseResult: { cst, kind }, ctx: newCtx })).variableValue.result.result
+        const result = (await interpret({ parseResult: { cst, kind, errorMessages }, ctx: newCtx })).variableValue
+          .result.result
         if (value === SNAPSHOT_FLAG) {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(result).toMatchSnapshot()

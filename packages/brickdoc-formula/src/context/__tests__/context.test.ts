@@ -20,7 +20,6 @@ describe('Context', () => {
       blockId: fooNamespaceId,
       definition: '=123',
       version: 0,
-      level: 0,
       type: 'normal',
       cacheValue: {
         type: 'number',
@@ -33,7 +32,6 @@ describe('Context', () => {
       blockId: barNamespaceId,
       definition: `=ABS(120) + #${fooNamespaceId}.${fooVariableId}`,
       version: 0,
-      level: 0,
       type: 'normal',
       cacheValue: {
         type: 'number',
@@ -68,8 +66,12 @@ describe('Context', () => {
     const foo = formulaContext.findVariable(fooNamespaceId, fooVariableId)!
     const bar = formulaContext.findVariable(barNamespaceId, barVariableId)!
 
-    expect({ foo: [foo.t.functionDependencies, foo.t.variableDependencies] }).toMatchSnapshot()
-    expect({ bar: [bar.t.functionDependencies, bar.t.variableDependencies] }).toMatchSnapshot()
+    expect({
+      foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.variableNameDependencies]
+    }).toMatchSnapshot()
+    expect({
+      bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.variableNameDependencies]
+    }).toMatchSnapshot()
   })
 
   it('removeVariable', async () => {
@@ -91,6 +93,7 @@ describe('Context', () => {
       variableId: newFooVariableId,
       name,
       input,
+      position: 0,
       type: 'normal'
     }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
@@ -106,6 +109,7 @@ describe('Context', () => {
       variableId: newFooVariableId,
       name,
       input,
+      position: 0,
       type: 'normal'
     }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
@@ -117,7 +121,7 @@ describe('Context', () => {
     const name = 'ifname'
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
-    const meta: VariableMetadata = { namespaceId, variableId, name, input, type: 'normal' }
+    const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
 
     expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
@@ -137,7 +141,7 @@ describe('Context', () => {
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const name = 'baz'
     const input = `=#${fooNamespaceId}.${fooVariableId} + #${barNamespaceId}.${barVariableId}`
-    const meta: VariableMetadata = { namespaceId, variableId, name, input, type: 'normal' }
+    const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
     const parseInput = { ctx: { formulaContext, meta, interpretContext } }
     const parseResult = parse(parseInput) as SuccessParseResult
 

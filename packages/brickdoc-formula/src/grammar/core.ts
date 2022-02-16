@@ -1,4 +1,4 @@
-import { CstNode, ILexingResult, IRecognitionException } from 'chevrotain'
+import { CstNode, ILexingResult, IRecognitionException, IToken } from 'chevrotain'
 import {
   CodeFragment,
   ErrorMessage,
@@ -18,7 +18,9 @@ import {
   FunctionContext,
   BlockKey,
   StringResult,
-  BaseFormula
+  BaseFormula,
+  ErrorResult,
+  VariableNameDependency
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -26,8 +28,10 @@ import { FORMULA_PARSER_VERSION } from '../version'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
-import { CodeFragmentVisitor } from './codeFragment'
-import { blockKey, variableKey } from '..'
+import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
+import { blockKey } from './convert'
+import { parseString } from './util'
+import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -39,9 +43,9 @@ export interface BaseParseResult {
   cst?: CstNode
   errorType?: ParseErrorType
   kind: VariableKind
-  level: number
   errorMessages: ErrorMessage[]
   variableDependencies: VariableDependency[]
+  variableNameDependencies: VariableNameDependency[]
   functionDependencies: Array<FunctionClause<any>>
   blockDependencies: NamespaceId[]
   codeFragments: CodeFragment[]
@@ -78,28 +82,65 @@ export interface InterpretResult {
   readonly lazy: boolean
 }
 
-export const abbrev = ({
+export interface PositionFragment {
+  readonly tokenIndex: number
+  readonly offset: number
+}
+
+const abbrev = ({
   ctx: { formulaContext },
-  position,
   namespaceId,
+  position,
   input
 }: {
   namespaceId: NamespaceId
   ctx: FunctionContext
-  position: number
   input: string
-}): { lexResult: ILexingResult; newInput: string; newPosition: number } => {
-  const lexer = FormulaLexer
-  const lexResult: ILexingResult = lexer.tokenize(input)
-  const tokens = lexResult.tokens
-  let image = ''
+  position: number
+}): { lexResult: ILexingResult; newInput: string; positionFragment: PositionFragment } => {
+  const oldLexResult: ILexingResult = FormulaLexer.tokenize(input)
+  const tokens = oldLexResult.tokens
   let modified = false
+  let restInput = input
   let newInput = ''
-  let newPosition: number = position
+  const newTokens: IToken[] = []
+  let inputImage = ''
+  let positionMatched = false
+  let tokenIndex = 0
+  let offset = 0
+  let renderTokenNumberChange = 0
 
   tokens.forEach((token, index) => {
-    image = image.concat(token.image)
-    if (token.tokenType.name !== 'FunctionName') {
+    newTokens.push(token)
+
+    if (restInput.startsWith(' ')) {
+      const prefixSpaceCount = restInput.length - restInput.trimStart().length
+      const spaceValue = ' '.repeat(prefixSpaceCount)
+      newInput = newInput.concat(spaceValue)
+      restInput = restInput.substring(prefixSpaceCount)
+      inputImage = inputImage.concat(spaceValue)
+      if (!positionMatched && inputImage.length < position) {
+        renderTokenNumberChange += 1
+      }
+      if (!positionMatched && inputImage.length >= position) {
+        positionMatched = true
+        tokenIndex = index
+        offset = position - inputImage.length
+        // console.log('match space', { offset, tokenIndex, position, inputImage, renderTokenNumberChange, tokens })
+      }
+    }
+
+    if (restInput.startsWith(token.image)) {
+      restInput = restInput.substring(token.image.length)
+      inputImage = inputImage.concat(token.image)
+      if (!positionMatched && inputImage.length >= position) {
+        positionMatched = true
+        tokenIndex = index
+        offset = position - inputImage.length
+      }
+    }
+
+    if (!['FunctionName', 'StringLiteral'].includes(token.tokenType.name)) {
       newInput = newInput.concat(token.image)
       return
     }
@@ -113,26 +154,29 @@ export const abbrev = ({
       return
     }
 
-    const prevToken = tokens[index - 1]
+    const newIndex = newTokens.length - 1
+    const prevToken = newTokens[newIndex - 1]
 
     let variableNamespace = blockKey(namespaceId)
     let namespaceIsExist = false
 
     // foo.bar
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
-      const prev2Token = tokens[index - 2]
+      const prev2Token = newTokens[newIndex - 2]
 
       if (prev2Token && prev2Token.tokenType.name !== 'UUID') {
         newInput = newInput.concat(token.image)
         return
       }
 
-      namespaceIsExist = true
       variableNamespace = prev2Token.image.startsWith('#') ? (prev2Token.image as BlockKey) : blockKey(prev2Token.image)
+      namespaceIsExist = true
     }
 
+    const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image
+
     const formulaName = formulaContext.formulaNames.find(
-      n => n.name === token.image && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
+      n => n.name === match && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
     )
 
     // devLog({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
@@ -142,29 +186,84 @@ export const abbrev = ({
       return
     }
 
-    newPosition += formulaName.prefixLength(namespaceIsExist)
-    const render = formulaName.render(namespaceIsExist)
-    newInput = newInput.concat(render)
-    tokens[index] = { ...token, image: render, tokenType: { ...token.tokenType, name: 'UUID' } }
+    const renderTokens = formulaName.renderTokens(namespaceIsExist)
+
+    newTokens.pop()
+    const newRenderTokens = renderTokens.map(({ image, type }) => ({
+      ...token,
+      image,
+      tokenType: { ...token.tokenType, name: type }
+    }))
+    newTokens.push(...newRenderTokens)
+    renderTokenNumberChange += newRenderTokens.length - 1
+
+    const value = renderTokens.map(t => t.image).join('')
+    newInput = newInput.concat(value)
+    // newPosition += value.length - token.image.length
     modified = true
   })
 
-  // devLog({ newInput, input, tokens })
+  // NOTE tail space
+  if (restInput.startsWith(' ')) {
+    const prefixSpaceCount = restInput.length - restInput.trimStart().length
+    const spaceValue = ' '.repeat(prefixSpaceCount)
+    newInput = newInput.concat(spaceValue)
+    restInput = restInput.substring(prefixSpaceCount)
+    inputImage = inputImage.concat(spaceValue)
+    if (!positionMatched && inputImage.length >= position) {
+      positionMatched = true
+      tokenIndex = tokens.length
+      offset = position - inputImage.length
+    }
+  }
+
+  if (restInput !== '') {
+    console.error('abbrev error', { restInput, input, tokens, newInput })
+  }
+
+  const positionFragment = { tokenIndex: tokenIndex + renderTokenNumberChange, offset }
+  // console.log('abbrev', { newInput, input, tokens, position, newTokens, positionFragment })
 
   if (modified) {
-    return { lexResult: lexer.tokenize(newInput), newInput, newPosition }
+    return { lexResult: FormulaLexer.tokenize(newInput), newInput, positionFragment }
   } else {
-    return { lexResult, newInput: input, newPosition }
+    return { lexResult: oldLexResult, newInput: input, positionFragment }
   }
 }
 
-export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?: number }): ParseResult => {
+const changePosition = (
+  codeFragments: CodeFragment[],
+  position: number,
+  input: string,
+  { offset, tokenIndex }: PositionFragment
+): number => {
+  let newPosition: number = 0
+  let specialCodeFragmentCount = 0
+
+  codeFragments.forEach((codeFragment, idx) => {
+    if (codeFragment.code === 'Block') {
+      specialCodeFragmentCount += 1
+    }
+
+    if (codeFragment.value === '') {
+      specialCodeFragmentCount -= 1
+    }
+    if (idx <= tokenIndex - specialCodeFragmentCount) {
+      newPosition += Number(codeFragment.display.length)
+    }
+  })
+
+  newPosition += offset
+
+  // console.log('change position', { codeFragments, input, position, offset, tokenIndex, newPosition })
+  return newPosition
+}
+
+export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
-    meta: { namespaceId, variableId, input, name }
+    meta: { namespaceId, variableId, input, name, type, position }
   } = ctx
-  const position = pos ?? 0
-  const level = 0
   const version = FORMULA_PARSER_VERSION
 
   const returnValue: BaseParseResult = {
@@ -176,19 +275,19 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     input,
     position,
     version,
-    level,
     kind: 'unknown',
     errorType: 'parse',
     errorMessages: [{ type: 'parse', message: '' }],
     completions: [],
     codeFragments: [],
     variableDependencies: [],
+    variableNameDependencies: [],
     functionDependencies: [],
     blockDependencies: [],
     flattenVariableDependencies: []
   }
 
-  if (!input.startsWith('=')) {
+  if (!input.startsWith('=') || (type !== 'normal' && input.trim() === '=')) {
     return {
       ...returnValue,
       valid: true,
@@ -202,6 +301,8 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           value: input,
           type: 'any',
+          renderText: undefined,
+          hide: false,
           display: input,
           errors: [],
           attrs: undefined
@@ -225,12 +326,13 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   const parser = new FormulaParser()
   const codeFragmentVisitor = new CodeFragmentVisitor({ ctx })
+  const positionWithEqual = type === 'normal' ? position + 1 : position
 
   const {
     lexResult: { tokens, errors: lexErrors },
     newInput,
-    newPosition
-  } = abbrev({ ctx, input, position, namespaceId })
+    positionFragment
+  } = abbrev({ ctx, input, namespaceId, position: positionWithEqual })
 
   parser.input = tokens
   const inputImage = tokens.map(t => t.image).join('')
@@ -242,16 +344,16 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
   completions = complete({
-    position: newPosition,
+    position,
     cacheCompletions: baseCompletion,
     codeFragments,
     tokens,
     ctx
   })
 
-  returnValue.level = codeFragmentVisitor.level
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
+  returnValue.variableNameDependencies = codeFragmentVisitor.variableNameDependencies
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
   returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
   returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
@@ -259,7 +361,6 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 
   returnValue.cst = cst
   returnValue.input = newInput
-  returnValue.position = newPosition
   returnValue.parseImage = image
   returnValue.completions = completions
 
@@ -280,14 +381,17 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
           code: 'other',
           value: restImages,
           type: 'any',
+          renderText: undefined,
+          hide: false,
           display: restImages,
           errors: errorMessages,
           attrs: undefined
         })
       }
     } else {
-      console.error('ParseErrorTODO', {
+      devWarning(true, 'Parse Error', {
         input,
+        tokens,
         codeFragments,
         newInput,
         inputImagesWithoutSpace: inputImage,
@@ -296,41 +400,19 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
     }
   }
 
-  const finalCodeFragments: CodeFragment[] = []
+  const { finalCodeFragments: addSpaceCodeFragment, finalPositionFragment: addSpacePositionFragment } = addSpace(
+    codeFragments,
+    newInput,
+    positionFragment
+  )
 
-  const spaceCodeFragment: CodeFragment = {
-    code: 'Space',
-    value: ' ',
-    type: 'any',
-    display: ' ',
-    errors: [],
-    attrs: undefined
-  }
+  const { finalCodeFragments, finalPositionFragment } = hideDot(addSpaceCodeFragment, addSpacePositionFragment)
 
-  // TODO support space
-  // let lastSpace = false
-  codeFragments.forEach(codeFragment => {
-    // if (codeFragment.spaceBefore && !lastSpace) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    // }
-
-    finalCodeFragments.push(codeFragment)
-
-    // if (codeFragment.spaceAfter) {
-    //   finalCodeFragments.push(spaceCodeFragment)
-    //   position += 1
-    //   lastSpace = true
-    // } else {
-    //   lastSpace = false
-    // }
-  })
-
-  const spaceCount = input.length - input.trimEnd().length
-  if (spaceCount) {
-    finalCodeFragments.push({ ...spaceCodeFragment, value: ' '.repeat(spaceCount) })
-  }
+  const newPosition = changePosition(finalCodeFragments, position, input, finalPositionFragment)
+  const newPositionWithoutEqual = type === 'normal' ? newPosition - 1 : newPosition
 
   returnValue.codeFragments = finalCodeFragments
+  returnValue.position = newPositionWithoutEqual
 
   if (finalErrorMessages.length) {
     return {
@@ -368,10 +450,7 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
   }
 
   const sameNameVariable = formulaContext.formulaNames.find(
-    v =>
-      v.name.toUpperCase() === name.toUpperCase() &&
-      v.key !== variableId &&
-      v.value !== variableKey(namespaceId, variableId)
+    v => v.name.toUpperCase() === name.toUpperCase() && v.namespaceId === namespaceId && v.key !== variableId
   )
 
   if (sameNameVariable) {
@@ -396,12 +475,24 @@ export const parse = ({ ctx, position: pos }: { ctx: FunctionContext; position?:
 }
 
 export const interpret = async ({
-  parseResult: { cst, kind },
+  parseResult: { cst, kind, errorMessages },
   ctx
 }: {
-  parseResult: { cst: CstNode | undefined; kind: VariableKind }
+  parseResult: { cst: CstNode | undefined; kind: VariableKind; errorMessages: ErrorMessage[] }
   ctx: FunctionContext
 }): Promise<InterpretResult> => {
+  if (errorMessages.length > 0) {
+    const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
+    return {
+      lazy: false,
+      variableValue: {
+        success: true,
+        updatedAt: new Date(),
+        cacheValue: result,
+        result
+      }
+    }
+  }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
     return {
@@ -454,9 +545,9 @@ export const buildVariable = ({
     codeFragments,
     version,
     variableDependencies,
+    variableNameDependencies,
     functionDependencies,
     blockDependencies,
-    level,
     flattenVariableDependencies
   },
   interpretResult: { variableValue, lazy }
@@ -478,9 +569,9 @@ export const buildVariable = ({
     dirty: true,
     variableValue,
     valid,
-    level,
     kind: kind ?? 'constant',
     variableDependencies,
+    variableNameDependencies,
     flattenVariableDependencies,
     blockDependencies,
     functionDependencies
@@ -489,7 +580,7 @@ export const buildVariable = ({
   const oldVariable = formulaContext.findVariable(namespaceId, variableId)
   if (oldVariable) {
     oldVariable.t = t
-    return oldVariable
+    return oldVariable.clone()
   } else {
     return new VariableClass({ t, formulaContext })
   }
@@ -497,10 +588,8 @@ export const buildVariable = ({
 
 export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {
   const dupFormulas = [...formulas]
-  dupFormulas
-    .sort((a, b) => a.level - b.level)
-    .forEach(formula => {
-      const variable = castVariable(formulaContext, formula)
-      void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
-    })
+  dupFormulas.forEach(formula => {
+    const variable = castVariable(formulaContext, formula)
+    void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
+  })
 }

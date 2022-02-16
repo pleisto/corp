@@ -29,6 +29,13 @@ export const SpreadsheetLoaded = event<{ parentId: string; blocks: Block[] }>()(
   }
 )
 
+export const SpreadsheetUpdateCellValue = event<{ parentId: string; cellId: string; value: string }>()(
+  'SpreadsheetUpdateCellValue',
+  ({ parentId, cellId, value }) => {
+    return { id: `${parentId},${cellId}` }
+  }
+)
+
 export const BlockSynced = event<Block>()('BlockSynced', (block: Block) => {
   return { id: block.id }
 })
@@ -47,8 +54,12 @@ export const FormulaInnerRefresh = event<{ namespaceId: string; variableId: stri
   }
 )
 
-export const FormulaUpdated = event<any>()('FormulaUpdated', v => {
+export const FormulaUpdatedViaId = event<any>()('FormulaUpdatedViaId', v => {
   return { id: `${v.t.namespaceId},${v.t.variableId}` }
+})
+
+export const FormulaUpdatedViaName = event<any>()('FormulaUpdatedViaName', v => {
+  return { id: `${v.t.namespaceId}#${v.t.name}` }
 })
 
 export const SlashMenuHide = event<void>()('SlashMenuHide')
@@ -78,6 +89,24 @@ export const FormulaEditorUpdateEventTrigger = event<{
   formulaId: string
 }>()('FormulaEditorUpdateEventTrigger', ({ content, position, formulaId, rootId }) => {
   return { content, position, id: `${rootId},${formulaId}` }
+})
+
+export const FormulaEditorReplaceRootTrigger = event<{
+  content: any
+  position: number
+  input: string
+  rootId: string
+  formulaId: string
+}>()('FormulaEditorReplaceRootTrigger', ({ content, position, input, formulaId, rootId }) => {
+  return { content, position, input, id: `${rootId},${formulaId}` }
+})
+
+export const FormulaEditorUpdateNameTrigger = event<{
+  name: string
+  rootId: string
+  formulaId: string
+}>()('FormulaEditorUpdateNameTrigger', ({ name, formulaId, rootId }) => {
+  return { name, id: `${rootId},${formulaId}` }
 })
 
 export interface ExplorerMenuItem {
