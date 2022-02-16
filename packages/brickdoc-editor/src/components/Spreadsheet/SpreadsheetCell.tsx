@@ -55,15 +55,19 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
 
   const eventId = `${rootId},${cellId}`
 
+  const updateCellValue = async (value: string) => {
+    if (variable) {
+      await variable.updateDefinition(value)
+      updateFormula(variable)
+    }
+  }
+
   BrickdocEventBus.subscribe(
     SpreadsheetUpdateCellValue,
-    async (e: Event) => {
+    (e: Event) => {
       const { value } = e.payload
       devLog('Spreadsheet update cell', { eventId, value })
-      if (variable) {
-        await variable.updateDefinition(value)
-        updateFormula(variable)
-      }
+      void updateCellValue(value)
     },
     { eventId, subscribeId: eventId }
   )
