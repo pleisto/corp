@@ -11,7 +11,7 @@ import { EditorDataSourceContext } from '../../dataSource/DataSource'
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
   block: BlockInput
-  parentId: string
+  rootId: string
   saveBlock: (block: BlockInput) => void
 }
 
