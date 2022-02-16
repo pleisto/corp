@@ -18,7 +18,7 @@ export interface FormulaMenuProps {
   handleDelete: (variable?: VariableData) => void
   name: string | undefined
   defaultName: string
-  editorContentRef: React.MutableRefObject<EditorContentType>
+  editorContent: EditorContentType
   isDisableSave: () => boolean
   doHandleSave: () => Promise<void>
   handleSelectActiveCompletion: () => void
@@ -33,7 +33,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   formulaId,
   rootId,
   handleDelete,
-  editorContentRef,
+  editorContent,
   defaultVisible,
   onVisibleChange,
   isDisableSave,
@@ -96,12 +96,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-row">
         <span className="formula-menu-result-label">=</span>
         <div className="formula-menu-item">
-          <FormulaEditor
-            editorContent={editorContentRef.current}
-            editable={true}
-            formulaId={formulaId}
-            rootId={rootId}
-          />
+          <FormulaEditor editorContent={editorContent} editable={true} formulaId={formulaId} rootId={rootId} />
         </div>
       </div>
       <div className="formula-menu-divider" />

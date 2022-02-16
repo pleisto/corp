@@ -334,7 +334,7 @@ describe('useFormula', () => {
     const { result } = renderHook(() => useFormula(spreadsheetInput))
 
     expect(result.current.variableT).toBe(undefined)
-    expect(result.current.editorContentRef.current).toEqual({
+    expect(result.current.editorContent).toEqual({
       content: undefined,
       input: '',
       position: 0
@@ -346,7 +346,7 @@ describe('useFormula', () => {
     const { result } = renderHook(() => useFormula(normalInput))
 
     expect(result.current.variableT).toBe(undefined)
-    expect(result.current.editorContentRef.current).toEqual({
+    expect(result.current.editorContent).toEqual({
       content: undefined,
       input: '',
       position: 0
@@ -377,11 +377,11 @@ describe('useFormula', () => {
       await waitForNextUpdate()
 
       // expect(result.current.editorContentRef.current.position).toEqual(position)
-      if (result.current.editorContentRef.current.position !== position) {
+      if (result.current.editorContent.position !== position) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(result.current.editorContentRef.current).toMatchSnapshot()
+        expect(result.current.editorContent).toMatchSnapshot()
       }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContentRef.current.content))).toEqual(
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
         newInput ?? input
       )
 
@@ -418,11 +418,11 @@ describe('useFormula', () => {
       await waitForNextUpdate()
 
       // expect(result.current.editorContentRef.current.position).toEqual(position)
-      if (result.current.editorContentRef.current.position !== position) {
+      if (result.current.editorContent.position !== position) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(result.current.editorContentRef.current).toMatchSnapshot()
+        expect(result.current.editorContent).toMatchSnapshot()
       }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContentRef.current.content))).toEqual(
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
         newInput ?? input
       )
 
@@ -451,15 +451,13 @@ describe('useFormula', () => {
 
     await waitForNextUpdate()
 
-    expect(result.current.editorContentRef.current.position).toEqual(output.position)
+    expect(result.current.editorContent.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContentRef.current.content).toMatchSnapshot()
+      expect(result.current.editorContent.content).toMatchSnapshot()
     } else {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContentRef.current.content).toEqual(
-        buildJSONContentByArray(output.content as JSONContent[])
-      )
+      expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
   })
 
@@ -477,15 +475,13 @@ describe('useFormula', () => {
 
     await waitForNextUpdate()
 
-    expect(result.current.editorContentRef.current.position).toEqual(output.position)
+    expect(result.current.editorContent.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContentRef.current.content).toMatchSnapshot()
+      expect(result.current.editorContent.content).toMatchSnapshot()
     } else {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContentRef.current.content).toEqual(
-        buildJSONContentByArray(output.content as JSONContent[])
-      )
+      expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
   })
 })
