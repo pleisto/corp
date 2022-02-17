@@ -55,6 +55,12 @@ export const variableRenderText = (variable: VariableInterface): CodeFragment['r
   }
 }
 
+const blockRenderText = (block: BlockType): CodeFragment['renderText'] => {
+  return (text, { display }, prevText) => {
+    return text
+  }
+}
+
 const block2attrs = (block: BlockType): CodeFragmentAttrs => ({
   kind: 'Block',
   namespaceId: block.id,
@@ -87,7 +93,7 @@ export const block2codeFragment = (block: BlockType): CodeFragment => {
   return {
     display: block.name(),
     errors: [],
-    renderText: undefined,
+    renderText: blockRenderText(block),
     hide: false,
     value: blockKey(block.id),
     code: 'Block',
