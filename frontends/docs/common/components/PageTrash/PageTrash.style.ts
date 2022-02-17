@@ -19,7 +19,7 @@ export const Item = styled('li', {
 })
 
 export const NotFound = styled('p', {
-  color: '#bfbcc6',
+  color: theme.colors. deepPurple3,
   fontSize: theme.fontSizes.subHeadline,
   margin: 0,
   display: 'flex',
