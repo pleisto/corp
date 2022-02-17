@@ -55,9 +55,24 @@ export const variableRenderText = (variable: VariableInterface): CodeFragment['r
   }
 }
 
-const blockRenderText = (block: BlockType): CodeFragment['renderText'] => {
-  return (text, { display }, prevText) => {
-    return text
+const blockRenderText = (block: BlockType | SpreadsheetType): CodeFragment['renderText'] => {
+  return (text, { display, value }, prevText) => {
+    if (text === display) {
+      return value
+    }
+
+    if (text.startsWith(display)) {
+      const suffix = text.substring(display.length)
+      return value.concat(suffix)
+    }
+
+    if (text.endsWith(display)) {
+      const prefix = text.substring(0, text.length - display.length)
+      return prefix.concat(value)
+    }
+
+    const [, finalText] = maybeEncodeString(text)
+    return finalText
   }
 }
 
@@ -123,7 +138,7 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType): CodeFrag
     value,
     code: 'Spreadsheet',
     type: 'any',
-    renderText: undefined,
+    renderText: blockRenderText(spreadsheet),
     hide: false,
     attrs: spreadsheet2attrs(spreadsheet)
   }
