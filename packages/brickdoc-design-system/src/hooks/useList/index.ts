@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useDynamicList } from '../../hooks'
 
 export const useList = <T>(initialList: T[] = []) => {
@@ -21,18 +21,15 @@ export const useList = <T>(initialList: T[] = []) => {
 
   const addList = useCallback(
     (data: T[]) => {
-      const { length } = list
-      merge(length ? length - 1 : length, data)
+      if (!data?.length) {
+        return
+      }
+      data.forEach((item: T) => {
+        push(item)
+      })
     },
-    [merge, list]
+    [push]
   )
-
-  useEffect(() => {
-    if (initialList.length) {
-      addList(initialList)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialList])
 
   return {
     list,

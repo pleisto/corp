@@ -14,7 +14,7 @@ export const Item = styled('li', {
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
   '&:hover, &:active': {
-    backgroundColor: 'rgb(0 0 0 / 0.05)'
+    backgroundColor: theme.colors.black_5p
   }
 })
 
