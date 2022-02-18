@@ -71,35 +71,27 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
   const updateCellValue = React.useCallback(
     async (value: string) => {
       if (!variableRef.current && formulaContext) {
-        // TODO: fix create new variable
-        const variableT: VariableData = {
+        const variableT = {
           namespaceId: rootId,
           definition: value,
           variableId: formulaId,
           name: formulaName,
           version: 0,
           type: 'spreadsheet',
-          kind: 'literal',
-          dirty: false,
-          valid: true,
-          codeFragments: [],
-          flattenVariableDependencies: [],
-          variableNameDependencies: [],
-          variableDependencies: [],
-          blockDependencies: [],
-          functionDependencies: [],
           variableValue: {
             success: true,
             result: { type: 'string', result: value },
             cacheValue: { type: 'string', result: value },
             updatedAt: new Date()
           }
-        }
+        } as unknown as VariableData
+        // TODO refactor this
         variableRef.current = new VariableClass({
           t: variableT,
           formulaContext
         })
-        variableRef.current.save()
+        await variableRef.current.reinterpret()
+        await variableRef.current.save()
       }
       if (variableRef.current) {
         await variableRef.current.updateDefinition(value)
