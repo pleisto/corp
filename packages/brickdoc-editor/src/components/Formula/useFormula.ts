@@ -314,7 +314,7 @@ export const useFormula = ({
     const oldContentLast = oldContent[oldContent.length - 1]
     const { prevText, nextText } = positionBasedContentArrayToInput(oldContent, position)
 
-    // console.log('Before replace', {
+    // console.log('replace', {
     //   oldContentLast,
     //   oldContent,
     //   prevText,

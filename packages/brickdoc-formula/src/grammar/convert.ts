@@ -265,12 +265,7 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
   const value = columnKey(column.namespaceId, column.columnId)
   return {
     kind: 'column',
-    replacements: [
-      `${blockKey(column.namespaceId)}.${column.name}`,
-      `${blockKey(column.namespaceId)}.`,
-      `${blockKey(column.namespaceId)}`,
-      `${column.name}`
-    ],
+    replacements: [`${column.name}`],
     weight: -3,
     name: column.name,
     positionChange: value.length,
