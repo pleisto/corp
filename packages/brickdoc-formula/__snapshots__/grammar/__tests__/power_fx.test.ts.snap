@@ -110,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`Power Fx Functions [CountIf ok] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 >= 3) 1`] = `
+exports[`Power Fx Functions [CountIf ok] =CountIf(#28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a."first" >= 3) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -168,6 +168,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -203,13 +213,8 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "StringLiteral",
     "display": "first",
     "errors": Array [
       Object {
@@ -219,8 +224,18 @@ Array [
     ],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
-    "value": "first",
+    "type": "string",
+    "value": "\\"first\\"",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -231,6 +246,16 @@ Array [
     "renderText": undefined,
     "type": "boolean",
     "value": ">=",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,

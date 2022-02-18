@@ -18,14 +18,7 @@ import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
-import {
-  block2codeFragment,
-  column2codeFragment,
-  columnRenderText,
-  spreadsheet2codeFragment,
-  variable2codeFragment,
-  variableRenderText
-} from './convert'
+import { block2codeFragment, columnRenderText, spreadsheet2codeFragment, variableRenderText } from './convert'
 import { devWarning } from '@brickdoc/design-system'
 import { PositionFragment } from './core'
 
@@ -586,79 +579,6 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
             errors: [...unknownVariableError, ...accessErrorMessages, ...f.errors]
           }))
         )
-        return
-      }
-
-      // TODO remove this
-      if (rhsCst.tokenType.name === 'UUID') {
-        this.kind = 'expression'
-
-        const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
-        const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
-        const errorMessages: ErrorMessage[] = []
-        const variableId = rhsCst.image
-        let codeFragment: CodeFragment = token2fragment(rhsCst, 'any')
-
-        if (!formulaName) {
-          errorMessages.push({ type: 'syntax', message: `Unknown namespace ${namespaceId}` })
-        }
-
-        if (formulaName?.kind === 'Block') {
-          const variable = this.ctx.formulaContext.findVariable(namespaceId, variableId)
-
-          if (variable) {
-            codeFragment = {
-              ...codeFragment,
-              ...variable2codeFragment(variable)
-            }
-
-            firstArgumentType = variable.t.variableValue.result.type
-
-            this.variableDependencies = [
-              ...new Map(
-                [...this.variableDependencies, { namespaceId, variableId }].map(item => [item.variableId, item])
-              ).values()
-            ]
-
-            this.variableNameDependencies = [
-              ...new Map(
-                [...this.variableNameDependencies, { namespaceId, name: variable.t.name }].map(item => [
-                  `${item.namespaceId},${item.name}`,
-                  item
-                ])
-              ).values()
-            ]
-
-            this.flattenVariableDependencies = [
-              ...new Map(
-                [
-                  ...this.flattenVariableDependencies,
-                  ...variable.t.flattenVariableDependencies,
-                  { namespaceId, variableId }
-                ].map(item => [item.variableId, item])
-              ).values()
-            ]
-          } else {
-            errorMessages.push({ type: 'syntax', message: `Unknown variable: ${variableId}` })
-          }
-        }
-
-        if (formulaName?.kind === 'Spreadsheet') {
-          this.blockDependencies.push(namespaceId)
-          const column = this.ctx.formulaContext.findColumnById(namespaceId, variableId)
-          firstArgumentType = 'Column'
-          if (column) {
-            codeFragment = {
-              ...codeFragment,
-              ...column2codeFragment(column)
-            }
-          } else {
-            errorMessages.push({ type: 'syntax', message: 'Unknown column' })
-          }
-        }
-
-        images.push(variableId)
-        codeFragments.push({ ...codeFragment, errors: errorMessages })
         return
       }
 

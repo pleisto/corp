@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Spreadsheet Functions [AVERAGEIFS 4] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >3) 1`] = `
+exports[`Spreadsheet Functions [AVERAGEIFS 4] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second, >3) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -58,18 +58,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -81,6 +76,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -108,18 +113,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -131,6 +131,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -165,7 +175,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [AVERAGEIFS 100] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >100) 1`] = `
+exports[`Spreadsheet Functions [AVERAGEIFS 100] =AVERAGEIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second, >100) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -223,18 +233,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -246,6 +251,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -273,18 +288,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -296,6 +306,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -400,7 +420,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.COUNTA() 1`] = `
+exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.first.COUNTA() 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -438,18 +458,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -495,7 +510,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64.COUNTA() 1`] = `
+exports[`Spreadsheet Functions [COUNTA] =#28e28190-63bd-4f70-aeca-26e72574c01a.third.COUNTA() 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -533,18 +548,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
-      "kind": "Column",
-      "name": "third",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "third",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "third",
   },
   Object {
@@ -590,7 +600,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [COUNTIFS =1] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, 3) 1`] = `
+exports[`Spreadsheet Functions [COUNTIFS =1] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, 3) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -648,18 +658,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -671,6 +676,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -695,7 +710,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [COUNTIFS >2] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, >2) 1`] = `
+exports[`Spreadsheet Functions [COUNTIFS >2] =COUNTIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, >2) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -753,18 +768,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -776,6 +786,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -810,7 +830,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [MAX] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.MAX() 1`] = `
+exports[`Spreadsheet Functions [MAX] =#28e28190-63bd-4f70-aeca-26e72574c01a.first.MAX() 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -848,18 +868,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -905,7 +920,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [SUM] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6.SUM() 1`] = `
+exports[`Spreadsheet Functions [SUM] =#28e28190-63bd-4f70-aeca-26e72574c01a.first.SUM() 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -943,18 +958,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -1000,7 +1010,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [SUMIFS >3] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, >3) 1`] = `
+exports[`Spreadsheet Functions [SUMIFS >3] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second, >3) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -1058,18 +1068,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -1081,6 +1086,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -1108,18 +1123,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -1131,6 +1141,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1165,7 +1185,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [SUMIFS 4] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, 4) 1`] = `
+exports[`Spreadsheet Functions [SUMIFS 4] =SUMIFS(#28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second, 4) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -1223,18 +1243,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -1246,6 +1261,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -1273,18 +1298,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -1296,6 +1316,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1320,7 +1350,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [SUMPRODUCT] =SUMPRODUCT(#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [SUMPRODUCT] =SUMPRODUCT(#28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -1378,18 +1408,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -1401,6 +1426,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -1428,18 +1463,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2044,7 +2074,7 @@ Array [
 
 exports[`Spreadsheet Functions [Spreadsheet] =Spreadsheet([1,2,3]).toArray() 2`] = `"Spreadsheet type unmatched: number"`;
 
-exports[`Spreadsheet Functions [VLOOKUP 2 range default] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP 2 range default] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2097,6 +2127,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2120,6 +2160,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2147,18 +2197,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2174,7 +2219,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP 2 range true] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP 2 range true] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second, true) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2227,6 +2272,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2250,6 +2305,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2277,18 +2342,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2300,6 +2360,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -2324,7 +2394,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP Column check] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP Column check] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.first) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2377,6 +2447,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2400,6 +2480,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2427,18 +2517,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -2454,7 +2539,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP Not found 2 range false] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP Not found 2 range false] =VLOOKUP("2", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second, false) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2507,6 +2592,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2530,6 +2625,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2557,18 +2662,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2580,6 +2680,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -2604,7 +2714,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP Not found] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP Not found] =VLOOKUP("", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2657,6 +2767,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2680,6 +2800,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2707,18 +2837,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2734,7 +2859,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2787,6 +2912,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2810,6 +2945,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2837,18 +2982,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2864,7 +3004,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, false) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second, false) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -2917,6 +3057,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -2940,6 +3090,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -2967,18 +3127,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -2990,6 +3145,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3014,7 +3179,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, true) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP ok number] =VLOOKUP(1, #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second, true) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3067,6 +3232,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3090,6 +3265,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -3117,18 +3302,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -3140,6 +3320,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3164,7 +3354,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [VLOOKUP ok string] =VLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [VLOOKUP ok string] =VLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3217,6 +3407,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3240,6 +3440,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -3267,18 +3477,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -3294,7 +3499,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28) 1`] = `
+exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("1", #28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second) 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3347,6 +3552,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3372,18 +3587,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -3397,6 +3607,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3422,18 +3642,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -3449,7 +3664,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("123", #28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6, #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28, "100") 1`] = `
+exports[`Spreadsheet Functions [XLOOKUP ok string] =XLOOKUP("123", #28e28190-63bd-4f70-aeca-26e72574c01a.first, #28e28190-63bd-4f70-aeca-26e72574c01a.second, "100") 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3502,6 +3717,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3527,18 +3752,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "first",
   },
   Object {
@@ -3552,6 +3772,16 @@ Array [
     "value": ",",
   },
   Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
     "attrs": Object {
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
@@ -3577,18 +3807,13 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
   Object {
@@ -3600,6 +3825,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": ",",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3624,7 +3859,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions [column] =#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6 1`] = `
+exports[`Spreadsheet Functions [column] =#28e28190-63bd-4f70-aeca-26e72574c01a."first" 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3662,24 +3897,19 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
-      "kind": "Column",
-      "name": "first",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "StringLiteral",
     "display": "first",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
-    "value": "first",
+    "type": "string",
+    "value": "\\"first\\"",
   },
 ]
 `;
 
-exports[`Spreadsheet Functions [exactin column true] ="foo" in #28e28190-63bd-4f70-aeca-26e72574c01a.2723b7d9-22ce-4d93-b2ef-7cce1b122d64 1`] = `
+exports[`Spreadsheet Functions [exactin column true] ="foo" in #28e28190-63bd-4f70-aeca-26e72574c01a.third 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3703,6 +3933,16 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -3710,6 +3950,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "in",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -3737,24 +3987,19 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
-      "kind": "Column",
-      "name": "third",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "third",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "third",
   },
 ]
 `;
 
-exports[`Spreadsheet Functions [in column false] =4 in #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28 1`] = `
+exports[`Spreadsheet Functions [in column false] =4 in #28e28190-63bd-4f70-aeca-26e72574c01a.second 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3778,6 +4023,16 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -3785,6 +4040,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "in",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -3812,24 +4077,19 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "FunctionName",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
+    "type": "string",
     "value": "second",
   },
 ]
 `;
 
-exports[`Spreadsheet Functions [in column true] =3 in #28e28190-63bd-4f70-aeca-26e72574c01a.4e6f9adb-6f33-454e-9f9e-635dc98e3f28 1`] = `
+exports[`Spreadsheet Functions [in column true] =3 in #28e28190-63bd-4f70-aeca-26e72574c01a."second" 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3853,6 +4113,16 @@ Array [
   },
   Object {
     "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
+    "attrs": undefined,
     "code": "In",
     "display": "in",
     "errors": Array [],
@@ -3860,6 +4130,16 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "in",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -3887,19 +4167,14 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": Object {
-      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
-      "kind": "Column",
-      "name": "second",
-      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
-    },
-    "code": "Column",
+    "attrs": undefined,
+    "code": "StringLiteral",
     "display": "second",
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "Column",
-    "value": "second",
+    "type": "string",
+    "value": "\\"second\\"",
   },
 ]
 `;
