@@ -44,7 +44,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "any",
+    "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
@@ -154,7 +154,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": [Function],
-    "type": "any",
+    "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
@@ -184,7 +184,7 @@ Array [
     ],
     "hide": false,
     "renderText": [Function],
-    "type": "any",
+    "type": "Spreadsheet",
     "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
   },
   Object {
@@ -218,9 +218,9 @@ Array [
       },
     ],
     "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a.62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "renderText": [Function],
+    "type": "Column",
+    "value": "first",
   },
   Object {
     "attrs": undefined,

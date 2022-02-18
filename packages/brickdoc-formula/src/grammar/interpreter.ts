@@ -515,6 +515,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
 
     let result: AnyTypeResult = this.visit(ctx.lhs, { ...args, type: 'any' })
 
+    // eslint-disable-next-line complexity
     ctx.rhs.every(cst => {
       if (cst.name === 'FunctionCall') {
         if (result.type === 'Error') {
@@ -547,6 +548,15 @@ export class FormulaInterpreter extends BaseCstVisitor {
           }
 
           result = this.visit(variable.t.cst!, args)
+          return true
+        }
+
+        if (result.type === 'Spreadsheet') {
+          const name = key
+          const column = result.result.getColumnByName(name)
+          result = column
+            ? { type: 'Column', result: new ColumnClass(result.result, column) }
+            : { type: 'Error', result: `Column ${key} not found`, errorKind: 'runtime' }
           return true
         }
 
@@ -599,7 +609,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
         }
 
         if (result.type === 'Spreadsheet') {
-          const column = result.result.getColumn(key)
+          const column = result.result.getColumnById(key)
           result = column
             ? { type: 'Column', result: new ColumnClass(result.result, column) }
             : { type: 'Error', result: `Column ${key} not found`, errorKind: 'runtime' }

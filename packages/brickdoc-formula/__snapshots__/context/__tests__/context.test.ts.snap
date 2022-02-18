@@ -29,7 +29,7 @@ Object {
       "errors": Array [],
       "hide": false,
       "renderText": [Function],
-      "type": "any",
+      "type": "Block",
       "value": "#d986e871-cb85-4bd5-b675-87307f60b882",
     },
     Object {
@@ -79,7 +79,7 @@ Object {
       "errors": Array [],
       "hide": false,
       "renderText": [Function],
-      "type": "any",
+      "type": "Block",
       "value": "#615d7f74-dc97-4aae-8690-b6cba1072a6a",
     },
     Object {

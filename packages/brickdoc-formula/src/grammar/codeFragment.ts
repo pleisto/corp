@@ -21,6 +21,7 @@ import { BlockClass } from '../controls/block'
 import {
   block2codeFragment,
   column2codeFragment,
+  columnRenderText,
   spreadsheet2codeFragment,
   variable2codeFragment,
   variableRenderText
@@ -478,6 +479,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
     let firstArgumentType: FormulaType = lhsType
 
+    // eslint-disable-next-line complexity
     ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
       const rhsCst = ctx.rhs?.[idx]
       const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
@@ -530,6 +532,12 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           if (variable) {
             firstArgumentType = variable.t.variableValue.result.type
 
+            if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
+              finalRhsCodeFragments = [
+                { ...finalRhsCodeFragments[0], display: variableName, renderText: variableRenderText(variable) }
+              ]
+            }
+
             this.variableDependencies = [
               ...new Map(
                 [...this.variableDependencies, { namespaceId, variableId: variable.t.variableId }].map(item => [
@@ -551,11 +559,23 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           } else {
             unknownVariableError.push({ type: 'deps', message: `Variable "${variableName}" not found` })
           }
+        }
 
-          if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code) && variable) {
-            finalRhsCodeFragments = [
-              { ...finalRhsCodeFragments[0], display: variableName, renderText: variableRenderText(variable) }
-            ]
+        if (firstArgumentType === 'Spreadsheet') {
+          const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
+          const columnName = parseString(rhsImage)
+          const column = this.ctx.formulaContext.findColumnByName(namespaceId, columnName)
+
+          if (column) {
+            firstArgumentType = 'Column'
+
+            if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
+              finalRhsCodeFragments = [
+                { ...finalRhsCodeFragments[0], display: columnName, renderText: columnRenderText(column) }
+              ]
+            }
+          } else {
+            unknownVariableError.push({ type: 'deps', message: `Column "${columnName}" not found` })
           }
         }
 
@@ -625,7 +645,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
         if (formulaName?.kind === 'Spreadsheet') {
           this.blockDependencies.push(namespaceId)
-          const column = this.ctx.formulaContext.findColumn(namespaceId, variableId)
+          const column = this.ctx.formulaContext.findColumnById(namespaceId, variableId)
           firstArgumentType = 'Column'
           if (column) {
             codeFragment = {
