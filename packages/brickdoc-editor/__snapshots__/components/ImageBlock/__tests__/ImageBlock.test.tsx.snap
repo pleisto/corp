@@ -21,28 +21,28 @@ exports[`ImageBlock matches correct snapshot 1`] = `
           style="pointer-events: none; width: 100%;"
         >
           <svg
-            aria-labelledby="dbzjrl-aria"
+            aria-labelledby="vcj2scm-aria"
             role="img"
             style="width: 700px; height: 700px;"
             viewBox="0 0 400 110"
           >
             <title
-              id="dbzjrl-aria"
+              id="vcj2scm-aria"
             >
               Loading...
             </title>
             <rect
-              clip-path="url(#dbzjrl-diff)"
+              clip-path="url(#vcj2scm-diff)"
               height="100%"
               role="presentation"
-              style="fill: url(#dbzjrl-animated-diff);"
+              style="fill: url(#vcj2scm-animated-diff);"
               width="100%"
               x="0"
               y="0"
             />
             <defs>
               <clippath
-                id="dbzjrl-diff"
+                id="vcj2scm-diff"
               >
                 <rect
                   height="10"
@@ -94,7 +94,7 @@ exports[`ImageBlock matches correct snapshot 1`] = `
                 />
               </clippath>
               <lineargradient
-                id="dbzjrl-animated-diff"
+                id="vcj2scm-animated-diff"
               >
                 <stop
                   offset="0%"
