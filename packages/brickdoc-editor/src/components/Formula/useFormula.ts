@@ -99,7 +99,7 @@ const fetchEditorContent = (
   newPosition: number
 ): EditorContentType => {
   if (!variable) {
-    return { content: undefined, input: '', position: newPosition }
+    return { content: undefined, input: formulaIsNormal ? '=' : '', position: newPosition }
   }
 
   if (variable.t.valid) {
@@ -117,7 +117,7 @@ const fetchEditorContent = (
   const realDefinition = maybeRemoveDefinitionEqual(definition, formulaIsNormal)
   const defaultContent = buildJSONContentByDefinition(realDefinition)
 
-  return { content: defaultContent, input: realDefinition, position: newPosition }
+  return { content: defaultContent, input: definition, position: newPosition }
 }
 
 const calculate = async ({
