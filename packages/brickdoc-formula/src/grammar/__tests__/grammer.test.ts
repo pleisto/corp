@@ -919,6 +919,11 @@ const testCases: TestCase[] = [
     input: '=123.ABS()',
     parseErrorType: 'syntax',
     errorMessage: 'Not all input parsed: ABS'
+  },
+  {
+    input: '=1 +　2　 　- 　 3',
+    label: 'WhiteSpace /\\s+/',
+    value: 0
   }
 ]
 
