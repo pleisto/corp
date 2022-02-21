@@ -47,6 +47,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 }) => {
   const { t } = useEditorI18n()
   const [visible, setVisible] = React.useState(defaultVisible)
+  const [inputName, setInputName] = React.useState(name)
 
   const close = (): void => {
     setVisible(false)
@@ -63,6 +64,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setInputName(e.target.value)
     BrickdocEventBus.dispatch(
       FormulaEditorUpdateNameTrigger({
         name: e.target.value,
@@ -89,7 +91,12 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
         <div className="formula-menu-item">
           <label className="formula-menu-label">
             <span className="formula-menu-label-text">{t(`${i18nKey}.name`)}</span>
-            <Input className="formula-menu-field" placeholder={defaultName} value={name} onChange={handleNameChange} />
+            <Input
+              className="formula-menu-field"
+              placeholder={defaultName}
+              value={inputName}
+              onChange={handleNameChange}
+            />
           </label>
         </div>
       </div>
