@@ -346,7 +346,7 @@ describe('useFormula', () => {
     expect(result.current.variableT).toBe(undefined)
     expect(result.current.editorContentRef.current).toEqual({
       content: undefined,
-      input: '',
+      input: '=',
       position: 0
     })
     expect(result.current.nameRef.current).toBe(undefined)
