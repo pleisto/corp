@@ -103,7 +103,7 @@ jobs:
           helm upgrade brickdoc-prod ${{ github.workspace }}/tools/helm-charts/brickdoc \
            --install --atomic --timeout 15m --cleanup-on-fail --wait --namespace=saas \
             --set-string image.name=${{ env.image }}:${{ steps.get_version.outputs.VERSION }} \
-            --set-string ingress.domain=${{ env.domain }} \
+            --set-string ingress.host=${{ env.domain }} \
             --set serviceAccount.create=false \
             --set-string serviceAccount.name=saas-main-app \
             --set-string envs.SMTP_FROM=saas-no-reply@push-service.brickdoc.com \
