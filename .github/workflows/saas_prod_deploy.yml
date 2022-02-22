@@ -95,6 +95,13 @@ jobs:
           service_account: 'cicd-bot@${{ env.GCP_PROJECT }}.iam.gserviceaccount.com'
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
+      - run: |-
+          gcloud --quiet auth configure-docker
+      - name: 'Get the GKE cluster Configuration'
+        uses: 'google-github-actions/get-gke-credentials@v0'
+        with:
+          cluster_name: 'kube-us-central'
+          location: 'us-central1'
       - name: 'Deploy to GKE'
         run: |-
           helm upgrade brickdoc-prod ${{ github.workspace }}/tools/helm-charts/brickdoc \
@@ -120,3 +127,5 @@ jobs:
             --set secrets.SECURITY_REVERSIBLE_INT_RANDOM=${{ secrets.SAAS_PROD_SECURITY_REVERSIBLE_INT_RANDOM }} \
             --set secrets.SECURITY_REVERSIBLE_INT_PRIME=${{ secrets.SAAS_PROD_SECURITY_REVERSIBLE_INT_PRIME }} \
             --set secrets.SMTP_URL=${{ secrets.SAAS_PROD_SMTP_URL }}
+            --set secrets.GOOGLE_OAUTH2_ID=${{ secrets.SAAS_PROD_GOOGLE_OAUTH2_ID }}
+            --set secrets.GOOGLE_OAUTH2_SECRET=${{ secrets.SAAS_PROD_GOOGLE_OAUTH2_SECRET }}
