@@ -51,7 +51,7 @@ export interface UseFormulaOutput {
   nameRef: React.MutableRefObject<string | undefined>
   defaultName: string
   formulaIsNormal: boolean
-  editorContentRef: React.MutableRefObject<EditorContentType>
+  editorContent: EditorContentType
   isDisableSave: () => boolean
   updateEditor: (content: JSONContent, position: number) => void
   doHandleSave: () => Promise<void>
@@ -183,6 +183,7 @@ const replaceRoot = ({
   rootId: string
   formulaId: string
 }): void => {
+  // console.log('replace root', formulaId, editorContent)
   BrickdocEventBus.dispatch(
     FormulaEditorReplaceRootTrigger({
       position: editorContent.position,
@@ -541,7 +542,7 @@ export const useFormula = ({
     variableT,
     savedVariableT,
     isDraft: isDraftRef.current,
-    editorContentRef,
+    editorContent: editorContentRef.current,
     nameRef,
     isDisableSave,
     updateEditor,
