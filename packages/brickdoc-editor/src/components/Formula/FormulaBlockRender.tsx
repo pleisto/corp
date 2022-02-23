@@ -74,14 +74,12 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     [editorContent, formulaId, onEditorBlur, rootId, updateEditor]
   )
 
-  if (!completion.completions.length && (!variableT || variableT.kind === 'literal')) {
-    return editor
-  }
+  const visible = !!(variableT && variableT.kind !== 'literal')
 
   return (
     <Popover
       defaultVisible={true}
-      visible={true}
+      visible={visible}
       className="brickdoc-formula-menu-popover"
       destroyTooltipOnHide={true}
       content={formulaResult}
