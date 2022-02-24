@@ -52,6 +52,12 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
     formulaName
   })
 
+  const hasMenu = handleDefaultPopoverVisibleChange && handleDelete
+
+  if (!hasMenu) {
+    return !savedVariableT || isDraft ? <></> : <FormulaDisplay t={savedVariableT} formulaType={formulaType} />
+  }
+
   const renderData =
     !savedVariableT || isDraft ? (
       <span className="brickdoc-formula-placeholder">
@@ -63,9 +69,6 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       </Tooltip>
     )
 
-  if (!handleDefaultPopoverVisibleChange || !handleDelete) {
-    return renderData
-  }
   return (
     <FormulaMenu
       rootId={rootId}
