@@ -96,6 +96,7 @@ const TocStyledContainer = styled('div', {
   border: `1px solid ${theme.colors.borderPrimary}`,
   borderRadius: '8px',
   display: 'inline-block',
+  minWidth: '23.375rem',
   padding: `${containerVerticalPadding}px 0`
 })
 
