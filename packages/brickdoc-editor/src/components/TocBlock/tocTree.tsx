@@ -5,8 +5,10 @@ import { Node as ProsemirrorNode } from 'prosemirror-model'
 import { TocItem } from './TocBlock'
 import { name as UserBlockName } from '../../extensions/user/name'
 import { name as PageLinkName } from '../../extensions/pageLink/name'
+import { name as FormulaName } from '../../extensions/formula/name'
 import { UserRender } from '../User'
 import { PageLinkRender } from '../PageLink'
+import { FormulaRender } from '../../extensions/formula/FormulaBlock'
 
 export interface TocNode {
   parent?: TocNode
@@ -26,6 +28,9 @@ const createContentFromNode = (node: ProsemirrorNode): React.ReactNode => {
         break
       case PageLinkName:
         content.push(<PageLinkRender attributes={node.attrs} />)
+        break
+      case FormulaName:
+        content.push(<FormulaRender attributes={node.attrs as any} />)
         break
       default:
         break

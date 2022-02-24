@@ -113,12 +113,12 @@ const renderLiteral = (result: AnyTypeResult, formulaType: FormulaSourceType): R
   return <span>{result.result}</span>
 }
 
-export interface FormulaRenderProps {
+export interface FormulaDisplayProps {
   t?: VariableResult
   formulaType: FormulaSourceType
 }
 
-export const FormulaRender: React.FC<FormulaRenderProps> = ({ t, formulaType, ...props }) => {
+export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, formulaType, ...props }) => {
   if (!t) {
     if (formulaType === 'normal') {
       return (
