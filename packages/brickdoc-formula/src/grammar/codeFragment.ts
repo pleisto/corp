@@ -1017,10 +1017,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  blockExpression(ctx: { Sharp: IToken[]; UUID: any[] }, { type }: ExpressionArgument): CodeFragmentResult {
+  blockExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
     const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
-    const namespaceToken = ctx.UUID[0]
-    const namespaceId = namespaceToken.image
+    const namespaceToken = ctx.UUID?.[0] ?? ctx.Self[0]
+    const namespaceId = namespaceToken.tokenType.name === 'Self' ? this.ctx.meta.namespaceId : namespaceToken.image
 
     this.kind = 'expression'
     this.blockDependencies.push(namespaceId)

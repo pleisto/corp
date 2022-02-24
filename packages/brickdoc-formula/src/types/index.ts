@@ -631,7 +631,7 @@ export interface VariableInterface {
   save: () => Promise<void>
   reinterpret: () => Promise<void>
   isDraft: () => boolean
-  namespaceName: () => string
+  namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
   result: () => VariableResult

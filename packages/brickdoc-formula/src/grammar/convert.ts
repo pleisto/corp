@@ -227,13 +227,13 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
 export const block2completion = (
   ctx: ContextInterface,
   { key, name }: BlockFormulaName,
-  weight: number
+  pageId: NamespaceId
 ): BlockCompletion => {
   const block = new BlockClass(ctx, { id: key })
   const value = blockKey(key)
   return {
     kind: 'block',
-    weight: weight + 0,
+    weight: key === pageId ? 1 : -1,
     replacements: [name],
     positionChange: value.length,
     name,
@@ -245,7 +245,7 @@ export const block2completion = (
   }
 }
 
-export const spreadsheet2completion = (spreadsheet: SpreadsheetType): SpreadsheetCompletion => {
+export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: NamespaceId): SpreadsheetCompletion => {
   const value = blockKey(spreadsheet.blockId)
   return {
     kind: 'spreadsheet',
@@ -277,19 +277,20 @@ export const column2completion = (column: ColumnType): ColumnCompletion => {
   }
 }
 
-export const variable2completion = (variable: VariableInterface, weight: number): VariableCompletion => {
+export const variable2completion = (variable: VariableInterface, pageId: NamespaceId): VariableCompletion => {
   const name = variable.t.name
   const value: VariableKey = `${blockKey(variable.t.namespaceId)}.${name}`
+  const namespaceName = variable.namespaceName(pageId)
   return {
     kind: 'variable',
     replacements: [`${blockKey(variable.t.namespaceId)}.`, blockKey(variable.t.namespaceId), variable.t.name, name],
-    weight,
+    weight: variable.t.namespaceId === pageId ? 1 : -1,
     name: variable.t.name,
-    namespace: variable.namespaceName(),
+    namespace: namespaceName,
     value,
     preview: variable,
     positionChange: value.length,
-    renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : variable.namespaceName()),
+    renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : namespaceName),
     codeFragments: [variable2codeFragment(variable)]
   }
 }

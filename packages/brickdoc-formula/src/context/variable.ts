@@ -20,7 +20,8 @@ import {
   BaseFormula,
   FormulaSourceType,
   VariableResult,
-  ErrorMessage
+  ErrorMessage,
+  NamespaceId
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -209,7 +210,10 @@ export class VariableClass implements VariableInterface {
     })
   }
 
-  namespaceName(): string {
+  namespaceName(pageId: NamespaceId): string {
+    if (this.t.namespaceId === pageId) {
+      return 'Current Page'
+    }
     const formulaName = this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')
     if (formulaName) {
       return formulaName.name

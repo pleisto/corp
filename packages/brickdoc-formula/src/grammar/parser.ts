@@ -239,7 +239,7 @@ export class FormulaParser extends CstParser {
 
   public blockExpression = this.RULE('blockExpression', () => {
     this.CONSUME(Sharp)
-    this.CONSUME(UUID)
+    this.OR([{ ALT: () => this.CONSUME(UUID) }, { ALT: () => this.CONSUME(Self) }])
   })
 
   public constantExpression = this.RULE('constantExpression', () => {

@@ -69,7 +69,7 @@ const simpleMetas: VariableMetadata[] = [
   position: 0,
   variableId: variableWithNames.find(v => v.name === name)!.variableId,
   input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
-    return `#${namespaceId}."${variableWithNames.find(v => v.name === variableName)!.name}"`
+    return `#Self."${variableWithNames.find(v => v.name === variableName)!.name}"`
   })
 }))
 
@@ -106,6 +106,7 @@ const simpleCommonTestCases = [
   // Block
   { input: ' Untitled', positions: [1, 4, 9], newInput: ` #${namespaceId}`, resultData: 'BlockClass' },
   { input: `#${namespaceId}`, positions: [0], resultData: 'BlockClass' },
+  { input: `#Self`, newInput: `#${namespaceId}`, positions: [0], resultData: 'BlockClass' },
 
   // Block dot
   { input: 'Untitled.', positions: [1, 4, 8, 9], newInput: `#${namespaceId}.`, resultData: 'Missing expression' },
