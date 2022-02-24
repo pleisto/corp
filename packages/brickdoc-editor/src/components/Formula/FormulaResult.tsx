@@ -5,9 +5,10 @@ import { FormulaValue } from './FormulaValue'
 
 export interface FormulaResultProps {
   variableT: VariableData | undefined
+  pageId: string
 }
 
-export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT }) => {
+export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT, pageId }) => {
   if (!variableT) {
     return <></>
   }
@@ -27,7 +28,7 @@ export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT }) => {
             <span className="formula-menu-result-error-message">{error.message}</span>
           </span>
         )}
-        {!error && <FormulaValue t={variableT} />}
+        {!error && <FormulaValue t={variableT} pageId={pageId} />}
       </div>
       <div className="formula-menu-divider" />
     </>

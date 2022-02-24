@@ -104,50 +104,51 @@ const simpleCommonTestCases = [
   { input: '    a123 ', positions: [1, 3, 5], resultData: 'Unknown function a123' },
 
   // Block
-  { input: ' Untitled', positions: [1, 4, 9], newInput: ` #${namespaceId}`, resultData: 'BlockClass' },
-  { input: `#${namespaceId}`, positions: [0], resultData: 'BlockClass' },
-  { input: `#Self`, newInput: `#${namespaceId}`, positions: [0], resultData: 'BlockClass' },
+  { input: ' Untitled', positions: [1, 4, 9], newInput: ` #Self`, resultData: 'BlockClass' },
+  { input: `#${namespaceId}`, newInput: '#Self', positions: [0], resultData: 'BlockClass' },
+  { input: `#Self`, positions: [0], resultData: 'BlockClass' },
 
   // Block dot
-  { input: 'Untitled.', positions: [1, 4, 8, 9], newInput: `#${namespaceId}.`, resultData: 'Missing expression' },
-  { input: `#${namespaceId}.`, positions: [0], resultData: 'Missing expression' },
-  { input: `  #${namespaceId}  .`, positions: [0, 1], resultData: 'Missing expression' },
+  { input: 'Untitled.', positions: [1, 4, 8, 9], newInput: `#Self.`, resultData: 'Missing expression' },
+  { input: `#Self.`, positions: [0], resultData: 'Missing expression' },
+  { input: `  #${namespaceId}  .`, newInput: `  #Self  .`, positions: [0, 1], resultData: 'Missing expression' },
 
   // Variable simple
-  { input: 'num1', positions: [1, 2, 4], newInput: `#${namespaceId}.num1`, resultData: 2 },
-  { input: '"num1"', newInput: `#${namespaceId}.num1`, resultData: 2 },
-  { input: `#${namespaceId}.num1`, resultData: 2 },
-  { input: `#${namespaceId}."num1"`, newInput: `#${namespaceId}.num1`, resultData: 2 },
+  { input: 'num1', positions: [1, 2, 4], newInput: `#Self.num1`, resultData: 2 },
+  { input: '"num1"', newInput: `#Self.num1`, resultData: 2 },
+  { input: `#Self.num1`, resultData: 2 },
+  { input: `#${namespaceId}."num1"`, newInput: `#Self.num1`, resultData: 2 },
 
   // Variable complex
-  { input: '"foo bar"', positions: [3, 9], newInput: `#${namespaceId}."foo bar"`, resultData: 123123 },
-  { input: `#${namespaceId}."foo bar"`, resultData: 123123 },
+  { input: '"foo bar"', positions: [3, 9], newInput: `#Self."foo bar"`, resultData: 123123 },
+  { input: `#Self."foo bar"`, resultData: 123123 },
 
   // Variable with space
   {
     input: '  num1  +  1  ',
     positions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-    newInput: `  #${namespaceId}.num1  +  1  `,
+    newInput: `  #Self.num1  +  1  `,
     resultData: 3
   },
-  { input: ' "num1" + 1 ', newInput: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
-  { input: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
-  { input: ` #${namespaceId}."num1" + 1 `, newInput: ` #${namespaceId}.num1 + 1 `, resultData: 3 },
+  { input: ' "num1" + 1 ', newInput: ` #Self.num1 + 1 `, resultData: 3 },
+  { input: ` #${namespaceId}.num1 + 1 `, newInput: ` #Self.num1 + 1 `, resultData: 3 },
+  { input: ` #Self.num1 + 1 `, resultData: 3 },
+  { input: ` #${namespaceId}."num1" + 1 `, newInput: ` #Self.num1 + 1 `, resultData: 3 },
 
   // Variable complex input
-  { input: `+#${namespaceId}."foo bar"`, resultData: 'Parse error: "+"' },
-  { input: `#${namespaceId}."foo bar"+`, resultData: 'Missing right expression' },
-  { input: `#${namespaceId}."foo ba1r"`, resultData: 'Variable "foo ba1r" not found' },
+  { input: `+#Self."foo bar"`, resultData: 'Parse error: "+"' },
+  { input: `#Self."foo bar"+`, resultData: 'Missing right expression' },
+  { input: `#Self."foo ba1r"`, resultData: 'Variable "foo ba1r" not found' },
 
   // Variable with error
   {
     input: ' " " & num1 ',
     positions: [5, 6, 7, 8, 9, 10, 11, 12],
-    newInput: ` " " & #${namespaceId}.num1 `,
+    newInput: ` " " & #Self.num1 `,
     resultData: 'Expected string but got number'
   },
-  { input: ' num1 & " "', newInput: ` #${namespaceId}.num1 & " "`, resultData: 'Expected string but got number' },
-  { input: 'a+num1', positions: [1], newInput: `a+#${namespaceId}.num1`, resultData: 'Unknown function a' }
+  { input: ' num1 & " "', newInput: ` #Self.num1 & " "`, resultData: 'Expected string but got number' },
+  { input: 'a+num1', positions: [1], newInput: `a+#Self.num1`, resultData: 'Unknown function a' }
 ]
 
 const simpleNormalTestCases = [

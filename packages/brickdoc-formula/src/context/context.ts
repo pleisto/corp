@@ -226,7 +226,9 @@ export class FormulaContext implements ContextInterface {
       })
 
     const columns: ColumnCompletion[] = Object.entries(this.spreadsheets).flatMap(([key, spreadsheet]) => {
-      return spreadsheet.listColumns().map(column => column2completion(new ColumnClass(spreadsheet, column)))
+      return spreadsheet
+        .listColumns()
+        .map(column => column2completion(new ColumnClass(spreadsheet, column), namespaceId))
     })
 
     const dynamicColumns: ColumnCompletion[] = completionVariables
@@ -237,7 +239,7 @@ export class FormulaContext implements ContextInterface {
         const result = v.t.variableValue.result as SpreadsheetResult
         return result.result
           .listColumns()
-          .map((column: ColumnInitializer) => column2completion(new ColumnClass(result.result, column)))
+          .map((column: ColumnInitializer) => column2completion(new ColumnClass(result.result, column), namespaceId))
       })
     return [...functions, ...variables, ...blocks, ...spreadsheets, ...columns, ...dynamicColumns].sort(
       (a, b) => b.weight - a.weight

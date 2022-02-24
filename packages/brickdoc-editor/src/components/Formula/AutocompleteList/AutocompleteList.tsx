@@ -35,7 +35,7 @@ const COMPLETION_STYLE_META: {
 
       return (
         <div className="autocomplete-preview-block">
-          <div className="autocomplete-preview-block-name">{block.name()}</div>
+          <div className="autocomplete-preview-block-name">{block.name(blockId)}</div>
         </div>
       )
     }
@@ -157,7 +157,7 @@ const COMPLETION_STYLE_META: {
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Value</div>
             <span className="autocomplete-preview-output-tag">
-              <FormulaValue t={preview.t} />
+              <FormulaValue t={preview.t} pageId={blockId} />
             </span>
           </div>
         </div>

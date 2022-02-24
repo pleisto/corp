@@ -164,13 +164,17 @@ const abbrev = ({
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
       const prev2Token = newTokens[newIndex - 2]
 
-      if (prev2Token && prev2Token.tokenType.name !== 'UUID') {
+      if (prev2Token && !['UUID', 'Self'].includes(prev2Token.tokenType.name)) {
         newInput = newInput.concat(token.image)
         return
       }
 
       variableNamespace = prev2Token.image.startsWith('#') ? (prev2Token.image as BlockKey) : blockKey(prev2Token.image)
       namespaceIsExist = true
+    }
+
+    if (variableNamespace === '#Self') {
+      variableNamespace = blockKey(namespaceId)
     }
 
     const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image

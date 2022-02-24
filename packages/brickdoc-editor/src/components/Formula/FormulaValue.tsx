@@ -6,14 +6,15 @@ import { css, cx } from '@brickdoc/design-system'
 
 export interface FormulaValueProps {
   t: VariableResult
+  pageId: string
   border?: boolean
 }
 
-export const FormulaValue: React.FC<FormulaValueProps> = ({ border, t: { variableValue, type } }) => {
+export const FormulaValue: React.FC<FormulaValueProps> = ({ border, pageId, t: { variableValue, type } }) => {
   const { color, rgb, backgroundColor, hoverBackgroundColor, pressedBackgroundColor } =
     FORMULA_COLORS[resultToColorType(variableValue.result)]
   const hasBorder = type === 'normal' && border
-  const text = displayValue(variableValue.result)
+  const text = displayValue(variableValue.result, pageId)
 
   if (!hasBorder) {
     return (

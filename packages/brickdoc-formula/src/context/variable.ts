@@ -28,7 +28,7 @@ import { dumpValue, loadValue } from './persist'
 import { block2name, variable2name, variableKey } from '../grammar/convert'
 import { BlockClass } from '../controls/block'
 
-export const displayValue = (v: AnyTypeResult): string => {
+export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
   switch (v.type) {
     case 'number':
     case 'boolean':
@@ -42,17 +42,17 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'Spreadsheet':
       return `#<Spreadsheet> ${v.result.name()}`
     case 'Block':
-      return `#<Block> ${v.result.name()}`
+      return `#<Block> ${v.result.name(pageId)}`
     case 'Column':
       return `#<Column> ${v.result.spreadsheet.name()}.${v.result.name}`
     case 'Predicate':
-      return `[${v.operator}] ${displayValue(v.result)}`
+      return `[${v.operator}] ${displayValue(v.result, pageId)}`
     case 'Record':
       return `{ ${Object.entries(v.result)
-        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeResult)}`)
+        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeResult, pageId)}`)
         .join(', ')} }`
     case 'Array':
-      return `[${v.result.map((v: AnyTypeResult) => displayValue(v)).join(', ')}]`
+      return `[${v.result.map((v: AnyTypeResult) => displayValue(v, pageId)).join(', ')}]`
     case 'Button':
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':
@@ -62,7 +62,9 @@ export const displayValue = (v: AnyTypeResult): string => {
     case 'Reference':
       return `#<Reference> ${JSON.stringify(v.result)}`
     case 'Function':
-      return `#<Function> ${v.result.map(({ name, args }) => `${name} ${args.map(a => displayValue(a)).join(', ')}`)}`
+      return `#<Function> ${v.result.map(
+        ({ name, args }) => `${name} ${args.map(a => displayValue(a, pageId)).join(', ')}`
+      )}`
     case 'Cst':
       return '#<Cst>'
     case 'Blank':
@@ -211,9 +213,9 @@ export class VariableClass implements VariableInterface {
   }
 
   namespaceName(pageId: NamespaceId): string {
-    if (this.t.namespaceId === pageId) {
-      return 'Current Page'
-    }
+    // if (this.t.namespaceId === pageId) {
+    //   return 'Current Page'
+    // }
     const formulaName = this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')
     if (formulaName) {
       return formulaName.name

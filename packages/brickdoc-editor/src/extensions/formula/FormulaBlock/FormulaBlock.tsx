@@ -55,7 +55,11 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
   const hasMenu = handleDefaultPopoverVisibleChange && handleDelete
 
   if (!hasMenu) {
-    return !savedVariableT || isDraft ? <></> : <FormulaDisplay t={savedVariableT} formulaType={formulaType} />
+    return !savedVariableT || isDraft ? (
+      <></>
+    ) : (
+      <FormulaDisplay pageId={rootId} t={savedVariableT} formulaType={formulaType} />
+    )
   }
 
   const renderData =
@@ -65,7 +69,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       </span>
     ) : (
       <Tooltip title={savedVariableT.name}>
-        <FormulaDisplay t={savedVariableT} formulaType={formulaType} />
+        <FormulaDisplay pageId={rootId} t={savedVariableT} formulaType={formulaType} />
       </Tooltip>
     )
 

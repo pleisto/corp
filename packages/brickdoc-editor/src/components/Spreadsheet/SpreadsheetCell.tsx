@@ -26,6 +26,8 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
 
+  // TODO fix rootId
+
   const [currentBlock, setCurrentBlock] = React.useState(block)
 
   const cellId = `${currentBlock.parentId},${currentBlock.data.columnId}`
@@ -43,7 +45,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
 
   const refreshCell = React.useCallback((): void => {
     if (variableRef.current) {
-      const value = displayValue(variableRef.current.t.variableValue.result)
+      const value = displayValue(variableRef.current.t.variableValue.result, rootId)
       devLog('Spreadsheet cell formula updated', { cellId, value })
       const newBlock = {
         ...block,
@@ -149,7 +151,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
 
   return (
     <div className="cell" onDoubleClick={handleEnterEdit}>
-      <FormulaDisplay t={currentBlock.data.t} formulaType="spreadsheet" />
+      <FormulaDisplay pageId={rootId} t={currentBlock.data.t} formulaType="spreadsheet" />
     </div>
   )
 }

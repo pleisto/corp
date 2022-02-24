@@ -32,6 +32,1866 @@ Object {
 }
 `;
 
+exports[`useFormula normal: "  #eb373fbc-a6e9-40a6-8c4b-45cda7230dda  ."(1) -> "Missing expression" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
+                    "name": "Untitled",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Untitled",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#Self",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Untitled",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Dot",
+                  "display": ".",
+                  "errors": Array [
+                    Object {
+                      "message": "Missing expression",
+                      "type": "syntax",
+                    },
+                    Object {
+                      "message": "Parse error: \\"\\"",
+                      "type": "parse",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": ".",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": ".",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.",
+  "position": -1,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(1) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 3,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(2) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 4,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(3) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 2,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(4) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 3,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(5) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 4,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(6) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(7) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(8) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(9) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(10) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(11) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(12) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(13) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula normal: "  num1  +  1  "(14) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(5) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(6) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(7) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(8) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(9) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(10) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(11) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " " " & num1 "(12) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " Untitled"(1) -> "BlockClass" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
+                    "name": "Untitled",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Untitled",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#Self",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Untitled",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self",
+  "position": 8,
+}
+`;
+
+exports[`useFormula normal: " Untitled"(4) -> "BlockClass" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
+                    "name": "Untitled",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Untitled",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#Self",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Untitled",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self",
+  "position": 3,
+}
+`;
+
+exports[`useFormula normal: " Untitled"(9) -> "BlockClass" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
+                    "name": "Untitled",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Untitled",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#Self",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Untitled",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self",
+  "position": 8,
+}
+`;
+
 exports[`useFormula normal: ""foo bar""(3) -> "123123" 1`] = `
 Object {
   "content": Object {
@@ -63,7 +1923,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#eb373fbc-a6e9-40a6-8c4b-45cda7230dda.\\"foo bar\\"",
+  "input": "=#Self.\\"foo bar\\"",
   "position": 1,
 }
 `;
@@ -99,7 +1959,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#eb373fbc-a6e9-40a6-8c4b-45cda7230dda.\\"foo bar\\"",
+  "input": "=#Self.\\"foo bar\\"",
   "position": 7,
 }
 `;
@@ -152,6 +2012,1215 @@ Object {
     },
   ],
   "type": "doc",
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(2) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 4,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(3) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(4) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 3,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(5) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 4,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(6) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 5,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(7) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(8) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(9) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(10) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(11) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(12) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(13) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula spreadsheet: "=  num1  +  1  "(14) -> "3" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Plus",
+                  "display": "+",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "+",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "+",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "NumberLiteral",
+                  "display": "1",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "number",
+                  "value": "1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self.num1+1",
+  "position": 6,
 }
 `;
 
@@ -324,8 +3393,694 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "= \\" \\" & #eb373fbc-a6e9-40a6-8c4b-45cda7230dda.num1 ",
+  "input": "= \\" \\" & #Self.num1 ",
   "position": 8,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(6) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 9,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(7) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 9,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(8) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 9,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(9) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 6,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(10) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 7,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(11) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 8,
+}
+`;
+
+exports[`useFormula spreadsheet: "= " " & num1 "(12) -> "Expected string but got number" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "StringLiteral",
+                  "display": "\\" \\"",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "string",
+                  "value": "\\" \\"",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "\\" \\"",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Ampersand",
+                  "display": "&",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "&",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "&",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "FunctionName",
+                  "display": "num1",
+                  "errors": Array [
+                    Object {
+                      "message": "Expected string but got number",
+                      "type": "type",
+                    },
+                  ],
+                  "hide": false,
+                  "renderText": [Function],
+                  "type": "string",
+                  "value": "num1",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "num1",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=\\" \\"&#Self.num1",
+  "position": 9,
 }
 `;
 
@@ -380,6 +4135,66 @@ Object {
                   "attrs": Object {
                     "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
                     "kind": "Block",
+                    "name": "Current Page",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Current Page",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Current Page",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "= #Self",
+  "position": 2,
+}
+`;
+
+exports[`useFormula spreadsheet: "= Untitled"(4) -> "BlockClass" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
                     "name": "Untitled",
                     "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
                   },
@@ -389,7 +4204,7 @@ Object {
                   "hide": true,
                   "renderText": [Function],
                   "type": "Block",
-                  "value": "#eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  "value": "#Self",
                 },
                 "type": "FormulaType",
               },
@@ -403,8 +4218,68 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "= #eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
-  "position": 2,
+  "input": "=#Self",
+  "position": 3,
+}
+`;
+
+exports[`useFormula spreadsheet: "= Untitled"(9) -> "BlockClass" 1`] = `
+Object {
+  "content": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": undefined,
+                  "code": "Equal",
+                  "display": "=",
+                  "errors": Array [],
+                  "hide": false,
+                  "renderText": undefined,
+                  "type": "any",
+                  "value": "=",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "=",
+            "type": "text",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "attrs": Object {
+                    "id": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                    "kind": "Block",
+                    "name": "Untitled",
+                    "namespaceId": "eb373fbc-a6e9-40a6-8c4b-45cda7230dda",
+                  },
+                  "code": "Block",
+                  "display": "Untitled",
+                  "errors": Array [],
+                  "hide": true,
+                  "renderText": [Function],
+                  "type": "Block",
+                  "value": "#Self",
+                },
+                "type": "FormulaType",
+              },
+            ],
+            "text": "Untitled",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+  },
+  "input": "=#Self",
+  "position": 8,
 }
 `;
 
@@ -458,7 +4333,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#eb373fbc-a6e9-40a6-8c4b-45cda7230dda.\\"foo bar\\"",
+  "input": "=#Self.\\"foo bar\\"",
   "position": 1,
 }
 `;
@@ -513,7 +4388,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#eb373fbc-a6e9-40a6-8c4b-45cda7230dda.\\"foo bar\\"",
+  "input": "=#Self.\\"foo bar\\"",
   "position": 7,
 }
 `;

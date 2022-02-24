@@ -115,10 +115,11 @@ const renderLiteral = (result: AnyTypeResult, formulaType: FormulaSourceType): R
 
 export interface FormulaDisplayProps {
   t?: VariableResult
+  pageId: string
   formulaType: FormulaSourceType
 }
 
-export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, formulaType, ...props }) => {
+export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, pageId, formulaType, ...props }) => {
   if (!t) {
     if (formulaType === 'normal') {
       return (
@@ -154,7 +155,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, formulaType, 
         data = renderQrcode(result as StringResult, type)
         break
       default:
-        data = <FormulaValue t={t} border={true} />
+        data = <FormulaValue t={t} pageId={pageId} border={true} />
         break
     }
   }
