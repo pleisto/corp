@@ -159,9 +159,5 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, formulaType, 
     }
   }
 
-  return (
-    <div style={{ display: 'inline' }} {...props}>
-      {data}
-    </div>
-  )
+  return <span {...props}>{data}</span>
 }
