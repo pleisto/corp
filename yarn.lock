@@ -1897,7 +1897,6 @@ __metadata:
     "@mdx-js/react": 1.6.22
     "@mui/base": ^5.0.0-alpha.69
     "@pxblue/storybook-rtl-addon": ^1.1.0
-    "@react-types/shared": ^3.11.1
     "@stitches/core": ^1.2.6
     "@stitches/react": ^1.2.6
     "@storybook/addon-a11y": ^6.5.0-alpha.42
@@ -4466,15 +4465,6 @@ __metadata:
   version: 3.0.0
   resolution: "@react-dnd/shallowequal@npm:3.0.0"
   checksum: 18bcfc74102d33c69fba88308ae2b82bd707d809b0528a34e590fa308b95df24411896392f1976ef203bbafd946eed91ed1073116728a73d9c9cdb231b16703c
-  languageName: node
-  linkType: hard
-
-"@react-types/shared@npm:^3.11.1":
-  version: 3.11.1
-  resolution: "@react-types/shared@npm:3.11.1"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0-rc.1
-  checksum: 5d96e63a985227cc98a9172686690f7f58cfc7e8026765e4efd364dd7e059986d1e239453bb19f018b2d369717c28825b386471d1f21fc10ce5c50a3f05d1fba
   languageName: node
   linkType: hard
 

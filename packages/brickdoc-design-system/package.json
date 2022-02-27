@@ -24,7 +24,6 @@
     "@brickdoc/design-icons": "workspace:packages/brickdoc-design-icons",
     "@hookform/resolvers": "^2.8.8",
     "@mui/base": "^5.0.0-alpha.69",
-    "@react-types/shared": "^3.11.1",
     "@stitches/core": "^1.2.6",
     "@stitches/react": "^1.2.6",
     "ahooks": "^3.1.9",
