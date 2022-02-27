@@ -71,7 +71,7 @@ jobs:
           node-version: 16
           cache: yarn
       - name: Run yarn install
-        run: yarn install --immutable
+        run: yarn install --immutable && yarn postinstall
         if: steps.changed-es-files.outputs.any_changed == 'true'
         env:
           CYPRESS_INSTALL_BINARY: '0'
@@ -115,7 +115,7 @@ jobs:
           # just perform install
           runTests: false
       - name: Run yarn install without cypress
-        run: yarn install --immutable
+        run: yarn install --immutable  && yarn postinstall
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Install Dependencies
@@ -234,9 +234,9 @@ jobs:
             app\/graphql
             lib\/brick_graphql
             graphql.ts$
-      - name: Dump the graphql schema
+      - name: Dump the graphql schema & GRPC schema
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
-        run: yarn install --immutable && yarn graphql
+        run: yarn install --immutable  && yarn postinstall && yarn graphql && yarn grpc
       - name: Dump the database schema
         if: steps.changed-db-migrations.outputs.any_changed == 'true'
         run: bundle exec rails db:prepare db:schema:dump
