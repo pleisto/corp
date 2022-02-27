@@ -10,7 +10,7 @@
     "tools/*"
   ],
   "scripts": {
-    "postinstall": "husky install && ./bin/pdftron static",
+    "postinstall": "husky install && ./bin/pdftron static && yarn api prisma generate",
     "start": "./bin/vite dev",
     "dist": "./bin/vite build",
     "dist:prod": "RAILS_ENV=production yarn dist",
