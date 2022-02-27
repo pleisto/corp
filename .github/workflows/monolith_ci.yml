@@ -43,7 +43,7 @@ env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   # GitHub-hosted runner have 7 gb RAM.
   # 5250mb === 7gb * 0.75
-  NODE_OPTIONS: '--max-old-space-size=5250'
+  NODE_OPTIONS: '--max-old-space-size=5950'
 
 jobs:
   jest:
