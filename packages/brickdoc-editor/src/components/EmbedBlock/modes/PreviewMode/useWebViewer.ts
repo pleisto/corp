@@ -2,6 +2,7 @@ import React from 'react'
 import PDFWebViewer from '@pdftron/pdfjs-express-viewer'
 import WebViewer, { WebViewerInstance } from '@pdftron/webviewer'
 import { FileType } from '../../../../helpers'
+import { EditorDataSourceContext } from '../../../..'
 
 export function useWebViewer(
   fileType: FileType,
@@ -9,12 +10,13 @@ export function useWebViewer(
   dom: React.RefObject<HTMLDivElement>,
   onInstance: (instance: WebViewerInstance) => void
 ) {
-  const WebViewerCreator = fileType === 'pdf' ? PDFWebViewer : WebViewer
+  const { settings } = React.useContext(EditorDataSourceContext)
+  const WebViewerCreator: typeof WebViewer = fileType === 'pdf' ? PDFWebViewer : WebViewer
   const path = fileType === 'pdf' ? '/pdfjs' : '/pdftron'
   React.useEffect(() => {
     void WebViewerCreator(
       {
-        licenseKey: 'b6kvL5YZiMM4wdhtAN7i',
+        licenseKey: settings.pdfjs_express_license,
         path,
         css: '/pdftron.css',
         disabledElements: ['toolsHeader', 'header', 'textPopup', 'contextMenuPopup'],
