@@ -131,7 +131,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: public
-          key: ${{ github.ref }}-public-doll
+          key: ${{ github.ref }}-${{ secrets.CACHE_VERSION }}-public-doll
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
