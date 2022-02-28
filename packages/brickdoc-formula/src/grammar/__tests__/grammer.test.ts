@@ -277,7 +277,7 @@ const testCases: TestCase[] = [
     errorMessage: 'Miss expression'
   },
   {
-    input: `=#Self`,
+    input: `=#CurrentBlock`,
     parseErrorType: 'syntax',
     errorMessage: `Block not found: ${namespaceId}`
   },

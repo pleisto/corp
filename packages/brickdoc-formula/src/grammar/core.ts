@@ -164,7 +164,7 @@ const abbrev = ({
     if (prevToken && ['Dot'].includes(prevToken.tokenType.name)) {
       const prev2Token = newTokens[newIndex - 2]
 
-      if (prev2Token && !['UUID', 'Self'].includes(prev2Token.tokenType.name)) {
+      if (prev2Token && !['UUID', 'CurrentBlock'].includes(prev2Token.tokenType.name)) {
         newInput = newInput.concat(token.image)
         return
       }

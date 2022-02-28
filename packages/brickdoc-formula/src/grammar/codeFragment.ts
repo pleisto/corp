@@ -1023,7 +1023,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
 
   blockExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
     const SharpFragment = token2fragment(ctx.Sharp[0], 'any')
-    const namespaceToken = ctx.UUID?.[0] ?? ctx.Self?.[0]
+    const namespaceToken = ctx.UUID?.[0] ?? ctx.CurrentBlock?.[0]
 
     if (!namespaceToken) {
       return {
@@ -1033,7 +1033,8 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     }
 
-    const namespaceId = namespaceToken.tokenType.name === 'Self' ? this.ctx.meta.namespaceId : namespaceToken.image
+    const namespaceId =
+      namespaceToken.tokenType.name === 'CurrentBlock' ? this.ctx.meta.namespaceId : namespaceToken.image
 
     this.kind = 'expression'
     this.blockDependencies.push(namespaceId)

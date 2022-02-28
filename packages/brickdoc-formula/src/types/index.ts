@@ -83,7 +83,7 @@ export type ParseErrorType = 'parse' | 'syntax'
 
 export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionNameType
 export type VariableKey = `#${NamespaceId}.${VariableId}`
-export type BlockKey = '#Self' | `#${NamespaceId}`
+export type BlockKey = '#CurrentBlock' | `#${NamespaceId}`
 export type ColumnKey = `#${NamespaceId}.${ColumnId}`
 
 // TODO blockName -> string

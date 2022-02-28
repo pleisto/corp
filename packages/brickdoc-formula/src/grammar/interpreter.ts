@@ -815,7 +815,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     let namespaceId
     if (ctx.UUID) {
       namespaceId = ctx.UUID[0].image
-    } else if (ctx.Self) {
+    } else if (ctx.CurrentBlock) {
       namespaceId = this.ctx.meta.namespaceId
     } else {
       throw new Error('unsupported expression')

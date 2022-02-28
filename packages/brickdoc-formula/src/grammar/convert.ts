@@ -29,8 +29,8 @@ export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): V
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
-export const blockSelfKey = (namespaceId: NamespaceId, pageId: NamespaceId): BlockKey =>
-  namespaceId === pageId ? '#Self' : blockKey(namespaceId)
+export const currentBlockKey = (namespaceId: NamespaceId, pageId: NamespaceId): BlockKey =>
+  namespaceId === pageId ? '#CurrentBlock' : blockKey(namespaceId)
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
 
@@ -53,7 +53,7 @@ export const variableRenderText = (variable: VariableInterface, pageId: Namespac
       }
     }
 
-    const namespaceId = pageId === variable.t.namespaceId ? 'Self' : variable.t.namespaceId
+    const namespaceId = pageId === variable.t.namespaceId ? 'CurrentBlock' : variable.t.namespaceId
 
     const resultAfterNamespace = prevText === '.' ? result : `#${namespaceId}.${result}`
     return prefix.concat(resultAfterNamespace)
@@ -85,7 +85,7 @@ export const columnRenderText = (column: ColumnType): CodeFragment['renderText']
 
 const blockRenderText = (blockId: NamespaceId, pageId: NamespaceId): CodeFragment['renderText'] => {
   return (text, { display, value }, prevText) => {
-    const blockValue = blockId === pageId ? '#Self' : value
+    const blockValue = blockId === pageId ? '#CurrentBlock' : value
     if (text === display) {
       return blockValue
     }
@@ -139,7 +139,7 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
     errors: [],
     renderText: blockRenderText(block.id, pageId),
     hide: false,
-    value: blockSelfKey(block.id, pageId),
+    value: currentBlockKey(block.id, pageId),
     code: 'Block',
     type: 'Block',
     attrs: block2attrs(block, pageId)
@@ -236,7 +236,7 @@ export const block2completion = (
   pageId: NamespaceId
 ): BlockCompletion => {
   const block = new BlockClass(ctx, { id: key })
-  const value = blockSelfKey(key, pageId)
+  const value = currentBlockKey(key, pageId)
   return {
     kind: 'block',
     weight: key === pageId ? 1 : -1,
@@ -285,7 +285,7 @@ export const column2completion = (column: ColumnType, pageId: NamespaceId): Colu
 
 export const variable2completion = (variable: VariableInterface, pageId: NamespaceId): VariableCompletion => {
   const name = variable.t.name
-  const blockKeyStr = blockSelfKey(variable.t.namespaceId, pageId)
+  const blockKeyStr = currentBlockKey(variable.t.namespaceId, pageId)
   const value: VariableKey = `${blockKeyStr}.${name}`
   const namespaceName = variable.namespaceName(pageId)
   return {
