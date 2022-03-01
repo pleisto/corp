@@ -20,6 +20,7 @@ import { useFormulaBackendActions } from './hooks/useFormulaBackendActions'
 import { styled } from '@brickdoc/design-system'
 import { base } from './DocumentContentPage.style'
 import Logo from '@/common/assets/logo_brickdoc.svg'
+import { Feedback } from './components/Feedback'
 
 type Collaborator = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['collaborators'][0]
 type Path = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['pathArray'][0]
@@ -182,6 +183,7 @@ export const DocumentContentPage: React.FC = () => {
           <nav>
             <PageTree docMeta={docMeta} />
             <NewPage docMeta={docMeta} />
+            <Feedback docMeta={docMeta} />
             <TrashButton docMeta={docMeta} />
           </nav>
         </div>

@@ -25,6 +25,9 @@ export const TEST_ID_ENUM = {
       },
       addPageButton: {
         id: 'page-document-page-add-page-button'
+      },
+      feedbackButton: {
+        id: 'page-document-page-feedback-button'
       }
     }
   },
