@@ -326,6 +326,13 @@ class Docs::Block < ApplicationRecord
       new_formulas = []
       formula_id_conversions = []
       insert_data = {}
+      preload_attachments = ActiveStorage::Attachment.where(record_type: 'Docs::Block', name: 'attachments', record_id: id).to_a
+      new_attachments = preload_attachments.map do |a|
+        dupa = a.dup
+        dupa.record_id = new_root_id
+        dupa.attributes.slice(*ActiveStorage::Attachment.column_names).merge('created_at' => now).slice!('id')
+      end
+
       preload_descendants.map do |block|
         new_block = block.dup
         if block.id == id
@@ -368,6 +375,7 @@ class Docs::Block < ApplicationRecord
       end
 
       Docs::Formula.insert_all(new_formulas) if new_formulas.present?
+      ActiveStorage::Attachment.insert_all(new_attachments) if new_attachments.present?
       Docs::Block.insert_all(insert_data.values)
 
       Docs::Block.find(new_root_id).save_snapshot!
