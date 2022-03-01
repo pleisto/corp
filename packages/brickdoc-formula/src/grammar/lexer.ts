@@ -186,7 +186,7 @@ export const Colon = createToken({ name: 'Colon', pattern: /:/ })
 export const FunctionName = createToken({
   name: 'FunctionName',
   // pattern: /[a-zA-Z][a-zA-Z0-9_]*/
-  pattern: /[a-zA-Z_]((?![;+\s]).)*/
+  pattern: /[a-zA-Z_]((?![,"'`&#@:!$%^<>/?*=.;~|[(){}+\\\-\]\s]).)*/
   // pattern: /\S+/
 })
 

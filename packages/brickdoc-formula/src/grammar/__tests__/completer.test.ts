@@ -15,10 +15,8 @@ const testVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
 const interpretContext = { ctx: {}, arguments: [] }
 
-// const testName1 = 'varvarabc中文var'
 const testName1 = 'varvarabcvar'
-// TODO Chinese name
-const testName2 = 'a中文baz345 space foo'
+const testName2 = 'a中文baz345_space_foo'
 
 const meta: VariableMetadata = { namespaceId, variableId, name: testName1, input: '=24', position: 0, type: 'normal' }
 const barMeta: VariableMetadata = {

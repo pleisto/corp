@@ -1,6 +1,6 @@
 import { checkValidName } from '../util'
 
-const validNames: Array<{ name: string }> = [{ name: 'a213' }, { name: '_a' }, { name: 'a测试' }]
+const validNames: Array<{ name: string }> = [{ name: 'a213' }, { name: '_a' }, { name: 'a_' }, { name: 'a测试' }]
 const invalidNames: Array<{ name: string }> = [
   { name: '123' },
   { name: '1a' },
@@ -10,7 +10,40 @@ const invalidNames: Array<{ name: string }> = [
   { name: ' aa' },
   { name: 'a ' },
   { name: '' },
-  { name: '测试' }
+  { name: '测试' },
+
+  // Special char
+  { name: 'a!' },
+  { name: 'a@' },
+  { name: 'a#' },
+  { name: 'a$' },
+  { name: 'a%' },
+  { name: 'a^' },
+  { name: 'a&' },
+  { name: 'a*' },
+  { name: 'a(' },
+  { name: 'a)' },
+  { name: 'a-' },
+  { name: 'a[' },
+  { name: 'a]' },
+  { name: 'a{' },
+  { name: 'a}' },
+  { name: 'a\\' },
+  { name: 'a|' },
+  { name: 'a:' },
+  { name: 'a"' },
+  { name: "a'" },
+  { name: 'a<' },
+  { name: 'a>' },
+  { name: 'a?' },
+  { name: 'a/' },
+  { name: 'a.' },
+  { name: 'a,' },
+  { name: 'a;' },
+  { name: 'a`' },
+  { name: 'a~' },
+  { name: 'a=' },
+  { name: 'a+' }
 ]
 
 describe('name', () => {

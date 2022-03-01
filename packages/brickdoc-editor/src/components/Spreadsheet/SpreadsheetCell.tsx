@@ -32,7 +32,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
 
   const cellId = `${currentBlock.parentId},${currentBlock.data.columnId}`
   const formulaId = currentBlock.data.formulaId
-  const formulaName = `Cell_${currentBlock.parentId}_${currentBlock.data.columnId}`
+  const formulaName = `Cell_${currentBlock.parentId}_${currentBlock.data.columnId}`.replaceAll('-', '')
 
   const variableRef = React.useRef(formulaContext?.findVariable(rootId, formulaId))
 

@@ -75,7 +75,7 @@ const simpleMetas: VariableMetadata[] = [
 
 const complexMetas: VariableMetadata[] = [
   {
-    name: 'foo bar',
+    name: 'foo_bar',
     input: '=123123',
     position: 0,
     namespaceId,
@@ -125,8 +125,8 @@ const simpleCommonTestCases = [
   { input: `#${namespaceId}."num1"`, newInput: `#CurrentBlock.num1`, resultData: 2 },
 
   // Variable complex
-  { input: '"foo bar"', positions: [3, 9], newInput: `#CurrentBlock."foo bar"`, resultData: 123123 },
-  { input: `#CurrentBlock."foo bar"`, resultData: 123123 },
+  { input: 'foo_bar', positions: [3, 9], newInput: `#CurrentBlock.foo_bar`, resultData: 123123 },
+  { input: `#CurrentBlock.foo_bar`, resultData: 123123 },
 
   // Variable with space
   {
@@ -141,9 +141,9 @@ const simpleCommonTestCases = [
   { input: ` #${namespaceId}."num1" + 1 `, newInput: ` #CurrentBlock.num1 + 1 `, resultData: 3 },
 
   // Variable complex input
-  { input: `+#CurrentBlock."foo bar"`, resultData: 'Parse error: "+"' },
-  { input: `#CurrentBlock."foo bar"+`, resultData: 'Missing right expression' },
-  { input: `#CurrentBlock."foo ba1r"`, resultData: 'Variable "foo ba1r" not found' },
+  { input: `+#CurrentBlock.foo_bar`, resultData: 'Parse error: "+"' },
+  { input: `#CurrentBlock.foo_bar+`, resultData: 'Missing right expression' },
+  { input: `#CurrentBlock.foo_ba1r`, resultData: 'Variable "foo_ba1r" not found' },
 
   // Variable with error
   {

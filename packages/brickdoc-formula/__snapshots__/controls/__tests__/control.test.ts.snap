@@ -578,7 +578,7 @@ Object {
                                                                                                                                                                 "startOffset": 114,
                                                                                                                                                                 "tokenType": Object {
                                                                                                                                                                   "CATEGORIES": Array [],
-                                                                                                                                                                  "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                                  "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                                   "categoryMatches": Array [],
                                                                                                                                                                   "categoryMatchesMap": Object {},
                                                                                                                                                                   "isParent": false,
@@ -1449,7 +1449,7 @@ Object {
                                                                                                                                                                 "startOffset": 114,
                                                                                                                                                                 "tokenType": Object {
                                                                                                                                                                   "CATEGORIES": Array [],
-                                                                                                                                                                  "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                                  "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                                   "categoryMatches": Array [],
                                                                                                                                                                   "categoryMatchesMap": Object {},
                                                                                                                                                                   "isParent": false,
@@ -2038,7 +2038,7 @@ Object {
                                                                                                                                                                 "startOffset": 107,
                                                                                                                                                                 "tokenType": Object {
                                                                                                                                                                   "CATEGORIES": Array [],
-                                                                                                                                                                  "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                                  "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                                   "categoryMatches": Array [],
                                                                                                                                                                   "categoryMatchesMap": Object {},
                                                                                                                                                                   "isParent": false,
@@ -2822,7 +2822,7 @@ Object {
                                                                                   "startOffset": 79,
                                                                                   "tokenType": Object {
                                                                                     "CATEGORIES": Array [],
-                                                                                    "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                    "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                     "categoryMatches": Array [],
                                                                                     "categoryMatchesMap": Object {},
                                                                                     "isParent": false,
@@ -3728,7 +3728,7 @@ Object {
                                                                                                                                                             "startOffset": 100,
                                                                                                                                                             "tokenType": Object {
                                                                                                                                                               "CATEGORIES": Array [],
-                                                                                                                                                              "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                              "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                               "categoryMatches": Array [],
                                                                                                                                                               "categoryMatchesMap": Object {},
                                                                                                                                                               "isParent": false,
@@ -4586,7 +4586,7 @@ Object {
                                                                                                                                                             "startOffset": 100,
                                                                                                                                                             "tokenType": Object {
                                                                                                                                                               "CATEGORIES": Array [],
-                                                                                                                                                              "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                              "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                               "categoryMatches": Array [],
                                                                                                                                                               "categoryMatchesMap": Object {},
                                                                                                                                                               "isParent": false,
@@ -4703,7 +4703,7 @@ Object {
                                                                                                                                                             "startOffset": 153,
                                                                                                                                                             "tokenType": Object {
                                                                                                                                                               "CATEGORIES": Array [],
-                                                                                                                                                              "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                              "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                               "categoryMatches": Array [],
                                                                                                                                                               "categoryMatchesMap": Object {},
                                                                                                                                                               "isParent": false,
@@ -5714,7 +5714,7 @@ Object {
                                                                                                                                                                 "startOffset": 113,
                                                                                                                                                                 "tokenType": Object {
                                                                                                                                                                   "CATEGORIES": Array [],
-                                                                                                                                                                  "PATTERN": /\\[a-zA-Z\\]\\[a-zA-Z0-9_\\]\\*/,
+                                                                                                                                                                  "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
                                                                                                                                                                   "categoryMatches": Array [],
                                                                                                                                                                   "categoryMatchesMap": Object {},
                                                                                                                                                                   "isParent": false,

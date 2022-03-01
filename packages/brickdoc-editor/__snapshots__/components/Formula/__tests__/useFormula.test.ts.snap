@@ -1892,7 +1892,7 @@ Object {
 }
 `;
 
-exports[`useFormula normal: ""foo bar""(3) -> "123123" 1`] = `
+exports[`useFormula normal: "foo_bar"(9) -> "123123" 1`] = `
 Object {
   "content": Object {
     "content": Array [
@@ -1903,18 +1903,18 @@ Object {
               Object {
                 "attrs": Object {
                   "attrs": undefined,
-                  "code": "StringLiteral",
-                  "display": "foo bar",
+                  "code": "FunctionName",
+                  "display": "foo_bar",
                   "errors": Array [],
                   "hide": false,
                   "renderText": [Function],
                   "type": "string",
-                  "value": "\\"foo bar\\"",
+                  "value": "foo_bar",
                 },
                 "type": "FormulaType",
               },
             ],
-            "text": "foo bar",
+            "text": "foo_bar",
             "type": "text",
           },
         ],
@@ -1923,43 +1923,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#CurrentBlock.\\"foo bar\\"",
-  "position": 1,
-}
-`;
-
-exports[`useFormula normal: ""foo bar""(9) -> "123123" 1`] = `
-Object {
-  "content": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
-                  "attrs": undefined,
-                  "code": "StringLiteral",
-                  "display": "foo bar",
-                  "errors": Array [],
-                  "hide": false,
-                  "renderText": [Function],
-                  "type": "string",
-                  "value": "\\"foo bar\\"",
-                },
-                "type": "FormulaType",
-              },
-            ],
-            "text": "foo bar",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
-    ],
-    "type": "doc",
-  },
-  "input": "=#CurrentBlock.\\"foo bar\\"",
+  "input": "=#CurrentBlock.foo_bar",
   "position": 7,
 }
 `;
@@ -4283,7 +4247,7 @@ Object {
 }
 `;
 
-exports[`useFormula spreadsheet: "="foo bar""(3) -> "123123" 1`] = `
+exports[`useFormula spreadsheet: "=foo_bar"(9) -> "123123" 1`] = `
 Object {
   "content": Object {
     "content": Array [
@@ -4313,18 +4277,18 @@ Object {
               Object {
                 "attrs": Object {
                   "attrs": undefined,
-                  "code": "StringLiteral",
-                  "display": "foo bar",
+                  "code": "FunctionName",
+                  "display": "foo_bar",
                   "errors": Array [],
                   "hide": false,
                   "renderText": [Function],
                   "type": "string",
-                  "value": "\\"foo bar\\"",
+                  "value": "foo_bar",
                 },
                 "type": "FormulaType",
               },
             ],
-            "text": "foo bar",
+            "text": "foo_bar",
             "type": "text",
           },
         ],
@@ -4333,62 +4297,7 @@ Object {
     ],
     "type": "doc",
   },
-  "input": "=#CurrentBlock.\\"foo bar\\"",
-  "position": 1,
-}
-`;
-
-exports[`useFormula spreadsheet: "="foo bar""(9) -> "123123" 1`] = `
-Object {
-  "content": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
-                  "attrs": undefined,
-                  "code": "Equal",
-                  "display": "=",
-                  "errors": Array [],
-                  "hide": false,
-                  "renderText": undefined,
-                  "type": "any",
-                  "value": "=",
-                },
-                "type": "FormulaType",
-              },
-            ],
-            "text": "=",
-            "type": "text",
-          },
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
-                  "attrs": undefined,
-                  "code": "StringLiteral",
-                  "display": "foo bar",
-                  "errors": Array [],
-                  "hide": false,
-                  "renderText": [Function],
-                  "type": "string",
-                  "value": "\\"foo bar\\"",
-                },
-                "type": "FormulaType",
-              },
-            ],
-            "text": "foo bar",
-            "type": "text",
-          },
-        ],
-        "type": "paragraph",
-      },
-    ],
-    "type": "doc",
-  },
-  "input": "=#CurrentBlock.\\"foo bar\\"",
-  "position": 7,
+  "input": "=#CurrentBlock.foo_bar",
+  "position": 8,
 }
 `;

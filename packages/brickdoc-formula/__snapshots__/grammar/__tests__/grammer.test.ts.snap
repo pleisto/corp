@@ -1742,10 +1742,10 @@ Array [
   Object {
     "attrs": undefined,
     "code": "Function",
-    "display": "varvarabc",
+    "display": "varvarabc中文var",
     "errors": Array [
       Object {
-        "message": "Unknown function varvarabc",
+        "message": "Unknown function varvarabc中文var",
         "type": "syntax",
       },
       Object {
@@ -1756,22 +1756,7 @@ Array [
     "hide": false,
     "renderText": undefined,
     "type": "any",
-    "value": "varvarabc",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "other",
-    "display": "中文var",
-    "errors": Array [
-      Object {
-        "message": "TODO mismatch token FunctionCall",
-        "type": "parse",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "中文var",
+    "value": "varvarabc中文var",
   },
 ]
 `;
