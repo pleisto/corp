@@ -1,6 +1,5 @@
 import { MouseEvent, ReactNode, useMemo, useRef, useState, ForwardRefRenderFunction, forwardRef } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
-import type { Identifier } from 'dnd-core'
+import { useDrag, useDrop, HandlerManager } from 'react-dnd'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
 import { MoveNode, TNode, Inserted } from './constants'
@@ -85,12 +84,11 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
     }
     return Inserted.Child
   })
-
   const [{ handlerId, isOver, isOverCurrent }, drop] = useDrop<
     DragItem,
     void,
     {
-      handlerId: Identifier | null
+      handlerId: ReturnType<HandlerManager['getHandlerId']>
       isOver: boolean
       isOverCurrent: boolean
     }
@@ -207,8 +205,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
         tabIndex={0}
         data-test-id="BrkTree"
         className={className}
-        css={renderBorder}
-      >
+        css={renderBorder}>
         <TreeRoot.Indent
           css={{
             width: rem(`${16 * indent}px`)
@@ -219,8 +216,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
           data-test-id="page-item"
           css={{
             width: `calc(100% - ${rem(`${16 * indent}px`)})`
-          }}
-        >
+          }}>
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">
               {hasChildren || hasEmptyNode ? (

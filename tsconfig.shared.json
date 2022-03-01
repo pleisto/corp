@@ -17,7 +17,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noEmitOnError": true,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "preserveSymlinks": true
   },
   "exclude": ["**/node_modules"],
   "ts-node": {
