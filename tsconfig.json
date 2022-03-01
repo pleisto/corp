@@ -5,13 +5,21 @@
   "compilerOptions": {
     "outDir": "dist",
     "strictPropertyInitialization": false,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["frontends/*"]
+      "@/*": [
+        "./frontends/*"
+      ]
     }
   },
   "include": ["**/*", "node_modules/vite-plugin-pwa/client.d.ts"],
-  "exclude": ["packages/**/*", "gems/**/*", "dist/**/*", "cypress/**/*"],
+  "exclude": [
+    "packages/**/*",
+    "apps/**/*",
+    "tools/**/*",
+    "gems/**/*",
+    "dist/**/*",
+    "cypress/**/*"
+  ],
   "references": [
     {
       "path": "packages/active-support"
@@ -33,6 +41,12 @@
     },
     {
       "path": "packages/brickdoc-schema"
+    },
+    {
+      "path": "apps/server-api"
+    },
+    {
+      "path": "tools/devkit"
     }
   ]
 }

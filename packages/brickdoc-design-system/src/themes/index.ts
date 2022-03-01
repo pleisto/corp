@@ -1,4 +1,4 @@
-import { createStitches } from '@stitches/react'
+import { createStitches, CSS as GenericCSS } from '@stitches/react'
 import { mixins } from 'stitches-mixins'
 import { ceramicLightTheme, ceramicLightMixins } from './ceramic-light'
 import { globalStyleSheet } from './common/globalStyle.style'
@@ -32,6 +32,8 @@ export const { theme, css, styled, config, globalCss, keyframes, prefix } = crea
     })
   }
 })
+
+export type CSS = GenericCSS<typeof config>
 
 export const globalStyle = globalCss(globalStyleSheet as Record<string, any>)
 export { globalStyleSheet }

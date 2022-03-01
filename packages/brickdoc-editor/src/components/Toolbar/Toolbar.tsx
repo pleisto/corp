@@ -1,6 +1,5 @@
 import React from 'react'
-import { CSS } from '@stitches/react'
-import { styled, theme, Tooltip } from '@brickdoc/design-system'
+import { styled, theme, Tooltip, CSS } from '@brickdoc/design-system'
 import { ToolbarMenuItem } from './MenuItem'
 import { ToolbarMenuSubMenuItem } from './MenuSubMenuItem'
 import { EditorContext } from '../../context/EditorContext'
