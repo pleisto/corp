@@ -60,27 +60,27 @@ jobs:
         uses: tj-actions/changed-files@v17.2
         with:
           files: |
-            yarn.lock
+            pnpm-lock.yaml
             **/*.ts
             **/*.tsx
             **/*.js
             **/*.jsx
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.1
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         if: steps.changed-es-files.outputs.any_changed == 'true'
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: |
-            yarn.lock
-      - name: Run yarn install
-        run: yarn install --immutable
+          cache: pnpm
+      - name: Run pnpm install
+        run: pnpm install --frozen-lockfile
         if: steps.changed-es-files.outputs.any_changed == 'true'
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Run Jest tests
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn test:jest --silent
+        run: pnpm test:jest --silent
       - name: Publish Jest test reports
         if: always() && steps.changed-es-files.outputs.any_changed == 'true'
         uses: mikepenz/action-junit-report@v2
@@ -99,28 +99,28 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.1
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: |
-            yarn.lock
+          cache: pnpm
       - name: Check Cypress binary cache
         id: cache-cypress-binary
         uses: actions/cache@v2
         with:
           path: |
             ~/.cache/Cypress
-          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-      - name: install cypress
+          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install cypress
         uses: cypress-io/github-action@v2
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
         with:
           # just perform install
           runTests: false
-      - name: Run yarn install without cypress
-        run: yarn install --immutable
+      - name: Run pnpm install without cypress
+        run: pnpm install --frozen-lockfile
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Install Dependencies
@@ -143,7 +143,7 @@ jobs:
           path: public
           key: ${{ secrets.CACHE_VERSION }}-${{ github.sha }}-public
       - name: build frontend dist
-        run: yarn dist:prod
+        run: pnpm dist:prod
   rspec_and_dump_schema:
     name: Rails RSpec & Schema Dump
     runs-on: ubuntu-latest
@@ -241,7 +241,7 @@ jobs:
             graphql.ts$
       - name: Dump the graphql schema & GRPC schema
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
-        run: yarn install --immutable && yarn graphql && yarn grpc
+        run: pnpm install --frozen-lockfile && pnpm graphql && pnpm grpc
       - name: Dump the database schema
         if: steps.changed-db-migrations.outputs.any_changed == 'true'
         run: bundle exec rails db:prepare db:schema:dump
@@ -291,15 +291,15 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.1
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: |
-            yarn.lock
-      - name: Run yarn install without cypress
-        run: yarn install --immutable
+          cache: pnpm
+      - name: Run pnpm install without cypress
+        run: pnpm install --frozen-lockfile
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Restore Cypress binary cache
@@ -307,7 +307,7 @@ jobs:
         with:
           path: |
             ~/.cache/Cypress
-          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Dependencies
         run: sudo apt-get update && sudo apt-get install libsodium23 rustc
       - name: Setup Ruby
@@ -325,7 +325,7 @@ jobs:
           key: ${{ secrets.CACHE_VERSION }}-${{ github.sha }}-public
       - name: build dist
         if: steps.cache-dist.outputs.cache-hit != 'true'
-        run: yarn dist:prod
+        run: pnpm dist:prod
       # - name: Ensure the server is running
       #   run: curl http://localhost:3000/accounts/sign_in -I
       - name: Run Cypress tests
