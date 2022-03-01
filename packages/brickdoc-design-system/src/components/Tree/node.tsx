@@ -3,18 +3,18 @@ import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier } from 'dnd-core'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
-import { MoveNode, TNode, Inserted } from './constants'
+import { MoveNode, Inserted, TNodeWithContext } from './constants'
 import { useMemoizedFn } from '../../hooks'
 
 import { TreeRoot } from './style'
 
 export interface NodeProps {
-  treeData: TNode
+  treeData: TNodeWithContext
   className?: string
   emptyNode?: string | ReactNode
-  onClick: (node: TNode) => void
+  onClick: (node: TNodeWithContext) => void
   handleSelected: (id: string) => void
-  titleRender?: (node: TNode) => ReactNode
+  titleRender?: (node: TNodeWithContext) => ReactNode
   selectedId?: string
   id: any
   index: number
@@ -42,7 +42,8 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
   { treeData, className, onClick, handleSelected, titleRender, selectedId, emptyNode, id, index, moveNode },
   _ref
 ) => {
-  const { icon = '', hasChildren, parentId, rootId, indent = 0, value, collapsed } = treeData
+  const { icon = '', parentId, rootId, value, collapsed, context } = treeData
+  const { hasChildren, indent } = context
   const ref = useRef<HTMLDivElement>(_ref as any)
   const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
 

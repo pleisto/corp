@@ -11,7 +11,7 @@ import {
 import List, { ListRef } from 'rc-virtual-list'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import type { TNode, MoveNode } from './constants'
+import type { TNode, MoveNode, TNodeWithContext } from './constants'
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
 
@@ -34,7 +34,7 @@ const findPathById = (tree: TNode[], id: string, path?: string[]): string[] | un
     tempPath.push(tree[i].value)
     if (tree[i].value === id) return tempPath
     if (tree[i].children) {
-      const result = findPathById(tree[i].children, id, tempPath)
+      const result = findPathById(tree[i].children ?? [], id, tempPath)
       if (result) return result
     }
   }
@@ -75,15 +75,17 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   }, [])
 
   const flattened = useCallback(
-    (node, indent: number, result: TNode[]) => {
+    (node, indent: number, result: TNodeWithContext[]) => {
       const { children, value } = node
       const collapsed = openedIds.includes(value)
 
       result.push({
         ...node,
-        hasChildren: (children ?? []).length > 0,
-        indent: indent ?? 0,
-        collapsed
+        collapsed,
+        context: {
+          hasChildren: (children ?? []).length > 0,
+          indent: indent ?? 0
+        }
       })
 
       if (collapsed && children) {
@@ -96,7 +98,7 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   )
 
   const renderTree = useMemo(() => {
-    const result: TNode[] = []
+    const result: TNodeWithContext[] = []
     for (const node of treeData) {
       flattened(node, 0, result)
     }
@@ -124,14 +126,15 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
       {/* make sure root area is mounted, then mount dnd area */}
       {dndRoot && (
         <DndProvider backend={HTML5Backend} options={html5Options}>
-          <List<TNode>
+          <List<TNodeWithContext>
             className={className}
             data={renderTree}
             data-test-id="virtual-list"
             height={Math.min(renderTree.length * NODE_HEIGHT, DEFAULT_HEIGHT)}
             itemHeight={NODE_HEIGHT}
             itemKey="key"
-            ref={ref ?? listRef}>
+            ref={ref ?? listRef}
+          >
             {(item, index) => (
               <Node
                 className={treeNodeClassName}

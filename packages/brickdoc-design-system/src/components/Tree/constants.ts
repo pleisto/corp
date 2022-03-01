@@ -7,15 +7,34 @@ export interface TNode {
   rootId?: string
   title: ReactNode | string
   icon: string | null
-  hasItemIcon?: boolean
-  hasChildren: boolean
-  firstChildSort: string
-  indent: number
-  isOpen: boolean
-  collapsed: boolean
   sort: number
-  lastPlaceholder: ReactNode | string
+  firstChildSort: string
+  collapsed?: boolean
   children: TNode[]
+
+  /**
+   * Internal data of the node's context
+   * for building up the tree. You don't
+   * need to assign it when building up the
+   * `TreeNodeData`.
+   */
+  context?: NodeContext
+}
+
+export type TNodeWithContext = Omit<TNode, 'context'> & {
+  context: NodeContext
+}
+
+/**
+ * Node context is a set of data that is
+ * set internally by the tree component.
+ * It is not required when passing node data
+ * TO the tree, but is essential to build the
+ * tree in a proper shape.
+ */
+export interface NodeContext {
+  hasChildren: boolean
+  indent: number
 }
 
 export enum Inserted {
