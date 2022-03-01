@@ -109,9 +109,9 @@ describe('Complete', () => {
       namespaceId,
       errorMessage: 'Missing expression',
       weight: 1,
-      expectParseImage: `=#${namespaceId}.`,
-      expectInputImage: `=#${namespaceId}.`,
-      expectNewInput: `=#${namespaceId}.`
+      expectParseImage: `=#CurrentBlock.`,
+      expectInputImage: `=#CurrentBlock.`,
+      expectNewInput: `=#CurrentBlock.`
     },
     {
       label: 'var equal different namespaceId',

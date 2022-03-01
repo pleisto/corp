@@ -382,7 +382,7 @@ describe('useFormula', () => {
       // expect(result.current.editorContent.position).toEqual(position)
       if (result.current.editorContent.position !== position) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(result.current.editorContent).toMatchSnapshot()
+        expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
       }
       expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
         newInput ?? input
@@ -421,7 +421,7 @@ describe('useFormula', () => {
       // expect(result.current.editorContentRef.current.position).toEqual(position)
       if (result.current.editorContent.position !== position) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(result.current.editorContent).toMatchSnapshot()
+        expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
       }
       expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing

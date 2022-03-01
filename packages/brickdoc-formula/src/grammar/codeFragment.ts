@@ -1318,7 +1318,7 @@ export const hideDot = (
     finalCodeFragments.push(c)
   })
 
-  console.log({ codeFragments, finalCodeFragments, positionFragment, finalPositionFragment })
+  // console.log({ codeFragments, finalCodeFragments, positionFragment, finalPositionFragment })
   return { finalCodeFragments, finalPositionFragment }
 }
 

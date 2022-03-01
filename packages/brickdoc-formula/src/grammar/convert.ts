@@ -192,9 +192,9 @@ export const block2name = (block: BlockType): BlockFormulaName => {
     kind: 'Block',
     name: block.name(''),
     namespaceId: block.id,
-    renderTokens: () => [
+    renderTokens: (exist, pageId) => [
       { image: '#', type: 'Sharp' },
-      { image: block.id, type: 'UUID' }
+      pageId === block.id ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: block.id, type: 'UUID' }
     ],
     key: block.id
   }
@@ -205,9 +205,11 @@ export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormu
     kind: 'Spreadsheet',
     name: spreadsheet.name(),
     namespaceId: spreadsheet.blockId,
-    renderTokens: () => [
+    renderTokens: (exist, pageId) => [
       { image: '#', type: 'Sharp' },
-      { image: spreadsheet.blockId, type: 'UUID' }
+      pageId === spreadsheet.blockId
+        ? { image: 'CurrentBlock', type: 'CurrentBlock' }
+        : { image: spreadsheet.blockId, type: 'UUID' }
     ],
     key: spreadsheet.blockId
   }

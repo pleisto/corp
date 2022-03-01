@@ -110,6 +110,7 @@ const abbrev = ({
   let offset = 0
   let renderTokenNumberChange = 0
 
+  // eslint-disable-next-line complexity
   tokens.forEach((token, index) => {
     newTokens.push(token)
 
@@ -140,7 +141,22 @@ const abbrev = ({
       }
     }
 
-    if (!['FunctionName', 'StringLiteral'].includes(token.tokenType.name)) {
+    const tokenTypeName = token.tokenType.name
+
+    if (tokenTypeName === 'UUID') {
+      if (token.image === namespaceId) {
+        newInput = newInput.concat('CurrentBlock')
+        newTokens.pop()
+        newTokens.push({ ...token, image: 'CurrentBlock', tokenType: { ...token.tokenType, name: 'CurrentBlock' } })
+        modified = true
+        return
+      } else {
+        newInput = newInput.concat(token.image)
+        return
+      }
+    }
+
+    if (!['FunctionName', 'StringLiteral'].includes(tokenTypeName)) {
       newInput = newInput.concat(token.image)
       return
     }
@@ -173,7 +189,7 @@ const abbrev = ({
       namespaceIsExist = true
     }
 
-    if (variableNamespace === '#Self') {
+    if (variableNamespace === '#CurrentBlock') {
       variableNamespace = blockKey(namespaceId)
     }
 
