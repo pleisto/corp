@@ -30,7 +30,7 @@ import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey } from './convert'
-import { parseString } from './util'
+import { checkValidName, parseString } from './util'
 import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
@@ -292,13 +292,13 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     flattenVariableDependencies: []
   }
 
-  if (type === 'normal' && !/[a-zA-Z]/.test(name[0])) {
+  if (type === 'normal' && !checkValidName(name)) {
     return {
       ...returnValue,
       success: false,
       kind: 'unknown',
       errorType: 'syntax',
-      errorMessages: [{ message: 'Variable name should start with letters', type: 'name_invalid' }]
+      errorMessages: [{ message: 'Variable name is not valid', type: 'name_invalid' }]
     }
   }
 
