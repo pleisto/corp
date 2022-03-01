@@ -2,7 +2,7 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/core'
 import { Icon, Tooltip } from '@brickdoc/design-system'
-import { VariableData } from '@brickdoc/formula'
+import { displayValue, dumpDisplayResult, VariableData } from '@brickdoc/formula'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { useFormula } from '../../../components/Formula/useFormula'
 import { BlockContainer, FormulaMenu, FormulaMenuProps } from '../../../components'
@@ -58,7 +58,11 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
     return !savedVariableT || isDraft ? (
       <></>
     ) : (
-      <FormulaDisplay pageId={rootId} t={savedVariableT} formulaType={formulaType} />
+      <FormulaDisplay
+        display={displayValue(savedVariableT.variableValue.result, rootId)}
+        displayData={dumpDisplayResult(savedVariableT)}
+        formulaType={formulaType}
+      />
     )
   }
 
@@ -69,7 +73,11 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       </span>
     ) : (
       <Tooltip title={savedVariableT.name}>
-        <FormulaDisplay pageId={rootId} t={savedVariableT} formulaType={formulaType} />
+        <FormulaDisplay
+          display={displayValue(savedVariableT.variableValue.result, rootId)}
+          displayData={dumpDisplayResult(savedVariableT)}
+          formulaType={formulaType}
+        />
       </Tooltip>
     )
 

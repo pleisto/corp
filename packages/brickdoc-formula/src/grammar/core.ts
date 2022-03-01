@@ -190,7 +190,7 @@ const abbrev = ({
       return
     }
 
-    const renderTokens = formulaName.renderTokens(namespaceIsExist)
+    const renderTokens = formulaName.renderTokens(namespaceIsExist, namespaceId)
 
     newTokens.pop()
     const newRenderTokens = renderTokens.map(({ image, type }) => ({

@@ -6,6 +6,8 @@ import {
   ColumnType,
   Completion,
   CompletionKind,
+  displayValue,
+  dumpDisplayResult,
   FunctionCompletion,
   SpreadsheetCompletion,
   VariableCompletion
@@ -157,7 +159,10 @@ const COMPLETION_STYLE_META: {
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Value</div>
             <span className="autocomplete-preview-output-tag">
-              <FormulaValue t={preview.t} pageId={blockId} />
+              <FormulaValue
+                displayData={dumpDisplayResult(preview.t)}
+                display={displayValue(preview.t.variableValue.result, blockId)}
+              />
             </span>
           </div>
         </div>

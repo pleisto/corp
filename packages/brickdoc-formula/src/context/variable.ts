@@ -19,7 +19,6 @@ import {
   Formula,
   BaseFormula,
   FormulaSourceType,
-  VariableResult,
   ErrorMessage,
   NamespaceId
 } from '../types'
@@ -239,15 +238,6 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  result(): VariableResult {
-    return {
-      definition: this.t.definition,
-      variableValue: this.t.variableValue,
-      type: this.t.type,
-      kind: this.t.kind
-    }
-  }
-
   async destroy(): Promise<void> {
     await this.formulaContext.removeVariable(this.t.namespaceId, this.t.variableId)
   }
@@ -257,7 +247,6 @@ export class VariableClass implements VariableInterface {
   }
 
   public buildFormula(): Formula {
-    const ctx = { formulaContext: this.formulaContext, meta: this.meta(), interpretContext: { ctx: {}, arguments: [] } }
     return {
       blockId: this.t.namespaceId,
       definition: this.t.definition,
@@ -267,7 +256,7 @@ export class VariableClass implements VariableInterface {
       type: this.t.type,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),
-      cacheValue: dumpValue(ctx, this.t.variableValue.cacheValue)
+      cacheValue: dumpValue(this.t.variableValue.cacheValue)
     }
   }
 

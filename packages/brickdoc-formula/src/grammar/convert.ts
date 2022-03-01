@@ -221,10 +221,16 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   return {
     kind: 'Variable',
     name,
-    renderTokens: (namespaceIsExist: boolean) =>
-      namespaceIsExist
-        ? [nameToken]
-        : [{ image: '#', type: 'Sharp' }, { image: namespaceId, type: 'UUID' }, { image: '.', type: 'Dot' }, nameToken],
+    renderTokens: (namespaceIsExist: boolean, pageId: NamespaceId) => {
+      if (namespaceIsExist) {
+        return [nameToken]
+      }
+
+      const namespaceToken =
+        pageId === namespaceId ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: namespaceId, type: 'UUID' }
+
+      return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
+    },
     key: variableId,
     namespaceId
   }

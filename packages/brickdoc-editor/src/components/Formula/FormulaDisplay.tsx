@@ -20,7 +20,7 @@ import {
   StringResult,
   AnyTypeResult,
   FormulaSourceType,
-  VariableResult
+  VariableDisplayData
 } from '@brickdoc/formula'
 import { FormulaValue } from './FormulaValue'
 
@@ -114,13 +114,13 @@ const renderLiteral = (result: AnyTypeResult, formulaType: FormulaSourceType): R
 }
 
 export interface FormulaDisplayProps {
-  t?: VariableResult
-  pageId: string
+  displayData?: VariableDisplayData
+  display?: string
   formulaType: FormulaSourceType
 }
 
-export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, pageId, formulaType, ...props }) => {
-  if (!t) {
+export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, display, formulaType, ...props }) => {
+  if (!displayData) {
     if (formulaType === 'normal') {
       return (
         <span {...props} className="brickdoc-formula-placeholder">
@@ -131,11 +131,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, pageId, formu
     return <div />
   }
 
-  const {
-    variableValue: { result },
-    kind,
-    type
-  } = t
+  const { result, kind, type } = displayData
 
   let data: React.ReactElement | null = null
   if (kind === 'literal') {
@@ -155,7 +151,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ t, pageId, formu
         data = renderQrcode(result as StringResult, type)
         break
       default:
-        data = <FormulaValue t={t} pageId={pageId} border={true} />
+        data = <FormulaValue displayData={displayData} display={display!} border={true} />
         break
     }
   }

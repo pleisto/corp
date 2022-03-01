@@ -1,5 +1,5 @@
 import React from 'react'
-import { ErrorMessage, VariableData } from '@brickdoc/formula'
+import { displayValue, dumpDisplayResult, ErrorMessage, VariableData } from '@brickdoc/formula'
 import './FormulaMenu.less'
 import { FormulaValue } from './FormulaValue'
 
@@ -28,7 +28,12 @@ export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT, pageId 
             <span className="formula-menu-result-error-message">{error.message}</span>
           </span>
         )}
-        {!error && <FormulaValue t={variableT} pageId={pageId} />}
+        {!error && (
+          <FormulaValue
+            displayData={dumpDisplayResult(variableT)}
+            display={displayValue(variableT.variableValue.result, pageId)}
+          />
+        )}
       </div>
       <div className="formula-menu-divider" />
     </>

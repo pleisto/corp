@@ -9,7 +9,14 @@ import {
   BlockSpreadsheetLoaded
 } from '@brickdoc/schema'
 import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
-import { displayValue, VariableClass, VariableData } from '@brickdoc/formula'
+import {
+  displayValue,
+  dumpDisplayResult,
+  FunctionContext,
+  loadDisplayResult,
+  VariableClass,
+  VariableData
+} from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import { devLog } from '@brickdoc/design-system'
@@ -49,7 +56,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
       devLog('Spreadsheet cell formula updated', { cellId, value })
       const newBlock = {
         ...block,
-        data: { ...block.data, t: variableRef.current.result() },
+        data: { ...block.data, displayData: dumpDisplayResult(variableRef.current.t) },
         text: value
       }
       setCurrentBlock(newBlock)
@@ -149,9 +156,27 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
     )
   }
 
+  let displayData = currentBlock.data.displayData
+  if (displayData) {
+    const ctx: FunctionContext = {
+      formulaContext: formulaContext!,
+      meta: {
+        namespaceId: rootId,
+        variableId: formulaId,
+        name: formulaName,
+        type: 'spreadsheet',
+        input: displayData.definition,
+        position: 0
+      },
+      interpretContext: { ctx: {}, arguments: [] }
+    }
+
+    displayData = loadDisplayResult(ctx, displayData)
+  }
+
   return (
     <div className="cell" onDoubleClick={handleEnterEdit}>
-      <FormulaDisplay pageId={rootId} t={currentBlock.data.t} formulaType="spreadsheet" />
+      <FormulaDisplay display={currentBlock.text} displayData={displayData} formulaType="spreadsheet" />
     </div>
   )
 }

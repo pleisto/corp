@@ -402,7 +402,7 @@ export interface FormulaNameToken {
 
 export interface BaseFormulaName {
   kind: ComplexCodeFragmentType
-  renderTokens: (namespaceIsExist: boolean) => FormulaNameToken[]
+  renderTokens: (namespaceIsExist: boolean, namespaceId: NamespaceId) => FormulaNameToken[]
   key: string
   name: string
   namespaceId: string
@@ -595,6 +595,14 @@ export interface VariableResult {
   kind: VariableKind
   type: FormulaSourceType
 }
+
+export interface VariableDisplayData {
+  definition: Definition
+  result: AnyTypeResult
+  kind: VariableKind
+  type: FormulaSourceType
+}
+
 export interface VariableData extends VariableResult {
   name: VariableName
   version: number
@@ -634,7 +642,6 @@ export interface VariableInterface {
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
-  result: () => VariableResult
   updateCst: (cst: CstNode, context: InterpretContext) => void
   invokeBackendCreate: () => Promise<void>
   invokeBackendUpdate: () => Promise<void>
