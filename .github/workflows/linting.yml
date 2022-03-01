@@ -23,27 +23,27 @@ jobs:
         uses: tj-actions/changed-files@v17.2
         with:
           files: |
-            yarn.lock
+            pnpm-lock.yaml
             **/*.ts
             **/*.tsx
             **/*.js
             **/*.jsx
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.1
       - name: Setup NodeJS
         if: steps.changed-es-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: |
-            yarn.lock
-      - name: Run yarn install
+          cache: pnpm
+      - name: Run pnpm install
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn install --immutable  --inline-builds
+        run: pnpm install --frozen-lockfile
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Run TypeScript checks
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn tsc:check
+        run: pnpm tsc:check
       - name: Run ESLint
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn lint:eslint
+        run: pnpm lint:eslint

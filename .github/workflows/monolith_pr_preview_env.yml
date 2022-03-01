@@ -28,14 +28,14 @@ jobs:
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.1
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-          cache-dependency-path: |
-            yarn.lock
-      - run: yarn install --immutable
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
         env:
           CYPRESS_INSTALL_BINARY: '0'
           NODE_OPTIONS: '--max-old-space-size=5950'

@@ -58,7 +58,7 @@
   "eslint.enable": true,
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
-  "npm.packageManager": "yarn",
+  "npm.packageManager": "pnpm",
   "typescript.validate.enable": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -139,6 +139,6 @@
   ],
   "editor.formatOnSaveMode": "modificationsIfAvailable",
   "eslint.lintTask.enable": true,
-  "eslint.packageManager": "yarn",
+  "eslint.packageManager": "pnpm",
   "eslint.useESLintClass": true
 }
