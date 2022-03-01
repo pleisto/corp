@@ -4,7 +4,6 @@
   "version": "0.1.1",
   "homepage": "https://brickdoc.org",
   "license": "Apache-2.0",
-  "packageManager": "yarn@3.0.0",
   "sideEffects": false,
   "main": "src/index.ts",
   "module": "src/index.ts",
