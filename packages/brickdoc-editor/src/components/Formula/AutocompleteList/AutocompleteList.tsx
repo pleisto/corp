@@ -172,6 +172,10 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
   setCompletion,
   handleSelectActiveCompletion
 }) => {
+  if (!completion.completions.length) {
+    return <></>
+  }
+
   const preview = completion.activeCompletion
     ? COMPLETION_STYLE_META[completion.activeCompletion.kind].render(completion.activeCompletion, blockId)
     : 'Empty!'
@@ -203,8 +207,12 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
     }
   }
 
-  if (!completion.completions.length) {
-    return <></>
+  const handleOnClick = (c: Completion, index: number): void => {
+    if (index === completion.activeCompletionIndex) {
+      handleSelectActiveCompletion()
+    } else {
+      setCompletion(com => ({ ...com, activeCompletion: c, activeCompletionIndex: index }))
+    }
   }
 
   return (
@@ -216,15 +224,12 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
             <div
               role="button"
               tabIndex={-1}
-              onClick={() => {
-                setCompletion(com => ({ ...com, activeCompletion: c, activeCompletionIndex: index }))
-              }}
+              onClick={() => handleOnClick(c, index)}
               key={index}
               onKeyDown={onKeyDown}
               className={cx('autocomplete-list-item', {
                 active: c.value === completion.activeCompletion?.value
-              })}
-            >
+              })}>
               {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, { className: 'autocomplete-list-item-icon' })}
               <div className="autocomplete-list-item-content">
                 <span className="autocomplete-list-item-name">{c.name}</span>
