@@ -9,12 +9,15 @@ import {
 } from '../controls'
 import { BlockClass } from '../controls/block'
 
+const VARIABLE_VERSION = 0
+
 export const dumpDisplayResult = (t: VariableData): VariableDisplayData => {
   return {
     definition: t.definition,
     result: dumpValue(t.variableValue.result) as any,
     type: t.type,
-    kind: t.kind
+    kind: t.kind,
+    version: VARIABLE_VERSION
   }
 }
 

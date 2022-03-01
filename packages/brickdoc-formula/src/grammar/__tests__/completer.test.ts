@@ -139,9 +139,9 @@ describe('Complete', () => {
       namespaceId,
       errorMessage: undefined,
       weight: 1,
-      expectParseImage: `=#${namespaceId}.${testName1}`,
-      expectInputImage: `=#${namespaceId}.${testName1}`,
-      expectNewInput: `=#${namespaceId}.${testName1}`
+      expectParseImage: `=#CurrentBlock.${testName1}`,
+      expectInputImage: `=#CurrentBlock.${testName1}`,
+      expectNewInput: `=#CurrentBlock.${testName1}`
     },
     {
       label: 'var include same namespaceId',
@@ -189,9 +189,9 @@ describe('Complete', () => {
       namespaceId,
       errorMessage: 'Missing expression',
       weight: 1,
-      expectParseImage: `=1+#${namespaceId}.${testName1}.`,
-      expectInputImage: `=1+#${namespaceId}.${testName1}.`,
-      expectNewInput: `= 1 + #${namespaceId}.${testName1}.`
+      expectParseImage: `=1+#CurrentBlock.${testName1}.`,
+      expectInputImage: `=1+#CurrentBlock.${testName1}.`,
+      expectNewInput: `= 1 + #CurrentBlock.${testName1}.`
     },
     {
       label: 'dot equal different namespaceId',
