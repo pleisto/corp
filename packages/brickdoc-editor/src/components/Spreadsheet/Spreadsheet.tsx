@@ -152,8 +152,12 @@ export const Spreadsheet: React.FC<NodeViewProps> = ({ editor, node, deleteNode,
     buttonClassName: 'spreadsheet-action'
   }
 
+  const onSpreadsheetClick = (event: React.MouseEvent<HTMLInputElement>): void => {
+    editor.chain().setTextSelection(0).run()
+  }
+
   return (
-    <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions}>
+    <BlockContainer deleteNode={deleteNode} actionOptions={actionOptions} onClick={onSpreadsheetClick}>
       {documentEditable ? (
         <Input
           bordered={false}
