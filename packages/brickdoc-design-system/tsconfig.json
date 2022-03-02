@@ -4,7 +4,7 @@
     "outDir": "dist"
   },
   "include": ["**/*"],
-  "exclude": ["dist/**/*", "**/__mocks__"],
+  "exclude": ["dist/**/*"],
   "references": [
     {
       "path": "../brickdoc-design-icons"

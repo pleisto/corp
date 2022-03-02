@@ -1,5 +1,4 @@
 // tsconfig.json is for editor/eslint support, including every ts/tsx files
-// tsconfig.build.json is for building, including only files needed for the final product
 {
   "extends": "./tsconfig.shared.json",
   "compilerOptions": {

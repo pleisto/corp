@@ -19,7 +19,6 @@ on:
 env:
   image: ghcr.io/brickdoc/brickdoc:latest
   domain: trunk.brickdoc.dev
-  NODE_OPTIONS: '--max-old-space-size=5950'
 concurrency:
   group: monolith-trunk-cd
 jobs:
