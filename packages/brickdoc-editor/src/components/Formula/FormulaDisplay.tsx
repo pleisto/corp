@@ -73,7 +73,8 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
                     <SpreadsheetCellContainer
                       key={c.columnId}
                       context={spreadsheetContext}
-                      cellId={{ rowId, columnId: c.columnId }}>
+                      cellId={{ rowId, columnId: c.columnId }}
+                    >
                       <div className="column">{valuesMatrix.get(rowId)?.get(c.columnId)}</div>
                     </SpreadsheetCellContainer>
                   ))}
@@ -133,28 +134,35 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
 
   const { result, kind, type } = displayData
 
-  let data: React.ReactElement | null = null
   if (kind === 'literal') {
-    data = renderLiteral(result, type)
-  } else {
-    switch (result.view?.type ?? result.type) {
-      case 'Button':
-        data = renderButton(result as ButtonResult, type)
-        break
-      case 'Input':
-        data = renderInput(result as InputResult, type)
-        break
-      case 'Spreadsheet':
-        data = renderTable(result as SpreadsheetResult, type)
-        break
-      case 'Qrcode':
-        data = renderQrcode(result as StringResult, type)
-        break
-      default:
-        data = <FormulaValue displayData={displayData} display={display!} border={true} />
-        break
-    }
+    return <span {...props}>{renderLiteral(result, type)}</span>
   }
 
-  return <span {...props}>{data}</span>
+  let preview: React.ReactElement | null = <></>
+
+  switch (result.view?.type ?? result.type) {
+    case 'Button':
+      preview = renderButton(result as ButtonResult, type)
+      break
+    case 'Input':
+      preview = renderInput(result as InputResult, type)
+      break
+    case 'Spreadsheet':
+      preview = renderTable(result as SpreadsheetResult, type)
+      break
+    case 'Qrcode':
+      preview = renderQrcode(result as StringResult, type)
+      break
+    default:
+      break
+  }
+
+  return (
+    <>
+      <span {...props}>
+        <FormulaValue displayData={displayData} display={display!} border={true} />
+      </span>
+      {preview}
+    </>
+  )
 }

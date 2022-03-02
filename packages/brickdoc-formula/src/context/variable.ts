@@ -73,6 +73,19 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
   return JSON.stringify(v.result)
 }
 
+export const errorIsFatal = (t: VariableData): boolean => {
+  const { success, result } = t.variableValue
+  if (
+    !success &&
+    result.type === 'Error' &&
+    ['name_unique', 'name_check', 'name_invalid', 'fatal'].includes(result.errorKind)
+  ) {
+    return true
+  }
+
+  return false
+}
+
 export const castVariable = (
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
