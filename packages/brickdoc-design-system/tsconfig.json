@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*", "__mocks__"],
-  "exclude": ["dist/**/*"],
+  "include": ["**/*"],
+  "exclude": ["dist/**/*", "**/__mocks__"],
   "references": [
     {
       "path": "../brickdoc-design-icons"

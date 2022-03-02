@@ -71,8 +71,6 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-          cache-dependency-path: |
-            yarn.lock
       - name: Run yarn install
         run: yarn install --immutable
         if: steps.changed-es-files.outputs.any_changed == 'true'
@@ -104,8 +102,6 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-          cache-dependency-path: |
-            yarn.lock
       - name: Check Cypress binary cache
         id: cache-cypress-binary
         uses: actions/cache@v2
@@ -296,8 +292,6 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-          cache-dependency-path: |
-            yarn.lock
       - name: Run yarn install without cypress
         run: yarn install --immutable
         env:

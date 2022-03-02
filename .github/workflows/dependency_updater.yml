@@ -1,0 +1,48 @@
+---
+name: Upgrade Dependencies
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * 0-4'
+
+jobs:
+  dependency_updater:
+    name: Check and Upgrade
+    runs-on: ubuntu-latest
+    env:
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.2
+          bundler-cache: true
+      - name: Unset deployment
+        run: bundle config unset deployment
+      - name: Update ruby gems
+        run: bundle update
+      - name: Update yarn packages
+        run: eval "yarn up $PATTERNS --mode=update-lockfile && yarn up $PATTERNS --recursive --mode=update-lockfile"
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+          PATTERNS: "'!(chalk|fastify-secure-session|ms|typescript)' '@!(brickdoc|mdx-js|storybook|rails|tiptap)/*'"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        env:
+          HUSKY: 0
+        with:
+          token: ${{ secrets.PAT_FOR_BOT_CREATED_PR }}
+          title: 'build(deps): upgrade dependencies'
+          body: This is an auto-created PR to upgrade our dependencies according to <https://github.com/brickdoc/brickdoc/blob/master/.github/workflows/dependency_updater.yml>.
+          commit-message: 'build(deps): upgrade dependencies'
+          branch: deps-automatic-upgrade
+          labels: |
+            dependencies
+          delete-branch: true
