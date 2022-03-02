@@ -39,7 +39,8 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, table
   const { setEditingCellId } = context
   const setEditing = React.useCallback(
     (editing: boolean) => setEditingCellId(editing ? formulaName : ''),
-    [setEditingCellId, formulaName]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setEditingCellId, formulaName, editing]
   )
 
   const refreshCell = React.useCallback((): void => {
