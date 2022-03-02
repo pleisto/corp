@@ -234,8 +234,7 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({
               onKeyDown={onKeyDown}
               className={cx('autocomplete-list-item', {
                 active: c.value === completion.activeCompletion?.value
-              })}
-            >
+              })}>
               {React.cloneElement(styleMeta.Icon ?? <Icon.Formula />, { className: 'autocomplete-list-item-icon' })}
               <div className="autocomplete-list-item-content">
                 <span className="autocomplete-list-item-name">{c.name}</span>

@@ -97,8 +97,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       completion={completion}
       handleSelectActiveCompletion={handleSelectActiveCompletion}
       setCompletion={setCompletion}
-      handleDelete={handleDelete}
-    >
+      handleDelete={handleDelete}>
       {renderData}
     </FormulaMenu>
   )

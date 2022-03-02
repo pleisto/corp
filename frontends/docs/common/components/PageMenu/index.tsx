@@ -275,8 +275,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       trigger="customEvent"
       visible={popoverVisible}
       onVisibleChange={onRenamePopoverVisibleChange}
-      className={styles.title}
-    >
+      className={styles.title}>
       <Link to={linkPath}>{title}</Link>
     </Popover>
   )
@@ -291,8 +290,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
         trigger={['contextMenu']}
         overlay={menu}
         visible={dropdownVisible}
-        onVisibleChange={onDropdownVisibleChange}
-      >
+        onVisibleChange={onDropdownVisibleChange}>
         <div className={styles.menu}>
           {linkData}
           <div>
@@ -307,8 +305,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
                 type="text"
                 onClick={onPressAddSubPage}
                 loading={createBlockLoading}
-                disabled={createBlockLoading}
-              >
+                disabled={createBlockLoading}>
                 <Icon.Add />
               </Button>
             </Tooltip>

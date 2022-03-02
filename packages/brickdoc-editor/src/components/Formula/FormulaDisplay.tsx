@@ -73,8 +73,7 @@ const renderTable = (result: SpreadsheetResult, formulaType: FormulaSourceType):
                     <SpreadsheetCellContainer
                       key={c.columnId}
                       context={spreadsheetContext}
-                      cellId={{ rowId, columnId: c.columnId }}
-                    >
+                      cellId={{ rowId, columnId: c.columnId }}>
                       <div className="column">{valuesMatrix.get(rowId)?.get(c.columnId)}</div>
                     </SpreadsheetCellContainer>
                   ))}

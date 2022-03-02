@@ -41,8 +41,7 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({ border, display, dis
         color,
         fontFamily: 'Fira Code',
         borderColor: `rgb(${rgb.join(',')}, 0.3)`
-      }}
-    >
+      }}>
       {display}
     </span>
   )
