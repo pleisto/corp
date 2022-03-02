@@ -7,7 +7,7 @@ on:
 env:
   # GitHub-hosted runner have 7 gb RAM.
   # 5250mb === 7gb * 0.75
-  NODE_OPTIONS: '--max-old-space-size=5250'
+  NODE_OPTIONS: '--max-old-space-size=5950'
 jobs:
   es:
     name: ECMAScript
@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ES files
         id: changed-es-files
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         with:
           files: |
             yarn.lock
@@ -30,13 +30,15 @@ jobs:
             **/*.jsx
       - name: Setup NodeJS
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - name: Run yarn install
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn install --immutable
+        run: yarn install --immutable  --inline-builds
         env:
           CYPRESS_INSTALL_BINARY: '0'
       - name: Run TypeScript checks

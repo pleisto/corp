@@ -40,10 +40,11 @@ env:
   UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
   UNSPLASH_API_SECRET: ${{ secrets.UNSPLASH_API_SECRET }}
   IFRAMELY_API_ACCESS_KEY: ${{ secrets.IFRAMELY_API_ACCESS_KEY }}
+  PDFJS_EXPRESS_LICENSE: ${{ secrets.PDFJS_EXPRESS_LICENSE }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   # GitHub-hosted runner have 7 gb RAM.
   # 5250mb === 7gb * 0.75
-  NODE_OPTIONS: '--max-old-space-size=5250'
+  NODE_OPTIONS: '--max-old-space-size=5950'
 
 jobs:
   jest:
@@ -56,7 +57,7 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ES files
         id: changed-es-files
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         with:
           files: |
             yarn.lock
@@ -65,11 +66,13 @@ jobs:
             **/*.js
             **/*.jsx
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         if: steps.changed-es-files.outputs.any_changed == 'true'
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - name: Run yarn install
         run: yarn install --immutable
         if: steps.changed-es-files.outputs.any_changed == 'true'
@@ -97,17 +100,19 @@ jobs:
       - name: Checkout the codebase
         uses: actions/checkout@v2
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - name: Check Cypress binary cache
         id: cache-cypress-binary
         uses: actions/cache@v2
         with:
           path: |
             ~/.cache/Cypress
-          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: install cypress
         uses: cypress-io/github-action@v2
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
@@ -130,13 +135,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: public
-          key: ${{ github.ref }}-public-doll
+          key: ${{ secrets.CACHE_VERSION }}-${{ github.ref }}-public-doll
       - name: Cache Dist
         id: cache-dist
         uses: actions/cache@v2
         with:
           path: public
-          key: ${{ github.sha }}-public
+          key: ${{ secrets.CACHE_VERSION }}-${{ github.sha }}-public
       - name: build frontend dist
         run: yarn dist:prod
   rspec_and_dump_schema:
@@ -172,7 +177,7 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed Ruby files
         id: changed-ruby-files
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         with:
           files: |
             Gemfile.lock
@@ -222,21 +227,21 @@ jobs:
           flags: backend-unit
       - name: Get changed database migrations
         id: changed-db-migrations
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         with:
           files: |
             db\/migrate
       - name: Get changed GraphQL type definitions
         id: changed-gql-typeds
-        uses: tj-actions/changed-files@v14.6
+        uses: tj-actions/changed-files@v17.2
         with:
           files: |
             app\/graphql
             lib\/brick_graphql
             graphql.ts$
-      - name: Dump the graphql schema
+      - name: Dump the graphql schema & GRPC schema
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
-        run: yarn install --immutable && yarn graphql
+        run: yarn install --immutable && yarn graphql && yarn grpc
       - name: Dump the database schema
         if: steps.changed-db-migrations.outputs.any_changed == 'true'
         run: bundle exec rails db:prepare db:schema:dump
@@ -287,10 +292,12 @@ jobs:
       - name: Checkout the codebase
         uses: actions/checkout@v2
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - name: Run yarn install without cypress
         run: yarn install --immutable
         env:
@@ -300,7 +307,7 @@ jobs:
         with:
           path: |
             ~/.cache/Cypress
-          key: cypress-binary-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          key: cypress-binary-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Install Dependencies
         run: sudo apt-get update && sudo apt-get install libsodium23 rustc
       - name: Setup Ruby
@@ -315,7 +322,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: public
-          key: ${{ github.sha }}-public
+          key: ${{ secrets.CACHE_VERSION }}-${{ github.sha }}-public
       - name: build dist
         if: steps.cache-dist.outputs.cache-hit != 'true'
         run: yarn dist:prod

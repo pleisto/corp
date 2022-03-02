@@ -9,28 +9,36 @@ import {
   BlockSpreadsheetLoaded
 } from '@brickdoc/schema'
 import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
-import { displayValue, VariableClass, VariableData } from '@brickdoc/formula'
+import {
+  displayValue,
+  dumpDisplayResult,
+  FunctionContext,
+  loadDisplayResult,
+  VariableClass,
+  VariableData
+} from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
-import { FormulaRender } from '../Formula/FormulaRender'
+import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import { devLog } from '@brickdoc/design-system'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
 
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
   block: BlockInput
-  rootId: string
+  tableId: string
   saveBlock: (block: BlockInput) => void
 }
 
-export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootId, block, saveBlock }) => {
+export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, tableId, block, saveBlock }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
+  const rootId = editorDataSource.rootId
 
   const [currentBlock, setCurrentBlock] = React.useState(block)
 
   const cellId = `${currentBlock.parentId},${currentBlock.data.columnId}`
   const formulaId = currentBlock.data.formulaId
-  const formulaName = `${currentBlock.parentId}_${currentBlock.data.columnId}`
+  const formulaName = `Cell_${currentBlock.parentId}_${currentBlock.data.columnId}`.replaceAll('-', '')
 
   const variableRef = React.useRef(formulaContext?.findVariable(rootId, formulaId))
 
@@ -43,20 +51,20 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
 
   const refreshCell = React.useCallback((): void => {
     if (variableRef.current) {
-      const value = displayValue(variableRef.current.t.variableValue.result)
+      const value = displayValue(variableRef.current.t.variableValue.result, rootId)
       devLog('Spreadsheet cell formula updated', { cellId, value })
       const newBlock = {
         ...block,
-        data: { ...block.data, t: variableRef.current.result() },
+        data: { ...block.data, displayData: dumpDisplayResult(variableRef.current.t) },
         text: value
       }
       setCurrentBlock(newBlock)
       saveBlock(newBlock)
-      BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: rootId }))
+      BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: tableId }))
     }
     // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
     setEditing(false)
-  }, [setEditing, cellId, block, saveBlock, rootId])
+  }, [setEditing, rootId, cellId, block, saveBlock, tableId])
 
   const updateFormula = React.useCallback(
     (variable): void => {
@@ -65,8 +73,6 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
     },
     [refreshCell]
   )
-
-  const eventId = `${rootId},${cellId}`
 
   const updateCellValue = React.useCallback(
     async (value: string) => {
@@ -116,6 +122,8 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
     return () => listener.unsubscribe()
   }, [formulaId, refreshCell, rootId])
 
+  const eventId = `${tableId},${cellId}`
+
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       SpreadsheetUpdateCellValue,
@@ -147,9 +155,27 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, rootI
     )
   }
 
+  let displayData = currentBlock.data.displayData
+  if (displayData) {
+    const ctx: FunctionContext = {
+      formulaContext: formulaContext!,
+      meta: {
+        namespaceId: rootId,
+        variableId: formulaId,
+        name: formulaName,
+        type: 'spreadsheet',
+        input: displayData.definition,
+        position: 0
+      },
+      interpretContext: { ctx: {}, arguments: [] }
+    }
+
+    displayData = loadDisplayResult(ctx, displayData)
+  }
+
   return (
     <div className="cell" onDoubleClick={handleEnterEdit}>
-      <FormulaRender t={currentBlock.data.t} formulaType="spreadsheet" />
+      <FormulaDisplay display={currentBlock.text} displayData={displayData} formulaType="spreadsheet" />
     </div>
   )
 }

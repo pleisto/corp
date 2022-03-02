@@ -249,6 +249,7 @@ type BlockDuplicatePayload {
   Errors encountered during execution of the mutation.
   """
   errors: [String!]!
+  formulaIds: [UUID!]!
   id: UUID!
 }
 
@@ -1841,6 +1842,7 @@ type RootQuery {
     List all formulas for space domain
     """
     domain: String!
+    ids: String
   ): [Formula!]
 
   """

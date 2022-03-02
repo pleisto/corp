@@ -29,13 +29,16 @@ jobs:
       - name: Checkout the codebase
         uses: actions/checkout@v2
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - run: yarn install --immutable
         env:
           CYPRESS_INSTALL_BINARY: '0'
+          NODE_OPTIONS: '--max-old-space-size=5950'
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -53,9 +56,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: brickdocCE-pr-${{ runner.os }}-buildx-${{ github.sha }}
+          key: brickdocCE-pr-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-            brickdocCE-pr-${{ runner.os }}-buildx-
+            brickdocCE-pr-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-buildx-
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -111,6 +114,7 @@ jobs:
           APP_SECRET_UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
           APP_SECRET_UNSPLASH_API_SECRET: ${{ secrets.UNSPLASH_API_SECRET }}
           APP_SECRET_IFRAMELY_API_ACCESS_KEY: ${{ secrets.IFRAMELY_API_ACCESS_KEY }}
+          APP_SECRET_PDFJS_EXPRESS_LICENSE: ${{ secrets.PDFJS_EXPRESS_LICENSE }}
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc

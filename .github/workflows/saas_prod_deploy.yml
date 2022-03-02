@@ -16,6 +16,7 @@ env:
   image: ghcr.io/brickdoc/brickdoc-saas
   domain: brickdoc.com
   GCP_PROJECT: golden-union-341912
+  NODE_OPTIONS: '--max-old-space-size=5950'
 jobs:
   build:
     name: 'Build and Push Docker Image'
@@ -27,10 +28,12 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: yarn
+          cache-dependency-path: |
+            yarn.lock
       - run: yarn install --immutable
         env:
           CYPRESS_INSTALL_BINARY: '0'
@@ -51,9 +54,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: brickdocCE-saas-${{ runner.os }}-buildx-${{ github.sha }}
+          key: brickdocCE-saas-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-            brickdocCE-saas-${{ runner.os }}-buildx-
+            brickdocCE-saas-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-buildx-
       - name: Build and push
         uses: docker/build-push-action@v2
         with:

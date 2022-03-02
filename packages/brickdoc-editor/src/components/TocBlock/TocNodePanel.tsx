@@ -96,6 +96,7 @@ const TocStyledContainer = styled('div', {
   border: `1px solid ${theme.colors.borderPrimary}`,
   borderRadius: '8px',
   display: 'inline-block',
+  minWidth: '23.375rem',
   padding: `${containerVerticalPadding}px 0`
 })
 
@@ -173,8 +174,7 @@ export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
             onClick={toggleCollapse}
           />
         )}
-        {/* TODO: handle inline block case */}
-        {isEmpty(tocNode.item.text) ? t('blocks.toc.untitled') : tocNode.item.text}
+        {isEmpty(tocNode.item.content) ? t('blocks.toc.untitled') : tocNode.item.content}
       </TocItemTitle>
       <TocItemContent data-testid={TEST_ID_ENUM.editor.tocBlock.item.contentPanel.id} ref={contentRef}>
         {tocNode.children.map((node, index) => (

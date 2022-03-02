@@ -321,7 +321,20 @@ class Docs::Block < ApplicationRecord
       descendants_ids_map = preload_descendants.map(&:id).each_with_object({}) { |old_id, hash| hash[old_id] = SecureRandom.uuid }
       descendants_ids_map[parent_id] = parent_id
       new_root_id = descendants_ids_map.fetch(id)
-      insert_data = preload_descendants.map do |block|
+      formula_ids = preload_descendants.filter { |b| b.type == 'formulaBlock' }.map(&:id)
+      preload_formulas = (formula_ids.blank? ? [] : Docs::Formula.where(id: formula_ids)).index_by(&:id)
+      insert_formulas = {}
+      formula_id_conversions = []
+      spreadsheet_id_conversions = []
+      insert_data = {}
+      preload_attachments = ActiveStorage::Attachment.where(record_type: 'Docs::Block', name: 'attachments', record_id: id).to_a
+      insert_attachments = preload_attachments.map do |a|
+        dupa = a.dup
+        dupa.record_id = new_root_id
+        dupa.attributes.slice(*ActiveStorage::Attachment.column_names).merge('created_at' => now).slice!('id')
+      end
+
+      preload_descendants.map do |block|
         new_block = block.dup
         if block.id == id
           new_block.text = I18n.t('docs.duplicate.new_title', title: block.text)
@@ -333,16 +346,93 @@ class Docs::Block < ApplicationRecord
           new_block.id = descendants_ids_map.fetch(block.id)
           new_block.root_id = descendants_ids_map.fetch(block.root_id)
           new_block.parent_id = descendants_ids_map.fetch(block.parent_id)
+
+          if new_block.type == 'formulaBlock'
+            new_formula = preload_formulas.fetch(block.id).dup
+            new_formula.id = new_block.id
+            new_formula.block_id = new_block.root_id
+            new_formula.created_at = now
+            new_formula.updated_at = now
+
+            insert_formulas[new_formula.id] =
+              new_formula.attributes.slice(*Docs::Formula.column_names).merge('created_at' => now, 'updated_at' => now)
+
+            formula_id_conversions.push([new_block.parent_id, block.id, new_block.id])
+          end
+
+          if new_block.type == 'spreadsheetBlock'
+            column_map = {}
+            columns = block.data.fetch('columns')
+            row_map = preload_descendants.filter do |b|
+                        b.type == 'spreadsheetRow' && b.parent_id == block.id
+                      end .each_with_object({}) do |row, hash|
+              hash[row.id] = descendants_ids_map.fetch(row.id)
+            end
+            new_columns = columns.map do |c|
+              new_column_id = SecureRandom.uuid
+              column_map[c.fetch('uuid')] = new_column_id
+              c.merge('uuid' => new_column_id)
+            end
+            new_block.data = block.data.merge('columns' => new_columns)
+            spreadsheet_id_conversions.push([block.id, new_block.id, column_map, row_map])
+          end
         end
 
-        new_block.block_attributes.merge('created_at' => now, 'updated_at' => now)
+        insert_data[new_block.id] = new_block.block_attributes.merge('created_at' => now, 'updated_at' => now)
       end
 
-      Docs::Block.insert_all(insert_data)
+      formula_id_conversions.each do |conversion_block_id, old_id, new_id|
+        target = insert_data.fetch(conversion_block_id)
+        new_content = target.fetch('content').map do |c|
+          if c['type'] === 'formulaBlock' && c['attrs'].fetch('uuid') === old_id
+            c.merge('attrs' => c.fetch('attrs').merge('uuid' => new_id))
+          else
+            c
+          end
+        end
+        insert_data[conversion_block_id] = target.merge('content' => new_content)
+      end
+
+      spreadsheet_id_conversions.each do |_spreadsheet_old_id, _spreadsheet_new_id, column_map, row_map|
+        formula_ids = row_map.values.flat_map do |new_row_id|
+          insert_data.values.filter { |b| b.fetch('parent_id') == new_row_id && b.fetch('type') == 'spreadsheetCell' }.map do |cell|
+            cell.fetch('data').fetch('formulaId')
+          end
+        end
+        preload_spreadsheet_formulas = Docs::Formula.where(id: formula_ids).index_by(&:id)
+        new_formula_id_conversions = preload_spreadsheet_formulas.keys.each_with_object({}) do |old_id, hash|
+          hash[old_id] = SecureRandom.uuid
+        end
+        row_map.values.each do |new_row_id|
+          insert_data.values.filter { |b| b.fetch('parent_id') == new_row_id && b.fetch('type') == 'spreadsheetCell' }.each do |cell|
+            cell_data = cell.fetch('data')
+            old_formula_id = cell_data.fetch('formulaId')
+            old_column_id = cell_data.fetch('columnId')
+            new_column_id = column_map.fetch(old_column_id)
+
+            new_formula_id = new_formula_id_conversions.fetch(old_formula_id)
+            old_formula = preload_spreadsheet_formulas.fetch(old_formula_id)
+            new_formula = old_formula.dup
+            new_formula.id = new_formula_id
+            new_formula.block_id = descendants_ids_map.fetch(old_formula.block_id)
+            new_formula.name = "Cell_#{new_row_id}_#{new_column_id}".gsub('-', '')
+
+            insert_formulas[new_formula_id] =
+              new_formula.attributes.slice(*Docs::Formula.column_names).merge('created_at' => now, 'updated_at' => now)
+
+            new_cell_data = cell_data.merge('columnId' => new_column_id, 'formulaId' => new_formula_id)
+            insert_data[cell.fetch('id')] = cell.merge('data' => new_cell_data)
+          end
+        end
+      end
+
+      Docs::Formula.insert_all(insert_formulas.values) if insert_formulas.present?
+      ActiveStorage::Attachment.insert_all(insert_attachments) if insert_attachments.present?
+      Docs::Block.insert_all(insert_data.values)
 
       Docs::Block.find(new_root_id).save_snapshot!
 
-      new_root_id
+      { 'id' => new_root_id, 'formula_ids' => insert_formulas.keys }
     end
   end
 
