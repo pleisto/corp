@@ -34,7 +34,7 @@ export const FormulaResult: React.FC<FormulaResultProps> = ({ variableT, pageId 
         )}
         {!error && (
           <FormulaValue
-            displayData={dumpDisplayResult(variableT)}
+            displayData={dumpDisplayResult(variableT, true)}
             display={displayValue(variableT.variableValue.result, pageId)}
           />
         )}

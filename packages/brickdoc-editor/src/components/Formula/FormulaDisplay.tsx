@@ -3,10 +3,11 @@ import { Icon } from '@brickdoc/design-system'
 import {
   ButtonResult,
   InputResult,
-  SpreadsheetResult,
+  SpreadsheetType,
   StringResult,
   FormulaSourceType,
-  VariableDisplayData
+  VariableDisplayData,
+  loadDisplayResult
 } from '@brickdoc/formula'
 import { FormulaValue } from './FormulaValue'
 import { FormulaInput } from './Render/FormulaInput'
@@ -14,6 +15,7 @@ import { FormulaQrcode } from './Render/FormulaQrcode'
 import { FormulaButton } from './Render/FormulaButton'
 import { FormulaLiteral } from './Render/FormulaLiteral'
 import { FormulaSpreadsheet } from './Render/FormulaSpreadsheet'
+import { EditorDataSourceContext } from '../../dataSource/DataSource'
 
 export interface FormulaDisplayProps {
   displayData?: VariableDisplayData
@@ -33,7 +35,14 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
     return <div />
   }
 
-  const { result, kind, type } = displayData
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const formulaContext = editorDataSource.formulaContext!
+
+  const ctx = { formulaContext, meta: displayData.meta, interpretContext: { ctx: {}, arguments: [] } }
+  const newDisplayData = loadDisplayResult(ctx, displayData)
+
+  const { result, kind, type } = newDisplayData
 
   if (kind === 'literal') {
     return (
@@ -53,7 +62,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
       preview = <FormulaInput result={result as InputResult} formulaType={type} />
       break
     case 'Spreadsheet':
-      preview = <FormulaSpreadsheet result={result as SpreadsheetResult} formulaType={type} />
+      preview = <FormulaSpreadsheet spreadsheet={result.result as SpreadsheetType} />
       break
     case 'Qrcode':
       preview = <FormulaQrcode result={result as StringResult} formulaType={type} />
@@ -65,7 +74,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
   return (
     <>
       <span {...props}>
-        <FormulaValue displayData={displayData} display={display!} border={true} />
+        <FormulaValue displayData={newDisplayData} display={display ?? newDisplayData.display} border={true} />
       </span>
       {preview}
     </>
