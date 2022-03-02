@@ -34,7 +34,7 @@ const findPathById = (tree: TNode[], id: string, path?: string[]): string[] | un
     tempPath.push(tree[i].value)
     if (tree[i].value === id) return tempPath
     if (tree[i].children) {
-      const result = findPathById(tree[i].children ?? [], id, tempPath)
+      const result = findPathById(tree[i].children!, id, tempPath)
       if (result) return result
     }
   }
@@ -62,14 +62,14 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   ref
 ) => {
   const listRef = useRef<ListRef>()
-  const [openedIds, setOpenedIds] = useState<string[]>(
-    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.collapsed).map(node => node.value) || []
+  const [openIds, setOpenIds] = useState<string[]>(
+    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.isOpen).map(node => node.value) || []
   )
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
 
   useEffect(() => {
     if (selectedNodeId) {
-      setOpenedIds(findPathById(treeData, selectedNodeId, openedIds) ?? [])
+      setOpenIds(findPathById(treeData, selectedNodeId, openIds) ?? [])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -77,24 +77,24 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   const flattened = useCallback(
     (node, indent: number, result: TNodeWithContext[]) => {
       const { children, value } = node
-      const collapsed = openedIds.includes(value)
+      const isOpen = openIds.includes(value)
 
       result.push({
         ...node,
-        collapsed,
+        isOpen,
         context: {
           hasChildren: (children ?? []).length > 0,
           indent: indent ?? 0
         }
       })
 
-      if (collapsed && children) {
+      if (isOpen && children) {
         for (const child of children) {
           flattened(child, indent + 1, result)
         }
       }
     },
-    [openedIds]
+    [openIds]
   )
 
   const renderTree = useMemo(() => {
@@ -108,7 +108,7 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   const handleSelected = useMemoizedFn((id: string) => setSelectedId(id))
 
   const handleItemClick = useMemoizedFn((node: TNode) => {
-    node.collapsed ? setOpenedIds(i => i.filter(value => value !== node.value)) : setOpenedIds(i => [...i, node.value])
+    node.isOpen ? setOpenIds(i => i.filter(value => value !== node.value)) : setOpenIds(i => [...i, node.value])
   })
 
   const moveNode = useMemoizedFn((item: MoveNode) => {

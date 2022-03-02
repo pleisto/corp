@@ -3,14 +3,12 @@ import { ReactNode } from 'react'
 export interface TNode {
   key: string
   value: string
+  title: ReactNode | string
   parentId?: string | null | undefined
   rootId?: string
-  title: ReactNode | string
-  icon: string | null
-  sort: number
-  firstChildSort: string
-  collapsed?: boolean
-  children: TNode[]
+  icon?: string | null
+  isOpen?: boolean
+  children?: TNode[]
 
   /**
    * Internal data of the node's context

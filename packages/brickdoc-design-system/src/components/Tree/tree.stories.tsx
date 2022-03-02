@@ -24,26 +24,30 @@ const demoData: TNode[] = [
     key: 'sun',
     value: 'sun',
     title: 'Sun',
-    icon: null,
-    collapsed: false,
-    sort: 0,
-    firstChildSort: 'a',
+    icon: '🔆',
+    isOpen: true,
     children: [
       {
         key: 'mercury',
         value: 'mercury',
-        title: 'Mercury',
-        sort: 0,
-        firstChildSort: 'a',
-        icon: null
+        title: 'Mercury'
       },
       {
         key: 'venus',
         value: 'venus',
-        title: 'Venus',
-        sort: 1,
-        firstChildSort: 'a',
-        icon: null
+        title: 'Venus'
+      },
+      {
+        key: 'earth',
+        value: 'earth',
+        title: 'Earth',
+        children: [
+          {
+            key: 'luna',
+            value: 'luna',
+            title: 'Luna (the Moon)'
+          }
+        ]
       }
     ]
   }
