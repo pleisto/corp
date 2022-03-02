@@ -74,6 +74,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.bulletList !== false)
       extensions.push(
         BulletList.extend({
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(ListBlock)
           }
@@ -83,6 +84,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.codeBlock !== false)
       extensions.push(
         CodeBlockRefractor.extend({
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(CodeBlock)
           }
@@ -96,6 +98,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
       extensions.push(
         Heading.extend({
           marks: 'bold italic link strike textStyle',
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(HeadingBlock)
           }
@@ -106,6 +109,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.horizontalRule !== false)
       extensions.push(
         HorizontalRule.extend({
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(DividerBlock)
           }
@@ -116,6 +120,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.orderedList !== false)
       extensions.push(
         OrderedList.extend({
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(ListBlock)
           }
@@ -124,6 +129,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
     if (this.options.paragraph !== false)
       extensions.push(
         Paragraph.extend({
+          draggable: true,
           addNodeView() {
             return ReactNodeViewRenderer(ParagraphBlock)
           }
