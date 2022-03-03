@@ -36,10 +36,17 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, table
   const variableRef = React.useRef(formulaContext?.findVariable(rootId, formulaId))
 
   const editing = context?.editingCellId === formulaName
+  const [editingCell, setEditingCell] = React.useState(editing)
   const { setEditingCellId } = context
   const setEditing = React.useCallback(
-    (editing: boolean) => setEditingCellId(editing ? formulaName : ''),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (newEditing: boolean) => {
+      if (newEditing) {
+        setEditingCellId(formulaName)
+      } else if (editing) {
+        setEditingCellId('')
+        setEditingCell(newEditing)
+      }
+    },
     [setEditingCellId, formulaName, editing]
   )
 
@@ -136,7 +143,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, table
     setEditing(true)
   }
 
-  if (editing) {
+  if (editingCell || editing) {
     return (
       <FormulaBlockRender
         saveOnBlur={true}
