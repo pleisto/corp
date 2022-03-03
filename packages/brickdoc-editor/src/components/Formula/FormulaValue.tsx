@@ -1,6 +1,6 @@
 import React from 'react'
 import { resultToColorType, VariableDisplayData } from '@brickdoc/formula'
-import './FormulaBlockRender.less'
+import './Formula.less'
 import { FORMULA_COLORS } from '../../helpers'
 import { css, cx } from '@brickdoc/design-system'
 
@@ -41,7 +41,8 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({ border, display, dis
         color,
         fontFamily: 'Fira Code',
         borderColor: `rgb(${rgb.join(',')}, 0.3)`
-      }}>
+      }}
+    >
       {display}
     </span>
   )
