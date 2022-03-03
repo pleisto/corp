@@ -16,6 +16,7 @@ import { FormulaButton } from './Render/FormulaButton'
 import { FormulaLiteral } from './Render/FormulaLiteral'
 import { FormulaSpreadsheet } from './Render/FormulaSpreadsheet'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
+import { BlockContainer } from '../BlockContainer'
 
 export interface FormulaDisplayProps {
   displayData?: VariableDisplayData
@@ -62,7 +63,11 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
       preview = <FormulaInput result={result as InputResult} formulaType={type} />
       break
     case 'Spreadsheet':
-      preview = <FormulaSpreadsheet spreadsheet={result.result as SpreadsheetType} />
+      preview = (
+        <BlockContainer>
+          <FormulaSpreadsheet spreadsheet={result.result as SpreadsheetType} />
+        </BlockContainer>
+      )
       break
     case 'Qrcode':
       preview = <FormulaQrcode result={result as StringResult} formulaType={type} />

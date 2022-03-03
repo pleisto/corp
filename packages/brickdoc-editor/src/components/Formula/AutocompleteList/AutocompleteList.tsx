@@ -12,11 +12,13 @@ import {
   SpreadsheetCompletion,
   VariableCompletion
 } from '@brickdoc/formula'
+import '../../Spreadsheet/Spreadsheet.less'
 import './AutocompleteList.less'
 import { FormulaEditor } from '../../../extensions/formula/FormulaEditor/FormulaEditor'
 import { codeFragmentsToJSONContentTotal } from '../../../helpers/formula'
 import { CompletionType } from '../useFormula'
 import { FormulaValue } from '../FormulaValue'
+import { FormulaSpreadsheet } from '../Render/FormulaSpreadsheet'
 export interface AutocompleteListProps {
   blockId: string
   handleSelectActiveCompletion: () => void
@@ -46,22 +48,15 @@ const COMPLETION_STYLE_META: {
     Icon: <Icon.Table />,
     render: (completion: Completion, blockId: string) => {
       const column = completion.preview as ColumnType
-      const rows = column.cells()
-      const borderStyle = { border: '1px solid' }
 
       return (
-        <table style={{ ...borderStyle, height: '100%' }}>
-          <tbody>
-            <tr>
-              <th style={borderStyle}>{column.name}</th>
-            </tr>
-            {rows.map((o, idx) => (
-              <tr key={idx}>
-                <td style={borderStyle}>{o.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="brickdoc">
+          <div className="ProseMirror">
+            <div className="autocomplete-preview-column">
+              <FormulaSpreadsheet spreadsheet={column.spreadsheet} columnIds={[column.columnId]} />
+            </div>
+          </div>
+        </div>
       )
     }
   },
@@ -70,14 +65,12 @@ const COMPLETION_STYLE_META: {
     render: (completion: Completion, blockId: string) => {
       const { preview } = completion as SpreadsheetCompletion
 
-      // TODO
-      // <FormulaSpreadsheet spreadsheet={preview} />
-
       return (
-        <div className="autocomplete-preview-spreadsheet">
-          <div className="autocomplete-preview-spreadsheet-name">{preview.name()}</div>
-          <div className="autocomplete-preview-spreadsheet-description">
-            A table with {preview.rowCount()} rows and {preview.columnCount()} columns.
+        <div className="brickdoc">
+          <div className="ProseMirror">
+            <div className="autocomplete-preview-spreadsheet">
+              <FormulaSpreadsheet spreadsheet={preview} />
+            </div>
           </div>
         </div>
       )
