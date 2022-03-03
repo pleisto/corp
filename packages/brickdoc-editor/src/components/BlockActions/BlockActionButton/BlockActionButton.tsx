@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, IconProps, Popover, styled, theme } from '@brickdoc/design-system'
 import { BlockActionsMenu, BlockActionsMenuProps } from '../BlockActionsMenu'
 import * as EditorIcon from '../../Icon'
+import { BlockContext } from '../../../context/BlockContext'
 
 export interface BlockActionButtonProps extends Omit<BlockActionsMenuProps, 'onClose'> {
   className?: string
@@ -20,7 +21,8 @@ const Trigger: React.FC<{
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
   onDragStart?: React.DragEventHandler
-}> = ({ className, onClick, onMouseEnter, onMouseLeave, onDragStart, ...restProps }) => {
+  onDragEnd?: React.DragEventHandler
+}> = ({ className, onClick, onMouseEnter, onMouseLeave, onDragStart, onDragEnd, ...restProps }) => {
   const [hovered, setHovered] = React.useState(false)
   const iconProps = React.useMemo<IconProps>(() => {
     if (hovered) return {}
@@ -36,12 +38,12 @@ const Trigger: React.FC<{
       }}
       className={className}
       onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
       contentEditable={false}
       suppressContentEditableWarning={true}
       draggable={true}
       data-drag-handle
-      {...restProps}
-    >
+      {...restProps}>
       <StyledBlockActionButton
         onClick={event => {
           event.stopPropagation()
@@ -54,8 +56,7 @@ const Trigger: React.FC<{
           setHovered(true)
         }}
         size="sm"
-        type="text"
-      >
+        type="text">
         <EditorIcon.DragSecondary {...iconProps} />
       </StyledBlockActionButton>
     </div>
@@ -63,12 +64,23 @@ const Trigger: React.FC<{
 }
 
 export const BlockActionButton: React.FC<BlockActionButtonProps> = ({ className, children, ...props }) => {
+  const { updateDraggingStatus } = React.useContext(BlockContext)
   const [visible, setVisible] = React.useState(false)
   const handleVisibleChange = React.useCallback((visible: boolean) => {
     setVisible(visible)
   }, [])
   const handleCloseMenu = React.useCallback(() => setVisible(false), [])
-  const handleDragStart = React.useCallback(() => setVisible(false), [])
+  const handleDragStart = React.useCallback(() => {
+    setTimeout(() => {
+      updateDraggingStatus(true)
+    })
+    setVisible(false)
+  }, [updateDraggingStatus])
+  const handleDragEnd = React.useCallback(() => {
+    setTimeout(() => {
+      updateDraggingStatus(false)
+    })
+  }, [updateDraggingStatus])
 
   return (
     <Popover
@@ -79,9 +91,8 @@ export const BlockActionButton: React.FC<BlockActionButtonProps> = ({ className,
       destroyTooltipOnHide={true}
       trigger="hover"
       placement="startTop"
-      content={<BlockActionsMenu onClose={handleCloseMenu} {...props} />}
-    >
-      <Trigger className={className} onDragStart={handleDragStart} />
+      content={<BlockActionsMenu onClose={handleCloseMenu} {...props} />}>
+      <Trigger className={className} onDragStart={handleDragStart} onDragEnd={handleDragEnd} />
     </Popover>
   )
 }

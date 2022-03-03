@@ -91,7 +91,7 @@ export const BasicRichtextExtension = Extension.create<BasicRichtextOptions>({
         }).configure(this.options.codeBlock)
       )
     if (this.options.document !== false) extensions.push(Document.configure(this.options?.document))
-    if (this.options.dropcursor !== false) extensions.push(Dropcursor.configure(this.options?.dropcursor))
+    if (this.options.dropcursor !== false) extensions.push(Dropcursor.extend({}).configure(this.options?.dropcursor))
     if (this.options.gapcursor !== false) extensions.push(Gapcursor.configure(this.options?.gapcursor))
     if (this.options.hardBreak !== false) extensions.push(HardBreak.configure(this.options?.hardBreak))
     if (this.options.heading !== false) {
