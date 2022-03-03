@@ -44,8 +44,8 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({ context, table
         setEditingCellId(formulaName)
       } else if (editing) {
         setEditingCellId('')
-        setEditingCell(newEditing)
       }
+      setEditingCell(newEditing)
     },
     [setEditingCellId, formulaName, editing]
   )
