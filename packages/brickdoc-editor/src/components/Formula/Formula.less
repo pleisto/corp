@@ -127,7 +127,7 @@
   // font-size: 16px;
 }
 
-.brickdoc-formula-empty, .brickdoc-formula-error {
+.brickdoc-formula-empty {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +137,35 @@
   height: 24px;
   cursor: pointer;
 
-  .brickdoc-formula-empty-icon, .brickdoc-formula-error-icon {
+  .brickdoc-formula-empty-icon {
+    font-size: 12px;
+    color: #bfbcc6;
+  }
+}
+
+.brickdoc-formula-error {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: " ";
+    border: 3px solid red;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 1000;
+    right: 0%;
+    margin-top: -20px;
+    margin-right: -2px;
+  }
+
+  .brickdoc-formula-error-icon {
     font-size: 12px;
     color: #bfbcc6;
   }
