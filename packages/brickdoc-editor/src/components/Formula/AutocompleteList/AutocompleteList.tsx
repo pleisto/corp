@@ -33,7 +33,7 @@ const COMPLETION_STYLE_META: {
   }
 } = {
   block: {
-    Icon: <Icon.Table />,
+    Icon: <Icon.Function />,
     render: (completion: Completion, blockId: string) => {
       const { preview: block } = completion as BlockCompletion
 
@@ -45,7 +45,7 @@ const COMPLETION_STYLE_META: {
     }
   },
   column: {
-    Icon: <Icon.Table />,
+    Icon: <Icon.Column />,
     render: (completion: Completion, blockId: string) => {
       const column = completion.preview as ColumnType
 
@@ -77,7 +77,7 @@ const COMPLETION_STYLE_META: {
     }
   },
   function: {
-    Icon: <Icon.Table />,
+    Icon: <Icon.Function />,
     render: (completion: Completion, blockId: string): React.ReactElement => {
       const { preview } = completion as FunctionCompletion
       return (
