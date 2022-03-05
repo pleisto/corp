@@ -130,7 +130,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
   const dragging = context.dragging.columnId === columnId
   const draggingOver = context.dragging.overColumnId === columnId
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
-  const latestMovement = React.useRef<number>(0)
+  const latestWidth = React.useRef<number>(0)
 
   const unselectColumn = unselectFn({
     context,
@@ -156,9 +156,9 @@ export const SpreadsheetHeaderColumn: React.FC<{
   }
 
   const onResizeMouseMove = (e: MouseEvent): void => {
-    latestMovement.current += e.movementX
+    latestWidth.current += e.movementX
     if (setWidth) {
-      setWidth(latestMovement.current)
+      setWidth(latestWidth.current)
     }
   }
 
@@ -166,7 +166,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
     document.removeEventListener('mousemove', onResizeMouseMove)
     document.removeEventListener('mouseup', onResizeMouseUp)
     if (onResize) {
-      onResize(latestMovement.current)
+      onResize(latestWidth.current)
     }
   }
 
@@ -176,7 +176,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
     document.addEventListener('mousemove', onResizeMouseMove)
     document.addEventListener('mouseup', onResizeMouseUp)
     context.clearSelection()
-    latestMovement.current = width ?? columnRef.current?.clientWidth ?? 230
+    latestWidth.current = width ?? columnRef.current?.clientWidth ?? 230
   }
 
   const onContextMenu: React.MouseEventHandler = (e: React.MouseEvent): void => {
