@@ -74,7 +74,7 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const flattened = useCallback(
+  const flatten = useCallback(
     (node, indent: number, result: TNodeWithContext[]) => {
       const { children, value } = node
       const isOpen = openIds.includes(value)
@@ -90,20 +90,20 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
 
       if (isOpen && children) {
         for (const child of children) {
-          flattened(child, indent + 1, result)
+          flatten(child, indent + 1, result)
         }
       }
     },
     [openIds]
   )
 
-  const renderTree = useMemo(() => {
+  const nodeList = useMemo(() => {
     const result: TNodeWithContext[] = []
     for (const node of treeData) {
-      flattened(node, 0, result)
+      flatten(node, 0, result)
     }
     return result
-  }, [treeData, flattened])
+  }, [treeData, flatten])
 
   const handleSelected = useMemoizedFn((id: string) => setSelectedId(id))
 
@@ -121,6 +121,8 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   const handleDndAreaRef = useCallback(node => setDndRoot(node), [])
   const html5Options = useMemo(() => ({ rootElement: dndRoot }), [dndRoot])
 
+  const finalHeight = height ?? Math.min(nodeList.length * NODE_HEIGHT, DEFAULT_HEIGHT)
+
   return (
     <div ref={handleDndAreaRef}>
       {/* make sure root area is mounted, then mount dnd area */}
@@ -128,9 +130,9 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
         <DndProvider backend={HTML5Backend} options={html5Options}>
           <List<TNodeWithContext>
             className={className}
-            data={renderTree}
+            data={nodeList}
             data-test-id="virtual-list"
-            height={Math.min(renderTree.length * NODE_HEIGHT, DEFAULT_HEIGHT)}
+            height={finalHeight}
             itemHeight={NODE_HEIGHT}
             itemKey="key"
             ref={ref ?? listRef}

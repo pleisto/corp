@@ -9,17 +9,9 @@ export interface TNode {
   icon?: string | null
   isOpen?: boolean
   children?: TNode[]
-
-  /**
-   * Internal data of the node's context
-   * for building up the tree. You don't
-   * need to assign it when building up the
-   * `TreeNodeData`.
-   */
-  context?: NodeContext
 }
 
-export type TNodeWithContext = Omit<TNode, 'context'> & {
+export type TNodeWithContext = TNode & {
   context: NodeContext
 }
 
