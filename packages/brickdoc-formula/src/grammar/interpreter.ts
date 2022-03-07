@@ -1011,8 +1011,6 @@ export class FormulaInterpreter extends BaseCstVisitor {
       })
     }
 
-    // devLog({ args })
-
     return clause.reference(this.ctx, ...functionArgs)
   }
 
