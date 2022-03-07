@@ -160,13 +160,14 @@ describe('Controls', () => {
         position: 0,
         type: 'normal'
       }
-      const { errorMessages, kind, valid, codeFragments, cst, success } = parse({
+      const parseResult = parse({
         ctx: {
           formulaContext,
           meta,
           interpretContext
         }
       })
+      const { errorMessages, valid, codeFragments, success } = parseResult
 
       expect(valid).toBe(true)
       expect(codeFragments).toMatchSnapshot()
@@ -174,7 +175,7 @@ describe('Controls', () => {
 
       if (success) {
         const variableValue = await interpret({
-          parseResult: { cst, kind, errorMessages },
+          parseResult,
           ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
 

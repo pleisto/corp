@@ -1049,6 +1049,7 @@ describe('Simple test case', () => {
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     it(`${prefix}${input}${suffix}`, async () => {
       const newMeta = { ...meta, input }
+      const parseResult = parse({ ctx: { ...ctx, meta: newMeta } })
       const {
         success,
         cst,
@@ -1060,7 +1061,7 @@ describe('Simple test case', () => {
         input: newInput,
         inputImage,
         parseImage
-      } = parse({ ctx: { ...ctx, meta: newMeta } })
+      } = parseResult
 
       if (kind === 'literal') {
         expect(completions.length).toEqual(0)
@@ -1078,10 +1079,7 @@ describe('Simple test case', () => {
       }
 
       if (value !== undefined) {
-        const variableValue = await interpret({
-          parseResult: { cst, kind, errorMessages },
-          ctx: { ...ctx, meta: newMeta }
-        })
+        const variableValue = await interpret({ parseResult, ctx: { ...ctx, meta: newMeta } })
 
         expect(errorMessages).toEqual([])
 

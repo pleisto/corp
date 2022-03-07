@@ -7,7 +7,6 @@ import {
   errorIsFatal,
   FormulaSourceType,
   interpret,
-  InterpretResult,
   parse,
   ParseResult,
   VariableData,
@@ -128,29 +127,9 @@ const calculate = ({
   }
   const parseResult = parse({ ctx })
   const completions = parseResult.completions
+  const interpretResult = interpret({ parseResult, ctx })
 
-  let interpretResult: Promise<InterpretResult>
-
-  if (parseResult.success) {
-    interpretResult = interpret({ parseResult, ctx })
-  } else {
-    interpretResult = Promise.resolve({
-      success: false,
-      result: {
-        type: 'Error',
-        result: parseResult.errorMessages[0].message,
-        errorKind: parseResult.errorMessages[0].type
-      },
-      cacheValue: {
-        type: 'Error',
-        result: parseResult.errorMessages[0].message,
-        errorKind: parseResult.errorMessages[0].type
-      },
-      updatedAt: new Date()
-    })
-  }
-
-  const newVariable = buildVariableAsync({ formulaContext, meta, parseResult, interpretResult })
+  const newVariable = buildVariableAsync({ variable, formulaContext, meta, parseResult, interpretResult })
 
   return {
     newPosition: parseResult.position,
@@ -283,8 +262,7 @@ export const useFormula = ({
     // devLog({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
     void (newVariable.t.variableValue as Promise<VariableValue>).then(result => {
-      variableRef.current!.t = { ...variableRef.current!.t, variableValue: result, async: false }
-      setVariableT(variableRef.current!.t)
+      setVariableT({ ...variableRef.current!.t })
 
       if (result.success) {
         const type = result.result.type

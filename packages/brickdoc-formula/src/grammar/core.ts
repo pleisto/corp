@@ -35,6 +35,7 @@ import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
   valid: boolean
+  async: boolean
   input: string
   version: number
   position: number
@@ -72,6 +73,7 @@ export interface LiteralParseResult extends BaseParseResult {
 export interface ErrorParseResult extends BaseParseResult {
   success: false
   kind: 'unknown'
+  cst: CstNode | undefined
   errorType: ParseErrorType
   errorMessages: [ErrorMessage, ...ErrorMessage[]]
 }
@@ -289,6 +291,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     inputImage: '',
     parseImage: '',
     valid: true,
+    async: false,
     cst: undefined,
     input,
     position,
@@ -361,6 +364,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   const errorCodeFragment = codeFragments.find(f => f.errors.length)
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
+  returnValue.async = codeFragmentVisitor.async
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
   returnValue.variableNameDependencies = codeFragmentVisitor.variableNameDependencies
@@ -502,21 +506,36 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 }
 
 export const interpret = async ({
-  parseResult: { cst, kind, errorMessages },
+  parseResult: { cst, kind, errorMessages, async },
   ctx
 }: {
-  parseResult: { cst: CstNode | undefined; kind: VariableKind; errorMessages: ErrorMessage[] }
+  parseResult: {
+    cst: CstNode | undefined
+    kind: VariableKind
+    errorMessages: ErrorMessage[]
+    async: boolean
+  }
   ctx: FunctionContext
 }): Promise<InterpretResult> => {
   if (errorMessages.length > 0) {
     const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
     return {
-      success: true,
+      success: false,
       updatedAt: new Date(),
       cacheValue: result,
       result
     }
   }
+
+  // if (async) {
+  //   const result: PendingResult = { type: 'Pending', result: `Pending: ${ctx.meta.input}` }
+  //   return {
+  //     success: true,
+  //     updatedAt: new Date(),
+  //     cacheValue: result,
+  //     result
+  //   }
+  // }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
     return {
@@ -592,10 +611,11 @@ export const buildVariableSync = ({
     blockDependencies,
     functionDependencies
   }
-  return generateVariable(formulaContext, t)
+  return generateVariable(formulaContext, t, undefined)
 }
 
 export const buildVariableAsync = ({
+  variable,
   formulaContext,
   meta: { name, input, namespaceId, variableId, type },
   parseResult: {
@@ -612,6 +632,7 @@ export const buildVariableAsync = ({
   },
   interpretResult
 }: {
+  variable: VariableInterface | undefined
   formulaContext: ContextInterface
   meta: VariableMetadata
   parseResult: ParseResult
@@ -637,15 +658,22 @@ export const buildVariableAsync = ({
     blockDependencies,
     functionDependencies
   }
-  return generateVariable(formulaContext, t)
+  return generateVariable(formulaContext, t, variable)
 }
 
-const generateVariable = (formulaContext: ContextInterface, t: VariableData): VariableInterface => {
+const generateVariable = (
+  formulaContext: ContextInterface,
+  t: VariableData,
+  variable: VariableInterface | undefined
+): VariableInterface => {
   const oldVariable = formulaContext.findVariableById(t.namespaceId, t.variableId)
   let newVariable: VariableInterface
   if (oldVariable) {
     oldVariable.t = t
     newVariable = oldVariable.clone()
+  } else if (variable) {
+    newVariable = variable
+    newVariable.t = t
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }
