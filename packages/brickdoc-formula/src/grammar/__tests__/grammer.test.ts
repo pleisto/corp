@@ -640,10 +640,6 @@ const testCases: TestCase[] = [
     value: 1
   },
   {
-    input: '=SLEEP ( 1111 )',
-    value: 1111
-  },
-  {
     input: '=core::ABS ( -1  )',
     value: 1
   },
