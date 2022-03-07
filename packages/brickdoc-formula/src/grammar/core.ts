@@ -308,40 +308,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     flattenVariableDependencies: []
   }
 
-  if (type === 'normal' && !checkValidName(name)) {
-    return {
-      ...returnValue,
-      success: false,
-      kind: 'unknown',
-      errorType: 'syntax',
-      errorMessages: [{ message: 'Variable name is not valid', type: 'name_invalid' }]
-    }
-  }
-
-  if (formulaContext.reservedNames.includes(name.toUpperCase())) {
-    return {
-      ...returnValue,
-      success: false,
-      kind: 'unknown',
-      errorType: 'syntax',
-      errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }]
-    }
-  }
-
-  const sameNameVariable = formulaContext.formulaNames.find(
-    v => v.name.toUpperCase() === name.toUpperCase() && v.namespaceId === namespaceId && v.key !== variableId
-  )
-
-  if (type === 'normal' && sameNameVariable) {
-    return {
-      ...returnValue,
-      success: false,
-      kind: 'unknown',
-      errorType: 'syntax',
-      errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }]
-    }
-  }
-
   if (!input.startsWith('=') || (type !== 'normal' && input.trim() === '=')) {
     return {
       ...returnValue,
@@ -490,6 +456,40 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       kind: 'unknown',
       errorType: 'syntax',
       errorMessages: [{ message: 'Circular dependency found', type: 'circular_dependency' }]
+    }
+  }
+
+  if (type === 'normal' && !checkValidName(name)) {
+    return {
+      ...returnValue,
+      success: false,
+      kind: 'unknown',
+      errorType: 'syntax',
+      errorMessages: [{ message: 'Variable name is not valid', type: 'name_invalid' }]
+    }
+  }
+
+  if (formulaContext.reservedNames.includes(name.toUpperCase())) {
+    return {
+      ...returnValue,
+      success: false,
+      kind: 'unknown',
+      errorType: 'syntax',
+      errorMessages: [{ message: 'Variable name is reserved', type: 'name_check' }]
+    }
+  }
+
+  const sameNameVariable = formulaContext.formulaNames.find(
+    v => v.name.toUpperCase() === name.toUpperCase() && v.namespaceId === namespaceId && v.key !== variableId
+  )
+
+  if (type === 'normal' && sameNameVariable) {
+    return {
+      ...returnValue,
+      success: false,
+      kind: 'unknown',
+      errorType: 'syntax',
+      errorMessages: [{ message: 'Name exist in same namespace', type: 'name_unique' }]
     }
   }
 

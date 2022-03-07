@@ -80,7 +80,6 @@ export interface CalculateOutput {
   newVariable: VariableInterface
   newPosition: number
   parseResult: ParseResult
-  interpretResult: InterpretResult
 }
 
 const fetchEditorContent = (
@@ -159,8 +158,7 @@ const calculate = async ({
     newPosition: parseResult.position,
     completions,
     newVariable,
-    parseResult,
-    interpretResult
+    parseResult
   }
 }
 
@@ -262,7 +260,7 @@ export const useFormula = ({
       editorContentRef.current.position
     )
 
-    const { interpretResult, newPosition, parseResult, completions, newVariable } = await calculate({
+    const { newPosition, parseResult, completions, newVariable } = await calculate({
       namespaceId: rootId,
       formulaId,
       variable: variableRef.current,
@@ -275,9 +273,9 @@ export const useFormula = ({
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
 
-    if ((parseResult.valid && !errorIsFatal(newVariable.t)) || inputIsEmpty) {
+    if (parseResult.valid || inputIsEmpty) {
       editorContentRef.current = fetchEditorContent(newVariable, formulaIsNormal, newPosition)
-      // console.log('replace editorContent', editorContentRef.current)
+      // console.log('replace editorContent', editorContentRef.current, newVariable)
       replaceRoot({ editorContent: editorContentRef.current, rootId, formulaId })
     }
 
@@ -286,8 +284,8 @@ export const useFormula = ({
 
     // devLog({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
-    if (interpretResult.variableValue.success) {
-      const type = interpretResult.variableValue.result.type
+    if (newVariable.t.variableValue.success) {
+      const type = newVariable.t.variableValue.result.type
       const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
       defaultNameRef.current = newDefaultName
       setDefaultName(newDefaultName)
