@@ -21,8 +21,7 @@ import {
   FormulaSourceType,
   ErrorMessage,
   NamespaceId,
-  SyncVariableData,
-  FormulaType
+  SyncVariableData
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -48,7 +47,7 @@ export const errorIsFatal = (t: VariableData): boolean => {
 
 export const fetchResult = (t: VariableData): AnyTypeResult => {
   if (t.async) {
-    return { type: 'Pending', result: 'Pending' }
+    return { type: 'Pending', result: 'Loading...' }
   }
 
   return t.variableValue.result

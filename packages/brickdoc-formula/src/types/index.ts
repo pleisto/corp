@@ -245,7 +245,7 @@ export interface SelectResult extends BaseResult {
 }
 
 export interface PendingResult extends BaseResult {
-  result: 'Pending'
+  result: string
   type: 'Pending'
 }
 
