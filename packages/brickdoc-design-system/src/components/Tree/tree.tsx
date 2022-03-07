@@ -6,11 +6,12 @@ import {
   useRef,
   useEffect,
   ReactNode,
-  forwardRef
+  forwardRef,
+  RefCallback
 } from 'react'
 import List, { ListRef } from 'rc-virtual-list'
 import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { HTML5Backend, HTML5BackendOptions } from 'react-dnd-html5-backend'
 import type { TNode, MoveNode, TNodeWithContext } from './constants'
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
@@ -117,16 +118,19 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   })
 
   // add a root element to limit dnd scope
-  const [dndRoot, setDndRoot] = useState()
-  const handleDndAreaRef = useCallback(node => setDndRoot(node), [])
-  const html5Options = useMemo(() => ({ rootElement: dndRoot }), [dndRoot])
+  const [html5Options, setHtml5Options] = useState<HTML5BackendOptions>()
+  const handleDndAreaRef = useCallback<RefCallback<HTMLDivElement>>(node => {
+    if (node) {
+      setHtml5Options({ rootElement: node })
+    }
+  }, [])
 
   const finalHeight = height ?? Math.min(nodeList.length * NODE_HEIGHT, DEFAULT_HEIGHT)
 
   return (
     <div ref={handleDndAreaRef}>
       {/* make sure root area is mounted, then mount dnd area */}
-      {dndRoot && (
+      {html5Options?.rootElement && (
         <DndProvider backend={HTML5Backend} options={html5Options}>
           <List<TNodeWithContext>
             className={className}
