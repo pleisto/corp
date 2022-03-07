@@ -283,7 +283,7 @@ export const useFormula = ({
     // devLog({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
     void (newVariable.t.variableValue as Promise<VariableValue>).then(result => {
-      variableRef.current!.t = { ...newVariable.t, variableValue: result, async: false }
+      variableRef.current!.t = { ...variableRef.current!.t, variableValue: result, async: false }
       setVariableT(variableRef.current!.t)
 
       if (result.success) {

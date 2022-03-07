@@ -642,12 +642,22 @@ export const buildVariableAsync = ({
 
 const generateVariable = (formulaContext: ContextInterface, t: VariableData): VariableInterface => {
   const oldVariable = formulaContext.findVariableById(t.namespaceId, t.variableId)
+  let newVariable: VariableInterface
   if (oldVariable) {
     oldVariable.t = t
-    return oldVariable.clone()
+    newVariable = oldVariable.clone()
   } else {
-    return new VariableClass({ t, formulaContext })
+    newVariable = new VariableClass({ t, formulaContext })
   }
+
+  if (newVariable.t.async) {
+    void newVariable.t.variableValue.then(result => {
+      newVariable.t.variableValue = result
+      newVariable.t.async = false
+    })
+  }
+
+  return newVariable
 }
 
 export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {

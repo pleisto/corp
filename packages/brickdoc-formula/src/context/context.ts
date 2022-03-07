@@ -215,7 +215,7 @@ export class FormulaContext implements ContextInterface {
       return { type: 'Error', result: `Function ${name} not found`, errorKind: 'fatal' }
     }
 
-    return await clause.reference(ctx, ...args)
+    return await(clause.reference as (ctx: FunctionContext, ...args: any[]) => Promise<any>)(ctx, ...args)
   }
 
   public completions(namespaceId: NamespaceId, variableId: VariableId | undefined): Completion[] {

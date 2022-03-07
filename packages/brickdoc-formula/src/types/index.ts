@@ -461,10 +461,6 @@ interface Example<T extends FormulaType> {
   readonly output: AnyFunctionResult<T> | null
 }
 
-export interface ExampleWithCodeFragments<T extends FormulaType> extends Example<T> {
-  readonly codeFragments: CodeFragment[]
-}
-
 export interface BaseFunctionContext {
   readonly formulaContext: ContextInterface
   readonly meta?: VariableMetadata
@@ -479,14 +475,43 @@ export interface InterpretContext {
   readonly arguments: AnyTypeResult[]
 }
 
-export interface BaseFunctionClause<T extends FormulaType> {
+type FunctionReference<T extends FormulaType> =
+  | {
+      readonly reference: (ctx: FunctionContext, ...args: any[]) => Promise<AnyFunctionResult<T>>
+      readonly async: true
+      readonly chain: false
+    }
+  | {
+      readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T>
+      readonly async: false
+      readonly chain: false
+    }
+  | {
+      readonly reference: (ctx: FunctionContext, chainResult: any, ...args: any[]) => Promise<AnyFunctionResult<T>>
+      readonly async: true
+      readonly chain: true
+    }
+  | {
+      readonly reference: (ctx: FunctionContext, chainResult: any, ...args: any[]) => AnyFunctionResult<T>
+      readonly async: false
+      readonly chain: true
+    }
+
+type FunctionChain =
+  | {
+      readonly chain: false
+    }
+  | {
+      readonly chain: true
+      readonly args: [Argument, ...Argument[]]
+    }
+
+export type BaseFunctionClause<T extends FormulaType> = {
   readonly name: FunctionNameType
   readonly pure: boolean
   readonly effect: false
   readonly feature?: Feature
   readonly lazy: boolean
-  readonly async: false
-  readonly chain: boolean
   readonly acceptError: boolean
   readonly description: string
   readonly group: FunctionGroup
@@ -494,32 +519,18 @@ export interface BaseFunctionClause<T extends FormulaType> {
   readonly args: Argument[]
   readonly returns: T
   readonly testCases: TestCase[]
-  readonly reference: (ctx: FunctionContext, ...args: any[]) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
-}
+} & FunctionReference<T> &
+  FunctionChain
 
-export interface NormalFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
-  readonly chain: false
-}
-
-// TODO reference argument type!
-export interface ChainFunctionClause<T extends FormulaType> extends BaseFunctionClause<T> {
-  readonly chain: true
-  readonly returns: T
-  readonly args: [Argument, ...Argument[]]
-  readonly reference: (
-    ctx: FunctionContext,
-    chainResult: any,
-    ...args: any[]
-  ) => AnyFunctionResult<T> | Promise<AnyFunctionResult<T>>
-}
-
-export type BasicFunctionClause<T extends FormulaType> = NormalFunctionClause<T> | ChainFunctionClause<T>
-
-export interface BaseFunctionClauseWithKey<T extends FormulaType> extends BaseFunctionClause<T> {
+export type BaseFunctionClauseWithKey<T extends FormulaType> = BaseFunctionClause<T> & {
   readonly key: FunctionKey
 }
 
-export interface FunctionClause<T extends FormulaType> extends BaseFunctionClauseWithKey<T> {
+export interface ExampleWithCodeFragments<T extends FormulaType> extends Example<T> {
+  readonly codeFragments: CodeFragment[]
+}
+
+export type FunctionClause<T extends FormulaType> = Omit<BaseFunctionClauseWithKey<T>, 'examples'> & {
   readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
 }
 

@@ -44,12 +44,22 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({ displayData, dis
     )
   }
 
-  if (formulaType === 'normal' && result.type === 'Error') {
-    return (
-      <span {...props} className="brickdoc-formula-error">
-        <Icon.Formula className="brickdoc-formula-error-icon" />
-      </span>
-    )
+  if (formulaType === 'normal') {
+    if (result.type === 'Error') {
+      return (
+        <span {...props} className="brickdoc-formula-error">
+          <Icon.Formula className="brickdoc-formula-error-icon" />
+        </span>
+      )
+    }
+
+    if (result.type === 'Pending') {
+      return (
+        <span {...props} className="brickdoc-formula-pending">
+          <Icon.Formula className="brickdoc-formula-pending-icon" />
+        </span>
+      )
+    }
   }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks

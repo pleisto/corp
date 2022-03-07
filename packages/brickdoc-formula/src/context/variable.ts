@@ -21,7 +21,8 @@ import {
   FormulaSourceType,
   ErrorMessage,
   NamespaceId,
-  SyncVariableData
+  SyncVariableData,
+  BaseResult
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -51,6 +52,14 @@ export const fetchResult = (t: VariableData): AnyTypeResult => {
   }
 
   return t.variableValue.result
+}
+
+export const fetchCacheValue = (t: VariableData): BaseResult => {
+  if (t.async) {
+    return { type: 'Pending', result: 'Loading...' }
+  }
+
+  return t.variableValue.cacheValue
 }
 
 export const castVariable = (
@@ -245,7 +254,7 @@ export class VariableClass implements VariableInterface {
       type: this.t.type,
       // updatedAt: new Date().toISOString(),
       // createdAt: new Date().getTime(),
-      cacheValue: dumpValue((this.t.variableValue as VariableValue).cacheValue)
+      cacheValue: dumpValue(fetchCacheValue(this.t))
     }
   }
 

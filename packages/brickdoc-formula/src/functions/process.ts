@@ -1,4 +1,4 @@
-import { BasicFunctionClause, FunctionContext, NumberResult } from '../types'
+import { BaseFunctionClause, FunctionContext, NumberResult } from '../types'
 
 const sleep = async (delay: number) => await new Promise(resolve => setTimeout(resolve, delay))
 
@@ -7,10 +7,10 @@ export const SLEEP = async (ctx: FunctionContext, number: NumberResult): Promise
   return number
 }
 
-export const CORE_PROCESS_CLAUSES: Array<BasicFunctionClause<'number'>> = [
+export const CORE_PROCESS_CLAUSES: Array<BaseFunctionClause<'number'>> = [
   {
     name: 'SLEEP',
-    async: false,
+    async: true,
     pure: false,
     lazy: false,
     acceptError: false,

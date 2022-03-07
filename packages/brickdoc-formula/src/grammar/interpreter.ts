@@ -1011,7 +1011,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
       })
     }
 
-    return clause.reference(this.ctx, ...functionArgs)
+    return (clause.reference as (ctx: FunctionContext, ...args: any[]) => any)(this.ctx, ...functionArgs)
   }
 
   Arguments(ctx: { expression: any[] }, args: ExpressionArgument): AnyTypeResult[] {
