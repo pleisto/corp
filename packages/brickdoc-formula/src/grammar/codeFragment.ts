@@ -28,6 +28,7 @@ import {
 } from './convert'
 import { devWarning } from '@brickdoc/design-system'
 import { PositionFragment } from './core'
+import { fetchResult } from '../context'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
@@ -530,7 +531,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           ]
 
           if (variable) {
-            firstArgumentType = variable.t.variableValue.result.type
+            firstArgumentType = fetchResult(variable.t).type
 
             if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
               finalRhsCodeFragments = [

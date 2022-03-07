@@ -1,6 +1,6 @@
 import {
   attrs2completion,
-  buildVariable,
+  buildVariableAsync,
   CodeFragmentAttrs,
   Completion,
   ContextInterface,
@@ -11,7 +11,8 @@ import {
   parse,
   ParseResult,
   VariableData,
-  VariableInterface
+  VariableInterface,
+  VariableValue
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
@@ -109,7 +110,7 @@ const fetchEditorContent = (
   return { content: defaultContent, input: definition, position: newPosition }
 }
 
-const calculate = async ({
+const calculate = ({
   namespaceId,
   variable,
   formulaId,
@@ -117,7 +118,7 @@ const calculate = async ({
   editorContent: { input, position },
   formulaType,
   formulaContext
-}: CalculateInput): Promise<CalculateOutput> => {
+}: CalculateInput): CalculateOutput => {
   const variableId = variable ? variable.t.variableId : formulaId
   const meta = { namespaceId, variableId, name, input, position, type: formulaType }
   const ctx = {
@@ -128,31 +129,28 @@ const calculate = async ({
   const parseResult = parse({ ctx })
   const completions = parseResult.completions
 
-  let interpretResult: InterpretResult
+  let interpretResult: Promise<InterpretResult>
 
   if (parseResult.success) {
-    interpretResult = await interpret({ parseResult, ctx })
+    interpretResult = interpret({ parseResult, ctx })
   } else {
-    interpretResult = {
-      lazy: false,
-      variableValue: {
-        success: false,
-        result: {
-          type: 'Error',
-          result: parseResult.errorMessages[0].message,
-          errorKind: parseResult.errorMessages[0].type
-        },
-        cacheValue: {
-          type: 'Error',
-          result: parseResult.errorMessages[0].message,
-          errorKind: parseResult.errorMessages[0].type
-        },
-        updatedAt: new Date()
-      }
-    }
+    interpretResult = Promise.resolve({
+      success: false,
+      result: {
+        type: 'Error',
+        result: parseResult.errorMessages[0].message,
+        errorKind: parseResult.errorMessages[0].type
+      },
+      cacheValue: {
+        type: 'Error',
+        result: parseResult.errorMessages[0].message,
+        errorKind: parseResult.errorMessages[0].type
+      },
+      updatedAt: new Date()
+    })
   }
 
-  const newVariable = buildVariable({ formulaContext, meta, parseResult, interpretResult })
+  const newVariable = buildVariableAsync({ formulaContext, meta, parseResult, interpretResult })
 
   return {
     newPosition: parseResult.position,
@@ -247,7 +245,7 @@ export const useFormula = ({
   })
 
   // Callbacks
-  const doCalculate = React.useCallback(async (): Promise<void> => {
+  const doCalculate = React.useCallback((): void => {
     if (!formulaContext) {
       devLog('formula no input!')
       return
@@ -260,7 +258,7 @@ export const useFormula = ({
       editorContentRef.current.position
     )
 
-    const { newPosition, parseResult, completions, newVariable } = await calculate({
+    const { newPosition, parseResult, completions, newVariable } = calculate({
       namespaceId: rootId,
       formulaId,
       variable: variableRef.current,
@@ -273,7 +271,7 @@ export const useFormula = ({
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
 
-    if (parseResult.valid || inputIsEmpty) {
+    if (inputIsEmpty || parseResult.valid) {
       editorContentRef.current = fetchEditorContent(newVariable, formulaIsNormal, newPosition)
       // console.log('replace editorContent', editorContentRef.current, newVariable)
       replaceRoot({ editorContent: editorContentRef.current, rootId, formulaId })
@@ -284,12 +282,17 @@ export const useFormula = ({
 
     // devLog({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
 
-    if (newVariable.t.variableValue.success) {
-      const type = newVariable.t.variableValue.result.type
-      const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
-      defaultNameRef.current = newDefaultName
-      setDefaultName(newDefaultName)
-    }
+    void (newVariable.t.variableValue as Promise<VariableValue>).then(result => {
+      variableRef.current!.t = { ...newVariable.t, variableValue: result, async: false }
+      setVariableT(variableRef.current!.t)
+
+      if (result.success) {
+        const type = result.result.type
+        const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
+        defaultNameRef.current = newDefaultName
+        setDefaultName(newDefaultName)
+      }
+    })
   }, [formulaContext, formulaId, formulaIsNormal, formulaType, rootId])
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
@@ -516,7 +519,7 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaCalculateTrigger,
       e => {
-        void doCalculate()
+        doCalculate()
       },
       {
         eventId: `${rootId},${formulaId}`,

@@ -173,7 +173,7 @@ describe('Controls', () => {
       expect(errorMessages[0]?.message).toEqual(parseErrorMessage)
 
       if (success) {
-        const { variableValue } = await interpret({
+        const variableValue = await interpret({
           parseResult: { cst, kind, errorMessages },
           ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })

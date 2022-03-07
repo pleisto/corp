@@ -1078,7 +1078,7 @@ describe('Simple test case', () => {
       }
 
       if (value !== undefined) {
-        const { variableValue } = await interpret({
+        const variableValue = await interpret({
           parseResult: { cst, kind, errorMessages },
           ctx: { ...ctx, meta: newMeta }
         })

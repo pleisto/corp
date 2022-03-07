@@ -77,10 +77,7 @@ export interface ErrorParseResult extends BaseParseResult {
 }
 
 export type ParseResult = SuccessParseResult | ErrorParseResult | LiteralParseResult
-export interface InterpretResult {
-  readonly variableValue: VariableValue
-  readonly lazy: boolean
-}
+export type InterpretResult = VariableValue
 
 export interface PositionFragment {
   readonly tokenIndex: number
@@ -514,58 +511,46 @@ export const interpret = async ({
   if (errorMessages.length > 0) {
     const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
     return {
-      lazy: false,
-      variableValue: {
-        success: true,
-        updatedAt: new Date(),
-        cacheValue: result,
-        result
-      }
+      success: true,
+      updatedAt: new Date(),
+      cacheValue: result,
+      result
     }
   }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
     return {
-      lazy: false,
-      variableValue: {
-        success: true,
-        updatedAt: new Date(),
-        cacheValue: result,
-        result
-      }
+      success: true,
+      updatedAt: new Date(),
+      cacheValue: result,
+      result
     }
   }
 
   try {
     const interpreter = new FormulaInterpreter({ ctx })
     const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })
-    const lazy = interpreter.lazy
+    // const lazy = interpreter.lazy
 
     return {
-      lazy,
-      variableValue: {
-        success: true,
-        updatedAt: new Date(),
-        cacheValue: result,
-        result
-      }
+      success: true,
+      updatedAt: new Date(),
+      cacheValue: result,
+      result
     }
   } catch (e) {
     console.error(e)
     const message = `[FATAL] ${(e as any).message as string}`
     return {
-      lazy: false,
-      variableValue: {
-        updatedAt: new Date(),
-        success: false,
-        cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
-        result: { result: message, type: 'Error', errorKind: 'fatal' }
-      }
+      updatedAt: new Date(),
+      success: false,
+      cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
+      result: { result: message, type: 'Error', errorKind: 'fatal' }
     }
   }
 }
 
-export const buildVariable = ({
+export const buildVariableSync = ({
   formulaContext,
   meta: { name, input, namespaceId, variableId, type },
   parseResult: {
@@ -580,7 +565,7 @@ export const buildVariable = ({
     blockDependencies,
     flattenVariableDependencies
   },
-  interpretResult: { variableValue, lazy }
+  interpretResult
 }: {
   formulaContext: ContextInterface
   meta: VariableMetadata
@@ -593,11 +578,12 @@ export const buildVariable = ({
     name,
     cst,
     type,
-    version: lazy ? -1 : version,
+    version,
     codeFragments,
     definition: input,
     dirty: true,
-    variableValue,
+    async: false,
+    variableValue: interpretResult,
     valid,
     kind: kind ?? 'constant',
     variableDependencies,
@@ -606,8 +592,56 @@ export const buildVariable = ({
     blockDependencies,
     functionDependencies
   }
+  return generateVariable(formulaContext, t)
+}
 
-  const oldVariable = formulaContext.findVariableById(namespaceId, variableId)
+export const buildVariableAsync = ({
+  formulaContext,
+  meta: { name, input, namespaceId, variableId, type },
+  parseResult: {
+    valid,
+    cst,
+    kind,
+    codeFragments,
+    version,
+    variableDependencies,
+    variableNameDependencies,
+    functionDependencies,
+    blockDependencies,
+    flattenVariableDependencies
+  },
+  interpretResult
+}: {
+  formulaContext: ContextInterface
+  meta: VariableMetadata
+  parseResult: ParseResult
+  interpretResult: Promise<InterpretResult>
+}): VariableInterface => {
+  const t: VariableData = {
+    namespaceId,
+    variableId,
+    name,
+    cst,
+    type,
+    version,
+    codeFragments,
+    definition: input,
+    dirty: true,
+    async: true,
+    variableValue: interpretResult,
+    valid,
+    kind: kind ?? 'constant',
+    variableDependencies,
+    variableNameDependencies,
+    flattenVariableDependencies,
+    blockDependencies,
+    functionDependencies
+  }
+  return generateVariable(formulaContext, t)
+}
+
+const generateVariable = (formulaContext: ContextInterface, t: VariableData): VariableInterface => {
+  const oldVariable = formulaContext.findVariableById(t.namespaceId, t.variableId)
   if (oldVariable) {
     oldVariable.t = t
     return oldVariable.clone()

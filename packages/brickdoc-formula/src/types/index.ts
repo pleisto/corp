@@ -18,7 +18,7 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void'
+export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void' | 'Pending'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -54,6 +54,7 @@ export type SpecialDefaultVariableName =
   | 'radio'
   | 'rate'
   | 'slider'
+  | 'pending'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -243,6 +244,11 @@ export interface SelectResult extends BaseResult {
   result: SelectType
 }
 
+export interface PendingResult extends BaseResult {
+  result: 'Pending'
+  type: 'Pending'
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -286,6 +292,7 @@ export type AnyTypeResult =
   | FunctionResult
   | CstResult
   | ReferenceResult
+  | PendingResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
@@ -577,14 +584,6 @@ interface ErrorVariableValue extends BaseVariableValue {
 }
 
 export type VariableValue = SuccessVariableValue | ErrorVariableValue
-
-export interface VariableResult {
-  definition: Definition
-  variableValue: VariableValue
-  kind: VariableKind
-  type: FormulaSourceType
-}
-
 export interface VariableDisplayData {
   definition: Definition
   result: AnyTypeResult
@@ -595,7 +594,12 @@ export interface VariableDisplayData {
   display: string
 }
 
-export interface VariableData extends VariableResult {
+export interface BaseVariableData {
+  definition: Definition
+  async: boolean
+  variableValue: VariableValue | Promise<VariableValue>
+  kind: VariableKind
+  type: FormulaSourceType
   name: VariableName
   version: number
   namespaceId: NamespaceId
@@ -611,6 +615,17 @@ export interface VariableData extends VariableResult {
   functionDependencies: Array<FunctionClause<FormulaType>>
 }
 
+export interface SyncVariableData extends BaseVariableData {
+  async: false
+  variableValue: VariableValue
+}
+
+export interface AsyncVariableData extends BaseVariableData {
+  async: true
+  variableValue: Promise<VariableValue>
+}
+
+export type VariableData = SyncVariableData | AsyncVariableData
 export interface VariableMetadata {
   readonly namespaceId: NamespaceId
   readonly variableId: VariableId

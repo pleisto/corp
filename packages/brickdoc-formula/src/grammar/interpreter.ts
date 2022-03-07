@@ -521,7 +521,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
     let result: AnyTypeResult = this.visit(ctx.lhs, { ...args, type: 'any' })
 
     // eslint-disable-next-line complexity
-    ctx.rhs.every(cst => {
+    ctx.rhs.every(async cst => {
       if (cst.name === 'FunctionCall') {
         if (result.type === 'Error') {
           return false
@@ -548,7 +548,7 @@ export class FormulaInterpreter extends BaseCstVisitor {
           }
 
           if (['constant', 'unknown'].includes(variable.t.kind)) {
-            result = variable.t.variableValue.result
+            result = (await variable.t.variableValue).result
             return true
           }
 

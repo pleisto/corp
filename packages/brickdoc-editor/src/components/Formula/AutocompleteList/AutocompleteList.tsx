@@ -7,7 +7,8 @@ import {
   Completion,
   CompletionKind,
   displayValue,
-  dumpDisplayResult,
+  dumpDisplayResultForDisplay,
+  fetchResult,
   FunctionCompletion,
   SpreadsheetCompletion,
   VariableCompletion
@@ -150,14 +151,14 @@ const COMPLETION_STYLE_META: {
           </div>
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Type</div>
-            <span className="autocomplete-preview-input-tag">{preview.t.variableValue.result.type}</span>
+            <span className="autocomplete-preview-input-tag">{fetchResult(preview.t).type}</span>
           </div>
           <div className="autocomplete-preview-section">
             <div className="autocomplete-preview-section-head">Value</div>
             <span className="autocomplete-preview-output-tag">
               <FormulaValue
-                displayData={dumpDisplayResult(preview.t, true)}
-                display={displayValue(preview.t.variableValue.result, blockId)}
+                displayData={dumpDisplayResultForDisplay(preview.t)}
+                display={displayValue(fetchResult(preview.t), blockId)}
               />
             </span>
           </div>

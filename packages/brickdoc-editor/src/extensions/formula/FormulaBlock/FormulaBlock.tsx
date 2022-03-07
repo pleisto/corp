@@ -1,7 +1,7 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/core'
 import { Icon, Tooltip } from '@brickdoc/design-system'
-import { displayValue, dumpDisplayResult, VariableData } from '@brickdoc/formula'
+import { displayValue, dumpDisplayResultForDisplay, fetchResult, VariableData } from '@brickdoc/formula'
 import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { useFormula, BlockContainer, FormulaMenu, FormulaMenuProps, FormulaDisplay } from '../../../components/'
 
@@ -56,8 +56,8 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       <></>
     ) : (
       <FormulaDisplay
-        display={displayValue(savedVariableT.variableValue.result, rootId)}
-        displayData={dumpDisplayResult(savedVariableT, true)}
+        display={displayValue(fetchResult(savedVariableT), rootId)}
+        displayData={dumpDisplayResultForDisplay(savedVariableT)}
         formulaType={formulaType}
       />
     )
@@ -71,8 +71,8 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
     ) : (
       <Tooltip title={savedVariableT.name} destroyTooltipOnHide={true}>
         <FormulaDisplay
-          display={displayValue(savedVariableT.variableValue.result, rootId)}
-          displayData={dumpDisplayResult(savedVariableT, true)}
+          display={displayValue(fetchResult(savedVariableT), rootId)}
+          displayData={dumpDisplayResultForDisplay(savedVariableT)}
           formulaType={formulaType}
         />
       </Tooltip>
@@ -94,8 +94,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       completion={completion}
       handleSelectActiveCompletion={handleSelectActiveCompletion}
       setCompletion={setCompletion}
-      handleDelete={handleDelete}
-    >
+      handleDelete={handleDelete}>
       {renderData}
     </FormulaMenu>
   )

@@ -82,7 +82,7 @@ describe('Custom Function', () => {
       parseResult: { cst, kind, errorMessages },
       ctx: finalCtx
     })
-    expect(result.variableValue.result.result).toEqual(2)
+    expect(result.result.result).toEqual(2)
     expect(cst).toMatchSnapshot()
   })
 
@@ -130,9 +130,7 @@ describe('Custom Function', () => {
     const finalCtx = { ...ctx, meta: newMeta, formulaContext: localFormulaContext }
     const { success, cst, kind, errorMessages } = parse({ ctx: finalCtx })
     expect(success).toEqual(true)
-    expect(
-      (await interpret({ parseResult: { cst, kind, errorMessages }, ctx: finalCtx })).variableValue.result.result
-    ).toEqual(42)
+    expect((await interpret({ parseResult: { cst, kind, errorMessages }, ctx: finalCtx })).result.result).toEqual(42)
   })
 })
 
@@ -156,7 +154,7 @@ describe('Context', () => {
           parseResult: { cst, kind, errorMessages },
           ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
-      ).variableValue.result.result
+      ).result.result
     ).toEqual(24)
   })
 
@@ -172,7 +170,7 @@ describe('Context', () => {
           parseResult: { cst, kind, errorMessages },
           ctx: { meta: newMeta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
         })
-      ).variableValue.result.result
+      ).result.result
     ).toEqual(24)
   })
 
@@ -216,9 +214,7 @@ describe('Context', () => {
     const finalCtx = { ...ctx, meta: newMeta }
     const { cst, kind, errorMessages } = parse({ ctx: finalCtx })
     expect(errorMessages).toEqual([])
-    expect(
-      (await interpret({ parseResult: { cst, kind, errorMessages }, ctx: finalCtx })).variableValue.result.result
-    ).toEqual(34)
+    expect((await interpret({ parseResult: { cst, kind, errorMessages }, ctx: finalCtx })).result.result).toEqual(34)
   })
 
   it('Type', () => {
