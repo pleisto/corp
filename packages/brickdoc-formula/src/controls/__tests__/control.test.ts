@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jest/no-conditional-expect */
 import { interpret, parse } from '../../grammar/core'
 import { FormulaContext, FORMULA_FEATURE_CONTROL } from '../../context'
@@ -44,66 +45,66 @@ describe('Controls', () => {
       parseErrorMessage: 'Unknown function a',
       result: null
     },
-    {
-      label: 'set ok',
-      input: `=Set(#${namespaceId}.${testName1}, 1)`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'set ok 2',
-      input: `=Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1} + #${namespaceId}.${testName1}))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'set multiple line',
-      input: `=Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
+    // {
+    //   label: 'set ok',
+    //   input: `=Set(#${namespaceId}.${testName1}, 1)`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'set ok 2',
+    //   input: `=Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1} + #${namespaceId}.${testName1}))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'set multiple line',
+    //   input: `=Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
     {
       label: 'set unknown',
       input: `=Set(#${namespaceId}.baz, 1)`,
       parseErrorMessage: `Variable "baz" not found`,
       result: null
     },
-    {
-      label: 'set expression TODO -> Only constant variable is supported',
-      input: `=Set(#${namespaceId}.bar, 1)`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'button',
-      input: `=Button("Foo", Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'button multiple set',
-      input: `=Button("Foo", Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123)))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'input ok',
-      input: `=CInput(Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'switch set',
-      input: `=Switch(true, Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123)))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
-    {
-      label: 'select ok',
-      input: `=Select([1,2,3], Set(#${namespaceId}.${testName1}, Input.selected))`,
-      parseErrorMessage: undefined,
-      result: SNAPSHOT_FLAG
-    },
+    // {
+    //   label: 'set expression TODO -> Only constant variable is supported',
+    //   input: `=Set(#${namespaceId}.bar, 1)`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'button',
+    //   input: `=Button("Foo", Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'button multiple set',
+    //   input: `=Button("Foo", Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123)))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'input ok',
+    //   input: `=CInput(Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'switch set',
+    //   input: `=Switch(true, Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})); Set(#${namespaceId}.${testName1}, (123)))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
+    // {
+    //   label: 'select ok',
+    //   input: `=Select([1,2,3], Set(#${namespaceId}.${testName1}, Input.selected))`,
+    //   parseErrorMessage: undefined,
+    //   result: SNAPSHOT_FLAG
+    // },
     {
       label: 'select []',
       input: `=Select([], Set(#${namespaceId}.${testName1}, Input.selected))`,
