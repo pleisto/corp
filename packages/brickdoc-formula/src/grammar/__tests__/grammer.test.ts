@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-conditional-expect */
 import { parse, interpret } from '../core'
 import { FunctionContext, ParseErrorType, VariableMetadata } from '../../types'
-import { FormulaContext } from '../../context'
+import { FormulaContext } from '../../context/context'
 import { quickInsert } from '../testHelper'
 
 interface TestCase {
@@ -242,26 +242,26 @@ const testCases: TestCase[] = [
       { type: 'boolean', result: true }
     ]
   },
-  {
-    input: '=[2, "foo", true, null].Map(1)',
-    label: 'Array Map',
-    value: [
-      { type: 'number', result: 1 },
-      { type: 'number', result: 1 },
-      { type: 'number', result: 1 },
-      { type: 'number', result: 1 }
-    ]
-  },
-  {
-    input: '=[2, "foo", true, null].Map($1)',
-    label: 'Array Map $1',
-    value: [
-      { type: 'number', result: 2 },
-      { type: 'string', result: 'foo' },
-      { type: 'boolean', result: true },
-      { type: 'null', result: null }
-    ]
-  },
+  // {
+  //   input: '=[2, "foo", true, null].Map(1)',
+  //   label: 'Array Map',
+  //   value: [
+  //     { type: 'number', result: 1 },
+  //     { type: 'number', result: 1 },
+  //     { type: 'number', result: 1 },
+  //     { type: 'number', result: 1 }
+  //   ]
+  // },
+  // {
+  //   input: '=[2, "foo", true, null].Map($1)',
+  //   label: 'Array Map $1',
+  //   value: [
+  //     { type: 'number', result: 2 },
+  //     { type: 'string', result: 'foo' },
+  //     { type: 'boolean', result: true },
+  //     { type: 'null', result: null }
+  //   ]
+  // },
   // Reference
   {
     input: `=Self`,

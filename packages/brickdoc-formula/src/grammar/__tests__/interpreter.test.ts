@@ -1,5 +1,5 @@
 import { parse, interpret } from '../core'
-import { FormulaContext } from '../../context'
+import { FormulaContext } from '../../context/context'
 import { BaseFunctionClause, NumberResult, VariableMetadata } from '../../types'
 import { quickInsert } from '../testHelper'
 
