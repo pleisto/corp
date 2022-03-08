@@ -151,6 +151,14 @@ export class VariableClass implements VariableInterface {
     return new VariableClass({ t: this.t, formulaContext: this.formulaContext })
   }
 
+  public subscribePromise(): void {
+    if (!this.t.async) return
+    void this.t.variableValue.then(result => {
+      this.t.variableValue = result
+      this.t.async = false
+    })
+  }
+
   public clearDependency(): void {
     this.unsubscripeEvents()
 

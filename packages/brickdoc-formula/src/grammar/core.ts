@@ -678,12 +678,7 @@ const generateVariable = (
     newVariable = new VariableClass({ t, formulaContext })
   }
 
-  if (newVariable.t.async) {
-    void newVariable.t.variableValue.then(result => {
-      newVariable.t.variableValue = result
-      newVariable.t.async = false
-    })
-  }
+  newVariable.subscribePromise()
 
   return newVariable
 }

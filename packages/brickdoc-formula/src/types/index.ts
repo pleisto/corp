@@ -656,6 +656,7 @@ export interface VariableInterface {
   destroy: () => Promise<void>
   save: () => Promise<void>
   reinterpret: () => Promise<void>
+  subscribePromise: VoidFunction
   isDraft: () => boolean
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
