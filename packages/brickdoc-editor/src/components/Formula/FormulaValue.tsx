@@ -2,17 +2,24 @@ import React from 'react'
 import { resultToColorType, VariableDisplayData } from '@brickdoc/formula'
 import './Formula.less'
 import { FORMULA_COLORS, FORMULA_ICONS } from '../../helpers'
-import { css, cx } from '@brickdoc/design-system'
+import { css, cx, Tooltip } from '@brickdoc/design-system'
+import { SelectedType } from './useFormula'
 
 export interface FormulaValueProps {
   displayData: VariableDisplayData
   display: string
   border?: boolean
+  name?: string
+  disablePopover?: boolean
+  selected?: SelectedType
 }
 
 export const FormulaValue: React.FC<FormulaValueProps> = ({
+  name,
   border,
+  selected,
   display,
+  disablePopover,
   displayData: { result, type },
   ...props
 }) => {
@@ -29,8 +36,14 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
     )
   }
 
+  const finalBackgroundColor = selected ? pressedBackgroundColor : backgroundColor
+
+  const borderColor = `rgb(${rgb.join(',')}, 0.3)`
+
   const formulaStyle = css({
-    backgroundColor,
+    backgroundColor: finalBackgroundColor,
+    border: '1px solid',
+    borderColor,
     '&:hover': {
       backgroundColor: hoverBackgroundColor
     },
@@ -42,17 +55,23 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
   // eslint-disable-next-line no-nested-ternary
   const finalDisplay = result.type === 'boolean' ? (result.result ? '✓' : '✗') : display
 
-  return (
+  const data = (
     <span
       {...props}
       className={cx(formulaStyle(), 'brickdoc-formula-value')}
-      style={{
-        color,
-        fontFamily: 'Fira Code',
-        borderColor: `rgb(${rgb.join(',')}, 0.3)`
-      }}>
+      style={{ color, fontFamily: 'Fira Code' }}>
       <span className="brickdoc-formula-value-icon">{icon}</span>
       <span className="brickdoc-formula-value-display">{finalDisplay}</span>
     </span>
+  )
+
+  if (disablePopover ?? !name) {
+    return data
+  }
+
+  return (
+    <Tooltip title={name} destroyTooltipOnHide={true} overlayInnerStyle={{ color }}>
+      {data}
+    </Tooltip>
   )
 }
