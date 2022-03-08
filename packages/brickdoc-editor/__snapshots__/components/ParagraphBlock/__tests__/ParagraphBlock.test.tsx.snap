@@ -6,13 +6,14 @@ exports[`ParagraphBlock matches snapshot correctly 1`] = `
   style="position: relative; pointer-events: none; white-space: normal;"
 >
   <div
-    class="brd-c-bfhcug"
+    class="brd-c-bfhcug brd-c-bfhcug-iRIwWx-disabled-true"
   >
     <p
       as="p"
       class="brd-c-hMGRDP"
       data-node-view-content=""
       data-placeholder=""
+      draggable="false"
       style="white-space: pre-wrap;"
     />
     <div
@@ -23,7 +24,7 @@ exports[`ParagraphBlock matches snapshot correctly 1`] = `
       draggable="true"
     >
       <button
-        class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-eWWUXK-btnType-text brd-c-dsuUsp-fXZnrp-size-sm brd-c-ivBjhy"
+        class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-eWWUXK-btnType-text brd-c-dsuUsp-cAxcPy-size-md brd-c-PJLV brd-c-PJLV-ivBjhy-size-sm"
         role="button"
         tabindex="0"
         type="button"
@@ -43,13 +44,14 @@ exports[`ParagraphBlock shows placeholder normally 1`] = `
   style="position: relative; pointer-events: none; white-space: normal;"
 >
   <div
-    class="brd-c-bfhcug"
+    class="brd-c-bfhcug brd-c-bfhcug-iRIwWx-disabled-true"
   >
     <p
       as="p"
       class="brd-c-hMGRDP"
       data-node-view-content=""
-      data-placeholder="placeholder"
+      data-placeholder=""
+      draggable="false"
       style="white-space: pre-wrap;"
     />
     <div
@@ -60,7 +62,7 @@ exports[`ParagraphBlock shows placeholder normally 1`] = `
       draggable="true"
     >
       <button
-        class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-eWWUXK-btnType-text brd-c-dsuUsp-fXZnrp-size-sm brd-c-ivBjhy"
+        class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-eWWUXK-btnType-text brd-c-dsuUsp-cAxcPy-size-md brd-c-PJLV brd-c-PJLV-ivBjhy-size-sm"
         role="button"
         tabindex="0"
         type="button"
