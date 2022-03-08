@@ -442,6 +442,12 @@ const testCases: TestCase[] = [
     parseErrorType: 'syntax',
     errorMessage: 'Parse error:'
   },
+  {
+    input: '= "Hello',
+    label: 'ParseError without closing quote',
+    parseErrorType: 'syntax',
+    errorMessage: 'Parse error: "\\"Hello"'
+  },
   // **
   {
     input: '= 2 ^ 4',
