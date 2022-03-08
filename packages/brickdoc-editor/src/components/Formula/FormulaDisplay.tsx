@@ -57,6 +57,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
   }
 
   if (formulaType === 'normal') {
+    // TODO error and pending hover
     if (result.type === 'Error') {
       return (
         <span {...props} className="brickdoc-formula-error">

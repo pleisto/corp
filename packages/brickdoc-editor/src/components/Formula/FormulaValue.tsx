@@ -24,31 +24,33 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
   ...props
 }) => {
   const colorType = resultToColorType(result)
-  const { color, rgb, backgroundColor, hoverBackgroundColor, pressedBackgroundColor } = FORMULA_COLORS[colorType]
+  const { colorMain, colorSecond, color1, color2, color3 } = FORMULA_COLORS[colorType]
   const icon = FORMULA_ICONS[colorType]
   const hasBorder = type === 'normal' && border
 
   if (!hasBorder) {
     return (
-      <span {...props} className="brickdoc-formula-borderless" style={{ color, fontFamily: 'Fira Code' }}>
+      <span {...props} className="brickdoc-formula-borderless" style={{ color: colorMain, fontFamily: 'Fira Code' }}>
         {display}
       </span>
     )
   }
 
-  const finalBackgroundColor = selected ? pressedBackgroundColor : backgroundColor
-
-  const borderColor = `rgb(${rgb.join(',')}, 0.3)`
-
   const formulaStyle = css({
-    backgroundColor: finalBackgroundColor,
+    color: colorMain,
+    fontFamily: 'Fira Code',
+    backgroundColor: color1,
     border: '1px solid',
-    borderColor,
+    borderColor: selected ? colorSecond : color2,
     '&:hover': {
-      backgroundColor: hoverBackgroundColor
+      color: colorSecond,
+      borderColor: color3,
+      backgroundColor: color2
     },
     '&:focus, &:active': {
-      backgroundColor: pressedBackgroundColor
+      color: colorSecond,
+      borderColor: color3,
+      backgroundColor: color3
     }
   })
 
@@ -56,10 +58,7 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
   const finalDisplay = result.type === 'boolean' ? (result.result ? '✓' : '✗') : display
 
   const data = (
-    <span
-      {...props}
-      className={cx(formulaStyle(), 'brickdoc-formula-value')}
-      style={{ color, fontFamily: 'Fira Code' }}>
+    <span {...props} className={cx(formulaStyle(), 'brickdoc-formula-value')}>
       <span className="brickdoc-formula-value-icon">{icon}</span>
       <span className="brickdoc-formula-value-display">{finalDisplay}</span>
     </span>
@@ -70,7 +69,7 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
   }
 
   return (
-    <Tooltip title={name} destroyTooltipOnHide={true} overlayInnerStyle={{ color }}>
+    <Tooltip title={name} destroyTooltipOnHide={true}>
       {data}
     </Tooltip>
   )
