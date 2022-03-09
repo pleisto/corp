@@ -32,10 +32,13 @@ jobs:
           ruby-version: 3.0.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run Playwright tests
-        run: yarn test:playwright:run --shard=${{ matrix.shard }}/3 && yarn test:playwright:report
+        run: yarn test:playwright:run --shard=${{ matrix.shard }}/3
         env:
           NODE_OPTIONS: '--max-old-space-size=5950'
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.environment_url }}
+      - name: Fix coverage files
+        run: (find .nyc_output -type f -name "*.json" -print0 | xargs -0 sed -i "s#[\"]/app/#\"$(pwd)/#g") && yarn test:playwright:report
+        continue-on-error: true
       - name: Publish Playwright code coverage reports
         uses: codecov/codecov-action@v2
         with:
