@@ -6,7 +6,6 @@ import {
   errorIsFatal,
   FormulaSourceType,
   parse,
-  ParseResult,
   VariableData,
   VariableInterface,
   VariableValue,
@@ -61,9 +60,7 @@ export interface UseFormulaOutput {
   isDisableSave: () => boolean
   updateEditor: (content: JSONContent, position: number) => void
   doHandleSave: () => Promise<void>
-  handleSelectActiveCompletion: () => void
   completion: CompletionType
-  setCompletion: React.Dispatch<React.SetStateAction<CompletionType>>
 }
 
 const fetchEditorContent = (
@@ -126,6 +123,11 @@ export interface SelectedType {
   rootId: string
 }
 
+export interface SelectType {
+  selectFormulaId: string
+  selectRootId: string
+}
+
 export const useFormula = ({
   rootId,
   formulaId,
@@ -170,7 +172,7 @@ export const useFormula = ({
   const editorContentRef = React.useRef(defaultEditorContent)
   const isDraftRef = React.useRef(defaultVariable?.isDraft() === true)
   const defaultNameRef = React.useRef(contextDefaultName)
-  const selectFormula = React.useRef<CodeFragmentAttrs>()
+  const selectFormula = React.useRef<SelectType>()
 
   // States
   const [variableT, setVariableT] = React.useState(defaultVariable?.t)
@@ -186,13 +188,12 @@ export const useFormula = ({
 
   // Callbacks
   const doSelectFormula = React.useCallback(
-    (attr: CodeFragmentAttrs) => {
-      if (attr.kind !== 'Variable') return
-      selectFormula.current = attr
+    (selectRootId, selectFormulaId) => {
+      selectFormula.current = { selectFormulaId, selectRootId }
       BrickdocEventBus.dispatch(
         FormulaEditorSelectEventTrigger({
-          formulaId: attr.id,
-          rootId: attr.namespaceId,
+          formulaId: selectFormulaId,
+          rootId: selectRootId,
           parentFormulaId: formulaId,
           parentRootId: rootId,
           selected: true
@@ -206,8 +207,8 @@ export const useFormula = ({
     if (!selectFormula.current) return
     BrickdocEventBus.dispatch(
       FormulaEditorSelectEventTrigger({
-        formulaId: selectFormula.current.id,
-        rootId: selectFormula.current.namespaceId,
+        formulaId: selectFormula.current.selectFormulaId,
+        rootId: selectFormula.current.selectRootId,
         parentFormulaId: formulaId,
         parentRootId: rootId,
         selected: false
@@ -385,6 +386,23 @@ export const useFormula = ({
     [formulaId, formulaType, rootId]
   )
 
+  const setCompletionByIndex = React.useCallback(
+    (newIndex: number): void => {
+      const currentCompletion = completion.completions[newIndex]
+      setCompletion(c => ({
+        ...c,
+        activeCompletionIndex: newIndex,
+        activeCompletion: currentCompletion,
+        kind: 'Completion'
+      }))
+      // if (currentCompletion.kind === 'variable') {
+      //   doSelectFormula(currentCompletion.preview.t.namespaceId, currentCompletion.preview.t.variableId)
+      // } else {
+      // }
+    },
+    [completion]
+  )
+
   const doHandleSave = React.useCallback(async (): Promise<void> => {
     // devLog({ variable: variableRef.current, name, defaultName })
     if (!variableRef.current) {
@@ -422,27 +440,39 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaKeyboardEventTrigger,
       event => {
+        const { isEditor, key, completionIndex } = event.payload
         let newIndex: number
-        switch (event.payload.key) {
+        switch (key) {
           case 'ArrowUp':
             newIndex =
               completion.activeCompletionIndex - 1 < 0
                 ? completion.completions.length - 1
                 : completion.activeCompletionIndex - 1
-            setCompletion(c => ({ ...c, activeCompletionIndex: newIndex, activeCompletion: c.completions[newIndex] }))
+            setCompletionByIndex(newIndex)
             break
           case 'ArrowDown':
             newIndex =
               completion.activeCompletionIndex + 1 > completion.completions.length - 1
                 ? 0
                 : completion.activeCompletionIndex + 1
-            setCompletion(c => ({ ...c, activeCompletionIndex: newIndex, activeCompletion: c.completions[newIndex] }))
+            setCompletionByIndex(newIndex)
             break
           case 'Tab':
-            if (completion.activeCompletion) handleSelectActiveCompletion()
+            handleSelectActiveCompletion()
             break
           case 'Enter':
-            void doHandleSave()
+            if (isEditor) {
+              void doHandleSave()
+            } else {
+              handleSelectActiveCompletion()
+            }
+            break
+          case 'Click':
+            if (completionIndex === completion.activeCompletionIndex) {
+              handleSelectActiveCompletion()
+            } else {
+              setCompletionByIndex(completionIndex)
+            }
             break
         }
       },
@@ -452,7 +482,7 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [completion, doHandleSave, formulaId, handleSelectActiveCompletion, rootId])
+  }, [completion, doHandleSave, formulaId, handleSelectActiveCompletion, rootId, setCompletionByIndex])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
@@ -462,14 +492,16 @@ export const useFormula = ({
         if (attrs) {
           const attrCompletion = attrs2completion(formulaContext!, attrs, rootId)
           if (attrCompletion) {
-            doSelectFormula(attrs)
+            if (attrs.kind === 'Variable') {
+              doSelectFormula(attrs.namespaceId, attrs.id)
+            }
             setCompletion(c => ({ ...c, activeCompletion: attrCompletion, kind: 'Preview' }))
             return
           }
         }
 
+        setCompletionByIndex(completion.activeCompletionIndex)
         doUnselectedFormula()
-        setCompletion(c => ({ ...c, activeCompletion: c.completions[c.activeCompletionIndex], kind: 'Completion' }))
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -477,7 +509,7 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [doSelectFormula, doUnselectedFormula, formulaContext, formulaId, rootId])
+  }, [completion, doSelectFormula, doUnselectedFormula, formulaContext, formulaId, rootId, setCompletionByIndex])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
@@ -555,8 +587,6 @@ export const useFormula = ({
     doHandleSave,
     formulaIsNormal,
     defaultName,
-    handleSelectActiveCompletion,
-    completion,
-    setCompletion
+    completion
   }
 }

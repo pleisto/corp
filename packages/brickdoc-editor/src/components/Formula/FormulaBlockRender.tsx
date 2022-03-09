@@ -35,15 +35,14 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
 }) => {
   const editorDataSource = React.useContext(EditorDataSourceContext)
   const formulaContext = editorDataSource.formulaContext
-  const { variableT, editorContent, handleSelectActiveCompletion, completion, setCompletion, updateEditor } =
-    useFormula({
-      rootId,
-      formulaId,
-      updateFormula,
-      formulaType,
-      formulaName,
-      formulaContext
-    })
+  const { variableT, editorContent, completion, updateEditor } = useFormula({
+    rootId,
+    formulaId,
+    updateFormula,
+    formulaType,
+    formulaName,
+    formulaContext
+  })
 
   if (!variableT && display) {
     Sentry.withScope(scope => {
@@ -61,15 +60,10 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     () => (
       <div className="brickdoc-formula-menu">
         <FormulaResult variableT={variableT} pageId={rootId} />
-        <AutocompleteList
-          blockId={rootId}
-          completion={completion}
-          handleSelectActiveCompletion={handleSelectActiveCompletion}
-          setCompletion={setCompletion}
-        />
+        <AutocompleteList rootId={rootId} formulaId={formulaId} completion={completion} />
       </div>
     ),
-    [completion, handleSelectActiveCompletion, rootId, setCompletion, variableT]
+    [completion, formulaId, rootId, variableT]
   )
 
   const onEditorBlur = React.useCallback((): void => {
@@ -104,7 +98,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}>
+      trigger={['click']}
+    >
       {editor}
     </Popover>
   )

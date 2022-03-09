@@ -42,7 +42,6 @@ describe('async', () => {
   it.each(testCases)('[async: $async] "$input"', async ({ input, output, async }) => {
     jest.useRealTimers()
 
-    // console.log(formulaContext.context)
     const newMeta = { ...meta, variableId: barVariableId, input, name: 'bar' }
     const newCtx = { ...ctx, meta: newMeta }
     const parseResult = parse({ ctx: newCtx })
