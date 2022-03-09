@@ -4,6 +4,7 @@ import RubyPlugin from 'vite-plugin-ruby'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { visualizer } from 'rollup-plugin-visualizer'
+import IstanbulPlugin from 'vite-plugin-istanbul'
 
 export default defineConfig({
   plugins: [
@@ -61,16 +62,13 @@ export default defineConfig({
         ]
       }
     }),
-    visualizer({
-      brotliSize: true,
-      filename: './tmp/esm-bundle-stats.html'
-    })
-    // istanbul({
-    //   include: 'apps/*',
-    //   exclude: ['node_modules', 'e2e-testing/'],
-    //   extension: ['.js', '.ts'],
-    //   requireEnv: true
-    // })
+    process.env.BUNDLE_STATS
+      ? visualizer({
+          brotliSize: true,
+          filename: './tmp/esm-bundle-stats.html'
+        })
+      : undefined,
+    process.env.COLLECT_COVERAGE ? IstanbulPlugin({ forceBuildInstrument: true }) : undefined
   ],
   build: {
     chunkSizeWarningLimit: 1024,
