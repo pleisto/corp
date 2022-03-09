@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
   retries: 2,
   reporter: isCI ? [['dot'], ['github']] : 'list',
   use: {
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure'
@@ -34,10 +35,12 @@ const config: PlaywrightTestConfig = {
       }
     }
   ],
-  webServer: {
-    command: 'COLLECT_COVERAGE=1 yarn dist --mode=test && RAILS_ENV=test ./bin/rails server',
-    port: 3000
-  }
+  webServer: !isCI
+    ? {
+        command: 'RAILS_ENV=test yarn dist && RAILS_ENV=test ./bin/rails server',
+        port: 3000
+      }
+    : undefined
 }
 
 // eslint-disable-next-line import/no-default-export

@@ -68,7 +68,9 @@ export default defineConfig({
           filename: './tmp/esm-bundle-stats.html'
         })
       : undefined,
-    process.env.COLLECT_COVERAGE ? IstanbulPlugin({ forceBuildInstrument: true }) : undefined
+    process.env.COLLECT_COVERAGE !== undefined || process.env.RAILS_ENV === 'cicd'
+      ? IstanbulPlugin({ forceBuildInstrument: true })
+      : undefined
   ],
   build: {
     chunkSizeWarningLimit: 1024,
