@@ -1,17 +1,16 @@
 import {
   attrs2completion,
-  buildVariableAsync,
   CodeFragmentAttrs,
   Completion,
   ContextInterface,
   errorIsFatal,
   FormulaSourceType,
-  interpret,
   parse,
   ParseResult,
   VariableData,
   VariableInterface,
-  VariableValue
+  VariableValue,
+  interpretAsync
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
@@ -67,23 +66,6 @@ export interface UseFormulaOutput {
   setCompletion: React.Dispatch<React.SetStateAction<CompletionType>>
 }
 
-export interface CalculateInput {
-  namespaceId: string
-  formulaId: string
-  variable: VariableInterface | undefined
-  formulaType: FormulaSourceType
-  name: string
-  editorContent: EditorContentType
-  formulaContext: ContextInterface
-}
-
-export interface CalculateOutput {
-  completions: Completion[]
-  newVariable: VariableInterface
-  newPosition: number
-  parseResult: ParseResult
-}
-
 const fetchEditorContent = (
   variable: VariableInterface | undefined,
   formulaIsNormal: boolean,
@@ -109,36 +91,6 @@ const fetchEditorContent = (
   const defaultContent = buildJSONContentByDefinition(realDefinition)
 
   return { content: defaultContent, input: definition, position: newPosition }
-}
-
-const calculate = ({
-  namespaceId,
-  variable,
-  formulaId,
-  name,
-  editorContent: { input, position },
-  formulaType,
-  formulaContext
-}: CalculateInput): CalculateOutput => {
-  const variableId = variable ? variable.t.variableId : formulaId
-  const meta = { namespaceId, variableId, name, input, position, type: formulaType }
-  const ctx = {
-    formulaContext,
-    meta,
-    interpretContext: { ctx: {}, arguments: [] }
-  }
-  const parseResult = parse({ ctx })
-  const completions = parseResult.completions
-  const interpretResult = interpret({ parseResult, ctx })
-
-  const newVariable = buildVariableAsync({ variable, formulaContext, meta, parseResult, interpretResult })
-
-  return {
-    newPosition: parseResult.position,
-    completions,
-    newVariable,
-    parseResult
-  }
 }
 
 const replaceRoot = ({
@@ -277,22 +229,26 @@ export const useFormula = ({
       editorContentRef.current.position
     )
 
-    const { newPosition, parseResult, completions, newVariable } = calculate({
+    const variableId = variableRef.current ? variableRef.current.t.variableId : formulaId
+    const meta = {
       namespaceId: rootId,
-      formulaId,
-      variable: variableRef.current,
-      formulaType,
-      editorContent: { ...editorContentRef.current, position: realInputs.prevText.length },
+      variableId,
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       name: nameRef.current || defaultNameRef.current,
-      formulaContext
-    })
+      input: editorContentRef.current.input,
+      position: realInputs.prevText.length,
+      type: formulaType
+    }
+    const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+    const parseResult = parse({ ctx })
+    const completions = parseResult.completions
+    const newVariable = interpretAsync({ parseResult, ctx, variable: variableRef.current })
 
     setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
     doUnselectedFormula()
 
     if (inputIsEmpty || parseResult.valid) {
-      editorContentRef.current = fetchEditorContent(newVariable, formulaIsNormal, newPosition)
+      editorContentRef.current = fetchEditorContent(newVariable, formulaIsNormal, parseResult.position)
       // console.log('replace editorContent', editorContentRef.current, newVariable)
       replaceRoot({ editorContent: editorContentRef.current, rootId, formulaId })
     }
