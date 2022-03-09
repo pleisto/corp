@@ -17,6 +17,7 @@
     { "path": "packages/active-support" },
     { "path": "packages/brickdoc-design-icons" },
     { "path": "packages/brickdoc-design-system" },
+    { "path": "packages/brickdoc-landing" },
     { "path": "packages/brickdoc-editor" },
     { "path": "packages/brickdoc-formula" },
     { "path": "packages/brickdoc-schema" },

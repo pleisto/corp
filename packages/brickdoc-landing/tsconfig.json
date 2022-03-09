@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.shared.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.*"],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "../brickdoc-design-system"
+    },
+    { "path": "../active-support" },
+    { "path": "../brickdoc-design-icons" }
+  ]
+}
