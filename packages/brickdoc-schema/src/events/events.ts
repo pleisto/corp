@@ -145,3 +145,11 @@ export const ExplorerMenuTrigger = event<{ items?: ExplorerMenuGroup[]; visible:
     return { visible, items }
   }
 )
+
+export const DiscussionMarkActive = event<{ markId: string }>()('DiscussionMarkActive', ({ markId }) => {
+  return { markId }
+})
+
+export const DiscussionMarkInactive = event<{ markId?: string }>()('DiscussionMarkInactive', ({ markId }) => {
+  return { markId }
+})
