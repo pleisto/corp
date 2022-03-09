@@ -6,7 +6,7 @@ import { Skeleton } from '@brickdoc/design-system'
 const Home: NextPage = () => {
   return (
     <div>
-      <Skeleton />
+      <Skeleton uniqueKey="home-page-skeleton" />
       demo
     </div>
   )
