@@ -37,7 +37,7 @@ const config: PlaywrightTestConfig = {
   ],
   webServer: !isCI
     ? {
-        command: 'RAILS_ENV=test yarn dist && RAILS_ENV=test ./bin/rails server',
+        command: 'NODE_ENV=test RAILS_ENV=test yarn dist && RAILS_ENV=test ./bin/rails server',
         port: 3000
       }
     : undefined
