@@ -9,9 +9,10 @@ import { FormulaEditor } from '../../extensions/formula/FormulaEditor/FormulaEdi
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
-
+import * as Sentry from '@sentry/react'
 export interface FormulaBlockRenderProps {
   formulaId: string
+  display: string
   formulaName: string
   formulaType: FormulaSourceType
   rootId: string
@@ -24,6 +25,7 @@ export interface FormulaBlockRenderProps {
 export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
+  display,
   formulaName,
   formulaType,
   saveOnBlur,
@@ -42,6 +44,18 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       formulaName,
       formulaContext
     })
+
+  if (!variableT && display) {
+    Sentry.withScope(scope => {
+      const error = new Error(`Variable is undefined`)
+      scope.setExtra('display', display)
+      scope.setExtra('formulaId', formulaId)
+      scope.setExtra('rootId', rootId)
+      scope.setExtra('formulaName', formulaName)
+      error.message = `Variable is undefined`
+      Sentry.captureException(error)
+    })
+  }
 
   const formulaResult = React.useMemo(
     () => (
@@ -90,8 +104,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {editor}
     </Popover>
   )
