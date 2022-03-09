@@ -65,10 +65,16 @@ export default defineConfig({
       brotliSize: true,
       filename: './tmp/esm-bundle-stats.html'
     })
+    // istanbul({
+    //   include: 'apps/*',
+    //   exclude: ['node_modules', 'e2e-testing/'],
+    //   extension: ['.js', '.ts'],
+    //   requireEnv: true
+    // })
   ],
   build: {
     chunkSizeWarningLimit: 1024,
-    sourcemap: false,
+    sourcemap: true,
     cssCodeSplit: false,
     target: ['chrome74', 'ios13', 'safari13'],
     rollupOptions: {
