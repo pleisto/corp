@@ -1,4 +1,4 @@
-name: Deploy Trunk Monolith on BAE
+name: Deploy Trunk Env
 on:
   push:
     paths-ignore:

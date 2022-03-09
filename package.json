@@ -29,7 +29,7 @@
     "test:playwright": "yarn test:playwright:cleanup && yarn test:playwright:run && yarn test:playwright:report",
     "test:playwright:cleanup": "rm -rf .nyc_output test-results",
     "test:playwright:run": "playwright test",
-    "test:playwright:report": "nyc report --reporter=clover --reporter=json --reporter=lcov --reporter=text --report-dir=coverage/playwright",
+    "test:playwright:report": "nyc report --reporter=lcov --reporter=text-summary --report-dir=coverage/playwright",
     "commit": "git add . && cz",
     "graphql": "bundle exec rails graphql:schema:dump && graphql-codegen --config codegen.yml",
     "cleanup": "rm -rf dist packages/*/dist apps/*/dist tools/*/dist public/esm-bundle junit-reports node_modules/.cache coverage .nyc_output test-results",

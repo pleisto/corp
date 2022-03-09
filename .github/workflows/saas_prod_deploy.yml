@@ -1,4 +1,4 @@
-name: Deploy SaaS Prod on BAE
+name: Deploy SaaS Prod Env
 concurrency:
   group: sass-prod-deploy
 on:

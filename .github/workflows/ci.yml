@@ -1,6 +1,6 @@
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
 ---
-name: Monolith Application CI
+name: CI
 concurrency:
   group: monolith-ci-${{ github.ref }}
   cancel-in-progress: true
@@ -9,7 +9,7 @@ on:
     # Make sure same as push
     paths-ignore:
       - .github/**
-      - '!.github/workflow/monolith_ci.yml'
+      - '!.github/workflow/ci.yml'
       - .husky/**
       - packages/eslint-plugin-brickdoc/**
       - gems/rubocop-brickdoc/**
@@ -20,7 +20,7 @@ on:
     # Make sure same as pull_request
     paths-ignore:
       - .github/**
-      - '!.github/workflow/monolith_ci.yml'
+      - '!.github/workflow/ci.yml'
       - .husky/**
       - packages/eslint-plugin-brickdoc/**
       - gems/rubocop-brickdoc/**

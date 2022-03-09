@@ -15,10 +15,11 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)sx?$': ['@swc/jest']
   },
-  collectCoverage: isCI,
+  collectCoverage: true,
   // Jest will map files in `dist` back into their source via source maps.
   collectCoverageFrom: ['**/src/**/*.(ts|tsx)', '!**/@(node_modules|__tests__)/**', '!**/*.@(spec|test).(ts|tsx)'],
   coverageDirectory: './coverage/jest',
+  coverageReporters: ['lcov', 'text-summary'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass|png|mp4|webp|gif)$': 'identity-obj-proxy'
   },

@@ -1,8 +1,11 @@
-name: Playwright Tests
+name: E2E Testing
 on: [deployment_status]
+concurrency:
+  group: monolith-e2e-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   playwright:
-    name: Playwright E2E Test
+    name: Playwright Test
     if: github.event.deployment_status.state == 'success' && (github.event.deployment_status.environment == 'pr_preview' || github.event.deployment_status.environment == 'trunk')
     runs-on: ubuntu-latest
     strategy:

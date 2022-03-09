@@ -1,4 +1,4 @@
-name: Create Monolith Application Pull Request Preview Env
+name: Deploy PR Preview Env
 concurrency:
   group: monolith-preview-env-${{ github.ref }}
   cancel-in-progress: true
