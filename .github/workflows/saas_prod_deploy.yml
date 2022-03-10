@@ -35,8 +35,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-      - run: yarn install --immutable && npm install -g @sentry/cli
+          cache: npm
+      - run: npm install -g @sentry/cli
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
