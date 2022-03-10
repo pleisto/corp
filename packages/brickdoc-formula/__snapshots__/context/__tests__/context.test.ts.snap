@@ -548,10 +548,6 @@ Object {
     },
   ],
   "variableValue": Object {
-    "cacheValue": Object {
-      "result": 366,
-      "type": "number",
-    },
     "result": Object {
       "result": 366,
       "type": "number",

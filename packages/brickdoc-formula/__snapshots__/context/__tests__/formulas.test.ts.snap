@@ -207,10 +207,6 @@ Array [
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableNameDependencies": Array [],
     "variableValue": Object {
-      "cacheValue": Object {
-        "result": 123,
-        "type": "number",
-      },
       "result": Object {
         "result": 123,
         "type": "number",
@@ -702,10 +698,6 @@ Array [
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableNameDependencies": Array [],
     "variableValue": Object {
-      "cacheValue": Object {
-        "result": 123,
-        "type": "number",
-      },
       "result": Object {
         "result": 123,
         "type": "number",
@@ -1453,10 +1445,6 @@ Array [
       },
     ],
     "variableValue": Object {
-      "cacheValue": Object {
-        "result": 456,
-        "type": "number",
-      },
       "result": Object {
         "result": 456,
         "type": "number",
@@ -1816,10 +1804,6 @@ Array [
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableNameDependencies": Array [],
     "variableValue": Object {
-      "cacheValue": Object {
-        "result": 123,
-        "type": "number",
-      },
       "result": Object {
         "errorKind": "syntax",
         "result": "Missing right expression",
@@ -2573,10 +2557,6 @@ Array [
       },
     ],
     "variableValue": Object {
-      "cacheValue": Object {
-        "result": 456,
-        "type": "number",
-      },
       "result": Object {
         "errorKind": "deps",
         "result": "Block not found: d986e871-cb85-4bd5-b675-87307f60b882",

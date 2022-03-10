@@ -580,7 +580,6 @@ export interface VariableNameDependency {
 interface BaseVariableValue {
   readonly success: boolean
   readonly result: AnyTypeResult
-  readonly cacheValue: BaseResult
 }
 
 interface SuccessVariableValue extends BaseVariableValue {

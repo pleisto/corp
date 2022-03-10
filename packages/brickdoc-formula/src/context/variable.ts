@@ -22,7 +22,6 @@ import {
   ErrorMessage,
   NamespaceId,
   SyncVariableData,
-  BaseResult,
   VariableWaitPromiseState
 } from '../types'
 import { parse, innerInterpret } from '../grammar/core'
@@ -56,14 +55,6 @@ export const fetchResult = (t: VariableData): AnyTypeResult => {
   return t.variableValue.result
 }
 
-export const fetchCacheValue = (t: VariableData): BaseResult => {
-  if (t.async) {
-    return { type: 'Pending', result: 'Loading...' }
-  }
-
-  return t.variableValue.cacheValue
-}
-
 export const castVariable = (
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
@@ -89,15 +80,10 @@ export const castVariable = (
   } = parse({ ctx })
 
   const variableValue: VariableValue = success
-    ? {
-        success: true,
-        result: castedValue,
-        cacheValue
-      }
+    ? { success: true, result: castedValue }
     : {
         success: false,
-        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type },
-        cacheValue
+        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type }
       }
 
   return {
@@ -274,7 +260,7 @@ export class VariableClass implements VariableInterface {
       name: this.t.name,
       version: this.t.version,
       type: this.t.type,
-      cacheValue: dumpValue(fetchCacheValue(this.t))
+      cacheValue: dumpValue(fetchResult(this.t))
     }
   }
 

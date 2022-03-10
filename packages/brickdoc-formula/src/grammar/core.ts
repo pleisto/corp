@@ -519,28 +519,19 @@ const innerInterpretFirst = ({
 }): VariableValue | undefined => {
   if (errorMessages.length > 0) {
     const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
-    return {
-      success: false,
-      cacheValue: result,
-      result
-    }
+    return { success: false, result }
   }
 
   // if (async) {
   //   const result: PendingResult = { type: 'Pending', result: `Pending: ${ctx.meta.input}` }
   //   return {
   //     success: true,
-  //     cacheValue: result,
   //     result
   //   }
   // }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
-    return {
-      success: true,
-      cacheValue: result,
-      result
-    }
+    return { success: true, result }
   }
   return undefined
 }
@@ -564,19 +555,11 @@ export const innerInterpret = async ({
     const result: AnyTypeResult = await interpreter.visit(cst!, { type: 'any' })
     // const lazy = interpreter.lazy
 
-    return {
-      success: true,
-      cacheValue: result,
-      result
-    }
+    return { success: true, result }
   } catch (e) {
     console.error(e)
     const message = `[FATAL] ${(e as any).message as string}`
-    return {
-      success: false,
-      cacheValue: { result: message, type: 'Error', errorKind: 'fatal' },
-      result: { result: message, type: 'Error', errorKind: 'fatal' }
-    }
+    return { success: false, result: { result: message, type: 'Error', errorKind: 'fatal' } }
   }
 }
 
