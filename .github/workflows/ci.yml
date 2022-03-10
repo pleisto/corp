@@ -73,7 +73,7 @@ jobs:
         if: steps.changed-es-files.outputs.any_changed == 'true'
       - name: Run Jest tests
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn test:jest --silent
+        run: yarn test:jest
         env:
           NODE_OPTIONS: '--max-old-space-size=5950'
       - name: Publish Jest test reports

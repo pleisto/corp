@@ -39,7 +39,4 @@ jobs:
         run: yarn install --immutable
       - name: Run TypeScript checks
         if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn tsc:check
-      - name: Run ESLint
-        if: steps.changed-es-files.outputs.any_changed == 'true'
-        run: yarn lint:eslint
+        run: yarn lint
