@@ -4,7 +4,7 @@ import { ACCOUNT_SELECTORS } from './selectors/account'
 const email = process.env.EMAIL ?? 'ADMIN4@brickdoc.com'
 const password = process.env.PASSWORD ?? 'PASSWORD4'
 
-export async function globalSetup(config: FullConfig): Promise<void> {
+async function globalSetup(config: FullConfig): Promise<void> {
   const { baseURL = '/', storageState } = config.projects[0].use
   const browser = await chromium.launch()
   const page = await browser.newPage()
@@ -19,3 +19,5 @@ export async function globalSetup(config: FullConfig): Promise<void> {
   })
   await browser.close()
 }
+
+export default globalSetup
