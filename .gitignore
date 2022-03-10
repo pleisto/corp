@@ -75,6 +75,7 @@ ehthumbs.db
 .nyc_output
 junit-reports/
 coverage/
+test-results/
 
 # build
 dist/

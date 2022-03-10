@@ -36,7 +36,7 @@ To start development:
 
 - To run back end tests: `bundle exec rspec`
 - To run frond end unit tests: `yarn test:jest`
-- To run frond end E2E tests: `yarn dist:test`, `RAILS_ENV=test ./bin/rails server`, and then `yarn cypress run`
+- To run frond end E2E tests: `yarn test:playwright`
 
 ### yarn scripts
 
@@ -46,7 +46,7 @@ yarn commit # instead of `git commit`, equivalent to `git add . && git-cz`
 yarn lint # lint code with eslint / rubocop / brakeman / packwerk
 yarn tsc:check # run TypeScript checking
 yarn test # run tsc:check / lint / jest / rspec
-yarn test:cypress # open Cypress GUI
+yarn test:playwright # run e2e tests with playwright
 yarn cleanup # clean up all the building artifacts / intermediates
 
 # webapp
