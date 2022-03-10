@@ -13301,14 +13301,14 @@ __metadata:
 
 "fastify-secure-session@github:brickdoc/fastify-secure-session":
   version: 3.0.0
-  resolution: "fastify-secure-session@https://github.com/brickdoc/fastify-secure-session.git#commit=30459080b726974256f303313083093dfc521bad"
+  resolution: "fastify-secure-session@https://github.com/brickdoc/fastify-secure-session.git#commit=8abde3f69a802dfda798c78b5d10f362a3e47a82"
   dependencies:
     fastify-cookie: ^5.4.0
     fastify-plugin: ^3.0.0
     sodium-native: ^3.3.0
   bin:
     fastify-secure-session: genkey.js
-  checksum: 81e798655ced46f2b046bff12ab706ce4d95a293f014ce81c18eb2774f3d0203ae7e1dd7bf17adde296aac471c15ee2f958b6a26f3b8af3330caa69f061892b9
+  checksum: c11ff76737554850f81fb2d92a3e878ab4c3a8acac334c3057f451ce9abdc3c28cd502828064673b7108a88a92d16f33d5b5a5b98669d800c9542273fc01c6f3
   languageName: node
   linkType: hard
 
