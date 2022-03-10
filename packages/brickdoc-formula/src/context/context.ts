@@ -47,7 +47,6 @@ import {
   block2name,
   spreadsheet2name
 } from '../grammar/convert'
-import { FORMULA_PARSER_VERSION } from '../version'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
@@ -215,7 +214,7 @@ export class FormulaContext implements ContextInterface {
       return { type: 'Error', result: `Function ${name} not found`, errorKind: 'fatal' }
     }
 
-    return await(clause.reference as (ctx: FunctionContext, ...args: any[]) => Promise<any>)(ctx, ...args)
+    return await (clause.reference as (ctx: FunctionContext, ...args: any[]) => Promise<any>)(ctx, ...args)
   }
 
   public completions(namespaceId: NamespaceId, variableId: VariableId | undefined): Completion[] {
@@ -369,14 +368,7 @@ export class FormulaContext implements ContextInterface {
     }
 
     // 5. persist
-    if (oldVariable) {
-      await variable.invokeBackendUpdate()
-    } else {
-      if (variable.t.version < FORMULA_PARSER_VERSION) {
-        await variable.interpret({ ctx: {}, arguments: [] })
-      }
-      await variable.invokeBackendCreate()
-    }
+    await variable.invokeBackendCommit()
 
     // 6. broadcast update
     variable.afterUpdate()

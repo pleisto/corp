@@ -78,9 +78,10 @@ export const castVariable = (
   return newVariable
 }
 
-const errorMessages = ({ variableValue: { result, success } }: SyncVariableData): ErrorMessage[] => {
-  if (result.type === 'Error' && !success) {
-    return [{ message: result.result, type: result.errorKind }]
+const errorMessages = ({ variableValue, async }: VariableData): ErrorMessage[] => {
+  if (async) return []
+  if (variableValue.result.type === 'Error' && !variableValue.success) {
+    return [{ message: variableValue.result.result, type: variableValue.result.errorKind }]
   } else {
     return []
   }
@@ -232,18 +233,7 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  public async invokeBackendCreate(): Promise<void> {
-    if (!this.t.dirty) {
-      return
-    }
-    if (this.isDraft()) return
-    if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.commit(this.buildFormula())
-    }
-    this.t.dirty = false
-  }
-
-  public async invokeBackendUpdate(): Promise<void> {
+  public async invokeBackendCommit(): Promise<void> {
     if (!this.t.dirty) {
       return
     }
@@ -255,7 +245,7 @@ export class VariableClass implements VariableInterface {
   }
 
   private async updateAndPersist(): Promise<void> {
-    await this.invokeBackendUpdate()
+    await this.invokeBackendCommit()
     this.afterUpdate()
   }
 
@@ -291,7 +281,7 @@ export class VariableClass implements VariableInterface {
 
   private async refresh(interpretContext: InterpretContext): Promise<void> {
     await this.interpret(interpretContext)
-    await this.invokeBackendUpdate()
+    await this.invokeBackendCommit()
     this.afterUpdate()
   }
 
@@ -302,7 +292,7 @@ export class VariableClass implements VariableInterface {
         cst: this.t.cst!,
         kind: this.t.kind,
         async: false,
-        errorMessages: errorMessages(this.t as SyncVariableData)
+        errorMessages: errorMessages(this.t)
       },
       ctx: {
         formulaContext: this.formulaContext,

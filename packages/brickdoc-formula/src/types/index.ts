@@ -606,6 +606,7 @@ export interface VariableDisplayData {
 export interface BaseVariableData {
   definition: Definition
   async: boolean
+  isAsync: boolean
   execStartTime: Date
   execEndTime: Date | undefined
   variableValue: VariableValue | Promise<VariableValue>
@@ -670,8 +671,7 @@ export interface VariableInterface {
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
   updateCst: (cst: CstNode, context: InterpretContext) => void
-  invokeBackendCreate: () => Promise<void>
-  invokeBackendUpdate: () => Promise<void>
+  invokeBackendCommit: () => Promise<void>
   afterUpdate: VoidFunction
   interpret: (context: InterpretContext) => Promise<void>
 }
