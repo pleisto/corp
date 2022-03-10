@@ -21,6 +21,7 @@ env:
   domain: trunk.brickdoc.dev
 concurrency:
   group: monolith-trunk-cd
+  cancel-in-progress: true
 jobs:
   build:
     name: 'Build and Push Docker Image'
