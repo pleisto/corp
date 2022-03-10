@@ -45,15 +45,6 @@ const variableWithNames = variableIds.map((id, index) => ({ variableId: id, name
 
 const interpretContext = { ctx: {}, arguments: [] }
 
-const asyncForEach = async (
-  array: string | any[],
-  callback: { (meta: VariableMetadata): Promise<void>; (arg0: any, arg1: number, arg2: any): any }
-): Promise<void> => {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array)
-  }
-}
-
 const simpleMetas: VariableMetadata[] = [
   { name: 'num0', input: '=1' },
   { name: 'num1', input: '=2' },
@@ -331,9 +322,9 @@ describe('useFormula', () => {
   beforeEach(async () => {
     formulaContext.resetFormula()
 
-    await asyncForEach([...simpleMetas, ...complexMetas], async (meta: VariableMetadata) => {
+    for (const meta of [...simpleMetas, ...complexMetas]) {
       await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
-    })
+    }
   })
   it('normal initial', () => {
     const { result } = renderHook(() => useFormula(spreadsheetInput))

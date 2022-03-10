@@ -21,8 +21,8 @@ const meta: VariableMetadata = {
 const testCases = [
   { input: '=SLEEP(123)', output: 123, async: true },
   { input: '=SLEEP(123+1)', output: 124, async: true },
-  { input: '=1+SLEEP(123)', output: NaN, async: true, todo: true },
-  { input: '=SLEEP(123)+1', output: NaN, async: true, todo: true },
+  { input: '=1+SLEEP(123)', output: 124, async: true },
+  { input: '=SLEEP(123)+1', output: 124, async: true },
   { input: '=foo+1', output: 25, async: false }
 ]
 
