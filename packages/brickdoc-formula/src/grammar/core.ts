@@ -687,17 +687,6 @@ export const interpretAsync = ({
 
       return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
     }
-
-    if (variable && !variable.t.async) {
-      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-        async: false,
-        execStartTime: new Date(),
-        execEndTime: new Date(),
-        variableValue: variable.t.variableValue
-      }
-
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
-    }
   }
 
   if (skipAsync && variable) {

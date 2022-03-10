@@ -393,7 +393,7 @@ export class FormulaContext implements ContextInterface {
       this.formulaNames = this.formulaNames.filter(n => !(n.kind === 'Variable' && n.key === variableId))
 
       if (this.backendActions) {
-        await this.backendActions.deleteVariable(variable.buildFormula())
+        await this.backendActions.delete(variable.buildFormula())
       }
 
       variable.afterUpdate()

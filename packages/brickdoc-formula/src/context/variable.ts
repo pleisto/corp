@@ -238,7 +238,7 @@ export class VariableClass implements VariableInterface {
     }
     if (this.isDraft()) return
     if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.createVariable(this.buildFormula())
+      await this.formulaContext.backendActions.commit(this.buildFormula())
     }
     this.t.dirty = false
   }
@@ -249,7 +249,7 @@ export class VariableClass implements VariableInterface {
     }
     if (this.isDraft()) return
     if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.updateVariable(this.buildFormula())
+      await this.formulaContext.backendActions.commit(this.buildFormula())
     }
     this.t.dirty = false
   }

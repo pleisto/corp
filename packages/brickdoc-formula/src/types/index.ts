@@ -677,9 +677,8 @@ export interface VariableInterface {
 }
 
 export interface BackendActions {
-  createVariable: (formula: Formula) => Promise<{ success: boolean }>
-  updateVariable: (formula: Formula) => Promise<{ success: boolean }>
-  deleteVariable: (formula: Formula) => Promise<{ success: boolean }>
+  commit: (formula: Formula) => Promise<{ success: boolean }>
+  delete: (formula: Formula) => Promise<{ success: boolean }>
 }
 
 export interface ErrorMessage {
