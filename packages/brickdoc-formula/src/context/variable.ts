@@ -22,12 +22,14 @@ import {
   ErrorMessage,
   NamespaceId,
   SyncVariableData,
-  BaseResult
+  BaseResult,
+  VariableWaitPromiseState
 } from '../types'
 import { parse, innerInterpret } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
 import { block2name, variable2name, variableKey } from '../grammar/convert'
 import { BlockClass } from '../controls/block'
+import { v4 as uuidv4 } from 'uuid'
 
 export const errorIsFatal = (t: VariableData): boolean => {
   if (t.async) {
@@ -135,6 +137,7 @@ export class VariableClass implements VariableInterface {
   formulaContext: ContextInterface
   eventListeners: EventSubscribed[] = []
   reparsing: boolean = false
+  latestWaitingPromiseState: VariableWaitPromiseState | undefined = undefined
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
@@ -152,9 +155,20 @@ export class VariableClass implements VariableInterface {
   }
 
   public subscribePromise(): void {
-    if (!this.t.async) return
+    const uuid = uuidv4()
+    if (!this.t.async) {
+      this.latestWaitingPromiseState = { uuid, state: 'resolved' }
+      return
+    }
+    this.latestWaitingPromiseState = { uuid, state: 'pending' }
     void this.t.variableValue.then(result => {
-      this.t = { ...this.t, variableValue: result, async: false, execEndTime: new Date() }
+      if (this.latestWaitingPromiseState?.uuid === uuid) {
+        this.t = { ...this.t, variableValue: result, async: false, execEndTime: new Date() }
+        this.latestWaitingPromiseState = { uuid, state: 'notifying' }
+        void this.updateAndPersist().then(() => {
+          this.latestWaitingPromiseState = { uuid, state: 'resolved' }
+        })
+      }
     })
   }
 
@@ -184,6 +198,7 @@ export class VariableClass implements VariableInterface {
 
   public trackDependency(): void {
     this.subscripeEvents()
+    this.subscribePromise()
 
     this.formulaContext.formulaNames = this.formulaContext.formulaNames
       .filter(n => !(n.kind === 'Variable' && n.key === this.t.variableId))
@@ -267,6 +282,7 @@ export class VariableClass implements VariableInterface {
     if (!this.t.dirty) {
       return
     }
+    if (this.isDraft()) return
     if (this.formulaContext.backendActions) {
       await this.formulaContext.backendActions.createVariable(this.buildFormula())
     }
@@ -277,6 +293,7 @@ export class VariableClass implements VariableInterface {
     if (!this.t.dirty) {
       return
     }
+    if (this.isDraft()) return
     if (this.formulaContext.backendActions) {
       await this.formulaContext.backendActions.updateVariable(this.buildFormula())
     }

@@ -363,7 +363,8 @@ describe('useFormula', () => {
   it.each(simpleNormalTestCasesWithPosition)(
     'normal: "$input"($position) -> "$resultData"',
     async ({ input, newInput, position, resultData }) => {
-      const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
+      jest.useRealTimers()
+      const { result } = renderHook(() => useFormula(normalInput))
 
       const editorPosition = position
       const jsonContent = buildJSONContentByArray([
@@ -373,11 +374,10 @@ describe('useFormula', () => {
         }
       ])
 
-      act(() => {
+      await act(async () => {
         result.current.updateEditor(jsonContent, editorPosition)
+        await new Promise(resolve => setTimeout(resolve, 50))
       })
-
-      await waitForNextUpdate()
 
       // expect(result.current.editorContent.position).toEqual(position)
       if (result.current.editorContent.position !== position) {
@@ -396,13 +396,15 @@ describe('useFormula', () => {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data).toEqual(resultData)
       }
+      jest.clearAllTimers()
     }
   )
 
   it.each(simpleSpreadsheetTestCasesWithPosition)(
     'spreadsheet: "$input"($position) -> "$resultData"',
     async ({ input, newInput, position, resultData }) => {
-      const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
+      jest.useRealTimers()
+      const { result } = renderHook(() => useFormula(spreadsheetInput))
 
       const editorPosition = position
       const jsonContent = buildJSONContentByArray([
@@ -412,11 +414,10 @@ describe('useFormula', () => {
         }
       ])
 
-      act(() => {
+      await act(async () => {
         result.current.updateEditor(jsonContent, editorPosition)
+        await new Promise(resolve => setTimeout(resolve, 50))
       })
-
-      await waitForNextUpdate()
 
       // expect(result.current.editorContentRef.current.position).toEqual(position)
       if (result.current.editorContent.position !== position) {
@@ -436,20 +437,21 @@ describe('useFormula', () => {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data).toEqual(resultData)
       }
+      jest.clearAllTimers()
     }
   )
 
   it.each(normalTestCases)('normal $title', async ({ input, output }) => {
-    const { result, waitForNextUpdate } = renderHook(() => useFormula(normalInput))
+    jest.useRealTimers()
+    const { result } = renderHook(() => useFormula(normalInput))
 
     const editorPosition = input.position
     const jsonContent = buildJSONContentByArray(input.content)
 
-    act(() => {
+    await act(async () => {
       result.current.updateEditor(jsonContent, editorPosition)
+      await new Promise(resolve => setTimeout(resolve, 50))
     })
-
-    await waitForNextUpdate()
 
     expect(result.current.editorContent.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
@@ -459,19 +461,20 @@ describe('useFormula', () => {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
+    jest.clearAllTimers()
   })
 
   it.each(spreadsheetTestCases)('spreadsheet $title', async ({ input, output }) => {
-    const { result, waitForNextUpdate } = renderHook(() => useFormula(spreadsheetInput))
+    jest.useRealTimers()
+    const { result } = renderHook(() => useFormula(spreadsheetInput))
 
     const editorPosition = input.position
     const jsonContent = buildJSONContentByArray(input.content)
 
-    act(() => {
+    await act(async () => {
       result.current.updateEditor(jsonContent, editorPosition)
+      await new Promise(resolve => setTimeout(resolve, 50))
     })
-
-    await waitForNextUpdate()
 
     expect(result.current.editorContent.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
@@ -481,5 +484,6 @@ describe('useFormula', () => {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
+    jest.clearAllTimers()
   })
 })

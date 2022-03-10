@@ -19,7 +19,9 @@ import {
   StringResult,
   BaseFormula,
   ErrorResult,
-  VariableNameDependency
+  VariableNameDependency,
+  AsyncVariableData,
+  SyncVariableData
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -29,7 +31,7 @@ import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
 import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey } from './convert'
-import { checkValidName, parseString } from './util'
+import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { devWarning } from '@brickdoc/design-system'
 export interface BaseParseResult {
   success: boolean
@@ -503,7 +505,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   }
 }
 
-export const innerInterpret = async ({
+const innerInterpretFirst = ({
   parseResult: { cst, kind, errorMessages, async },
   ctx
 }: {
@@ -514,7 +516,7 @@ export const innerInterpret = async ({
     async: boolean
   }
   ctx: FunctionContext
-}): Promise<VariableValue> => {
+}): VariableValue | undefined => {
   if (errorMessages.length > 0) {
     const result: ErrorResult = { result: errorMessages[0].message, type: 'Error', errorKind: errorMessages[0].type }
     return {
@@ -540,10 +542,26 @@ export const innerInterpret = async ({
       result
     }
   }
+  return undefined
+}
 
+export const innerInterpret = async ({
+  parseResult: { cst, kind, errorMessages, async },
+  ctx
+}: {
+  parseResult: {
+    cst: CstNode | undefined
+    kind: VariableKind
+    errorMessages: ErrorMessage[]
+    async: boolean
+  }
+  ctx: FunctionContext
+}): Promise<VariableValue> => {
+  const result = innerInterpretFirst({ parseResult: { cst, kind, errorMessages, async }, ctx })
+  if (result) return result
   try {
     const interpreter = new FormulaInterpreter({ ctx })
-    const result: AnyTypeResult = await interpreter.visit(cst, { type: 'any' })
+    const result: AnyTypeResult = await interpreter.visit(cst!, { type: 'any' })
     // const lazy = interpreter.lazy
 
     return {
@@ -619,9 +637,11 @@ export const interpretSync = async ({
 export const interpretAsync = ({
   variable,
   ctx,
+  skipAsync,
   parseResult
 }: {
   variable?: VariableInterface
+  skipAsync: boolean
   ctx: FunctionContext
   parseResult: ParseResult
 }): VariableInterface => {
@@ -641,14 +661,9 @@ export const interpretAsync = ({
     formulaContext,
     meta: { name, input, namespaceId, variableId, type }
   } = ctx
-  const execStartTime = new Date()
-  const interpretResult = innerInterpret({ parseResult, ctx })
-
-  const t: VariableData = {
+  const t: Omit<VariableData, 'variableValue' | 'async' | 'execStartTime' | 'execEndTime'> = {
     namespaceId,
     variableId,
-    execStartTime,
-    execEndTime: undefined,
     name,
     cst,
     type,
@@ -656,8 +671,6 @@ export const interpretAsync = ({
     codeFragments,
     definition: input,
     dirty: true,
-    async: true,
-    variableValue: interpretResult,
     valid,
     kind: kind ?? 'constant',
     variableDependencies,
@@ -666,7 +679,51 @@ export const interpretAsync = ({
     blockDependencies,
     functionDependencies
   }
-  return generateVariable(formulaContext, t, variable)
+
+  const result = innerInterpretFirst({ parseResult, ctx })
+  if (result) {
+    const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+      async: false,
+      execStartTime: new Date(),
+      execEndTime: new Date(),
+      variableValue: result
+    }
+
+    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+  }
+
+  if (skipAsync && variable) {
+    if (variable.t.async) {
+      const restAttrs: Pick<AsyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+        async: variable.t.async,
+        execStartTime: variable.t.execStartTime,
+        execEndTime: variable.t.execEndTime,
+        variableValue: variable.t.variableValue
+      }
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+    }
+
+    if (!shouldReturnEarly(variable.t.variableValue.result)) {
+      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+        async: variable.t.async,
+        execStartTime: variable.t.execStartTime,
+        execEndTime: variable.t.execEndTime,
+        variableValue: variable.t.variableValue
+      }
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+    }
+  }
+
+  const execStartTime = new Date()
+  const interpretResult = innerInterpret({ parseResult, ctx })
+  const restAttrs: Pick<AsyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+    async: true,
+    execStartTime,
+    execEndTime: undefined,
+    variableValue: interpretResult
+  }
+
+  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
 }
 
 const generateVariable = (

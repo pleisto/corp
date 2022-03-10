@@ -17,7 +17,7 @@ import {
   StringResult
 } from '../types'
 import { ColumnClass, Row, SpreadsheetType } from '../controls'
-import { extractSubType, parseString, runtimeCheckType } from './util'
+import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
 import { BaseCstVisitor } from './parser'
 import {
@@ -46,16 +46,6 @@ interface ExpressionArgument {
   lazy?: boolean
   chainArgs?: any
 }
-
-const shouldReturnEarly = (result: AnyTypeResult | undefined): boolean => {
-  if (!result) return false
-  if (['Error', 'Blank', 'Pending'].includes(result.type)) {
-    return true
-  }
-
-  return false
-}
-
 export class FormulaInterpreter extends BaseCstVisitor {
   ctx: FunctionContext
   lazy: boolean = false
