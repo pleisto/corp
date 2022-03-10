@@ -521,6 +521,7 @@ Object {
     },
   ],
   "functionDependencies": Array [],
+  "isAsync": false,
   "kind": "expression",
   "name": "baz",
   "namespaceId": "37198be0-d10d-42dc-ae8b-20d45a95401b",

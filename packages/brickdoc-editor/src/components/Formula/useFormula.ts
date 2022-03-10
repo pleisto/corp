@@ -255,8 +255,8 @@ export const useFormula = ({
       }
       const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
       const parseResult = parse({ ctx })
-      const { completions, expressionType } = parseResult
-      updateDefaultName(expressionType)
+      const { completions, expressionType, success } = parseResult
+      updateDefaultName(success ? expressionType : 'Error')
       const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
@@ -576,9 +576,7 @@ export const useFormula = ({
 
         if (formulaContext && variableRef.current?.latestWaitingPromiseState?.state === 'notifying') {
           const result = variableRef.current.t.variableValue as VariableValue
-          if (result.success) {
-            updateDefaultName(result.result.type)
-          }
+          updateDefaultName(result.success ? result.result.type : 'Error')
         }
       },
       {

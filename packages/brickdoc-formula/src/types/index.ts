@@ -597,6 +597,7 @@ export interface VariableDisplayData {
   definition: Definition
   result: AnyTypeResult
   kind: VariableKind
+  isAsync: boolean
   type: FormulaSourceType
   version: number
   meta: VariableMetadata

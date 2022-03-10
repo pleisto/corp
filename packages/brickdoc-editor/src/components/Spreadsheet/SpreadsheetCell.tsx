@@ -66,9 +66,9 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     [setEditingCellId, formulaName, editing]
   )
 
-  const refreshCell = React.useCallback(async (): Promise<void> => {
+  const refreshCell = React.useCallback((): void => {
     if (variableRef.current) {
-      const displayData = await dumpDisplayResultForDisplay(variableRef.current.t)
+      const displayData = dumpDisplayResultForDisplay(variableRef.current.t)
       const value = displayValue(fetchResult(variableRef.current.t), rootId)
       devLog('Spreadsheet cell formula updated', { cellId, value, displayData })
       const newBlock = {
@@ -177,6 +177,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     )
   }
 
+  // TODO support async
   return (
     <div
       className="cell"

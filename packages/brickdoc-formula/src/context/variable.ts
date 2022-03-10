@@ -20,7 +20,6 @@ import {
   FormulaSourceType,
   ErrorMessage,
   NamespaceId,
-  SyncVariableData,
   VariableWaitPromiseState
 } from '../types'
 import { parse, innerInterpret, interpretAsync } from '../grammar/core'
@@ -78,10 +77,10 @@ export const castVariable = (
   return newVariable
 }
 
-const errorMessages = ({ variableValue, async }: VariableData): ErrorMessage[] => {
-  if (async) return []
-  if (variableValue.result.type === 'Error' && !variableValue.success) {
-    return [{ message: variableValue.result.result, type: variableValue.result.errorKind }]
+const errorMessages = (t: VariableData): ErrorMessage[] => {
+  if (t.async) return []
+  if (t.variableValue.result.type === 'Error' && !t.variableValue.success) {
+    return [{ message: t.variableValue.result.result, type: t.variableValue.result.errorKind }]
   } else {
     return []
   }
