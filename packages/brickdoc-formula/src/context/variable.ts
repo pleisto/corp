@@ -13,7 +13,6 @@ import {
   VariableInterface,
   VariableMetadata,
   AnyTypeResult,
-  VariableValue,
   InterpretContext,
   Definition,
   Formula,
@@ -24,7 +23,7 @@ import {
   SyncVariableData,
   VariableWaitPromiseState
 } from '../types'
-import { parse, innerInterpret } from '../grammar/core'
+import { parse, innerInterpret, interpretAsync } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
 import { block2name, variable2name, variableKey } from '../grammar/convert'
 import { BlockClass } from '../controls/block'
@@ -56,58 +55,27 @@ export const fetchResult = (t: VariableData): AnyTypeResult => {
 }
 
 export const castVariable = (
+  oldVariable: VariableInterface | undefined,
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
-): VariableData => {
+): VariableInterface => {
+  // const oldVariable = formulaContext.findVariableById(blockId, id)
   const namespaceId = blockId
   const variableId = id
   const type = unknownType as FormulaSourceType
   const meta: VariableMetadata = { namespaceId, variableId, name, input: definition, position: 0, type }
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
   const castedValue: AnyTypeResult = loadValue(ctx, cacheValue)
-  const {
-    success,
-    cst,
-    kind,
-    valid,
-    errorMessages,
-    blockDependencies,
-    variableDependencies,
-    variableNameDependencies,
-    flattenVariableDependencies,
-    codeFragments,
-    functionDependencies
-  } = parse({ ctx })
+  const parseResult = parse({ ctx })
 
-  const variableValue: VariableValue = success
-    ? { success: true, result: castedValue }
-    : {
-        success: false,
-        result: { type: 'Error', result: errorMessages[0]!.message, errorKind: errorMessages[0]!.type }
-      }
-
-  return {
-    namespaceId,
-    variableId,
-    async: false,
-    execStartTime: new Date(),
-    execEndTime: new Date(),
-    variableValue,
-    name,
-    cst,
-    valid,
-    version,
-    definition,
-    codeFragments,
-    kind: kind ?? 'constant',
-    type,
-    blockDependencies,
-    variableDependencies,
-    variableNameDependencies,
-    flattenVariableDependencies,
-    functionDependencies,
-    dirty: true
-  }
+  const newVariable = interpretAsync({
+    variable: oldVariable,
+    ctx,
+    cachedVariableValue: { success: true, result: castedValue },
+    parseResult,
+    skipAsync: false
+  })
+  return newVariable
 }
 
 const errorMessages = ({ variableValue: { result, success } }: SyncVariableData): ErrorMessage[] => {
@@ -299,7 +267,7 @@ export class VariableClass implements VariableInterface {
     this.reparsing = true
     const formula = this.buildFormula()
     this.clearDependency()
-    this.t = castVariable(this.formulaContext, formula)
+    this.t = castVariable(this, this.formulaContext, formula).t
     this.trackDependency()
     await this.refresh({ ctx: {}, arguments: [] })
     this.reparsing = false
@@ -307,7 +275,7 @@ export class VariableClass implements VariableInterface {
 
   public async reinterpret(): Promise<void> {
     const formula = this.buildFormula()
-    this.t = castVariable(this.formulaContext, formula)
+    this.t = castVariable(this, this.formulaContext, formula).t
     await this.interpret({ ctx: {}, arguments: [] })
   }
 

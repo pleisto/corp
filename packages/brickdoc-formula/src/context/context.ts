@@ -325,11 +325,17 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findVariableById(namespaceId: NamespaceId, variableId: VariableId): VariableInterface | undefined {
-    return this.context[variableKey(namespaceId, variableId)]
+    const v = this.context[variableKey(namespaceId, variableId)]
+    if (!v) return undefined
+    v.subscribePromise()
+    return v
   }
 
   public findVariableByName(namespaceId: NamespaceId, name: string): VariableInterface | undefined {
-    return Object.values(this.context).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
+    const v = Object.values(this.context).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
+    if (!v) return undefined
+    v.subscribePromise()
+    return v
   }
 
   public listVariables(namespaceId: NamespaceId): VariableInterface[] {

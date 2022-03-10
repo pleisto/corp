@@ -21,7 +21,8 @@ import {
   ErrorResult,
   VariableNameDependency,
   AsyncVariableData,
-  SyncVariableData
+  SyncVariableData,
+  FormulaType
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -42,6 +43,7 @@ export interface BaseParseResult {
   position: number
   inputImage: string
   parseImage: string
+  expressionType: FormulaType
   cst?: CstNode
   errorType?: ParseErrorType
   kind: VariableKind
@@ -290,6 +292,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     success: false,
     inputImage: '',
     parseImage: '',
+    expressionType: 'any',
     valid: true,
     async: false,
     cst: undefined,
@@ -332,16 +335,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     }
   }
 
-  if (!variableId) {
-    return {
-      ...returnValue,
-      valid: false,
-      success: false,
-      kind: 'unknown',
-      errorType: 'parse',
-      errorMessages: [{ message: 'Miss variableId', type: 'fatal' }]
-    }
-  }
   const baseCompletion = formulaContext.completions(namespaceId, variableId)
   let completions: Completion[] = baseCompletion
 
@@ -359,11 +352,16 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   const inputImage = tokens.map(t => t.image).join('')
 
   const cst: CstNode = parser.startExpression()
-  const { codeFragments, image }: CodeFragmentResult = codeFragmentVisitor.visit(cst, { type: 'any' })
+  const {
+    codeFragments,
+    image,
+    type: expressionType
+  }: CodeFragmentResult = codeFragmentVisitor.visit(cst, { type: 'any' })
 
   const errorCodeFragment = codeFragments.find(f => f.errors.length)
   const finalErrorMessages: ErrorMessage[] = errorCodeFragment ? errorCodeFragment.errors : []
 
+  returnValue.expressionType = expressionType
   returnValue.async = codeFragmentVisitor.async
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
@@ -621,9 +619,11 @@ export const interpretAsync = ({
   variable,
   ctx,
   skipAsync,
+  cachedVariableValue,
   parseResult
 }: {
   variable?: VariableInterface
+  cachedVariableValue?: VariableValue
   skipAsync: boolean
   ctx: FunctionContext
   parseResult: ParseResult
@@ -634,6 +634,7 @@ export const interpretAsync = ({
     kind,
     codeFragments,
     version,
+    async,
     variableDependencies,
     variableNameDependencies,
     functionDependencies,
@@ -673,6 +674,30 @@ export const interpretAsync = ({
     }
 
     return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+  }
+
+  if (!async) {
+    if (cachedVariableValue) {
+      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+        async: false,
+        execStartTime: new Date(),
+        execEndTime: new Date(),
+        variableValue: cachedVariableValue
+      }
+
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+    }
+
+    if (variable && !variable.t.async) {
+      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
+        async: false,
+        execStartTime: new Date(),
+        execEndTime: new Date(),
+        variableValue: variable.t.variableValue
+      }
+
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+    }
   }
 
   if (skipAsync && variable) {
@@ -734,7 +759,8 @@ const generateVariable = (
 export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {
   const dupFormulas = [...formulas]
   dupFormulas.forEach(formula => {
-    const variable = castVariable(formulaContext, formula)
-    void new VariableClass({ t: { ...variable, dirty: false }, formulaContext }).save()
+    const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
+    const variable = castVariable(oldVariable, formulaContext, formula)
+    void variable.save()
   })
 }

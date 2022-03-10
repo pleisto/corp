@@ -129,7 +129,9 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       FormulaUpdatedViaId,
       e => {
         variableRef.current = e.payload
-        void refreshCell()
+        if (!(editingCell || editing)) {
+          void refreshCell()
+        }
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -137,7 +139,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [formulaId, refreshCell, rootId])
+  }, [editing, editingCell, formulaId, refreshCell, rootId])
 
   const eventId = `${tableId},${cellId}`
 

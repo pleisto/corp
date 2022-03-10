@@ -9,7 +9,8 @@ import {
   VariableData,
   VariableInterface,
   VariableValue,
-  interpretAsync
+  interpretAsync,
+  FormulaType
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
@@ -203,6 +204,17 @@ export const useFormula = ({
     [formulaId, rootId]
   )
 
+  const updateDefaultName = React.useCallback(
+    (type: FormulaType) => {
+      if (!formulaContext) return
+      if (type === 'any' && defaultNameRef.current && defaultNameRef.current !== 'any') return
+      const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
+      defaultNameRef.current = newDefaultName
+      setDefaultName(newDefaultName)
+    },
+    [formulaContext, rootId]
+  )
+
   const doUnselectedFormula = React.useCallback(() => {
     if (!selectFormula.current) return
     BrickdocEventBus.dispatch(
@@ -243,7 +255,8 @@ export const useFormula = ({
       }
       const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
       const parseResult = parse({ ctx })
-      const completions = parseResult.completions
+      const { completions, expressionType } = parseResult
+      updateDefaultName(expressionType)
       const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
@@ -260,7 +273,7 @@ export const useFormula = ({
 
       // devLog({ variable, ref: variableRef.current, finalInput, inputIsEmpty, parseResult, newVariable })
     },
-    [doUnselectedFormula, formulaContext, formulaId, formulaIsNormal, formulaType, rootId]
+    [doUnselectedFormula, formulaContext, formulaId, formulaIsNormal, formulaType, rootId, updateDefaultName]
   )
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
@@ -555,17 +568,16 @@ export const useFormula = ({
       FormulaUpdatedViaId,
       e => {
         variableRef.current = e.payload
+        setVariableT(variableRef.current!.t)
+        if (!variableRef.current?.isDraft()) {
+          setSavedVariableT(variableRef.current!.t)
+        }
         editorContentRef.current = fetchEditorContent(e.payload, formulaIsNormal, editorContentRef.current.position)
-        setVariableT(e.payload.t)
-        setSavedVariableT(e.payload.t)
 
         if (formulaContext && variableRef.current?.latestWaitingPromiseState?.state === 'notifying') {
           const result = variableRef.current.t.variableValue as VariableValue
           if (result.success) {
-            const type = result.result.type
-            const newDefaultName = formulaContext.getDefaultVariableName(rootId, type)
-            defaultNameRef.current = newDefaultName
-            setDefaultName(newDefaultName)
+            updateDefaultName(result.result.type)
           }
         }
       },
@@ -575,7 +587,7 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [formulaContext, formulaId, formulaIsNormal, rootId])
+  }, [formulaContext, formulaId, formulaIsNormal, rootId, updateDefaultName])
 
   return {
     variableT,
