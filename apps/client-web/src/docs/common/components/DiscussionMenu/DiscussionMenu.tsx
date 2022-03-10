@@ -1,4 +1,4 @@
-import { BrickdocEventBus, DiscussionListToggle } from '@/../../packages/brickdoc-schema/src'
+import { BrickdocEventBus, DiscussionListToggle } from '@brickdoc/schema'
 import { itemStyle } from '@/docs/pages/components/DocumentTopBar/DocumentTopBar.style'
 import { Button, Tooltip, Icon } from '@brickdoc/design-system'
 import { useCallback } from 'react'
