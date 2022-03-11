@@ -4,7 +4,7 @@ import { Avatar, styled, theme } from '@brickdoc/design-system'
 import { isEmpty } from '@brickdoc/active-support'
 import { BlockContainer } from '../BlockContainer'
 import { EditorContext } from '../../context/EditorContext'
-import { UserBlockOptions } from '../../extensions'
+import { UserBlockOptions } from '../../extensions/blocks/userBlock'
 
 export interface UserBlockProps extends NodeViewProps {}
 

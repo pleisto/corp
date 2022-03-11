@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Node as ProsemirrorNode, Mark } from 'prosemirror-model'
 import { debounce } from '@brickdoc/active-support'
 import { EditorContext } from '../../context/EditorContext'
-import { name as discussionName } from '../../extensions/discussion/name'
+import { meta as discussionMeta } from '../../extensions/marks/discussion/meta'
 
 export interface CommentedNode {
   markId: string
@@ -10,7 +10,7 @@ export interface CommentedNode {
   domNode: Node
 }
 
-const findDiscussionMark = (marks: Mark[]) => marks.find(mark => mark.type.name === discussionName)
+const findDiscussionMark = (marks: Mark[]) => marks.find(mark => mark.type.name === discussionMeta.name)
 const isCommentedNodeExist = (nodes: CommentedNode[], markId: string) => nodes.some(node => node.markId === markId)
 
 export function useCommentedNodes(): [CommentedNode[]] {

@@ -8,7 +8,7 @@ import { BrickdocEventBus, DiscussionMarkInactive } from '@brickdoc/schema'
 import { EditorContext } from '../../context/EditorContext'
 import { usePlaceholder } from './usePlaceholder'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
-import { UserBlockExtension, PageLinkBlockExtension, MentionCommandsExtension } from '../../extensions'
+import { User, PageLink, MentionCommands } from '../../extensions'
 import { EventHandlerExtension } from './eventHandler'
 
 export interface CommentEditorProps {
@@ -100,13 +100,13 @@ export const CommentEditor: FC<CommentEditorProps> = ({ markId }) => {
       Text,
       Paragraph,
       EventHandlerExtension,
-      MentionCommandsExtension.configure({
+      MentionCommands.configure({
         editorDataSource
       }),
-      UserBlockExtension.configure({
+      User.configure({
         size: 'sm'
       }),
-      PageLinkBlockExtension.configure({
+      PageLink.configure({
         size: 'sm'
       })
     ]

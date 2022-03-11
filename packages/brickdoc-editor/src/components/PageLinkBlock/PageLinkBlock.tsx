@@ -7,7 +7,7 @@ import { BlockContainer } from '../BlockContainer'
 import { EditorContext } from '../../context/EditorContext'
 import { ArrowShortcut, FilePages } from '@brickdoc/design-icons'
 import { EditorDataSourceContext } from '../../dataSource/DataSource'
-import { PageLinkBlockOptions } from '../../extensions'
+import { PageLinkBlockOptions } from '../../extensions/blocks/pageLinkBlock'
 
 export interface PageLinkBlockProps extends NodeViewProps {}
 

@@ -3,12 +3,12 @@ import { Editor } from '@tiptap/core'
 import Text from '@tiptap/extension-text'
 import { Node as ProsemirrorNode } from 'prosemirror-model'
 import { TocItem } from './TocBlock'
-import { name as UserBlockName } from '../../extensions/user/name'
-import { name as PageLinkName } from '../../extensions/pageLink/name'
-import { name as FormulaName } from '../../extensions/formula/name'
+import { meta as userMeta } from '../../extensions/blocks/user/meta'
+import { meta as pageLinkMeta } from '../../extensions/blocks/pageLink/meta'
+import { meta as formulaMeta } from '../../extensions/blocks/formula/meta'
 import { User } from '../UserBlock'
 import { PageLink } from '../PageLinkBlock'
-import { FormulaRender } from '../../extensions/formula/FormulaBlock'
+import { FormulaRender } from '../FormulaBlock'
 
 export interface TocNode {
   parent?: TocNode
@@ -23,13 +23,13 @@ const createContentFromNode = (node: ProsemirrorNode): React.ReactNode => {
       case Text.name:
         content.push(node.text ?? null)
         break
-      case UserBlockName:
+      case userMeta.name:
         content.push(<User attributes={node.attrs} />)
         break
-      case PageLinkName:
+      case pageLinkMeta.name:
         content.push(<PageLink attributes={node.attrs} />)
         break
-      case FormulaName:
+      case formulaMeta.name:
         content.push(<FormulaRender attributes={node.attrs as any} />)
         break
       default:

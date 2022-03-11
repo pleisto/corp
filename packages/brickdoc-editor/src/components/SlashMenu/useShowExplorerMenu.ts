@@ -1,7 +1,7 @@
 import React from 'react'
 import { ExplorerMenuGroup, BrickdocEventBus, SlashMenuHide, ExplorerMenuTrigger } from '@brickdoc/schema'
 import { EditorContext } from '../../context/EditorContext'
-import { slashMenuGroup } from '../../extensions/slashCommands/items'
+import { slashMenuGroup } from '../../extensions/extensions/slashCommands/items'
 import { SlashMenuProps } from './SlashMenu'
 
 export function useShowExplorerMenu(command: SlashMenuProps['command']): [VoidFunction] {
