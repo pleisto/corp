@@ -3,6 +3,7 @@ import {
   BrickdocEventBus,
   EventSubscribed,
   FormulaInnerRefresh,
+  FormulaUpdatedValueViaId,
   FormulaUpdatedViaId,
   FormulaUpdatedViaName
 } from '@brickdoc/schema'
@@ -74,6 +75,7 @@ export const castVariable = (
     parseResult,
     skipAsync: false
   })
+  newVariable.isNew = true
   return newVariable
 }
 
@@ -88,6 +90,8 @@ const errorMessages = (t: VariableData): ErrorMessage[] => {
 
 export class VariableClass implements VariableInterface {
   t: VariableData
+  isNew: boolean = false
+  isDirty: boolean = false
   formulaContext: ContextInterface
   eventListeners: EventSubscribed[] = []
   reparsing: boolean = false
@@ -98,14 +102,38 @@ export class VariableClass implements VariableInterface {
     this.formulaContext = formulaContext
   }
 
-  public afterUpdate(): void {
+  private dispatchVariableValueChanged(): void {
+    BrickdocEventBus.dispatch(FormulaUpdatedValueViaId(this))
+    this.isDirty = true
+    this.trackDirty()
+  }
+
+  public onUpdate(): void {
     // console.log('after update', this.t.name, this.t.variableId, this.t.namespaceId)
     BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
+    this.trackDirty()
   }
 
   public clone(): VariableInterface {
     return new VariableClass({ t: this.t, formulaContext: this.formulaContext })
+  }
+
+  public trackDirty(): void {
+    if (this.isNew) {
+      this.isNew = false
+      return
+    }
+    this.formulaContext.dirtyFormulas[variableKey(this.t.namespaceId, this.t.variableId)] = {
+      updatedAt: new Date()
+    }
+  }
+
+  public onCommitDirty(): void {
+    if (!this.isDirty) return
+    this.isDirty = false
+    // TODO fix me
+    BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
   }
 
   public subscribePromise(): void {
@@ -118,10 +146,8 @@ export class VariableClass implements VariableInterface {
     void this.t.variableValue.then(result => {
       if (this.latestWaitingPromiseState?.uuid === uuid) {
         this.t = { ...this.t, variableValue: result, async: false, execEndTime: new Date() }
-        this.latestWaitingPromiseState = { uuid, state: 'notifying' }
-        void this.updateAndPersist().then(() => {
-          this.latestWaitingPromiseState = { uuid, state: 'resolved' }
-        })
+        this.dispatchVariableValueChanged()
+        this.latestWaitingPromiseState = { uuid, state: 'resolved' }
       }
     })
   }
@@ -170,7 +196,9 @@ export class VariableClass implements VariableInterface {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
       this.formulaContext.reverseVariableDependencies[dependencyKey] ||= []
       this.formulaContext.reverseVariableDependencies[dependencyKey] = [
-        ...this.formulaContext.reverseVariableDependencies[dependencyKey],
+        ...this.formulaContext.reverseVariableDependencies[dependencyKey].filter(
+          ({ namespaceId, variableId }) => !(namespaceId === this.t.namespaceId && variableId === this.t.variableId)
+        ),
         { namespaceId: this.t.namespaceId, variableId: this.t.variableId }
       ]
     })
@@ -179,7 +207,9 @@ export class VariableClass implements VariableInterface {
       const dependencyKey = dependency.key
       this.formulaContext.reverseFunctionDependencies[dependencyKey] ||= []
       this.formulaContext.reverseFunctionDependencies[dependencyKey] = [
-        ...this.formulaContext.reverseFunctionDependencies[dependencyKey],
+        ...this.formulaContext.reverseFunctionDependencies[dependencyKey].filter(
+          ({ namespaceId, variableId }) => !(namespaceId === this.t.namespaceId && variableId === this.t.variableId)
+        ),
         { namespaceId: this.t.namespaceId, variableId: this.t.variableId }
       ]
     })
@@ -212,12 +242,8 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  async destroy(): Promise<void> {
-    await this.formulaContext.removeVariable(this.t.namespaceId, this.t.variableId)
-  }
-
-  async save(): Promise<void> {
-    await this.formulaContext.commitVariable({ variable: this })
+  save(): void {
+    this.formulaContext.commitVariable({ variable: this })
   }
 
   public buildFormula(): Formula {
@@ -230,22 +256,6 @@ export class VariableClass implements VariableInterface {
       type: this.t.type,
       cacheValue: dumpValue(fetchResult(this.t))
     }
-  }
-
-  public async invokeBackendCommit(): Promise<void> {
-    if (!this.t.dirty) {
-      return
-    }
-    if (this.isDraft()) return
-    if (this.formulaContext.backendActions) {
-      await this.formulaContext.backendActions.commit(this.buildFormula())
-    }
-    this.t.dirty = false
-  }
-
-  private async updateAndPersist(): Promise<void> {
-    await this.invokeBackendCommit()
-    this.afterUpdate()
   }
 
   private async maybeReparseAndPersist(): Promise<void> {
@@ -280,8 +290,7 @@ export class VariableClass implements VariableInterface {
 
   private async refresh(interpretContext: InterpretContext): Promise<void> {
     await this.interpret(interpretContext)
-    await this.invokeBackendCommit()
-    this.afterUpdate()
+    this.onUpdate()
   }
 
   public async interpret(interpretContext: InterpretContext): Promise<void> {
@@ -308,7 +317,7 @@ export class VariableClass implements VariableInterface {
     const innerRefreshSubscription = BrickdocEventBus.subscribe(
       FormulaInnerRefresh,
       e => {
-        void this.updateAndPersist()
+        this.onUpdate()
       },
       { eventId: `${t.namespaceId},${t.variableId}`, subscribeId: `InnerRefresh#${t.variableId}` }
     )

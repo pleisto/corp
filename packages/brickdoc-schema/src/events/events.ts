@@ -53,6 +53,9 @@ export const FormulaInnerRefresh = event<{ namespaceId: string; variableId: stri
     return { id: `${namespaceId},${variableId}` }
   }
 )
+export const FormulaUpdatedValueViaId = event<any>()('FormulaUpdatedValueViaId', v => {
+  return { id: `${v.t.namespaceId},${v.t.variableId}` }
+})
 
 export const FormulaUpdatedViaId = event<any>()('FormulaUpdatedViaId', v => {
   return { id: `${v.t.namespaceId},${v.t.variableId}` }
@@ -126,6 +129,13 @@ export const FormulaCalculateTrigger = event<{
 }>()('FormulaCalculateTrigger', ({ formulaId, rootId, skipAsync }) => {
   return { id: `${rootId},${formulaId}`, formulaId, rootId, skipAsync }
 })
+
+export const FormulaContextTickTrigger = event<{ domain: string; state: any }>()(
+  'FormulaContextTickTrigger',
+  ({ domain, state }) => {
+    return { id: `FormulaContext#${domain}`, domain, state }
+  }
+)
 
 export interface ExplorerMenuItem {
   label: React.ReactElement
