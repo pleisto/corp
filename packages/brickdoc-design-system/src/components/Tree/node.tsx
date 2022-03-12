@@ -42,7 +42,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
   { treeData, className, onClick, handleSelected, titleRender, selectedId, emptyNode, id, index, moveNode },
   _ref
 ) => {
-  const { icon = '', parentId, rootId, value, isOpen, context } = treeData
+  const { icon = '', parentId, rootId, value, isExpanded, context } = treeData
   const { hasChildren, indent } = context
   const ref = useRef<HTMLDivElement>(_ref as any)
   const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
@@ -61,7 +61,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
 
   const emptyItem = typeof emptyNode === 'string' ? <TreeRoot.EmptyNode>{emptyNode}</TreeRoot.EmptyNode> : emptyNode
 
-  const showEmptyItem = hasEmptyNode && isOpen ? emptyItem : null
+  const showEmptyItem = hasEmptyNode && isExpanded ? emptyItem : null
 
   const [{ isDragging }, drag] = useDrag({
     type: DND_NODE_TYPE,
@@ -225,7 +225,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">
               {hasChildren || hasEmptyNode ? (
-                <TreeRoot.ContentArrow isOpen={isOpen} data-test-id="content-arrow" onClick={handleOpen}>
+                <TreeRoot.ContentArrow isExpanded={isExpanded} data-test-id="content-arrow" onClick={handleOpen}>
                   <Right data-test-id="content-icon" />
                 </TreeRoot.ContentArrow>
               ) : (

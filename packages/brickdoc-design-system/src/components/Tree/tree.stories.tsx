@@ -26,7 +26,7 @@ const demoData: TNode[] = [
     value: 'sun',
     title: 'Sun',
     icon: '🔆',
-    isOpen: true,
+    isExpanded: true,
     children: [
       {
         key: 'mercury',

@@ -25,7 +25,7 @@ export interface TreeProps {
   selectedNodeId?: string
   className?: string
   treeNodeClassName?: string
-  openAll?: boolean
+  expandAll?: boolean
   draggable?: boolean
   onDrop?: (attrs: MoveNode) => void
   titleRender?: (node: TNode) => ReactNode
@@ -42,11 +42,11 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   {
     height,
     treeData: nextTreeData,
-    openAll = false,
+    expandAll,
     titleRender,
     emptyNode,
     selectedNodeId,
-    draggable = false,
+    draggable,
     className,
     treeNodeClassName,
     onDrop
@@ -59,8 +59,10 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   const treeData = useDeepMemo(nextTreeData)
 
   const listRef = useRef<ListRef>()
-  const [openIds, setOpenIds] = useState<string[]>(
-    openAll ? treeData.map(node => node.value) : treeData.filter(node => node.isOpen).map(node => node.value) || []
+  const [expandedIds, setExpandedIds] = useState<string[]>(
+    expandAll
+      ? treeData.map(node => node.value)
+      : treeData.filter(node => node.isExpanded).map(node => node.value) || []
   )
 
   // `selectedId` is updated when:
@@ -73,35 +75,35 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
 
   useEffect(() => {
     if (selectedId) {
-      const nextOpenIds = joinNodeIdsByPath(treeData, selectedId, openIds) ?? []
-      if (!deepEqual(nextOpenIds, openIds)) {
-        setOpenIds(nextOpenIds)
-        console.log('set open ids', [nextOpenIds, openIds])
+      const nextOpenIds = joinNodeIdsByPath(treeData, selectedId, expandedIds) ?? []
+      if (!deepEqual(nextOpenIds, expandedIds)) {
+        setExpandedIds(nextOpenIds)
+        console.log('set open ids', [nextOpenIds, expandedIds])
       }
     }
-  }, [treeData, selectedId, openIds])
+  }, [treeData, selectedId, expandedIds])
 
   const flatten = useCallback(
     (node, indent: number, result: TNodeWithContext[]) => {
       const { children, value } = node
-      const isOpen = openIds.includes(value)
+      const isExpanded = expandedIds.includes(value)
 
       result.push({
         ...node,
-        isOpen,
+        isExpanded,
         context: {
           hasChildren: (children ?? []).length > 0,
           indent: indent ?? 0
         }
       })
 
-      if (isOpen && children) {
+      if (isExpanded && children) {
         for (const child of children) {
           flatten(child, indent + 1, result)
         }
       }
     },
-    [openIds]
+    [expandedIds]
   )
 
   const nodeList = useMemo(() => {
@@ -115,7 +117,9 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   const handleSelected = useMemoizedFn((id: string) => setSelectedId(id))
 
   const handleItemClick = useMemoizedFn((node: TNode) => {
-    node.isOpen ? setOpenIds(i => i.filter(value => value !== node.value)) : setOpenIds(i => [...i, node.value])
+    node.isExpanded
+      ? setExpandedIds(i => i.filter(value => value !== node.value))
+      : setExpandedIds(i => [...i, node.value])
   })
 
   const moveNode = useMemoizedFn((item: MoveNode) => {

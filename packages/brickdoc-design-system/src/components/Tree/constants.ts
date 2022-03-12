@@ -7,7 +7,7 @@ export interface TNode {
   parentId?: string | null | undefined
   rootId?: string
   icon?: string | null
-  isOpen?: boolean
+  isExpanded?: boolean
   children?: TNode[]
 }
 
