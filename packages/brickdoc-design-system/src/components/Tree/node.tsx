@@ -12,10 +12,10 @@ export interface NodeProps {
   treeData: TNodeWithContext
   className?: string
   emptyNode?: string | ReactNode
-  onClick: (node: TNodeWithContext) => void
-  handleSelected: (id: string) => void
+  onToggleExpand: (node: TNodeWithContext) => void
+  onSelect?: (node: TNodeWithContext) => void
   titleRender?: (node: TNodeWithContext) => ReactNode
-  selectedId?: string
+  selected?: boolean
   id: any
   index: number
   moveNode: (item: MoveNode) => void
@@ -39,7 +39,7 @@ const DND_NODE_TYPE = 'node'
  * @example
  */
 const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
-  { treeData, className, onClick, handleSelected, titleRender, selectedId, emptyNode, id, index, moveNode },
+  { treeData, className, onToggleExpand, onSelect, titleRender, selected, emptyNode, id, index, moveNode },
   _ref
 ) => {
   const { icon = '', parentId, rootId, value, isExpanded, context } = treeData
@@ -47,11 +47,11 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
   const ref = useRef<HTMLDivElement>(_ref as any)
   const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
 
-  const handleClick = useMemoizedFn(_e => handleSelected(value))
+  const handleSelect = useMemoizedFn(_e => onSelect?.(treeData))
 
-  const handleOpen = useMemoizedFn((e: MouseEvent) => {
+  const handleToggleExpand = useMemoizedFn((e: MouseEvent) => {
     e.stopPropagation()
-    onClick(treeData)
+    onToggleExpand(treeData)
   })
 
   const hasEmptyNode = useMemo(
@@ -203,7 +203,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
         ref={ref}
         data-handler-id={handlerId}
         dragging={isDragging}
-        selected={Boolean(value === selectedId)}
+        selected={selected}
         role="button"
         tabIndex={0}
         data-test-id="BrkTree"
@@ -225,17 +225,21 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
           <TreeRoot.ItemContent data-test-id="item-content">
             <TreeRoot.Content data-test-id="content">
               {hasChildren || hasEmptyNode ? (
-                <TreeRoot.ContentArrow isExpanded={isExpanded} data-test-id="content-arrow" onClick={handleOpen}>
+                <TreeRoot.ContentArrow
+                  isExpanded={isExpanded}
+                  data-test-id="content-arrow"
+                  onClick={handleToggleExpand}
+                >
                   <Right data-test-id="content-icon" />
                 </TreeRoot.ContentArrow>
               ) : (
-                <TreeRoot.ContentArrow data-test-id="content-arrow" onClick={handleOpen}>
+                <TreeRoot.ContentArrow data-test-id="content-arrow" onClick={handleToggleExpand}>
                   <TreeRoot.LeafDot data-test-id="leaf-dot" />
                 </TreeRoot.ContentArrow>
               )}
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               {/* Todo: fixed TS2769: No overload matches this call. pressProps.css */}
-              <TreeRoot.ContentAction data-test-id="content-action" onClick={handleClick}>
+              <TreeRoot.ContentAction data-test-id="content-action" onClick={handleSelect}>
                 {titleRender?.(treeData)}
               </TreeRoot.ContentAction>
             </TreeRoot.Content>

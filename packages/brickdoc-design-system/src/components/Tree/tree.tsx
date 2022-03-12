@@ -108,15 +108,18 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
     return result
   }, [treeData, flatten])
 
-  const handleSelected = useMemoizedFn((id: string) => {
-    setSelectedId(id)
-    if (expandOnSelect && selectedId) {
-      const nextOpenIds = joinNodeIdsByPath(treeData, selectedId, expandedIds) ?? []
-      if (!deepEqual(nextOpenIds, expandedIds)) {
-        setExpandedIds(nextOpenIds)
+  const handleSelected = useCallback(
+    (node: TNodeWithContext) => {
+      setSelectedId(node.value)
+      if (!node.isExpanded && expandOnSelect && node.value) {
+        const nextOpenIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
+        if (!deepEqual(nextOpenIds, expandedIds)) {
+          setExpandedIds(nextOpenIds)
+        }
       }
-    }
-  })
+    },
+    [treeData, expandOnSelect, expandedIds]
+  )
 
   const handleItemClick = useMemoizedFn((node: TNode) => {
     node.isExpanded
@@ -162,10 +165,10 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
                 key={item.key}
                 emptyNode={emptyNode}
                 treeData={item}
-                onClick={handleItemClick}
-                handleSelected={handleSelected}
+                onToggleExpand={handleItemClick}
+                onSelect={handleSelected}
                 titleRender={titleRender}
-                selectedId={selectedId}
+                selected={item.value === selectedId}
               />
             )}
           </List>

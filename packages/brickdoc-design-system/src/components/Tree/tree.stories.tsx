@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { ReactNode } from 'react'
-import { TNode, Tree } from '.'
+import { TNode, Tree, TreeProps } from '.'
 
 export default {
   title: 'Components/Tree',
@@ -74,13 +74,19 @@ const demoData: TNode[] = [
 const renderNode = (node: TNode): ReactNode => {
   return <span>{node.title}</span>
 }
-const Template: ComponentStory<typeof Tree> = () => <Tree treeData={demoData} titleRender={renderNode} />
+type ArgsType = Omit<TreeProps, 'treeData' | 'onDrop' | 'titleRender'>
+const Template: ComponentStory<typeof Tree> = (args: ArgsType) => (
+  <Tree treeData={demoData} titleRender={renderNode} {...args} />
+)
 
 export const Basic = Template.bind({})
 
-// It uses the
-export const ExpandedSelected = () => <Tree treeData={demoData} titleRender={renderNode} selectedNodeId="earth" />
-// Template.bind({})
-// ExpandedSelected.args = {
-//   selectedNodeId: 'earth'
-// }
+export const ExpandInitialSelection = Template.bind({})
+ExpandInitialSelection.args = {
+  selectedNodeId: 'earth'
+}
+
+export const ExpandOnSelect = Template.bind({})
+ExpandOnSelect.args = {
+  expandOnSelect: true
+}
