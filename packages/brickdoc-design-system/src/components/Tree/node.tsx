@@ -222,7 +222,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
             width: `calc(100% - ${rem(`${16 * indent}px`)})`
           }}
         >
-          <TreeRoot.ItemContent data-test-id="item-content">
+          <TreeRoot.ItemContent data-test-id="item-content" onClick={handleSelect}>
             <TreeRoot.Content data-test-id="content">
               {hasChildren || hasEmptyNode ? (
                 <TreeRoot.ContentArrow
@@ -239,9 +239,7 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
               )}
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               {/* Todo: fixed TS2769: No overload matches this call. pressProps.css */}
-              <TreeRoot.ContentAction data-test-id="content-action" onClick={handleSelect}>
-                {titleRender?.(treeData)}
-              </TreeRoot.ContentAction>
+              <TreeRoot.ContentAction data-test-id="content-action">{titleRender?.(treeData)}</TreeRoot.ContentAction>
             </TreeRoot.Content>
           </TreeRoot.ItemContent>
         </TreeRoot.PageItem>
