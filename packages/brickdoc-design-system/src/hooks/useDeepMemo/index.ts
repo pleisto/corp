@@ -1,5 +1,5 @@
 import deepEqual from 'fast-deep-equal'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * This hook will return the latest memorized value that
@@ -9,12 +9,12 @@ import { useEffect, useState } from 'react'
  * @param nextValue The next value to compare and memorize.
  */
 export function useDeepMemo<T>(nextValue: T, onChange?: (value: T) => void): T {
-  const [latestValue, setLatestValue] = useState(nextValue)
+  const ref = useRef(nextValue)
   useEffect(() => {
-    if (!deepEqual(latestValue, nextValue)) {
-      setLatestValue(nextValue)
+    if (!deepEqual(ref.current, nextValue)) {
+      ref.current = nextValue
       onChange?.(nextValue)
     }
-  }, [latestValue, nextValue, onChange])
-  return latestValue
+  }, [nextValue, onChange])
+  return ref.current
 }
