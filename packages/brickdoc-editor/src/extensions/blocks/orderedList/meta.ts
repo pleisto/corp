@@ -5,3 +5,6 @@ export const meta: ExtensionMeta = {
   name: OrderedList.name,
   extensionType: 'block'
 }
+
+export type { OrderedListOptions } from '@tiptap/extension-ordered-list'
+export interface OrderedListAttributes {}

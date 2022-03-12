@@ -1,8 +1,8 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { ImageBlock } from '../../../components'
+import { ImageView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { ImageAttributes, ImageOptions, meta } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -12,15 +12,6 @@ declare module '@tiptap/core' {
        */
       setImageBlock: (position?: number, file?: File) => ReturnType
     }
-  }
-}
-
-export interface ImageOptions {}
-export interface ImageAttributes {
-  defaultFile?: File | null
-  isNew?: boolean
-  image: {
-    type: 'IMAGE'
   }
 }
 
@@ -61,7 +52,7 @@ export const Image = createBlock<ImageOptions, ImageAttributes>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(ImageBlock)
+    return ReactNodeViewRenderer(ImageView)
   },
 
   addCommands() {

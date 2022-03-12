@@ -24,7 +24,7 @@ import {
   RteH4,
   RteH5,
   TextStyle
-} from '../components/Icon'
+} from '../components/ui'
 import { meta as formulaMeta } from '../extensions/blocks/formula/meta'
 import { meta as spreadsheetMeta } from '../extensions/blocks/spreadsheet/meta'
 import { meta as embedMeta } from '../extensions/blocks/embed/meta'

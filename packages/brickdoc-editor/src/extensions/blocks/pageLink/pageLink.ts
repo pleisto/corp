@@ -1,8 +1,8 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { PageLinkBlock } from '../../../components'
+import { PageLinkView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { meta, PageLinkAttributes, PageLinkOptions } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -17,16 +17,6 @@ declare module '@tiptap/core' {
         icon: string | null | undefined
       ) => ReturnType
     }
-  }
-}
-
-export interface PageLinkOptions {
-  size?: 'sm' | 'md'
-}
-
-export interface PageLinkAttributes {
-  page: {
-    type: 'PAGE'
   }
 }
 
@@ -62,7 +52,7 @@ export const PageLink = createBlock<PageLinkOptions, PageLinkAttributes>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(PageLinkBlock)
+    return ReactNodeViewRenderer(PageLinkView)
   },
 
   addCommands() {

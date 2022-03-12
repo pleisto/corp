@@ -1,17 +1,9 @@
 import { refractor } from './refractorLanguagesBundle'
-import TiptapCodeBlock, { CodeBlockOptions as TiptapCodeBlockOptions } from '@tiptap/extension-code-block'
+import { CodeBlock as TiptapCodeBlock } from '@tiptap/extension-code-block'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { RefractorPlugin } from './refractor-plugin'
-import { CodeBlock as CodeBlockComponent } from '../../../components'
-
-export interface CodeBlockOptions extends TiptapCodeBlockOptions {
-  refractor: any
-  defaultLanguage: string
-}
-
-export interface CodeBlockAttributes {
-  language?: string | null
-}
+import { CodeBlockView } from '../../../components/blockViews'
+import { CodeBlockOptions } from './meta'
 
 export const CodeBlock = TiptapCodeBlock.extend<CodeBlockOptions>({
   draggable: true,
@@ -25,7 +17,7 @@ export const CodeBlock = TiptapCodeBlock.extend<CodeBlockOptions>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(CodeBlockComponent)
+    return ReactNodeViewRenderer(CodeBlockView)
   },
 
   addProseMirrorPlugins() {

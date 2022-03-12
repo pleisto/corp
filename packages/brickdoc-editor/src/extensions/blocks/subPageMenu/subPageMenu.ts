@@ -1,8 +1,8 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { SubPageMenuBlock } from '../../../components'
+import { SubPageMenuView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { meta, SubPageMenuAttributes, SubPageMenuOptions } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -14,9 +14,6 @@ declare module '@tiptap/core' {
     }
   }
 }
-
-export interface SubPageMenuOptions {}
-export interface SubPageMenuAttributes {}
 
 export const SubPageMenu = createBlock<SubPageMenuOptions, SubPageMenuAttributes>({
   name: meta.name,
@@ -42,7 +39,7 @@ export const SubPageMenu = createBlock<SubPageMenuOptions, SubPageMenuAttributes
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(SubPageMenuBlock)
+    return ReactNodeViewRenderer(SubPageMenuView)
   },
 
   addCommands() {

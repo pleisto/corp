@@ -1,8 +1,8 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { TocBlock } from '../../../components'
+import { TocView } from '../../../components/blockViews/TocView'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { meta, TocOptions, TocAttributes } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -14,9 +14,6 @@ declare module '@tiptap/core' {
     }
   }
 }
-
-export interface TocOptions {}
-export interface TocAttributes {}
 
 export const Toc = createBlock<TocOptions, TocAttributes>({
   name: meta.name,
@@ -42,7 +39,7 @@ export const Toc = createBlock<TocOptions, TocAttributes>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(TocBlock)
+    return ReactNodeViewRenderer(TocView)
   },
 
   addCommands() {

@@ -3,8 +3,8 @@ import { EditorDatabase } from '../dataSource/DataSource'
 export const getBlobUrl = (
   uuid: string,
   attrs: {
-    key: string
-    source: 'EXTERNAL' | 'ORIGIN'
+    key?: string
+    source?: 'EXTERNAL' | 'ORIGIN'
     [key: string]: any
   },
   blobs: EditorDatabase['blobs']

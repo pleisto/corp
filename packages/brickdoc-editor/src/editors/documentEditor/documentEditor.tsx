@@ -9,7 +9,8 @@ import { theme } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../hooks'
 import { EditorDataSource, EditorDataSourceContext } from '../../dataSource/DataSource'
 import { EditorContext, EditorContextData } from '../../context/EditorContext'
-import { BubbleMenu, DiscussionList, ExplorerMenu } from '../../components'
+import { DiscussionList, ExplorerMenu } from '../../components/editorViews'
+import { BubbleMenu } from '../../components/extensionViews'
 import { SyncOptions } from '../../extensions'
 import { Base } from '../../extensions/base'
 import './styles.less'
@@ -72,6 +73,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
           color: theme.colors.primaryDisable.value,
           width: 2
         },
+        gapcursor: false,
         link: {
           autolink: false
         },

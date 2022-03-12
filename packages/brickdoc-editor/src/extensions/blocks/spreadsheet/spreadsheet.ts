@@ -1,7 +1,7 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { v4 as uuid } from 'uuid'
-import { Spreadsheet as SpreadsheetBlock } from '../../../components'
+import { Spreadsheet as SpreadsheetView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
 import { meta } from './meta'
 
@@ -64,7 +64,7 @@ export const Spreadsheet = createBlock<SpreadsheetOptions, SpreadsheetAttributes
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(SpreadsheetBlock)
+    return ReactNodeViewRenderer(SpreadsheetView)
   },
 
   addCommands() {

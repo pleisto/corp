@@ -7,17 +7,34 @@ import {
   Node,
   Extension
 } from '@tiptap/core'
+import { NodeViewProps } from '@tiptap/react'
+import { Node as ProseMirrorNode } from 'prosemirror-model'
 
 type GenericConfig = TipTapMarkConfig | TipTapNodeConfig | TipTapExtensionConfig
+
 export type Attribute = Partial<TiptapAttribute>
+
+type RequiredKeys<T> = { [k in keyof T]: T[k] extends Record<k, T[k]> ? k : never }[keyof T]
+
 export type AddAttributes<Config extends GenericConfig, Attributes> = (
   this: ThisParameterType<NonNullable<Config['addAttributes']>>
-) => Record<keyof Attributes, Attribute>
+) => Record<RequiredKeys<Attributes>, Attribute>
+
+export interface BlockNode<Attributes = Record<string, any>> extends ProseMirrorNode {
+  attrs: { uuid: string } & Attributes
+}
 
 export interface ExtensionMeta {
   name: string
   extensionType: 'mark' | 'block' | 'extension'
 }
+
+export interface BlockViewProps<ExtensionOptions, ExtensionAttributes> extends Omit<NodeViewProps, 'updateAttributes'> {
+  node: BlockNode<ExtensionAttributes>
+  updateAttributes: (attributes: Partial<ExtensionAttributes>) => void
+  extension: Node<ExtensionOptions>
+}
+
 
 /**
  * Mark

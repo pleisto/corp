@@ -5,3 +5,6 @@ export const meta: ExtensionMeta = {
   name: BulletList.name,
   extensionType: 'block'
 }
+
+export type { BulletListOptions } from '@tiptap/extension-bullet-list'
+export interface BulletListAttributes {}

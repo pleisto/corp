@@ -1,8 +1,8 @@
 import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { UserBlock } from '../../../components'
+import { UserView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { meta, UserAttributes, UserOptions } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -12,16 +12,6 @@ declare module '@tiptap/core' {
        */
       setUserBlock: (domain: string, name: string | null | undefined, avatarUrl: string | undefined) => ReturnType
     }
-  }
-}
-
-export interface UserOptions {
-  size?: 'sm' | 'md'
-}
-
-export interface UserAttributes {
-  people: {
-    type: 'PEOPLE'
   }
 }
 
@@ -57,7 +47,7 @@ export const User = createBlock<UserOptions, UserAttributes>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(UserBlock)
+    return ReactNodeViewRenderer(UserView)
   },
 
   addCommands() {

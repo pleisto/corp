@@ -1,9 +1,9 @@
 import { mergeAttributes, Content } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { Embedtype } from '@brickdoc/schema'
-import { EmbedBlock } from '../../../components'
+import { EmbedView } from '../../../components/blockViews'
 import { createBlock } from '../../common'
-import { meta } from './meta'
+import { EmbedAttributes, EmbedOptions, meta } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -13,24 +13,6 @@ declare module '@tiptap/core' {
        */
       setEmbedBlock: (embedType: Embedtype, defaultFile?: File, postion?: number) => ReturnType
     }
-  }
-}
-
-export interface EmbedOptions {}
-export interface EmbedAttributes {
-  embedMeta: {
-    type: 'EmbedMeta'
-  }
-  isNew?: boolean
-  defaultFile?: File | null
-  link: {
-    type: 'LINK'
-  }
-  image: {
-    type: 'IMAGE'
-  }
-  attachment: {
-    type: 'ATTACHMENT'
   }
 }
 
@@ -89,7 +71,7 @@ export const Embed = createBlock<EmbedOptions, EmbedAttributes>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(EmbedBlock)
+    return ReactNodeViewRenderer(EmbedView)
   },
 
   addCommands() {
