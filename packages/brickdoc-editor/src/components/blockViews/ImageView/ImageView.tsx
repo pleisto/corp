@@ -3,14 +3,14 @@ import { linkStorage } from '../../../helpers/file'
 import 'react-medium-image-zoom/dist/styles.css'
 import './styles.less'
 import { getBlobUrl } from '../../../helpers/getBlobUrl'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { UploaderMode } from './modes/UploaderMode'
 import { PreviewMode } from './modes/PreviewMode'
 import { ImageAttributes, ImageViewProps } from '../../../extensions/blocks/image/meta'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 // TODO: handle image load on error
 export const ImageView: React.FC<ImageViewProps> = ({ node, deleteNode, getPos, updateAttributes }) => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
   const latestImageAttributes = React.useRef<Partial<ImageAttributes['image']>>({})
   const updateImageAttributes = React.useCallback(
     (newAttributes: Partial<ImageAttributes['image']>): void => {
@@ -34,8 +34,7 @@ export const ImageView: React.FC<ImageViewProps> = ({ node, deleteNode, getPos, 
   )
 
   const url =
-    getBlobUrl(editorDataSource.rootId, node.attrs?.image ?? {}, editorDataSource.blobs) ??
-    linkStorage.get(node.attrs.uuid)
+    getBlobUrl(externalProps.rootId, node.attrs?.image ?? {}, externalProps.blobs) ?? linkStorage.get(node.attrs.uuid)
 
   if (url) {
     return (

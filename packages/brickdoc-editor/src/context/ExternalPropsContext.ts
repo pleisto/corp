@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext, ReactElement } from 'react'
 import { ContextInterface } from '@brickdoc/formula'
 import { DashboardPluginOptions } from '@brickdoc/uploader'
 import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuTrigger, Preview_Box } from '@brickdoc/schema'
@@ -35,7 +35,7 @@ export interface DocumentPageData {
   title: string | undefined
 }
 
-export interface EditorDatabase {
+export interface ExternalDatabase {
   // define data here
 
   featureFlags: Record<string, boolean>
@@ -48,7 +48,7 @@ export interface EditorDatabase {
 
   prepareFileUpload: Exclude<DashboardPluginOptions['prepareFileUpload'], undefined>
 
-  renderPageTree: () => React.ReactElement | null
+  renderPageTree: () => ReactElement | null
 
   formulaContext?: ContextInterface | null
 
@@ -79,11 +79,11 @@ export interface EditorDatabase {
   pageQuery: URLSearchParams | null
 }
 
-export type DataSourceListenerType = keyof EditorDatabase
-export type DataSourceListener = (type: DataSourceListenerType) => void
+export type ExternalPropsListenerType = keyof ExternalDatabase
+export type ExternalPropsListener = (type: ExternalPropsListenerType) => void
 
-export class EditorDataSource {
-  private database: EditorDatabase = {
+export class ExternalProps {
+  private database: ExternalDatabase = {
     domain: '',
     rootId: '',
     pageQuery: null,
@@ -116,19 +116,19 @@ export class EditorDataSource {
     }
   }
 
-  private listeners: DataSourceListener[] = []
+  private listeners: ExternalPropsListener[] = []
 
-  private invokeListeners(type: DataSourceListenerType): void {
+  private invokeListeners(type: ExternalPropsListenerType): void {
     this.listeners.forEach(listener => {
       listener(type)
     })
   }
 
-  public source(): EditorDatabase {
+  public props(): ExternalDatabase {
     return this.database
   }
 
-  public onUpdate(listener: DataSourceListener): VoidFunction {
+  public onUpdate(listener: ExternalPropsListener): VoidFunction {
     this.listeners.push(listener)
 
     return () => {
@@ -136,151 +136,151 @@ export class EditorDataSource {
     }
   }
 
-  public merge(dataSource: EditorDataSource): void {
+  public merge(externalProps: ExternalProps): void {
     this.database = {
-      ...this.source(),
-      ...dataSource.source()
+      ...this.props(),
+      ...externalProps.props()
     }
   }
 
-  get renderPageTree(): EditorDatabase['renderPageTree'] {
+  get renderPageTree(): ExternalDatabase['renderPageTree'] {
     return this.database.renderPageTree
   }
 
-  set renderPageTree(value: EditorDatabase['renderPageTree']) {
+  set renderPageTree(value: ExternalDatabase['renderPageTree']) {
     this.database.renderPageTree = value
     this.invokeListeners('renderPageTree')
   }
 
-  get formulaContext(): EditorDatabase['formulaContext'] {
+  get formulaContext(): ExternalDatabase['formulaContext'] {
     return this.database.formulaContext
   }
 
-  set formulaContext(value: EditorDatabase['formulaContext']) {
+  set formulaContext(value: ExternalDatabase['formulaContext']) {
     this.database.formulaContext = value
     this.invokeListeners('formulaContext')
   }
 
-  get featureFlags(): EditorDatabase['featureFlags'] {
+  get featureFlags(): ExternalDatabase['featureFlags'] {
     return this.database.featureFlags
   }
 
-  set featureFlags(value: EditorDatabase['featureFlags']) {
+  set featureFlags(value: ExternalDatabase['featureFlags']) {
     this.database.featureFlags = value
     this.invokeListeners('featureFlags')
   }
 
-  get settings(): EditorDatabase['settings'] {
+  get settings(): ExternalDatabase['settings'] {
     return this.database.settings
   }
 
-  set settings(value: EditorDatabase['settings']) {
+  set settings(value: ExternalDatabase['settings']) {
     this.database.settings = value
     this.invokeListeners('settings')
   }
 
-  get rootId(): EditorDatabase['rootId'] {
+  get rootId(): ExternalDatabase['rootId'] {
     return this.database.rootId
   }
 
-  set rootId(value: EditorDatabase['rootId']) {
+  set rootId(value: ExternalDatabase['rootId']) {
     this.database.rootId = value
     this.invokeListeners('rootId')
   }
 
-  get explorerMenu(): EditorDatabase['explorerMenu'] {
+  get explorerMenu(): ExternalDatabase['explorerMenu'] {
     return this.database.explorerMenu
   }
 
-  get documentEditable(): EditorDatabase['documentEditable'] {
+  get documentEditable(): ExternalDatabase['documentEditable'] {
     return this.database.documentEditable
   }
 
-  set documentEditable(value: EditorDatabase['documentEditable']) {
+  set documentEditable(value: ExternalDatabase['documentEditable']) {
     this.database.documentEditable = value
     this.invokeListeners('documentEditable')
   }
 
-  get domain(): EditorDatabase['domain'] {
+  get domain(): ExternalDatabase['domain'] {
     return this.database.domain
   }
 
-  set domain(value: EditorDatabase['domain']) {
+  set domain(value: ExternalDatabase['domain']) {
     this.database.domain = value
     this.invokeListeners('domain')
   }
 
-  get blobs(): EditorDatabase['blobs'] {
+  get blobs(): ExternalDatabase['blobs'] {
     return this.database.blobs
   }
 
-  set blobs(value: EditorDatabase['blobs']) {
+  set blobs(value: ExternalDatabase['blobs']) {
     this.database.blobs = value
     this.invokeListeners('blobs')
   }
 
-  get documentPages(): EditorDatabase['documentPages'] {
+  get documentPages(): ExternalDatabase['documentPages'] {
     return this.database.documentPages
   }
 
-  set documentPages(value: EditorDatabase['documentPages']) {
+  set documentPages(value: ExternalDatabase['documentPages']) {
     this.database.documentPages = value
     this.invokeListeners('documentPages')
   }
 
-  get spaceMembers(): EditorDatabase['spaceMembers'] {
+  get spaceMembers(): ExternalDatabase['spaceMembers'] {
     return this.database.spaceMembers
   }
 
-  set spaceMembers(value: EditorDatabase['spaceMembers']) {
+  set spaceMembers(value: ExternalDatabase['spaceMembers']) {
     this.database.spaceMembers = value
     this.invokeListeners('spaceMembers')
   }
 
-  get collaborators(): EditorDatabase['collaborators'] {
+  get collaborators(): ExternalDatabase['collaborators'] {
     return this.database.collaborators
   }
 
-  set collaborators(value: EditorDatabase['collaborators']) {
+  set collaborators(value: ExternalDatabase['collaborators']) {
     this.database.collaborators = value
     this.invokeListeners('collaborators')
   }
 
-  get prepareFileUpload(): EditorDatabase['prepareFileUpload'] {
+  get prepareFileUpload(): ExternalDatabase['prepareFileUpload'] {
     return this.database.prepareFileUpload
   }
 
-  set prepareFileUpload(value: EditorDatabase['prepareFileUpload']) {
+  set prepareFileUpload(value: ExternalDatabase['prepareFileUpload']) {
     this.database.prepareFileUpload = value
     this.invokeListeners('prepareFileUpload')
   }
 
-  get fetchWebsiteMeta(): EditorDatabase['fetchWebsiteMeta'] {
+  get fetchWebsiteMeta(): ExternalDatabase['fetchWebsiteMeta'] {
     return this.database.fetchWebsiteMeta
   }
 
-  set fetchWebsiteMeta(value: EditorDatabase['fetchWebsiteMeta']) {
+  set fetchWebsiteMeta(value: ExternalDatabase['fetchWebsiteMeta']) {
     this.database.fetchWebsiteMeta = value
     this.invokeListeners('fetchWebsiteMeta')
   }
 
-  get fetchUnsplashImages(): EditorDatabase['fetchUnsplashImages'] {
+  get fetchUnsplashImages(): ExternalDatabase['fetchUnsplashImages'] {
     return this.database.fetchUnsplashImages
   }
 
-  set fetchUnsplashImages(value: EditorDatabase['fetchUnsplashImages']) {
+  set fetchUnsplashImages(value: ExternalDatabase['fetchUnsplashImages']) {
     this.database.fetchUnsplashImages = value
     this.invokeListeners('fetchUnsplashImages')
   }
 
-  get pageQuery(): EditorDatabase['pageQuery'] {
+  get pageQuery(): ExternalDatabase['pageQuery'] {
     return this.database.pageQuery
   }
 
-  set pageQuery(value: EditorDatabase['pageQuery']) {
+  set pageQuery(value: ExternalDatabase['pageQuery']) {
     this.database.pageQuery = value
     this.invokeListeners('pageQuery')
   }
 }
 
-export const EditorDataSourceContext = React.createContext<EditorDataSource>(new EditorDataSource())
+export const ExternalPropsContext = createContext<ExternalProps>(new ExternalProps())

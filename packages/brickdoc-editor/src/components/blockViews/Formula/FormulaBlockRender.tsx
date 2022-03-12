@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react'
+import { FC, useMemo, useCallback } from 'react'
 import { Popover } from '@brickdoc/design-system'
 import './Formula.less'
 import { VariableInterface, FormulaSourceType } from '@brickdoc/formula'
@@ -8,8 +8,8 @@ import { FormulaResult } from './FormulaResult'
 import { FormulaEditor } from '../../../extensions/blocks/formula/FormulaEditor/FormulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 import { AutocompleteList } from './AutocompleteList/AutocompleteList'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import * as Sentry from '@sentry/react'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 export interface FormulaBlockRenderProps {
   formulaId: string
   display: string
@@ -22,7 +22,7 @@ export interface FormulaBlockRenderProps {
   minHeight?: number
 }
 
-export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
+export const FormulaBlockRender: FC<FormulaBlockRenderProps> = ({
   formulaId,
   rootId,
   display,
@@ -33,8 +33,8 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
   width,
   minHeight
 }) => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
+  const externalProps = useExternalProps()
+  const formulaContext = externalProps.formulaContext
   const { variableT, editorContent, completion, updateEditor } = useFormula({
     rootId,
     formulaId,
@@ -56,7 +56,7 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     })
   }
 
-  const formulaResult = React.useMemo(
+  const formulaResult = useMemo(
     () => (
       <div className="brickdoc-formula-menu">
         <FormulaResult variableT={variableT} pageId={rootId} />
@@ -66,13 +66,13 @@ export const FormulaBlockRender: React.FC<FormulaBlockRenderProps> = ({
     [completion, formulaId, rootId, variableT]
   )
 
-  const onEditorBlur = React.useCallback((): void => {
+  const onEditorBlur = useCallback((): void => {
     if (saveOnBlur) {
       BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
     }
   }, [formulaId, rootId, saveOnBlur])
 
-  const editor = React.useMemo(
+  const editor = useMemo(
     () => (
       <FormulaEditor
         editorContent={editorContent}

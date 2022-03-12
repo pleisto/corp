@@ -7,8 +7,8 @@ import { UploadProgress, UploadResultData, imperativeUpload } from '@brickdoc/up
 import { getFileTypeByExtension, linkStorage } from '../../../../helpers/file'
 import { BlockContainer } from '../../BlockContainer'
 import { EditorContext } from '../../../../context/EditorContext'
-import { EditorDataSourceContext } from '../../../../dataSource/DataSource'
 import { EmbedBlockAttributes } from '../EmbedView'
+import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export interface UploadTypeEmbedBlockProps {
   deleteNode: NodeViewProps['deleteNode']
@@ -28,7 +28,7 @@ export const UploadTypeEmbedBlock: React.FC<UploadTypeEmbedBlockProps> = ({
   updateEmbedBlockAttributes
 }) => {
   const { t } = React.useContext(EditorContext)
-  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
 
   const onUploaded = React.useCallback(
     (data: UploadResultData): void => {
@@ -57,14 +57,14 @@ export const UploadTypeEmbedBlock: React.FC<UploadTypeEmbedBlockProps> = ({
       if (!file) return
       const fileType = getFileTypeByExtension(file.name)
       void imperativeUpload(file, {
-        prepareFileUpload: editorDataSource.prepareFileUpload,
-        blockId: editorDataSource.rootId,
+        prepareFileUpload: externalProps.prepareFileUpload,
+        blockId: externalProps.rootId,
         fileType,
         onUploaded,
         onProgress
       })
     },
-    [editorDataSource.prepareFileUpload, editorDataSource.rootId, onUploaded]
+    [externalProps.prepareFileUpload, externalProps.rootId, onUploaded]
   )
   const handleChooseFile = React.useCallback(() => {
     inputRef.current?.click()
@@ -75,8 +75,8 @@ export const UploadTypeEmbedBlock: React.FC<UploadTypeEmbedBlockProps> = ({
       const file = node.attrs.defaultFile as File
       const fileType = getFileTypeByExtension(file.name)
       void imperativeUpload(file, {
-        prepareFileUpload: editorDataSource.prepareFileUpload,
-        blockId: editorDataSource.rootId,
+        prepareFileUpload: externalProps.prepareFileUpload,
+        blockId: externalProps.rootId,
         fileType,
         onUploaded,
         onProgress

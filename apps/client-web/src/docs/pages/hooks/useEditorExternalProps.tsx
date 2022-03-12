@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { useMemo, useRef, useContext, useEffect } from 'react'
-import { EditorDataSource } from '@brickdoc/editor'
+import { ExternalProps } from '@brickdoc/editor'
 import {
   GetChildrenBlocksQuery,
   QueryPreviewBoxQuery,
@@ -17,7 +17,7 @@ import { useReactiveVar } from '@apollo/client'
 import { FormulaContextVar, pagesVar } from '@/docs/reactiveVars'
 import { BrickdocContext } from '@/common/brickdocContext'
 
-export interface UseEditorDataSourceProps {
+export interface UseEditorExternalProps {
   docMeta: DocMeta
   blocks: GetChildrenBlocksQuery['childrenBlocks']
   documentEditable: boolean
@@ -29,8 +29,8 @@ function useQuery(): URLSearchParams {
   return useMemo(() => new URLSearchParams(search), [search])
 }
 
-export function useEditorDataSource({ docMeta, documentEditable, blocks }: UseEditorDataSourceProps): EditorDataSource {
-  const dataSource = useRef<EditorDataSource>(new EditorDataSource())
+export function useEditorExternalProps({ docMeta, documentEditable, blocks }: UseEditorExternalProps): ExternalProps {
+  const dataSource = useRef<ExternalProps>(new ExternalProps())
   const { data } = useGetSpaceMembersQuery()
   const pageQuery = useQuery()
   const prepareFileUpload = usePrepareFileUpload()
@@ -102,7 +102,7 @@ export function useEditorDataSource({ docMeta, documentEditable, blocks }: UseEd
   // blobs
   useEffect(() => {
     dataSource.current.blobs =
-      blocks?.reduce<EditorDataSource['blobs']>((prev, cur) => {
+      blocks?.reduce<ExternalProps['blobs']>((prev, cur) => {
         return {
           ...prev,
           [cur.rootId ?? cur.id]: [

@@ -4,9 +4,9 @@ import { NodeViewProps } from '@tiptap/react'
 import { Button, Icon, Popover } from '@brickdoc/design-system'
 import { BlockContainer } from '../../../BlockContainer'
 import { Dashboard, ImportSourceOption, UploadProgress, UploadResultData } from '@brickdoc/uploader'
-import { EditorDataSourceContext } from '../../../../../dataSource/DataSource'
 import { linkStorage, sizeFormat } from '../../../../../helpers/file'
 import { EditorContext } from '../../../../../context/EditorContext'
+import { useExternalProps } from '../../../../../hooks/useExternalProps'
 
 export interface UploaderModeProps {
   node: NodeViewProps['node']
@@ -16,7 +16,7 @@ export interface UploaderModeProps {
 }
 
 export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, getPos, updateImageAttributes }) => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
   const { t } = React.useContext(EditorContext)
 
   const onUploaded = React.useCallback(
@@ -60,8 +60,8 @@ export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, ge
           <Dashboard
             fileType="image"
             blockId={node.attrs.uuid}
-            prepareFileUpload={editorDataSource.prepareFileUpload}
-            fetchUnsplashImages={editorDataSource.fetchUnsplashImages}
+            prepareFileUpload={externalProps.prepareFileUpload}
+            fetchUnsplashImages={externalProps.fetchUnsplashImages}
             onUploaded={onUploaded}
             onProgress={onProgress}
             importSources={importSources}

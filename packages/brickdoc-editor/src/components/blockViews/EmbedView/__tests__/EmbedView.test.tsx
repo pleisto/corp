@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { EditorDataSource, EditorDataSourceContext } from '../../../../dataSource/DataSource'
+import { ExternalProps, ExternalPropsContext } from '../../../../context'
 import { EmbedView } from '../EmbedView'
 
 // See more specs in e2e test
 describe('EmbedView', () => {
   const url = 'https://www.brickdoc.com'
-  const editorDataSource = new EditorDataSource()
+  const externalProps = new ExternalProps()
   const uuid = 'uuid'
-  editorDataSource.rootId = uuid
-  editorDataSource.fetchUnsplashImages = async () => {
+  externalProps.rootId = uuid
+  externalProps.fetchUnsplashImages = async () => {
     return await new Promise(resolve => {
       resolve({
         success: false,
@@ -16,8 +16,8 @@ describe('EmbedView', () => {
       })
     })
   }
-  editorDataSource.prepareFileUpload = (() => {}) as any
-  editorDataSource.blobs = {
+  externalProps.prepareFileUpload = (() => {}) as any
+  externalProps.blobs = {
     [uuid]: [
       {
         key: url,
@@ -49,9 +49,9 @@ describe('EmbedView', () => {
     }
 
     const { container } = render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
     expect(container.firstChild).toMatchSnapshot()
   })
@@ -67,9 +67,9 @@ describe('EmbedView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText('embed_block.types.link.label')).toBeInTheDocument()
@@ -86,9 +86,9 @@ describe('EmbedView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText('embed_block.types.gallery.label')).toBeInTheDocument()
@@ -105,9 +105,9 @@ describe('EmbedView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText('embed_block.types.upload.label')).toBeInTheDocument()
@@ -139,9 +139,9 @@ describe('EmbedView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText(props.node.attrs.link.title)).toBeInTheDocument()
@@ -170,9 +170,9 @@ describe('EmbedView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <EmbedView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText(props.node.attrs.attachment.name)).toBeInTheDocument()

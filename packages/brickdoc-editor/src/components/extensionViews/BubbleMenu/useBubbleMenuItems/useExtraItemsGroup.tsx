@@ -3,11 +3,11 @@ import { Icon } from '@brickdoc/design-system'
 import { EditorContext } from '../../../../context/EditorContext'
 import { ToolbarSubMenuOption, ToolbarOption, ToolbarGroupOption } from '../../../ui/Toolbar'
 import { isBubbleMenuVisible } from './useBubbleMenuItems'
-import { EditorDataSourceContext } from '../../../../dataSource/DataSource'
+import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export function useExtraItemsGroup(): [ToolbarOption | ToolbarGroupOption | null] {
   const { editor, t } = React.useContext(EditorContext)
-  const { featureFlags } = React.useContext(EditorDataSourceContext)
+  const { featureFlags } = useExternalProps()
 
   const option = React.useMemo<ToolbarOption | ToolbarGroupOption | null>(() => {
     if (!isBubbleMenuVisible(editor)) return null

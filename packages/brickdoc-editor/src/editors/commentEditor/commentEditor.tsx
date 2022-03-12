@@ -7,9 +7,9 @@ import { Avatar, Button, styled, theme } from '@brickdoc/design-system'
 import { BrickdocEventBus, DiscussionMarkInactive } from '@brickdoc/schema'
 import { EditorContext } from '../../context/EditorContext'
 import { usePlaceholder } from './usePlaceholder'
-import { EditorDataSourceContext } from '../../dataSource/DataSource'
 import { User, PageLink, MentionCommands } from '../../extensions'
 import { EventHandler } from '../../extensions/extensions/eventHandler'
+import { useExternalProps } from '../../hooks/useExternalProps'
 
 export interface CommentEditorProps {
   markId: string
@@ -67,7 +67,7 @@ const EditorAvatar = styled(Avatar, {
   marginTop: '.2rem'
 })
 
-const DRAFT_KEY = (markId: string) => `brk-comment-draft-${markId}`
+const DRAFT_KEY = (markId: string): string => `brk-comment-draft-${markId}`
 
 const getDraft = (markId: string): JSONContent | undefined => {
   try {
@@ -91,7 +91,7 @@ const setDraft = (markId: string, content: JSONContent): void => {
 
 export const CommentEditorContent: FC<CommentEditorProps> = ({ markId }) => {
   const { t } = useContext(EditorContext)
-  const editorDataSource = useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
   const editor = useEditor({
     autofocus: 'end',
     content: getDraft(markId),
@@ -101,7 +101,7 @@ export const CommentEditorContent: FC<CommentEditorProps> = ({ markId }) => {
       Paragraph,
       EventHandler,
       MentionCommands.configure({
-        editorDataSource
+        externalProps
       }),
       User.configure({
         size: 'sm'
@@ -114,7 +114,7 @@ export const CommentEditorContent: FC<CommentEditorProps> = ({ markId }) => {
   const [placeholder] = usePlaceholder(editor)
 
   useEffect(() => {
-    const onContentUpdate = () => {
+    const onContentUpdate = (): void => {
       setDraft(markId, editor?.getJSON() ?? [])
     }
     editor?.on('update', onContentUpdate)

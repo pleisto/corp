@@ -2,11 +2,11 @@ import * as React from 'react'
 import { Embedtype, Preview_Box } from '@brickdoc/schema'
 import { AttachmentMode, PreviewMode, WebBookmarkMode } from './modes'
 import { linkStorage, getFileTypeByExtension, FileType, getBlobUrl, getFileTypeByContentType } from '../../../helpers'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { GalleryTypeEmbedBlock, LinkTypeEmbedBlock, UploadTypeEmbedBlock } from './types'
 import { ImageView } from '../ImageView'
 import './EmbedBlock.less'
 import { EmbedViewProps } from '../../../extensions/blocks/embed/meta'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export interface EmbedBlockAttributes {
   key: string
@@ -25,7 +25,7 @@ const canFilePreview = (fileType: FileType, mode: EmbedBlockAttributes['mode']):
 
 export const EmbedView: React.FC<EmbedViewProps> = props => {
   const { node, updateAttributes, deleteNode, getPos } = props
-  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
   const latestEmbedBlockAttributes = React.useRef<Partial<EmbedBlockAttributes>>({})
   const updateEmbedBlockAttributes = React.useCallback(
     (newAttributes: Partial<EmbedBlockAttributes>, type: 'link' | 'image' | 'attachment'): void => {
@@ -48,7 +48,7 @@ export const EmbedView: React.FC<EmbedViewProps> = props => {
 
   // image mode
   if (node.attrs.image?.key) {
-    const imageUrl = getBlobUrl(editorDataSource.rootId, node.attrs?.image ?? {}, editorDataSource.blobs) ?? defaultUrl
+    const imageUrl = getBlobUrl(externalProps.rootId, node.attrs?.image ?? {}, externalProps.blobs) ?? defaultUrl
     if (imageUrl) {
       return <ImageView {...props} />
     }
@@ -56,8 +56,7 @@ export const EmbedView: React.FC<EmbedViewProps> = props => {
 
   // file mode
   if (node.attrs.attachment?.key) {
-    const fileUrl =
-      getBlobUrl(editorDataSource.rootId, node.attrs?.attachment ?? {}, editorDataSource.blobs) ?? defaultUrl
+    const fileUrl = getBlobUrl(externalProps.rootId, node.attrs?.attachment ?? {}, externalProps.blobs) ?? defaultUrl
     if (fileUrl) {
       const { name, contentType } = node.attrs.attachment
       let fileType = getFileTypeByContentType(contentType ?? '')

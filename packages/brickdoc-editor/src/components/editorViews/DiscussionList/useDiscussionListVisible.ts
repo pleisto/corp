@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext, Dispatch, SetStateAction, useRef } from 'react'
+import { useState, useEffect, Dispatch, SetStateAction, useRef } from 'react'
 import { BrickdocEventBus, DiscussionListToggle, ExplorerMenuTrigger } from '@brickdoc/schema'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { selectDiscussionMark } from '../../../helpers/discussion'
 import { CommentedNode } from './useCommentedNodes'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export function useDiscussionListVisible(
   commentedNodes: CommentedNode[],
   setActiveMarkId: Dispatch<SetStateAction<string | null>>
 ): [boolean, Dispatch<SetStateAction<boolean>>] {
-  const { pageQuery } = useContext(EditorDataSourceContext)
+  const { pageQuery } = useExternalProps()
   const [visible, setVisible] = useState(false)
   const latestPageQuery = useRef<URLSearchParams | null>()
 

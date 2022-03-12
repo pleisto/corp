@@ -7,41 +7,41 @@ import {
 import { EditorOptions as TiptapEditorOptions } from '@tiptap/core'
 import { theme } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../hooks'
-import { EditorDataSource, EditorDataSourceContext } from '../../dataSource/DataSource'
 import { EditorContext, EditorContextData } from '../../context/EditorContext'
 import { DiscussionList, ExplorerMenu } from '../../components/editorViews'
 import { BubbleMenu } from '../../components/extensionViews'
 import { SyncOptions } from '../../extensions'
 import { Base } from '../../extensions/base'
+import { ExternalProps, ExternalPropsContext } from '../../context'
 import './styles.less'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
-  editorDataSource: EditorDataSource
+  externalProps: ExternalProps
 }
 
-export const EditorContent: React.FC<EditorContentProps> = ({ editor, editorDataSource }) => {
+export const EditorContent: React.FC<EditorContentProps> = ({ editor, externalProps }) => {
   const [t] = useEditorI18n()
   const editorContext = useMemo<EditorContextData>(() => ({ editor, t }), [editor, t])
   return (
     <EditorContext.Provider value={editorContext}>
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <BubbleMenu editor={editor} />
         <TiptapEditorContent className="brickdoc" editor={editor} />
         <DiscussionList />
         <ExplorerMenu />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     </EditorContext.Provider>
   )
 }
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
-  externalDataSource: EditorDataSource
+  externalProps: ExternalProps
   onSave: SyncOptions['onSave']
 }
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { onSave, editable, externalDataSource, ...restOptions } = options
+  const { onSave, editable, externalProps, ...restOptions } = options
 
   const typesWithUuid = [
     'blockquote',
@@ -63,8 +63,6 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     'spreadsheetBlock'
   ]
 
-  const editorDataSource = externalDataSource
-
   return useTiptapEditor({
     extensions: [
       Base.configure({
@@ -78,7 +76,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
           autolink: false
         },
         mentionCommands: {
-          editorDataSource
+          externalProps
         },
         sync: {
           onSave,

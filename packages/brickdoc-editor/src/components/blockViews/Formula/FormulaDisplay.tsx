@@ -13,9 +13,9 @@ import { FormulaInput } from './Render/FormulaInput'
 import { FormulaButton } from './Render/FormulaButton'
 import { FormulaLiteral } from './Render/FormulaLiteral'
 import { FormulaSpreadsheet } from './Render/FormulaSpreadsheet'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { BlockContainer } from '../BlockContainer'
 import { SelectedType } from './useFormula'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export interface FormulaDisplayProps {
   displayData?: VariableDisplayData
@@ -35,6 +35,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
   disablePopover,
   ...props
 }) => {
+  const externalProps = useExternalProps()
   if (!displayData) {
     if (formulaType === 'normal') {
       return (
@@ -56,9 +57,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
     )
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext!
+  const formulaContext = externalProps.formulaContext!
 
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
   const newDisplayData = loadDisplayResult(ctx, displayData)

@@ -7,8 +7,8 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { EmbedBlockPlaceholder } from '../Placeholder'
 import { BlockContainer } from '../../BlockContainer'
 import { EditorContext } from '../../../../context/EditorContext'
-import { EditorDataSourceContext } from '../../../../dataSource/DataSource'
 import { EmbedBlockAttributes } from '../EmbedView'
+import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export interface GalleryTypeEmbedBlockProps {
   deleteNode: NodeViewProps['deleteNode']
@@ -98,7 +98,7 @@ export const GalleryTypeEmbedBlock: React.FC<GalleryTypeEmbedBlockProps> = ({
   updateEmbedBlockAttributes
 }) => {
   const { t } = React.useContext(EditorContext)
-  const editorDataSource = React.useContext(EditorDataSourceContext)
+  const externalProps = useExternalProps()
   const [unsplashImages, setUnsplashImages] = React.useState<UnsplashImage[]>([])
   const fetching = React.useRef(false)
   const lastQuery = React.useRef('')
@@ -118,7 +118,7 @@ export const GalleryTypeEmbedBlock: React.FC<GalleryTypeEmbedBlockProps> = ({
       fetching.current = true
 
       try {
-        const response = await editorDataSource.fetchUnsplashImages(lastQuery.current, page.current, UNSPLASH_PER_PAGE)
+        const response = await externalProps.fetchUnsplashImages(lastQuery.current, page.current, UNSPLASH_PER_PAGE)
 
         if (response.success) {
           const prevData = page.current === 1 ? [] : unsplashImages
@@ -132,7 +132,7 @@ export const GalleryTypeEmbedBlock: React.FC<GalleryTypeEmbedBlockProps> = ({
 
       fetching.current = false
     },
-    [editorDataSource, unsplashImages]
+    [externalProps, unsplashImages]
   )
 
   React.useEffect(() => {

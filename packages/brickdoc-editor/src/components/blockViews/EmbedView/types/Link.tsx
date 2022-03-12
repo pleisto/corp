@@ -1,14 +1,14 @@
-import React from 'react'
+import { FC, useContext, useState, useCallback, ChangeEventHandler } from 'react'
 import { NodeViewProps } from '@tiptap/react'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Icon, Input, Popover, styled, theme, toast } from '@brickdoc/design-system'
 import { EmbedBlockPlaceholder } from '../Placeholder'
 import { BlockContainer } from '../../BlockContainer'
 import { EditorContext } from '../../../../context/EditorContext'
-import { EditorDataSourceContext } from '../../../../dataSource/DataSource'
 import { prependHttp } from '../../../../helpers'
 import { EmbedBlockAttributes } from '../EmbedView'
 import { useWebsiteMetaProgress } from './useWebsiteProgress'
+import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export interface LinkTypeEmbedBlockProps {
   deleteNode: NodeViewProps['deleteNode']
@@ -37,26 +37,26 @@ const InputPanelHead = styled('span', {
   marginBottom: '.875rem'
 })
 
-export const LinkTypeEmbedBlock: React.FC<LinkTypeEmbedBlockProps> = ({
+export const LinkTypeEmbedBlock: FC<LinkTypeEmbedBlockProps> = ({
   node,
   deleteNode,
   getPos,
   updateEmbedBlockAttributes
 }) => {
-  const { t } = React.useContext(EditorContext)
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const [url, setUrl] = React.useState('')
-  const [displayName, setDisplayName] = React.useState('')
+  const { t } = useContext(EditorContext)
+  const externalProps = useExternalProps()
+  const [url, setUrl] = useState('')
+  const [displayName, setDisplayName] = useState('')
   const [progress, resetProgress, progressing] = useWebsiteMetaProgress()
 
-  const handleSubmit = React.useCallback(async (): Promise<void> => {
+  const handleSubmit = useCallback(async (): Promise<void> => {
     if (!url) {
       toast.error(t('embed_block.types.link.panel.link_validate'))
       return
     }
 
     progressing()
-    const { success, data } = await editorDataSource.fetchWebsiteMeta(prependHttp(url))
+    const { success, data } = await externalProps.fetchWebsiteMeta(prependHttp(url))
 
     if (!success) {
       resetProgress()
@@ -91,13 +91,13 @@ export const LinkTypeEmbedBlock: React.FC<LinkTypeEmbedBlockProps> = ({
         'attachment'
       )
     }
-  }, [displayName, editorDataSource, progressing, resetProgress, t, updateEmbedBlockAttributes, url])
+  }, [displayName, externalProps, progressing, resetProgress, t, updateEmbedBlockAttributes, url])
 
-  const handleLinkChange = React.useCallback<React.ChangeEventHandler<HTMLInputElement>>(event => {
+  const handleLinkChange = useCallback<ChangeEventHandler<HTMLInputElement>>(event => {
     setUrl(event.target.value)
   }, [])
 
-  const handleDisplayNameChange = React.useCallback<React.ChangeEventHandler<HTMLInputElement>>(event => {
+  const handleDisplayNameChange = useCallback<ChangeEventHandler<HTMLInputElement>>(event => {
     setDisplayName(event.target.value)
   }, [])
 

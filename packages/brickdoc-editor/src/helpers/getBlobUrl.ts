@@ -1,4 +1,4 @@
-import { EditorDatabase } from '../dataSource/DataSource'
+import { ExternalProps } from '../context'
 
 export const getBlobUrl = (
   uuid: string,
@@ -7,7 +7,7 @@ export const getBlobUrl = (
     source?: 'EXTERNAL' | 'ORIGIN'
     [key: string]: any
   },
-  blobs: EditorDatabase['blobs']
+  blobs: ExternalProps['blobs']
 ): string | undefined => {
   if (!uuid) return undefined
   if (attrs.source === 'EXTERNAL') return attrs.key

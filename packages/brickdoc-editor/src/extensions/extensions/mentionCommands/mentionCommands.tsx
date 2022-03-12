@@ -7,9 +7,9 @@ import { createPopup, PopupInstance } from '../../../helpers/popup'
 import { MentionCommandsMenu, MentionCommandsMenuProps } from '../../../components/extensionViews'
 import { PageItem } from '../../../components/extensionViews/MentionMenu/PagePanel'
 import { PeopleItem } from '../../../components/extensionViews/MentionMenu/PeoplePanel'
-import { EditorDataSource } from '../../../dataSource/DataSource'
 import { meta } from './meta'
 import { createExtension } from '../../common'
+import { ExternalProps } from '../../../context'
 
 const TRIGGER_CHAR = '@'
 
@@ -19,7 +19,7 @@ interface MenuItems {
 }
 
 export interface MentionCommandsOptions {
-  editorDataSource: EditorDataSource
+  externalProps: ExternalProps
 }
 
 export interface MentionCommandsAttributes {}
@@ -30,8 +30,8 @@ export const MentionCommands = createExtension<MentionCommandsOptions>({
   addProseMirrorPlugins() {
     const filterMenuItemsByQuery = ({ query }: { query: string }): MenuItems => {
       const searchValue = (query ?? '').toLowerCase()
-      const pages = this.options.editorDataSource.documentPages
-      const domain = this.options.editorDataSource.domain
+      const pages = this.options.externalProps.documentPages
+      const domain = this.options.externalProps.domain
       const pagePath = (parentId: string | null | undefined, path: string[] = []): string[] => {
         const parent = pages.find(p => p.key === parentId)
 
@@ -40,7 +40,7 @@ export const MentionCommands = createExtension<MentionCommandsOptions>({
       }
       return {
         people:
-          this.options.editorDataSource.spaceMembers
+          this.options.externalProps.spaceMembers
             .filter(item => (item.name ?? '').toLowerCase().includes(searchValue))
             .map(item => ({
               name: item.name,

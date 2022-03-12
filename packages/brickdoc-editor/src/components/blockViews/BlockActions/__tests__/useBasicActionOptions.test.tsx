@@ -1,11 +1,11 @@
+import { FC } from 'react'
 import { render, screen } from '@testing-library/react'
-import React from 'react'
-import { EditorDataSource, EditorDataSourceContext } from '../../..'
+import { ExternalProps, ExternalPropsContext } from '../../../../context'
 import { useBasicActionOptions } from '../useBasicActionOptions'
 
 describe('useBasicActionOptions', () => {
   it('returns null document is not editable', () => {
-    const Demo: React.FC<{}> = () => {
+    const Demo: FC<{}> = () => {
       const group = useBasicActionOptions({ types: ['copy', 'delete', 'duplicate', 'move'] })
 
       return (
@@ -21,7 +21,7 @@ describe('useBasicActionOptions', () => {
     expect(screen.getByText('empty')).toBeInTheDocument()
   })
   it('returns null when no types specified', () => {
-    const Demo: React.FC<{}> = () => {
+    const Demo: FC<{}> = () => {
       const group = useBasicActionOptions({ types: [] })
 
       return (
@@ -39,10 +39,10 @@ describe('useBasicActionOptions', () => {
 
   it('returns options according to types', () => {
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    const editorDataSource = new EditorDataSource()
-    editorDataSource.documentEditable = true
+    const externalProps = new ExternalProps()
+    externalProps.documentEditable = true
 
-    const Demo: React.FC<{}> = () => {
+    const Demo: FC<{}> = () => {
       const group = useBasicActionOptions({ types: ['copy', 'delete', 'duplicate', 'move'] })
 
       return (
@@ -55,9 +55,9 @@ describe('useBasicActionOptions', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <Demo />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
     expect(screen.getByText('copy')).toBeInTheDocument()
     expect(screen.getByText('delete')).toBeInTheDocument()

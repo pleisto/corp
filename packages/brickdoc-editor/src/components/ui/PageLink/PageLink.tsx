@@ -3,8 +3,8 @@ import { ArrowShortcut, FilePages } from '@brickdoc/design-icons'
 import { styled, theme } from '@brickdoc/design-system'
 import { useContext, useMemo } from 'react'
 import { EditorContext } from '../../../context/EditorContext'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { PageLinkOptions, PageLinkAttributes } from '../../../extensions/blocks/pageLink/meta'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export interface PageLinkProps {
   options?: PageLinkOptions
@@ -54,7 +54,7 @@ const PageName = styled('span', {
 
 export const PageLink: React.FC<PageLinkProps> = ({ attributes, options }) => {
   const { t } = useContext(EditorContext)
-  const { documentPages } = useContext(EditorDataSourceContext)
+  const { documentPages } = useExternalProps()
   const size = options?.size ?? 'md'
   const { key } = attributes?.page ?? {}
 

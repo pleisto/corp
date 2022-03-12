@@ -1,27 +1,27 @@
 import { render, act } from '@testing-library/react'
 import { BlockContainer } from '../'
-import { EditorDataSourceContext, EditorDataSource } from '../../../dataSource/DataSource'
+import { ExternalProps, ExternalPropsContext } from '../../../../context'
 
 describe('BlockContainer', () => {
   it(`changes block pointer event when editor editable state change`, () => {
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    const editorDataSource = new EditorDataSource()
+    const externalProps = new ExternalProps()
     const { container, rerender } = render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <BlockContainer />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
     // expect dom has 'pointer-event: none' style
     expect(container.firstChild).toMatchSnapshot()
 
     act(() => {
-      editorDataSource.documentEditable = true
+      externalProps.documentEditable = true
     })
 
     rerender(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <BlockContainer />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     // expect dom has 'pointer-event: unset' style
@@ -43,8 +43,7 @@ describe('BlockContainer', () => {
             type: 'item',
             name: 'item'
           }
-        ]}
-      >
+        ]}>
         block
       </BlockContainer>
     )

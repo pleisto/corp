@@ -2,8 +2,8 @@ import React from 'react'
 import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, Cell } from '@brickdoc/formula'
 import { BlockInput } from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { columnDisplayTitle } from './helper'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 interface useFormulaSpreadsheetProps {
   blockId: string
@@ -20,8 +20,8 @@ export function useFormulaSpreadsheet({
   title,
   getCellBlock
 }: useFormulaSpreadsheetProps): void {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
+  const externalProps = useExternalProps()
+  const formulaContext = externalProps.formulaContext
 
   React.useEffect(() => {
     if (!formulaContext) return

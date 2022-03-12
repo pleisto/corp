@@ -1,13 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { EditorDataSourceContext, EditorDataSource } from '../../../../dataSource/DataSource'
 import { ImageView } from '../ImageView'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
+import { ExternalProps, ExternalPropsContext } from '../../../../context'
 
 describe('ImageView', () => {
-  const editorDataSource = new EditorDataSource()
+  const externalProps = new ExternalProps()
   const imageUuid = 'image-uuid'
-  editorDataSource.rootId = imageUuid
-  editorDataSource.prepareFileUpload = (() => {}) as any
+  externalProps.rootId = imageUuid
+  externalProps.prepareFileUpload = (() => {}) as any
 
   const imageUrl =
     'https://images.unsplash.com/photo-1628189847457-b4607de7d222?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80'
@@ -33,9 +33,9 @@ describe('ImageView', () => {
     }
 
     const { container } = render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <ImageView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
     expect(container.firstChild).toMatchSnapshot()
   })
@@ -56,9 +56,9 @@ describe('ImageView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <ImageView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByText('image_block.hint')).toBeInTheDocument()
@@ -83,9 +83,9 @@ describe('ImageView', () => {
     }
 
     render(
-      <EditorDataSourceContext.Provider value={editorDataSource}>
+      <ExternalPropsContext.Provider value={externalProps}>
         <ImageView {...props} />
-      </EditorDataSourceContext.Provider>
+      </ExternalPropsContext.Provider>
     )
 
     expect(screen.getByTestId(TEST_ID_ENUM.editor.imageBlock.image.id)).toBeInTheDocument()
@@ -111,9 +111,9 @@ describe('ImageView', () => {
       }
 
       render(
-        <EditorDataSourceContext.Provider value={editorDataSource}>
+        <ExternalPropsContext.Provider value={externalProps}>
           <ImageView {...props} />
-        </EditorDataSourceContext.Provider>
+        </ExternalPropsContext.Provider>
       )
 
       fireEvent.click(screen.getByText('image_block.hint'))
@@ -143,17 +143,17 @@ describe('ImageView', () => {
           }
 
           rerender(
-            <EditorDataSourceContext.Provider value={editorDataSource}>
+            <ExternalPropsContext.Provider value={externalProps}>
               <ImageView {...props} />
-            </EditorDataSourceContext.Provider>
+            </ExternalPropsContext.Provider>
           )
         }
       }
 
       const { rerender } = render(
-        <EditorDataSourceContext.Provider value={editorDataSource}>
+        <ExternalPropsContext.Provider value={externalProps}>
           <ImageView {...props} />
-        </EditorDataSourceContext.Provider>
+        </ExternalPropsContext.Provider>
       )
 
       fireEvent.click(screen.getByText('image_block.hint'))

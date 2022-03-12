@@ -1,9 +1,9 @@
 import React from 'react'
 import { NodeViewProps } from '@tiptap/core'
 import { displayValue, dumpDisplayResultForDisplay, fetchResult, VariableData } from '@brickdoc/formula'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
 import { BlockContainer } from '../BlockContainer'
 import { useFormula, FormulaMenu, FormulaMenuProps, FormulaDisplay } from '../Formula'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -22,9 +22,9 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
 }) => {
   const defaultVisible = isNew
   const formulaId = uuid
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const rootId = editorDataSource.rootId
-  const formulaContext = editorDataSource.formulaContext
+  const externalProps = useExternalProps()
+  const rootId = externalProps.rootId
+  const formulaContext = externalProps.formulaContext
   const formulaType = 'normal'
   const formulaName = undefined
   const {
@@ -86,8 +86,8 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, getPos }) => {
   const defaultVisible = node.attrs.isNew
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
+  const externalProps = useExternalProps()
+  const formulaContext = externalProps.formulaContext
 
   const handleDelete = React.useCallback(
     async (variableT?: VariableData): Promise<void> => {

@@ -20,7 +20,7 @@ import {
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import { devLog } from '@brickdoc/design-system'
-import { EditorDataSourceContext } from '../../../dataSource/DataSource'
+import { useExternalProps } from '../../../hooks/useExternalProps'
 
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
@@ -39,9 +39,9 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   width,
   height
 }) => {
-  const editorDataSource = React.useContext(EditorDataSourceContext)
-  const formulaContext = editorDataSource.formulaContext
-  const rootId = editorDataSource.rootId
+  const externalProps = useExternalProps()
+  const formulaContext = externalProps.formulaContext
+  const rootId = externalProps.rootId
 
   const [currentBlock, setCurrentBlock] = React.useState(block)
 
