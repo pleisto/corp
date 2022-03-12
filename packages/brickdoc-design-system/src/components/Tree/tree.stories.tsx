@@ -83,7 +83,7 @@ export const Basic = Template.bind({})
 
 export const ExpandInitialSelection = Template.bind({})
 ExpandInitialSelection.args = {
-  selectedNodeId: 'earth'
+  initialSelectedId: 'earth'
 }
 
 export const ExpandOnSelect = Template.bind({})

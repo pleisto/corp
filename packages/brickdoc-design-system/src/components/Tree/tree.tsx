@@ -21,7 +21,7 @@ import { joinNodeIdsByPath } from './helpers'
 export interface TreeProps {
   height?: number
   treeData: TNode[]
-  selectedNodeId?: string
+  initialSelectedId?: string
   className?: string
   treeNodeClassName?: string
   expandAll?: boolean
@@ -32,13 +32,18 @@ export interface TreeProps {
   emptyNode?: string | ReactNode
 }
 
+/**
+ * A ref object that can perform actions on the tree.
+ */
+export type TreeRef = ListRef
+
 const NODE_HEIGHT = 34
 const DEFAULT_HEIGHT = 200
 
 /** Tree
  * @example
  */
-const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
+const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   {
     height,
     treeData: nextTreeData,
@@ -46,7 +51,7 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
     expandOnSelect,
     titleRender,
     emptyNode,
-    selectedNodeId,
+    initialSelectedId,
     draggable,
     className,
     treeNodeClassName,
@@ -59,25 +64,22 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   // to the tree data.
   const treeData = useDeepMemo(nextTreeData)
 
-  const listRef = useRef<ListRef>()
+  const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
     if (expandAll) {
       return treeData.map(node => node.value)
     }
     const ids = treeData.filter(node => node.isExpanded).map(node => node.value) || []
-    if (selectedNodeId) {
+    if (initialSelectedId) {
       // The selected node is initially expanded on the component mount.
-      ids.push(selectedNodeId)
+      ids.push(initialSelectedId)
     }
     return ids
   })
 
-  // `selectedId` is updated when:
-  // 1. The external prop `selectedNodeId` is updated; OR
-  // 2. the component updates the `selectedId` state.
-  const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
+  const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId)
 
-  const flatten = useMemoizedFn((node, indent: number, result: TNodeWithContext[]) => {
+  const flatten = useMemoizedFn((node: TNode, indent: number, result: TNodeWithContext[]) => {
     const { children, value } = node
     const isExpanded = expandedIds.includes(value)
 
