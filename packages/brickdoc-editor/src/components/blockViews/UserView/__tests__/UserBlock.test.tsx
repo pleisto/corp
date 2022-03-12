@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { UserBlock } from '../UserBlock'
+import { UserView } from '../UserView'
 
-describe('UserBlock', () => {
+describe('UserView', () => {
   const props: any = {
     editor: {},
     node: {
@@ -19,12 +19,12 @@ describe('UserBlock', () => {
   }
 
   it('matches correct snapshot', () => {
-    const { container } = render(<UserBlock {...props} />)
+    const { container } = render(<UserView {...props} />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('renders user normally', () => {
-    render(<UserBlock {...props} />)
+    render(<UserView {...props} />)
     expect(screen.getByText(props.node.attrs.people.name)).toBeInTheDocument()
   })
 })

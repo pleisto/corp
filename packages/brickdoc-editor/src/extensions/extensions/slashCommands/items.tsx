@@ -1,5 +1,5 @@
 import Paragraph from '@tiptap/extension-paragraph'
-import { SlashMenuItem } from '../../../components'
+import { SlashMenuItem } from '../../../components/extensionViews'
 import { BlockCommandItem, BLOCK, ORDER_NEW_BLOCK, sortBlock, unselectableBlockType } from '../../../helpers/block'
 import { getRecentItemKey } from './recentItemsManager'
 

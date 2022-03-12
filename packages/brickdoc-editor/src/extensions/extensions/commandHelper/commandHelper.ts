@@ -8,8 +8,8 @@ declare module '@tiptap/core' {
   }
 }
 
-export const EventHandlerExtension = Extension.create({
-  name: 'eventHandler',
+export const CommandHelper = Extension.create({
+  name: 'commentHelper',
 
   addCommands() {
     return {

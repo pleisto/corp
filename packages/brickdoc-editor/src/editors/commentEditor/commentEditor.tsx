@@ -1,15 +1,11 @@
 import { FC, MouseEvent, useCallback, useContext, useEffect } from 'react'
-import Document from '@tiptap/extension-document'
-import Text from '@tiptap/extension-text'
-import Paragraph from '@tiptap/extension-paragraph'
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react'
 import { Avatar, Button, styled, theme } from '@brickdoc/design-system'
 import { BrickdocEventBus, DiscussionMarkInactive } from '@brickdoc/schema'
 import { EditorContext } from '../../context/EditorContext'
 import { usePlaceholder } from './usePlaceholder'
-import { User, PageLink, MentionCommands } from '../../extensions'
-import { EventHandler } from '../../extensions/extensions/eventHandler'
 import { useExternalProps } from '../../hooks/useExternalProps'
+import { Base } from '../../extensions/base'
 
 export interface CommentEditorProps {
   markId: string
@@ -96,18 +92,20 @@ export const CommentEditorContent: FC<CommentEditorProps> = ({ markId }) => {
     autofocus: 'end',
     content: getDraft(markId),
     extensions: [
-      Document,
-      Text,
-      Paragraph,
-      EventHandler,
-      MentionCommands.configure({
-        externalProps
-      }),
-      User.configure({
-        size: 'sm'
-      }),
-      PageLink.configure({
-        size: 'sm'
+      Base.configure({
+        commandHelper: true,
+        document: true,
+        mentionCommands: {
+          externalProps
+        },
+        pageLink: {
+          size: 'sm'
+        },
+        paragraph: true,
+        text: true,
+        user: {
+          size: 'sm'
+        }
       })
     ]
   })

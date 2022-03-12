@@ -1,4 +1,5 @@
 export * from './brickList'
+export * from './commandHelper'
 export * from './dropcursor'
 export * from './eventHandler'
 export * from './fontColor'

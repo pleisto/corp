@@ -30,7 +30,7 @@ function useQuery(): URLSearchParams {
 }
 
 export function useEditorExternalProps({ docMeta, documentEditable, blocks }: UseEditorExternalProps): ExternalProps {
-  const dataSource = useRef<ExternalProps>(new ExternalProps())
+  const externalProps = useRef<ExternalProps>(new ExternalProps())
   const { data } = useGetSpaceMembersQuery()
   const pageQuery = useQuery()
   const prepareFileUpload = usePrepareFileUpload()
@@ -44,7 +44,7 @@ export function useEditorExternalProps({ docMeta, documentEditable, blocks }: Us
 
   // space members
   useEffect(() => {
-    dataSource.current.spaceMembers =
+    externalProps.current.spaceMembers =
       data?.spaceMembers?.map(member => ({
         name: member.name,
         avatar: member.avatarData?.url ?? '',
@@ -54,37 +54,37 @@ export function useEditorExternalProps({ docMeta, documentEditable, blocks }: Us
 
   // pageQuery
   useEffect(() => {
-    dataSource.current.pageQuery = pageQuery
+    externalProps.current.pageQuery = pageQuery
   }, [pageQuery])
 
   // feature flags
   useEffect(() => {
-    dataSource.current.featureFlags = features
+    externalProps.current.featureFlags = features
   }, [features])
 
   // settings
   useEffect(() => {
-    dataSource.current.settings = settings
+    externalProps.current.settings = settings
   }, [settings])
 
   // renderPageTree
   useEffect(() => {
-    dataSource.current.renderPageTree = () => <PageTree mode="subPage" docMeta={docMeta} />
+    externalProps.current.renderPageTree = () => <PageTree mode="subPage" docMeta={docMeta} />
   }, [docMeta])
 
   // formula context
   useEffect(() => {
-    dataSource.current.formulaContext = formulaContext
+    externalProps.current.formulaContext = formulaContext
   }, [formulaContext])
 
   // fetch unsplash images
   useEffect(() => {
-    dataSource.current.fetchUnsplashImages = fetchUnsplashImages
+    externalProps.current.fetchUnsplashImages = fetchUnsplashImages
   }, [fetchUnsplashImages])
 
   // fetch website meta
   useEffect(() => {
-    dataSource.current.fetchWebsiteMeta = async (url: string) => {
+    externalProps.current.fetchWebsiteMeta = async (url: string) => {
       const { data, error } = await queryPreviewBox({ url })
 
       return {
@@ -96,12 +96,12 @@ export function useEditorExternalProps({ docMeta, documentEditable, blocks }: Us
 
   // prepare file upload
   useEffect(() => {
-    dataSource.current.prepareFileUpload = prepareFileUpload
+    externalProps.current.prepareFileUpload = prepareFileUpload
   }, [prepareFileUpload])
 
   // blobs
   useEffect(() => {
-    dataSource.current.blobs =
+    externalProps.current.blobs =
       blocks?.reduce<ExternalProps['blobs']>((prev, cur) => {
         return {
           ...prev,
@@ -119,12 +119,12 @@ export function useEditorExternalProps({ docMeta, documentEditable, blocks }: Us
   // document pages
   const pagesData = useReactiveVar(pagesVar)
   useEffect(() => {
-    dataSource.current.documentPages = pagesData
+    externalProps.current.documentPages = pagesData
   }, [pagesData])
 
   // collaborators
   useEffect(() => {
-    dataSource.current.collaborators = docMeta.collaborators.map(user => ({
+    externalProps.current.collaborators = docMeta.collaborators.map(user => ({
       name: user.name,
       domain: user.domain,
       avatar: user.avatarData?.url ?? undefined
@@ -133,18 +133,18 @@ export function useEditorExternalProps({ docMeta, documentEditable, blocks }: Us
 
   // document editable
   useEffect(() => {
-    dataSource.current.documentEditable = documentEditable
+    externalProps.current.documentEditable = documentEditable
   }, [documentEditable])
 
   // domain
   useEffect(() => {
-    dataSource.current.domain = docMeta.domain
+    externalProps.current.domain = docMeta.domain
   }, [docMeta.domain])
 
   // rootId
   useEffect(() => {
-    dataSource.current.rootId = docMeta.id!
+    externalProps.current.rootId = docMeta.id!
   }, [docMeta.id])
 
-  return dataSource.current
+  return externalProps.current
 }

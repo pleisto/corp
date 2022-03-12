@@ -14,7 +14,7 @@ type GenericConfig = TipTapMarkConfig | TipTapNodeConfig | TipTapExtensionConfig
 
 export type Attribute = Partial<TiptapAttribute>
 
-type RequiredKeys<T> = { [k in keyof T]: T[k] extends Record<k, T[k]> ? k : never }[keyof T]
+type RequiredKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? never : K }[keyof T]
 
 export type AddAttributes<Config extends GenericConfig, Attributes> = (
   this: ThisParameterType<NonNullable<Config['addAttributes']>>
@@ -34,7 +34,6 @@ export interface BlockViewProps<ExtensionOptions, ExtensionAttributes> extends O
   updateAttributes: (attributes: Partial<ExtensionAttributes>) => void
   extension: Node<ExtensionOptions>
 }
-
 
 /**
  * Mark

@@ -1,7 +1,7 @@
 import { FormulaContext, FormulaSourceType, quickInsert, VariableMetadata, VariableValue } from '@brickdoc/formula'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { JSONContent } from '@tiptap/core'
-import { buildJSONContentByArray, contentArrayToInput, fetchJSONContentArray } from '../../../helpers'
+import { buildJSONContentByArray, contentArrayToInput, fetchJSONContentArray } from '../../../../helpers'
 import { useFormula } from '../useFormula'
 
 const rootId = 'eb373fbc-a6e9-40a6-8c4b-45cda7230dda'

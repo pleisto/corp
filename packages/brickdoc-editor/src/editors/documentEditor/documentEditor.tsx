@@ -56,9 +56,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     'listItem',
     'orderedList',
     'paragraph',
-    'pdfSection',
     'subPageMenuBlock',
-    'tableBlock',
     'tocBlock',
     'spreadsheetBlock'
   ]
