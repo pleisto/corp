@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, useMemo, useRef, useState, ForwardRefRenderFunction, forwardRef } from 'react'
+import { MouseEvent, ReactNode, useMemo, useRef, useState, FC } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier } from 'dnd-core'
 import { rem } from 'polished'
@@ -38,13 +38,21 @@ const DND_NODE_TYPE = 'node'
 /** Tree
  * @example
  */
-const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
-  { treeData, className, onToggleExpand, onSelect, titleRender, selected, emptyNode, id, index, moveNode },
-  _ref
-) => {
+export const Node: FC<NodeProps> = ({
+  treeData,
+  className,
+  onToggleExpand,
+  onSelect,
+  titleRender,
+  selected,
+  emptyNode,
+  id,
+  index,
+  moveNode
+}) => {
   const { icon = '', parentId, rootId, value, isExpanded, context } = treeData
   const { hasChildren, indent } = context
-  const ref = useRef<HTMLDivElement>(_ref as any)
+  const ref = useRef<HTMLDivElement>(null)
   const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
 
   const handleSelect = useMemoizedFn(_e => onSelect?.(treeData))
@@ -249,9 +257,4 @@ const InternalNode: ForwardRefRenderFunction<any, NodeProps> = (
   )
 }
 
-const _InternalNode = forwardRef(InternalNode)
-_InternalNode.displayName = 'Node'
-
-export { _InternalNode as Node }
-
-/* export const Node = memo(InternalNode) */
+Node.displayName = 'Node'

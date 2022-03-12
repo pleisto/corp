@@ -77,28 +77,25 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   // 2. the component updates the `selectedId` state.
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
 
-  const flatten = useCallback(
-    (node, indent: number, result: TNodeWithContext[]) => {
-      const { children, value } = node
-      const isExpanded = expandedIds.includes(value)
+  const flatten = useMemoizedFn((node, indent: number, result: TNodeWithContext[]) => {
+    const { children, value } = node
+    const isExpanded = expandedIds.includes(value)
 
-      result.push({
-        ...node,
-        isExpanded,
-        context: {
-          hasChildren: (children ?? []).length > 0,
-          indent: indent ?? 0
-        }
-      })
-
-      if (isExpanded && children) {
-        for (const child of children) {
-          flatten(child, indent + 1, result)
-        }
+    result.push({
+      ...node,
+      isExpanded,
+      context: {
+        hasChildren: (children ?? []).length > 0,
+        indent: indent ?? 0
       }
-    },
-    [expandedIds]
-  )
+    })
+
+    if (isExpanded && children) {
+      for (const child of children) {
+        flatten(child, indent + 1, result)
+      }
+    }
+  })
 
   const nodeList = useMemo(() => {
     const result: TNodeWithContext[] = []
@@ -108,18 +105,15 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
     return result
   }, [treeData, flatten])
 
-  const handleSelected = useCallback(
-    (node: TNodeWithContext) => {
-      setSelectedId(node.value)
-      if (!node.isExpanded && expandOnSelect && node.value) {
-        const nextOpenIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
-        if (!deepEqual(nextOpenIds, expandedIds)) {
-          setExpandedIds(nextOpenIds)
-        }
+  const handleSelected = useMemoizedFn((node: TNodeWithContext) => {
+    setSelectedId(node.value)
+    if (expandOnSelect && !node.isExpanded && node.value) {
+      const nextOpenIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
+      if (!deepEqual(nextOpenIds, expandedIds)) {
+        setExpandedIds(nextOpenIds)
       }
-    },
-    [treeData, expandOnSelect, expandedIds]
-  )
+    }
+  })
 
   const handleItemClick = useMemoizedFn((node: TNode) => {
     node.isExpanded
