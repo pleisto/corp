@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserBlock matches correct snapshot 1`] = `
+exports[`UserView matches correct snapshot 1`] = `
 <span
   as="span"
   data-node-view-wrapper=""

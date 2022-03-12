@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ParagraphBlock matches snapshot correctly 1`] = `
+exports[`ParagraphView matches snapshot correctly 1`] = `
 <div
   data-node-view-wrapper=""
   style="position: relative; pointer-events: none; white-space: normal;"
@@ -16,7 +16,7 @@ exports[`ParagraphBlock matches snapshot correctly 1`] = `
 </div>
 `;
 
-exports[`ParagraphBlock shows placeholder normally 1`] = `
+exports[`ParagraphView shows placeholder normally 1`] = `
 <div
   data-node-view-wrapper=""
   style="position: relative; pointer-events: none; white-space: normal;"

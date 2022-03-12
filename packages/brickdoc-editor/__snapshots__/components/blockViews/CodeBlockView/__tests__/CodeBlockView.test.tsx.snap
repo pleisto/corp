@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CodeBlock matches snapshot correctly 1`] = `
+exports[`CodeBlockView matches snapshot correctly 1`] = `
 <div
   class="brd-c-hIBjYz"
   data-node-view-wrapper=""
