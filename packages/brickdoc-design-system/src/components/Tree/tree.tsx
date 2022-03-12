@@ -9,12 +9,15 @@ import {
   forwardRef,
   RefCallback
 } from 'react'
+import deepEqual from 'fast-deep-equal'
 import List, { ListRef } from 'rc-virtual-list'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend, HTML5BackendOptions } from 'react-dnd-html5-backend'
 import type { TNode, MoveNode, TNodeWithContext } from './constants'
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
+import { useDeepMemo } from '../../hooks/useDeepMemo'
+import { joinNodeIdsByPath } from './helpers'
 
 export interface TreeProps {
   height?: number
@@ -29,18 +32,6 @@ export interface TreeProps {
   emptyNode?: string | ReactNode
 }
 
-const findPathById = (tree: TNode[], id: string, path?: string[]): string[] | undefined => {
-  for (let i = 0; i < tree.length; i++) {
-    const tempPath = [...(path ?? [])]
-    tempPath.push(tree[i].value)
-    if (tree[i].value === id) return tempPath
-    if (tree[i].children) {
-      const result = findPathById(tree[i].children!, id, tempPath)
-      if (result) return result
-    }
-  }
-}
-
 const NODE_HEIGHT = 34
 const DEFAULT_HEIGHT = 200
 
@@ -50,7 +41,7 @@ const DEFAULT_HEIGHT = 200
 const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   {
     height,
-    treeData,
+    treeData: nextTreeData,
     openAll = false,
     titleRender,
     emptyNode,
@@ -62,18 +53,33 @@ const TreeInternal: ForwardRefRenderFunction<any, TreeProps> = (
   },
   ref
 ) => {
+  // To cache tree data in case its reference changes outside the component
+  // in order to optimize everything in the rendering flow corresponding
+  // to the tree data.
+  const treeData = useDeepMemo(nextTreeData)
+
   const listRef = useRef<ListRef>()
   const [openIds, setOpenIds] = useState<string[]>(
     openAll ? treeData.map(node => node.value) : treeData.filter(node => node.isOpen).map(node => node.value) || []
   )
+
+  // `selectedId` is updated when:
+  // 1. The external prop `selectedNodeId` is updated; OR
+  // 2. the component updates the `selectedId` state.
   const [selectedId, setSelectedId] = useState<string | undefined>(selectedNodeId)
+  useDeepMemo(selectedNodeId, next => {
+    setSelectedId(next)
+  })
 
   useEffect(() => {
-    if (selectedNodeId) {
-      setOpenIds(findPathById(treeData, selectedNodeId, openIds) ?? [])
+    if (selectedId) {
+      const nextOpenIds = joinNodeIdsByPath(treeData, selectedId, openIds) ?? []
+      if (!deepEqual(nextOpenIds, openIds)) {
+        setOpenIds(nextOpenIds)
+        console.log('set open ids', [nextOpenIds, openIds])
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [treeData, selectedId, openIds])
 
   const flatten = useCallback(
     (node, indent: number, result: TNodeWithContext[]) => {

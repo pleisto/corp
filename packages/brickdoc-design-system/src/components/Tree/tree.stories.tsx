@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { ReactNode } from 'react'
 import { TNode, Tree } from '.'
 
 export default {
@@ -43,9 +44,26 @@ const demoData: TNode[] = [
         title: 'Earth',
         children: [
           {
-            key: 'luna',
-            value: 'luna',
-            title: 'Luna (the Moon)'
+            key: 'moon',
+            value: 'moon',
+            title: 'The Moon'
+          }
+        ]
+      },
+      {
+        key: 'mars',
+        value: 'mars',
+        title: 'Mars',
+        children: [
+          {
+            key: 'deimos',
+            value: 'deimos',
+            title: 'Deimos'
+          },
+          {
+            key: 'phobos',
+            value: 'phobos',
+            title: 'Phobos'
           }
         ]
       }
@@ -53,9 +71,16 @@ const demoData: TNode[] = [
   }
 ]
 
-const renderNode = (node: TNode) => {
+const renderNode = (node: TNode): ReactNode => {
   return <span>{node.title}</span>
 }
 const Template: ComponentStory<typeof Tree> = () => <Tree treeData={demoData} titleRender={renderNode} />
 
 export const Basic = Template.bind({})
+
+// It uses the
+export const ExpandedSelected = () => <Tree treeData={demoData} titleRender={renderNode} selectedNodeId="earth" />
+// Template.bind({})
+// ExpandedSelected.args = {
+//   selectedNodeId: 'earth'
+// }

@@ -19,3 +19,9 @@ overrides:
       - '**/stories.test.tsx'
     rules:
       'jest/expect-expect': 'off'
+  - files:
+      - '**/*.test.ts[x]'
+    rules:
+      'max-nested-callbacks':
+        - warn
+        - 6
