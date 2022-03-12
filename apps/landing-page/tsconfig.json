@@ -2,9 +2,22 @@
   "extends": "../../tsconfig.shared.json",
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowJs": true,
+    "module": "esnext"
   },
-  "include": ["**/*"],
+  "include": [
+    "**/*"
+  ],
   "exclude": [
     "dist/**/*"
   ]

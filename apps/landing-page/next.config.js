@@ -2,14 +2,14 @@ const packageJson = require('./package.json')
 const transpiledPackages = Object.keys(packageJson.dependencies).filter(it => it.startsWith('@brickdoc/'))
 const withTM = require('next-transpile-modules')(transpiledPackages)
 
-/** @type {import('next').NextConfig} */
 module.exports = withTM({
   reactStrictMode: true,
   webpack: config => {
     config.module.rules.push({
-      test: /\.mp4$/,
+      test: /\.mp4|\.svg$/,
       type: 'asset/resource'
     })
+    config.resolve.alias['@'] = __dirname
     return config
   }
 })
