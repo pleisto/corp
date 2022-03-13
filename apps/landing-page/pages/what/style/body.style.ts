@@ -30,11 +30,16 @@ export const Body = styled('article', {
   '@xsDown': {
     width: '100%',
     minWidth: '375px',
-    padding: '0 36px',
+    padding: '0 36px 40px 36px',
     p: {
       fontSize: theme.fontSizes.body,
       lineHeight: theme.lineHeights.title5,
       marginBottom: '1rem'
+    },
+    h4: {
+      fontSize: theme.fontSizes.body,
+      lineHeight: '28px',
+      marginBottom: '24px'
     }
   }
 })

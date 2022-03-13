@@ -31,5 +31,9 @@ export const BottomBg = styled('div', {
   left: 0,
   top: 522,
   height: 340,
-  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)'
+  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)',
+  '@xsDown': {
+    top: 270,
+    height: 292
+  }
 })

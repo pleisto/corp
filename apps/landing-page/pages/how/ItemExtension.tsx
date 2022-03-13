@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from '@brickdoc/design-system'
 import bg from '@/public/images/lg4.png'
+import sm from '@/public/images/sm4.png'
 import * as Root from './style/item.style'
 
 export const ItemExtension = () => {
@@ -31,6 +32,9 @@ export const ItemExtension = () => {
         </p>
         <Button type="secondary">Coming soon...</Button>
       </Root.Title>
+      <Root.ContentSm>
+        <Image src={sm} alt="Extension Store" />
+      </Root.ContentSm>
     </Root.ItemCard>
   )
 }

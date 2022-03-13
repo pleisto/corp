@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from '@brickdoc/design-system'
 import bg from '@/public/images/lg2.png'
+import sm from '@/public/images/sm2.png'
 import * as Root from './style/item.style'
 
 export const ItemFormula = () => {
@@ -29,6 +30,9 @@ export const ItemFormula = () => {
         </p>
         <Button type="secondary">Explore our cases</Button>
       </Root.Title>
+      <Root.ContentSm>
+        <Image src={sm} alt="Formula" />
+      </Root.ContentSm>
     </Root.ItemCard>
   )
 }

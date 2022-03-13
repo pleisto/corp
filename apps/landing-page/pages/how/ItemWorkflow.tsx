@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from '@brickdoc/design-system'
 import bg from '@/public/images/lg3.png'
+import sm from '@/public/images/sm3.png'
 import * as Root from './style/item.style'
 
 export const ItemWorkflow = () => {
@@ -35,8 +36,11 @@ export const ItemWorkflow = () => {
           marginTop: -63
         }}
       >
-        <Image src={bg} alt="Explore our cases" />
+        <Image src={bg} alt="Workflow" />
       </Root.Content>
+      <Root.ContentSm>
+        <Image src={sm} alt="Workflow" />
+      </Root.ContentSm>
     </Root.ItemCard>
   )
 }

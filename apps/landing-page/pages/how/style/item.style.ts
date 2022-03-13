@@ -22,10 +22,47 @@ export const Title = styled('div', {
     fontWeight: 450,
     lineHeight: '2rem',
     marginBottom: '36px'
+  },
+  '@xsDown': {
+    textAlign: 'center',
+    width: '100%',
+
+    h1: {
+      fontSize: theme.fontSizes.title2,
+      lineHeight: theme.lineHeights.title2,
+      fontWeight: 600
+    },
+    h2: {
+      fontSize: theme.fontSizes.body,
+      lineHeight: theme.lineHeights.title5,
+      margin: 0,
+      fontWeight: 600,
+      marginBottom: 8
+    },
+    p: {
+      fontSize: theme.fontSizes.body,
+      lineHeight: theme.lineHeights.title5,
+      marginBottom: '1rem',
+      textAlign: 'left',
+      br: {
+        display: 'none'
+      }
+    }
   }
 })
 
-export const Content = styled('div', {})
+export const Content = styled('div', {
+  '@xsDown': {
+    display: 'none'
+  }
+})
+
+export const ContentSm = styled('div', {
+  margin: '0 -20px',
+  '@xsUp': {
+    display: 'none'
+  }
+})
 
 export const ItemCard = styled('div', {
   display: 'flex',
@@ -44,7 +81,11 @@ export const ItemCard = styled('div', {
     marginBottom: 40
   },
   '@xsDown': {
-    height: 'unset'
+    height: 'unset',
+    padding: '40px 20px',
+    paddingBottom: 0,
+    flexDirection: 'column',
+    marginBottom: 24
   },
   variants: {
     color: {
@@ -63,10 +104,16 @@ export const ItemCard = styled('div', {
     },
     direcTion: {
       ltr: {
-        paddingRight: 0
+        paddingRight: 0,
+        '@xsDown': {
+          paddingRight: 20
+        }
       },
       rtl: {
-        paddingLeft: 0
+        paddingLeft: 0,
+        '@xsDown': {
+          paddingLeft: 20
+        }
       }
     }
   }

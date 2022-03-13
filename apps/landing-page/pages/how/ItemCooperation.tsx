@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from '@brickdoc/design-system'
 import bg from '@/public/images/lg1.png'
+import sm from '@/public/images/sm1.png'
 import * as Root from './style/item.style'
 
 export const ItemCooperation = () => {
@@ -27,6 +28,9 @@ export const ItemCooperation = () => {
       >
         <Image src={bg} alt="Cooperation" />
       </Root.Content>
+      <Root.ContentSm>
+        <Image src={sm} alt="Cooperation" />
+      </Root.ContentSm>
     </Root.ItemCard>
   )
 }
