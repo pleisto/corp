@@ -1980,6 +1980,7 @@ __metadata:
     "@tiptap/extension-bullet-list": ^2.0.0-beta.26
     "@tiptap/extension-code": ^2.0.0-beta.26
     "@tiptap/extension-code-block": ^2.0.0-beta.37
+    "@tiptap/extension-collaboration": ^2.0.0-beta.33
     "@tiptap/extension-document": ^2.0.0-beta.15
     "@tiptap/extension-dropcursor": ^2.0.0-beta.25
     "@tiptap/extension-gapcursor": ^2.0.0-beta.34
@@ -2011,6 +2012,7 @@ __metadata:
     refractor: ^4.5.0
     tippy.js: ^6.3.7
     uuid: ^8.3.2
+    yjs: ^13.5.28
   peerDependencies:
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -2134,6 +2136,8 @@ __metadata:
     vite-plugin-istanbul: ^2.5.1
     vite-plugin-pwa: ^0.11.13
     vite-plugin-ruby: ^3.0.8
+    y-protocols: ^1.0.5
+    yjs: ^13.5.28
   languageName: unknown
   linkType: soft
 
@@ -6794,6 +6798,18 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.0.0-beta.1
   checksum: 97e730754324dc7171cdb5250cb24517137b38960353bdb5d97d64350d8b2c82eb0e4c503c90eeb14ba4a26e7b7e9ccecea771d240e6f5044af0ca0653ecef97
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-collaboration@npm:^2.0.0-beta.33":
+  version: 2.0.0-beta.33
+  resolution: "@tiptap/extension-collaboration@npm:2.0.0-beta.33"
+  dependencies:
+    prosemirror-state: ^1.3.4
+    y-prosemirror: ^1.0.14
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: a6a36d4941453229ca94475ca682718ba83d72734e5360243d0ae07a1f7d861df29ef0b8018b4d1307ac1b2d4418afa5a460cceed7eef8d939fe649429281c50
   languageName: node
   linkType: hard
 
@@ -15826,6 +15842,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"isomorphic.js@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "isomorphic.js@npm:0.2.4"
+  checksum: 7adb91495de1ff0af9a524cb7ffccde7984ea7c547f3b9fe387b51a2be6c3f607a086d253224a985cf55a28e41d57f5cb22e285543e95ab97e7ba36783f2cd81
+  languageName: node
+  linkType: hard
+
 "istanbul-lib-coverage@npm:^3.0.0, istanbul-lib-coverage@npm:^3.0.0-alpha.1, istanbul-lib-coverage@npm:^3.0.1, istanbul-lib-coverage@npm:^3.2.0":
   version: 3.2.0
   resolution: "istanbul-lib-coverage@npm:3.2.0"
@@ -17007,6 +17030,15 @@ __metadata:
     prelude-ls: ~1.1.2
     type-check: ~0.3.2
   checksum: 0d084a524231a8246bb10fec48cdbb35282099f6954838604f3c7fc66f2e16fa66fd9cc2f3f20a541a113c4dafdf181e822c887c8a319c9195444e6c64ac395e
+  languageName: node
+  linkType: hard
+
+"lib0@npm:^0.2.42, lib0@npm:^0.2.43":
+  version: 0.2.46
+  resolution: "lib0@npm:0.2.46"
+  dependencies:
+    isomorphic.js: ^0.2.4
+  checksum: 1455fd714c7535668b87369964304b53897ab82e17d3d1858db630706dfc007880a99af73bdfa8fe44461e87579dbd7fcdcc5e89d1699405b20fe936aee931cb
   languageName: node
   linkType: hard
 
@@ -25695,6 +25727,30 @@ typescript@^4.4.3:
   languageName: node
   linkType: hard
 
+"y-prosemirror@npm:^1.0.14":
+  version: 1.0.15
+  resolution: "y-prosemirror@npm:1.0.15"
+  dependencies:
+    lib0: ^0.2.42
+  peerDependencies:
+    prosemirror-model: ^1.7.1
+    prosemirror-state: ^1.2.3
+    prosemirror-view: ^1.9.10
+    y-protocols: ^1.0.1
+    yjs: ^13.3.2
+  checksum: 3013972b1e4617825fb4808bfc7201c1c4b233801a463c04d4572908d727dfac80f1fb2882019aae3e7666a5bdd17416bac349f65a94bd796ffb15b1ac5f1522
+  languageName: node
+  linkType: hard
+
+"y-protocols@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "y-protocols@npm:1.0.5"
+  dependencies:
+    lib0: ^0.2.42
+  checksum: d19404a4ebafcf3761c28b881abe8c32ab6e457db0e5ffc7dbb749cbc2c3bb98e003a43f3e8eba7f245b2698c76f2c4cdd1c2db869f8ec0c6ef94736d9a88652
+  languageName: node
+  linkType: hard
+
 "y18n@npm:^4.0.0":
   version: 4.0.3
   resolution: "y18n@npm:4.0.3"
@@ -25838,6 +25894,15 @@ typescript@^4.4.3:
   dependencies:
     buffer-crc32: ~0.2.3
   checksum: daec5154b5485d8621bfea359e905ddca0b2f068430a4aa0a802bf5d67391157a383e0c2767acccbf5964264851da643bc740155a9458e2d8dce55b94c1cc2ed
+  languageName: node
+  linkType: hard
+
+"yjs@npm:^13.5.28":
+  version: 13.5.28
+  resolution: "yjs@npm:13.5.28"
+  dependencies:
+    lib0: ^0.2.43
+  checksum: c1cdb65e05e0b1cbc8a33055c40c5abe0a366526a0d18ec7d20bc4721d3d78fe281fcbf8bd31c021fb17168f95c4d8f9f3311e56f9f866ac2c5417b929463b29
   languageName: node
   linkType: hard
 

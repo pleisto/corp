@@ -44,6 +44,7 @@ export interface BaseOptions {
   underline: Partial<EXTENSION.UnderlineOptions> | boolean
   uniqueID: Partial<EXTENSION.UniqueIDOptions> | boolean
   user: Partial<EXTENSION.UserOptions> | boolean
+  collaboration: Partial<EXTENSION.CollaborationOptions> | boolean
 }
 
 const getConfigure = <T>(configure: T | boolean): Partial<T> => (configure === true ? {} : (configure as T))
@@ -87,8 +88,6 @@ export const Base = Extension.create<BaseOptions>({
       extensions.push(EXTENSION.HardBreak.configure(getConfigure(this.options?.hardBreak)))
     if (this.options.all ?? this.options.heading)
       extensions.push(EXTENSION.Heading.configure(getConfigure(this.options?.heading)))
-    if (this.options.all ?? this.options.history)
-      extensions.push(EXTENSION.History.configure(getConfigure(this.options?.history)))
     if (this.options.all ?? this.options.horizontalRule)
       extensions.push(EXTENSION.HorizontalRule.configure(getConfigure(this.options?.horizontalRule)))
     if (this.options.all ?? this.options.indent)
@@ -129,6 +128,12 @@ export const Base = Extension.create<BaseOptions>({
       extensions.push(EXTENSION.UniqueID.configure(getConfigure(this.options?.uniqueID)))
     if (this.options.all ?? this.options.user)
       extensions.push(EXTENSION.User.configure(getConfigure(this.options?.user)))
+
+    if (this.options.collaboration)
+      extensions.push(EXTENSION.Collaboration.configure(getConfigure(this.options?.collaboration)))
+
+    if (!this.options.collaboration && (this.options.all ?? this.options.history))
+      extensions.push(EXTENSION.History.configure(getConfigure(this.options?.history)))
 
     return extensions
   }

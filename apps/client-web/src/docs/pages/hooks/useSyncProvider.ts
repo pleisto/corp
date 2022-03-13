@@ -8,6 +8,8 @@ import {
   Block,
   useGetChildrenBlocksQuery,
   useBlockSyncBatchMutation,
+  useYdocSyncMutation,
+  useYdocSubscription,
   GetSpreadsheetChildrenDocument
 } from '@/BrickdocGraphQL'
 import { isEqual } from '@brickdoc/active-support'
@@ -26,6 +28,8 @@ import {
   loadSpreadsheetBlocks,
   SpreadsheetLoaded
 } from '@brickdoc/schema'
+import { BrickdocContext } from '@/common/brickdocContext'
+import * as Y from 'yjs'
 
 export type UpdateBlocks = (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
 
@@ -36,8 +40,12 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   refetch: any
   onDocSave: (doc: Node) => Promise<void>
   updateBlocks: UpdateBlocks
+  ydoc: React.MutableRefObject<Y.Doc | undefined>
   // updateCachedDocBlock: (block: Block, toDelete: boolean) => void
 } {
+  const {
+    features: { experiment_collaboration: enableCollaboration }
+  } = React.useContext(BrickdocContext)
   const rootId = React.useRef<string>(queryVariables.rootId)
 
   const { data, loading, refetch } = useGetChildrenBlocksQuery({
@@ -47,15 +55,32 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   const client = useApolloClient()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
+  const [ydocSync] = useYdocSyncMutation()
 
   const committing = React.useRef(false)
 
   const cachedBlocksMap = React.useRef(new Map<string, Block>())
   const docBlocksMap = React.useRef(new Map<string, Block>())
   const rootBlock = React.useRef<Block | undefined>()
+  const ydoc = React.useRef<Y.Doc | undefined>()
 
   const dirtyBlocksMap = React.useRef(new Map<string, BlockInput>())
   const dirtyToDeleteIds = React.useRef(new Set<string>())
+
+  // TODO
+  // if (enableCollaboration) {
+  useYdocSubscription({
+    onSubscriptionData: ({ subscriptionData: { data } }) => {
+      if (data) {
+        const {
+          ydoc: { operatorId, updates }
+        } = data
+        console.log(operatorId, updates)
+      }
+    },
+    variables: { docId: rootId.current }
+  })
+  // }
 
   React.useEffect(() => {
     rootId.current = queryVariables.rootId
@@ -69,7 +94,23 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       docBlocksMap.current.set(block.id, block)
     })
     rootBlock.current = docBlocksMap.current.get(rootId.current)
-  }, [queryVariables, data?.childrenBlocks])
+
+    if (enableCollaboration) {
+      ydoc.current = new Y.Doc({ guid: rootId.current })
+      ydoc.current.on('update', async (update, origin, doc) => {
+        const syncPromise = ydocSync({
+          variables: {
+            input: {
+              updates: Array.from(update),
+              docId: rootId.current,
+              operatorId: globalThis.brickdocContext.uuid
+            }
+          }
+        })
+        await syncPromise
+      })
+    }
+  }, [queryVariables, data?.childrenBlocks, enableCollaboration, ydocSync])
 
   const commitDirty = async (): Promise<void> => {
     if (!dirtyBlocksMap.current.size && !dirtyToDeleteIds.current.size) return
@@ -297,6 +338,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     loading,
     refetch,
     onDocSave,
-    updateBlocks
+    updateBlocks,
+    ydoc
   }
 }

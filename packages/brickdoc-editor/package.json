@@ -24,6 +24,7 @@
     "@tiptap/extension-bullet-list": "^2.0.0-beta.26",
     "@tiptap/extension-code": "^2.0.0-beta.26",
     "@tiptap/extension-code-block": "^2.0.0-beta.37",
+    "@tiptap/extension-collaboration": "^2.0.0-beta.33",
     "@tiptap/extension-document": "^2.0.0-beta.15",
     "@tiptap/extension-dropcursor": "^2.0.0-beta.25",
     "@tiptap/extension-gapcursor": "^2.0.0-beta.34",
@@ -50,7 +51,8 @@
     "react-medium-image-zoom": "^4.3.5",
     "refractor": "^4.5.0",
     "tippy.js": "^6.3.7",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yjs": "^13.5.28"
   },
   "devDependencies": {
     "@types/react-pdf": "^5.0.9",
