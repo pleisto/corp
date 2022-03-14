@@ -410,9 +410,9 @@ export const useFormula = ({
   const updateVariable = React.useCallback(
     (variable: VariableInterface): void => {
       variableRef.current = variable
-      setVariableT(variable.t)
+      setVariableT({ ...variable.t })
       if (!variable.isNew) {
-        setSavedVariableT(variable.t)
+        setSavedVariableT({ ...variable.t })
         updateFormula(variable)
       }
 

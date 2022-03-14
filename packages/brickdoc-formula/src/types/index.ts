@@ -658,16 +658,10 @@ export interface VariableMetadata {
   readonly type: FormulaSourceType
 }
 
-export interface VariableWaitPromiseState {
-  readonly uuid: uuid
-  readonly state: 'pending' | 'resolved'
-}
-
 export interface VariableInterface {
   t: VariableData
   isNew: boolean
   isDirty: boolean
-  latestWaitingPromiseState: VariableWaitPromiseState | undefined
   cloneVariable: () => VariableInterface
   formulaContext: ContextInterface
   buildFormula: () => Formula

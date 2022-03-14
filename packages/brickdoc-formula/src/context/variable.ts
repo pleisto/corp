@@ -3,6 +3,7 @@ import {
   BrickdocEventBus,
   EventSubscribed,
   FormulaInnerRefresh,
+  FormulaTickViaId,
   FormulaUpdatedViaId,
   FormulaUpdatedViaName
 } from '@brickdoc/schema'
@@ -19,8 +20,7 @@ import {
   BaseFormula,
   FormulaSourceType,
   ErrorMessage,
-  NamespaceId,
-  VariableWaitPromiseState
+  NamespaceId
 } from '../types'
 import { parse, innerInterpret, interpretAsync } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -47,6 +47,10 @@ export const errorIsFatal = (t: VariableData): boolean => {
 
 export const fetchResult = (t: VariableData): AnyTypeResult => {
   if (t.async) {
+    const duration = new Date().getTime() - t.execStartTime.getTime()
+    if (duration > 5000) {
+      return { type: 'Pending', result: '[5s] Loading...' }
+    }
     return { type: 'Pending', result: 'Loading...' }
   }
 
@@ -90,16 +94,30 @@ export class VariableClass implements VariableInterface {
   t: VariableData
   isNew: boolean
   isDirty: boolean
+  tickTimeout: number = 1000
   formulaContext: ContextInterface
   eventListeners: EventSubscribed[] = []
   reparsing: boolean = false
-  latestWaitingPromiseState: VariableWaitPromiseState | undefined = undefined
+  uuid: string
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
     this.formulaContext = formulaContext
+    this.uuid = uuidv4()
     this.isNew = true
     this.isDirty = true
+
+    const result = BrickdocEventBus.subscribe(
+      FormulaTickViaId,
+      e => {
+        void this.tick(e.payload.uuid)
+      },
+      {
+        eventId: `${t.namespaceId},${t.variableId}`,
+        subscribeId: `Dependency#${t.namespaceId},${t.variableId}`
+      }
+    )
+    this.eventListeners.push(result)
   }
 
   public cloneVariable(): VariableInterface {
@@ -132,18 +150,29 @@ export class VariableClass implements VariableInterface {
     this.isDirty = false
   }
 
-  public subscribePromise(): void {
-    const uuid = uuidv4()
+  private async tick(uuid: string): Promise<void> {
+    if (this.uuid !== uuid) return
     if (!this.t.async) {
-      this.latestWaitingPromiseState = { uuid, state: 'resolved' }
       return
     }
-    this.latestWaitingPromiseState = { uuid, state: 'pending' }
+    BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
+    await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
+    BrickdocEventBus.dispatch(
+      FormulaTickViaId({ uuid: this.uuid, variableId: this.t.variableId, namespaceId: this.t.namespaceId })
+    )
+  }
+
+  public subscribePromise(): void {
+    const id = uuidv4()
+    this.uuid = id
+    if (!this.t.async) {
+      return
+    }
+    void this.tick(id)
     void this.t.variableValue.then(result => {
-      if (this.latestWaitingPromiseState?.uuid === uuid) {
+      if (this.uuid === id) {
         this.t = { ...this.t, variableValue: result, async: false, execEndTime: new Date() }
         this.dispatchVariableValueChanged()
-        this.latestWaitingPromiseState = { uuid, state: 'resolved' }
       }
     })
   }
