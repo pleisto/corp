@@ -123,6 +123,31 @@ model brickdoc_configs {
   @@unique([key, scope, domain], map: "index_brickdoc_configs_on_key_and_scope_and_domain")
 }
 
+model discussion_conversations {
+  id               BigInt                @id @default(autoincrement())
+  mark_ids         BigInt[]
+  block_ids        BigInt[]
+  page_id          BigInt
+  space_id         BigInt
+  interlocutor_ids BigInt[]
+  creator_id       BigInt
+  state            Int                   @default(0)
+  comments         discussion_comments[]
+  latest_reply_at  DateTime              @db.Timestamp(6)
+  created_at       DateTime              @db.Timestamp(6)
+  updated_at       DateTime              @db.Timestamp(6)
+}
+
+model discussion_comments {
+  id              BigInt                   @id @default(autoincrement())
+  content         Json
+  creator_id      BigInt
+  conversation    discussion_conversations @relation(fields: [conversation_id], references: [id])
+  conversation_id BigInt
+  created_at      DateTime                 @db.Timestamp(6)
+  updated_at      DateTime                 @db.Timestamp(6)
+}
+
 model docs_aliases {
   id         BigInt   @id @default(autoincrement())
   space_id   BigInt
@@ -254,6 +279,18 @@ model flipper_gates {
   updated_at  DateTime @db.Timestamp(6)
 
   @@unique([feature_key, key, value], map: "index_flipper_gates_on_feature_key_and_key_and_value")
+}
+
+model notifications {
+  id                BigInt @id @default(autoincrement())
+  user_id           BigInt
+  notification_type String @db.VarChar()
+  data              Json
+  state             Int    @default(0)
+  source_id         BigInt
+  source_type       String @db.VarChar()
+  created_at  DateTime @db.Timestamp(6)
+  updated_at  DateTime @db.Timestamp(6)
 }
 
 model schema_migrations {
