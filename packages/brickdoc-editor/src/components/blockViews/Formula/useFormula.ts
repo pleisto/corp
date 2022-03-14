@@ -242,7 +242,7 @@ export const useFormula = ({
       const parseResult = parse({ ctx })
       const { completions, expressionType, success } = parseResult
       updateDefaultName(success ? expressionType : 'any')
-      const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current })
+      const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current, builtin: false })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
       doUnselectedFormula()
@@ -592,8 +592,7 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedViaId,
       e => {
-        const variable: VariableInterface = e.payload
-        updateVariable(variable)
+        updateVariable(e.payload)
       },
       {
         eventId: `${rootId},${formulaId}`,

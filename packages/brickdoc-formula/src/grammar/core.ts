@@ -34,6 +34,8 @@ import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { devWarning } from '@brickdoc/design-system'
+import { v4 as uuid } from 'uuid'
+
 export interface BaseParseResult {
   success: boolean
   valid: boolean
@@ -612,7 +614,7 @@ export const interpretSync = async ({
     blockDependencies,
     functionDependencies
   }
-  return generateVariable(formulaContext, t, variable)
+  return generateVariable(formulaContext, t, variable, false)
 }
 
 export const interpretAsync = ({
@@ -620,8 +622,10 @@ export const interpretAsync = ({
   ctx,
   skipAsync,
   cachedVariableValue,
+  builtin,
   parseResult
 }: {
+  builtin: boolean
   variable?: VariableInterface
   cachedVariableValue?: VariableValue
   skipAsync: boolean
@@ -673,7 +677,7 @@ export const interpretAsync = ({
       variableValue: result
     }
 
-    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
   }
 
   if (!async) {
@@ -685,7 +689,7 @@ export const interpretAsync = ({
         variableValue: cachedVariableValue
       }
 
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
     }
   }
 
@@ -697,7 +701,7 @@ export const interpretAsync = ({
         execEndTime: variable.t.execEndTime,
         variableValue: variable.t.variableValue
       }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
     }
 
     if (!shouldReturnEarly(variable.t.variableValue.result)) {
@@ -707,7 +711,7 @@ export const interpretAsync = ({
         execEndTime: variable.t.execEndTime,
         variableValue: variable.t.variableValue
       }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
     }
   }
 
@@ -720,24 +724,27 @@ export const interpretAsync = ({
     variableValue: interpretResult
   }
 
-  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable)
+  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
 }
 
 const generateVariable = (
   formulaContext: ContextInterface,
   t: VariableData,
-  variable: VariableInterface | undefined
+  variable: VariableInterface | undefined,
+  builtin: boolean
 ): VariableInterface => {
   let newVariable: VariableInterface
+  const currentUUID = uuid()
   if (variable) {
     newVariable = variable
     newVariable.t = t
-    newVariable.isDirty = true
-    newVariable.isNew = true
+    if (!builtin) {
+      newVariable.isNew = true
+    }
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }
-  newVariable.subscribePromise()
+  void newVariable.subscribePromise(currentUUID)
 
   return newVariable
 }
@@ -746,8 +753,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseF
   const dupFormulas = [...formulas]
   dupFormulas.forEach(formula => {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
-    const variable = castVariable(oldVariable, formulaContext, formula)
-    variable.isDirty = false
+    const variable = castVariable(oldVariable, formulaContext, formula, false)
     variable.save()
   })
 }

@@ -661,23 +661,21 @@ export interface VariableMetadata {
 export interface VariableInterface {
   t: VariableData
   isNew: boolean
-  isDirty: boolean
-  cloneVariable: () => VariableInterface
   formulaContext: ContextInterface
+
+  cloneVariable: () => VariableInterface
   buildFormula: () => Formula
   clearDependency: VoidFunction
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: VoidFunction
-  reinterpret: () => Promise<void>
-  subscribePromise: VoidFunction
+  subscribePromise: (uuid: string) => Promise<void>
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
   updateCst: (cst: CstNode, context: InterpretContext) => void
   onUpdate: VoidFunction
   onCommitDirty: VoidFunction
-  interpret: (context: InterpretContext) => Promise<void>
 }
 
 export interface BackendActions {
