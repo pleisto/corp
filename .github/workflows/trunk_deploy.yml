@@ -106,7 +106,7 @@ jobs:
         run: |-
           helm upgrade brickdoc-trunk ${{ github.workspace }}/tools/helm-charts/brickdoc \
            --install --atomic --timeout 15m --cleanup-on-fail --wait --namespace=cicd \
-            --set-string image.name=${{ env.image }}:v${{ steps.get_version.outputs.VERSION }} \
+            --set-string image.name=${{ env.image }} \
             --set-string ingress.host=${{ env.domain }} \
             --set serviceAccount.create=false \
             --set-string serviceAccount.name=trunk-or-pr-main \
