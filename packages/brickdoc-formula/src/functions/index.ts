@@ -17,6 +17,7 @@ import { CORE_ARRAY_CLAUSES } from './array'
 import { CUSTOM_CLAUSES } from './custom'
 import { CORE_PROCESS_CLAUSES } from './process'
 import { CORE_REQUEST_CLAUSES } from './request'
+import { CORE_EXCHANGE_CLAUSES } from './exchange'
 
 export const buildFunctionKey = (
   group: FunctionGroup,
@@ -34,6 +35,7 @@ export const BUILTIN_CLAUSES: Array<BaseFunctionClause<any>> = [
   ...CORE_API_CLAUSES,
   ...CORE_REQUEST_CLAUSES,
   ...CORE_PROCESS_CLAUSES,
+  ...CORE_EXCHANGE_CLAUSES,
   ...CORE_TEXT_CLAUSES,
   ...CORE_SPREADSHEET_CLAUSES,
   ...CORE_STRING_CLAUSES,

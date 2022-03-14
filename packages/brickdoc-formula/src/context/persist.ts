@@ -9,7 +9,7 @@ import {
 } from '../controls'
 import { BlockClass } from '../controls/block'
 import { fetchResult } from './variable'
-import { truncateString } from '../grammar'
+import { truncateArray, truncateString } from '../grammar'
 
 const VARIABLE_VERSION = 0
 
@@ -77,11 +77,19 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result, pageId)}`
     case 'Record':
-      return `{ ${Object.entries(v.result)
-        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeResult, pageId)}`)
-        .join(', ')} }`
+      // eslint-disable-next-line no-case-declarations
+      const recordArray = Object.entries(v.result).map(
+        ([key, value]) => `${key}: ${displayValue(value as AnyTypeResult, pageId)}`
+      )
+      // eslint-disable-next-line no-case-declarations
+      const recordResult = truncateArray(recordArray).join(', ')
+      return `{ ${recordResult} }`
     case 'Array':
-      return `[${v.result.map((v: AnyTypeResult) => displayValue(v, pageId)).join(', ')}]`
+      // eslint-disable-next-line no-case-declarations
+      const arrayArray = v.result.map((v: AnyTypeResult) => displayValue(v, pageId))
+      // eslint-disable-next-line no-case-declarations
+      const arrayResult = truncateArray(arrayArray).join(', ')
+      return `[${arrayResult}]`
     case 'Button':
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':

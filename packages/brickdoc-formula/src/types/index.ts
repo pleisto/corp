@@ -16,9 +16,11 @@ type FormulaObjectType =
   | 'Reference'
   | 'Cst'
 
+export type FormulaNormalType = FormulaBasicType | FormulaObjectType | 'any'
+
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void' | 'Pending'
+export type FormulaType = FormulaNormalType | FormulaControlType | 'void' | 'Pending'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
