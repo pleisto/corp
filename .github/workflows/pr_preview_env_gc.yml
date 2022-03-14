@@ -45,5 +45,5 @@ jobs:
           echo "Opened Helm releases: $OPENED_HELM"
           jq -n -r "{gh:$OPENED_PR|split(\",\"),helm:$OPENED_HELM|split(\",\")}|.helm-.gh|map(\"$APPS_PREFIX\(.)\") |.[]" | while read i; do
             echo "uninstall $i...."
-            helm uninstall $i -n cicd
+            helm uninstall $i -n cicd  || true
           done

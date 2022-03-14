@@ -110,7 +110,7 @@ jobs:
           location: 'us-central1'
       - name: Uninstall History Release
         run: |-
-          helm uninstall brickdoc-pr${{ github.event.pull_request.number }} --namespace=cicd
+          helm uninstall brickdoc-pr${{ github.event.pull_request.number }} --namespace=cicd || true
       - name: Deployment to GKE
         run: |-
           helm upgrade brickdoc-pr${{ github.event.pull_request.number }} ${{ github.workspace }}/tools/helm-charts/brickdoc \
