@@ -3,7 +3,6 @@ import {
   BrickdocEventBus,
   EventSubscribed,
   FormulaInnerRefresh,
-  FormulaUpdatedValueViaId,
   FormulaUpdatedViaId,
   FormulaUpdatedViaName
 } from '@brickdoc/schema'
@@ -103,10 +102,14 @@ export class VariableClass implements VariableInterface {
     this.isDirty = true
   }
 
+  public cloneVariable(): VariableInterface {
+    return new VariableClass({ t: this.t, formulaContext: this.formulaContext })
+  }
+
   private dispatchVariableValueChanged(): void {
     this.isDirty = true
     this.trackDirty()
-    BrickdocEventBus.dispatch(FormulaUpdatedValueViaId(this))
+    BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
   }
 
   public onUpdate(): void {

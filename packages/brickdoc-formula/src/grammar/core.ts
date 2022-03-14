@@ -728,7 +728,13 @@ const generateVariable = (
   t: VariableData,
   variable: VariableInterface | undefined
 ): VariableInterface => {
-  const newVariable = new VariableClass({ t, formulaContext })
+  let newVariable: VariableInterface
+  if (variable) {
+    newVariable = variable
+    newVariable.t = t
+  } else {
+    newVariable = new VariableClass({ t, formulaContext })
+  }
   newVariable.subscribePromise()
 
   return newVariable

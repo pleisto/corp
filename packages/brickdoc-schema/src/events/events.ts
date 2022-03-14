@@ -53,9 +53,6 @@ export const FormulaInnerRefresh = event<{ namespaceId: string; variableId: stri
     return { id: `${namespaceId},${variableId}` }
   }
 )
-export const FormulaUpdatedValueViaId = event<any>()('FormulaUpdatedValueViaId', v => {
-  return { id: `${v.t.namespaceId},${v.t.variableId}` }
-})
 
 export const FormulaUpdatedViaId = event<any>()('FormulaUpdatedViaId', v => {
   return { id: `${v.t.namespaceId},${v.t.variableId}` }

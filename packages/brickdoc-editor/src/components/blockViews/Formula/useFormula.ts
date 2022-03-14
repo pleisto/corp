@@ -8,7 +8,6 @@ import {
   parse,
   VariableData,
   VariableInterface,
-  VariableValue,
   interpretAsync,
   FormulaType
 } from '@brickdoc/formula'
@@ -21,8 +20,7 @@ import {
   FormulaUpdatedViaId,
   FormulaEditorSavedTrigger,
   FormulaEditorHoverEventTrigger,
-  FormulaEditorSelectEventTrigger,
-  FormulaUpdatedValueViaId
+  FormulaEditorSelectEventTrigger
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import { devLog, devWarning } from '@brickdoc/design-system'
@@ -140,10 +138,11 @@ export const useFormula = ({
 }: UseFormulaInput): UseFormulaOutput => {
   const formulaIsNormal = formulaType === 'normal'
 
-  const defaultVariable = React.useMemo(
-    () => formulaContext?.findVariableById(rootId, formulaId),
-    [formulaContext, formulaId, rootId]
-  )
+  const defaultVariable = React.useMemo(() => {
+    const variable = formulaContext?.findVariableById(rootId, formulaId)
+    if (!variable) return undefined
+    return variable.cloneVariable()
+  }, [formulaContext, formulaId, rootId])
 
   const formulaValue = React.useMemo(
     () =>
@@ -416,8 +415,15 @@ export const useFormula = ({
         setSavedVariableT(variable.t)
         updateFormula(variable)
       }
+
+      editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
+
+      if (!variable.t.async && variable.isNew) {
+        const result = variable.t.variableValue
+        updateDefaultName(result.success ? result.result.type : 'any')
+      }
     },
-    [updateFormula]
+    [formulaIsNormal, updateDefaultName, updateFormula]
   )
 
   const saveFormula = React.useCallback((): void => {
@@ -597,28 +603,10 @@ export const useFormula = ({
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
-      FormulaUpdatedValueViaId,
-      e => {
-        const variable: VariableInterface = e.payload
-        updateVariable(variable)
-        const result = variableRef.current!.t.variableValue as VariableValue
-        updateDefaultName(result.success ? result.result.type : 'any')
-      },
-      {
-        eventId: `${rootId},${formulaId}`,
-        subscribeId: `UseFormula#${rootId},${formulaId}`
-      }
-    )
-    return () => listener.unsubscribe()
-  }, [formulaId, rootId, updateDefaultName, updateVariable])
-
-  React.useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedViaId,
       e => {
         const variable: VariableInterface = e.payload
         updateVariable(variable)
-        editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -626,7 +614,7 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [updateVariable, formulaId, rootId, formulaIsNormal])
+  }, [updateVariable, formulaId, rootId])
 
   return {
     variableT,

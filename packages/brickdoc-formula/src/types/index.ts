@@ -668,6 +668,7 @@ export interface VariableInterface {
   isNew: boolean
   isDirty: boolean
   latestWaitingPromiseState: VariableWaitPromiseState | undefined
+  cloneVariable: () => VariableInterface
   formulaContext: ContextInterface
   buildFormula: () => Formula
   clearDependency: VoidFunction
