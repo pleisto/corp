@@ -580,7 +580,7 @@ GEM
     unsplash (2.1.0)
       httparty (~> 0.16)
       oauth2 (~> 1)
-    vcr (6.0.0)
+    vcr (6.1.0)
     vite_rails (3.0.6)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0)
