@@ -43,7 +43,7 @@ export interface UseFormulaInput {
   rootId: string
   formulaId: string
   formulaName?: string
-  updateFormula: (variable: VariableInterface | undefined) => void
+  onUpdateFormula?: (variable: VariableInterface | undefined) => void
   formulaType: FormulaSourceType
   formulaContext: ContextInterface | undefined | null
 }
@@ -131,7 +131,7 @@ export interface SelectType {
 export const useFormula = ({
   rootId,
   formulaId,
-  updateFormula,
+  onUpdateFormula,
   formulaType,
   formulaName,
   formulaContext
@@ -413,7 +413,7 @@ export const useFormula = ({
       setVariableT({ ...variable.t })
       if (!variable.isNew) {
         setSavedVariableT({ ...variable.t })
-        updateFormula(variable)
+        onUpdateFormula?.(variable)
       }
 
       editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
@@ -423,7 +423,7 @@ export const useFormula = ({
         updateDefaultName(result.success ? result.result.type : 'any')
       }
     },
-    [formulaIsNormal, updateDefaultName, updateFormula]
+    [formulaIsNormal, updateDefaultName, onUpdateFormula]
   )
 
   const saveFormula = React.useCallback((): void => {
@@ -449,14 +449,15 @@ export const useFormula = ({
   const onSaveFormula = React.useCallback((): void => {
     // devLog({ variable: variableRef.current, name, defaultName })
     if (!variableRef.current) {
-      updateFormula(undefined)
+      onUpdateFormula?.(undefined)
+      BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId, rootId }))
       return
     }
 
     if (isDisableSave()) return
 
     saveFormula()
-  }, [saveFormula, isDisableSave, updateFormula])
+  }, [isDisableSave, saveFormula, onUpdateFormula, formulaId, rootId])
 
   const commitFormula = React.useCallback(
     async (definition: string): Promise<void> => {

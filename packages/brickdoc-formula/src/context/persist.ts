@@ -9,6 +9,7 @@ import {
 } from '../controls'
 import { BlockClass } from '../controls/block'
 import { fetchResult } from './variable'
+import { truncateString } from '../grammar'
 
 const VARIABLE_VERSION = 0
 
@@ -62,7 +63,7 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
       // return v.result ? '✓' : '✗'
       return String(v.result)
     case 'string':
-      return v.result
+      return truncateString(v.result)
     case 'Date':
       return v.result.toISOString()
     case 'Error':

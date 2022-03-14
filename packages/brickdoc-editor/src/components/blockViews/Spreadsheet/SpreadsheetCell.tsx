@@ -5,7 +5,8 @@ import {
   Event,
   BlockInput,
   SpreadsheetUpdateCellValue,
-  BlockSpreadsheetLoaded
+  BlockSpreadsheetLoaded,
+  FormulaEditorSavedTrigger
 } from '@brickdoc/schema'
 import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
 import { displayValue, dumpDisplayResultForDisplay, fetchResult, VariableInterface } from '@brickdoc/formula'
@@ -61,7 +62,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     [setEditingCellId, formulaName, editing]
   )
 
-  const refreshCell = React.useCallback(
+  const onUpdateFormula = React.useCallback(
     (variable: VariableInterface | undefined): void => {
       if (variable) {
         const displayData = dumpDisplayResultForDisplay(variable.t)
@@ -77,22 +78,29 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: tableId }))
       }
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
-      setEditing(false)
+      // setEditing(false)
     },
-    [setEditing, rootId, cellId, block, saveBlock, tableId]
+    [rootId, cellId, block, saveBlock, tableId]
   )
 
-  const updateFormula = React.useCallback(
-    (variable): void => {
-      refreshCell(variable)
-    },
-    [refreshCell]
-  )
+  React.useEffect(() => {
+    const listener = BrickdocEventBus.subscribe(
+      FormulaEditorSavedTrigger,
+      e => {
+        setEditing(false)
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `FormulaMenu#${rootId},${formulaId}`
+      }
+    )
+    return () => listener.unsubscribe()
+  }, [formulaId, rootId, setEditing])
 
   const { variableT, editorContent, commitFormula, completion, updateEditor } = useFormula({
     rootId,
     formulaId,
-    updateFormula,
+    onUpdateFormula,
     formulaType,
     formulaName,
     formulaContext
