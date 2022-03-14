@@ -18,6 +18,13 @@ on:
       - '**/LICENSE'
       - '**/NOTICE'
       - '**/VERSION'
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: read
+  deployments: write
+  packages: write
+  statuses: write
 env:
   YARN_CHECKSUM_BEHAVIOR: update
   image: ghcr.io/brickdoc/brickdoc:pr.${{github.event.pull_request.number}}
@@ -90,7 +97,7 @@ jobs:
       - name: GCP Login
         uses: google-github-actions/auth@v0
         with:
-          workload_identity_provider: 'projects/909250635156/locations/global/workloadIdentityPools/cicd/providers/github-action'
+          workload_identity_provider: 'projects/992882677538/locations/global/workloadIdentityPools/cicd/providers/github-action'
           service_account: 'cicd-bot@${{ env.GCP_PROJECT }}.iam.gserviceaccount.com'
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
@@ -99,7 +106,7 @@ jobs:
       - name: 'Get the GKE cluster Configuration'
         uses: 'google-github-actions/get-gke-credentials@v0'
         with:
-          cluster_name: 'kube-us-central'
+          cluster_name: 'kube-us-dev'
           location: 'us-central1'
       - name: Uninstall History Release
         run: |-
