@@ -6,7 +6,6 @@ import {
   ErrorResult,
   ExpressionType,
   FormulaColorType,
-  FormulaNormalType,
   FormulaType,
   FunctionContext
 } from '../types'

@@ -732,6 +732,8 @@ const generateVariable = (
   if (variable) {
     newVariable = variable
     newVariable.t = t
+    newVariable.isDirty = true
+    newVariable.isNew = true
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }

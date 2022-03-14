@@ -138,32 +138,18 @@ export const useFormula = ({
 }: UseFormulaInput): UseFormulaOutput => {
   const formulaIsNormal = formulaType === 'normal'
 
-  const defaultVariable = React.useMemo(() => {
-    const variable = formulaContext?.findVariableById(rootId, formulaId)
-    if (!variable) return undefined
-    return variable.cloneVariable()
-  }, [formulaContext, formulaId, rootId])
+  const defaultVariable = formulaContext?.findVariableById(rootId, formulaId)?.cloneVariable()
 
-  const formulaValue = React.useMemo(
-    () =>
-      defaultVariable?.t.valid
-        ? defaultVariable.t.codeFragments.map(fragment => fragment.value).join('')
-        : defaultVariable?.t.definition,
-    [defaultVariable]
-  )
+  const formulaValue = defaultVariable?.t.valid
+    ? defaultVariable.t.codeFragments.map(fragment => fragment.value).join('')
+    : defaultVariable?.t.definition
 
-  const contextDefaultName = React.useMemo(
-    () => (formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''),
-    [formulaContext, rootId]
-  )
+  const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
 
-  const contextCompletions = React.useMemo(
-    () =>
-      formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
-        ? formulaContext.completions(rootId, formulaId)
-        : [],
-    [formulaId, formulaContext, formulaIsNormal, formulaValue, rootId]
-  )
+  const contextCompletions =
+    formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
+      ? formulaContext.completions(rootId, formulaId)
+      : []
 
   const defaultEditorContent: EditorContentType = fetchEditorContent(defaultVariable, formulaIsNormal, 0)
 
