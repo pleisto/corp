@@ -365,7 +365,7 @@ export const useFormula = ({
       finalInput,
       finalInputAfterEqual
     })
-    void doCalculate(false)
+    doCalculate(false)
   }, [completion.activeCompletion, doCalculate, formulaId, formulaIsNormal, rootId])
 
   const isDisableSave = React.useCallback((): boolean => {
@@ -499,7 +499,7 @@ export const useFormula = ({
             break
           case 'Enter':
             if (isEditor) {
-              void onSaveFormula()
+              onSaveFormula()
             } else {
               handleSelectActiveCompletion()
             }
@@ -571,7 +571,7 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSaveEventTrigger,
       event => {
-        void onSaveFormula()
+        onSaveFormula()
       },
       {
         eventId: `${rootId},${formulaId}`,
