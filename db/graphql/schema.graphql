@@ -2752,7 +2752,7 @@ type space_member {
   """
   owner email
   """
-  email: String!
+  email: String
 
   """
   object unique id

@@ -1595,7 +1595,7 @@ export type Space_Member = {
   /** Like a username, Unique within this instance of Brickdoc */
   domain: Scalars['String']
   /** owner email */
-  email: Scalars['String']
+  email?: Maybe<Scalars['String']>
   /** object unique id */
   id: Scalars['AutoIncrementID']
   /** Space Name */
@@ -1848,7 +1848,7 @@ export type GetSpaceMembersQuery = {
   spaceMembers?: Array<{
     __typename?: 'space_member'
     domain: string
-    email: string
+    email?: string | null
     name: string
     role: MemberRole
     state: MemberState

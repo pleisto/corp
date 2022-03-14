@@ -59,6 +59,8 @@ model accounts_users {
   last_space_domain           String?                       @db.VarChar
   last_block_ids              Json                          @default("{}") @db.Json
   stafftools_role_assignments stafftools_role_assignments[]
+  conversations               discussion_conversations[]
+  comments                    discussion_comments[]
 
   @@index([deleted_at], map: "index_accounts_users_on_deleted_at")
 }
@@ -123,29 +125,38 @@ model brickdoc_configs {
   @@unique([key, scope, domain], map: "index_brickdoc_configs_on_key_and_scope_and_domain")
 }
 
+enum discussion_conversation_state {
+  OPENDED
+  RESOLVED
+}
+
 model discussion_conversations {
-  id               BigInt                @id @default(autoincrement())
-  mark_ids         BigInt[]
-  block_ids        BigInt[]
-  page_id          BigInt
+  id               BigInt                        @id @default(autoincrement())
+  mark_ids         String[]
+  block_ids        String[]
+  page_id          String
   space_id         BigInt
   interlocutor_ids BigInt[]
+  creator          accounts_users                @relation(fields: [creator_id], references: [id])
   creator_id       BigInt
-  state            Int                   @default(0)
+  state            discussion_conversation_state @default(OPENDED)
   comments         discussion_comments[]
-  latest_reply_at  DateTime              @db.Timestamp(6)
-  created_at       DateTime              @db.Timestamp(6)
-  updated_at       DateTime              @db.Timestamp(6)
+  latest_reply_at  DateTime                      @db.Timestamp(6)
+  created_at       DateTime                      @default(now())
+  updated_at       DateTime                      @updatedAt
+
+  @@index([page_id, space_id])
 }
 
 model discussion_comments {
   id              BigInt                   @id @default(autoincrement())
   content         Json
+  creator         accounts_users           @relation(fields: [creator_id], references: [id])
   creator_id      BigInt
   conversation    discussion_conversations @relation(fields: [conversation_id], references: [id])
   conversation_id BigInt
-  created_at      DateTime                 @db.Timestamp(6)
-  updated_at      DateTime                 @db.Timestamp(6)
+  created_at      DateTime                 @default(now())
+  updated_at      DateTime                 @updatedAt
 }
 
 model docs_aliases {
@@ -282,15 +293,15 @@ model flipper_gates {
 }
 
 model notifications {
-  id                BigInt @id @default(autoincrement())
+  id                BigInt   @id @default(autoincrement())
   user_id           BigInt
-  notification_type String @db.VarChar()
+  notification_type String   @db.VarChar()
   data              Json
-  state             Int    @default(0)
+  state             Int      @default(0)
   source_id         BigInt
-  source_type       String @db.VarChar()
-  created_at  DateTime @db.Timestamp(6)
-  updated_at  DateTime @db.Timestamp(6)
+  source_type       String   @db.VarChar()
+  created_at        DateTime @db.Timestamp(6)
+  updated_at        DateTime @db.Timestamp(6)
 }
 
 model schema_migrations {

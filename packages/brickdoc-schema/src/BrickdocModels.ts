@@ -1592,7 +1592,7 @@ export type Space_Member = {
   /** Like a username, Unique within this instance of Brickdoc */
   domain: Scalars['String']
   /** owner email */
-  email: Scalars['String']
+  email?: Maybe<Scalars['String']>
   /** object unique id */
   id: Scalars['AutoIncrementID']
   /** Space Name */

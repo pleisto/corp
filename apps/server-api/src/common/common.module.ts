@@ -5,6 +5,7 @@ import { configOptions } from './config'
 import { KMSModule } from './kms/kms.module'
 import { RedisModule } from './redis/redis.module'
 import { PrismaModule } from './prisma/prisma.module'
+import { BigInteger } from './scalars/BigInteger.scalar'
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PrismaModule } from './prisma/prisma.module'
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.get<Params>('logger')!
     }),
+    BigInteger,
     ConfigModule.forRoot(configOptions),
     KMSModule,
     RedisModule,
