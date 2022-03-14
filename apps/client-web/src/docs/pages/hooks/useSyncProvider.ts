@@ -75,7 +75,12 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         const {
           ydoc: { operatorId, updates }
         } = data
-        console.log(operatorId, updates)
+        if (operatorId !== globalThis.brickdocContext.uuid) {
+          console.log(operatorId, updates)
+          if (ydoc.current) {
+            Y.applyUpdate(ydoc.current, Uint8Array.from(updates))
+          }
+        }
       }
     },
     variables: { docId: rootId.current }
