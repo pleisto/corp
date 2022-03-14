@@ -58,6 +58,8 @@ export type SpecialDefaultVariableName =
 
 export type FunctionGroup = 'core' | 'custom' | string
 
+export type ContextType = 'builtin' | 'load'
+
 export type FunctionNameType = string
 export type VariableName = string
 export type ColumnName = string
@@ -660,10 +662,10 @@ export interface VariableMetadata {
 
 export interface VariableInterface {
   t: VariableData
+  savedT: VariableData | undefined
   isNew: boolean
   formulaContext: ContextInterface
 
-  cloneVariable: () => VariableInterface
   buildFormula: () => Formula
   clearDependency: VoidFunction
   trackDependency: VoidFunction

@@ -50,7 +50,7 @@ describe('async', () => {
     expect(parseResult.errorMessages).toEqual([])
     expect(parseResult.success).toBe(true)
 
-    const newVariable = interpretAsync({ ctx: newCtx, parseResult, skipAsync: false, builtin: false })
+    const newVariable = interpretAsync({ ctx: newCtx, parseResult, skipAsync: false, contextType: 'builtin' })
     expect(newVariable.t.async).toBe(true)
 
     await (newVariable.t.variableValue as Promise<VariableValue>).then(result => {

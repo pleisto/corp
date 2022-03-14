@@ -22,7 +22,8 @@ import {
   VariableNameDependency,
   AsyncVariableData,
   SyncVariableData,
-  FormulaType
+  FormulaType,
+  ContextType
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -614,7 +615,7 @@ export const interpretSync = async ({
     blockDependencies,
     functionDependencies
   }
-  return generateVariable(formulaContext, t, variable, false)
+  return generateVariable(formulaContext, t, variable, 'builtin')
 }
 
 export const interpretAsync = ({
@@ -622,10 +623,10 @@ export const interpretAsync = ({
   ctx,
   skipAsync,
   cachedVariableValue,
-  builtin,
+  contextType,
   parseResult
 }: {
-  builtin: boolean
+  contextType: ContextType
   variable?: VariableInterface
   cachedVariableValue?: VariableValue
   skipAsync: boolean
@@ -677,7 +678,7 @@ export const interpretAsync = ({
       variableValue: result
     }
 
-    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
+    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
   }
 
   if (!async) {
@@ -689,7 +690,7 @@ export const interpretAsync = ({
         variableValue: cachedVariableValue
       }
 
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
     }
   }
 
@@ -701,7 +702,7 @@ export const interpretAsync = ({
         execEndTime: variable.t.execEndTime,
         variableValue: variable.t.variableValue
       }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
     }
 
     if (!shouldReturnEarly(variable.t.variableValue.result)) {
@@ -711,7 +712,7 @@ export const interpretAsync = ({
         execEndTime: variable.t.execEndTime,
         variableValue: variable.t.variableValue
       }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
+      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
     }
   }
 
@@ -724,26 +725,31 @@ export const interpretAsync = ({
     variableValue: interpretResult
   }
 
-  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, builtin)
+  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
 }
 
 const generateVariable = (
   formulaContext: ContextInterface,
   t: VariableData,
   variable: VariableInterface | undefined,
-  builtin: boolean
+  contextType: ContextType
 ): VariableInterface => {
   let newVariable: VariableInterface
   const currentUUID = uuid()
   if (variable) {
     newVariable = variable
     newVariable.t = t
-    if (!builtin) {
-      newVariable.isNew = true
-    }
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }
+
+  if (contextType === 'load') {
+    newVariable.isNew = false
+    newVariable.savedT = newVariable.t
+  } else {
+    newVariable.isNew = true
+  }
+
   void newVariable.subscribePromise(currentUUID)
 
   return newVariable
@@ -753,7 +759,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseF
   const dupFormulas = [...formulas]
   dupFormulas.forEach(formula => {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
-    const variable = castVariable(oldVariable, formulaContext, formula, false)
+    const variable = castVariable(oldVariable, formulaContext, formula, 'load')
     variable.save()
   })
 }

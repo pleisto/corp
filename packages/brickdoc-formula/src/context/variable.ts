@@ -20,7 +20,8 @@ import {
   BaseFormula,
   FormulaSourceType,
   ErrorMessage,
-  NamespaceId
+  NamespaceId,
+  ContextType
 } from '../types'
 import { parse, innerInterpret, interpretAsync } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -61,7 +62,7 @@ export const castVariable = (
   oldVariable: VariableInterface | undefined,
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula,
-  builtin: boolean
+  contextType: ContextType
 ): VariableInterface => {
   // const oldVariable = formulaContext.findVariableById(blockId, id)
   const namespaceId = blockId
@@ -74,9 +75,9 @@ export const castVariable = (
 
   const newVariable = interpretAsync({
     variable: oldVariable,
-    builtin,
+    contextType,
     ctx,
-    cachedVariableValue: builtin ? undefined : { success: true, result: castedValue },
+    cachedVariableValue: contextType === 'builtin' ? undefined : { success: true, result: castedValue },
     parseResult,
     skipAsync: false
   })
@@ -94,8 +95,10 @@ const errorMessages = (t: VariableData): ErrorMessage[] => {
 
 export class VariableClass implements VariableInterface {
   t: VariableData
+  savedT: VariableData | undefined
   isNew: boolean
   formulaContext: ContextInterface
+  draftVariable: VariableInterface | undefined
 
   tickTimeout: number = 1000
   eventListeners: EventSubscribed[] = []
@@ -119,10 +122,6 @@ export class VariableClass implements VariableInterface {
     this.eventListeners.push(result)
   }
 
-  public cloneVariable(): VariableInterface {
-    return new VariableClass({ t: this.t, formulaContext: this.formulaContext })
-  }
-
   public onUpdate(): void {
     BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
@@ -140,9 +139,8 @@ export class VariableClass implements VariableInterface {
 
   private async tick(uuid: string): Promise<void> {
     if (this.currentUUID !== uuid) return
-    if (!this.t.async) {
-      return
-    }
+    if (!this.t.async) return
+
     // NOTE Frontend only
     BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
@@ -152,10 +150,11 @@ export class VariableClass implements VariableInterface {
   }
 
   public async subscribePromise(uuid: string): Promise<void> {
+    this.onUpdate()
     if (!this.t.async) {
-      this.onUpdate()
       return
     }
+
     this.currentUUID = uuid
     void this.tick(uuid)
     const result = await this.t.variableValue
@@ -275,7 +274,7 @@ export class VariableClass implements VariableInterface {
 
     const formula = this.buildFormula()
     this.clearDependency()
-    castVariable(this, this.formulaContext, formula, true)
+    castVariable(this, this.formulaContext, formula, 'builtin')
     this.trackDependency()
     await this.subscribePromise(sourceUuid)
     // await this.refresh({ ctx: {}, arguments: [] })

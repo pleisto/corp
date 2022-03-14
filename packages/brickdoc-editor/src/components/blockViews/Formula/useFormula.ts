@@ -138,7 +138,7 @@ export const useFormula = ({
 }: UseFormulaInput): UseFormulaOutput => {
   const formulaIsNormal = formulaType === 'normal'
 
-  const defaultVariable = formulaContext?.findVariableById(rootId, formulaId)?.cloneVariable()
+  const defaultVariable = formulaContext?.findVariableById(rootId, formulaId)
 
   const formulaValue = defaultVariable?.t.valid
     ? defaultVariable.t.codeFragments.map(fragment => fragment.value).join('')
@@ -162,7 +162,7 @@ export const useFormula = ({
 
   // States
   const [variableT, setVariableT] = React.useState(defaultVariable?.t)
-  const [savedVariableT, setSavedVariableT] = React.useState(defaultVariable?.t)
+  const [savedVariableT, setSavedVariableT] = React.useState(defaultVariable?.savedT)
   const [defaultName, setDefaultName] = React.useState(contextDefaultName)
   const [selected, setSelected] = React.useState<SelectedType>()
   const [completion, setCompletion] = React.useState<CompletionType>({
@@ -242,7 +242,13 @@ export const useFormula = ({
       const parseResult = parse({ ctx })
       const { completions, expressionType, success } = parseResult
       updateDefaultName(success ? expressionType : 'any')
-      const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current, builtin: false })
+      const newVariable = interpretAsync({
+        parseResult,
+        ctx,
+        skipAsync,
+        variable: variableRef.current,
+        contextType: 'builtin'
+      })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
       doUnselectedFormula()
@@ -398,7 +404,7 @@ export const useFormula = ({
       variableRef.current = variable
       setVariableT({ ...variable.t })
       if (!variable.isNew) {
-        setSavedVariableT({ ...variable.t })
+        setSavedVariableT({ ...variable.savedT! })
         onUpdateFormula?.(variable)
       }
 
