@@ -666,17 +666,16 @@ export interface VariableWaitPromiseState {
 export interface VariableInterface {
   t: VariableData
   isNew: boolean
+  isDirty: boolean
   latestWaitingPromiseState: VariableWaitPromiseState | undefined
   formulaContext: ContextInterface
   buildFormula: () => Formula
-  clone: () => VariableInterface
   clearDependency: VoidFunction
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: VoidFunction
   reinterpret: () => Promise<void>
   subscribePromise: VoidFunction
-  isDraft: () => boolean
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata

@@ -195,7 +195,7 @@ export class FormulaContext implements ContextInterface {
     BrickdocEventBus.subscribe(
       FormulaContextTickTrigger,
       e => {
-        this.tick(e.payload.state)
+        void this.tick(e.payload.state)
       },
       {
         eventId: this.tickKey,
@@ -203,7 +203,7 @@ export class FormulaContext implements ContextInterface {
       }
     )
 
-    this.tick(undefined as ContextState)
+    void this.tick(undefined as ContextState)
 
     const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
       f => !f.feature || this.features.includes(f.feature)
@@ -354,17 +354,11 @@ export class FormulaContext implements ContextInterface {
 
   public findVariableById(namespaceId: NamespaceId, variableId: VariableId): VariableInterface | undefined {
     const v = this.context[variableKey(namespaceId, variableId)]
-    // TODO refactor this
-    if (!v) return undefined
-    v.subscribePromise()
     return v
   }
 
   public findVariableByName(namespaceId: NamespaceId, name: string): VariableInterface | undefined {
     const v = Object.values(this.context).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
-    // TODO refactor this
-    if (!v) return undefined
-    v.subscribePromise()
     return v
   }
 
@@ -380,6 +374,8 @@ export class FormulaContext implements ContextInterface {
     if (oldVariable) {
       oldVariable.clearDependency()
     }
+
+    variable.isNew = false
 
     // 2. replace variable object
     this.context[variableKey(namespaceId, variableId)] = variable
@@ -427,30 +423,34 @@ export class FormulaContext implements ContextInterface {
     this.reverseFunctionDependencies = {}
   }
 
-  private tick(state: ContextState): void {
-    void this.commitDirty().then(() => {
-      const newState = state
-      setTimeout(() => {
-        BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
-      }, this.tickTimeout)
-    })
+  private async tick(state: ContextState): Promise<void> {
+    await this.commitDirty()
+    await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
+    const newState = state
+    BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
   }
 
   private async commitDirty(): Promise<void> {
     const commitFormulas: Formula[] = []
     const deleteFormulas: DeleteFormula[] = []
+    const commitVariables: VariableInterface[] = []
     Object.entries(this.dirtyFormulas).forEach(([key, value]) => {
       const [namespaceId, variableId] = key.slice(1).split('.')
       const variable = this.findVariableById(namespaceId, variableId)
       if (variable) {
         commitFormulas.push(variable.buildFormula())
+        commitVariables.push(variable)
       } else {
         deleteFormulas.push({ blockId: namespaceId, id: variableId })
       }
     })
     if (commitFormulas.length > 0 || deleteFormulas.length > 0) {
+      // console.log('commit dirty', commitFormulas, deleteFormulas)
       await this.backendActions?.commit(commitFormulas, deleteFormulas)
     }
+    commitVariables.forEach(v => {
+      v.onCommitDirty()
+    })
     this.dirtyFormulas = {}
   }
 

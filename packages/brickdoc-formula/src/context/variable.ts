@@ -75,7 +75,6 @@ export const castVariable = (
     parseResult,
     skipAsync: false
   })
-  newVariable.isNew = true
   return newVariable
 }
 
@@ -90,8 +89,8 @@ const errorMessages = (t: VariableData): ErrorMessage[] => {
 
 export class VariableClass implements VariableInterface {
   t: VariableData
-  isNew: boolean = false
-  isDirty: boolean = false
+  isNew: boolean
+  isDirty: boolean
   formulaContext: ContextInterface
   eventListeners: EventSubscribed[] = []
   reparsing: boolean = false
@@ -100,12 +99,14 @@ export class VariableClass implements VariableInterface {
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
     this.t = t
     this.formulaContext = formulaContext
+    this.isNew = true
+    this.isDirty = true
   }
 
   private dispatchVariableValueChanged(): void {
-    BrickdocEventBus.dispatch(FormulaUpdatedValueViaId(this))
     this.isDirty = true
     this.trackDirty()
+    BrickdocEventBus.dispatch(FormulaUpdatedValueViaId(this))
   }
 
   public onUpdate(): void {
@@ -115,15 +116,9 @@ export class VariableClass implements VariableInterface {
     this.trackDirty()
   }
 
-  public clone(): VariableInterface {
-    return new VariableClass({ t: this.t, formulaContext: this.formulaContext })
-  }
-
   public trackDirty(): void {
-    if (this.isNew) {
-      this.isNew = false
-      return
-    }
+    if (!this.isDirty) return
+    if (this.isNew) return
     this.formulaContext.dirtyFormulas[variableKey(this.t.namespaceId, this.t.variableId)] = {
       updatedAt: new Date()
     }
@@ -132,8 +127,6 @@ export class VariableClass implements VariableInterface {
   public onCommitDirty(): void {
     if (!this.isDirty) return
     this.isDirty = false
-    // TODO fix me
-    BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
   }
 
   public subscribePromise(): void {
@@ -225,10 +218,6 @@ export class VariableClass implements VariableInterface {
     }
 
     return 'Unknown'
-  }
-
-  isDraft(): boolean {
-    return !this.formulaContext.findVariableById(this.t.namespaceId, this.t.variableId)
   }
 
   meta(): VariableMetadata {

@@ -728,18 +728,7 @@ const generateVariable = (
   t: VariableData,
   variable: VariableInterface | undefined
 ): VariableInterface => {
-  const oldVariable = formulaContext.findVariableById(t.namespaceId, t.variableId)
-  let newVariable: VariableInterface
-  if (oldVariable) {
-    oldVariable.t = t
-    newVariable = oldVariable.clone()
-  } else if (variable) {
-    newVariable = variable
-    newVariable.t = t
-  } else {
-    newVariable = new VariableClass({ t, formulaContext })
-  }
-
+  const newVariable = new VariableClass({ t, formulaContext })
   newVariable.subscribePromise()
 
   return newVariable
@@ -750,6 +739,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseF
   dupFormulas.forEach(formula => {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
     const variable = castVariable(oldVariable, formulaContext, formula)
+    variable.isDirty = false
     variable.save()
   })
 }

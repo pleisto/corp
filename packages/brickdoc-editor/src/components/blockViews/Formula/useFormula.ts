@@ -53,7 +53,6 @@ export interface UseFormulaInput {
 export interface UseFormulaOutput {
   variableT: VariableData | undefined
   savedVariableT: VariableData | undefined
-  isDraft: boolean
   selected: SelectedType | undefined
   nameRef: React.MutableRefObject<string | undefined>
   defaultName: string
@@ -173,7 +172,6 @@ export const useFormula = ({
   const nameRef = React.useRef(formulaName ?? defaultVariable?.t.name)
   const variableRef = React.useRef(defaultVariable)
   const editorContentRef = React.useRef(defaultEditorContent)
-  const isDraftRef = React.useRef(defaultVariable?.isDraft() === true)
   const defaultNameRef = React.useRef(contextDefaultName)
   const selectFormula = React.useRef<SelectType>()
 
@@ -410,6 +408,18 @@ export const useFormula = ({
     [completion]
   )
 
+  const updateVariable = React.useCallback(
+    (variable: VariableInterface): void => {
+      variableRef.current = variable
+      setVariableT(variable.t)
+      if (!variable.isNew) {
+        setSavedVariableT(variable.t)
+        updateFormula(variable)
+      }
+    },
+    [updateFormula]
+  )
+
   const saveFormula = React.useCallback((): void => {
     if (!nameRef.current) {
       nameRef.current = defaultNameRef.current
@@ -421,32 +431,14 @@ export const useFormula = ({
     v.t.name = nameRef.current!
     doUnselectedFormula()
 
-    updateFormula(v)
     v.save()
 
-    variableRef.current = v
-    isDraftRef.current = false
-    setVariableT(v.t)
-    setSavedVariableT(v.t)
+    updateVariable(v)
 
     BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId, rootId }))
 
     devLog('save ...', { input, variable: variableRef.current, formulaContext })
-  }, [doUnselectedFormula, formulaContext, formulaId, rootId, updateFormula])
-
-  const refreshFormula = React.useCallback(
-    (variable: VariableInterface): void => {
-      variableRef.current = variable
-      setVariableT(variable.t)
-      if (!variable.isDraft()) {
-        setSavedVariableT(variable.t)
-      }
-      editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
-
-      updateFormula(variable)
-    },
-    [formulaIsNormal, updateFormula]
-  )
+  }, [doUnselectedFormula, formulaContext, formulaId, rootId, updateVariable])
 
   const onSaveFormula = React.useCallback((): void => {
     // devLog({ variable: variableRef.current, name, defaultName })
@@ -475,7 +467,7 @@ export const useFormula = ({
 
       doCalculate(false)
 
-      await saveFormula()
+      saveFormula()
     },
     [doCalculate, saveFormula, formulaContext]
   )
@@ -607,8 +599,8 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedValueViaId,
       e => {
-        variableRef.current = e.payload
-        setVariableT(variableRef.current!.t)
+        const variable: VariableInterface = e.payload
+        updateVariable(variable)
         const result = variableRef.current!.t.variableValue as VariableValue
         updateDefaultName(result.success ? result.result.type : 'any')
       },
@@ -618,13 +610,15 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [formulaId, rootId, updateDefaultName])
+  }, [formulaId, rootId, updateDefaultName, updateVariable])
 
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedViaId,
       e => {
-        refreshFormula(e.payload)
+        const variable: VariableInterface = e.payload
+        updateVariable(variable)
+        editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
       },
       {
         eventId: `${rootId},${formulaId}`,
@@ -632,12 +626,11 @@ export const useFormula = ({
       }
     )
     return () => listener.unsubscribe()
-  }, [refreshFormula, formulaId, rootId])
+  }, [updateVariable, formulaId, rootId, formulaIsNormal])
 
   return {
     variableT,
     savedVariableT,
-    isDraft: isDraftRef.current,
     editorContent: editorContentRef.current,
     selected,
     nameRef,
