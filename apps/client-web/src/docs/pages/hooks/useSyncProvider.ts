@@ -100,7 +100,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     })
     rootBlock.current = docBlocksMap.current.get(rootId.current)
 
-    if (enableCollaboration) {
+    if (enableCollaboration && rootId.current && data?.childrenBlocks?.length) {
       ydoc.current = new Y.Doc({ guid: rootId.current })
       ydoc.current.on('update', async (update, origin, doc) => {
         const syncPromise = ydocSync({
