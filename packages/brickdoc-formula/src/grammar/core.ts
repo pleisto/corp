@@ -32,7 +32,6 @@ import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { devWarning } from '@brickdoc/design-system'
-import { v4 as uuid } from 'uuid'
 import { createVariableTask } from '../context'
 
 export interface BaseParseResult {
@@ -650,10 +649,10 @@ const generateVariable = (
   isLoad: boolean | undefined
 ): VariableInterface => {
   let newVariable: VariableInterface
-  const currentUUID = uuid()
   if (variable) {
     newVariable = variable
     newVariable.t = t
+    newVariable.currentUUID = undefined
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }
@@ -665,8 +664,6 @@ const generateVariable = (
     newVariable.isNew = true
   }
 
-  void newVariable.subscribePromise(currentUUID)
-
   return newVariable
 }
 
@@ -674,7 +671,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseF
   const dupFormulas = [...formulas]
   dupFormulas.forEach(formula => {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
-    const variable = castVariable(oldVariable, formulaContext, formula, true)
+    const variable = castVariable(oldVariable, formulaContext, formula)
     variable.save()
   })
 }

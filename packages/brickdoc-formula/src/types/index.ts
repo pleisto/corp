@@ -665,6 +665,7 @@ export interface VariableMetadata {
 export interface VariableInterface {
   t: VariableData
   savedT: VariableData | undefined
+  currentUUID: string | undefined
   isNew: boolean
   formulaContext: ContextInterface
 
@@ -673,13 +674,10 @@ export interface VariableInterface {
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: VoidFunction
-  subscribePromise: (uuid: string) => Promise<void>
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
-  updateCst: (cst: CstNode, context: InterpretContext) => void
   onUpdate: VoidFunction
-  onCommitDirty: VoidFunction
 }
 
 export interface BackendActions {

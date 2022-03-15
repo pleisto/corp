@@ -59,7 +59,6 @@ import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 import { DEFAULT_VIEWS } from '../render'
 import { fetchResult } from './variable'
-import { v4 as uuid } from 'uuid'
 
 export interface FormulaContextArgs {
   domain: string
@@ -374,7 +373,6 @@ export class FormulaContext implements ContextInterface {
   public commitVariable({ variable }: { variable: VariableInterface }): void {
     const { namespaceId, variableId } = variable.t
     const oldVariable = this.findVariableById(namespaceId, variableId)
-    const currentUUID = uuid()
 
     // 1. clear old dependencies
     if (oldVariable) {
@@ -390,10 +388,7 @@ export class FormulaContext implements ContextInterface {
     // 3. track dependencies
     variable.trackDependency()
 
-    // 4. subscribe promise
-    void variable.subscribePromise(currentUUID)
-
-    // 5. update name counter
+    // 4. update name counter
     const match = variable.t.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
@@ -455,9 +450,6 @@ export class FormulaContext implements ContextInterface {
       // console.log('commit dirty', commitFormulas, deleteFormulas)
       await this.backendActions?.commit(commitFormulas, deleteFormulas)
     }
-    commitVariables.forEach(v => {
-      v.onCommitDirty()
-    })
     this.dirtyFormulas = {}
   }
 
