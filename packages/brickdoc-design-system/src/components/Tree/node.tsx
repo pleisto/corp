@@ -1,5 +1,5 @@
 import { MouseEvent, ReactNode, useMemo, useState, forwardRef, ForwardRefRenderFunction } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
 import type { Identifier } from 'dnd-core'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
@@ -28,12 +28,6 @@ interface DragItem {
   type: string
 }
 
-interface HoverNode {
-  hoverClientY: number
-  hoverMiddleY: number
-  handlerId: string
-}
-
 const DND_NODE_TYPE = 'node'
 
 /** Tree
@@ -57,7 +51,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
   const { icon = '', parentId, rootId, value, isExpanded, context } = treeData
   const { hasChildren, indent } = context
   const ref = useForwardedRef(_ref)
-  const [hoverNode, setHoverNode] = useState<HoverNode | undefined>()
+  const [hoverInsertPos, setHoverInsertPos] = useState<Inserted | null>(null)
 
   const handleSelect = useMemoizedFn(_e => onSelect?.(treeData))
 
@@ -83,17 +77,25 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
     })
   })
 
-  const calculate = useMemoizedFn((node: HoverNode | undefined) => {
-    const item = node ?? hoverNode
-    if (!item) {
-      return null
-    }
-    const topRange = item.hoverMiddleY - 10
-    const bottomRange = item.hoverMiddleY + 10
-    if (item.hoverClientY <= topRange) {
+  const calculateInsertPosition = useMemoizedFn((monitor: DropTargetMonitor): Inserted | null => {
+    // Determine node's rectangle on screen
+    const nodeRect = ref.current?.getBoundingClientRect()
+    if (!nodeRect) return null
+    // Determine mouse position
+    const mouseY = monitor.getClientOffset()?.y
+    if (!mouseY) return null
+
+    // Get the y-pos of the rect's center
+    const nodeCenterY = (nodeRect.bottom - nodeRect.top) / 2
+    // Get the y-pos of mouse position in the rect's local coordinates
+    const localY = mouseY - nodeRect.top
+
+    const topThreshold = nodeCenterY - 10
+    const bottomThreshold = nodeCenterY + 10
+    if (localY <= topThreshold) {
       return Inserted.Top
     }
-    if (item.hoverClientY >= bottomRange) {
+    if (localY >= bottomThreshold) {
       return Inserted.Bottom
     }
     return Inserted.Child
@@ -122,23 +124,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
       if (dragIndex === hoverIndex) return
 
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-
-      // Get vertical middle
-      const hoverMiddleY = (hoverBoundingRect!.bottom! - hoverBoundingRect!.top!) / 2
-
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset()
-
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect!.top!
-
-      setHoverNode({
-        hoverMiddleY,
-        hoverClientY,
-        handlerId: monitor?.targetId ?? ''
-      })
+      setHoverInsertPos(calculateInsertPosition(monitor))
     },
     drop(item: DragItem, monitor: any) {
       if (!ref.current) {
@@ -151,40 +137,24 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         return
       }
 
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-
-      // Get vertical middle
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset()
-
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
-
-      const position = calculate({
-        hoverMiddleY,
-        hoverClientY,
-        handlerId: monitor?.targetId ?? ''
-      })
+      const position = calculateInsertPosition(monitor)
       // Time to actually perform the action
 
-      moveNode?.({
-        sourceIndex: dragIndex,
-        sourceId: item.id,
-        targetIndex: hoverIndex,
-        targetId: value,
-        position: position!
-      })
+      if (position) {
+        moveNode?.({
+          sourceIndex: dragIndex,
+          sourceId: item.id,
+          targetIndex: hoverIndex,
+          targetId: value,
+          position
+        })
+      }
     }
   })
 
   const renderBorder = useMemo(() => {
     let css = {}
-    const borderPos = calculate(hoverNode)
-
-    switch (borderPos) {
+    switch (hoverInsertPos) {
       case Inserted.Top:
         css = {
           borderTop: isOver && isOverCurrent ? '2px dashed blue' : 'none'
@@ -205,7 +175,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         break
     }
     return css
-  }, [calculate, isOver, isOverCurrent, hoverNode])
+  }, [isOver, isOverCurrent, hoverInsertPos])
 
   drag(drop(ref))
 
