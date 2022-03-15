@@ -14,7 +14,7 @@ import { truncateArray, truncateString } from '../grammar'
 const VARIABLE_VERSION = 0
 
 export const dumpDisplayResultForPersist = async (t: VariableData): Promise<VariableDisplayData> => {
-  const value = t.async ? await t.variableValue : t.variableValue
+  const value = t.task.async ? await t.task.variableValue : t.task.variableValue
 
   return {
     definition: t.definition,

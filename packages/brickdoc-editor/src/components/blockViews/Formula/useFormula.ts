@@ -242,13 +242,7 @@ export const useFormula = ({
       const parseResult = parse({ ctx })
       const { completions, expressionType, success } = parseResult
       updateDefaultName(success ? expressionType : 'any')
-      const newVariable = interpretAsync({
-        parseResult,
-        ctx,
-        skipAsync,
-        variable: variableRef.current,
-        contextType: 'builtin'
-      })
+      const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current })
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
       doUnselectedFormula()
@@ -410,8 +404,8 @@ export const useFormula = ({
 
       editorContentRef.current = fetchEditorContent(variable, formulaIsNormal, editorContentRef.current.position)
 
-      if (!variable.t.async && variable.isNew) {
-        const result = variable.t.variableValue
+      if (variable.isNew && !variable.t.task.async) {
+        const result = variable.t.task.variableValue
         updateDefaultName(result.success ? result.result.type : 'any')
       }
     },

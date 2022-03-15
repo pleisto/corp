@@ -277,11 +277,13 @@ export class FormulaContext implements ContextInterface {
     const dynamicColumns: ColumnCompletion[] = completionVariables
       .filter(([key, v]) => {
         return (
-          fetchResult(v.t).type === 'Spreadsheet' && v.savedT && (v.savedT.variableValue as any).result.result.dynamic
+          fetchResult(v.t).type === 'Spreadsheet' &&
+          v.savedT &&
+          (v.savedT.task.variableValue as any).result.result.dynamic
         )
       })
       .flatMap(([key, v]) => {
-        const result = (v.savedT!.variableValue as VariableValue).result as SpreadsheetResult
+        const result = (v.savedT!.task.variableValue as VariableValue).result as SpreadsheetResult
         return result.result
           .listColumns()
           .map((column: ColumnInitializer) => column2completion(new ColumnClass(result.result, column), namespaceId))

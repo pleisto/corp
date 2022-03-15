@@ -514,10 +514,10 @@ export class FormulaInterpreter extends BaseCstVisitor {
           }
 
           // if (['constant', 'unknown'].includes(variable.t.kind)) {
-          if (variable.savedT.async) {
-            result = (await variable.savedT.variableValue).result
+          if (variable.savedT.task.async) {
+            result = (await variable.savedT.task.variableValue).result
           } else {
-            result = variable.savedT.variableValue.result
+            result = variable.savedT.task.variableValue.result
           }
           continue
 

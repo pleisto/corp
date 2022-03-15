@@ -20,8 +20,7 @@ import {
   BaseFormula,
   FormulaSourceType,
   ErrorMessage,
-  NamespaceId,
-  ContextType
+  NamespaceId
 } from '../types'
 import { parse, innerInterpret, interpretAsync } from '../grammar/core'
 import { dumpValue, loadValue } from './persist'
@@ -29,12 +28,12 @@ import { block2name, variable2name, variableKey } from '../grammar/convert'
 import { BlockClass } from '../controls/block'
 import { v4 as uuid } from 'uuid'
 
-export const errorIsFatal = (t: VariableData): boolean => {
-  if (t.async) {
+export const errorIsFatal = ({ task }: VariableData): boolean => {
+  if (task.async) {
     return false
   }
 
-  const { success, result } = t.variableValue
+  const { success, result } = task.variableValue
   if (
     !success &&
     result.type === 'Error' &&
@@ -46,23 +45,23 @@ export const errorIsFatal = (t: VariableData): boolean => {
   return false
 }
 
-export const fetchResult = (t: VariableData): AnyTypeResult => {
-  if (t.async) {
-    const duration = new Date().getTime() - t.execStartTime.getTime()
+export const fetchResult = ({ task }: VariableData): AnyTypeResult => {
+  if (task.async) {
+    const duration = new Date().getTime() - task.execStartTime.getTime()
     if (duration > 5000) {
       return { type: 'Pending', result: '[5s] Loading...' }
     }
     return { type: 'Pending', result: 'Loading...' }
   }
 
-  return t.variableValue.result
+  return task.variableValue.result
 }
 
 export const castVariable = (
   oldVariable: VariableInterface | undefined,
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula,
-  contextType: ContextType
+  isLoad: boolean
 ): VariableInterface => {
   // const oldVariable = formulaContext.findVariableById(blockId, id)
   const namespaceId = blockId
@@ -75,19 +74,18 @@ export const castVariable = (
 
   const newVariable = interpretAsync({
     variable: oldVariable,
-    contextType,
+    isLoad,
     ctx,
-    cachedVariableValue: contextType === 'builtin' ? undefined : { success: true, result: castedValue },
-    parseResult,
-    skipAsync: false
+    cachedVariableValue: isLoad ? undefined : { success: true, result: castedValue },
+    parseResult
   })
   return newVariable
 }
 
-const errorMessages = (t: VariableData): ErrorMessage[] => {
-  if (t.async) return []
-  if (t.variableValue.result.type === 'Error' && !t.variableValue.success) {
-    return [{ message: t.variableValue.result.result, type: t.variableValue.result.errorKind }]
+const errorMessages = ({ task }: VariableData): ErrorMessage[] => {
+  if (task.async) return []
+  if (task.variableValue.result.type === 'Error' && !task.variableValue.success) {
+    return [{ message: task.variableValue.result.result, type: task.variableValue.result.errorKind }]
   } else {
     return []
   }
@@ -274,7 +272,7 @@ export class VariableClass implements VariableInterface {
 
     const formula = this.buildFormula()
     this.clearDependency()
-    castVariable(this, this.formulaContext, formula, 'builtin')
+    castVariable(this, this.formulaContext, formula, false)
     this.trackDependency()
     await this.subscribePromise(sourceUuid)
     // await this.refresh({ ctx: {}, arguments: [] })

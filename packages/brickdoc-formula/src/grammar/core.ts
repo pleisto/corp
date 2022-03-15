@@ -20,10 +20,7 @@ import {
   BaseFormula,
   ErrorResult,
   VariableNameDependency,
-  AsyncVariableData,
-  SyncVariableData,
-  FormulaType,
-  ContextType
+  FormulaType
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -36,6 +33,7 @@ import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { devWarning } from '@brickdoc/design-system'
 import { v4 as uuid } from 'uuid'
+import { createVariableTask } from '../context'
 
 export interface BaseParseResult {
   success: boolean
@@ -564,72 +562,18 @@ export const innerInterpret = async ({
   }
 }
 
-export const interpretSync = async ({
-  variable,
-  ctx,
-  parseResult
-}: {
-  variable?: VariableInterface
-  ctx: FunctionContext
-  parseResult: ParseResult
-}): Promise<VariableInterface> => {
-  const {
-    valid,
-    cst,
-    kind,
-    codeFragments,
-    version,
-    variableDependencies,
-    variableNameDependencies,
-    functionDependencies,
-    blockDependencies,
-    flattenVariableDependencies
-  } = parseResult
-  const {
-    formulaContext,
-    meta: { name, input, namespaceId, variableId, type }
-  } = ctx
-  const execStartTime = new Date()
-  const interpretResult = await innerInterpret({ parseResult, ctx })
-  const execEndTime = new Date()
-
-  const t: VariableData = {
-    namespaceId,
-    variableId,
-    execStartTime,
-    execEndTime,
-    name,
-    cst,
-    type,
-    version,
-    codeFragments,
-    definition: input,
-    async: false,
-    isAsync: false,
-    variableValue: interpretResult,
-    valid,
-    kind: kind ?? 'constant',
-    variableDependencies,
-    variableNameDependencies,
-    flattenVariableDependencies,
-    blockDependencies,
-    functionDependencies
-  }
-  return generateVariable(formulaContext, t, variable, 'builtin')
-}
-
 export const interpretAsync = ({
   variable,
   ctx,
   skipAsync,
   cachedVariableValue,
-  contextType,
+  isLoad,
   parseResult
 }: {
-  contextType: ContextType
+  isLoad?: boolean
   variable?: VariableInterface
   cachedVariableValue?: VariableValue
-  skipAsync: boolean
+  skipAsync?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
 }): VariableInterface => {
@@ -650,7 +594,7 @@ export const interpretAsync = ({
     formulaContext,
     meta: { name, input, namespaceId, variableId, type }
   } = ctx
-  const t: Omit<VariableData, 'variableValue' | 'async' | 'execStartTime' | 'execEndTime'> = {
+  const t: Omit<VariableData, 'task'> = {
     namespaceId,
     variableId,
     name,
@@ -671,68 +615,39 @@ export const interpretAsync = ({
 
   const result = innerInterpretFirst({ parseResult, ctx })
   if (result) {
-    const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-      async: false,
-      execStartTime: new Date(),
-      execEndTime: new Date(),
-      variableValue: result
-    }
-
-    return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
+    const task = createVariableTask({ ...t, async: false, variableValue: result })
+    return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
   }
 
   if (!async) {
     if (cachedVariableValue) {
-      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-        async: false,
-        execStartTime: new Date(),
-        execEndTime: new Date(),
-        variableValue: cachedVariableValue
-      }
-
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
+      const task = createVariableTask({ ...t, async: false, variableValue: cachedVariableValue })
+      return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
     }
   }
 
   if (skipAsync && variable) {
-    if (variable.t.async) {
-      const restAttrs: Pick<AsyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-        async: variable.t.async,
-        execStartTime: variable.t.execStartTime,
-        execEndTime: variable.t.execEndTime,
-        variableValue: variable.t.variableValue
-      }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
+    if (variable.t.task.async) {
+      return generateVariable(formulaContext, { ...t, task: variable.t.task }, variable, isLoad)
     }
 
-    if (!shouldReturnEarly(variable.t.variableValue.result)) {
-      const restAttrs: Pick<SyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-        async: variable.t.async,
-        execStartTime: variable.t.execStartTime,
-        execEndTime: variable.t.execEndTime,
-        variableValue: variable.t.variableValue
-      }
-      return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
+    // NOTE: Normal variable
+    if (!shouldReturnEarly(variable.t.task.variableValue.result)) {
+      return generateVariable(formulaContext, { ...t, task: variable.t.task }, variable, isLoad)
     }
   }
 
-  const execStartTime = new Date()
   const interpretResult = innerInterpret({ parseResult, ctx })
-  const restAttrs: Pick<AsyncVariableData, 'async' | 'execStartTime' | 'execEndTime' | 'variableValue'> = {
-    async: true,
-    execStartTime,
-    execEndTime: undefined,
-    variableValue: interpretResult
-  }
+  const task = createVariableTask({ ...t, async: true, variableValue: interpretResult })
 
-  return generateVariable(formulaContext, { ...t, ...restAttrs }, variable, contextType)
+  return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
 }
 
 const generateVariable = (
   formulaContext: ContextInterface,
   t: VariableData,
   variable: VariableInterface | undefined,
-  contextType: ContextType
+  isLoad: boolean | undefined
 ): VariableInterface => {
   let newVariable: VariableInterface
   const currentUUID = uuid()
@@ -743,7 +658,7 @@ const generateVariable = (
     newVariable = new VariableClass({ t, formulaContext })
   }
 
-  if (contextType === 'load') {
+  if (isLoad) {
     newVariable.isNew = false
     newVariable.savedT = newVariable.t
   } else {
@@ -759,7 +674,7 @@ export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseF
   const dupFormulas = [...formulas]
   dupFormulas.forEach(formula => {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
-    const variable = castVariable(oldVariable, formulaContext, formula, 'load')
+    const variable = castVariable(oldVariable, formulaContext, formula, true)
     variable.save()
   })
 }
