@@ -144,7 +144,10 @@ const simpleCommonTestCases = [
     resultData: 'Expected string but got number'
   },
   { input: ' num1 & " "', newInput: ` #CurrentBlock.num1 & " "`, resultData: 'Expected string but got number' },
-  { input: 'a+num1', positions: [1], newInput: `a+#CurrentBlock.num1`, resultData: 'Unknown function a' }
+  { input: 'a+num1', positions: [1], newInput: `a+#CurrentBlock.num1`, resultData: 'Unknown function a' },
+
+  // TODO
+  { input: 'ABS(1 {a: 1}.a', newInput: 'ABS(1.a', resultData: 'Missing closing parenthesis' }
 ]
 
 const simpleNormalTestCases = [
