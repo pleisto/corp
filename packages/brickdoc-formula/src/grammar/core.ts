@@ -550,7 +550,7 @@ export const innerInterpret = async ({
   if (result) return result
   try {
     const interpreter = new FormulaInterpreter({ ctx })
-    const result: AnyTypeResult = await interpreter.visit(cst!, { type: 'any' })
+    const result: AnyTypeResult = await interpreter.visit(cst!, { type: 'any', finalTypes: [] })
     // const lazy = interpreter.lazy
 
     return { success: true, result }

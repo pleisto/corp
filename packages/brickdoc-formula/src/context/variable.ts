@@ -62,7 +62,6 @@ export const castVariable = (
   formulaContext: ContextInterface,
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
 ): VariableInterface => {
-  // const oldVariable = formulaContext.findVariableById(blockId, id)
   const type = unknownType as FormulaSourceType
   const meta: VariableMetadata = { namespaceId: blockId, variableId: id, name, input: definition, position: 0, type }
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }

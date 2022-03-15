@@ -15,7 +15,7 @@ import {
   VariableNameDependency
 } from '../types'
 import { buildFunctionKey } from '../functions'
-import { BaseCstVisitor } from './parser'
+import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
 import {
@@ -48,7 +48,9 @@ interface ExpressionArgument {
   readonly firstArgumentType?: FormulaType
 }
 
-export class CodeFragmentVisitor extends BaseCstVisitor {
+const CodeFragmentCstVisitor = ParserInstance.getBaseCstVisitorConstructor<ExpressionArgument, CodeFragmentResult>()
+
+export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   ctx: FunctionContext
   variableDependencies: VariableDependency[] = []
   variableNameDependencies: VariableNameDependency[] = []
@@ -497,8 +499,10 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
 
       if (rhsCst.name === 'FunctionCall') {
-        const args = { type: 'any', firstArgumentType }
-        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
+        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
+          type: 'any',
+          firstArgumentType
+        })
 
         firstArgumentType = 'any'
         images.push(rhsImage)
@@ -511,8 +515,9 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
           ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
-        const args = { type: 'string' }
-        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, args)
+        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
+          type: 'string'
+        })
         const unknownVariableError: ErrorMessage[] = []
         let finalRhsCodeFragments = rhsCodeFragments
         const finalRhsImage = rhsImage
@@ -1224,7 +1229,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         clauseArgs = clause.args.slice(1)
       }
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
-        ? (this.visit(ctx.Arguments, clauseArgs) as CodeFragmentResult)
+        ? (this.visit(ctx.Arguments, clauseArgs as any) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
       const argsErrorMessages: ErrorMessage[] =
         clauseArgs.filter(a => !a.default).length > 0 && argsCodeFragments.length === 0
@@ -1250,7 +1255,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
       }
     } else {
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
-        ? (this.visit(ctx.Arguments, null) as CodeFragmentResult)
+        ? (this.visit(ctx.Arguments, undefined) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
       images.push(ctx.LParen[0].image, image, ctx.RParen ? ctx.RParen[0].image : '')
 
@@ -1271,7 +1276,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
     }
   }
 
-  Arguments(ctx: { expression: any[]; Comma: IToken[] }, args: Argument[] | null): CodeFragmentResult {
+  Arguments(ctx: { expression: any[]; Comma: IToken[] }, args: Argument[] | undefined): CodeFragmentResult {
     const firstArgs = args?.[0]
     const argumentTypes = firstArgs?.spread
       ? Array(ctx.expression.length).fill(firstArgs.type)

@@ -147,7 +147,8 @@ const simpleCommonTestCases = [
   { input: 'a+num1', positions: [1], newInput: `a+#CurrentBlock.num1`, resultData: 'Unknown function a' },
 
   // TODO
-  { input: 'ABS(1 {a: 1}.a', newInput: 'ABS(1.a', resultData: 'Missing closing parenthesis' }
+  { input: 'ABS(1 {a: 1}.a', newInput: 'ABS(1.a', resultData: 'Missing closing parenthesis' },
+  { input: '(1 {}.', newInput: '(1.', resultData: 'Missing closing parenthesis' }
 ]
 
 const simpleNormalTestCases = [
