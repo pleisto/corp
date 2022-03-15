@@ -79,45 +79,45 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId)
 
-  const flatten = useMemoizedFn((node: TNode, indent: number, result: TNodeWithContext[]) => {
-    const { children, value } = node
-    const isExpanded = expandedIds.includes(value)
+  const nodeList = useMemo(() => {
+    function flatten(node: TNode, indent: number, result: TNodeWithContext[]): void {
+      const { children, value } = node
+      const isExpanded = expandedIds.includes(value)
 
-    result.push({
-      ...node,
-      isExpanded,
-      context: {
-        hasChildren: (children ?? []).length > 0,
-        indent: indent ?? 0
-      }
-    })
+      result.push({
+        ...node,
+        isExpanded,
+        context: {
+          hasChildren: (children ?? []).length > 0,
+          indent: indent ?? 0
+        }
+      })
 
-    if (isExpanded && children) {
-      for (const child of children) {
-        flatten(child, indent + 1, result)
+      if (isExpanded && children) {
+        for (const child of children) {
+          flatten(child, indent + 1, result)
+        }
       }
     }
-  })
 
-  const nodeList = useMemo(() => {
     const result: TNodeWithContext[] = []
     for (const node of treeData) {
       flatten(node, 0, result)
     }
     return result
-  }, [treeData, flatten])
+  }, [treeData, expandedIds])
 
-  const handleSelected = useMemoizedFn((node: TNodeWithContext) => {
+  const handleSelectNode = useMemoizedFn((node: TNodeWithContext) => {
     setSelectedId(node.value)
     if (expandOnSelect && !node.isExpanded && node.value) {
-      const nextOpenIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
-      if (!deepEqual(nextOpenIds, expandedIds)) {
-        setExpandedIds(nextOpenIds)
+      const nextExpandedIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
+      if (!deepEqual(nextExpandedIds, expandedIds)) {
+        setExpandedIds(nextExpandedIds)
       }
     }
   })
 
-  const handleItemClick = useMemoizedFn((node: TNode) => {
+  const handleToggleExpansion = useMemoizedFn((node: TNode) => {
     node.isExpanded
       ? setExpandedIds(i => i.filter(value => value !== node.value))
       : setExpandedIds(i => [...i, node.value])
@@ -161,8 +161,8 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
                 key={item.key}
                 emptyNode={emptyNode}
                 treeData={item}
-                onToggleExpand={handleItemClick}
-                onSelect={handleSelected}
+                onToggleExpansion={handleToggleExpansion}
+                onSelect={handleSelectNode}
                 titleRender={titleRender}
                 selected={item.value === selectedId}
               />
