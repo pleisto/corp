@@ -674,7 +674,7 @@ export interface VariableInterface {
   trackDirty: VoidFunction
   save: VoidFunction
   namespaceName: (pageId: NamespaceId) => string
-  updateDefinition: (definition: Definition) => Promise<void>
+  updateDefinition: (definition: Definition) => void
   meta: () => VariableMetadata
   onUpdate: (skipPersist?: boolean) => void
 }

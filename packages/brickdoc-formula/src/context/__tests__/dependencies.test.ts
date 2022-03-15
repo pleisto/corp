@@ -67,8 +67,7 @@ describe('Dependency', () => {
       Object.values(formulaContext.context).map(v => ({
         ...v.t,
         cst: null,
-        execEndTime: null,
-        execStartTime: null
+        task: { ...v.t.task, execStartTime: null, execEndTime: null, uuid: null }
       }))
     ).toMatchSnapshot()
   })
@@ -91,7 +90,7 @@ describe('Dependency', () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
-    await num0.updateDefinition('=30')
+    num0.updateDefinition('=30')
     await new Promise(resolve => setTimeout(resolve, 50))
 
     expect((num0.t.task.variableValue as VariableValue).result.result).toEqual(30)
@@ -105,7 +104,7 @@ describe('Dependency', () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
-    await num0.updateDefinition('=30foobar')
+    num0.updateDefinition('=30foobar')
     await new Promise(resolve => setTimeout(resolve, 50))
 
     expect((num0.t.task.variableValue as VariableValue).result.result).toEqual('Not all input parsed: foobar')
@@ -113,7 +112,7 @@ describe('Dependency', () => {
     const num2 = formulaContext.findVariableById(namespaceId, variableIds[2])!
     expect((num2.t.task.variableValue as VariableValue).result.result).toEqual('Not all input parsed: foobar')
 
-    await num0.updateDefinition('=233')
+    num0.updateDefinition('=233')
     await new Promise(resolve => setTimeout(resolve, 50))
     expect((num0.t.task.variableValue as VariableValue).result.result).toEqual(233)
     expect((num2.t.task.variableValue as VariableValue).result.result).toEqual(233)
@@ -124,7 +123,8 @@ describe('Dependency', () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
-    await num0.updateDefinition('=true')
+    num0.updateDefinition('=true')
+    await new Promise(resolve => setTimeout(resolve, 10))
     expect((num0.t.task.variableValue as VariableValue).result.result).toEqual(true)
 
     await new Promise(resolve => setTimeout(resolve, 50))
@@ -181,8 +181,7 @@ describe('Dependency', () => {
       Object.values(formulaContext.context).map(v => ({
         ...v.t,
         cst: null,
-        execStartTime: null,
-        execEndTime: null
+        task: { ...v.t.task, execStartTime: null, execEndTime: null, uuid: null }
       }))
     ).toMatchSnapshot()
 

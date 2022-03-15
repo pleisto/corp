@@ -379,7 +379,7 @@ describe('useFormula', () => {
         newInput ?? input
       )
 
-      const data = (result.current.variableT!.variableValue as VariableValue).result.result
+      const data = (result.current.variableT!.task.variableValue as VariableValue).result.result
       if (typeof data === 'object') {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data!.constructor.name).toEqual(resultData)
@@ -420,7 +420,7 @@ describe('useFormula', () => {
         newInput ?? input
       )
 
-      const data = (result.current.variableT!.variableValue as VariableValue).result.result
+      const data = (result.current.variableT!.task.variableValue as VariableValue).result.result
       if (typeof data === 'object') {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data!.constructor.name).toEqual(resultData)

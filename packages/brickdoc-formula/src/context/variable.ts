@@ -281,7 +281,7 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  private async maybeReparseAndPersist(sourceUuid: string): Promise<void> {
+  private maybeReparseAndPersist(sourceUuid: string): void {
     if (this.currentUUID === sourceUuid) {
       return
     }
@@ -292,11 +292,14 @@ export class VariableClass implements VariableInterface {
     castVariable(this, this.formulaContext, formula)
     this.trackDependency()
     this.currentUUID = undefined
+    if (this.savedT?.task.async === false) {
+      this.onUpdate()
+    }
   }
 
-  public async updateDefinition(definition: Definition): Promise<void> {
+  public updateDefinition(definition: Definition): void {
     this.t.definition = definition
-    await this.maybeReparseAndPersist(uuid())
+    this.maybeReparseAndPersist(uuid())
   }
 
   private subscripeEvents(): void {
