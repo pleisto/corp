@@ -518,7 +518,11 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         const finalRhsImage = rhsImage
 
         if (firstArgumentType === 'Block') {
-          const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
+          const blockCodeFragment = codeFragments[codeFragments.length - 2]
+          const namespaceId =
+            blockCodeFragment?.display === 'CurrentBlock'
+              ? this.ctx.meta.namespaceId
+              : (blockCodeFragment?.attrs?.id as string)
           const variableName = parseString(rhsImage)
           const variable = this.ctx.formulaContext.findVariableByName(namespaceId, variableName)
 
@@ -1202,7 +1206,7 @@ export class CodeFragmentVisitor extends BaseCstVisitor {
         this.kind = 'expression'
       }
 
-      if(clause.async) {
+      if (clause.async) {
         this.async = true
       }
 
@@ -1410,4 +1414,3 @@ export const addSpace = (
 
   return { finalCodeFragments, finalPositionFragment: positionFragment }
 }
-

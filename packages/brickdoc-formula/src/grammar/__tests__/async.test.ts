@@ -1,4 +1,4 @@
-import { interpretAsync, parse } from '../core'
+import { interpret, parse } from '../core'
 import { FormulaContext } from '../../context'
 import { VariableMetadata, VariableValue } from '../../types'
 import { quickInsert } from '../testHelper'
@@ -50,7 +50,7 @@ describe('async', () => {
     expect(parseResult.errorMessages).toEqual([])
     expect(parseResult.success).toBe(true)
 
-    const newVariable = interpretAsync({ ctx: newCtx, parseResult })
+    const newVariable = interpret({ ctx: newCtx, parseResult })
     expect(newVariable.t.task.async).toBe(true)
 
     await (newVariable.t.task.variableValue as Promise<VariableValue>).then(result => {

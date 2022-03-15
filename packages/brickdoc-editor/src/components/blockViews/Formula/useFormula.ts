@@ -8,7 +8,7 @@ import {
   parse,
   VariableData,
   VariableInterface,
-  interpretAsync,
+  interpret,
   FormulaType
 } from '@brickdoc/formula'
 import {
@@ -215,7 +215,7 @@ export const useFormula = ({
   }, [formulaId, rootId])
 
   const doCalculate = React.useCallback(
-    (skipAsync: boolean): void => {
+    (skipExecute: boolean): void => {
       if (!formulaContext) {
         devLog('formula no input!')
         return
@@ -242,7 +242,8 @@ export const useFormula = ({
       const parseResult = parse({ ctx })
       const { completions, expressionType, success } = parseResult
       updateDefaultName(success ? expressionType : 'any')
-      const newVariable = interpretAsync({ parseResult, ctx, skipAsync, variable: variableRef.current })
+      const newVariable = interpret({ parseResult, ctx, skipExecute, variable: variableRef.current })
+      // console.log('parseResult', parseResult, newVariable)
 
       setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
       doUnselectedFormula()
@@ -371,7 +372,7 @@ export const useFormula = ({
       const newInput = contentArrayToInput(fetchJSONContentArray(jsonContent))
       const value = formulaType === 'normal' ? `=${newInput}` : newInput
       editorContentRef.current = { content: jsonContent, input: value, position: editorPosition }
-      BrickdocEventBus.dispatch(FormulaCalculateTrigger({ formulaId, rootId, skipAsync: false }))
+      BrickdocEventBus.dispatch(FormulaCalculateTrigger({ formulaId, rootId, skipExecute: false }))
     },
     [formulaId, formulaType, rootId]
   )
@@ -578,7 +579,7 @@ export const useFormula = ({
     const listener = BrickdocEventBus.subscribe(
       FormulaCalculateTrigger,
       e => {
-        doCalculate(e.payload.skipAsync)
+        doCalculate(e.payload.skipExecute)
       },
       {
         eventId: `${rootId},${formulaId}`,

@@ -561,10 +561,10 @@ export const innerInterpret = async ({
   }
 }
 
-export const interpretAsync = ({
+export const interpret = ({
   variable,
   ctx,
-  skipAsync,
+  skipExecute,
   cachedVariableValue,
   isLoad,
   parseResult
@@ -572,7 +572,7 @@ export const interpretAsync = ({
   isLoad?: boolean
   variable?: VariableInterface
   cachedVariableValue?: VariableValue
-  skipAsync?: boolean
+  skipExecute?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
 }): VariableInterface => {
@@ -615,39 +615,46 @@ export const interpretAsync = ({
   const result = innerInterpretFirst({ parseResult, ctx })
   if (result) {
     const task = createVariableTask({ ...t, async: false, variableValue: result })
-    return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
+    return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
   }
 
   if (!async) {
     if (cachedVariableValue) {
       const task = createVariableTask({ ...t, async: false, variableValue: cachedVariableValue })
-      return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
+      return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
     }
   }
 
-  if (skipAsync && variable) {
+  if (skipExecute && variable) {
     if (variable.t.task.async) {
-      return generateVariable(formulaContext, { ...t, task: variable.t.task }, variable, isLoad)
+      return generateVariable({ formulaContext, t: { ...t, task: variable.t.task }, variable, isLoad, skipExecute })
     }
 
     // NOTE: Normal variable
     if (!shouldReturnEarly(variable.t.task.variableValue.result)) {
-      return generateVariable(formulaContext, { ...t, task: variable.t.task }, variable, isLoad)
+      return generateVariable({ formulaContext, t: { ...t, task: variable.t.task }, variable, isLoad, skipExecute })
     }
   }
 
   const interpretResult = innerInterpret({ parseResult, ctx })
   const task = createVariableTask({ ...t, async: true, variableValue: interpretResult })
 
-  return generateVariable(formulaContext, { ...t, task }, variable, isLoad)
+  return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
 }
 
-const generateVariable = (
-  formulaContext: ContextInterface,
-  t: VariableData,
-  variable: VariableInterface | undefined,
+const generateVariable = ({
+  formulaContext,
+  t,
+  variable,
+  isLoad,
+  skipExecute
+}: {
+  formulaContext: ContextInterface
+  t: VariableData
+  variable: VariableInterface | undefined
   isLoad: boolean | undefined
-): VariableInterface => {
+  skipExecute: boolean | undefined
+}): VariableInterface => {
   let newVariable: VariableInterface
   if (variable) {
     newVariable = variable
@@ -656,11 +663,13 @@ const generateVariable = (
     newVariable = new VariableClass({ t, formulaContext })
   }
 
-  if (isLoad) {
-    newVariable.isNew = false
-    newVariable.savedT = newVariable.t
-  } else {
-    newVariable.isNew = true
+  if (!skipExecute) {
+    if (isLoad) {
+      newVariable.isNew = false
+      newVariable.savedT = newVariable.t
+    } else {
+      newVariable.isNew = true
+    }
   }
 
   return newVariable
