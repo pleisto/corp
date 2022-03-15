@@ -16,21 +16,12 @@ export class Comment {
   })
   public content: any
 
-  @Field(() => BigInteger, {
-    description: 'creator id'
-  })
+  @Field(() => BigInteger, {})
   public creator_id: BigInt
 
-  @Field(() => BigInteger, {
-    description: 'conversation id'
-  })
+  @Field(() => BigInteger, {})
   public conversation_id: BigInt
 
-  // id              BigInt                   @id @default(autoincrement())
-  // content         Json
-  // creator_id      BigInt
-  // conversation    discussion_conversations @relation(fields: [conversation_id], references: [id])
-  // conversation_id BigInt
-  // created_at      DateTime                 @db.Timestamp(6)
-  // updated_at      DateTime                 @db.Timestamp(6)
+  @Field(() => Date, {})
+  public created_at: Date
 }

@@ -29,7 +29,8 @@ export class CommentService {
       cursor: {
         id: commentCursor
       },
-      take
+      take,
+      skip: commentCursor ? 1 : 0
     })
   }
 

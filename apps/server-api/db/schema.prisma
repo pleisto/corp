@@ -61,6 +61,7 @@ model accounts_users {
   stafftools_role_assignments stafftools_role_assignments[]
   conversations               discussion_conversations[]
   comments                    discussion_comments[]
+  notifications               notifications[]
 
   @@index([deleted_at], map: "index_accounts_users_on_deleted_at")
 }
@@ -157,6 +158,8 @@ model discussion_comments {
   conversation_id BigInt
   created_at      DateTime                 @default(now())
   updated_at      DateTime                 @updatedAt
+
+  @@index([conversation_id])
 }
 
 model docs_aliases {
@@ -292,16 +295,24 @@ model flipper_gates {
   @@unique([feature_key, key, value], map: "index_flipper_gates_on_feature_key_and_key_and_value")
 }
 
+enum notification_state {
+  UNREAD
+  READ
+}
+
 model notifications {
-  id                BigInt   @id @default(autoincrement())
+  id                BigInt             @id @default(autoincrement())
   user_id           BigInt
-  notification_type String   @db.VarChar()
-  data              Json
-  state             Int      @default(0)
-  source_id         BigInt
-  source_type       String   @db.VarChar()
-  created_at        DateTime @db.Timestamp(6)
-  updated_at        DateTime @db.Timestamp(6)
+  user              accounts_users     @relation(fields: [user_id], references: [id])
+  notification_type String             @db.VarChar()
+  state             notification_state @default(UNREAD)
+  data              Json?
+  source_id         String
+  source_type       String             @db.VarChar()
+  created_at        DateTime           @default(now())
+  updated_at        DateTime           @updatedAt
+
+  @@index([user_id, state])
 }
 
 model schema_migrations {

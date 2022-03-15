@@ -42,9 +42,4 @@ export class Conversation {
 
   @Field(() => Date)
   public created_at: Date
-
-  @Field(() => Date)
-  public updated_at: Date
-
-  // interlocutor_ids BigInt[]
 }

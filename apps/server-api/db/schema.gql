@@ -17,11 +17,8 @@ scalar BigInteger
 type Comment {
   """comment content"""
   content: JSONObject!
-
-  """conversation id"""
   conversation_id: BigInteger!
-
-  """creator id"""
+  created_at: DateTime!
   creator_id: BigInteger!
 
   """primary key"""
@@ -45,7 +42,6 @@ type Conversation {
   page_id: String!
   space_id: BigInteger!
   state: String!
-  updated_at: DateTime!
 }
 
 input CreateCommentInput {
@@ -62,6 +58,17 @@ input CreateConversationInput {
   markIds: [String!]
   pageId: String!
   spaceId: BigInteger!
+}
+
+input CreateNotificationInput {
+  """notification template data"""
+  data: JSONObject
+
+  """notification template type"""
+  notification_type: String!
+  source_id: String!
+  source_type: String!
+  user_id: BigInteger
 }
 
 """creator of conversation or comment"""
@@ -117,14 +124,37 @@ type Mutation {
   """create new conversation inside a discussion"""
   createConversation(data: CreateConversationInput!): Conversation!
 
+  """create new notification for user"""
+  createNotification(data: CreateNotificationInput!): Notification!
+
   """mark conversation as opened state"""
   openConversation(conversationId: BigInteger!): Boolean!
+
+  """mark notification as read"""
+  readNotification(notificationId: BigInteger): Notification!
 
   """mark conversation as resovled state"""
   resolveConversation(conversationId: BigInteger!): Boolean!
 
   """update comment content inside a conversation"""
   updateComment(data: UpdateCommentInput!): Comment!
+}
+
+"""user's notification record"""
+type Notification {
+  created_at: DateTime!
+
+  """notification template data"""
+  data: JSONObject
+
+  """primary key"""
+  id: BigInteger!
+
+  """notification template type"""
+  notification_type: String!
+  source_id: String!
+  source_type: String!
+  state: String!
 }
 
 type Query {
@@ -143,6 +173,9 @@ type Query {
 
   """Return information about current Brickdoc server instance."""
   metadata: Metadata!
+
+  """query users' notifications"""
+  notifications(state: String!): [Notification!]!
 }
 
 input UpdateCommentInput {

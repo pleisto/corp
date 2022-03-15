@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "discussion_conversation_state" AS ENUM ('OPENDED', 'RESOLVED');
 
+-- CreateEnum
+CREATE TYPE "notification_state" AS ENUM ('UNREAD', 'READ');
+
 -- CreateTable
 CREATE TABLE "accounts_federated_identities" (
     "id" BIGSERIAL NOT NULL,
@@ -293,12 +296,12 @@ CREATE TABLE "notifications" (
     "id" BIGSERIAL NOT NULL,
     "user_id" BIGINT NOT NULL,
     "notification_type" VARCHAR NOT NULL,
-    "data" JSONB NOT NULL,
-    "state" INTEGER NOT NULL DEFAULT 0,
-    "source_id" BIGINT NOT NULL,
+    "state" "notification_state" NOT NULL DEFAULT E'UNREAD',
+    "data" JSONB,
+    "source_id" TEXT NOT NULL,
     "source_type" VARCHAR NOT NULL,
-    "created_at" TIMESTAMP(6) NOT NULL,
-    "updated_at" TIMESTAMP(6) NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
 );
@@ -395,6 +398,9 @@ CREATE UNIQUE INDEX "index_brickdoc_configs_on_key_and_scope_and_domain" ON "bri
 CREATE INDEX "discussion_conversations_page_id_space_id_idx" ON "discussion_conversations"("page_id", "space_id");
 
 -- CreateIndex
+CREATE INDEX "discussion_comments_conversation_id_idx" ON "discussion_comments"("conversation_id");
+
+-- CreateIndex
 CREATE INDEX "index_docs_aliases_on_block_id" ON "docs_aliases"("block_id");
 
 -- CreateIndex
@@ -443,6 +449,9 @@ CREATE UNIQUE INDEX "index_flipper_features_on_key" ON "flipper_features"("key")
 CREATE UNIQUE INDEX "index_flipper_gates_on_feature_key_and_key_and_value" ON "flipper_gates"("feature_key", "key", "value");
 
 -- CreateIndex
+CREATE INDEX "notifications_user_id_state_idx" ON "notifications"("user_id", "state");
+
+-- CreateIndex
 CREATE INDEX "index_stafftools_role_assignments_on_accounts_user_id" ON "stafftools_role_assignments"("accounts_user_id");
 
 -- CreateIndex
@@ -474,6 +483,9 @@ ALTER TABLE "discussion_comments" ADD CONSTRAINT "discussion_comments_creator_id
 
 -- AddForeignKey
 ALTER TABLE "discussion_comments" ADD CONSTRAINT "discussion_comments_conversation_id_fkey" FOREIGN KEY ("conversation_id") REFERENCES "discussion_conversations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "notifications" ADD CONSTRAINT "notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "accounts_users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "stafftools_role_assignments" ADD CONSTRAINT "fk_rails_0e5ee8f5b7" FOREIGN KEY ("accounts_user_id") REFERENCES "accounts_users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

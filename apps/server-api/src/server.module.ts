@@ -4,11 +4,12 @@ import { CommonModule } from './common/common.module'
 import { CoreModule } from './core/core.module'
 import { AntiCorruptionModule } from './anti-corruption/anti-corruption.module'
 import { DiscussionModule } from './docs/discussion/discussion.module'
+import { NotificationModule } from './notification/notification.module'
 /**
  * The root module of the server application.
  */
 @Module({
-  imports: [CommonModule, CoreModule, AntiCorruptionModule, DiscussionModule]
+  imports: [CommonModule, CoreModule, AntiCorruptionModule, DiscussionModule, NotificationModule]
 })
 export class ServerModule implements OnApplicationShutdown {
   constructor(private readonly logger: PinoLogger) {
