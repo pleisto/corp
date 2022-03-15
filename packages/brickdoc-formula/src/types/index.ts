@@ -665,7 +665,6 @@ export interface VariableMetadata {
 export interface VariableInterface {
   t: VariableData
   savedT: VariableData | undefined
-  currentUUID: string | undefined
   isNew: boolean
   formulaContext: ContextInterface
 

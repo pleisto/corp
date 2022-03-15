@@ -62,15 +62,12 @@ export const castVariable = (
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
 ): VariableInterface => {
   // const oldVariable = formulaContext.findVariableById(blockId, id)
-  const namespaceId = blockId
-  const variableId = id
   const type = unknownType as FormulaSourceType
-  const meta: VariableMetadata = { namespaceId, variableId, name, input: definition, position: 0, type }
+  const meta: VariableMetadata = { namespaceId: blockId, variableId: id, name, input: definition, position: 0, type }
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
   const parseResult = parse({ ctx })
 
-  const newVariable = interpretAsync({ variable: oldVariable, isLoad: true, ctx, parseResult })
-  return newVariable
+  return interpretAsync({ variable: oldVariable, isLoad: true, ctx, parseResult })
 }
 
 export class VariableClass implements VariableInterface {
@@ -138,10 +135,21 @@ export class VariableClass implements VariableInterface {
     // )
   }
 
-  private completeTask({ uuid }: VariableTask): void {
-    if (this.t.task.uuid === uuid || this.savedT?.task.uuid === uuid) {
-      this.onUpdate()
+  private completeTask({ task }: { task: VariableTask }): void {
+    const tMatched = task.uuid === this.t.task.uuid
+    const savedTMatched = task.uuid === this.savedT?.task.uuid
+
+    if (!tMatched && !savedTMatched) return
+
+    if (tMatched) {
+      this.t.task = task
     }
+
+    if (savedTMatched) {
+      this.savedT!.task = task
+    }
+
+    this.onUpdate()
   }
 
   public clearDependency(): void {
@@ -255,6 +263,7 @@ export class VariableClass implements VariableInterface {
     this.clearDependency()
     castVariable(this, this.formulaContext, formula)
     this.trackDependency()
+    this.currentUUID = undefined
   }
 
   public async updateDefinition(definition: Definition): Promise<void> {

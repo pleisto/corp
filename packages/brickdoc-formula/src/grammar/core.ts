@@ -652,7 +652,6 @@ const generateVariable = (
   if (variable) {
     newVariable = variable
     newVariable.t = t
-    newVariable.currentUUID = undefined
   } else {
     newVariable = new VariableClass({ t, formulaContext })
   }

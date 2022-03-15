@@ -398,6 +398,9 @@ export class FormulaContext implements ContextInterface {
         Number(count)
       )
     }
+
+    // 5. Persist
+    variable.onUpdate()
   }
 
   public async removeVariable(namespaceId: NamespaceId, variableId: VariableId): Promise<void> {

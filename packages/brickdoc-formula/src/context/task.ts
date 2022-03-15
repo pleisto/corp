@@ -19,7 +19,7 @@ type TaskInput = (
 export const createVariableTask = ({ async, variableValue, namespaceId, variableId }: TaskInput): VariableTask => {
   const now = new Date()
   if (async) {
-    let task: VariableTask = {
+    const task: VariableTask = {
       async,
       variableValue,
       uuid: uuid(),
@@ -28,8 +28,8 @@ export const createVariableTask = ({ async, variableValue, namespaceId, variable
     }
 
     void variableValue.then(value => {
-      task = { ...task, variableValue: value, execEndTime: new Date(), async: false }
-      BrickdocEventBus.dispatch(FormulaTaskCompleted({ ...task, namespaceId, variableId }))
+      const newTask = { ...task, variableValue: value, execEndTime: new Date(), async: false }
+      BrickdocEventBus.dispatch(FormulaTaskCompleted({ task: newTask, namespaceId, variableId }))
     })
     return task
   } else {
