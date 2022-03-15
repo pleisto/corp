@@ -9,7 +9,13 @@ import {
   FormulaEditorSavedTrigger
 } from '@brickdoc/schema'
 import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
-import { displayValue, dumpDisplayResultForDisplay, fetchResult, VariableInterface } from '@brickdoc/formula'
+import {
+  displayValue,
+  dumpDisplayResultForDisplay,
+  fetchResult,
+  VariableDisplayData,
+  VariableInterface
+} from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import { devLog } from '@brickdoc/design-system'
@@ -154,8 +160,17 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     )
   }
 
-  const displayData = variableT ? dumpDisplayResultForDisplay(variableT) : currentBlock.data.displayData
   const display = variableT ? displayValue(fetchResult(variableT), rootId) : currentBlock.text
+  const fallbackDisplayData: VariableDisplayData | undefined = display
+    ? ({
+        result: { type: 'string', result: display },
+        kind: 'literal',
+        type: 'spreadsheet'
+      } as unknown as VariableDisplayData)
+    : undefined
+  const displayData: VariableDisplayData | undefined = variableT
+    ? dumpDisplayResultForDisplay(variableT)
+    : currentBlock.data.displayData ?? fallbackDisplayData
 
   return (
     <div className="cell" style={{ ...(width ? { width: `${width}px` } : {}) }} onDoubleClick={handleEnterEdit}>
