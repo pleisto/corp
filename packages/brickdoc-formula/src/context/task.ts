@@ -1,6 +1,6 @@
 import { NamespaceId, SyncVariableTask, VariableId, VariableTask, VariableValue } from '../types'
 import { v4 as uuid } from 'uuid'
-import { BrickdocEventBus, FormulaTaskCompleted } from '@brickdoc/schema'
+import { BrickdocEventBus, FormulaTaskCompleted, FormulaTaskStarted } from '@brickdoc/schema'
 
 type TaskInput = (
   | {
@@ -26,6 +26,10 @@ export const createVariableTask = ({ async, variableValue, namespaceId, variable
       execStartTime: now,
       execEndTime: undefined
     }
+
+    setTimeout(() => {
+      BrickdocEventBus.dispatch(FormulaTaskStarted({ task, namespaceId, variableId }))
+    })
 
     void variableValue.then(value => {
       const newTask = { ...task, variableValue: value, execEndTime: new Date(), async: false }

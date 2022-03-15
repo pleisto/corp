@@ -4,6 +4,7 @@ import {
   EventSubscribed,
   FormulaInnerRefresh,
   FormulaTaskCompleted,
+  FormulaTaskStarted,
   FormulaTickViaId,
   FormulaUpdatedViaId,
   FormulaUpdatedViaName
@@ -98,23 +99,37 @@ export class VariableClass implements VariableInterface {
     )
     this.builtinEventListeners.push(tickSubscription)
 
-    const taskSubscription = BrickdocEventBus.subscribe(
-      FormulaTaskCompleted,
+    const taskStartSubscription = BrickdocEventBus.subscribe(
+      FormulaTaskStarted,
       e => {
-        void this.completeTask(e.payload)
+        this.startTask(e.payload)
       },
       {
         eventId: `${t.namespaceId},${t.variableId}`,
         subscribeId: `Task#${t.namespaceId},${t.variableId}`
       }
     )
-    this.builtinEventListeners.push(taskSubscription)
+    this.builtinEventListeners.push(taskStartSubscription)
+
+    const taskCompleteSubscription = BrickdocEventBus.subscribe(
+      FormulaTaskCompleted,
+      e => {
+        this.completeTask(e.payload)
+      },
+      {
+        eventId: `${t.namespaceId},${t.variableId}`,
+        subscribeId: `Task#${t.namespaceId},${t.variableId}`
+      }
+    )
+    this.builtinEventListeners.push(taskCompleteSubscription)
   }
 
-  public onUpdate(): void {
+  public onUpdate(skipPersist?: boolean): void {
     BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
-    this.trackDirty()
+    if (!skipPersist) {
+      this.trackDirty()
+    }
   }
 
   public trackDirty(): void {
@@ -125,14 +140,27 @@ export class VariableClass implements VariableInterface {
   }
 
   private async tick(uuid: string): Promise<void> {
-    // if (this.currentUUID !== uuid) return
-    // if (!this.t.async) return
-    // // NOTE Frontend only
-    // BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
-    // await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
-    // BrickdocEventBus.dispatch(
-    //   FormulaTickViaId({ uuid: this.currentUUID, variableId: this.t.variableId, namespaceId: this.t.namespaceId })
-    // )
+    const tMatched = uuid === this.t.task.uuid
+    const savedTMatched = uuid === this.savedT?.task.uuid
+
+    if (!tMatched && !savedTMatched) return
+    const async = tMatched ? this.t.task.async : this.savedT?.task.async
+    if (!async) return
+
+    this.onUpdate(true)
+    await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
+    BrickdocEventBus.dispatch(
+      FormulaTickViaId({ uuid, variableId: this.t.variableId, namespaceId: this.t.namespaceId })
+    )
+  }
+
+  private startTask({ task }: { task: VariableTask }): void {
+    const tMatched = task.uuid === this.t.task.uuid
+    const savedTMatched = task.uuid === this.savedT?.task.uuid
+
+    if (!tMatched && !savedTMatched) return
+
+    void this.tick(task.uuid)
   }
 
   private completeTask({ task }: { task: VariableTask }): void {

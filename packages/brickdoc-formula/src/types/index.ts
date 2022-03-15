@@ -676,7 +676,7 @@ export interface VariableInterface {
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
-  onUpdate: VoidFunction
+  onUpdate: (skipPersist?: boolean) => void
 }
 
 export interface BackendActions {

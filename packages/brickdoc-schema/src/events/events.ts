@@ -66,6 +66,10 @@ export const FormulaUpdatedViaId = event<any>()('FormulaUpdatedViaId', v => {
   return { id: `${v.t.namespaceId},${v.t.variableId}` }
 })
 
+export const FormulaTaskStarted = event<any>()('FormulaTaskStarted', v => {
+  return { id: `${v.namespaceId},${v.variableId}` }
+})
+
 export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
   return { id: `${v.namespaceId},${v.variableId}` }
 })
