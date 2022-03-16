@@ -129,8 +129,10 @@ export const Base = Extension.create<BaseOptions>({
     if (this.options.all ?? this.options.user)
       extensions.push(EXTENSION.User.configure(getConfigure(this.options?.user)))
 
-    if (this.options.collaboration)
+    if (this.options.collaboration) {
       extensions.push(EXTENSION.Collaboration.configure(getConfigure(this.options?.collaboration)))
+      // extensions.push(EXTENSION.CollaborationCursor.configure({}))
+    }
 
     if (!this.options.collaboration && (this.options.all ?? this.options.history))
       extensions.push(EXTENSION.History.configure(getConfigure(this.options?.history)))

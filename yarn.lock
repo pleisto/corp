@@ -1981,6 +1981,7 @@ __metadata:
     "@tiptap/extension-code": ^2.0.0-beta.26
     "@tiptap/extension-code-block": ^2.0.0-beta.37
     "@tiptap/extension-collaboration": ^2.0.0-beta.33
+    "@tiptap/extension-collaboration-cursor": ^2.0.0-beta.34
     "@tiptap/extension-document": ^2.0.0-beta.15
     "@tiptap/extension-dropcursor": ^2.0.0-beta.25
     "@tiptap/extension-gapcursor": ^2.0.0-beta.34
@@ -6705,6 +6706,17 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.0.0-beta.1
   checksum: 97e730754324dc7171cdb5250cb24517137b38960353bdb5d97d64350d8b2c82eb0e4c503c90eeb14ba4a26e7b7e9ccecea771d240e6f5044af0ca0653ecef97
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-collaboration-cursor@npm:^2.0.0-beta.34":
+  version: 2.0.0-beta.34
+  resolution: "@tiptap/extension-collaboration-cursor@npm:2.0.0-beta.34"
+  dependencies:
+    y-prosemirror: ^1.0.14
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: 8c49939794c07c5e3e5328e6d168d1cac430f79e2dfce3c4067d7cb99947d1eac7a69cbd1a2e025c3e25ba590d188d096951f600ee5e41a45053cbf5839e6bab
   languageName: node
   linkType: hard
 
