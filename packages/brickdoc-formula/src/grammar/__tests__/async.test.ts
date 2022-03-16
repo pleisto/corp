@@ -7,7 +7,7 @@ const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const barVariableId = '6c1bc8c7-9849-45cb-81d8-10874d1acf30'
 
-const formulaContext = new FormulaContext({})
+const formulaContext = new FormulaContext({ domain: 'test' })
 
 const meta: VariableMetadata = {
   namespaceId,
@@ -50,10 +50,10 @@ describe('async', () => {
     expect(parseResult.errorMessages).toEqual([])
     expect(parseResult.success).toBe(true)
 
-    const newVariable = interpretAsync({ ctx: newCtx, parseResult, skipAsync: false })
-    expect(newVariable.t.async).toBe(true)
+    const newVariable = interpretAsync({ ctx: newCtx, parseResult })
+    expect(newVariable.t.task.async).toBe(true)
 
-    await (newVariable.t.variableValue as Promise<VariableValue>).then(result => {
+    await (newVariable.t.task.variableValue as Promise<VariableValue>).then(result => {
       expect(result.result.result).toEqual(output)
     })
 

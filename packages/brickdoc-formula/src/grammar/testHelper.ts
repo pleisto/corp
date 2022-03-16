@@ -1,6 +1,7 @@
 import { VariableData, FunctionContext } from '../types'
 import { VariableClass } from '../context/variable'
 import { innerInterpret, parse } from './core'
+import { createVariableTask } from '../context'
 
 export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<void> => {
   const {
@@ -25,26 +26,22 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
   if (!success) {
     throw new Error(errorMessages[0]!.message)
   }
-  const execStartTime = new Date()
   const variableValue = await innerInterpret({ parseResult, ctx })
+  const task = createVariableTask({ namespaceId, variableId, async: false, variableValue })
 
   const variable: VariableData = {
     namespaceId,
     variableId,
+    task,
     name,
-    execStartTime,
-    execEndTime: new Date(),
-    dirty: true,
     valid: true,
     definition: input,
     cst,
     type,
     version,
     isAsync: false,
-    async: false,
     kind: kind ?? 'constant',
     codeFragments,
-    variableValue,
     blockDependencies,
     variableDependencies,
     variableNameDependencies,
@@ -52,5 +49,5 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     flattenVariableDependencies
   }
 
-  await new VariableClass({ t: variable, formulaContext }).save()
+  new VariableClass({ t: variable, formulaContext }).save()
 }

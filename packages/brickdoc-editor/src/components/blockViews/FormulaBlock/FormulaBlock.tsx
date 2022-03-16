@@ -13,8 +13,6 @@ export interface FormulaRenderProps {
   handleDelete?: FormulaMenuProps['handleDelete']
 }
 
-const updateFormula = (): void => {}
-
 export const FormulaRender: React.FC<FormulaRenderProps> = ({
   attributes: { isNew, uuid },
   handleDefaultPopoverVisibleChange,
@@ -33,7 +31,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
     savedVariableT,
     isDisableSave,
     nameRef,
-    doHandleSave,
+    onSaveFormula,
     updateEditor,
     defaultName,
     editorContent,
@@ -41,7 +39,6 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
   } = useFormula({
     rootId,
     formulaId,
-    updateFormula,
     formulaContext,
     formulaType,
     formulaName
@@ -73,12 +70,13 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       onVisibleChange={handleDefaultPopoverVisibleChange}
       updateEditor={updateEditor}
       isDisableSave={isDisableSave}
-      doHandleSave={doHandleSave}
+      onSaveFormula={onSaveFormula}
       variableT={variableT}
       defaultName={defaultName}
       nameRef={nameRef}
       completion={completion}
-      handleDelete={handleDelete}>
+      handleDelete={handleDelete}
+    >
       {renderData}
     </FormulaMenu>
   )
