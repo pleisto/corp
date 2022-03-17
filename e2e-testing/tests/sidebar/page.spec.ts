@@ -25,10 +25,18 @@ test.describe('Page List', () => {
   })
 
   test('Verify page can collapse when click arrow', async () => {
-    await pageList.getArrow().click()
-    expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isOpen-true.*/g)
-    await pageList.getArrow().click()
-    expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isOpen-true.*/g)
+    const arrowClass = await pageList.getArrow().getAttribute('class')
+    if (arrowClass?.includes('-isOpen-true')) {
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isOpen-true.*/g)
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isOpen-true.*/g)
+    } else {
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isOpen-true.*/g)
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isOpen-true.*/g)
+    }
   })
 
   test('Verify sub page can be added', async () => {
