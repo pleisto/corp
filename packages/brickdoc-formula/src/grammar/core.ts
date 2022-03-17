@@ -38,6 +38,8 @@ export interface BaseParseResult {
   success: boolean
   valid: boolean
   async: boolean
+  pure: boolean
+  effect: boolean
   input: string
   version: number
   position: number
@@ -295,6 +297,8 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     expressionType: 'any',
     valid: true,
     async: false,
+    effect: false,
+    pure: true,
     cst: undefined,
     input,
     position,
@@ -363,6 +367,8 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 
   returnValue.expressionType = expressionType
   returnValue.async = codeFragmentVisitor.async
+  returnValue.effect = codeFragmentVisitor.effect
+  returnValue.pure = codeFragmentVisitor.pure
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
   returnValue.variableNameDependencies = codeFragmentVisitor.variableNameDependencies
@@ -603,6 +609,8 @@ export const interpret = ({
     codeFragments,
     version,
     async,
+    effect,
+    pure,
     variableDependencies,
     variableNameDependencies,
     functionDependencies,
@@ -621,6 +629,8 @@ export const interpret = ({
     type,
     version,
     isAsync: async,
+    isEffect: effect,
+    isPure: pure,
     codeFragments,
     definition: input,
     valid,

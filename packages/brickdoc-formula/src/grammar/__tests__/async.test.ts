@@ -23,7 +23,8 @@ const testCases = [
   { input: '=SLEEP(123+1)', output: 124, async: true },
   { input: '=1+SLEEP(123)', output: 124, async: true },
   { input: '=SLEEP(123)+1', output: 124, async: true },
-  { input: '=foo+1', output: 25, async: false }
+  { input: '=foo+1', output: 25, async: true },
+  { input: '=12', output: 12, async: false }
 ]
 
 const ctx = {

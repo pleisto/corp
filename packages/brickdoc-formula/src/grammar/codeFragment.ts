@@ -59,6 +59,8 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   flattenVariableDependencies: VariableDependency[] = []
   kind: 'constant' | 'expression' = 'constant'
   async: boolean = false
+  pure: boolean = true
+  effect: boolean = false
 
   constructor({ ctx }: { ctx: FunctionContext }) {
     super()
@@ -545,6 +547,12 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
 
             if (variable.t.isAsync) {
               this.async = true
+            }
+            if (variable.t.isEffect) {
+              this.effect = true
+            }
+            if (!variable.t.isPure) {
+              this.pure = false
             }
 
             if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
@@ -1213,6 +1221,12 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
 
       if (clause.async) {
         this.async = true
+      }
+      if (clause.effect) {
+        this.effect = true
+      }
+      if (!clause.pure) {
+        this.pure = false
       }
 
       const chainError: ErrorMessage[] = []
