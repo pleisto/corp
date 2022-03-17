@@ -18,7 +18,14 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void' | 'Pending'
+export type FormulaType =
+  | FormulaBasicType
+  | FormulaObjectType
+  | FormulaControlType
+  | 'any'
+  | 'void'
+  | 'Pending'
+  | 'Waiting'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -55,6 +62,7 @@ export type SpecialDefaultVariableName =
   | 'rate'
   | 'slider'
   | 'pending'
+  | 'waiting'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -249,6 +257,11 @@ export interface PendingResult extends BaseResult {
   type: 'Pending'
 }
 
+export interface WaitingResult extends BaseResult {
+  result: string
+  type: 'Waiting'
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -293,6 +306,7 @@ export type AnyTypeResult =
   | CstResult
   | ReferenceResult
   | PendingResult
+  | WaitingResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 

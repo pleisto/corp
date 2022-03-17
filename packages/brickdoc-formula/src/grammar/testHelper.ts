@@ -30,7 +30,7 @@ export const quickInsert = async ({ ctx }: { ctx: FunctionContext }): Promise<vo
     throw new Error(errorMessages[0]!.message)
   }
   const variableValue = await innerInterpret({ parseResult, ctx })
-  const task = createVariableTask({ namespaceId, variableId, async: false, variableValue })
+  const task = createVariableTask({ namespaceId, variableId, async: false, effect, variableValue })
 
   const variable: VariableData = {
     namespaceId,

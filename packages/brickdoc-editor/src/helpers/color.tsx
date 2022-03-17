@@ -173,7 +173,8 @@ export const FORMULA_COLORS: Record<FormulaColorType, FormulaColorMeta> = {
   FALSE: redColorMeta,
   FunctionName: pinkColorMeta,
   Variable: pinkColorMeta,
-  Pending: blueColorMeta
+  Pending: blueColorMeta,
+  Waiting: blueColorMeta
 }
 
 const defaultIcon = <Icon.Function />
@@ -209,5 +210,6 @@ export const FORMULA_ICONS: Record<FormulaColorType, JSX.Element> = {
   FALSE: defaultIcon,
   FunctionName: defaultIcon,
   Variable: defaultIcon,
-  Pending: defaultIcon
+  Pending: defaultIcon,
+  Waiting: defaultIcon
 }

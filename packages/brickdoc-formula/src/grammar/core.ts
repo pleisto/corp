@@ -20,7 +20,8 @@ import {
   BaseFormula,
   ErrorResult,
   VariableNameDependency,
-  FormulaType
+  FormulaType,
+  VariableTask
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -586,6 +587,53 @@ export const innerInterpret = async ({
   }
 }
 
+const generateTask = ({
+  variable,
+  ctx,
+  skipExecute,
+  cachedVariableValue,
+  parseResult
+}: {
+  variable?: VariableInterface
+  cachedVariableValue?: VariableValue
+  skipExecute?: boolean
+  ctx: FunctionContext
+  parseResult: ParseResult
+}): VariableTask => {
+  const result = innerInterpretFirst({ parseResult, ctx })
+  const {
+    meta: { namespaceId, variableId }
+  } = ctx
+  const { effect } = parseResult
+  // Fail fast
+  if (result) {
+    return createVariableTask({ namespaceId, variableId, async: false, effect, variableValue: result })
+  }
+
+  // Non-async and cached
+  if (!parseResult.async) {
+    if (cachedVariableValue) {
+      return createVariableTask({ namespaceId, variableId, async: false, effect, variableValue: cachedVariableValue })
+    }
+  }
+
+  if (skipExecute && variable) {
+    // SkipExecute and async
+    if (variable.t.task.async) {
+      return variable.t.task
+    }
+
+    // SkipExecute and normal
+    if (!shouldReturnEarly(variable.t.task.variableValue.result)) {
+      return variable.t.task
+    }
+  }
+
+  // Execute
+  const interpretResult = innerInterpret({ parseResult, ctx })
+  return createVariableTask({ namespaceId, variableId, async: true, effect, variableValue: interpretResult })
+}
+
 export const interpret = ({
   variable,
   ctx,
@@ -620,7 +668,9 @@ export const interpret = ({
     formulaContext,
     meta: { name, input, namespaceId, variableId, type }
   } = ctx
-  const t: Omit<VariableData, 'task'> = {
+  const task = generateTask({ variable, ctx, skipExecute, cachedVariableValue, parseResult })
+
+  const t: VariableData = {
     namespaceId,
     variableId,
     name,
@@ -638,37 +688,11 @@ export const interpret = ({
     variableNameDependencies,
     flattenVariableDependencies,
     blockDependencies,
-    functionDependencies
+    functionDependencies,
+    task
   }
 
-  const result = innerInterpretFirst({ parseResult, ctx })
-  if (result) {
-    const task = createVariableTask({ ...t, async: false, variableValue: result })
-    return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
-  }
-
-  if (!async) {
-    if (cachedVariableValue) {
-      const task = createVariableTask({ ...t, async: false, variableValue: cachedVariableValue })
-      return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
-    }
-  }
-
-  if (skipExecute && variable) {
-    if (variable.t.task.async) {
-      return generateVariable({ formulaContext, t: { ...t, task: variable.t.task }, variable, isLoad, skipExecute })
-    }
-
-    // NOTE: Normal variable
-    if (!shouldReturnEarly(variable.t.task.variableValue.result)) {
-      return generateVariable({ formulaContext, t: { ...t, task: variable.t.task }, variable, isLoad, skipExecute })
-    }
-  }
-
-  const interpretResult = innerInterpret({ parseResult, ctx })
-  const task = createVariableTask({ ...t, async: true, variableValue: interpretResult })
-
-  return generateVariable({ formulaContext, t: { ...t, task }, variable, isLoad, skipExecute })
+  return generateVariable({ formulaContext, t, variable, isLoad, skipExecute })
 }
 
 const generateVariable = ({
