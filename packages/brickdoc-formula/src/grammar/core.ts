@@ -31,7 +31,6 @@ import { FormulaInterpreter } from './interpreter'
 import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
 import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
-import { devWarning } from '@brickdoc/design-system'
 import { createVariableTask } from '../context'
 
 export interface BaseParseResult {

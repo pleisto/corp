@@ -113,6 +113,8 @@ const replaceRoot = ({
 
 export interface CompletionType {
   completions: Completion[]
+  formulaType: FormulaSourceType
+  input: string
   kind: 'Completion' | 'Preview'
   activeCompletion: Completion | undefined
   activeCompletionIndex: number
@@ -146,10 +148,7 @@ export const useFormula = ({
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
 
-  const contextCompletions =
-    formulaContext && (formulaIsNormal || formulaValue?.startsWith('='))
-      ? formulaContext.completions(rootId, formulaId)
-      : []
+  const contextCompletions = formulaContext ? formulaContext.completions(rootId, formulaId) : []
 
   const defaultEditorContent: EditorContentType = fetchEditorContent(defaultVariable, formulaIsNormal, 0)
 
@@ -168,6 +167,8 @@ export const useFormula = ({
   const [completion, setCompletion] = React.useState<CompletionType>({
     completions: contextCompletions,
     kind: 'Completion',
+    formulaType,
+    input: formulaValue ?? '',
     activeCompletion: contextCompletions[0],
     activeCompletionIndex: 0
   })
@@ -245,7 +246,14 @@ export const useFormula = ({
       const newVariable = interpret({ parseResult, ctx, skipExecute, variable: variableRef.current })
       // console.log('parseResult', parseResult, newVariable)
 
-      setCompletion({ completions, activeCompletion: completions[0], activeCompletionIndex: 0, kind: 'Completion' })
+      setCompletion({
+        completions,
+        activeCompletion: completions[0],
+        activeCompletionIndex: 0,
+        kind: 'Completion',
+        formulaType,
+        input: editorContentRef.current.input
+      })
       doUnselectedFormula()
 
       if (inputIsEmpty || parseResult.valid) {

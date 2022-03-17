@@ -26,7 +26,6 @@ import {
   variable2attrs,
   variableRenderText
 } from './convert'
-import { devWarning } from '@brickdoc/design-system'
 import { PositionFragment } from './core'
 import { fetchResult } from '../context'
 
