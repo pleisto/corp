@@ -201,11 +201,17 @@ Array [
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
     "task": Object {
-      "async": true,
+      "async": false,
       "execEndTime": null,
       "execStartTime": null,
       "uuid": null,
-      "variableValue": Promise {},
+      "variableValue": Object {
+        "result": Object {
+          "result": 123,
+          "type": "number",
+        },
+        "success": true,
+      },
     },
     "type": "normal",
     "valid": true,
@@ -691,11 +697,17 @@ Array [
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
     "task": Object {
-      "async": true,
+      "async": false,
       "execEndTime": null,
       "execStartTime": null,
       "uuid": null,
-      "variableValue": Promise {},
+      "variableValue": Object {
+        "result": Object {
+          "result": 123.3538469087908,
+          "type": "number",
+        },
+        "success": true,
+      },
     },
     "type": "normal",
     "valid": true,
@@ -1427,11 +1439,17 @@ Array [
     "name": "bar",
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "task": Object {
-      "async": true,
+      "async": false,
       "execEndTime": null,
       "execStartTime": null,
       "uuid": null,
-      "variableValue": Promise {},
+      "variableValue": Object {
+        "result": Object {
+          "result": 246.35384690879079,
+          "type": "number",
+        },
+        "success": true,
+      },
     },
     "type": "normal",
     "valid": true,
@@ -2568,7 +2586,7 @@ Array [
     "variableNameDependencies": Array [
       Object {
         "name": "foo",
-        "namespaceId": undefined,
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       },
     ],
     "version": 0,

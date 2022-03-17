@@ -526,9 +526,12 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Block') {
           const blockCodeFragment = codeFragments[codeFragments.length - 2]
           const namespaceId =
+            // eslint-disable-next-line no-nested-ternary
             blockCodeFragment?.display === 'CurrentBlock'
               ? this.ctx.meta.namespaceId
-              : (blockCodeFragment?.attrs?.id as string)
+              : blockCodeFragment?.code === 'UUID'
+              ? blockCodeFragment?.value
+              : blockCodeFragment?.attrs?.id ?? ''
           const variableName = parseString(rhsImage)
           const variable = this.ctx.formulaContext.findVariableByName(namespaceId, variableName)
 

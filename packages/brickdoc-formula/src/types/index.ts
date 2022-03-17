@@ -344,7 +344,7 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
-export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
+export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'

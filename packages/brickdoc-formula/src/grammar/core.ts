@@ -587,7 +587,7 @@ export const innerInterpret = async ({
   }
 }
 
-const generateTask = ({
+const generateTask = async ({
   variable,
   ctx,
   skipExecute,
@@ -599,21 +599,17 @@ const generateTask = ({
   skipExecute?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
-}): VariableTask => {
+}): Promise<VariableTask> => {
   const result = innerInterpretFirst({ parseResult, ctx })
-  const {
-    meta: { namespaceId, variableId }
-  } = ctx
-  const { effect } = parseResult
   // Fail fast
   if (result) {
-    return createVariableTask({ namespaceId, variableId, async: false, effect, variableValue: result })
+    return createVariableTask({ async: false, variableValue: result, ctx, parseResult })
   }
 
   // Non-async and cached
   if (!parseResult.async) {
     if (cachedVariableValue) {
-      return createVariableTask({ namespaceId, variableId, async: false, effect, variableValue: cachedVariableValue })
+      return createVariableTask({ async: false, variableValue: cachedVariableValue, ctx, parseResult })
     }
   }
 
@@ -630,11 +626,22 @@ const generateTask = ({
   }
 
   // Execute
-  const interpretResult = innerInterpret({ parseResult, ctx })
-  return createVariableTask({ namespaceId, variableId, async: true, effect, variableValue: interpretResult })
+  // 1. Non async
+  if (!parseResult.async) {
+    const interpretResult = await innerInterpret({ parseResult, ctx })
+    return createVariableTask({ async: parseResult.async, variableValue: interpretResult, ctx, parseResult })
+  }
+
+  // 2. Async
+  return createVariableTask({
+    async: parseResult.async,
+    variableValue: innerInterpret({ parseResult, ctx }),
+    ctx,
+    parseResult
+  })
 }
 
-export const interpret = ({
+export const interpret = async ({
   variable,
   ctx,
   skipExecute,
@@ -648,7 +655,7 @@ export const interpret = ({
   skipExecute?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
-}): VariableInterface => {
+}): Promise<VariableInterface> => {
   const {
     valid,
     cst,
@@ -668,7 +675,7 @@ export const interpret = ({
     formulaContext,
     meta: { name, input, namespaceId, variableId, type }
   } = ctx
-  const task = generateTask({ variable, ctx, skipExecute, cachedVariableValue, parseResult })
+  const task = await generateTask({ variable, ctx, skipExecute, cachedVariableValue, parseResult })
 
   const t: VariableData = {
     namespaceId,
@@ -728,11 +735,10 @@ const generateVariable = ({
   return newVariable
 }
 
-export const appendFormulas = (formulaContext: ContextInterface, formulas: BaseFormula[]): void => {
-  const dupFormulas = [...formulas]
-  dupFormulas.forEach(formula => {
+export const appendFormulas = async (formulaContext: ContextInterface, formulas: BaseFormula[]): Promise<void> => {
+  for (const formula of formulas) {
     const oldVariable = formulaContext.findVariableById(formula.blockId, formula.id)
-    const variable = castVariable(oldVariable, formulaContext, formula)
+    const variable = await castVariable(oldVariable, formulaContext, formula)
     variable.save()
-  })
+  }
 }

@@ -1,6 +1,7 @@
-import { NamespaceId, VariableId, VariableTask, VariableValue } from '../types'
+import { FunctionContext, VariableTask, VariableValue } from '../types'
 import { v4 as uuid } from 'uuid'
 import { BrickdocEventBus, FormulaTaskCompleted, FormulaTaskStarted } from '@brickdoc/schema'
+import { ParseResult } from '../grammar'
 
 type TaskInput = (
   | {
@@ -12,9 +13,8 @@ type TaskInput = (
       variableValue: Promise<VariableValue>
     }
 ) & {
-  effect: boolean
-  namespaceId: NamespaceId
-  variableId: VariableId
+  parseResult: ParseResult
+  ctx: FunctionContext
 }
 
 // interface Deferred {
@@ -48,9 +48,9 @@ type TaskInput = (
 export const createVariableTask = ({
   async,
   variableValue,
-  effect,
-  namespaceId,
-  variableId
+  ctx: {
+    meta: { namespaceId, variableId }
+  }
 }: TaskInput): VariableTask => {
   const now = new Date()
   if (!async) {

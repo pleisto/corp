@@ -2,9 +2,8 @@ import { appendFormulas, interpret, parse, SuccessParseResult } from '../../gram
 import { Formula, SyncVariableTask, VariableMetadata } from '../../types'
 import { FormulaContext } from '../context'
 
-describe('Context', () => {
   const formulaContext = new FormulaContext({ domain: 'test' })
-  appendFormulas(formulaContext, [])
+
   const interpretContext = { ctx: {}, arguments: [] }
 
   const fooVariableId = '1588aedf-06e1-47f1-9282-d2ffe865974c'
@@ -40,158 +39,161 @@ describe('Context', () => {
     }
   ]
 
-  appendFormulas(formulaContext, formulas)
-
-  it('reset', () => {
-    const reverseFunctionDependencies = formulaContext.reverseFunctionDependencies
-    const reverseVariableDependencies = formulaContext.reverseVariableDependencies
-
-    expect(Object.keys(formulaContext.context)).toMatchSnapshot()
-    expect(reverseFunctionDependencies).toMatchSnapshot()
-    expect(reverseVariableDependencies).toMatchSnapshot()
-    expect(formulaContext.variableCount()).toEqual(2)
-
-    formulaContext.resetFormula()
-
-    expect(formulaContext.reverseFunctionDependencies).toEqual({})
-    expect(formulaContext.reverseVariableDependencies).toEqual({})
-
-    appendFormulas(formulaContext, formulas)
-
-    expect(formulaContext.reverseFunctionDependencies).toEqual(reverseFunctionDependencies)
-    expect(formulaContext.reverseVariableDependencies).toEqual(reverseVariableDependencies)
-  })
-
-  it('findVariable', () => {
-    const foo = formulaContext.findVariableById(fooNamespaceId, fooVariableId)!
-    const bar = formulaContext.findVariableById(barNamespaceId, barVariableId)!
-
-    expect({
-      foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.variableNameDependencies]
-    }).toMatchSnapshot()
-    expect({
-      bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.variableNameDependencies]
-    }).toMatchSnapshot()
-  })
-
-  it('removeVariable', async () => {
-    await formulaContext.removeVariable(barNamespaceId, barVariableId)
-    expect(Object.keys(formulaContext.context)).toMatchSnapshot()
-    expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
-    expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
-
-    formulaContext.resetFormula()
-    appendFormulas(formulaContext, formulas)
-  })
-
-  it('unique name check', () => {
-    const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
-    const name = 'foo'
-    const input = '=123'
-    const meta: VariableMetadata = {
-      namespaceId: fooNamespaceId,
-      variableId: newFooVariableId,
-      name,
-      input,
-      position: 0,
-      type: 'normal'
-    }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
-    expect(parseResult.errorMessages).toEqual([{ message: 'Name exist in same namespace', type: 'name_unique' }])
-  })
-
-  it('reserved name check', () => {
-    const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
-    const name = 'if'
-    const input = '=123'
-    const meta: VariableMetadata = {
-      namespaceId: fooNamespaceId,
-      variableId: newFooVariableId,
-      name,
-      input,
-      position: 0,
-      type: 'normal'
-    }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
-    expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is reserved', type: 'name_check' }])
-  })
-
-  it('invalid name check', () => {
-    const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
-    const name = '1asd'
-    const input = '=123'
-    const meta: VariableMetadata = {
-      namespaceId: fooNamespaceId,
-      variableId: newFooVariableId,
-      name,
-      input,
-      position: 0,
-      type: 'normal'
-    }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
-    expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is not valid', type: 'name_invalid' }])
-  })
-
-  it('if', () => {
-    const input = `=IF((#${fooNamespaceId}.foo), 1, 2)`
-    const name = 'ifname'
-    const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
-    const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
-    const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
-
-    expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
-
-    const parseResult2 = parse({
-      ctx: {
-        formulaContext,
-        meta: { ...meta, input: `=IF((#${fooNamespaceId}.foo = 3), 1, 2)` },
-        interpretContext
-      }
+  describe('Context', () => {
+    beforeAll(async () => {
+      await appendFormulas(formulaContext, formulas)
     })
-    expect(parseResult2.errorMessages).toEqual([])
+
+    it('reset', async () => {
+      const reverseFunctionDependencies = formulaContext.reverseFunctionDependencies
+      const reverseVariableDependencies = formulaContext.reverseVariableDependencies
+
+      expect(Object.keys(formulaContext.context)).toMatchSnapshot()
+      expect(reverseFunctionDependencies).toMatchSnapshot()
+      expect(reverseVariableDependencies).toMatchSnapshot()
+      expect(formulaContext.variableCount()).toEqual(2)
+
+      formulaContext.resetFormula()
+
+      expect(formulaContext.reverseFunctionDependencies).toEqual({})
+      expect(formulaContext.reverseVariableDependencies).toEqual({})
+
+      await appendFormulas(formulaContext, formulas)
+
+      expect(formulaContext.reverseFunctionDependencies).toEqual(reverseFunctionDependencies)
+      expect(formulaContext.reverseVariableDependencies).toEqual(reverseVariableDependencies)
+    })
+
+    it('findVariable', () => {
+      const foo = formulaContext.findVariableById(fooNamespaceId, fooVariableId)!
+      const bar = formulaContext.findVariableById(barNamespaceId, barVariableId)!
+
+      expect({
+        foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.variableNameDependencies]
+      }).toMatchSnapshot()
+      expect({
+        bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.variableNameDependencies]
+      }).toMatchSnapshot()
+    })
+
+    it('removeVariable', async () => {
+      await formulaContext.removeVariable(barNamespaceId, barVariableId)
+      expect(Object.keys(formulaContext.context)).toMatchSnapshot()
+      expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
+      expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
+
+      formulaContext.resetFormula()
+      await appendFormulas(formulaContext, formulas)
+    })
+
+    it('unique name check', () => {
+      const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
+      const name = 'foo'
+      const input = '=123'
+      const meta: VariableMetadata = {
+        namespaceId: fooNamespaceId,
+        variableId: newFooVariableId,
+        name,
+        input,
+        position: 0,
+        type: 'normal'
+      }
+      const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+      expect(parseResult.errorMessages).toEqual([{ message: 'Name exist in same namespace', type: 'name_unique' }])
+    })
+
+    it('reserved name check', () => {
+      const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
+      const name = 'if'
+      const input = '=123'
+      const meta: VariableMetadata = {
+        namespaceId: fooNamespaceId,
+        variableId: newFooVariableId,
+        name,
+        input,
+        position: 0,
+        type: 'normal'
+      }
+      const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+      expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is reserved', type: 'name_check' }])
+    })
+
+    it('invalid name check', () => {
+      const newFooVariableId = '7fb702f9-8216-47de-a574-e6b8eede5bf5'
+      const name = '1asd'
+      const input = '=123'
+      const meta: VariableMetadata = {
+        namespaceId: fooNamespaceId,
+        variableId: newFooVariableId,
+        name,
+        input,
+        position: 0,
+        type: 'normal'
+      }
+      const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+      expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is not valid', type: 'name_invalid' }])
+    })
+
+    it('if', () => {
+      const input = `=IF((#${fooNamespaceId}.foo), 1, 2)`
+      const name = 'ifname'
+      const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
+      const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
+      const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
+      const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+
+      expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
+
+      const parseResult2 = parse({
+        ctx: {
+          formulaContext,
+          meta: { ...meta, input: `=IF((#${fooNamespaceId}.foo = 3), 1, 2)` },
+          interpretContext
+        }
+      })
+      expect(parseResult2.errorMessages).toEqual([])
+    })
+
+    it('commitVariable normal', async () => {
+      jest.useRealTimers()
+      const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
+      const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
+      const name = 'baz'
+      const input = `= #${fooNamespaceId}."foo"+#${barNamespaceId}."bar" `
+      const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
+      const parseInput = { ctx: { formulaContext, meta, interpretContext } }
+      const parseResult = parse(parseInput) as SuccessParseResult
+
+      expect(parseResult.success).toEqual(true)
+      const ctx = {
+        formulaContext,
+        meta,
+        interpretContext: { ctx: {}, arguments: [] }
+      }
+
+      const variable = await interpret({ ctx, parseResult })
+
+      formulaContext.commitVariable({ variable })
+
+      expect(formulaContext.variableCount()).toEqual(3)
+
+      await new Promise(resolve => setTimeout(resolve, 50))
+      const v = variable.t.task as SyncVariableTask
+
+      expect(v.variableValue.result.result).toEqual(366)
+
+      expect({ ...v, execStartTime: null, uuid: null, execEndTime: null }).toMatchSnapshot()
+      expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
+      expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
+
+      // Update
+      variable.t.name = 'bazNew'
+      formulaContext.commitVariable({ variable })
+
+      expect(formulaContext.variableCount()).toEqual(3)
+
+      formulaContext.resetFormula()
+      await appendFormulas(formulaContext, formulas)
+      jest.clearAllTimers()
+    })
   })
-
-  it('commitVariable normal', async () => {
-    jest.useRealTimers()
-    const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
-    const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
-    const name = 'baz'
-    const input = `= #${fooNamespaceId}."foo"+#${barNamespaceId}."bar" `
-    const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, type: 'normal' }
-    const parseInput = { ctx: { formulaContext, meta, interpretContext } }
-    const parseResult = parse(parseInput) as SuccessParseResult
-
-    expect(parseResult.success).toEqual(true)
-    const ctx = {
-      formulaContext,
-      meta,
-      interpretContext: { ctx: {}, arguments: [] }
-    }
-
-    const variable = interpret({ ctx, parseResult })
-
-    formulaContext.commitVariable({ variable })
-
-    expect(formulaContext.variableCount()).toEqual(3)
-
-    await new Promise(resolve => setTimeout(resolve, 50))
-    const v = variable.t.task as SyncVariableTask
-
-    expect(v.variableValue.result.result).toEqual(366)
-
-    expect({ ...v, execStartTime: null, uuid: null, execEndTime: null }).toMatchSnapshot()
-    expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
-    expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
-
-    // Update
-    variable.t.name = 'bazNew'
-    formulaContext.commitVariable({ variable })
-
-    expect(formulaContext.variableCount()).toEqual(3)
-
-    formulaContext.resetFormula()
-    appendFormulas(formulaContext, formulas)
-    jest.clearAllTimers()
-  })
-})

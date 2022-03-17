@@ -152,7 +152,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
     if (formulaContext && formulaIds.length) {
       void getFormulas(domain, formulaIds.join(',')).then(({ data, success }) => {
         if (!success) return
-        appendFormulas(formulaContext, data ?? [])
+        void appendFormulas(formulaContext, data ?? [])
       })
     }
 

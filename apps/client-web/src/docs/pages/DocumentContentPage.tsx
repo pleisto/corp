@@ -143,7 +143,7 @@ export const DocumentContentPage: React.FC = () => {
     })
     void getFormulas(domain).then(({ data, success }) => {
       if (!success) return
-      appendFormulas(formulaContext, data ?? [])
+      void appendFormulas(formulaContext, data ?? [])
     })
 
     FormulaContextVar(formulaContext)
