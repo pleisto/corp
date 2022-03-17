@@ -1,7 +1,6 @@
 import { PageList } from '@/components/sidebar/PageList'
 import { test, expect } from '@/fixtures/testFixtures'
 import { rem2Pixel } from '@/helpers/utils/rem2Pixel'
-import { SIDEBAR_SELECTORS } from '@/selectors/sidebar'
 
 test.describe('Page List', () => {
   let pageList: PageList
@@ -16,13 +15,13 @@ test.describe('Page List', () => {
     await pageList.removePage()
   })
 
-  test('Verify page can be added', async ({ page }) => {
-    await expect(page.locator(SIDEBAR_SELECTORS.mainActions.pageSection)).toContainText('Pages')
+  test('Verify page can be added', async () => {
+    await expect(pageList.getPageSectionTitle()).toContainText('Pages')
   })
 
   test('Verify action button is visible when hover page', async () => {
     await pageList.hover()
-    await expect(pageList.getMoreAction()).toBeVisible()
+    await expect(pageList.getMoreActionIcon()).toBeVisible()
     await expect(pageList.getAddSubPageButton()).toBeVisible()
   })
 
@@ -33,8 +32,7 @@ test.describe('Page List', () => {
   })
 
   test('Verify sub page can be added', async () => {
-    await pageList.hover()
     await pageList.addSubPage()
-    await expect(pageList.getSubPage()).toHaveCSS('width', rem2Pixel('1rem'))
+    await expect(pageList.getSubPage(1)).toHaveCSS('width', rem2Pixel('1rem'))
   })
 })
