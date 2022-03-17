@@ -1,4 +1,5 @@
 import { PageList } from '@/components/sidebar/PageList'
+import { PageTree } from '@/components/sidebar/PageTree'
 import { test, expect } from '@/fixtures/testFixtures'
 import { rem2Pixel } from '@/helpers/utils/rem2Pixel'
 
@@ -7,12 +8,10 @@ test.describe('Page List', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
+    const pageTree = new PageTree(page)
+    await pageTree.removeAllPages()
     pageList = new PageList(page)
     await pageList.addPage()
-  })
-
-  test.afterEach(async () => {
-    await pageList.removePage()
   })
 
   test('Verify page can be added', async () => {
@@ -27,8 +26,9 @@ test.describe('Page List', () => {
 
   test('Verify page can collapse when click arrow', async () => {
     await pageList.getArrow().click()
-    const arrowClass = await pageList.getArrow().getAttribute('class')
-    expect(arrowClass).not.toMatch(/.+-isOpen-true.*/g)
+    expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isOpen-true.*/g)
+    await pageList.getArrow().click()
+    expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isOpen-true.*/g)
   })
 
   test('Verify sub page can be added', async () => {

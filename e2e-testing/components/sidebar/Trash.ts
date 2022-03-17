@@ -10,5 +10,6 @@ export class Trash {
 
   async openTrashPage(): Promise<void> {
     await this.page.locator(SIDEBAR_SELECTORS.mainActions.trashButton).click()
+    await this.page.waitForTimeout(1000)
   }
 }
