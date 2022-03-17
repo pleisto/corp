@@ -322,7 +322,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       errorMessages: [],
       codeFragments: [
         {
-          code: 'other',
+          code: 'literal',
           value: input,
           type: 'any',
           renderText: undefined,
@@ -376,6 +376,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   returnValue.parseImage = image
 
   const parseErrors: IRecognitionException[] = parser.errors
+  let parseError = false
 
   if (lexErrors.length > 0 || parseErrors.length > 0) {
     const errorMessages = (lexErrors.length ? lexErrors : parseErrors).map(e => ({
@@ -389,7 +390,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       const restImages = inputImage.slice(image.length)
       if (restImages.length > 0) {
         codeFragments.push({
-          code: 'other',
+          code: 'parseErrorOther',
           value: restImages,
           type: 'any',
           renderText: undefined,
@@ -400,6 +401,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
         })
       }
     } else {
+      parseError = true
       devWarning(true, 'Parse Error', {
         input,
         tokens,
@@ -411,8 +413,26 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     }
   }
 
+  let parseCodeFragments = codeFragments
+  if (parseError) {
+    const restImages = newInput.slice(1)
+    parseCodeFragments = [
+      codeFragments[0],
+      {
+        code: 'parseErrorOther',
+        value: restImages,
+        type: 'any',
+        renderText: undefined,
+        hide: false,
+        display: restImages,
+        errors: finalErrorMessages,
+        attrs: undefined
+      }
+    ]
+  }
+
   const { finalCodeFragments: addSpaceCodeFragment, finalPositionFragment: addSpacePositionFragment } = addSpace(
-    codeFragments,
+    parseCodeFragments,
     newInput,
     positionFragment
   )
@@ -438,7 +458,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       ...returnValue,
       success: false,
       kind: 'unknown',
-      valid: finalErrorMessages[0].type !== 'parse' && codeFragments.length > 0,
+      valid: finalErrorMessages[0].type !== 'parse' && finalCodeFragments.length > 0,
       errorType: 'syntax',
       errorMessages: finalErrorMessages as [ErrorMessage, ...ErrorMessage[]]
     }

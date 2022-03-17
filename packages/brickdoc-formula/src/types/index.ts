@@ -340,7 +340,7 @@ export type SimpleCodeFragmentType =
   | 'NullLiteral'
   | 'Dot'
   | 'Equal'
-export type SpecialCodeFragmentType = 'unknown' | 'other' | 'Space'
+export type SpecialCodeFragmentType = 'unknown' | 'parseErrorOther' | 'Space' | 'literal'
 export type CodeFragmentCodes = ComplexCodeFragmentType | SimpleCodeFragmentType | SpecialCodeFragmentType
 
 interface BaseCompletion {
