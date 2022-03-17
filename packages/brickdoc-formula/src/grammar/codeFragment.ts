@@ -1414,7 +1414,7 @@ export const addSpace = (
   })
 
   if (error) {
-    devWarning(true, 'addSpaceError', { input, codeFragments, restInput, finalCodeFragments, image })
+    // devWarning(true, 'addSpaceError', { input, codeFragments, restInput, finalCodeFragments, image })
     // const errorMessage = `[Parse Error] ${input}`
     // return [
     //   {

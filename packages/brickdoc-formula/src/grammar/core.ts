@@ -408,14 +408,14 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       }
     } else {
       parseError = true
-      devWarning(true, 'Parse Error', {
-        input,
-        tokens,
-        codeFragments,
-        newInput,
-        inputImagesWithoutSpace: inputImage,
-        codeFragmentImage: image
-      })
+      // devWarning(true, 'Parse Error', {
+      //   input,
+      //   tokens,
+      //   codeFragments,
+      //   newInput,
+      //   inputImagesWithoutSpace: inputImage,
+      //   codeFragmentImage: image
+      // })
     }
   }
 
