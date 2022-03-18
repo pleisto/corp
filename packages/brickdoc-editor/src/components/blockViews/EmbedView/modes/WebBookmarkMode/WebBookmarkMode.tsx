@@ -24,9 +24,10 @@ export const WebBookmarkMode: React.FC<WebBookmarkModeProps> = ({
   return (
     <BlockContainer contentForCopy={linkUrl} deleteNode={deleteNode} getPos={getPos} actionOptions={['copy', 'delete']}>
       <Button
-        data-testid={TEST_ID_ENUM.editor.embedBlock.link.id}
+        data-test-id={TEST_ID_ENUM.editor.embedBlock.link.id}
         className="brickdoc-link-block-link"
-        onClick={() => window.open(linkUrl, '_blank')}>
+        onClick={() => window.open(linkUrl, '_blank')}
+      >
         {cover && <div className="link-block-cover" style={{ backgroundImage: `url("${cover}")` }} />}
         <div className="link-block-content">
           {title && <div className="link-block-title">{title}</div>}

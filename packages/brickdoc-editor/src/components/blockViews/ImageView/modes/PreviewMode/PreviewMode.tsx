@@ -81,14 +81,16 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
             updateImageAttributes({
               width: Math.min(Number(node.attrs.image?.width) + d.width, MAX_WIDTH)
             })
-          }}>
+          }}
+        >
           <ImagePreview
             wrapStyle={{ pointerEvents: 'none', width: '100%' }}
             overlayBgColorEnd="rgba(153, 153, 153, 0.4)"
             isZoomed={showPreview}
             onZoomChange={shouldZoom => {
               setShowPreview(shouldZoom)
-            }}>
+            }}
+          >
             {!loaded && (
               <Skeleton
                 uniqueKey={`image-block-skeleton-${node.attrs.uuid}`}
@@ -101,7 +103,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
               />
             )}
             <img
-              data-testid={TEST_ID_ENUM.editor.imageBlock.image.id}
+              data-test-id={TEST_ID_ENUM.editor.imageBlock.image.id}
               role="img"
               className={cx('brickdoc-block-image', { loading: !loaded })}
               src={url}
@@ -110,7 +112,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
             />
           </ImagePreview>
           <button
-            data-testid={TEST_ID_ENUM.editor.imageBlock.zoomInButton.id}
+            data-test-id={TEST_ID_ENUM.editor.imageBlock.zoomInButton.id}
             className="image-section-zoom-in-button"
             onDoubleClick={previewImage}
           />

@@ -52,7 +52,7 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
   })
 
   return (
-    <div data-testid={TEST_ID_ENUM.layout.header.PathBreadcrumb.id} className={className}>
+    <div data-test-id={TEST_ID_ENUM.layout.header.PathBreadcrumb.id} className={className}>
       {pathData}
     </div>
   )

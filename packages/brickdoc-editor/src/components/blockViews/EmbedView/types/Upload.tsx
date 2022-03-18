@@ -98,7 +98,7 @@ export const UploadTypeEmbedBlock: React.FC<UploadTypeEmbedBlockProps> = ({
   return (
     <BlockContainer actionOptions={['delete']} deleteNode={deleteNode} getPos={getPos}>
       <EmbedBlockPlaceholder
-        data-testid={TEST_ID_ENUM.editor.embedBlock.addButton.id}
+        data-test-id={TEST_ID_ENUM.editor.embedBlock.addButton.id}
         icon={<Icon.Upload />}
         label={t('embed_block.types.upload.label')}
         description={t('embed_block.types.upload.description')}

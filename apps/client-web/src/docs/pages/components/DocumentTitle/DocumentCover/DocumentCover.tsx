@@ -52,7 +52,7 @@ export const DocumentCover: React.FC<DocumentCoverProps> = ({
 
   return (
     <div
-      data-testid={TEST_ID_ENUM.page.DocumentPage.cover.id}
+      data-test-id={TEST_ID_ENUM.page.DocumentPage.cover.id}
       className={cx(styles.cover, { [styles.uncover]: !documentCoverMeta }, className)}
       style={style}
     >
@@ -62,7 +62,7 @@ export const DocumentCover: React.FC<DocumentCoverProps> = ({
             {documentCoverMeta && (
               <Popover {...popoverProps}>
                 <Button
-                  data-testid={TEST_ID_ENUM.page.DocumentPage.changeCoverButton.id}
+                  data-test-id={TEST_ID_ENUM.page.DocumentPage.changeCoverButton.id}
                   className={styles.button}
                   type="text"
                   disabled={!editable}

@@ -138,7 +138,7 @@ exports[`ImageView matches correct snapshot 1`] = `
         <img
           alt=""
           class="brickdoc-block-image loading"
-          data-testid="editor-image-block-image"
+          data-test-id="editor-image-block-image"
           role="img"
           src="https://images.unsplash.com/photo-1628189847457-b4607de7d222?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80"
         />
@@ -150,7 +150,7 @@ exports[`ImageView matches correct snapshot 1`] = `
       </div>
       <button
         class="image-section-zoom-in-button"
-        data-testid="editor-image-block-zoom-in-button"
+        data-test-id="editor-image-block-zoom-in-button"
       />
       <div>
         <div

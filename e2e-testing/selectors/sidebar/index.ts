@@ -3,8 +3,8 @@ import { COMMON_SELECTORS } from '../common'
 export const SIDEBAR_SELECTORS = {
   mainActions: {
     pageSection: '[data-test-id=page-tree-heading]',
-    pageList: '[data-testid="virtual-list"]',
-    addPageButton: 'button[data-testid="page-document-page-add-page-button"]',
+    pageList: '[data-test-id="virtual-list"]',
+    addPageButton: 'button[data-test-id="page-document-page-add-page-button"]',
     trashButton: '.mainActions nav button:has-text("Trash")',
     addSubPageButton: '[data-test-id=content-action] .brd-icon-add',
     moreActionIcon: '[data-test-id=content-action] .brd-icon-more',

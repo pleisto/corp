@@ -2320,12 +2320,12 @@ exports[`Dashboard Link matches correct snapshot 1`] = `
   >
     <input
       class="dashboard-link-panel-input"
-      data-testid="uploader-dashboard-modules-link-input"
+      data-test-id="uploader-dashboard-modules-link-input"
       placeholder="Placeholder"
     />
     <button
       class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-foEQdY-btnType-primary brd-c-dsuUsp-cAxcPy-size-md dashboard-panel-button"
-      data-testid="uploader-dashboard-modules-link-button"
+      data-test-id="uploader-dashboard-modules-link-button"
       role="button"
       tabindex="0"
       type="button"
@@ -2353,7 +2353,7 @@ exports[`Dashboard Upload matches correct snapshot 1`] = `
   >
     <button
       class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-eWWUXK-btnType-text brd-c-dsuUsp-cAxcPy-size-md uploader-dashboard-navbar-item active"
-      data-testid="uploader-dashboard-tabs-upload"
+      data-test-id="uploader-dashboard-tabs-upload"
       role="menuitem"
       tabindex="0"
       type="button"
@@ -2376,7 +2376,7 @@ exports[`Dashboard Upload matches correct snapshot 1`] = `
     />
     <button
       class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-foEQdY-btnType-primary brd-c-dsuUsp-cAxcPy-size-md dashboard-panel-button"
-      data-testid="uploader-dashboard-modules-upload-button"
+      data-test-id="uploader-dashboard-modules-upload-button"
       role="button"
       tabindex="0"
       type="button"

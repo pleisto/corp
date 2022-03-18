@@ -117,7 +117,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ editable, blocks }
                 <Popover {...coverPopoverProps}>
                   <Root.Item
                     as={Button}
-                    data-testid={TEST_ID_ENUM.page.DocumentPage.coverButton.id}
+                    data-test-id={TEST_ID_ENUM.page.DocumentPage.coverButton.id}
                     type="unstyled"
                     disabled={!editable}
                   >
@@ -146,7 +146,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ editable, blocks }
                 }
               }}
               defaultValue={title}
-              data-testid={TEST_ID_ENUM.page.DocumentPage.titleInput.id}
+              data-test-id={TEST_ID_ENUM.page.DocumentPage.titleInput.id}
               onCompositionStart={() => {
                 inputComposing.current = true
               }}
