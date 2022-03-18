@@ -11,7 +11,7 @@ const icons = new Proxy(
         return obj[key]
       }
       const name = `mock-icon-${key.toString()}`
-      return () => <i data-test-id={name} />
+      return () => <i data-testid={name} />
     }
   }
 )

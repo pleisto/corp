@@ -14,17 +14,17 @@ exports[`TocBlock matches correct snapshot 1`] = `
     >
       <div
         class="brd-c-lnjkAt"
-        data-test-id="editor-toc-block-item-id"
+        data-testid="editor-toc-block-item-id"
         role="menuitem"
       >
         <span
           class="brd-c-jXsEGA brd-c-jXsEGA-jJXOha-level-1"
-          data-test-id="editor-toc-block-item-title"
+          data-testid="editor-toc-block-item-title"
         >
           <span
             aria-label="arrow-fille-right"
             class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-            data-test-id="editor-toc-block-item-toggle-icon"
+            data-testid="editor-toc-block-item-toggle-icon"
             role="img"
           >
             <svg
@@ -43,21 +43,21 @@ exports[`TocBlock matches correct snapshot 1`] = `
         </span>
         <div
           class="brd-c-iIBnpv"
-          data-test-id="editor-toc-block-item-content-panel"
+          data-testid="editor-toc-block-item-content-panel"
         >
           <div
             class="brd-c-lnjkAt"
-            data-test-id="editor-toc-block-item-id"
+            data-testid="editor-toc-block-item-id"
             role="menuitem"
           >
             <span
               class="brd-c-jXsEGA brd-c-jXsEGA-ccDUaf-level-2"
-              data-test-id="editor-toc-block-item-title"
+              data-testid="editor-toc-block-item-title"
             >
               <span
                 aria-label="arrow-fille-right"
                 class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-                data-test-id="editor-toc-block-item-toggle-icon"
+                data-testid="editor-toc-block-item-toggle-icon"
                 role="img"
               >
                 <svg
@@ -76,22 +76,22 @@ exports[`TocBlock matches correct snapshot 1`] = `
             </span>
             <div
               class="brd-c-iIBnpv"
-              data-test-id="editor-toc-block-item-content-panel"
+              data-testid="editor-toc-block-item-content-panel"
             >
               <div
                 class="brd-c-lnjkAt"
-                data-test-id="editor-toc-block-item-id"
+                data-testid="editor-toc-block-item-id"
                 role="menuitem"
               >
                 <span
                   class="brd-c-jXsEGA brd-c-jXsEGA-glOmSq-level-5"
-                  data-test-id="editor-toc-block-item-title"
+                  data-testid="editor-toc-block-item-title"
                 >
                   h5\`
                 </span>
                 <div
                   class="brd-c-iIBnpv"
-                  data-test-id="editor-toc-block-item-content-panel"
+                  data-testid="editor-toc-block-item-content-panel"
                 />
               </div>
             </div>
@@ -100,17 +100,17 @@ exports[`TocBlock matches correct snapshot 1`] = `
       </div>
       <div
         class="brd-c-lnjkAt"
-        data-test-id="editor-toc-block-item-id"
+        data-testid="editor-toc-block-item-id"
         role="menuitem"
       >
         <span
           class="brd-c-jXsEGA brd-c-jXsEGA-jJXOha-level-1"
-          data-test-id="editor-toc-block-item-title"
+          data-testid="editor-toc-block-item-title"
         >
           <span
             aria-label="arrow-fille-right"
             class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-            data-test-id="editor-toc-block-item-toggle-icon"
+            data-testid="editor-toc-block-item-toggle-icon"
             role="img"
           >
             <svg
@@ -129,21 +129,21 @@ exports[`TocBlock matches correct snapshot 1`] = `
         </span>
         <div
           class="brd-c-iIBnpv"
-          data-test-id="editor-toc-block-item-content-panel"
+          data-testid="editor-toc-block-item-content-panel"
         >
           <div
             class="brd-c-lnjkAt"
-            data-test-id="editor-toc-block-item-id"
+            data-testid="editor-toc-block-item-id"
             role="menuitem"
           >
             <span
               class="brd-c-jXsEGA brd-c-jXsEGA-jpNsBQ-level-3"
-              data-test-id="editor-toc-block-item-title"
+              data-testid="editor-toc-block-item-title"
             >
               <span
                 aria-label="arrow-fille-right"
                 class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-                data-test-id="editor-toc-block-item-toggle-icon"
+                data-testid="editor-toc-block-item-toggle-icon"
                 role="img"
               >
                 <svg
@@ -162,21 +162,21 @@ exports[`TocBlock matches correct snapshot 1`] = `
             </span>
             <div
               class="brd-c-iIBnpv"
-              data-test-id="editor-toc-block-item-content-panel"
+              data-testid="editor-toc-block-item-content-panel"
             >
               <div
                 class="brd-c-lnjkAt"
-                data-test-id="editor-toc-block-item-id"
+                data-testid="editor-toc-block-item-id"
                 role="menuitem"
               >
                 <span
                   class="brd-c-jXsEGA brd-c-jXsEGA-gsgpPJ-level-4"
-                  data-test-id="editor-toc-block-item-title"
+                  data-testid="editor-toc-block-item-title"
                 >
                   <span
                     aria-label="arrow-fille-right"
                     class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-                    data-test-id="editor-toc-block-item-toggle-icon"
+                    data-testid="editor-toc-block-item-toggle-icon"
                     role="img"
                   >
                     <svg
@@ -195,22 +195,22 @@ exports[`TocBlock matches correct snapshot 1`] = `
                 </span>
                 <div
                   class="brd-c-iIBnpv"
-                  data-test-id="editor-toc-block-item-content-panel"
+                  data-testid="editor-toc-block-item-content-panel"
                 >
                   <div
                     class="brd-c-lnjkAt"
-                    data-test-id="editor-toc-block-item-id"
+                    data-testid="editor-toc-block-item-id"
                     role="menuitem"
                   >
                     <span
                       class="brd-c-jXsEGA brd-c-jXsEGA-glOmSq-level-5"
-                      data-test-id="editor-toc-block-item-title"
+                      data-testid="editor-toc-block-item-title"
                     >
                       h5
                     </span>
                     <div
                       class="brd-c-iIBnpv"
-                      data-test-id="editor-toc-block-item-content-panel"
+                      data-testid="editor-toc-block-item-content-panel"
                     />
                   </div>
                 </div>
@@ -219,17 +219,17 @@ exports[`TocBlock matches correct snapshot 1`] = `
           </div>
           <div
             class="brd-c-lnjkAt"
-            data-test-id="editor-toc-block-item-id"
+            data-testid="editor-toc-block-item-id"
             role="menuitem"
           >
             <span
               class="brd-c-jXsEGA brd-c-jXsEGA-ccDUaf-level-2"
-              data-test-id="editor-toc-block-item-title"
+              data-testid="editor-toc-block-item-title"
             >
               <span
                 aria-label="arrow-fille-right"
                 class="brd-icon brd-icon-arrow-fille-right brd-c-bWGRiJ brd-c-bWGRiJ-gkDMCb-collapse-false"
-                data-test-id="editor-toc-block-item-toggle-icon"
+                data-testid="editor-toc-block-item-toggle-icon"
                 role="img"
               >
                 <svg
@@ -248,22 +248,22 @@ exports[`TocBlock matches correct snapshot 1`] = `
             </span>
             <div
               class="brd-c-iIBnpv"
-              data-test-id="editor-toc-block-item-content-panel"
+              data-testid="editor-toc-block-item-content-panel"
             >
               <div
                 class="brd-c-lnjkAt"
-                data-test-id="editor-toc-block-item-id"
+                data-testid="editor-toc-block-item-id"
                 role="menuitem"
               >
                 <span
                   class="brd-c-jXsEGA brd-c-jXsEGA-cvEtFL-level-text"
-                  data-test-id="editor-toc-block-item-title"
+                  data-testid="editor-toc-block-item-title"
                 >
                   anchor
                 </span>
                 <div
                   class="brd-c-iIBnpv"
-                  data-test-id="editor-toc-block-item-content-panel"
+                  data-testid="editor-toc-block-item-content-panel"
                 />
               </div>
             </div>
@@ -272,18 +272,18 @@ exports[`TocBlock matches correct snapshot 1`] = `
       </div>
       <div
         class="brd-c-lnjkAt"
-        data-test-id="editor-toc-block-item-id"
+        data-testid="editor-toc-block-item-id"
         role="menuitem"
       >
         <span
           class="brd-c-jXsEGA brd-c-jXsEGA-jJXOha-level-1"
-          data-test-id="editor-toc-block-item-title"
+          data-testid="editor-toc-block-item-title"
         >
           h1\`\`
         </span>
         <div
           class="brd-c-iIBnpv"
-          data-test-id="editor-toc-block-item-content-panel"
+          data-testid="editor-toc-block-item-content-panel"
         />
       </div>
     </div>

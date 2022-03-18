@@ -28,7 +28,7 @@ export const NewPage: React.FC<DocMetaProps> = ({ docMeta }) => {
 
   return (
     <Button
-      data-test-id={TEST_ID_ENUM.page.DocumentPage.addPageButton.id}
+      data-testid={TEST_ID_ENUM.page.DocumentPage.addPageButton.id}
       type="text"
       css={sidebarButtonStyles}
       onClick={onClick}

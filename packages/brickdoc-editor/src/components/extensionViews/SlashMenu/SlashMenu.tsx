@@ -71,7 +71,7 @@ export const SlashMenu: React.FC<SlashMenuProps> = ({ items, command }) => {
             <RecentGroup>
               {recent.map((item, index) => (
                 <RecentItem
-                  data-test-id={TEST_ID_ENUM.editor.slashCommands.item.id}
+                  data-testid={TEST_ID_ENUM.editor.slashCommands.item.id}
                   onMouseEnter={() => setActiveIndex(index)}
                   onAction={() => command(item)}
                   key={item.key}
@@ -88,7 +88,7 @@ export const SlashMenu: React.FC<SlashMenuProps> = ({ items, command }) => {
           <Menu.Group title={suggestionLabel} label={<SlashMenuGroupLabel>{suggestionLabel}</SlashMenuGroupLabel>}>
             {suggestion.map((item, index) => (
               <Menu.Item
-                data-test-id={TEST_ID_ENUM.editor.slashCommands.item.id}
+                data-testid={TEST_ID_ENUM.editor.slashCommands.item.id}
                 onMouseEnter={() => setActiveIndex(index)}
                 onAction={() => command(item)}
                 key={item.key}
@@ -117,7 +117,7 @@ export const SlashMenu: React.FC<SlashMenuProps> = ({ items, command }) => {
           >
             {type.map((item, index) => (
               <Menu.Item
-                data-test-id={TEST_ID_ENUM.editor.slashCommands.item.id}
+                data-testid={TEST_ID_ENUM.editor.slashCommands.item.id}
                 onMouseEnter={() => setActiveIndex(recent.length + index)}
                 onAction={() => command(item)}
                 key={item.key}

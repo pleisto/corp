@@ -161,22 +161,22 @@ export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
   }, [editor, tocNode.item.position])
 
   return (
-    <TocStyledItem role="menuitem" data-test-id={TEST_ID_ENUM.editor.tocBlock.item.id}>
+    <TocStyledItem role="menuitem" data-testid={TEST_ID_ENUM.editor.tocBlock.item.id}>
       <TocItemTitle
         level={tocNode.item.level}
         onClick={onItemClick}
-        data-test-id={TEST_ID_ENUM.editor.tocBlock.item.title.id}
+        data-testid={TEST_ID_ENUM.editor.tocBlock.item.title.id}
       >
         {tocNode.children.length > 0 && (
           <ToggleIcon
-            data-test-id={TEST_ID_ENUM.editor.tocBlock.item.toggleIcon.id}
+            data-testid={TEST_ID_ENUM.editor.tocBlock.item.toggleIcon.id}
             collapse={collapse}
             onClick={toggleCollapse}
           />
         )}
         {isEmpty(tocNode.item.content) ? t('blocks.toc.untitled') : tocNode.item.content}
       </TocItemTitle>
-      <TocItemContent data-test-id={TEST_ID_ENUM.editor.tocBlock.item.contentPanel.id} ref={contentRef}>
+      <TocItemContent data-testid={TEST_ID_ENUM.editor.tocBlock.item.contentPanel.id} ref={contentRef}>
         {tocNode.children.map((node, index) => (
           <TocNodePanel key={index} tocNode={node} />
         ))}

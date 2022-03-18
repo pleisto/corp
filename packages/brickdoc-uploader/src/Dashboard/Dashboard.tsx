@@ -98,7 +98,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ pluginId, uppy, importSour
             role="menuitem"
             key={source.type}
             className={cx('uploader-dashboard-navbar-item', { active: activeSource.type === source.type })}
-            data-test-id={IMPORT_SOURCE_TEST_ID[source.type as 'upload' | 'unsplash']}
+            data-testid={IMPORT_SOURCE_TEST_ID[source.type as 'upload' | 'unsplash']}
             onClick={handleNavbarItemClick(source)}
           >
             {source.typeLabel ?? IMPORT_SOURCE_LABEL[source.type]}

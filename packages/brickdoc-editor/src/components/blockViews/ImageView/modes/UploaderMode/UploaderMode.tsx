@@ -71,7 +71,7 @@ export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, ge
         <Button
           type="text"
           className="brickdoc-block-image-section"
-          data-test-id={TEST_ID_ENUM.editor.imageBlock.addButton.id}
+          data-testid={TEST_ID_ENUM.editor.imageBlock.addButton.id}
         >
           <div className="image-section-progressing" style={{ width: `${progress?.percentage ?? 0}%` }} />
           <Icon.Image className="image-section-icon" />

@@ -211,7 +211,7 @@ export const GalleryTypeEmbedBlock: React.FC<GalleryTypeEmbedBlockProps> = ({
         }
       >
         <EmbedBlockPlaceholder
-          data-test-id={TEST_ID_ENUM.editor.embedBlock.addButton.id}
+          data-testid={TEST_ID_ENUM.editor.embedBlock.addButton.id}
           icon={<Icon.Unsplash />}
           label={t('embed_block.types.gallery.label')}
           description={t('embed_block.types.gallery.description')}

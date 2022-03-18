@@ -6,7 +6,7 @@ exports[`Avatar AnonymousAvatar should match the snapshot 1`] = `
     class="brd-c-cdJFWN brd-c-cdJFWN-hECRKn-shape-circle brd-c-cdJFWN-kRzPmM-size-md brd-c-cdJFWN-euTbep-default-true brd-c-cdJFWN-iPJLV-css"
   >
     <i
-      data-test-id="mock-icon-User"
+      data-testid="mock-icon-User"
     />
   </span>
 </div>

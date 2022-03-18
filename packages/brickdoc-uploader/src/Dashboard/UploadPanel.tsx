@@ -102,7 +102,7 @@ export const UploadPanel: React.FC<UploadPanelProps> = ({ importSource, uppy, pl
         onChange={handleInputChange}
       />
       <Button
-        data-test-id={TEST_ID_ENUM.uploader.Dashboard.modules.upload.button.id}
+        data-testid={TEST_ID_ENUM.uploader.Dashboard.modules.upload.button.id}
         type="primary"
         onClick={handleChooseFile}
         className="dashboard-panel-button"

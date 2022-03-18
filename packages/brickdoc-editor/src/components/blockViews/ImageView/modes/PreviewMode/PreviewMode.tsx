@@ -103,7 +103,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
               />
             )}
             <img
-              data-test-id={TEST_ID_ENUM.editor.imageBlock.image.id}
+              data-testid={TEST_ID_ENUM.editor.imageBlock.image.id}
               role="img"
               className={cx('brickdoc-block-image', { loading: !loaded })}
               src={url}
@@ -112,7 +112,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
             />
           </ImagePreview>
           <button
-            data-test-id={TEST_ID_ENUM.editor.imageBlock.zoomInButton.id}
+            data-testid={TEST_ID_ENUM.editor.imageBlock.zoomInButton.id}
             className="image-section-zoom-in-button"
             onDoubleClick={previewImage}
           />

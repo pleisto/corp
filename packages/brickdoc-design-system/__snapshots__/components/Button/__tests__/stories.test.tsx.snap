@@ -25,7 +25,7 @@ exports[`Button rendering IconOnly should match the snapshot 1`] = `
     type="button"
   >
     <i
-      data-test-id="mock-icon-Add"
+      data-testid="mock-icon-Add"
     />
   </button>
 </div>
@@ -123,7 +123,7 @@ exports[`Button rendering WithEndIcon should match the snapshot 1`] = `
       Get started
     </span>
     <i
-      data-test-id="mock-icon-ArrowRight"
+      data-testid="mock-icon-ArrowRight"
     />
   </button>
 </div>
@@ -138,7 +138,7 @@ exports[`Button rendering WithStartIcon should match the snapshot 1`] = `
     type="button"
   >
     <i
-      data-test-id="mock-icon-Delete"
+      data-testid="mock-icon-Delete"
     />
     <span>
       Confirm to

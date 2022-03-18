@@ -26,14 +26,14 @@ export const LinkPanel: React.FC<LinkPanelProps> = ({ importSource, pluginOption
   return (
     <div className="uploader-dashboard-link-panel">
       <input
-        data-test-id={TEST_ID_ENUM.uploader.Dashboard.modules.link.input.id}
+        data-testid={TEST_ID_ENUM.uploader.Dashboard.modules.link.input.id}
         onChange={handleLinkInput}
         className="dashboard-link-panel-input"
         placeholder={importSource.linkInputPlaceholder}
       />
       <Button
         type="primary"
-        data-test-id={TEST_ID_ENUM.uploader.Dashboard.modules.link.button.id}
+        data-testid={TEST_ID_ENUM.uploader.Dashboard.modules.link.button.id}
         onClick={handleLinkSubmit}
         className="dashboard-panel-button"
       >

@@ -74,7 +74,7 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({
       getPos={getPos}
       actionOptions={actionOptions}
     >
-      <div data-test-id={TEST_ID_ENUM.editor.embedBlock.pdftron.id} className="brickdoc-pdftron-block">
+      <div data-testid={TEST_ID_ENUM.editor.embedBlock.pdftron.id} className="brickdoc-pdftron-block">
         {!documentReady && <Skeleton height={containerHeight} />}
         <PreviewContainer ref={viewer} ready={documentReady} />
         <div className="brickdoc-pdftron-info">

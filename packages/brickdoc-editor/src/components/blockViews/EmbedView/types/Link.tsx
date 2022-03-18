@@ -122,7 +122,7 @@ export const LinkTypeEmbedBlock: FC<LinkTypeEmbedBlockProps> = ({
               prefix={<Icon.Link />}
               placeholder={t('embed_block.types.link.panel.link.placeholder')}
               onPressEnter={handleSubmit}
-              data-test-id={TEST_ID_ENUM.editor.embedBlock.link.input.id}
+              data-testid={TEST_ID_ENUM.editor.embedBlock.link.input.id}
               value={url}
               onChange={handleLinkChange}
             />
@@ -131,7 +131,7 @@ export const LinkTypeEmbedBlock: FC<LinkTypeEmbedBlockProps> = ({
         placement="bottom"
       >
         <EmbedBlockPlaceholder
-          data-test-id={TEST_ID_ENUM.editor.embedBlock.addButton.id}
+          data-testid={TEST_ID_ENUM.editor.embedBlock.addButton.id}
           icon={<Icon.Link />}
           label={t('embed_block.types.link.label')}
           description={t('embed_block.types.link.description')}
