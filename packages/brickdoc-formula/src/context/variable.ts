@@ -277,7 +277,7 @@ export class VariableClass implements VariableInterface {
       name: this.t.name,
       version: this.t.version,
       type: this.t.type,
-      cacheValue: dumpValue(fetchResult(this.t))
+      cacheValue: dumpValue(fetchResult(this.t), this.t)
     }
   }
 

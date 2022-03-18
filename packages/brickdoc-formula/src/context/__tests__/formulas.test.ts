@@ -55,12 +55,12 @@ describe('appendFormulas', () => {
         name: 'foo',
         id: fooVariableId,
         blockId: fooNamespaceId,
-        definition: '= 123 + RAND()',
+        definition: '= 123 + 0.123',
         version: 0,
         type: 'normal',
         cacheValue: {
           type: 'number',
-          result: 123
+          result: 123.123
         }
       },
       {

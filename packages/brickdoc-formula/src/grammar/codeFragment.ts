@@ -60,6 +60,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   async: boolean = false
   pure: boolean = true
   effect: boolean = false
+  persist: boolean = true
 
   constructor({ ctx }: { ctx: FunctionContext }) {
     super()
@@ -552,6 +553,9 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
             }
             if (variable.t.isEffect) {
               this.effect = true
+            }
+            if (!variable.t.isPersist) {
+              this.persist = false
             }
             if (!variable.t.isPure) {
               this.pure = false
@@ -1226,6 +1230,9 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       }
       if (clause.effect) {
         this.effect = true
+      }
+      if (!clause.persist) {
+        this.persist = false
       }
       if (!clause.pure) {
         this.pure = false

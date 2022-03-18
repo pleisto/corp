@@ -13,7 +13,7 @@ import { useDocsI18n } from '../common/hooks'
 import { queryPageBlocks } from '../common/graphql'
 import { FormulaContextVar } from '../reactiveVars'
 import { validate as isValidUUID } from 'uuid'
-import { appendFormulas, BaseFunctionClause, FormulaContext, FormulaName } from '@brickdoc/formula'
+import { appendFormulas, FormulaContext, FormulaName } from '@brickdoc/formula'
 import Logo from '@/common/assets/logo_brickdoc.svg'
 import * as Root from './DocumentContentPage.style'
 import { useFormulaActions } from './hooks/useFormulaActions'
@@ -129,11 +129,11 @@ export const DocumentContentPage: React.FC = () => {
     }
   }, [data, docid, host, isAnonymous, loading, personalDomain, loginDomain, snapshotVersion, state, t, domain])
 
-  const { queryFormulas, commitFormula } = useFormulaActions()
+  const { queryFormulas, commitFormula, generateFormulaFunctionClauses } = useFormulaActions()
 
   React.useEffect(() => {
     const formulaNames: FormulaName[] = []
-    const functionClauses: Array<BaseFunctionClause<any>> = []
+    const functionClauses = generateFormulaFunctionClauses(docMeta)
     const formulaContext = new FormulaContext({
       domain: loginDomain,
       backendActions: { commit: commitFormula },

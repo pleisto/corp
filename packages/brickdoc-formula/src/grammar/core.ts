@@ -40,6 +40,7 @@ export interface BaseParseResult {
   async: boolean
   pure: boolean
   effect: boolean
+  persist: boolean
   input: string
   version: number
   position: number
@@ -298,6 +299,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     valid: true,
     async: false,
     effect: false,
+    persist: true,
     pure: true,
     cst: undefined,
     input,
@@ -368,6 +370,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   returnValue.expressionType = expressionType
   returnValue.async = codeFragmentVisitor.async
   returnValue.effect = codeFragmentVisitor.effect
+  returnValue.persist = codeFragmentVisitor.persist
   returnValue.pure = codeFragmentVisitor.pure
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
@@ -591,11 +594,9 @@ const generateTask = async ({
   variable,
   ctx,
   skipExecute,
-  cachedVariableValue,
   parseResult
 }: {
   variable?: VariableInterface
-  cachedVariableValue?: VariableValue
   skipExecute?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
@@ -604,13 +605,6 @@ const generateTask = async ({
   // Fail fast
   if (result) {
     return createVariableTask({ async: false, variableValue: result, ctx, parseResult })
-  }
-
-  // Non-async and cached
-  if (!parseResult.async) {
-    if (cachedVariableValue) {
-      return createVariableTask({ async: false, variableValue: cachedVariableValue, ctx, parseResult })
-    }
   }
 
   if (skipExecute && variable) {
@@ -624,6 +618,8 @@ const generateTask = async ({
       return variable.t.task
     }
   }
+
+  // TODO check isChanged
 
   // Execute
   // 1. Non async
@@ -645,13 +641,11 @@ export const interpret = async ({
   variable,
   ctx,
   skipExecute,
-  cachedVariableValue,
   isLoad,
   parseResult
 }: {
   isLoad?: boolean
   variable?: VariableInterface
-  cachedVariableValue?: VariableValue
   skipExecute?: boolean
   ctx: FunctionContext
   parseResult: ParseResult
@@ -664,6 +658,7 @@ export const interpret = async ({
     version,
     async,
     effect,
+    persist,
     pure,
     variableDependencies,
     variableNameDependencies,
@@ -675,7 +670,7 @@ export const interpret = async ({
     formulaContext,
     meta: { name, input, namespaceId, variableId, type }
   } = ctx
-  const task = await generateTask({ variable, ctx, skipExecute, cachedVariableValue, parseResult })
+  const task = await generateTask({ variable, ctx, skipExecute, parseResult })
 
   const t: VariableData = {
     namespaceId,
@@ -687,6 +682,7 @@ export const interpret = async ({
     isAsync: async,
     isEffect: effect,
     isPure: pure,
+    isPersist: persist,
     codeFragments,
     definition: input,
     valid,

@@ -26,6 +26,7 @@ export type FormulaType =
   | 'void'
   | 'Pending'
   | 'Waiting'
+  | 'NoPersist'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -63,6 +64,7 @@ export type SpecialDefaultVariableName =
   | 'slider'
   | 'pending'
   | 'waiting'
+  | 'noPersist'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -262,6 +264,11 @@ export interface WaitingResult extends BaseResult {
   type: 'Waiting'
 }
 
+export interface NoPersistResult extends BaseResult {
+  result: null
+  type: 'NoPersist'
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -307,6 +314,7 @@ export type AnyTypeResult =
   | ReferenceResult
   | PendingResult
   | WaitingResult
+  | NoPersistResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
@@ -533,6 +541,7 @@ export type BaseFunctionClause<T extends FormulaType> = {
   readonly name: FunctionNameType
   readonly pure: boolean
   readonly effect: boolean
+  readonly persist: boolean
   readonly feature?: Feature
   readonly lazy: boolean
   readonly acceptError: boolean
@@ -652,6 +661,7 @@ export interface VariableData {
   isAsync: boolean
   isEffect: boolean
   isPure: boolean
+  isPersist: boolean
   task: VariableTask
   kind: VariableKind
   type: FormulaSourceType
