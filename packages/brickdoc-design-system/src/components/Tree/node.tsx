@@ -6,21 +6,21 @@ import { Right } from '@brickdoc/design-icons'
 import { useMemoizedFn } from '../../hooks'
 import { useForwardedRef } from '../../hooks/useForwardedRef'
 
-import { MoveNode, Inserted, TNodeWithContext, TreeNodeRenderer } from './constants'
+import { NodeMovement, NodeRelativeSpot, InternalTreeNode, TreeNodeRenderer } from './constants'
 import { TreeRoot } from './style'
-import { calculateInsertionPlace } from './helpers'
+import { calculateRelativeSpot } from './helpers'
 
 export interface NodeProps {
-  treeData: TNodeWithContext
+  treeData: InternalTreeNode
   className?: string
   emptyNode?: string | ReactNode
-  onToggleExpansion: (node: TNodeWithContext) => void
-  onSelect?: (node: TNodeWithContext) => void
+  onToggleExpansion: (node: InternalTreeNode) => void
+  onSelect?: (node: InternalTreeNode) => void
   nodeRenderer?: TreeNodeRenderer
   selected?: boolean
   id: any
   index: number
-  moveNode: (item: MoveNode) => void
+  moveNode: (item: NodeMovement) => void
 }
 
 interface DragItem {
@@ -49,10 +49,9 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
   },
   _ref
 ) => {
-  const { icon = '', parentId, rootId, value, isExpanded, context } = treeData
-  const { hasChildren, indent } = context
+  const { icon = '', parentId, rootId, value, isExpanded, hasChildren, indent } = treeData
   const ref = useForwardedRef(_ref)
-  const [hoverInsertPos, setHoverInsertPos] = useState<Inserted | null>(null)
+  const [dropSpot, setDropSpot] = useState<NodeRelativeSpot | null>(null)
 
   const handleSelect = useMemoizedFn(_e => onSelect?.(treeData))
 
@@ -101,7 +100,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
       if (dragIndex === hoverIndex) return
 
-      setHoverInsertPos(calculateInsertionPlace(monitor.getClientOffset(), ref.current))
+      setDropSpot(calculateRelativeSpot(monitor.getClientOffset(), ref.current))
     },
     drop(item, monitor) {
       if (!ref.current) {
@@ -114,16 +113,16 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         return
       }
 
-      const position = calculateInsertionPlace(monitor.getClientOffset(), ref.current)
+      const dropSpot = calculateRelativeSpot(monitor.getClientOffset(), ref.current)
 
       // Time to actually perform the action
-      if (position) {
+      if (dropSpot) {
         moveNode?.({
           sourceIndex: dragIndex,
           sourceId: item.id,
           targetIndex: hoverIndex,
           targetId: value,
-          position
+          targetSpot: dropSpot
         })
       }
     }
@@ -131,18 +130,18 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
   const renderBorder = useMemo(() => {
     let css = {}
-    switch (hoverInsertPos) {
-      case Inserted.Top:
+    switch (dropSpot) {
+      case NodeRelativeSpot.Before:
         css = {
           borderTop: isOver && isOverCurrent ? '2px dashed blue' : 'none'
         }
         break
-      case Inserted.Child:
+      case NodeRelativeSpot.AsChild:
         css = {
           border: isOver && isOverCurrent ? '1px dashed blue' : 'none'
         }
         break
-      case Inserted.Bottom:
+      case NodeRelativeSpot.After:
         css = {
           borderBottom: isOver && isOverCurrent ? '2px dashed blue' : 'none'
         }
@@ -152,7 +151,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         break
     }
     return css
-  }, [isOver, isOverCurrent, hoverInsertPos])
+  }, [isOver, isOverCurrent, dropSpot])
 
   drag(drop(ref))
 

@@ -12,7 +12,7 @@ import deepEqual from 'fast-deep-equal'
 import List, { ListRef } from 'rc-virtual-list'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend, HTML5BackendOptions } from 'react-dnd-html5-backend'
-import type { TNode, MoveNode, TNodeWithContext, TreeNodeRenderer } from './constants'
+import type { TreeNode, NodeMovement, InternalTreeNode, TreeNodeRenderer } from './constants'
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
 import { useDeepMemo } from '../../hooks/useDeepMemo'
@@ -20,15 +20,15 @@ import { joinNodeIdsByPath } from './helpers'
 
 export interface TreeProps {
   height?: number
-  treeData: TNode[]
+  treeData: TreeNode[]
   initialSelectedId?: string
   className?: string
   treeNodeClassName?: string
   expandAll?: boolean
   expandOnSelect?: boolean
   draggable?: boolean
-  onDrop?: (attrs: MoveNode) => void
-  titleRender?: TreeNodeRenderer
+  onDrop?: (attrs: NodeMovement) => void
+  renderNode?: TreeNodeRenderer
   emptyNode?: string | ReactNode
 }
 
@@ -49,7 +49,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
     treeData: nextTreeData,
     expandAll,
     expandOnSelect,
-    titleRender,
+    renderNode,
     emptyNode,
     initialSelectedId,
     draggable,
@@ -66,14 +66,14 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
-    function collectAllChildren(node: TNode): TNode[] {
+    function collectAllChildren(node: TreeNode): TreeNode[] {
       const self = [node]
       return node.children
-        ? node.children.reduce<TNode[]>((acc, child) => [...acc, ...collectAllChildren(child)], self)
+        ? node.children.reduce<TreeNode[]>((acc, child) => [...acc, ...collectAllChildren(child)], self)
         : self
     }
     if (expandAll) {
-      const allNodes = treeData.reduce<TNode[]>((acc, node) => [...acc, ...collectAllChildren(node)], [])
+      const allNodes = treeData.reduce<TreeNode[]>((acc, node) => [...acc, ...collectAllChildren(node)], [])
       return allNodes.map(({ value }) => value)
     }
     const ids = treeData.filter(node => node.isExpanded).map(node => node.value) || []
@@ -87,17 +87,15 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId)
 
   const nodeList = useMemo(() => {
-    function flatten(node: TNode, indent: number, result: TNodeWithContext[]): void {
+    function flatten(node: TreeNode, indent: number, result: InternalTreeNode[]): void {
       const { children, value } = node
       const isExpanded = expandedIds.includes(value)
 
       result.push({
         ...node,
         isExpanded,
-        context: {
-          hasChildren: (children ?? []).length > 0,
-          indent: indent ?? 0
-        }
+        hasChildren: (children ?? []).length > 0,
+        indent: indent ?? 0
       })
 
       if (isExpanded && children) {
@@ -107,14 +105,14 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
       }
     }
 
-    const result: TNodeWithContext[] = []
+    const result: InternalTreeNode[] = []
     for (const node of treeData) {
       flatten(node, 0, result)
     }
     return result
   }, [treeData, expandedIds])
 
-  const handleSelectNode = useMemoizedFn((node: TNodeWithContext) => {
+  const handleSelectNode = useMemoizedFn((node: InternalTreeNode) => {
     setSelectedId(node.value)
     if (expandOnSelect && !node.isExpanded && node.value) {
       const nextExpandedIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
@@ -124,13 +122,13 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
     }
   })
 
-  const handleToggleExpansion = useMemoizedFn((node: TNode) => {
+  const handleToggleExpansion = useMemoizedFn((node: TreeNode) => {
     node.isExpanded
       ? setExpandedIds(i => i.filter(value => value !== node.value))
       : setExpandedIds(i => [...i, node.value])
   })
 
-  const moveNode = useMemoizedFn((item: MoveNode) => {
+  const moveNode = useMemoizedFn((item: NodeMovement) => {
     if (!draggable) return
     onDrop?.(item)
   })
@@ -144,14 +142,14 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   }, [])
 
   const finalHeight = height ?? Math.min(nodeList.length * NODE_HEIGHT, DEFAULT_HEIGHT)
-  const nodeRenderer = useMemo<TreeNodeRenderer>(() => titleRender ?? defaultNodeRenderer, [titleRender])
+  const nodeRenderer = useMemo<TreeNodeRenderer>(() => renderNode ?? defaultNodeRenderer, [renderNode])
 
   return (
     <div ref={handleDndAreaRef}>
       {/* make sure root area is mounted, then mount dnd area */}
       {html5Options?.rootElement && (
         <DndProvider backend={HTML5Backend} options={html5Options}>
-          <List<TNodeWithContext>
+          <List<InternalTreeNode>
             className={className}
             data={nodeList}
             data-test-id="virtual-list"
@@ -187,6 +185,6 @@ _TreeInternal.displayName = 'Tree'
 
 export { _TreeInternal as Tree }
 
-function defaultNodeRenderer(node: TNode): ReactNode {
+function defaultNodeRenderer(node: TreeNode): ReactNode {
   return <div>{node.title}</div>
 }

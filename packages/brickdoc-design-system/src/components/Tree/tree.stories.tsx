@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { ReactNode } from 'react'
 import { styled } from '../../themes'
-import { TNode, Tree } from '.'
+import { TreeNode, Tree } from '.'
 
-const demoData: TNode[] = [
+const demoData: TreeNode[] = [
   {
     key: 'sun',
     value: 'sun',
@@ -125,7 +125,7 @@ ExpandAllOnLoad.args = {
   expandAll: true
 }
 
-const renderNode = (node: TNode): ReactNode => {
+const renderNode = (node: TreeNode): ReactNode => {
   return <StyledNode>{node.title}</StyledNode>
 }
 const StyledNode = styled('div', {
@@ -139,5 +139,5 @@ const StyledNode = styled('div', {
 })
 export const RenderCustomNode = Template.bind({})
 RenderCustomNode.args = {
-  titleRender: renderNode
+  renderNode
 }

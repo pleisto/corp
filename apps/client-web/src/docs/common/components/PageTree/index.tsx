@@ -9,7 +9,17 @@ import {
   useGetBlockPinsQuery,
   GetPageBlocksQuery
 } from '@/BrickdocGraphQL'
-import { Tree, TreeProps, TNode, Inserted, css, styled, toast, useMemoizedFn, theme } from '@brickdoc/design-system'
+import {
+  Tree,
+  TreeProps,
+  TreeNode,
+  NodeRelativeSpot,
+  css,
+  styled,
+  toast,
+  useMemoizedFn,
+  theme
+} from '@brickdoc/design-system'
 import { array2Tree } from '@brickdoc/active-support'
 import { PageMenu } from '../PageMenu'
 import { SIZE_GAP } from '../../blocks'
@@ -99,7 +109,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
 
   //
   const onDrop: TreeProps['onDrop'] = async (attrs): Promise<void> => {
-    const { sourceId, targetId, position } = attrs
+    const { sourceId, targetId, targetSpot } = attrs
     setDraggable(false)
     let targetParentId: string | undefined | null, sort: number
     const pageBlocks = (dataPageBlocks ?? []) as Block[]
@@ -115,15 +125,15 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
       targetParentId = targetNode.parentId
     }
 
-    switch (position) {
-      case Inserted.Top:
+    switch (targetSpot) {
+      case NodeRelativeSpot.Before:
         sort = (targetNode?.sort ?? 0) - 1
         break
-      case Inserted.Child:
+      case NodeRelativeSpot.AsChild:
         targetParentId = targetId
         sort = Number(node.firstChildSort) - SIZE_GAP
         break
-      case Inserted.Bottom:
+      case NodeRelativeSpot.After:
         sort = Math.round(0.5 * (Number(targetNode?.sort ?? 0) + Number(targetNode?.nextSort ?? 0)))
         break
     }
@@ -231,10 +241,10 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
         // selectable={!docMeta.documentInfoLoading}
         initialSelectedId={docMeta.id}
         treeNodeClassName={mode === 'subPage' ? subPageModeNodeStyle() : ''}
-        treeData={treeData as unknown as TNode[]}
+        treeData={treeData as unknown as TreeNode[]}
         draggable={draggable && isDraggable}
         onDrop={onDrop}
-        titleRender={titleRender}
+        renderNode={titleRender}
       />
     )
   }

@@ -1,6 +1,9 @@
 import { ReactNode } from 'react'
 
-export interface TNode {
+/**
+ * A type that represents the data held by a tree node.
+ */
+export interface TreeNode {
   key: string
   value: string
   title: ReactNode | string
@@ -8,37 +11,39 @@ export interface TNode {
   rootId?: string
   icon?: string | null
   isExpanded?: boolean
-  children?: TNode[]
-}
-
-export type TNodeWithContext = TNode & {
-  context: NodeContext
+  children?: TreeNode[]
 }
 
 /**
- * Node context is a set of data that is
- * set internally by the tree component.
- * It is not required when passing node data
- * TO the tree, but is essential to build the
- * tree in a proper shape.
+ * The node data type used internally by the `Tree` component.
+ * It contains contextual information to form the tree.
  */
-export interface NodeContext {
+export type InternalTreeNode = TreeNode & {
   hasChildren: boolean
   indent: number
 }
 
-export enum Inserted {
-  Top,
-  Bottom,
-  Child
+/**
+ * The spots relative to a node.
+ */
+export enum NodeRelativeSpot {
+  Before,
+  After,
+  AsChild
 }
 
-export interface MoveNode {
+export interface NodeMovement {
+  /** The index of the moving node. */
   sourceIndex: number
+  /** The node's ID that is being moved. */
   sourceId: string
+  /** The index of the node being placed upon. */
   targetIndex: number
+  /** The node's ID upon which the moving node is placed. */
   targetId: string
-  position: Inserted
+  /** The relative position, to the target node,
+   * of where the moving node will be placed. */
+  targetSpot: NodeRelativeSpot
 }
 
-export type TreeNodeRenderer = (node: TNode) => ReactNode
+export type TreeNodeRenderer = (node: TreeNode) => ReactNode

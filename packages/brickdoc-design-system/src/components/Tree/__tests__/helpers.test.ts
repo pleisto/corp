@@ -1,8 +1,8 @@
-import { Inserted, type TNode } from '../constants'
-import { calculateInsertionPlace, joinNodeIdsByPath } from '../helpers'
+import { NodeRelativeSpot, type TreeNode } from '../constants'
+import { calculateRelativeSpot, joinNodeIdsByPath } from '../helpers'
 
 describe('joinNodeIdsByPath', () => {
-  const tree: TNode[] = [
+  const tree: TreeNode[] = [
     { key: 'a', value: 'a', title: 'a' },
     {
       key: 'b',
@@ -48,7 +48,7 @@ describe('joinNodeIdsByPath', () => {
   })
 })
 
-describe('calculateInsertionPlace', () => {
+describe('calculateRelativeSpot', () => {
   const targetNode = document.createElement('div')
   const nodeHeight = 34
   // The thresholds below match those in the function implementation.
@@ -74,23 +74,23 @@ describe('calculateInsertionPlace', () => {
     jest.restoreAllMocks()
   })
   it('should be above the target node if the point is in the upper part', () => {
-    const pos = calculateInsertionPlace({ x: 0, y: TOP_THRESHOLD }, targetNode)
-    expect(pos).toBe(Inserted.Top)
+    const pos = calculateRelativeSpot({ x: 0, y: TOP_THRESHOLD }, targetNode)
+    expect(pos).toBe(NodeRelativeSpot.Before)
   })
   it('should be below the target node if the point is in the lower part', () => {
-    const pos = calculateInsertionPlace({ x: 0, y: BOTTOM_THRESHOLD }, targetNode)
-    expect(pos).toBe(Inserted.Bottom)
+    const pos = calculateRelativeSpot({ x: 0, y: BOTTOM_THRESHOLD }, targetNode)
+    expect(pos).toBe(NodeRelativeSpot.After)
   })
   it('should be on the target node if the point is in-between the middle part', () => {
-    let pos = calculateInsertionPlace({ x: 0, y: TOP_THRESHOLD + 1 }, targetNode)
-    expect(pos).toBe(Inserted.Child)
-    pos = calculateInsertionPlace({ x: 0, y: BOTTOM_THRESHOLD - 1 }, targetNode)
-    expect(pos).toBe(Inserted.Child)
+    let pos = calculateRelativeSpot({ x: 0, y: TOP_THRESHOLD + 1 }, targetNode)
+    expect(pos).toBe(NodeRelativeSpot.AsChild)
+    pos = calculateRelativeSpot({ x: 0, y: BOTTOM_THRESHOLD - 1 }, targetNode)
+    expect(pos).toBe(NodeRelativeSpot.AsChild)
   })
   it('should return null if the point or the target node is empty', () => {
-    let pos = calculateInsertionPlace(null, targetNode)
+    let pos = calculateRelativeSpot(null, targetNode)
     expect(pos).toBeNull()
-    pos = calculateInsertionPlace({ x: 0, y: 0 }, null)
+    pos = calculateRelativeSpot({ x: 0, y: 0 }, null)
     expect(pos).toBeNull()
   })
 })
