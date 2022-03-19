@@ -18,7 +18,15 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void' | 'Pending'
+export type FormulaType =
+  | FormulaBasicType
+  | FormulaObjectType
+  | FormulaControlType
+  | 'any'
+  | 'void'
+  | 'Pending'
+  | 'Waiting'
+  | 'NoPersist'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -55,6 +63,8 @@ export type SpecialDefaultVariableName =
   | 'rate'
   | 'slider'
   | 'pending'
+  | 'waiting'
+  | 'noPersist'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -249,6 +259,16 @@ export interface PendingResult extends BaseResult {
   type: 'Pending'
 }
 
+export interface WaitingResult extends BaseResult {
+  result: string
+  type: 'Waiting'
+}
+
+export interface NoPersistResult extends BaseResult {
+  result: null
+  type: 'NoPersist'
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -293,6 +313,8 @@ export type AnyTypeResult =
   | CstResult
   | ReferenceResult
   | PendingResult
+  | WaitingResult
+  | NoPersistResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
@@ -305,6 +327,11 @@ export interface BaseFormula {
   cacheValue: BaseResult
   version: number
   type: string
+}
+
+export interface DeleteFormula {
+  blockId: uuid
+  id: uuid
 }
 
 export interface Formula extends BaseFormula {
@@ -325,7 +352,7 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
-export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
+export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'
@@ -335,7 +362,7 @@ export type SimpleCodeFragmentType =
   | 'NullLiteral'
   | 'Dot'
   | 'Equal'
-export type SpecialCodeFragmentType = 'unknown' | 'other' | 'Space'
+export type SpecialCodeFragmentType = 'unknown' | 'parseErrorOther' | 'Space' | 'literal'
 export type CodeFragmentCodes = ComplexCodeFragmentType | SimpleCodeFragmentType | SpecialCodeFragmentType
 
 interface BaseCompletion {
@@ -423,10 +450,14 @@ export interface SpreadsheetFormulaName extends BaseFormulaName {
 
 export type FormulaName = VariableFormulaName | BlockFormulaName | SpreadsheetFormulaName
 
+export interface DirtyFormulaInfo {
+  updatedAt: Date
+}
 export interface ContextInterface {
   features: string[]
   spreadsheets: Record<NamespaceId, SpreadsheetType>
   formulaNames: FormulaName[]
+  dirtyFormulas: Record<VariableKey, DirtyFormulaInfo>
   reservedNames: string[]
   reverseVariableDependencies: Record<VariableKey, VariableDependency[]>
   reverseFunctionDependencies: Record<FunctionKey, VariableDependency[]>
@@ -445,7 +476,7 @@ export interface ContextInterface {
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
-  commitVariable: ({ variable, skipCreate }: { variable: VariableInterface; skipCreate?: boolean }) => Promise<void>
+  commitVariable: ({ variable }: { variable: VariableInterface }) => void
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
   resetFormula: VoidFunction
@@ -509,7 +540,8 @@ type FunctionChain =
 export type BaseFunctionClause<T extends FormulaType> = {
   readonly name: FunctionNameType
   readonly pure: boolean
-  readonly effect: false
+  readonly effect: boolean
+  readonly persist: boolean
   readonly feature?: Feature
   readonly lazy: boolean
   readonly acceptError: boolean
@@ -597,27 +629,46 @@ export interface VariableDisplayData {
   definition: Definition
   result: AnyTypeResult
   kind: VariableKind
-  isAsync: boolean
   type: FormulaSourceType
   version: number
   meta: VariableMetadata
   display: string
 }
 
-export interface BaseVariableData {
-  definition: Definition
+export interface BaseVariableTask {
   async: boolean
-  isAsync: boolean
+  uuid: string
   execStartTime: Date
   execEndTime: Date | undefined
   variableValue: VariableValue | Promise<VariableValue>
+}
+
+export interface AsyncVariableTask extends BaseVariableTask {
+  async: true
+  execEndTime: undefined
+  variableValue: Promise<VariableValue>
+}
+
+export interface SyncVariableTask extends BaseVariableTask {
+  async: false
+  execEndTime: Date
+  variableValue: VariableValue
+}
+
+export type VariableTask = AsyncVariableTask | SyncVariableTask
+export interface VariableData {
+  definition: Definition
+  isAsync: boolean
+  isEffect: boolean
+  isPure: boolean
+  isPersist: boolean
+  task: VariableTask
   kind: VariableKind
   type: FormulaSourceType
   name: VariableName
   version: number
   namespaceId: NamespaceId
   variableId: VariableId
-  dirty: boolean
   valid: boolean
   cst?: CstNode
   codeFragments: CodeFragment[]
@@ -627,20 +678,6 @@ export interface BaseVariableData {
   blockDependencies: NamespaceId[]
   functionDependencies: Array<FunctionClause<FormulaType>>
 }
-
-export interface SyncVariableData extends BaseVariableData {
-  async: false
-  variableValue: VariableValue
-  execEndTime: Date
-}
-
-export interface AsyncVariableData extends BaseVariableData {
-  async: true
-  variableValue: Promise<VariableValue>
-  execEndTime: undefined
-}
-
-export type VariableData = SyncVariableData | AsyncVariableData
 export interface VariableMetadata {
   readonly namespaceId: NamespaceId
   readonly variableId: VariableId
@@ -650,36 +687,25 @@ export interface VariableMetadata {
   readonly type: FormulaSourceType
 }
 
-export interface VariableWaitPromiseState {
-  readonly uuid: uuid
-  readonly state: 'pending' | 'notifying' | 'resolved'
-}
-
 export interface VariableInterface {
   t: VariableData
-  latestWaitingPromiseState: VariableWaitPromiseState | undefined
+  savedT: VariableData | undefined
+  isNew: boolean
   formulaContext: ContextInterface
+
   buildFormula: () => Formula
-  clone: () => VariableInterface
   clearDependency: VoidFunction
   trackDependency: VoidFunction
-  destroy: () => Promise<void>
-  save: () => Promise<void>
-  reinterpret: () => Promise<void>
-  subscribePromise: VoidFunction
-  isDraft: () => boolean
+  trackDirty: VoidFunction
+  save: VoidFunction
   namespaceName: (pageId: NamespaceId) => string
-  updateDefinition: (definition: Definition) => Promise<void>
+  updateDefinition: (definition: Definition) => void
   meta: () => VariableMetadata
-  updateCst: (cst: CstNode, context: InterpretContext) => void
-  invokeBackendCommit: () => Promise<void>
-  afterUpdate: VoidFunction
-  interpret: (context: InterpretContext) => Promise<void>
+  onUpdate: (skipPersist?: boolean) => void
 }
 
 export interface BackendActions {
-  commit: (formula: Formula) => Promise<{ success: boolean }>
-  delete: (formula: Formula) => Promise<{ success: boolean }>
+  commit: (commitFormulas: Formula[], deleteFormulas: DeleteFormula[]) => Promise<{ success: boolean }>
 }
 
 export interface ErrorMessage {

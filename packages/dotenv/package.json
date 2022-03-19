@@ -7,14 +7,15 @@
   "module": "./src/index.ts",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "dotenv-expand": "^8.0.1"
+    "dotenv-expand": "^8.0.2"
   },
   "sideEffects": false,
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2"
   },
   "scripts": {
-    "lint": "TIMING=1 run -T eslint --ext ts,tsx src",
+    "lint": "yarn lint:eslint && yarn lint:type",
+    "lint:eslint": "TIMING=1 run -T eslint --ext ts,tsx src",
     "lint:fix": "TIMING=1 run -T eslint --ext ts,tsx src --fix",
     "lint:type": "run -T tsc"
   }

@@ -3,7 +3,6 @@
 exports[`appendFormulas constant 1`] = `
 Array [
   Object {
-    "async": false,
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
@@ -193,27 +192,33 @@ Array [
       "name": "startExpression",
     },
     "definition": "=123",
-    "dirty": false,
-    "execEndTime": null,
-    "execStartTime": null,
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "isAsync": false,
+    "isEffect": false,
+    "isPersist": true,
+    "isPure": true,
     "kind": "constant",
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "task": Object {
+      "async": false,
+      "execEndTime": null,
+      "execStartTime": null,
+      "uuid": null,
+      "variableValue": Object {
+        "result": Object {
+          "result": 123,
+          "type": "number",
+        },
+        "success": true,
+      },
+    },
     "type": "normal",
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableNameDependencies": Array [],
-    "variableValue": Object {
-      "result": Object {
-        "result": 123,
-        "type": "number",
-      },
-      "success": true,
-    },
     "version": 0,
   },
 ]
@@ -222,7 +227,6 @@ Array [
 exports[`appendFormulas expression 1`] = `
 Array [
   Object {
-    "async": false,
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
@@ -287,33 +291,13 @@ Array [
       },
       Object {
         "attrs": undefined,
-        "code": "Function",
-        "display": "RAND",
-        "errors": Array [],
-        "hide": false,
-        "renderText": undefined,
-        "type": "any",
-        "value": "RAND",
-      },
-      Object {
-        "attrs": undefined,
-        "code": "LParen",
-        "display": "(",
-        "errors": Array [],
-        "hide": false,
-        "renderText": undefined,
-        "type": "any",
-        "value": "(",
-      },
-      Object {
-        "attrs": undefined,
-        "code": "RParen",
-        "display": ")",
+        "code": "NumberLiteral",
+        "display": "0.123",
         "errors": Array [],
         "hide": false,
         "renderText": undefined,
         "type": "number",
-        "value": ")",
+        "value": "0.123",
       },
     ],
     "cst": Object {
@@ -495,74 +479,39 @@ Array [
                                                                           "simpleAtomicExpression": Array [
                                                                             Object {
                                                                               "children": Object {
-                                                                                "FunctionCall": Array [
+                                                                                "constantExpression": Array [
                                                                                   Object {
                                                                                     "children": Object {
-                                                                                      "FunctionName": Array [
+                                                                                      "NumberLiteralExpression": Array [
                                                                                         Object {
-                                                                                          "endColumn": 12,
-                                                                                          "endLine": 1,
-                                                                                          "endOffset": 11,
-                                                                                          "image": "RAND",
-                                                                                          "startColumn": 9,
-                                                                                          "startLine": 1,
-                                                                                          "startOffset": 8,
-                                                                                          "tokenType": Object {
-                                                                                            "CATEGORIES": Array [],
-                                                                                            "PATTERN": /\\[a-zA-Z_\\]\\(\\(\\?!\\[,"'\`&#@:!\\$%\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)\\.\\)\\*/,
-                                                                                            "categoryMatches": Array [],
-                                                                                            "categoryMatchesMap": Object {},
-                                                                                            "isParent": false,
-                                                                                            "name": "FunctionName",
-                                                                                            "tokenTypeIdx": 52,
+                                                                                          "children": Object {
+                                                                                            "NumberLiteral": Array [
+                                                                                              Object {
+                                                                                                "endColumn": 13,
+                                                                                                "endLine": 1,
+                                                                                                "endOffset": 12,
+                                                                                                "image": "0.123",
+                                                                                                "startColumn": 9,
+                                                                                                "startLine": 1,
+                                                                                                "startOffset": 8,
+                                                                                                "tokenType": Object {
+                                                                                                  "CATEGORIES": Array [],
+                                                                                                  "PATTERN": /\\[0-9\\]\\+\\[\\.\\]\\?\\[0-9\\]\\*\\(\\[eE\\]\\[\\+-\\]\\[0-9\\]\\+\\)\\?/,
+                                                                                                  "categoryMatches": Array [],
+                                                                                                  "categoryMatchesMap": Object {},
+                                                                                                  "isParent": false,
+                                                                                                  "name": "NumberLiteral",
+                                                                                                  "tokenTypeIdx": 44,
+                                                                                                },
+                                                                                                "tokenTypeIdx": 44,
+                                                                                              },
+                                                                                            ],
                                                                                           },
-                                                                                          "tokenTypeIdx": 52,
-                                                                                        },
-                                                                                      ],
-                                                                                      "LParen": Array [
-                                                                                        Object {
-                                                                                          "endColumn": 13,
-                                                                                          "endLine": 1,
-                                                                                          "endOffset": 12,
-                                                                                          "image": "(",
-                                                                                          "startColumn": 13,
-                                                                                          "startLine": 1,
-                                                                                          "startOffset": 12,
-                                                                                          "tokenType": Object {
-                                                                                            "CATEGORIES": Array [],
-                                                                                            "PATTERN": /\\\\\\(/,
-                                                                                            "categoryMatches": Array [],
-                                                                                            "categoryMatchesMap": Object {},
-                                                                                            "isParent": false,
-                                                                                            "name": "LParen",
-                                                                                            "tokenTypeIdx": 37,
-                                                                                          },
-                                                                                          "tokenTypeIdx": 37,
-                                                                                        },
-                                                                                      ],
-                                                                                      "RParen": Array [
-                                                                                        Object {
-                                                                                          "endColumn": 14,
-                                                                                          "endLine": 1,
-                                                                                          "endOffset": 13,
-                                                                                          "image": ")",
-                                                                                          "startColumn": 14,
-                                                                                          "startLine": 1,
-                                                                                          "startOffset": 13,
-                                                                                          "tokenType": Object {
-                                                                                            "CATEGORIES": Array [],
-                                                                                            "PATTERN": /\\\\\\)/,
-                                                                                            "categoryMatches": Array [],
-                                                                                            "categoryMatchesMap": Object {},
-                                                                                            "isParent": false,
-                                                                                            "name": "RParen",
-                                                                                            "tokenTypeIdx": 38,
-                                                                                          },
-                                                                                          "tokenTypeIdx": 38,
+                                                                                          "name": "NumberLiteralExpression",
                                                                                         },
                                                                                       ],
                                                                                     },
-                                                                                    "name": "FunctionCall",
+                                                                                    "name": "constantExpression",
                                                                                   },
                                                                                 ],
                                                                               },
@@ -616,100 +565,37 @@ Array [
       },
       "name": "startExpression",
     },
-    "definition": "= 123 + RAND()",
-    "dirty": false,
-    "execEndTime": null,
-    "execStartTime": null,
+    "definition": "= 123 + 0.123",
     "flattenVariableDependencies": Array [],
-    "functionDependencies": Array [
-      Object {
-        "acceptError": false,
-        "args": Array [],
-        "async": false,
-        "chain": false,
-        "description": "Returns a random number between 0 and 1.",
-        "effect": false,
-        "examples": Array [
-          Object {
-            "codeFragments": Array [
-              Object {
-                "attrs": undefined,
-                "code": "Equal",
-                "display": "=",
-                "errors": Array [],
-                "hide": false,
-                "renderText": undefined,
-                "type": "any",
-                "value": "=",
-              },
-              Object {
-                "attrs": undefined,
-                "code": "Function",
-                "display": "RAND",
-                "errors": Array [],
-                "hide": false,
-                "renderText": undefined,
-                "type": "any",
-                "value": "RAND",
-              },
-              Object {
-                "attrs": undefined,
-                "code": "LParen",
-                "display": "(",
-                "errors": Array [],
-                "hide": false,
-                "renderText": undefined,
-                "type": "any",
-                "value": "(",
-              },
-              Object {
-                "attrs": undefined,
-                "code": "RParen",
-                "display": ")",
-                "errors": Array [],
-                "hide": false,
-                "renderText": undefined,
-                "type": "number",
-                "value": ")",
-              },
-            ],
-            "input": "=RAND()",
-            "output": Object {
-              "result": 0.513,
-              "type": "number",
-            },
-          },
-        ],
-        "group": "core",
-        "key": "RAND",
-        "lazy": false,
-        "name": "RAND",
-        "pure": false,
-        "reference": [Function],
-        "returns": "number",
-        "testCases": Array [],
-      },
-    ],
+    "functionDependencies": Array [],
     "isAsync": false,
-    "kind": "expression",
+    "isEffect": false,
+    "isPersist": true,
+    "isPure": true,
+    "kind": "constant",
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "task": Object {
+      "async": false,
+      "execEndTime": null,
+      "execStartTime": null,
+      "uuid": null,
+      "variableValue": Object {
+        "result": Object {
+          "result": 123.123,
+          "type": "number",
+        },
+        "success": true,
+      },
+    },
     "type": "normal",
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     "variableNameDependencies": Array [],
-    "variableValue": Object {
-      "result": Object {
-        "result": 123,
-        "type": "number",
-      },
-      "success": true,
-    },
     "version": 0,
   },
   Object {
-    "async": false,
     "blockDependencies": Array [
       "d986e871-cb85-4bd5-b675-87307f60b882",
     ],
@@ -1318,9 +1204,6 @@ Array [
       "name": "startExpression",
     },
     "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882.foo",
-    "dirty": false,
-    "execEndTime": null,
-    "execStartTime": null,
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
@@ -1415,6 +1298,7 @@ Array [
         "key": "ABS",
         "lazy": false,
         "name": "ABS",
+        "persist": true,
         "pure": true,
         "reference": [Function],
         "returns": "number",
@@ -1429,9 +1313,25 @@ Array [
       },
     ],
     "isAsync": false,
+    "isEffect": false,
+    "isPersist": true,
+    "isPure": true,
     "kind": "expression",
     "name": "bar",
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+    "task": Object {
+      "async": false,
+      "execEndTime": null,
+      "execStartTime": null,
+      "uuid": null,
+      "variableValue": Object {
+        "result": Object {
+          "result": 246.123,
+          "type": "number",
+        },
+        "success": true,
+      },
+    },
     "type": "normal",
     "valid": true,
     "variableDependencies": Array [
@@ -1447,13 +1347,6 @@ Array [
         "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       },
     ],
-    "variableValue": Object {
-      "result": Object {
-        "result": 456,
-        "type": "number",
-      },
-      "success": true,
-    },
     "version": 0,
   },
 ]
@@ -1465,12 +1358,6 @@ Object {
     Object {
       "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
       "variableId": "475d9e73-e52a-42b3-8a95-477596812900",
-    },
-  ],
-  "RAND": Array [
-    Object {
-      "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
-      "variableId": "1588aedf-06e1-47f1-9282-d2ffe865974c",
     },
   ],
 }
@@ -1490,7 +1377,6 @@ Object {
 exports[`appendFormulas parse error 1`] = `
 Array [
   Object {
-    "async": false,
     "blockDependencies": Array [],
     "codeFragments": Array [
       Object {
@@ -1793,28 +1679,34 @@ Array [
       "recoveredNode": true,
     },
     "definition": "= 123 +",
-    "dirty": false,
-    "execEndTime": null,
-    "execStartTime": null,
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "isAsync": false,
+    "isEffect": false,
+    "isPersist": true,
+    "isPure": true,
     "kind": "unknown",
     "name": "foo",
     "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+    "task": Object {
+      "async": false,
+      "execEndTime": null,
+      "execStartTime": null,
+      "uuid": null,
+      "variableValue": Object {
+        "result": Object {
+          "errorKind": "syntax",
+          "result": "Missing right expression",
+          "type": "Error",
+        },
+        "success": false,
+      },
+    },
     "type": "normal",
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "variableNameDependencies": Array [],
-    "variableValue": Object {
-      "result": Object {
-        "errorKind": "syntax",
-        "result": "Missing right expression",
-        "type": "Error",
-      },
-      "success": false,
-    },
     "version": 0,
   },
 ]
@@ -1823,7 +1715,6 @@ Array [
 exports[`appendFormulas unmatched variable 1`] = `
 Array [
   Object {
-    "async": false,
     "blockDependencies": Array [
       "d986e871-cb85-4bd5-b675-87307f60b882",
     ],
@@ -2442,9 +2333,6 @@ Array [
       "name": "startExpression",
     },
     "definition": "=ABS(123) + #d986e871-cb85-4bd5-b675-87307f60b882.foo",
-    "dirty": false,
-    "execEndTime": null,
-    "execStartTime": null,
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [
       Object {
@@ -2534,6 +2422,7 @@ Array [
         "key": "ABS",
         "lazy": false,
         "name": "ABS",
+        "persist": true,
         "pure": true,
         "reference": [Function],
         "returns": "number",
@@ -2548,9 +2437,26 @@ Array [
       },
     ],
     "isAsync": false,
+    "isEffect": false,
+    "isPersist": true,
+    "isPure": true,
     "kind": "unknown",
     "name": "bar",
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
+    "task": Object {
+      "async": false,
+      "execEndTime": null,
+      "execStartTime": null,
+      "uuid": null,
+      "variableValue": Object {
+        "result": Object {
+          "errorKind": "deps",
+          "result": "Block not found: d986e871-cb85-4bd5-b675-87307f60b882",
+          "type": "Error",
+        },
+        "success": false,
+      },
+    },
     "type": "normal",
     "valid": true,
     "variableDependencies": Array [],
@@ -2558,17 +2464,9 @@ Array [
     "variableNameDependencies": Array [
       Object {
         "name": "foo",
-        "namespaceId": undefined,
+        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
       },
     ],
-    "variableValue": Object {
-      "result": Object {
-        "errorKind": "deps",
-        "result": "Block not found: d986e871-cb85-4bd5-b675-87307f60b882",
-        "type": "Error",
-      },
-      "success": false,
-    },
     "version": 0,
   },
 ]

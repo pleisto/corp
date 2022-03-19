@@ -55,7 +55,7 @@ export const maybeEncodeString = (str: string): [boolean, string] => {
 
 export const shouldReturnEarly = (result: AnyTypeResult | undefined): boolean => {
   if (!result) return false
-  if (['Error', 'Blank', 'Pending'].includes(result.type)) {
+  if (['Error', 'Blank', 'Pending', 'Waiting'].includes(result.type)) {
     return true
   }
 
@@ -64,6 +64,19 @@ export const shouldReturnEarly = (result: AnyTypeResult | undefined): boolean =>
 
 const encodeString = (str: string): string => {
   return `"${str}"`
+}
+
+export const truncateString = (str: string, length: number = 20): string => {
+  if (typeof str !== 'string') return str
+  if (str.length < length) return str
+  // console.log({ str })
+  return `${str.substring(0, length)}...`
+}
+
+export const truncateArray = (array: any[], length: number = 8): any[] => {
+  if (!Array.isArray(array)) return array
+  if (array.length < length) return array
+  return array.slice(0, length).concat(['...'])
 }
 
 export const extractSubType = (array: AnyTypeResult[]): FormulaType => {
@@ -99,7 +112,7 @@ export const intersectType = (
     return { errorMessages: [], newType: contextResultType }
   }
 
-  if (contextResultType === 'any' || contextResultType === 'Pending') {
+  if (['any', 'Pending', 'Waiting'].includes(contextResultType)) {
     return {
       errorMessages: [],
       newType: expectedArgumentType instanceof Array ? expectedArgumentType[0] : expectedArgumentType
@@ -177,4 +190,35 @@ export const attrsToColorType = ({ code, value }: CodeFragment): FormulaColorTyp
     default:
       return code as FormulaColorType
   }
+}
+
+export const castData = (data: any): AnyTypeResult => {
+  switch (typeof data) {
+    case 'string':
+      return { type: 'string', result: data }
+    case 'number':
+      return { type: 'number', result: data }
+    case 'boolean':
+      return { type: 'boolean', result: data }
+    case 'function':
+      // TODO function
+      return { type: 'null', result: null }
+    default:
+      break
+  }
+
+  if (data === null || data === undefined) return { type: 'null', result: null }
+
+  if (Array.isArray(data)) {
+    const result = data.map(e => castData(e))
+    return { type: 'Array', subType: extractSubType(result), result }
+  }
+
+  const object: object = data
+  const newObject: { [key: string]: AnyTypeResult } = {}
+  Object.entries(object).forEach(([k, v]) => {
+    newObject[k] = castData(v)
+  })
+
+  return { type: 'Record', result: newObject, subType: extractSubType(Object.values(newObject)) }
 }

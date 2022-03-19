@@ -25,6 +25,10 @@ export const toQrcode = (ctx: FunctionContext, { result }: StringResult): String
   return { type: 'string', result, view: { type: 'qrcode', attrs: {} } }
 }
 
+export const toBar = (ctx: FunctionContext, record: RecordResult): RecordResult => {
+  return { ...record, view: { type: 'bar', attrs: {} } }
+}
+
 export const toRecord = (ctx: FunctionContext, { type, result }: AnyTypeResult): RecordResult | ErrorResult => {
   if (!['Date'].includes(type)) {
     return { type: 'Error', result: 'Not support', errorKind: 'runtime' }
@@ -85,6 +89,7 @@ export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' 
     name: 'toNumber',
     async: false,
     lazy: false,
+    persist: true,
     acceptError: false,
     pure: true,
     effect: false,
@@ -109,6 +114,7 @@ export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' 
     name: 'toQrcode',
     async: false,
     lazy: false,
+    persist: true,
     acceptError: false,
     pure: true,
     effect: false,
@@ -129,10 +135,38 @@ export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' 
     reference: toQrcode
   },
   {
+    name: 'toBar',
+    async: false,
+    lazy: false,
+    persist: true,
+    acceptError: false,
+    pure: true,
+    effect: false,
+    description: 'Converts a record to a bar',
+    group: 'core',
+    args: [
+      {
+        name: 'record',
+        type: 'Record'
+      }
+    ],
+    examples: [
+      {
+        input: '=toBar({})',
+        output: { type: 'Record', result: {}, subType: 'string', view: { type: 'bar', attrs: {} } }
+      }
+    ],
+    returns: 'Record',
+    testCases: [],
+    chain: true,
+    reference: toBar
+  },
+  {
     name: 'toRecordArray',
     async: false,
-    pure: false,
+    pure: true,
     lazy: false,
+    persist: true,
     acceptError: false,
     effect: false,
     examples: [{ input: '=123', output: { type: 'Array', subType: 'void', result: [] } }],
@@ -152,8 +186,9 @@ export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' 
   {
     name: 'toArray',
     async: false,
-    pure: false,
+    pure: true,
     lazy: false,
+    persist: true,
     acceptError: false,
     effect: false,
     examples: [{ input: '=123', output: { type: 'Array', subType: 'void', result: [] } }],
@@ -174,6 +209,7 @@ export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' 
     name: 'toRecord',
     async: false,
     lazy: false,
+    persist: true,
     acceptError: false,
     pure: true,
     effect: false,

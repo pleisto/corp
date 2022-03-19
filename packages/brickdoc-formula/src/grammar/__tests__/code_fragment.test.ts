@@ -13,6 +13,7 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
     async: false,
     pure: true,
     lazy: false,
+    persist: true,
     acceptError: false,
     effect: false,
     args: [
@@ -37,6 +38,7 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
     name: 'FORTY_TWO',
     async: false,
     lazy: false,
+    persist: true,
     acceptError: false,
     pure: true,
     effect: false,
@@ -51,7 +53,7 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
   }
 ]
 
-const formulaContext = new FormulaContext({ functionClauses })
+const formulaContext = new FormulaContext({ domain: 'test', functionClauses })
 
 const meta: VariableMetadata = { namespaceId, variableId, name: 'foo', input: '=24', position: 0, type: 'normal' }
 

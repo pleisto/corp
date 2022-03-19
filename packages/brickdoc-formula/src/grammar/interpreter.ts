@@ -20,7 +20,6 @@ import {
 import { ColumnClass, Row, SpreadsheetType } from '../controls'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
-import { BaseCstVisitor } from './parser'
 import {
   Div,
   Equal2,
@@ -39,6 +38,7 @@ import {
   Caret
 } from './lexer'
 import { BlockClass } from '../controls/block'
+import { ParserInstance } from './parser'
 
 interface ExpressionArgument {
   readonly type: ExpressionType
@@ -47,7 +47,11 @@ interface ExpressionArgument {
   lazy?: boolean
   chainArgs?: any
 }
-export class FormulaInterpreter extends BaseCstVisitor {
+
+// const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor<ExpressionArgument, Promise<AnyTypeResult>>()
+const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor()
+
+export class FormulaInterpreter extends InterpretCstVisitor {
   ctx: FunctionContext
   lazy: boolean = false
 
@@ -508,16 +512,16 @@ export class FormulaInterpreter extends BaseCstVisitor {
         if (result.type === 'Block') {
           const name = key
           const variable = this.ctx.formulaContext.findVariableByName(result.result.id, name)
-          if (!variable) {
+          if (!variable || !variable.savedT) {
             result = { type: 'Error', result: `Variable "${name}" not found`, errorKind: 'runtime' }
             continue
           }
 
           // if (['constant', 'unknown'].includes(variable.t.kind)) {
-          if (variable.t.async) {
-            result = (await variable.t.variableValue).result
+          if (variable.savedT.task.async) {
+            result = (await variable.savedT.task.variableValue).result
           } else {
-            result = variable.t.variableValue.result
+            result = variable.savedT.task.variableValue.result
           }
           continue
 

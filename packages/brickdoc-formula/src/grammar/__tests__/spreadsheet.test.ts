@@ -1,7 +1,7 @@
 import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
 import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
-import { VariableMetadata } from '../..'
+import { VariableMetadata } from '../../types'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
@@ -55,7 +55,7 @@ const cells: Cell[] = [
 const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',
   ctx: {
-    formulaContext: new FormulaContext({})
+    formulaContext: new FormulaContext({ domain: 'test' })
   },
   dynamic: false,
   blockId: spreadsheetNamespaceId,
@@ -195,7 +195,7 @@ const testCases: TestCase[] = [
 ]
 
 describe('Spreadsheet Functions', () => {
-  const formulaContext = new FormulaContext({})
+  const formulaContext = new FormulaContext({ domain: 'test' })
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 

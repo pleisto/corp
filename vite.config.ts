@@ -19,7 +19,7 @@ export default defineConfig({
     VitePWA({
       injectRegister: 'script',
       manifest: {
-        name: 'BrickDoc',
+        name: 'Brickdoc',
         theme_color: '#ffffff',
         icons: [
           {
@@ -68,7 +68,9 @@ export default defineConfig({
           filename: './tmp/esm-bundle-stats.html'
         })
       : undefined,
-    ['cicd', 'test'].includes(process.env.RAILS_ENV ?? '') ? IstanbulPlugin({ forceBuildInstrument: true }) : undefined
+    process.env.COVERAGE || process.env.RAILS_ENV === 'test'
+      ? IstanbulPlugin({ forceBuildInstrument: true })
+      : undefined
   ],
   build: {
     chunkSizeWarningLimit: 1024,
