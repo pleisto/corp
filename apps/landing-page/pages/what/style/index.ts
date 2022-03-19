@@ -1,3 +1,2 @@
 /* eslint-disable import/first */
-
-export * from './nav.style'
+export * as Root from './nav.style'

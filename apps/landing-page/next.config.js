@@ -4,6 +4,9 @@ const withTM = require('next-transpile-modules')(transpiledPackages)
 
 module.exports = withTM({
   reactStrictMode: true,
+  experimental: {
+    outputStandalone: true
+  },
   webpack: config => {
     config.module.rules.push({
       test: /\.mp4|\.svg$/,

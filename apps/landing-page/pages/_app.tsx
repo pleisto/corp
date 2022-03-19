@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               body: {
                 background: '#fff'
               }
-            }) as string
+            }) as unknown as string
           }}
         />
       </Head>

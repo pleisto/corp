@@ -29,6 +29,7 @@
     "graphql": "bundle exec rails graphql:schema:dump && yarn workspace @brickdoc/client-web graphql-codegen --config codegen.yml",
     "cleanup": "rm -rf dist packages/*/dist apps/*/dist tools/*/dist public/esm-bundle junit-reports node_modules/.cache coverage .nyc_output test-results",
     "schema": "yarn workspace @brickdoc/schema",
+    "landing-page": "yarn workspace @brickdoc/landing-page",
     "design-system": "yarn workspace @brickdoc/design-system",
     "design-icons": "yarn workspace @brickdoc/design-icons",
     "editor": "yarn workspace @brickdoc/editor",
