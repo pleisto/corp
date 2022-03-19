@@ -240,6 +240,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/core@npm:^7.15.5":
+  version: 7.17.8
+  resolution: "@babel/core@npm:7.17.8"
+  dependencies:
+    "@ampproject/remapping": ^2.1.0
+    "@babel/code-frame": ^7.16.7
+    "@babel/generator": ^7.17.7
+    "@babel/helper-compilation-targets": ^7.17.7
+    "@babel/helper-module-transforms": ^7.17.7
+    "@babel/helpers": ^7.17.8
+    "@babel/parser": ^7.17.8
+    "@babel/template": ^7.16.7
+    "@babel/traverse": ^7.17.3
+    "@babel/types": ^7.17.0
+    convert-source-map: ^1.7.0
+    debug: ^4.1.0
+    gensync: ^1.0.0-beta.2
+    json5: ^2.1.2
+    semver: ^6.3.0
+  checksum: 0e686b1be444d25494424065238931f2b3df908bf072b72bab973acfd6d27a481fc280c9cd8a3c6fe2c46beee50e0d2307468d8b15b64dc4036f025e75f6609d
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.12.11, @babel/generator@npm:^7.12.5, @babel/generator@npm:^7.14.0, @babel/generator@npm:^7.16.8, @babel/generator@npm:^7.17.3, @babel/generator@npm:^7.17.7, @babel/generator@npm:^7.7.2":
   version: 7.17.7
   resolution: "@babel/generator@npm:7.17.7"
@@ -541,6 +564,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helpers@npm:^7.17.8":
+  version: 7.17.8
+  resolution: "@babel/helpers@npm:7.17.8"
+  dependencies:
+    "@babel/template": ^7.16.7
+    "@babel/traverse": ^7.17.3
+    "@babel/types": ^7.17.0
+  checksum: 463dad58119fefebf2d0201bfa53ec9607aa00356908895640fc07589747fb3c2e0dfee4019f3e8c9781e57c9aa5dff4c72ec8d1b031c4ed8349f90b6aefe99d
+  languageName: node
+  linkType: hard
+
 "@babel/highlight@npm:^7.16.7":
   version: 7.16.10
   resolution: "@babel/highlight@npm:7.16.10"
@@ -567,6 +601,15 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: d2612c2597838a605bcbe921fd2c7381b3ab75603c7907020df037c22a3d27f0507285da74553cd75f403300ca76642323ca2e72ba55cc4222d4a20b87505b0c
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.17.8":
+  version: 7.17.8
+  resolution: "@babel/parser@npm:7.17.8"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 1771808491982cc47baa888a997aef6b58308e3844c8c00f730f8fd97defe57d32cdbf46075cd49aaee310fa31f3d2c80a0d41b41a4ee0ff336ee09e2ff6c222
   languageName: node
   linkType: hard
 
@@ -2080,6 +2123,11 @@ __metadata:
     next-transpile-modules: ^9.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
+  peerDependencies:
+    i18next: ">=21.3.3"
+    react: ">=17.0.2"
+    react-dom: ">=17.0.2"
+    react-i18next: ">=11.12.0"
   languageName: unknown
   linkType: soft
 
@@ -10763,7 +10811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:7, commander@npm:^7.1.0":
+"commander@npm:7, commander@npm:^7.1.0, commander@npm:^7.2.0":
   version: 7.2.0
   resolution: "commander@npm:7.2.0"
   checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
@@ -10781,13 +10829,6 @@ __metadata:
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
   checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
-  languageName: node
-  linkType: hard
-
-"commander@npm:^7.1.0, commander@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "commander@npm:7.2.0"
-  checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
   languageName: node
   linkType: hard
 
