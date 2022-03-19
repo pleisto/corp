@@ -1,5 +1,5 @@
-import { type TNode } from '../constants'
-import { joinNodeIdsByPath } from '../helpers'
+import { Inserted, type TNode } from '../constants'
+import { calculateInsertionPlace, joinNodeIdsByPath } from '../helpers'
 
 describe('joinNodeIdsByPath', () => {
   const tree: TNode[] = [
@@ -45,5 +45,52 @@ describe('joinNodeIdsByPath', () => {
       const newList = joinNodeIdsByPath(tree, 'b.1', list)
       expect(newList).toBe(list)
     })
+  })
+})
+
+describe('calculateInsertionPlace', () => {
+  const targetNode = document.createElement('div')
+  const nodeHeight = 34
+  // The thresholds below match those in the function implementation.
+  // If tests fail, please check if the actual thresholds have been modified.
+  const TOP_THRESHOLD = nodeHeight / 2 - 10
+  const BOTTOM_THRESHOLD = nodeHeight / 2 + 10
+  beforeEach(() => {
+    jest.spyOn(global.HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
+      () =>
+        ({
+          x: 0,
+          y: 0,
+          width: 100,
+          height: 34,
+          left: 0,
+          right: 100,
+          top: 0,
+          bottom: 34
+        } as any)
+    )
+  })
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+  it('should be above the target node if the point is in the upper part', () => {
+    const pos = calculateInsertionPlace({ x: 0, y: TOP_THRESHOLD }, targetNode)
+    expect(pos).toBe(Inserted.Top)
+  })
+  it('should be below the target node if the point is in the lower part', () => {
+    const pos = calculateInsertionPlace({ x: 0, y: BOTTOM_THRESHOLD }, targetNode)
+    expect(pos).toBe(Inserted.Bottom)
+  })
+  it('should be on the target node if the point is in-between the middle part', () => {
+    let pos = calculateInsertionPlace({ x: 0, y: TOP_THRESHOLD + 1 }, targetNode)
+    expect(pos).toBe(Inserted.Child)
+    pos = calculateInsertionPlace({ x: 0, y: BOTTOM_THRESHOLD - 1 }, targetNode)
+    expect(pos).toBe(Inserted.Child)
+  })
+  it('should return null if the point or the target node is empty', () => {
+    let pos = calculateInsertionPlace(null, targetNode)
+    expect(pos).toBeNull()
+    pos = calculateInsertionPlace({ x: 0, y: 0 }, null)
+    expect(pos).toBeNull()
   })
 })

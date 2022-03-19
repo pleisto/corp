@@ -1,5 +1,5 @@
 import { MouseEvent, ReactNode, useMemo, useState, forwardRef, ForwardRefRenderFunction } from 'react'
-import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier } from 'dnd-core'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
@@ -8,6 +8,7 @@ import { useMemoizedFn } from '../../hooks'
 
 import { TreeRoot } from './style'
 import { useForwardedRef } from '../../hooks/useForwardedRef'
+import { calculateInsertionPlace } from './helpers'
 
 export interface NodeProps {
   treeData: TNodeWithContext
@@ -77,30 +78,6 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
     })
   })
 
-  const calculateInsertPosition = useMemoizedFn((monitor: DropTargetMonitor): Inserted | null => {
-    // Determine node's rectangle on screen
-    const nodeRect = ref.current?.getBoundingClientRect()
-    if (!nodeRect) return null
-    // Determine mouse position
-    const mouseY = monitor.getClientOffset()?.y
-    if (!mouseY) return null
-
-    // Get the y-pos of the rect's center
-    const nodeCenterY = (nodeRect.bottom - nodeRect.top) / 2
-    // Get the y-pos of mouse position in the rect's local coordinates
-    const localY = mouseY - nodeRect.top
-
-    const topThreshold = nodeCenterY - 10
-    const bottomThreshold = nodeCenterY + 10
-    if (localY <= topThreshold) {
-      return Inserted.Top
-    }
-    if (localY >= bottomThreshold) {
-      return Inserted.Bottom
-    }
-    return Inserted.Child
-  })
-
   const [{ handlerId, isOver, isOverCurrent }, drop] = useDrop<
     DragItem,
     void,
@@ -118,15 +95,15 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         isOverCurrent: monitor.isOver()
       }
     },
-    hover(item: DragItem, monitor: any) {
+    hover(item, monitor: any) {
       const dragIndex = item.index
       const hoverIndex = index
 
       if (dragIndex === hoverIndex) return
 
-      setHoverInsertPos(calculateInsertPosition(monitor))
+      setHoverInsertPos(calculateInsertionPlace(monitor.getClientOffset(), ref.current))
     },
-    drop(item: DragItem, monitor: any) {
+    drop(item, monitor) {
       if (!ref.current) {
         return
       }
@@ -137,9 +114,9 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         return
       }
 
-      const position = calculateInsertPosition(monitor)
-      // Time to actually perform the action
+      const position = calculateInsertionPlace(monitor.getClientOffset(), ref.current)
 
+      // Time to actually perform the action
       if (position) {
         moveNode?.({
           sourceIndex: dragIndex,
