@@ -19,9 +19,8 @@ exports[`Tree Basic should match the snapshot 1`] = `
           >
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T59"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -69,9 +68,8 @@ exports[`Tree Basic should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T61"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -114,9 +112,8 @@ exports[`Tree Basic should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T63"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -159,9 +156,8 @@ exports[`Tree Basic should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T65"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -203,9 +199,8 @@ exports[`Tree Basic should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T67"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -272,9 +267,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
           >
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T91"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -322,9 +316,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T93"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -367,9 +360,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T95"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -412,9 +404,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T97"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -456,9 +447,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T99"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -501,9 +491,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T101"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -545,9 +534,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T103"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -590,9 +578,8 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T105"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -660,9 +647,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
           >
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T69"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -710,9 +696,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T71"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -755,9 +740,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T73"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -800,9 +784,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-eMADfv-selected-true brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T75"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -844,9 +827,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T77"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -889,9 +871,8 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T79"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -958,9 +939,8 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
           >
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T81"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1008,9 +988,8 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T83"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1053,9 +1032,8 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T85"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1098,9 +1076,8 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T87"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1142,9 +1119,8 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T89"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1211,9 +1187,8 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
           >
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T107"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1263,9 +1238,8 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T109"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1310,9 +1284,8 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T111"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1357,9 +1330,8 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T113"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
@@ -1403,9 +1375,8 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             </div>
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
-              data-handler-id="T115"
+              data-handler-id="mock-id"
               data-test-id="BrkTree"
-              draggable="true"
               role="button"
               tabindex="0"
             >
