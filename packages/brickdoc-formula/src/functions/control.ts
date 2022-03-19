@@ -166,7 +166,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Spreadsheet',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -182,7 +183,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Button',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -208,8 +210,9 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'CInput',
       async: false,
-      pure: false,
+      pure: true,
       lazy: false,
+      persist: true,
       acceptError: false,
       effect: false,
       feature: FORMULA_FEATURE_CONTROL,
@@ -225,7 +228,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Switch',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,
@@ -251,7 +255,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Select',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,

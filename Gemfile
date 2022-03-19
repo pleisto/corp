@@ -22,8 +22,6 @@ gem 'second_level_cache', '~> 2.7'
 gem 'packwerk', '~> 2.0'
 gem 'paranoia', '~> 2.5', '>= 2.5.2'
 
-gem 'grpc', '~> 1.44.0.pre2'
-
 gem 'cloak-rb', '>= 0.1.0'
 gem 'lockbox', '>= 0.6.8'
 gem 'lograge', '~> 0.11.2'
@@ -31,14 +29,13 @@ gem 'logstop', '>= 0.2.8'
 gem 'accept_language', '>= 2.0.1'
 gem 'nokogiri', '>= 1.13.0'
 
-gem 'aws-sdk-s3', '~> 1', '>= 1.111.3'
 gem 'google-cloud-storage', '~> 1.36', '>= 1.36.1'
 gem 'google-cloud-kms', '~> 2.3'
 
 # Feature toggles
-gem 'flipper', '~> 0.23.1'
-gem 'flipper-active_record', '~> 0.23.1'
-gem 'flipper-active_support_cache_store', '~> 0.23.1'
+gem 'flipper', '~> 0.24.0'
+gem 'flipper-active_record', '~> 0.24.0'
+gem 'flipper-active_support_cache_store', '~> 0.24.0'
 
 gem 'default_value_for', github: 'brickdoc/default_value_for'
 
@@ -108,7 +105,6 @@ group :development do
   # vsocode ruby solargraph
   gem 'solargraph', require: false
 
-  gem 'grpc-tools', '~> 0.14.1.pre1', require: false
 end
 
 # Plugin dependencies

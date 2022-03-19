@@ -3,9 +3,9 @@ import { Formula } from '../../types'
 import { FormulaContext } from '../context'
 
 describe('appendFormulas', () => {
-  it('constant', () => {
+  it('constant', async () => {
     const formulaContext = new FormulaContext({ domain: 'test' })
-    appendFormulas(formulaContext, [])
+    await appendFormulas(formulaContext, [])
 
     expect(formulaContext.context).toEqual({})
 
@@ -27,21 +27,20 @@ describe('appendFormulas', () => {
       }
     ]
 
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
     const value = Object.values(formulaContext.context).map((v: any) => {
       const t = v.t
       return {
         ...t,
-        execStartTime: null,
-        execEndTime: null
+        task: { ...t.task, execStartTime: null, execEndTime: null, uuid: null }
       }
     })
     expect(value).toMatchSnapshot()
   })
 
-  it('expression', () => {
+  it('expression', async () => {
     const formulaContext = new FormulaContext({ domain: 'test' })
-    appendFormulas(formulaContext, [])
+    await appendFormulas(formulaContext, [])
 
     expect(formulaContext.context).toEqual({})
 
@@ -56,12 +55,12 @@ describe('appendFormulas', () => {
         name: 'foo',
         id: fooVariableId,
         blockId: fooNamespaceId,
-        definition: '= 123 + RAND()',
+        definition: '= 123 + 0.123',
         version: 0,
         type: 'normal',
         cacheValue: {
           type: 'number',
-          result: 123
+          result: 123.123
         }
       },
       {
@@ -78,13 +77,12 @@ describe('appendFormulas', () => {
       }
     ]
 
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
     const value = Object.values(formulaContext.context).map((v: any) => {
       const t = v.t
       return {
         ...t,
-        execStartTime: null,
-        execEndTime: null
+        task: { ...t.task, execStartTime: null, execEndTime: null, uuid: null }
       }
     })
     expect(value).toMatchSnapshot()
@@ -92,9 +90,9 @@ describe('appendFormulas', () => {
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
   })
 
-  it('unmatched variable', () => {
+  it('unmatched variable', async () => {
     const formulaContext = new FormulaContext({ domain: 'test' })
-    appendFormulas(formulaContext, [])
+    await appendFormulas(formulaContext, [])
 
     expect(formulaContext.context).toEqual({})
     // const fooVariableId = '1588aedf-06e1-47f1-9282-d2ffe865974c'
@@ -118,21 +116,20 @@ describe('appendFormulas', () => {
       }
     ]
 
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
     const value = Object.values(formulaContext.context).map((v: any) => {
       const t = v.t
       return {
         ...t,
-        execStartTime: null,
-        execEndTime: null
+        task: { ...t.task, execStartTime: null, execEndTime: null, uuid: null }
       }
     })
     expect(value).toMatchSnapshot()
   })
 
-  it('parse error', () => {
+  it('parse error', async () => {
     const formulaContext = new FormulaContext({ domain: 'test' })
-    appendFormulas(formulaContext, [])
+    await appendFormulas(formulaContext, [])
 
     expect(formulaContext.context).toEqual({})
 
@@ -154,13 +151,12 @@ describe('appendFormulas', () => {
       }
     ]
 
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
     const value = Object.values(formulaContext.context).map((v: any) => {
       const t = v.t
       return {
         ...t,
-        execStartTime: null,
-        execEndTime: null
+        task: { ...t.task, execStartTime: null, execEndTime: null, uuid: null }
       }
     })
     expect(value).toMatchSnapshot()

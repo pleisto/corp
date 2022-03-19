@@ -1,48 +1,50 @@
-import { appendFormulas, interpretSync, parse, SuccessParseResult } from '../../grammar/core'
-import { Formula, SyncVariableData, VariableMetadata } from '../../types'
+import { appendFormulas, interpret, parse, SuccessParseResult } from '../../grammar/core'
+import { Formula, SyncVariableTask, VariableMetadata } from '../../types'
 import { FormulaContext } from '../context'
 
-describe('Context', () => {
-  const formulaContext = new FormulaContext({ domain: 'test' })
-  appendFormulas(formulaContext, [])
-  const interpretContext = { ctx: {}, arguments: [] }
+const formulaContext = new FormulaContext({ domain: 'test' })
 
-  const fooVariableId = '1588aedf-06e1-47f1-9282-d2ffe865974c'
-  const fooNamespaceId = 'd986e871-cb85-4bd5-b675-87307f60b882'
+const interpretContext = { ctx: {}, arguments: [] }
 
-  const barVariableId = '475d9e73-e52a-42b3-8a95-477596812900'
-  const barNamespaceId = '615d7f74-dc97-4aae-8690-b6cba1072a6a'
+const fooVariableId = '1588aedf-06e1-47f1-9282-d2ffe865974c'
+const fooNamespaceId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
-  const formulas: Formula[] = [
-    {
-      name: 'foo',
-      id: fooVariableId,
-      blockId: fooNamespaceId,
-      definition: '=123',
-      version: 0,
-      type: 'normal',
-      cacheValue: {
-        type: 'number',
-        result: 123
-      }
-    },
-    {
-      name: 'bar',
-      id: barVariableId,
-      blockId: barNamespaceId,
-      definition: `=ABS(120) + #${fooNamespaceId}.foo`,
-      version: 0,
-      type: 'normal',
-      cacheValue: {
-        type: 'number',
-        result: 243
-      }
+const barVariableId = '475d9e73-e52a-42b3-8a95-477596812900'
+const barNamespaceId = '615d7f74-dc97-4aae-8690-b6cba1072a6a'
+
+const formulas: Formula[] = [
+  {
+    name: 'foo',
+    id: fooVariableId,
+    blockId: fooNamespaceId,
+    definition: '=123',
+    version: 0,
+    type: 'normal',
+    cacheValue: {
+      type: 'number',
+      result: 123
     }
-  ]
+  },
+  {
+    name: 'bar',
+    id: barVariableId,
+    blockId: barNamespaceId,
+    definition: `=ABS(120) + #${fooNamespaceId}.foo`,
+    version: 0,
+    type: 'normal',
+    cacheValue: {
+      type: 'number',
+      result: 243
+    }
+  }
+]
 
-  appendFormulas(formulaContext, formulas)
+describe('Context', () => {
+  beforeAll(async () => {
+    await appendFormulas(formulaContext, formulas)
+  })
 
-  it('reset', () => {
+  it('reset', async () => {
     const reverseFunctionDependencies = formulaContext.reverseFunctionDependencies
     const reverseVariableDependencies = formulaContext.reverseVariableDependencies
 
@@ -56,7 +58,7 @@ describe('Context', () => {
     expect(formulaContext.reverseFunctionDependencies).toEqual({})
     expect(formulaContext.reverseVariableDependencies).toEqual({})
 
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
 
     expect(formulaContext.reverseFunctionDependencies).toEqual(reverseFunctionDependencies)
     expect(formulaContext.reverseVariableDependencies).toEqual(reverseVariableDependencies)
@@ -81,7 +83,7 @@ describe('Context', () => {
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 
     formulaContext.resetFormula()
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
   })
 
   it('unique name check', () => {
@@ -153,6 +155,7 @@ describe('Context', () => {
   })
 
   it('commitVariable normal', async () => {
+    jest.useRealTimers()
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const name = 'baz'
@@ -168,17 +171,18 @@ describe('Context', () => {
       interpretContext: { ctx: {}, arguments: [] }
     }
 
-    const variable = await interpretSync({ ctx, parseResult })
+    const variable = await interpret({ ctx, parseResult })
 
     formulaContext.commitVariable({ variable })
 
     expect(formulaContext.variableCount()).toEqual(3)
 
-    const v = variable.t as SyncVariableData
+    await new Promise(resolve => setTimeout(resolve, 50))
+    const v = variable.t.task as SyncVariableTask
 
     expect(v.variableValue.result.result).toEqual(366)
 
-    expect({ ...v, execStartTime: null, execEndTime: null }).toMatchSnapshot()
+    expect({ ...v, execStartTime: null, uuid: null, execEndTime: null }).toMatchSnapshot()
     expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 
@@ -189,6 +193,7 @@ describe('Context', () => {
     expect(formulaContext.variableCount()).toEqual(3)
 
     formulaContext.resetFormula()
-    appendFormulas(formulaContext, formulas)
+    await appendFormulas(formulaContext, formulas)
+    jest.clearAllTimers()
   })
 })

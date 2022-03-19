@@ -9,36 +9,14 @@ import {
 } from '../controls'
 import { BlockClass } from '../controls/block'
 import { fetchResult } from './variable'
+import { truncateArray, truncateString } from '../grammar'
 
 const VARIABLE_VERSION = 0
-
-export const dumpDisplayResultForPersist = async (t: VariableData): Promise<VariableDisplayData> => {
-  const value = t.async ? await t.variableValue : t.variableValue
-
-  return {
-    definition: t.definition,
-    result: dumpValue(value.result) as AnyTypeResult,
-    type: t.type,
-    isAsync: t.isAsync,
-    kind: t.kind,
-    version: VARIABLE_VERSION,
-    display: displayValue(fetchResult(t), ''),
-    meta: {
-      namespaceId: t.namespaceId,
-      variableId: t.variableId,
-      name: t.name,
-      position: 0,
-      input: t.definition,
-      type: t.type
-    }
-  }
-}
 
 export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayData => {
   return {
     definition: t.definition,
     result: fetchResult(t),
-    isAsync: t.isAsync,
     type: t.type,
     kind: t.kind,
     version: VARIABLE_VERSION,
@@ -62,7 +40,7 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
       // return v.result ? '✓' : '✗'
       return String(v.result)
     case 'string':
-      return v.result
+      return truncateString(v.result)
     case 'Date':
       return v.result.toISOString()
     case 'Error':
@@ -76,11 +54,19 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result, pageId)}`
     case 'Record':
-      return `{ ${Object.entries(v.result)
-        .map(([key, value]) => `${key}: ${displayValue(value as AnyTypeResult, pageId)}`)
-        .join(', ')} }`
+      // eslint-disable-next-line no-case-declarations
+      const recordArray = Object.entries(v.result).map(
+        ([key, value]) => `${key}: ${displayValue(value as AnyTypeResult, pageId)}`
+      )
+      // eslint-disable-next-line no-case-declarations
+      const recordResult = truncateArray(recordArray).join(', ')
+      return `{ ${recordResult} }`
     case 'Array':
-      return `[${v.result.map((v: AnyTypeResult) => displayValue(v, pageId)).join(', ')}]`
+      // eslint-disable-next-line no-case-declarations
+      const arrayArray = v.result.map((v: AnyTypeResult) => displayValue(v, pageId))
+      // eslint-disable-next-line no-case-declarations
+      const arrayResult = truncateArray(arrayArray).join(', ')
+      return `[${arrayResult}]`
     case 'Button':
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':
@@ -108,7 +94,11 @@ export const loadDisplayResult = (ctx: FunctionContext, displayResult: VariableD
   return { ...displayResult, result: loadValue(ctx, displayResult.result) as any }
 }
 
-export const dumpValue = (result: BaseResult): BaseResult => {
+export const dumpValue = (result: BaseResult, t: VariableData): BaseResult => {
+  if (!t.isPersist) {
+    return { type: 'NoPersist', result: null }
+  }
+
   if (
     result.result instanceof ColumnClass ||
     result.result instanceof BlockClass ||

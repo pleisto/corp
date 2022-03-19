@@ -73,7 +73,7 @@ type ContextState = any
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|void|date|predicate|reference|spreadsheet|pending|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName> = {
   string: 'str',
   number: 'num',
@@ -90,6 +90,8 @@ export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName
   Button: 'button',
   Predicate: 'predicate',
   Pending: 'pending',
+  Waiting: 'waiting',
+  NoPersist: 'noPersist',
   Function: 'function',
   Reference: 'reference',
   null: 'null',
@@ -148,6 +150,8 @@ export class FormulaContext implements ContextInterface {
     Column: {},
     Block: {},
     Pending: {},
+    Waiting: {},
+    NoPersist: {},
     any: {}
   }
 
@@ -275,10 +279,14 @@ export class FormulaContext implements ContextInterface {
 
     const dynamicColumns: ColumnCompletion[] = completionVariables
       .filter(([key, v]) => {
-        return fetchResult(v.t).type === 'Spreadsheet' && (v.t.variableValue as any).result.result.dynamic
+        return (
+          fetchResult(v.t).type === 'Spreadsheet' &&
+          v.savedT &&
+          (v.savedT.task.variableValue as any).result.result.dynamic
+        )
       })
       .flatMap(([key, v]) => {
-        const result = (v.t.variableValue as VariableValue).result as SpreadsheetResult
+        const result = (v.savedT!.task.variableValue as VariableValue).result as SpreadsheetResult
         return result.result
           .listColumns()
           .map((column: ColumnInitializer) => column2completion(new ColumnClass(result.result, column), namespaceId))
@@ -376,6 +384,7 @@ export class FormulaContext implements ContextInterface {
     }
 
     variable.isNew = false
+    variable.savedT = variable.t
 
     // 2. replace variable object
     this.context[variableKey(namespaceId, variableId)] = variable
@@ -394,7 +403,7 @@ export class FormulaContext implements ContextInterface {
       )
     }
 
-    // 5. broadcast update
+    // 5. Persist
     variable.onUpdate()
   }
 
@@ -445,12 +454,9 @@ export class FormulaContext implements ContextInterface {
       }
     })
     if (commitFormulas.length > 0 || deleteFormulas.length > 0) {
-      // console.log('commit dirty', commitFormulas, deleteFormulas)
+      // console.log('commit dirty', commitFormulas, deleteFormulas, this.backendActions)
       await this.backendActions?.commit(commitFormulas, deleteFormulas)
     }
-    commitVariables.forEach(v => {
-      v.onCommitDirty()
-    })
     this.dirtyFormulas = {}
   }
 

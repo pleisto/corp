@@ -62,9 +62,16 @@ export const FormulaTickViaId = event<{
   return { id: `${namespaceId},${variableId}`, uuid, variableId, namespaceId }
 })
 
-
 export const FormulaUpdatedViaId = event<any>()('FormulaUpdatedViaId', v => {
   return { id: `${v.t.namespaceId},${v.t.variableId}` }
+})
+
+export const FormulaTaskStarted = event<any>()('FormulaTaskStarted', v => {
+  return { id: `${v.namespaceId},${v.variableId}` }
+})
+
+export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
+  return { id: `${v.namespaceId},${v.variableId}` }
 })
 
 export const FormulaUpdatedViaName = event<any>()('FormulaUpdatedViaName', v => {
@@ -131,9 +138,9 @@ export const FormulaEditorReplaceRootTrigger = event<{
 export const FormulaCalculateTrigger = event<{
   rootId: string
   formulaId: string
-  skipAsync: boolean
-}>()('FormulaCalculateTrigger', ({ formulaId, rootId, skipAsync }) => {
-  return { id: `${rootId},${formulaId}`, formulaId, rootId, skipAsync }
+  skipExecute: boolean
+}>()('FormulaCalculateTrigger', ({ formulaId, rootId, skipExecute }) => {
+  return { id: `${rootId},${formulaId}`, formulaId, rootId, skipExecute }
 })
 
 export const FormulaContextTickTrigger = event<{ domain: string; state: any }>()(
