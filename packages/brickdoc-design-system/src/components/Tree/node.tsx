@@ -3,11 +3,11 @@ import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier } from 'dnd-core'
 import { rem } from 'polished'
 import { Right } from '@brickdoc/design-icons'
-import { MoveNode, Inserted, TNodeWithContext } from './constants'
 import { useMemoizedFn } from '../../hooks'
-
-import { TreeRoot } from './style'
 import { useForwardedRef } from '../../hooks/useForwardedRef'
+
+import { MoveNode, Inserted, TNodeWithContext, TreeNodeRenderer } from './constants'
+import { TreeRoot } from './style'
 import { calculateInsertionPlace } from './helpers'
 
 export interface NodeProps {
@@ -16,7 +16,7 @@ export interface NodeProps {
   emptyNode?: string | ReactNode
   onToggleExpansion: (node: TNodeWithContext) => void
   onSelect?: (node: TNodeWithContext) => void
-  titleRender?: (node: TNodeWithContext) => ReactNode
+  nodeRenderer?: TreeNodeRenderer
   selected?: boolean
   id: any
   index: number
@@ -40,7 +40,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
     className,
     onToggleExpansion: onToggleExpand,
     onSelect,
-    titleRender,
+    nodeRenderer,
     selected,
     emptyNode,
     id,
@@ -198,7 +198,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
               )}
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               {/* Todo: fixed TS2769: No overload matches this call. pressProps.css */}
-              <TreeRoot.ContentAction data-test-id="content-action">{titleRender?.(treeData)}</TreeRoot.ContentAction>
+              <TreeRoot.ContentAction data-test-id="content-action">{nodeRenderer?.(treeData)}</TreeRoot.ContentAction>
             </TreeRoot.Content>
           </TreeRoot.ItemContent>
         </TreeRoot.PageItem>

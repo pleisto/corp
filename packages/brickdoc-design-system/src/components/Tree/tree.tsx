@@ -12,7 +12,7 @@ import deepEqual from 'fast-deep-equal'
 import List, { ListRef } from 'rc-virtual-list'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend, HTML5BackendOptions } from 'react-dnd-html5-backend'
-import type { TNode, MoveNode, TNodeWithContext } from './constants'
+import type { TNode, MoveNode, TNodeWithContext, TreeNodeRenderer } from './constants'
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
 import { useDeepMemo } from '../../hooks/useDeepMemo'
@@ -28,7 +28,7 @@ export interface TreeProps {
   expandOnSelect?: boolean
   draggable?: boolean
   onDrop?: (attrs: MoveNode) => void
-  titleRender?: (node: TNode) => ReactNode
+  titleRender?: TreeNodeRenderer
   emptyNode?: string | ReactNode
 }
 
@@ -137,6 +137,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   }, [])
 
   const finalHeight = height ?? Math.min(nodeList.length * NODE_HEIGHT, DEFAULT_HEIGHT)
+  const nodeRenderer = useMemo<TreeNodeRenderer>(() => titleRender ?? defaultNodeRenderer, [titleRender])
 
   return (
     <div ref={handleDndAreaRef}>
@@ -163,7 +164,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
                 treeData={item}
                 onToggleExpansion={handleToggleExpansion}
                 onSelect={handleSelectNode}
-                titleRender={titleRender}
+                nodeRenderer={nodeRenderer}
                 selected={item.value === selectedId}
               />
             )}
@@ -178,3 +179,7 @@ const _TreeInternal = forwardRef(TreeInternal)
 _TreeInternal.displayName = 'Tree'
 
 export { _TreeInternal as Tree }
+
+function defaultNodeRenderer(node: TNode): ReactNode {
+  return <div>{node.title}</div>
+}

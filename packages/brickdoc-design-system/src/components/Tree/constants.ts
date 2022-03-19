@@ -40,3 +40,5 @@ export interface MoveNode {
   targetId: string
   position: Inserted
 }
+
+export type TreeNodeRenderer = (node: TNode) => ReactNode
