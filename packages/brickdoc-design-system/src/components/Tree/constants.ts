@@ -4,9 +4,9 @@ import { ReactNode } from 'react'
  * A type that represents the data held by a tree node.
  */
 export interface TreeNode {
-  key: string
+  id: string
   value: string
-  title: ReactNode | string
+  text: string
   parentId?: string | null | undefined
   rootId?: string
   icon?: string | null

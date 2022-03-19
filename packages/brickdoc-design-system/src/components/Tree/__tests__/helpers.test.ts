@@ -3,14 +3,14 @@ import { calculateRelativeSpot, joinNodeIdsByPath } from '../helpers'
 
 describe('joinNodeIdsByPath', () => {
   const tree: TreeNode[] = [
-    { key: 'a', value: 'a', title: 'a' },
+    { id: 'a', value: 'a', text: 'a' },
     {
-      key: 'b',
+      id: 'b',
       value: 'b',
-      title: 'b',
+      text: 'b',
       children: [
-        { key: 'b.1', value: 'b.1', title: 'b.1' },
-        { key: 'b.2', value: 'b.2', title: 'b.2' }
+        { id: 'b.1', value: 'b.1', text: 'b.1' },
+        { id: 'b.2', value: 'b.2', text: 'b.2' }
       ]
     }
   ]

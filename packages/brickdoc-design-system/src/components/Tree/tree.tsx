@@ -155,22 +155,21 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
             data-test-id="virtual-list"
             height={finalHeight}
             itemHeight={NODE_HEIGHT}
-            itemKey="key"
+            itemKey="id"
             ref={ref ?? listRef}
           >
             {(item, index) => (
               <Node
                 className={treeNodeClassName}
-                moveNode={moveNode}
-                id={item.key}
                 index={index}
-                key={item.key}
+                key={item.id}
                 emptyNode={emptyNode}
-                treeData={item}
+                nodeData={item}
+                selected={item.value === selectedId}
                 onToggleExpansion={handleToggleExpansion}
                 onSelect={handleSelectNode}
+                onMoveNode={moveNode}
                 nodeRenderer={nodeRenderer}
-                selected={item.value === selectedId}
               />
             )}
           </List>
@@ -186,5 +185,5 @@ _TreeInternal.displayName = 'Tree'
 export { _TreeInternal as Tree }
 
 function defaultNodeRenderer(node: TreeNode): ReactNode {
-  return <div>{node.title}</div>
+  return <div>{node.text}</div>
 }

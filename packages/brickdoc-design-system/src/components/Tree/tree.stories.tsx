@@ -5,48 +5,48 @@ import { TreeNode, Tree } from '.'
 
 const demoData: TreeNode[] = [
   {
-    key: 'sun',
+    id: 'sun',
     value: 'sun',
-    title: 'Sun',
+    text: 'Sun',
     icon: '🔆',
     isExpanded: true,
     children: [
       {
-        key: 'mercury',
+        id: 'mercury',
         value: 'mercury',
-        title: 'Mercury'
+        text: 'Mercury'
       },
       {
-        key: 'venus',
+        id: 'venus',
         value: 'venus',
-        title: 'Venus'
+        text: 'Venus'
       },
       {
-        key: 'earth',
+        id: 'earth',
         value: 'earth',
-        title: 'Earth',
+        text: 'Earth',
         children: [
           {
-            key: 'moon',
+            id: 'moon',
             value: 'moon',
-            title: 'The Moon'
+            text: 'The Moon'
           }
         ]
       },
       {
-        key: 'mars',
+        id: 'mars',
         value: 'mars',
-        title: 'Mars',
+        text: 'Mars',
         children: [
           {
-            key: 'deimos',
+            id: 'deimos',
             value: 'deimos',
-            title: 'Deimos'
+            text: 'Deimos'
           },
           {
-            key: 'phobos',
+            id: 'phobos',
             value: 'phobos',
-            title: 'Phobos'
+            text: 'Phobos'
           }
         ]
       }
@@ -126,7 +126,7 @@ ExpandAllOnLoad.args = {
 }
 
 const renderNode = (node: TreeNode): ReactNode => {
-  return <StyledNode>{node.title}</StyledNode>
+  return <StyledNode>{node.text}</StyledNode>
 }
 const StyledNode = styled('div', {
   fontSize: '.75rem',

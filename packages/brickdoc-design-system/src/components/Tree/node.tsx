@@ -11,16 +11,15 @@ import { TreeRoot } from './style'
 import { calculateRelativeSpot } from './helpers'
 
 export interface NodeProps {
-  treeData: InternalTreeNode
+  nodeData: InternalTreeNode
   className?: string
   emptyNode?: string | ReactNode
   onToggleExpansion: (node: InternalTreeNode) => void
   onSelect?: (node: InternalTreeNode) => void
   nodeRenderer?: TreeNodeRenderer
   selected?: boolean
-  id: any
   index: number
-  moveNode: (item: NodeMovement) => void
+  onMoveNode: (item: NodeMovement) => void
 }
 
 interface DragItem {
@@ -36,20 +35,19 @@ const DND_NODE_TYPE = 'node'
  */
 export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> = (
   {
-    treeData,
+    nodeData: treeData,
     className,
     onToggleExpansion: onToggleExpand,
     onSelect,
     nodeRenderer,
     selected,
     emptyNode,
-    id,
     index,
-    moveNode
+    onMoveNode: moveNode
   },
   _ref
 ) => {
-  const { icon = '', parentId, rootId, value, isExpanded, hasChildren, indent } = treeData
+  const { id: nodeId, icon = '', parentId, rootId, isExpanded, hasChildren, indent } = treeData
   const ref = useForwardedRef(_ref)
   const [dropSpot, setDropSpot] = useState<NodeRelativeSpot | null>(null)
 
@@ -61,8 +59,8 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
   })
 
   const hasEmptyNode = useMemo(
-    () => !parentId && rootId === value && !hasChildren,
-    [parentId, rootId, value, hasChildren]
+    () => !parentId && rootId === nodeId && !hasChildren,
+    [parentId, rootId, nodeId, hasChildren]
   )
 
   const emptyItem = typeof emptyNode === 'string' ? <TreeRoot.EmptyNode>{emptyNode}</TreeRoot.EmptyNode> : emptyNode
@@ -71,7 +69,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
   const [{ isDragging }, drag] = useDrag({
     type: DND_NODE_TYPE,
-    item: { id, index },
+    item: { nodeId, index },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging()
     })
@@ -121,7 +119,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
           sourceIndex: dragIndex,
           sourceId: item.id,
           targetIndex: hoverIndex,
-          targetId: value,
+          targetId: nodeId,
           targetSpot: dropSpot
         })
       }
