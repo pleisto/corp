@@ -66,14 +66,14 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
-    function walkChildren(node: TNode): TNode[] {
+    function collectAllChildren(node: TNode): TNode[] {
       const self = [node]
       return node.children
-        ? node.children.reduce<TNode[]>((acc, child) => [...acc, ...walkChildren(child)], self)
+        ? node.children.reduce<TNode[]>((acc, child) => [...acc, ...collectAllChildren(child)], self)
         : self
     }
     if (expandAll) {
-      const allNodes = treeData.reduce<TNode[]>((acc, node) => [...acc, ...walkChildren(node)], [])
+      const allNodes = treeData.reduce<TNode[]>((acc, node) => [...acc, ...collectAllChildren(node)], [])
       return allNodes.map(({ value }) => value)
     }
     const ids = treeData.filter(node => node.isExpanded).map(node => node.value) || []
