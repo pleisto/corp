@@ -134,7 +134,8 @@ const StyledNode = styled('div', {
   backgroundColor: 'orange',
   border: '1px solid black',
   borderRadius: '1em',
-  height: '100%'
+  height: '100%',
+  width: 'fit-content'
 })
 export const RenderCustomNode = Template.bind({})
 RenderCustomNode.args = {
