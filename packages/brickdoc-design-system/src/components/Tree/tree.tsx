@@ -164,7 +164,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
                 index={index}
                 key={item.id}
                 emptyNode={emptyNode}
-                nodeData={item}
+                data={item}
                 selected={item.value === selectedId}
                 onToggleExpansion={handleToggleExpansion}
                 onSelect={handleSelectNode}

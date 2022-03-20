@@ -11,7 +11,7 @@ import { TreeRoot } from './style'
 import { calculateRelativeSpot } from './helpers'
 
 export interface NodeProps {
-  nodeData: InternalTreeNode
+  data: InternalTreeNode
   className?: string
   emptyNode?: string | ReactNode
   onToggleExpansion: (node: InternalTreeNode) => void
@@ -34,28 +34,18 @@ const DND_NODE_TYPE = 'node'
  * @example
  */
 export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> = (
-  {
-    nodeData: treeData,
-    className,
-    onToggleExpansion: onToggleExpand,
-    onSelect,
-    nodeRenderer,
-    selected,
-    emptyNode,
-    index,
-    onMoveNode: moveNode
-  },
+  { data, className, onToggleExpansion, onSelect, nodeRenderer, selected, emptyNode, index, onMoveNode },
   _ref
 ) => {
-  const { id: nodeId, icon = '', parentId, rootId, isExpanded, hasChildren, indent } = treeData
+  const { id: nodeId, icon = '', parentId, rootId, isExpanded, hasChildren, indent } = data
   const ref = useForwardedRef(_ref)
   const [dropSpot, setDropSpot] = useState<NodeRelativeSpot | null>(null)
 
-  const handleSelect = useMemoizedFn(_e => onSelect?.(treeData))
+  const handleSelect = useMemoizedFn(_e => onSelect?.(data))
 
   const handleToggleExpand = useMemoizedFn((e: MouseEvent) => {
     e.stopPropagation()
-    onToggleExpand(treeData)
+    onToggleExpansion(data)
   })
 
   const hasEmptyNode = useMemo(
@@ -115,7 +105,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
       // Time to actually perform the action
       if (dropSpot) {
-        moveNode?.({
+        onMoveNode?.({
           sourceIndex: dragIndex,
           sourceId: item.id,
           targetIndex: hoverIndex,
@@ -195,7 +185,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
               )}
               {icon ? <TreeRoot.ContentIcon data-test-id="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               {/* Todo: fixed TS2769: No overload matches this call. pressProps.css */}
-              <TreeRoot.ContentAction data-test-id="content-action">{nodeRenderer?.(treeData)}</TreeRoot.ContentAction>
+              <TreeRoot.ContentAction data-test-id="content-action">{nodeRenderer?.(data)}</TreeRoot.ContentAction>
             </TreeRoot.Content>
           </TreeRoot.ItemContent>
         </TreeRoot.PageItem>
