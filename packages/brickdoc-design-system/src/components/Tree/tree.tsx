@@ -66,17 +66,15 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
-    function collectAllChildren(node: TreeNode): TreeNode[] {
+    function flatten(node: TreeNode): TreeNode[] {
       const self = [node]
-      return node.children
-        ? node.children.reduce<TreeNode[]>((acc, child) => [...acc, ...collectAllChildren(child)], self)
-        : self
+      return node.children ? node.children.reduce<TreeNode[]>((acc, child) => [...acc, ...flatten(child)], self) : self
     }
     if (expandAll) {
-      const allNodes = treeData.reduce<TreeNode[]>((acc, node) => [...acc, ...collectAllChildren(node)], [])
-      return allNodes.map(({ value }) => value)
+      const allNodes = treeData.reduce<TreeNode[]>((acc, node) => [...acc, ...flatten(node)], [])
+      return allNodes.map(({ id }) => id)
     }
-    const ids = treeData.filter(node => node.isExpanded).map(node => node.value) || []
+    const ids = treeData.filter(node => node.isExpanded).map(node => node.id) || []
     if (initialSelectedId) {
       // The selected node is initially expanded on the component mount.
       ids.push(initialSelectedId)
@@ -88,8 +86,8 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const nodeList = useMemo(() => {
     function flatten(node: TreeNode, indent: number, result: InternalTreeNode[]): void {
-      const { children, value } = node
-      const isExpanded = expandedIds.includes(value)
+      const { children, id } = node
+      const isExpanded = expandedIds.includes(id)
 
       result.push({
         ...node,
@@ -113,9 +111,9 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   }, [treeData, expandedIds])
 
   const handleSelectNode = useMemoizedFn((node: InternalTreeNode) => {
-    setSelectedId(node.value)
-    if (expandOnSelect && !node.isExpanded && node.value) {
-      const nextExpandedIds = joinNodeIdsByPath(treeData, node.value, expandedIds) ?? []
+    setSelectedId(node.id)
+    if (expandOnSelect && !node.isExpanded && node.id) {
+      const nextExpandedIds = joinNodeIdsByPath(treeData, node.id, expandedIds) ?? []
       if (!deepEqual(nextExpandedIds, expandedIds)) {
         setExpandedIds(nextExpandedIds)
       }
@@ -123,9 +121,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   })
 
   const handleToggleExpansion = useMemoizedFn((node: TreeNode) => {
-    node.isExpanded
-      ? setExpandedIds(i => i.filter(value => value !== node.value))
-      : setExpandedIds(i => [...i, node.value])
+    node.isExpanded ? setExpandedIds(ids => ids.filter(id => id !== node.id)) : setExpandedIds(ids => [...ids, node.id])
   })
 
   const moveNode = useMemoizedFn((item: NodeMovement) => {
@@ -165,7 +161,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
                 key={item.id}
                 emptyNode={emptyNode}
                 data={item}
-                selected={item.value === selectedId}
+                selected={item.id === selectedId}
                 onToggleExpansion={handleToggleExpansion}
                 onSelect={handleSelectNode}
                 onMoveNode={moveNode}
