@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import Image from 'next/image'
 import { Footer, Layout, Nav, Video } from '@/components/Layout'
 import mp4Url from '@/public/t1.mp4'
@@ -13,7 +12,7 @@ import GoogleUrl from '@/public/images/google.png'
 import * as RootHead from './style/head.style'
 import * as RootBody from './style/body.style'
 
-const WhatPage: NextPage = () => {
+export const What = () => {
   return (
     <>
       <Video url={mp4Url} />
@@ -78,5 +77,3 @@ const WhatPage: NextPage = () => {
     </>
   )
 }
-
-export default WhatPage

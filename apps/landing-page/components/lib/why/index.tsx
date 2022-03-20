@@ -1,10 +1,9 @@
-import type { NextPage } from 'next'
 import { Footer, Layout, Nav, Video } from '@/components/Layout'
 import mp4Url from '@/public/t2.mp4'
-import * as RootHead from '@/pages/what/style/head.style'
-import * as RootBody from '@/pages/what/style/body.style'
+import * as RootHead from '@/components/lib/what/style/head.style'
+import * as RootBody from '@/components/lib/what/style/body.style'
 
-const WhyPage: NextPage = () => {
+export const Why = () => {
   return (
     <>
       <Video url={mp4Url} />
@@ -58,5 +57,3 @@ const WhyPage: NextPage = () => {
     </>
   )
 }
-
-export default WhyPage

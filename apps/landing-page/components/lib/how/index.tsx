@@ -1,14 +1,13 @@
-import type { NextPage } from 'next'
 import { Footer, Layout, Nav, Video } from '@/components/Layout'
 import { ItemCooperation } from './ItemCooperation'
 import { ItemFormula } from './ItemFormula'
 import { ItemWorkflow } from './ItemWorkflow'
 import { ItemExtension } from './ItemExtension'
 import mp4Url from '@/public/t3.mp4'
-import * as RootHead from '@/pages/what/style/head.style'
-import * as RootBody from '@/pages/what/style/body.style'
+import * as RootHead from '@/components/lib/what/style/head.style'
+import * as RootBody from '@/components/lib/what/style/body.style'
 
-const HowPage: NextPage = () => {
+export const How = () => {
   return (
     <>
       <Video url={mp4Url} />
@@ -48,5 +47,3 @@ const HowPage: NextPage = () => {
     </>
   )
 }
-
-export default HowPage

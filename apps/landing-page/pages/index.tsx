@@ -1,15 +1,13 @@
 import type { NextPage } from 'next'
 /* import Head from 'next/head'
  * import Image from 'next/image' */
-import { Skeleton } from '@brickdoc/design-system'
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <Skeleton uniqueKey="home-page-skeleton" />
-      demo
-    </div>
-  )
+  return <div>demo</div>
+}
+
+export async function getServerSideProps() {
+  return { props: {} }
 }
 
 export default Home
