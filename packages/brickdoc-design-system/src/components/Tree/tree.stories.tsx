@@ -53,7 +53,7 @@ export default {
   args: {
     height: 300,
     draggable: false,
-    treeData: demoData
+    data: demoData
   },
   argTypes: {
     height: {
@@ -141,7 +141,7 @@ export const SortByDragging: FC = () => {
   return (
     <>
       <p>Check the console to see the drop data.</p>
-      <Tree treeData={demoData} draggable onDrop={onDrop} expandAll />
+      <Tree data={demoData} draggable onDrop={onDrop} expandAll />
     </>
   )
 }
