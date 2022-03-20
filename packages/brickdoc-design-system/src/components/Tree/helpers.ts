@@ -4,7 +4,7 @@ import { uniq } from '@brickdoc/active-support'
 
 /**
  * join `newId` by its full path in `tree` to `existingIds`.
- * @returns the joined ID list; `undefined` if `newId` is not found in `tree`.
+ * @returns A list of node IDs that includes the full path to `newId`.
  */
 export function joinNodeIdsByPath(tree: TreeNode[], newId: string, existingIds?: string[]): string[] {
   const result = existingIds ?? []
