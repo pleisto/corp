@@ -6,7 +6,7 @@ import { Right } from '@brickdoc/design-icons'
 import { useMemoizedFn } from '../../hooks'
 import { useForwardedRef } from '../../hooks/useForwardedRef'
 
-import { NodeMovement, NodeRelativeSpot, InternalTreeNode, TreeNodeRenderer } from './constants'
+import { NodeMovement, NodeRelativeSpot, InternalTreeNode, TreeNodeRenderer, TreeNode } from './constants'
 import { TreeRoot } from './style'
 import { calculateRelativeSpot } from './helpers'
 
@@ -181,7 +181,9 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
               )}
               {icon ? <TreeRoot.ContentIcon data-testid="content-icon">{icon}</TreeRoot.ContentIcon> : <></>}
               {/* Todo: fixed TS2769: No overload matches this call. pressProps.css */}
-              <TreeRoot.ContentAction data-testid="content-action">{nodeRenderer?.(data)}</TreeRoot.ContentAction>
+              <TreeRoot.ContentAction data-testid="content-action">
+                {(nodeRenderer ?? defaultNodeRenderer)(data)}
+              </TreeRoot.ContentAction>
             </TreeRoot.Content>
           </TreeRoot.ItemContent>
         </TreeRoot.PageItem>
@@ -193,3 +195,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
 
 export const Node = forwardRef(InternalNode)
 Node.displayName = 'Node'
+
+function defaultNodeRenderer(node: TreeNode): ReactNode {
+  return <div>{node.text}</div>
+}

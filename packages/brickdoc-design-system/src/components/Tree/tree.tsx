@@ -17,6 +17,7 @@ import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
 import { useDeepMemo } from '../../hooks/useDeepMemo'
 import { joinNodeIdsByPath } from './helpers'
+import { useUpdate } from 'ahooks'
 
 export interface TreeProps {
   height?: number
@@ -62,7 +63,8 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   // To cache tree data in case its reference changes outside the component
   // in order to optimize everything in the rendering flow corresponding
   // to the tree data.
-  const treeData = useDeepMemo(nextTreeData)
+  const redraw = useUpdate()
+  const treeData = useDeepMemo(nextTreeData, redraw)
 
   const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
@@ -138,8 +140,6 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   }, [])
 
   const finalHeight = height ?? Math.min(nodeList.length * NODE_HEIGHT, DEFAULT_HEIGHT)
-  const nodeRenderer = useMemo<TreeNodeRenderer>(() => renderNode ?? defaultNodeRenderer, [renderNode])
-
   return (
     <div ref={handleDndAreaRef}>
       {/* make sure root area is mounted, then mount dnd area */}
@@ -165,7 +165,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
                 onToggleExpansion={handleToggleExpansion}
                 onSelect={handleSelectNode}
                 onMoveNode={moveNode}
-                nodeRenderer={nodeRenderer}
+                nodeRenderer={renderNode}
               />
             )}
           </List>
@@ -175,11 +175,5 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   )
 }
 
-const _TreeInternal = forwardRef(TreeInternal)
-_TreeInternal.displayName = 'Tree'
-
-export { _TreeInternal as Tree }
-
-function defaultNodeRenderer(node: TreeNode): ReactNode {
-  return <div>{node.text}</div>
-}
+export const Tree = forwardRef(TreeInternal)
+Tree.displayName = 'Tree'
