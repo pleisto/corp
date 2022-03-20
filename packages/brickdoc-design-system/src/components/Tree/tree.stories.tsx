@@ -88,7 +88,13 @@ If not specified, it'll render plain text.`,
     docs: {
       description: {
         component: `
-## Todo: Component description
+A tree-structured list view.
+
+#### When To Use
+
+- To represents a hierarchical data structure.
+- To allow user to expand and collapse nodes.
+- To allow user to rearrange the hierarchcal nodes by dragging and dropping.
 `
       },
       design: {
