@@ -5,7 +5,7 @@ exports[`Tree Basic should match the snapshot 1`] = `
   <div>
     <div
       class="rc-virtual-list"
-      data-test-id="virtual-list"
+      data-testid="virtual-list"
       style="position: relative;"
     >
       <div
@@ -20,29 +20,29 @@ exports[`Tree Basic should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iksdqzH-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-ijwxnRu-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -50,13 +50,13 @@ exports[`Tree Basic should match the snapshot 1`] = `
                     </div>
                     <a
                       class="brd-c-Ymfja"
-                      data-test-id="content-icon"
+                      data-testid="content-icon"
                     >
                       🔆
                     </a>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Sun
@@ -69,38 +69,38 @@ exports[`Tree Basic should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mercury
@@ -113,38 +113,38 @@ exports[`Tree Basic should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Venus
@@ -157,29 +157,29 @@ exports[`Tree Basic should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -187,7 +187,7 @@ exports[`Tree Basic should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Earth
@@ -200,29 +200,29 @@ exports[`Tree Basic should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -230,7 +230,7 @@ exports[`Tree Basic should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mars
@@ -253,7 +253,7 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
   <div>
     <div
       class="rc-virtual-list"
-      data-test-id="virtual-list"
+      data-testid="virtual-list"
       style="position: relative;"
     >
       <div
@@ -268,29 +268,29 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iksdqzH-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-ijwxnRu-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -298,13 +298,13 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
                     </div>
                     <a
                       class="brd-c-Ymfja"
-                      data-test-id="content-icon"
+                      data-testid="content-icon"
                     >
                       🔆
                     </a>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Sun
@@ -317,38 +317,38 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mercury
@@ -361,38 +361,38 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Venus
@@ -405,29 +405,29 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -435,7 +435,7 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Earth
@@ -448,38 +448,38 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-icibkft-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-igoAIMk-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         The Moon
@@ -492,29 +492,29 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -522,7 +522,7 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mars
@@ -535,38 +535,38 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-icibkft-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-igoAIMk-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Deimos
@@ -579,38 +579,38 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-icibkft-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-igoAIMk-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Phobos
@@ -633,7 +633,7 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
   <div>
     <div
       class="rc-virtual-list"
-      data-test-id="virtual-list"
+      data-testid="virtual-list"
       style="position: relative;"
     >
       <div
@@ -648,29 +648,29 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iksdqzH-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-ijwxnRu-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -678,13 +678,13 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
                     </div>
                     <a
                       class="brd-c-Ymfja"
-                      data-test-id="content-icon"
+                      data-testid="content-icon"
                     >
                       🔆
                     </a>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Sun
@@ -697,38 +697,38 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mercury
@@ -741,38 +741,38 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Venus
@@ -785,29 +785,29 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-eMADfv-selected-true brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -815,7 +815,7 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Earth
@@ -828,38 +828,38 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-icibkft-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-igoAIMk-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         The Moon
@@ -872,29 +872,29 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -902,7 +902,7 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mars
@@ -925,7 +925,7 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
   <div>
     <div
       class="rc-virtual-list"
-      data-test-id="virtual-list"
+      data-testid="virtual-list"
       style="position: relative;"
     >
       <div
@@ -940,29 +940,29 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iksdqzH-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-ijwxnRu-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -970,13 +970,13 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
                     </div>
                     <a
                       class="brd-c-Ymfja"
-                      data-test-id="content-icon"
+                      data-testid="content-icon"
                     >
                       🔆
                     </a>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Sun
@@ -989,38 +989,38 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mercury
@@ -1033,38 +1033,38 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Venus
@@ -1077,29 +1077,29 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -1107,7 +1107,7 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Earth
@@ -1120,29 +1120,29 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -1150,7 +1150,7 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div>
                         Mars
@@ -1173,7 +1173,7 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
   <div>
     <div
       class="rc-virtual-list"
-      data-test-id="virtual-list"
+      data-testid="virtual-list"
       style="position: relative;"
     >
       <div
@@ -1188,29 +1188,29 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iksdqzH-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-ijwxnRu-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT brd-c-daBYDT-ckBCvq-isExpanded-true"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -1218,13 +1218,13 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
                     </div>
                     <a
                       class="brd-c-Ymfja"
-                      data-test-id="content-icon"
+                      data-testid="content-icon"
                     >
                       🔆
                     </a>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div
                         class="brd-c-hbkHRg"
@@ -1239,38 +1239,38 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div
                         class="brd-c-hbkHRg"
@@ -1285,38 +1285,38 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <div
                         class="brd-c-dUOXUg"
-                        data-test-id="leaf-dot"
+                        data-testid="leaf-dot"
                       />
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div
                         class="brd-c-hbkHRg"
@@ -1331,29 +1331,29 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -1361,7 +1361,7 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div
                         class="brd-c-hbkHRg"
@@ -1376,29 +1376,29 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
             <div
               class="brd-c-izbkoj brd-c-izbkoj-iPJLV-css"
               data-handler-id="mock-id"
-              data-test-id="BrkTree"
+              data-testid="BrkTree"
               role="button"
               tabindex="0"
             >
               <div
                 class="brd-c-hakyQ brd-c-hakyQ-iiPsehi-css"
-                data-test-id="indent"
+                data-testid="indent"
               />
               <div
                 class="brd-c-gMErbG brd-c-gMErbG-iiLFaJf-css"
-                data-test-id="page-item"
+                data-testid="page-item"
               >
                 <div
                   class="brd-c-kYuycX"
-                  data-test-id="item-content"
+                  data-testid="item-content"
                 >
                   <div
                     class="brd-c-fAWxpK"
-                    data-test-id="content"
+                    data-testid="content"
                   >
                     <div
                       class="brd-c-daBYDT"
-                      data-test-id="content-arrow"
+                      data-testid="content-arrow"
                     >
                       <i
                         data-testid="mock-icon-Right"
@@ -1406,7 +1406,7 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
                     </div>
                     <div
                       class="brd-c-jdnGAW"
-                      data-test-id="content-action"
+                      data-testid="content-action"
                     >
                       <div
                         class="brd-c-hbkHRg"
