@@ -230,7 +230,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
       })
       .sort((a, b) => Number(a.sort) - Number(b.sort))
 
-    const treeData = array2Tree(flattedData, { id: 'key' })
+    const treeData = array2Tree(flattedData)
 
     return (
       <Tree
