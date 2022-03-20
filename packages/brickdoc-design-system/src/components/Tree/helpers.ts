@@ -1,23 +1,34 @@
 import { XYCoord } from 'react-dnd'
 import { NodeRelativeSpot, type TreeNode } from './constants'
+import { uniq } from '@brickdoc/active-support'
 
 /**
  * join `newId` by its full path in `tree` to `existingIds`.
- * @returns
+ * @returns the joined ID list; `undefined` if `newId` is not found in `tree`.
  */
-export function joinNodeIdsByPath(tree: TreeNode[], newId: string, existingIds?: string[]): string[] | undefined {
-  if (existingIds?.includes(newId)) return existingIds
-  const ids = existingIds ?? []
+export function joinNodeIdsByPath(tree: TreeNode[], newId: string, existingIds?: string[]): string[] {
+  const result = existingIds ?? []
+  const wantedPath = new Set<string>()
+  const found = getNodePath(tree, newId, wantedPath)
+  return found ? uniq([...result, ...wantedPath]) : result
+}
+
+function getNodePath(tree: TreeNode[], id: string, path: Set<string>): boolean {
+  if (path.has(id)) return true
   for (const node of tree) {
-    if (node.value === newId) {
-      return [...ids, node.value]
+    if (node.id === id) {
+      path.add(node.id)
+      return true
     }
     if (node.children && node.children.length > 0) {
-      const nextIds = ids.includes(node.value) ? ids : [...ids, node.value]
-      const result = joinNodeIdsByPath(node.children, newId, nextIds)
-      if (result) return result
+      const found = getNodePath(node.children, id, path)
+      if (found) {
+        path.add(node.id)
+        return true
+      }
     }
   }
+  return false
 }
 
 /**

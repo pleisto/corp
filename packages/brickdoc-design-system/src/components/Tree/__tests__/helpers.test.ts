@@ -24,27 +24,29 @@ describe('joinNodeIdsByPath', () => {
       expect(list).toEqual(['a'])
     })
     it(`should return the same list if the id is already included`, () => {
-      const list = ['a']
-      const newList = joinNodeIdsByPath(tree, 'a', list)
-      expect(newList).toBe(list)
+      const newList = joinNodeIdsByPath(tree, 'a', ['a'])
+      expect(newList).toEqual(['a'])
     })
   })
 
   describe('for nested nodes', () => {
     it(`should add the id to the list along with all its parent ids`, () => {
       const list = joinNodeIdsByPath(tree, 'b.1')
-      expect(list).toEqual(['b', 'b.1'])
+      expect(list.sort()).toEqual(['b', 'b.1'])
     })
     it(`should add only the missing ids to the list of the node's path`, () => {
-      const list = ['b', 'b.1']
-      const newList = joinNodeIdsByPath(tree, 'b.2', list)
-      expect(newList).toEqual(['b', 'b.1', 'b.2'])
+      const newList = joinNodeIdsByPath(tree, 'b.2', ['b', 'b.1'])
+      expect(newList.sort()).toEqual(['b', 'b.1', 'b.2'])
     })
     it(`should return the same list if the id is already included`, () => {
-      const list = ['a', 'b', 'b.1']
-      const newList = joinNodeIdsByPath(tree, 'b.1', list)
-      expect(newList).toBe(list)
+      const newList = joinNodeIdsByPath(tree, 'b.1', ['a', 'b', 'b.1'])
+      expect(newList.sort()).toEqual(['a', 'b', 'b.1'])
     })
+  })
+
+  it('should return an empty array if the existing array is empty and no new match', () => {
+    const list = joinNodeIdsByPath(tree, 'c')
+    expect(list).toEqual([])
   })
 })
 

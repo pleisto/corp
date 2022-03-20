@@ -74,10 +74,10 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
       const allNodes = treeData.reduce<TreeNode[]>((acc, node) => [...acc, ...flatten(node)], [])
       return allNodes.map(({ id }) => id)
     }
-    const ids = treeData.filter(node => node.isExpanded).map(node => node.id) || []
+    let ids = treeData.filter(node => node.isExpanded).map(node => node.id)
     if (initialSelectedId) {
       // The selected node is initially expanded on the component mount.
-      ids.push(initialSelectedId)
+      ids = joinNodeIdsByPath(treeData, initialSelectedId, ids)
     }
     return ids
   })
@@ -113,7 +113,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
   const handleSelectNode = useMemoizedFn((node: InternalTreeNode) => {
     setSelectedId(node.id)
     if (expandOnSelect && !node.isExpanded && node.id) {
-      const nextExpandedIds = joinNodeIdsByPath(treeData, node.id, expandedIds) ?? []
+      const nextExpandedIds = joinNodeIdsByPath(treeData, node.id, expandedIds)
       if (!deepEqual(nextExpandedIds, expandedIds)) {
         setExpandedIds(nextExpandedIds)
       }
