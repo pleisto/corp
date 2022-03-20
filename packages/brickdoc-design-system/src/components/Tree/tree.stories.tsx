@@ -112,7 +112,7 @@ export const Basic = Template.bind({})
 
 export const ExpandInitialSelection = Template.bind({})
 ExpandInitialSelection.args = {
-  initialSelectedId: 'earth'
+  initialSelectedId: 'moon'
 }
 
 export const ExpandOnSelect = Template.bind({})
