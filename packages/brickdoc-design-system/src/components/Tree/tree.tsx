@@ -16,7 +16,7 @@ import type { TreeNode, NodeMovement, InternalTreeNode, TreeNodeRenderer } from 
 import { Node } from './node'
 import { useMemoizedFn } from '../../hooks'
 import { useDeepMemo } from '../../hooks/useDeepMemo'
-import { joinNodeIdsByPath } from './helpers'
+import { flattenNodes, joinNodeIdsByPath } from './helpers'
 import { useUpdate } from 'ahooks'
 
 export interface TreeProps {
@@ -68,12 +68,8 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
 
   const listRef = useRef<ListRef>(null)
   const [expandedIds, setExpandedIds] = useState<string[]>(() => {
-    function flatten(node: TreeNode): TreeNode[] {
-      const self = [node]
-      return node.children ? node.children.reduce<TreeNode[]>((acc, child) => [...acc, ...flatten(child)], self) : self
-    }
     if (expandAll) {
-      const allNodes = treeData.reduce<TreeNode[]>((acc, node) => [...acc, ...flatten(node)], [])
+      const allNodes = flattenNodes(treeData)
       return allNodes.map(({ id }) => id)
     }
     let ids = treeData.filter(node => node.isExpanded).map(node => node.id)
