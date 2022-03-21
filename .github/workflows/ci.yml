@@ -55,7 +55,7 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed ES files
         id: changed-es-files
-        uses: tj-actions/changed-files@v17.3
+        uses: tj-actions/changed-files@v18.3
         with:
           files: |
             yarn.lock
@@ -79,7 +79,7 @@ jobs:
           NODE_OPTIONS: '--max-old-space-size=5950'
       - name: Publish Jest test reports
         if: always() && steps.changed-es-files.outputs.any_changed == 'true'
-        uses: mikepenz/action-junit-report@v2
+        uses: mikepenz/action-junit-report@v3.0.1
         with:
           report_paths: junit-reports/jest.xml
           check_name: Jest Test Report
@@ -122,7 +122,7 @@ jobs:
           fetch-depth: 2 # To retrieve the preceding commit.
       - name: Get changed Ruby files
         id: changed-ruby-files
-        uses: tj-actions/changed-files@v17.3
+        uses: tj-actions/changed-files@v18.3
         with:
           files: |
             Gemfile.lock
@@ -154,25 +154,25 @@ jobs:
         run: cd gems/brickdoc_settings && bundle && bundle exec rspec --format RspecJunitFormatter --out ../../junit-reports/rspec_setting.xml && cd ../..
       - name: Publish RSpec test reports
         if: always() && steps.changed-ruby-files.outputs.any_changed == 'true'
-        uses: mikepenz/action-junit-report@v2
+        uses: mikepenz/action-junit-report@v3.0.1
         with:
           report_paths: junit-reports/rspec.xml
           check_name: Rails RSpec Test Report
       - name: Publish RSpec setting test reports
         if: always() && steps.changed-ruby-files.outputs.any_changed == 'true'
-        uses: mikepenz/action-junit-report@v2
+        uses: mikepenz/action-junit-report@v3.0.1
         with:
           report_paths: junit-reports/rspec_setting.xml
           check_name: Rails RSpec Test Setting Report
       - name: Get changed database migrations
         id: changed-db-migrations
-        uses: tj-actions/changed-files@v17.3
+        uses: tj-actions/changed-files@v18.3
         with:
           files: |
             db\/migrate
       - name: Get changed GraphQL type definitions
         id: changed-gql-typeds
-        uses: tj-actions/changed-files@v17.3
+        uses: tj-actions/changed-files@v18.3
         with:
           files: |
             app\/graphql
