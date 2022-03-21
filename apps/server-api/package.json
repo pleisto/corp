@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^6.0.0",
-    "@nestjs/testing": "^8.4.1",
+    "@nestjs/testing": "^8.4.2",
     "cross-spawn": "^7.0.3",
     "leaked-handles": "^5.2.0",
     "node-dev": "^7.2.0",
@@ -24,11 +24,11 @@
     "@brickdoc/cypherpunk": "workspace:^",
     "@brickdoc/dotenv": "workspace:^",
     "@nestjs/apollo": "^10.0.7",
-    "@nestjs/common": "^8.4.1",
+    "@nestjs/common": "^8.4.2",
     "@nestjs/config": "^2.0.0",
-    "@nestjs/core": "^8.4.1",
+    "@nestjs/core": "^8.4.2",
     "@nestjs/graphql": "^10.0.7",
-    "@nestjs/platform-fastify": "^8.4.1",
+    "@nestjs/platform-fastify": "^8.4.2",
     "@nestjs/terminus": "^8.0.6",
     "@prisma/client": "^3.11.0",
     "apollo-server-fastify": "^3.6.4",
@@ -42,7 +42,7 @@
     "redis": "^4.0.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
-    "tzdata": "^1.0.29"
+    "tzdata": "^1.0.30"
   },
   "prisma": {
     "schema": "db/schema.prisma"
