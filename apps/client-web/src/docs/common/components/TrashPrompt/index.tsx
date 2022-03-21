@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Button, ConfirmDialog } from '@brickdoc/design-system'
+import { Button, ConfirmDialog } from '@brickdoc/design-system'
 import { useDocsI18n } from '../../hooks'
 import {
   BlockHardDeleteInput,
@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { queryPageBlocks } from '../../graphql'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 import { useApolloClient } from '@apollo/client'
+import * as Root from './index.style'
 
 interface TrashPromptProps {
   docMeta: NonNullDocMeta
@@ -63,7 +64,7 @@ export const TrashPrompt: React.FC<TrashPromptProps> = ({ docMeta: { id, domain 
 
   return (
     <>
-      <Alert
+      <Root.TrashAlert
         message={t('trash.in_trash_prompt')}
         type="error"
         icon={false}
