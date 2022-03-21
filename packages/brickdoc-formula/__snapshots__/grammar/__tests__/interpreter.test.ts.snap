@@ -78,7 +78,7 @@ Array [
       },
     ],
     "hide": false,
-    "renderText": [Function],
+    "renderText": undefined,
     "type": "string",
     "value": "foo",
   },
