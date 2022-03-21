@@ -76,7 +76,8 @@ const spreadsheet: SpreadsheetType = new SpreadsheetClass({
 interface TestCase {
   input: string
   label: string
-  value: any
+  error?: string
+  value?: any
 }
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
@@ -86,6 +87,21 @@ const testCases: TestCase[] = [
     label: 'column',
     input: `=#${spreadsheetNamespaceId}."first"`,
     value: { ...columns[0], spreadsheet }
+  },
+  {
+    label: 'cell',
+    input: `=#${spreadsheetNamespaceId}."first".1`,
+    value: cells[0]
+  },
+  {
+    label: 'cell error1',
+    input: `=#${spreadsheetNamespaceId}."first".foobar`,
+    error: 'Need a number: foobar'
+  },
+  {
+    label: 'cell error2',
+    input: `=#${spreadsheetNamespaceId}."first".100`,
+    error: 'Cell out of range: 3'
   },
   { label: 'in spreadsheet true', input: `=3 in #${spreadsheetNamespaceId}`, value: true },
   { label: 'toArray', input: `=#${spreadsheetNamespaceId}.toArray()`, value: SNAPSHOT_FLAG },
@@ -198,14 +214,20 @@ describe('Spreadsheet Functions', () => {
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 
-  testCases.forEach(({ input, label, value }) => {
+  testCases.forEach(({ input, label, value, error }) => {
     it(`[${label}] ${input}`, async () => {
       const newMeta = { ...meta, input }
       const newCtx = { ...ctx, meta: newMeta }
       const parseResult = parse({ ctx: newCtx })
       const { codeFragments, errorMessages } = parseResult
-      expect(errorMessages).toEqual([])
       expect(codeFragments).toMatchSnapshot()
+
+      if (error) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(errorMessages[0]?.message).toEqual(error)
+        return
+      }
+      expect(errorMessages).toEqual([])
       const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
       if (value === SNAPSHOT_FLAG) {
         // eslint-disable-next-line jest/no-conditional-expect

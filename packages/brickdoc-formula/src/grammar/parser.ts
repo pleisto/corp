@@ -165,7 +165,11 @@ export class FormulaParser extends CstParser {
   })
 
   public keyExpression = this.RULE('keyExpression', () => {
-    this.OR([{ ALT: () => this.CONSUME(StringLiteral) }, { ALT: () => this.CONSUME(FunctionName) }])
+    this.OR([
+      { ALT: () => this.CONSUME(StringLiteral) },
+      { ALT: () => this.CONSUME(NumberLiteral) },
+      { ALT: () => this.CONSUME(FunctionName) }
+    ])
   })
 
   public simpleAtomicExpression = this.RULE('simpleAtomicExpression', () => {

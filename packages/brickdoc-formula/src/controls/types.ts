@@ -64,6 +64,8 @@ export interface ColumnInitializer {
 
 export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
+  handleCodeFragments: handleCodeFragmentsType
+  handleInterpret: handleInterpretType
   cells: () => Cell[]
 }
 

@@ -353,8 +353,8 @@ const testCases: TestCase[] = [
   {
     input: '={1: "a"}',
     parseErrorType: 'syntax',
-    label: 'TODO record number as key',
-    errorMessage: 'Missing closing parenthesis'
+    label: 'record number as key',
+    value: { '1': { type: 'string', result: 'a' } }
   },
   {
     input: '={"foo":}',

@@ -32,6 +32,7 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
   }
 }
 
+// eslint-disable-next-line complexity
 export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
   switch (v.type) {
     case 'number':
@@ -51,6 +52,8 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
       return v.result.name(pageId)
     case 'Column':
       return `${v.result.spreadsheet.name()}.${v.result.name}`
+    case 'Cell':
+      return `${v.result.value}`
     case 'Predicate':
       return `[${v.operator}] ${displayValue(v.result, pageId)}`
     case 'Record':

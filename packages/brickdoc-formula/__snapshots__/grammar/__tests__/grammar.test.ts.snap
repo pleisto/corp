@@ -1560,55 +1560,6 @@ Array [
 ]
 `;
 
-exports[`Simple test case [TODO record number as key] ={1: "a"} // => ✗ 1`] = `
-Array [
-  Object {
-    "attrs": undefined,
-    "code": "Equal",
-    "display": "=",
-    "errors": Array [],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "=",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "LBrace",
-    "display": "{",
-    "errors": Array [
-      Object {
-        "message": "Missing closing parenthesis",
-        "type": "syntax",
-      },
-      Object {
-        "message": "TODO mismatch token recordExpression",
-        "type": "parse",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "{",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "parseErrorOther",
-    "display": "1:\\"a\\"}",
-    "errors": Array [
-      Object {
-        "message": "TODO mismatch token recordExpression",
-        "type": "parse",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "1:\\"a\\"}",
-  },
-]
-`;
-
 exports[`Simple test case [WhiteSpace /\\s+/] =1 +　2　 　- 　 3 // => 0 1`] = `
 Array [
   Object {
@@ -3245,6 +3196,81 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": " ",
+  },
+]
+`;
+
+exports[`Simple test case [record number as key] ={1: "a"} // => [object Object] 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "LBrace",
+    "display": "{",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "{",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "1",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Colon",
+    "display": ":",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ":",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Space",
+    "display": " ",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": " ",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "StringLiteral",
+    "display": "\\"a\\"",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "string",
+    "value": "\\"a\\"",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "RBrace",
+    "display": "}",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "}",
   },
 ]
 `;

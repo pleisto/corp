@@ -4004,6 +4004,241 @@ Array [
 ]
 `;
 
+exports[`Spreadsheet Functions [cell error1] =#28e28190-63bd-4f70-aeca-26e72574c01a."first".foobar 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Spreadsheet",
+    "display": "MySpreadsheet",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "Spreadsheet",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Column",
+    "display": "first",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "string",
+    "value": "\\"first\\"",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "FunctionName",
+    "display": "foobar",
+    "errors": Array [
+      Object {
+        "message": "Need a number: foobar",
+        "type": "syntax",
+      },
+    ],
+    "hide": false,
+    "renderText": undefined,
+    "type": "string",
+    "value": "foobar",
+  },
+]
+`;
+
+exports[`Spreadsheet Functions [cell error2] =#28e28190-63bd-4f70-aeca-26e72574c01a."first".100 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Spreadsheet",
+    "display": "MySpreadsheet",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "Spreadsheet",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Column",
+    "display": "first",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "string",
+    "value": "\\"first\\"",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "100",
+    "errors": Array [
+      Object {
+        "message": "Cell out of range: 3",
+        "type": "runtime",
+      },
+    ],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "100",
+  },
+]
+`;
+
+exports[`Spreadsheet Functions [cell] =#28e28190-63bd-4f70-aeca-26e72574c01a."first".1 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Spreadsheet",
+    "display": "MySpreadsheet",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "Spreadsheet",
+    "value": "#28e28190-63bd-4f70-aeca-26e72574c01a",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "name": "first",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Column",
+    "display": "first",
+    "errors": Array [],
+    "hide": false,
+    "renderText": [Function],
+    "type": "string",
+    "value": "\\"first\\"",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ".",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "1",
+  },
+]
+`;
+
 exports[`Spreadsheet Functions [column] =#28e28190-63bd-4f70-aeca-26e72574c01a."first" 1`] = `
 Array [
   Object {
@@ -10845,6 +11080,7 @@ Object {
         "Blank": Object {},
         "Block": Object {},
         "Button": Object {},
+        "Cell": Object {},
         "Column": Object {},
         "Cst": Object {},
         "Date": Object {},
@@ -16868,6 +17104,7 @@ Object {
         "Blank": Object {},
         "Block": Object {},
         "Button": Object {},
+        "Cell": Object {},
         "Column": Object {},
         "Cst": Object {},
         "Date": Object {},

@@ -12,7 +12,8 @@ import {
   FunctionContext,
   ExpressionType,
   SimpleCodeFragmentType,
-  VariableNameDependency
+  VariableNameDependency,
+  CodeFragmentAttrs
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
@@ -530,10 +531,22 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         }
 
         if (firstArgumentType === 'Spreadsheet') {
-          const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
-          object = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+          const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
+          if (attrs) {
+            object = this.ctx.formulaContext.findSpreadsheet(attrs.namespaceId)
+          }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })
+          }
+        }
+
+        if (firstArgumentType === 'Column') {
+          const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
+          if (attrs) {
+            object = this.ctx.formulaContext.findColumnById(attrs.namespaceId, attrs.id)
+          }
+          if (!object) {
+            extraErrorMessages.push({ type: 'syntax', message: 'Column not found' })
           }
         }
 
@@ -590,6 +603,8 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       return this.FunctionNameExpression(ctx, { type })
     } else if (ctx.StringLiteral) {
       return this.StringLiteralExpression(ctx, { type })
+    } else if (ctx.NumberLiteral) {
+      return this.NumberLiteralExpression(ctx, { type: 'number' })
     }
 
     return { codeFragments: [], type: 'any', image: '' }
