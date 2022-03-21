@@ -52,11 +52,11 @@ const cells: Cell[] = [
   { rowId: thirdRowId, columnId: thirdColumnId, value: 'Foo', data: { displayData: { display: 'Foo' } }, cellId: '' }
 ]
 
+const formulaContext = new FormulaContext({ domain: 'test' })
+
 const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',
-  ctx: {
-    formulaContext: new FormulaContext({ domain: 'test' })
-  },
+  ctx: { formulaContext },
   dynamic: false,
   blockId: spreadsheetNamespaceId,
   listColumns: () => columns,
@@ -195,7 +195,6 @@ const testCases: TestCase[] = [
 ]
 
 describe('Spreadsheet Functions', () => {
-  const formulaContext = new FormulaContext({ domain: 'test' })
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 

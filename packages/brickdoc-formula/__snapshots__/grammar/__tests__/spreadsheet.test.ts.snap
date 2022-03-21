@@ -4900,7 +4900,15 @@ Object {
       "features": Array [
         "formula-controls",
       ],
-      "formulaNames": Array [],
+      "formulaNames": Array [
+        Object {
+          "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "kind": "Spreadsheet",
+          "name": "MySpreadsheet",
+          "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "renderTokens": [Function],
+        },
+      ],
       "functionClausesMap": Object {
         "ABS": Object {
           "acceptError": false,
@@ -10827,7 +10835,9 @@ Object {
       ],
       "reverseFunctionDependencies": Object {},
       "reverseVariableDependencies": Object {},
-      "spreadsheets": Object {},
+      "spreadsheets": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": [Circular],
+      },
       "tickKey": "FormulaContext#test",
       "tickTimeout": 1000,
       "variableNameCounter": Object {
@@ -10913,7 +10923,15 @@ Object {
       "features": Array [
         "formula-controls",
       ],
-      "formulaNames": Array [],
+      "formulaNames": Array [
+        Object {
+          "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "kind": "Spreadsheet",
+          "name": "MySpreadsheet",
+          "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "renderTokens": [Function],
+        },
+      ],
       "functionClausesMap": Object {
         "ABS": Object {
           "acceptError": false,
@@ -16840,7 +16858,9 @@ Object {
       ],
       "reverseFunctionDependencies": Object {},
       "reverseVariableDependencies": Object {},
-      "spreadsheets": Object {},
+      "spreadsheets": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": [Circular],
+      },
       "tickKey": "FormulaContext#test",
       "tickTimeout": 1000,
       "variableNameCounter": Object {

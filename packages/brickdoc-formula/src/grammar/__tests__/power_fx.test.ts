@@ -51,10 +51,12 @@ const columns: ColumnInitializer[] = [
   }
 ]
 
+const formulaContext = new FormulaContext({ domain: 'test' })
+
 const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',
   dynamic: false,
-  ctx: { formulaContext: new FormulaContext({ domain: 'test' }) },
+  ctx: { formulaContext },
   blockId: spreadsheetNamespaceId,
   listColumns: () => columns,
   listRows: () => rows,
@@ -95,7 +97,6 @@ const testCases: TestCase[] = [
 ]
 
 describe('Power Fx Functions', () => {
-  const formulaContext = new FormulaContext({ domain: 'test' })
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 

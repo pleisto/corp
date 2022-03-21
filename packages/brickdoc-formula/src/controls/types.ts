@@ -1,3 +1,4 @@
+import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import {
   ColumnId,
   ColumnName,
@@ -10,7 +11,10 @@ import {
   VariableMetadata,
   ContextInterface,
   VariableDisplayData,
-  AnyTypeResult
+  AnyTypeResult,
+  CodeFragment,
+  ErrorMessage,
+  FormulaType
 } from '../types'
 
 export interface ControlType {
@@ -33,11 +37,22 @@ export interface BlockInitializer {
   id: NamespaceId
 }
 
+type handleInterpretType = (name: string) => Promise<AnyTypeResult>
+type handleCodeFragmentsType = (
+  visitor: CodeFragmentVisitor,
+  name: string,
+  rhsCodeFragments: CodeFragment[]
+) => {
+  errors: ErrorMessage[]
+  firstArgumentType: FormulaType | undefined
+  codeFragments: CodeFragment[]
+}
 export interface BlockType extends BlockInitializer {
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
   persistence: () => BlockInitializer
-  interpret: (name: string) => Promise<AnyTypeResult>
+  handleCodeFragments: handleCodeFragmentsType
+  handleInterpret: handleInterpretType
 }
 
 export interface ColumnInitializer {
@@ -93,7 +108,8 @@ export interface SpreadsheetType {
   blockId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
-  interpret: (name: string) => Promise<AnyTypeResult>
+  handleCodeFragments: handleCodeFragmentsType
+  handleInterpret: handleInterpretType
   columnCount: () => number
   rowCount: () => number
   name: () => string

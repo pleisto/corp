@@ -1,4 +1,15 @@
-import { AnyTypeResult, ContextInterface, NamespaceId, StringResult, uuid, VariableDisplayData } from '../types'
+import { CodeFragmentVisitor, column2attrs, columnRenderText } from '../grammar'
+import {
+  AnyTypeResult,
+  CodeFragment,
+  ContextInterface,
+  ErrorMessage,
+  FormulaType,
+  NamespaceId,
+  StringResult,
+  uuid,
+  VariableDisplayData
+} from '../types'
 import { ColumnClass } from './column'
 import {
   SpreadsheetType,
@@ -52,11 +63,50 @@ export class SpreadsheetClass implements SpreadsheetType {
     }
   }
 
-  async interpret(name: string): Promise<AnyTypeResult> {
+  async handleInterpret(name: string): Promise<AnyTypeResult> {
     const column = this.getColumnByName(name)
     return column
       ? { type: 'Column', result: new ColumnClass(this, column) }
       : { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
+  }
+
+  handleCodeFragments(
+    visitor: CodeFragmentVisitor,
+    name: string,
+    codeFragments: CodeFragment[]
+  ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
+    const errors: ErrorMessage[] = []
+    const column = this._formulaContext.findColumnByName(this.blockId, name)
+
+    if (!column) {
+      errors.push({ type: 'deps', message: `Column "${name}" not found` })
+      return {
+        errors,
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
+
+    const firstArgumentType = 'Column'
+    let finalRhsCodeFragments = codeFragments
+
+    if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
+      finalRhsCodeFragments = [
+        {
+          ...codeFragments[0],
+          display: name,
+          code: 'Column',
+          attrs: column2attrs(column),
+          renderText: columnRenderText(column)
+        }
+      ]
+    }
+
+    return {
+      errors,
+      firstArgumentType,
+      codeFragments: finalRhsCodeFragments
+    }
   }
 
   persistDynamic(): SpreadsheetDynamicPersistence {

@@ -18,16 +18,8 @@ import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
-import {
-  block2codeFragment,
-  column2attrs,
-  columnRenderText,
-  spreadsheet2codeFragment,
-  variable2attrs,
-  variableRenderText
-} from './convert'
+import { block2codeFragment, spreadsheet2codeFragment } from './convert'
 import { PositionFragment } from './core'
-import { fetchResult } from '../context'
 
 const token2fragment = (token: IToken, type: FormulaType): CodeFragment => {
   return {
@@ -512,6 +504,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       }
 
       if (rhsCst.name === 'keyExpression') {
+        const extraErrorMessages: ErrorMessage[] = []
         const accessErrorMessages: ErrorMessage[] =
           ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
@@ -519,9 +512,9 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
           type: 'string'
         })
-        const unknownVariableError: ErrorMessage[] = []
-        let finalRhsCodeFragments = rhsCodeFragments
-        const finalRhsImage = rhsImage
+        const name = parseString(rhsImage)
+
+        let object
 
         if (firstArgumentType === 'Block') {
           const blockCodeFragment = codeFragments[codeFragments.length - 2]
@@ -532,100 +525,41 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
               : blockCodeFragment?.code === 'UUID'
               ? blockCodeFragment?.value
               : blockCodeFragment?.attrs?.id ?? ''
-          const variableName = parseString(rhsImage)
-          const variable = this.ctx.formulaContext.findVariableByName(namespaceId, variableName)
 
-          this.variableNameDependencies = [
-            ...new Map(
-              [...this.variableNameDependencies, { namespaceId, name: variableName }].map(item => [
-                `${item.namespaceId},${item.name}`,
-                item
-              ])
-            ).values()
-          ]
-
-          if (variable) {
-            firstArgumentType = fetchResult(variable.t).type
-
-            if (variable.t.isAsync) {
-              this.async = true
-            }
-            if (variable.t.isEffect) {
-              this.effect = true
-            }
-            if (!variable.t.isPersist) {
-              this.persist = false
-            }
-            if (!variable.t.isPure) {
-              this.pure = false
-            }
-
-            if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
-              finalRhsCodeFragments = [
-                {
-                  ...finalRhsCodeFragments[0],
-                  display: variableName,
-                  code: 'Variable',
-                  attrs: variable2attrs(variable),
-                  renderText: variableRenderText(variable, this.ctx.meta.namespaceId)
-                }
-              ]
-            }
-
-            this.variableDependencies = [
-              ...new Map(
-                [...this.variableDependencies, { namespaceId, variableId: variable.t.variableId }].map(item => [
-                  item.variableId,
-                  item
-                ])
-              ).values()
-            ]
-
-            this.flattenVariableDependencies = [
-              ...new Map(
-                [
-                  ...this.flattenVariableDependencies,
-                  ...variable.t.flattenVariableDependencies,
-                  { namespaceId, variableId: variable.t.variableId }
-                ].map(item => [item.variableId, item])
-              ).values()
-            ]
-          } else {
-            unknownVariableError.push({ type: 'deps', message: `Variable "${variableName}" not found` })
-          }
+          object = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
         }
 
         if (firstArgumentType === 'Spreadsheet') {
           const namespaceId = codeFragments[codeFragments.length - 2]?.attrs?.id as string
-          const columnName = parseString(rhsImage)
-          const column = this.ctx.formulaContext.findColumnByName(namespaceId, columnName)
-
-          if (column) {
-            firstArgumentType = 'Column'
-
-            if (['StringLiteral', 'FunctionName'].includes(finalRhsCodeFragments[0].code)) {
-              finalRhsCodeFragments = [
-                {
-                  ...finalRhsCodeFragments[0],
-                  display: columnName,
-                  code: 'Column',
-                  attrs: column2attrs(column),
-                  renderText: columnRenderText(column)
-                }
-              ]
-            }
-          } else {
-            unknownVariableError.push({ type: 'deps', message: `Column "${columnName}" not found` })
+          object = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+          if (!object) {
+            extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })
           }
         }
 
-        images.push(finalRhsImage)
+        const {
+          codeFragments: finalCodeFragments,
+          errors,
+          firstArgumentType: newFirstArgumentType
+        } = object?.handleCodeFragments(this, name, rhsCodeFragments) ?? {
+          firstArgumentType: undefined,
+          errors: [],
+          codeFragments: rhsCodeFragments
+        }
+
+        if (newFirstArgumentType) {
+          firstArgumentType = newFirstArgumentType
+        }
+
         codeFragments.push(
-          ...finalRhsCodeFragments.map(f => ({
+          ...finalCodeFragments.map(f => ({
             ...f,
-            errors: [...unknownVariableError, ...accessErrorMessages, ...f.errors]
+            errors: [...errors, ...extraErrorMessages, ...accessErrorMessages, ...f.errors]
           }))
         )
+
+        images.push(rhsImage)
+
         return
       }
 

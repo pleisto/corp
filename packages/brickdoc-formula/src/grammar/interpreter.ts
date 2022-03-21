@@ -509,7 +509,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
         if (result.type === 'Block' || result.type === 'Spreadsheet') {
           const name = key
-          result = await result.result.interpret(name)
+          result = await result.result.handleInterpret(name)
           continue
         }
 
