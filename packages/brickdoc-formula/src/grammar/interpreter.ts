@@ -17,7 +17,7 @@ import {
   BlockResult,
   StringResult
 } from '../types'
-import { ColumnClass, Row, SpreadsheetType } from '../controls'
+import { Row, SpreadsheetType } from '../controls'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
 import {
@@ -485,7 +485,6 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return result
   }
 
-  // TODO runtime type check
   async chainExpression(
     ctx: { lhs: CstNode | CstNode[]; rhs: any[] },
     args: ExpressionArgument
@@ -497,7 +496,6 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     let result: AnyTypeResult = await this.visit(ctx.lhs, { ...args, type: 'any' })
     if (shouldReturnEarly(result)) return result
 
-    // eslint-disable-next-line complexity
     for (const cst of ctx.rhs) {
       if (shouldReturnEarly(result)) break
 
@@ -509,32 +507,9 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       if (cst.name === 'keyExpression') {
         const { result: key } = await this.visit(cst, { ...args, type: 'any' })
 
-        if (result.type === 'Block') {
+        if (result.type === 'Block' || result.type === 'Spreadsheet') {
           const name = key
-          const variable = this.ctx.formulaContext.findVariableByName(result.result.id, name)
-          if (!variable || !variable.savedT) {
-            result = { type: 'Error', result: `Variable "${name}" not found`, errorKind: 'runtime' }
-            continue
-          }
-
-          // if (['constant', 'unknown'].includes(variable.t.kind)) {
-          if (variable.savedT.task.async) {
-            result = (await variable.savedT.task.variableValue).result
-          } else {
-            result = variable.savedT.task.variableValue.result
-          }
-          continue
-
-          // result = this.visit(variable.t.cst!, args)
-          // return true
-        }
-
-        if (result.type === 'Spreadsheet') {
-          const name = key
-          const column = result.result.getColumnByName(name)
-          result = column
-            ? { type: 'Column', result: new ColumnClass(result.result, column) }
-            : { type: 'Error', result: `Column ${key} not found`, errorKind: 'runtime' }
+          result = await result.result.interpret(name)
           continue
         }
 

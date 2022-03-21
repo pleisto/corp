@@ -1,4 +1,5 @@
-import { ContextInterface, NamespaceId, StringResult, uuid, VariableDisplayData } from '../types'
+import { AnyTypeResult, ContextInterface, NamespaceId, StringResult, uuid, VariableDisplayData } from '../types'
+import { ColumnClass } from './column'
 import {
   SpreadsheetType,
   SpreadsheetInitializer,
@@ -49,6 +50,13 @@ export class SpreadsheetClass implements SpreadsheetType {
     if (dynamic) {
       this.persistence = this.persistDynamic()
     }
+  }
+
+  async interpret(name: string): Promise<AnyTypeResult> {
+    const column = this.getColumnByName(name)
+    return column
+      ? { type: 'Column', result: new ColumnClass(this, column) }
+      : { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
   }
 
   persistDynamic(): SpreadsheetDynamicPersistence {

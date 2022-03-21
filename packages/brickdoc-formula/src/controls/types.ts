@@ -9,7 +9,8 @@ import {
   uuid,
   VariableMetadata,
   ContextInterface,
-  VariableDisplayData
+  VariableDisplayData,
+  AnyTypeResult
 } from '../types'
 
 export interface ControlType {
@@ -36,6 +37,7 @@ export interface BlockType extends BlockInitializer {
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
   persistence: () => BlockInitializer
+  interpret: (name: string) => Promise<AnyTypeResult>
 }
 
 export interface ColumnInitializer {
@@ -91,6 +93,7 @@ export interface SpreadsheetType {
   blockId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
+  interpret: (name: string) => Promise<AnyTypeResult>
   columnCount: () => number
   rowCount: () => number
   name: () => string

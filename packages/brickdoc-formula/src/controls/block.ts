@@ -1,5 +1,5 @@
 import { BlockInitializer, BlockType } from './types'
-import { ContextInterface, NamespaceId } from '../types'
+import { AnyTypeResult, ContextInterface, NamespaceId } from '../types'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
@@ -25,6 +25,19 @@ export class BlockClass implements BlockType {
   persistence(): BlockInitializer {
     return {
       id: this.id
+    }
+  }
+
+  async interpret(name: string): Promise<AnyTypeResult> {
+    const variable = this._formulaContext.findVariableByName(this.id, name)
+    if (!variable || !variable.savedT) {
+      return { type: 'Error', result: `Variable "${name}" not found`, errorKind: 'runtime' }
+    }
+
+    if (variable.savedT.task.async) {
+      return (await variable.savedT.task.variableValue).result
+    } else {
+      return variable.savedT.task.variableValue.result
     }
   }
 }

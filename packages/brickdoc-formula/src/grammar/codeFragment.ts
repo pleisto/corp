@@ -485,7 +485,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
 
     let firstArgumentType: FormulaType = lhsType
 
-    // eslint-disable-next-line complexity
     ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
       const rhsCst = ctx.rhs?.[idx]
       const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
