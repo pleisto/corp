@@ -535,10 +535,9 @@ export const SpreadsheetColumnEditable: React.FC<{
   const displayIndex = columnDisplayIndex(index)
 
   return editing ? (
-    // eslint-disable-next-line jsx-a11y/no-autofocus
     <input
+      autoFocus // eslint-disable-line jsx-a11y/no-autofocus
       ref={inputRef}
-      autoFocus
       className="column"
       defaultValue={column.title}
       onBlur={handleBlur}
