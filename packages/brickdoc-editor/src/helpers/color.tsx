@@ -189,7 +189,7 @@ export const FORMULA_ICONS: Record<FormulaColorType, JSX.Element> = {
   Date: <Icon.Calendar />,
   Error: defaultIcon,
   Column: <Icon.Column />,
-  Cell: <Icon.Column />,
+  Cell: <Icon.Cell />,
   Block: defaultIcon,
   Spreadsheet: <Icon.Table />,
   Function: defaultIcon,
