@@ -7,6 +7,7 @@ module Docs
 
       has_primary_key uuid: true
       field :state, String, null: true
+      field :state_id, BrickGraphQL::Scalars::UUID, null: true
 
       def state
         Base64.encode64 object.state

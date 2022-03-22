@@ -7,6 +7,7 @@
 #  state      :binary
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  state_id   :uuid
 #
 class Docs::Document < ApplicationRecord
 end

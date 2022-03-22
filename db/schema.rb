@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_22_015910) do
 
   create_table "docs_documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.binary "state"
+    t.uuid "state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
