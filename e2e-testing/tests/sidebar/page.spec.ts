@@ -7,7 +7,7 @@ test.describe('Page List', () => {
   let pageList: PageList
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/', { waitUntil: 'networkidle' })
     const pageTree = new PageTree(page)
     await pageTree.removeAllPages()
     pageList = new PageList(page)

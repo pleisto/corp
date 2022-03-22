@@ -4,7 +4,7 @@ import { COMMON_SELECTORS } from '@/selectors/common'
 
 test.describe('Trash', () => {
   test('Verify trash page is in viewport', async ({ page, pageExtend }) => {
-    await page.goto('/')
+    await page.goto('/', { waitUntil: 'networkidle' })
     const trash = new Trash(page)
     await trash.openTrashPage()
     const isInViewPort = await pageExtend.isInViewPort(COMMON_SELECTORS.tooltip)
