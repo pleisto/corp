@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useRef, useImperativeHandle, forwardRef } from 'react'
-import Trigger, { TriggerProps } from 'rc-trigger'
-import type { AlignType, AnimationType, ActionType } from 'rc-trigger/lib/interface'
+import Trigger, { type TriggerProps } from 'rc-trigger'
+import type { AlignType, ActionType } from 'rc-trigger/lib/interface'
 import { devLog } from '../../../utilities'
 import { placements } from './placements'
 import Content from './content'
@@ -11,10 +11,6 @@ export interface TooltipProps extends Pick<TriggerProps, 'onPopupAlign' | 'built
   defaultVisible?: boolean
   visible?: boolean
   placement?: string
-  /** @deprecated Use `motion` instead */
-  transitionName?: string
-  /** @deprecated Use `motion` instead */
-  animation?: AnimationType
   /** Config popup motion */
   motion?: TriggerProps['popupMotion']
   onVisibleChange?: (visible: boolean) => void
@@ -26,11 +22,6 @@ export interface TooltipProps extends Pick<TriggerProps, 'onPopupAlign' | 'built
   mouseEnterDelay?: number
   mouseLeaveDelay?: number
   getTooltipContainer?: (node: HTMLElement) => HTMLElement
-  destroyTooltipOnHide?:
-    | boolean
-    | {
-        keepParent?: boolean
-      }
   align?: AlignType
   showArrow?: boolean
   arrowContent?: React.ReactNode
@@ -52,12 +43,9 @@ const RcTooltip: React.ForwardRefRenderFunction<unknown, TooltipProps> = (props,
     children,
     onVisibleChange,
     afterVisibleChange,
-    transitionName,
-    animation,
     motion,
     placement = 'right',
     align = {},
-    destroyTooltipOnHide = true,
     defaultVisible,
     getTooltipContainer,
     overlayInnerStyle,
@@ -92,16 +80,6 @@ const RcTooltip: React.ForwardRefRenderFunction<unknown, TooltipProps> = (props,
     ]
   }
 
-  let destroyTooltip = false
-  let autoDestroy = false
-  if (typeof destroyTooltipOnHide === 'boolean') {
-    destroyTooltip = destroyTooltipOnHide
-  } else if (destroyTooltipOnHide && typeof destroyTooltipOnHide === 'object') {
-    const { keepParent } = destroyTooltipOnHide
-    destroyTooltip = keepParent === true
-    autoDestroy = keepParent === false
-  }
-
   return (
     <Trigger
       popupClassName={overlayClassName}
@@ -115,12 +93,10 @@ const RcTooltip: React.ForwardRefRenderFunction<unknown, TooltipProps> = (props,
       getPopupContainer={getTooltipContainer}
       onPopupVisibleChange={onVisibleChange}
       afterPopupVisibleChange={afterVisibleChange}
-      popupTransitionName={transitionName}
-      popupAnimation={animation}
       popupMotion={motion}
       defaultPopupVisible={defaultVisible}
-      destroyPopupOnHide={destroyTooltip}
-      autoDestroy={autoDestroy}
+      destroyPopupOnHide // essentially `removeOnHide` to the inner popup component
+      autoDestroy // destroy the portal DOM as well after the tooltip is dismissed
       mouseLeaveDelay={mouseLeaveDelay}
       popupStyle={overlayStyle}
       mouseEnterDelay={mouseEnterDelay}

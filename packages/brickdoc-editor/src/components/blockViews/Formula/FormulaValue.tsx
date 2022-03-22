@@ -88,9 +88,5 @@ export const FormulaValue: React.FC<FormulaValueProps> = ({
     return data
   }
 
-  return (
-    <Tooltip title={name} destroyTooltipOnHide={true}>
-      {data}
-    </Tooltip>
-  )
+  return <Tooltip title={name}>{data}</Tooltip>
 }
