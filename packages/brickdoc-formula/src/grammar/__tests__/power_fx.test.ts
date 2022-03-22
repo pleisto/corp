@@ -16,18 +16,94 @@ const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
 const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', position: 0, type: 'normal' }
 
-const rows: Row[] = [{ rowId: firstRowId }, { rowId: secondRowId }, { rowId: thirdRowId }]
+const rows: Row[] = [
+  { rowId: firstRowId, rowIndex: 0 },
+  { rowId: secondRowId, rowIndex: 1 },
+  { rowId: thirdRowId, rowIndex: 2 }
+]
 
 const cells: CellType[] = [
-  { rowId: firstRowId, columnId: firstColumnId, value: '1', displayData: undefined, cellId: '' },
-  { rowId: firstRowId, columnId: secondColumnId, value: '2', displayData: undefined, cellId: '' },
-  { rowId: firstRowId, columnId: thirdColumnId, value: '3', displayData: undefined, cellId: '' },
-  { rowId: secondRowId, columnId: firstColumnId, value: '3', displayData: undefined, cellId: '' },
-  { rowId: secondRowId, columnId: secondColumnId, value: '4', displayData: undefined, cellId: '' },
-  { rowId: secondRowId, columnId: thirdColumnId, value: '', displayData: undefined, cellId: '' },
-  { rowId: thirdRowId, columnId: firstColumnId, value: '5', displayData: undefined, cellId: '' },
-  { rowId: thirdRowId, columnId: secondColumnId, value: '6', displayData: undefined, cellId: '' },
-  { rowId: thirdRowId, columnId: thirdColumnId, value: 'Foo', displayData: undefined, cellId: '' }
+  {
+    rowId: firstRowId,
+    rowIndex: 0,
+    columnIndex: 0,
+    columnId: firstColumnId,
+    value: '1',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: firstRowId,
+    rowIndex: 0,
+    columnIndex: 1,
+    columnId: secondColumnId,
+    value: '2',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: firstRowId,
+    rowIndex: 0,
+    columnIndex: 2,
+    columnId: thirdColumnId,
+    value: '3',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: secondRowId,
+    rowIndex: 1,
+    columnIndex: 0,
+    columnId: firstColumnId,
+    value: '3',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: secondRowId,
+    rowIndex: 1,
+    columnIndex: 1,
+    columnId: secondColumnId,
+    value: '4',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: secondRowId,
+    rowIndex: 1,
+    columnIndex: 2,
+    columnId: thirdColumnId,
+    value: '',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: thirdRowId,
+    rowIndex: 2,
+    columnIndex: 0,
+    columnId: firstColumnId,
+    value: '5',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: thirdRowId,
+    rowIndex: 2,
+    columnIndex: 1,
+    columnId: secondColumnId,
+    value: '6',
+    displayData: undefined,
+    cellId: ''
+  },
+  {
+    rowId: thirdRowId,
+    rowIndex: 2,
+    columnIndex: 2,
+    columnId: thirdColumnId,
+    value: 'Foo',
+    displayData: undefined,
+    cellId: ''
+  }
 ]
 
 const columns: ColumnInitializer[] = [

@@ -33,7 +33,7 @@ export function useFormulaSpreadsheet({
       index: column.sort
     }))
 
-    const rowData: Row[] = rows.map(row => ({ rowId: row.id }))
+    const rowData: Row[] = rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex }))
 
     const spreadsheet: SpreadsheetType = new SpreadsheetClass({
       ctx: { formulaContext },
@@ -46,11 +46,13 @@ export function useFormulaSpreadsheet({
         const finalRowIds = rowId ? [rowId] : rows.map(row => row.id)
         const finalColumnIds = columnId ? [columnId] : columns.map(column => column.uuid)
 
-        return finalRowIds.flatMap(rowId =>
-          finalColumnIds.map(columnId => {
+        return finalRowIds.flatMap((rowId, rowIndex) =>
+          finalColumnIds.map((columnId, columnIndex) => {
             const cellBlock = getCellBlock(rowId, columnId)
             const cell: CellType = {
               columnId,
+              rowIndex,
+              columnIndex,
               rowId,
               cellId: cellBlock.id,
               value: cellBlock.text,

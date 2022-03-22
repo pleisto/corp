@@ -71,12 +71,15 @@ export interface ColumnType extends ColumnInitializer {
 
 export interface Row {
   rowId: uuid
+  rowIndex: number
 }
 
 export interface CellType {
   cellId: uuid
   columnId: ColumnId
   rowId: uuid
+  columnIndex: number
+  rowIndex: number
   value: string
   displayData: VariableDisplayData | undefined
 }
