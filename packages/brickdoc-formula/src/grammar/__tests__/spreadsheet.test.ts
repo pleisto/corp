@@ -94,6 +94,11 @@ const testCases: TestCase[] = [
     value: cells[0]
   },
   {
+    label: 'cell access',
+    input: `=#${spreadsheetNamespaceId}."first"[1]`,
+    value: cells[0]
+  },
+  {
     label: 'cell error1',
     input: `=#${spreadsheetNamespaceId}."first".foobar`,
     error: 'Need a number: foobar'

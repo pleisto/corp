@@ -598,6 +598,75 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
+  accessExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    if (!ctx.LBracket) {
+      return this.visit(ctx.lhs, { type })
+    }
+
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+    const {
+      codeFragments: lhsCodeFragments,
+      type: lhsType,
+      image
+    }: CodeFragmentResult = this.visit(ctx.lhs, { type: 'any' })
+    codeFragments.push(...lhsCodeFragments)
+    images.push(image)
+
+    let firstArgumentType: FormulaType = lhsType
+
+    ctx.LBracket.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
+      const rhsCst = ctx.rhs?.[idx]
+      const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
+      const missingRBracketErrors: ErrorMessage[] = ctx.RBracket?.[idx]
+        ? []
+        : [{ message: 'Missing closing bracket', type: 'syntax' }]
+
+      codeFragments.push({
+        ...token2fragment(ctx.LBracket[idx], 'any'),
+        errors: [...missingRhsErrors, ...missingRBracketErrors]
+      })
+      images.push(ctx.LBracket[idx].image)
+
+      if (!rhsCst) {
+        return
+      }
+
+      // TODO type check
+      const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
+        type: 'any',
+        firstArgumentType
+      })
+
+      firstArgumentType = 'any'
+      images.push(rhsImage)
+      codeFragments.push(...rhsCodeFragments)
+
+      if (ctx.RBracket?.[idx]) {
+        codeFragments.push(token2fragment(ctx.RBracket[idx], 'any'))
+        images.push(ctx.RBracket[idx].image)
+      }
+    })
+
+    if (codeFragments.find(c => c.errors.length > 0)) {
+      return {
+        image: images.join(''),
+        codeFragments,
+        type: firstArgumentType
+      }
+    }
+
+    const { errorMessages, newType } = intersectType(type, firstArgumentType, 'accessExpression', this.ctx)
+    return {
+      image: images.join(''),
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...codeFragment.errors, ...errorMessages]
+      })),
+      type: newType
+    }
+  }
+
   keyExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
     if (ctx.FunctionName) {
       return this.FunctionNameExpression(ctx, { type })

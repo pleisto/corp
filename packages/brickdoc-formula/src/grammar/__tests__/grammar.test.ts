@@ -248,6 +248,11 @@ const testCases: TestCase[] = [
     value: 'foo'
   },
   {
+    input: '=[2, "foo", true][2]',
+    label: 'Array access [] 1',
+    value: 'foo'
+  },
+  {
     input: '=[2, "foo", true].4',
     label: 'Array access 2',
     value: 'Index 4 out of bounds'
@@ -335,6 +340,27 @@ const testCases: TestCase[] = [
   {
     input: '={}',
     value: {}
+  },
+  {
+    input: '={a: 1}[a]',
+    parseErrorType: 'syntax',
+    errorMessage: 'Unknown function a'
+  },
+  {
+    input: '={a: 1}[1]',
+    value: 'Key 1 not found'
+  },
+  {
+    input: '={a: 1}[1+1]',
+    value: 'Key 2 not found'
+  },
+  {
+    input: '={a: 1}["a"]',
+    value: 1
+  },
+  {
+    input: '={a: 1}["a" & ""]',
+    value: 1
   },
   {
     input: '={"foo": 1, bar: "baz", obj: {}, array: [1]}',

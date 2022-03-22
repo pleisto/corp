@@ -81,10 +81,19 @@ export class FormulaParser extends CstParser {
   })
 
   public expression = this.RULE('expression', () => {
-    this.SUBRULE(this.combineExpression, { LABEL: 'lhs' })
+    this.SUBRULE(this.accessExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(Semicolon)
-      this.SUBRULE2(this.combineExpression, { LABEL: 'rhs' })
+      this.SUBRULE2(this.accessExpression, { LABEL: 'rhs' })
+    })
+  })
+
+  public accessExpression = this.RULE('accessExpression', () => {
+    this.SUBRULE(this.combineExpression, { LABEL: 'lhs' })
+    this.MANY(() => {
+      this.CONSUME(LBracket)
+      this.SUBRULE2(this.expression, { LABEL: 'rhs' })
+      this.CONSUME(RBracket)
     })
   })
 

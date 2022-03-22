@@ -555,6 +555,67 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return result
   }
 
+  async accessExpression(
+    ctx: { lhs: CstNode | CstNode[]; rhs: any[] },
+    args: ExpressionArgument
+  ): Promise<AnyTypeResult> {
+    if (!ctx.rhs) {
+      return this.visit(ctx.lhs, args)
+    }
+
+    let result: AnyTypeResult = await this.visit(ctx.lhs, { ...args, type: 'any' })
+    if (shouldReturnEarly(result)) return result
+
+    for (const cst of ctx.rhs) {
+      if (shouldReturnEarly(result)) break
+
+      const { result: key } = await this.visit(cst, { ...args, type: 'any' })
+
+      if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column') {
+        result = await result.result.handleInterpret(key)
+        continue
+      }
+
+      if (result.type === 'Record') {
+        const value = result.result[key]
+        if (value) {
+          result = value
+        } else {
+          result = { type: 'Error', result: `Key ${key} not found`, errorKind: 'runtime' }
+        }
+
+        continue
+      }
+
+      if (result.type === 'Array') {
+        const number = Number(key)
+        if (isNaN(number)) {
+          result = { type: 'Error', result: `Need a number: ${key}`, errorKind: 'syntax' }
+        } else {
+          result = result.result[number - 1] || {
+            type: 'Error',
+            result: `Index ${number} out of bounds`,
+            errorKind: 'runtime'
+          }
+        }
+        continue
+      }
+
+      if (result.type === 'Reference') {
+        result = { type: 'Reference', result: { ...result.result, attribute: key } }
+        continue
+      }
+
+      result = { type: 'Error', result: `Access not supported for ${result.type}`, errorKind: 'runtime' }
+      continue
+    }
+
+    const typeError = runtimeCheckType(args, result.type, 'accessExpression', this.ctx)
+    if (shouldReturnEarly(typeError)) return typeError!
+
+    return result
+  }
+
   async keyExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
     if (ctx.FunctionName) {
       return this.FunctionNameExpression(ctx, args)
