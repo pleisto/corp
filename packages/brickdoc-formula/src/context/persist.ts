@@ -169,6 +169,11 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
     }
   }
 
+  if (result.type === 'Range') {
+    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.spreadsheetId)
+    return { type: 'Range', result: { ...result.result, spreadsheet } }
+  }
+
   if (result.type === 'Column' && !(result.result instanceof ColumnClass)) {
     const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.namespaceId)
     if (spreadsheet) {

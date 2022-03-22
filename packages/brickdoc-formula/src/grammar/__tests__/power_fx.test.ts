@@ -5,7 +5,7 @@ import { VariableMetadata } from '../../types'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
-const spreadsheetNamespaceId = '28e28190-63bd-4f70-aeca-26e72574c01a'
+const spreadsheetId = '28e28190-63bd-4f70-aeca-26e72574c01a'
 
 const firstColumnId = '62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6'
 const secondColumnId = '4e6f9adb-6f33-454e-9f9e-635dc98e3f28'
@@ -25,6 +25,7 @@ const rows: Row[] = [
 const cells: CellType[] = [
   {
     rowId: firstRowId,
+    spreadsheetId,
     rowIndex: 0,
     columnIndex: 0,
     columnId: firstColumnId,
@@ -34,6 +35,7 @@ const cells: CellType[] = [
   },
   {
     rowId: firstRowId,
+    spreadsheetId,
     rowIndex: 0,
     columnIndex: 1,
     columnId: secondColumnId,
@@ -43,6 +45,7 @@ const cells: CellType[] = [
   },
   {
     rowId: firstRowId,
+    spreadsheetId,
     rowIndex: 0,
     columnIndex: 2,
     columnId: thirdColumnId,
@@ -52,6 +55,7 @@ const cells: CellType[] = [
   },
   {
     rowId: secondRowId,
+    spreadsheetId,
     rowIndex: 1,
     columnIndex: 0,
     columnId: firstColumnId,
@@ -61,6 +65,7 @@ const cells: CellType[] = [
   },
   {
     rowId: secondRowId,
+    spreadsheetId,
     rowIndex: 1,
     columnIndex: 1,
     columnId: secondColumnId,
@@ -70,6 +75,7 @@ const cells: CellType[] = [
   },
   {
     rowId: secondRowId,
+    spreadsheetId,
     rowIndex: 1,
     columnIndex: 2,
     columnId: thirdColumnId,
@@ -79,6 +85,7 @@ const cells: CellType[] = [
   },
   {
     rowId: thirdRowId,
+    spreadsheetId,
     rowIndex: 2,
     columnIndex: 0,
     columnId: firstColumnId,
@@ -88,6 +95,7 @@ const cells: CellType[] = [
   },
   {
     rowId: thirdRowId,
+    spreadsheetId,
     rowIndex: 2,
     columnIndex: 1,
     columnId: secondColumnId,
@@ -97,6 +105,7 @@ const cells: CellType[] = [
   },
   {
     rowId: thirdRowId,
+    spreadsheetId,
     rowIndex: 2,
     columnIndex: 2,
     columnId: thirdColumnId,
@@ -109,19 +118,19 @@ const cells: CellType[] = [
 const columns: ColumnInitializer[] = [
   {
     columnId: firstColumnId,
-    namespaceId: spreadsheetNamespaceId,
+    namespaceId: spreadsheetId,
     name: 'first',
     index: 0
   },
   {
     columnId: secondColumnId,
-    namespaceId: spreadsheetNamespaceId,
+    namespaceId: spreadsheetId,
     name: 'second',
     index: 1
   },
   {
     columnId: thirdColumnId,
-    namespaceId: spreadsheetNamespaceId,
+    namespaceId: spreadsheetId,
     name: 'third',
     index: 2
   }
@@ -133,7 +142,7 @@ const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',
   dynamic: false,
   ctx: { formulaContext },
-  blockId: spreadsheetNamespaceId,
+  blockId: spreadsheetId,
   listColumns: () => columns,
   listRows: () => rows,
   listCells: ({ rowId, columnId }) => {
@@ -160,13 +169,13 @@ const SNAPSHOT_FLAG = '<SNAPSHOT>'
 const testCases: TestCase[] = [
   {
     label: 'CountIf ok',
-    input: `=CountIf(#${spreadsheetNamespaceId}, #${spreadsheetNamespaceId}."first" >= 3)`,
+    input: `=CountIf(#${spreadsheetId}, #${spreadsheetId}."first" >= 3)`,
     error: 'Expected number but got Column',
     value: 2
   },
   {
     label: 'CountIf error1',
-    input: `=CountIf(#${spreadsheetNamespaceId}, >= 3)`,
+    input: `=CountIf(#${spreadsheetId}, >= 3)`,
     error: undefined,
     value: 'Column is missing'
   }

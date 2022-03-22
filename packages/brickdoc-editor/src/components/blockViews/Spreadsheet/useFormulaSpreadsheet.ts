@@ -26,11 +26,12 @@ export function useFormulaSpreadsheet({
   React.useEffect(() => {
     if (!formulaContext) return
     const spreadsheetName = title || 'Untitled Spreadsheet'
-    const columnData: ColumnInitializer[] = columns.map(column => ({
+    const columnData: ColumnInitializer[] = columns.map((column, index) => ({
       columnId: column.uuid,
       namespaceId: blockId,
       name: columnDisplayTitle(column),
-      index: column.sort
+      // index: column.sort
+      index
     }))
 
     const rowData: Row[] = rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex }))
@@ -55,6 +56,7 @@ export function useFormulaSpreadsheet({
           finalColumnIdsWithIndex.map(({ columnId, columnIndex }) => {
             const cellBlock = getCellBlock(rowId, columnId)
             const cell: CellType = {
+              spreadsheetId: blockId,
               columnId,
               rowIndex,
               columnIndex,

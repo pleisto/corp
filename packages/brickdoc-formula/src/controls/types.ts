@@ -80,13 +80,17 @@ export interface RowType extends Row {
 }
 
 export interface RangeType {
+  spreadsheetId: uuid
   columnSize: number
   rowSize: number
+  rowIds: uuid[]
+  columnIds: uuid[]
   startCell: CellType
   endCell: CellType
 }
 
 export interface CellType {
+  spreadsheetId: uuid
   cellId: uuid
   columnId: ColumnId
   rowId: uuid

@@ -79,6 +79,7 @@ export const Spreadsheet = (
 
       columns.forEach(({ name, columnId }, columnIndex) => {
         const cell: CellType = {
+          spreadsheetId: blockId,
           columnId,
           rowId,
           rowIndex,
