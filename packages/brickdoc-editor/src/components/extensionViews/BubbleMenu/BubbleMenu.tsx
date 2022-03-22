@@ -6,6 +6,7 @@ import { Toolbar } from '../../ui/Toolbar'
 import './index.less'
 import { useBubbleMenuItems } from './useBubbleMenuItems'
 import { findNodesInSelection } from '../../../helpers'
+import { Button } from '@brickdoc/design-system'
 
 interface BubbleMenuProps {
   editor: Editor | null
@@ -13,7 +14,6 @@ interface BubbleMenuProps {
 
 const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ view, state, editor, from, to }) => {
   if (!editor.isEditable || editor.isDestroyed) return false
-  console.log(from, to, state.selection.from, state.selection.to)
   if (from === to) return false
 
   const allowedNodeTypes = ['paragraph', 'heading', 'listItem', 'orderedList', 'bulletList']
@@ -61,7 +61,14 @@ export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
       shouldShow={shouldShow}
       editor={editor}
     >
-      {visible && <Toolbar options={options} />}
+      {visible && (
+        // Puts toolbar inside a button to prevent toolbar from blink.
+        // ref: https://tiptap.dev/api/extensions/bubble-menu
+        // Not sure why
+        <Button type="unstyled">
+          <Toolbar options={options} />
+        </Button>
+      )}
     </TiptapBubbleMenu>
   )
 }
