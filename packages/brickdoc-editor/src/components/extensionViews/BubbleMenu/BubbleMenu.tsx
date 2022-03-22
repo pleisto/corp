@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { BubbleMenu as TiptapBubbleMenu } from '@tiptap/react'
 import { BubbleMenuViewProps } from '@tiptap/extension-bubble-menu'
 import { Editor } from '@tiptap/core'
@@ -13,6 +13,7 @@ interface BubbleMenuProps {
 
 const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ view, state, editor, from, to }) => {
   if (!editor.isEditable || editor.isDestroyed) return false
+  console.log(from, to, state.selection.from, state.selection.to)
   if (from === to) return false
 
   const allowedNodeTypes = ['paragraph', 'heading', 'listItem', 'orderedList', 'bulletList']
@@ -36,8 +37,21 @@ const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ view, state, editor, fr
   return show
 }
 
+export const isBubbleMenuVisible = (editor: Editor | null | undefined): editor is Editor => {
+  if (!editor) return false
+  const { from, to } = editor.state.selection
+  if (from === to) return false
+  return true
+}
+
 export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
   const [options] = useBubbleMenuItems()
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const currentVisible = isBubbleMenuVisible(editor)
+    if (currentVisible !== visible) setVisible(currentVisible)
+  }, [editor, editor?.state.selection, visible])
 
   if (!editor) return null
 
@@ -47,7 +61,7 @@ export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
       shouldShow={shouldShow}
       editor={editor}
     >
-      <Toolbar options={options} />
+      {visible && <Toolbar options={options} />}
     </TiptapBubbleMenu>
   )
 }
