@@ -75,7 +75,7 @@ export const Spreadsheet = (
 
     data.forEach((row, rowIndex) => {
       const rowId = uuid()
-      rows.push({ rowId })
+      rows.push({ rowId, rowIndex })
 
       columns.forEach(({ name, columnId }, columnIndex) => {
         const cell: CellType = {

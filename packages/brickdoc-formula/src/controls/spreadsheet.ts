@@ -4,7 +4,6 @@ import {
   CodeFragment,
   ContextInterface,
   ErrorMessage,
-  FormulaType,
   NamespaceId,
   StringResult,
   uuid,
@@ -18,7 +17,8 @@ import {
   Row,
   ColumnInitializer,
   CellType,
-  SpreadsheetAllPersistence
+  SpreadsheetAllPersistence,
+  handleCodeFragmentsResult
 } from './types'
 
 export class SpreadsheetClass implements SpreadsheetType {
@@ -64,17 +64,76 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {
+    const number = Number(name)
+    if (!isNaN(number)) {
+      return this.handleInterpretRow(number)
+    }
+    return this.handleInterpretColumn(name)
+  }
+
+  private handleInterpretColumn(name: string): AnyTypeResult {
     const column = this.getColumnByName(name)
-    return column
-      ? { type: 'Column', result: new ColumnClass(this, column) }
-      : { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
+
+    if (column) {
+      return { type: 'Column', result: new ColumnClass(this, column) }
+    }
+
+    return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
+  }
+
+  private handleInterpretRow(number: number): AnyTypeResult {
+    const row = this.listRows()[number]
+    if (!row) {
+      return { type: 'Error', result: `Row ${number} not found`, errorKind: 'runtime' }
+    }
+    const cells: CellType[] = this.listCells({ rowId: row.rowId })
+
+    return { type: 'Row', result: { ...row, cells } }
   }
 
   handleCodeFragments(
     visitor: CodeFragmentVisitor,
     name: string,
     codeFragments: CodeFragment[]
-  ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
+  ): handleCodeFragmentsResult {
+    const number = Number(name)
+    if (!isNaN(number)) {
+      return this.handleCodeFragmentsRow(visitor, number, codeFragments)
+    }
+    return this.handleCodeFragmentsColumn(visitor, name, codeFragments)
+  }
+
+  private handleCodeFragmentsRow(
+    visitor: CodeFragmentVisitor,
+    number: number,
+    codeFragments: CodeFragment[]
+  ): handleCodeFragmentsResult {
+    const errors: ErrorMessage[] = []
+    const row = this.listRows()[number]
+
+    if (!row) {
+      errors.push({ type: 'deps', message: `Row "${number}" not found` })
+      return {
+        errors,
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
+
+    const firstArgumentType = 'Row'
+    const finalRhsCodeFragments = codeFragments
+    return {
+      errors,
+      firstArgumentType,
+      codeFragments: finalRhsCodeFragments
+    }
+  }
+
+  private handleCodeFragmentsColumn(
+    visitor: CodeFragmentVisitor,
+    name: string,
+    codeFragments: CodeFragment[]
+  ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
     const column = this._formulaContext.findColumnByName(this.blockId, name)
 

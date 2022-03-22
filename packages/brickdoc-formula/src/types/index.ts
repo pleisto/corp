@@ -7,13 +7,15 @@ import {
   SelectType,
   SwitchType,
   BlockType,
-  CellType
+  CellType,
+  RowType
 } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
   | 'Date'
   | 'Column'
+  | 'Row'
   | 'Cell'
   | 'Spreadsheet'
   | 'Block'
@@ -56,6 +58,7 @@ export type SpecialDefaultVariableName =
   | 'date'
   | 'blank'
   | 'column'
+  | 'row'
   | 'cell'
   | 'block'
   | 'var'
@@ -203,6 +206,11 @@ export interface ColumnResult extends BaseResult {
   type: 'Column'
 }
 
+export interface RowResult extends BaseResult {
+  result: RowType
+  type: 'Row'
+}
+
 export interface CellResult extends BaseResult {
   result: CellType
   type: 'Cell'
@@ -317,6 +325,7 @@ export type AnyTypeResult =
   | ArrayResult
   | DateResult
   | ColumnResult
+  | RowResult
   | CellResult
   | SpreadsheetResult
   | BlockResult

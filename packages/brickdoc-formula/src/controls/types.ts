@@ -38,15 +38,16 @@ export interface BlockInitializer {
 }
 
 type handleInterpretType = (name: string) => Promise<AnyTypeResult>
-type handleCodeFragmentsType = (
-  visitor: CodeFragmentVisitor,
-  name: string,
-  rhsCodeFragments: CodeFragment[]
-) => {
+export interface handleCodeFragmentsResult {
   errors: ErrorMessage[]
   firstArgumentType: FormulaType | undefined
   codeFragments: CodeFragment[]
 }
+type handleCodeFragmentsType = (
+  visitor: CodeFragmentVisitor,
+  name: string,
+  rhsCodeFragments: CodeFragment[]
+) => handleCodeFragmentsResult
 export interface BlockType extends BlockInitializer {
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
@@ -72,6 +73,10 @@ export interface ColumnType extends ColumnInitializer {
 export interface Row {
   rowId: uuid
   rowIndex: number
+}
+
+export interface RowType extends Row {
+  cells: CellType[]
 }
 
 export interface CellType {

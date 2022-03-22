@@ -73,7 +73,7 @@ type ContextState = any
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|cell|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|row|cell|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName> = {
   string: 'str',
   number: 'num',
@@ -101,6 +101,7 @@ export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName
   Error: 'error',
   Spreadsheet: 'spreadsheet',
   Column: 'column',
+  Row: 'row',
   Cell: 'cell',
   Block: 'block',
   any: 'var'
@@ -149,6 +150,7 @@ export class FormulaContext implements ContextInterface {
     null: {},
     Date: {},
     Column: {},
+    Row: {},
     Cell: {},
     Block: {},
     Pending: {},

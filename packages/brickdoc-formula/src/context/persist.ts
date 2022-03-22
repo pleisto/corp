@@ -52,6 +52,8 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId): string => {
       return v.result.name(pageId)
     case 'Column':
       return `${v.result.spreadsheet.name()}.${v.result.name}`
+    case 'Row':
+      return `[${v.result.rowIndex}] ${truncateArray(v.result.cells.map(c => c.value)).join(', ')}`
     case 'Cell':
       return `${v.result.value}`
     case 'Predicate':
