@@ -509,8 +509,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
         const { result: key } = await this.visit(cst, { ...args, type: 'any' })
 
         if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column') {
-          const name = key
-          result = await result.result.handleInterpret(name)
+          result = await result.result.handleInterpret(key)
           continue
         }
 
@@ -522,6 +521,20 @@ export class FormulaInterpreter extends InterpretCstVisitor {
             result = { type: 'Error', result: `Key ${key} not found`, errorKind: 'runtime' }
           }
 
+          continue
+        }
+
+        if (result.type === 'Array') {
+          const number = Number(key)
+          if (isNaN(number)) {
+            result = { type: 'Error', result: `Need a number: ${key}`, errorKind: 'syntax' }
+          } else {
+            result = result.result[number - 1] || {
+              type: 'Error',
+              result: `Index ${number} out of bounds`,
+              errorKind: 'runtime'
+            }
+          }
           continue
         }
 

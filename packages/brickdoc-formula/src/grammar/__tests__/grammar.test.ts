@@ -242,6 +242,21 @@ const testCases: TestCase[] = [
       { type: 'boolean', result: true }
     ]
   },
+  {
+    input: '=[2, "foo", true].2',
+    label: 'Array access 1',
+    value: 'foo'
+  },
+  {
+    input: '=[2, "foo", true].4',
+    label: 'Array access 2',
+    value: 'Index 4 out of bounds'
+  },
+  {
+    input: '=[2, "foo", true].foo',
+    label: 'Array access 3',
+    value: 'Need a number: foo'
+  },
   // {
   //   input: '=[2, "foo", true, null].Map(1)',
   //   label: 'Array Map',
@@ -761,7 +776,7 @@ const testCases: TestCase[] = [
   },
   {
     input: '=[123].b',
-    value: 'Access not supported for Array'
+    value: 'Need a number: b'
   },
   {
     input: '={a:1}."a"',
