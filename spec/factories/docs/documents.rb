@@ -1,0 +1,6 @@
+FactoryBot.define do
+  factory :docs_document, class: 'Docs::Document' do
+    id { SecureRandom.uuid }
+    state { Random.bytes(100) }
+  end
+end
