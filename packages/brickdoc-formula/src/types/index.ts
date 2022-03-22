@@ -8,7 +8,8 @@ import {
   SwitchType,
   BlockType,
   CellType,
-  RowType
+  RowType,
+  RangeType
 } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
@@ -17,6 +18,7 @@ type FormulaObjectType =
   | 'Column'
   | 'Row'
   | 'Cell'
+  | 'Range'
   | 'Spreadsheet'
   | 'Block'
   | 'Blank'
@@ -60,6 +62,7 @@ export type SpecialDefaultVariableName =
   | 'column'
   | 'row'
   | 'cell'
+  | 'range'
   | 'block'
   | 'var'
   | 'null'
@@ -216,6 +219,11 @@ export interface CellResult extends BaseResult {
   type: 'Cell'
 }
 
+export interface RangeResult extends BaseResult {
+  result: RangeType
+  type: 'Range'
+}
+
 export interface SpreadsheetResult extends BaseResult {
   result: SpreadsheetType
   type: 'Spreadsheet'
@@ -326,6 +334,7 @@ export type AnyTypeResult =
   | DateResult
   | ColumnResult
   | RowResult
+  | RangeResult
   | CellResult
   | SpreadsheetResult
   | BlockResult

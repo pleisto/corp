@@ -79,6 +79,13 @@ export interface RowType extends Row {
   cells: CellType[]
 }
 
+export interface RangeType {
+  columnSize: number
+  rowSize: number
+  startCell: CellType
+  endCell: CellType
+}
+
 export interface CellType {
   cellId: uuid
   columnId: ColumnId
