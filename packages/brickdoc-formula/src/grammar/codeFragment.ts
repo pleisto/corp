@@ -967,26 +967,42 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   }
 
   NumberLiteralExpression(
-    ctx: { Minus: IToken[]; NumberLiteral: IToken[]; Sign: IToken[] },
+    ctx: { Minus: IToken[]; NumberLiteral: IToken[]; Sign: IToken[]; DecimalLiteral: IToken[] },
     { type }: ExpressionArgument
   ): CodeFragmentResult {
     const parentType = 'number'
 
     const codeFragments: CodeFragment[] = []
     const images: string[] = []
+    const errors: ErrorMessage[] = []
 
     if (ctx.Minus) {
-      const errorMessages: ErrorMessage[] = ctx.NumberLiteral ? [] : [{ message: 'Missing number', type: 'syntax' }]
-      codeFragments.push({ ...token2fragment(ctx.Minus[0], 'any'), errors: errorMessages })
+      const errorMessages: ErrorMessage[] =
+        ctx.NumberLiteral || ctx.DecimalLiteral ? [] : [{ message: 'Missing number', type: 'syntax' }]
+      errors.push(...errorMessages)
       images.push(ctx.Minus[0].image)
     }
 
     const { errorMessages } = intersectType(type, parentType, 'NumberLiteralExpression', this.ctx)
 
-    if (ctx.NumberLiteral) {
-      codeFragments.push({ ...token2fragment(ctx.NumberLiteral[0], parentType) })
+    if (ctx.DecimalLiteral) {
+      images.push(ctx.DecimalLiteral[0].image)
+    } else if (ctx.NumberLiteral) {
       images.push(ctx.NumberLiteral[0].image)
     }
+
+    const image = images.join('')
+
+    codeFragments.push({
+      value: image,
+      code: 'NumberLiteral',
+      errors,
+      renderText: undefined,
+      hide: false,
+      type: 'number',
+      display: image,
+      attrs: undefined
+    })
 
     if (ctx.Sign) {
       codeFragments.push({ ...token2fragment(ctx.Sign[0], 'any') })

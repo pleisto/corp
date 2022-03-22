@@ -404,6 +404,24 @@ const testCases: TestCase[] = [
     value: 0.01
   },
   {
+    input: '=-1.',
+    parseErrorType: 'syntax',
+    errorMessage: 'Missing expression'
+  },
+  {
+    input: '=01',
+    value: 1
+  },
+  {
+    input: '=0001.0000',
+    value: 1
+  },
+  {
+    input: '=1.%',
+    parseErrorType: 'syntax',
+    errorMessage: 'Missing expression'
+  },
+  {
     input: '=12.0',
     value: 12
   },
@@ -754,12 +772,12 @@ const testCases: TestCase[] = [
   {
     input: '=1.a',
     parseErrorType: 'syntax',
-    errorMessage: 'Not all input parsed: a'
+    errorMessage: 'Access error'
   },
   {
     input: '=1."a"',
     parseErrorType: 'syntax',
-    errorMessage: 'Not all input parsed: "a"'
+    errorMessage: 'Access error'
   },
   {
     input: '=true.a',
@@ -962,26 +980,20 @@ const testCases: TestCase[] = [
     value: false
   },
   {
-    input: '=1.',
-    label: 'should error',
-    value: 1
-  },
-  {
     input: '=1.T()',
     label: 'should success',
     parseErrorType: 'syntax',
-    errorMessage: 'Not all input parsed: T'
+    value: 1
   },
   {
     input: '=1.START_WITH("123")',
     parseErrorType: 'syntax',
-    label: 'TODO chain type 3',
-    errorMessage: 'Not all input parsed: START_WITH'
+    errorMessage: 'Expected string but got number'
   },
   {
     input: '=123.ABS()',
     parseErrorType: 'syntax',
-    errorMessage: 'Not all input parsed: ABS'
+    errorMessage: 'core::ABS is not chainable'
   },
   // Space https://emptycharacter.com/
   {

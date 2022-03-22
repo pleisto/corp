@@ -1180,9 +1180,9 @@ Object {
                                                                                                     "categoryMatchesMap": Object {},
                                                                                                     "isParent": false,
                                                                                                     "name": "BooleanLiteral",
-                                                                                                    "tokenTypeIdx": 45,
+                                                                                                    "tokenTypeIdx": 46,
                                                                                                   },
-                                                                                                  "tokenTypeIdx": 45,
+                                                                                                  "tokenTypeIdx": 46,
                                                                                                 },
                                                                                               ],
                                                                                             },
@@ -1692,46 +1692,6 @@ Array [
 ]
 `;
 
-exports[`Simple test case [TODO chain type 3] =1.START_WITH("123") // => ✗ 1`] = `
-Array [
-  Object {
-    "attrs": undefined,
-    "code": "Equal",
-    "display": "=",
-    "errors": Array [],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "=",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "NumberLiteral",
-    "display": "1.",
-    "errors": Array [],
-    "hide": false,
-    "renderText": undefined,
-    "type": "number",
-    "value": "1.",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "parseErrorOther",
-    "display": "START_WITH(\\"123\\")",
-    "errors": Array [
-      Object {
-        "message": "Not all input parsed: START_WITH",
-        "type": "parse",
-      },
-    ],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "START_WITH(\\"123\\")",
-  },
-]
-`;
-
 exports[`Simple test case [TODO chinese] = 中文 // => ✗ 1`] = `
 Array [
   Object {
@@ -2064,7 +2024,7 @@ Array [
   },
   Object {
     "attrs": undefined,
-    "code": "Minus",
+    "code": "NumberLiteral",
     "display": "-",
     "errors": Array [
       Object {
@@ -2072,13 +2032,13 @@ Array [
         "type": "syntax",
       },
       Object {
-        "message": "TODO mismatch token NumberLiteralExpression",
+        "message": "Parse error: \\"\\"",
         "type": "parse",
       },
     ],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "number",
     "value": "-",
   },
 ]
@@ -2177,23 +2137,13 @@ Array [
   },
   Object {
     "attrs": undefined,
-    "code": "Minus",
-    "display": "-",
-    "errors": Array [],
-    "hide": false,
-    "renderText": undefined,
-    "type": "any",
-    "value": "-",
-  },
-  Object {
-    "attrs": undefined,
     "code": "NumberLiteral",
-    "display": "0.123",
+    "display": "-0.123",
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "number",
-    "value": "0.123",
+    "value": "-0.123",
   },
   Object {
     "attrs": undefined,
@@ -3650,7 +3600,7 @@ Array [
 ]
 `;
 
-exports[`Simple test case [should error] =1. // => 1 1`] = `
+exports[`Simple test case [should success] =1.T() // => 1 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3665,52 +3615,52 @@ Array [
   Object {
     "attrs": undefined,
     "code": "NumberLiteral",
-    "display": "1.",
+    "display": "1",
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "number",
-    "value": "1.",
+    "value": "1",
   },
-]
-`;
-
-exports[`Simple test case [should success] =1.T() // => ✗ 1`] = `
-Array [
   Object {
     "attrs": undefined,
-    "code": "Equal",
-    "display": "=",
+    "code": "Dot",
+    "display": ".",
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
-    "value": "=",
+    "value": ".",
   },
   Object {
     "attrs": undefined,
-    "code": "NumberLiteral",
-    "display": "1.",
+    "code": "Function",
+    "display": "T",
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "number",
-    "value": "1.",
+    "type": "any",
+    "value": "T",
   },
   Object {
     "attrs": undefined,
-    "code": "parseErrorOther",
-    "display": "T()",
-    "errors": Array [
-      Object {
-        "message": "Not all input parsed: T",
-        "type": "parse",
-      },
-    ],
+    "code": "LParen",
+    "display": "(",
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
-    "value": "T()",
+    "value": "(",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "RParen",
+    "display": ")",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ")",
   },
 ]
 `;

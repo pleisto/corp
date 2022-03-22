@@ -33,7 +33,8 @@ import {
   Self,
   Input,
   LambdaArgumentNumber,
-  CurrentBlock
+  CurrentBlock,
+  DecimalLiteral
 } from './lexer'
 
 const errorProvider: IParserErrorMessageProvider = {
@@ -266,8 +267,9 @@ export class FormulaParser extends CstParser {
     this.OPTION(() => {
       this.CONSUME(Minus)
     })
-    this.CONSUME(NumberLiteral)
-    this.OPTION2(() => {
+
+    this.OR([{ ALT: () => this.CONSUME(NumberLiteral) }, { ALT: () => this.CONSUME(DecimalLiteral) }])
+    this.OPTION3(() => {
       this.CONSUME(Sign)
     })
   })

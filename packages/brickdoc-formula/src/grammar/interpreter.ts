@@ -845,14 +845,16 @@ export class FormulaInterpreter extends InterpretCstVisitor {
   }
 
   NumberLiteralExpression(
-    ctx: { NumberLiteral: Array<{ image: any }>; Sign: any; Minus: any },
+    ctx: { NumberLiteral: Array<{ image: any }>; DecimalLiteral: any; Sign: any; Minus: any },
     args: ExpressionArgument
   ): NumberResult | ErrorResult {
     const parentType: FormulaType = 'number'
     const typeError = runtimeCheckType(args, parentType, 'NumberLiteralExpression', this.ctx)
     if (shouldReturnEarly(typeError)) return typeError!
 
-    const number = Number(ctx.NumberLiteral[0].image)
+    const image = ctx.DecimalLiteral ? ctx.DecimalLiteral[0].image : ctx.NumberLiteral[0].image
+    const number = Number(image)
+
     const numberAfterSign = ctx.Sign ? number * 0.01 : number
 
     return { result: ctx.Minus ? numberAfterSign * -1 : numberAfterSign, type: 'number' }
