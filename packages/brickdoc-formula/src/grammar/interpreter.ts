@@ -15,7 +15,8 @@ import {
   FormulaType,
   ExpressionType,
   BlockResult,
-  StringResult
+  StringResult,
+  CellResult
 } from '../types'
 import { Row, SpreadsheetType } from '../controls'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
@@ -483,6 +484,28 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     }
 
     return result
+  }
+
+  async rangeExpression(
+    ctx: { lhs: CstNode | CstNode[]; rhs: any[] },
+    args: ExpressionArgument
+  ): Promise<AnyTypeResult> {
+    if (!ctx.rhs) {
+      return this.visit(ctx.lhs, args)
+    }
+
+    const { result: startCell }: CellResult = await this.visit(ctx.lhs, args)
+    const { result: endCell }: CellResult = await this.visit(ctx.rhs, args)
+
+    return {
+      type: 'Range',
+      result: {
+        startCell,
+        endCell,
+        columnSize: Math.abs(startCell.columnIndex - endCell.columnIndex) + 1,
+        rowSize: Math.abs(startCell.rowIndex - endCell.rowIndex) + 1
+      }
+    }
   }
 
   async chainExpression(

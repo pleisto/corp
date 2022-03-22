@@ -458,6 +458,54 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
+  rangeExpression(ctx: any, { type }: ExpressionArgument): CodeFragmentResult {
+    if (!ctx.Colon) {
+      return this.visit(ctx.lhs, { type })
+    }
+
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+    const {
+      codeFragments: lhsCodeFragments,
+      image,
+      type: lhsType
+    }: CodeFragmentResult = this.visit(ctx.lhs, { type: 'any' })
+    const lhsError: ErrorMessage[] =
+      lhsType === 'Cell' ? [] : [{ message: 'Left hand side of range expression must be a cell', type: 'syntax' }]
+    codeFragments.push(
+      ...lhsCodeFragments.map(codeFragment => ({ ...codeFragment, errors: [...lhsError, ...codeFragment.errors] }))
+    )
+    images.push(image)
+
+    const missingRhsErrors: ErrorMessage[] = ctx.rhs?.[0] ? [] : [{ message: 'Missing expression', type: 'syntax' }]
+
+    codeFragments.push({
+      ...token2fragment(ctx.Colon[0], 'any'),
+      errors: missingRhsErrors
+    })
+    images.push(ctx.Colon[0].image)
+
+    if (ctx.rhs) {
+      const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(ctx.rhs, {
+        type: 'any'
+      })
+      codeFragments.push(...rhsCodeFragments)
+      images.push(rhsImage)
+    }
+
+    const parentType = 'Range'
+
+    const { errorMessages, newType } = intersectType(type, parentType, 'rangeExpression', this.ctx)
+    return {
+      image: images.join(''),
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...codeFragment.errors, ...errorMessages]
+      })),
+      type: newType
+    }
+  }
+
   chainExpression(
     ctx: { Dot: any; lhs: CstNode | CstNode[]; rhs: any[] },
     { type }: ExpressionArgument

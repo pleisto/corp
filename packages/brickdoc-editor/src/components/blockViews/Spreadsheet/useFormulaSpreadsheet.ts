@@ -43,11 +43,16 @@ export function useFormulaSpreadsheet({
       listColumns: () => columnData,
       listRows: () => rowData,
       listCells: ({ rowId, columnId }) => {
-        const finalRowIds = rowId ? [rowId] : rows.map(row => row.id)
-        const finalColumnIds = columnId ? [columnId] : columns.map(column => column.uuid)
+        const rowIdsWithIndex = rows.map((row, index) => ({ rowId: row.id, rowIndex: index }))
+        const columnIdsWithIndex = columns.map((column, index) => ({ columnId: column.uuid, columnIndex: index }))
 
-        return finalRowIds.flatMap((rowId, rowIndex) =>
-          finalColumnIds.map((columnId, columnIndex) => {
+        const finalRowIdsWithIndex = rowId ? rowIdsWithIndex.filter(row => row.rowId === rowId) : rowIdsWithIndex
+        const finalColumnIdsWithIndex = columnId
+          ? columnIdsWithIndex.filter(column => column.columnId === columnId)
+          : columnIdsWithIndex
+
+        return finalRowIdsWithIndex.flatMap(({ rowId, rowIndex }) =>
+          finalColumnIdsWithIndex.map(({ columnId, columnIndex }) => {
             const cellBlock = getCellBlock(rowId, columnId)
             const cell: CellType = {
               columnId,

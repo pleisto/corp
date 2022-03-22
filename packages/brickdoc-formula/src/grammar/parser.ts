@@ -154,9 +154,17 @@ export class FormulaParser extends CstParser {
   })
 
   public multiplicationExpression = this.RULE('multiplicationExpression', () => {
-    this.SUBRULE(this.chainExpression, { LABEL: 'lhs' })
+    this.SUBRULE(this.rangeExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(MultiplicationOperator)
+      this.SUBRULE2(this.rangeExpression, { LABEL: 'rhs' })
+    })
+  })
+
+  public rangeExpression = this.RULE('rangeExpression', () => {
+    this.SUBRULE(this.chainExpression, { LABEL: 'lhs' })
+    this.OPTION(() => {
+      this.CONSUME(Colon)
       this.SUBRULE2(this.chainExpression, { LABEL: 'rhs' })
     })
   })
