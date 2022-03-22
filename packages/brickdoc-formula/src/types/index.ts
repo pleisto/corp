@@ -7,7 +7,7 @@ import {
   SelectType,
   SwitchType,
   BlockType,
-  Cell
+  CellType
 } from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
@@ -204,7 +204,7 @@ export interface ColumnResult extends BaseResult {
 }
 
 export interface CellResult extends BaseResult {
-  result: Cell
+  result: CellType
   type: 'Cell'
 }
 

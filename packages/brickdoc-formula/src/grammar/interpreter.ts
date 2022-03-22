@@ -296,10 +296,10 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
       const row = spreadsheet.listRows().find((row: Row) => {
         const firstCellValue =
-          spreadsheet.findCellDisplayData({
+          spreadsheet.findCellValue({
             rowId: row.rowId,
             columnId: firstColumn.columnId
-          })?.display ?? ''
+          }) ?? ''
         if (operator === 'ExactIn') {
           return firstCellValue === match
         } else {
@@ -319,8 +319,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       }
 
       const row = spreadsheet.listRows().find((row: Row) => {
-        const cellValue =
-          spreadsheet.findCellDisplayData({ rowId: row.rowId, columnId: column.columnId })?.display ?? ''
+        const cellValue = spreadsheet.findCellValue({ rowId: row.rowId, columnId: column.columnId }) ?? ''
         if (operator === 'ExactIn') {
           return cellValue === match
         } else {

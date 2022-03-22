@@ -17,7 +17,7 @@ import {
   SpreadsheetDynamicPersistence,
   Row,
   ColumnInitializer,
-  Cell,
+  CellType,
   SpreadsheetAllPersistence
 } from './types'
 
@@ -29,7 +29,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
+  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
 
   constructor({
     blockId,
@@ -148,13 +148,22 @@ export class SpreadsheetClass implements SpreadsheetType {
     return this.listColumns().find(col => col.name === name)
   }
 
+  findCellValue({ rowId, columnId }: { rowId: uuid; columnId: uuid }): string | undefined {
+    const cell = this.listCells({ rowId, columnId })[0]
+    if (!cell) {
+      return undefined
+    }
+
+    return cell.displayData?.display ?? cell.value
+  }
+
   findCellDisplayData({ rowId, columnId }: { rowId: uuid; columnId: uuid }): VariableDisplayData | undefined {
     const cell = this.listCells({ rowId, columnId })[0]
     if (!cell) {
       return undefined
     }
 
-    return (cell.data as any).displayData
+    return cell.displayData
   }
 
   toArray(): string[][] {

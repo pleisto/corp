@@ -1,5 +1,5 @@
 import React from 'react'
-import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, Cell } from '@brickdoc/formula'
+import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, CellType } from '@brickdoc/formula'
 import { BlockInput } from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
@@ -49,12 +49,12 @@ export function useFormulaSpreadsheet({
         return finalRowIds.flatMap(rowId =>
           finalColumnIds.map(columnId => {
             const cellBlock = getCellBlock(rowId, columnId)
-            const cell: Cell = {
+            const cell: CellType = {
               columnId,
               rowId,
               cellId: cellBlock.id,
               value: cellBlock.text,
-              data: cellBlock.data
+              displayData: cellBlock.data.displayData
             }
             return cell
           })

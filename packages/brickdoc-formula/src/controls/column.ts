@@ -1,4 +1,4 @@
-import { ColumnType, ColumnInitializer, SpreadsheetType, Cell } from './types'
+import { ColumnType, ColumnInitializer, SpreadsheetType, CellType } from './types'
 import {
   AnyTypeResult,
   CellResult,
@@ -27,7 +27,7 @@ export class ColumnClass implements ColumnType {
     this.spreadsheet = spreadsheet
   }
 
-  cells(): Cell[] {
+  cells(): CellType[] {
     return this.spreadsheet.listCells({ columnId: this.columnId })
   }
 

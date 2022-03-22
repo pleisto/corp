@@ -66,19 +66,19 @@ export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
-  cells: () => Cell[]
+  cells: () => CellType[]
 }
 
 export interface Row {
   rowId: uuid
 }
 
-export interface Cell {
+export interface CellType {
   cellId: uuid
   columnId: ColumnId
   rowId: uuid
   value: string
-  data: object
+  displayData: VariableDisplayData | undefined
 }
 
 export interface SpreadsheetInitializer {
@@ -88,7 +88,7 @@ export interface SpreadsheetInitializer {
   name: string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
+  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
 }
 
 export interface SpreadsheetDynamicPersistence {
@@ -96,7 +96,7 @@ export interface SpreadsheetDynamicPersistence {
   spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
-  cells: Cell[]
+  cells: CellType[]
 }
 
 export interface SpreadsheetAllPersistence {
@@ -117,7 +117,8 @@ export interface SpreadsheetType {
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
+  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
   getRow: (rowId: uuid) => Row | undefined
   getColumnById: (columnId: ColumnId) => ColumnInitializer | undefined

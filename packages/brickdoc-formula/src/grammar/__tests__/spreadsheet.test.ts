@@ -1,6 +1,6 @@
 import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
-import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
+import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, CellType } from '../../controls'
 import { VariableMetadata } from '../../types'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
@@ -40,16 +40,16 @@ const columns: ColumnInitializer[] = [
   }
 ]
 
-const cells: Cell[] = [
-  { rowId: firstRowId, columnId: firstColumnId, value: '1', data: { displayData: { display: '1' } }, cellId: '' },
-  { rowId: firstRowId, columnId: secondColumnId, value: '2', data: { displayData: { display: '2' } }, cellId: '' },
-  { rowId: firstRowId, columnId: thirdColumnId, value: '3', data: { displayData: { display: '3' } }, cellId: '' },
-  { rowId: secondRowId, columnId: firstColumnId, value: '3', data: { displayData: { display: '3' } }, cellId: '' },
-  { rowId: secondRowId, columnId: secondColumnId, value: '4', data: { displayData: { display: '4' } }, cellId: '' },
-  { rowId: secondRowId, columnId: thirdColumnId, value: '', data: { displayData: { display: '' } }, cellId: '' },
-  { rowId: thirdRowId, columnId: firstColumnId, value: '5', data: { displayData: { display: '5' } }, cellId: '' },
-  { rowId: thirdRowId, columnId: secondColumnId, value: '6', data: { displayData: { display: '6' } }, cellId: '' },
-  { rowId: thirdRowId, columnId: thirdColumnId, value: 'Foo', data: { displayData: { display: 'Foo' } }, cellId: '' }
+const cells: CellType[] = [
+  { rowId: firstRowId, columnId: firstColumnId, value: '1', displayData: undefined, cellId: '' },
+  { rowId: firstRowId, columnId: secondColumnId, value: '2', displayData: undefined, cellId: '' },
+  { rowId: firstRowId, columnId: thirdColumnId, value: '3', displayData: undefined, cellId: '' },
+  { rowId: secondRowId, columnId: firstColumnId, value: '3', displayData: undefined, cellId: '' },
+  { rowId: secondRowId, columnId: secondColumnId, value: '4', displayData: undefined, cellId: '' },
+  { rowId: secondRowId, columnId: thirdColumnId, value: '', displayData: undefined, cellId: '' },
+  { rowId: thirdRowId, columnId: firstColumnId, value: '5', displayData: undefined, cellId: '' },
+  { rowId: thirdRowId, columnId: secondColumnId, value: '6', displayData: undefined, cellId: '' },
+  { rowId: thirdRowId, columnId: thirdColumnId, value: 'Foo', displayData: undefined, cellId: '' }
 ]
 
 const formulaContext = new FormulaContext({ domain: 'test' })
