@@ -14,7 +14,6 @@ import { FormulaInput } from './Render/FormulaInput'
 import { FormulaButton } from './Render/FormulaButton'
 import { FormulaLiteral } from './Render/FormulaLiteral'
 import { FormulaSpreadsheet } from './Render/FormulaSpreadsheet'
-import { BlockContainer } from '../BlockContainer'
 import { SelectedType } from './useFormula'
 import { useExternalProps } from '../../../hooks/useExternalProps'
 
@@ -83,11 +82,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
         preview = <FormulaInput result={newDisplayData.result as InputResult} formulaType={newDisplayData.type} />
         break
       case 'Spreadsheet':
-        preview = (
-          <BlockContainer>
-            <FormulaSpreadsheet spreadsheet={newDisplayData.result.result as SpreadsheetType} />
-          </BlockContainer>
-        )
+        preview = <FormulaSpreadsheet spreadsheet={newDisplayData.result.result as SpreadsheetType} />
         break
       case 'Range':
         preview = (

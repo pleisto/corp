@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, SyntheticEvent, useState } from 'react'
 import { NodeViewProps } from '@tiptap/react'
 import { Controlled as ImagePreview } from 'react-medium-image-zoom'
 import { BlockContainer } from '../../../BlockContainer'
@@ -16,16 +16,16 @@ export interface PreviewModeProps {
   updateImageAttributes: (attrs: Record<string, any>) => void
 }
 
-export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getPos, url, updateImageAttributes }) => {
-  const [loaded, setLoaded] = React.useState(false)
-  const [showPreview, setShowPreview] = React.useState(false)
+export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, url, updateImageAttributes }) => {
+  const [loaded, setLoaded] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   const previewImage = (): void => {
     if ((node.attrs.image?.key && !loaded) || showPreview) return
     setShowPreview(true)
   }
 
-  const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement>): void => {
+  const onImageLoad = (event: SyntheticEvent<HTMLImageElement>): void => {
     const img = event.target as HTMLImageElement
     // Update image dimensions on loaded if there is no dimensions data before
     if (!node.attrs.image?.ratio) {
@@ -38,7 +38,12 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
   }
 
   return (
-    <BlockContainer contentForCopy={url} getPos={getPos} deleteNode={deleteNode} actionOptions={['copy', 'delete']}>
+    <BlockContainer
+      node={node}
+      contentForCopy={url}
+      getPos={getPos}
+      deleteNode={deleteNode}
+      actionOptions={['copy', 'delete']}>
       <div role="cell" className="brickdoc-block-image-section-container">
         <Resizable
           lockAspectRatio={true}
@@ -81,16 +86,14 @@ export const PreviewMode: React.FC<PreviewModeProps> = ({ node, deleteNode, getP
             updateImageAttributes({
               width: Math.min(Number(node.attrs.image?.width) + d.width, MAX_WIDTH)
             })
-          }}
-        >
+          }}>
           <ImagePreview
             wrapStyle={{ pointerEvents: 'none', width: '100%' }}
             overlayBgColorEnd="rgba(153, 153, 153, 0.4)"
             isZoomed={showPreview}
             onZoomChange={shouldZoom => {
               setShowPreview(shouldZoom)
-            }}
-          >
+            }}>
             {!loaded && (
               <Skeleton
                 uniqueKey={`image-block-skeleton-${node.attrs.uuid}`}
