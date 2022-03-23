@@ -16,6 +16,6 @@ export function useForwardedRef<T>(ref: ForwardedRef<T>): RefObject<T> {
     } else {
       ref.current = innerRef.current
     }
-  })
+  }, [ref])
   return innerRef
 }

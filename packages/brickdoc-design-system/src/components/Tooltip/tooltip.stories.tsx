@@ -2,6 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Tooltip } from './index'
 import { Button } from '../'
 import { triggerArgTypes } from './trigger.docs'
+import { Tippy } from './tippy/Tippy'
 export default {
   title: 'Components/Tooltip',
   component: Tooltip,
@@ -63,3 +64,9 @@ Basic.args = {
   title: '42 is the meaning of life',
   children: <Button>What does 42 mean?</Button>
 }
+
+export const TippyJS = () => (
+  <Tippy>
+    <div>hi!</div>
+  </Tippy>
+)

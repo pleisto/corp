@@ -48,7 +48,8 @@
     "react-hook-form": "^7.28.0",
     "react-hot-toast": "^2.2.0",
     "reakit": "^1.3.11",
-    "stitches-mixins": "^1.0.0"
+    "stitches-mixins": "^1.0.0",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

@@ -1914,6 +1914,7 @@ __metadata:
     storybook-addon-designs: ^6.2.1
     storybook-addon-performance: ^0.16.1
     storybook-builder-vite: ^0.1.20
+    tippy.js: ^6.3.7
   peerDependencies:
     i18next: ">=21.3.3"
     react: ">=17.0.2"
