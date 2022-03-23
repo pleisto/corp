@@ -19,6 +19,7 @@ export interface BlockContainerProps {
   contentForCopy?: string
   ref?: any
   onClick?: React.MouseEventHandler
+  onMouseDown?: React.MouseEventHandler
 }
 
 export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HTMLElement, BlockContainerProps>(
@@ -97,7 +98,8 @@ export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HT
           }
 
           innerRef.current = container
-        }}>
+        }}
+      >
         <BlockContext.Provider value={blockContextData}>{blockElement}</BlockContext.Provider>
       </NodeViewWrapper>
     )

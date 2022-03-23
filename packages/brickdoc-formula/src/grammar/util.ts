@@ -9,6 +9,7 @@ import {
   FormulaType,
   FunctionContext
 } from '../types'
+import { ExpressionArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
 // TODO: dirty hack to get the string literal value
@@ -55,7 +56,7 @@ export const maybeEncodeString = (str: string): [boolean, string] => {
 
 export const shouldReturnEarly = (result: AnyTypeResult | undefined): boolean => {
   if (!result) return false
-  if (['Error', 'Blank', 'Pending'].includes(result.type)) {
+  if (['Error', 'Blank', 'Pending', 'Waiting'].includes(result.type)) {
     return true
   }
 
@@ -112,7 +113,7 @@ export const intersectType = (
     return { errorMessages: [], newType: contextResultType }
   }
 
-  if (contextResultType === 'any' || contextResultType === 'Pending') {
+  if (['any', 'Pending', 'Waiting'].includes(contextResultType)) {
     return {
       errorMessages: [],
       newType: expectedArgumentType instanceof Array ? expectedArgumentType[0] : expectedArgumentType
@@ -151,11 +152,15 @@ export const intersectType = (
 }
 
 export const runtimeCheckType = (
-  expectedArgumentType: ExpressionType,
+  { type: expectedArgumentType, skipCheck }: ExpressionArgument,
   contextResultType: FormulaType,
   label: string,
   ctx: FunctionContext
 ): ErrorResult | undefined => {
+  if (skipCheck) {
+    return undefined
+  }
+
   const { errorMessages } = intersectType(expectedArgumentType, contextResultType, `[Runtime] ${label}`, ctx)
 
   if (errorMessages.length > 0) {

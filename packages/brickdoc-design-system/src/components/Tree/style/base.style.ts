@@ -49,7 +49,7 @@ export const ContentArrow = styled('div', {
     transition: 'transform .1s ease-in-out'
   },
   variants: {
-    isOpen: {
+    isExpanded: {
       true: {
         '& span': {
           transform: 'rotate(90deg)'
@@ -104,7 +104,7 @@ export const ContentIcon = styled('a', {
   marginRight: '4px',
   position: 'relative',
   [`& + ${ContentAction}`]: {
-    width: `calc(100% - ${theme.space.lg} - ${theme.space.xl})`
+    width: `calc(100% - ${theme.space.lg} - ${theme.space.xl} - 4px)`
   },
   '&:hover,&:active': {
     textDecoration: 'none'

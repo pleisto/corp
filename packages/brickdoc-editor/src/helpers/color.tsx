@@ -150,6 +150,9 @@ export const FORMULA_COLORS: Record<FormulaColorType, FormulaColorMeta> = {
   Date: cyanColorMeta,
   Error: redColorMeta,
   Column: greenColorMeta,
+  Range: redColorMeta,
+  Row: blueColorMeta,
+  Cell: purpleColorMeta,
   Block: blueColorMeta,
   Spreadsheet: blueColorMeta,
   Function: orangeColorMeta,
@@ -173,7 +176,9 @@ export const FORMULA_COLORS: Record<FormulaColorType, FormulaColorMeta> = {
   FALSE: redColorMeta,
   FunctionName: pinkColorMeta,
   Variable: pinkColorMeta,
-  Pending: blueColorMeta
+  Pending: defaultColorMeta,
+  Waiting: defaultColorMeta,
+  NoPersist: defaultColorMeta
 }
 
 const defaultIcon = <Icon.Function />
@@ -186,6 +191,9 @@ export const FORMULA_ICONS: Record<FormulaColorType, JSX.Element> = {
   Date: <Icon.Calendar />,
   Error: defaultIcon,
   Column: <Icon.Column />,
+  Row: <Icon.Row />,
+  Range: <Icon.Range />,
+  Cell: <Icon.Cell />,
   Block: defaultIcon,
   Spreadsheet: <Icon.Table />,
   Function: defaultIcon,
@@ -209,5 +217,7 @@ export const FORMULA_ICONS: Record<FormulaColorType, JSX.Element> = {
   FALSE: defaultIcon,
   FunctionName: defaultIcon,
   Variable: defaultIcon,
-  Pending: defaultIcon
+  Pending: defaultIcon,
+  Waiting: defaultIcon,
+  NoPersist: defaultIcon
 }

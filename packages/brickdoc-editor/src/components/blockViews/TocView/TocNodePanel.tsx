@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, MouseEvent, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { styled, theme } from '@brickdoc/design-system'
 import { ArrowFilleRight } from '@brickdoc/design-icons'
 import { isEmpty } from '@brickdoc/active-support'
@@ -86,6 +86,7 @@ const ToggleIcon = styled(ArrowFilleRight, {
 
 const TocItemContent = styled('div', {
   marginTop: `${itemGap}px`,
+  overflow: 'hidden',
   transition: 'max-height .1s ease-out'
 })
 
@@ -112,24 +113,25 @@ export interface TocContainerProps {
   tocItemCount: number
 }
 
-export const TocContainer: React.FC<TocContainerProps> = ({ tocItemCount, children }) => {
+export const TocContainer: FC<TocContainerProps> = ({ tocItemCount, children }) => {
   return (
     <TocStyledContainer
       role="presentation"
       css={{
         height: tocItemCount > 0 ? `${containerVerticalPadding * 2 + tocItemCount * (itemHeight + itemGap)}px` : 'unset'
-      }}>
+      }}
+    >
       <TocStyledContainerInner>{children}</TocStyledContainerInner>
     </TocStyledContainer>
   )
 }
 
-export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
-  const { t, editor } = React.useContext(EditorContext)
-  const contentRef = React.useRef<HTMLDivElement>(null)
-  const [collapse, setCollapse] = React.useState(false)
-  const toggleCollapse = React.useCallback(
-    (event: React.MouseEvent<HTMLSpanElement>): void => {
+export const TocNodePanel: FC<TocNodePanelProps> = ({ tocNode }) => {
+  const { t, editor } = useContext(EditorContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [collapse, setCollapse] = useState(false)
+  const toggleCollapse = useCallback(
+    (event: MouseEvent<HTMLSpanElement>): void => {
       event.stopPropagation()
       if (!contentRef.current) return
       if (collapse) {
@@ -142,13 +144,13 @@ export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
     [collapse]
   )
 
-  React.useEffect(() => {
-    if (!contentRef.current || !collapse) return
+  useEffect(() => {
+    if (!contentRef.current) return
     contentRef.current.style.maxHeight = `${contentRef.current?.scrollHeight}px`
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tocNode.children.length])
 
-  const onItemClick = React.useCallback(() => {
+  const onItemClick = useCallback(() => {
     const dom = editor?.view.domAtPos(tocNode.item.position + 1)
     editor?.chain().setTextSelection(tocNode.item.position).focus().run()
     // try native scrollIntoView first
@@ -164,7 +166,8 @@ export const TocNodePanel: React.FC<TocNodePanelProps> = ({ tocNode }) => {
       <TocItemTitle
         level={tocNode.item.level}
         onClick={onItemClick}
-        data-testid={TEST_ID_ENUM.editor.tocBlock.item.title.id}>
+        data-testid={TEST_ID_ENUM.editor.tocBlock.item.title.id}
+      >
         {tocNode.children.length > 0 && (
           <ToggleIcon
             data-testid={TEST_ID_ENUM.editor.tocBlock.item.toggleIcon.id}

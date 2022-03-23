@@ -70,7 +70,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const triggerCalculate = (): void => {
     BrickdocEventBus.dispatch(
       FormulaCalculateTrigger({
-        skipAsync: true,
+        skipExecute: true,
         formulaId,
         rootId
       })

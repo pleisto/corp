@@ -1,4 +1,4 @@
-import React from 'react'
+import { useContext, useMemo } from 'react'
 import { Icon } from '@brickdoc/design-system'
 import { EditorContext } from '../../../../context/EditorContext'
 import { ToolbarSubMenuOption, ToolbarOption, ToolbarGroupOption } from '../../../ui/Toolbar'
@@ -6,10 +6,10 @@ import { isBubbleMenuVisible } from './useBubbleMenuItems'
 import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export function useExtraItemsGroup(): [ToolbarOption | ToolbarGroupOption | null] {
-  const { editor, t } = React.useContext(EditorContext)
+  const { editor, t } = useContext(EditorContext)
   const { featureFlags } = useExternalProps()
 
-  const option = React.useMemo<ToolbarOption | ToolbarGroupOption | null>(() => {
+  const option = useMemo<ToolbarOption | ToolbarGroupOption | null>(() => {
     if (!isBubbleMenuVisible(editor)) return null
 
     const extraItemsGroup: ToolbarGroupOption = {
@@ -24,7 +24,6 @@ export function useExtraItemsGroup(): [ToolbarOption | ToolbarGroupOption | null
         icon: <Icon.Message />,
         tooltip: t('bubble_menu.comment.title') as string,
         onAction: () => {
-          // TODO: create conversation first
           editor.chain().focus().setDiscussion().run()
         }
       })

@@ -23,7 +23,7 @@ import {
   SpreadsheetInitializer,
   SpreadsheetClass,
   ColumnInitializer,
-  Cell
+  CellType
 } from '../controls'
 import { FORMULA_FEATURE_CONTROL } from '../context'
 import { v4 as uuid } from 'uuid'
@@ -55,7 +55,7 @@ export const Spreadsheet = (
   const defaultName = 'Dynamic Spreadsheet'
   const columns: ColumnInitializer[] = []
   const rows: Row[] = []
-  const cells: Cell[] = []
+  const cells: CellType[] = []
 
   if (recordData.length) {
     const data = recordData.map(e => e.result)
@@ -73,17 +73,20 @@ export const Spreadsheet = (
       columns.push(column)
     })
 
-    data.forEach(row => {
+    data.forEach((row, rowIndex) => {
       const rowId = uuid()
-      rows.push({ rowId })
+      rows.push({ rowId, rowIndex })
 
-      columns.forEach(({ name, columnId }) => {
-        const cell: Cell = {
+      columns.forEach(({ name, columnId }, columnIndex) => {
+        const cell: CellType = {
+          spreadsheetId: blockId,
           columnId,
           rowId,
+          rowIndex,
+          columnIndex,
           cellId: uuid(),
           value: String(row[name]?.result ?? ''),
-          data: {}
+          displayData: undefined
         }
         cells.push(cell)
       })
@@ -166,7 +169,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Spreadsheet',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -182,7 +186,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Button',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -208,8 +213,9 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'CInput',
       async: false,
-      pure: false,
+      pure: true,
       lazy: false,
+      persist: true,
       acceptError: false,
       effect: false,
       feature: FORMULA_FEATURE_CONTROL,
@@ -225,7 +231,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Switch',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,
@@ -251,7 +258,8 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
     {
       name: 'Select',
       async: false,
-      pure: false,
+      pure: true,
+      persist: true,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,

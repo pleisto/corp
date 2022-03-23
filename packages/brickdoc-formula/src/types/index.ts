@@ -1,10 +1,24 @@
 import { CstNode } from 'chevrotain'
-import { ButtonType, InputType, ColumnType, SpreadsheetType, SelectType, SwitchType, BlockType } from '../controls'
+import {
+  ButtonType,
+  InputType,
+  ColumnType,
+  SpreadsheetType,
+  SelectType,
+  SwitchType,
+  BlockType,
+  CellType,
+  RowType,
+  RangeType
+} from '../controls'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
   | 'Date'
   | 'Column'
+  | 'Row'
+  | 'Cell'
+  | 'Range'
   | 'Spreadsheet'
   | 'Block'
   | 'Blank'
@@ -18,7 +32,15 @@ type FormulaObjectType =
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
-export type FormulaType = FormulaBasicType | FormulaObjectType | FormulaControlType | 'any' | 'void' | 'Pending'
+export type FormulaType =
+  | FormulaBasicType
+  | FormulaObjectType
+  | FormulaControlType
+  | 'any'
+  | 'void'
+  | 'Pending'
+  | 'Waiting'
+  | 'NoPersist'
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -38,6 +60,9 @@ export type SpecialDefaultVariableName =
   | 'date'
   | 'blank'
   | 'column'
+  | 'row'
+  | 'cell'
+  | 'range'
   | 'block'
   | 'var'
   | 'null'
@@ -55,6 +80,8 @@ export type SpecialDefaultVariableName =
   | 'rate'
   | 'slider'
   | 'pending'
+  | 'waiting'
+  | 'noPersist'
 
 export type FunctionGroup = 'core' | 'custom' | string
 
@@ -182,6 +209,21 @@ export interface ColumnResult extends BaseResult {
   type: 'Column'
 }
 
+export interface RowResult extends BaseResult {
+  result: RowType
+  type: 'Row'
+}
+
+export interface CellResult extends BaseResult {
+  result: CellType
+  type: 'Cell'
+}
+
+export interface RangeResult extends BaseResult {
+  result: RangeType
+  type: 'Range'
+}
+
 export interface SpreadsheetResult extends BaseResult {
   result: SpreadsheetType
   type: 'Spreadsheet'
@@ -249,6 +291,16 @@ export interface PendingResult extends BaseResult {
   type: 'Pending'
 }
 
+export interface WaitingResult extends BaseResult {
+  result: string
+  type: 'Waiting'
+}
+
+export interface NoPersistResult extends BaseResult {
+  result: null
+  type: 'NoPersist'
+}
+
 export interface AnyResult extends BaseResult {
   result: any
   type: 'any'
@@ -281,6 +333,9 @@ export type AnyTypeResult =
   | ArrayResult
   | DateResult
   | ColumnResult
+  | RowResult
+  | RangeResult
+  | CellResult
   | SpreadsheetResult
   | BlockResult
   | PredicateResult
@@ -293,6 +348,8 @@ export type AnyTypeResult =
   | CstResult
   | ReferenceResult
   | PendingResult
+  | WaitingResult
+  | NoPersistResult
 
 export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
 
@@ -330,7 +387,7 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
-export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block'
+export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'
@@ -340,7 +397,7 @@ export type SimpleCodeFragmentType =
   | 'NullLiteral'
   | 'Dot'
   | 'Equal'
-export type SpecialCodeFragmentType = 'unknown' | 'other' | 'Space'
+export type SpecialCodeFragmentType = 'unknown' | 'parseErrorOther' | 'Space' | 'literal'
 export type CodeFragmentCodes = ComplexCodeFragmentType | SimpleCodeFragmentType | SpecialCodeFragmentType
 
 interface BaseCompletion {
@@ -518,7 +575,8 @@ type FunctionChain =
 export type BaseFunctionClause<T extends FormulaType> = {
   readonly name: FunctionNameType
   readonly pure: boolean
-  readonly effect: false
+  readonly effect: boolean
+  readonly persist: boolean
   readonly feature?: Feature
   readonly lazy: boolean
   readonly acceptError: boolean
@@ -606,7 +664,6 @@ export interface VariableDisplayData {
   definition: Definition
   result: AnyTypeResult
   kind: VariableKind
-  isAsync: boolean
   type: FormulaSourceType
   version: number
   meta: VariableMetadata
@@ -637,6 +694,9 @@ export type VariableTask = AsyncVariableTask | SyncVariableTask
 export interface VariableData {
   definition: Definition
   isAsync: boolean
+  isEffect: boolean
+  isPure: boolean
+  isPersist: boolean
   task: VariableTask
   kind: VariableKind
   type: FormulaSourceType

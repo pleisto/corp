@@ -1,12 +1,44 @@
 import { PageList } from '@/components/sidebar/PageList'
 import { test, expect } from '@/fixtures/testFixtures'
-import { SIDEBAR_SELECTORS } from '@/selectors/sidebar'
+import { rem2Pixel } from '@/helpers/utils/rem2Pixel'
 
 test.describe('Page List', () => {
-  test('verify page can be added', async ({ page }) => {
-    await page.goto('/')
-    const pageList = new PageList(page)
+  let pageList: PageList
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' })
+    pageList = new PageList(page)
+    await pageList.removeAllPages()
     await pageList.addPage()
-    await expect(page.locator(SIDEBAR_SELECTORS.mainActions.pageSection)).toContainText('Pages')
+  })
+
+  test('Verify page can be added', async () => {
+    await expect(pageList.getPageSectionTitle()).toContainText('Pages')
+  })
+
+  test('Verify action button is visible when hover page', async () => {
+    await pageList.hover()
+    await expect(pageList.getMoreActionIcon()).toBeVisible()
+    await expect(pageList.getAddSubPageButton()).toBeVisible()
+  })
+
+  test('Verify page can collapse when click arrow', async () => {
+    const arrowClass = await pageList.getArrow().getAttribute('class')
+    if (arrowClass?.includes('-isExpanded-true')) {
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isExpanded-true.*/g)
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isExpanded-true.*/g)
+    } else {
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).toMatch(/.+-isExpanded-true.*/g)
+      await pageList.getArrow().click()
+      expect(await pageList.getArrow().getAttribute('class')).not.toMatch(/.+-isExpanded-true.*/g)
+    }
+  })
+
+  test('Verify sub page can be added', async () => {
+    await pageList.addSubPage()
+    await expect(pageList.getSubPage(1)).toHaveCSS('width', rem2Pixel('1rem'))
   })
 })
