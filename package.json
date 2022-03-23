@@ -106,7 +106,8 @@
     "dayjs": "^1.11.0",
     "cpy": "npm:@brickdoc/cpy@>=8.1.2-patch.1",
     "@jest/transform": "npm:@jest/transform@>=27",
-    "prosemirror-view": "patch:prosemirror-view@npm:1.23.7#.yarn/patches/prosemirror-view-npm-1.23.7-5085f0bf9b"
+    "prosemirror-view": "patch:prosemirror-view@npm:1.23.7#.yarn/patches/prosemirror-view-npm-1.23.7-5085f0bf9b",
+    "minimist": ">= 1.2.6"
   },
   "dependencies": {
     "@swc/core": "^1.2.160",
