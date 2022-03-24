@@ -1,16 +1,36 @@
 import { CstNode, IToken } from 'chevrotain'
-import { AnyTypeResult, FormulaCheckType, FormulaType, FunctionContext } from '../types'
-import { ExpressionArgument, FormulaInterpreter } from './interpreter'
-import { runtimeCheckType, shouldReturnEarly } from './util'
-
+import {
+  AnyTypeResult,
+  CodeFragment,
+  CodeFragmentResult,
+  ErrorMessage,
+  FormulaCheckType,
+  FormulaType,
+  FunctionContext
+} from '../types'
+import { CodeFragmentVisitor, CstVisitorArgument, token2fragment } from './codeFragment'
+import { InterpretArgument, FormulaInterpreter } from './interpreter'
+import { intersectType, runtimeCheckType, shouldReturnEarly } from './util'
 export interface OperatorType {
   readonly name: string
   readonly skipReturnEarlyCheck?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
-  readonly rhsType:
-    | FormulaCheckType
-    | ((result: AnyTypeResult, cst: CstNode, args: ExpressionArgument) => ExpressionArgument)
+  readonly dynamicRhsType?: (result: AnyTypeResult, cst: CstNode, args: InterpretArgument) => InterpretArgument
+  readonly rhsType: FormulaCheckType
+  readonly parse?: ({
+    ctx,
+    lhs,
+    rhs,
+    operator,
+    cst
+  }: {
+    ctx: FunctionContext
+    lhs: AnyTypeResult
+    rhs: AnyTypeResult
+    operator: IToken
+    cst: CstNode
+  }) => CodeFragmentResult
   readonly interpret: ({
     ctx,
     lhs,
@@ -26,31 +46,29 @@ export interface OperatorType {
   }) => Promise<AnyTypeResult>
 }
 
-interface InterpretByOperatorInput {
-  interpreter: FormulaInterpreter
-  operator: OperatorType
-  operators: IToken[]
-  args: ExpressionArgument
-  lhs: CstNode | CstNode[]
-  rhs: CstNode[] | undefined
-}
-
 export const interpretByOperator = async ({
   interpreter,
   operators,
-  operator: { name, parentRuntimeCheckType, lhsType, rhsType, interpret, skipReturnEarlyCheck },
+  operator: { name, parentRuntimeCheckType, dynamicRhsType, lhsType, rhsType, interpret, skipReturnEarlyCheck },
   args,
   lhs,
   rhs
-}: InterpretByOperatorInput): Promise<AnyTypeResult> => {
+}: {
+  interpreter: FormulaInterpreter
+  operator: OperatorType
+  operators: IToken[]
+  args: InterpretArgument
+  lhs: CstNode | CstNode[]
+  rhs: CstNode[] | undefined
+}): Promise<AnyTypeResult> => {
   if (!rhs) {
     return interpreter.visit(lhs, args)
   }
 
-  const typeError = runtimeCheckType(args, parentRuntimeCheckType, name, interpreter.ctx)
-  if (shouldReturnEarly(typeError)) return typeError!
+  const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
+  if (shouldReturnEarly(typeErrorBefore)) return typeErrorBefore!
 
-  const lhsArgs: ExpressionArgument = { ...args, type: lhsType }
+  const lhsArgs: InterpretArgument = { ...args, type: lhsType }
   let result = await interpreter.visit(lhs, lhsArgs)
 
   if (shouldReturnEarly(result, skipReturnEarlyCheck)) return result
@@ -58,8 +76,9 @@ export const interpretByOperator = async ({
   for (const { rhsOperand, index } of rhs.map((rhsOperand, index: number) => ({ index, rhsOperand }))) {
     if (shouldReturnEarly(result, skipReturnEarlyCheck)) break
 
-    const rhsArgs: ExpressionArgument =
-      rhsType instanceof Function ? rhsType(result, rhsOperand, args) : { ...args, type: rhsType }
+    const rhsArgs: InterpretArgument = dynamicRhsType
+      ? dynamicRhsType(result, rhsOperand, args)
+      : { ...args, type: rhsType }
 
     const rhsValue = (rhsOperand as any).image ? null : await interpreter.visit(rhsOperand, rhsArgs)
 
@@ -77,5 +96,64 @@ export const interpretByOperator = async ({
     result = await interpret({ ctx: interpreter.ctx, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
   }
 
+  const typeErrorAfter = runtimeCheckType(args, result.type, `${name} after`, interpreter.ctx)
+  if (shouldReturnEarly(typeErrorAfter)) return typeErrorAfter!
+
   return result
+}
+
+export const parseByOperator = ({
+  cstVisitor,
+  operators,
+  operator: { name, parentRuntimeCheckType, lhsType, rhsType },
+  args,
+  lhs,
+  rhs
+}: {
+  cstVisitor: CodeFragmentVisitor
+  operator: OperatorType
+  operators: IToken[]
+  args: CstVisitorArgument
+  lhs: CstNode | CstNode[]
+  rhs: CstNode[] | undefined
+}): CodeFragmentResult => {
+  if (!rhs) {
+    return cstVisitor.visit(lhs, args)
+  }
+
+  const codeFragments: CodeFragment[] = []
+  const images: string[] = []
+
+  const { codeFragments: lhsCodeFragments, image: lhsImage }: CodeFragmentResult = cstVisitor.visit(lhs, {
+    ...args,
+    type: lhsType
+  })
+  codeFragments.push(...lhsCodeFragments)
+  images.push(lhsImage)
+
+  rhs.forEach((rhsOperand: CstNode | CstNode[], idx: number) => {
+    const missingTokenErrorMessages: ErrorMessage[] = []
+    const { codeFragments: rhsValue, image: rhsImage }: CodeFragmentResult = cstVisitor.visit(rhsOperand, {
+      type: rhsType
+    })
+    const operator = operators[idx]
+    if (!rhsValue.length) {
+      missingTokenErrorMessages.push({ message: 'Missing right expression', type: 'syntax' })
+    }
+    codeFragments.push(
+      { ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages },
+      ...rhsValue
+    )
+    images.push(operator.image, rhsImage)
+  })
+
+  const { errorMessages, newType } = intersectType(args.type, parentRuntimeCheckType, name, cstVisitor.ctx)
+  return {
+    image: images.join(''),
+    codeFragments: codeFragments.map(codeFragment => ({
+      ...codeFragment,
+      errors: [...errorMessages, ...codeFragment.errors]
+    })),
+    type: newType
+  }
 }

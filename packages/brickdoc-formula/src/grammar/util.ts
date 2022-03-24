@@ -9,7 +9,7 @@ import {
   FormulaType,
   FunctionContext
 } from '../types'
-import { ExpressionArgument } from './interpreter'
+import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
 // TODO: dirty hack to get the string literal value
@@ -153,7 +153,7 @@ export const intersectType = (
 }
 
 export const runtimeCheckType = (
-  { type: expectedArgumentType, skipCheck }: ExpressionArgument,
+  { type: expectedArgumentType, skipCheck }: InterpretArgument,
   contextResultType: FormulaType,
   label: string,
   ctx: FunctionContext

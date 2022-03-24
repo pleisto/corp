@@ -1931,16 +1931,7 @@ Array [
     "attrs": undefined,
     "code": "NumberLiteral",
     "display": "1",
-    "errors": Array [
-      Object {
-        "message": "Missing right expression",
-        "type": "syntax",
-      },
-      Object {
-        "message": "Parse error: \\"\\"",
-        "type": "parse",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "number",
@@ -1954,6 +1945,10 @@ Array [
       Object {
         "message": "Missing right expression",
         "type": "syntax",
+      },
+      Object {
+        "message": "Parse error: \\"\\"",
+        "type": "parse",
       },
     ],
     "hide": false,

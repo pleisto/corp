@@ -49,7 +49,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "string",
     "value": "&",
   },
   Object {

@@ -37,7 +37,7 @@ import {
 } from './operations'
 import { interpretByOperator } from './operator'
 
-export interface ExpressionArgument {
+export interface InterpretArgument {
   readonly type: ExpressionType
   readonly firstArgumentType?: FormulaType
   readonly finalTypes: ExpressionType[]
@@ -60,11 +60,11 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     this.validateVisitor()
   }
 
-  async startExpression(ctx: { expression: CstNode | CstNode[] }, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async startExpression(ctx: { expression: CstNode | CstNode[] }, args: InterpretArgument): Promise<AnyTypeResult> {
     return await this.visit(ctx.expression, args)
   }
 
-  async expression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async expression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.Semicolon,
@@ -75,7 +75,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async combineExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async combineExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.CombineOperator,
@@ -86,7 +86,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async notExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.lhs,
@@ -97,7 +97,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async equalCompareExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async equalCompareExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.EqualCompareOperator,
@@ -108,7 +108,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async compareExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async compareExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.CompareOperator,
@@ -119,7 +119,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async inExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async inExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.InOperator,
@@ -130,7 +130,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async concatExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async concatExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.Ampersand,
@@ -141,7 +141,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async additionExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async additionExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.AdditionOperator,
@@ -152,7 +152,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async multiplicationExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async multiplicationExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.MultiplicationOperator,
@@ -163,7 +163,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async rangeExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async rangeExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.Colon,
@@ -174,7 +174,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async chainExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async chainExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.Dot,
@@ -185,7 +185,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async accessExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async accessExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
       operators: ctx.LBracket,
@@ -196,7 +196,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async keyExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async keyExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     if (ctx.FunctionName) {
       return this.FunctionNameExpression(ctx, args)
     } else if (ctx.StringLiteral) {
@@ -217,7 +217,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       FunctionCall: CstNode | CstNode[]
       lazyVariableExpression: CstNode | CstNode[]
     },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<AnyTypeResult> {
     if (ctx.parenthesisExpression) {
       return await this.visit(ctx.parenthesisExpression, args)
@@ -244,7 +244,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       referenceExpression: CstNode | CstNode[]
       predicateExpression: CstNode | CstNode[]
     },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<AnyTypeResult> {
     if (ctx.simpleAtomicExpression) {
       return await this.visit(ctx.simpleAtomicExpression, args)
@@ -260,7 +260,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     }
   }
 
-  async predicateExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async predicateExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     const operators: IToken[] = ctx.EqualCompareOperator ? ctx.EqualCompareOperator : ctx.CompareOperator
     return await interpretByOperator({
       interpreter: this,
@@ -272,7 +272,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: InterpretArgument): Promise<AnyTypeResult> {
     const parentType: FormulaType = 'Array'
     const typeError = runtimeCheckType(args, parentType, 'arrayExpression', this.ctx)
     if (shouldReturnEarly(typeError)) return typeError!
@@ -286,7 +286,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return { type: 'Array', subType: extractSubType(arrayArgs), result: arrayArgs }
   }
 
-  async recordExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async recordExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     const parentType: FormulaType = 'Record'
     const typeError = runtimeCheckType(args, parentType, 'recordExpression', this.ctx)
     if (shouldReturnEarly(typeError)) return typeError!
@@ -304,7 +304,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return { type: 'Record', subType: extractSubType(Object.values(result)), result }
   }
 
-  async recordField(ctx: any, args: ExpressionArgument): Promise<{ key: string; value: AnyTypeResult }> {
+  async recordField(ctx: any, args: InterpretArgument): Promise<{ key: string; value: AnyTypeResult }> {
     const { result: key } = await this.visit(ctx.keyExpression, { ...args, type: 'string' })
     const value = await this.visit(ctx.expression, { ...args, type: 'any' })
 
@@ -313,7 +313,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
   async parenthesisExpression(
     ctx: { expression: CstNode | CstNode[] },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<AnyTypeResult> {
     return await this.visit(ctx.expression, args)
   }
@@ -325,7 +325,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       NullLiteral?: CstNode | CstNode[]
       StringLiteral: any
     },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): AnyTypeResult {
     const parentType: FormulaType = 'string'
     const typeError = runtimeCheckType(args, parentType, 'StringLiteralExpression', this.ctx)
@@ -335,7 +335,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return { result: parseString(str), type: 'string' }
   }
 
-  FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }, args: ExpressionArgument): AnyTypeResult {
+  FunctionNameExpression(ctx: { FunctionName: Array<{ image: any }> }, args: InterpretArgument): AnyTypeResult {
     const parentType: FormulaType = 'string'
     const typeError = runtimeCheckType(args, parentType, 'FunctionNameExpression', this.ctx)
     if (shouldReturnEarly(typeError)) return typeError!
@@ -350,7 +350,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       NullLiteral: CstNode | CstNode[]
       StringLiteral: Array<{ image: any }>
     },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<AnyTypeResult> {
     if (ctx.NumberLiteralExpression) {
       return await this.visit(ctx.NumberLiteralExpression, args)
@@ -371,7 +371,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
   async blockExpression(
     ctx: any,
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<NullResult | SpreadsheetResult | BlockResult | ErrorResult> {
     let namespaceId
     if (ctx.UUID) {
@@ -411,12 +411,12 @@ export class FormulaInterpreter extends InterpretCstVisitor {
   // TODO runtime type check
   async referenceExpression(
     ctx: { lazyVariableExpression: CstNode | CstNode[] },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<ReferenceResult> {
     return await this.visit(ctx.lazyVariableExpression, { ...args, type: 'any', lazy: true })
   }
 
-  async lazyVariableExpression(ctx: any, args: ExpressionArgument): Promise<AnyTypeResult> {
+  async lazyVariableExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     if (ctx.Self) {
       // TODO runtime type check
       return { type: 'Reference', result: { kind: 'self' } }
@@ -447,7 +447,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
   NumberLiteralExpression(
     ctx: { NumberLiteral: Array<{ image: any }>; DecimalLiteral: any; Sign: any; Minus: any },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): NumberResult | ErrorResult {
     const parentType: FormulaType = 'number'
     const typeError = runtimeCheckType(args, parentType, 'NumberLiteralExpression', this.ctx)
@@ -463,7 +463,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
   BooleanLiteralExpression(
     ctx: { BooleanLiteral: Array<{ image: string }> },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): BooleanResult | ErrorResult {
     const parentType: FormulaType = 'boolean'
     const typeError = runtimeCheckType(args, parentType, 'BooleanLiteralExpression', this.ctx)
@@ -477,7 +477,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       FunctionName: Array<{ image: any }>
       Arguments: CstNode[]
     },
-    args: ExpressionArgument
+    args: InterpretArgument
   ): Promise<AnyTypeResult> {
     const chainArgs = args?.chainArgs
     const names = ctx.FunctionName.map(group => group.image)
@@ -566,7 +566,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return (clause.reference as (ctx: FunctionContext, ...args: any[]) => any)(this.ctx, ...functionArgs)
   }
 
-  async Arguments(ctx: { expression: any[] }, args: ExpressionArgument): Promise<AnyTypeResult[]> {
+  async Arguments(ctx: { expression: any[] }, args: InterpretArgument): Promise<AnyTypeResult[]> {
     return await Promise.all(
       ctx.expression.map(async (arg: CstNode | CstNode[], index: number) => {
         const type = args.finalTypes[index] ?? 'any'
