@@ -1,17 +1,17 @@
 import { FC, SyntheticEvent, useState } from 'react'
-import { NodeViewProps } from '@tiptap/react'
 import { Controlled as ImagePreview } from 'react-medium-image-zoom'
 import { BlockContainer } from '../../../BlockContainer'
 import { Resizable } from 're-resizable'
 import { Skeleton, cx } from '@brickdoc/design-system'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
+import { ImageViewProps } from '../../../../../extensions/blocks/image/meta'
 
 const MAX_WIDTH = 700
 
 export interface PreviewModeProps {
-  node: NodeViewProps['node']
-  deleteNode: NodeViewProps['deleteNode']
-  getPos: NodeViewProps['getPos']
+  node: ImageViewProps['node']
+  deleteNode: ImageViewProps['deleteNode']
+  getPos: ImageViewProps['getPos']
   url: string
   updateImageAttributes: (attrs: Record<string, any>) => void
 }
@@ -21,7 +21,8 @@ export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, ur
   const [showPreview, setShowPreview] = useState(false)
 
   const previewImage = (): void => {
-    if ((node.attrs.image?.key && !loaded) || showPreview) return
+    if (node.attrs.image?.key && !loaded) return
+    if (showPreview) return
     setShowPreview(true)
   }
 
@@ -43,7 +44,8 @@ export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, ur
       contentForCopy={url}
       getPos={getPos}
       deleteNode={deleteNode}
-      actionOptions={['copy', 'delete']}>
+      actionOptions={['copy', 'delete']}
+    >
       <div role="cell" className="brickdoc-block-image-section-container">
         <Resizable
           lockAspectRatio={true}
@@ -86,21 +88,23 @@ export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, ur
             updateImageAttributes({
               width: Math.min(Number(node.attrs.image?.width) + d.width, MAX_WIDTH)
             })
-          }}>
+          }}
+        >
           <ImagePreview
             wrapStyle={{ pointerEvents: 'none', width: '100%' }}
             overlayBgColorEnd="rgba(153, 153, 153, 0.4)"
             isZoomed={showPreview}
             onZoomChange={shouldZoom => {
               setShowPreview(shouldZoom)
-            }}>
+            }}
+          >
             {!loaded && (
               <Skeleton
                 uniqueKey={`image-block-skeleton-${node.attrs.uuid}`}
                 type="list"
                 style={
                   node.attrs.image.width
-                    ? { width: node.attrs.image.width, height: node.attrs.image.width / node.attrs.image.ratio }
+                    ? { width: node.attrs.image.width, height: node.attrs.image.width / (node.attrs.image.ratio ?? 1) }
                     : { width: MAX_WIDTH }
                 }
               />

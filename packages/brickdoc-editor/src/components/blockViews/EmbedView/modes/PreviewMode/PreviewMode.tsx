@@ -1,5 +1,4 @@
 import { FC, useRef, useState } from 'react'
-import { NodeViewProps } from '@tiptap/react'
 import { WebViewerInstance } from '@pdftron/webviewer'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { FileIcon } from '../../../../ui'
@@ -10,6 +9,7 @@ import './PreviewMode.less'
 import { BlockContainer } from '../../../BlockContainer'
 import { Skeleton, styled } from '@brickdoc/design-system'
 import { useWebViewer } from './useWebViewer'
+import { EmbedViewProps } from '../../../../../extensions/blocks/embed/meta'
 
 const containerHeight = 472
 
@@ -28,9 +28,9 @@ const PreviewContainer = styled('div', {
 })
 
 export interface PreviewModeProps extends Omit<UseAttachmentMethodsProps, 'webViewer'> {
-  deleteNode: NodeViewProps['deleteNode']
-  getPos: NodeViewProps['getPos']
-  node: NodeViewProps['node']
+  deleteNode: EmbedViewProps['deleteNode']
+  getPos: EmbedViewProps['getPos']
+  node: EmbedViewProps['node']
   fileName: string
   fileType: FileType
 }

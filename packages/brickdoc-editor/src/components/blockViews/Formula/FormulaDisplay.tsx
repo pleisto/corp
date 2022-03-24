@@ -86,14 +86,12 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
         break
       case 'Range':
         preview = (
-          <BlockContainer>
-            <FormulaSpreadsheet
-              spreadsheet={(newDisplayData.result.result as any).spreadsheet}
-              columnIds={(newDisplayData.result.result as RangeType).columnIds}
-              rowIds={(newDisplayData.result.result as RangeType).rowIds}
-              clip={true}
-            />
-          </BlockContainer>
+          <FormulaSpreadsheet
+            spreadsheet={(newDisplayData.result.result as any).spreadsheet}
+            columnIds={(newDisplayData.result.result as RangeType).columnIds}
+            rowIds={(newDisplayData.result.result as RangeType).rowIds}
+            clip={true}
+          />
         )
         break
       default:
