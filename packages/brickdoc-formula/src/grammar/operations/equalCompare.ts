@@ -7,7 +7,7 @@ export const equalCompareOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: 'any',
   rhsType: 'any',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result
     const rhsResult = rhs.result
 

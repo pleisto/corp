@@ -5,7 +5,7 @@ export const inOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: ['number', 'boolean', 'null', 'string'],
   rhsType: ['Spreadsheet', 'Column', 'Array', 'string'],
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ ctx, lhs, rhs, operator }) => {
     const isExactIn = operator.tokenType.name === 'ExactIn'
     if (rhs.type === 'Spreadsheet') {
       const match = String(lhs.result)

@@ -6,7 +6,7 @@ export const rangeOperator: OperatorType = {
   parentRuntimeCheckType: 'Range',
   lhsType: 'Cell',
   rhsType: 'Cell',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ ctx, lhs, rhs }) => {
     const startCell = lhs.result as CellType
     const endCell = rhs.result as CellType
 

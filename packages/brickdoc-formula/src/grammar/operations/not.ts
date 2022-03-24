@@ -5,7 +5,7 @@ export const notOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: 'any',
   rhsType: 'any',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs }) => {
     return { type: 'boolean', result: !lhs.result }
   }
 }

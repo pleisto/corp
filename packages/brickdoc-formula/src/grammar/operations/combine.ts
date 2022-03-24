@@ -7,7 +7,7 @@ export const combineOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: 'boolean',
   rhsType: 'boolean',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result as boolean
     const rhsResult = rhs.result as boolean
 

@@ -6,7 +6,7 @@ export const expressionOperator: OperatorType = {
   skipReturnEarlyCheck: true,
   lhsType: 'any',
   rhsType: 'any',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs }) => {
     if (rhs.type === 'Function' && lhs.type === 'Function') {
       return { type: 'Function', result: [...lhs.result, ...rhs.result] }
     }

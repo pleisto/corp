@@ -176,8 +176,7 @@ export class FormulaParser extends CstParser {
 
       this.OR([
         { ALT: () => this.SUBRULE(this.FunctionCall, { LABEL: 'rhs' }) },
-        { ALT: () => this.SUBRULE(this.keyExpression, { LABEL: 'rhs' }) },
-        { ALT: () => this.CONSUME(UUID, { LABEL: 'rhs' }) }
+        { ALT: () => this.SUBRULE(this.keyExpression, { LABEL: 'rhs' }) }
       ])
     })
   })

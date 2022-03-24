@@ -7,7 +7,7 @@ export const multiplicationOperator: OperatorType = {
   parentRuntimeCheckType: 'number',
   lhsType: 'number',
   rhsType: 'number',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result as number
     const rhsResult = rhs.result as number
 

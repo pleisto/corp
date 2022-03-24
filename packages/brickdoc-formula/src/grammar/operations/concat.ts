@@ -5,7 +5,7 @@ export const concatOperator: OperatorType = {
   parentRuntimeCheckType: 'string',
   lhsType: 'string',
   rhsType: 'string',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs }) => {
     const lhsResult = lhs.result as string
     const rhsResult = rhs.result as string
 

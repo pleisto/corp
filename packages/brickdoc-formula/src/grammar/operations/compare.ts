@@ -7,7 +7,7 @@ export const compareOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: 'number',
   rhsType: 'number',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result as number
     const rhsResult = rhs.result as number
 

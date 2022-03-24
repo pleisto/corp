@@ -8,7 +8,7 @@ export const predicateOperator: OperatorType = {
   parentRuntimeCheckType: 'Predicate',
   lhsType: ['number', 'string'],
   rhsType: 'any',
-  interpret: (ctx, lhs, rhs, operator) => {
+  interpret: async ({ lhs, operator }) => {
     const result = lhs as NumberResult | StringResult
     let image: PredicateOperator
     if (tokenMatcher(operator, Equal) || tokenMatcher(operator, Equal2)) {

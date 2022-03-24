@@ -8,8 +8,22 @@ export interface OperatorType {
   readonly skipReturnEarlyCheck?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
-  readonly rhsType: FormulaCheckType | ((formulaType: FormulaType) => FormulaCheckType)
-  readonly interpret: (ctx: FunctionContext, lhs: AnyTypeResult, rhs: AnyTypeResult, operator: IToken) => AnyTypeResult
+  readonly rhsType:
+    | FormulaCheckType
+    | ((result: AnyTypeResult, cst: CstNode, args: ExpressionArgument) => ExpressionArgument)
+  readonly interpret: ({
+    ctx,
+    lhs,
+    rhs,
+    operator,
+    cst
+  }: {
+    ctx: FunctionContext
+    lhs: AnyTypeResult
+    rhs: AnyTypeResult
+    operator: IToken
+    cst: CstNode
+  }) => Promise<AnyTypeResult>
 }
 
 interface InterpretByOperatorInput {
@@ -38,13 +52,14 @@ export const interpretByOperator = async ({
 
   const lhsArgs: ExpressionArgument = { ...args, type: lhsType }
   let result = await interpreter.visit(lhs, lhsArgs)
-  const finalRhsType: FormulaCheckType = rhsType instanceof Function ? rhsType(result.type) : rhsType
-  const rhsArgs: ExpressionArgument = { ...args, type: finalRhsType }
 
   if (shouldReturnEarly(result, skipReturnEarlyCheck)) return result
 
   for (const { rhsOperand, index } of rhs.map((rhsOperand, index: number) => ({ index, rhsOperand }))) {
     if (shouldReturnEarly(result, skipReturnEarlyCheck)) break
+
+    const rhsArgs: ExpressionArgument =
+      rhsType instanceof Function ? rhsType(result, rhsOperand, args) : { ...args, type: rhsType }
 
     const rhsValue = (rhsOperand as any).image ? null : await interpreter.visit(rhsOperand, rhsArgs)
 
@@ -59,7 +74,7 @@ export const interpretByOperator = async ({
       throw new Error(`Operator not found`)
     }
 
-    result = interpret(interpreter.ctx, result, rhsValue, operator)
+    result = await interpret({ ctx: interpreter.ctx, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
   }
 
   return result
