@@ -54,7 +54,8 @@ export const maybeEncodeString = (str: string): [boolean, string] => {
   return [false, encodeString(str)]
 }
 
-export const shouldReturnEarly = (result: AnyTypeResult | undefined): boolean => {
+export const shouldReturnEarly = (result: AnyTypeResult | undefined, skipReturnEarlyCheck?: boolean): boolean => {
+  if (skipReturnEarlyCheck) return false
   if (!result) return false
   if (['Error', 'Blank', 'Pending', 'Waiting'].includes(result.type)) {
     return true
