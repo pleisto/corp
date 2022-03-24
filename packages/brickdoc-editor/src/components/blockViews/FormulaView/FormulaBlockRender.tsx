@@ -2,7 +2,7 @@
 import { FC, useMemo, useCallback } from 'react'
 import { Popover } from '@brickdoc/design-system'
 import '../../ui/Formula/Formula.less'
-import { FormulaEditor, EditorContentType } from '../../../extensions/blocks/formula/FormulaEditor/FormulaEditor'
+import { FormulaEditor, EditorContentType } from '../../../editors/formulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 import { AutocompleteList, FormulaResult } from '../../ui/Formula'
 import { VariableData } from '@brickdoc/formula'

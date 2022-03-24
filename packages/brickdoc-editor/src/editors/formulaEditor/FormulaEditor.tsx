@@ -3,7 +3,7 @@ import { useEditor, EditorContent, JSONContent, EditorEvents } from '@tiptap/rea
 import { devLog } from '@brickdoc/design-system'
 import './FormulaEditor.less'
 import { BrickdocEventBus, FormulaEditorReplaceRootTrigger } from '@brickdoc/schema'
-import { Base } from '../../../base'
+import { Base } from '../../extensions/base'
 
 export interface EditorContentType {
   content: JSONContent | undefined
@@ -44,12 +44,10 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
         document: true,
         text: true,
         paragraph: true,
+        formulaType: true,
         formulaKeyDown: {
           formulaId,
           rootId
-        },
-        formulaType: {
-          editable
         }
       })
     ],
