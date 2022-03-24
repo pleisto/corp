@@ -467,7 +467,7 @@ export const useFormula = ({
         position: definition.length
       }
 
-      void doCalculate(false)
+      await doCalculate(false)
 
       saveFormula()
     },
