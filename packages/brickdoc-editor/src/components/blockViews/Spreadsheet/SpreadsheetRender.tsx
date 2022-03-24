@@ -13,8 +13,8 @@ import {
 } from './SpreadsheetView'
 import './Spreadsheet.less'
 import { VariableDisplayData } from '@brickdoc/formula'
-import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import React from 'react'
+import { FormulaDisplay } from '../../ui/Formula'
 
 export interface Row {
   rowId: string
@@ -103,8 +103,7 @@ export const SpreadsheetRender: React.FC<SpreadsheetRenderProps> = ({
                       <SpreadsheetCellContainer
                         key={column.columnId}
                         context={spreadsheetContext}
-                        cellId={{ rowId: rowBlock.rowId, columnId: column.columnId }}
-                      >
+                        cellId={{ rowId: rowBlock.rowId, columnId: column.columnId }}>
                         <div className="cell">
                           <FormulaDisplay
                             displayData={valuesMatrix.get(rowBlock.rowId)?.get(column.columnId)}
