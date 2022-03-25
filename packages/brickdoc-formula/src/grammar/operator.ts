@@ -16,7 +16,9 @@ export interface OperatorType {
   readonly skipReturnEarlyCheck?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
+  readonly dynamicLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
   readonly dynamicRhsType?: (result: AnyTypeResult, cst: CstNode, args: InterpretArgument) => InterpretArgument
+  readonly packageResult?: (result: AnyTypeResult) => AnyTypeResult
   readonly rhsType: FormulaCheckType
   readonly parse?: ({
     ctx,
@@ -49,7 +51,17 @@ export interface OperatorType {
 export const interpretByOperator = async ({
   interpreter,
   operators,
-  operator: { name, parentRuntimeCheckType, dynamicRhsType, lhsType, rhsType, interpret, skipReturnEarlyCheck },
+  operator: {
+    name,
+    parentRuntimeCheckType,
+    dynamicRhsType,
+    dynamicLhs,
+    lhsType,
+    rhsType,
+    interpret,
+    skipReturnEarlyCheck,
+    packageResult
+  },
   args,
   lhs,
   rhs
@@ -62,15 +74,14 @@ export const interpretByOperator = async ({
   rhs: CstNode[] | undefined
 }): Promise<AnyTypeResult> => {
   if (!rhs) {
-    return interpreter.visit(lhs, args)
+    return dynamicLhs ? dynamicLhs(args) : interpreter.visit(lhs, args)
   }
 
   const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
   if (shouldReturnEarly(typeErrorBefore)) return typeErrorBefore!
 
-  const lhsArgs: InterpretArgument = { ...args, type: lhsType }
-  let result = await interpreter.visit(lhs, lhsArgs)
-
+  const lhsArgs: InterpretArgument = { ...args, type: lhsType, finalTypes: [] }
+  let result = dynamicLhs ? dynamicLhs(lhsArgs) : await interpreter.visit(lhs, lhsArgs)
   if (shouldReturnEarly(result, skipReturnEarlyCheck)) return result
 
   for (const { rhsOperand, index } of rhs.map((rhsOperand, index: number) => ({ index, rhsOperand }))) {
@@ -78,7 +89,7 @@ export const interpretByOperator = async ({
 
     const rhsArgs: InterpretArgument = dynamicRhsType
       ? dynamicRhsType(result, rhsOperand, args)
-      : { ...args, type: rhsType }
+      : { ...args, type: rhsType, finalTypes: [] }
 
     const rhsValue = (rhsOperand as any).image ? null : await interpreter.visit(rhsOperand, rhsArgs)
 
@@ -94,6 +105,10 @@ export const interpretByOperator = async ({
     }
 
     result = await interpret({ ctx: interpreter.ctx, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
+  }
+
+  if (packageResult) {
+    result = packageResult(result)
   }
 
   const typeErrorAfter = runtimeCheckType(args, result.type, `${name} after`, interpreter.ctx)

@@ -166,7 +166,7 @@ export const runtimeCheckType = (
 
   if (errorMessages.length > 0) {
     const { type, message } = errorMessages[0]
-    // devLog('runtimeCheckType', { label, expectedArgumentType, contextResultType, errorMessages })
+    // console.log('runtimeCheckType', { label, expectedArgumentType, contextResultType, errorMessages })
     return { type: 'Error', result: message, errorKind: type }
   }
 

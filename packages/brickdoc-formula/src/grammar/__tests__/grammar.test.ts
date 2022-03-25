@@ -633,6 +633,12 @@ const testCases: TestCase[] = [
     errorMessage: 'Missing right expression'
   },
   {
+    input: '=()',
+    parseErrorType: 'syntax',
+    label: 'Empty parentheses',
+    errorMessage: 'Parse error: ")"'
+  },
+  {
     input: '=(1',
     parseErrorType: 'syntax',
     label: 'Missing closing parenthesis1',

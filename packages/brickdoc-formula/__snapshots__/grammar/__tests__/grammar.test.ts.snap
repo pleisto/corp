@@ -750,6 +750,41 @@ Array [
 ]
 `;
 
+exports[`Simple test case [Empty parentheses] =() // => ✗ 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "LParen",
+    "display": "(",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "(",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "RParen",
+    "display": ")",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": ")",
+  },
+]
+`;
+
 exports[`Simple test case [Missing closing parenthesis1] =(1 // => ✗ 1`] = `
 Array [
   Object {

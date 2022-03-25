@@ -23,6 +23,7 @@ import { ParserInstance } from './parser'
 import {
   accessOperator,
   additionOperator,
+  arrayOperator,
   chainOperator,
   combineOperator,
   compareOperator,
@@ -32,8 +33,11 @@ import {
   inOperator,
   multiplicationOperator,
   notOperator,
+  parenthesisOperator,
   predicateOperator,
-  rangeOperator
+  rangeOperator,
+  recordFieldOperator,
+  recordOperator
 } from './operations'
 import { interpretByOperator } from './operator'
 
@@ -272,50 +276,48 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async arrayExpression(ctx: { Arguments: CstNode | CstNode[] }, args: InterpretArgument): Promise<AnyTypeResult> {
-    const parentType: FormulaType = 'Array'
-    const typeError = runtimeCheckType(args, parentType, 'arrayExpression', this.ctx)
-    if (shouldReturnEarly(typeError)) return typeError!
-
-    const arrayArgs: AnyTypeResult[] = []
-
-    if (ctx.Arguments) {
-      arrayArgs.push(...(await this.visit(ctx.Arguments, { ...args, type: 'any', finalTypes: [] })))
-    }
-
-    return { type: 'Array', subType: extractSubType(arrayArgs), result: arrayArgs }
+  async arrayExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: [],
+      args,
+      operator: arrayOperator,
+      rhs: [],
+      lhs: ctx.Arguments
+    })
   }
 
   async recordExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
-    const parentType: FormulaType = 'Record'
-    const typeError = runtimeCheckType(args, parentType, 'recordExpression', this.ctx)
-    if (shouldReturnEarly(typeError)) return typeError!
-
-    if (!ctx.recordField) {
-      return { type: 'Record', subType: 'void', result: {} }
-    }
-
-    const result: Record<string, AnyTypeResult> = {}
-    for (const c of ctx.recordField) {
-      const { key, value } = await this.visit(c, { ...args, type: 'any' })
-      result[key] = value
-    }
-
-    return { type: 'Record', subType: extractSubType(Object.values(result)), result }
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.recordField,
+      args,
+      operator: recordOperator,
+      rhs: ctx.recordField,
+      lhs: []
+    })
   }
 
-  async recordField(ctx: any, args: InterpretArgument): Promise<{ key: string; value: AnyTypeResult }> {
-    const { result: key } = await this.visit(ctx.keyExpression, { ...args, type: 'string' })
-    const value = await this.visit(ctx.expression, { ...args, type: 'any' })
-
-    return { key, value }
+  async recordField(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.Colon,
+      args,
+      operator: recordFieldOperator,
+      rhs: ctx.expression,
+      lhs: ctx.keyExpression
+    })
   }
 
-  async parenthesisExpression(
-    ctx: { expression: CstNode | CstNode[] },
-    args: InterpretArgument
-  ): Promise<AnyTypeResult> {
-    return await this.visit(ctx.expression, args)
+  async parenthesisExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: [],
+      args,
+      operator: parenthesisOperator,
+      rhs: [],
+      lhs: ctx.expression
+    })
   }
 
   StringLiteralExpression(
