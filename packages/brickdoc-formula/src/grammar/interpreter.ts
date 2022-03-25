@@ -23,6 +23,7 @@ import { ParserInstance } from './parser'
 import {
   accessOperator,
   additionOperator,
+  argumentsOperator,
   arrayOperator,
   chainOperator,
   combineOperator,
@@ -50,7 +51,7 @@ export interface InterpretArgument {
   chainArgs?: any
 }
 
-// <ExpressionArgument, Promise<AnyTypeResult>>
+// <InterpretArgument, Promise<AnyTypeResult>>
 const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor()
 
 export class FormulaInterpreter extends InterpretCstVisitor {
@@ -537,7 +538,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       if (ctx.Arguments) {
         const clauseArguments = clause.chain && chainArgs ? clause.args.slice(1) : clause.args
         const argResult = await this.visit(ctx.Arguments, { ...args, finalTypes: clauseArguments.map(e => e.type) })
-        functionArgs.push(...argResult)
+        functionArgs.push(...argResult.result)
       }
 
       const argsTypes: Argument[] = clause.args[0]?.spread
@@ -568,13 +569,14 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     return (clause.reference as (ctx: FunctionContext, ...args: any[]) => any)(this.ctx, ...functionArgs)
   }
 
-  async Arguments(ctx: { expression: any[] }, args: InterpretArgument): Promise<AnyTypeResult[]> {
-    return await Promise.all(
-      ctx.expression.map(async (arg: CstNode | CstNode[], index: number) => {
-        const type = args.finalTypes[index] ?? 'any'
-        const result = await this.visit(arg, { ...args, type })
-        return result
-      })
-    )
+  async Arguments(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.expression,
+      args,
+      operator: argumentsOperator,
+      rhs: ctx.expression,
+      lhs: []
+    })
   }
 }

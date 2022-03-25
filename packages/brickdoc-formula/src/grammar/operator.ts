@@ -14,10 +14,16 @@ import { intersectType, runtimeCheckType, shouldReturnEarly } from './util'
 export interface OperatorType {
   readonly name: string
   readonly skipReturnEarlyCheck?: boolean
+  readonly skipReturnFinalCheck?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
-  readonly dynamicRhsType?: (result: AnyTypeResult, cst: CstNode, args: InterpretArgument) => InterpretArgument
+  readonly dynamicRhsType?: (
+    result: AnyTypeResult,
+    cst: CstNode,
+    args: InterpretArgument,
+    index: number
+  ) => InterpretArgument
   readonly packageResult?: (result: AnyTypeResult) => AnyTypeResult
   readonly rhsType: FormulaCheckType
   readonly parse?: ({
@@ -60,6 +66,7 @@ export const interpretByOperator = async ({
     rhsType,
     interpret,
     skipReturnEarlyCheck,
+    skipReturnFinalCheck,
     packageResult
   },
   args,
@@ -88,7 +95,7 @@ export const interpretByOperator = async ({
     if (shouldReturnEarly(result, skipReturnEarlyCheck)) break
 
     const rhsArgs: InterpretArgument = dynamicRhsType
-      ? dynamicRhsType(result, rhsOperand, args)
+      ? dynamicRhsType(result, rhsOperand, args, index)
       : { ...args, type: rhsType, finalTypes: [] }
 
     const rhsValue = (rhsOperand as any).image ? null : await interpreter.visit(rhsOperand, rhsArgs)
@@ -111,8 +118,10 @@ export const interpretByOperator = async ({
     result = packageResult(result)
   }
 
-  const typeErrorAfter = runtimeCheckType(args, result.type, `${name} after`, interpreter.ctx)
-  if (shouldReturnEarly(typeErrorAfter)) return typeErrorAfter!
+  if (!skipReturnFinalCheck) {
+    const typeErrorAfter = runtimeCheckType(args, result.type, `${name} after`, interpreter.ctx)
+    if (shouldReturnEarly(typeErrorAfter)) return typeErrorAfter!
+  }
 
   return result
 }
