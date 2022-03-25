@@ -20,12 +20,19 @@ export interface OperatorType {
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicInterpretLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
-  readonly dynamicInterpretRhsType?: (
-    result: AnyTypeResult,
-    cst: CstNode,
-    args: InterpretArgument,
+  readonly dynamicInterpretRhsType?: ({
+    result,
+    cst,
+    operator,
+    args,
+    index
+  }: {
+    result: AnyTypeResult
+    cst: CstNode
+    operator: IToken | undefined
+    args: InterpretArgument
     index: number
-  ) => InterpretArgument
+  }) => InterpretArgument
   readonly packageInterpretResult?: (result: AnyTypeResult) => AnyTypeResult
   readonly dynamicParseRhsType?: (
     cst: CstNode,
@@ -68,8 +75,8 @@ export const interpretByOperator = async ({
   operator: {
     name,
     parentRuntimeCheckType,
-    dynamicInterpretRhsType: dynamicRhsType,
-    dynamicInterpretLhs: dynamicLhs,
+    dynamicInterpretRhsType,
+    dynamicInterpretLhs,
     lhsType,
     rhsType,
     interpret,
@@ -89,21 +96,22 @@ export const interpretByOperator = async ({
   rhs: CstNode[] | undefined
 }): Promise<AnyTypeResult> => {
   if (!rhs) {
-    return dynamicLhs ? dynamicLhs(args) : await interpreter.visit(lhs, args)
+    return dynamicInterpretLhs ? dynamicInterpretLhs(args) : await interpreter.visit(lhs, args)
   }
 
   const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
   if (shouldReturnEarly(typeErrorBefore)) return typeErrorBefore!
 
   const lhsArgs: InterpretArgument = { ...args, type: lhsType, finalTypes: [] }
-  let result = dynamicLhs ? dynamicLhs(lhsArgs) : await interpreter.visit(lhs, lhsArgs)
+  let result = dynamicInterpretLhs ? dynamicInterpretLhs(lhsArgs) : await interpreter.visit(lhs, lhsArgs)
   if (shouldReturnEarly(result, skipReturnEarlyCheck)) return result
 
   for (const { rhsOperand, index } of rhs.map((rhsOperand, index: number) => ({ index, rhsOperand }))) {
     if (shouldReturnEarly(result, skipReturnEarlyCheck)) break
+    const operator = operators[index]
 
-    const rhsArgs: InterpretArgument = dynamicRhsType
-      ? dynamicRhsType(result, rhsOperand, args, index)
+    const rhsArgs: InterpretArgument = dynamicInterpretRhsType
+      ? dynamicInterpretRhsType({ result, cst: rhsOperand, operator, args, index })
       : { ...args, type: rhsType, finalTypes: [] }
 
     const rhsValue = (rhsOperand as any).image ? undefined : await interpreter.visit(rhsOperand, rhsArgs)
@@ -112,8 +120,6 @@ export const interpretByOperator = async ({
       result = rhsValue!
       break
     }
-
-    const operator = operators[index]
 
     if (!operator) {
       throw new Error(`Operator not found`)

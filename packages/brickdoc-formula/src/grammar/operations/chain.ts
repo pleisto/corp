@@ -6,7 +6,7 @@ export const chainOperator: OperatorType = {
   parentRuntimeCheckType: 'any',
   lhsType: 'any',
   rhsType: 'any',
-  dynamicInterpretRhsType: (result, cst, args) => {
+  dynamicInterpretRhsType: ({ result, cst, args }) => {
     if (cst.name === 'keyExpression') {
       return { ...args, type: 'any' }
     }
