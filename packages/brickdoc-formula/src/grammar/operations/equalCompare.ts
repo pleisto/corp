@@ -9,7 +9,7 @@ export const equalCompareOperator: OperatorType = {
   rhsType: 'any',
   interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result
-    const rhsResult = rhs.result
+    const rhsResult = rhs!.result
 
     if (tokenMatcher(operator, Equal) || tokenMatcher(operator, Equal2)) {
       return { result: lhsResult === rhsResult, type: 'boolean' }

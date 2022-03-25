@@ -8,7 +8,6 @@ import {
   NumberResult,
   BooleanResult,
   PredicateResult,
-  ReferenceResult,
   ErrorResult,
   Argument,
   FunctionContext,
@@ -51,8 +50,7 @@ export interface InterpretArgument {
   chainArgs?: any
 }
 
-// <InterpretArgument, Promise<AnyTypeResult>>
-const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor()
+const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor<InterpretArgument, Promise<AnyTypeResult>>()
 
 export class FormulaInterpreter extends InterpretCstVisitor {
   ctx: FunctionContext
@@ -415,7 +413,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
   async referenceExpression(
     ctx: { lazyVariableExpression: CstNode | CstNode[] },
     args: InterpretArgument
-  ): Promise<ReferenceResult> {
+  ): Promise<AnyTypeResult> {
     return await this.visit(ctx.lazyVariableExpression, { ...args, type: 'any', lazy: true })
   }
 
@@ -531,14 +529,14 @@ export class FormulaInterpreter extends InterpretCstVisitor {
           this.lazy = true
           functionArgs.push({ type: 'Cst', result: element })
         } else {
-          functionArgs.push(await this.visit(element, { lazy: argType === 'Reference' }))
+          functionArgs.push(await this.visit(element, { lazy: argType === 'Reference', type: 'any', finalTypes: [] }))
         }
       }
     } else {
       if (ctx.Arguments) {
         const clauseArguments = clause.chain && chainArgs ? clause.args.slice(1) : clause.args
         const argResult = await this.visit(ctx.Arguments, { ...args, finalTypes: clauseArguments.map(e => e.type) })
-        functionArgs.push(...argResult.result)
+        functionArgs.push(...(argResult.result as AnyTypeResult[]))
       }
 
       const argsTypes: Argument[] = clause.args[0]?.spread

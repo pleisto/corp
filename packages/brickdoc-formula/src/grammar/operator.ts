@@ -48,7 +48,7 @@ export interface OperatorType {
   }: {
     ctx: FunctionContext
     lhs: AnyTypeResult
-    rhs: AnyTypeResult
+    rhs: AnyTypeResult | undefined
     operator: IToken
     cst: CstNode
   }) => Promise<AnyTypeResult>
@@ -81,7 +81,7 @@ export const interpretByOperator = async ({
   rhs: CstNode[] | undefined
 }): Promise<AnyTypeResult> => {
   if (!rhs) {
-    return dynamicLhs ? dynamicLhs(args) : interpreter.visit(lhs, args)
+    return dynamicLhs ? dynamicLhs(args) : await interpreter.visit(lhs, args)
   }
 
   const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
@@ -98,10 +98,10 @@ export const interpretByOperator = async ({
       ? dynamicRhsType(result, rhsOperand, args, index)
       : { ...args, type: rhsType, finalTypes: [] }
 
-    const rhsValue = (rhsOperand as any).image ? null : await interpreter.visit(rhsOperand, rhsArgs)
+    const rhsValue = (rhsOperand as any).image ? undefined : await interpreter.visit(rhsOperand, rhsArgs)
 
     if (shouldReturnEarly(rhsValue, skipReturnEarlyCheck)) {
-      result = rhsValue
+      result = rhsValue!
       break
     }
 

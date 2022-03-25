@@ -9,7 +9,7 @@ export const combineOperator: OperatorType = {
   rhsType: 'boolean',
   interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result as boolean
-    const rhsResult = rhs.result as boolean
+    const rhsResult = rhs!.result as boolean
 
     if (tokenMatcher(operator, And)) {
       return { result: lhsResult && rhsResult, type: 'boolean' }

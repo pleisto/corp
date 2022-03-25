@@ -7,7 +7,7 @@ export const inOperator: OperatorType = {
   rhsType: ['Spreadsheet', 'Column', 'Array', 'string'],
   interpret: async ({ ctx, lhs, rhs, operator }) => {
     const isExactIn = operator.tokenType.name === 'ExactIn'
-    if (rhs.type === 'Spreadsheet') {
+    if (rhs!.type === 'Spreadsheet') {
       const match = String(lhs.result)
       const spreadsheet = rhs.result
 
@@ -34,7 +34,7 @@ export const inOperator: OperatorType = {
       return { type: 'boolean', result: !!row }
     }
 
-    if (rhs.type === 'Column') {
+    if (rhs!.type === 'Column') {
       const match = String(lhs.result)
       const column = rhs.result
       const spreadsheet = ctx.formulaContext.findSpreadsheet(column.namespaceId)
@@ -54,7 +54,7 @@ export const inOperator: OperatorType = {
       return { type: 'boolean', result: !!row }
     }
 
-    if (rhs.type === 'string') {
+    if (rhs!.type === 'string') {
       if (isExactIn) {
         return { result: rhs.result.includes(String(lhs.result)), type: 'boolean' }
       } else {
@@ -62,7 +62,7 @@ export const inOperator: OperatorType = {
       }
     }
 
-    if (rhs.type === 'Array') {
+    if (rhs!.type === 'Array') {
       if (isExactIn) {
         const match = String(lhs.result)
         const finalresult = rhs.result.map(e => String(e.result))
@@ -74,6 +74,6 @@ export const inOperator: OperatorType = {
       }
     }
 
-    throw new Error(`Unsupported type ${rhs.type}`)
+    throw new Error(`Unsupported type ${rhs!.type}`)
   }
 }

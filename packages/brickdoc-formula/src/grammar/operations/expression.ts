@@ -7,10 +7,10 @@ export const expressionOperator: OperatorType = {
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs }) => {
-    if (rhs.type === 'Function' && lhs.type === 'Function') {
-      return { type: 'Function', result: [...lhs.result, ...rhs.result] }
+    if (rhs!.type === 'Function' && lhs.type === 'Function') {
+      return { type: 'Function', result: [...lhs.result, ...rhs!.result] }
     }
 
-    return rhs
+    return rhs!
   }
 }

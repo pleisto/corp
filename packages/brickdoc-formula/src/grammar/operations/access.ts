@@ -43,6 +43,6 @@ export const accessOperator: OperatorType = {
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs, cst }) => {
-    return await accessAttribute(lhs, rhs.result as string)
+    return await accessAttribute(lhs, rhs!.result as string)
   }
 }

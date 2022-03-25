@@ -13,7 +13,7 @@ export const argumentsOperator: OperatorType = {
   rhsType: 'any',
   interpret: async ({ lhs, rhs }) => {
     const { result: lhsResult, type, subType } = lhs as ArrayResult
-    return { type, subType, result: [...lhsResult, rhs] }
+    return { type, subType, result: [...lhsResult, rhs!] }
   },
   packageResult: ({ result: inputResult }) => {
     const result = inputResult as ArrayResult['result']

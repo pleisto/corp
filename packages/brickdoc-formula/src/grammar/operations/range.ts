@@ -8,7 +8,7 @@ export const rangeOperator: OperatorType = {
   rhsType: 'Cell',
   interpret: async ({ ctx, lhs, rhs }) => {
     const startCell = lhs.result as CellType
-    const endCell = rhs.result as CellType
+    const endCell = rhs!.result as CellType
 
     const spreadsheet = ctx.formulaContext.findSpreadsheet(startCell.spreadsheetId)
 

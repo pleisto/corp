@@ -19,11 +19,11 @@ export const chainOperator: OperatorType = {
   },
   interpret: async ({ lhs, rhs, cst }) => {
     if (cst.name === 'FunctionCall') {
-      return rhs
+      return rhs!
     }
 
     if (cst.name === 'keyExpression') {
-      return await accessAttribute(lhs, rhs.result as string)
+      return await accessAttribute(lhs, rhs!.result as string)
     }
 
     throw new Error(`Unexpected cst type ${cst.name}`)

@@ -9,7 +9,7 @@ export const multiplicationOperator: OperatorType = {
   rhsType: 'number',
   interpret: async ({ lhs, rhs, operator }) => {
     const lhsResult = lhs.result as number
-    const rhsResult = rhs.result as number
+    const rhsResult = rhs!.result as number
 
     if (tokenMatcher(operator, Multi)) {
       return { result: lhsResult * rhsResult, type: 'number' }
