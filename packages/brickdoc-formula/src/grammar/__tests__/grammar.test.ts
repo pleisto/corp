@@ -561,8 +561,9 @@ const testCases: TestCase[] = [
   },
   {
     input: '=!1+1',
-    label: 'TODO: not operator',
-    value: false
+    label: 'not operator vs addition',
+    parseErrorType: 'syntax',
+    errorMessage: 'Expected number but got boolean'
   },
   {
     input: '=1 and 2',

@@ -98,19 +98,11 @@ export class FormulaParser extends CstParser {
   })
 
   public combineExpression = this.RULE('combineExpression', () => {
-    this.SUBRULE(this.notExpression, { LABEL: 'lhs' })
+    this.SUBRULE(this.equalCompareExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(CombineOperator)
-      this.SUBRULE2(this.notExpression, { LABEL: 'rhs' })
+      this.SUBRULE2(this.equalCompareExpression, { LABEL: 'rhs' })
     })
-  })
-
-  public notExpression = this.RULE('notExpression', () => {
-    this.MANY(() => {
-      this.CONSUME(Not, { LABEL: 'rhs' })
-    })
-
-    this.SUBRULE(this.equalCompareExpression, { LABEL: 'lhs' })
   })
 
   public equalCompareExpression = this.RULE('equalCompareExpression', () => {
@@ -154,11 +146,19 @@ export class FormulaParser extends CstParser {
   })
 
   public multiplicationExpression = this.RULE('multiplicationExpression', () => {
-    this.SUBRULE(this.rangeExpression, { LABEL: 'lhs' })
+    this.SUBRULE(this.notExpression, { LABEL: 'lhs' })
     this.MANY(() => {
       this.CONSUME(MultiplicationOperator)
-      this.SUBRULE2(this.rangeExpression, { LABEL: 'rhs' })
+      this.SUBRULE2(this.notExpression, { LABEL: 'rhs' })
     })
+  })
+
+  public notExpression = this.RULE('notExpression', () => {
+    this.MANY(() => {
+      this.CONSUME(Not, { LABEL: 'rhs' })
+    })
+
+    this.SUBRULE(this.rangeExpression, { LABEL: 'lhs' })
   })
 
   public rangeExpression = this.RULE('rangeExpression', () => {
