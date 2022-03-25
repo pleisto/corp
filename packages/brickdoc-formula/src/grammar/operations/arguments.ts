@@ -7,8 +7,8 @@ export const argumentsOperator: OperatorType = {
   parentRuntimeCheckType: 'any',
   skipReturnEarlyCheck: true,
   skipReturnFinalCheck: true,
-  dynamicLhs: () => ({ type: 'Array', subType: 'void', result: [] }),
-  dynamicRhsType: (result, cst, args, index) => ({ ...args, type: args.finalTypes[index] ?? 'any' }),
+  dynamicInterpretLhs: () => ({ type: 'Array', subType: 'void', result: [] }),
+  dynamicInterpretRhsType: (result, cst, args, index) => ({ ...args, type: args.finalTypes[index] ?? 'any' }),
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs }) => {

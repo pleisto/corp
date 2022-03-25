@@ -89,17 +89,6 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
-  async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
-    return await interpretByOperator({
-      interpreter: this,
-      operators: ctx.rhs,
-      args,
-      operator: notOperator,
-      rhs: ctx.rhs,
-      lhs: ctx.lhs
-    })
-  }
-
   async equalCompareExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
@@ -161,6 +150,17 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       operators: ctx.MultiplicationOperator,
       args,
       operator: multiplicationOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
+    })
+  }
+
+  async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.rhs,
+      args,
+      operator: notOperator,
       rhs: ctx.rhs,
       lhs: ctx.lhs
     })

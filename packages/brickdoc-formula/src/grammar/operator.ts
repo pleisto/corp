@@ -19,14 +19,20 @@ export interface OperatorType {
   readonly reverseLhsAndRhs?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
-  readonly dynamicLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
-  readonly dynamicRhsType?: (
+  readonly dynamicInterpretLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
+  readonly dynamicInterpretRhsType?: (
     result: AnyTypeResult,
     cst: CstNode,
     args: InterpretArgument,
     index: number
   ) => InterpretArgument
   readonly packageInterpretResult?: (result: AnyTypeResult) => AnyTypeResult
+  readonly dynamicParseRhsType?: (
+    cst: CstNode,
+    prevType: FormulaType,
+    args: CstVisitorArgument,
+    index: number
+  ) => CstVisitorArgument
   readonly rhsType: FormulaCheckType
   readonly parse?: ({
     ctx,
@@ -62,8 +68,8 @@ export const interpretByOperator = async ({
   operator: {
     name,
     parentRuntimeCheckType,
-    dynamicRhsType,
-    dynamicLhs,
+    dynamicInterpretRhsType: dynamicRhsType,
+    dynamicInterpretLhs: dynamicLhs,
     lhsType,
     rhsType,
     interpret,
@@ -131,7 +137,7 @@ export const interpretByOperator = async ({
 export const parseByOperator = ({
   cstVisitor,
   operators,
-  operator: { name, parentRuntimeCheckType, lhsType, rhsType, skipRhsCstParse, reverseLhsAndRhs },
+  operator: { name, parentRuntimeCheckType, lhsType, rhsType, skipRhsCstParse, reverseLhsAndRhs, dynamicParseRhsType },
   args,
   lhs,
   rhs
@@ -150,10 +156,15 @@ export const parseByOperator = ({
   const rhsCodeFragments: CodeFragment[] = []
   const rhsImages: string[] = []
 
-  const { codeFragments: lhsCodeFragments, image: lhsImage }: CodeFragmentResult = cstVisitor.visit(lhs, {
+  const {
+    codeFragments: lhsCodeFragments,
+    image: lhsImage,
+    type: lhsDataType
+  }: CodeFragmentResult = cstVisitor.visit(lhs, {
     ...args,
     type: lhsType
   })
+  let prevType = lhsDataType
 
   rhs.forEach((rhsOperand, idx: number) => {
     const missingTokenErrorMessages: ErrorMessage[] = []
@@ -165,9 +176,16 @@ export const parseByOperator = ({
       return
     }
 
-    const { codeFragments: rhsValue, image: rhsImage }: CodeFragmentResult = cstVisitor.visit(rhsOperand, {
-      type: rhsType
-    })
+    const rhsArgs = dynamicParseRhsType
+      ? dynamicParseRhsType(rhsOperand, prevType, args, idx)
+      : { ...args, type: rhsType }
+    const {
+      codeFragments: rhsValue,
+      image: rhsImage,
+      type: rhsDataType
+    }: CodeFragmentResult = cstVisitor.visit(rhsOperand, rhsArgs)
+    prevType = rhsDataType
+
     if (!rhsValue.length) {
       missingTokenErrorMessages.push({ message: 'Missing expression', type: 'syntax' })
     }

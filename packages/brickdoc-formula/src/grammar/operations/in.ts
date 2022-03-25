@@ -1,3 +1,4 @@
+import { ExpressionType } from '../../types'
 import { OperatorType } from '../operator'
 
 export const inOperator: OperatorType = {
@@ -5,6 +6,12 @@ export const inOperator: OperatorType = {
   parentRuntimeCheckType: 'boolean',
   lhsType: ['number', 'boolean', 'null', 'string'],
   rhsType: ['Spreadsheet', 'Column', 'Array', 'string'],
+  dynamicParseRhsType: (cst, prevType, args, index) => {
+    const newType: ExpressionType = ['string', 'number'].includes(prevType)
+      ? ['string', 'Array', 'Spreadsheet', 'Column']
+      : ['Array']
+    return { ...args, type: newType }
+  },
   interpret: async ({ ctx, lhs, rhs, operator }) => {
     const isExactIn = operator.tokenType.name === 'ExactIn'
     if (rhs!.type === 'Spreadsheet') {

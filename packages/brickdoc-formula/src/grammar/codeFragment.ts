@@ -7,7 +7,6 @@ import {
   VariableDependency,
   FunctionClause,
   CodeFragmentResult,
-  FormulaCheckType,
   NamespaceId,
   FunctionContext,
   ExpressionType,
@@ -28,6 +27,7 @@ import {
   concatOperator,
   equalCompareOperator,
   expressionOperator,
+  inOperator,
   multiplicationOperator,
   notOperator
 } from './operations'
@@ -107,17 +107,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     })
   }
 
-  notExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
-    return parseByOperator({
-      cstVisitor: this,
-      operators: ctx.rhs,
-      args,
-      operator: notOperator,
-      rhs: ctx.rhs,
-      lhs: ctx.lhs
-    })
-  }
-
   equalCompareExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
     return parseByOperator({
       cstVisitor: this,
@@ -140,55 +129,15 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     })
   }
 
-  inExpression(
-    ctx: { rhs: CstNode | CstNode[]; lhs: CstNode | CstNode[]; InOperator: IToken[] },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    if (!ctx.rhs) {
-      return this.visit(ctx.lhs, { type })
-    }
-
-    const codeFragments: CodeFragment[] = []
-    const images: string[] = []
-    const parentType: FormulaType = 'boolean'
-    const childrenLhsType: FormulaCheckType = ['string', 'number', 'boolean', 'null']
-
-    const {
-      codeFragments: lhsCodeFragments,
-      image: lhsImage,
-      type: newLhsType
-    }: CodeFragmentResult = this.visit(ctx.lhs, {
-      type: childrenLhsType
+  inExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.InOperator,
+      args,
+      operator: inOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
     })
-    codeFragments.push(...lhsCodeFragments)
-    images.push(lhsImage)
-
-    const childrenRhsType: FormulaCheckType = ['string', 'number'].includes(newLhsType)
-      ? ['string', 'Array', 'Spreadsheet', 'Column']
-      : ['Array']
-
-    const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(ctx.rhs, {
-      type: childrenRhsType
-    })
-
-    const inErrorMessages: ErrorMessage[] = rhsCodeFragments.length
-      ? []
-      : [{ message: 'Missing right expression', type: 'syntax' }]
-    codeFragments.push({ ...token2fragment(ctx.InOperator[0], 'any'), errors: inErrorMessages })
-    images.push(ctx.InOperator[0].image)
-
-    codeFragments.push(...rhsCodeFragments)
-    images.push(rhsImage)
-
-    const { errorMessages, newType } = intersectType(type, parentType, 'inExpression', this.ctx)
-    return {
-      image: images.join(''),
-      codeFragments: codeFragments.map(codeFragment => ({
-        ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
-      })),
-      type: newType
-    }
   }
 
   concatExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
@@ -219,6 +168,17 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       operators: ctx.MultiplicationOperator,
       args,
       operator: multiplicationOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
+    })
+  }
+
+  notExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.rhs,
+      args,
+      operator: notOperator,
       rhs: ctx.rhs,
       lhs: ctx.lhs
     })

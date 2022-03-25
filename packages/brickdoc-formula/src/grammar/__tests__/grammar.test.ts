@@ -159,7 +159,7 @@ const testCases: TestCase[] = [
   {
     input: '= "foo" in',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing right expression'
+    errorMessage: 'Missing expression'
   },
   {
     input: '= 1 in []',

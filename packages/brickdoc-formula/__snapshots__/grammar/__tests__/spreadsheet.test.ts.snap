@@ -4598,7 +4598,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "boolean",
     "value": "in",
   },
   Object {
@@ -4693,7 +4693,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "boolean",
     "value": "in",
   },
   Object {
@@ -4788,7 +4788,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "boolean",
     "value": "in",
   },
   Object {
@@ -4883,7 +4883,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "boolean",
     "value": "in",
   },
   Object {
@@ -4953,7 +4953,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "boolean",
     "value": "in",
   },
   Object {

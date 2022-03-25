@@ -6,7 +6,7 @@ export const recordOperator: OperatorType = {
   name: 'record',
   parentRuntimeCheckType: 'Record',
   skipReturnEarlyCheck: true,
-  dynamicLhs: () => ({ type: 'Record', subType: 'void', result: {} }),
+  dynamicInterpretLhs: () => ({ type: 'Record', subType: 'void', result: {} }),
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs }) => {
