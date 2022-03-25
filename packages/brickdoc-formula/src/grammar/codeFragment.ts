@@ -27,6 +27,7 @@ import {
   compareOperator,
   concatOperator,
   equalCompareOperator,
+  expressionOperator,
   multiplicationOperator
 } from './operations'
 import { parseByOperator } from './operator'
@@ -83,62 +84,15 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  expression(
-    ctx: {
-      rhs: Array<CstNode | CstNode[]>
-      lhs: CstNode | CstNode[]
-      Equal: Array<{ image: any }>
-      Semicolon: { [x: string]: IToken }
-    },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    if (!ctx.rhs) {
-      const { type: newType, codeFragments, image } = this.visit(ctx.lhs, { type })
-      return { type: newType, codeFragments, image }
-    }
-
-    const codeFragments: CodeFragment[] = []
-    const images: string[] = []
-    let parentType: FormulaType
-    const childrenType: FormulaType = 'any'
-
-    const {
-      codeFragments: lhsCodeFragments,
-      image: lhsImage,
-      type: firstType
-    }: CodeFragmentResult = this.visit(ctx.lhs, {
-      type: childrenType
+  expression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.Semicolon,
+      args,
+      operator: expressionOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
     })
-    parentType = firstType
-    codeFragments.push(...lhsCodeFragments)
-    images.push(lhsImage)
-
-    ctx.rhs.forEach((rhsOperand: CstNode | CstNode[], idx: string | number) => {
-      const operator = ctx.Semicolon[idx] as IToken
-      const {
-        codeFragments: rhsValue,
-        image: rhsImage,
-        type: newType
-      }: CodeFragmentResult = this.visit(rhsOperand, {
-        type: childrenType
-      })
-
-      const errorMessages: ErrorMessage[] = rhsImage ? [] : [{ type: 'syntax', message: 'Missing expression' }]
-
-      codeFragments.push({ ...token2fragment(operator, 'any'), errors: errorMessages }, ...rhsValue)
-      parentType = newType
-      images.push(operator.image, rhsImage)
-    })
-
-    const { errorMessages, newType } = intersectType(type, parentType, 'expression', this.ctx)
-    return {
-      image: images.join(''),
-      codeFragments: codeFragments.map(codeFragment => ({
-        ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
-      })),
-      type: newType
-    }
   }
 
   combineExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {

@@ -162,7 +162,7 @@ export const parseByOperator = ({
     })
     const operator = operators[idx]
     if (!rhsValue.length) {
-      missingTokenErrorMessages.push({ message: 'Missing right expression', type: 'syntax' })
+      missingTokenErrorMessages.push({ message: 'Missing expression', type: 'syntax' })
     }
     codeFragments.push(
       { ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages },

@@ -630,7 +630,7 @@ const testCases: TestCase[] = [
     input: '=1+',
     parseErrorType: 'syntax',
     label: 'TODO missing suffix expression',
-    errorMessage: 'Missing right expression'
+    errorMessage: 'Missing expression'
   },
   {
     input: '=()',
@@ -677,7 +677,7 @@ const testCases: TestCase[] = [
   {
     input: '= 1+$',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing right expression'
+    errorMessage: 'Missing expression'
   },
   {
     input: '= 1;',
@@ -724,7 +724,7 @@ const testCases: TestCase[] = [
   {
     input: '=1**2',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing right expression'
+    errorMessage: 'Missing expression'
   },
   // Function Call
   {

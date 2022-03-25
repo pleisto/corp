@@ -1978,7 +1978,7 @@ Array [
     "display": "+",
     "errors": Array [
       Object {
-        "message": "Missing right expression",
+        "message": "Missing expression",
         "type": "syntax",
       },
       Object {

@@ -1485,7 +1485,7 @@ Array [
         "display": "+",
         "errors": Array [
           Object {
-            "message": "Missing right expression",
+            "message": "Missing expression",
             "type": "syntax",
           },
           Object {
@@ -1774,7 +1774,7 @@ Array [
       "variableValue": Object {
         "result": Object {
           "errorKind": "syntax",
-          "result": "Missing right expression",
+          "result": "Missing expression",
           "type": "Error",
         },
         "success": false,
