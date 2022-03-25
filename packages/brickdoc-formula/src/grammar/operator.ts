@@ -15,6 +15,8 @@ export interface OperatorType {
   readonly name: string
   readonly skipReturnEarlyCheck?: boolean
   readonly skipReturnFinalCheck?: boolean
+  readonly skipRhsCstParse?: boolean
+  readonly reverseLhsAndRhs?: boolean
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
@@ -24,7 +26,7 @@ export interface OperatorType {
     args: InterpretArgument,
     index: number
   ) => InterpretArgument
-  readonly packageResult?: (result: AnyTypeResult) => AnyTypeResult
+  readonly packageInterpretResult?: (result: AnyTypeResult) => AnyTypeResult
   readonly rhsType: FormulaCheckType
   readonly parse?: ({
     ctx,
@@ -67,7 +69,7 @@ export const interpretByOperator = async ({
     interpret,
     skipReturnEarlyCheck,
     skipReturnFinalCheck,
-    packageResult
+    packageInterpretResult
   },
   args,
   lhs,
@@ -114,8 +116,8 @@ export const interpretByOperator = async ({
     result = await interpret({ ctx: interpreter.ctx, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
   }
 
-  if (packageResult) {
-    result = packageResult(result)
+  if (packageInterpretResult) {
+    result = packageInterpretResult(result)
   }
 
   if (!skipReturnFinalCheck) {
@@ -129,7 +131,7 @@ export const interpretByOperator = async ({
 export const parseByOperator = ({
   cstVisitor,
   operators,
-  operator: { name, parentRuntimeCheckType, lhsType, rhsType },
+  operator: { name, parentRuntimeCheckType, lhsType, rhsType, skipRhsCstParse, reverseLhsAndRhs },
   args,
   lhs,
   rhs
@@ -145,39 +147,48 @@ export const parseByOperator = ({
     return cstVisitor.visit(lhs, args)
   }
 
-  const codeFragments: CodeFragment[] = []
-  const images: string[] = []
+  const rhsCodeFragments: CodeFragment[] = []
+  const rhsImages: string[] = []
 
   const { codeFragments: lhsCodeFragments, image: lhsImage }: CodeFragmentResult = cstVisitor.visit(lhs, {
     ...args,
     type: lhsType
   })
-  codeFragments.push(...lhsCodeFragments)
-  images.push(lhsImage)
 
-  rhs.forEach((rhsOperand: CstNode | CstNode[], idx: number) => {
+  rhs.forEach((rhsOperand, idx: number) => {
     const missingTokenErrorMessages: ErrorMessage[] = []
+
+    if (skipRhsCstParse) {
+      const operator = operators[idx]
+      rhsCodeFragments.push({ ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages })
+      rhsImages.push(operator.image)
+      return
+    }
+
     const { codeFragments: rhsValue, image: rhsImage }: CodeFragmentResult = cstVisitor.visit(rhsOperand, {
       type: rhsType
     })
-    const operator = operators[idx]
     if (!rhsValue.length) {
       missingTokenErrorMessages.push({ message: 'Missing expression', type: 'syntax' })
     }
-    codeFragments.push(
-      { ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages },
-      ...rhsValue
-    )
-    images.push(operator.image, rhsImage)
+
+    const operator = operators[idx]
+    rhsCodeFragments.push({ ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages })
+    rhsImages.push(operator.image)
+
+    rhsCodeFragments.push(...rhsValue)
+    rhsImages.push(rhsImage)
   })
+
+  const finalCodeFragments: CodeFragment[] = reverseLhsAndRhs
+    ? [...rhsCodeFragments, ...lhsCodeFragments]
+    : [...lhsCodeFragments, ...rhsCodeFragments]
+  const finalImages: string[] = reverseLhsAndRhs ? [...rhsImages, lhsImage] : [lhsImage, ...rhsImages]
 
   const { errorMessages, newType } = intersectType(args.type, parentRuntimeCheckType, name, cstVisitor.ctx)
   return {
-    image: images.join(''),
-    codeFragments: codeFragments.map(codeFragment => ({
-      ...codeFragment,
-      errors: [...errorMessages, ...codeFragment.errors]
-    })),
+    image: finalImages.join(''),
+    codeFragments: finalCodeFragments.map(c => ({ ...c, errors: [...errorMessages, ...c.errors] })),
     type: newType
   }
 }

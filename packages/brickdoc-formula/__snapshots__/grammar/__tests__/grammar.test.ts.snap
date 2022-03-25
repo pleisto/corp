@@ -1260,7 +1260,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -2060,6 +2060,61 @@ Array [
     "renderText": undefined,
     "type": "any",
     "value": "==",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "1",
+  },
+]
+`;
+
+exports[`Simple test case [TODO: not operator] =!1+1 // => false 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "any",
+    "value": "=",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Not",
+    "display": "!",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "boolean",
+    "value": "!",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "1",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Plus",
+    "display": "+",
+    "errors": Array [],
+    "hide": false,
+    "renderText": undefined,
+    "type": "number",
+    "value": "+",
   },
   Object {
     "attrs": undefined,

@@ -107,10 +107,10 @@ export class FormulaParser extends CstParser {
 
   public notExpression = this.RULE('notExpression', () => {
     this.MANY(() => {
-      this.CONSUME(Not, { LABEL: 'lhs' })
+      this.CONSUME(Not, { LABEL: 'rhs' })
     })
 
-    this.SUBRULE(this.equalCompareExpression, { LABEL: 'rhs' })
+    this.SUBRULE(this.equalCompareExpression, { LABEL: 'lhs' })
   })
 
   public equalCompareExpression = this.RULE('equalCompareExpression', () => {

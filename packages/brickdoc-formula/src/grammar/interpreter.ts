@@ -92,11 +92,11 @@ export class FormulaInterpreter extends InterpretCstVisitor {
   async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
-      operators: ctx.lhs,
+      operators: ctx.rhs,
       args,
       operator: notOperator,
-      rhs: ctx.lhs,
-      lhs: ctx.rhs
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
     })
   }
 

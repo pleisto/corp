@@ -81,7 +81,7 @@ Array [
                           "lhs": Array [
                             Object {
                               "children": Object {
-                                "rhs": Array [
+                                "lhs": Array [
                                   Object {
                                     "children": Object {
                                       "lhs": Array [
@@ -369,7 +369,7 @@ Array [
                           "lhs": Array [
                             Object {
                               "children": Object {
-                                "rhs": Array [
+                                "lhs": Array [
                                   Object {
                                     "children": Object {
                                       "lhs": Array [
@@ -811,7 +811,7 @@ Array [
                           "lhs": Array [
                             Object {
                               "children": Object {
-                                "rhs": Array [
+                                "lhs": Array [
                                   Object {
                                     "children": Object {
                                       "lhs": Array [
@@ -896,7 +896,7 @@ Array [
                                                                                                                           "lhs": Array [
                                                                                                                             Object {
                                                                                                                               "children": Object {
-                                                                                                                                "rhs": Array [
+                                                                                                                                "lhs": Array [
                                                                                                                                   Object {
                                                                                                                                     "children": Object {
                                                                                                                                       "lhs": Array [
@@ -1554,7 +1554,7 @@ Array [
                           "lhs": Array [
                             Object {
                               "children": Object {
-                                "rhs": Array [
+                                "lhs": Array [
                                   Object {
                                     "children": Object {
                                       "lhs": Array [
@@ -1983,7 +1983,7 @@ Array [
                           "lhs": Array [
                             Object {
                               "children": Object {
-                                "rhs": Array [
+                                "lhs": Array [
                                   Object {
                                     "children": Object {
                                       "lhs": Array [
@@ -2068,7 +2068,7 @@ Array [
                                                                                                                           "lhs": Array [
                                                                                                                             Object {
                                                                                                                               "children": Object {
-                                                                                                                                "rhs": Array [
+                                                                                                                                "lhs": Array [
                                                                                                                                   Object {
                                                                                                                                     "children": Object {
                                                                                                                                       "lhs": Array [

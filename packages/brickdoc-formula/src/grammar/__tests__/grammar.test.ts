@@ -560,6 +560,11 @@ const testCases: TestCase[] = [
     value: true
   },
   {
+    input: '=!1+1',
+    label: 'TODO: not operator',
+    value: false
+  },
+  {
     input: '=1 and 2',
     parseErrorType: 'syntax',
     errorMessage: 'Expected boolean but got number'

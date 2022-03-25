@@ -17,7 +17,7 @@ export const recordOperator: OperatorType = {
 
     return { type, subType, result: { ...lhsResult, [key.result as string]: value } }
   },
-  packageResult: ({ result: inputResult }) => {
+  packageInterpretResult: ({ result: inputResult }) => {
     const result = inputResult as RecordResult['result']
     return { type: 'Record', subType: extractSubType(Object.values(result)), result }
   }

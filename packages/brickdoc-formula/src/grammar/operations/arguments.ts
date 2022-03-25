@@ -15,7 +15,7 @@ export const argumentsOperator: OperatorType = {
     const { result: lhsResult, type, subType } = lhs as ArrayResult
     return { type, subType, result: [...lhsResult, rhs!] }
   },
-  packageResult: ({ result: inputResult }) => {
+  packageInterpretResult: ({ result: inputResult }) => {
     const result = inputResult as ArrayResult['result']
     return { type: 'Array', subType: extractSubType(result), result }
   }

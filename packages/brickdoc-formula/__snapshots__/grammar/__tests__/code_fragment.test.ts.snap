@@ -56,7 +56,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "EqualCompareOperator": Array [
@@ -299,7 +299,7 @@ Object {
                                                                                                                 "lhs": Array [
                                                                                                                   Object {
                                                                                                                     "children": Object {
-                                                                                                                      "rhs": Array [
+                                                                                                                      "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
                                                                                                                             "lhs": Array [
@@ -849,46 +849,6 @@ Object {
                                                                                                                     "children": Object {
                                                                                                                       "lhs": Array [
                                                                                                                         Object {
-                                                                                                                          "endColumn": 25,
-                                                                                                                          "endLine": 1,
-                                                                                                                          "endOffset": 24,
-                                                                                                                          "image": "!",
-                                                                                                                          "startColumn": 25,
-                                                                                                                          "startLine": 1,
-                                                                                                                          "startOffset": 24,
-                                                                                                                          "tokenType": Object {
-                                                                                                                            "CATEGORIES": Array [],
-                                                                                                                            "PATTERN": /not\\|!/,
-                                                                                                                            "categoryMatches": Array [],
-                                                                                                                            "categoryMatchesMap": Object {},
-                                                                                                                            "isParent": false,
-                                                                                                                            "name": "Not",
-                                                                                                                            "tokenTypeIdx": 16,
-                                                                                                                          },
-                                                                                                                          "tokenTypeIdx": 16,
-                                                                                                                        },
-                                                                                                                        Object {
-                                                                                                                          "endColumn": 26,
-                                                                                                                          "endLine": 1,
-                                                                                                                          "endOffset": 25,
-                                                                                                                          "image": "!",
-                                                                                                                          "startColumn": 26,
-                                                                                                                          "startLine": 1,
-                                                                                                                          "startOffset": 25,
-                                                                                                                          "tokenType": Object {
-                                                                                                                            "CATEGORIES": Array [],
-                                                                                                                            "PATTERN": /not\\|!/,
-                                                                                                                            "categoryMatches": Array [],
-                                                                                                                            "categoryMatchesMap": Object {},
-                                                                                                                            "isParent": false,
-                                                                                                                            "name": "Not",
-                                                                                                                            "tokenTypeIdx": 16,
-                                                                                                                          },
-                                                                                                                          "tokenTypeIdx": 16,
-                                                                                                                        },
-                                                                                                                      ],
-                                                                                                                      "rhs": Array [
-                                                                                                                        Object {
                                                                                                                           "children": Object {
                                                                                                                             "lhs": Array [
                                                                                                                               Object {
@@ -992,6 +952,46 @@ Object {
                                                                                                                           "name": "equalCompareExpression",
                                                                                                                         },
                                                                                                                       ],
+                                                                                                                      "rhs": Array [
+                                                                                                                        Object {
+                                                                                                                          "endColumn": 25,
+                                                                                                                          "endLine": 1,
+                                                                                                                          "endOffset": 24,
+                                                                                                                          "image": "!",
+                                                                                                                          "startColumn": 25,
+                                                                                                                          "startLine": 1,
+                                                                                                                          "startOffset": 24,
+                                                                                                                          "tokenType": Object {
+                                                                                                                            "CATEGORIES": Array [],
+                                                                                                                            "PATTERN": /not\\|!/,
+                                                                                                                            "categoryMatches": Array [],
+                                                                                                                            "categoryMatchesMap": Object {},
+                                                                                                                            "isParent": false,
+                                                                                                                            "name": "Not",
+                                                                                                                            "tokenTypeIdx": 16,
+                                                                                                                          },
+                                                                                                                          "tokenTypeIdx": 16,
+                                                                                                                        },
+                                                                                                                        Object {
+                                                                                                                          "endColumn": 26,
+                                                                                                                          "endLine": 1,
+                                                                                                                          "endOffset": 25,
+                                                                                                                          "image": "!",
+                                                                                                                          "startColumn": 26,
+                                                                                                                          "startLine": 1,
+                                                                                                                          "startOffset": 25,
+                                                                                                                          "tokenType": Object {
+                                                                                                                            "CATEGORIES": Array [],
+                                                                                                                            "PATTERN": /not\\|!/,
+                                                                                                                            "categoryMatches": Array [],
+                                                                                                                            "categoryMatchesMap": Object {},
+                                                                                                                            "isParent": false,
+                                                                                                                            "name": "Not",
+                                                                                                                            "tokenTypeIdx": 16,
+                                                                                                                          },
+                                                                                                                          "tokenTypeIdx": 16,
+                                                                                                                        },
+                                                                                                                      ],
                                                                                                                     },
                                                                                                                     "name": "notExpression",
                                                                                                                   },
@@ -999,7 +999,7 @@ Object {
                                                                                                                 "rhs": Array [
                                                                                                                   Object {
                                                                                                                     "children": Object {
-                                                                                                                      "rhs": Array [
+                                                                                                                      "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
                                                                                                                             "lhs": Array [
@@ -1109,7 +1109,7 @@ Object {
                                                                                                                   },
                                                                                                                   Object {
                                                                                                                     "children": Object {
-                                                                                                                      "rhs": Array [
+                                                                                                                      "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
                                                                                                                             "lhs": Array [
@@ -1815,7 +1815,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -1863,7 +1863,7 @@ Object {
                                                                                                                       "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
-                                                                                                                            "rhs": Array [
+                                                                                                                            "lhs": Array [
                                                                                                                               Object {
                                                                                                                                 "children": Object {
                                                                                                                                   "lhs": Array [
@@ -2235,7 +2235,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -2304,7 +2304,7 @@ Object {
                                                                                                                       "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
-                                                                                                                            "rhs": Array [
+                                                                                                                            "lhs": Array [
                                                                                                                               Object {
                                                                                                                                 "children": Object {
                                                                                                                                   "lhs": Array [
@@ -2391,7 +2391,7 @@ Object {
                                                                                                                                                                                                                 "lhs": Array [
                                                                                                                                                                                                                   Object {
                                                                                                                                                                                                                     "children": Object {
-                                                                                                                                                                                                                      "rhs": Array [
+                                                                                                                                                                                                                      "lhs": Array [
                                                                                                                                                                                                                         Object {
                                                                                                                                                                                                                           "children": Object {
                                                                                                                                                                                                                             "lhs": Array [
@@ -2657,7 +2657,7 @@ Object {
                                                                                                                       "lhs": Array [
                                                                                                                         Object {
                                                                                                                           "children": Object {
-                                                                                                                            "rhs": Array [
+                                                                                                                            "lhs": Array [
                                                                                                                               Object {
                                                                                                                                 "children": Object {
                                                                                                                                   "lhs": Array [
@@ -3288,7 +3288,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -3877,7 +3877,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -4317,7 +4317,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -4732,7 +4732,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -5147,7 +5147,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -5597,7 +5597,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -6025,7 +6025,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -6465,7 +6465,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [
@@ -6880,7 +6880,7 @@ Object {
                       "lhs": Array [
                         Object {
                           "children": Object {
-                            "rhs": Array [
+                            "lhs": Array [
                               Object {
                                 "children": Object {
                                   "lhs": Array [

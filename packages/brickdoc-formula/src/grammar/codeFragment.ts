@@ -28,7 +28,8 @@ import {
   concatOperator,
   equalCompareOperator,
   expressionOperator,
-  multiplicationOperator
+  multiplicationOperator,
+  notOperator
 } from './operations'
 import { parseByOperator } from './operator'
 
@@ -106,33 +107,15 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     })
   }
 
-  notExpression(ctx: { lhs: any[]; rhs: CstNode | CstNode[] }, { type }: CstVisitorArgument): CodeFragmentResult {
-    if (!ctx.lhs) {
-      return this.visit(ctx.rhs, { type })
-    }
-
-    const codeFragments: CodeFragment[] = []
-    const images: string[] = []
-    const parentType: FormulaType = 'boolean'
-    const childrenType: FormulaType = 'any'
-
-    ctx.lhs.forEach((operator: IToken) => {
-      codeFragments.push(token2fragment(operator, parentType))
-      images.push(operator.image)
+  notExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.rhs,
+      args,
+      operator: notOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
     })
-
-    const { errorMessages, newType } = intersectType(type, parentType, 'notExpression', this.ctx)
-    const { codeFragments: rhsCodeFragments, image }: CodeFragmentResult = this.visit(ctx.rhs, { type: childrenType })
-    images.push(image)
-
-    return {
-      image: images.join(''),
-      codeFragments: [...codeFragments, ...rhsCodeFragments].map(codeFragment => ({
-        ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
-      })),
-      type: newType
-    }
   }
 
   equalCompareExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
