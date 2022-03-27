@@ -12,6 +12,7 @@ import {
 } from 'react'
 import { preserveRef } from '../../../utilities/preserveRef'
 import tippy from 'tippy.js'
+import { tippyStyle } from '../styles/tippy.style'
 
 type AllowedTippyChildren = ReactChild | ReactFragment | undefined | null
 export interface TippyProps {
@@ -26,6 +27,7 @@ function isChildrenForwarded(children: AllowedTippyChildren): children is { ref:
 }
 
 export const Tippy: FC<TippyProps> = ({ children }) => {
+  tippyStyle()
   const anchorRef = useRef<HTMLElement>()
   const anchor = useMemo(() => {
     if (isChildrenEmpty(children)) return <></>
@@ -42,11 +44,17 @@ export const Tippy: FC<TippyProps> = ({ children }) => {
 
   useEffect(() => {
     if (!anchorRef.current) return
-    tippy(anchorRef.current, { content: 'hello!' })
+    const instance = tippy(anchorRef.current, {
+      content: 'hello!',
+      trigger: 'click',
+      arrow: true
+    })
+    console.log('tippy called')
+    return () => {
+      instance.unmount()
+      console.log('tippy unmount')
+    }
   }, [])
-
-  console.log('children\n', children)
-  console.log('anchor\n', anchor)
 
   return anchor
 }
