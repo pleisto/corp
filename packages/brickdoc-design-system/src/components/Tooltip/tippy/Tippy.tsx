@@ -8,15 +8,18 @@ import {
   isValidElement,
   useMemo,
   useEffect,
-  ForwardedRef
+  ForwardedRef,
+  ReactNode
 } from 'react'
 import { preserveRef } from '../../../utilities/preserveRef'
-import tippy from 'tippy.js'
+import tippy, { Props as TippyInitProps } from 'tippy.js'
 import { tippyStyle } from '../styles/tippy.style'
+import { createPortal } from 'react-dom'
 
 type AllowedTippyChildren = ReactChild | ReactFragment | undefined | null
-export interface TippyProps {
+export interface TippyProps extends Partial<Omit<TippyInitProps, 'content'>> {
   children?: AllowedTippyChildren
+  content: ReactNode
 }
 
 function isChildrenEmpty(children: AllowedTippyChildren): boolean {
@@ -26,7 +29,7 @@ function isChildrenForwarded(children: AllowedTippyChildren): children is { ref:
   return isValidElement(children) && 'ref' in children
 }
 
-export const Tippy: FC<TippyProps> = ({ children }) => {
+export const Tippy: FC<TippyProps> = ({ children, content, ...restProps }) => {
   tippyStyle()
   const anchorRef = useRef<HTMLElement>()
   const anchor = useMemo(() => {
@@ -42,19 +45,33 @@ export const Tippy: FC<TippyProps> = ({ children }) => {
     })
   }, [children])
 
+  const popperContainer = useMemo(() => {
+    return document.createElement('div')
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      document.removeChild(popperContainer)
+    }
+  }, [popperContainer])
+
   useEffect(() => {
     if (!anchorRef.current) return
+
     const instance = tippy(anchorRef.current, {
-      content: 'hello!',
+      content: popperContainer,
       trigger: 'click',
       arrow: true
     })
-    console.log('tippy called')
     return () => {
-      instance.unmount()
-      console.log('tippy unmount')
+      instance.destroy()
     }
-  }, [])
+  }, [popperContainer])
 
-  return anchor
+  return (
+    <>
+      {anchor}
+      {createPortal(content, popperContainer)}
+    </>
+  )
 }

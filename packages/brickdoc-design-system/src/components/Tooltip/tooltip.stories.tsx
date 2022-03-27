@@ -66,7 +66,16 @@ Basic.args = {
 }
 
 export const TippyJS = () => (
-  <Tippy>
+  <Tippy
+    content={
+      <>
+        <div>
+          Hello <b>world</b>!
+        </div>
+        <Button>Go!</Button>
+      </>
+    }
+  >
     <div>hi!</div>
   </Tippy>
 )
