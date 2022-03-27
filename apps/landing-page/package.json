@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "yarn lint:eslint && yarn lint:type",
-    "lint:eslint": "TIMING=1 next lint",
+    "lint:eslint": "TIMING=1 run -T eslint --ext ts,tsx pages",
     "lint:fix": "TIMING=1 next lint --fix",
     "lint:type": "run -T tsc"
   },
