@@ -354,11 +354,11 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.spreadsheets[spreadsheet.blockId] = spreadsheet
+    this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
     this.formulaNames = this.formulaNames
-      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.blockId))
+      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.spreadsheetId))
       .concat(spreadsheet2name(spreadsheet))
-    BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.blockId }))
+    BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
   }
 
   public removeSpreadsheet(namespaceId: NamespaceId): void {

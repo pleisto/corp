@@ -6,7 +6,7 @@ import { columnDisplayTitle } from './helper'
 import { useExternalProps } from '../../../hooks/useExternalProps'
 
 interface useFormulaSpreadsheetProps {
-  blockId: string
+  spreadsheetId: string
   columns: SpreadsheetColumn[]
   rows: BlockInput[]
   getCellBlock: (rowId: string, columnId: string) => BlockInput
@@ -14,7 +14,7 @@ interface useFormulaSpreadsheetProps {
 }
 
 export function useFormulaSpreadsheet({
-  blockId,
+  spreadsheetId,
   columns,
   rows,
   title,
@@ -28,7 +28,7 @@ export function useFormulaSpreadsheet({
     const spreadsheetName = title || 'Untitled Spreadsheet'
     const columnData: ColumnInitializer[] = columns.map((column, index) => ({
       columnId: column.uuid,
-      namespaceId: blockId,
+      namespaceId: spreadsheetId,
       name: columnDisplayTitle(column),
       // index: column.sort
       index
@@ -38,7 +38,7 @@ export function useFormulaSpreadsheet({
 
     const spreadsheet: SpreadsheetType = new SpreadsheetClass({
       ctx: { formulaContext },
-      blockId,
+      spreadsheetId,
       dynamic: false,
       name: spreadsheetName,
       listColumns: () => columnData,
@@ -56,7 +56,7 @@ export function useFormulaSpreadsheet({
           finalColumnIdsWithIndex.map(({ columnId, columnIndex }) => {
             const cellBlock = getCellBlock(rowId, columnId)
             const cell: CellType = {
-              spreadsheetId: blockId,
+              spreadsheetId,
               columnId,
               rowIndex,
               columnIndex,
@@ -73,7 +73,7 @@ export function useFormulaSpreadsheet({
 
     formulaContext.setSpreadsheet(spreadsheet)
     return () => {
-      formulaContext.removeSpreadsheet(blockId)
+      formulaContext.removeSpreadsheet(spreadsheetId)
     }
-  }, [blockId, title, columns, rows, formulaContext, getCellBlock])
+  }, [spreadsheetId, title, columns, rows, formulaContext, getCellBlock])
 }

@@ -51,7 +51,7 @@ export const Spreadsheet = (
     return { type: 'Error', result: `Spreadsheet type unmatched: ${subType}`, errorKind: 'runtime' }
   }
 
-  const blockId = uuid()
+  const spreadsheetId = uuid()
   const defaultName = 'Dynamic Spreadsheet'
   const columns: ColumnInitializer[] = []
   const rows: Row[] = []
@@ -64,7 +64,7 @@ export const Spreadsheet = (
 
     keys.forEach((key, index) => {
       const column: ColumnInitializer = {
-        namespaceId: blockId,
+        namespaceId: spreadsheetId,
         columnId: keyWithIds.find(k => k.key === key)!.uuid,
         name: key,
         index
@@ -79,7 +79,7 @@ export const Spreadsheet = (
 
       columns.forEach(({ name, columnId }, columnIndex) => {
         const cell: CellType = {
-          spreadsheetId: blockId,
+          spreadsheetId,
           columnId,
           rowId,
           rowIndex,
@@ -97,7 +97,7 @@ export const Spreadsheet = (
 
   const spreadsheetDefinition: SpreadsheetInitializer = {
     ctx,
-    blockId,
+    spreadsheetId,
     dynamic: true,
     name: defaultName,
     listColumns: () => columns,

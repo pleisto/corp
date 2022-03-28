@@ -23,7 +23,7 @@ import {
 
 export class SpreadsheetClass implements SpreadsheetType {
   _formulaContext: ContextInterface
-  blockId: NamespaceId
+  spreadsheetId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
   name: () => string
@@ -32,7 +32,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
 
   constructor({
-    blockId,
+    spreadsheetId,
     name,
     listColumns,
     listRows,
@@ -42,7 +42,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }: SpreadsheetInitializer) {
     this._formulaContext = formulaContext
     this.dynamic = dynamic
-    this.blockId = blockId
+    this.spreadsheetId = spreadsheetId
     if (meta) {
       this.name = () => {
         const v = formulaContext.findVariableById(meta.namespaceId, meta.variableId)
@@ -135,7 +135,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const column = this._formulaContext.findColumnByName(this.blockId, name)
+    const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
 
     if (!column) {
       errors.push({ type: 'deps', message: `Column "${name}" not found` })
@@ -170,7 +170,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
   persistDynamic(): SpreadsheetDynamicPersistence {
     return {
-      blockId: this.blockId,
+      spreadsheetId: this.spreadsheetId,
       spreadsheetName: this.name(),
       columns: this.listColumns(),
       rows: this.listRows(),
@@ -180,7 +180,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
   persistAll(): SpreadsheetAllPersistence {
     return {
-      blockId: this.blockId,
+      spreadsheetId: this.spreadsheetId,
       rowCount: this.columnCount(),
       columnCount: this.columnCount(),
       persistence: this.persistence

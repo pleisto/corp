@@ -136,13 +136,13 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
 
   if (result.type === 'Spreadsheet' && !(result.result instanceof SpreadsheetClass)) {
     if (result.result.dynamic) {
-      const { blockId, spreadsheetName, columns, rows, cells }: SpreadsheetDynamicPersistence =
+      const { spreadsheetId, spreadsheetName, columns, rows, cells }: SpreadsheetDynamicPersistence =
         result.result.persistence!
       return {
         type: 'Spreadsheet',
         result: new SpreadsheetClass({
           ctx,
-          blockId,
+          spreadsheetId,
           dynamic: true,
           name: spreadsheetName,
           listColumns: () => columns,

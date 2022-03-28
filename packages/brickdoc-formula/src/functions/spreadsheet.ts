@@ -186,7 +186,7 @@ export const VLOOKUP = (
   { result: column }: ColumnResult,
   { result: range }: BooleanResult
 ): StringResult | ErrorResult => {
-  if (spreadsheet.blockId !== column.namespaceId) {
+  if (spreadsheet.spreadsheetId !== column.namespaceId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
 

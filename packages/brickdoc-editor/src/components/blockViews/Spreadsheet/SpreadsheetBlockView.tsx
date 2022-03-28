@@ -87,7 +87,7 @@ export const SpreadsheetBlockView: React.FC<SpreadsheetViewProps> = ({
     editable: documentEditable
   })
 
-  useFormulaSpreadsheet({ blockId: parentId, rows, columns, getCellBlock, title })
+  useFormulaSpreadsheet({ spreadsheetId: parentId, rows, columns, getCellBlock, title })
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const title = event.target.value

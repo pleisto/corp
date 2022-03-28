@@ -101,14 +101,14 @@ export const variable2attrs = (variable: VariableInterface): CodeFragmentAttrs =
 
 const spreadsheet2attrs = (spreadsheet: SpreadsheetType): CodeFragmentAttrs => ({
   kind: 'Spreadsheet',
-  namespaceId: spreadsheet.blockId,
-  id: spreadsheet.blockId,
+  namespaceId: spreadsheet.spreadsheetId,
+  id: spreadsheet.spreadsheetId,
   name: spreadsheet.name()
 })
 
 export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   kind: 'Column',
-  namespaceId: column.spreadsheet.blockId,
+  namespaceId: column.spreadsheet.spreadsheetId,
   id: column.columnId,
   name: column.name
 })
@@ -140,14 +140,14 @@ const variable2codeFragment = (variable: VariableInterface, pageId: NamespaceId)
 }
 
 export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: NamespaceId): CodeFragment => {
-  const value = blockKey(spreadsheet.blockId)
+  const value = blockKey(spreadsheet.spreadsheetId)
   return {
     display: spreadsheet.name(),
     errors: [],
     value,
     code: 'Spreadsheet',
     type: 'Spreadsheet',
-    renderText: blockRenderText(spreadsheet.blockId, pageId),
+    renderText: blockRenderText(spreadsheet.spreadsheetId, pageId),
     hide: false,
     attrs: spreadsheet2attrs(spreadsheet)
   }
@@ -184,14 +184,14 @@ export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormu
   return {
     kind: 'Spreadsheet',
     name: spreadsheet.name(),
-    namespaceId: spreadsheet.blockId,
+    namespaceId: spreadsheet.spreadsheetId,
     renderTokens: (exist, pageId) => [
       { image: '#', type: 'Sharp' },
-      pageId === spreadsheet.blockId
+      pageId === spreadsheet.spreadsheetId
         ? { image: 'CurrentBlock', type: 'CurrentBlock' }
-        : { image: spreadsheet.blockId, type: 'UUID' }
+        : { image: spreadsheet.spreadsheetId, type: 'UUID' }
     ],
-    key: spreadsheet.blockId
+    key: spreadsheet.spreadsheetId
   }
 }
 
@@ -240,14 +240,14 @@ export const block2completion = (
 }
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: NamespaceId): SpreadsheetCompletion => {
-  const value = blockKey(spreadsheet.blockId)
+  const value = blockKey(spreadsheet.spreadsheetId)
   return {
     kind: 'spreadsheet',
     replacements: [spreadsheet.name()],
     weight: 10,
     name: spreadsheet.name(),
     positionChange: value.length,
-    namespace: spreadsheet.blockId,
+    namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
     renderDescription: blockId => '',
