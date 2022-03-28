@@ -71,7 +71,6 @@ Object {
     "namespace": "Untitled",
     "positionChange": 26,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "#CurrentBlock.",
       "#CurrentBlock",
@@ -204,7 +203,6 @@ Object {
     "namespace": "core",
     "positionChange": 17,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "CURRENT_POSITION",
     ],
@@ -335,7 +333,6 @@ Object {
     "namespace": "Untitled",
     "positionChange": 26,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "#CurrentBlock.",
       "#CurrentBlock",
@@ -420,7 +417,6 @@ Object {
     "namespace": "core",
     "positionChange": 17,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "CURRENT_POSITION",
     ],
@@ -481,7 +477,6 @@ Object {
     "namespace": "core",
     "positionChange": 17,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "CURRENT_POSITION",
     ],
@@ -543,7 +538,6 @@ Object {
     "namespace": "Untitled",
     "positionChange": 26,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "#CurrentBlock.",
       "#CurrentBlock",
@@ -627,7 +621,6 @@ Object {
     "namespace": "core",
     "positionChange": 17,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "CURRENT_POSITION",
     ],
@@ -713,7 +706,6 @@ Object {
     "namespace": "Untitled",
     "positionChange": 26,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "#CurrentBlock.",
       "#CurrentBlock",
@@ -832,7 +824,6 @@ Object {
     "namespace": "Untitled",
     "positionChange": 26,
     "preview": undefined,
-    "renderDescription": [Function],
     "replacements": Array [
       "#CurrentBlock.",
       "#CurrentBlock",

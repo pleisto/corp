@@ -410,7 +410,6 @@ interface BaseCompletion {
   readonly name: string
   readonly value: any
   readonly preview: any
-  readonly renderDescription: (blockId: NamespaceId) => string
   readonly codeFragments: CodeFragment[]
 }
 export interface FunctionCompletion extends BaseCompletion {

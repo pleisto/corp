@@ -11344,7 +11344,6 @@ Object {
     "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "spreadsheetId": "28e28190-63bd-4f70-aeca-26e72574c01a",
   },
-  "renderDescription": [Function],
   "replacements": Array [
     "MySpreadsheet",
   ],
@@ -17322,7 +17321,6 @@ Object {
     "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
     "spreadsheetId": "28e28190-63bd-4f70-aeca-26e72574c01a",
   },
-  "renderDescription": [Function],
   "replacements": Array [
     "MySpreadsheet",
   ],

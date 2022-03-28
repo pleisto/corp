@@ -234,7 +234,6 @@ export const block2completion = (
     namespace: key,
     value,
     preview: block,
-    renderDescription: blockId => '',
     codeFragments: [block2codeFragment(block, pageId)]
   }
 }
@@ -250,7 +249,6 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    renderDescription: blockId => '',
     codeFragments: [spreadsheet2codeFragment(spreadsheet, pageId)]
   }
 }
@@ -266,7 +264,6 @@ export const column2completion = (column: ColumnType, pageId: NamespaceId): Colu
     namespace: column.spreadsheet.name(),
     value,
     preview: column,
-    renderDescription: blockId => column.spreadsheet.name(),
     codeFragments: [column2codeFragment(column, pageId)]
   }
 }
@@ -285,7 +282,6 @@ export const variable2completion = (variable: VariableInterface, pageId: Namespa
     value,
     preview: variable,
     positionChange: value.length,
-    renderDescription: blockId => (blockId === variable.t.namespaceId ? '' : namespaceName),
     codeFragments: [variable2codeFragment(variable, pageId)]
   }
 }
@@ -301,7 +297,6 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
     value,
     preview: functionClause,
     positionChange: value.length - 1,
-    renderDescription: blockId => (functionClause.group === 'core' ? '' : functionClause.group),
     codeFragments: [
       {
         display: value,
