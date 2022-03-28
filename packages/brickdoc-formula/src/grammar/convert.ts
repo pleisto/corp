@@ -1,5 +1,4 @@
 import {
-  ColumnCompletion,
   ColumnId,
   ColumnKey,
   FunctionClause,
@@ -23,7 +22,7 @@ import {
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
-import { maybeEncodeString } from './util'
+import { maybeEncodeString, reverseTraversalString } from './util'
 import { fetchResult } from '../context'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
@@ -153,20 +152,6 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: N
   }
 }
 
-const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
-  // const value = columnKey(column.namespaceId, column.columnId)
-  return {
-    display: column.name,
-    errors: [],
-    value: maybeEncodeString(column.name)[1],
-    code: 'Column',
-    type: 'Column',
-    renderText: columnRenderText(column),
-    hide: false,
-    attrs: column2attrs(column)
-  }
-}
-
 export const block2name = (block: BlockType): BlockFormulaName => {
   return {
     kind: 'Block',
@@ -177,22 +162,6 @@ export const block2name = (block: BlockType): BlockFormulaName => {
       pageId === block.id ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: block.id, type: 'UUID' }
     ],
     key: block.id
-  }
-}
-
-// TODO remove me
-export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormulaName => {
-  return {
-    kind: 'Spreadsheet',
-    name: spreadsheet.name(),
-    namespaceId: spreadsheet.spreadsheetId,
-    renderTokens: (exist, pageId) => [
-      { image: '#', type: 'Sharp' },
-      pageId === spreadsheet.spreadsheetId
-        ? { image: 'CurrentBlock', type: 'CurrentBlock' }
-        : { image: spreadsheet.spreadsheetId, type: 'UUID' }
-    ],
-    key: spreadsheet.spreadsheetId
   }
 }
 
@@ -229,7 +198,7 @@ export const block2completion = (
   return {
     kind: 'block',
     weight: key === pageId ? 1 : -1,
-    replacements: [name],
+    replacements: [value, ...reverseTraversalString(name)],
     positionChange: value.length,
     name,
     namespace: key,
@@ -261,7 +230,7 @@ export const variable2completion = (variable: VariableInterface, pageId: Namespa
   const namespaceName = variable.namespaceName(pageId)
   return {
     kind: 'variable',
-    replacements: [`${blockKeyStr}.`, blockKeyStr, variable.t.name, name],
+    replacements: [...reverseTraversalString(value, blockKeyStr.length), ...reverseTraversalString(name)],
     weight: variable.t.namespaceId === pageId ? 1 : -1,
     name: variable.t.name,
     namespace: namespaceName,
@@ -276,7 +245,7 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
   const value: `${FunctionKey}()` = `${functionClause.key}()`
   return {
     kind: 'function',
-    replacements: [functionClause.name],
+    replacements: reverseTraversalString(value),
     weight,
     name: functionClause.name,
     namespace: functionClause.group,

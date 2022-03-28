@@ -385,17 +385,17 @@ export class FormulaInterpreter extends InterpretCstVisitor {
 
     const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
 
-    if (formulaName?.kind === 'Spreadsheet') {
-      const parentType: FormulaType = 'Spreadsheet'
-      const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
-      if (shouldReturnEarly(typeError)) return typeError!
+    // if (formulaName?.kind === 'Spreadsheet') {
+    //   const parentType: FormulaType = 'Spreadsheet'
+    //   const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
+    //   if (shouldReturnEarly(typeError)) return typeError!
 
-      const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
-      if (!spreadsheet) {
-        return { type: 'Error', result: `Spreadsheet ${namespaceId} not found`, errorKind: 'runtime' }
-      }
-      return { type: 'Spreadsheet', result: spreadsheet }
-    }
+    //   const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+    //   if (!spreadsheet) {
+    //     return { type: 'Error', result: `Spreadsheet ${namespaceId} not found`, errorKind: 'runtime' }
+    //   }
+    //   return { type: 'Spreadsheet', result: spreadsheet }
+    // }
 
     if (formulaName?.kind === 'Block') {
       const parentType: FormulaType = 'Block'

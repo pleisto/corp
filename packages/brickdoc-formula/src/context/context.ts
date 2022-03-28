@@ -1,5 +1,5 @@
 import { CstNode, ILexingResult } from 'chevrotain'
-import { ColumnType, SpreadsheetType, ColumnClass, ColumnInitializer } from '../controls'
+import { ColumnType, SpreadsheetType, ColumnClass } from '../controls'
 import {
   ContextInterface,
   FunctionClause,
@@ -23,19 +23,16 @@ import {
   FunctionCompletion,
   VariableCompletion,
   SpreadsheetCompletion,
-  ColumnCompletion,
   Features,
   FormulaName,
   AnyTypeResult,
   FunctionContext,
   BlockCompletion,
   BlockFormulaName,
-  SpreadsheetResult,
   ColumnName,
   ViewType,
   ViewRender,
   View,
-  VariableValue,
   DirtyFormulaInfo,
   Formula,
   DeleteFormula
@@ -46,8 +43,7 @@ import {
   variable2completion,
   variableKey,
   block2completion,
-  block2name,
-  spreadsheet2name
+  block2name
 } from '../grammar/convert'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
@@ -57,7 +53,6 @@ import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaContext
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 import { DEFAULT_VIEWS } from '../render'
-import { fetchResult } from './variable'
 
 export interface FormulaContextArgs {
   domain: string
@@ -332,9 +327,6 @@ export class FormulaContext implements ContextInterface {
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
-    this.formulaNames = this.formulaNames
-      .filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheet.spreadsheetId))
-      .concat(spreadsheet2name(spreadsheet))
     BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
   }
 

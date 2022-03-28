@@ -272,10 +272,7 @@ export const useFormula = ({
 
   const handleSelectActiveCompletion = React.useCallback((): void => {
     const currentCompletion = completion.activeCompletion
-    if (!currentCompletion) {
-      devWarning(true, 'No active completion!')
-      return
-    }
+    if (!currentCompletion) return
 
     const { position, content } = editorContentRef.current
     let oldContent = fetchJSONContentArray(content)
@@ -283,15 +280,6 @@ export const useFormula = ({
     const oldContentLast = oldContent[oldContent.length - 1]
     const { prevText, nextText } = positionBasedContentArrayToInput(oldContent, position)
 
-    // console.log('replace', {
-    //   oldContentLast,
-    //   oldContent,
-    //   prevText,
-    //   position,
-    //   nextText,
-    //   positionChange,
-    //   currentCompletion
-    // })
     if (oldContentLast && prevText && currentCompletion.replacements.length) {
       if (currentCompletion.replacements.includes(prevText) || currentCompletion.name.startsWith(prevText)) {
         positionChange -= prevText.length

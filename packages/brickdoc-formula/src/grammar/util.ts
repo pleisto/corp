@@ -12,6 +12,16 @@ import {
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
+export const reverseTraversalString = (str: string, min = 1): string[] => {
+  const result: string[] = []
+
+  for (let i = str.length - 1; i >= min; i--) {
+    result.push(str.slice(0, i))
+  }
+
+  return result
+}
+
 // TODO: dirty hack to get the string literal value
 export const parseString = (str: string): string => {
   if (!str.startsWith('"')) {

@@ -736,24 +736,24 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     this.blockDependencies.push(namespaceId)
     const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
 
-    if (formulaName?.kind === 'Spreadsheet') {
-      const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
-      if (spreadsheet) {
-        const parentType: FormulaType = 'Spreadsheet'
-        const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
-        return {
-          codeFragments: [
-            {
-              ...token2fragment(namespaceToken, 'any'),
-              ...spreadsheet2codeFragment(spreadsheet, this.ctx.meta.namespaceId),
-              errors: errorMessages
-            }
-          ],
-          image: `#${namespaceToken.image}`,
-          type: newType
-        }
-      }
-    }
+    // if (formulaName?.kind === 'Spreadsheet') {
+    //   const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
+    //   if (spreadsheet) {
+    //     const parentType: FormulaType = 'Spreadsheet'
+    //     const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
+    //     return {
+    //       codeFragments: [
+    //         {
+    //           ...token2fragment(namespaceToken, 'any'),
+    //           ...spreadsheet2codeFragment(spreadsheet, this.ctx.meta.namespaceId),
+    //           errors: errorMessages
+    //         }
+    //       ],
+    //       image: `#${namespaceToken.image}`,
+    //       type: newType
+    //     }
+    //   }
+    // }
 
     if (formulaName?.kind === 'Block') {
       const parentType: FormulaType = 'Block'
