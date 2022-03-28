@@ -11,7 +11,7 @@ export function usePlaceholder(
   const { insideList } = useBlockContext()
   const [placeholder, setPlaceholder] = useState('')
 
-  const placeholderExtension = editor.extensionManager.extensions.find(e => e.name === 'paragraph')
+  const placeholderExtension = editor.extensionManager.extensions?.find(e => e.name === 'paragraph')
   const placeholderText = placeholderExtension?.options?.placeholder ?? t('placeholder')
 
   const nodeRef = useRef(node)
