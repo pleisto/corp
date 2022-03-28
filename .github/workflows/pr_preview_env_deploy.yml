@@ -58,7 +58,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache Docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: brickdocCE-pr-${{ secrets.CACHE_VERSION }}-${{ runner.os }}-buildx-${{ github.sha }}
@@ -127,14 +127,14 @@ jobs:
             --set-string secrets.UNSPLASH_API_SECRET=${{ secrets.UNSPLASH_API_SECRET }} \
             --set-string secrets.IFRAMELY_API_ACCESS_KEY=${{ secrets.IFRAMELY_API_ACCESS_KEY }} \
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
           body-includes: This pull request is automatically built and testable in
       - name: Create or update comment
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
