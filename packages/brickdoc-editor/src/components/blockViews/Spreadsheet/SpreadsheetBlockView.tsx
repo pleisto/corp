@@ -169,9 +169,9 @@ export const SpreadsheetBlockView: React.FC<SpreadsheetViewProps> = ({
     if (pos < 0) {
       pos = 0
     }
-    // TODO: need fix for co-editing cursor
     view.dispatch(tr.setSelection(TextSelection.create(tr.doc, pos)))
-    editor.commands.blur()
+    // TODO: need fix for co-editing cursor
+    // editor.commands.blur()
   }
 
   const [rowLayoutHeights, setRowLayoutHeights] = React.useState<{ [rowId: string]: number }>({})
