@@ -4,6 +4,7 @@ import { useBlockContext, useEditorContext } from '../../../hooks'
 
 export function usePlaceholder(
   editor: ParagraphViewProps['editor'],
+  extension: ParagraphViewProps['extension'],
   node: ParagraphViewProps['node'],
   getPos: ParagraphViewProps['getPos']
 ): [string] {
@@ -11,8 +12,7 @@ export function usePlaceholder(
   const { insideList } = useBlockContext()
   const [placeholder, setPlaceholder] = useState('')
 
-  const placeholderExtension = editor.extensionManager.extensions?.find(e => e.name === 'paragraph')
-  const placeholderText = placeholderExtension?.options?.placeholder ?? t('placeholder')
+  const placeholderText = extension?.options?.placeholder ?? t('placeholder')
 
   const nodeRef = useRef(node)
   useEffect(() => {
@@ -25,7 +25,7 @@ export function usePlaceholder(
     const listener = (): void => {
       // TODO: remove this setTimeout
       setTimeout(() => {
-        if (placeholderText?.length > 0) {
+        if (placeholderText && placeholderText?.length > 0) {
           const isEmpty = !nodeRef.current.isLeaf && nodeRef.current.childCount === 0
           const position = getPos()
           const anchor = editor.state.selection.anchor
