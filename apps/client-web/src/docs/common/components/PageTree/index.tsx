@@ -64,6 +64,7 @@ const PageTreeHeading = styled('div', {
 })
 
 export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
+  console.log('debug: docMetadocMetadocMetadocMeta', docMeta)
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
   const mutable = mode !== 'subPage'
   const hideHeading = mode === 'subPage'
@@ -237,6 +238,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
         emptyNode={t('blocks.no_pages')}
         // selectable={!docMeta.documentInfoLoading}
         initialSelectedId={docMeta.id}
+        currentSelectedId={docMeta.id}
         treeNodeClassName={mode === 'subPage' ? subPageModeNodeStyle() : ''}
         data={treeData as unknown as TreeNode[]}
         draggable={draggable && isDraggable}
