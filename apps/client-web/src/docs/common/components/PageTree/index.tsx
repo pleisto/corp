@@ -64,7 +64,6 @@ const PageTreeHeading = styled('div', {
 })
 
 export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
-  console.log('debug: docMetadocMetadocMetadocMeta', docMeta)
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
   const mutable = mode !== 'subPage'
   const hideHeading = mode === 'subPage'
