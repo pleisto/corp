@@ -22,6 +22,7 @@ export function useFormulaSpreadsheet({
 }: useFormulaSpreadsheetProps): void {
   const externalProps = useExternalProps()
   const formulaContext = externalProps.formulaContext
+  const rootId = externalProps.rootId
 
   React.useEffect(() => {
     if (!formulaContext) return
@@ -38,6 +39,7 @@ export function useFormulaSpreadsheet({
 
     const spreadsheet: SpreadsheetType = new SpreadsheetClass({
       ctx: { formulaContext },
+      namespaceId: rootId,
       spreadsheetId,
       dynamic: false,
       name: spreadsheetName,
@@ -75,5 +77,5 @@ export function useFormulaSpreadsheet({
     return () => {
       formulaContext.removeSpreadsheet(spreadsheetId)
     }
-  }, [spreadsheetId, title, columns, rows, formulaContext, getCellBlock])
+  }, [rootId, spreadsheetId, title, columns, rows, formulaContext, getCellBlock])
 }

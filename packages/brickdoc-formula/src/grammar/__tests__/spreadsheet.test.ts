@@ -144,6 +144,7 @@ const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   ctx: { formulaContext },
   dynamic: false,
   spreadsheetId,
+  namespaceId,
   listColumns: () => columns,
   listRows: () => rows,
   listCells: ({ rowId, columnId }) => {

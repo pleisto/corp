@@ -98,6 +98,7 @@ export const Spreadsheet = (
   const spreadsheetDefinition: SpreadsheetInitializer = {
     ctx,
     spreadsheetId,
+    namespaceId: ctx.meta.namespaceId,
     dynamic: true,
     name: defaultName,
     listColumns: () => columns,

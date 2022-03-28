@@ -136,13 +136,14 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
 
   if (result.type === 'Spreadsheet' && !(result.result instanceof SpreadsheetClass)) {
     if (result.result.dynamic) {
-      const { spreadsheetId, spreadsheetName, columns, rows, cells }: SpreadsheetDynamicPersistence =
+      const { spreadsheetId, spreadsheetName, columns, rows, cells, namespaceId }: SpreadsheetDynamicPersistence =
         result.result.persistence!
       return {
         type: 'Spreadsheet',
         result: new SpreadsheetClass({
           ctx,
           spreadsheetId,
+          namespaceId,
           dynamic: true,
           name: spreadsheetName,
           listColumns: () => columns,
@@ -175,11 +176,11 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Column' && !(result.result instanceof ColumnClass)) {
-    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.namespaceId)
+    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.spreadsheetId)
     if (spreadsheet) {
       return { type: 'Column', result: new ColumnClass(spreadsheet, result.result) }
     } else {
-      return { type: 'Error', result: `Spreadsheet ${result.result.namespaceId} not found`, errorKind: 'deps' }
+      return { type: 'Error', result: `Spreadsheet ${result.result.spreadsheetId} not found`, errorKind: 'deps' }
     }
   }
 

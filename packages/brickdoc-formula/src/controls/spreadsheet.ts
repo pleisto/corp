@@ -24,6 +24,7 @@ import {
 export class SpreadsheetClass implements SpreadsheetType {
   _formulaContext: ContextInterface
   spreadsheetId: NamespaceId
+  namespaceId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
   name: () => string
@@ -33,6 +34,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
   constructor({
     spreadsheetId,
+    namespaceId,
     name,
     listColumns,
     listRows,
@@ -43,6 +45,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     this._formulaContext = formulaContext
     this.dynamic = dynamic
     this.spreadsheetId = spreadsheetId
+    this.namespaceId = namespaceId
     if (meta) {
       this.name = () => {
         const v = formulaContext.findVariableById(meta.namespaceId, meta.variableId)
@@ -171,6 +174,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   persistDynamic(): SpreadsheetDynamicPersistence {
     return {
       spreadsheetId: this.spreadsheetId,
+      namespaceId: this.namespaceId,
       spreadsheetName: this.name(),
       columns: this.listColumns(),
       rows: this.listRows(),
@@ -181,6 +185,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   persistAll(): SpreadsheetAllPersistence {
     return {
       spreadsheetId: this.spreadsheetId,
+      namespaceId: this.namespaceId,
       rowCount: this.columnCount(),
       columnCount: this.columnCount(),
       persistence: this.persistence

@@ -142,6 +142,7 @@ const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',
   dynamic: false,
   ctx: { formulaContext },
+  namespaceId,
   spreadsheetId,
   listColumns: () => columns,
   listRows: () => rows,

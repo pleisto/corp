@@ -104,6 +104,7 @@ export interface CellType {
 
 export interface SpreadsheetInitializer {
   spreadsheetId: SpreadsheetId
+  namespaceId: NamespaceId
   ctx: BaseFunctionContext
   dynamic: boolean
   name: string
@@ -114,6 +115,7 @@ export interface SpreadsheetInitializer {
 
 export interface SpreadsheetDynamicPersistence {
   spreadsheetId: SpreadsheetId
+  namespaceId: NamespaceId
   spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
@@ -122,6 +124,7 @@ export interface SpreadsheetDynamicPersistence {
 
 export interface SpreadsheetAllPersistence {
   spreadsheetId: SpreadsheetId
+  namespaceId: NamespaceId
   rowCount: number
   columnCount: number
   persistence?: SpreadsheetDynamicPersistence
@@ -129,6 +132,7 @@ export interface SpreadsheetAllPersistence {
 
 export interface SpreadsheetType {
   spreadsheetId: SpreadsheetId
+  namespaceId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
