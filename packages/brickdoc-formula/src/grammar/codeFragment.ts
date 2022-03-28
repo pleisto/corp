@@ -33,7 +33,8 @@ import {
   notOperator,
   parenthesisOperator,
   rangeOperator,
-  recordFieldOperator
+  recordFieldOperator,
+  recordOperator
 } from './operations'
 import { parseByOperator } from './operator'
 
@@ -566,82 +567,17 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     })
   }
 
-  recordExpression(
-    ctx: { LBrace: IToken[]; RBrace: IToken[]; recordField: Array<CstNode | CstNode[]>; Comma: IToken[] },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    if (!ctx.LBrace) {
-      return { codeFragments: [], type: 'any', image: '' }
-    }
-
-    const images: string[] = []
-    const codeFragments: CodeFragment[] = []
-
-    images.push(ctx.LBrace[0].image)
-    const rBraceErrorMessages: ErrorMessage[] = ctx.RBrace
-      ? []
-      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
-    codeFragments.push({ ...token2fragment(ctx.LBrace[0], 'any'), errors: rBraceErrorMessages })
-
-    const parentType = 'Record'
-    const childrenType = 'any'
-
-    let expressionMatchErrorMessages: ErrorMessage[] = []
-    if (ctx.recordField) {
-      let commaIndex = 0
-      let validExpressionCount = 0
-      const keyArray: string[] = []
-
-      ctx.recordField.forEach((arg: CstNode | CstNode[], idx: number) => {
-        const { codeFragments: fieldCodeFragments, image: fieldImage }: CodeFragmentResult = this.visit(arg, {
-          type: childrenType
-        })
-        let nameDuplicateErrors: ErrorMessage[] = []
-        if (fieldCodeFragments[0]) {
-          const str = fieldCodeFragments[0].value
-          const finalStr = fieldCodeFragments[0].code === 'StringLiteral' ? parseString(str) : str
-          if (keyArray.includes(finalStr)) {
-            nameDuplicateErrors = [{ message: 'Record key duplicated', type: 'syntax' }]
-          }
-          keyArray.push(finalStr)
-        }
-
-        images.push(fieldImage)
-        codeFragments.push(
-          ...fieldCodeFragments.map((c: CodeFragment) => ({ ...c, errors: [...nameDuplicateErrors, ...c.errors] }))
-        )
-
-        if (fieldCodeFragments.length > 0) {
-          validExpressionCount += 1
-        }
-
-        if (ctx.Comma?.[commaIndex]) {
-          codeFragments.push(token2fragment(ctx.Comma[commaIndex], 'any'))
-          images.push(ctx.Comma[commaIndex].image)
-          commaIndex += 1
-        }
-      })
-
-      if (validExpressionCount !== commaIndex + 1) {
-        expressionMatchErrorMessages = [{ message: 'Expression count mismatch', type: 'syntax' }]
-      }
-    }
-
-    if (ctx.RBrace) {
-      codeFragments.push(token2fragment(ctx.RBrace[0], 'any'))
-      images.push(ctx.RBrace[0].image)
-    }
-
-    const { errorMessages, newType } = intersectType(type, parentType, 'recordExpression', this.ctx)
-
-    return {
-      codeFragments: codeFragments.map(codeFragment => ({
-        ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors, ...expressionMatchErrorMessages]
-      })),
-      type: newType,
-      image: images.join('')
-    }
+  recordExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.Comma ?? [],
+      args,
+      operator: recordOperator,
+      prefixToken: ctx.LBrace,
+      suffixToken: ctx.RBrace,
+      rhs: ctx.recordField,
+      lhs: []
+    })
   }
 
   recordField(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
@@ -1067,6 +1003,14 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       type: 'any'
     }
   }
+}
+
+export const codeFragment2string = ({ code, value }: CodeFragment): string => {
+  if (code === 'StringLiteral') return parseString(value)
+  if (code === 'NumberLiteral') return value
+  if (code === 'FunctionName') return value
+
+  return ''
 }
 
 export const hideDot = (

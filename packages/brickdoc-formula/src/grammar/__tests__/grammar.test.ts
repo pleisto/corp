@@ -374,7 +374,7 @@ const testCases: TestCase[] = [
   {
     input: '={',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '={a}',
@@ -384,7 +384,7 @@ const testCases: TestCase[] = [
   {
     input: '={a',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '={a: }',
@@ -394,7 +394,7 @@ const testCases: TestCase[] = [
   {
     input: '={a: 1',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '={1: "a"}',
@@ -1180,6 +1180,7 @@ describe('Simple test case', () => {
         expect(variableValue.result.result).toEqual(value)
         expect(variableValue.success).toEqual(true)
       } else if (parseErrorType) {
+        expect(errorMessage).not.toEqual([])
         expect(errorMessages[0]!.message).toContain(errorMessage)
         expect(errorType).toEqual(parseErrorType)
       } else {

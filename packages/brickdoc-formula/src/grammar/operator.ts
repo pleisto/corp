@@ -42,18 +42,20 @@ export interface OperatorType {
     index: number
   ) => CstVisitorArgument
   readonly rhsType: FormulaCheckType
-  readonly parse?: ({
-    ctx,
-    lhs,
-    rhs,
-    operator,
-    cst
+  readonly parseRhs?: ({
+    rhsCodeFragments,
+    rhsImages,
+    operatorTokenCodeFragments,
+    rhsTokenCodeFragments,
+    operatorTokenImage,
+    rhsTokenImage
   }: {
-    ctx: FunctionContext
-    lhs: AnyTypeResult
-    rhs: AnyTypeResult
-    operator: IToken
-    cst: CstNode
+    rhsCodeFragments: CodeFragment[]
+    rhsImages: string[]
+    operatorTokenCodeFragments: CodeFragment[]
+    rhsTokenCodeFragments: CodeFragment[]
+    operatorTokenImage: string
+    rhsTokenImage: string
   }) => CodeFragmentResult
   readonly interpret: ({
     ctx,
@@ -146,10 +148,48 @@ export const interpretByOperator = async ({
   return result
 }
 
-export const parseByOperator = ({
+interface ParseInput {
+  cstVisitor: CodeFragmentVisitor
+  operator: OperatorType
+  operators: IToken[]
+  args: CstVisitorArgument
+  prefixToken?: IToken[]
+  suffixToken?: IToken[]
+  lhs: CstNode[] | undefined
+  rhs: CstNode[] | undefined
+}
+
+export const parseByOperator = (input: ParseInput): CodeFragmentResult => {
+  const { codeFragments, image, type } = innerParse(input) || {
+    codeFragments: [],
+    image: '',
+    type: input.operator.expressionType
+  }
+  const finalImages = [image]
+
+  const { prefixToken, suffixToken } = input
+
+  if (prefixToken?.[0]) {
+    codeFragments.unshift({
+      ...token2fragment(prefixToken[0], 'any'),
+      errors: suffixToken?.[0] ? [] : [{ message: 'Missing closing token', type: 'syntax' }]
+    })
+    finalImages.unshift(prefixToken[0].image)
+  }
+
+  if (suffixToken?.[0]) {
+    codeFragments.push({
+      ...token2fragment(suffixToken[0], 'any'),
+      errors: prefixToken?.[0] ? [] : [{ message: 'Missing opening token', type: 'syntax' }]
+    })
+    finalImages.push(suffixToken[0].image)
+  }
+
+  return { codeFragments, image: finalImages.join(''), type }
+}
+
+const innerParse = ({
   cstVisitor,
-  prefixToken,
-  suffixToken,
   operators,
   operator: {
     name,
@@ -159,21 +199,13 @@ export const parseByOperator = ({
     skipRhsCstParse,
     reverseLhsAndRhs,
     dynamicParseRhsType,
-    dynamicParseType
+    dynamicParseType,
+    parseRhs
   },
   args,
   lhs,
   rhs
-}: {
-  cstVisitor: CodeFragmentVisitor
-  operator: OperatorType
-  operators: IToken[]
-  args: CstVisitorArgument
-  prefixToken?: IToken[]
-  suffixToken?: IToken[]
-  lhs: CstNode[] | undefined
-  rhs: CstNode[] | undefined
-}): CodeFragmentResult => {
+}: ParseInput): CodeFragmentResult => {
   if (!rhs) {
     return cstVisitor.visit(lhs!, args)
   }
@@ -185,12 +217,12 @@ export const parseByOperator = ({
     codeFragments: lhsCodeFragments,
     image: lhsImage,
     type: lhsDataType
-  }: CodeFragmentResult = lhs
+  }: CodeFragmentResult = lhs && lhs.length > 0
     ? cstVisitor.visit(lhs, {
         ...args,
         type: lhsType
       })
-    : { codeFragments: [], image: '', type: 'any' }
+    : { codeFragments: [], image: '', type: expressionType }
   let prevType = lhsDataType
 
   rhs.forEach((rhsOperand, idx: number) => {
@@ -198,8 +230,10 @@ export const parseByOperator = ({
 
     if (skipRhsCstParse) {
       const operator = operators[idx]
-      rhsCodeFragments.push({ ...token2fragment(operator, expressionType), errors: missingTokenErrorMessages })
-      rhsImages.push(operator.image)
+      if (operator) {
+        rhsCodeFragments.push({ ...token2fragment(operator, expressionType), errors: missingTokenErrorMessages })
+        rhsImages.push(operator.image)
+      }
       return
     }
 
@@ -217,34 +251,46 @@ export const parseByOperator = ({
       missingTokenErrorMessages.push({ message: 'Missing expression', type: 'syntax' })
     }
 
-    const operator = operators[idx]
-    rhsCodeFragments.push({ ...token2fragment(operator, expressionType), errors: missingTokenErrorMessages })
-    rhsImages.push(operator.image)
+    let operatorTokenCodeFragments: CodeFragment[] = []
+    let operatorTokenImage = ''
+    let rhsTokenCodeFragments: CodeFragment[] = []
+    let rhsTokenImage = ''
 
-    rhsCodeFragments.push(...rhsValue)
-    rhsImages.push(rhsImage)
+    const operator = operators[idx]
+    if (operator) {
+      operatorTokenCodeFragments = [
+        {
+          ...token2fragment(operator, expressionType),
+          errors: missingTokenErrorMessages
+        }
+      ]
+      operatorTokenImage = operator.image
+    }
+
+    rhsTokenCodeFragments = rhsValue
+    rhsTokenImage = rhsImage
+
+    if (parseRhs) {
+      const { codeFragments: rhsFinalCodeFragments, image: rhsFinalImage } = parseRhs({
+        rhsCodeFragments,
+        rhsImages,
+        operatorTokenCodeFragments,
+        rhsTokenCodeFragments,
+        operatorTokenImage,
+        rhsTokenImage
+      })
+      rhsCodeFragments.push(...rhsFinalCodeFragments)
+      rhsImages.push(rhsFinalImage)
+    } else {
+      rhsCodeFragments.push(...operatorTokenCodeFragments, ...rhsTokenCodeFragments)
+      rhsImages.push(operatorTokenImage, rhsTokenImage)
+    }
   })
 
   const finalCodeFragments: CodeFragment[] = reverseLhsAndRhs
     ? [...rhsCodeFragments, ...lhsCodeFragments]
     : [...lhsCodeFragments, ...rhsCodeFragments]
   const finalImages: string[] = reverseLhsAndRhs ? [...rhsImages, lhsImage] : [lhsImage, ...rhsImages]
-
-  if (prefixToken?.[0]) {
-    finalCodeFragments.unshift({
-      ...token2fragment(prefixToken[0], 'any'),
-      errors: suffixToken?.[0] ? [] : [{ message: 'Missing closing token', type: 'syntax' }]
-    })
-    finalImages.unshift(prefixToken[0].image)
-  }
-
-  if (suffixToken?.[0]) {
-    finalCodeFragments.push({
-      ...token2fragment(suffixToken[0], 'any'),
-      errors: prefixToken?.[0] ? [] : [{ message: 'Missing opening token', type: 'syntax' }]
-    })
-    finalImages.push(suffixToken[0].image)
-  }
 
   const finalType = dynamicParseType ? dynamicParseType(prevType) : expressionType
   const { errorMessages, newType } = intersectType(args.type, finalType, name, cstVisitor.ctx)

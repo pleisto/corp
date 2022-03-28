@@ -2399,12 +2399,7 @@ Array [
     "attrs": undefined,
     "code": "LParen",
     "display": "(",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got boolean",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -2479,12 +2474,7 @@ Array [
     "attrs": undefined,
     "code": "RParen",
     "display": ")",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got boolean",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -4111,12 +4101,7 @@ Array [
     "attrs": undefined,
     "code": "LParen",
     "display": "(",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got boolean",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
@@ -4191,12 +4176,7 @@ Array [
     "attrs": undefined,
     "code": "RParen",
     "display": ")",
-    "errors": Array [
-      Object {
-        "message": "Expected number but got boolean",
-        "type": "type",
-      },
-    ],
+    "errors": Array [],
     "hide": false,
     "renderText": undefined,
     "type": "any",
