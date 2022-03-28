@@ -24,7 +24,7 @@ export const CountIf = (
     return { type: 'Error', result: 'Column is missing', errorKind: 'runtime' }
   }
 
-  if (spreadsheet.spreadsheetId !== column.namespaceId) {
+  if (spreadsheet.spreadsheetId !== column.spreadsheetId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
   const columns = spreadsheet.listColumns()

@@ -58,7 +58,7 @@ export interface BlockType extends BlockInitializer {
 
 export interface ColumnInitializer {
   columnId: ColumnId
-  namespaceId: NamespaceId
+  spreadsheetId: NamespaceId
   name: ColumnName
   index: number
 }

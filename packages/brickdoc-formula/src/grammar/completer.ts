@@ -78,7 +78,7 @@ export const complete = ({
       switch (last2CodeFragment.type) {
         case 'Spreadsheet':
           completions = completions.map(c => {
-            return c.kind === 'column' && c.preview.namespaceId === last2CodeFragment.attrs?.id
+            return c.kind === 'column' && c.preview.spreadsheetId === last2CodeFragment.attrs?.id
               ? { ...c, weight: c.weight + 1000 }
               : c
           })

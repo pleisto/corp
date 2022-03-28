@@ -256,7 +256,7 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
 }
 
 export const column2completion = (column: ColumnType, pageId: NamespaceId): ColumnCompletion => {
-  const value = columnKey(column.namespaceId, column.columnId)
+  const value = columnKey(column.spreadsheetId, column.columnId)
   return {
     kind: 'column',
     replacements: [`${column.name}`],

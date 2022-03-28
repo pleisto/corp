@@ -15,13 +15,13 @@ import { CodeFragmentVisitor } from '../grammar'
 export class ColumnClass implements ColumnType {
   columnId: ColumnId
   name: ColumnName
-  namespaceId: NamespaceId
+  spreadsheetId: NamespaceId
   index: number
   spreadsheet: SpreadsheetType
 
-  constructor(spreadsheet: SpreadsheetType, { columnId, namespaceId, name, index }: ColumnInitializer) {
+  constructor(spreadsheet: SpreadsheetType, { columnId, spreadsheetId: namespaceId, name, index }: ColumnInitializer) {
     this.columnId = columnId
-    this.namespaceId = namespaceId
+    this.spreadsheetId = namespaceId
     this.name = name
     this.index = index
     this.spreadsheet = spreadsheet
@@ -34,7 +34,7 @@ export class ColumnClass implements ColumnType {
   persistence(): ColumnInitializer {
     return {
       columnId: this.columnId,
-      namespaceId: this.namespaceId,
+      spreadsheetId: this.spreadsheetId,
       name: this.name,
       index: this.index
     }

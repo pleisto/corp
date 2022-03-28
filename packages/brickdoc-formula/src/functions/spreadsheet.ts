@@ -49,7 +49,7 @@ export const SUMIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.spreadsheetId !== column2.spreadsheetId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -73,7 +73,7 @@ export const AVERAGEIFS = (
   { result: column2 }: ColumnResult,
   predicate: PredicateResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.spreadsheetId !== column2.spreadsheetId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -120,7 +120,7 @@ export const SUMPRODUCT = (
   { result: column1 }: ColumnResult,
   { result: column2 }: ColumnResult
 ): NumberResult | ErrorResult => {
-  if (column1.namespaceId !== column2.namespaceId) {
+  if (column1.spreadsheetId !== column2.spreadsheetId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -143,7 +143,7 @@ export const XLOOKUP = (
   notFoundValue: StringResult,
   { result: matchMode }: NumberResult
 ): StringResult | ErrorResult => {
-  if (lookupColumn.namespaceId !== returnColumn.namespaceId) {
+  if (lookupColumn.spreadsheetId !== returnColumn.spreadsheetId) {
     return { type: 'Error', result: 'Columns must be in the same namespace', errorKind: 'runtime' }
   }
 
@@ -186,7 +186,7 @@ export const VLOOKUP = (
   { result: column }: ColumnResult,
   { result: range }: BooleanResult
 ): StringResult | ErrorResult => {
-  if (spreadsheet.spreadsheetId !== column.namespaceId) {
+  if (spreadsheet.spreadsheetId !== column.spreadsheetId) {
     return { type: 'Error', result: 'Column must be in the same namespace', errorKind: 'runtime' }
   }
 

@@ -64,7 +64,7 @@ export const Spreadsheet = (
 
     keys.forEach((key, index) => {
       const column: ColumnInitializer = {
-        namespaceId: spreadsheetId,
+        spreadsheetId,
         columnId: keyWithIds.find(k => k.key === key)!.uuid,
         name: key,
         index

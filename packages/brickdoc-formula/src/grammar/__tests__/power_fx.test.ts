@@ -118,19 +118,19 @@ const cells: CellType[] = [
 const columns: ColumnInitializer[] = [
   {
     columnId: firstColumnId,
-    namespaceId: spreadsheetId,
+    spreadsheetId,
     name: 'first',
     index: 0
   },
   {
     columnId: secondColumnId,
-    namespaceId: spreadsheetId,
+    spreadsheetId,
     name: 'second',
     index: 1
   },
   {
     columnId: thirdColumnId,
-    namespaceId: spreadsheetId,
+    spreadsheetId,
     name: 'third',
     index: 2
   }

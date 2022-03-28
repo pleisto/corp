@@ -28,7 +28,7 @@ export function useFormulaSpreadsheet({
     const spreadsheetName = title || 'Untitled Spreadsheet'
     const columnData: ColumnInitializer[] = columns.map((column, index) => ({
       columnId: column.uuid,
-      namespaceId: spreadsheetId,
+      spreadsheetId,
       name: columnDisplayTitle(column),
       // index: column.sort
       index
