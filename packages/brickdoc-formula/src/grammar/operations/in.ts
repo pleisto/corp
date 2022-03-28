@@ -3,7 +3,7 @@ import { OperatorType } from '../operator'
 
 export const inOperator: OperatorType = {
   name: 'in',
-  parentRuntimeCheckType: 'boolean',
+  expressionType: 'boolean',
   lhsType: ['number', 'boolean', 'null', 'string'],
   rhsType: ['Spreadsheet', 'Column', 'Array', 'string'],
   dynamicParseRhsType: (cst, prevType, args, index) => {

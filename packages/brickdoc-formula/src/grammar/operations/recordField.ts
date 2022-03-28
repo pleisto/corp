@@ -2,7 +2,7 @@ import { OperatorType } from '../operator'
 
 export const recordFieldOperator: OperatorType = {
   name: 'recordField',
-  parentRuntimeCheckType: 'Record',
+  expressionType: 'Record',
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs }) => {

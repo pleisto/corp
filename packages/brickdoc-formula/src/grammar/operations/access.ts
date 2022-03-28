@@ -39,7 +39,7 @@ export const accessAttribute = async (result: AnyTypeResult, key: string): Promi
 
 export const accessOperator: OperatorType = {
   name: 'access',
-  parentRuntimeCheckType: 'any',
+  expressionType: 'any',
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs, cst }) => {

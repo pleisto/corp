@@ -4,7 +4,7 @@ import { OperatorType } from '../operator'
 
 export const equalCompareOperator: OperatorType = {
   name: 'combine',
-  parentRuntimeCheckType: 'boolean',
+  expressionType: 'boolean',
   lhsType: 'any',
   rhsType: 'any',
   interpret: async ({ lhs, rhs, operator }) => {

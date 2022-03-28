@@ -3,7 +3,7 @@ import { OperatorType } from '../operator'
 
 export const rangeOperator: OperatorType = {
   name: 'range',
-  parentRuntimeCheckType: 'Range',
+  expressionType: 'Range',
   lhsType: 'Cell',
   rhsType: 'Cell',
   interpret: async ({ ctx, lhs, rhs }) => {

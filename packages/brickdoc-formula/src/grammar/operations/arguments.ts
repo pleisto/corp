@@ -4,7 +4,7 @@ import { extractSubType } from '../util'
 
 export const argumentsOperator: OperatorType = {
   name: 'arguments',
-  parentRuntimeCheckType: 'any',
+  expressionType: 'any',
   skipReturnEarlyCheck: true,
   skipReturnFinalCheck: true,
   dynamicInterpretLhs: () => ({ type: 'Array', subType: 'void', result: [] }),

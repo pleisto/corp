@@ -5,7 +5,7 @@ import { OperatorType } from '../operator'
 
 export const predicateOperator: OperatorType = {
   name: 'predicate',
-  parentRuntimeCheckType: 'Predicate',
+  expressionType: 'Predicate',
   lhsType: ['number', 'string'],
   rhsType: 'any',
   interpret: async ({ lhs, operator }) => {

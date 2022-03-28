@@ -2,7 +2,7 @@ import { OperatorType } from '../operator'
 
 export const expressionOperator: OperatorType = {
   name: 'concat',
-  parentRuntimeCheckType: 'any',
+  expressionType: 'any',
   skipReturnEarlyCheck: true,
   lhsType: 'any',
   rhsType: 'any',

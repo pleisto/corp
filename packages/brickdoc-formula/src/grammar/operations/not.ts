@@ -2,7 +2,7 @@ import { OperatorType } from '../operator'
 
 export const notOperator: OperatorType = {
   name: 'not',
-  parentRuntimeCheckType: 'boolean',
+  expressionType: 'boolean',
   skipRhsCstParse: true,
   reverseLhsAndRhs: true,
   lhsType: 'any',

@@ -210,17 +210,17 @@ const testCases: TestCase[] = [
   {
     input: '=[',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '=[1',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '=[1,',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '=[1,]',
@@ -231,7 +231,7 @@ const testCases: TestCase[] = [
   {
     input: '=[1,2',
     parseErrorType: 'syntax',
-    errorMessage: 'Missing closing parenthesis'
+    errorMessage: 'Missing closing token'
   },
   {
     input: '=[2, "foo", true]',

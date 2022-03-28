@@ -4,7 +4,7 @@ import { extractSubType } from '../util'
 
 export const recordOperator: OperatorType = {
   name: 'record',
-  parentRuntimeCheckType: 'Record',
+  expressionType: 'Record',
   skipReturnEarlyCheck: true,
   dynamicInterpretLhs: () => ({ type: 'Record', subType: 'void', result: {} }),
   lhsType: 'any',

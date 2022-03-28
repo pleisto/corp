@@ -17,7 +17,7 @@ export interface OperatorType {
   readonly skipReturnFinalCheck?: boolean
   readonly skipRhsCstParse?: boolean
   readonly reverseLhsAndRhs?: boolean
-  readonly parentRuntimeCheckType: FormulaType
+  readonly expressionType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicInterpretLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
   readonly dynamicParseType?: (lhsType: FormulaType) => FormulaType
@@ -75,7 +75,7 @@ export const interpretByOperator = async ({
   operators,
   operator: {
     name,
-    parentRuntimeCheckType,
+    expressionType,
     dynamicInterpretRhsType,
     dynamicInterpretLhs,
     lhsType,
@@ -100,7 +100,7 @@ export const interpretByOperator = async ({
     return dynamicInterpretLhs ? dynamicInterpretLhs(args) : await interpreter.visit(lhs!, args)
   }
 
-  const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
+  const typeErrorBefore = runtimeCheckType(args, expressionType, `${name} before`, interpreter.ctx)
   if (shouldReturnEarly(typeErrorBefore)) return typeErrorBefore!
 
   const lhsArgs: InterpretArgument = { ...args, type: lhsType, finalTypes: [] }
@@ -153,7 +153,7 @@ export const parseByOperator = ({
   operators,
   operator: {
     name,
-    parentRuntimeCheckType,
+    expressionType,
     lhsType,
     rhsType,
     skipRhsCstParse,
@@ -198,7 +198,7 @@ export const parseByOperator = ({
 
     if (skipRhsCstParse) {
       const operator = operators[idx]
-      rhsCodeFragments.push({ ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages })
+      rhsCodeFragments.push({ ...token2fragment(operator, expressionType), errors: missingTokenErrorMessages })
       rhsImages.push(operator.image)
       return
     }
@@ -218,7 +218,7 @@ export const parseByOperator = ({
     }
 
     const operator = operators[idx]
-    rhsCodeFragments.push({ ...token2fragment(operator, parentRuntimeCheckType), errors: missingTokenErrorMessages })
+    rhsCodeFragments.push({ ...token2fragment(operator, expressionType), errors: missingTokenErrorMessages })
     rhsImages.push(operator.image)
 
     rhsCodeFragments.push(...rhsValue)
@@ -246,7 +246,7 @@ export const parseByOperator = ({
     finalImages.push(suffixToken[0].image)
   }
 
-  const finalType = dynamicParseType ? dynamicParseType(prevType) : parentRuntimeCheckType
+  const finalType = dynamicParseType ? dynamicParseType(prevType) : expressionType
   const { errorMessages, newType } = intersectType(args.type, finalType, name, cstVisitor.ctx)
   return {
     image: finalImages.join(''),

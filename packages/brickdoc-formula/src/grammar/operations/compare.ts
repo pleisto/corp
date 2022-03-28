@@ -4,7 +4,7 @@ import { OperatorType } from '../operator'
 
 export const compareOperator: OperatorType = {
   name: 'compare',
-  parentRuntimeCheckType: 'boolean',
+  expressionType: 'boolean',
   lhsType: 'number',
   rhsType: 'number',
   interpret: async ({ lhs, rhs, operator }) => {

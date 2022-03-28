@@ -4,7 +4,7 @@ import { OperatorType } from '../operator'
 
 export const additionOperator: OperatorType = {
   name: 'addition',
-  parentRuntimeCheckType: 'number',
+  expressionType: 'number',
   lhsType: 'number',
   rhsType: 'number',
   interpret: async ({ lhs, rhs, operator }) => {

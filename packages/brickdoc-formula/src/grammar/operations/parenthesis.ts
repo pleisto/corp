@@ -2,7 +2,7 @@ import { OperatorType } from '../operator'
 
 export const parenthesisOperator: OperatorType = {
   name: 'parenthesis',
-  parentRuntimeCheckType: 'any',
+  expressionType: 'any',
   dynamicParseType: lhsType => lhsType,
   lhsType: 'any',
   rhsType: 'any',

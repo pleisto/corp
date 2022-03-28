@@ -2,7 +2,7 @@ import { OperatorType } from '../operator'
 
 export const concatOperator: OperatorType = {
   name: 'concat',
-  parentRuntimeCheckType: 'string',
+  expressionType: 'string',
   lhsType: 'string',
   rhsType: 'string',
   interpret: async ({ lhs, rhs }) => {

@@ -4,7 +4,7 @@ import { extractSubType } from '../util'
 
 export const arrayOperator: OperatorType = {
   name: 'array',
-  parentRuntimeCheckType: 'Array',
+  expressionType: 'Array',
   skipReturnEarlyCheck: true,
   lhsType: 'any',
   rhsType: 'any',

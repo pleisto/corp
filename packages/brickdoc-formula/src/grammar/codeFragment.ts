@@ -22,6 +22,7 @@ import { block2codeFragment, spreadsheet2codeFragment } from './convert'
 import { PositionFragment } from './core'
 import {
   additionOperator,
+  arrayOperator,
   combineOperator,
   compareOperator,
   concatOperator,
@@ -51,6 +52,7 @@ export const token2fragment = (token: IToken, type: FormulaType): CodeFragment =
 export interface CstVisitorArgument {
   readonly type: ExpressionType
   readonly firstArgumentType?: FormulaType
+  readonly clauseArguments?: Argument[]
 }
 
 const CodeFragmentCstVisitor = ParserInstance.getBaseCstVisitorConstructor<CstVisitorArgument, CodeFragmentResult>()
@@ -550,39 +552,17 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  arrayExpression(
-    ctx: { LBracket: IToken[]; RBracket: IToken[]; Arguments: CstNode | CstNode[] },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    if (!ctx.LBracket) {
-      return { codeFragments: [], type: 'any', image: '' }
-    }
-    const parentType = 'Array'
-    const rParenErrorMessages: ErrorMessage[] = ctx.RBracket
-      ? []
-      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
-    const { codeFragments, image } = ctx.Arguments
-      ? (this.visit(ctx.Arguments) as CodeFragmentResult)
-      : { codeFragments: [], image: '' }
-    const rBracketCodeFragments = ctx.RBracket ? [token2fragment(ctx.RBracket[0], 'any')] : []
-    const finalImage = ctx.RBracket
-      ? `${ctx.LBracket[0].image}${image}${ctx.RBracket[0].image}`
-      : `${ctx.LBracket[0].image}${image}`
-
-    const { errorMessages, newType } = intersectType(type, parentType, 'arrayExpression', this.ctx)
-
-    return {
-      codeFragments: [
-        { ...token2fragment(ctx.LBracket[0], 'any'), errors: rParenErrorMessages },
-        ...codeFragments,
-        ...rBracketCodeFragments
-      ].map(codeFragment => ({
-        ...codeFragment,
-        errors: [...errorMessages, ...codeFragment.errors]
-      })),
-      type: newType,
-      image: finalImage
-    }
+  arrayExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: [],
+      args,
+      operator: arrayOperator,
+      prefixToken: ctx.LBracket,
+      suffixToken: ctx.RBracket,
+      rhs: [],
+      lhs: ctx.Arguments
+    })
   }
 
   recordExpression(
@@ -1010,7 +990,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         clauseArgs = clause.args.slice(1)
       }
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
-        ? (this.visit(ctx.Arguments, clauseArgs as any) as CodeFragmentResult)
+        ? (this.visit(ctx.Arguments, { type, firstArgumentType, clauseArguments: clauseArgs }) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
       const argsErrorMessages: ErrorMessage[] =
         clauseArgs.filter(a => !a.default).length > 0 && argsCodeFragments.length === 0
@@ -1036,7 +1016,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       }
     } else {
       const { codeFragments: argsCodeFragments, image } = ctx.Arguments
-        ? (this.visit(ctx.Arguments, undefined) as CodeFragmentResult)
+        ? (this.visit(ctx.Arguments, { type, firstArgumentType, clauseArguments: undefined }) as CodeFragmentResult)
         : { codeFragments: [], image: '' }
       images.push(ctx.LParen[0].image, image, ctx.RParen ? ctx.RParen[0].image : '')
 
@@ -1057,7 +1037,10 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  Arguments(ctx: { expression: any[]; Comma: IToken[] }, args: Argument[] | undefined): CodeFragmentResult {
+  Arguments(
+    ctx: { expression: any[]; Comma: IToken[] },
+    { clauseArguments: args }: CstVisitorArgument
+  ): CodeFragmentResult {
     const firstArgs = args?.[0]
     const argumentTypes = firstArgs?.spread
       ? Array(ctx.expression.length).fill(firstArgs.type)

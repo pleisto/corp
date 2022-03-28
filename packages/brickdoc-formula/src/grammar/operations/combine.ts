@@ -4,7 +4,7 @@ import { OperatorType } from '../operator'
 
 export const combineOperator: OperatorType = {
   name: 'combine',
-  parentRuntimeCheckType: 'boolean',
+  expressionType: 'boolean',
   lhsType: 'boolean',
   rhsType: 'boolean',
   interpret: async ({ lhs, rhs, operator }) => {

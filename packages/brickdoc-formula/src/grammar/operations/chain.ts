@@ -3,7 +3,7 @@ import { accessAttribute } from './access'
 
 export const chainOperator: OperatorType = {
   name: 'chain',
-  parentRuntimeCheckType: 'any',
+  expressionType: 'any',
   lhsType: 'any',
   rhsType: 'any',
   dynamicInterpretRhsType: ({ result, cst, args }) => {
