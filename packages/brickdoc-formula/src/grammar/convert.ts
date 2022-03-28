@@ -180,6 +180,7 @@ export const block2name = (block: BlockType): BlockFormulaName => {
   }
 }
 
+// TODO remove me
 export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormulaName => {
   return {
     kind: 'Spreadsheet',
@@ -250,21 +251,6 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
     value,
     preview: spreadsheet,
     codeFragments: [spreadsheet2codeFragment(spreadsheet, pageId)]
-  }
-}
-
-export const column2completion = (column: ColumnType, pageId: NamespaceId): ColumnCompletion => {
-  const value = columnKey(column.spreadsheetId, column.columnId)
-  return {
-    kind: 'column',
-    replacements: [`${column.name}`],
-    weight: -3,
-    name: column.name,
-    positionChange: value.length,
-    namespace: column.spreadsheet.name(),
-    value,
-    preview: column,
-    codeFragments: [column2codeFragment(column, pageId)]
   }
 }
 

@@ -45,7 +45,6 @@ import {
   spreadsheet2completion,
   variable2completion,
   variableKey,
-  column2completion,
   block2completion,
   block2name,
   spreadsheet2name
@@ -277,29 +276,7 @@ export class FormulaContext implements ContextInterface {
         return block2completion(this, f as BlockFormulaName, namespaceId)
       })
 
-    const columns: ColumnCompletion[] = Object.entries(this.spreadsheets).flatMap(([key, spreadsheet]) => {
-      return spreadsheet
-        .listColumns()
-        .map(column => column2completion(new ColumnClass(spreadsheet, column), namespaceId))
-    })
-
-    const dynamicColumns: ColumnCompletion[] = completionVariables
-      .filter(([key, v]) => {
-        return (
-          fetchResult(v.t).type === 'Spreadsheet' &&
-          v.savedT &&
-          (v.savedT.task.variableValue as any).result.result.dynamic
-        )
-      })
-      .flatMap(([key, v]) => {
-        const result = (v.savedT!.task.variableValue as VariableValue).result as SpreadsheetResult
-        return result.result
-          .listColumns()
-          .map((column: ColumnInitializer) => column2completion(new ColumnClass(result.result, column), namespaceId))
-      })
-    return [...functions, ...variables, ...blocks, ...spreadsheets, ...columns, ...dynamicColumns].sort(
-      (a, b) => b.weight - a.weight
-    )
+    return [...functions, ...variables, ...blocks, ...spreadsheets].sort((a, b) => b.weight - a.weight)
   }
 
   public getDefaultVariableName(namespaceId: NamespaceId, type: FormulaType): DefaultVariableName {
