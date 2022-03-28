@@ -377,6 +377,11 @@ const testCases: TestCase[] = [
     errorMessage: 'Missing closing parenthesis'
   },
   {
+    input: '={a}',
+    parseErrorType: 'syntax',
+    errorMessage: 'TODO mismatch token recordField'
+  },
+  {
     input: '={a',
     parseErrorType: 'syntax',
     errorMessage: 'Missing closing parenthesis'
@@ -384,7 +389,7 @@ const testCases: TestCase[] = [
   {
     input: '={a: }',
     parseErrorType: 'syntax',
-    errorMessage: 'Parse error:'
+    errorMessage: 'Missing expression'
   },
   {
     input: '={a: 1',
@@ -400,7 +405,7 @@ const testCases: TestCase[] = [
   {
     input: '={"foo":}',
     parseErrorType: 'syntax',
-    errorMessage: 'Parse error:'
+    errorMessage: 'Missing expression'
   },
   {
     input: '={"fo o": 123}',

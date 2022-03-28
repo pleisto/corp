@@ -32,7 +32,8 @@ import {
   multiplicationOperator,
   notOperator,
   parenthesisOperator,
-  rangeOperator
+  rangeOperator,
+  recordFieldOperator
 } from './operations'
 import { parseByOperator } from './operator'
 
@@ -643,38 +644,15 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  recordField(
-    ctx: { Colon: IToken[]; keyExpression: CstNode | CstNode[]; expression: CstNode | CstNode[] },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    const images: string[] = []
-    const codeFragments: CodeFragment[] = []
-    const missingColonErrors: ErrorMessage[] = ctx.Colon ? [] : [{ message: 'Missing colon', type: 'syntax' }]
-
-    const { codeFragments: keyCodeFragments, image: keyImage }: CodeFragmentResult = this.visit(ctx.keyExpression, {
-      type: 'string'
+  recordField(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: ctx.Colon,
+      args,
+      operator: recordFieldOperator,
+      rhs: ctx.expression,
+      lhs: ctx.keyExpression
     })
-    codeFragments.push(...keyCodeFragments.map((e: CodeFragment) => ({ ...e, errors: missingColonErrors })))
-    images.push(keyImage)
-
-    if (ctx.Colon) {
-      images.push(ctx.Colon[0].image)
-      codeFragments.push(token2fragment(ctx.Colon[0], 'any'))
-    }
-
-    if (ctx.expression) {
-      const { codeFragments: expressionCodeFragments, image }: CodeFragmentResult = this.visit(ctx.expression, {
-        type: 'any'
-      })
-      images.push(image)
-      codeFragments.push(...expressionCodeFragments)
-    }
-
-    return {
-      codeFragments,
-      type: 'any',
-      image: images.join('')
-    }
   }
 
   parenthesisExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {

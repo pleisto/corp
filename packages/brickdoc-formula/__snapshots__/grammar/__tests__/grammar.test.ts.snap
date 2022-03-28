@@ -3774,7 +3774,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "any",
+    "type": "Record",
     "value": ":",
   },
   Object {
