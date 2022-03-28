@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { styled, theme, Button, ButtonProps } from '@brickdoc/design-system'
 import { useAccountsI18n } from '@/accounts/common/hooks'
 import ceramicBackground from '@/common/assets/ceramicBg.webp'
@@ -42,6 +43,8 @@ export const AppError: React.FC<AppErrorType> = ({
   btnProps,
   btnCallback
 }) => {
+  const navigate = useNavigate()
+  const jumpToIndex: () => void = () => navigate('/')
   return (
     <ErrorLayout>
       <img className="logo" src={logo} alt="Brickdoc" />
@@ -82,7 +85,7 @@ export const AppError: React.FC<AppErrorType> = ({
           >
             {content}
           </p>
-          <Button type="primary" onClick={btnCallback} {...btnProps}>
+          <Button type="primary" onClick={btnCallback ?? jumpToIndex} {...btnProps}>
             {btnContent}
           </Button>
         </div>
@@ -91,47 +94,49 @@ export const AppError: React.FC<AppErrorType> = ({
   )
 }
 
-export const AppError404: React.FC = () => {
+export const AppError404: React.FC<Partial<AppErrorType>> = props => {
   const { t } = useAccountsI18n(['errors'])
   return (
     <AppError
       title={t('errors:app_error.not_found_title')}
       content={t('errors:app_error.not_found_content')}
-      btnContent={t('errors:app_error.server_error_title')}
+      btnContent={t('errors:app_error.btn_back')}
       mediaContent={
         <video autoPlay loop muted playsInline style={{ width: 568 }}>
           <source src={mp4Video404} type='video/mp4; codecs="hvc1"' />
           <source src={webmVideo404} type="video/webm" />
         </video>
       }
+      {...props}
     />
   )
 }
 
-export const AppError403: React.FC = () => {
+export const AppError403: React.FC<Partial<AppErrorType>> = props => {
   const { t } = useAccountsI18n(['errors'])
   return (
     <AppError
       title={t('errors:app_error.not_found_title')}
       content={t('errors:app_error.not_found_content')}
-      btnContent={t('errors:app_error.server_error_title')}
+      btnContent={t('errors:app_error.btn_back')}
       mediaContent={
         <video autoPlay loop muted playsInline style={{ width: 568 }}>
           <source src={mp4Video403} type='video/mp4; codecs="hvc1"' />
           <source src={webmVideo403} type="video/webm" />
         </video>
       }
+      {...props}
     />
   )
 }
 
-export const AppError500: React.FC = () => {
+export const AppError500: React.FC<Partial<AppErrorType>> = props => {
   const { t } = useAccountsI18n(['errors'])
   return (
     <AppError
       title={t('errors:app_error.server_error_title')}
       content={t('errors:app_error.server_error_content')}
-      btnContent={t('errors:app_error.btn_return')}
+      btnContent={t('errors:app_error.btn_back')}
       mediaContent={
         <img
           alt={t('errors:app_error.server_error_content')}
@@ -139,8 +144,7 @@ export const AppError500: React.FC = () => {
           style={{ height: 568, width: 568 }}
         />
       }
+      {...props}
     />
   )
 }
-
-export default AppError
