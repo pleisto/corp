@@ -10,7 +10,7 @@ export const arrayOperator: OperatorType = {
   rhsType: 'any',
   interpret: async ({ lhs }) => lhs,
   packageInterpretResult: result => {
-    if (!result) return { type: 'Array', subType: 'void', result: [] }
+    if (!result || result.type === 'null') return { type: 'Array', subType: 'void', result: [] }
     const arrayArgs = result.result as unknown as AnyTypeResult[]
     return { type: 'Array', subType: extractSubType(arrayArgs), result: arrayArgs }
   }

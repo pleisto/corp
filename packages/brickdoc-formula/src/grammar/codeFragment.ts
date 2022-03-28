@@ -30,6 +30,7 @@ import {
   inOperator,
   multiplicationOperator,
   notOperator,
+  parenthesisOperator,
   rangeOperator
 } from './operations'
 import { parseByOperator } from './operator'
@@ -696,31 +697,17 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  parenthesisExpression(
-    ctx: { expression: CstNode | CstNode[]; LParen: IToken[]; RParen: IToken[] },
-    { type }: CstVisitorArgument
-  ): CodeFragmentResult {
-    if (!ctx.LParen) {
-      return { codeFragments: [], type: 'any', image: '' }
-    }
-    const rParenErrorMessages: ErrorMessage[] = ctx.RParen
-      ? []
-      : [{ message: 'Missing closing parenthesis', type: 'syntax' }]
-    const { codeFragments, type: expressionType, image }: CodeFragmentResult = this.visit(ctx.expression, { type })
-    const rparenCodeFragments = ctx.RParen ? [token2fragment(ctx.RParen[0], expressionType)] : []
-    const finalImage = ctx.RParen
-      ? `${ctx.LParen[0].image}${image}${ctx.RParen[0].image}`
-      : `${ctx.LParen[0].image}${image}`
-
-    return {
-      codeFragments: [
-        { ...token2fragment(ctx.LParen[0], 'any'), errors: rParenErrorMessages },
-        ...codeFragments,
-        ...rparenCodeFragments
-      ],
-      type: expressionType,
-      image: finalImage
-    }
+  parenthesisExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
+    return parseByOperator({
+      cstVisitor: this,
+      operators: [],
+      args,
+      operator: parenthesisOperator,
+      prefixToken: ctx.LParen,
+      suffixToken: ctx.RParen,
+      rhs: [],
+      lhs: ctx.expression
+    })
   }
 
   constantExpression(

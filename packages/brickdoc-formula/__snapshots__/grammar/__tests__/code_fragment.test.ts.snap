@@ -1508,7 +1508,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "number",
+    "type": "any",
     "value": ")",
   },
   Object {
@@ -1748,7 +1748,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "boolean",
+    "type": "any",
     "value": ")",
   },
   Object {
@@ -3188,7 +3188,7 @@ Array [
     "errors": Array [],
     "hide": false,
     "renderText": undefined,
-    "type": "number",
+    "type": "any",
     "value": ")",
   },
   Object {

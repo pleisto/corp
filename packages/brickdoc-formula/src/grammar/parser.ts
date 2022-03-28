@@ -275,7 +275,9 @@ export class FormulaParser extends CstParser {
 
   public parenthesisExpression = this.RULE('parenthesisExpression', () => {
     this.CONSUME(LParen)
+    // this.OPTION(() => {
     this.SUBRULE(this.expression)
+    // })
     this.CONSUME(RParen)
   })
 

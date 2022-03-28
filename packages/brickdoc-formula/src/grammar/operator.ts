@@ -20,6 +20,7 @@ export interface OperatorType {
   readonly parentRuntimeCheckType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicInterpretLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
+  readonly dynamicParseType?: (lhsType: FormulaType) => FormulaType
   readonly dynamicInterpretRhsType?: ({
     result,
     cst,
@@ -92,18 +93,23 @@ export const interpretByOperator = async ({
   operator: OperatorType
   operators: IToken[]
   args: InterpretArgument
-  lhs: CstNode | CstNode[]
+  lhs: CstNode[] | undefined
   rhs: CstNode[] | undefined
 }): Promise<AnyTypeResult> => {
   if (!rhs) {
-    return dynamicInterpretLhs ? dynamicInterpretLhs(args) : await interpreter.visit(lhs, args)
+    return dynamicInterpretLhs ? dynamicInterpretLhs(args) : await interpreter.visit(lhs!, args)
   }
 
   const typeErrorBefore = runtimeCheckType(args, parentRuntimeCheckType, `${name} before`, interpreter.ctx)
   if (shouldReturnEarly(typeErrorBefore)) return typeErrorBefore!
 
   const lhsArgs: InterpretArgument = { ...args, type: lhsType, finalTypes: [] }
-  let result = dynamicInterpretLhs ? dynamicInterpretLhs(lhsArgs) : await interpreter.visit(lhs, lhsArgs)
+  // eslint-disable-next-line no-nested-ternary
+  let result: AnyTypeResult = dynamicInterpretLhs
+    ? dynamicInterpretLhs(lhsArgs)
+    : lhs
+    ? await interpreter.visit(lhs, lhsArgs)
+    : { type: 'null', result: null }
   if (shouldReturnEarly(result, skipReturnEarlyCheck)) return result
 
   for (const { rhsOperand, index } of rhs.map((rhsOperand, index: number) => ({ index, rhsOperand }))) {
@@ -142,8 +148,19 @@ export const interpretByOperator = async ({
 
 export const parseByOperator = ({
   cstVisitor,
+  prefixToken,
+  suffixToken,
   operators,
-  operator: { name, parentRuntimeCheckType, lhsType, rhsType, skipRhsCstParse, reverseLhsAndRhs, dynamicParseRhsType },
+  operator: {
+    name,
+    parentRuntimeCheckType,
+    lhsType,
+    rhsType,
+    skipRhsCstParse,
+    reverseLhsAndRhs,
+    dynamicParseRhsType,
+    dynamicParseType
+  },
   args,
   lhs,
   rhs
@@ -152,11 +169,13 @@ export const parseByOperator = ({
   operator: OperatorType
   operators: IToken[]
   args: CstVisitorArgument
-  lhs: CstNode | CstNode[]
+  prefixToken?: IToken[]
+  suffixToken?: IToken[]
+  lhs: CstNode[] | undefined
   rhs: CstNode[] | undefined
 }): CodeFragmentResult => {
   if (!rhs) {
-    return cstVisitor.visit(lhs, args)
+    return cstVisitor.visit(lhs!, args)
   }
 
   const rhsCodeFragments: CodeFragment[] = []
@@ -166,10 +185,12 @@ export const parseByOperator = ({
     codeFragments: lhsCodeFragments,
     image: lhsImage,
     type: lhsDataType
-  }: CodeFragmentResult = cstVisitor.visit(lhs, {
-    ...args,
-    type: lhsType
-  })
+  }: CodeFragmentResult = lhs
+    ? cstVisitor.visit(lhs, {
+        ...args,
+        type: lhsType
+      })
+    : { codeFragments: [], image: '', type: 'any' }
   let prevType = lhsDataType
 
   rhs.forEach((rhsOperand, idx: number) => {
@@ -209,7 +230,24 @@ export const parseByOperator = ({
     : [...lhsCodeFragments, ...rhsCodeFragments]
   const finalImages: string[] = reverseLhsAndRhs ? [...rhsImages, lhsImage] : [lhsImage, ...rhsImages]
 
-  const { errorMessages, newType } = intersectType(args.type, parentRuntimeCheckType, name, cstVisitor.ctx)
+  if (prefixToken?.[0]) {
+    finalCodeFragments.unshift({
+      ...token2fragment(prefixToken[0], 'any'),
+      errors: suffixToken?.[0] ? [] : [{ message: 'Missing closing token', type: 'syntax' }]
+    })
+    finalImages.unshift(prefixToken[0].image)
+  }
+
+  if (suffixToken?.[0]) {
+    finalCodeFragments.push({
+      ...token2fragment(suffixToken[0], 'any'),
+      errors: prefixToken?.[0] ? [] : [{ message: 'Missing opening token', type: 'syntax' }]
+    })
+    finalImages.push(suffixToken[0].image)
+  }
+
+  const finalType = dynamicParseType ? dynamicParseType(prevType) : parentRuntimeCheckType
+  const { errorMessages, newType } = intersectType(args.type, finalType, name, cstVisitor.ctx)
   return {
     image: finalImages.join(''),
     codeFragments: finalCodeFragments.map(c => ({ ...c, errors: [...errorMessages, ...c.errors] })),
