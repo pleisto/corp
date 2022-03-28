@@ -75,7 +75,7 @@ export const Spreadsheet = (
 
     data.forEach((row, rowIndex) => {
       const rowId = uuid()
-      rows.push({ rowId, rowIndex })
+      rows.push({ rowId, rowIndex, spreadsheetId })
 
       columns.forEach(({ name, columnId }, columnIndex) => {
         const cell: CellType = {
@@ -170,7 +170,7 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
       name: 'Spreadsheet',
       async: false,
       pure: true,
-      persist: true,
+      persist: false,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -187,7 +187,7 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
       name: 'Button',
       async: false,
       pure: true,
-      persist: true,
+      persist: false,
       lazy: false,
       acceptError: false,
       effect: false,
@@ -215,7 +215,7 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
       async: false,
       pure: true,
       lazy: false,
-      persist: true,
+      persist: false,
       acceptError: false,
       effect: false,
       feature: FORMULA_FEATURE_CONTROL,
@@ -232,7 +232,7 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
       name: 'Switch',
       async: false,
       pure: true,
-      persist: true,
+      persist: false,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,
@@ -259,7 +259,7 @@ export const CORE_CONTROL_CLAUSES: Array<BaseFunctionClause<'Spreadsheet' | 'But
       name: 'Select',
       async: false,
       pure: true,
-      persist: true,
+      persist: false,
       lazy: false,
       feature: FORMULA_FEATURE_CONTROL,
       acceptError: false,

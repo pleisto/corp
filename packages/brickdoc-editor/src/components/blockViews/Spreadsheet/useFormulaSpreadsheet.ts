@@ -34,7 +34,7 @@ export function useFormulaSpreadsheet({
       index
     }))
 
-    const rowData: Row[] = rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex }))
+    const rowData: Row[] = rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex, spreadsheetId }))
 
     const spreadsheet: SpreadsheetType = new SpreadsheetClass({
       ctx: { formulaContext },

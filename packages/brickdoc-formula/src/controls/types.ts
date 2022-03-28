@@ -14,7 +14,8 @@ import {
   AnyTypeResult,
   CodeFragment,
   ErrorMessage,
-  FormulaType
+  FormulaType,
+  SpreadsheetId
 } from '../types'
 
 export interface ControlType {
@@ -58,7 +59,7 @@ export interface BlockType extends BlockInitializer {
 
 export interface ColumnInitializer {
   columnId: ColumnId
-  spreadsheetId: NamespaceId
+  spreadsheetId: SpreadsheetId
   name: ColumnName
   index: number
 }
@@ -71,6 +72,7 @@ export interface ColumnType extends ColumnInitializer {
 }
 
 export interface Row {
+  spreadsheetId: SpreadsheetId
   rowId: uuid
   rowIndex: number
 }
@@ -80,7 +82,7 @@ export interface RowType extends Row {
 }
 
 export interface RangeType {
-  spreadsheetId: uuid
+  spreadsheetId: SpreadsheetId
   columnSize: number
   rowSize: number
   rowIds: uuid[]
@@ -90,7 +92,7 @@ export interface RangeType {
 }
 
 export interface CellType {
-  spreadsheetId: uuid
+  spreadsheetId: SpreadsheetId
   cellId: uuid
   columnId: ColumnId
   rowId: uuid
@@ -101,7 +103,7 @@ export interface CellType {
 }
 
 export interface SpreadsheetInitializer {
-  spreadsheetId: NamespaceId
+  spreadsheetId: SpreadsheetId
   ctx: BaseFunctionContext
   dynamic: boolean
   name: string
@@ -111,7 +113,7 @@ export interface SpreadsheetInitializer {
 }
 
 export interface SpreadsheetDynamicPersistence {
-  spreadsheetId: NamespaceId
+  spreadsheetId: SpreadsheetId
   spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
@@ -119,14 +121,14 @@ export interface SpreadsheetDynamicPersistence {
 }
 
 export interface SpreadsheetAllPersistence {
-  spreadsheetId: NamespaceId
+  spreadsheetId: SpreadsheetId
   rowCount: number
   columnCount: number
   persistence?: SpreadsheetDynamicPersistence
 }
 
 export interface SpreadsheetType {
-  spreadsheetId: NamespaceId
+  spreadsheetId: SpreadsheetId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType

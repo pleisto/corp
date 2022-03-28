@@ -77,8 +77,8 @@ export class BlockClass implements BlockType {
     if (variable.t.isEffect) {
       visitor.effect = true
     }
-    if (!variable.t.isPersist) {
-      visitor.persist = false
+    if (variable.t.isPersist) {
+      visitor.persist = true
     }
     if (!variable.t.isPure) {
       visitor.pure = false

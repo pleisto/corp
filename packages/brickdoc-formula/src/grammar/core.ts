@@ -299,7 +299,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     valid: true,
     async: false,
     effect: false,
-    persist: true,
+    persist: false,
     pure: true,
     cst: undefined,
     input,

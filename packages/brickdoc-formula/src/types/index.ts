@@ -128,6 +128,7 @@ export type uuid = string
 export type NamespaceId = uuid
 export type VariableId = uuid
 export type ColumnId = uuid
+export type SpreadsheetId = uuid
 
 export type Feature = string
 export type Features = Feature[]

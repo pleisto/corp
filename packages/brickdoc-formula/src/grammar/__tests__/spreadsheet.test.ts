@@ -19,9 +19,9 @@ const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', position: 0, type: 'normal' }
 
 const rows: Row[] = [
-  { rowId: firstRowId, rowIndex: 0 },
-  { rowId: secondRowId, rowIndex: 1 },
-  { rowId: thirdRowId, rowIndex: 2 }
+  { rowId: firstRowId, rowIndex: 0, spreadsheetId },
+  { rowId: secondRowId, rowIndex: 1, spreadsheetId },
+  { rowId: thirdRowId, rowIndex: 2, spreadsheetId }
 ]
 const columns: ColumnInitializer[] = [
   {
