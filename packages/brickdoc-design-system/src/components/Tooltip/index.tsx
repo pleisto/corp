@@ -6,10 +6,7 @@ import 'tippy.js/animations/scale.css'
 /**
  * A subset of `TippyProps` to constraint the component's behavior.
  */
-type AllowedTippyProps = Omit<
-  TippyProps,
-  'content' | 'arrow' | 'moveTransition' | 'popperOptions' | 'role' | 'triggerTarget'
->
+type AllowedTippyProps = Omit<TippyProps, 'content'>
 
 /**
  * The `Tooltip` component is based on Tippy.js. Please refer to
@@ -22,14 +19,16 @@ export interface TooltipProps extends AllowedTippyProps {
 }
 
 const DEFAULT_PROPS: Partial<TooltipProps> = {
+  arrow: true,
   animation: 'scale',
-  duration: 200
+  duration: 200,
+  role: 'tooltip'
 }
 
 export const Tooltip: FC<TooltipProps> = ({ children, title, ...restProps }: TooltipProps) => {
   const tippyProps = defaults(restProps, DEFAULT_PROPS)
   return (
-    <Tippy content={title} role="tooltip" arrow {...tippyProps}>
+    <Tippy content={title} {...tippyProps}>
       {children}
     </Tippy>
   )

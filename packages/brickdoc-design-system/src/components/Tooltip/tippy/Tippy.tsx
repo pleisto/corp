@@ -16,19 +16,19 @@ import tippy, { Props as TippyInitProps } from 'tippy.js'
 import { tooltipStyle } from '../styles/tooltip.style'
 import { createPortal } from 'react-dom'
 
-type AllowedTippyProps = Pick<
+export type AllowedTippyProps = Pick<
   TippyInitProps,
   | 'animation'
-  | 'arrow'
   | 'aria'
+  | 'arrow'
   | 'delay'
   | 'duration'
   | 'followCursor'
   | 'hideOnClick'
+  | 'inertia'
   | 'interactive'
   | 'interactiveBorder'
   | 'interactiveDebounce'
-  | 'inertia'
   | 'maxWidth'
   | 'moveTransition'
   | 'offset'
@@ -38,10 +38,9 @@ type AllowedTippyProps = Pick<
   | 'showOnCreate'
   | 'touch'
   | 'trigger'
-  | 'triggerTarget'
   | 'zIndex'
 >
-type AllowedTippyChildren = ReactChild | ReactFragment | undefined | null
+export type AllowedTippyChildren = ReactChild | ReactFragment | undefined | null
 
 export interface TippyProps extends Partial<AllowedTippyProps> {
   children?: AllowedTippyChildren

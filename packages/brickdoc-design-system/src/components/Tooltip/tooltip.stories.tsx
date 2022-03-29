@@ -1,30 +1,22 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Button } from '../'
-import { triggerArgTypes } from './trigger.docs'
-import { Tippy } from './tippy/Tippy'
 import { Tooltip } from '.'
+import { TIPPY_ARG_TYPES } from './tippy/tippy.docs'
 export default {
   title: 'Components/Tooltip',
   component: Tooltip,
   args: {
-    // arrowPointAtCenter: false,
-    // autoAdjustOverflow: true,
-    // defaultVisible: false,
-    // destroyTooltipOnHide: false,
-    // mouseEnterDelay: 0.1,
-    // mouseLeaveDelay: 0.1,
-    // placement: 'top',
-    // trigger: ['hover', 'focus'],
-    // visible: false
+    title: '42 is the meaning of life.',
+    children: <Button>What does 42 mean?</Button>
   },
   argTypes: {
     title: {
-      description: '`ReactNode` The text shown in the tooltip',
+      description: 'The text shown in the tooltip',
       control: {
         type: 'text'
       }
     },
-    ...triggerArgTypes
+    ...TIPPY_ARG_TYPES
   },
   parameters: {
     docs: {
@@ -37,6 +29,10 @@ A simple text popup tip.
 - The tip is shown on mouse enter, and is hidden on mouse leave. The Tooltip doesn't support complex text or operations.
 
 - To provide an explanation of a button/text/operation. It's often used instead of the html title attribute.
+
+#### Note
+
+For props other than \`title\` and \`children\`, you can find more details in [Tippy.js documentation](https://atomiks.github.io/tippyjs/v6/all-props).
 `
       }
     },
@@ -60,22 +56,3 @@ const Template: ComponentStory<typeof Tooltip> = args => (
 )
 
 export const Basic = Template.bind({})
-Basic.args = {
-  title: '42 is the meaning of life',
-  children: <Button>What does 42 mean?</Button>
-}
-
-export const TippyJS = () => (
-  <Tippy
-    content={
-      <>
-        <div>
-          Hello <b>world</b>!
-        </div>
-        <Button>Go!</Button>
-      </>
-    }
-  >
-    <div>hi!</div>
-  </Tippy>
-)
