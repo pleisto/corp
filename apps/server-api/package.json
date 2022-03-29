@@ -11,12 +11,12 @@
     "lint:type": "run -T tsc"
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.0.0",
-    "@nestjs/testing": "^8.4.2",
+    "@faker-js/faker": "^6.1.1",
+    "@nestjs/testing": "^8.4.3",
     "cross-spawn": "^7.0.3",
     "leaked-handles": "^5.2.0",
-    "node-dev": "^7.3.1",
-    "pino-pretty": "^7.5.4"
+    "node-dev": "^7.4.2",
+    "pino-pretty": "^7.6.0"
   },
   "dependencies": {
     "@brickdoc/active-support": "workspace:^",
