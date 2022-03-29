@@ -32,7 +32,7 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
         input: {
           docId:      doc_id,
           operatorId: SecureRandom.uuid,
-          state:      Base64.encode64(state),
+          state:      Base64.strict_encode64(state),
           stateId:    state_id,
         }
       }
@@ -63,7 +63,7 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
         input: {
           docId:           document.id,
           operatorId:      SecureRandom.uuid,
-          state:           Base64.encode64(state),
+          state:           Base64.strict_encode64(state),
           stateId:         state_id,
           previousStateId: SecureRandom.uuid,
         }
@@ -72,7 +72,7 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
 
       expect(response.success?).to be(true)
       expect(response.data['syncDocument']['document']['stateId']).to eq(document.state_id)
-      expect(response.data['syncDocument']['document']['state']).to eq(Base64.encode64(document.state))
+      expect(response.data['syncDocument']['document']['state']).to eq(Base64.strict_encode64(document.state))
 
       # document = Docs::Document.find(document.id)
       # # expect(document.state).to eq(state)

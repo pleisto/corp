@@ -2127,11 +2127,13 @@ __metadata:
     jest: ^27.5.1
     jest-axe: ^6.0.0
     jest-junit: ^13.0.0
+    js-base64: ^3.7.2
     less: ^4.1.2
     lint-staged: ^12.3.6
     mocha: ^9.2.2
     mocha-junit-reporter: ^2.0.2
     prettier: ^2.6.0
+    rfc4648: ^1.5.1
     rollup-plugin-visualizer: ^5.6.0
     ts-node: ^10.7.0
     turbo: ^1.1.6
@@ -16637,6 +16639,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-base64@npm:^3.7.2":
+  version: 3.7.2
+  resolution: "js-base64@npm:3.7.2"
+  checksum: 573f28e9a27c3df60096d4d3f551bcb4fcb6d49161cf83396e9bad9b76f94736a70bb70b8808fe834dff2a388f76604ba09d6e153bbf181646e407720139fa5b
+  languageName: node
+  linkType: hard
+
 "js-cookie@npm:^2.2.1, js-cookie@npm:^2.x.x":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
@@ -22186,6 +22195,13 @@ __metadata:
   version: 1.0.4
   resolution: "reusify@npm:1.0.4"
   checksum: c3076ebcc22a6bc252cb0b9c77561795256c22b757f40c0d8110b1300723f15ec0fc8685e8d4ea6d7666f36c79ccc793b1939c748bf36f18f542744a4e379fcc
+  languageName: node
+  linkType: hard
+
+"rfc4648@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "rfc4648@npm:1.5.1"
+  checksum: fffadb0250996bbf7677e2befce5ba7a3ecb6c7b7a995f8a13c2a3afc5e94fea1631606eb1dd6cd2a19f7b938e50effee659477134b724e8e25f3003107497a7
   languageName: node
   linkType: hard
 

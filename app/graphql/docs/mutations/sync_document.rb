@@ -15,7 +15,8 @@ module Docs
       document = Docs::Document.where(id: doc_id).first_or_initialize
 
       if document.state_id.blank? || (document.state_id == previous_state_id)
-        document.state = Base64.decode64(state)
+        document.state = Base64.strict_decode64(state)
+        # document.state = state
         document.state_id = state_id
         document.save
         {

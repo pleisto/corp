@@ -2,17 +2,18 @@
 import React from 'react'
 import { Node } from 'prosemirror-model'
 import { useApolloClient } from '@apollo/client'
-import { devLog } from '@brickdoc/design-system'
 import {
   BlockInput,
   Block,
   useGetChildrenBlocksQuery,
+  useGetDocumentQuery,
   useBlockSyncBatchMutation,
-  useYdocSyncMutation,
+  useSyncDocumentMutation,
   useYdocSubscription,
   GetSpreadsheetChildrenDocument
 } from '@/BrickdocGraphQL'
 import { isEqual } from '@brickdoc/active-support'
+import { devLog } from '@brickdoc/design-system'
 import { isSavingVar } from '../../reactiveVars'
 import { nodeToBlock } from '../../common/blocks'
 import {
@@ -30,6 +31,8 @@ import {
 } from '@brickdoc/schema'
 import { BrickdocContext } from '@/common/brickdocContext'
 import * as Y from 'yjs'
+import { base64 } from 'rfc4648'
+import { v4 } from 'uuid'
 
 export type UpdateBlocks = (blocks: BlockInput[], toDeleteIds: string[]) => Promise<void>
 
@@ -41,11 +44,13 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   onDocSave: (doc: Node) => Promise<void>
   updateBlocks: UpdateBlocks
   ydoc: React.MutableRefObject<Y.Doc | undefined>
+  initBlocksToEditor: React.MutableRefObject<boolean>
   // updateCachedDocBlock: (block: Block, toDelete: boolean) => void
 } {
   const {
     features: { experiment_collaboration: enableCollaboration }
   } = React.useContext(BrickdocContext)
+
   const rootId = React.useRef<string>(queryVariables.rootId)
 
   const { data, loading, refetch } = useGetChildrenBlocksQuery({
@@ -53,16 +58,26 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     variables: queryVariables
   })
 
+  const { data: documentData, loading: documentLoading } = useGetDocumentQuery({
+    fetchPolicy: 'no-cache',
+    variables: { docId: queryVariables.rootId }
+  })
+
   const client = useApolloClient()
   const [blockSyncBatch] = useBlockSyncBatchMutation()
-  const [ydocSync] = useYdocSyncMutation()
+  const [syncDocument] = useSyncDocumentMutation()
 
   const committing = React.useRef(false)
 
   const cachedBlocksMap = React.useRef(new Map<string, Block>())
   const docBlocksMap = React.useRef(new Map<string, Block>())
   const rootBlock = React.useRef<Block | undefined>()
+
   const ydoc = React.useRef<Y.Doc | undefined>()
+  const stateId = React.useRef<string>()
+  const initBlocksToEditor = React.useRef<boolean>(false)
+  const committingDocument = React.useRef(false)
+  // const updatesToCommit = React.useRef(new Set<Uint8Array>())
 
   const dirtyBlocksMap = React.useRef(new Map<string, BlockInput>())
   const dirtyToDeleteIds = React.useRef(new Set<string>())
@@ -71,21 +86,73 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   // if (enableCollaboration) {
   useYdocSubscription({
     onSubscriptionData: ({ subscriptionData: { data } }) => {
-      if (data) {
-        const {
-          ydoc: { operatorId, updates }
-        } = data
-        if (operatorId !== globalThis.brickdocContext.uuid) {
-          console.log(operatorId, updates)
-          if (ydoc.current) {
-            Y.applyUpdate(ydoc.current, Uint8Array.from(updates))
-          }
-        }
-      }
+      // if (data) {
+      //   const {
+      //     ydoc: { operatorId, updates }
+      //   } = data
+      //   if (operatorId !== globalThis.brickdocContext.uuid) {
+      //     console.log(operatorId, updates)
+      //     if (ydoc.current) {
+      //       Y.applyUpdate(ydoc.current, Uint8Array.from(updates))
+      //     }
+      //   }
+      // }
     },
     variables: { docId: rootId.current }
   })
   // }
+
+  const commitState = React.useCallback(
+    async (state: Uint8Array, forkCommit = false): Promise<void> => {
+      devLog(`try commit state`, committingDocument.current, forkCommit)
+      if (committingDocument.current && !forkCommit) return
+
+      committingDocument.current = true
+
+      const stateIdToSync = v4()
+      devLog(`commit state ${stateIdToSync} from ${stateId.current}`)
+
+      // const ydoc = new Y.Doc()
+      // Y.applyUpdate(ydoc, base64.parse(base64.stringify(state)))
+      // console.log(base64.stringify(state))
+
+      // devLog(`good`)
+
+      const syncPromise = syncDocument({
+        variables: {
+          input: {
+            docId: rootId.current,
+            operatorId: globalThis.brickdocContext.uuid,
+            state: base64.stringify(state),
+            stateId: stateIdToSync,
+            previousStateId: stateId.current
+          }
+        }
+      })
+      const { data: syncDocumentResult } = await syncPromise
+
+      const resultDocument = syncDocumentResult?.syncDocument?.document
+
+      if (resultDocument) {
+        const { stateId: echoStateId, state: remoteState } = resultDocument
+        if (echoStateId === stateIdToSync) {
+          stateId.current = stateIdToSync
+          committingDocument.current = false
+        } else if (remoteState && echoStateId) {
+          devLog(`need to merge state ${stateId.current} with ${echoStateId}`)
+          const remoteYector = Y.encodeStateVectorFromUpdate(base64.parse(remoteState))
+          const diff = Y.diffUpdate(state, remoteYector)
+          // const mergedState = Y.mergeUpdates([state, diff])
+          if (ydoc.current) {
+            Y.applyUpdate(ydoc.current, diff)
+            stateId.current = echoStateId
+            commitState(Y.encodeStateAsUpdate(ydoc.current), true)
+          }
+        }
+      }
+    },
+    [syncDocument]
+  )
 
   React.useEffect(() => {
     rootId.current = queryVariables.rootId
@@ -100,22 +167,34 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     })
     rootBlock.current = docBlocksMap.current.get(rootId.current)
 
-    if (enableCollaboration && rootId.current && data?.childrenBlocks?.length) {
-      ydoc.current = new Y.Doc({ guid: rootId.current })
-      ydoc.current.on('update', async (update, origin, doc) => {
-        const syncPromise = ydocSync({
-          variables: {
-            input: {
-              updates: Array.from(update),
-              docId: rootId.current,
-              operatorId: globalThis.brickdocContext.uuid
-            }
-          }
+    if (enableCollaboration && rootId.current) {
+      if (documentData && !documentLoading) {
+        const { document } = documentData
+
+        const newYdoc = new Y.Doc()
+        devLog('Ydoc initialized')
+
+        if (document?.state && document?.stateId) {
+          devLog(`init from state ${document.stateId}`)
+          Y.applyUpdate(newYdoc, base64.parse(document.state))
+          stateId.current = document.stateId
+        } else {
+          devLog('need to commit init state')
+          initBlocksToEditor.current = true
+        }
+
+        newYdoc.on('update', async (update, origin, doc) => {
+          // if (initBlocksToEditor.current) {
+          const stateToSync = Y.encodeStateAsUpdate(doc)
+          commitState(stateToSync)
         })
-        await syncPromise
-      })
+
+        ydoc.current = newYdoc
+      }
+    } else if (data?.childrenBlocks) {
+      initBlocksToEditor.current = true
     }
-  }, [queryVariables, data?.childrenBlocks, enableCollaboration, ydocSync])
+  }, [queryVariables, documentData, data?.childrenBlocks, enableCollaboration, commitState, documentLoading])
 
   const commitDirty = async (): Promise<void> => {
     if (!dirtyBlocksMap.current.size && !dirtyToDeleteIds.current.size) return
@@ -344,6 +423,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     refetch,
     onDocSave,
     updateBlocks,
-    ydoc
+    ydoc,
+    initBlocksToEditor
   }
 }

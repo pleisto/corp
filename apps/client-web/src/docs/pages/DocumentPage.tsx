@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Skeleton } from '@brickdoc/design-system'
+import { Skeleton, devLog } from '@brickdoc/design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
@@ -34,7 +34,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   )
 
   // rootBlock
-  const { data, loading, onDocSave, ydoc } = useSyncProvider(queryVariables)
+  const { data, loading, onDocSave, ydoc, initBlocksToEditor } = useSyncProvider(queryVariables)
 
   const freeze = mode === 'presentation'
   // const currentRootBlock = rootBlock.current
@@ -61,14 +61,15 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   }, [editor, freeze])
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed && data?.childrenBlocks) {
+    if (editor && !editor.isDestroyed && data?.childrenBlocks && initBlocksToEditor.current) {
+      devLog('init blocks to editor')
       const content: JSONContent[] = blocksToJSONContents(data?.childrenBlocks as Block[])
 
       if (content.length) {
         editor.chain().setMeta('preventUpdate', true).replaceRoot(content[0]).run()
       }
     }
-  }, [editor, data, data?.childrenBlocks])
+  }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
   // due to #914, to reduce conflicts, temporarily disable subscription for documents in presentation mode
   if (docMeta.snapshotVersion === 0 && !freeze) {

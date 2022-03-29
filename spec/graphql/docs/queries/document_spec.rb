@@ -22,8 +22,6 @@ describe Docs::Queries::SpreadsheetChildren, type: :query do
 
       internal_graphql_execute(query, { doc_id: SecureRandom.uuid })
 
-      p response
-
       expect(response.success?).to be true
 
       expect(response.data['document']).to be nil
@@ -53,7 +51,7 @@ describe Docs::Queries::SpreadsheetChildren, type: :query do
 
       expect(response.data['document']['id']).to eq document.id
       expect(response.data['document']['stateId']).to eq document.state_id
-      expect(response.data['document']['state']).to eq Base64.encode64(document.state)
+      expect(response.data['document']['state']).to eq Base64.strict_encode64(document.state)
     end
   end
 end
