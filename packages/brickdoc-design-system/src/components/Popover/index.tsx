@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, useMemo } from 'react'
-import { Tooltip } from '../Tooltip'
+import { LegacyTooltip } from '../Tooltip/legacy'
 import { AbstractTriggerProps, TriggerPlacement } from '../Tooltip/trigger'
 import { DismissButton } from '../DismissButton'
 import { getRenderPropValue } from '../../utilities'
@@ -26,7 +26,7 @@ const Popover: ForwardRefRenderFunction<unknown, PopoverProps> = (props, ref) =>
     </>
   )
 
-  return <Tooltip {...otherProps} ref={ref} overlay={overlay} prefixCls={prefixCls} role={role} />
+  return <LegacyTooltip {...otherProps} ref={ref} overlay={overlay} prefixCls={prefixCls} role={role} />
 }
 
 const _Popover = forwardRef(Popover)

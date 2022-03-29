@@ -7,7 +7,7 @@ const bgColor = theme.colors.backgroundOverlayQuaternary
 // whereas tippy's default arrow is 8x8
 const arrowScale = 5 / 8
 
-export const tippyStyle = globalCss({
+export const tooltipStyle = globalCss({
   '.tippy-box': {
     background: bgColor,
     color: theme.colors.white,

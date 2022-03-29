@@ -1,21 +1,21 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { Tooltip } from './index'
 import { Button } from '../'
 import { triggerArgTypes } from './trigger.docs'
 import { Tippy } from './tippy/Tippy'
+import { Tooltip } from '.'
 export default {
   title: 'Components/Tooltip',
   component: Tooltip,
   args: {
-    arrowPointAtCenter: false,
-    autoAdjustOverflow: true,
-    defaultVisible: false,
-    destroyTooltipOnHide: false,
-    mouseEnterDelay: 0.1,
-    mouseLeaveDelay: 0.1,
-    placement: 'top',
-    trigger: ['hover', 'focus'],
-    visible: false
+    // arrowPointAtCenter: false,
+    // autoAdjustOverflow: true,
+    // defaultVisible: false,
+    // destroyTooltipOnHide: false,
+    // mouseEnterDelay: 0.1,
+    // mouseLeaveDelay: 0.1,
+    // placement: 'top',
+    // trigger: ['hover', 'focus'],
+    // visible: false
   },
   argTypes: {
     title: {

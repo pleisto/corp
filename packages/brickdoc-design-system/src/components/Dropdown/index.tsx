@@ -1,7 +1,7 @@
 import { cloneElement, ReactElement, forwardRef, ForwardRefRenderFunction, Children, ReactNode } from 'react'
 import RcDropdown from 'rc-dropdown'
 import { RenderFunction, cx } from '../../utilities'
-import { defaultPopupContainer } from '../Tooltip'
+import { defaultPopupContainer } from '../Tooltip/legacy'
 import { dropdownStyle } from './styles/index.style'
 /**
  * Use `start` and `end` instead of `top` and `bottom` to ensure
