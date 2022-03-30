@@ -162,12 +162,4 @@ const JSONContentToText = (c: JSONContent, prevC: JSONContent | undefined): stri
   }
 
   return attrs.display === text ? attrs.value : text
-
-  // if (!attrs.renderText || typeof attrs.renderText === 'string') {
-
-  // }
-
-  // const prevText = prevC?.text ?? ''
-
-  // return attrs.renderText(text, attrs, prevText)
 }

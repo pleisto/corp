@@ -197,8 +197,8 @@ export class VariableClass implements VariableInterface {
     this.onUpdate()
   }
 
-  public cleanup(): void {
-    this.formulaContext.removeName(this.t.variableId)
+  public cleanup(hard: boolean): void {
+    if (hard) this.formulaContext.removeName(this.t.variableId)
     this.unsubscripeEvents()
 
     this.t.variableDependencies.forEach(dependency => {
@@ -318,7 +318,7 @@ export class VariableClass implements VariableInterface {
     this.currentUUID = sourceUuid
 
     const formula = this.buildFormula()
-    this.cleanup()
+    this.cleanup(false)
     await castVariable(this, this.formulaContext, formula)
     this.trackDependency()
     this.currentUUID = undefined

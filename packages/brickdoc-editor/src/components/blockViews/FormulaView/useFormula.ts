@@ -244,7 +244,7 @@ export const useFormula = ({
       const { completions, expressionType, success } = parseResult
       updateDefaultName(success ? expressionType : 'any')
       const newVariable = await interpret({ parseResult, ctx, skipExecute, variable: variableRef.current })
-      console.log('parseResult', parseResult, newVariable)
+      console.log('parseResult', ctx, parseResult, newVariable)
 
       setCompletion({
         completions,

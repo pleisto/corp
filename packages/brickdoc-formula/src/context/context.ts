@@ -402,7 +402,7 @@ export class FormulaContext implements ContextInterface {
 
     // 1. clear old dependencies
     if (oldVariable) {
-      oldVariable.cleanup()
+      oldVariable.cleanup(false)
     }
 
     variable.isNew = false
@@ -432,7 +432,7 @@ export class FormulaContext implements ContextInterface {
   public async removeVariable(namespaceId: NamespaceId, variableId: VariableId): Promise<void> {
     const key = variableKey(namespaceId, variableId)
     if (!this.variables[key]) return
-    this.variables[key].cleanup()
+    this.variables[key].cleanup(true)
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.variables[key]
   }

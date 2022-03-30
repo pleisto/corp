@@ -711,7 +711,7 @@ export interface VariableInterface {
   formulaContext: ContextInterface
 
   buildFormula: () => Formula
-  cleanup: VoidFunction
+  cleanup: (hard: boolean) => void
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: VoidFunction
