@@ -827,6 +827,15 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
 
     if (!ctx.LParen) {
+      this.nameDependencies = [
+        ...new Map(
+          [...this.nameDependencies, { namespaceId: this.ctx.meta.namespaceId, name: functionKey }].map(item => [
+            `${item.namespaceId},${item.name}`,
+            item
+          ])
+        ).values()
+      ]
+
       return {
         codeFragments: [
           {
