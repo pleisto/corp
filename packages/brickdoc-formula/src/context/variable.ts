@@ -7,7 +7,8 @@ import {
   FormulaTaskStarted,
   FormulaTickViaId,
   FormulaUpdatedViaId,
-  FormulaUpdatedViaName
+  FormulaUpdatedViaName,
+  SpreadsheetUpdateViaName
 } from '@brickdoc/schema'
 import {
   ContextInterface,
@@ -330,18 +331,18 @@ export class VariableClass implements VariableInterface {
     this.eventListeners.push(innerRefreshSubscription)
 
     t.blockDependencies.forEach(blockId => {
-      const result = BrickdocEventBus.subscribe(
+      const spreadsheetSubscription = BrickdocEventBus.subscribe(
         BlockSpreadsheetLoaded,
         e => {
           void this.maybeReparseAndPersist(e.payload.id)
         },
         { eventId: blockId, subscribeId: `SpreadsheetDependency#${t.variableId}` }
       )
-      this.eventListeners.push(result)
+      this.eventListeners.push(spreadsheetSubscription)
     })
 
     t.variableDependencies.forEach(({ variableId, namespaceId }) => {
-      const result = BrickdocEventBus.subscribe(
+      const variableIdSubscription = BrickdocEventBus.subscribe(
         FormulaUpdatedViaId,
         e => {
           if (e.payload.isNew) return
@@ -352,11 +353,11 @@ export class VariableClass implements VariableInterface {
           subscribeId: `Dependency#${t.namespaceId},${t.variableId}`
         }
       )
-      this.eventListeners.push(result)
+      this.eventListeners.push(variableIdSubscription)
     })
 
     t.nameDependencies.forEach(({ name, namespaceId }) => {
-      const result = BrickdocEventBus.subscribe(
+      const variableNameSubscription = BrickdocEventBus.subscribe(
         FormulaUpdatedViaName,
         e => {
           if (e.payload.isNew) return
@@ -364,10 +365,19 @@ export class VariableClass implements VariableInterface {
         },
         {
           eventId: `${namespaceId}#${name}`,
-          subscribeId: `Dependency#${t.namespaceId},${t.variableId}`
+          subscribeId: `NameDependency#${t.namespaceId},${t.variableId}`
         }
       )
-      this.eventListeners.push(result)
+      this.eventListeners.push(variableNameSubscription)
+
+      const spreadsheetNameSubscription = BrickdocEventBus.subscribe(
+        SpreadsheetUpdateViaName,
+        e => {
+          void this.maybeReparseAndPersist(e.payload.spreadsheetId)
+        },
+        { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
+      )
+      this.eventListeners.push(spreadsheetNameSubscription)
     })
   }
 

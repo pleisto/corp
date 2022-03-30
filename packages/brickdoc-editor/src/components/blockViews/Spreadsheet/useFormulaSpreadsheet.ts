@@ -1,6 +1,6 @@
 import React from 'react'
 import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, CellType } from '@brickdoc/formula'
-import { BlockInput } from '@brickdoc/schema'
+import { BlockInput, BrickdocEventBus, SpreadsheetUpdateNameViaId, SpreadsheetUpdateViaName } from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
 import { useExternalProps } from '../../../hooks/useExternalProps'
@@ -23,10 +23,28 @@ export function useFormulaSpreadsheet({
   const externalProps = useExternalProps()
   const formulaContext = externalProps.formulaContext
   const rootId = externalProps.rootId
+  const titleRef = React.useRef(title)
+
+  React.useEffect(() => {
+    BrickdocEventBus.dispatch(
+      SpreadsheetUpdateViaName({
+        spreadsheetId,
+        name: title,
+        namespaceId: rootId
+      })
+    )
+    BrickdocEventBus.dispatch(
+      SpreadsheetUpdateNameViaId({
+        spreadsheetId,
+        name: title,
+        namespaceId: rootId
+      })
+    )
+  }, [rootId, spreadsheetId, title])
 
   React.useEffect(() => {
     if (!formulaContext) return
-    const spreadsheetName = title || 'Untitled Spreadsheet'
+    const spreadsheetName = titleRef.current
     const columnData: ColumnInitializer[] = columns.map((column, index) => ({
       columnId: column.uuid,
       spreadsheetId,
@@ -77,5 +95,5 @@ export function useFormulaSpreadsheet({
     return () => {
       formulaContext.removeSpreadsheet(spreadsheetId)
     }
-  }, [rootId, spreadsheetId, title, columns, rows, formulaContext, getCellBlock])
+  }, [rootId, spreadsheetId, columns, rows, formulaContext, getCellBlock])
 }

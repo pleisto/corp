@@ -78,6 +78,20 @@ export const FormulaUpdatedViaName = event<any>()('FormulaUpdatedViaName', v => 
   return { id: `${v.t.namespaceId}#${v.t.name}` }
 })
 
+export const SpreadsheetUpdateViaName = event<{ spreadsheetId: string; namespaceId: string; name: string }>()(
+  'SpreadsheetUpdateViaName',
+  ({ spreadsheetId, namespaceId, name }) => {
+    return { id: `${namespaceId}#${name}`, spreadsheetId, namespaceId, name }
+  }
+)
+
+export const SpreadsheetUpdateNameViaId = event<{ spreadsheetId: string; namespaceId: string; name: string }>()(
+  'SpreadsheetUpdateNameViaId',
+  ({ spreadsheetId, namespaceId, name }) => {
+    return { id: `${namespaceId},${spreadsheetId}`, spreadsheetId, namespaceId, name }
+  }
+)
+
 export const SlashMenuHide = event<void>()('SlashMenuHide')
 
 export const SlashMenuKeyboardEventTrigger = event<{ key: string }>()('SlashMenuKeyboardEventTrigger', ({ key }) => {

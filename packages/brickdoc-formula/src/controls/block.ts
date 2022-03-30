@@ -57,6 +57,15 @@ export class BlockClass implements BlockType {
     firstArgumentType: FormulaType | undefined
     codeFragments: CodeFragment[]
   } {
+    visitor.nameDependencies = [
+      ...new Map(
+        [...visitor.nameDependencies, { namespaceId: this.id, name }].map(item => [
+          `${item.namespaceId},${item.name}`,
+          item
+        ])
+      ).values()
+    ]
+
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
     if (spreadsheet) {
       let finalCodeFragments = codeFragments
@@ -81,15 +90,6 @@ export class BlockClass implements BlockType {
 
     const variable = this._formulaContext.findVariableByName(this.id, name)
     const errors: ErrorMessage[] = []
-
-    visitor.nameDependencies = [
-      ...new Map(
-        [...visitor.nameDependencies, { namespaceId: this.id, name }].map(item => [
-          `${item.namespaceId},${item.name}`,
-          item
-        ])
-      ).values()
-    ]
 
     if (!variable) {
       errors.push({ type: 'deps', message: `"${name}" not found` })

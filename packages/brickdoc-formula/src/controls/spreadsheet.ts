@@ -1,3 +1,4 @@
+import { BrickdocEventBus, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor, column2attrs } from '../grammar'
 import {
   AnyTypeResult,
@@ -20,6 +21,7 @@ import {
   SpreadsheetAllPersistence,
   handleCodeFragmentsResult
 } from './types'
+import { v4 } from 'uuid'
 
 export class SpreadsheetClass implements SpreadsheetType {
   _formulaContext: ContextInterface
@@ -27,6 +29,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   namespaceId: NamespaceId
   dynamic: boolean
   persistence?: SpreadsheetDynamicPersistence
+  _name: string
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
@@ -46,16 +49,17 @@ export class SpreadsheetClass implements SpreadsheetType {
     this.dynamic = dynamic
     this.spreadsheetId = spreadsheetId
     this.namespaceId = namespaceId
+    this._name = name
     if (meta) {
       this.name = () => {
         const v = formulaContext.findVariableById(meta.namespaceId, meta.variableId)
         if (v) {
           return v.t.name
         }
-        return name
+        return this._name
       }
     } else {
-      this.name = () => name
+      this.name = () => this._name
     }
     this.listColumns = listColumns
     this.listRows = listRows
@@ -64,6 +68,15 @@ export class SpreadsheetClass implements SpreadsheetType {
     if (dynamic) {
       this.persistence = this.persistDynamic()
     }
+
+    // TODO: cleanup
+    BrickdocEventBus.subscribe(
+      SpreadsheetUpdateNameViaId,
+      e => {
+        this._name = e.payload.name
+      },
+      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${v4()}` }
+    )
   }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {
