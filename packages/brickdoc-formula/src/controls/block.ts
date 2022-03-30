@@ -30,6 +30,8 @@ export class BlockClass implements BlockType {
     }
   }
 
+  public cleanup(): void {}
+
   async handleInterpret(name: string): Promise<AnyTypeResult> {
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
     if (spreadsheet) {

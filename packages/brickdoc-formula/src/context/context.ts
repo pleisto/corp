@@ -1,5 +1,5 @@
 import { CstNode, ILexingResult } from 'chevrotain'
-import { ColumnType, SpreadsheetType, ColumnClass } from '../controls'
+import { ColumnType, SpreadsheetType, ColumnClass, BlockType } from '../controls'
 import {
   ContextInterface,
   FunctionClause,
@@ -118,11 +118,12 @@ export class FormulaContext implements ContextInterface {
   tickTimeout: number
   features: Features
   dirtyFormulas: Record<VariableKey, DirtyFormulaInfo> = {}
-  context: Record<VariableKey, VariableInterface> = {}
+  variables: Record<VariableKey, VariableInterface> = {}
   viewRenders: Record<ViewType, ViewRender> = {}
   functionWeights: Record<FunctionKey, number> = {}
   variableWeights: Record<VariableKey, number> = {}
-  spreadsheets: SpreadsheetType[] = []
+  spreadsheets: Record<string, SpreadsheetType> = {}
+  blocks: Record<string, BlockType> = {}
   variableNameCounter: Record<FormulaType, Record<NamespaceId, number>> = {
     string: {},
     number: {},
@@ -257,14 +258,14 @@ export class FormulaContext implements ContextInterface {
       const weight: number = this.functionWeights[key as FunctionKey] || 0
       return function2completion(f, weight)
     })
-    const completionVariables: Array<[string, VariableInterface]> = Object.entries(this.context).filter(
+    const completionVariables: Array<[string, VariableInterface]> = Object.entries(this.variables).filter(
       ([key, c]) => c.t.variableId !== variableId && c.t.type === 'normal'
     )
     const variables: VariableCompletion[] = completionVariables.map(([key, v]) => {
       return variable2completion(v, namespaceId)
     })
-    const spreadsheets: SpreadsheetCompletion[] = this.spreadsheets.map(spreadsheet => {
-      return spreadsheet2completion(spreadsheet, namespaceId)
+    const spreadsheets: SpreadsheetCompletion[] = Object.values(this.spreadsheets).map(spreadsheet => {
+      return spreadsheet2completion(spreadsheet!, namespaceId)
     })
 
     const blocks: BlockCompletion[] = this.formulaNames
@@ -282,7 +283,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public variableCount(): number {
-    return Object.keys(this.context).length
+    return Object.keys(this.variables).length
   }
 
   public findViewRender(viewType: ViewType): ViewRender | undefined {
@@ -290,11 +291,11 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findSpreadsheetById(spreadsheetId: SpreadsheetId): SpreadsheetType | undefined {
-    return this.spreadsheets.find(s => s.spreadsheetId === spreadsheetId)
+    return this.spreadsheets[spreadsheetId]
   }
 
   public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {
-    return this.spreadsheets.find(s => s.namespaceId === namespaceId && s.name() === name)
+    return Object.values(this.spreadsheets).find(s => s!.namespaceId === namespaceId && s!.name() === name)
   }
 
   public findFormulaName(namespaceId: NamespaceId): FormulaName | undefined {
@@ -333,28 +334,30 @@ export class FormulaContext implements ContextInterface {
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
     this.removeSpreadsheet(spreadsheet.spreadsheetId)
-    this.spreadsheets = this.spreadsheets.concat(spreadsheet)
+    this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
     this.formulaNames = this.formulaNames.concat(spreadsheet2name(spreadsheet))
     BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
   }
 
   public removeSpreadsheet(spreadsheetId: SpreadsheetId): void {
-    this.spreadsheets = this.spreadsheets.filter(n => !(n.spreadsheetId === spreadsheetId))
+    this.spreadsheets[spreadsheetId]?.cleanup()
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete this.spreadsheets[spreadsheetId]
     this.formulaNames = this.formulaNames.filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheetId))
   }
 
   public findVariableById(namespaceId: NamespaceId, variableId: VariableId): VariableInterface | undefined {
-    const v = this.context[variableKey(namespaceId, variableId)]
+    const v = this.variables[variableKey(namespaceId, variableId)]
     return v
   }
 
   public findVariableByName(namespaceId: NamespaceId, name: string): VariableInterface | undefined {
-    const v = Object.values(this.context).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
+    const v = Object.values(this.variables).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
     return v
   }
 
   public listVariables(namespaceId: NamespaceId): VariableInterface[] {
-    return Object.values(this.context).filter(v => v.t.namespaceId === namespaceId)
+    return Object.values(this.variables).filter(v => v.t.namespaceId === namespaceId)
   }
 
   public commitVariable({ variable }: { variable: VariableInterface }): void {
@@ -363,14 +366,14 @@ export class FormulaContext implements ContextInterface {
 
     // 1. clear old dependencies
     if (oldVariable) {
-      oldVariable.clearDependency()
+      oldVariable.cleanup()
     }
 
     variable.isNew = false
     variable.savedT = variable.t
 
     // 2. replace variable object
-    this.context[variableKey(namespaceId, variableId)] = variable
+    this.variables[variableKey(namespaceId, variableId)] = variable
 
     // 3. track dependencies
     variable.trackDependency()
@@ -392,11 +395,11 @@ export class FormulaContext implements ContextInterface {
 
   public async removeVariable(namespaceId: NamespaceId, variableId: VariableId): Promise<void> {
     const key = variableKey(namespaceId, variableId)
-    const variable = this.context[key]
+    const variable = this.variables[key]
     if (variable) {
-      variable.clearDependency()
+      variable.cleanup()
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete this.context[key]
+      delete this.variables[key]
 
       this.formulaNames = this.formulaNames.filter(n => !(n.kind === 'Variable' && n.key === variableId))
 
@@ -409,7 +412,9 @@ export class FormulaContext implements ContextInterface {
   }
 
   public resetFormula(): void {
-    this.context = {}
+    this.variables = {}
+    this.spreadsheets = {}
+    this.blocks = {}
     this.formulaNames = []
     this.reverseVariableDependencies = {}
     this.reverseFunctionDependencies = {}

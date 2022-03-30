@@ -491,7 +491,6 @@ export interface DirtyFormulaInfo {
 }
 export interface ContextInterface {
   features: string[]
-  spreadsheets: SpreadsheetType[]
   formulaNames: FormulaName[]
   dirtyFormulas: Record<VariableKey, DirtyFormulaInfo>
   reservedNames: string[]
@@ -730,7 +729,7 @@ export interface VariableInterface {
   formulaContext: ContextInterface
 
   buildFormula: () => Formula
-  clearDependency: VoidFunction
+  cleanup: VoidFunction
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: VoidFunction

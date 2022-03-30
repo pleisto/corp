@@ -48,7 +48,7 @@ describe('Context', () => {
     const reverseFunctionDependencies = formulaContext.reverseFunctionDependencies
     const reverseVariableDependencies = formulaContext.reverseVariableDependencies
 
-    expect(Object.keys(formulaContext.context)).toMatchSnapshot()
+    expect(Object.keys(formulaContext.variables)).toMatchSnapshot()
     expect(reverseFunctionDependencies).toMatchSnapshot()
     expect(reverseVariableDependencies).toMatchSnapshot()
     expect(formulaContext.variableCount()).toEqual(2)
@@ -78,7 +78,7 @@ describe('Context', () => {
 
   it('removeVariable', async () => {
     await formulaContext.removeVariable(barNamespaceId, barVariableId)
-    expect(Object.keys(formulaContext.context)).toMatchSnapshot()
+    expect(Object.keys(formulaContext.variables)).toMatchSnapshot()
     expect(formulaContext.reverseFunctionDependencies).toMatchSnapshot()
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 

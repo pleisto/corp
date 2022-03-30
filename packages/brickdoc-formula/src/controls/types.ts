@@ -52,6 +52,7 @@ type handleCodeFragmentsType = (
 export interface BlockType extends BlockInitializer {
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
+  cleanup: VoidFunction
   persistence: () => BlockInitializer
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
@@ -134,6 +135,7 @@ export interface SpreadsheetType {
   spreadsheetId: SpreadsheetId
   namespaceId: NamespaceId
   dynamic: boolean
+  cleanup: VoidFunction
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType

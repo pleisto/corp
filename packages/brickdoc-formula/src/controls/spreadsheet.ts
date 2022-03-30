@@ -1,4 +1,4 @@
-import { BrickdocEventBus, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import { BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor, column2attrs } from '../grammar'
 import {
   AnyTypeResult,
@@ -34,6 +34,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
   listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  eventListeners: EventSubscribed[] = []
 
   constructor({
     spreadsheetId,
@@ -69,14 +70,21 @@ export class SpreadsheetClass implements SpreadsheetType {
       this.persistence = this.persistDynamic()
     }
 
-    // TODO: cleanup
-    BrickdocEventBus.subscribe(
+    const nameSubscription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateNameViaId,
       e => {
         this._name = e.payload.name
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${v4()}` }
     )
+    this.eventListeners.push(nameSubscription)
+  }
+
+  public cleanup(): void {
+    this.eventListeners.forEach(listener => {
+      listener.unsubscribe()
+    })
+    this.eventListeners = []
   }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {

@@ -4965,7 +4965,7 @@ Object {
   "positionChange": 27,
   "preview": SpreadsheetClass {
     "_formulaContext": FormulaContext {
-      "context": Object {},
+      "blocks": Object {},
       "dirtyFormulas": Object {},
       "domain": "test",
       "features": Array [
@@ -10522,9 +10522,9 @@ Object {
       ],
       "reverseFunctionDependencies": Object {},
       "reverseVariableDependencies": Object {},
-      "spreadsheets": Array [
-        [Circular],
-      ],
+      "spreadsheets": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": [Circular],
+      },
       "tickKey": "FormulaContext#test",
       "tickTimeout": 1000,
       "variableNameCounter": Object {
@@ -10561,6 +10561,7 @@ Object {
         "void": Object {},
       },
       "variableWeights": Object {},
+      "variables": Object {},
       "viewRenders": Object {
         "bar": [Function],
         "qrcode": [Function],
@@ -10568,6 +10569,11 @@ Object {
     },
     "_name": "MySpreadsheet",
     "dynamic": false,
+    "eventListeners": Array [
+      Object {
+        "unsubscribe": [Function],
+      },
+    ],
     "listCells": [Function],
     "listColumns": [Function],
     "listRows": [Function],
@@ -10620,7 +10626,7 @@ Object {
   "positionChange": 51,
   "preview": SpreadsheetClass {
     "_formulaContext": FormulaContext {
-      "context": Object {},
+      "blocks": Object {},
       "dirtyFormulas": Object {},
       "domain": "test",
       "features": Array [
@@ -16177,9 +16183,9 @@ Object {
       ],
       "reverseFunctionDependencies": Object {},
       "reverseVariableDependencies": Object {},
-      "spreadsheets": Array [
-        [Circular],
-      ],
+      "spreadsheets": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": [Circular],
+      },
       "tickKey": "FormulaContext#test",
       "tickTimeout": 1000,
       "variableNameCounter": Object {
@@ -16216,6 +16222,7 @@ Object {
         "void": Object {},
       },
       "variableWeights": Object {},
+      "variables": Object {},
       "viewRenders": Object {
         "bar": [Function],
         "qrcode": [Function],
@@ -16223,6 +16230,11 @@ Object {
     },
     "_name": "MySpreadsheet",
     "dynamic": false,
+    "eventListeners": Array [
+      Object {
+        "unsubscribe": [Function],
+      },
+    ],
     "listCells": [Function],
     "listColumns": [Function],
     "listRows": [Function],
