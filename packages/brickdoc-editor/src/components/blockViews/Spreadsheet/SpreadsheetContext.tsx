@@ -108,6 +108,7 @@ export const useSpreadsheetContext = (options: {
         const text = selectedRowIds
           .map(rowId => Array.from(valuesMatrix.get(rowId)?.values() ?? []).join('\t'))
           .join('\n')
+        devLog('write row to clipboard', text)
         void navigator.clipboard.writeText(text)
       } else if (selectedColumnIds?.length) {
         const text = [
@@ -190,6 +191,7 @@ export const useSpreadsheetContext = (options: {
       const thisSelected = cellIds?.length ?? selectedRowIds?.length ?? selectedColumnIds?.length
       if (text && thisSelected) {
         const pasteMatrix = parsePasteTable(text)
+        console.log('paste to spreadsheet', [text])
         devLog('paste to spreadsheet', [text])
         devLog('parsed', pasteMatrix)
         pasteToSpreadsheet(pasteMatrix)
