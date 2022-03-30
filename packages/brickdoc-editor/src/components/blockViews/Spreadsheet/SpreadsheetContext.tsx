@@ -106,7 +106,7 @@ export const useSpreadsheetContext = (options: {
         }
       } else if (selectedRowIds?.length) {
         const text = selectedRowIds
-          .map(rowId => Array.from(valuesMatrix.get(rowId)?.values() ?? []).join('\t'))
+          .map(rowId => columnIds.map(columnId => valuesMatrix.get(rowId)?.get(columnId) ?? '').join('\t'))
           .join('\n')
         devLog('write row to clipboard', text)
         void navigator.clipboard.writeText(text)
@@ -120,7 +120,7 @@ export const useSpreadsheetContext = (options: {
         void navigator.clipboard.writeText(text)
       }
     },
-    [selection, columnHeaders, valuesMatrix]
+    [selection, columnHeaders, columnIds, valuesMatrix]
   )
 
   const pasteToSpreadsheet = React.useCallback(
