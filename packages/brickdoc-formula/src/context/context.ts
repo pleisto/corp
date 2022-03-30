@@ -415,6 +415,10 @@ export class FormulaContext implements ContextInterface {
   }
 
   private async commitDirty(): Promise<void> {
+    if (!this.backendActions) {
+      this.dirtyFormulas = {}
+      return
+    }
     const commitFormulas: Formula[] = []
     const deleteFormulas: DeleteFormula[] = []
     const commitVariables: VariableInterface[] = []
@@ -430,9 +434,13 @@ export class FormulaContext implements ContextInterface {
     })
     if (commitFormulas.length > 0 || deleteFormulas.length > 0) {
       // console.log('commit dirty', commitFormulas, deleteFormulas, this.backendActions)
-      await this.backendActions?.commit(commitFormulas, deleteFormulas)
+      const { success } = await this.backendActions.commit(commitFormulas, deleteFormulas)
+      if (success) {
+        this.dirtyFormulas = {}
+      } else {
+        console.error('commit dirty failed')
+      }
     }
-    this.dirtyFormulas = {}
   }
 
   private parseCodeFragments(input: string): CodeFragment[] {
