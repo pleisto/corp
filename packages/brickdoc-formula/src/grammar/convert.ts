@@ -11,15 +11,12 @@ import {
   VariableInterface,
   VariableKey,
   BlockCompletion,
-  BlockFormulaName,
   ContextInterface,
   FunctionKey,
   CodeFragmentAttrs,
-  VariableFormulaName,
   CodeFragment,
   Completion,
-  SpreadsheetKey,
-  SpreadsheetFormulaName
+  SpreadsheetKey
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { maybeEncodeString, reverseTraversalString } from './util'
@@ -87,78 +84,16 @@ const variable2codeFragment = (variable: VariableInterface, pageId: NamespaceId)
   }
 }
 
-export const block2name = (block: BlockType): BlockFormulaName => {
-  return {
-    kind: 'Block',
-    name: block.name(''),
-    namespaceId: block.id,
-    renderTokens: (exist, pageId) => [
-      { image: '#', type: 'Sharp' },
-      pageId === block.id ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: block.id, type: 'UUID' }
-    ],
-    key: block.id
-  }
-}
-
-export const variable2name = (variable: VariableInterface): VariableFormulaName => {
-  const {
-    t: { namespaceId, name, variableId }
-  } = variable
-  const nameToken = { image: maybeEncodeString(name)[1], type: 'StringLiteral' }
-  return {
-    kind: 'Variable',
-    name,
-    renderTokens: (namespaceIsExist: boolean, pageId: NamespaceId) => {
-      if (namespaceIsExist) {
-        return [nameToken]
-      }
-
-      const namespaceToken =
-        pageId === namespaceId ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: namespaceId, type: 'UUID' }
-
-      return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
-    },
-    key: variableId,
-    namespaceId
-  }
-}
-
-export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormulaName => {
-  const nameToken = { image: maybeEncodeString(spreadsheet.name())[1], type: 'StringLiteral' }
-  return {
-    kind: 'Spreadsheet',
-    name: spreadsheet.name(),
-    namespaceId: spreadsheet.namespaceId,
-    renderTokens: (namespaceIsExist, pageId) => {
-      if (namespaceIsExist) {
-        return [nameToken]
-      }
-
-      const namespaceToken =
-        pageId === spreadsheet.namespaceId
-          ? { image: 'CurrentBlock', type: 'CurrentBlock' }
-          : { image: spreadsheet.namespaceId, type: 'UUID' }
-
-      return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
-    },
-    key: spreadsheet.spreadsheetId
-  }
-}
-
-export const block2completion = (
-  ctx: ContextInterface,
-  { key, name }: BlockFormulaName,
-  pageId: NamespaceId
-): BlockCompletion => {
-  const block = ctx.findBlockById(key)!
-  const value = currentBlockKey(key, pageId)
+export const block2completion = (ctx: ContextInterface, block: BlockType, pageId: NamespaceId): BlockCompletion => {
+  const value = currentBlockKey(block.id, pageId)
+  const name = block.name(pageId)
   return {
     kind: 'block',
-    weight: key === pageId ? 1 : -1,
+    weight: block.id === pageId ? 1 : -1,
     replacements: [value, ...reverseTraversalString(name)],
     positionChange: value.length,
     name,
-    namespace: key,
+    namespace: block.id,
     value,
     preview: block,
     codeFragments: [block2codeFragment(block, pageId)]

@@ -20,12 +20,14 @@ import {
   BaseFormula,
   FormulaSourceType,
   NamespaceId,
-  VariableTask
+  VariableTask,
+  NameDependencyWithKind
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
 import { variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
+import { maybeEncodeString } from '../grammar'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
   if (task.async) {
@@ -196,6 +198,7 @@ export class VariableClass implements VariableInterface {
   }
 
   public cleanup(): void {
+    this.formulaContext.removeName(this.t.variableId)
     this.unsubscripeEvents()
 
     this.t.variableDependencies.forEach(dependency => {
@@ -217,11 +220,15 @@ export class VariableClass implements VariableInterface {
         : []
       this.formulaContext.reverseFunctionDependencies[dependencyKey] = [...functionDependencies]
     })
+
+    this.onUpdate()
   }
 
   public trackDependency(): void {
     this.subscripeEvents()
     this.formulaContext.setBlock(this.t.namespaceId, '')
+
+    this.formulaContext.setName(this.nameDependency())
 
     this.t.variableDependencies.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
@@ -247,12 +254,9 @@ export class VariableClass implements VariableInterface {
   }
 
   namespaceName(pageId: NamespaceId): string {
-    // if (this.t.namespaceId === pageId) {
-    //   return 'Current Page'
-    // }
-    const formulaName = this.formulaContext.formulaNames.find(n => n.key === this.t.namespaceId && n.kind === 'Block')
-    if (formulaName) {
-      return formulaName.name
+    const block = this.formulaContext.findBlockById(this.t.namespaceId)
+    if (block) {
+      return block.name(pageId)
     }
 
     return 'Unknown'
@@ -266,6 +270,28 @@ export class VariableClass implements VariableInterface {
       position: 0,
       input: this.t.definition,
       type: this.t.type
+    }
+  }
+
+  nameDependency(): NameDependencyWithKind {
+    const nameToken = { image: maybeEncodeString(this.t.name)[1], type: 'StringLiteral' }
+    return {
+      id: this.t.variableId,
+      namespaceId: this.t.namespaceId,
+      name: this.t.name,
+      kind: 'Variable',
+      renderTokens: (namespaceIsExist: boolean, pageId: NamespaceId) => {
+        if (namespaceIsExist) {
+          return [nameToken]
+        }
+
+        const namespaceToken =
+          pageId === this.t.namespaceId
+            ? { image: 'CurrentBlock', type: 'CurrentBlock' }
+            : { image: this.t.namespaceId, type: 'UUID' }
+
+        return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
+      }
     }
   }
 

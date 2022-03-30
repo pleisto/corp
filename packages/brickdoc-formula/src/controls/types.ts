@@ -15,7 +15,8 @@ import {
   CodeFragment,
   ErrorMessage,
   FormulaType,
-  SpreadsheetId
+  SpreadsheetId,
+  NameDependencyWithKind
 } from '../types'
 
 export interface ControlType {
@@ -54,6 +55,7 @@ export interface BlockType {
   id: NamespaceId
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
+  nameDependency: () => NameDependencyWithKind
   cleanup: VoidFunction
   persistence: () => BlockInitializer
   handleCodeFragments: handleCodeFragmentsType
@@ -141,6 +143,7 @@ export interface SpreadsheetType {
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
+  nameDependency: () => NameDependencyWithKind
   columnCount: () => number
   rowCount: () => number
   name: () => string

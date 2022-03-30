@@ -1,10 +1,11 @@
 import { BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
-import { CodeFragmentVisitor, column2attrs } from '../grammar'
+import { CodeFragmentVisitor, column2attrs, maybeEncodeString } from '../grammar'
 import {
   AnyTypeResult,
   CodeFragment,
   ContextInterface,
   ErrorMessage,
+  NameDependencyWithKind,
   NamespaceId,
   StringResult,
   uuid,
@@ -74,6 +75,7 @@ export class SpreadsheetClass implements SpreadsheetType {
       SpreadsheetUpdateNameViaId,
       e => {
         this._name = e.payload.name
+        this._formulaContext.setName(this.nameDependency())
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${v4()}` }
     )
@@ -81,10 +83,33 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   public cleanup(): void {
+    this._formulaContext.removeName(this.spreadsheetId)
     this.eventListeners.forEach(listener => {
       listener.unsubscribe()
     })
     this.eventListeners = []
+  }
+
+  public nameDependency(): NameDependencyWithKind {
+    const nameToken = { image: maybeEncodeString(this._name)[1], type: 'StringLiteral' }
+    return {
+      kind: 'Spreadsheet',
+      id: this.spreadsheetId,
+      namespaceId: this.namespaceId,
+      name: this._name,
+      renderTokens: (namespaceIsExist, pageId) => {
+        if (namespaceIsExist) {
+          return [nameToken]
+        }
+
+        const namespaceToken =
+          pageId === this.namespaceId
+            ? { image: 'CurrentBlock', type: 'CurrentBlock' }
+            : { image: this.namespaceId, type: 'UUID' }
+
+        return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
+      }
+    }
   }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {

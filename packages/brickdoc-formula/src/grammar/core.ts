@@ -199,18 +199,14 @@ const abbrev = ({
 
     const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image
 
-    const formulaName = formulaContext.formulaNames.find(
-      n => n.name === match && (n.kind === 'Block' || blockKey(n.namespaceId) === variableNamespace)
-    )
+    const name = formulaContext.findNames(variableNamespace.slice(1), match)[0]
 
-    // devLog({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
-
-    if (!formulaName) {
+    if (!name) {
       newInput = newInput.concat(token.image)
       return
     }
 
-    const renderTokens = formulaName.renderTokens(namespaceIsExist, namespaceId)
+    const renderTokens = name.renderTokens(namespaceIsExist, namespaceId)
 
     newTokens.pop()
     const newRenderTokens = renderTokens.map(({ image, type }) => ({
@@ -504,9 +500,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     }
   }
 
-  const sameNameVariable = formulaContext.formulaNames.find(
-    v => v.name.toUpperCase() === name.toUpperCase() && v.namespaceId === namespaceId && v.key !== variableId
-  )
+  const sameNameVariable = formulaContext.findNames(namespaceId, name).filter(v => v.id !== variableId)[0]
 
   if (type === 'normal' && sameNameVariable) {
     return {

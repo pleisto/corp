@@ -1,5 +1,13 @@
 import { BlockInitializer, BlockType } from './types'
-import { AnyTypeResult, CodeFragment, ContextInterface, ErrorMessage, FormulaType, NamespaceId } from '../types'
+import {
+  AnyTypeResult,
+  CodeFragment,
+  ContextInterface,
+  ErrorMessage,
+  FormulaType,
+  NameDependencyWithKind,
+  NamespaceId
+} from '../types'
 import { CodeFragmentVisitor, spreadsheet2attrs, variable2attrs } from '../grammar'
 import { fetchResult } from '../context/variable'
 import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
@@ -23,6 +31,7 @@ export class BlockClass implements BlockType {
       BlockNameLoad,
       e => {
         this._name = e.payload.name
+        this._formulaContext.setName(this.nameDependency())
       },
       { subscribeId: `Block#${this.id}`, eventId: this.id }
     )
@@ -37,7 +46,21 @@ export class BlockClass implements BlockType {
     }
   }
 
+  public nameDependency(): NameDependencyWithKind {
+    return {
+      kind: 'Block',
+      id: this.id,
+      namespaceId: this.id,
+      name: this._name,
+      renderTokens: (exist, pageId) => [
+        { image: '#', type: 'Sharp' },
+        pageId === this.id ? { image: 'CurrentBlock', type: 'CurrentBlock' } : { image: this.id, type: 'UUID' }
+      ]
+    }
+  }
+
   public cleanup(): void {
+    this._formulaContext.removeName(this.id)
     this.eventListeners.forEach(listener => {
       listener.unsubscribe()
     })
