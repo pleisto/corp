@@ -17,7 +17,6 @@ import {
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
-import { BlockClass } from '../controls/block'
 import { block2codeFragment } from './convert'
 import { PositionFragment } from './core'
 import {
@@ -271,7 +270,10 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
               ? blockCodeFragment?.value
               : blockCodeFragment?.attrs?.id ?? ''
 
-          object = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
+          object = this.ctx.formulaContext.findBlockById(namespaceId)
+          if (!object) {
+            extraErrorMessages.push({ type: 'syntax', message: 'Block not found' })
+          }
         }
 
         if (firstArgumentType === 'Spreadsheet') {
@@ -758,7 +760,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     if (formulaName?.kind === 'Block') {
       const parentType: FormulaType = 'Block'
       const { errorMessages, newType } = intersectType(type, parentType, 'blockExpression', this.ctx)
-      const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
+      const block = this.ctx.formulaContext.findBlockById(namespaceId)!
       const hide = namespaceId === this.ctx.meta.namespaceId
 
       return {

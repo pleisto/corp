@@ -44,14 +44,19 @@ import {
   variable2completion,
   variableKey,
   block2completion,
-  block2name,
   spreadsheet2name
 } from '../grammar/convert'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
-import { BlockNameLoad, BlockSpreadsheetLoaded, BrickdocEventBus, FormulaContextTickTrigger } from '@brickdoc/schema'
+import {
+  BlockNameLoad,
+  BlockSpreadsheetLoaded,
+  BrickdocEventBus,
+  EventSubscribed,
+  FormulaContextTickTrigger
+} from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 import { DEFAULT_VIEWS } from '../render'
@@ -61,7 +66,6 @@ export interface FormulaContextArgs {
   tickTimeout?: number
   functionClauses?: Array<BaseFunctionClause<any>>
   backendActions?: BackendActions
-  formulaNames?: FormulaName[]
   features?: string[]
 }
 
@@ -164,13 +168,13 @@ export class FormulaContext implements ContextInterface {
   backendActions: BackendActions | undefined
   reservedNames: string[] = []
   formulaNames: FormulaName[] = []
+  eventListeners: EventSubscribed[] = []
 
   constructor({
     domain,
     tickTimeout,
     functionClauses = [],
     backendActions,
-    formulaNames,
     features = [FORMULA_FEATURE_CONTROL]
   }: FormulaContextArgs) {
     this.domain = domain
@@ -181,25 +185,24 @@ export class FormulaContext implements ContextInterface {
       this.backendActions = backendActions
     }
 
-    if (formulaNames) {
-      this.formulaNames = formulaNames
-    }
-
     this.viewRenders = DEFAULT_VIEWS.reduce((o: Record<ViewType, ViewRender>, acc: View) => {
       o[acc.type] = acc.render
       return o
     }, {})
 
-    BrickdocEventBus.subscribe(BlockNameLoad, e => {
-      const namespaceId = e.payload.id
-      const name = e.payload.name || 'Untitled'
-      const block = new BlockClass(this, { id: namespaceId })
-      this.formulaNames = this.formulaNames
-        .filter(n => !(n.kind === 'Block' && n.key === namespaceId))
-        .concat({ ...block2name(block), name })
-    })
+    const blockNameSubscription = BrickdocEventBus.subscribe(
+      BlockNameLoad,
+      e => {
+        const namespaceId = e.payload.id
+        if (this.blocks[namespaceId]) return
+        this.blocks[namespaceId] = new BlockClass(this, { id: namespaceId, name: e.payload.name })
+      },
+      { subscribeId: `Domain#${this.domain}` }
+    )
 
-    BrickdocEventBus.subscribe(
+    this.eventListeners.push(blockNameSubscription)
+
+    const tickSubscription = BrickdocEventBus.subscribe(
       FormulaContextTickTrigger,
       e => {
         void this.tick(e.payload.state)
@@ -209,6 +212,8 @@ export class FormulaContext implements ContextInterface {
         subscribeId: `Domain#${this.domain}`
       }
     )
+
+    this.eventListeners.push(tickSubscription)
 
     void this.tick(undefined as ContextState)
 
@@ -242,6 +247,13 @@ export class FormulaContext implements ContextInterface {
       },
       {}
     )
+  }
+
+  public cleanup(): void {
+    this.eventListeners.forEach(listener => {
+      listener.unsubscribe()
+    })
+    this.eventListeners = []
   }
 
   public async invoke(name: string, ctx: FunctionContext, ...args: any[]): Promise<AnyTypeResult> {
@@ -292,6 +304,10 @@ export class FormulaContext implements ContextInterface {
 
   public findSpreadsheetById(spreadsheetId: SpreadsheetId): SpreadsheetType | undefined {
     return this.spreadsheets[spreadsheetId]
+  }
+
+  public findBlockById(blockId: NamespaceId): BlockType | undefined {
+    return this.blocks[blockId]
   }
 
   public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {

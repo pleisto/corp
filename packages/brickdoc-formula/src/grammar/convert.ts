@@ -22,7 +22,6 @@ import {
   SpreadsheetFormulaName
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
-import { BlockClass } from '../controls/block'
 import { maybeEncodeString, reverseTraversalString } from './util'
 import { fetchResult } from '../context'
 
@@ -151,7 +150,7 @@ export const block2completion = (
   { key, name }: BlockFormulaName,
   pageId: NamespaceId
 ): BlockCompletion => {
-  const block = new BlockClass(ctx, { id: key })
+  const block = ctx.findBlockById(key)!
   const value = currentBlockKey(key, pageId)
   return {
     kind: 'block',

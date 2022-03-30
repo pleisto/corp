@@ -26,7 +26,6 @@ import {
 import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
 import { block2name, variable2name, variableKey } from '../grammar/convert'
-import { BlockClass } from '../controls/block'
 import { v4 as uuid } from 'uuid'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
@@ -232,7 +231,7 @@ export class VariableClass implements VariableInterface {
       !this.formulaContext.formulaNames.find(n => n.kind === 'Block' && n.key === this.t.namespaceId) &&
       this.t.type === 'normal'
     ) {
-      const block = new BlockClass(this.formulaContext, { id: this.t.namespaceId })
+      const block = this.formulaContext.findBlockById(this.t.namespaceId)!
       this.formulaContext.formulaNames.push({ ...block2name(block), name: 'Untitled' })
     }
 

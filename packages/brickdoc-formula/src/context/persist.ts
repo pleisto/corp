@@ -185,8 +185,12 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Block' && !(result.result instanceof BlockClass)) {
-    const blockResult = new BlockClass(ctx.formulaContext, result.result)
-    return { type: 'Block', result: blockResult }
+    const block = ctx.formulaContext.findBlockById(result.result.id)
+    if (block) {
+      return { type: 'Block', result: block }
+    } else {
+      return { type: 'Error', result: `Block ${result.result.id} not found`, errorKind: 'deps' }
+    }
   }
 
   if (result.type === 'Button' && !(result.result instanceof ButtonClass)) {

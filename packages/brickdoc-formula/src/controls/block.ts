@@ -2,35 +2,47 @@ import { BlockInitializer, BlockType } from './types'
 import { AnyTypeResult, CodeFragment, ContextInterface, ErrorMessage, FormulaType, NamespaceId } from '../types'
 import { CodeFragmentVisitor, spreadsheet2attrs, variable2attrs } from '../grammar'
 import { fetchResult } from '../context/variable'
+import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
   id: NamespaceId
+  _name: string
+  eventListeners: EventSubscribed[] = []
 
-  constructor(_formulaContext: ContextInterface, { id }: BlockInitializer) {
+  constructor(_formulaContext: ContextInterface, { id, name }: BlockInitializer) {
     this._formulaContext = _formulaContext
     this.id = id
+    this._name = name ?? 'Untitled'
     this.name = (pageId: NamespaceId) => {
-      // if (pageId === this.id) {
-      //   return 'Current Page'
-      // }
-      const formulaName = this._formulaContext.formulaNames.find(n => n.key === id && n.kind === 'Block')
-      if (formulaName) {
-        return formulaName.name
-      }
-
-      return 'Unknown'
+      return this._name
     }
+
+    const blockNameSubscription = BrickdocEventBus.subscribe(
+      BlockNameLoad,
+      e => {
+        this._name = e.payload.name
+      },
+      { subscribeId: `Block#${this.id}`, eventId: this.id }
+    )
+
+    this.eventListeners.push(blockNameSubscription)
   }
 
   persistence(): BlockInitializer {
     return {
-      id: this.id
+      id: this.id,
+      name: this._name
     }
   }
 
-  public cleanup(): void {}
+  public cleanup(): void {
+    this.eventListeners.forEach(listener => {
+      listener.unsubscribe()
+    })
+    this.eventListeners = []
+  }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)

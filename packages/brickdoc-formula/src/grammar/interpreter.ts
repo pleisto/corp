@@ -17,7 +17,6 @@ import {
 } from '../types'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
-import { BlockClass } from '../controls/block'
 import { ParserInstance } from './parser'
 import {
   accessOperator,
@@ -402,7 +401,7 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
       if (shouldReturnEarly(typeError)) return typeError!
 
-      const block = new BlockClass(this.ctx.formulaContext, { id: namespaceId })
+      const block = this.ctx.formulaContext.findBlockById(namespaceId)!
       return { type: 'Block', result: block }
     }
 

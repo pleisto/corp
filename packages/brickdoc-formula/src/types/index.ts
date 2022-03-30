@@ -504,6 +504,7 @@ export interface ContextInterface {
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findViewRender: (viewType: ViewType) => ViewRender | undefined
   findSpreadsheetById: (spreadsheetId: SpreadsheetId) => SpreadsheetType | undefined
+  findBlockById: (blockId: NamespaceId) => BlockType | undefined
   findSpreadsheetByName: (namespaceId: NamespaceId, name: string) => SpreadsheetType | undefined
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
@@ -516,6 +517,7 @@ export interface ContextInterface {
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
   resetFormula: VoidFunction
+  cleanup: VoidFunction
 }
 
 interface TestCase {

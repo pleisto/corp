@@ -36,6 +36,7 @@ export interface ButtonType extends ControlType {
 
 export interface BlockInitializer {
   id: NamespaceId
+  name: string
 }
 
 type handleInterpretType = (name: string) => Promise<AnyTypeResult>
@@ -49,7 +50,8 @@ type handleCodeFragmentsType = (
   name: string,
   rhsCodeFragments: CodeFragment[]
 ) => handleCodeFragmentsResult
-export interface BlockType extends BlockInitializer {
+export interface BlockType {
+  id: NamespaceId
   _formulaContext: ContextInterface
   name: (pageId: NamespaceId) => string
   cleanup: VoidFunction

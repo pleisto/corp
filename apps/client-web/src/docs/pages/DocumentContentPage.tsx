@@ -146,12 +146,10 @@ export const DocumentContentPage: React.FC = () => {
   const { queryFormulas, commitFormula, generateFormulaFunctionClauses } = useFormulaActions()
 
   React.useEffect(() => {
-    const formulaNames: FormulaName[] = []
     const functionClauses = generateFormulaFunctionClauses(docMeta)
     const formulaContext = new FormulaContext({
       domain: loginDomain,
       backendActions: { commit: commitFormula },
-      formulaNames,
       functionClauses,
       features: featureFlags
     })
