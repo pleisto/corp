@@ -3842,7 +3842,7 @@ Array [
 ]
 `;
 
-exports[`Simple test case [variable name is case sensitive] =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.Bar // => ✗ 1`] = `
+exports[`Simple test case [variable name is case insensitive] =#cd4f6e1e-765e-4064-badd-b5585c7eff8e.Bar // => 24 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -3877,18 +3877,18 @@ Array [
     "value": ".",
   },
   Object {
-    "attrs": undefined,
-    "code": "FunctionName",
-    "display": "Bar",
-    "errors": Array [
-      Object {
-        "message": "\\"Bar\\" not found",
-        "type": "deps",
-      },
-    ],
+    "attrs": Object {
+      "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      "kind": "Variable",
+      "name": "bar",
+      "namespaceId": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+    },
+    "code": "Variable",
+    "display": "bar",
+    "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "Bar",
+    "value": "bar",
   },
 ]
 `;

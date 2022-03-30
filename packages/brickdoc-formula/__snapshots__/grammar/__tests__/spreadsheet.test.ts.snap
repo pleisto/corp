@@ -4965,27 +4965,31 @@ Object {
   "positionChange": 27,
   "preview": SpreadsheetClass {
     "_formulaContext": FormulaContext {
-      "blocks": Object {},
+      "blocks": Object {
+        "57622108-1337-4edd-833a-2557835bcfe0": BlockClass {
+          "_formulaContext": [Circular],
+          "_name": "Page1",
+          "eventListeners": Array [
+            Object {
+              "unsubscribe": [Function],
+            },
+          ],
+          "id": "57622108-1337-4edd-833a-2557835bcfe0",
+          "name": [Function],
+        },
+      },
       "dirtyFormulas": Object {},
       "domain": "test",
+      "eventListeners": Array [
+        Object {
+          "unsubscribe": [Function],
+        },
+        Object {
+          "unsubscribe": [Function],
+        },
+      ],
       "features": Array [
         "formula-controls",
-      ],
-      "formulaNames": Array [
-        Object {
-          "key": "57622108-1337-4edd-833a-2557835bcfe0",
-          "kind": "Block",
-          "name": "Page1",
-          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-          "renderTokens": [Function],
-        },
-        Object {
-          "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
-          "kind": "Spreadsheet",
-          "name": "MySpreadsheet",
-          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-          "renderTokens": [Function],
-        },
       ],
       "functionClausesMap": Object {
         "ABS": Object {
@@ -10459,6 +10463,22 @@ Object {
         },
       },
       "functionWeights": Object {},
+      "names": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": Object {
+          "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "kind": "Spreadsheet",
+          "name": "MySpreadsheet",
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "renderTokens": [Function],
+        },
+        "57622108-1337-4edd-833a-2557835bcfe0": Object {
+          "id": "57622108-1337-4edd-833a-2557835bcfe0",
+          "kind": "Block",
+          "name": "Page1",
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "renderTokens": [Function],
+        },
+      },
       "reservedNames": Array [
         "CURRENT_POSITION",
         "REQUEST_GET",
@@ -10626,27 +10646,31 @@ Object {
   "positionChange": 51,
   "preview": SpreadsheetClass {
     "_formulaContext": FormulaContext {
-      "blocks": Object {},
+      "blocks": Object {
+        "57622108-1337-4edd-833a-2557835bcfe0": BlockClass {
+          "_formulaContext": [Circular],
+          "_name": "Page1",
+          "eventListeners": Array [
+            Object {
+              "unsubscribe": [Function],
+            },
+          ],
+          "id": "57622108-1337-4edd-833a-2557835bcfe0",
+          "name": [Function],
+        },
+      },
       "dirtyFormulas": Object {},
       "domain": "test",
+      "eventListeners": Array [
+        Object {
+          "unsubscribe": [Function],
+        },
+        Object {
+          "unsubscribe": [Function],
+        },
+      ],
       "features": Array [
         "formula-controls",
-      ],
-      "formulaNames": Array [
-        Object {
-          "key": "57622108-1337-4edd-833a-2557835bcfe0",
-          "kind": "Block",
-          "name": "Page1",
-          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-          "renderTokens": [Function],
-        },
-        Object {
-          "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
-          "kind": "Spreadsheet",
-          "name": "MySpreadsheet",
-          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
-          "renderTokens": [Function],
-        },
       ],
       "functionClausesMap": Object {
         "ABS": Object {
@@ -16120,6 +16144,22 @@ Object {
         },
       },
       "functionWeights": Object {},
+      "names": Object {
+        "28e28190-63bd-4f70-aeca-26e72574c01a": Object {
+          "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+          "kind": "Spreadsheet",
+          "name": "MySpreadsheet",
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "renderTokens": [Function],
+        },
+        "57622108-1337-4edd-833a-2557835bcfe0": Object {
+          "id": "57622108-1337-4edd-833a-2557835bcfe0",
+          "kind": "Block",
+          "name": "Page1",
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "renderTokens": [Function],
+        },
+      },
       "reservedNames": Array [
         "CURRENT_POSITION",
         "REQUEST_GET",

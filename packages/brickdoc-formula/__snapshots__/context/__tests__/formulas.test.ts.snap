@@ -1898,8 +1898,8 @@ Array [
         "display": "foo",
         "errors": Array [
           Object {
-            "message": "\\"foo\\" not found",
-            "type": "deps",
+            "message": "Block not found",
+            "type": "syntax",
           },
         ],
         "hide": false,
@@ -2526,12 +2526,7 @@ Array [
     "isPure": true,
     "kind": "unknown",
     "name": "bar",
-    "nameDependencies": Array [
-      Object {
-        "name": "foo",
-        "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
-      },
-    ],
+    "nameDependencies": Array [],
     "namespaceId": "615d7f74-dc97-4aae-8690-b6cba1072a6a",
     "task": Object {
       "async": false,

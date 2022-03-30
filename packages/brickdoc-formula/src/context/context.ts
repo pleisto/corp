@@ -319,6 +319,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findNames(namespaceId: NamespaceId, name: string): NameDependencyWithKind[] {
+    if (!name) return []
     return Object.values(this.names).filter(
       n => n.name.toUpperCase() === name.toUpperCase() && (n.kind === 'Block' || n.namespaceId === namespaceId)
     )

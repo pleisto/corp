@@ -22,7 +22,7 @@ export class BlockClass implements BlockType {
   constructor(_formulaContext: ContextInterface, { id, name }: BlockInitializer) {
     this._formulaContext = _formulaContext
     this.id = id
-    this._name = name ?? 'Untitled'
+    this._name = name || 'Untitled'
     this.name = (pageId: NamespaceId) => {
       return this._name
     }
