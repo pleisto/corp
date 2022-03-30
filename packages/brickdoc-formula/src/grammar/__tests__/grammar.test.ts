@@ -305,7 +305,7 @@ const testCases: TestCase[] = [
     input: `=#${barNamespaceId}.Bar`,
     label: 'variable name is case sensitive',
     parseErrorType: 'syntax',
-    errorMessage: 'Variable "Bar" not found'
+    errorMessage: '"Bar" not found'
   },
   {
     input: `=bar`,

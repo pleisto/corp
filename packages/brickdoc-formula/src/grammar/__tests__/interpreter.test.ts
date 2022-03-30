@@ -246,7 +246,7 @@ describe('Context', () => {
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: 'Variable "unknown" not found', type: 'deps' }])
+    expect(errorMessages).toEqual([{ message: '"unknown" not found', type: 'deps' }])
   })
 
   it('unknown variable 2', () => {
@@ -254,6 +254,6 @@ describe('Context', () => {
     const newMeta = { ...meta, input }
     const finalCtx = { ...ctx, meta: newMeta }
     const { errorMessages } = parse({ ctx: finalCtx })
-    expect(errorMessages).toEqual([{ message: 'Variable "unknown variable" not found', type: 'deps' }])
+    expect(errorMessages).toEqual([{ message: '"unknown variable" not found', type: 'deps' }])
   })
 })

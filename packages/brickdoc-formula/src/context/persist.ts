@@ -161,7 +161,7 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
         })
       }
     } else {
-      const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.blockId)
+      const spreadsheet = ctx.formulaContext.findSpreadsheetById(result.result.blockId)
       if (spreadsheet) {
         return { type: 'Spreadsheet', result: spreadsheet }
       } else {
@@ -171,12 +171,12 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Range') {
-    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.spreadsheetId)
+    const spreadsheet = ctx.formulaContext.findSpreadsheetById(result.result.spreadsheetId)
     return { type: 'Range', result: { ...result.result, spreadsheet } }
   }
 
   if (result.type === 'Column' && !(result.result instanceof ColumnClass)) {
-    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.spreadsheetId)
+    const spreadsheet = ctx.formulaContext.findSpreadsheetById(result.result.spreadsheetId)
     if (spreadsheet) {
       return { type: 'Column', result: new ColumnClass(spreadsheet, result.result) }
     } else {

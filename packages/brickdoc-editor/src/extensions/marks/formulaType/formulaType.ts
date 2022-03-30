@@ -93,20 +93,6 @@ export const FormulaType = createMark<FormulaTypeOptions, FormulaTypeAttributes>
           }
         }
       },
-      renderText: {
-        default: null,
-        keepOnSplit: true,
-        parseHTML: element => element.getAttribute('data-renderText'),
-        renderHTML: attributes => {
-          if (!attributes.renderText) {
-            return {}
-          }
-
-          return {
-            'data-renderText': JSON.stringify(attributes.renderText)
-          }
-        }
-      },
       attrs: {
         default: null,
         keepOnSplit: true,

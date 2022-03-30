@@ -161,11 +161,13 @@ const JSONContentToText = (c: JSONContent, prevC: JSONContent | undefined): stri
     return text
   }
 
-  if (!attrs.renderText || typeof attrs.renderText === 'string') {
-    return attrs.display === text ? attrs.value : text
-  }
+  return attrs.display === text ? attrs.value : text
 
-  const prevText = prevC?.text ?? ''
+  // if (!attrs.renderText || typeof attrs.renderText === 'string') {
 
-  return attrs.renderText(text, attrs, prevText)
+  // }
+
+  // const prevText = prevC?.text ?? ''
+
+  // return attrs.renderText(text, attrs, prevText)
 }

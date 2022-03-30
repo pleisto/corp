@@ -1,6 +1,6 @@
 import { BlockInitializer, BlockType } from './types'
 import { AnyTypeResult, CodeFragment, ContextInterface, ErrorMessage, FormulaType, NamespaceId } from '../types'
-import { CodeFragmentVisitor, variable2attrs, variableRenderText } from '../grammar'
+import { CodeFragmentVisitor, variable2attrs } from '../grammar'
 import { fetchResult } from '../context/variable'
 
 export class BlockClass implements BlockType {
@@ -31,9 +31,14 @@ export class BlockClass implements BlockType {
   }
 
   async handleInterpret(name: string): Promise<AnyTypeResult> {
+    const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
+    if (spreadsheet) {
+      return { type: 'Spreadsheet', result: spreadsheet }
+    }
+
     const variable = this._formulaContext.findVariableByName(this.id, name)
     if (!variable || !variable.savedT) {
-      return { type: 'Error', result: `Variable "${name}" not found`, errorKind: 'runtime' }
+      return { type: 'Error', result: `"${name}" not found`, errorKind: 'runtime' }
     }
 
     if (variable.savedT.task.async) {
@@ -47,7 +52,20 @@ export class BlockClass implements BlockType {
     visitor: CodeFragmentVisitor,
     name: string,
     codeFragments: CodeFragment[]
-  ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
+  ): {
+    errors: ErrorMessage[]
+    firstArgumentType: FormulaType | undefined
+    codeFragments: CodeFragment[]
+  } {
+    const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
+    if (spreadsheet) {
+      return {
+        errors: [],
+        firstArgumentType: 'Spreadsheet',
+        codeFragments
+      }
+    }
+
     const variable = this._formulaContext.findVariableByName(this.id, name)
     const errors: ErrorMessage[] = []
 
@@ -61,7 +79,7 @@ export class BlockClass implements BlockType {
     ]
 
     if (!variable) {
-      errors.push({ type: 'deps', message: `Variable "${name}" not found` })
+      errors.push({ type: 'deps', message: `"${name}" not found` })
       return {
         errors,
         firstArgumentType: undefined,
@@ -92,8 +110,7 @@ export class BlockClass implements BlockType {
           ...codeFragments[0],
           display: name,
           code: 'Variable',
-          attrs: variable2attrs(variable),
-          renderText: variableRenderText(variable, visitor.ctx.meta.namespaceId)
+          attrs: variable2attrs(variable)
         }
       ]
     }

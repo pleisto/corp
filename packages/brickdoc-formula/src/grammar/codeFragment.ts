@@ -18,7 +18,7 @@ import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
 import { BlockClass } from '../controls/block'
-import { block2codeFragment, spreadsheet2codeFragment } from './convert'
+import { block2codeFragment } from './convert'
 import { PositionFragment } from './core'
 import {
   additionOperator,
@@ -43,7 +43,6 @@ export const token2fragment = (token: IToken, type: FormulaType): CodeFragment =
     value: token.image,
     code: token.tokenType.name as SimpleCodeFragmentType,
     errors: [],
-    renderText: undefined,
     hide: false,
     type,
     display: token.image,
@@ -221,6 +220,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
 
     let firstArgumentType: FormulaType = lhsType
 
+    // eslint-disable-next-line complexity
     ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
       const rhsCst = ctx.rhs?.[idx]
       const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
@@ -253,9 +253,10 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
           ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
-        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
-          type: 'string'
-        })
+        const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult =
+          rhsCst.name === 'keyExpression'
+            ? this.visit(rhsCst, { type: 'string' })
+            : { codeFragments: [], image: rhsCst.image, type: 'any' }
         const name = parseString(rhsImage)
 
         let object
@@ -276,7 +277,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Spreadsheet') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findSpreadsheet(attrs.namespaceId)
+            object = this.ctx.formulaContext.findSpreadsheetById(attrs.namespaceId)
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })
@@ -685,7 +686,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       value: image,
       code: 'NumberLiteral',
       errors,
-      renderText: undefined,
       hide: false,
       type: 'number',
       display: image,
@@ -837,7 +837,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       value: functionKey,
       code: 'FunctionName',
       errors: [],
-      renderText: undefined,
       hide: false,
       type: 'any',
       display: functionKey,
@@ -1051,7 +1050,6 @@ export const addSpace = (
   const spaceCodeFragment: CodeFragment = {
     code: 'Space',
     value: ' ',
-    renderText: undefined,
     hide: false,
     type: 'any',
     display: ' ',
@@ -1093,7 +1091,6 @@ export const addSpace = (
     //     code: 'other',
     //     value: errorMessage,
     //     type: 'any',
-    //     renderText: undefined,
     //     display: errorMessage,
     //     errors: [],
     //     attrs: undefined

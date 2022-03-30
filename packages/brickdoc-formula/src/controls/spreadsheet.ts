@@ -1,4 +1,4 @@
-import { CodeFragmentVisitor, column2attrs, columnRenderText } from '../grammar'
+import { CodeFragmentVisitor, column2attrs } from '../grammar'
 import {
   AnyTypeResult,
   CodeFragment,
@@ -158,8 +158,7 @@ export class SpreadsheetClass implements SpreadsheetType {
           ...codeFragments[0],
           display: name,
           code: 'Column',
-          attrs: column2attrs(column),
-          renderText: columnRenderText(column)
+          attrs: column2attrs(column)
         }
       ]
     }

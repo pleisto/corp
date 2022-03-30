@@ -134,7 +134,7 @@ const simpleCommonTestCases = [
   { input: `+foo_bar`, resultData: 'Parse error: "+"' },
   { input: `+#CurrentBlock.foo_bar`, resultData: 'Parse error: "+"' },
   { input: `#CurrentBlock.foo_bar+`, newInput: `foo_bar+`, resultData: 'Missing expression' },
-  { input: `#CurrentBlock.foo_ba1r`, resultData: 'Variable "foo_ba1r" not found' },
+  { input: `#CurrentBlock.foo_ba1r`, resultData: '"foo_ba1r" not found' },
 
   // Variable with error
   {
@@ -216,7 +216,6 @@ const normalTestCases = [
                 type: 'number',
                 display: '12',
                 value: '12',
-                renderText: undefined,
                 hide: false
               }
             }
@@ -271,7 +270,6 @@ const spreadsheetTestCases = [
                 type: 'any',
                 display: '=',
                 value: '=',
-                renderText: undefined,
                 hide: false
               }
             }
@@ -290,7 +288,6 @@ const spreadsheetTestCases = [
                 type: 'number',
                 display: '12',
                 value: '12',
-                renderText: undefined,
                 hide: false
               }
             }

@@ -200,7 +200,7 @@ const abbrev = ({
     const match = token.tokenType.name === 'StringLiteral' ? parseString(token.image) : token.image
 
     const formulaName = formulaContext.formulaNames.find(
-      n => n.name === match && (n.kind !== 'Variable' || blockKey(n.namespaceId) === variableNamespace)
+      n => n.name === match && (n.kind === 'Block' || blockKey(n.namespaceId) === variableNamespace)
     )
 
     // devLog({ formulaNames: formulaContext.formulaNames, variableNamespace, token: token.image, formulaName })
@@ -331,7 +331,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
           code: 'literal',
           value: input,
           type: 'any',
-          renderText: undefined,
           hide: false,
           display: input,
           errors: [],
@@ -402,7 +401,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
           code: 'parseErrorOther',
           value: restImages,
           type: 'any',
-          renderText: undefined,
           hide: false,
           display: restImages,
           errors: errorMessages,
@@ -431,7 +429,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
         code: 'parseErrorOther',
         value: restImages,
         type: 'any',
-        renderText: undefined,
         hide: false,
         display: restImages,
         errors: finalErrorMessages,

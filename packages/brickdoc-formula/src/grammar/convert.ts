@@ -17,8 +17,9 @@ import {
   CodeFragmentAttrs,
   VariableFormulaName,
   CodeFragment,
-  SpreadsheetFormulaName,
-  Completion
+  Completion,
+  SpreadsheetKey,
+  SpreadsheetFormulaName
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { BlockClass } from '../controls/block'
@@ -34,55 +35,6 @@ export const currentBlockKey = (namespaceId: NamespaceId, pageId: NamespaceId): 
   namespaceId === pageId ? '#CurrentBlock' : blockKey(namespaceId)
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
-
-export const variableRenderText = (variable: VariableInterface, pageId: NamespaceId): CodeFragment['renderText'] => {
-  return undefined
-}
-
-export const columnRenderText = (column: ColumnType): CodeFragment['renderText'] => {
-  return (text, { display }, prevText) => {
-    const [valid, finalText] = maybeEncodeString(text)
-    let result = finalText
-    let prefix = ''
-
-    if (!valid && text !== display) {
-      if (text.startsWith(display)) {
-        const body = maybeEncodeString(display)[1]
-        const rest = text.substring(display.length)
-        result = body.concat(rest)
-      }
-
-      if (text.endsWith(display)) {
-        result = maybeEncodeString(display)[1]
-        prefix = text.substring(0, text.length - display.length)
-      }
-    }
-
-    return prefix.concat(result)
-  }
-}
-
-const blockRenderText = (blockId: NamespaceId, pageId: NamespaceId): CodeFragment['renderText'] => {
-  return (text, { display, value }, prevText) => {
-    const blockValue = blockId === pageId ? '#CurrentBlock' : value
-    if (text === display) {
-      return blockValue
-    }
-
-    if (text.startsWith(display)) {
-      const suffix = text.substring(display.length)
-      return blockValue.concat(suffix)
-    }
-
-    if (text.endsWith(display)) {
-      const prefix = text.substring(0, text.length - display.length)
-      return prefix.concat(blockValue)
-    }
-
-    const [, finalText] = maybeEncodeString(text)
-    return finalText
-  }
-}
 
 const block2attrs = (block: BlockType, pageId: NamespaceId): CodeFragmentAttrs => ({
   kind: 'Block',
@@ -116,7 +68,6 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
   return {
     display: block.name(pageId),
     errors: [],
-    renderText: blockRenderText(block.id, pageId),
     hide: false,
     value: currentBlockKey(block.id, pageId),
     code: 'Block',
@@ -131,24 +82,9 @@ const variable2codeFragment = (variable: VariableInterface, pageId: NamespaceId)
     errors: [],
     value: maybeEncodeString(variable.t.name)[1],
     code: 'Variable',
-    renderText: variableRenderText(variable, pageId),
     hide: false,
     type: fetchResult(variable.t).type,
     attrs: variable2attrs(variable)
-  }
-}
-
-export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: NamespaceId): CodeFragment => {
-  const value = blockKey(spreadsheet.spreadsheetId)
-  return {
-    display: spreadsheet.name(),
-    errors: [],
-    value,
-    code: 'Spreadsheet',
-    type: 'Spreadsheet',
-    renderText: blockRenderText(spreadsheet.spreadsheetId, pageId),
-    hide: false,
-    attrs: spreadsheet2attrs(spreadsheet)
   }
 }
 
@@ -188,6 +124,28 @@ export const variable2name = (variable: VariableInterface): VariableFormulaName 
   }
 }
 
+export const spreadsheet2name = (spreadsheet: SpreadsheetType): SpreadsheetFormulaName => {
+  const nameToken = { image: maybeEncodeString(spreadsheet.name())[1], type: 'StringLiteral' }
+  return {
+    kind: 'Spreadsheet',
+    name: spreadsheet.name(),
+    namespaceId: spreadsheet.namespaceId,
+    renderTokens: (namespaceIsExist, pageId) => {
+      if (namespaceIsExist) {
+        return [nameToken]
+      }
+
+      const namespaceToken =
+        pageId === spreadsheet.namespaceId
+          ? { image: 'CurrentBlock', type: 'CurrentBlock' }
+          : { image: spreadsheet.namespaceId, type: 'UUID' }
+
+      return [{ image: '#', type: 'Sharp' }, namespaceToken, { image: '.', type: 'Dot' }, nameToken]
+    },
+    key: spreadsheet.spreadsheetId
+  }
+}
+
 export const block2completion = (
   ctx: ContextInterface,
   { key, name }: BlockFormulaName,
@@ -209,35 +167,47 @@ export const block2completion = (
 }
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: NamespaceId): SpreadsheetCompletion => {
-  const value = blockKey(spreadsheet.spreadsheetId)
+  const namespaceKey = currentBlockKey(spreadsheet.namespaceId, pageId)
+  const value: SpreadsheetKey = `${namespaceKey}.${spreadsheet.name()}`
   return {
     kind: 'spreadsheet',
-    replacements: [spreadsheet.name()],
+    replacements: [...reverseTraversalString(value, namespaceKey.length)],
     weight: 10,
     name: spreadsheet.name(),
     positionChange: value.length,
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    codeFragments: [spreadsheet2codeFragment(spreadsheet, pageId)]
+    codeFragments: [
+      {
+        display: spreadsheet.name(),
+        errors: [],
+        value,
+        code: 'Spreadsheet',
+        type: 'Spreadsheet',
+        hide: false,
+        attrs: spreadsheet2attrs(spreadsheet)
+      }
+    ]
   }
 }
 
 export const variable2completion = (variable: VariableInterface, pageId: NamespaceId): VariableCompletion => {
   const name = variable.t.name
-  const blockKeyStr = currentBlockKey(variable.t.namespaceId, pageId)
-  const value: VariableKey = `${blockKeyStr}.${name}`
+  const namespaceKey = currentBlockKey(variable.t.namespaceId, pageId)
+  const value: VariableKey = `${namespaceKey}.${name}`
   const namespaceName = variable.namespaceName(pageId)
+  const codeFragment = variable2codeFragment(variable, pageId)
   return {
     kind: 'variable',
-    replacements: [...reverseTraversalString(value, blockKeyStr.length), ...reverseTraversalString(name)],
+    replacements: [...reverseTraversalString(value, namespaceKey.length), ...reverseTraversalString(name)],
     weight: variable.t.namespaceId === pageId ? 1 : -1,
     name: variable.t.name,
     namespace: namespaceName,
     value,
     preview: variable,
     positionChange: value.length,
-    codeFragments: [variable2codeFragment(variable, pageId)]
+    codeFragments: [{ ...codeFragment, value: `${namespaceKey}.${codeFragment.value}` }]
   }
 }
 
@@ -259,7 +229,6 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
         value,
         code: 'Function',
         type: 'any',
-        renderText: undefined,
         hide: false,
         attrs: undefined
       }
@@ -278,17 +247,11 @@ export const attrs2completion = (
     return variable2completion(variable, pageId)
   }
 
-  if (kind === 'Spreadsheet') {
-    const spreadsheet = formulaContext.findSpreadsheet(id)
-    if (!spreadsheet) return undefined
-    return spreadsheet2completion(spreadsheet, pageId)
-  }
-
-  if (kind === 'Column') {
-    const column = formulaContext.findColumnById(namespaceId, id)
-    if (!column) return undefined
-    return column2completion(column, pageId)
-  }
+  // if (kind === 'Spreadsheet') {
+  //   const spreadsheet = formulaContext.findSpreadsheetById(id)
+  //   if (!spreadsheet) return undefined
+  //   return spreadsheet2completion(spreadsheet, pageId)
+  // }
 
   return undefined
 }

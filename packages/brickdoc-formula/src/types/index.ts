@@ -113,6 +113,7 @@ export type FunctionKey = `${FunctionGroup}::${FunctionNameType}` | FunctionName
 export type VariableKey = `#${NamespaceId}.${VariableId}`
 export type BlockKey = '#CurrentBlock' | `#${NamespaceId}`
 export type ColumnKey = `#${NamespaceId}.${ColumnId}`
+export type SpreadsheetKey = `#${NamespaceId}.${SpreadsheetId}`
 
 // TODO blockName -> string
 export type BlockName = NamespaceId
@@ -441,7 +442,7 @@ export interface BlockCompletion extends BaseCompletion {
 export interface SpreadsheetCompletion extends BaseCompletion {
   readonly kind: 'spreadsheet'
   readonly namespace: BlockName
-  readonly value: BlockKey
+  readonly value: SpreadsheetKey
   readonly preview: SpreadsheetType
 }
 
@@ -490,7 +491,7 @@ export interface DirtyFormulaInfo {
 }
 export interface ContextInterface {
   features: string[]
-  spreadsheets: Record<NamespaceId, SpreadsheetType>
+  spreadsheets: SpreadsheetType[]
   formulaNames: FormulaName[]
   dirtyFormulas: Record<VariableKey, DirtyFormulaInfo>
   reservedNames: string[]
@@ -503,11 +504,12 @@ export interface ContextInterface {
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findViewRender: (viewType: ViewType) => ViewRender | undefined
-  findSpreadsheet: (namespaceId: NamespaceId) => SpreadsheetType | undefined
+  findSpreadsheetById: (spreadsheetId: SpreadsheetId) => SpreadsheetType | undefined
+  findSpreadsheetByName: (namespaceId: NamespaceId, name: string) => SpreadsheetType | undefined
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
-  removeSpreadsheet: (namespaceId: NamespaceId) => void
+  removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
@@ -605,7 +607,6 @@ export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
   readonly value: string
   readonly display: string
-  readonly renderText: undefined | ((text: string, attrs: CodeFragment, prevText: string) => string)
   readonly hide: boolean
   readonly type: FormulaType
   readonly errors: ErrorMessage[]

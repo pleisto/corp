@@ -35,7 +35,8 @@ import {
   View,
   DirtyFormulaInfo,
   Formula,
-  DeleteFormula
+  DeleteFormula,
+  SpreadsheetId
 } from '../types'
 import {
   function2completion,
@@ -43,7 +44,8 @@ import {
   variable2completion,
   variableKey,
   block2completion,
-  block2name
+  block2name,
+  spreadsheet2name
 } from '../grammar/convert'
 import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
@@ -120,7 +122,7 @@ export class FormulaContext implements ContextInterface {
   viewRenders: Record<ViewType, ViewRender> = {}
   functionWeights: Record<FunctionKey, number> = {}
   variableWeights: Record<VariableKey, number> = {}
-  spreadsheets: Record<NamespaceId, SpreadsheetType> = {}
+  spreadsheets: SpreadsheetType[] = []
   variableNameCounter: Record<FormulaType, Record<NamespaceId, number>> = {
     string: {},
     number: {},
@@ -261,7 +263,7 @@ export class FormulaContext implements ContextInterface {
     const variables: VariableCompletion[] = completionVariables.map(([key, v]) => {
       return variable2completion(v, namespaceId)
     })
-    const spreadsheets: SpreadsheetCompletion[] = Object.entries(this.spreadsheets).map(([key, spreadsheet]) => {
+    const spreadsheets: SpreadsheetCompletion[] = this.spreadsheets.map(spreadsheet => {
       return spreadsheet2completion(spreadsheet, namespaceId)
     })
 
@@ -287,8 +289,12 @@ export class FormulaContext implements ContextInterface {
     return this.viewRenders[viewType]
   }
 
-  public findSpreadsheet(namespaceId: NamespaceId): SpreadsheetType | undefined {
-    return this.spreadsheets[namespaceId]
+  public findSpreadsheetById(spreadsheetId: SpreadsheetId): SpreadsheetType | undefined {
+    return this.spreadsheets.find(s => s.spreadsheetId === spreadsheetId)
+  }
+
+  public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {
+    return this.spreadsheets.find(s => s.namespaceId === namespaceId && s.name() === name)
   }
 
   public findFormulaName(namespaceId: NamespaceId): FormulaName | undefined {
@@ -296,7 +302,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findColumnById(namespaceId: NamespaceId, variableId: VariableId): ColumnType | undefined {
-    const spreadsheet = this.findSpreadsheet(namespaceId)
+    const spreadsheet = this.findSpreadsheetById(namespaceId)
     if (!spreadsheet) {
       return undefined
     }
@@ -311,7 +317,7 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findColumnByName(namespaceId: NamespaceId, name: ColumnName): ColumnType | undefined {
-    const spreadsheet = this.findSpreadsheet(namespaceId)
+    const spreadsheet = this.findSpreadsheetById(namespaceId)
     if (!spreadsheet) {
       return undefined
     }
@@ -326,13 +332,15 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
+    this.removeSpreadsheet(spreadsheet.spreadsheetId)
+    this.spreadsheets = this.spreadsheets.concat(spreadsheet)
+    this.formulaNames = this.formulaNames.concat(spreadsheet2name(spreadsheet))
     BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
   }
 
-  public removeSpreadsheet(namespaceId: NamespaceId): void {
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-    delete this.spreadsheets[namespaceId]
+  public removeSpreadsheet(spreadsheetId: SpreadsheetId): void {
+    this.spreadsheets = this.spreadsheets.filter(n => !(n.spreadsheetId === spreadsheetId))
+    this.formulaNames = this.formulaNames.filter(n => !(n.kind === 'Spreadsheet' && n.key === spreadsheetId))
   }
 
   public findVariableById(namespaceId: NamespaceId, variableId: VariableId): VariableInterface | undefined {
