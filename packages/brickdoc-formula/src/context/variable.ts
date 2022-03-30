@@ -1,5 +1,4 @@
 import {
-  BlockSpreadsheetLoaded,
   BrickdocEventBus,
   EventSubscribed,
   FormulaInnerRefresh,
@@ -25,7 +24,7 @@ import {
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
-import { block2name, variable2name, variableKey } from '../grammar/convert'
+import { variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
@@ -222,18 +221,7 @@ export class VariableClass implements VariableInterface {
 
   public trackDependency(): void {
     this.subscripeEvents()
-
-    this.formulaContext.formulaNames = this.formulaContext.formulaNames
-      .filter(n => !(n.kind === 'Variable' && n.key === this.t.variableId))
-      .concat(variable2name(this))
-
-    if (
-      !this.formulaContext.formulaNames.find(n => n.kind === 'Block' && n.key === this.t.namespaceId) &&
-      this.t.type === 'normal'
-    ) {
-      const block = this.formulaContext.findBlockById(this.t.namespaceId)!
-      this.formulaContext.formulaNames.push({ ...block2name(block), name: 'Untitled' })
-    }
+    this.formulaContext.setBlock(this.t.namespaceId, '')
 
     this.t.variableDependencies.forEach(dependency => {
       const dependencyKey = variableKey(dependency.namespaceId, dependency.variableId)
@@ -329,16 +317,16 @@ export class VariableClass implements VariableInterface {
     )
     this.eventListeners.push(innerRefreshSubscription)
 
-    t.blockDependencies.forEach(blockId => {
-      const spreadsheetSubscription = BrickdocEventBus.subscribe(
-        BlockSpreadsheetLoaded,
-        e => {
-          void this.maybeReparseAndPersist(e.payload.id)
-        },
-        { eventId: blockId, subscribeId: `SpreadsheetDependency#${t.variableId}` }
-      )
-      this.eventListeners.push(spreadsheetSubscription)
-    })
+    // t.blockDependencies.forEach(blockId => {
+    //   const spreadsheetSubscription = BrickdocEventBus.subscribe(
+    //     BlockSpreadsheetLoaded,
+    //     e => {
+    //       void this.maybeReparseAndPersist(e.payload.id)
+    //     },
+    //     { eventId: blockId, subscribeId: `SpreadsheetDependency#${t.variableId}` }
+    //   )
+    //   this.eventListeners.push(spreadsheetSubscription)
+    // })
 
     t.variableDependencies.forEach(({ variableId, namespaceId }) => {
       const variableIdSubscription = BrickdocEventBus.subscribe(

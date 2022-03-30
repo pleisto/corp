@@ -505,6 +505,7 @@ export interface ContextInterface {
   findViewRender: (viewType: ViewType) => ViewRender | undefined
   findSpreadsheetById: (spreadsheetId: SpreadsheetId) => SpreadsheetType | undefined
   findBlockById: (blockId: NamespaceId) => BlockType | undefined
+  setBlock: (blockId: NamespaceId, name: string) => void
   findSpreadsheetByName: (namespaceId: NamespaceId, name: string) => SpreadsheetType | undefined
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined

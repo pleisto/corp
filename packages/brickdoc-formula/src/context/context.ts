@@ -193,9 +193,7 @@ export class FormulaContext implements ContextInterface {
     const blockNameSubscription = BrickdocEventBus.subscribe(
       BlockNameLoad,
       e => {
-        const namespaceId = e.payload.id
-        if (this.blocks[namespaceId]) return
-        this.blocks[namespaceId] = new BlockClass(this, { id: namespaceId, name: e.payload.name })
+        this.setBlock(e.payload.id, e.payload.name)
       },
       { subscribeId: `Domain#${this.domain}` }
     )
@@ -308,6 +306,11 @@ export class FormulaContext implements ContextInterface {
 
   public findBlockById(blockId: NamespaceId): BlockType | undefined {
     return this.blocks[blockId]
+  }
+
+  public setBlock(blockId: NamespaceId, name: string): void {
+    if (this.blocks[blockId]) return
+    this.blocks[blockId] = new BlockClass(this, { id: blockId, name })
   }
 
   public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {

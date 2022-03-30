@@ -382,26 +382,13 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       throw new Error('unsupported expression')
     }
 
-    const formulaName = this.ctx.formulaContext.findFormulaName(namespaceId)
+    const block = this.ctx.formulaContext.findBlockById(namespaceId)
 
-    // if (formulaName?.kind === 'Spreadsheet') {
-    //   const parentType: FormulaType = 'Spreadsheet'
-    //   const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
-    //   if (shouldReturnEarly(typeError)) return typeError!
-
-    //   const spreadsheet = this.ctx.formulaContext.findSpreadsheet(namespaceId)
-    //   if (!spreadsheet) {
-    //     return { type: 'Error', result: `Spreadsheet ${namespaceId} not found`, errorKind: 'runtime' }
-    //   }
-    //   return { type: 'Spreadsheet', result: spreadsheet }
-    // }
-
-    if (formulaName?.kind === 'Block') {
+    if (block) {
       const parentType: FormulaType = 'Block'
       const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
       if (shouldReturnEarly(typeError)) return typeError!
 
-      const block = this.ctx.formulaContext.findBlockById(namespaceId)!
       return { type: 'Block', result: block }
     }
 
