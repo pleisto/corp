@@ -1831,8 +1831,8 @@ __metadata:
     postcss: ^8.4.12
     postcss-less: ^6.0.0
     postcss-preset-env: ^7.4.3
-    react: ^18.0.0
-    react-dom: ^18.0.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-helmet-async: ^1.2.3
     react-i18next: ^11.16.2
     react-router-dom: ^6.2.2
@@ -1860,8 +1860,8 @@ __metadata:
     glob: ^7.2.0
     mkdirp: ^1.0.4
   peerDependencies:
-    react: ">= 17.0"
-    react-dom: ">= 17.0"
+    react: ">= 17.0.2"
+    react-dom: ">= 17.0.2"
   languageName: unknown
   linkType: soft
 
@@ -1873,7 +1873,6 @@ __metadata:
     "@brickdoc/active-support": "workspace:^"
     "@brickdoc/design-icons": "workspace:^"
     "@hookform/resolvers": ^2.8.8
-    "@mdx-js/react": 1.6.22
     "@mui/base": ^5.0.0-alpha.74
     "@pxblue/storybook-rtl-addon": ^1.1.0
     "@stitches/core": ^1.2.7
@@ -1901,12 +1900,12 @@ __metadata:
     rc-trigger: ^5.2.11
     rc-util: ^5.19.3
     rc-virtual-list: ^3.4.4
-    react: ^18.0.0
+    react: ^17.0.2
     react-colorful: ^5.5.1
     react-content-loader: ^6.2.0
     react-dnd: ^15.1.1
     react-dnd-html5-backend: ^15.1.2
-    react-dom: ^18.0.0
+    react-dom: ^17.0.2
     react-hook-form: ^7.29.0
     react-hot-toast: ^2.2.0
     react-i18next: ^11.16.2
@@ -1935,7 +1934,7 @@ __metadata:
     "@brickdoc/cypherpunk": "workspace:^"
     "@brickdoc/dotenv": "workspace:^"
     "@types/pg": ^8.6.5
-    chalk: 4.1.2
+    chalk: 5.0.1
     enquirer: ^2.3.6
     pg: ^8.7.3
     v8-compile-cache: ^2.3.0
@@ -2005,17 +2004,17 @@ __metadata:
     i18next: ^21.6.14
     popper-max-size-modifier: ^0.2.0
     re-resizable: ^6.9.5
-    react: ^18.0.0
+    react: ^17.0.2
     react-dnd: ^15.1.1
     react-dnd-html5-backend: ^15.1.2
-    react-dom: ^18.0.0
+    react-dom: ^17.0.2
     react-medium-image-zoom: ^4.3.5
     refractor: ^4.5.0
     tippy.js: ^6.3.7
     uuid: ^8.3.2
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ">=17.0.2"
+    react-dom: ">=17.0.2"
   languageName: unknown
   linkType: soft
 
@@ -2049,7 +2048,7 @@ __metadata:
     "@types/qrcode.react": ^1.0.2
     axios: ^0.26.1
     chevrotain: ^10.1.2
-    qrcode.react: ^3.0.0
+    qrcode.react: ^3.0.1
     react-vega: ^7.4.4
     uuid: ^8.3.2
     vega: ^5.22.1
@@ -2066,8 +2065,8 @@ __metadata:
     "@brickdoc/eslint-plugin": "workspace:^"
     next: ^12.1.2
     next-transpile-modules: ^9.0.0
-    react: ^18.0.0
-    react-dom: ^18.0.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -3677,7 +3676,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/react@npm:1.6.22, @mdx-js/react@npm:^1.6.22":
+"@mdx-js/react@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/react@npm:1.6.22"
   peerDependencies:
@@ -10097,13 +10096,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.0.2, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "chalk@npm:4.1.2"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
+"chalk@npm:5.0.1":
+  version: 5.0.1
+  resolution: "chalk@npm:5.0.1"
+  checksum: 7b45300372b908f0471fbf7389ce2f5de8d85bb949026fd51a1b95b10d0ed32c7ed5aab36dd5e9d2bf3191867909b4404cef75c5f4d2d1daeeacd301dd280b76
   languageName: node
   linkType: hard
 
@@ -10127,6 +10123,16 @@ __metadata:
     ansi-styles: ^4.1.0
     supports-color: ^7.1.0
   checksum: 8e3ddf3981c4da405ddbd7d9c8d91944ddf6e33d6837756979f7840a29272a69a5189ecae0ff84006750d6d1e92368d413335eab4db5476db6e6703a1d1e0505
+  languageName: node
+  linkType: hard
+
+"chalk@npm:^4.0.0, chalk@npm:^4.0.2, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "chalk@npm:4.1.2"
+  dependencies:
+    ansi-styles: ^4.1.0
+    supports-color: ^7.1.0
+  checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
   languageName: node
   linkType: hard
 
@@ -20840,12 +20846,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qrcode.react@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "qrcode.react@npm:3.0.0"
+"qrcode.react@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "qrcode.react@npm:3.0.1"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-  checksum: 2dc26c0c9e5dc996491ccf382a956591cade3becf6bcffb6c0531a456784deb9311a7e1e0dabfa17586b6ac89125ccd8689f49bd94e3d162a3a8c181f83c8f5d
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 107bb08a9cb0077de982dc3204484f9e43f204141d02c587cffaf31c8ff94d1237a62e67e1938a94a8be25ae62b6db9d810eab0b42bac15db364e4a77c72fd28
   languageName: node
   linkType: hard
 
@@ -21223,15 +21229,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.0.0":
-  version: 18.0.0
-  resolution: "react-dom@npm:18.0.0"
+"react-dom@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
-    scheduler: ^0.21.0
+    object-assign: ^4.1.1
+    scheduler: ^0.20.2
   peerDependencies:
-    react: ^18.0.0
-  checksum: dd0ba9f2f31dd728076c892a95b2f5a8dfe79136431b0289afb46eec39d0ca6b6f0f40a60fd8aa6ef702c98ce7c26100d3d4dbc35c7c9e87429cd04f84cb58bd
+    react: 17.0.2
+  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
   languageName: node
   linkType: hard
 
@@ -21534,12 +21541,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.0.0":
-  version: 18.0.0
-  resolution: "react@npm:18.0.0"
+"react@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: 293020b96536b3c7113ee57ca5c990a3f25649d1751b1c7a3aabd16dff0691fe9f1eed1206616d0906d05933536052037340a0c8d0941ff870b0eb469a2f975b
+    object-assign: ^4.1.1
+  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
   languageName: node
   linkType: hard
 
@@ -22463,12 +22471,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.21.0":
-  version: 0.21.0
-  resolution: "scheduler@npm:0.21.0"
+"scheduler@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "scheduler@npm:0.20.2"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: 4f8285076041ed2c81acdd1faa987f1655fdbd30554bc667c1ea64743fc74fb3a04ca7d27454b3d678735df5a230137a3b84756061b43dc5796e80701b66d124
+    object-assign: ^4.1.1
+  checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
   languageName: node
   linkType: hard
 
@@ -25471,7 +25480,7 @@ typescript@^4.4.3:
   languageName: node
   linkType: hard
 
-"vite-plugin-mdx@npm:3.5.10":
+"vite-plugin-mdx@npm:^3.5.6":
   version: 3.5.10
   resolution: "vite-plugin-mdx@npm:3.5.10"
   dependencies:
@@ -25483,21 +25492,6 @@ typescript@^4.4.3:
     "@mdx-js/mdx": "*"
     vite: "*"
   checksum: 8419ab5fe30d8593e45ed2c4870c51907aa3d0bdc62cd8324fd6b0b067469a2736b6ce8dc242542b8e0088955218272840ab5afa2d9bcd2ec968cfadd35beb98
-  languageName: node
-  linkType: hard
-
-"vite-plugin-mdx@patch:vite-plugin-mdx@npm:3.5.10#.yarn/patches/vite-plugin-mdx-npm-3.5.10-ae54c30668::locator=%40brickdoc%2Fmonorepo%40workspace%3A.":
-  version: 3.5.10
-  resolution: "vite-plugin-mdx@patch:vite-plugin-mdx@npm%3A3.5.10#.yarn/patches/vite-plugin-mdx-npm-3.5.10-ae54c30668::version=3.5.10&hash=a5a987&locator=%40brickdoc%2Fmonorepo%40workspace%3A."
-  dependencies:
-    "@alloc/quick-lru": ^5.2.0
-    esbuild: 0.13.8
-    resolve: ^1.20.0
-    unified: ^9.2.1
-  peerDependencies:
-    "@mdx-js/mdx": "*"
-    vite: "*"
-  checksum: b05f306b1c01540f2e05a6528b5fbc4d115cb5d493349cc19854a051bb4c6f43e74d92069f13e164a93a19b13b2786afde5ece5bf34dadd0ce3379f908fe9b58
   languageName: node
   linkType: hard
 

@@ -7,8 +7,7 @@
   "workspaces": [
     "packages/*",
     "apps/*",
-    "tools/*",
-    "e2e-testing"
+    "tools/*"
   ],
   "scripts": {
     "postinstall": "husky install && ./bin/pdftron static ",
@@ -100,7 +99,6 @@
     "@storybook/builder-webpack4": "npm:storybook-builder-vite@>=0.1.16",
     "@storybook/manager-webpack4": "npm:@storybook/manager-webpack5@>=6.5.0-alpha.40",
     "webpack": ">=5",
-    "vite-plugin-mdx": "patch:vite-plugin-mdx@npm:3.5.10#.yarn/patches/vite-plugin-mdx-npm-3.5.10-ae54c30668",
     "esbuild": "^0.14.28",
     "@rails/actioncable": "patch:@rails/actioncable@npm:7.0.1#.yarn/patches/@rails-actioncable-npm-7.0.1-7dd9553527",
     "cached-path-relative": ">=1.1.0",
