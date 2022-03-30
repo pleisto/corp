@@ -82,9 +82,9 @@ export class BlockClass implements BlockType {
     const variable = this._formulaContext.findVariableByName(this.id, name)
     const errors: ErrorMessage[] = []
 
-    visitor.variableNameDependencies = [
+    visitor.nameDependencies = [
       ...new Map(
-        [...visitor.variableNameDependencies, { namespaceId: this.id, name }].map(item => [
+        [...visitor.nameDependencies, { namespaceId: this.id, name }].map(item => [
           `${item.namespaceId},${item.name}`,
           item
         ])

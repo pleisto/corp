@@ -11,7 +11,7 @@ import {
   FunctionContext,
   ExpressionType,
   SimpleCodeFragmentType,
-  VariableNameDependency,
+  NameDependency,
   CodeFragmentAttrs
 } from '../types'
 import { buildFunctionKey } from '../functions'
@@ -61,7 +61,7 @@ const CodeFragmentCstVisitor = ParserInstance.getBaseCstVisitorConstructor<CstVi
 export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   ctx: FunctionContext
   variableDependencies: VariableDependency[] = []
-  variableNameDependencies: VariableNameDependency[] = []
+  nameDependencies: NameDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
   blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: VariableDependency[] = []

@@ -355,7 +355,7 @@ export class VariableClass implements VariableInterface {
       this.eventListeners.push(result)
     })
 
-    t.variableNameDependencies.forEach(({ name, namespaceId }) => {
+    t.nameDependencies.forEach(({ name, namespaceId }) => {
       const result = BrickdocEventBus.subscribe(
         FormulaUpdatedViaName,
         e => {

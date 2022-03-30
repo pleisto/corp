@@ -93,6 +93,7 @@ Array [
     "isPure": true,
     "kind": "constant",
     "name": "num0",
+    "nameDependencies": Array [],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -111,7 +112,6 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-    "variableNameDependencies": Array [],
     "version": 0,
   },
   Object {
@@ -230,6 +230,12 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num1",
+    "nameDependencies": Array [
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -253,12 +259,6 @@ Array [
       },
     ],
     "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -305,6 +305,12 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num2",
+    "nameDependencies": Array [
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -328,12 +334,6 @@ Array [
       },
     ],
     "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -430,6 +430,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num3",
+    "nameDependencies": Array [
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num1",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -457,16 +467,6 @@ Array [
       },
     ],
     "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num1",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -559,6 +559,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num4",
+    "nameDependencies": Array [
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -586,16 +596,6 @@ Array [
       },
     ],
     "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -738,6 +738,20 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num5",
+    "nameDependencies": Array [
+      Object {
+        "name": "num3",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -769,20 +783,6 @@ Array [
       },
     ],
     "variableId": "a17872fd-5555-4fe1-9cc9-57169a46b645",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num3",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -883,6 +883,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num6",
+    "nameDependencies": Array [
+      Object {
+        "name": "num4",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num1",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -910,16 +920,6 @@ Array [
       },
     ],
     "variableId": "396b8653-6666-4126-92b6-74006a435276",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num4",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num1",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
 ]
@@ -1014,6 +1014,7 @@ Array [
     "isPure": true,
     "kind": "constant",
     "name": "num0",
+    "nameDependencies": Array [],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1032,7 +1033,6 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "cd0755b8-0000-4326-876d-853e59cb0259",
-    "variableNameDependencies": Array [],
     "version": 0,
   },
   Object {
@@ -1067,6 +1067,7 @@ Array [
     "isPure": true,
     "kind": "constant",
     "name": "num1",
+    "nameDependencies": Array [],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1085,7 +1086,6 @@ Array [
     "valid": true,
     "variableDependencies": Array [],
     "variableId": "88d64c7c-1111-4eea-be97-133e12c8c1ce",
-    "variableNameDependencies": Array [],
     "version": 0,
   },
   Object {
@@ -1132,6 +1132,12 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num2",
+    "nameDependencies": Array [
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1155,12 +1161,6 @@ Array [
       },
     ],
     "variableId": "94a89a9d-2222-4e46-ae48-887238bc2bec",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -1257,6 +1257,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num3",
+    "nameDependencies": Array [
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num1",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1284,16 +1294,6 @@ Array [
       },
     ],
     "variableId": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num1",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -1386,6 +1386,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num4",
+    "nameDependencies": Array [
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1413,16 +1423,6 @@ Array [
       },
     ],
     "variableId": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -1565,6 +1565,20 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num5",
+    "nameDependencies": Array [
+      Object {
+        "name": "num3",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num0",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num2",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1596,20 +1610,6 @@ Array [
       },
     ],
     "variableId": "a17872fd-5555-4fe1-9cc9-57169a46b645",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num3",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num0",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num2",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
   Object {
@@ -1710,6 +1710,16 @@ Array [
     "isPure": true,
     "kind": "expression",
     "name": "num6",
+    "nameDependencies": Array [
+      Object {
+        "name": "num4",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+      Object {
+        "name": "num1",
+        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
+      },
+    ],
     "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     "task": Object {
       "async": false,
@@ -1737,16 +1747,6 @@ Array [
       },
     ],
     "variableId": "396b8653-6666-4126-92b6-74006a435276",
-    "variableNameDependencies": Array [
-      Object {
-        "name": "num4",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-      Object {
-        "name": "num1",
-        "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      },
-    ],
     "version": 0,
   },
 ]

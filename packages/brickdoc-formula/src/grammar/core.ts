@@ -19,7 +19,7 @@ import {
   StringResult,
   BaseFormula,
   ErrorResult,
-  VariableNameDependency,
+  NameDependency,
   FormulaType,
   VariableTask
 } from '../types'
@@ -52,7 +52,7 @@ export interface BaseParseResult {
   kind: VariableKind
   errorMessages: ErrorMessage[]
   variableDependencies: VariableDependency[]
-  variableNameDependencies: VariableNameDependency[]
+  nameDependencies: NameDependency[]
   functionDependencies: Array<FunctionClause<any>>
   blockDependencies: NamespaceId[]
   codeFragments: CodeFragment[]
@@ -311,7 +311,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     completions: [],
     codeFragments: [],
     variableDependencies: [],
-    variableNameDependencies: [],
+    nameDependencies: [],
     functionDependencies: [],
     blockDependencies: [],
     flattenVariableDependencies: []
@@ -373,7 +373,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   returnValue.pure = codeFragmentVisitor.pure
   returnValue.kind = codeFragmentVisitor.kind
   returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
-  returnValue.variableNameDependencies = codeFragmentVisitor.variableNameDependencies
+  returnValue.nameDependencies = codeFragmentVisitor.nameDependencies
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
   returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
   returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
@@ -658,7 +658,7 @@ export const interpret = async ({
     persist,
     pure,
     variableDependencies,
-    variableNameDependencies,
+    nameDependencies,
     functionDependencies,
     blockDependencies,
     flattenVariableDependencies
@@ -685,7 +685,7 @@ export const interpret = async ({
     valid,
     kind: kind ?? 'constant',
     variableDependencies,
-    variableNameDependencies,
+    nameDependencies,
     flattenVariableDependencies,
     blockDependencies,
     functionDependencies,

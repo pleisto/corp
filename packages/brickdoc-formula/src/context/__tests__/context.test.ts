@@ -69,10 +69,10 @@ describe('Context', () => {
     const bar = formulaContext.findVariableById(barNamespaceId, barVariableId)!
 
     expect({
-      foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.variableNameDependencies]
+      foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.nameDependencies]
     }).toMatchSnapshot()
     expect({
-      bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.variableNameDependencies]
+      bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.nameDependencies]
     }).toMatchSnapshot()
   })
 

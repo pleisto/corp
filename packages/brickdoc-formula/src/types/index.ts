@@ -640,7 +640,7 @@ export interface VariableDependency {
   readonly namespaceId: NamespaceId
 }
 
-export interface VariableNameDependency {
+export interface NameDependency {
   readonly namespaceId: NamespaceId
   readonly name: string
 }
@@ -709,7 +709,7 @@ export interface VariableData {
   cst?: CstNode
   codeFragments: CodeFragment[]
   flattenVariableDependencies: VariableDependency[]
-  variableNameDependencies: VariableNameDependency[]
+  nameDependencies: NameDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
   functionDependencies: Array<FunctionClause<FormulaType>>
