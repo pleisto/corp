@@ -1,28 +1,29 @@
-import React from 'react'
-import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps } from '@tiptap/react'
+import { CSSProperties, FC, forwardRef, MouseEventHandler, useState } from 'react'
+import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps, findParentNodeClosestToPos } from '@tiptap/react'
 import { BlockActionsProps } from '../BlockActions'
 import { BlockContext } from '../../../context/BlockContext'
-import { useDocumentEditable } from '../../../hooks'
+import { useDocumentEditable, useEditorContext } from '../../../hooks'
 import { useBlockContextDataProvider } from './useBlockContextDataProvider'
 import { useBlockElement } from './useBlockElement'
-
+import { ListItem } from '../../../extensions'
 export interface BlockContainerProps {
   inline?: boolean
   editable?: boolean
   deleteNode?: NodeViewProps['deleteNode']
   getPos?: NodeViewProps['getPos']
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   as?: NodeViewWrapperProps['as']
   actionOptions?: BlockActionsProps['options'] | BlockActionsProps
   actionButtonClassName?: BlockActionsProps['buttonClassName']
   contentForCopy?: string
   ref?: any
-  onClick?: React.MouseEventHandler
-  onMouseDown?: React.MouseEventHandler
+  onClick?: MouseEventHandler
+  onMouseDown?: MouseEventHandler
+  node: NodeViewProps['node']
 }
 
-export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HTMLElement, BlockContainerProps>(
+export const BlockContainer: FC<BlockContainerProps> = forwardRef<HTMLElement, BlockContainerProps>(
   (
     {
       children,
@@ -35,21 +36,29 @@ export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HT
       editable,
       getPos,
       contentForCopy,
+      node,
       ...props
     },
     ref
   ) => {
-    const [insideList, setInsideList] = React.useState(false)
-    // hide block actions default
-    const [disableActionOptions, setDisableActionOptions] = React.useState(true)
-    const [blockDragging, setBlockDragging] = React.useState(false)
+    const { editor } = useEditorContext()
+
+    // check if block inside a list
+    const blockResolvedPosition = editor?.state.doc.resolve(getPos?.() ?? 0)
+    const insideList = !blockResolvedPosition
+      ? true
+      : !!findParentNodeClosestToPos(blockResolvedPosition, node => node.type.name === ListItem.name)?.node
+
+    const disableActionOptions = insideList
+
+    const [blockDragging, setBlockDragging] = useState(false)
     const [blockContextData] = useBlockContextDataProvider({
       deleteNode,
       getPos,
       contentForCopy,
       updateDragging: (dragging: boolean) => setBlockDragging(dragging),
-      insideList,
-      dragging: blockDragging
+      dragging: blockDragging,
+      node
     })
     const [documentEditable] = useDocumentEditable(editable)
     const [blockElement] = useBlockElement(children, actionOptions, {
@@ -58,28 +67,6 @@ export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HT
       blockActionClassName: actionButtonClassName
     })
     const asElement = as ?? (inline ? 'span' : undefined)
-    const innerRef = React.useRef<HTMLElement | null>(null)
-
-    // this effect is for checking dom element when mounted
-    React.useEffect(() => {
-      // waiting for dom mounted by ProseMirror
-      // TODO: find a better way to check if paragraph inside list
-      setTimeout(() => {
-        if (!innerRef.current) return
-        // check if block is in the list
-        const element = innerRef.current.parentElement
-        const parentElement = element?.parentElement
-        const newInsideList = parentElement?.tagName === 'LI'
-
-        if (newInsideList !== disableActionOptions) setDisableActionOptions(newInsideList)
-        if (insideList !== newInsideList) setInsideList(newInsideList)
-      }, 50)
-
-      return () => {
-        innerRef.current = null
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
       <NodeViewWrapper
@@ -96,8 +83,6 @@ export const BlockContainer: React.FC<BlockContainerProps> = React.forwardRef<HT
           } else if (ref) {
             ref.current = container
           }
-
-          innerRef.current = container
         }}
       >
         <BlockContext.Provider value={blockContextData}>{blockElement}</BlockContext.Provider>

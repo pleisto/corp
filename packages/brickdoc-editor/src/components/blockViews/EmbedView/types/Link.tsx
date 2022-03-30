@@ -7,7 +7,7 @@ import { BlockContainer } from '../../BlockContainer'
 import { EditorContext } from '../../../../context/EditorContext'
 import { prependHttp } from '../../../../helpers'
 import { EmbedBlockAttributes } from '../EmbedView'
-import { useWebsiteMetaProgress } from './useWebsiteProgress'
+import { useWebsiteMetaProgress } from './useWebsiteMetaProgress'
 import { useExternalProps } from '../../../../hooks/useExternalProps'
 
 export interface LinkTypeEmbedBlockProps {
@@ -102,7 +102,7 @@ export const LinkTypeEmbedBlock: FC<LinkTypeEmbedBlockProps> = ({
   }, [])
 
   return (
-    <BlockContainer getPos={getPos} actionOptions={['delete']} deleteNode={deleteNode}>
+    <BlockContainer node={node} getPos={getPos} actionOptions={['delete']} deleteNode={deleteNode}>
       <Popover
         defaultVisible={node.attrs.isNew}
         trigger="click"

@@ -12,7 +12,7 @@ interface BubbleMenuProps {
   editor: Editor | null
 }
 
-const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ view, state, editor, from, to }) => {
+export const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ editor, from, to }) => {
   if (!editor.isEditable || editor.isDestroyed) return false
   if (from === to) return false
 
@@ -26,7 +26,7 @@ const shouldShow: BubbleMenuViewProps['shouldShow'] = ({ view, state, editor, fr
       // Text node
       if (node.type.name === 'text' && node.text?.length) {
         show = true
-      } else if (allowedNodeTypes.includes(node.type.name)) {
+      } else if (allowedNodeTypes.includes(node.type.name) && node.textContent.length) {
         show = true
       } else {
         return false
@@ -57,7 +57,7 @@ export const BubbleMenu: React.FC<BubbleMenuProps> = ({ editor }) => {
 
   return (
     <TiptapBubbleMenu
-      tippyOptions={{ placement: 'top-start', maxWidth: '500px' }}
+      tippyOptions={{ placement: 'top-start', maxWidth: '500px', delay: [1000, 0] }}
       shouldShow={shouldShow}
       editor={editor}
     >

@@ -1,18 +1,42 @@
-import { render, screen } from '@testing-library/react'
-import { ExternalProps, ExternalPropsContext } from '../../../../context'
+import { Embedtype } from '@brickdoc/schema'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
+import { ExternalProps } from '../../../../context'
+import { EmbedAttributes, EmbedOptions } from '../../../../extensions'
+import { mockBlockViewProps } from '../../../common/tests'
 import { EmbedView } from '../EmbedView'
 
-// See more specs in e2e test
-describe('EmbedView', () => {
+const uuid = 'uuid'
+const url = 'https://www.brickdoc.com'
+
+jest.mock('../../../../hooks/useExternalProps.ts', () => {
+  const uuid = 'uuid'
   const url = 'https://www.brickdoc.com'
   const externalProps = new ExternalProps()
-  const uuid = 'uuid'
   externalProps.rootId = uuid
-  externalProps.fetchUnsplashImages = async () => {
+  externalProps.fetchUnsplashImages = async (query: string) => {
     return await new Promise(resolve => {
       resolve({
-        success: false,
-        data: []
+        success: true,
+        data: [
+          {
+            id: 'id1',
+            username: 'user1',
+            fullUrl: 'url1',
+            smallUrl: 'url1',
+            width: 1,
+            height: 1
+          },
+          {
+            id: 'id2',
+            username: 'user2',
+            fullUrl: 'url2',
+            smallUrl: 'url2',
+            width: 1,
+            height: 1
+          }
+        ].filter(item => item.username === query)
       })
     })
   }
@@ -26,107 +50,154 @@ describe('EmbedView', () => {
     ]
   }
 
+  return {
+    useExternalProps: () => externalProps
+  }
+})
+
+Object.assign(window, {
+  open: () => {}
+})
+
+describe('EmbedView', () => {
   it('matches correct snapshot', () => {
-    const props: any = {
-      editor: {},
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
       node: {
+        uuid,
         attrs: {
-          uuid,
           link: {
+            type: 'LINK',
             key: url,
-            source: 'EXTERNAL',
             title: 'brickdoc',
             description: 'desc',
             cover: 'cover'
           },
-          attachment: {}
+          attachment: {
+            type: 'ATTACHMENT'
+          }
         }
-      },
-      extension: {
-        options: {}
-      },
-      updateAttributes: () => {}
-    }
+      }
+    })
 
-    const { container } = render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
-    expect(container.firstChild).toMatchSnapshot()
+    const { container } = render(<EmbedView {...props} />)
+    expect(container).toMatchSnapshot()
+  })
+
+  it('renders image correctly', () => {
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      node: {
+        uuid,
+        attrs: {
+          image: {
+            type: 'IMAGE',
+            key: 'image',
+            source: 'EXTERNAL'
+          }
+        }
+      }
+    })
+
+    render(<EmbedView {...props} />)
+
+    expect(screen.getByTestId(TEST_ID_ENUM.editor.imageBlock.image.id)).toBeInTheDocument()
   })
 
   it('renders link placeholder correctly', () => {
-    const props: any = {
-      editor: {},
-      node: { uuid, attrs: { link: {}, attachment: {}, embedMeta: { embedType: 'LINK' } } },
-      extension: {
-        options: {}
-      },
-      updateAttributes: () => {}
-    }
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      node: {
+        uuid,
+        attrs: {
+          link: {
+            type: 'LINK'
+          },
+          attachment: {
+            type: 'ATTACHMENT'
+          },
+          embedMeta: {
+            type: 'EmbedMeta',
+            embedType: Embedtype.Link
+          }
+        }
+      }
+    })
 
-    render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
+    render(<EmbedView {...props} />)
 
     expect(screen.getByText('embed_block.types.link.label')).toBeInTheDocument()
   })
 
-  it('renders gallery placeholder correctly', () => {
-    const props: any = {
-      editor: {},
-      node: { uuid, attrs: { link: {}, attachment: {}, embedMeta: { embedType: 'GALLERY' } } },
-      extension: {
-        options: {}
-      },
-      updateAttributes: () => {}
-    }
+  describe('Gallery', () => {
+    it('renders gallery placeholder correctly', () => {
+      const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+        node: {
+          uuid,
+          attrs: {
+            link: {
+              type: 'LINK'
+            },
+            attachment: {
+              type: 'ATTACHMENT'
+            },
+            embedMeta: {
+              type: 'EmbedMeta',
+              embedType: Embedtype.Gallery
+            }
+          }
+        }
+      })
 
-    render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
+      // eslint-disable-next-line max-nested-callbacks
+      act(() => {
+        render(<EmbedView {...props} />)
+      })
 
-    expect(screen.getByText('embed_block.types.gallery.label')).toBeInTheDocument()
+      expect(screen.getByText('embed_block.types.gallery.label')).toBeInTheDocument()
+    })
   })
 
   it('renders uploader placeholder correctly', () => {
-    const props: any = {
-      editor: {},
-      node: { uuid, attrs: { link: {}, attachment: {}, embedMeta: { embedType: 'UPLOAD' } } },
-      extension: {
-        options: {}
-      },
-      updateAttributes: () => {}
-    }
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      node: {
+        uuid,
+        attrs: {
+          link: {
+            type: 'LINK'
+          },
+          attachment: {
+            type: 'ATTACHMENT'
+          },
+          embedMeta: {
+            type: 'EmbedMeta',
+            embedType: Embedtype.Upload
+          }
+        }
+      }
+    })
 
-    render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
+    render(<EmbedView {...props} />)
 
     expect(screen.getByText('embed_block.types.upload.label')).toBeInTheDocument()
   })
 
   it('renders link', () => {
-    const props: any = {
-      editor: {},
+    const mockOpenUrl = jest.fn()
+    jest.spyOn(window, 'open').mockImplementation(url => mockOpenUrl(url))
+    const title = 'brickdoc'
+    const description = 'desc'
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
       node: {
+        uuid,
         attrs: {
-          uuid,
           link: {
+            type: 'LINK',
             key: url,
-            source: 'EXTERNAL',
-            title: 'brickdoc',
-            description: 'desc',
+            title,
+            description,
             cover: 'cover'
           },
-          attachment: {}
+          attachment: {
+            type: 'ATTACHMENT'
+          }
         }
       },
       extension: {
@@ -134,47 +205,63 @@ describe('EmbedView', () => {
           prepareFileUpload: () => {},
           getAttachmentUrl: () => ''
         }
-      },
-      updateAttributes: () => {}
-    }
+      }
+    })
 
-    render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
+    render(<EmbedView {...props} />)
 
-    expect(screen.getByText(props.node.attrs.link.title)).toBeInTheDocument()
-    expect(screen.getByText(props.node.attrs.link.description)).toBeInTheDocument()
+    expect(screen.getByText(title)).toBeInTheDocument()
+    expect(screen.getByText(description)).toBeInTheDocument()
+
+    fireEvent.click(screen.getByText(title))
+    expect(mockOpenUrl).toBeCalledWith(url)
   })
 
   it('renders attachment file', () => {
-    const props: any = {
-      editor: {},
+    const name = 'file.ext'
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
       node: {
+        uuid,
         attrs: {
-          uuid,
-          link: {},
+          link: {
+            type: 'LINK'
+          },
           attachment: {
+            type: 'ATTACHMENT',
             key: url,
             source: 'ORIGIN',
-            name: 'file.ext',
-            size: 1000
+            name
           }
         }
-      },
-      extension: {
-        options: {}
-      },
-      updateAttributes: () => {}
-    }
+      }
+    })
 
-    render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <EmbedView {...props} />
-      </ExternalPropsContext.Provider>
-    )
+    render(<EmbedView {...props} />)
 
-    expect(screen.getByText(props.node.attrs.attachment.name)).toBeInTheDocument()
+    expect(screen.getByText(name)).toBeInTheDocument()
+  })
+
+  it('renders file preview', () => {
+    const name = 'file.pdf'
+    const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      node: {
+        uuid,
+        attrs: {
+          link: {
+            type: 'LINK'
+          },
+          attachment: {
+            type: 'ATTACHMENT',
+            key: url,
+            source: 'ORIGIN',
+            name
+          }
+        }
+      }
+    })
+
+    render(<EmbedView {...props} />)
+
+    expect(screen.getByTestId(TEST_ID_ENUM.editor.embedBlock.pdftron.id)).toBeInTheDocument()
   })
 })
