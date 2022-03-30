@@ -40,7 +40,7 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Spreadsheet",
     "value": "MySpreadsheet",
   },
   Object {
@@ -140,7 +140,7 @@ Array [
     "display": "MySpreadsheet",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Spreadsheet",
     "value": "MySpreadsheet",
   },
   Object {
@@ -177,7 +177,7 @@ Array [
       },
     ],
     "hide": false,
-    "type": "string",
+    "type": "Spreadsheet",
     "value": "MySpreadsheet",
   },
   Object {

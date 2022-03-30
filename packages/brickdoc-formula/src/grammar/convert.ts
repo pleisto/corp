@@ -100,6 +100,20 @@ export const block2completion = (ctx: ContextInterface, block: BlockType, pageId
   }
 }
 
+export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: NamespaceId): CodeFragment => {
+  // const namespaceKey = currentBlockKey(spreadsheet.namespaceId, pageId)
+  // const value: SpreadsheetKey = `${namespaceKey}.${spreadsheet.name()}`
+  return {
+    display: spreadsheet.name(),
+    errors: [],
+    value: spreadsheet.name(),
+    code: 'Spreadsheet',
+    type: 'Spreadsheet',
+    hide: false,
+    attrs: spreadsheet2attrs(spreadsheet)
+  }
+}
+
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: NamespaceId): SpreadsheetCompletion => {
   const namespaceKey = currentBlockKey(spreadsheet.namespaceId, pageId)
   const value: SpreadsheetKey = `${namespaceKey}.${spreadsheet.name()}`
@@ -112,17 +126,7 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    codeFragments: [
-      {
-        display: spreadsheet.name(),
-        errors: [],
-        value,
-        code: 'Spreadsheet',
-        type: 'Spreadsheet',
-        hide: false,
-        attrs: spreadsheet2attrs(spreadsheet)
-      }
-    ]
+    codeFragments: [spreadsheet2codeFragment(spreadsheet, pageId)]
   }
 }
 
