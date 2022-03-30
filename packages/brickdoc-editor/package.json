@@ -16,7 +16,7 @@
     "@brickdoc/schema": "workspace:^",
     "@brickdoc/test-helper": "workspace:^",
     "@brickdoc/uploader": "workspace:^",
-    "@pdftron/webviewer": "^8.3.2",
+    "@pdftron/webviewer": "^8.3.3",
     "@tiptap/core": "^2.0.0-beta.174",
     "@tiptap/extension-blockquote": "^2.0.0-beta.26",
     "@tiptap/extension-bold": "^2.0.0-beta.26",
@@ -55,8 +55,8 @@
   "devDependencies": {
     "@types/react-pdf": "^5.0.9",
     "i18next": "^21.6.14",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "peerDependencies": {
     "react": "^17.0.2",
