@@ -8,7 +8,7 @@ import {
   NameDependencyWithKind,
   NamespaceId
 } from '../types'
-import { CodeFragmentVisitor, spreadsheet2attrs, variable2attrs } from '../grammar'
+import { CodeFragmentVisitor, spreadsheet2attrs, variable2codeFragment } from '../grammar'
 import { fetchResult } from '../context/variable'
 import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 
@@ -155,14 +155,7 @@ export class BlockClass implements BlockType {
     let finalCodeFragments = codeFragments
 
     if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
-      finalCodeFragments = [
-        {
-          ...codeFragments[0],
-          display: name,
-          code: 'Variable',
-          attrs: variable2attrs(variable)
-        }
-      ]
+      finalCodeFragments = [variable2codeFragment(variable, visitor.ctx.meta.namespaceId)]
     }
 
     visitor.variableDependencies = [

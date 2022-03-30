@@ -3887,7 +3887,7 @@ Array [
     "display": "bar",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "bar",
   },
 ]

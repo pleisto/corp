@@ -3746,7 +3746,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "foo",
   },
   Object {
@@ -4673,7 +4673,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "foo",
   },
   Object {
@@ -5089,7 +5089,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "foo",
   },
   Object {
@@ -6819,7 +6819,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "foo",
   },
   Object {
@@ -7235,7 +7235,7 @@ Array [
     "display": "foo",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "foo",
   },
   Object {

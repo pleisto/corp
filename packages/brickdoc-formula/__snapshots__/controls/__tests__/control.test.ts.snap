@@ -112,7 +112,7 @@ Array [
     "display": "varvarabcvar",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "varvarabcvar",
   },
   Object {
@@ -275,7 +275,7 @@ Array [
     "display": "varvarabcvar",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "number",
     "value": "varvarabcvar",
   },
   Object {

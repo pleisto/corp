@@ -72,7 +72,7 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
   }
 }
 
-const variable2codeFragment = (variable: VariableInterface, pageId: NamespaceId): CodeFragment => {
+export const variable2codeFragment = (variable: VariableInterface, pageId: NamespaceId): CodeFragment => {
   return {
     display: variable.t.name,
     errors: [],
