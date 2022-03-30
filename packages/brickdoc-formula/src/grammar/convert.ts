@@ -50,9 +50,9 @@ export const variable2attrs = (variable: VariableInterface): CodeFragmentAttrs =
   name: variable.t.name
 })
 
-const spreadsheet2attrs = (spreadsheet: SpreadsheetType): CodeFragmentAttrs => ({
+export const spreadsheet2attrs = (spreadsheet: SpreadsheetType): CodeFragmentAttrs => ({
   kind: 'Spreadsheet',
-  namespaceId: spreadsheet.spreadsheetId,
+  namespaceId: spreadsheet.namespaceId,
   id: spreadsheet.spreadsheetId,
   name: spreadsheet.name()
 })

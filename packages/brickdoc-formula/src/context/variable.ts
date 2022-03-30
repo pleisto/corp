@@ -75,6 +75,8 @@ export class VariableClass implements VariableInterface {
   t: VariableData
   savedT: VariableData | undefined
   isNew: boolean
+  isReadyT: boolean
+  isReadySavedT: boolean
   formulaContext: ContextInterface
 
   tickTimeout: number = 1000
@@ -86,6 +88,8 @@ export class VariableClass implements VariableInterface {
     this.t = t
     this.formulaContext = formulaContext
     this.isNew = true
+    this.isReadyT = false
+    this.isReadySavedT = false
 
     const tickSubscription = BrickdocEventBus.subscribe(
       FormulaTickViaId,
@@ -129,6 +133,18 @@ export class VariableClass implements VariableInterface {
     BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
     if (!skipPersist) {
       this.trackDirty()
+    }
+
+    if (!this.t.task.async) {
+      const { result, success } = this.t.task.variableValue
+      this.isReadyT = success && result.type !== 'Error'
+    }
+
+    if (this.savedT) {
+      if (!this.savedT.task.async) {
+        const { result, success } = this.savedT.task.variableValue
+        this.isReadySavedT = success && result.type !== 'Error'
+      }
     }
   }
 

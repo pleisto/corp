@@ -23,7 +23,7 @@ import {
   FormulaEditorSelectEventTrigger
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
-import { devLog, devWarning } from '@brickdoc/design-system'
+import { devLog } from '@brickdoc/design-system'
 import React from 'react'
 import { EditorContentType } from '../../../editors/formulaEditor'
 import {

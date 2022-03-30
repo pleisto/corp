@@ -277,7 +277,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Spreadsheet') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findSpreadsheetById(attrs.namespaceId)
+            object = this.ctx.formulaContext.findSpreadsheetById(attrs.id)
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })

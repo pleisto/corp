@@ -1,6 +1,6 @@
 import { BlockInitializer, BlockType } from './types'
 import { AnyTypeResult, CodeFragment, ContextInterface, ErrorMessage, FormulaType, NamespaceId } from '../types'
-import { CodeFragmentVisitor, variable2attrs } from '../grammar'
+import { CodeFragmentVisitor, spreadsheet2attrs, variable2attrs } from '../grammar'
 import { fetchResult } from '../context/variable'
 
 export class BlockClass implements BlockType {
@@ -59,10 +59,23 @@ export class BlockClass implements BlockType {
   } {
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
     if (spreadsheet) {
+      let finalCodeFragments = codeFragments
+
+      if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
+        finalCodeFragments = [
+          {
+            ...codeFragments[0],
+            display: name,
+            code: 'Spreadsheet',
+            attrs: spreadsheet2attrs(spreadsheet)
+          }
+        ]
+      }
+
       return {
         errors: [],
         firstArgumentType: 'Spreadsheet',
-        codeFragments
+        codeFragments: finalCodeFragments
       }
     }
 

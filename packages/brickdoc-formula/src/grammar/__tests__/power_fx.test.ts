@@ -2,6 +2,7 @@ import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
 import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, CellType } from '../../controls'
 import { VariableMetadata } from '../../types'
+import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
@@ -167,22 +168,25 @@ interface TestCase {
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
+const spreadsheetToken = `#${namespaceId}."MySpreadsheet"`
+
 const testCases: TestCase[] = [
   {
     label: 'CountIf ok',
-    input: `=CountIf(#${spreadsheetId}, #${spreadsheetId}."first" >= 3)`,
+    input: `=CountIf(${spreadsheetToken}, ${spreadsheetToken}."first" >= 3)`,
     error: 'Expected number but got Column',
     value: 2
   },
   {
     label: 'CountIf error1',
-    input: `=CountIf(#${spreadsheetId}, >= 3)`,
+    input: `=CountIf(${spreadsheetToken}, >= 3)`,
     error: undefined,
     value: 'Column is missing'
   }
 ]
 
 describe('Power Fx Functions', () => {
+  BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 
