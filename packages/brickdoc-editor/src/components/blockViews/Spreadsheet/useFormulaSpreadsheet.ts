@@ -87,7 +87,7 @@ export function useFormulaSpreadsheet({
 
     formulaContext.setSpreadsheet(spreadsheet)
     return () => {
-      formulaContext.removeSpreadsheet(spreadsheetId)
+      // formulaContext.removeSpreadsheet(spreadsheetId)
     }
   }, [rootId, spreadsheetId, columns, rows, formulaContext, getCellBlock])
 }

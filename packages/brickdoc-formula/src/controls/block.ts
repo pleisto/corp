@@ -115,7 +115,19 @@ export class BlockClass implements BlockType {
       const eventDependency: EventDependency = {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetUpdateNameViaId,
-        kind: 'Spreadsheet'
+        kind: 'Spreadsheet',
+        definitionHandler: (deps, variable, payload) => {
+          console.log('update name via id', deps, payload, variable)
+          return variable.t.codeFragments
+            .map(c => {
+              if (c.code !== 'Spreadsheet') return c
+              if (c.attrs.id !== payload.spreadsheetId) return c
+              if (c.attrs.name === payload.name) return c
+              return { ...c, display: payload.name }
+            })
+            .map(c => c.display)
+            .join('')
+        }
       }
 
       visitor.eventDependencies = [

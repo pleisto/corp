@@ -373,7 +373,7 @@ describe('useFormula', () => {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
       }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content), namespaceId)).toEqual(
         newInput ?? input
       )
 
@@ -413,7 +413,7 @@ describe('useFormula', () => {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
       }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content))).toEqual(
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content), namespaceId)).toEqual(
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         newInput ?? input
       )

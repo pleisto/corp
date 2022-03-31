@@ -81,13 +81,19 @@ const renderText = (text: string, display: string, value: string): string => {
 export const attrs2display = (
   { display, code, value, attrs }: CodeFragment,
   text: string,
-  prevText: string
+  prevText: string,
+  pageId: string
 ): string => {
   const finalText = renderText(text, display, value)
-  if (['Variable'].includes(code) && prevText !== '.') {
+  if (code === 'Variable' && prevText !== '.' && pageId === attrs.namespaceId) {
     return `#CurrentBlock.${finalText}`
   }
-  if (['Spreadsheet'].includes(code) && prevText !== '.' && !value.startsWith('#CurrentBlock')) {
+  if (
+    code === 'Spreadsheet' &&
+    prevText !== '.' &&
+    pageId === attrs.namespaceId &&
+    !value.startsWith('#CurrentBlock')
+  ) {
     return `#CurrentBlock.${finalText}`
   }
   return finalText

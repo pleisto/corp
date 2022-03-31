@@ -677,6 +677,7 @@ export interface EventDependency {
   readonly kind: 'Spreadsheet'
   readonly event: EventType
   readonly eventId: string
+  readonly definitionHandler: (deps: EventDependency, variable: VariableInterface, payload: any) => string
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask
