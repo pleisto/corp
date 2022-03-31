@@ -4,13 +4,14 @@ import {
   CodeFragment,
   ContextInterface,
   ErrorMessage,
+  EventDependency,
   FormulaType,
   NameDependencyWithKind,
   NamespaceId
 } from '../types'
 import { CodeFragmentVisitor, spreadsheet2codeFragment, variable2codeFragment } from '../grammar'
 import { fetchResult } from '../context/variable'
-import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
+import { BlockNameLoad, BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
@@ -110,6 +111,21 @@ export class BlockClass implements BlockType {
       if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
         finalCodeFragments = [spreadsheet2codeFragment(spreadsheet, visitor.ctx.meta.namespaceId)]
       }
+
+      const eventDependency: EventDependency = {
+        eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
+        event: SpreadsheetUpdateNameViaId,
+        kind: 'Spreadsheet'
+      }
+
+      visitor.eventDependencies = [
+        ...new Map(
+          [...visitor.eventDependencies, eventDependency].map(item => [
+            `${item.kind},${item.event.eventType},${item.eventId}`,
+            item
+          ])
+        ).values()
+      ]
 
       return {
         errors: [],

@@ -21,7 +21,8 @@ import {
   ErrorResult,
   NameDependency,
   FormulaType,
-  VariableTask
+  VariableTask,
+  EventDependency
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { FormulaLexer } from './lexer'
@@ -55,6 +56,7 @@ export interface BaseParseResult {
   nameDependencies: NameDependency[]
   functionDependencies: Array<FunctionClause<any>>
   blockDependencies: NamespaceId[]
+  eventDependencies: EventDependency[]
   codeFragments: CodeFragment[]
   flattenVariableDependencies: VariableDependency[]
   completions: Completion[]
@@ -309,6 +311,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     variableDependencies: [],
     nameDependencies: [],
     functionDependencies: [],
+    eventDependencies: [],
     blockDependencies: [],
     flattenVariableDependencies: []
   }
@@ -372,6 +375,7 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   returnValue.nameDependencies = codeFragmentVisitor.nameDependencies
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
   returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
+  returnValue.eventDependencies = codeFragmentVisitor.eventDependencies
   returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
   returnValue.inputImage = inputImage
 
@@ -655,6 +659,7 @@ export const interpret = async ({
     nameDependencies,
     functionDependencies,
     blockDependencies,
+    eventDependencies,
     flattenVariableDependencies
   } = parseResult
   const {
@@ -682,6 +687,7 @@ export const interpret = async ({
     nameDependencies,
     flattenVariableDependencies,
     blockDependencies,
+    eventDependencies,
     functionDependencies,
     task
   }

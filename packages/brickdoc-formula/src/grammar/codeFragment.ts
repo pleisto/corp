@@ -12,7 +12,8 @@ import {
   ExpressionType,
   SimpleCodeFragmentType,
   NameDependency,
-  CodeFragmentAttrs
+  CodeFragmentAttrs,
+  EventDependency
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
@@ -62,6 +63,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   variableDependencies: VariableDependency[] = []
   nameDependencies: NameDependency[] = []
   functionDependencies: Array<FunctionClause<any>> = []
+  eventDependencies: EventDependency[] = []
   blockDependencies: NamespaceId[] = []
   flattenVariableDependencies: VariableDependency[] = []
   kind: 'constant' | 'expression' = 'constant'

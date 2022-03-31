@@ -1,3 +1,4 @@
+import { EventType } from '@brickdoc/schema'
 import { CstNode } from 'chevrotain'
 import {
   ButtonType,
@@ -672,6 +673,12 @@ export interface SyncVariableTask extends BaseVariableTask {
   variableValue: VariableValue
 }
 
+export interface EventDependency {
+  readonly kind: 'Spreadsheet'
+  readonly event: EventType
+  readonly eventId: string
+}
+
 export type VariableTask = AsyncVariableTask | SyncVariableTask
 export interface VariableData {
   definition: Definition
@@ -693,6 +700,7 @@ export interface VariableData {
   nameDependencies: NameDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
+  eventDependencies: EventDependency[]
   functionDependencies: Array<FunctionClause<FormulaType>>
 }
 export interface VariableMetadata {

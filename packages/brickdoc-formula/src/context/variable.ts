@@ -1,13 +1,13 @@
 import {
+  BlockNameLoad,
   BrickdocEventBus,
   EventSubscribed,
+  FormulaContextNameChanged,
   FormulaInnerRefresh,
   FormulaTaskCompleted,
   FormulaTaskStarted,
   FormulaTickViaId,
-  FormulaUpdatedViaId,
-  FormulaUpdatedViaName,
-  SpreadsheetUpdateViaName
+  FormulaUpdatedViaId
 } from '@brickdoc/schema'
 import {
   ContextInterface,
@@ -140,7 +140,6 @@ export class VariableClass implements VariableInterface {
   }): void {
     if (!savedTNotMatched) {
       BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
-      BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
     }
     if (!skipPersist) {
       this.trackDirty()
@@ -353,16 +352,31 @@ export class VariableClass implements VariableInterface {
     )
     this.eventListeners.push(innerRefreshSubscription)
 
-    // t.blockDependencies.forEach(blockId => {
-    //   const spreadsheetSubscription = BrickdocEventBus.subscribe(
-    //     BlockSpreadsheetLoaded,
-    //     e => {
-    //       void this.maybeReparseAndPersist(e.payload.id)
-    //     },
-    //     { eventId: blockId, subscribeId: `SpreadsheetDependency#${t.variableId}` }
-    //   )
-    //   this.eventListeners.push(spreadsheetSubscription)
-    // })
+    t.eventDependencies.forEach(dependency => {
+      const eventSubscription = BrickdocEventBus.subscribe(
+        dependency.event,
+        e => {
+          void this.maybeReparseAndPersist(e.payload.key)
+        },
+        {
+          eventId: dependency.eventId,
+          subscribeId: `EventDependency#${t.namespaceId},${t.variableId}`
+        }
+      )
+      this.eventListeners.push(eventSubscription)
+    })
+
+    t.blockDependencies.forEach(blockId => {
+      const blockNameSubscription = BrickdocEventBus.subscribe(
+        BlockNameLoad,
+        e => {
+          if (this.isReadySavedT) return
+          void this.maybeReparseAndPersist(blockId)
+        },
+        { subscribeId: `Variable#${this.t.variableId}`, eventId: blockId }
+      )
+      this.eventListeners.push(blockNameSubscription)
+    })
 
     t.variableDependencies.forEach(({ variableId, namespaceId }) => {
       const variableIdSubscription = BrickdocEventBus.subscribe(
@@ -389,27 +403,15 @@ export class VariableClass implements VariableInterface {
     })
 
     t.nameDependencies.forEach(({ name, namespaceId }) => {
-      const variableNameSubscription = BrickdocEventBus.subscribe(
-        FormulaUpdatedViaName,
+      const nameSubscription = BrickdocEventBus.subscribe(
+        FormulaContextNameChanged,
         e => {
-          if (e.payload.isNew) return
-          void this.maybeReparseAndPersist(e.payload.t.variableId)
-        },
-        {
-          eventId: `${namespaceId}#${name}`,
-          subscribeId: `NameDependency#${t.namespaceId},${t.variableId}`
-        }
-      )
-      this.eventListeners.push(variableNameSubscription)
-
-      const spreadsheetNameSubscription = BrickdocEventBus.subscribe(
-        SpreadsheetUpdateViaName,
-        e => {
-          void this.maybeReparseAndPersist(e.payload.spreadsheetId)
+          if (this.isReadySavedT) return
+          void this.maybeReparseAndPersist(e.payload.id)
         },
         { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
       )
-      this.eventListeners.push(spreadsheetNameSubscription)
+      this.eventListeners.push(nameSubscription)
     })
   }
 

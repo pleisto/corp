@@ -5,7 +5,6 @@ import {
   Event,
   BlockInput,
   SpreadsheetUpdateCellValue,
-  BlockSpreadsheetLoaded,
   FormulaEditorSavedTrigger
 } from '@brickdoc/schema'
 import { FormulaBlockRender, useFormula } from '../FormulaView'
@@ -81,12 +80,12 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         }
         setCurrentBlock(newBlock)
         saveBlock(newBlock)
-        BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: tableId }))
+        // BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: tableId }))
       }
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)
     },
-    [rootId, cellId, block, saveBlock, tableId]
+    [rootId, cellId, block, saveBlock]
   )
 
   React.useEffect(() => {

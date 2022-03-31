@@ -74,23 +74,24 @@ export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
   return { id: `${v.namespaceId},${v.variableId}` }
 })
 
-export const FormulaUpdatedViaName = event<any>()('FormulaUpdatedViaName', v => {
-  return { id: `${v.t.namespaceId}#${v.t.name}` }
+export const SpreadsheetUpdateNameViaId = event<{
+  spreadsheetId: string
+  namespaceId: string
+  name: string
+  key: string
+}>()('SpreadsheetUpdateNameViaId', ({ spreadsheetId, namespaceId, name, key }) => {
+  return { id: `${namespaceId},${spreadsheetId}`, spreadsheetId, namespaceId, name, key }
 })
 
-export const SpreadsheetUpdateViaName = event<{ spreadsheetId: string; namespaceId: string; name: string }>()(
-  'SpreadsheetUpdateViaName',
-  ({ spreadsheetId, namespaceId, name }) => {
-    return { id: `${namespaceId}#${name}`, spreadsheetId, namespaceId, name }
-  }
-)
+export const FormulaContextNameChanged = event<{
+  id: string
+  namespaceId: string
+  name: string
+  kind: string
+}>()('FormulaContextNameChanged', ({ id, namespaceId, name, kind }) => {
+  return { id: `${namespaceId}#${name}` }
+})
 
-export const SpreadsheetUpdateNameViaId = event<{ spreadsheetId: string; namespaceId: string; name: string }>()(
-  'SpreadsheetUpdateNameViaId',
-  ({ spreadsheetId, namespaceId, name }) => {
-    return { id: `${namespaceId},${spreadsheetId}`, spreadsheetId, namespaceId, name }
-  }
-)
 
 export const SlashMenuHide = event<void>()('SlashMenuHide')
 

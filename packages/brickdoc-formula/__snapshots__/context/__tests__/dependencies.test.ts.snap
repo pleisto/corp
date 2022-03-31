@@ -85,6 +85,7 @@ Array [
     ],
     "cst": null,
     "definition": "=1",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "isAsync": false,
@@ -217,6 +218,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#9dda8306-dbe1-49d3-868d-1a7c86f27328.num0 * 2 + 100",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -292,6 +294,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num0\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -409,6 +412,7 @@ Array [
     ],
     "cst": null,
     "definition": "=num2 + num1",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -542,6 +546,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num2\\" + #CurrentBlock.\\"num0\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -713,6 +718,7 @@ Array [
     ],
     "cst": null,
     "definition": "=num3 + num0 + num2",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -858,6 +864,7 @@ Array [
     ],
     "cst": null,
     "definition": "=num4 + num1",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1006,6 +1013,7 @@ Array [
     ],
     "cst": null,
     "definition": "=1",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "isAsync": false,
@@ -1059,6 +1067,7 @@ Array [
     ],
     "cst": null,
     "definition": "=2",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [],
     "functionDependencies": Array [],
     "isAsync": false,
@@ -1119,6 +1128,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num0\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1236,6 +1246,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num2\\" + #CurrentBlock.\\"num1\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1369,6 +1380,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num2\\" + #CurrentBlock.\\"num0\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1540,6 +1552,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num3\\" + #CurrentBlock.\\"num0\\" + #CurrentBlock.\\"num2\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -1685,6 +1698,7 @@ Array [
     ],
     "cst": null,
     "definition": "=#CurrentBlock.\\"num4\\" + #CurrentBlock.\\"num1\\"",
+    "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",

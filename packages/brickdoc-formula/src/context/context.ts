@@ -53,6 +53,7 @@ import {
   BlockSpreadsheetLoaded,
   BrickdocEventBus,
   EventSubscribed,
+  FormulaContextNameChanged,
   FormulaContextTickTrigger
 } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
@@ -326,7 +327,11 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setName(nameDependency: NameDependencyWithKind): void {
+    const oldName = this.names[nameDependency.id]
     this.names[nameDependency.id] = nameDependency
+    if (oldName && oldName.name === nameDependency.name) return
+
+    BrickdocEventBus.dispatch(FormulaContextNameChanged(nameDependency))
   }
 
   public removeName(id: NamespaceId): void {
@@ -371,6 +376,7 @@ export class FormulaContext implements ContextInterface {
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
     this.removeSpreadsheet(spreadsheet.spreadsheetId)
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
+    this.setBlock(spreadsheet.namespaceId, '')
     this.setName(spreadsheet.nameDependency())
     BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
   }

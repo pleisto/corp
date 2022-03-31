@@ -1,6 +1,6 @@
 import React from 'react'
 import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, CellType } from '@brickdoc/formula'
-import { BlockInput, BrickdocEventBus, SpreadsheetUpdateNameViaId, SpreadsheetUpdateViaName } from '@brickdoc/schema'
+import { BlockInput, BrickdocEventBus, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
 import { useExternalProps } from '../../../hooks/useExternalProps'
@@ -27,16 +27,10 @@ export function useFormulaSpreadsheet({
 
   React.useEffect(() => {
     BrickdocEventBus.dispatch(
-      SpreadsheetUpdateViaName({
-        spreadsheetId,
-        name: title,
-        namespaceId: rootId
-      })
-    )
-    BrickdocEventBus.dispatch(
       SpreadsheetUpdateNameViaId({
         spreadsheetId,
         name: title,
+        key: spreadsheetId,
         namespaceId: rootId
       })
     )
