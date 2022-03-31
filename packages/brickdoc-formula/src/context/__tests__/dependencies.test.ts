@@ -86,7 +86,8 @@ describe('Dependency', () => {
     expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
   })
 
-  it('modify num0 => number', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('modify num0 => number', async () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
@@ -100,7 +101,8 @@ describe('Dependency', () => {
     jest.clearAllTimers()
   })
 
-  it('modify num0 => invalid', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('modify num0 => invalid', async () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
@@ -119,7 +121,8 @@ describe('Dependency', () => {
     jest.clearAllTimers()
   })
 
-  it('modify num0 => boolean', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('modify num0 => boolean', async () => {
     jest.useRealTimers()
     const num0 = formulaContext.findVariableById(namespaceId, variableIds[0])!
 
@@ -143,7 +146,8 @@ describe('Dependency', () => {
     jest.clearAllTimers()
   })
 
-  it('dependency automatic update', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('dependency automatic update', async () => {
     jest.useRealTimers()
     // num1 = 2 -> num1 = num0 * 2 + 100 = 102
     const input = `=#${namespaceId}.num0 * 2 + 100`
