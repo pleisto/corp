@@ -1,6 +1,7 @@
 import React from 'react'
 import { devLog } from '@brickdoc/design-system'
 import { BrickdocEventBus, SpreadsheetUpdateCellValue } from '@brickdoc/schema'
+import { parsePasteTable } from './helper'
 
 export interface SpreadsheetSelectionCellId {
   columnId: string
@@ -105,8 +106,9 @@ export const useSpreadsheetContext = (options: {
         }
       } else if (selectedRowIds?.length) {
         const text = selectedRowIds
-          .map(rowId => Array.from(valuesMatrix.get(rowId)?.values() ?? []).join('\t'))
+          .map(rowId => columnIds.map(columnId => valuesMatrix.get(rowId)?.get(columnId) ?? '').join('\t'))
           .join('\n')
+        devLog('write row to clipboard', text)
         void navigator.clipboard.writeText(text)
       } else if (selectedColumnIds?.length) {
         const text = [
@@ -118,11 +120,11 @@ export const useSpreadsheetContext = (options: {
         void navigator.clipboard.writeText(text)
       }
     },
-    [selection, columnHeaders, valuesMatrix]
+    [selection, columnHeaders, columnIds, valuesMatrix]
   )
 
   const pasteToSpreadsheet = React.useCallback(
-    text => {
+    (pasteMatrix: string[][]) => {
       let { rowIdx, columnIdx } = getSelectedIdx()
       if (rowIdx === rowIds.length) {
         rowIdx = 0
@@ -130,7 +132,7 @@ export const useSpreadsheetContext = (options: {
       if (columnIdx === columnIds.length) {
         columnIdx = 0
       }
-      const pasteMatrix = text.split('\n').map((r: string) => r.split('\t'))
+
       pasteMatrix.forEach((r: string[], ri: number) => {
         r.forEach((c: string, ci: number) => {
           const rowId = rowIds[rowIdx + ri]
@@ -188,7 +190,11 @@ export const useSpreadsheetContext = (options: {
       const { cellIds, columnIds: selectedColumnIds, rowIds: selectedRowIds } = selection
       const thisSelected = cellIds?.length ?? selectedRowIds?.length ?? selectedColumnIds?.length
       if (text && thisSelected) {
-        pasteToSpreadsheet(text)
+        const pasteMatrix = parsePasteTable(text)
+        console.log('paste to spreadsheet', [text])
+        devLog('paste to spreadsheet', [text])
+        devLog('parsed', pasteMatrix)
+        pasteToSpreadsheet(pasteMatrix)
         e.preventDefault()
       }
     }

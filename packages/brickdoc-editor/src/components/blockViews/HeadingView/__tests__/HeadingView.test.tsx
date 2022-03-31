@@ -1,37 +1,73 @@
 import { render } from '@testing-library/react'
+import { HeadingOptions, HeadingAttributes } from '../../../../extensions/blocks/heading/meta'
+import { mockBlockViewProps } from '../../../common/tests'
 import { HeadingView } from '../HeadingView'
 
 describe('HeadingView', () => {
-  const uuid = 'uuid'
-  const props: any = {
-    editor: {},
-    node: {
-      attrs: {
-        uuid,
-        level: 1
-      }
-    },
-    updateAttributes: () => {}
-  }
   it(`matches snapshot correctly`, () => {
-    const { container } = render(<HeadingView {...(props as any)} />)
-
-    expect(container.firstChild).toMatchSnapshot()
-  })
-
-  it(`renders correspond heading according to level`, () => {
-    const props: any = {
-      editor: {},
+    const props = mockBlockViewProps<HeadingOptions, HeadingAttributes>({
       node: {
         attrs: {
-          uuid,
-          level: 2
+          level: 1
         }
-      },
-      updateAttributes: () => {}
-    }
-    const { container } = render(<HeadingView {...(props as any)} />)
+      }
+    })
+    const { container } = render(<HeadingView {...props} />)
 
-    expect(container.firstChild).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
+  })
+
+  describe(`renders correspond heading according to level`, () => {
+    it('level 2', () => {
+      const props = mockBlockViewProps<HeadingOptions, HeadingAttributes>({
+        node: {
+          attrs: {
+            level: 2
+          }
+        }
+      })
+      const { container } = render(<HeadingView {...props} />)
+
+      expect(container).toMatchSnapshot()
+    })
+
+    it('level 3', () => {
+      const props = mockBlockViewProps<HeadingOptions, HeadingAttributes>({
+        node: {
+          attrs: {
+            level: 3
+          }
+        }
+      })
+      const { container } = render(<HeadingView {...props} />)
+
+      expect(container).toMatchSnapshot()
+    })
+
+    it('level 4', () => {
+      const props = mockBlockViewProps<HeadingOptions, HeadingAttributes>({
+        node: {
+          attrs: {
+            level: 4
+          }
+        }
+      })
+      const { container } = render(<HeadingView {...props} />)
+
+      expect(container).toMatchSnapshot()
+    })
+
+    it('level 5', () => {
+      const props = mockBlockViewProps<HeadingOptions, HeadingAttributes>({
+        node: {
+          attrs: {
+            level: 5
+          }
+        }
+      })
+      const { container } = render(<HeadingView {...props} />)
+
+      expect(container).toMatchSnapshot()
+    })
   })
 })

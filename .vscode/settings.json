@@ -12,12 +12,6 @@
     ".eslintrc": "jsonc",
     ".eslintrc*.json": "jsonc"
   },
-  "files.exclude": {
-    "**/.cache": true,
-    "**/.git": true,
-    "**/.DS_Store": true,
-    "**/.eslintcache": true
-  },
   "files.watcherExclude": {
     "**/.git": true,
     "**/node_modules": true,
@@ -128,6 +122,7 @@
     "reakit",
     "Schneier's",
     "Segoe",
+    "Slonik",
     "STRBYTES",
     "Tahoma",
     "testid",

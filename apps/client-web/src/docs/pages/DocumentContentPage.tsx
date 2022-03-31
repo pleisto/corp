@@ -17,6 +17,7 @@ import { appendFormulas, FormulaContext, FormulaName } from '@brickdoc/formula'
 import Logo from '@/common/assets/logo_brickdoc.svg'
 import * as Root from './DocumentContentPage.style'
 import { useFormulaActions } from './hooks/useFormulaActions'
+import { AppError404 } from '@/AppError'
 
 type Collaborator = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['collaborators'][0]
 type Path = Exclude<Exclude<GetBlockInfoQuery['blockInfo'], undefined>, null>['pathArray'][0]
@@ -35,6 +36,7 @@ export interface DocMeta {
   isDeleted: boolean
   isMine: boolean
   isRedirect: boolean
+  isNotExist?: boolean
   pin: boolean
   title: string
   icon?: icon
@@ -71,15 +73,25 @@ export const DocumentContentPage: React.FC = () => {
 
   const loginDomain = currentSpace.domain
 
-  const { data, loading: getBlockInfoLoading } = useGetBlockInfoQuery({ variables: { id: docid as string, domain } })
+  const {
+    data,
+    loading: getBlockInfoLoading,
+    refetch
+  } = useGetBlockInfoQuery({ variables: { id: docid as string, domain } })
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
     refetchQueries: [queryPageBlocks]
   })
   const loading = !data || getBlockInfoLoading || createBlockLoading
   const isAnonymous = !currentUser
   const personalDomain = currentUser?.domain ?? loginDomain
+  const { state, pathname } = useLocation()
 
-  const { state } = useLocation()
+  React.useEffect(() => {
+    // https://github.com/brickdoc/brickdoc/issues/1261
+    // The cache is not updated in time during the switchover
+    void refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   const docMeta: DocMeta = useMemo(() => {
     const policy = data?.blockInfo?.permission?.policy
@@ -101,6 +113,7 @@ export const DocumentContentPage: React.FC = () => {
     const id = isAlias ? data?.blockInfo?.id : docid
     const alias = isAlias ? docid : data?.blockInfo?.enabledAlias?.key
     const isRedirect = !!(state as any)?.redirect
+    const isNotExist = !loading && !id
 
     return {
       id,
@@ -125,7 +138,8 @@ export const DocumentContentPage: React.FC = () => {
       icon,
       personalDomain,
       documentInfoLoading: loading,
-      snapshotVersion: Number(snapshotVersion ?? '0')
+      snapshotVersion: Number(snapshotVersion ?? '0'),
+      isNotExist
     }
   }, [data, docid, host, isAnonymous, loading, personalDomain, loginDomain, snapshotVersion, state, t, domain])
 
@@ -195,7 +209,9 @@ export const DocumentContentPage: React.FC = () => {
     ) : (
       <SpaceSelect docMeta={docMeta} />
     ))
-
+  if (docMeta.isNotExist) {
+    return <AppError404 btnCallback={() => navigate('/')} />
+  }
   return (
     <>
       <Helmet

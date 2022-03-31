@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, useCallback, useContext, useMemo, useState } from 'react'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { NodeViewProps } from '@tiptap/react'
 import { Button, Icon, Popover } from '@brickdoc/design-system'
@@ -15,27 +15,28 @@ export interface UploaderModeProps {
   updateImageAttributes: (attrs: Record<string, any>) => void
 }
 
-export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, getPos, updateImageAttributes }) => {
+export const UploaderMode: FC<UploaderModeProps> = ({ node, deleteNode, getPos, updateImageAttributes }) => {
   const externalProps = useExternalProps()
-  const { t } = React.useContext(EditorContext)
+  const { t } = useContext(EditorContext)
 
-  const onUploaded = React.useCallback(
+  const onUploaded = useCallback(
     (data: UploadResultData): void => {
       linkStorage.set(node.attrs.uuid, data.viewUrl!)
       updateImageAttributes({ key: data.url, source: data.meta?.source.toUpperCase() })
     },
     [node.attrs.uuid, updateImageAttributes]
   )
-  const [progress, setProgress] = React.useState<UploadProgress>()
-  const onProgress = React.useCallback((progress: UploadProgress): void => setProgress(progress), [])
+  const [progress, setProgress] = useState<UploadProgress>()
+  const onProgress = useCallback((progress: UploadProgress): void => setProgress(progress), [])
 
-  const importSources = React.useMemo<ImportSourceOption[]>(
+  const importSources = useMemo<ImportSourceOption[]>(
     () => [
       {
         type: 'link',
         linkInputPlaceholder: t('image_block.import_sources.link.placeholder'),
         buttonText: t('image_block.import_sources.link.button_text'),
-        buttonHint: t('image_block.import_sources.link.button_hint')
+        buttonHint: t('image_block.import_sources.link.button_hint'),
+        invalidImageUrlMessage: t('document_cover.import_sources.link.invalidImageUrlMessage')
       },
       {
         type: 'upload',
@@ -50,7 +51,7 @@ export const UploaderMode: React.FC<UploaderModeProps> = ({ node, deleteNode, ge
   )
 
   return (
-    <BlockContainer deleteNode={deleteNode} getPos={getPos} actionOptions={['delete']}>
+    <BlockContainer node={node} deleteNode={deleteNode} getPos={getPos} actionOptions={['delete']}>
       <Popover
         overlayClassName="brickdoc-block-image-section-popover"
         trigger="click"

@@ -1,7 +1,7 @@
 import { createContext, ReactElement } from 'react'
 import { ContextInterface } from '@brickdoc/formula'
 import { DashboardPluginOptions } from '@brickdoc/uploader'
-import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuTrigger, Preview_Box } from '@brickdoc/schema'
+import { Preview_Box, Block } from '@brickdoc/schema'
 
 export interface WebsiteMeta {
   url: string
@@ -38,6 +38,8 @@ export interface DocumentPageData {
 export interface ExternalDatabase {
   // define data here
 
+  blocks: Block[]
+
   featureFlags: Record<string, boolean>
 
   settings: Record<string, any>
@@ -51,11 +53,6 @@ export interface ExternalDatabase {
   renderPageTree: () => ReactElement | null
 
   formulaContext?: ContextInterface | null
-
-  explorerMenu: {
-    show: (items: ExplorerMenuGroup[]) => void
-    hide: () => void
-  }
 
   blobs: {
     [blockKey: string]: Array<{
@@ -84,6 +81,7 @@ export type ExternalPropsListener = (type: ExternalPropsListenerType) => void
 
 export class ExternalProps {
   private database: ExternalDatabase = {
+    blocks: [],
     domain: '',
     rootId: '',
     pageQuery: null,
@@ -94,14 +92,6 @@ export class ExternalProps {
     collaborators: [],
     spaceMembers: [],
     documentPages: [],
-    explorerMenu: {
-      show: (items: ExplorerMenuGroup[]) => {
-        BrickdocEventBus.dispatch(ExplorerMenuTrigger({ visible: true, items }))
-      },
-      hide: () => {
-        BrickdocEventBus.dispatch(ExplorerMenuTrigger({ visible: false }))
-      }
-    },
     renderPageTree() {
       return null
     },
@@ -141,6 +131,15 @@ export class ExternalProps {
       ...this.props(),
       ...externalProps.props()
     }
+  }
+
+  get blocks(): ExternalDatabase['blocks'] {
+    return this.database.blocks
+  }
+
+  set blocks(value: ExternalDatabase['blocks']) {
+    this.database.blocks = value
+    this.invokeListeners('blocks')
   }
 
   get renderPageTree(): ExternalDatabase['renderPageTree'] {
@@ -186,10 +185,6 @@ export class ExternalProps {
   set rootId(value: ExternalDatabase['rootId']) {
     this.database.rootId = value
     this.invokeListeners('rootId')
-  }
-
-  get explorerMenu(): ExternalDatabase['explorerMenu'] {
-    return this.database.explorerMenu
   }
 
   get documentEditable(): ExternalDatabase['documentEditable'] {

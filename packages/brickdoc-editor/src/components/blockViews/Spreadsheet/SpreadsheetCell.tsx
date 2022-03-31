@@ -8,7 +8,7 @@ import {
   BlockSpreadsheetLoaded,
   FormulaEditorSavedTrigger
 } from '@brickdoc/schema'
-import { FormulaBlockRender } from '../Formula/FormulaBlockRender'
+import { FormulaBlockRender, useFormula } from '../FormulaView'
 import {
   displayValue,
   dumpDisplayResultForDisplay,
@@ -17,11 +17,10 @@ import {
   VariableInterface
 } from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
-import { FormulaDisplay } from '../Formula/FormulaDisplay'
 import { devLog } from '@brickdoc/design-system'
 import { useExternalProps } from '../../../hooks/useExternalProps'
-import { useFormula } from '../Formula'
 import * as Sentry from '@sentry/react'
+import { FormulaDisplay } from '../../ui/Formula'
 
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
@@ -43,7 +42,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   const externalProps = useExternalProps()
   const formulaContext = externalProps.formulaContext
   const rootId = externalProps.rootId
-  const minHeight = height ? height - 4 : undefined
+  const minHeight = height ? height - 3 : undefined
 
   const [currentBlock, setCurrentBlock] = React.useState(block)
 
@@ -73,7 +72,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       if (variable) {
         // TODO check no persist
         const displayData = dumpDisplayResultForDisplay(variable.t)
-        const value = displayValue(fetchResult(variable.t), rootId)
+        const value = displayValue(fetchResult(variable.t), rootId, true)
         devLog('Spreadsheet cell formula updated', { cellId, value, displayData })
         const newBlock = {
           ...block,

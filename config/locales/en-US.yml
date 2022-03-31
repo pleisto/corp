@@ -4,8 +4,8 @@ en-US:
     dir: ltr
     noscript: We're sorry but Brickdoc doesn't work properly without JavaScript enabled. Please visit %{url} for more information.
     noscript_url: https://www.wikihow.com/Enable-JavaScript
-  'Your browser is out of date': Your browser is out-of-date
-  download_latest_browser_html: Please download the latest version of <a href="%{edge}" rel="nofollow">Microsoft Edge</a>, <a href="%{chrome}" rel="nofollow">Chrome</a> or <a href="%{firefox}" rel="nofollow">Firefox</a> to continue using Brickdoc.
+  'Your browser is out of date': Your Browser Is Out of Date.
+  download_latest_browser_html: Please download the latest version of the following browsers to use Brickdoc.
   edge_link: https://www.microsoft.com/en-us/edge
   chrome_link: https://www.google.com/chrome/
   firefox_link: https://www.mozilla.org/en-US/firefox/new/
@@ -183,6 +183,7 @@ en-US:
       present: must be blank
       required: must exist
       taken: has already been taken
+      InvalidImageUrl: Invalid image url
       too_long:
         one: is too long (maximum is 1 character)
         other: is too long (maximum is %{count} characters)
@@ -192,6 +193,13 @@ en-US:
         wrong_length:
           one: is the wrong length (should be 1 character)
           other: is the wrong length (should be %{count} characters)
+    app_error:
+      not_found_title: Whoops! Lost in Brickdoc?
+      not_found_content: The page you're looking for couldn't be found.
+      server_error_title: Uh-Oh! Server Error.
+      server_error_content: Our servers are feeling a little down.
+      btn_back: Back to Home
+      btn_return: Return
     template:
       body: 'There were problems with the following fields:'
       header:
@@ -595,6 +603,7 @@ en-US:
           button_text: Submit
           button_hint: Works with any image from the web
           type_label: Link
+          invalidImageUrlMessage: Invalid image url
         upload:
           button_hint: Recommended size is 280x280 pixels
           button_text: Choose an image
@@ -605,6 +614,7 @@ en-US:
           placeholder: Paste the image link...
           button_text: Submit
           button_hint: Works with any image from the web
+          invalidImageUrlMessage: Invalid image url
           type_label: Link
         upload:
           button_hint: 'Recommended image size: wider than 1500 pixels'
