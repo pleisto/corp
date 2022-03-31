@@ -60,13 +60,34 @@ export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   name: column.name
 })
 
+const renderText = (text: string, display: string, value: string): string => {
+  if (display === text) return value
+
+  if (text.startsWith(display)) {
+    const body = maybeEncodeString(display)[1]
+    const suffix = text.substring(display.length)
+    return body.concat(suffix)
+  }
+
+  if (text.endsWith(display)) {
+    const body = maybeEncodeString(display)[1]
+    const prefix = text.substring(0, text.length - display.length)
+    return prefix.concat(body)
+  }
+
+  return text
+}
+
 export const attrs2display = (
   { display, code, value, attrs }: CodeFragment,
   text: string,
   prevText: string
 ): string => {
-  const finalText = display === text ? value : text
-  if (code === 'Variable' && prevText !== '.') {
+  const finalText = renderText(text, display, value)
+  if (['Variable'].includes(code) && prevText !== '.') {
+    return `#CurrentBlock.${finalText}`
+  }
+  if (['Spreadsheet'].includes(code) && prevText !== '.' && !value.startsWith('#CurrentBlock')) {
     return `#CurrentBlock.${finalText}`
   }
   return finalText
@@ -118,7 +139,7 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: N
   return {
     display: spreadsheet.name(),
     errors: [],
-    value: spreadsheet.name(),
+    value: maybeEncodeString(spreadsheet.name())[1],
     code: 'Spreadsheet',
     type: 'Spreadsheet',
     hide: false,
@@ -130,16 +151,17 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
   const namespaceKey = currentBlockKey(spreadsheet.namespaceId, pageId)
   const name = spreadsheet.name()
   const value: SpreadsheetKey = `${namespaceKey}.${name}`
+  const codeFragment = spreadsheet2codeFragment(spreadsheet, pageId)
   return {
     kind: 'spreadsheet',
-    replacements: [...reverseTraversalString(value, namespaceKey.length)],
+    replacements: [...reverseTraversalString(value, namespaceKey.length), ...reverseTraversalString(name)],
     weight: 10,
     name,
     positionChange: value.length,
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    codeFragments: [spreadsheet2codeFragment(spreadsheet, pageId)]
+    codeFragments: [{ ...codeFragment, value: `${namespaceKey}.${codeFragment.value}` }]
   }
 }
 

@@ -102,7 +102,7 @@ export const complete = ({
 
   if (['FunctionName', 'Function'].includes(code)) {
     completions = completions.map(c => {
-      const replacements: string[] = [value]
+      const replacements: string[] = []
 
       if (c.name === value) {
         return { ...c, weight: c.weight + 1000, replacements: [...replacements, ...c.replacements] }
