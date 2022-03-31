@@ -1,6 +1,6 @@
 import { FC, Key, ReactElement, ReactNode, useContext, useMemo } from 'react'
 import { CSS } from '@stitches/react'
-import { styled, theme, Tooltip } from '@brickdoc/design-system'
+import { styled, theme, LegacyTooltip } from '@brickdoc/design-system'
 import { ToolbarMenuItem } from './MenuItem'
 import { ToolbarMenuSubMenuItem } from './MenuSubMenuItem'
 import { EditorContext } from '../../../context/EditorContext'
@@ -118,7 +118,7 @@ const ToolbarMenuOption: FC<{ option: ToolbarOption }> = ({ option }) => {
   }
 
   return (
-    <Tooltip
+    <LegacyTooltip
       getPopupContainer={element => element}
       title={
         <>
@@ -129,7 +129,7 @@ const ToolbarMenuOption: FC<{ option: ToolbarOption }> = ({ option }) => {
       placement="top"
     >
       <ToolbarMenuOptionInner option={option} />
-    </Tooltip>
+    </LegacyTooltip>
   )
 }
 
