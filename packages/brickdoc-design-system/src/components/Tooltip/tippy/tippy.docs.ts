@@ -1,6 +1,15 @@
 export const TIPPY_ARG_TYPES = {
   children: {
-    description: 'The trigger of the popper.'
+    description: 'The anchor (trigger) of the popper.',
+    control: { type: null }
+  },
+  className: {
+    type: 'string',
+    description: 'The CSS class to be applied to the **content**.'
+  },
+  style: {
+    type: 'object',
+    description: 'The CSS inline style to be applied to the **content**.'
   },
   animation: {
     type: 'string',

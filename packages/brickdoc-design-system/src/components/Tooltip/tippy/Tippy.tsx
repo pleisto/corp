@@ -14,6 +14,7 @@ import {
 import { preserveRef } from '../../../utilities/preserveRef'
 import tippy, { Props as TippyInitProps } from 'tippy.js'
 import { tooltipStyle } from '../styles/tooltip.style'
+import { CSSProperties } from '@stitches/react'
 
 export type AllowedTippyProps = Pick<
   TippyInitProps,
@@ -43,11 +44,17 @@ export type AllowedTippyProps = Pick<
 export type AllowedTippyChildren = ReactChild | ReactFragment | undefined | null
 
 export interface TippyProps extends Partial<AllowedTippyProps> {
-  children?: AllowedTippyChildren
+  /** Content to be shown in the popper */
   content: ReactNode
+  /** The anchor (trigger) element of the popper */
+  children?: AllowedTippyChildren
+  /** The CSS class of the **CONTENT** */
+  className?: string
+  /** The CSS inline style of the **CONTENT** */
+  style?: CSSProperties
 }
 
-export const Tippy: FC<TippyProps> = ({ children, content, ...restProps }: TippyProps) => {
+export const Tippy: FC<TippyProps> = ({ children, content, className, style, ...restProps }: TippyProps) => {
   tooltipStyle()
   const anchorRef = useRef<HTMLElement>()
   const anchor = useMemo(() => {
@@ -80,7 +87,9 @@ export const Tippy: FC<TippyProps> = ({ children, content, ...restProps }: Tippy
   return (
     <>
       {anchor}
-      <div ref={containerRef}>{content}</div>
+      <div className={className} style={style} ref={containerRef}>
+        {content}
+      </div>
     </>
   )
 }
