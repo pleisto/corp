@@ -139,7 +139,7 @@ Array [
         "display": "num0",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num0",
       },
       Object {
@@ -286,7 +286,7 @@ Array [
         "display": "num0",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num0",
       },
     ],
@@ -362,7 +362,7 @@ Array [
         "display": "num2",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num2",
       },
       Object {
@@ -403,12 +403,12 @@ Array [
         "display": "num1",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num1",
       },
     ],
     "cst": null,
-    "definition": "=#CurrentBlock.\\"num2\\" + #CurrentBlock.\\"num1\\"",
+    "definition": "=num2 + num1",
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -495,7 +495,7 @@ Array [
         "display": "num2",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num2",
       },
       Object {
@@ -536,7 +536,7 @@ Array [
         "display": "num0",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num0",
       },
     ],
@@ -625,7 +625,7 @@ Array [
         "display": "num3",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num3",
       },
       Object {
@@ -666,7 +666,7 @@ Array [
         "display": "num0",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num0",
       },
       Object {
@@ -707,12 +707,12 @@ Array [
         "display": "num2",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num2",
       },
     ],
     "cst": null,
-    "definition": "=#CurrentBlock.\\"num3\\" + #CurrentBlock.\\"num0\\" + #CurrentBlock.\\"num2\\"",
+    "definition": "=num3 + num0 + num2",
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",
@@ -811,7 +811,7 @@ Array [
         "display": "num4",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num4",
       },
       Object {
@@ -852,12 +852,12 @@ Array [
         "display": "num1",
         "errors": Array [],
         "hide": false,
-        "type": "string",
+        "type": "number",
         "value": "num1",
       },
     ],
     "cst": null,
-    "definition": "=#CurrentBlock.\\"num4\\" + #CurrentBlock.\\"num1\\"",
+    "definition": "=num4 + num1",
     "flattenVariableDependencies": Array [
       Object {
         "namespaceId": "9dda8306-dbe1-49d3-868d-1a7c86f27328",

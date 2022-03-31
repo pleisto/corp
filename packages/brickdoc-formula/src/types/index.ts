@@ -710,7 +710,7 @@ export interface VariableInterface {
   isNew: boolean
   formulaContext: ContextInterface
 
-  buildFormula: () => Formula
+  buildFormula: (definition?: string) => Formula
   cleanup: (hard: boolean) => void
   trackDependency: VoidFunction
   trackDirty: VoidFunction
@@ -719,7 +719,15 @@ export interface VariableInterface {
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (definition: Definition) => void
   meta: () => VariableMetadata
-  onUpdate: (skipPersist?: boolean) => void
+  onUpdate: ({
+    skipPersist,
+    tNotMatched,
+    savedTNotMatched
+  }: {
+    skipPersist?: boolean
+    tNotMatched?: boolean
+    savedTNotMatched?: boolean
+  }) => void
 }
 
 export interface BackendActions {

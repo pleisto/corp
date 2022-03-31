@@ -129,9 +129,19 @@ export class VariableClass implements VariableInterface {
     this.builtinEventListeners.push(taskCompleteSubscription)
   }
 
-  public onUpdate(skipPersist?: boolean): void {
-    BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
-    BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
+  public onUpdate({
+    skipPersist,
+    tNotMatched,
+    savedTNotMatched
+  }: {
+    skipPersist?: boolean
+    tNotMatched?: boolean
+    savedTNotMatched?: boolean
+  }): void {
+    if (!savedTNotMatched) {
+      BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
+      BrickdocEventBus.dispatch(FormulaUpdatedViaName(this))
+    }
     if (!skipPersist) {
       this.trackDirty()
     }
@@ -164,7 +174,7 @@ export class VariableClass implements VariableInterface {
     const async = tMatched ? this.t.task.async : this.savedT?.task.async
     if (!async) return
 
-    this.onUpdate(true)
+    this.onUpdate({ skipPersist: true, tNotMatched: !tMatched, savedTNotMatched: !savedTMatched })
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
     BrickdocEventBus.dispatch(
       FormulaTickViaId({ uuid, variableId: this.t.variableId, namespaceId: this.t.namespaceId })
@@ -194,7 +204,7 @@ export class VariableClass implements VariableInterface {
       this.savedT!.task = task
     }
 
-    this.onUpdate()
+    this.onUpdate({ savedTNotMatched: !savedTMatched, tNotMatched: !tMatched })
   }
 
   public cleanup(hard: boolean): void {
@@ -221,7 +231,7 @@ export class VariableClass implements VariableInterface {
       this.formulaContext.reverseFunctionDependencies[dependencyKey] = [...functionDependencies]
     })
 
-    this.onUpdate()
+    if (hard) this.onUpdate({})
   }
 
   public trackDependency(): void {
@@ -299,10 +309,10 @@ export class VariableClass implements VariableInterface {
     this.formulaContext.commitVariable({ variable: this })
   }
 
-  public buildFormula(): Formula {
+  public buildFormula(definition?: string): Formula {
     return {
       blockId: this.t.namespaceId,
-      definition: this.t.definition,
+      definition: definition ?? this.t.definition,
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
@@ -311,25 +321,25 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  private async maybeReparseAndPersist(sourceUuid: string): Promise<void> {
+  private async maybeReparseAndPersist(sourceUuid: string, definition?: string): Promise<void> {
     if (this.currentUUID === sourceUuid) {
       return
     }
     this.currentUUID = sourceUuid
 
-    const formula = this.buildFormula()
+    const formula = this.buildFormula(definition)
     this.cleanup(false)
     await castVariable(this, this.formulaContext, formula)
+
     this.trackDependency()
     this.currentUUID = undefined
     if (this.savedT?.task.async === false) {
-      this.onUpdate()
+      this.onUpdate({ savedTNotMatched: false })
     }
   }
 
   public updateDefinition(definition: Definition): void {
-    this.t.definition = definition
-    void this.maybeReparseAndPersist(uuid())
+    void this.maybeReparseAndPersist(uuid(), definition)
   }
 
   private subscripeEvents(): void {
@@ -337,7 +347,7 @@ export class VariableClass implements VariableInterface {
     const innerRefreshSubscription = BrickdocEventBus.subscribe(
       FormulaInnerRefresh,
       e => {
-        this.onUpdate()
+        this.onUpdate({})
       },
       { eventId: `${t.namespaceId},${t.variableId}`, subscribeId: `InnerRefresh#${t.variableId}` }
     )
@@ -359,7 +369,16 @@ export class VariableClass implements VariableInterface {
         FormulaUpdatedViaId,
         e => {
           if (e.payload.isNew) return
-          void this.maybeReparseAndPersist(e.payload.t.variableId)
+          const definition = this.t.codeFragments
+            .map(c => {
+              if (c.code !== 'Variable') return c
+              if (c.attrs.id !== variableId) return c
+              if (c.attrs.name === e.payload.t.name) return c
+              return { ...c, display: e.payload.t.name }
+            })
+            .map(c => c.display)
+            .join('')
+          void this.maybeReparseAndPersist(e.payload.t.variableId, definition)
         },
         {
           eventId: `${namespaceId},${variableId}`,

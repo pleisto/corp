@@ -1,4 +1,4 @@
-import { CodeFragment } from '@brickdoc/formula'
+import { attrs2display, CodeFragment } from '@brickdoc/formula'
 import { JSONContent } from '@tiptap/core'
 import { devWarning } from '@brickdoc/design-system'
 
@@ -161,5 +161,6 @@ const JSONContentToText = (c: JSONContent, prevC: JSONContent | undefined): stri
     return text
   }
 
-  return attrs.display === text ? attrs.value : text
+  const prevText = prevC?.text ?? ''
+  return attrs2display(attrs, text, prevText)
 }

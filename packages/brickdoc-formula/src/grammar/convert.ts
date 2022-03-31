@@ -60,6 +60,18 @@ export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   name: column.name
 })
 
+export const attrs2display = (
+  { display, code, value, attrs }: CodeFragment,
+  text: string,
+  prevText: string
+): string => {
+  const finalText = display === text ? value : text
+  if (code === 'Variable' && prevText !== '.') {
+    return `#CurrentBlock.${finalText}`
+  }
+  return finalText
+}
+
 export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeFragment => {
   return {
     display: block.name(pageId),
@@ -116,12 +128,13 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: N
 
 export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: NamespaceId): SpreadsheetCompletion => {
   const namespaceKey = currentBlockKey(spreadsheet.namespaceId, pageId)
-  const value: SpreadsheetKey = `${namespaceKey}.${spreadsheet.name()}`
+  const name = spreadsheet.name()
+  const value: SpreadsheetKey = `${namespaceKey}.${name}`
   return {
     kind: 'spreadsheet',
     replacements: [...reverseTraversalString(value, namespaceKey.length)],
     weight: 10,
-    name: spreadsheet.name(),
+    name,
     positionChange: value.length,
     namespace: spreadsheet.spreadsheetId,
     value,

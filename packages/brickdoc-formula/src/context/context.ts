@@ -426,7 +426,7 @@ export class FormulaContext implements ContextInterface {
     }
 
     // 5. Persist
-    variable.onUpdate()
+    variable.onUpdate({})
   }
 
   public async removeVariable(namespaceId: NamespaceId, variableId: VariableId): Promise<void> {
