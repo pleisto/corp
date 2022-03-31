@@ -54,6 +54,7 @@ import {
   BrickdocEventBus,
   EventSubscribed,
   FormulaContextNameChanged,
+  FormulaContextNameRemove,
   FormulaContextTickTrigger
 } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
@@ -335,8 +336,12 @@ export class FormulaContext implements ContextInterface {
   }
 
   public removeName(id: NamespaceId): void {
+    const oldName = this.names[id]
+    if (!oldName) return
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.names[id]
+
+    BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
   }
 
   public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {

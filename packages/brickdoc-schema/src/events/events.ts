@@ -92,6 +92,14 @@ export const FormulaContextNameChanged = event<{
   return { id: `${namespaceId}#${name}` }
 })
 
+export const FormulaContextNameRemove = event<{
+  id: string
+  namespaceId: string
+  name: string
+  kind: string
+}>()('FormulaContextNameRemove', ({ id, namespaceId, name, kind }) => {
+  return { id: `${namespaceId}#${name}` }
+})
 
 export const SlashMenuHide = event<void>()('SlashMenuHide')
 

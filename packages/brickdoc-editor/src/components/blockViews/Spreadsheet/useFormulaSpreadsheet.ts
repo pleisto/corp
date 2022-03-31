@@ -13,7 +13,13 @@ interface useFormulaSpreadsheetProps {
   title: string
 }
 
-export function useFormulaSpreadsheet({ spreadsheetId, columns, rows, title, getCellBlock }: useFormulaSpreadsheetProps): {
+export function useFormulaSpreadsheet({
+  spreadsheetId,
+  columns,
+  rows,
+  title,
+  getCellBlock
+}: useFormulaSpreadsheetProps): {
   deleteSpreadsheet: () => void
 } {
   const externalProps = useExternalProps()

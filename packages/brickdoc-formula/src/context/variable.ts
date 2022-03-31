@@ -3,6 +3,7 @@ import {
   BrickdocEventBus,
   EventSubscribed,
   FormulaContextNameChanged,
+  FormulaContextNameRemove,
   FormulaInnerRefresh,
   FormulaTaskCompleted,
   FormulaTaskStarted,
@@ -413,6 +414,15 @@ export class VariableClass implements VariableInterface {
         { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
       )
       this.eventListeners.push(nameSubscription)
+
+      const nameRemoveSubscription = BrickdocEventBus.subscribe(
+        FormulaContextNameRemove,
+        e => {
+          void this.maybeReparseAndPersist(e.payload.id)
+        },
+        { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
+      )
+      this.eventListeners.push(nameRemoveSubscription)
     })
   }
 
