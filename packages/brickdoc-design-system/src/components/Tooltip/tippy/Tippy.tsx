@@ -14,7 +14,6 @@ import {
 import { preserveRef } from '../../../utilities/preserveRef'
 import tippy, { Props as TippyInitProps } from 'tippy.js'
 import { tooltipStyle } from '../styles/tooltip.style'
-import { createPortal } from 'react-dom'
 
 export type AllowedTippyProps = Pick<
   TippyInitProps,
@@ -36,6 +35,7 @@ export type AllowedTippyProps = Pick<
   | 'popperOptions'
   | 'role'
   | 'showOnCreate'
+  | 'theme'
   | 'touch'
   | 'trigger'
   | 'zIndex'
@@ -62,33 +62,25 @@ export const Tippy: FC<TippyProps> = ({ children, content, ...restProps }: Tippy
       }
     })
   }, [children])
-
-  const popperContainer = useMemo(() => {
-    return document.createElement('div')
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      document.removeChild(popperContainer)
-    }
-  }, [popperContainer])
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!anchorRef.current) return
+    if (!containerRef.current) return
 
     const instance = tippy(anchorRef.current, {
-      content: popperContainer,
+      content: containerRef.current,
       ...restProps
     })
     return () => {
       instance.destroy()
     }
-  }, [popperContainer, restProps])
+  }, [restProps])
 
   return (
     <>
       {anchor}
-      {createPortal(content, popperContainer)}
+      <div ref={containerRef}>{content}</div>
     </>
   )
 }

@@ -1,9 +1,18 @@
 import { composeStories } from '@storybook/testing-react'
-import { a11yTest } from '../../../utilities/testing'
-import { FC } from 'react'
+import { render } from '@testing-library/react'
+import { a11yTest, toStoryTable } from '../../../utilities/testing'
 import * as TooltipStories from '../tooltip.stories'
 
 jest.mock('../../../hooks/useId')
-const { Basic } = composeStories(TooltipStories)
+const storyTable = toStoryTable(composeStories(TooltipStories))
 
-it('Tooltip Should be passed a11y test', async () => await a11yTest(Basic as FC))
+describe('Tooltip', () => {
+  it.each(storyTable)('$name should pass the a11y test', async ({ story }) => {
+    await a11yTest(story)
+  })
+
+  it.each(storyTable)('$name should match the snapshot', ({ Component }) => {
+    const { container } = render(<Component />)
+    expect(container).toMatchSnapshot()
+  })
+})

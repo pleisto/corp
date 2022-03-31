@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip Basic should match the snapshot 1`] = `
+<div>
+  <div
+    style="display: flex; justify-content: center; align-items: center;"
+  >
+    <button
+      class="ButtonUnstyled-root brd-c-dsuUsp brd-c-dsuUsp-kEEMvd-btnType-secondary brd-c-dsuUsp-cAxcPy-size-md"
+      role="button"
+      tabindex="0"
+      type="button"
+    >
+      <span>
+        What does 42 mean?
+      </span>
+    </button>
+  </div>
+</div>
+`;

@@ -81,8 +81,9 @@ export const TIPPY_ARG_TYPES = {
       'Determines the behavior on touch devices. See [Tippy.js](https://atomiks.github.io/tippyjs/v6/all-props/#touch) for details.'
   },
   trigger: {
-    type: '"mouseenter" | "focus" | "click" | "focusin" | "manual"',
-    description: 'Determines the events that cause the popper to show. Multiple event names are separated by spaces.'
+    description: 'Determines the events that cause the popper to show. Multiple event names are separated by spaces.',
+    control: { type: 'radio' },
+    options: ['mouseenter', 'click', 'focusin', 'manual']
   },
   zIndex: {
     description: 'Specifies the z-index CSS on the root popper node.'

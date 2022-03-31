@@ -22,7 +22,8 @@ const DEFAULT_PROPS: Partial<TooltipProps> = {
   arrow: true,
   animation: 'scale',
   duration: 200,
-  role: 'tooltip'
+  role: 'tooltip',
+  theme: 'tooltip'
 }
 
 export const Tooltip: FC<TooltipProps> = ({ children, title, ...restProps }: TooltipProps) => {

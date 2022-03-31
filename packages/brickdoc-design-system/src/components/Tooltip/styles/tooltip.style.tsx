@@ -8,7 +8,7 @@ const bgColor = theme.colors.backgroundOverlayQuaternary
 const arrowScale = 5 / 8
 
 export const tooltipStyle = globalCss({
-  '.tippy-box': {
+  '.tippy-box[data-theme~="Ftooltip"]': {
     background: bgColor,
     color: theme.colors.white,
     borderRadius: theme.space.xxs,
