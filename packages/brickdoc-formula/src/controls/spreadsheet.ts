@@ -1,4 +1,10 @@
-import { BrickdocEventBus, ColumnUpdateNameViaId, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import {
+  BrickdocEventBus,
+  ColumnUpdateName,
+  ColumnUpdateNameViaId,
+  EventSubscribed,
+  SpreadsheetUpdateNameViaId
+} from '@brickdoc/schema'
 import { CodeFragmentVisitor, column2codeFragment, maybeEncodeString, codeFragments2definition } from '../grammar'
 import {
   AnyTypeResult,
@@ -33,18 +39,31 @@ export class SpreadsheetClass implements SpreadsheetType {
   persistence?: SpreadsheetDynamicPersistence
   _name: string
   name: () => string
-  listColumns: () => ColumnInitializer[]
-  listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  getCell: ({
+    rowId,
+    columnId,
+    rowIndex,
+    columnIndex
+  }: {
+    rowId: uuid
+    columnId: uuid
+    rowIndex: number
+    columnIndex: number
+  }) => CellType
+
+  _columnNames: Record<string, string> = {}
+  _columns: ColumnInitializer[]
+  _rows: Row[]
   eventListeners: EventSubscribed[] = []
+  _id = v4()
 
   constructor({
     spreadsheetId,
     namespaceId,
     name,
-    listColumns,
-    listRows,
-    listCells,
+    columns,
+    rows,
+    getCell,
     dynamic,
     ctx: { meta, formulaContext }
   }: SpreadsheetInitializer) {
@@ -52,6 +71,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     this.dynamic = dynamic
     this.spreadsheetId = spreadsheetId
     this.namespaceId = namespaceId
+    this.getCell = getCell
     this._name = name
     if (meta) {
       this.name = () => {
@@ -64,9 +84,12 @@ export class SpreadsheetClass implements SpreadsheetType {
     } else {
       this.name = () => this._name
     }
-    this.listColumns = listColumns
-    this.listRows = listRows
-    this.listCells = listCells
+    this._columns = columns
+    columns.forEach(c => {
+      this._columnNames[c.columnId] = c.name
+    })
+
+    this._rows = rows
 
     if (dynamic) {
       this.persistence = this.persistDynamic()
@@ -78,9 +101,56 @@ export class SpreadsheetClass implements SpreadsheetType {
         this._name = e.payload.name
         this._formulaContext.setName(this.nameDependency())
       },
-      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${v4()}` }
+      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${this._id}` }
     )
     this.eventListeners.push(nameSubscription)
+
+    const columnSubcription = BrickdocEventBus.subscribe(
+      ColumnUpdateName,
+      e => {
+        const { name, columnId } = e.payload
+        const oldName = this._columnNames[columnId]
+        if (oldName === name) return
+        this._columnNames[columnId] = name
+        // this._formulaContext.setName(this.nameDependency())
+
+        BrickdocEventBus.dispatch(
+          ColumnUpdateNameViaId({
+            columnId,
+            name,
+            spreadsheetId: this.spreadsheetId,
+            namespaceId: this.namespaceId,
+            key: columnId
+          })
+        )
+      },
+      { eventId: spreadsheetId, subscribeId: `Spreadsheet#${this._id}` }
+    )
+    this.eventListeners.push(columnSubcription)
+  }
+
+  public listColumns(): ColumnInitializer[] {
+    return this._columns.map(c => {
+      const name = this._columnNames[c.columnId]
+      return name ? { ...c, name } : c
+    })
+  }
+
+  public listRows(): Row[] {
+    return this._rows
+  }
+
+  public listCells({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }): CellType[] {
+    const finalRowIdsWithIndex = rowId ? this._rows.filter(row => row.rowId === rowId) : this._rows
+    const finalColumnIdsWithIndex = columnId
+      ? this._columns.filter(column => column.columnId === columnId)
+      : this._columns
+
+    return finalRowIdsWithIndex.flatMap(({ rowId, rowIndex }) =>
+      finalColumnIdsWithIndex.map(({ columnId, index: columnIndex }) => {
+        return this.getCell({ rowId, columnId, rowIndex, columnIndex })
+      })
+    )
   }
 
   public cleanup(hard: boolean): void {
@@ -141,7 +211,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     return { type: 'Row', result: { ...row, cells } }
   }
 
-  handleCodeFragments(
+  public handleCodeFragments(
     visitor: CodeFragmentVisitor,
     name: string,
     codeFragments: CodeFragment[]
@@ -204,7 +274,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     }
 
     const eventDependency: EventDependency = {
-      eventId: `${column.spreadsheet.namespaceId},${column.spreadsheetId},${column.columnId}`,
+      eventId: `${this.namespaceId},${this.spreadsheetId},${column.columnId}`,
       event: ColumnUpdateNameViaId,
       kind: 'ColumnName',
       definitionHandler: (deps, variable, payload) => {

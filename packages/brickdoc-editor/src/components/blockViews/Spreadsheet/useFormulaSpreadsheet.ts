@@ -27,6 +27,9 @@ export function useFormulaSpreadsheet({
   const formulaContext = externalProps.formulaContext
   const rootId = externalProps.rootId
   const titleRef = React.useRef(title)
+  const columnRef = React.useRef(columns)
+
+  const columnData = columns.map(column => ({ columnId: column.uuid, sort: column.sort }))
 
   React.useEffect(() => {
     BrickdocEventBus.dispatch(
@@ -41,12 +44,16 @@ export function useFormulaSpreadsheet({
 
   React.useEffect(() => {
     if (!formulaContext) return
+
     const spreadsheetName = titleRef.current
-    const columnData: ColumnInitializer[] = columns.map((column, index) => ({
-      columnId: column.uuid,
+    const newColumn: ColumnInitializer[] = columnData.map(({ columnId, sort }, index) => ({
+      columnId,
       spreadsheetId,
-      name: columnDisplayTitle(column),
-      // index: column.sort
+      name: columnDisplayTitle({
+        uuid: columnId,
+        sort,
+        title: columnRef.current.find(c => c.uuid === columnId)?.title
+      }),
       index
     }))
 
@@ -58,33 +65,21 @@ export function useFormulaSpreadsheet({
       spreadsheetId,
       dynamic: false,
       name: spreadsheetName,
-      listColumns: () => columnData,
-      listRows: () => rowData,
-      listCells: ({ rowId, columnId }) => {
-        const rowIdsWithIndex = rows.map((row, index) => ({ rowId: row.id, rowIndex: index }))
-        const columnIdsWithIndex = columns.map((column, index) => ({ columnId: column.uuid, columnIndex: index }))
+      columns: newColumn,
+      rows: rowData,
+      getCell: ({ rowId, columnId, rowIndex, columnIndex }) => {
+        const cellBlock = getCellBlock(rowId, columnId)
 
-        const finalRowIdsWithIndex = rowId ? rowIdsWithIndex.filter(row => row.rowId === rowId) : rowIdsWithIndex
-        const finalColumnIdsWithIndex = columnId
-          ? columnIdsWithIndex.filter(column => column.columnId === columnId)
-          : columnIdsWithIndex
-
-        return finalRowIdsWithIndex.flatMap(({ rowId, rowIndex }) =>
-          finalColumnIdsWithIndex.map(({ columnId, columnIndex }) => {
-            const cellBlock = getCellBlock(rowId, columnId)
-            const cell: CellType = {
-              spreadsheetId,
-              columnId,
-              rowIndex,
-              columnIndex,
-              rowId,
-              cellId: cellBlock.id,
-              value: cellBlock.text,
-              displayData: cellBlock.data.displayData
-            }
-            return cell
-          })
-        )
+        return {
+          spreadsheetId,
+          columnId,
+          rowIndex,
+          columnIndex,
+          rowId,
+          cellId: cellBlock.id,
+          value: cellBlock.text,
+          displayData: cellBlock.data.displayData
+        }
       }
     })
 
@@ -92,7 +87,7 @@ export function useFormulaSpreadsheet({
     return () => {
       // formulaContext.removeSpreadsheet(spreadsheetId)
     }
-  }, [rootId, spreadsheetId, columns, rows, formulaContext, getCellBlock])
+  }, [rootId, spreadsheetId, columnData, rows, formulaContext, getCellBlock])
 
   return {
     deleteSpreadsheet: () => {

@@ -10,7 +10,8 @@ import {
   CommitBlocks,
   loadSpreadsheetBlocks,
   SpreadsheetLoaded,
-  BlockInput
+  BlockInput,
+  ColumnUpdateName
 } from '@brickdoc/schema'
 
 export interface SpreadsheetColumn {
@@ -166,8 +167,15 @@ export const useSpreadsheet = (options: {
           sort: i
         }))
       )
+      BrickdocEventBus.dispatch(
+        ColumnUpdateName({
+          columnId: column.uuid,
+          name: column.title,
+          spreadsheetId: parentId
+        })
+      )
     },
-    [updateSpreadsheetAttributes, columns]
+    [columns, updateSpreadsheetAttributes, parentId]
   )
 
   const addColumn = React.useCallback(

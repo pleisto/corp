@@ -146,17 +146,10 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
           namespaceId,
           dynamic: true,
           name: spreadsheetName,
-          listColumns: () => columns,
-          listRows: () => rows,
-          listCells: ({ rowId, columnId }) => {
-            let finalCells = cells
-            if (rowId) {
-              finalCells = finalCells.filter(cell => cell.rowId === rowId)
-            }
-            if (columnId) {
-              finalCells = finalCells.filter(cell => cell.columnId === columnId)
-            }
-            return finalCells
+          columns,
+          rows,
+          getCell: ({ rowId, columnId }) => {
+            return cells.find(c => c.rowId === rowId && c.columnId === columnId)!
           }
         })
       }

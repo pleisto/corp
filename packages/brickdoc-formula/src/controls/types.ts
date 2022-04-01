@@ -113,9 +113,19 @@ export interface SpreadsheetInitializer {
   ctx: BaseFunctionContext
   dynamic: boolean
   name: string
-  listColumns: () => ColumnInitializer[]
-  listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  columns: ColumnInitializer[]
+  rows: Row[]
+  getCell: ({
+    rowId,
+    columnId,
+    rowIndex,
+    columnIndex
+  }: {
+    rowId: uuid
+    columnId: uuid
+    rowIndex: number
+    columnIndex: number
+  }) => CellType
 }
 
 export interface SpreadsheetDynamicPersistence {

@@ -88,13 +88,21 @@ export const SpreadsheetUpdateNameViaId = event<{
   return { id: `${namespaceId},${spreadsheetId}` }
 })
 
+export const ColumnUpdateName = event<{
+  spreadsheetId: string
+  columnId: string
+  name: string
+}>()('ColumnUpdateName', ({ spreadsheetId }) => {
+  return { id: spreadsheetId }
+})
+
 export const ColumnUpdateNameViaId = event<{
   spreadsheetId: string
   namespaceId: string
   columnId: string
   name: string
   key: string
-}>()('ColumnUpdateNameViaId', ({ spreadsheetId, namespaceId, columnId }) => {
+}>()('ColumnUpdateNameViaId', ({ namespaceId, spreadsheetId, columnId }) => {
   return { id: `${namespaceId},${spreadsheetId},${columnId}` }
 })
 

@@ -101,17 +101,10 @@ export const Spreadsheet = (
     namespaceId: ctx.meta.namespaceId,
     dynamic: true,
     name: defaultName,
-    listColumns: () => columns,
-    listRows: () => rows,
-    listCells: ({ rowId, columnId }) => {
-      let finalCells = cells
-      if (rowId) {
-        finalCells = finalCells.filter(cell => cell.rowId === rowId)
-      }
-      if (columnId) {
-        finalCells = finalCells.filter(cell => cell.columnId === columnId)
-      }
-      return finalCells
+    columns,
+    rows,
+    getCell: ({ rowId, columnId }) => {
+      return cells.find(cell => cell.rowId === rowId && cell.columnId === columnId)!
     }
   }
 
