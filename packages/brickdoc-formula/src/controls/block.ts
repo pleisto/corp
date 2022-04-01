@@ -106,14 +106,7 @@ export class BlockClass implements BlockType {
     firstArgumentType: FormulaType | undefined
     codeFragments: CodeFragment[]
   } {
-    visitor.nameDependencies = [
-      ...new Map(
-        [...visitor.nameDependencies, { namespaceId: this.id, name }].map(item => [
-          `${item.namespaceId},${item.name}`,
-          item
-        ])
-      ).values()
-    ]
+    visitor.nameDependencies.push({ namespaceId: this.id, name })
 
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
     if (spreadsheet) {
@@ -127,6 +120,7 @@ export class BlockClass implements BlockType {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetUpdateNameViaId,
         kind: 'SpreadsheetName',
+        payload: {},
         definitionHandler: (deps, variable, payload) => {
           const newCodeFragments = variable.t.codeFragments.map(c => {
             if (c.code !== 'Spreadsheet') return c
@@ -141,17 +135,11 @@ export class BlockClass implements BlockType {
       const spreadsheetReloadEventDependency: EventDependency = {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetReloadViaId,
-        kind: 'Spreadsheet'
+        payload: {},
+        kind: 'Column'
       }
 
-      visitor.eventDependencies = [
-        ...new Map(
-          [...visitor.eventDependencies, spreadsheetNameEventDependency, spreadsheetReloadEventDependency].map(item => [
-            `${item.kind},${item.event.eventType},${item.eventId}`,
-            item
-          ])
-        ).values()
-      ]
+      visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheetReloadEventDependency)
 
       return {
         errors: [],
@@ -193,24 +181,11 @@ export class BlockClass implements BlockType {
       finalCodeFragments = [variable2codeFragment(variable, visitor.ctx.meta.namespaceId)]
     }
 
-    visitor.variableDependencies = [
-      ...new Map(
-        [...visitor.variableDependencies, { namespaceId: this.id, variableId: variable.t.variableId }].map(item => [
-          item.variableId,
-          item
-        ])
-      ).values()
-    ]
-
-    visitor.flattenVariableDependencies = [
-      ...new Map(
-        [
-          ...visitor.flattenVariableDependencies,
-          ...variable.t.flattenVariableDependencies,
-          { namespaceId: this.id, variableId: variable.t.variableId }
-        ].map(item => [item.variableId, item])
-      ).values()
-    ]
+    visitor.variableDependencies.push({ namespaceId: this.id, variableId: variable.t.variableId })
+    visitor.flattenVariableDependencies.push(...variable.t.flattenVariableDependencies, {
+      namespaceId: this.id,
+      variableId: variable.t.variableId
+    })
 
     return {
       errors,

@@ -387,6 +387,8 @@ export class FormulaContext implements ContextInterface {
     BrickdocEventBus.dispatch(
       SpreadsheetReloadViaId({
         spreadsheetId: spreadsheet.spreadsheetId,
+        columnIds: [],
+        rowIds: [],
         namespaceId: spreadsheet.namespaceId,
         key: spreadsheet.spreadsheetId
       })

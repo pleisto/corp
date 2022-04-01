@@ -328,7 +328,6 @@ Array [
   Object {
     "blockDependencies": Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
       Object {
@@ -456,7 +455,6 @@ Array [
   Object {
     "blockDependencies": Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
       Object {
@@ -579,8 +577,6 @@ Array [
   },
   Object {
     "blockDependencies": Array [
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
@@ -757,7 +753,6 @@ Array [
   },
   Object {
     "blockDependencies": Array [
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
@@ -1128,7 +1123,6 @@ Array [
   Object {
     "blockDependencies": Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
       Object {
@@ -1256,7 +1250,6 @@ Array [
   Object {
     "blockDependencies": Array [
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
       Object {
@@ -1379,8 +1372,6 @@ Array [
   },
   Object {
     "blockDependencies": Array [
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [
@@ -1557,7 +1548,6 @@ Array [
   },
   Object {
     "blockDependencies": Array [
-      "9dda8306-dbe1-49d3-868d-1a7c86f27328",
       "9dda8306-dbe1-49d3-868d-1a7c86f27328",
     ],
     "codeFragments": Array [

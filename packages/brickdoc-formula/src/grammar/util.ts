@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   AnyTypeResult,
   CodeFragment,
@@ -70,6 +71,8 @@ export const shouldReturnEarly = (result: AnyTypeResult | undefined, skipReturnE
 const encodeString = (str: string): string => {
   return `"${str}"`
 }
+export const objectDiff = <T>(a: T[], b: T[]): Record<number, T> =>
+  _.fromPairs(_.differenceWith(_.toPairs(a), _.toPairs(b), _.isEqual))
 
 export const truncateString = (str: string, length: number = 20): string => {
   if (typeof str !== 'string') return str

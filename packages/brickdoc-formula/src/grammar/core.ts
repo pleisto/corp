@@ -370,12 +370,24 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   returnValue.persist = codeFragmentVisitor.persist
   returnValue.pure = codeFragmentVisitor.pure
   returnValue.kind = codeFragmentVisitor.kind
-  returnValue.variableDependencies = codeFragmentVisitor.variableDependencies
-  returnValue.nameDependencies = codeFragmentVisitor.nameDependencies
+  returnValue.variableDependencies = [
+    ...new Map(codeFragmentVisitor.variableDependencies.map(item => [item.variableId, item])).values()
+  ]
+  returnValue.nameDependencies = [
+    ...new Map(codeFragmentVisitor.nameDependencies.map(item => [`${item.namespaceId},${item.name}`, item])).values()
+  ]
   returnValue.functionDependencies = codeFragmentVisitor.functionDependencies
-  returnValue.blockDependencies = codeFragmentVisitor.blockDependencies
-  returnValue.eventDependencies = codeFragmentVisitor.eventDependencies
-  returnValue.flattenVariableDependencies = codeFragmentVisitor.flattenVariableDependencies
+  returnValue.blockDependencies = [...new Map(codeFragmentVisitor.blockDependencies.map(item => [item, item])).values()]
+
+  returnValue.eventDependencies = [
+    ...new Map(
+      codeFragmentVisitor.eventDependencies.map(item => [`${item.kind},${item.event.eventType},${item.eventId}`, item])
+    ).values()
+  ]
+  returnValue.flattenVariableDependencies = [
+    ...new Map(codeFragmentVisitor.flattenVariableDependencies.map(item => [item.variableId, item])).values()
+  ]
+
   returnValue.inputImage = inputImage
 
   returnValue.cst = cst
