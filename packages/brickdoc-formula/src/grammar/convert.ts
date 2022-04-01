@@ -151,7 +151,7 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
   }
 }
 
-const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
+export const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
   // const value = columnKey(column.namespaceId, column.columnId)
   return {
     display: column.name,

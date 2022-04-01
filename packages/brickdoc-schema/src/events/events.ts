@@ -40,9 +40,6 @@ export const BlockSynced = event<Block>()('BlockSynced', (block: Block) => {
   return { id: block.id }
 })
 
-export const BlockSpreadsheetLoaded = event<{ id: string }>()('BlockSpreadsheetLoaded', ({ id }) => {
-  return { id }
-})
 export const BlockNameLoad = event<{ id: string; name: string }>()('BlockNameLoad', ({ id }) => {
   return { id }
 })
@@ -74,13 +71,31 @@ export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
   return { id: `${v.namespaceId},${v.variableId}` }
 })
 
+export const SpreadsheetReloadViaId = event<{
+  spreadsheetId: string
+  namespaceId: string
+  key: string
+}>()('SpreadsheetReloadViaId', ({ spreadsheetId, namespaceId, key }) => {
+  return { id: `${namespaceId},${spreadsheetId}` }
+})
+
 export const SpreadsheetUpdateNameViaId = event<{
   spreadsheetId: string
   namespaceId: string
   name: string
   key: string
 }>()('SpreadsheetUpdateNameViaId', ({ spreadsheetId, namespaceId, name, key }) => {
-  return { id: `${namespaceId},${spreadsheetId}`, spreadsheetId, namespaceId, name, key }
+  return { id: `${namespaceId},${spreadsheetId}` }
+})
+
+export const ColumnUpdateNameViaId = event<{
+  spreadsheetId: string
+  namespaceId: string
+  columnId: string
+  name: string
+  key: string
+}>()('ColumnUpdateNameViaId', ({ spreadsheetId, namespaceId, columnId }) => {
+  return { id: `${namespaceId},${spreadsheetId},${columnId}` }
 })
 
 export const FormulaContextNameChanged = event<{

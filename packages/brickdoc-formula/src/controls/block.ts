@@ -16,7 +16,13 @@ import {
   variable2codeFragment
 } from '../grammar'
 import { fetchResult } from '../context/variable'
-import { BlockNameLoad, BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import {
+  BlockNameLoad,
+  BrickdocEventBus,
+  EventSubscribed,
+  SpreadsheetReloadViaId,
+  SpreadsheetUpdateNameViaId
+} from '@brickdoc/schema'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
@@ -117,10 +123,10 @@ export class BlockClass implements BlockType {
         finalCodeFragments = [spreadsheet2codeFragment(spreadsheet, visitor.ctx.meta.namespaceId)]
       }
 
-      const eventDependency: EventDependency = {
+      const spreadsheetNameEventDependency: EventDependency = {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetUpdateNameViaId,
-        kind: 'Spreadsheet',
+        kind: 'SpreadsheetName',
         definitionHandler: (deps, variable, payload) => {
           const newCodeFragments = variable.t.codeFragments.map(c => {
             if (c.code !== 'Spreadsheet') return c
@@ -132,9 +138,15 @@ export class BlockClass implements BlockType {
         }
       }
 
+      const spreadsheetReloadEventDependency: EventDependency = {
+        eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
+        event: SpreadsheetReloadViaId,
+        kind: 'Spreadsheet'
+      }
+
       visitor.eventDependencies = [
         ...new Map(
-          [...visitor.eventDependencies, eventDependency].map(item => [
+          [...visitor.eventDependencies, spreadsheetNameEventDependency, spreadsheetReloadEventDependency].map(item => [
             `${item.kind},${item.event.eventType},${item.eventId}`,
             item
           ])

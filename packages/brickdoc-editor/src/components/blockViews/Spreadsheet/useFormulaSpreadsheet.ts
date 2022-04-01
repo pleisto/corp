@@ -96,7 +96,7 @@ export function useFormulaSpreadsheet({
 
   return {
     deleteSpreadsheet: () => {
-      formulaContext?.removeSpreadsheet(spreadsheetId)
+      formulaContext?.removeSpreadsheet(spreadsheetId, true)
     }
   }
 }

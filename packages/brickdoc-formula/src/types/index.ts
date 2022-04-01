@@ -484,7 +484,7 @@ export interface ContextInterface {
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
-  removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
+  removeSpreadsheet: (spreadsheetId: SpreadsheetId, hard: boolean) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
@@ -674,10 +674,10 @@ export interface SyncVariableTask extends BaseVariableTask {
 }
 
 export interface EventDependency {
-  readonly kind: 'Spreadsheet'
+  readonly kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet'
   readonly event: EventType
   readonly eventId: string
-  readonly definitionHandler: (deps: EventDependency, variable: VariableInterface, payload: any) => string
+  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask

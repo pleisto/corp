@@ -357,12 +357,12 @@ export class VariableClass implements VariableInterface {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
         e => {
-          const definition = dependency.definitionHandler(dependency, this, e.payload)
+          const definition = dependency.definitionHandler?.(dependency, this, e.payload)
           void this.maybeReparseAndPersist(e.payload.key, definition)
         },
         {
           eventId: dependency.eventId,
-          subscribeId: `EventDependency#${t.namespaceId},${t.variableId}`
+          subscribeId: `EventDependency#${t.namespaceId},${t.variableId}#${dependency.kind}#${dependency.eventId}`
         }
       )
       this.eventListeners.push(eventSubscription)
@@ -409,7 +409,7 @@ export class VariableClass implements VariableInterface {
           if (this.isReadySavedT) return
           void this.maybeReparseAndPersist(e.payload.id)
         },
-        { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
+        { eventId: `${namespaceId}#${name}`, subscribeId: `NameSetDependency#${t.variableId}` }
       )
       this.eventListeners.push(nameSubscription)
 
@@ -418,7 +418,7 @@ export class VariableClass implements VariableInterface {
         e => {
           void this.maybeReparseAndPersist(e.payload.id)
         },
-        { eventId: `${namespaceId}#${name}`, subscribeId: `SpreadsheetDependency#${t.variableId}` }
+        { eventId: `${namespaceId}#${name}`, subscribeId: `NameRemoveDependency#${t.variableId}` }
       )
       this.eventListeners.push(nameRemoveSubscription)
     })

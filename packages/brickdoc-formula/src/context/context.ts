@@ -50,12 +50,12 @@ import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
 import {
   BlockNameLoad,
-  BlockSpreadsheetLoaded,
   BrickdocEventBus,
   EventSubscribed,
   FormulaContextNameChanged,
   FormulaContextNameRemove,
-  FormulaContextTickTrigger
+  FormulaContextTickTrigger,
+  SpreadsheetReloadViaId
 } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
@@ -379,16 +379,22 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.removeSpreadsheet(spreadsheet.spreadsheetId)
+    this.removeSpreadsheet(spreadsheet.spreadsheetId, false)
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
     this.setBlock(spreadsheet.namespaceId, '')
     this.setName(spreadsheet.nameDependency())
-    BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: spreadsheet.spreadsheetId }))
+    BrickdocEventBus.dispatch(
+      SpreadsheetReloadViaId({
+        spreadsheetId: spreadsheet.spreadsheetId,
+        namespaceId: spreadsheet.namespaceId,
+        key: spreadsheet.spreadsheetId
+      })
+    )
   }
 
-  public removeSpreadsheet(spreadsheetId: SpreadsheetId): void {
+  public removeSpreadsheet(spreadsheetId: SpreadsheetId, hard: boolean): void {
     if (!this.spreadsheets[spreadsheetId]) return
-    this.spreadsheets[spreadsheetId].cleanup()
+    this.spreadsheets[spreadsheetId].cleanup(hard)
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.spreadsheets[spreadsheetId]
   }

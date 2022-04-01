@@ -58,7 +58,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -108,7 +108,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -211,7 +211,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -261,7 +261,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -406,7 +406,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -485,7 +485,7 @@ Array [
     "display": "third",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -580,7 +580,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -675,7 +675,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -762,7 +762,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -841,7 +841,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -899,7 +899,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -997,7 +997,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1092,7 +1092,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1142,7 +1142,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1245,7 +1245,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1295,7 +1295,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1390,7 +1390,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -1440,7 +1440,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2055,7 +2055,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2179,7 +2179,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2327,7 +2327,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2451,7 +2451,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2599,7 +2599,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2723,7 +2723,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2847,7 +2847,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -2995,7 +2995,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3143,7 +3143,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3238,7 +3238,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3288,7 +3288,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3383,7 +3383,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3433,7 +3433,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3512,7 +3512,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3583,7 +3583,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3651,7 +3651,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3719,7 +3719,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,
@@ -3782,7 +3782,7 @@ Array [
     "display": "first",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
 ]
 `;
@@ -3861,7 +3861,7 @@ Array [
     "display": "third",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
 ]
 `;
@@ -3940,7 +3940,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
 ]
 `;
@@ -4003,7 +4003,7 @@ Array [
     "display": "second",
     "errors": Array [],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
 ]
 `;

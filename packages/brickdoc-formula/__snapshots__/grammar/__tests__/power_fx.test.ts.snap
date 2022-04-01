@@ -184,7 +184,7 @@ Array [
       },
     ],
     "hide": false,
-    "type": "string",
+    "type": "Column",
   },
   Object {
     "attrs": undefined,

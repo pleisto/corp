@@ -1,10 +1,11 @@
-import { BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
-import { CodeFragmentVisitor, column2attrs, maybeEncodeString } from '../grammar'
+import { BrickdocEventBus, ColumnUpdateNameViaId, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import { CodeFragmentVisitor, column2codeFragment, maybeEncodeString, codeFragments2definition } from '../grammar'
 import {
   AnyTypeResult,
   CodeFragment,
   ContextInterface,
   ErrorMessage,
+  EventDependency,
   NameDependencyWithKind,
   NamespaceId,
   StringResult,
@@ -82,8 +83,8 @@ export class SpreadsheetClass implements SpreadsheetType {
     this.eventListeners.push(nameSubscription)
   }
 
-  public cleanup(): void {
-    this._formulaContext.removeName(this.spreadsheetId)
+  public cleanup(hard: boolean): void {
+    if (hard) this._formulaContext.removeName(this.spreadsheetId)
     this.eventListeners.forEach(listener => {
       listener.unsubscribe()
     })
@@ -199,15 +200,32 @@ export class SpreadsheetClass implements SpreadsheetType {
     let finalRhsCodeFragments = codeFragments
 
     if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
-      finalRhsCodeFragments = [
-        {
-          ...codeFragments[0],
-          display: name,
-          code: 'Column',
-          attrs: column2attrs(column)
-        }
-      ]
+      finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
     }
+
+    const eventDependency: EventDependency = {
+      eventId: `${column.spreadsheet.namespaceId},${column.spreadsheetId},${column.columnId}`,
+      event: ColumnUpdateNameViaId,
+      kind: 'ColumnName',
+      definitionHandler: (deps, variable, payload) => {
+        const newCodeFragments = variable.t.codeFragments.map(c => {
+          if (c.code !== 'Column') return c
+          if (c.attrs.id !== payload.columnId) return c
+          if (c.attrs.name === payload.name) return c
+          return { ...c, attrs: { ...c.attrs, name: payload.name } }
+        })
+        return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
+      }
+    }
+
+    visitor.eventDependencies = [
+      ...new Map(
+        [...visitor.eventDependencies, eventDependency].map(item => [
+          `${item.kind},${item.event.eventType},${item.eventId}`,
+          item
+        ])
+      ).values()
+    ]
 
     return {
       errors,

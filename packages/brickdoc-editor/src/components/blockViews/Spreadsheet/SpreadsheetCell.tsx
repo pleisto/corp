@@ -80,7 +80,6 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         }
         setCurrentBlock(newBlock)
         saveBlock(newBlock)
-        // BrickdocEventBus.dispatch(BlockSpreadsheetLoaded({ id: tableId }))
       }
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)

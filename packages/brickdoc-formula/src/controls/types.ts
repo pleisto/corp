@@ -139,7 +139,7 @@ export interface SpreadsheetType {
   spreadsheetId: SpreadsheetId
   namespaceId: NamespaceId
   dynamic: boolean
-  cleanup: VoidFunction
+  cleanup: (hard: boolean) => void
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
