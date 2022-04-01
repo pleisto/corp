@@ -61,7 +61,8 @@ export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   name: column.name
 })
 
-const renderText = (text: string, display: string, value: string): string => {
+const renderText = ({ code, display }: CodeFragment, text: string, value: string): string => {
+  if (!['Spreadsheet', 'Column', 'Variable', 'Block'].includes(code)) return text
   if (display === text) return value
 
   if (text.startsWith(display)) {
@@ -91,7 +92,7 @@ export const codeFragment2string = (codeFragment: CodeFragment): string => {
 export const codeFragments2definition = (codeFragments: CodeFragment[], pageId: string): string => {
   return codeFragments
     .map((c, idx, arr) => codeFragment2display(c, c.display, arr[idx - 1]?.display ?? '', pageId))
-    .join(' ')
+    .join('')
 }
 
 export const codeFragment2value = (
@@ -122,9 +123,9 @@ export const codeFragment2display = (
   prevText: string,
   pageId: string
 ): string => {
-  const { display, code, attrs } = codeFragment
+  const { code, attrs } = codeFragment
   const value = codeFragment2value(codeFragment, pageId)
-  const finalText = renderText(text, display, value)
+  const finalText = renderText(codeFragment, text, value)
   if (code === 'Variable' && prevText !== '.' && pageId === attrs.namespaceId) {
     return `#CurrentBlock.${finalText}`
   }

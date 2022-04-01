@@ -1,4 +1,3 @@
-import { ILexingResult } from 'chevrotain'
 import {
   AnyTypeResult,
   CodeFragment,
@@ -32,12 +31,6 @@ export const parseString = (str: string): string => {
 
 const lexer = FormulaLexer
 
-const checkValidToken = (input: string): boolean => {
-  const lexResult: ILexingResult = lexer.tokenize(input)
-  const tokens = lexResult.tokens
-  return tokens.length === 1
-}
-
 export const checkValidName = (name: string): boolean => {
   if (name.length !== name.trim().length) {
     return false
@@ -57,7 +50,7 @@ export const checkValidName = (name: string): boolean => {
 }
 
 export const maybeEncodeString = (str: string): [boolean, string] => {
-  const valid = checkValidToken(str)
+  const valid = checkValidName(str)
   if (valid) {
     return [true, str]
   }

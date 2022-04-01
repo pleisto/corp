@@ -340,14 +340,6 @@ Array [
         "type": "any",
       },
       Object {
-        "attrs": undefined,
-        "code": "Space",
-        "display": " ",
-        "errors": Array [],
-        "hide": false,
-        "type": "any",
-      },
-      Object {
         "attrs": Object {
           "id": "94a89a9d-2222-4e46-ae48-887238bc2bec",
           "kind": "Variable",
@@ -363,7 +355,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -379,7 +371,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -399,7 +391,7 @@ Array [
       },
     ],
     "cst": null,
-    "definition": "= #CurrentBlock.num2   +   #CurrentBlock.num1",
+    "definition": "=#CurrentBlock.num2 + #CurrentBlock.num1",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
@@ -601,14 +593,6 @@ Array [
         "type": "any",
       },
       Object {
-        "attrs": undefined,
-        "code": "Space",
-        "display": " ",
-        "errors": Array [],
-        "hide": false,
-        "type": "any",
-      },
-      Object {
         "attrs": Object {
           "id": "f78cb1af-3333-4d8b-8cd4-4e8a7da3a373",
           "kind": "Variable",
@@ -624,7 +608,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -640,7 +624,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -661,7 +645,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -677,7 +661,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -697,7 +681,7 @@ Array [
       },
     ],
     "cst": null,
-    "definition": "= #CurrentBlock.num3   +   #CurrentBlock.num0   +   #CurrentBlock.num2",
+    "definition": "=#CurrentBlock.num3 + #CurrentBlock.num0 + #CurrentBlock.num2",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
@@ -786,14 +770,6 @@ Array [
         "type": "any",
       },
       Object {
-        "attrs": undefined,
-        "code": "Space",
-        "display": " ",
-        "errors": Array [],
-        "hide": false,
-        "type": "any",
-      },
-      Object {
         "attrs": Object {
           "id": "74d1a0a2-4444-407b-a470-ac6ae1f3e8e2",
           "kind": "Variable",
@@ -809,7 +785,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -825,7 +801,7 @@ Array [
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": "   ",
+        "display": " ",
         "errors": Array [],
         "hide": false,
         "type": "any",
@@ -845,7 +821,7 @@ Array [
       },
     ],
     "cst": null,
-    "definition": "= #CurrentBlock.num4   +   #CurrentBlock.num1",
+    "definition": "=#CurrentBlock.num4 + #CurrentBlock.num1",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
