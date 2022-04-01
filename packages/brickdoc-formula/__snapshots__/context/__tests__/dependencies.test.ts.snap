@@ -71,7 +71,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": undefined,
@@ -80,7 +79,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "1",
       },
     ],
     "cst": null,
@@ -127,7 +125,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -141,7 +138,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
       Object {
         "attrs": undefined,
@@ -150,7 +146,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -159,7 +154,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "*",
       },
       Object {
         "attrs": undefined,
@@ -168,7 +162,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -177,7 +170,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "2",
       },
       Object {
         "attrs": undefined,
@@ -186,7 +178,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -195,7 +186,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -204,7 +194,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -213,7 +202,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "100",
       },
     ],
     "cst": null,
@@ -275,7 +263,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -289,7 +276,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
     ],
     "cst": null,
@@ -352,7 +338,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
+      },
+      Object {
+        "attrs": undefined,
+        "code": "Space",
+        "display": " ",
+        "errors": Array [],
+        "hide": false,
+        "type": "any",
       },
       Object {
         "attrs": Object {
@@ -366,16 +359,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -384,16 +375,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -407,11 +396,10 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num1",
       },
     ],
     "cst": null,
-    "definition": "=num2 + num1",
+    "definition": "= #CurrentBlock.num2   +   #CurrentBlock.num1",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
@@ -486,7 +474,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -500,7 +487,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
       Object {
         "attrs": undefined,
@@ -509,7 +495,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -518,7 +503,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -527,7 +511,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -541,7 +524,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
     ],
     "cst": null,
@@ -617,7 +599,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
+      },
+      Object {
+        "attrs": undefined,
+        "code": "Space",
+        "display": " ",
+        "errors": Array [],
+        "hide": false,
+        "type": "any",
       },
       Object {
         "attrs": Object {
@@ -631,16 +620,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num3",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -649,16 +636,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -672,16 +657,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -690,16 +673,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -713,11 +694,10 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
     ],
     "cst": null,
-    "definition": "=num3 + num0 + num2",
+    "definition": "= #CurrentBlock.num3   +   #CurrentBlock.num0   +   #CurrentBlock.num2",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
@@ -804,7 +784,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
+      },
+      Object {
+        "attrs": undefined,
+        "code": "Space",
+        "display": " ",
+        "errors": Array [],
+        "hide": false,
+        "type": "any",
       },
       Object {
         "attrs": Object {
@@ -818,16 +805,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num4",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -836,16 +821,14 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
         "code": "Space",
-        "display": " ",
+        "display": "   ",
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -859,11 +842,10 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num1",
       },
     ],
     "cst": null,
-    "definition": "=num4 + num1",
+    "definition": "= #CurrentBlock.num4   +   #CurrentBlock.num1",
     "eventDependencies": Array [],
     "flattenVariableDependencies": Array [
       Object {
@@ -999,7 +981,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": undefined,
@@ -1008,7 +989,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "1",
       },
     ],
     "cst": null,
@@ -1053,7 +1033,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": undefined,
@@ -1062,7 +1041,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "2",
       },
     ],
     "cst": null,
@@ -1109,7 +1087,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -1123,7 +1100,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
     ],
     "cst": null,
@@ -1186,7 +1162,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -1200,7 +1175,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
       Object {
         "attrs": undefined,
@@ -1209,7 +1183,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -1218,7 +1191,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -1227,7 +1199,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -1241,7 +1212,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num1",
       },
     ],
     "cst": null,
@@ -1320,7 +1290,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -1334,7 +1303,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
       Object {
         "attrs": undefined,
@@ -1343,7 +1311,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -1352,7 +1319,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -1361,7 +1327,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -1375,7 +1340,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
     ],
     "cst": null,
@@ -1451,7 +1415,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -1465,7 +1428,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num3",
       },
       Object {
         "attrs": undefined,
@@ -1474,7 +1436,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -1483,7 +1444,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -1492,7 +1452,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -1506,7 +1465,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num0",
       },
       Object {
         "attrs": undefined,
@@ -1515,7 +1473,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -1524,7 +1481,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -1533,7 +1489,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -1547,7 +1502,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num2",
       },
     ],
     "cst": null,
@@ -1638,7 +1592,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "=",
       },
       Object {
         "attrs": Object {
@@ -1652,7 +1605,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num4",
       },
       Object {
         "attrs": undefined,
@@ -1661,7 +1613,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": undefined,
@@ -1670,7 +1621,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "+",
       },
       Object {
         "attrs": undefined,
@@ -1679,7 +1629,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": " ",
       },
       Object {
         "attrs": Object {
@@ -1693,7 +1642,6 @@ Array [
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "num1",
       },
     ],
     "cst": null,

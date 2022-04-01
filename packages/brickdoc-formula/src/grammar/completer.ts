@@ -2,7 +2,7 @@ import type { IToken } from 'chevrotain'
 import { fetchResult } from '../context'
 import { ColumnClass } from '../controls'
 import { CodeFragment, Completion, FormulaType, FunctionContext } from '../types'
-import { column2completion } from './convert'
+import { codeFragment2value, column2completion } from './convert'
 
 export interface CompleteInput {
   readonly tokens: IToken[]
@@ -51,7 +51,7 @@ export const complete = ({
       return true
     }
 
-    lastCodeFragment = { ...codeFragment, value: codeFragment.value.concat(extraSpaces) }
+    lastCodeFragment = { ...codeFragment, display: codeFragment.display.concat(extraSpaces) }
     return false
   })
 
@@ -61,7 +61,8 @@ export const complete = ({
     return completions
   }
 
-  const { code, value } = lastCodeFragment
+  const { code } = lastCodeFragment
+  const value = codeFragment2value(lastCodeFragment, namespaceId)
   const tokenLowerCase = value.toLowerCase()
   // const lastTokenText = lastToken.image
 

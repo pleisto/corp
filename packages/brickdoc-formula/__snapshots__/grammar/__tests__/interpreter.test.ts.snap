@@ -9,7 +9,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -18,7 +17,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -27,7 +25,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "\\"barbarbar\\"",
   },
   Object {
     "attrs": undefined,
@@ -36,7 +33,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -45,7 +41,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "&",
   },
   Object {
     "attrs": undefined,
@@ -54,7 +49,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -73,7 +67,6 @@ Array [
     ],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
 ]
 `;
@@ -106,7 +99,6 @@ Array [
             "errors": Array [],
             "hide": false,
             "type": "any",
-            "value": "=",
           },
           Object {
             "attrs": undefined,
@@ -115,7 +107,6 @@ Array [
             "errors": Array [],
             "hide": false,
             "type": "number",
-            "value": "1",
           },
         ],
         "input": "=1",

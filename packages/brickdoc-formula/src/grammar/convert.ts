@@ -20,7 +20,7 @@ import {
   ColumnCompletion
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
-import { maybeEncodeString, reverseTraversalString } from './util'
+import { maybeEncodeString, parseString, reverseTraversalString } from './util'
 import { fetchResult } from '../context'
 
 export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): VariableKey =>
@@ -28,7 +28,7 @@ export const variableKey = (namespaceId: NamespaceId, variableId: VariableId): V
 
 export const blockKey = (namespaceId: NamespaceId): BlockKey => `#${namespaceId}`
 
-export const currentBlockKey = (namespaceId: NamespaceId, pageId: NamespaceId): BlockKey =>
+export const currentBlockKey = (namespaceId: NamespaceId, pageId: NamespaceId | undefined): BlockKey =>
   namespaceId === pageId ? '#CurrentBlock' : blockKey(namespaceId)
 
 export const columnKey = (namespaceId: NamespaceId, columnId: ColumnId): ColumnKey => `#${namespaceId}.${columnId}`
@@ -79,12 +79,51 @@ const renderText = (text: string, display: string, value: string): string => {
   return text
 }
 
-export const attrs2display = (
-  { display, code, value, attrs }: CodeFragment,
+export const codeFragment2string = (codeFragment: CodeFragment): string => {
+  const value = codeFragment2value(codeFragment, undefined)
+  if (codeFragment.code === 'StringLiteral') return parseString(value)
+  if (codeFragment.code === 'NumberLiteral') return value
+  if (codeFragment.code === 'FunctionName') return value
+
+  return ''
+}
+
+export const codeFragments2definition = (codeFragments: CodeFragment[], pageId: string): string => {
+  return codeFragments
+    .map((c, idx, arr) => codeFragment2display(c, c.display, arr[idx - 1]?.display ?? '', pageId))
+    .join(' ')
+}
+
+export const codeFragment2value = (
+  { display, code, attrs, valuePrefix }: CodeFragment,
+  pageId: string | undefined
+): string => {
+  let suffix
+  switch (code) {
+    case 'Block':
+      suffix = currentBlockKey(attrs.id, pageId)
+      break
+    case 'Column':
+    case 'Variable':
+    case 'Spreadsheet':
+      suffix = maybeEncodeString(attrs.name)[1]
+      break
+    default:
+      suffix = display
+  }
+
+  if (!valuePrefix) return suffix
+  return valuePrefix.concat(suffix)
+}
+
+export const codeFragment2display = (
+  codeFragment: CodeFragment,
   text: string,
   prevText: string,
   pageId: string
 ): string => {
+  const { display, code, attrs } = codeFragment
+  const value = codeFragment2value(codeFragment, pageId)
   const finalText = renderText(text, display, value)
   if (code === 'Variable' && prevText !== '.' && pageId === attrs.namespaceId) {
     return `#CurrentBlock.${finalText}`
@@ -105,7 +144,6 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
     display: block.name(pageId),
     errors: [],
     hide: false,
-    value: currentBlockKey(block.id, pageId),
     code: 'Block',
     type: 'Block',
     attrs: block2attrs(block, pageId)
@@ -117,7 +155,6 @@ const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragm
   return {
     display: column.name,
     errors: [],
-    value: maybeEncodeString(column.name)[1],
     code: 'Column',
     type: 'Column',
     hide: false,
@@ -144,7 +181,6 @@ export const variable2codeFragment = (variable: VariableInterface, pageId: Names
   return {
     display: variable.t.name,
     errors: [],
-    value: maybeEncodeString(variable.t.name)[1],
     code: 'Variable',
     hide: false,
     type: fetchResult(variable.t).type,
@@ -174,7 +210,6 @@ export const spreadsheet2codeFragment = (spreadsheet: SpreadsheetType, pageId: N
   return {
     display: spreadsheet.name(),
     errors: [],
-    value: maybeEncodeString(spreadsheet.name())[1],
     code: 'Spreadsheet',
     type: 'Spreadsheet',
     hide: false,
@@ -196,7 +231,7 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    codeFragments: [{ ...codeFragment, value: `${namespaceKey}.${codeFragment.value}` }]
+    codeFragments: [{ ...codeFragment, valuePrefix: `${namespaceKey}.` }]
   }
 }
 
@@ -215,7 +250,7 @@ export const variable2completion = (variable: VariableInterface, pageId: Namespa
     value,
     preview: variable,
     positionChange: value.length,
-    codeFragments: [{ ...codeFragment, value: `${namespaceKey}.${codeFragment.value}` }]
+    codeFragments: [{ ...codeFragment, valuePrefix: `${namespaceKey}.` }]
   }
 }
 
@@ -234,7 +269,6 @@ export const function2completion = (functionClause: FunctionClause<any>, weight:
       {
         display: value,
         errors: [],
-        value,
         code: 'Function',
         type: 'any',
         hide: false,

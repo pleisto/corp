@@ -106,20 +106,6 @@ export const FormulaType = createMark<FormulaTypeOptions, FormulaTypeAttributes>
             'data-attrs': JSON.stringify(attributes.attrs)
           }
         }
-      },
-      value: {
-        default: null,
-        keepOnSplit: true,
-        parseHTML: element => element.getAttribute('data-value'),
-        renderHTML: attributes => {
-          if (!attributes.value) {
-            return {}
-          }
-
-          return {
-            'data-value': attributes.value
-          }
-        }
       }
     }
   },

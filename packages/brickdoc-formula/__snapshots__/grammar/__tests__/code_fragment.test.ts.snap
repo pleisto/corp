@@ -1428,7 +1428,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -1437,7 +1436,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1446,7 +1444,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -1455,7 +1452,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -1464,7 +1460,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1473,7 +1468,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -1482,7 +1476,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1491,7 +1484,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -1500,7 +1492,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -1509,7 +1500,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1518,7 +1508,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "/",
   },
   Object {
     "attrs": undefined,
@@ -1527,7 +1516,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1536,7 +1524,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "2",
   },
   Object {
     "attrs": undefined,
@@ -1545,7 +1532,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1554,7 +1540,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "*",
   },
   Object {
     "attrs": undefined,
@@ -1563,7 +1548,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1572,7 +1556,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "0.1",
   },
   Object {
     "attrs": undefined,
@@ -1581,7 +1564,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1590,7 +1572,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "==",
   },
   Object {
     "attrs": undefined,
@@ -1599,7 +1580,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1608,7 +1588,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -1617,7 +1596,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "!",
   },
   Object {
     "attrs": undefined,
@@ -1626,7 +1604,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "!",
   },
   Object {
     "attrs": undefined,
@@ -1635,7 +1612,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "true",
   },
   Object {
     "attrs": undefined,
@@ -1644,7 +1620,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1653,7 +1628,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "and",
   },
   Object {
     "attrs": undefined,
@@ -1662,7 +1636,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1671,7 +1644,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "false",
   },
   Object {
     "attrs": undefined,
@@ -1680,7 +1652,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1689,7 +1660,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "or",
   },
   Object {
     "attrs": undefined,
@@ -1698,7 +1668,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1707,7 +1676,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "true",
   },
   Object {
     "attrs": undefined,
@@ -1716,7 +1684,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -1725,7 +1692,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1734,7 +1700,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": "==",
   },
   Object {
     "attrs": undefined,
@@ -1743,7 +1708,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -1752,7 +1716,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "\\"123\\"",
   },
 ]
 `;
@@ -2116,7 +2079,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -2125,7 +2087,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -2134,7 +2095,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "ABS",
   },
   Object {
     "attrs": undefined,
@@ -2143,7 +2103,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -2157,7 +2116,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "\\"123\\"",
   },
   Object {
     "attrs": undefined,
@@ -2166,7 +2124,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": ")",
   },
 ]
 `;
@@ -3065,7 +3022,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -3074,7 +3030,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3083,7 +3038,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "custom::PLUS",
   },
   Object {
     "attrs": undefined,
@@ -3092,7 +3046,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -3101,7 +3054,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -3110,7 +3062,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "custom::FORTY_TWO",
   },
   Object {
     "attrs": undefined,
@@ -3119,7 +3070,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -3128,7 +3078,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -3137,7 +3086,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -3146,7 +3094,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -3155,7 +3102,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3164,7 +3110,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -3173,7 +3118,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3182,7 +3126,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -3191,7 +3134,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3200,7 +3142,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -3209,7 +3150,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": ")",
   },
 ]
 `;
@@ -3733,7 +3673,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -3747,7 +3686,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -3756,7 +3694,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -3765,7 +3702,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "T",
   },
   Object {
     "attrs": undefined,
@@ -3774,7 +3710,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -3783,7 +3718,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -3792,7 +3726,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -3801,7 +3734,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "T",
   },
   Object {
     "attrs": undefined,
@@ -3810,7 +3742,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -3819,7 +3750,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -3828,7 +3758,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3837,7 +3766,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "&",
   },
   Object {
     "attrs": undefined,
@@ -3846,7 +3774,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -3855,7 +3782,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "\\"Zzz\\"",
   },
 ]
 `;
@@ -4221,7 +4147,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -4235,7 +4160,6 @@ Array [
     "errors": Array [],
     "hide": true,
     "type": "Block",
-    "value": "#CurrentBlock",
   },
   Object {
     "attrs": undefined,
@@ -4244,7 +4168,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -4258,7 +4181,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "\\"bar\\"",
   },
   Object {
     "attrs": undefined,
@@ -4267,7 +4189,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -4276,7 +4197,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -4285,7 +4205,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -4294,7 +4213,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "3",
   },
 ]
 `;
@@ -4660,7 +4578,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -4674,7 +4591,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -4683,7 +4599,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -4692,7 +4607,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -4701,7 +4615,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -4710,7 +4623,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
 ]
 `;
@@ -5076,7 +4988,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -5090,7 +5001,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -5099,7 +5009,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -5108,7 +5017,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -5117,7 +5025,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -5126,7 +5033,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
 ]
 `;
@@ -5492,7 +5398,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -5501,7 +5406,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "#",
   },
   Object {
     "attrs": undefined,
@@ -5515,7 +5419,6 @@ Array [
     ],
     "hide": false,
     "type": "any",
-    "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
   },
   Object {
     "attrs": undefined,
@@ -5524,7 +5427,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -5538,7 +5440,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -5547,7 +5448,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -5556,7 +5456,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -5565,7 +5464,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -5574,7 +5472,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "2",
   },
 ]
 `;
@@ -5929,7 +5826,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -5947,7 +5843,6 @@ Array [
     ],
     "hide": false,
     "type": "any",
-    "value": "Bar",
   },
   Object {
     "attrs": undefined,
@@ -5956,7 +5851,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -5965,7 +5859,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -5974,7 +5867,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -5983,7 +5875,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -5992,7 +5883,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -6001,7 +5891,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "2",
   },
 ]
 `;
@@ -6367,7 +6256,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -6381,7 +6269,6 @@ Array [
     "errors": Array [],
     "hide": true,
     "type": "Block",
-    "value": "#CurrentBlock",
   },
   Object {
     "attrs": undefined,
@@ -6390,7 +6277,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -6404,7 +6290,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "bar",
   },
   Object {
     "attrs": undefined,
@@ -6413,7 +6298,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -6422,7 +6306,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -6431,7 +6314,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -6440,7 +6322,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "3",
   },
 ]
 `;
@@ -6806,7 +6687,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -6820,7 +6700,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -6829,7 +6708,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -6838,7 +6716,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -6847,7 +6724,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -6856,7 +6732,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
 ]
 `;
@@ -7222,7 +7097,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": Object {
@@ -7236,7 +7110,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "foo",
   },
   Object {
     "attrs": undefined,
@@ -7245,7 +7118,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -7254,7 +7126,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "+",
   },
   Object {
     "attrs": undefined,
@@ -7263,7 +7134,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -7272,7 +7142,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
 ]
 `;

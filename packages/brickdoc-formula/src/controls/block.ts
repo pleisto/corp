@@ -9,7 +9,12 @@ import {
   NameDependencyWithKind,
   NamespaceId
 } from '../types'
-import { CodeFragmentVisitor, spreadsheet2codeFragment, variable2codeFragment } from '../grammar'
+import {
+  codeFragments2definition,
+  CodeFragmentVisitor,
+  spreadsheet2codeFragment,
+  variable2codeFragment
+} from '../grammar'
 import { fetchResult } from '../context/variable'
 import { BlockNameLoad, BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
 
@@ -117,16 +122,15 @@ export class BlockClass implements BlockType {
         event: SpreadsheetUpdateNameViaId,
         kind: 'Spreadsheet',
         definitionHandler: (deps, variable, payload) => {
-          console.log('update name via id', deps, payload, variable)
-          return variable.t.codeFragments
-            .map(c => {
-              if (c.code !== 'Spreadsheet') return c
-              if (c.attrs.id !== payload.spreadsheetId) return c
-              if (c.attrs.name === payload.name) return c
-              return { ...c, display: payload.name }
-            })
-            .map(c => c.display)
-            .join('')
+          console.log('update name via id', deps, payload, variable, [...variable.t.codeFragments])
+          const newCodeFragments = variable.t.codeFragments.map(c => {
+            if (c.code !== 'Spreadsheet') return c
+            if (c.attrs.id !== payload.spreadsheetId) return c
+            if (c.attrs.name === payload.name) return c
+            return { ...c, attrs: { ...c.attrs, name: payload.name } }
+          })
+
+          return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
         }
       }
 

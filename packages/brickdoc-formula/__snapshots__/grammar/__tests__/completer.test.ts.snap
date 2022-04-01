@@ -10,7 +10,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": Object {
@@ -24,7 +23,6 @@ Object {
       "errors": Array [],
       "hide": true,
       "type": "Block",
-      "value": "#CurrentBlock",
     },
     Object {
       "attrs": undefined,
@@ -42,7 +40,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": ".",
     },
   ],
   "firstCompletion": Object {
@@ -59,7 +56,7 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "#CurrentBlock.varvarabcvar",
+        "valuePrefix": "#CurrentBlock.",
       },
     ],
     "kind": "variable",
@@ -109,7 +106,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -118,7 +114,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -127,7 +122,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "1",
     },
     Object {
       "attrs": undefined,
@@ -136,7 +130,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -145,7 +138,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "+",
     },
     Object {
       "attrs": undefined,
@@ -154,7 +146,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -176,7 +167,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": "varvarabcvar",
     },
     Object {
       "attrs": undefined,
@@ -190,7 +180,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": ".",
     },
   ],
   "firstCompletion": Object {
@@ -202,7 +191,6 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "CURRENT_POSITION()",
       },
     ],
     "kind": "function",
@@ -245,7 +233,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -254,7 +241,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -263,7 +249,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "1",
     },
     Object {
       "attrs": undefined,
@@ -272,7 +257,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -281,7 +265,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "+",
     },
     Object {
       "attrs": undefined,
@@ -290,7 +273,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": Object {
@@ -304,7 +286,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "varvarabcvar",
     },
     Object {
       "attrs": undefined,
@@ -322,7 +303,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": ".",
     },
   ],
   "firstCompletion": Object {
@@ -339,7 +319,7 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "#CurrentBlock.varvarabcvar",
+        "valuePrefix": "#CurrentBlock.",
       },
     ],
     "kind": "variable",
@@ -389,7 +369,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": Object {
@@ -403,7 +382,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "Block",
-      "value": "#57622108-1337-4edd-833a-2557835bcfe0",
     },
     Object {
       "attrs": undefined,
@@ -412,7 +390,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": ".",
     },
     Object {
       "attrs": Object {
@@ -426,7 +403,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "varvarabcvar",
     },
   ],
   "firstCompletion": Object {
@@ -438,7 +414,6 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "CURRENT_POSITION()",
       },
     ],
     "kind": "function",
@@ -481,7 +456,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -499,7 +473,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": "varvarabcvar",
     },
   ],
   "firstCompletion": Object {
@@ -511,7 +484,6 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "CURRENT_POSITION()",
       },
     ],
     "kind": "function",
@@ -554,7 +526,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": Object {
@@ -568,7 +539,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "varvarabcvar",
     },
   ],
   "firstCompletion": Object {
@@ -585,7 +555,7 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "#CurrentBlock.varvarabcvar",
+        "valuePrefix": "#CurrentBlock.",
       },
     ],
     "kind": "variable",
@@ -635,7 +605,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -644,7 +613,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "1",
     },
     Object {
       "attrs": undefined,
@@ -653,7 +621,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "+",
     },
     Object {
       "attrs": undefined,
@@ -671,7 +638,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": "arvar",
     },
   ],
   "firstCompletion": Object {
@@ -683,7 +649,6 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "any",
-        "value": "CURRENT_POSITION()",
       },
     ],
     "kind": "function",
@@ -726,7 +691,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -735,7 +699,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "1",
     },
     Object {
       "attrs": undefined,
@@ -744,7 +707,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "+",
     },
     Object {
       "attrs": undefined,
@@ -762,7 +724,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": "arvar",
     },
   ],
   "firstCompletion": Object {
@@ -779,7 +740,7 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "#CurrentBlock.varvarabcvar",
+        "valuePrefix": "#CurrentBlock.",
       },
     ],
     "kind": "variable",
@@ -829,7 +790,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": "=",
     },
     Object {
       "attrs": undefined,
@@ -838,7 +798,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -847,7 +806,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "1",
     },
     Object {
       "attrs": undefined,
@@ -856,7 +814,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -865,7 +822,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "number",
-      "value": "+",
     },
     Object {
       "attrs": undefined,
@@ -874,7 +830,6 @@ Object {
       "errors": Array [],
       "hide": false,
       "type": "any",
-      "value": " ",
     },
     Object {
       "attrs": undefined,
@@ -892,7 +847,6 @@ Object {
       ],
       "hide": false,
       "type": "any",
-      "value": "var",
     },
   ],
   "firstCompletion": Object {
@@ -909,7 +863,7 @@ Object {
         "errors": Array [],
         "hide": false,
         "type": "number",
-        "value": "#CurrentBlock.varvarabcvar",
+        "valuePrefix": "#CurrentBlock.",
       },
     ],
     "kind": "variable",

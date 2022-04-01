@@ -51,7 +51,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     this.dynamic = dynamic
     this.spreadsheetId = spreadsheetId
     this.namespaceId = namespaceId
-    this._name = name || 'Untitled Spreadsheet'
+    this._name = name
     if (meta) {
       this.name = () => {
         const v = formulaContext.findVariableById(meta.namespaceId, meta.variableId)
@@ -74,7 +74,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     const nameSubscription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateNameViaId,
       e => {
-        this._name = e.payload.name || 'Untitled Spreadsheet'
+        this._name = e.payload.name
         this._formulaContext.setName(this.nameDependency())
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${v4()}` }

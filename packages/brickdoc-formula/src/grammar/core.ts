@@ -267,7 +267,7 @@ const changePosition = (
       specialCodeFragmentCount += 1
     }
 
-    if (codeFragment.value === '') {
+    if (codeFragment.display === '') {
       specialCodeFragmentCount -= 1
     }
     if (idx <= tokenIndex - specialCodeFragmentCount) {
@@ -328,7 +328,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       codeFragments: [
         {
           code: 'literal',
-          value: input,
           type: 'any',
           hide: false,
           display: input,
@@ -399,7 +398,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       if (restImages.length > 0) {
         codeFragments.push({
           code: 'parseErrorOther',
-          value: restImages,
           type: 'any',
           hide: false,
           display: restImages,
@@ -427,7 +425,6 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
       codeFragments[0],
       {
         code: 'parseErrorOther',
-        value: restImages,
         type: 'any',
         hide: false,
         display: restImages,
@@ -440,7 +437,8 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
   const { finalCodeFragments: addSpaceCodeFragment, finalPositionFragment: addSpacePositionFragment } = addSpace(
     parseCodeFragments,
     newInput,
-    positionFragment
+    positionFragment,
+    namespaceId
   )
 
   const { finalCodeFragments, finalPositionFragment } = hideDot(addSpaceCodeFragment, addSpacePositionFragment)

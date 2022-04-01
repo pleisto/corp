@@ -9,7 +9,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -18,7 +17,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Select",
   },
   Object {
     "attrs": undefined,
@@ -27,7 +25,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -36,7 +33,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "[",
   },
   Object {
     "attrs": undefined,
@@ -45,7 +41,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "[",
   },
   Object {
     "attrs": undefined,
@@ -54,7 +49,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "]",
   },
   Object {
     "attrs": undefined,
@@ -63,7 +57,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "]",
   },
   Object {
     "attrs": undefined,
@@ -72,7 +65,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -81,7 +73,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -90,7 +81,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Set",
   },
   Object {
     "attrs": undefined,
@@ -99,7 +89,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": Object {
@@ -113,7 +102,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "varvarabcvar",
   },
   Object {
     "attrs": undefined,
@@ -122,7 +110,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -131,7 +118,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -140,7 +126,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Record",
-    "value": "Input",
   },
   Object {
     "attrs": undefined,
@@ -149,7 +134,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -158,7 +142,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "selected",
   },
   Object {
     "attrs": undefined,
@@ -167,7 +150,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Function",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -176,7 +158,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Select",
-    "value": ")",
   },
 ]
 `;
@@ -190,7 +171,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -199,7 +179,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Select",
   },
   Object {
     "attrs": undefined,
@@ -208,7 +187,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -217,7 +195,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "[",
   },
   Object {
     "attrs": undefined,
@@ -226,7 +203,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "]",
   },
   Object {
     "attrs": undefined,
@@ -235,7 +211,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -244,7 +219,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -253,7 +227,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Set",
   },
   Object {
     "attrs": undefined,
@@ -262,7 +235,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": Object {
@@ -276,7 +248,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "varvarabcvar",
   },
   Object {
     "attrs": undefined,
@@ -285,7 +256,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -294,7 +264,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -303,7 +272,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Record",
-    "value": "Input",
   },
   Object {
     "attrs": undefined,
@@ -312,7 +280,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -321,7 +288,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "string",
-    "value": "selected",
   },
   Object {
     "attrs": undefined,
@@ -330,7 +296,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Function",
-    "value": ")",
   },
   Object {
     "attrs": undefined,
@@ -339,7 +304,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Select",
-    "value": ")",
   },
 ]
 `;
@@ -353,7 +317,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -362,7 +325,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -371,7 +333,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Set",
   },
   Object {
     "attrs": undefined,
@@ -380,7 +341,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": undefined,
@@ -398,7 +358,6 @@ Array [
     ],
     "hide": false,
     "type": "any",
-    "value": "a",
   },
   Object {
     "attrs": undefined,
@@ -407,7 +366,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -416,7 +374,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -425,7 +382,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -434,7 +390,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Function",
-    "value": ")",
   },
 ]
 `;
@@ -448,7 +403,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -457,7 +411,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "Set",
   },
   Object {
     "attrs": undefined,
@@ -466,7 +419,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": Object {
@@ -480,7 +432,6 @@ Array [
     "errors": Array [],
     "hide": true,
     "type": "Block",
-    "value": "#CurrentBlock",
   },
   Object {
     "attrs": undefined,
@@ -489,7 +440,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": undefined,
@@ -503,7 +453,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "baz",
   },
   Object {
     "attrs": undefined,
@@ -512,7 +461,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -521,7 +469,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -530,7 +477,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "1",
   },
   Object {
     "attrs": undefined,
@@ -539,7 +485,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Function",
-    "value": ")",
   },
 ]
 `;

@@ -26,7 +26,7 @@ import {
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
-import { variableKey } from '../grammar/convert'
+import { codeFragments2definition, variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
 import { maybeEncodeString } from '../grammar'
 
@@ -385,15 +385,13 @@ export class VariableClass implements VariableInterface {
         FormulaUpdatedViaId,
         e => {
           if (e.payload.isNew) return
-          const definition = this.t.codeFragments
-            .map(c => {
-              if (c.code !== 'Variable') return c
-              if (c.attrs.id !== variableId) return c
-              if (c.attrs.name === e.payload.t.name) return c
-              return { ...c, display: e.payload.t.name }
-            })
-            .map(c => c.display)
-            .join('')
+          const newCodeFragments = this.t.codeFragments.map(c => {
+            if (c.code !== 'Variable') return c
+            if (c.attrs.id !== variableId) return c
+            if (c.attrs.name === e.payload.t.name) return c
+            return { ...c, attrs: { ...c.attrs, name: e.payload.t.name } }
+          })
+          const definition = codeFragments2definition(newCodeFragments, this.t.namespaceId)
           void this.maybeReparseAndPersist(e.payload.t.variableId, definition)
         },
         {

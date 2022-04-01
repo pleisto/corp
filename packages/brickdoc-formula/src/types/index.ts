@@ -581,7 +581,7 @@ export type FunctionClause<T extends FormulaType> = Omit<BaseFunctionClauseWithK
 
 export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
-  readonly value: string
+  readonly valuePrefix?: string
   readonly display: string
   readonly hide: boolean
   readonly type: FormulaType

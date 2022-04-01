@@ -17,11 +17,12 @@ export function useFormulaSpreadsheet({
   spreadsheetId,
   columns,
   rows,
-  title,
+  title: originalTitle,
   getCellBlock
 }: useFormulaSpreadsheetProps): {
   deleteSpreadsheet: () => void
 } {
+  const title = originalTitle || 'Untitled Spreadsheet'
   const externalProps = useExternalProps()
   const formulaContext = externalProps.formulaContext
   const rootId = externalProps.rootId

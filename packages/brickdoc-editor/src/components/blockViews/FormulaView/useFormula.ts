@@ -9,7 +9,8 @@ import {
   VariableData,
   VariableInterface,
   interpret,
-  FormulaType
+  FormulaType,
+  codeFragments2definition
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
@@ -144,7 +145,7 @@ export const useFormula = ({
   const defaultVariable = formulaContext?.findVariableById(rootId, formulaId)
 
   const formulaValue = defaultVariable?.t.valid
-    ? defaultVariable.t.codeFragments.map(fragment => fragment.value).join('')
+    ? codeFragments2definition(defaultVariable.t.codeFragments, rootId)
     : defaultVariable?.t.definition
 
   const contextDefaultName = formulaContext ? formulaContext.getDefaultVariableName(rootId, 'any') : ''
@@ -297,7 +298,6 @@ export const useFormula = ({
           oldContent = [
             attrsToJSONContent({
               display: newText,
-              value: newText,
               code: 'unknown',
               type: 'any',
               hide: false,
@@ -313,7 +313,6 @@ export const useFormula = ({
       ? [
           attrsToJSONContent({
             display: nextText,
-            value: nextText,
             code: 'unknown',
             type: 'any',
             hide: false,

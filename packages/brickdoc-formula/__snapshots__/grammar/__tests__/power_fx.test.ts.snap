@@ -9,7 +9,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -18,7 +17,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "CountIf",
   },
   Object {
     "attrs": undefined,
@@ -27,7 +25,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": Object {
@@ -41,7 +38,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Spreadsheet",
-    "value": "MySpreadsheet",
   },
   Object {
     "attrs": undefined,
@@ -50,7 +46,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
   },
   Object {
     "attrs": undefined,
@@ -59,7 +54,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -68,7 +62,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ">=",
   },
   Object {
     "attrs": undefined,
@@ -77,7 +70,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -86,7 +78,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "3",
   },
   Object {
     "attrs": undefined,
@@ -95,7 +86,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": ")",
   },
 ]
 `;
@@ -109,7 +99,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "=",
   },
   Object {
     "attrs": undefined,
@@ -118,7 +107,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "CountIf",
   },
   Object {
     "attrs": undefined,
@@ -127,7 +115,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": "(",
   },
   Object {
     "attrs": Object {
@@ -141,7 +128,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "Spreadsheet",
-    "value": "MySpreadsheet",
   },
   Object {
     "attrs": undefined,
@@ -150,16 +136,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "any",
-    "value": ",",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "Space",
-    "display": " ",
-    "errors": Array [],
-    "hide": false,
-    "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": Object {
@@ -178,7 +154,6 @@ Array [
     ],
     "hide": false,
     "type": "Spreadsheet",
-    "value": "MySpreadsheet",
   },
   Object {
     "attrs": undefined,
@@ -192,7 +167,6 @@ Array [
     ],
     "hide": false,
     "type": "any",
-    "value": ".",
   },
   Object {
     "attrs": Object {
@@ -211,16 +185,6 @@ Array [
     ],
     "hide": false,
     "type": "string",
-    "value": "\\"first\\"",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "Space",
-    "display": " ",
-    "errors": Array [],
-    "hide": false,
-    "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -229,16 +193,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "boolean",
-    "value": ">=",
-  },
-  Object {
-    "attrs": undefined,
-    "code": "Space",
-    "display": " ",
-    "errors": Array [],
-    "hide": false,
-    "type": "any",
-    "value": " ",
   },
   Object {
     "attrs": undefined,
@@ -247,7 +201,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": "3",
   },
   Object {
     "attrs": undefined,
@@ -256,7 +209,6 @@ Array [
     "errors": Array [],
     "hide": false,
     "type": "number",
-    "value": ")",
   },
 ]
 `;
