@@ -379,7 +379,8 @@ export class FormulaContext implements ContextInterface {
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
-    this.removeSpreadsheet(spreadsheet.spreadsheetId, false)
+    if (this.spreadsheets[spreadsheet.spreadsheetId]) return
+
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
     this.setBlock(spreadsheet.namespaceId, '')
     this.setName(spreadsheet.nameDependency())
@@ -392,9 +393,9 @@ export class FormulaContext implements ContextInterface {
     )
   }
 
-  public removeSpreadsheet(spreadsheetId: SpreadsheetId, hard: boolean): void {
+  public removeSpreadsheet(spreadsheetId: SpreadsheetId): void {
     if (!this.spreadsheets[spreadsheetId]) return
-    this.spreadsheets[spreadsheetId].cleanup(hard)
+    this.spreadsheets[spreadsheetId].cleanup(true)
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.spreadsheets[spreadsheetId]
   }

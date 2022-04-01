@@ -1,9 +1,10 @@
 import {
   BrickdocEventBus,
-  ColumnUpdateName,
   ColumnUpdateNameViaId,
   EventSubscribed,
-  SpreadsheetUpdateNameViaId
+  SpreadsheetUpdateColumnsViaId,
+  SpreadsheetUpdateNameViaId,
+  SpreadsheetUpdateRowsViaId
 } from '@brickdoc/schema'
 import { CodeFragmentVisitor, column2codeFragment, maybeEncodeString, codeFragments2definition } from '../grammar'
 import {
@@ -29,7 +30,6 @@ import {
   SpreadsheetAllPersistence,
   handleCodeFragmentsResult
 } from './types'
-import { v4 } from 'uuid'
 
 export class SpreadsheetClass implements SpreadsheetType {
   _formulaContext: ContextInterface
@@ -51,11 +51,9 @@ export class SpreadsheetClass implements SpreadsheetType {
     columnIndex: number
   }) => CellType
 
-  _columnNames: Record<string, string> = {}
   _columns: ColumnInitializer[]
   _rows: Row[]
   eventListeners: EventSubscribed[] = []
-  _id = v4()
 
   constructor({
     spreadsheetId,
@@ -85,9 +83,6 @@ export class SpreadsheetClass implements SpreadsheetType {
       this.name = () => this._name
     }
     this._columns = columns
-    columns.forEach(c => {
-      this._columnNames[c.columnId] = c.name
-    })
 
     this._rows = rows
 
@@ -101,39 +96,31 @@ export class SpreadsheetClass implements SpreadsheetType {
         this._name = e.payload.name
         this._formulaContext.setName(this.nameDependency())
       },
-      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${this._id}` }
+      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
     )
     this.eventListeners.push(nameSubscription)
 
-    const columnSubcription = BrickdocEventBus.subscribe(
-      ColumnUpdateName,
+    const columnsSubcription = BrickdocEventBus.subscribe(
+      SpreadsheetUpdateColumnsViaId,
       e => {
-        const { name, columnId } = e.payload
-        const oldName = this._columnNames[columnId]
-        if (oldName === name) return
-        this._columnNames[columnId] = name
-        // this._formulaContext.setName(this.nameDependency())
-
-        BrickdocEventBus.dispatch(
-          ColumnUpdateNameViaId({
-            columnId,
-            name,
-            spreadsheetId: this.spreadsheetId,
-            namespaceId: this.namespaceId,
-            key: columnId
-          })
-        )
+        this._columns = e.payload.columns
       },
-      { eventId: spreadsheetId, subscribeId: `Spreadsheet#${this._id}` }
+      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
     )
-    this.eventListeners.push(columnSubcription)
+    this.eventListeners.push(columnsSubcription)
+
+    const rowsSubcription = BrickdocEventBus.subscribe(
+      SpreadsheetUpdateRowsViaId,
+      e => {
+        this._rows = e.payload.rows
+      },
+      { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
+    )
+    this.eventListeners.push(rowsSubcription)
   }
 
   public listColumns(): ColumnInitializer[] {
-    return this._columns.map(c => {
-      const name = this._columnNames[c.columnId]
-      return name ? { ...c, name } : c
-    })
+    return this._columns
   }
 
   public listRows(): Row[] {

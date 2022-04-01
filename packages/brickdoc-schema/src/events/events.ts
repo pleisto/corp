@@ -88,12 +88,22 @@ export const SpreadsheetUpdateNameViaId = event<{
   return { id: `${namespaceId},${spreadsheetId}` }
 })
 
-export const ColumnUpdateName = event<{
+export const SpreadsheetUpdateRowsViaId = event<{
   spreadsheetId: string
-  columnId: string
-  name: string
-}>()('ColumnUpdateName', ({ spreadsheetId }) => {
-  return { id: spreadsheetId }
+  namespaceId: string
+  rows: any
+  key: string
+}>()('SpreadsheetUpdateRowsViaId', ({ spreadsheetId, namespaceId, rows, key }) => {
+  return { id: `${namespaceId},${spreadsheetId}` }
+})
+
+export const SpreadsheetUpdateColumnsViaId = event<{
+  spreadsheetId: string
+  namespaceId: string
+  columns: any
+  key: string
+}>()('SpreadsheetUpdateColumnsViaId', ({ spreadsheetId, namespaceId, columns, key }) => {
+  return { id: `${namespaceId},${spreadsheetId}` }
 })
 
 export const ColumnUpdateNameViaId = event<{

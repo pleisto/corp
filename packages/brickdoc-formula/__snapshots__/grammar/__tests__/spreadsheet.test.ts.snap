@@ -4514,11 +4514,6 @@ Object {
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
   "positionChange": 27,
   "preview": SpreadsheetClass {
-    "_columnNames": Object {
-      "2723b7d9-22ce-4d93-b2ef-7cce1b122d64": "third",
-      "4e6f9adb-6f33-454e-9f9e-635dc98e3f28": "second",
-      "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6": "first",
-    },
     "_columns": Array [
       Object {
         "columnId": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
@@ -9820,7 +9815,6 @@ Object {
         "qrcode": [Function],
       },
     },
-    "_id": "a2bf021f-25e5-4850-b20a-36ce4f73fa6f",
     "_name": "MySpreadsheet",
     "_rows": Array [
       Object {
@@ -9841,6 +9835,9 @@ Object {
     ],
     "dynamic": false,
     "eventListeners": Array [
+      Object {
+        "unsubscribe": [Function],
+      },
       Object {
         "unsubscribe": [Function],
       },
@@ -9909,11 +9906,6 @@ Object {
   "namespace": "28e28190-63bd-4f70-aeca-26e72574c01a",
   "positionChange": 51,
   "preview": SpreadsheetClass {
-    "_columnNames": Object {
-      "2723b7d9-22ce-4d93-b2ef-7cce1b122d64": "third",
-      "4e6f9adb-6f33-454e-9f9e-635dc98e3f28": "second",
-      "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6": "first",
-    },
     "_columns": Array [
       Object {
         "columnId": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
@@ -15215,7 +15207,6 @@ Object {
         "qrcode": [Function],
       },
     },
-    "_id": "a2bf021f-25e5-4850-b20a-36ce4f73fa6f",
     "_name": "MySpreadsheet",
     "_rows": Array [
       Object {
@@ -15236,6 +15227,9 @@ Object {
     ],
     "dynamic": false,
     "eventListeners": Array [
+      Object {
+        "unsubscribe": [Function],
+      },
       Object {
         "unsubscribe": [Function],
       },

@@ -1,6 +1,12 @@
 import React from 'react'
 import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, CellType } from '@brickdoc/formula'
-import { BlockInput, BrickdocEventBus, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import {
+  BlockInput,
+  BrickdocEventBus,
+  SpreadsheetUpdateColumnsViaId,
+  SpreadsheetUpdateNameViaId,
+  SpreadsheetUpdateRowsViaId
+} from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
 import { columnDisplayTitle } from './helper'
 import { useExternalProps } from '../../../hooks/useExternalProps'
@@ -27,9 +33,28 @@ export function useFormulaSpreadsheet({
   const formulaContext = externalProps.formulaContext
   const rootId = externalProps.rootId
   const titleRef = React.useRef(title)
-  const columnRef = React.useRef(columns)
 
-  const columnData = columns.map(column => ({ columnId: column.uuid, sort: column.sort }))
+  const rowData: Row[] = React.useMemo(
+    () => rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex, spreadsheetId })),
+    [rows, spreadsheetId]
+  )
+  const columnData: ColumnInitializer[] = React.useMemo(
+    () =>
+      columns.map(({ uuid: columnId, sort }, index) => ({
+        columnId,
+        spreadsheetId,
+        name: columnDisplayTitle({
+          uuid: columnId,
+          sort,
+          title: columns.find(c => c.uuid === columnId)?.title
+        }),
+        index
+      })),
+    [columns, spreadsheetId]
+  )
+
+  const rowsRef = React.useRef(rowData)
+  const columnsRef = React.useRef(columnData)
 
   React.useEffect(() => {
     BrickdocEventBus.dispatch(
@@ -43,30 +68,38 @@ export function useFormulaSpreadsheet({
   }, [rootId, spreadsheetId, title])
 
   React.useEffect(() => {
+    BrickdocEventBus.dispatch(
+      SpreadsheetUpdateRowsViaId({
+        spreadsheetId,
+        rows: rowData,
+        key: spreadsheetId,
+        namespaceId: rootId
+      })
+    )
+  }, [rootId, spreadsheetId, rowData])
+
+  React.useEffect(() => {
+    BrickdocEventBus.dispatch(
+      SpreadsheetUpdateColumnsViaId({
+        spreadsheetId,
+        columns: columnData,
+        key: spreadsheetId,
+        namespaceId: rootId
+      })
+    )
+  }, [rootId, spreadsheetId, columnData])
+
+  React.useEffect(() => {
     if (!formulaContext) return
-
-    const spreadsheetName = titleRef.current
-    const newColumn: ColumnInitializer[] = columnData.map(({ columnId, sort }, index) => ({
-      columnId,
-      spreadsheetId,
-      name: columnDisplayTitle({
-        uuid: columnId,
-        sort,
-        title: columnRef.current.find(c => c.uuid === columnId)?.title
-      }),
-      index
-    }))
-
-    const rowData: Row[] = rows.map((row, rowIndex) => ({ rowId: row.id, rowIndex, spreadsheetId }))
 
     const spreadsheet: SpreadsheetType = new SpreadsheetClass({
       ctx: { formulaContext },
       namespaceId: rootId,
       spreadsheetId,
       dynamic: false,
-      name: spreadsheetName,
-      columns: newColumn,
-      rows: rowData,
+      name: titleRef.current,
+      columns: columnsRef.current,
+      rows: rowsRef.current,
       getCell: ({ rowId, columnId, rowIndex, columnIndex }) => {
         const cellBlock = getCellBlock(rowId, columnId)
 
@@ -87,11 +120,11 @@ export function useFormulaSpreadsheet({
     return () => {
       // formulaContext.removeSpreadsheet(spreadsheetId)
     }
-  }, [rootId, spreadsheetId, columnData, rows, formulaContext, getCellBlock])
+  }, [rootId, spreadsheetId, formulaContext, getCellBlock])
 
   return {
     deleteSpreadsheet: () => {
-      formulaContext?.removeSpreadsheet(spreadsheetId, true)
+      formulaContext?.removeSpreadsheet(spreadsheetId)
     }
   }
 }

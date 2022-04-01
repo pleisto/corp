@@ -484,7 +484,7 @@ export interface ContextInterface {
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
-  removeSpreadsheet: (spreadsheetId: SpreadsheetId, hard: boolean) => void
+  removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
