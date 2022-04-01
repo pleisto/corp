@@ -16,7 +16,8 @@ import {
   CodeFragmentAttrs,
   CodeFragment,
   Completion,
-  SpreadsheetKey
+  SpreadsheetKey,
+  ColumnCompletion
 } from '../types'
 import { BlockType, ColumnType, SpreadsheetType } from '../controls'
 import { maybeEncodeString, reverseTraversalString } from './util'
@@ -108,6 +109,34 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
     code: 'Block',
     type: 'Block',
     attrs: block2attrs(block, pageId)
+  }
+}
+
+const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
+  // const value = columnKey(column.namespaceId, column.columnId)
+  return {
+    display: column.name,
+    errors: [],
+    value: maybeEncodeString(column.name)[1],
+    code: 'Column',
+    type: 'Column',
+    hide: false,
+    attrs: column2attrs(column)
+  }
+}
+
+export const column2completion = (column: ColumnType, pageId: NamespaceId): ColumnCompletion => {
+  const value = columnKey(column.spreadsheetId, column.columnId)
+  return {
+    kind: 'column',
+    replacements: [`${column.name}`],
+    weight: 1000,
+    name: column.name,
+    positionChange: value.length,
+    namespace: column.spreadsheet.name(),
+    value,
+    preview: column,
+    codeFragments: [column2codeFragment(column, pageId)]
   }
 }
 

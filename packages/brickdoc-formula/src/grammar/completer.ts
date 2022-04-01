@@ -1,6 +1,8 @@
 import type { IToken } from 'chevrotain'
 import { fetchResult } from '../context'
+import { ColumnClass } from '../controls'
 import { CodeFragment, Completion, FormulaType, FunctionContext } from '../types'
+import { column2completion } from './convert'
 
 export interface CompleteInput {
   readonly tokens: IToken[]
@@ -77,11 +79,15 @@ export const complete = ({
 
       switch (last2CodeFragment.type) {
         case 'Spreadsheet':
-          completions = completions.map(c => {
-            return c.kind === 'column' && c.preview.spreadsheetId === last2CodeFragment.attrs?.id
-              ? { ...c, weight: c.weight + 1000 }
-              : c
-          })
+          // eslint-disable-next-line no-case-declarations
+          const spreadsheet = formulaContext.findSpreadsheetById(last2CodeFragment.attrs!.id)
+          if (spreadsheet) {
+            const columnCompletions = spreadsheet
+              .listColumns()
+              .map(column => column2completion(new ColumnClass(spreadsheet, column), namespaceId))
+
+            completions.push(...columnCompletions)
+          }
           break
         case 'Block':
           completions = completions.map(c => {
