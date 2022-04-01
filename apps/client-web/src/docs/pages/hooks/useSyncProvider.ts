@@ -76,8 +76,9 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   const ydoc = React.useRef<Y.Doc | undefined>()
   const stateId = React.useRef<string>()
   const initBlocksToEditor = React.useRef<boolean>(false)
-  const committingDocument = React.useRef(false)
-  // const updatesToCommit = React.useRef(new Set<Uint8Array>())
+  const committingDocumentState = React.useRef(false)
+  // const documentStateDirty = React.useRef(false)
+  const updatesToCommit = React.useRef(new Set<Uint8Array>())
 
   const dirtyBlocksMap = React.useRef(new Map<string, BlockInput>())
   const dirtyToDeleteIds = React.useRef(new Set<string>())
@@ -103,27 +104,30 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   // }
 
   const commitState = React.useCallback(
-    async (state: Uint8Array, forkCommit = false): Promise<void> => {
-      devLog(`try commit state`, committingDocument.current, forkCommit)
-      if (committingDocument.current && !forkCommit) return
+    async (update?: Uint8Array): Promise<void> => {
+      if (!ydoc.current) return
 
-      committingDocument.current = true
+      devLog(`try commit state, committing:`, committingDocumentState.current)
+      if (committingDocumentState.current) {
+        if (update) updatesToCommit.current.add(update)
+        return
+      }
+
+      committingDocumentState.current = true
 
       const stateIdToSync = v4()
+      const stateToSync = Y.encodeStateAsUpdate(ydoc.current)
+      const updatesToSync = [...updatesToCommit.current.values()]
+
       devLog(`commit state ${stateIdToSync} from ${stateId.current}`)
-
-      // const ydoc = new Y.Doc()
-      // Y.applyUpdate(ydoc, base64.parse(base64.stringify(state)))
-      // console.log(base64.stringify(state))
-
-      // devLog(`good`)
 
       const syncPromise = syncDocument({
         variables: {
           input: {
             docId: rootId.current,
             operatorId: globalThis.brickdocContext.uuid,
-            state: base64.stringify(state),
+            state: base64.stringify(stateToSync),
+            updates: base64.stringify(Y.mergeUpdates(updatesToSync)),
             stateId: stateIdToSync,
             previousStateId: stateId.current
           }
@@ -134,19 +138,27 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       const resultDocument = syncDocumentResult?.syncDocument?.document
 
       if (resultDocument) {
-        const { stateId: echoStateId, state: remoteState } = resultDocument
+        committingDocumentState.current = false
+        const { stateId: echoStateId, state: remoteStateStr } = resultDocument
         if (echoStateId === stateIdToSync) {
           stateId.current = stateIdToSync
-          committingDocument.current = false
-        } else if (remoteState && echoStateId) {
+          updatesToSync.forEach(update => updatesToCommit.current.delete(update))
+          devLog('committed, left updates: ', updatesToCommit.current.size)
+          if (updatesToCommit.current.size !== 0) {
+            commitState()
+          }
+        } else if (remoteStateStr && echoStateId) {
           devLog(`need to merge state ${stateId.current} with ${echoStateId}`)
-          const remoteYector = Y.encodeStateVectorFromUpdate(base64.parse(remoteState))
-          const diff = Y.diffUpdate(state, remoteYector)
+          const remoteState = base64.parse(remoteStateStr)
+          const remoteYector = Y.encodeStateVectorFromUpdate(remoteState)
+          const diff = Y.diffUpdate(stateToSync, remoteYector)
           // const mergedState = Y.mergeUpdates([state, diff])
           if (ydoc.current) {
             Y.applyUpdate(ydoc.current, diff)
             stateId.current = echoStateId
-            commitState(Y.encodeStateAsUpdate(ydoc.current), true)
+            const localVector = Y.encodeStateVector(ydoc.current)
+            const nextUpdate = Y.diffUpdate(remoteState, localVector)
+            commitState(nextUpdate)
           }
         }
       }
@@ -176,7 +188,9 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
         if (document?.state && document?.stateId) {
           devLog(`init from state ${document.stateId}`)
-          Y.applyUpdate(newYdoc, base64.parse(document.state))
+          const state = base64.parse(document.state)
+          devLog(state)
+          Y.applyUpdate(newYdoc, state)
           stateId.current = document.stateId
         } else {
           devLog('need to commit init state')
@@ -184,9 +198,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         }
 
         newYdoc.on('update', async (update, origin, doc) => {
-          // if (initBlocksToEditor.current) {
-          const stateToSync = Y.encodeStateAsUpdate(doc)
-          commitState(stateToSync)
+          commitState(update)
         })
 
         ydoc.current = newYdoc

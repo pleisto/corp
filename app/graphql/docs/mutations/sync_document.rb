@@ -14,6 +14,8 @@ module Docs
       Rails.logger.info("committing #{doc_id} by #{operator_id}, #{state_id} -> #{previous_state_id} : #{state} #{updates}")
       document = Docs::Document.where(id: doc_id).first_or_initialize
 
+      Rails.logger.info("pub #{doc_id} by #{operator_id} #{updates}")
+
       if document.state_id.blank? || (document.state_id == previous_state_id)
         document.state = Base64.strict_decode64(state)
         # document.state = state
@@ -31,7 +33,6 @@ module Docs
         }
       end
 
-      # # Rails.logger.info("pub #{doc_id} by #{operator_id} #{updates}")
       # # # TODO: server-side ydoc persistence
       # # BrickdocSchema.subscriptions.trigger(:ydoc, { doc_id: doc_id }, {
       # #   operator_id: operator_id,
