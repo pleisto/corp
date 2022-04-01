@@ -39,7 +39,8 @@ export function useDocumentCoverUploader(
       typeLabel: t('document_cover.import_sources.link.type_label'),
       linkInputPlaceholder: t('document_cover.import_sources.link.placeholder'),
       buttonText: t('document_cover.import_sources.link.button_text'),
-      buttonHint: t('document_cover.import_sources.link.button_hint')
+      buttonHint: t('document_cover.import_sources.link.button_hint'),
+      invalidImageUrlMessage: t('document_cover.import_sources.link.invalidImageUrlMessage')
     }
   ]
   const [documentCoverMeta, setDocumentCoverMeta] = React.useState(cover)
@@ -87,7 +88,7 @@ export function useDocumentCoverUploader(
   const popoverProps: Partial<PopoverProps> = {
     overlayClassName: styles.popover,
     trigger: 'click',
-    placement: 'top',
+    placement: 'bottom',
     destroyTooltipOnHide: true,
     content: (
       <Dashboard
@@ -98,6 +99,7 @@ export function useDocumentCoverUploader(
         onUploaded={onUploaded}
         onFileLoaded={onLoaded}
         importSources={IMPORT_SOURCES}
+        canbeRemove={!!cover}
       />
     )
   }

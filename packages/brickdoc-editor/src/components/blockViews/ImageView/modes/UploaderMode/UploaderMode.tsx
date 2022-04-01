@@ -35,7 +35,8 @@ export const UploaderMode: FC<UploaderModeProps> = ({ node, deleteNode, getPos, 
         type: 'link',
         linkInputPlaceholder: t('image_block.import_sources.link.placeholder'),
         buttonText: t('image_block.import_sources.link.button_text'),
-        buttonHint: t('image_block.import_sources.link.button_hint')
+        buttonHint: t('image_block.import_sources.link.button_hint'),
+        invalidImageUrlMessage: t('document_cover.import_sources.link.invalidImageUrlMessage')
       },
       {
         type: 'upload',

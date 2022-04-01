@@ -26,7 +26,8 @@ describe('Dashboard', () => {
       const options: DashboardPluginOptions = {
         target: {} as any,
         importSources: sources,
-        fileType: 'image'
+        fileType: 'image',
+        canbeRemove: true
       }
 
       const { container } = render(
@@ -61,11 +62,25 @@ describe('Dashboard', () => {
     const sources: ImportSourceOption[] = [source]
     const uppy: any = {}
 
+    let onloadRef: Function | undefined
+    beforeAll(() => {
+      Object.defineProperty(Image.prototype, 'onload', {
+        get() {
+          return this._onload
+        },
+        set(onload: Function) {
+          onloadRef = onload
+          this._onload = onload
+        }
+      })
+    })
+
     it('matches correct snapshot', () => {
       const options: DashboardPluginOptions = {
         target: {} as any,
         importSources: sources,
-        fileType: 'image'
+        fileType: 'image',
+        canbeRemove: true
       }
 
       const { container } = render(
@@ -105,8 +120,9 @@ describe('Dashboard', () => {
       expect(options.onUploaded).toBeCalledTimes(0)
     })
 
-    it('inputs link normally', () => {
-      const url = 'url'
+    it('inputs link normally', async () => {
+      jest.useRealTimers()
+      const url = 'https://avatars.githubusercontent.com/u/41993484'
       const options: DashboardPluginOptions = {
         target: {} as any,
         importSources: sources,
@@ -118,7 +134,9 @@ describe('Dashboard', () => {
 
       fireEvent.change(screen.getByPlaceholderText(source.linkInputPlaceholder!), { target: { value: url } })
       fireEvent.click(screen.getByText(source.buttonText!))
-
+      // jest limit， can't test image load
+      onloadRef!()
+      await new Promise(resolve => setTimeout(resolve, 50))
       expect(options.onUploaded).toBeCalledTimes(1)
       expect(options.onUploaded).toBeCalledWith({ action: 'add', url, meta: { source: 'external' } })
     })
@@ -136,7 +154,8 @@ describe('Dashboard', () => {
       const options: DashboardPluginOptions = {
         target: {} as any,
         importSources: sources,
-        fileType: 'image'
+        fileType: 'image',
+        canbeRemove: true
       }
 
       const { container } = render(
@@ -188,7 +207,8 @@ Array [
         target: {} as any,
         importSources: sources,
         fileType: 'image',
-        onUploaded: jest.fn()
+        onUploaded: jest.fn(),
+        canbeRemove: true
       }
 
       render(<Dashboard pluginId="dashboard" importSources={sources} pluginOptions={options} uppy={uppy} />)
@@ -216,7 +236,8 @@ Array [
       const options: DashboardPluginOptions = {
         target: {} as any,
         importSources: sources,
-        fileType: 'image'
+        fileType: 'image',
+        canbeRemove: true
       }
 
       const { container } = render(
@@ -277,7 +298,8 @@ Array [
         target: {} as any,
         importSources: sources,
         fileType: 'image',
-        onUploaded: jest.fn()
+        onUploaded: jest.fn(),
+        canbeRemove: true
       }
 
       render(<Dashboard pluginId="dashboard" importSources={sources} pluginOptions={options} uppy={uppy} />)
