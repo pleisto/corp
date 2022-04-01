@@ -74,8 +74,7 @@ export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
 export const SpreadsheetReloadViaId = event<{
   spreadsheetId: string
   namespaceId: string
-  columnIds: string[]
-  rowIds: string[]
+  scopes: Array<{ kind: string; key: string }>
   key: string
 }>()('SpreadsheetReloadViaId', ({ spreadsheetId, namespaceId, key }) => {
   return { id: `${namespaceId},${spreadsheetId}` }
@@ -85,6 +84,7 @@ export const SpreadsheetUpdateNameViaId = event<{
   spreadsheetId: string
   namespaceId: string
   name: string
+  scopes: Array<{ kind: string; key: string }>
   key: string
 }>()('SpreadsheetUpdateNameViaId', ({ spreadsheetId, namespaceId, name, key }) => {
   return { id: `${namespaceId},${spreadsheetId}` }
@@ -106,16 +106,6 @@ export const SpreadsheetUpdateColumnsViaId = event<{
   key: string
 }>()('SpreadsheetUpdateColumnsViaId', ({ spreadsheetId, namespaceId, columns, key }) => {
   return { id: `${namespaceId},${spreadsheetId}` }
-})
-
-export const ColumnUpdateNameViaId = event<{
-  spreadsheetId: string
-  namespaceId: string
-  columnId: string
-  name: string
-  key: string
-}>()('ColumnUpdateNameViaId', ({ namespaceId, spreadsheetId, columnId }) => {
-  return { id: `${namespaceId},${spreadsheetId},${columnId}` }
 })
 
 export const FormulaContextNameChanged = event<{

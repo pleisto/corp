@@ -4,6 +4,7 @@ import {
   CodeFragment,
   ErrorMessage,
   ErrorResult,
+  EventScope,
   ExpressionType,
   FormulaColorType,
   FormulaType,
@@ -11,6 +12,10 @@ import {
 } from '../types'
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
+
+export const shouldReceiveEventByScope = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
+  return true
+}
 
 export const reverseTraversalString = (str: string, min = 1): string[] => {
   const result: string[] = []

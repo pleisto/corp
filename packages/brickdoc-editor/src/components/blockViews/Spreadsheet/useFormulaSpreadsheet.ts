@@ -61,6 +61,7 @@ export function useFormulaSpreadsheet({
       SpreadsheetUpdateNameViaId({
         spreadsheetId,
         name: title,
+        scopes: [],
         key: spreadsheetId,
         namespaceId: rootId
       })

@@ -1,19 +1,12 @@
 import {
   BrickdocEventBus,
-  ColumnUpdateNameViaId,
   EventSubscribed,
   SpreadsheetReloadViaId,
   SpreadsheetUpdateColumnsViaId,
   SpreadsheetUpdateNameViaId,
   SpreadsheetUpdateRowsViaId
 } from '@brickdoc/schema'
-import {
-  CodeFragmentVisitor,
-  column2codeFragment,
-  maybeEncodeString,
-  codeFragments2definition,
-  objectDiff
-} from '../grammar'
+import { CodeFragmentVisitor, column2codeFragment, maybeEncodeString, objectDiff } from '../grammar'
 import {
   AnyTypeResult,
   CodeFragment,
@@ -117,7 +110,15 @@ export class SpreadsheetClass implements SpreadsheetType {
         const pairs2 = objectDiff<ColumnInitializer>(newColumns, oldColumns)
         const changedColumnIds = [...new Set([...Object.values(pairs1), ...Object.values(pairs2)].map(p => p.columnId))]
         if (!changedColumnIds.length) return
-        console.log('changed columns', changedColumnIds)
+
+        BrickdocEventBus.dispatch(
+          SpreadsheetReloadViaId({
+            spreadsheetId: this.spreadsheetId,
+            scopes: changedColumnIds.map(c => ({ key: c, kind: 'Column' })),
+            namespaceId: this.namespaceId,
+            key: this.spreadsheetId
+          })
+        )
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
     )
@@ -134,7 +135,15 @@ export class SpreadsheetClass implements SpreadsheetType {
         const pairs2 = objectDiff<Row>(newRows, oldRows)
         const changedRowIds = [...new Set([...Object.values(pairs1), ...Object.values(pairs2)].map(p => p.rowId))]
         if (!changedRowIds.length) return
-        console.log('changed rows', changedRowIds)
+
+        BrickdocEventBus.dispatch(
+          SpreadsheetReloadViaId({
+            spreadsheetId: this.spreadsheetId,
+            scopes: changedRowIds.map(c => ({ key: c, kind: 'Row' })),
+            namespaceId: this.namespaceId,
+            key: this.spreadsheetId
+          })
+        )
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
     )
@@ -282,30 +291,23 @@ export class SpreadsheetClass implements SpreadsheetType {
       finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
     }
 
-    const eventDependency: EventDependency = {
-      eventId: `${this.namespaceId},${this.spreadsheetId},${column.columnId}`,
-      event: ColumnUpdateNameViaId,
-      kind: 'ColumnName',
-      payload: {},
-      definitionHandler: (deps, variable, payload) => {
-        const newCodeFragments = variable.t.codeFragments.map(c => {
-          if (c.code !== 'Column') return c
-          if (c.attrs.id !== payload.columnId) return c
-          if (c.attrs.name === payload.name) return c
-          return { ...c, attrs: { ...c.attrs, name: payload.name } }
-        })
-        return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
-      }
-    }
-
     const spreadsheetColumnReloadEventDependency: EventDependency = {
       eventId: `${this.namespaceId},${this.spreadsheetId}`,
       event: SpreadsheetReloadViaId,
-      payload: { columnIds: [column.columnId] },
-      kind: 'Spreadsheet'
+      scopes: [{ key: column.columnId, kind: 'Column' }],
+      kind: 'Column'
     }
 
-    visitor.eventDependencies.push(eventDependency, spreadsheetColumnReloadEventDependency)
+    visitor.eventDependencies = visitor.eventDependencies.filter(
+      d =>
+        !(
+          d.kind === 'Spreadsheet' &&
+          d.event === SpreadsheetReloadViaId &&
+          d.eventId === spreadsheetColumnReloadEventDependency.eventId
+        )
+    )
+
+    visitor.eventDependencies.push(spreadsheetColumnReloadEventDependency)
 
     return {
       errors,
