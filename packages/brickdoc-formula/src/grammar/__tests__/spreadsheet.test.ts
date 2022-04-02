@@ -177,7 +177,7 @@ const testCases: TestCase[] = [
   {
     label: 'column',
     input: `=${spreadsheetToken}."first"`,
-    value: { ...columns[0], spreadsheet }
+    value: SNAPSHOT_FLAG
   },
   {
     label: 'cell',

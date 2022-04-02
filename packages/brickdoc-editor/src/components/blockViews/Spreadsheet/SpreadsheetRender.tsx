@@ -16,7 +16,6 @@ import './Spreadsheet.less'
 import { VariableDisplayData } from '@brickdoc/formula'
 import React from 'react'
 import { FormulaDisplay } from '../../ui/Formula'
-import { columnDisplayIndex } from './helper'
 
 export interface Row {
   rowId: string
