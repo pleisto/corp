@@ -19,7 +19,11 @@ export interface OperatorType {
   readonly reverseLhsAndRhs?: boolean
   readonly expressionType: FormulaType
   readonly lhsType: FormulaCheckType
-  readonly dynamicInterpretLhs?: (lhsArgs: InterpretArgument) => AnyTypeResult
+  readonly dynamicInterpretLhs?: (
+    lhsArgs: InterpretArgument,
+    operators: IToken[],
+    interpreter: FormulaInterpreter
+  ) => AnyTypeResult
   readonly dynamicParseType?: (lhsType: FormulaType) => FormulaType
   readonly dynamicInterpretRhsType?: ({
     result,
@@ -99,7 +103,7 @@ export const interpretByOperator = async ({
   rhs: CstNode[] | undefined
 }): Promise<AnyTypeResult> => {
   if (!rhs) {
-    return dynamicInterpretLhs ? dynamicInterpretLhs(args) : await interpreter.visit(lhs!, args)
+    return dynamicInterpretLhs ? dynamicInterpretLhs(args, operators, interpreter) : await interpreter.visit(lhs!, args)
   }
 
   const typeErrorBefore = runtimeCheckType(args, expressionType, `${name} before`, interpreter.ctx)
@@ -108,7 +112,7 @@ export const interpretByOperator = async ({
   const lhsArgs: InterpretArgument = { ...args, type: lhsType, finalTypes: [] }
   // eslint-disable-next-line no-nested-ternary
   let result: AnyTypeResult = dynamicInterpretLhs
-    ? dynamicInterpretLhs(lhsArgs)
+    ? dynamicInterpretLhs(lhsArgs, operators, interpreter)
     : lhs
     ? await interpreter.visit(lhs, lhsArgs)
     : { type: 'null', result: null }

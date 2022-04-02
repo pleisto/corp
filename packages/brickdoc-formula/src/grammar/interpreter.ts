@@ -3,8 +3,6 @@
 import { CstElement, CstNode, IToken } from 'chevrotain'
 import {
   AnyTypeResult,
-  NullResult,
-  SpreadsheetResult,
   NumberResult,
   BooleanResult,
   PredicateResult,
@@ -12,8 +10,7 @@ import {
   Argument,
   FunctionContext,
   FormulaType,
-  ExpressionType,
-  BlockResult
+  ExpressionType
 } from '../types'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
@@ -23,6 +20,7 @@ import {
   additionOperator,
   argumentsOperator,
   arrayOperator,
+  blockOperator,
   chainOperator,
   combineOperator,
   compareOperator,
@@ -369,30 +367,15 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     }
   }
 
-  async blockExpression(
-    ctx: any,
-    args: InterpretArgument
-  ): Promise<NullResult | SpreadsheetResult | BlockResult | ErrorResult> {
-    let namespaceId
-    if (ctx.UUID) {
-      namespaceId = ctx.UUID[0].image
-    } else if (ctx.CurrentBlock) {
-      namespaceId = this.ctx.meta.namespaceId
-    } else {
-      throw new Error('unsupported expression')
-    }
-
-    const block = this.ctx.formulaContext.findBlockById(namespaceId)
-
-    if (block) {
-      const parentType: FormulaType = 'Block'
-      const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
-      if (shouldReturnEarly(typeError)) return typeError!
-
-      return { type: 'Block', result: block }
-    }
-
-    return { type: 'null', result: null }
+  async blockExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.UUID ?? ctx.CurrentBlock,
+      args,
+      operator: blockOperator,
+      rhs: undefined,
+      lhs: undefined
+    })
   }
 
   // TODO runtime type check
