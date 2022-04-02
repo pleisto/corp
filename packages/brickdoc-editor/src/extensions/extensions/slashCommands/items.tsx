@@ -22,22 +22,22 @@ function createSlashMenuItem(blockItem: BlockCommandItem): SlashMenuItem {
   }
 }
 
-const FORMULA = createSlashMenuItem(BLOCK.FORMULA)
-const SPREADSHEET = createSlashMenuItem(BLOCK.SPREADSHEET)
-const UPLOAD = createSlashMenuItem(BLOCK.UPLOAD)
-const GALLERY = createSlashMenuItem(BLOCK.GALLERY)
-const LINK = createSlashMenuItem(BLOCK.LINK)
-const HEADING_1 = createSlashMenuItem(BLOCK.HEADING_1)
-const HEADING_2 = createSlashMenuItem(BLOCK.HEADING_2)
-const HEADING_3 = createSlashMenuItem(BLOCK.HEADING_3)
-const HEADING_4 = createSlashMenuItem(BLOCK.HEADING_4)
-const HEADING_5 = createSlashMenuItem(BLOCK.HEADING_5)
-const BULLETED_LIST = createSlashMenuItem(BLOCK.BULLETED_LIST)
-const ORDERED_LIST = createSlashMenuItem(BLOCK.ORDERED_LIST)
-const CODE = createSlashMenuItem(BLOCK.CODE)
-const DIVIDER = createSlashMenuItem(BLOCK.DIVIDER)
-const TOC = createSlashMenuItem(BLOCK.TOC)
-const SUB_PAGE_MENU = createSlashMenuItem(BLOCK.SUB_PAGE_MENU)
+export const FORMULA = createSlashMenuItem(BLOCK.FORMULA)
+export const SPREADSHEET = createSlashMenuItem(BLOCK.SPREADSHEET)
+export const UPLOAD = createSlashMenuItem(BLOCK.UPLOAD)
+export const GALLERY = createSlashMenuItem(BLOCK.GALLERY)
+export const LINK = createSlashMenuItem(BLOCK.LINK)
+export const HEADING_1 = createSlashMenuItem(BLOCK.HEADING_1)
+export const HEADING_2 = createSlashMenuItem(BLOCK.HEADING_2)
+export const HEADING_3 = createSlashMenuItem(BLOCK.HEADING_3)
+export const HEADING_4 = createSlashMenuItem(BLOCK.HEADING_4)
+export const HEADING_5 = createSlashMenuItem(BLOCK.HEADING_5)
+export const BULLETED_LIST = createSlashMenuItem(BLOCK.BULLETED_LIST)
+export const ORDERED_LIST = createSlashMenuItem(BLOCK.ORDERED_LIST)
+export const CODE = createSlashMenuItem(BLOCK.CODE)
+export const DIVIDER = createSlashMenuItem(BLOCK.DIVIDER)
+export const TOC = createSlashMenuItem(BLOCK.TOC)
+export const SUB_PAGE_MENU = createSlashMenuItem(BLOCK.SUB_PAGE_MENU)
 
 export const slashMenuGroup = [
   {
@@ -80,7 +80,7 @@ export const TYPE_ITEMS: SlashMenuItem[] = slashMenuItems.sort(
   sortBlock(ORDER_NEW_BLOCK, (item: SlashMenuItem) => item.key)
 )
 
-const RECENT_COUNT = 6
+export const RECENT_COUNT = 6
 
 export const getRecentItems = (): SlashMenuItem[] => {
   return getRecentItemKey()

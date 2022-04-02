@@ -1,9 +1,9 @@
-import React from 'react'
+import { ChangeEvent, FC, MutableRefObject, useCallback, useEffect, useState } from 'react'
 import { Button, Icon, Input, Popover } from '@brickdoc/design-system'
 import { VariableData } from '@brickdoc/formula'
 import { useEditorI18n } from '../../../hooks'
 import '../../ui/Formula/Formula.less'
-import { EditorContentType, FormulaEditor } from '../../../editors/formulaEditor'
+import { EditorContentType, FormulaEditorContent, useFormulaEditor } from '../../../editors/formulaEditor'
 import { FormulaResult, AutocompleteList } from '../../ui/Formula'
 import { CompletionType } from './useFormula'
 import { BrickdocEventBus, FormulaCalculateTrigger, FormulaEditorSavedTrigger } from '@brickdoc/schema'
@@ -16,7 +16,7 @@ export interface FormulaMenuProps {
   onVisibleChange: (visible: boolean) => void
   variableT?: VariableData
   handleDelete: (variable?: VariableData) => void
-  nameRef: React.MutableRefObject<string | undefined>
+  nameRef: MutableRefObject<string | undefined>
   defaultName: string
   updateEditor: (content: JSONContent, position: number) => void
   editorContent: EditorContentType
@@ -27,7 +27,7 @@ export interface FormulaMenuProps {
 
 const i18nKey = 'formula.menu'
 
-export const FormulaMenu: React.FC<FormulaMenuProps> = ({
+export const FormulaMenu: FC<FormulaMenuProps> = ({
   children,
   formulaId,
   rootId,
@@ -44,15 +44,15 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   completion
 }) => {
   const [t] = useEditorI18n()
-  const [visible, setVisible] = React.useState(defaultVisible)
-  const [inputName, setInputName] = React.useState(nameRef.current)
+  const [visible, setVisible] = useState(defaultVisible)
+  const [inputName, setInputName] = useState(nameRef.current)
 
-  const close = React.useCallback((): void => {
+  const close = useCallback((): void => {
     setVisible(false)
     onVisibleChange?.(false)
   }, [onVisibleChange])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSavedTrigger,
       e => {
@@ -86,7 +86,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
     setVisible(visible)
   }
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const name = e.target.value
     nameRef.current = name
     setInputName(name)
@@ -101,6 +101,14 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleCancel = (): void => {
     close()
   }
+
+  const formulaEditor = useFormulaEditor({
+    editorContent,
+    updateEditor,
+    editable: true,
+    formulaId,
+    rootId
+  })
 
   const namePlaceholder = editorContent.input.trim() === '=' ? 'Add Name' : defaultName
 
@@ -125,13 +133,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       <div className="formula-menu-row">
         {/* <span className="formula-menu-result-label">=</span> */}
         <div className="formula-menu-item">
-          <FormulaEditor
-            editorContent={editorContent}
-            updateEditor={updateEditor}
-            editable={true}
-            formulaId={formulaId}
-            rootId={rootId}
-          />
+          <FormulaEditorContent editor={formulaEditor} editable={true} formulaId={formulaId} rootId={rootId} />
         </div>
       </div>
       <div className="formula-divider" />
@@ -146,8 +148,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="sm"
           type="primary"
           onClick={handleSave}
-          disabled={isDisableSave()}
-        >
+          disabled={isDisableSave()}>
           {t(`${i18nKey}.save`)}
         </Button>
         <Button
@@ -155,8 +156,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
           size="sm"
           type="text"
           danger={true}
-          onClick={() => handleDelete(variableT!)}
-        >
+          onClick={() => handleDelete(variableT!)}>
           {t(`${i18nKey}.delete`)}
         </Button>
       </div>
@@ -172,8 +172,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
       destroyTooltipOnHide={true}
       content={menu}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {children}
     </Popover>
   )

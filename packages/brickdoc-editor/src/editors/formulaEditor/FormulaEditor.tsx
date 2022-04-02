@@ -1,5 +1,5 @@
-import React from 'react'
-import { useEditor, EditorContent, JSONContent, EditorEvents } from '@tiptap/react'
+import { FC, useEffect } from 'react'
+import { useEditor, EditorContent, JSONContent, EditorEvents, Editor } from '@tiptap/react'
 import { devLog } from '@brickdoc/design-system'
 import './FormulaEditor.less'
 import { BrickdocEventBus, FormulaEditorReplaceRootTrigger } from '@brickdoc/schema'
@@ -11,31 +11,30 @@ export interface EditorContentType {
   position: number
 }
 
-export interface FormulaEditorProps {
-  editorContent: EditorContentType
+export interface FormulaEditorContentProps {
+  editor: Editor | null
   editable: boolean
-  onBlur?: () => void
-  updateEditor?: (content: JSONContent, position: number) => void
   rootId?: string
   formulaId?: string
   width?: number
   minHeight?: number
 }
 
-const findNearestWord = (content: string, targetIndex: number): string | undefined =>
-  content.split(' ').find((word, index) => index + word.length >= targetIndex)
+export interface UseFormulaEditorProps extends Pick<FormulaEditorContentProps, 'editable' | 'rootId' | 'formulaId'> {
+  editorContent: EditorContentType
+  onBlur?: () => void
+  updateEditor?: (content: JSONContent, position: number) => void
+}
 
-export const FormulaEditor: React.FC<FormulaEditorProps> = ({
+export function useFormulaEditor({
   editable,
   editorContent,
-  updateEditor,
-  onBlur,
-  rootId,
   formulaId,
-  width,
-  minHeight
-}) => {
-  const editor = useEditor({
+  rootId,
+  onBlur,
+  updateEditor
+}: UseFormulaEditorProps): Editor | null {
+  return useEditor({
     editable,
     autofocus: 'end',
     content: editorContent.content,
@@ -99,8 +98,20 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
       }
     }
   })
+}
 
-  React.useEffect(() => {
+const findNearestWord = (content: string, targetIndex: number): string | undefined =>
+  content.split(' ').find((word, index) => index + word.length >= targetIndex)
+
+export const FormulaEditorContent: FC<FormulaEditorContentProps> = ({
+  editor,
+  editable,
+  rootId,
+  formulaId,
+  width,
+  minHeight
+}) => {
+  useEffect(() => {
     if (editor && !editor.isDestroyed && editable && rootId && formulaId) {
       const defaultContent: JSONContent = { type: 'doc', content: [{ type: 'paragraph', content: [] }] }
 

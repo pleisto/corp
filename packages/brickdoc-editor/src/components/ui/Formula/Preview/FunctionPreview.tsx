@@ -1,5 +1,6 @@
-import { FormulaType, FunctionClause } from '@brickdoc/formula'
-import { FormulaEditor } from '../../../../editors/formulaEditor'
+import { FC } from 'react'
+import { ExampleWithCodeFragments, FormulaType, FunctionClause } from '@brickdoc/formula'
+import { FormulaEditorContent, useFormulaEditor } from '../../../../editors/formulaEditor'
 import { codeFragmentsToJSONContentTotal } from '../../../../helpers'
 
 export interface FunctionPreviewProps {
@@ -7,7 +8,20 @@ export interface FunctionPreviewProps {
   rootId: string
 }
 
-export const FunctionPreview: React.FC<FunctionPreviewProps> = ({ functionClause, rootId }) => {
+const FormulaEditor: FC<{ example: ExampleWithCodeFragments<FormulaType> }> = ({ example }) => {
+  const formulaEditor = useFormulaEditor({
+    editorContent: {
+      content: codeFragmentsToJSONContentTotal(example.codeFragments),
+      input: '',
+      position: 0
+    },
+    editable: false
+  })
+
+  return <FormulaEditorContent editor={formulaEditor} editable={false} />
+}
+
+export const FunctionPreview: FC<FunctionPreviewProps> = ({ functionClause, rootId }) => {
   return (
     <div className="formula-autocomplete-preview-function">
       <div className="autocomplete-preview-name">
@@ -46,14 +60,7 @@ export const FunctionPreview: React.FC<FunctionPreviewProps> = ({ functionClause
           <div className="autocomplete-preview-section-head">Example</div>
           {functionClause.examples.map((example, index) => (
             <div key={index} className="autocomplete-preview-example">
-              <FormulaEditor
-                editorContent={{
-                  content: codeFragmentsToJSONContentTotal(example.codeFragments),
-                  input: '',
-                  position: 0
-                }}
-                editable={false}
-              />
+              <FormulaEditor example={example} />
               <br />
               <span className="autocomplete-preview-example-result">={JSON.stringify(example?.output?.result)}</span>
             </div>

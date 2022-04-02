@@ -2,7 +2,7 @@
 import { FC, useMemo, useCallback } from 'react'
 import { Popover } from '@brickdoc/design-system'
 import '../../ui/Formula/Formula.less'
-import { FormulaEditor, EditorContentType } from '../../../editors/formulaEditor'
+import { FormulaEditorContent, useFormulaEditor, EditorContentType } from '../../../editors/formulaEditor'
 import { BrickdocEventBus, FormulaEditorSaveEventTrigger } from '@brickdoc/schema'
 import { AutocompleteList, FormulaResult } from '../../ui/Formula'
 import { VariableData } from '@brickdoc/formula'
@@ -48,20 +48,27 @@ export const FormulaBlockRender: FC<FormulaBlockRenderProps> = ({
     }
   }, [formulaId, rootId, saveOnBlur])
 
-  const editor = useMemo(
+  const formulaEditor = useFormulaEditor({
+    editable: true,
+    editorContent,
+    updateEditor,
+    onBlur: onEditorBlur,
+    formulaId,
+    rootId
+  })
+
+  const formulaEditorContent = useMemo(
     () => (
-      <FormulaEditor
-        editorContent={editorContent}
-        updateEditor={updateEditor}
+      <FormulaEditorContent
         editable={true}
-        onBlur={onEditorBlur}
+        editor={formulaEditor}
         formulaId={formulaId}
         rootId={rootId}
         width={width}
         minHeight={minHeight}
       />
     ),
-    [editorContent, formulaId, onEditorBlur, rootId, updateEditor, width, minHeight]
+    [formulaEditor, formulaId, rootId, width, minHeight]
   )
 
   const visible = !!(variableT && variableT.kind !== 'literal')
@@ -74,9 +81,8 @@ export const FormulaBlockRender: FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}
-    >
-      {editor}
+      trigger={['click']}>
+      {formulaEditorContent}
     </Popover>
   )
 }

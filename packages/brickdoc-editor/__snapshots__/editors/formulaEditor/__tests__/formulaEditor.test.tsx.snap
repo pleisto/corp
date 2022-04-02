@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formulaEditor renders formula editor correctly 1`] = `
+<div>
+  <div
+    class="brickdoc-formula-editor"
+  >
+    <div
+      class="ProseMirror"
+      contenteditable="true"
+      tabindex="0"
+      translate="no"
+    >
+      <p>
+        <br
+          class="ProseMirror-trailingBreak"
+        />
+      </p>
+    </div>
+  </div>
+</div>
+`;
