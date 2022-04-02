@@ -19,7 +19,6 @@ import {
   Definition,
   Formula,
   BaseFormula,
-  FormulaSourceType,
   NamespaceId,
   VariableTask,
   NameDependencyWithKind,
@@ -63,9 +62,8 @@ export const fetchResult = ({ task }: VariableData): AnyTypeResult => {
 export const castVariable = async (
   oldVariable: VariableInterface | undefined,
   formulaContext: ContextInterface,
-  { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
+  { name, definition, cacheValue, version, blockId, id, type: unknownType, meta: unknownMeta }: BaseFormula
 ): Promise<VariableInterface> => {
-  const type = unknownType as FormulaSourceType
   const meta: Omit<VariableMetadata, 'richType'> = {
     namespaceId: blockId,
     variableId: id,
@@ -73,7 +71,7 @@ export const castVariable = async (
     input: definition,
     position: 0
   }
-  const richType: VariableRichType = type === 'normal' ? { type: 'normal' } : { type: 'spreadsheet', meta: {} }
+  const richType = { type: unknownType, meta: unknownMeta ?? {} } as unknown as VariableRichType
 
   const ctx = {
     formulaContext,
@@ -323,15 +321,21 @@ export class VariableClass implements VariableInterface {
   }
 
   public buildFormula(definition?: string): Formula {
-    return {
+    const formula: Omit<Formula, 'type' | 'meta'> = {
       blockId: this.t.namespaceId,
       definition: definition ?? this.t.definition,
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
-      type: this.t.richType.type,
       cacheValue: dumpValue(fetchResult(this.t), this.t)
     }
+
+    const richType = {
+      ...this.t.richType,
+      meta: this.t.richType.meta ?? {}
+    } as unknown as { type: Formula['type']; meta: Formula['meta'] }
+
+    return { ...formula, ...richType }
   }
 
   private async maybeReparseAndPersist(sourceUuid: string, definition?: string): Promise<void> {

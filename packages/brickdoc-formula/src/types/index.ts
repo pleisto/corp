@@ -358,6 +358,7 @@ export type FormulaSourceType = 'normal' | 'spreadsheet'
 export interface BaseFormula {
   blockId: uuid
   definition: string
+  meta: object
   id: uuid
   name: VariableName
   cacheValue: BaseResult
@@ -370,14 +371,8 @@ export interface DeleteFormula {
   id: uuid
 }
 
-export interface Formula extends BaseFormula {
+export type Formula = BaseFormula & {
   definition: Definition
-  type: FormulaSourceType
-}
-
-export interface FormulaWithTime extends Formula {
-  updatedAt: string
-  createdAt: number
 }
 
 export interface Argument {
@@ -714,6 +709,7 @@ export type VariableRichType = {
 } & (
   | {
       readonly type: 'normal'
+      readonly meta?: undefined
     }
   | {
       readonly type: 'spreadsheet'

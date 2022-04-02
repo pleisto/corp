@@ -20,6 +20,7 @@ const formulas: Formula[] = [
     definition: '=123',
     version: 0,
     type: 'normal',
+    meta: {},
     cacheValue: {
       type: 'number',
       result: 123
@@ -32,6 +33,7 @@ const formulas: Formula[] = [
     definition: `=ABS(120) + #${fooNamespaceId}.foo`,
     version: 0,
     type: 'normal',
+    meta: {},
     cacheValue: {
       type: 'number',
       result: 243
