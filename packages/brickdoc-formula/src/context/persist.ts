@@ -17,7 +17,7 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
   return {
     definition: t.definition,
     result: fetchResult(t),
-    type: t.type,
+    type: t.richType.type,
     kind: t.kind,
     version: VARIABLE_VERSION,
     display: displayValue(fetchResult(t), ''),
@@ -27,7 +27,7 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
       name: t.name,
       position: 0,
       input: t.definition,
-      type: t.type
+      richType: t.richType
     }
   }
 }

@@ -49,12 +49,12 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   const minHeight = height ? height - 3 : undefined
 
   const [currentBlock, setCurrentBlock] = React.useState(block)
+  const rowId = block.parentId as string
+  const columnId = block.data.columnId
 
-  const cellId = `${currentBlock.parentId},${currentBlock.data.columnId}`
+  const cellId = `${rowId},${columnId}`
   const formulaId = currentBlock.data.formulaId
-  const formulaName = `Cell_${currentBlock.parentId}_${currentBlock.data.columnId}`.replaceAll('-', '')
-
-  const formulaType = 'spreadsheet'
+  const formulaName = `Cell_${rowId}_${columnId}`.replaceAll('-', '')
 
   const editing = context?.editingCellId === formulaName
   const [editingCell, setEditingCell] = React.useState(editing)
@@ -122,7 +122,14 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     rootId,
     formulaId,
     onUpdateFormula,
-    formulaType,
+    formulaRichType: {
+      type: 'spreadsheet',
+      meta: {
+        spreadsheetId: tableId,
+        columnId,
+        rowId
+      }
+    },
     formulaName,
     formulaContext
   })

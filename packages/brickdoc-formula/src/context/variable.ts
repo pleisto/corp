@@ -22,7 +22,8 @@ import {
   FormulaSourceType,
   NamespaceId,
   VariableTask,
-  NameDependencyWithKind
+  NameDependencyWithKind,
+  VariableRichType
 } from '../types'
 import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
@@ -65,8 +66,20 @@ export const castVariable = async (
   { name, definition, cacheValue, version, blockId, id, type: unknownType }: BaseFormula
 ): Promise<VariableInterface> => {
   const type = unknownType as FormulaSourceType
-  const meta: VariableMetadata = { namespaceId: blockId, variableId: id, name, input: definition, position: 0, type }
-  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+  const meta: Omit<VariableMetadata, 'richType'> = {
+    namespaceId: blockId,
+    variableId: id,
+    name,
+    input: definition,
+    position: 0
+  }
+  const richType: VariableRichType = type === 'normal' ? { type: 'normal' } : { type: 'spreadsheet', meta: {} }
+
+  const ctx = {
+    formulaContext,
+    meta: { ...meta, richType },
+    interpretContext: { ctx: {}, arguments: [] }
+  }
   const parseResult = parse({ ctx })
 
   const variable = await interpret({ variable: oldVariable, isLoad: true, ctx, parseResult })
@@ -279,7 +292,7 @@ export class VariableClass implements VariableInterface {
       name: this.t.name,
       position: 0,
       input: this.t.definition,
-      type: this.t.type
+      richType: this.t.richType
     }
   }
 
@@ -316,7 +329,7 @@ export class VariableClass implements VariableInterface {
       id: this.t.variableId,
       name: this.t.name,
       version: this.t.version,
-      type: this.t.type,
+      type: this.t.richType.type,
       cacheValue: dumpValue(fetchResult(this.t), this.t)
     }
   }

@@ -1106,7 +1106,14 @@ const testCases: TestCase[] = [
 const formulaContext = new FormulaContext({ domain: 'test' })
 
 const name = 'foo'
-const meta: VariableMetadata = { variableId, namespaceId, name, input: '!!!', position: 0, type: 'normal' }
+const meta: VariableMetadata = {
+  variableId,
+  namespaceId,
+  name,
+  input: '!!!',
+  position: 0,
+  richType: { type: 'normal' }
+}
 
 const ctx: FunctionContext = {
   formulaContext,
@@ -1128,7 +1135,7 @@ describe('Simple test case', () => {
           variableId: barVariableId,
           input: '=24',
           position: 0,
-          type: 'normal'
+          richType: { type: 'normal' }
         }
       }
     })

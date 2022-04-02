@@ -13,6 +13,7 @@ export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/, catego
 export const Self = createToken({ name: 'Self', pattern: /Self/ })
 export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock/ })
 export const Input = createToken({ name: 'Input', pattern: /Input/ })
+export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow/ })
 
 export const And = createToken({
   name: 'And',
@@ -280,6 +281,7 @@ export const allTokens = [
   Semicolon, // ;
 
   CurrentBlock, // CurrentBlock
+  ThisRow, // ThisRow
   Self, // Self
   Input, // Input
   // FunctionName,

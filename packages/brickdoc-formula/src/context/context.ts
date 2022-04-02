@@ -269,7 +269,7 @@ export class FormulaContext implements ContextInterface {
       return function2completion(f, weight)
     })
     const completionVariables: Array<[string, VariableInterface]> = Object.entries(this.variables).filter(
-      ([key, c]) => c.t.variableId !== variableId && c.t.type === 'normal'
+      ([key, c]) => c.t.variableId !== variableId && c.t.richType.type === 'normal'
     )
     const variables: VariableCompletion[] = completionVariables.map(([key, v]) => {
       return variable2completion(v, namespaceId)
@@ -501,7 +501,7 @@ export class FormulaContext implements ContextInterface {
     const codeFragmentVisitor = new CodeFragmentVisitor({
       ctx: {
         formulaContext: this,
-        meta: { name: 'unknown', input, namespaceId: '', variableId: '', position: 0, type: 'normal' },
+        meta: { name: 'unknown', input, namespaceId: '', variableId: '', position: 0, richType: { type: 'normal' } },
         interpretContext: { ctx: {}, arguments: [] }
       }
     })

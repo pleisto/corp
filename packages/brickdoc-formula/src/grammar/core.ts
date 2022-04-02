@@ -285,7 +285,14 @@ const changePosition = (
 export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): ParseResult => {
   const {
     formulaContext,
-    meta: { namespaceId, variableId, input, name, type, position }
+    meta: {
+      namespaceId,
+      variableId,
+      input,
+      name,
+      richType: { type },
+      position
+    }
   } = ctx
   const version = FORMULA_PARSER_VERSION
 
@@ -674,7 +681,7 @@ export const interpret = async ({
   } = parseResult
   const {
     formulaContext,
-    meta: { name, input, namespaceId, variableId, type }
+    meta: { name, input, namespaceId, variableId, richType }
   } = ctx
   const task = await generateTask({ variable, ctx, skipExecute, parseResult })
 
@@ -683,7 +690,7 @@ export const interpret = async ({
     variableId,
     name,
     cst,
-    type,
+    richType,
     version,
     isAsync: async,
     isEffect: effect,

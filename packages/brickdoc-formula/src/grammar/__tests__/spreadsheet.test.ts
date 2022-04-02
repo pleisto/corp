@@ -17,7 +17,14 @@ const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
 const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
 const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
-const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', position: 0, type: 'normal' }
+const meta: VariableMetadata = {
+  namespaceId,
+  variableId,
+  name: 'example',
+  input: '=!!!',
+  position: 0,
+  richType: { type: 'normal' }
+}
 
 const rows: Row[] = [
   { rowId: firstRowId, rowIndex: 0, spreadsheetId },
@@ -379,7 +386,7 @@ describe('Spreadsheet Functions', () => {
           name: 'foo',
           input: input1,
           position: 0,
-          type: 'normal'
+          richType: { type: 'normal' }
         }
       },
       position: input1.length

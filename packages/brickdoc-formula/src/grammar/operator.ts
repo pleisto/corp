@@ -24,6 +24,7 @@ export interface OperatorType {
     operators: IToken[],
     interpreter: FormulaInterpreter
   ) => AnyTypeResult
+  readonly dynamicParseValidator?: (cstVisitor: CodeFragmentVisitor, result: CodeFragmentResult) => CodeFragmentResult
   readonly dynamicParseType?: (lhsType: FormulaType) => FormulaType
   readonly dynamicInterpretRhsType?: ({
     result,
@@ -159,6 +160,7 @@ interface ParseInput {
   args: CstVisitorArgument
   prefixToken?: IToken[]
   suffixToken?: IToken[]
+  bodyToken?: IToken[]
   lhs: CstNode[] | undefined
   rhs: CstNode[] | undefined
 }
@@ -204,11 +206,13 @@ const innerParse = ({
     reverseLhsAndRhs,
     dynamicParseRhsType,
     dynamicParseType,
+    dynamicParseValidator,
     parseRhs
   },
   args,
   lhs,
-  rhs
+  rhs,
+  bodyToken
 }: ParseInput): CodeFragmentResult => {
   if (!rhs) {
     return cstVisitor.visit(lhs!, args)
@@ -216,6 +220,9 @@ const innerParse = ({
 
   const rhsCodeFragments: CodeFragment[] = []
   const rhsImages: string[] = []
+
+  const bodyTokenCodeFragments: CodeFragment[] = []
+  const bodyTokenImages: string[] = []
 
   const {
     codeFragments: lhsCodeFragments,
@@ -291,16 +298,29 @@ const innerParse = ({
     }
   })
 
+  if (bodyToken?.[0]) {
+    bodyTokenCodeFragments.push(token2fragment(bodyToken[0], 'any'))
+    bodyTokenImages.push(bodyToken[0].image)
+  }
+
   const finalCodeFragments: CodeFragment[] = reverseLhsAndRhs
-    ? [...rhsCodeFragments, ...lhsCodeFragments]
-    : [...lhsCodeFragments, ...rhsCodeFragments]
-  const finalImages: string[] = reverseLhsAndRhs ? [...rhsImages, lhsImage] : [lhsImage, ...rhsImages]
+    ? [...rhsCodeFragments, ...bodyTokenCodeFragments, ...lhsCodeFragments]
+    : [...lhsCodeFragments, ...bodyTokenCodeFragments, ...rhsCodeFragments]
+  const finalImages: string[] = reverseLhsAndRhs
+    ? [...rhsImages, ...bodyTokenImages, lhsImage]
+    : [lhsImage, ...bodyTokenImages, ...rhsImages]
 
   const finalType = dynamicParseType ? dynamicParseType(prevType) : expressionType
+
   const { errorMessages, newType } = intersectType(args.type, finalType, name, cstVisitor.ctx)
-  return {
+  const result = {
     image: finalImages.join(''),
     codeFragments: finalCodeFragments.map(c => ({ ...c, errors: [...errorMessages, ...c.errors] })),
     type: newType
   }
+
+  if (dynamicParseValidator) {
+    return dynamicParseValidator(cstVisitor, result)
+  }
+  return result
 }

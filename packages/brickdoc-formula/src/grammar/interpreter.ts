@@ -34,7 +34,8 @@ import {
   predicateOperator,
   rangeOperator,
   recordFieldOperator,
-  recordOperator
+  recordOperator,
+  thisRowOperator
 } from './operations'
 import { interpretByOperator } from './operator'
 
@@ -390,6 +391,15 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     if (ctx.Self) {
       // TODO runtime type check
       return { type: 'Reference', result: { kind: 'self' } }
+    } else if (ctx.ThisRow) {
+      return await interpretByOperator({
+        interpreter: this,
+        operators: ctx.ThisRow,
+        args,
+        operator: thisRowOperator,
+        rhs: undefined,
+        lhs: undefined
+      })
     } else if (ctx.LambdaArgumentNumber) {
       // TODO runtime type check
       const number = Number(ctx.LambdaArgumentNumber[0].image.substring(1))

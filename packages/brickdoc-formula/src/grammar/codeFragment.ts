@@ -34,7 +34,8 @@ import {
   parenthesisOperator,
   rangeOperator,
   recordFieldOperator,
-  recordOperator
+  recordOperator,
+  thisRowOperator
 } from './operations'
 import { parseByOperator } from './operator'
 
@@ -771,7 +772,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  lazyVariableExpression(ctx: any, { type }: CstVisitorArgument): CodeFragmentResult {
+  lazyVariableExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
     if (ctx.Self) {
       return { codeFragments: [token2fragment(ctx.Self[0], 'Reference')], type: 'Reference', image: ctx.Self[0].image }
     } else if (ctx.Input) {
@@ -780,6 +781,16 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         type: 'Record',
         image: ctx.Input[0].image
       }
+    } else if (ctx.ThisRow) {
+      return parseByOperator({
+        cstVisitor: this,
+        operators: [],
+        bodyToken: ctx.ThisRow,
+        args,
+        operator: thisRowOperator,
+        rhs: [],
+        lhs: undefined
+      })
     } else if (ctx.LambdaArgumentNumber) {
       return {
         codeFragments: [token2fragment(ctx.LambdaArgumentNumber[0], 'Reference')],

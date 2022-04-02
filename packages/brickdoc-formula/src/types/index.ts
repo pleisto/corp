@@ -693,7 +693,7 @@ export interface VariableData {
   isPersist: boolean
   task: VariableTask
   kind: VariableKind
-  type: FormulaSourceType
+  richType: VariableRichType
   name: VariableName
   version: number
   namespaceId: NamespaceId
@@ -708,13 +708,30 @@ export interface VariableData {
   eventDependencies: EventDependency[]
   functionDependencies: Array<FunctionClause<FormulaType>>
 }
+
+export type VariableRichType = {
+  readonly type: FormulaSourceType
+} & (
+  | {
+      readonly type: 'normal'
+    }
+  | {
+      readonly type: 'spreadsheet'
+      readonly meta: {
+        readonly spreadsheetId: SpreadsheetId
+        readonly columnId: ColumnId
+        readonly rowId: uuid
+      }
+    }
+)
+
 export interface VariableMetadata {
   readonly namespaceId: NamespaceId
   readonly variableId: VariableId
   readonly input: string
   readonly position: number
   readonly name: VariableName
-  readonly type: FormulaSourceType
+  readonly richType: VariableRichType
 }
 
 export interface VariableInterface {
