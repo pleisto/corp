@@ -55,10 +55,10 @@ export const spreadsheet2attrs = (spreadsheet: SpreadsheetType): CodeFragmentAtt
 })
 
 export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
-  kind: 'Column',
+  kind: column.logic ? 'LogicColumn' : 'Column',
   namespaceId: column.spreadsheet.spreadsheetId,
   id: column.columnId,
-  name: column.name
+  name: column.logic ? column.displayIndex : column.name
 })
 
 const renderText = ({ code, display }: CodeFragment, text: string, value: string): string => {
@@ -154,7 +154,7 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
 export const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
   // const value = columnKey(column.namespaceId, column.columnId)
   return {
-    display: column.name,
+    display: column.logic ? column.displayIndex : column.name,
     errors: [],
     code: 'Column',
     type: 'Column',

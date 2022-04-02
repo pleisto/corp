@@ -17,14 +17,30 @@ export class ColumnClass implements ColumnType {
   name: ColumnName
   spreadsheetId: NamespaceId
   index: number
+  sort: number
+  title: string | undefined
+  displayIndex: string
   spreadsheet: SpreadsheetType
+  logic: boolean
 
-  constructor(spreadsheet: SpreadsheetType, { columnId, spreadsheetId: namespaceId, name, index }: ColumnInitializer) {
+  constructor(
+    spreadsheet: SpreadsheetType,
+    { columnId, spreadsheetId: namespaceId, name, index, sort, displayIndex, title }: ColumnInitializer,
+    logic: boolean
+  ) {
+    this.sort = sort
+    this.title = title
+    this.displayIndex = displayIndex
     this.columnId = columnId
     this.spreadsheetId = namespaceId
     this.name = name
     this.index = index
+    this.logic = logic
     this.spreadsheet = spreadsheet
+  }
+
+  display(): string {
+    return this.logic ? this.displayIndex : this.name
   }
 
   cells(): CellType[] {
@@ -33,6 +49,9 @@ export class ColumnClass implements ColumnType {
 
   persistence(): ColumnInitializer {
     return {
+      title: this.title,
+      displayIndex: this.displayIndex,
+      sort: this.sort,
       columnId: this.columnId,
       spreadsheetId: this.spreadsheetId,
       name: this.name,

@@ -1,5 +1,5 @@
 import { CstNode, ILexingResult } from 'chevrotain'
-import { ColumnType, SpreadsheetType, ColumnClass, BlockType } from '../controls'
+import { ColumnType, SpreadsheetType, BlockType } from '../controls'
 import {
   ContextInterface,
   FunctionClause,
@@ -354,13 +354,7 @@ export class FormulaContext implements ContextInterface {
       return undefined
     }
 
-    const column = spreadsheet.getColumnById(variableId)
-
-    if (!column) {
-      return undefined
-    }
-
-    return new ColumnClass(spreadsheet, column)
+    return spreadsheet.getColumnById(variableId)
   }
 
   public findColumnByName(namespaceId: NamespaceId, name: ColumnName): ColumnType | undefined {
@@ -369,13 +363,7 @@ export class FormulaContext implements ContextInterface {
       return undefined
     }
 
-    const column = spreadsheet.getColumnByName(name)
-
-    if (!column) {
-      return undefined
-    }
-
-    return new ColumnClass(spreadsheet, column)
+    return spreadsheet.getColumnByName(name)
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {

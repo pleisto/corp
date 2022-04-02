@@ -9,12 +9,14 @@ import {
   SpreadsheetHeaderColumn,
   SpreadsheetBody,
   SpreadsheetRow,
-  SpreadsheetCellContainer
+  SpreadsheetCellContainer,
+  SpreadsheetColumnEditable
 } from './SpreadsheetView'
 import './Spreadsheet.less'
 import { VariableDisplayData } from '@brickdoc/formula'
 import React from 'react'
 import { FormulaDisplay } from '../../ui/Formula'
+import { columnDisplayIndex } from './helper'
 
 export interface Row {
   rowId: string
@@ -23,6 +25,7 @@ export interface Row {
 export interface Column {
   columnId: string
   name: string
+  sort: number
 }
 
 export interface SpreadsheetRenderProps {
@@ -87,9 +90,13 @@ export const SpreadsheetRender: React.FC<SpreadsheetRenderProps> = ({
                   context={spreadsheetContext}
                   columnId={column.columnId}
                   columnActions={[]}
-                  draggable={false}
-                >
-                  <div className="column">{column.name}</div>
+                  draggable={false}>
+                  <SpreadsheetColumnEditable
+                    context={spreadsheetContext}
+                    index={i}
+                    column={{ ...column, uuid: column.columnId }}
+                    editable={false}
+                  />
                 </SpreadsheetHeaderColumn>
               )
             })}

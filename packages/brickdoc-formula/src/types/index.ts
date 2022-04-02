@@ -45,7 +45,7 @@ export type FormulaType =
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
-export type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName'
+export type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName' | 'LogicColumn'
 
 export type FormulaColorType = Exclude<FormulaType, 'boolean'> | FormulaCodeFragmentType
 
@@ -158,8 +158,6 @@ export interface BaseResult {
   view?: ViewData<ViewType>
   type: Exclude<FormulaType, 'void'>
   subType?: FormulaType
-  errorKind?: ErrorType
-  operator?: PredicateOperator
 }
 export interface NumberResult extends BaseResult {
   result: number
@@ -390,7 +388,7 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
-export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID'
+export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID' | 'LogicColumn'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'
@@ -683,7 +681,7 @@ export interface EventDependency {
   readonly event: EventType
   readonly eventId: string
   readonly scopes: EventScope[]
-  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string
+  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask

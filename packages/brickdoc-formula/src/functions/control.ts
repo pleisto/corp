@@ -27,6 +27,7 @@ import {
 } from '../controls'
 import { FORMULA_FEATURE_CONTROL } from '../context'
 import { v4 as uuid } from 'uuid'
+import { columnDisplayIndex } from '../grammar'
 
 export const Spreadsheet = (
   ctx: FunctionContext,
@@ -67,6 +68,9 @@ export const Spreadsheet = (
         spreadsheetId,
         columnId: keyWithIds.find(k => k.key === key)!.uuid,
         name: key,
+        sort: index,
+        title: key,
+        displayIndex: columnDisplayIndex(index),
         index
       }
 

@@ -66,11 +66,16 @@ export interface ColumnInitializer {
   columnId: ColumnId
   spreadsheetId: SpreadsheetId
   name: ColumnName
+  title: string | undefined
+  displayIndex: string
   index: number
+  sort: number
 }
 
 export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
+  logic: boolean
+  display: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
   cells: () => CellType[]
@@ -163,8 +168,8 @@ export interface SpreadsheetType {
   findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
   getRow: (rowId: uuid) => Row | undefined
-  getColumnById: (columnId: ColumnId) => ColumnInitializer | undefined
-  getColumnByName: (name: string) => ColumnInitializer | undefined
+  getColumnById: (columnId: ColumnId) => ColumnType | undefined
+  getColumnByName: (name: string) => ColumnType | undefined
   toArray: () => string[][]
   toRecord: () => Array<Record<string, StringResult>>
   persistAll: () => SpreadsheetAllPersistence

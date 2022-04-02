@@ -125,7 +125,6 @@ export class BlockClass implements BlockType {
           const newCodeFragments = variable.t.codeFragments.map(c => {
             if (c.code !== 'Spreadsheet') return c
             if (c.attrs.id !== payload.spreadsheetId) return c
-            if (c.attrs.name === payload.name) return c
             return { ...c, attrs: { ...c.attrs, name: payload.name } }
           })
           return codeFragments2definition(newCodeFragments, variable.t.namespaceId)

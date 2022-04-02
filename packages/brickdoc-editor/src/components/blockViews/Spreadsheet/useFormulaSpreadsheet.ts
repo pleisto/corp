@@ -8,7 +8,7 @@ import {
   SpreadsheetUpdateRowsViaId
 } from '@brickdoc/schema'
 import { SpreadsheetColumn } from './useSpreadsheet'
-import { columnDisplayTitle } from './helper'
+import { columnDisplayIndex, columnDisplayTitle } from './helper'
 import { useExternalProps } from '../../../hooks/useExternalProps'
 
 interface useFormulaSpreadsheetProps {
@@ -40,14 +40,13 @@ export function useFormulaSpreadsheet({
   )
   const columnData: ColumnInitializer[] = React.useMemo(
     () =>
-      columns.map(({ uuid: columnId, sort }, index) => ({
+      columns.map(({ uuid: columnId, sort, title }, index) => ({
         columnId,
         spreadsheetId,
-        name: columnDisplayTitle({
-          uuid: columnId,
-          sort,
-          title: columns.find(c => c.uuid === columnId)?.title
-        }),
+        sort,
+        title,
+        displayIndex: columnDisplayIndex(sort),
+        name: columnDisplayTitle({ uuid: columnId, sort, title }),
         index
       })),
     [columns, spreadsheetId]

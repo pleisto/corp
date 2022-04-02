@@ -389,7 +389,6 @@ export class VariableClass implements VariableInterface {
           const newCodeFragments = this.t.codeFragments.map(c => {
             if (c.code !== 'Variable') return c
             if (c.attrs.id !== variableId) return c
-            if (c.attrs.name === e.payload.t.name) return c
             return { ...c, attrs: { ...c.attrs, name: e.payload.t.name } }
           })
           const definition = codeFragments2definition(newCodeFragments, this.t.namespaceId)

@@ -28,18 +28,27 @@ const columns: ColumnInitializer[] = [
   {
     columnId: firstColumnId,
     spreadsheetId,
+    sort: 0,
+    title: 'first',
+    displayIndex: 'A',
     name: 'first',
     index: 0
   },
   {
     columnId: secondColumnId,
     spreadsheetId,
+    sort: 1,
+    title: 'second',
+    displayIndex: 'B',
     name: 'second',
     index: 1
   },
   {
     columnId: thirdColumnId,
     spreadsheetId,
+    sort: 2,
+    title: 'third',
+    displayIndex: 'C',
     name: 'third',
     index: 2
   }

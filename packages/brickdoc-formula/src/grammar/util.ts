@@ -192,14 +192,23 @@ export const runtimeCheckType = (
   return undefined
 }
 
+export const columnDisplayIndex = (index: number): string => {
+  const r = index % 26
+  const l = Math.floor(index / 26)
+  return `${l > 0 ? columnDisplayIndex(l - 1) : ''}${String.fromCharCode(65 + r)}`
+}
+
 export const resultToColorType = ({ type, result }: AnyTypeResult): FormulaColorType => {
   if (type === 'boolean') {
     return result ? 'TRUE' : 'FALSE'
   }
+
+  if (type === 'Column' && result.logic) return 'LogicColumn'
+
   return type
 }
 
-export const attrsToColorType = ({ code, display }: CodeFragment): FormulaColorType => {
+export const attrsToColorType = ({ code, display, attrs }: CodeFragment): FormulaColorType => {
   switch (code) {
     case 'NullLiteral':
       return 'null'
@@ -209,9 +218,8 @@ export const attrsToColorType = ({ code, display }: CodeFragment): FormulaColorT
       return 'string'
     case 'BooleanLiteral':
       return display === 'true' ? 'TRUE' : 'FALSE'
-    case 'Function':
-    case 'Variable':
-      return code
+    case 'Column':
+      return attrs.kind as FormulaColorType
     default:
       return code as FormulaColorType
   }

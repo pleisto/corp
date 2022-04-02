@@ -51,7 +51,7 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTrunc
     case 'Block':
       return v.result.name(pageId)
     case 'Column':
-      return `${v.result.spreadsheet.name()}.${v.result.name}`
+      return `${v.result.spreadsheet.name()}.${v.result.logic ? v.result.displayIndex : v.result.name}`
     case 'Row':
       return `[${v.result.rowIndex}] ${truncateArray(v.result.cells.map(c => c.value)).join(', ')}`
     case 'Range':
@@ -171,7 +171,7 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   if (result.type === 'Column' && !(result.result instanceof ColumnClass)) {
     const spreadsheet = ctx.formulaContext.findSpreadsheetById(result.result.spreadsheetId)
     if (spreadsheet) {
-      return { type: 'Column', result: new ColumnClass(spreadsheet, result.result) }
+      return { type: 'Column', result: new ColumnClass(spreadsheet, result.result, false) }
     } else {
       return { type: 'Error', result: `Spreadsheet ${result.result.spreadsheetId} not found`, errorKind: 'deps' }
     }

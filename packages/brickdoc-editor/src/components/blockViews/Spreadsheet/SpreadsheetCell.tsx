@@ -10,6 +10,7 @@ import {
 } from '@brickdoc/schema'
 import { FormulaBlockRender, useFormula } from '../FormulaView'
 import {
+  columnDisplayIndex,
   displayValue,
   dumpDisplayResultForDisplay,
   fetchResult,
@@ -19,12 +20,12 @@ import {
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { devLog } from '@brickdoc/design-system'
 import { useExternalProps } from '../../../hooks/useExternalProps'
-import * as Sentry from '@sentry/react'
 import { FormulaDisplay } from '../../ui/Formula'
 
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
   block: BlockInput
+  columnSort: number
   tableId: string
   saveBlock: (block: BlockInput) => void
   width?: number
@@ -35,6 +36,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   context,
   tableId,
   block,
+  columnSort,
   saveBlock,
   width,
   height
@@ -88,7 +90,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
           spreadsheetId: tableId,
           scopes: [
             { kind: 'Row', keys: [block.parentId] },
-            { kind: 'Column', keys: [block.data.columnId] }
+            { kind: 'Column', keys: [block.data.columnId, columnDisplayIndex(columnSort)] }
           ],
           namespaceId: rootId,
           key: tableId
@@ -97,7 +99,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)
     },
-    [tableId, rootId, cellId, block, saveBlock]
+    [tableId, block, columnSort, rootId, cellId, saveBlock]
   )
 
   React.useEffect(() => {
