@@ -5,7 +5,8 @@ import {
   Event,
   BlockInput,
   SpreadsheetUpdateCellValue,
-  FormulaEditorSavedTrigger
+  FormulaEditorSavedTrigger,
+  SpreadsheetReloadViaId
 } from '@brickdoc/schema'
 import { FormulaBlockRender, useFormula } from '../FormulaView'
 import {
@@ -81,10 +82,22 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         setCurrentBlock(newBlock)
         saveBlock(newBlock)
       }
+
+      BrickdocEventBus.dispatch(
+        SpreadsheetReloadViaId({
+          spreadsheetId: tableId,
+          scopes: [
+            { kind: 'Row', keys: [block.parentId] },
+            { kind: 'Column', keys: [block.data.columnId] }
+          ],
+          namespaceId: rootId,
+          key: tableId
+        })
+      )
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)
     },
-    [rootId, cellId, block, saveBlock]
+    [tableId, rootId, cellId, block, saveBlock]
   )
 
   React.useEffect(() => {
@@ -128,18 +141,6 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   const handleEnterEdit = (): void => {
     context.clearSelection()
     setEditing(true)
-  }
-
-  if (!variableT && currentBlock.text) {
-    Sentry.withScope(scope => {
-      const error = new Error(`Variable is undefined`)
-      scope.setExtra('display', currentBlock.text)
-      scope.setExtra('formulaId', formulaId)
-      scope.setExtra('rootId', rootId)
-      scope.setExtra('formulaName', formulaName)
-      error.message = `Variable is undefined`
-      Sentry.captureException(error)
-    })
   }
 
   if (editingCell || editing) {
