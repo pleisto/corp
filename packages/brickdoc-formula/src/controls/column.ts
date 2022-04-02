@@ -11,6 +11,7 @@ import {
   NamespaceId
 } from '../types'
 import { CodeFragmentVisitor } from '../grammar'
+import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 
 export class ColumnClass implements ColumnType {
   columnId: ColumnId
@@ -92,6 +93,24 @@ export class ColumnClass implements ColumnType {
         firstArgumentType: undefined,
         codeFragments
       }
+    }
+
+    const spreadsheetEventDependency = visitor.eventDependencies
+      .reverse()
+      .find(
+        d =>
+          !(
+            d.kind === 'Column' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+          )
+      )
+
+    if (spreadsheetEventDependency) {
+      spreadsheetEventDependency.kind = 'Cell'
+      spreadsheetEventDependency.scopes.push({ keys: [name], kind: 'Row' })
+    } else {
+      console.error('spreadsheetEventDependency cell not found')
     }
 
     const firstArgumentType = 'Cell'

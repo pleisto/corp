@@ -677,11 +677,11 @@ export interface EventScope {
 }
 
 export interface EventDependency {
-  readonly kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column'
+  kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Cell'
   readonly event: EventType
   readonly eventId: string
-  readonly scopes: EventScope[]
-  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
+  scopes: EventScope[]
+  definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask

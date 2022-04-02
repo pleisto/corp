@@ -18,7 +18,6 @@ import {
   CodeFragment,
   ContextInterface,
   ErrorMessage,
-  EventDependency,
   NameDependencyWithKind,
   NamespaceId,
   StringResult,
@@ -300,12 +299,23 @@ export class SpreadsheetClass implements SpreadsheetType {
       finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
     }
 
-    const spreadsheetColumnReloadEventDependency: EventDependency = {
-      eventId: `${this.namespaceId},${this.spreadsheetId}`,
-      event: SpreadsheetReloadViaId,
-      scopes: [{ keys: [column.logic ? column.displayIndex : column.columnId], kind: 'Column' }],
-      kind: 'Column',
-      definitionHandler: (deps, variable, payload) => {
+    const spreadsheetEventDependency = visitor.eventDependencies
+      .reverse()
+      .find(
+        d =>
+          !(
+            d.kind === 'Spreadsheet' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+          )
+      )
+
+    if (spreadsheetEventDependency) {
+      spreadsheetEventDependency.kind = 'Column'
+      spreadsheetEventDependency.scopes = [
+        { keys: [column.logic ? column.displayIndex : column.columnId], kind: 'Column' }
+      ]
+      spreadsheetEventDependency.definitionHandler = (deps, variable, payload) => {
         if (column.logic) return
         const newColumn = this._columns.find(c => c.columnId === column.columnId)
         if (!newColumn) return
@@ -316,18 +326,9 @@ export class SpreadsheetClass implements SpreadsheetType {
         })
         return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
       }
+    } else {
+      console.error('spreadsheetEventDependency column not found')
     }
-
-    visitor.eventDependencies = visitor.eventDependencies.filter(
-      d =>
-        !(
-          d.kind === 'Spreadsheet' &&
-          d.event === SpreadsheetReloadViaId &&
-          d.eventId === spreadsheetColumnReloadEventDependency.eventId
-        )
-    )
-
-    visitor.eventDependencies.push(spreadsheetColumnReloadEventDependency)
 
     return {
       errors,
