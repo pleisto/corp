@@ -74,7 +74,7 @@ export const FormulaTaskCompleted = event<any>()('FormulaTaskCompleted', v => {
 export const SpreadsheetReloadViaId = event<{
   spreadsheetId: string
   namespaceId: string
-  scopes: Array<{ kind: string; key: string }>
+  scopes: any[]
   key: string
 }>()('SpreadsheetReloadViaId', ({ spreadsheetId, namespaceId, key }) => {
   return { id: `${namespaceId},${spreadsheetId}` }
@@ -84,7 +84,7 @@ export const SpreadsheetUpdateNameViaId = event<{
   spreadsheetId: string
   namespaceId: string
   name: string
-  scopes: Array<{ kind: string; key: string }>
+  scopes: any[]
   key: string
 }>()('SpreadsheetUpdateNameViaId', ({ spreadsheetId, namespaceId, name, key }) => {
   return { id: `${namespaceId},${spreadsheetId}` }

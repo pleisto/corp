@@ -1,5 +1,5 @@
 import React from 'react'
-import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row, CellType } from '@brickdoc/formula'
+import { SpreadsheetType, SpreadsheetClass, ColumnInitializer, Row } from '@brickdoc/formula'
 import {
   BlockInput,
   BrickdocEventBus,

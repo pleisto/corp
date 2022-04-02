@@ -14,6 +14,14 @@ import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
 export const shouldReceiveEventByScope = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
+  listenedScopes.forEach(listenedScope => {
+    const eventScope = eventScopes.find(scope => scope.kind === listenedScope.kind)
+    if (!eventScope) return false
+
+    const filteredArray = listenedScope.keys.filter(key => eventScope.keys.includes(key))
+    if (filteredArray.length === 0) return false
+  })
+
   return true
 }
 

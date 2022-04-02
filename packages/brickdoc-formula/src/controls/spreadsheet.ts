@@ -114,7 +114,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
-            scopes: changedColumnIds.map(c => ({ key: c, kind: 'Column' })),
+            scopes: [{ kind: 'Column', keys: changedColumnIds }],
             namespaceId: this.namespaceId,
             key: this.spreadsheetId
           })
@@ -139,7 +139,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
-            scopes: changedRowIds.map(c => ({ key: c, kind: 'Row' })),
+            scopes: [{ kind: 'Row', keys: changedRowIds }],
             namespaceId: this.namespaceId,
             key: this.spreadsheetId
           })
@@ -294,7 +294,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     const spreadsheetColumnReloadEventDependency: EventDependency = {
       eventId: `${this.namespaceId},${this.spreadsheetId}`,
       event: SpreadsheetReloadViaId,
-      scopes: [{ key: column.columnId, kind: 'Column' }],
+      scopes: [{ keys: [column.columnId], kind: 'Column' }],
       kind: 'Column'
     }
 

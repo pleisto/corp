@@ -675,7 +675,7 @@ export interface SyncVariableTask extends BaseVariableTask {
 
 export interface EventScope {
   kind: 'Row' | 'Column'
-  key: string
+  keys: string[]
 }
 
 export interface EventDependency {
