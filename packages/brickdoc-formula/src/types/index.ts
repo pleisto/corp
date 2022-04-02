@@ -677,10 +677,10 @@ export interface EventScope {
 }
 
 export interface EventDependency {
-  kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Cell'
+  kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
   readonly event: EventType
   readonly eventId: string
-  scopes: EventScope[]
+  readonly scopes: EventScope[]
   definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
 }
 

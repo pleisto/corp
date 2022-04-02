@@ -25,6 +25,7 @@ import { FormulaDisplay } from '../../ui/Formula'
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
   block: BlockInput
+  columnIdx: number
   columnSort: number
   tableId: string
   saveBlock: (block: BlockInput) => void
@@ -36,6 +37,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   context,
   tableId,
   block,
+  columnIdx,
   columnSort,
   saveBlock,
   width,
@@ -89,7 +91,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         SpreadsheetReloadViaId({
           spreadsheetId: tableId,
           scopes: [
-            { kind: 'Row', keys: [block.parentId] },
+            { kind: 'Row', keys: [String(columnIdx + 1)] },
             { kind: 'Column', keys: [block.data.columnId, columnDisplayIndex(columnSort)] }
           ],
           namespaceId: rootId,
@@ -99,7 +101,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)
     },
-    [tableId, block, columnSort, rootId, cellId, saveBlock]
+    [tableId, columnIdx, block, columnSort, rootId, cellId, saveBlock]
   )
 
   React.useEffect(() => {

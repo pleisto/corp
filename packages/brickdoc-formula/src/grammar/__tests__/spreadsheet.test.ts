@@ -180,6 +180,21 @@ const testCases: TestCase[] = [
     value: SNAPSHOT_FLAG
   },
   {
+    label: 'column logic',
+    input: `=${spreadsheetToken}.A`,
+    value: SNAPSHOT_FLAG
+  },
+  {
+    label: 'column unknown',
+    input: `=${spreadsheetToken}.Z`,
+    error: `Column "Z" not found`
+  },
+  {
+    label: 'cell logic',
+    input: `=${spreadsheetToken}.A.1`,
+    value: cells[0]
+  },
+  {
     label: 'cell',
     input: `=${spreadsheetToken}."first".1`,
     value: cells[0]

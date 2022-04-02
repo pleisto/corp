@@ -141,7 +141,11 @@ export class SpreadsheetClass implements SpreadsheetType {
 
         const pairs1 = objectDiff<Row>(oldRows, newRows)
         const pairs2 = objectDiff<Row>(newRows, oldRows)
-        const changedRowIds = [...new Set([...Object.values(pairs1), ...Object.values(pairs2)].map(p => p.rowId))]
+        const changedRowIds = [
+          ...new Set(
+            [...Object.values(pairs1), ...Object.values(pairs2)].flatMap((p: Row) => [p.rowId, String(p.rowIndex + 1)])
+          )
+        ]
         if (!changedRowIds.length) return
 
         BrickdocEventBus.dispatch(
@@ -228,7 +232,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretRow(number: number): AnyTypeResult {
-    const row = this.listRows()[number]
+    const row = this.listRows()[number - 1]
     if (!row) {
       return { type: 'Error', result: `Row ${number} not found`, errorKind: 'runtime' }
     }
@@ -255,7 +259,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const row = this.listRows()[number]
+    const row = this.listRows()[number - 1]
 
     if (!row) {
       errors.push({ type: 'deps', message: `Row "${number}" not found` })
@@ -264,6 +268,23 @@ export class SpreadsheetClass implements SpreadsheetType {
         firstArgumentType: undefined,
         codeFragments
       }
+    }
+
+    const spreadsheetEventDependency = visitor.eventDependencies
+      .reverse()
+      .find(
+        d =>
+          d.kind === 'Spreadsheet' &&
+          d.event === SpreadsheetReloadViaId &&
+          d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+      )
+
+    if (spreadsheetEventDependency) {
+      spreadsheetEventDependency.kind = 'Row'
+      spreadsheetEventDependency.scopes.push({
+        keys: [String(number)],
+        kind: 'Row'
+      })
     }
 
     const firstArgumentType = 'Row'
@@ -303,18 +324,17 @@ export class SpreadsheetClass implements SpreadsheetType {
       .reverse()
       .find(
         d =>
-          !(
-            d.kind === 'Spreadsheet' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
-          )
+          d.kind === 'Spreadsheet' &&
+          d.event === SpreadsheetReloadViaId &&
+          d.eventId === `${this.namespaceId},${this.spreadsheetId}`
       )
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Column'
-      spreadsheetEventDependency.scopes = [
-        { keys: [column.logic ? column.displayIndex : column.columnId], kind: 'Column' }
-      ]
+      spreadsheetEventDependency.scopes.push({
+        keys: [column.logic ? column.displayIndex : column.columnId],
+        kind: 'Column'
+      })
       spreadsheetEventDependency.definitionHandler = (deps, variable, payload) => {
         if (column.logic) return
         const newColumn = this._columns.find(c => c.columnId === column.columnId)
@@ -326,8 +346,6 @@ export class SpreadsheetClass implements SpreadsheetType {
         })
         return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
       }
-    } else {
-      console.error('spreadsheetEventDependency column not found')
     }
 
     return {

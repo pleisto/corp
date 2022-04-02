@@ -99,18 +99,20 @@ export class ColumnClass implements ColumnType {
       .reverse()
       .find(
         d =>
-          !(
-            d.kind === 'Column' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-          )
+          d.kind === 'Column' &&
+          d.event === SpreadsheetReloadViaId &&
+          d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
       )
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Cell'
-      spreadsheetEventDependency.scopes.push({ keys: [name], kind: 'Row' })
-    } else {
-      console.error('spreadsheetEventDependency cell not found')
+      spreadsheetEventDependency.scopes.push(
+        { keys: [name], kind: 'Row' },
+        {
+          keys: [this.logic ? this.displayIndex : this.columnId],
+          kind: 'Column'
+        }
+      )
     }
 
     const firstArgumentType = 'Cell'

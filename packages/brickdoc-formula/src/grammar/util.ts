@@ -14,15 +14,21 @@ import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
 export const shouldReceiveEventByScope = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
+  let result = true
   listenedScopes.forEach(listenedScope => {
     const eventScope = eventScopes.find(scope => scope.kind === listenedScope.kind)
-    if (!eventScope) return false
+    if (!eventScope) {
+      result = false
+      return
+    }
 
     const filteredArray = listenedScope.keys.filter(key => eventScope.keys.includes(key))
-    if (filteredArray.length === 0) return false
+    if (filteredArray.length === 0) {
+      result = false
+    }
   })
 
-  return true
+  return result
 }
 
 export const reverseTraversalString = (str: string, min = 1): string[] => {
