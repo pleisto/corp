@@ -54,7 +54,7 @@ jobs:
         run: yarn e2e-testing run-playwright --shard=${{ matrix.shard }}/2
         if: success()
         env:
-          NODE_OPTIONS: '--max-old-space-size=5950'
+          NODE_OPTIONS: '--max-old-space-size=2048'
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.environment_url }}
           E2E_CHROMIUM_LOGIN_EMAIL: ${{ steps.get_e2e_account.outputs.chromium_email }}
           E2E_CHROMIUM_LOGIN_PASSWORD: ${{ steps.get_e2e_account.outputs.chromium_password }}
