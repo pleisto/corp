@@ -8,9 +8,10 @@ import {
   ErrorMessage,
   ErrorResult,
   FormulaType,
-  NamespaceId
+  NamespaceId,
+  VariableMetadata
 } from '../types'
-import { CodeFragmentVisitor } from '../grammar'
+import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 
 export class ColumnClass implements ColumnType {
@@ -64,22 +65,34 @@ export class ColumnClass implements ColumnType {
     }
   }
 
-  private findCellByNumber(name: string): CellResult | ErrorResult {
+  private findCellByNumber(meta: VariableMetadata, name: string): CellResult | ErrorResult {
     const number = Number(name)
     if (isNaN(number)) {
       return { type: 'Error', result: `Need a number: ${name}`, errorKind: 'syntax' }
     }
     const cells = this.cells()
+    const cell = cells[number - 1]
 
-    if (number > cells.length) {
+    if (!cell) {
       return { type: 'Error', result: `Cell out of range: ${cells.length}`, errorKind: 'runtime' }
     }
 
-    return { type: 'Cell', result: cells[number - 1] }
+    if (meta.richType.type === 'spreadsheet') {
+      const { spreadsheetId, rowId, columnId } = meta.richType.meta
+      if (spreadsheetId === this.spreadsheetId && rowId === cell.rowId && columnId === cell.columnId) {
+        return {
+          result: 'Circular dependency found',
+          type: 'Error',
+          errorKind: 'circular_dependency'
+        }
+      }
+    }
+
+    return { type: 'Cell', result: cell }
   }
 
-  async handleInterpret(name: string): Promise<AnyTypeResult> {
-    return this.findCellByNumber(name)
+  async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
+    return this.findCellByNumber(interpreter.ctx.meta, name)
   }
 
   handleCodeFragments(
@@ -87,15 +100,28 @@ export class ColumnClass implements ColumnType {
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
-    const cell = this.findCellByNumber(name)
+    const result = this.findCellByNumber(visitor.ctx.meta, name)
     const errors: ErrorMessage[] = []
 
-    if (cell.type === 'Error') {
-      errors.push({ type: cell.errorKind, message: cell.result })
+    if (result.type === 'Error') {
+      errors.push({ type: result.errorKind, message: result.result })
       return {
         errors,
         firstArgumentType: undefined,
         codeFragments
+      }
+    }
+
+    const cell = result.result
+
+    if (visitor.ctx.meta.richType.type === 'spreadsheet') {
+      const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
+      if (spreadsheetId === this.spreadsheetId && rowId === cell.rowId && columnId === cell.columnId) {
+        return {
+          errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
+          firstArgumentType: undefined,
+          codeFragments
+        }
       }
     }
 
@@ -110,13 +136,13 @@ export class ColumnClass implements ColumnType {
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Cell'
-      spreadsheetEventDependency.scopes.push(
+      spreadsheetEventDependency.scopes = [
         { keys: [name], kind: 'Row' },
         {
           keys: [this.key()],
           kind: 'Column'
         }
-      )
+      ]
     }
 
     const firstArgumentType = 'Cell'

@@ -13,7 +13,8 @@ import {
   objectDiff,
   codeFragments2definition,
   row2codeFragment,
-  isKey
+  isKey,
+  FormulaInterpreter
 } from '../grammar'
 import {
   AnyTypeResult,
@@ -217,7 +218,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     }
   }
 
-  async handleInterpret(name: string): Promise<AnyTypeResult> {
+  async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
     const number = Number(name)
     if (!isNaN(number)) {
       return this.handleInterpretRow(number)
@@ -284,10 +285,12 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Row'
-      spreadsheetEventDependency.scopes.push({
-        keys: [String(number)],
-        kind: 'Row'
-      })
+      spreadsheetEventDependency.scopes = [
+        {
+          keys: [String(number)],
+          kind: 'Row'
+        }
+      ]
     }
 
     const firstArgumentType = 'Row'
@@ -337,10 +340,12 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Column'
-      spreadsheetEventDependency.scopes.push({
-        keys: [column.key()],
-        kind: 'Column'
-      })
+      spreadsheetEventDependency.scopes = [
+        {
+          keys: [column.key()],
+          kind: 'Column'
+        }
+      ]
       spreadsheetEventDependency.definitionHandler = (deps, variable, payload) => {
         if (column.logic) return
         const newColumn = this._columns.find(c => c.columnId === column.columnId)

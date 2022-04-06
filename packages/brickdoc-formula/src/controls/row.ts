@@ -1,5 +1,5 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
-import { CodeFragmentVisitor } from '../grammar'
+import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
 import { AnyTypeResult, CodeFragment, ErrorMessage, FormulaType, SpreadsheetId, uuid } from '../types'
 import { CellType, Row, RowType, SpreadsheetType } from './types'
 
@@ -39,13 +39,24 @@ export class RowClass implements RowType {
     }
   }
 
-  async handleInterpret(name: string): Promise<AnyTypeResult> {
+  async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
     const column = this.spreadsheet.getColumnByName(name)
     if (!column) {
       return {
         type: 'Error',
         result: `Column "${name}" not found`,
         errorKind: 'runtime'
+      }
+    }
+
+    if (interpreter.ctx.meta.richType.type === 'spreadsheet') {
+      const { spreadsheetId, rowId, columnId } = interpreter.ctx.meta.richType.meta
+      if (spreadsheetId === this.spreadsheetId && rowId === this.rowId && columnId === column.columnId) {
+        return {
+          result: 'Circular dependency found',
+          type: 'Error',
+          errorKind: 'circular_dependency'
+        }
       }
     }
 
@@ -76,6 +87,17 @@ export class RowClass implements RowType {
       }
     }
 
+    if (visitor.ctx.meta.richType.type === 'spreadsheet') {
+      const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
+      if (spreadsheetId === this.spreadsheetId && rowId === this.rowId && columnId === column.columnId) {
+        return {
+          errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
+          firstArgumentType: undefined,
+          codeFragments
+        }
+      }
+    }
+
     const cell = this.spreadsheet.listCells({ rowId: this.rowId, columnId: column.columnId })[0]
     if (!cell) {
       return {
@@ -98,13 +120,13 @@ export class RowClass implements RowType {
 
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Cell'
-      spreadsheetEventDependency.scopes.push(
+      spreadsheetEventDependency.scopes = [
         { keys: [this.key()], kind: 'Row' },
         {
           keys: [column.key()],
           kind: 'Column'
         }
-      )
+      ]
     }
 
     const firstArgumentType = 'Cell'

@@ -96,7 +96,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
           key: tableId
         })
       )
-      // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
+      // console.log('dispatch update cell', variable)
       // setEditing(false)
     },
     [tableId, columnIdx, rowId, block, columnSort, rootId, cellId, saveBlock]

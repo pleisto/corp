@@ -1,13 +1,5 @@
 import { CstNode, IToken } from 'chevrotain'
-import {
-  AnyTypeResult,
-  CodeFragment,
-  CodeFragmentResult,
-  ErrorMessage,
-  FormulaCheckType,
-  FormulaType,
-  FunctionContext
-} from '../types'
+import { AnyTypeResult, CodeFragment, CodeFragmentResult, ErrorMessage, FormulaCheckType, FormulaType } from '../types'
 import { CodeFragmentVisitor, CstVisitorArgument, token2fragment } from './codeFragment'
 import { InterpretArgument, FormulaInterpreter } from './interpreter'
 import { intersectType, runtimeCheckType, shouldReturnEarly } from './util'
@@ -63,13 +55,13 @@ export interface OperatorType {
     rhsTokenImage: string
   }) => CodeFragmentResult
   readonly interpret: ({
-    ctx,
+    interpreter,
     lhs,
     rhs,
     operator,
     cst
   }: {
-    ctx: FunctionContext
+    interpreter: FormulaInterpreter
     lhs: AnyTypeResult
     rhs: AnyTypeResult | undefined
     operator: IToken
@@ -138,7 +130,7 @@ export const interpretByOperator = async ({
       throw new Error(`Operator not found`)
     }
 
-    result = await interpret({ ctx: interpreter.ctx, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
+    result = await interpret({ interpreter, lhs: result, rhs: rhsValue, operator, cst: rhsOperand })
   }
 
   if (packageInterpretResult) {

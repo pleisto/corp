@@ -692,7 +692,7 @@ export interface EventDependency {
   kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
   readonly event: EventType
   readonly eventId: string
-  readonly scopes: EventScope[]
+  scopes: EventScope[]
   definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
 }
 

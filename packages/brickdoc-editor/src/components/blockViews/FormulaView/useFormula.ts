@@ -395,6 +395,7 @@ export const useFormula = ({
     (variable: VariableInterface): void => {
       variableRef.current = variable
       setVariableT({ ...variable.t })
+
       if (!variable.isNew) {
         setSavedVariableT({ ...variable.savedT! })
         onUpdateFormula?.(variable)
@@ -428,12 +429,10 @@ export const useFormula = ({
 
     v.save()
 
-    updateVariable(v)
-
     BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId, rootId }))
 
     devLog('save ...', { input, variable: variableRef.current, formulaContext })
-  }, [doUnselectedFormula, formulaContext, formulaId, rootId, updateVariable])
+  }, [doUnselectedFormula, formulaContext, formulaId, rootId])
 
   const onSaveFormula = React.useCallback((): void => {
     // devLog({ variable: variableRef.current, name, defaultName })

@@ -13,12 +13,11 @@ import {
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
-export const shouldReceiveEventByScope = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
+export const shouldReceiveEvent = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
   let result = true
   listenedScopes.forEach(listenedScope => {
     const eventScope = eventScopes.find(scope => scope.kind === listenedScope.kind)
     if (!eventScope) {
-      result = false
       return
     }
 

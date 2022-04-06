@@ -28,7 +28,7 @@ import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
 import { codeFragments2definition, variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
-import { maybeEncodeString, shouldReceiveEventByScope } from '../grammar'
+import { maybeEncodeString, shouldReceiveEvent } from '../grammar'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
   if (task.async) {
@@ -374,7 +374,8 @@ export class VariableClass implements VariableInterface {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
         e => {
-          if (!shouldReceiveEventByScope(dependency.scopes, e.payload.scopes)) return
+          // console.log('event',e.type,e.payload,dependency,shouldReceiveEvent(dependency.scopes, e.payload.scopes))
+          if (!shouldReceiveEvent(dependency.scopes, e.payload.scopes)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
           void this.maybeReparseAndPersist(e.payload.key, definition)
         },

@@ -12,6 +12,7 @@ import {
 import {
   codeFragments2definition,
   CodeFragmentVisitor,
+  FormulaInterpreter,
   isKey,
   spreadsheet2codeFragment,
   variable2codeFragment
@@ -80,7 +81,7 @@ export class BlockClass implements BlockType {
     this.eventListeners = []
   }
 
-  async handleInterpret(name: string): Promise<AnyTypeResult> {
+  async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
     const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
     if (spreadsheet) {
       return { type: 'Spreadsheet', result: spreadsheet }

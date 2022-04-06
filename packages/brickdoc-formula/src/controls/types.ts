@@ -1,3 +1,4 @@
+import { FormulaInterpreter } from '../grammar'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import {
   ColumnId,
@@ -40,7 +41,7 @@ export interface BlockInitializer {
   name: string
 }
 
-type handleInterpretType = (name: string) => Promise<AnyTypeResult>
+type handleInterpretType = (interpreter: FormulaInterpreter, name: string) => Promise<AnyTypeResult>
 export interface handleCodeFragmentsResult {
   errors: ErrorMessage[]
   firstArgumentType: FormulaType | undefined
