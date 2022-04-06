@@ -770,14 +770,6 @@ const testCases: TestCase[] = [
     value: 3
   },
   {
-    input: '=AND(true, false, false)',
-    value: false
-  },
-  {
-    input: '=OR(true)',
-    value: true
-  },
-  {
     input: '=ABS(IF(false, -3, -4))',
     value: 4
   },
@@ -942,11 +934,6 @@ const testCases: TestCase[] = [
     input: '=ABS( NOW() )',
     parseErrorType: 'syntax',
     errorMessage: 'Expected number but got Date'
-  },
-  {
-    input: '=AND(1, 2)',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected boolean but got number'
   },
   {
     input: '=ABS ( true )',

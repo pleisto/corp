@@ -17,6 +17,8 @@ export const thisRowOperator: OperatorType = {
       return { type: 'Error', result: unavailableMessage.message, errorKind: 'runtime' }
     }
 
+    console.log(interpreter.ctx.meta.richType)
+
     return { type: 'string', result: `Block this row not found` }
   },
   dynamicParseValidator: (cstVisitor, { image, codeFragments, type }) => {

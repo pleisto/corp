@@ -7,29 +7,29 @@ export const MultiplicationOperator = createToken({ name: 'MultiplicationOperato
 export const CombineOperator = createToken({ name: 'CombineOperator', pattern: Lexer.NA })
 export const InOperator = createToken({ name: 'InOperator', pattern: Lexer.NA })
 
-export const In = createToken({ name: 'In', pattern: /in/, categories: InOperator })
-export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/, categories: InOperator })
+export const In = createToken({ name: 'In', pattern: /in/i, categories: InOperator })
+export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/i, categories: InOperator })
 
-export const Self = createToken({ name: 'Self', pattern: /Self/ })
-export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock/ })
-export const Input = createToken({ name: 'Input', pattern: /Input/ })
-export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow/ })
+export const Self = createToken({ name: 'Self', pattern: /Self/i })
+export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock/i })
+export const Input = createToken({ name: 'Input', pattern: /Input/i })
+export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow/i })
 
 export const And = createToken({
   name: 'And',
-  pattern: /and|&&/,
+  pattern: /and|&&/i,
   categories: CombineOperator
 })
 
 export const Or = createToken({
   name: 'Or',
-  pattern: /or|\|\|/,
+  pattern: /or|\|\|/i,
   categories: CombineOperator
 })
 
 export const Not = createToken({
   name: 'Not',
-  pattern: /not|!/
+  pattern: /not|!/i
 })
 
 export const GreaterThan = createToken({
@@ -169,7 +169,7 @@ export const DecimalLiteral = createToken({
 
 export const BooleanLiteral = createToken({
   name: 'BooleanLiteral',
-  pattern: /true|false/
+  pattern: /true|false/i
 })
 
 export const StringLiteral = createToken({
@@ -179,7 +179,7 @@ export const StringLiteral = createToken({
 
 export const NullLiteral = createToken({
   name: 'NullLiteral',
-  pattern: /null/
+  pattern: /null/i
 })
 
 export const Comma = createToken({ name: 'Comma', pattern: /,/ })
@@ -222,8 +222,12 @@ export const allTokens = [
 
   Not, // not !
 
-  In, // in
+  CurrentBlock, // CurrentBlock
+  ThisRow, // ThisRow
+  Self, // Self
+  Input, // Input
   ExactIn, // exactin
+  In, // in
 
   LessThanEqual, // <=
   GreaterThanEqual, // >=
@@ -280,10 +284,6 @@ export const allTokens = [
   Comma, // ,
   Semicolon, // ;
 
-  CurrentBlock, // CurrentBlock
-  ThisRow, // ThisRow
-  Self, // Self
-  Input, // Input
   // FunctionName,
   FunctionName,
 
