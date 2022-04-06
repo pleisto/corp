@@ -94,7 +94,7 @@ export class VariableClass implements VariableInterface {
 
   tickTimeout: number = 1000
   eventListeners: EventSubscribed[] = []
-  currentUUID: string | undefined
+  currentUUID: string = ''
   builtinEventListeners: EventSubscribed[] = []
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
@@ -349,7 +349,7 @@ export class VariableClass implements VariableInterface {
     await castVariable(this, this.formulaContext, formula)
 
     this.trackDependency()
-    this.currentUUID = undefined
+    this.currentUUID = uuid()
     if (this.savedT?.task.async === false) {
       this.onUpdate({ savedTNotMatched: false })
     }
@@ -410,7 +410,7 @@ export class VariableClass implements VariableInterface {
             return { ...c, attrs: { ...c.attrs, name: e.payload.t.name } }
           })
           const definition = codeFragments2definition(newCodeFragments, this.t.namespaceId)
-          void this.maybeReparseAndPersist(e.payload.t.variableId, definition)
+          void this.maybeReparseAndPersist(e.payload.t.currentUUID, definition)
         },
         {
           eventId: `${namespaceId},${variableId}`,

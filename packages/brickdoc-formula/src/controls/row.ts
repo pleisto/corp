@@ -80,6 +80,24 @@ export class RowClass implements RowType {
     const column = this.spreadsheet.getColumnByName(name)
 
     if (!column) {
+      visitor.eventDependencies = visitor.eventDependencies
+        .reverse()
+        .filter(
+          d =>
+            !(
+              d.kind === 'Row' &&
+              d.event === SpreadsheetReloadViaId &&
+              d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+            )
+        )
+        .reverse()
+
+      visitor.eventDependencies.push({
+        kind: 'Cell',
+        event: SpreadsheetReloadViaId,
+        eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+        scope: { rows: [this.key()], columns: [name] }
+      })
       return {
         errors: [{ type: 'deps', message: `Column "${name}" not found` }],
         firstArgumentType: undefined,

@@ -156,7 +156,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
-            scope: [{ kind: 'Row', keys: changedRowIds }],
+            scope: { rows: changedRowIds },
             namespaceId: this.namespaceId,
             key: this.spreadsheetId
           })

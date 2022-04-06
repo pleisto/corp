@@ -751,6 +751,7 @@ export interface VariableInterface {
   t: VariableData
   savedT: VariableData | undefined
   isNew: boolean
+  currentUUID: string
   formulaContext: ContextInterface
 
   buildFormula: (definition?: string) => Formula

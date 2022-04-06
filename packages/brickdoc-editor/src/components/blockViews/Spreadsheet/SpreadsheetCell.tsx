@@ -93,7 +93,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
             columns: [block.data.columnId, columnDisplayIndex(columnSort)]
           },
           namespaceId: rootId,
-          key: tableId
+          key: variable?.currentUUID ?? tableId
         })
       )
       // console.log('dispatch update cell', variable)
