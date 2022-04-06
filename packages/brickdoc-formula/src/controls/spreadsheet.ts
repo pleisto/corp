@@ -25,6 +25,7 @@ import {
   VariableDisplayData
 } from '../types'
 import { ColumnClass } from './column'
+import { RowClass } from './row'
 import {
   SpreadsheetType,
   SpreadsheetInitializer,
@@ -34,7 +35,8 @@ import {
   CellType,
   SpreadsheetAllPersistence,
   handleCodeFragmentsResult,
-  ColumnType
+  ColumnType,
+  RowType
 } from './types'
 
 export class SpreadsheetClass implements SpreadsheetType {
@@ -232,13 +234,12 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretRow(number: number): AnyTypeResult {
-    const row = this.listRows()[number - 1]
+    const row = this.getRowByIndex(number - 1)
     if (!row) {
       return { type: 'Error', result: `Row ${number} not found`, errorKind: 'runtime' }
     }
-    const cells: CellType[] = this.listCells({ rowId: row.rowId })
 
-    return { type: 'Row', result: { ...row, cells } }
+    return { type: 'Row', result: row }
   }
 
   public handleCodeFragments(
@@ -384,14 +385,22 @@ export class SpreadsheetClass implements SpreadsheetType {
     return this.listRows().length
   }
 
-  getRow(rowId: string): Row | undefined {
-    return this.listRows().find(row => row.rowId === rowId)
+  getRowById(rowId: string): RowType | undefined {
+    const row = this.listRows().find(row => row.rowId === rowId)
+    if (!row) return undefined
+    return new RowClass(this, row, false)
+  }
+
+  getRowByIndex(number: number): RowType | undefined {
+    const row = this.listRows()[number]
+    if (!row) return undefined
+    return new RowClass(this, row, true)
   }
 
   getColumnById(columnId: string): ColumnType | undefined {
     const column = this.listColumns().find(col => col.columnId === columnId)
-    if (column) return new ColumnClass(this, column, false)
-    return undefined
+    if (!column) return undefined
+    return new ColumnClass(this, column, false)
   }
 
   getColumnByName(name: string): ColumnType | undefined {

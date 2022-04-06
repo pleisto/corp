@@ -88,7 +88,9 @@ export interface Row {
 }
 
 export interface RowType extends Row {
-  cells: CellType[]
+  listCells: () => CellType[]
+  logic: boolean
+  handleCodeFragments: handleCodeFragmentsType
 }
 
 export interface RangeType {
@@ -167,7 +169,8 @@ export interface SpreadsheetType {
   listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
   findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
-  getRow: (rowId: uuid) => Row | undefined
+  getRowById: (rowId: uuid) => RowType | undefined
+  getRowByIndex: (number: number) => RowType | undefined
   getColumnById: (columnId: ColumnId) => ColumnType | undefined
   getColumnByName: (name: string) => ColumnType | undefined
   toArray: () => string[][]

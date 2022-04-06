@@ -1,5 +1,5 @@
 import { CstNode, ILexingResult } from 'chevrotain'
-import { ColumnType, SpreadsheetType, BlockType } from '../controls'
+import { ColumnType, SpreadsheetType, BlockType, RowType } from '../controls'
 import {
   ContextInterface,
   FunctionClause,
@@ -35,7 +35,8 @@ import {
   Formula,
   DeleteFormula,
   SpreadsheetId,
-  NameDependencyWithKind
+  NameDependencyWithKind,
+  RowId
 } from '../types'
 import {
   function2completion,
@@ -350,19 +351,19 @@ export class FormulaContext implements ContextInterface {
 
   public findColumnById(namespaceId: NamespaceId, variableId: VariableId): ColumnType | undefined {
     const spreadsheet = this.findSpreadsheetById(namespaceId)
-    if (!spreadsheet) {
-      return undefined
-    }
-
+    if (!spreadsheet) return undefined
     return spreadsheet.getColumnById(variableId)
+  }
+
+  public findRowById(namespaceId: NamespaceId, rowId: RowId): RowType | undefined {
+    const spreadsheet = this.findSpreadsheetById(namespaceId)
+    if (!spreadsheet) return undefined
+    return spreadsheet.getRowById(rowId)
   }
 
   public findColumnByName(namespaceId: NamespaceId, name: ColumnName): ColumnType | undefined {
     const spreadsheet = this.findSpreadsheetById(namespaceId)
-    if (!spreadsheet) {
-      return undefined
-    }
-
+    if (!spreadsheet) return undefined
     return spreadsheet.getColumnByName(name)
   }
 

@@ -210,6 +210,7 @@ export const resultToColorType = ({ type, result }: AnyTypeResult): FormulaColor
   }
 
   if (type === 'Column' && result.logic) return 'LogicColumn'
+  if (type === 'Row' && result.logic) return 'LogicRow'
 
   return type
 }

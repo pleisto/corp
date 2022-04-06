@@ -45,7 +45,14 @@ export type FormulaType =
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
-export type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName' | 'LogicColumn'
+export type FormulaCodeFragmentType =
+  | 'TRUE'
+  | 'FALSE'
+  | 'Function'
+  | 'Variable'
+  | 'FunctionName'
+  | 'LogicColumn'
+  | 'LogicRow'
 
 export type FormulaColorType = Exclude<FormulaType, 'boolean'> | FormulaCodeFragmentType
 
@@ -131,6 +138,7 @@ export type NamespaceId = uuid
 export type VariableId = uuid
 export type ColumnId = uuid
 export type SpreadsheetId = uuid
+export type RowId = uuid
 
 export type Feature = string
 export type Features = Feature[]
@@ -383,7 +391,15 @@ export interface Argument {
 }
 
 export type CompletionKind = 'function' | 'variable' | 'spreadsheet' | 'column' | 'block'
-export type ComplexCodeFragmentType = 'Spreadsheet' | 'Column' | 'Variable' | 'Block' | 'UUID' | 'LogicColumn'
+export type ComplexCodeFragmentType =
+  | 'Spreadsheet'
+  | 'Column'
+  | 'Variable'
+  | 'Block'
+  | 'UUID'
+  | 'LogicColumn'
+  | 'Row'
+  | 'LogicRow'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'
@@ -475,6 +491,7 @@ export interface ContextInterface {
   findNames: (namespaceId: NamespaceId, name: string) => NameDependencyWithKind[]
   findSpreadsheetByName: (namespaceId: NamespaceId, name: string) => SpreadsheetType | undefined
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
+  findRowById: (namespaceId: NamespaceId, rowId: RowId) => RowType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
   removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void

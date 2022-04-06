@@ -298,6 +298,17 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
           }
         }
 
+        if (firstArgumentType === 'Row') {
+          console.log('Row', codeFragments)
+          const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
+          if (attrs) {
+            object = this.ctx.formulaContext.findRowById(attrs.namespaceId, attrs.id)
+          }
+          if (!object) {
+            extraErrorMessages.push({ type: 'syntax', message: 'Row not found' })
+          }
+        }
+
         const {
           codeFragments: finalCodeFragments,
           errors,
