@@ -1,5 +1,6 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 import { ErrorMessage, EventDependency } from '../../types'
+import { row2codeFragment } from '../convert'
 import { OperatorType } from '../operator'
 
 const unavailableMessage: ErrorMessage = {
@@ -37,7 +38,6 @@ export const thisRowOperator: OperatorType = {
         type
       }
     }
-
     const {
       richType: {
         meta: { spreadsheetId, rowId }
@@ -54,8 +54,28 @@ export const thisRowOperator: OperatorType = {
 
     cstVisitor.eventDependencies.push(rowDependencyEvent)
 
+    const row = cstVisitor.ctx.formulaContext.findRowById(spreadsheetId, rowId)
+    if (!row) {
+      return {
+        image,
+        codeFragments: codeFragments.map(c => ({
+          ...c,
+          errors: [{ type: 'syntax', message: `Row ${rowId} not found` }, ...c.errors]
+        })),
+        type
+      }
+    }
+
+    const finalCodeFragments = [
+      { ...row2codeFragment(row, cstVisitor.ctx.meta.namespaceId), display: codeFragments[0].display }
+    ]
+
     const errorMessages: ErrorMessage[] = []
-    return { image, codeFragments: codeFragments.map(c => ({ ...c, errors: [...errorMessages, ...c.errors] })), type }
+    return {
+      image,
+      codeFragments: finalCodeFragments.map(c => ({ ...c, errors: [...errorMessages, ...c.errors] })),
+      type
+    }
   },
   interpret: async ({ lhs }) => lhs
 }

@@ -89,7 +89,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         SpreadsheetReloadViaId({
           spreadsheetId: tableId,
           scopes: [
-            { kind: 'Row', keys: [String(columnIdx + 1)] },
+            { kind: 'Row', keys: [String(columnIdx + 1), rowId] },
             { kind: 'Column', keys: [block.data.columnId, columnDisplayIndex(columnSort)] }
           ],
           namespaceId: rootId,
@@ -99,7 +99,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       // devLog('updateFormula', { variable, block, newBlock, parentId, formulaId })
       // setEditing(false)
     },
-    [tableId, columnIdx, block, columnSort, rootId, cellId, saveBlock]
+    [tableId, columnIdx, rowId, block, columnSort, rootId, cellId, saveBlock]
   )
 
   React.useEffect(() => {

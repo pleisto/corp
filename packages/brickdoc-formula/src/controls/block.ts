@@ -12,6 +12,7 @@ import {
 import {
   codeFragments2definition,
   CodeFragmentVisitor,
+  isKey,
   spreadsheet2codeFragment,
   variable2codeFragment
 } from '../grammar'
@@ -112,7 +113,7 @@ export class BlockClass implements BlockType {
     if (spreadsheet) {
       let finalCodeFragments = codeFragments
 
-      if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
+      if (isKey(codeFragments[0])) {
         finalCodeFragments = [spreadsheet2codeFragment(spreadsheet, visitor.ctx.meta.namespaceId)]
       }
 
@@ -176,7 +177,7 @@ export class BlockClass implements BlockType {
 
     let finalCodeFragments = codeFragments
 
-    if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
+    if (isKey(codeFragments[0])) {
       finalCodeFragments = [variable2codeFragment(variable, visitor.ctx.meta.namespaceId)]
     }
 

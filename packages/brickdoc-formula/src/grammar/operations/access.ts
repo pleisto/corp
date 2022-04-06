@@ -2,7 +2,7 @@ import { AnyTypeResult } from '../../types'
 import { OperatorType } from '../operator'
 
 export const accessAttribute = async (result: AnyTypeResult, key: string): Promise<AnyTypeResult> => {
-  if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column') {
+  if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column' || result.type === 'Row') {
     return await result.result.handleInterpret(key)
   }
 

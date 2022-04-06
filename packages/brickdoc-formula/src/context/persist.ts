@@ -33,8 +33,13 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
   }
 }
 
-// eslint-disable-next-line complexity
 export const displayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncate: boolean = false): string => {
+  const value = innerDisplayValue(v, pageId, disableTruncate)
+  return value || '#Empty'
+}
+
+// eslint-disable-next-line complexity
+const innerDisplayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncate: boolean = false): string => {
   switch (v.type) {
     case 'number':
       return String(v.result)
@@ -52,9 +57,9 @@ export const displayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTrunc
     case 'Block':
       return v.result.name(pageId)
     case 'Column':
-      return `${v.result.spreadsheet.name()}.${v.result.logic ? v.result.displayIndex : v.result.name}`
+      return `${v.result.spreadsheet.name()}.${v.result.display()}`
     case 'Row':
-      return `[${v.result.rowIndex}] ${truncateArray(v.result.listCells().map(c => c.value)).join(', ')}`
+      return `Row[${v.result.rowIndex}]`
     case 'Range':
       return `${v.result.columnSize}*${v.result.rowSize}`
     case 'Cell':

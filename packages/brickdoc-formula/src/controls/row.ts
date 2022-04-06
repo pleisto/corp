@@ -1,5 +1,6 @@
+import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor } from '../grammar'
-import { CodeFragment, ErrorMessage, FormulaType, SpreadsheetId, uuid } from '../types'
+import { AnyTypeResult, CodeFragment, ErrorMessage, FormulaType, SpreadsheetId, uuid } from '../types'
 import { CellType, Row, RowType, SpreadsheetType } from './types'
 
 export class RowClass implements RowType {
@@ -18,6 +19,14 @@ export class RowClass implements RowType {
     this.logic = logic
   }
 
+  display(): string {
+    return String(this.rowIndex + 1)
+  }
+
+  key(): string {
+    return this.logic ? String(this.rowIndex + 1) : this.rowId
+  }
+
   listCells: () => CellType[] = () => {
     return this.spreadsheet.listCells({ rowId: this.rowId })
   }
@@ -30,70 +39,81 @@ export class RowClass implements RowType {
     }
   }
 
-  // private findCellByNumber(name: string): CellResult | ErrorResult {
-  //   const number = Number(name)
-  //   if (isNaN(number)) {
-  //     return { type: 'Error', result: `Need a number: ${name}`, errorKind: 'syntax' }
-  //   }
-  //   const cells = this.cells()
+  async handleInterpret(name: string): Promise<AnyTypeResult> {
+    const column = this.spreadsheet.getColumnByName(name)
+    if (!column) {
+      return {
+        type: 'Error',
+        result: `Column "${name}" not found`,
+        errorKind: 'runtime'
+      }
+    }
 
-  //   if (number > cells.length) {
-  //     return { type: 'Error', result: `Cell out of range: ${cells.length}`, errorKind: 'runtime' }
-  //   }
+    const cell = this.spreadsheet.listCells({ rowId: this.rowId, columnId: column.columnId })[0]
+    if (!cell) {
+      return {
+        type: 'Error',
+        result: `Cell "${name}" not found`,
+        errorKind: 'runtime'
+      }
+    }
 
-  //   return { type: 'Cell', result: cells[number - 1] }
-  // }
+    return { type: 'Cell', result: cell }
+  }
 
   handleCodeFragments(
     visitor: CodeFragmentVisitor,
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
-    // const cell = this.findCellByNumber(name)
+    const column = this.spreadsheet.getColumnByName(name)
+
+    if (!column) {
+      return {
+        errors: [{ type: 'deps', message: `Column "${name}" not found` }],
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
+
+    const cell = this.spreadsheet.listCells({ rowId: this.rowId, columnId: column.columnId })[0]
+    if (!cell) {
+      return {
+        errors: [{ type: 'deps', message: `Cell "${name}" not found` }],
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
+
     const errors: ErrorMessage[] = []
 
-    // if (cell.type === 'Error') {
-    //   errors.push({ type: cell.errorKind, message: cell.result })
-    //   return {
-    //     errors,
-    //     firstArgumentType: undefined,
-    //     codeFragments
-    //   }
-    // }
+    const spreadsheetEventDependency = visitor.eventDependencies
+      .reverse()
+      .find(
+        d =>
+          d.kind === 'Row' &&
+          d.event === SpreadsheetReloadViaId &&
+          d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+      )
+
+    if (spreadsheetEventDependency) {
+      spreadsheetEventDependency.kind = 'Cell'
+      spreadsheetEventDependency.scopes.push(
+        { keys: [this.key()], kind: 'Row' },
+        {
+          keys: [column.key()],
+          kind: 'Column'
+        }
+      )
+    }
+
+    const firstArgumentType = 'Cell'
+    const finalRhsCodeFragments = codeFragments
 
     return {
       errors,
-      firstArgumentType: undefined,
-      codeFragments
+      firstArgumentType,
+      codeFragments: finalRhsCodeFragments
     }
-
-    // const spreadsheetEventDependency = visitor.eventDependencies
-    //   .reverse()
-    //   .find(
-    //     d =>
-    //       d.kind === 'Column' &&
-    //       d.event === SpreadsheetReloadViaId &&
-    //       d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-    //   )
-
-    // if (spreadsheetEventDependency) {
-    //   spreadsheetEventDependency.kind = 'Cell'
-    //   spreadsheetEventDependency.scopes.push(
-    //     { keys: [name], kind: 'Row' },
-    //     {
-    //       keys: [this.logic ? this.displayIndex : this.columnId],
-    //       kind: 'Column'
-    //     }
-    //   )
-    // }
-
-    // const firstArgumentType = 'Cell'
-    // const finalRhsCodeFragments = codeFragments
-
-    // return {
-    //   errors,
-    //   firstArgumentType,
-    //   codeFragments: finalRhsCodeFragments
-    // }
   }
 }

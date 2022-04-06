@@ -11,7 +11,9 @@ import {
   column2codeFragment,
   maybeEncodeString,
   objectDiff,
-  codeFragments2definition
+  codeFragments2definition,
+  row2codeFragment,
+  isKey
 } from '../grammar'
 import {
   AnyTypeResult,
@@ -260,7 +262,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const row = this.listRows()[number - 1]
+    const row = this.getRowByIndex(number - 1)
 
     if (!row) {
       errors.push({ type: 'deps', message: `Row "${number}" not found` })
@@ -289,7 +291,10 @@ export class SpreadsheetClass implements SpreadsheetType {
     }
 
     const firstArgumentType = 'Row'
-    const finalRhsCodeFragments = codeFragments
+    let finalRhsCodeFragments = codeFragments
+    if (isKey(codeFragments[0])) {
+      finalRhsCodeFragments = [row2codeFragment(row, visitor.ctx.meta.namespaceId)]
+    }
     return {
       errors,
       firstArgumentType,
@@ -317,7 +322,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     const firstArgumentType = 'Column'
     let finalRhsCodeFragments = codeFragments
 
-    if (['StringLiteral', 'FunctionName'].includes(codeFragments[0].code)) {
+    if (isKey(codeFragments[0])) {
       finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
     }
 
@@ -333,7 +338,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     if (spreadsheetEventDependency) {
       spreadsheetEventDependency.kind = 'Column'
       spreadsheetEventDependency.scopes.push({
-        keys: [column.logic ? column.displayIndex : column.columnId],
+        keys: [column.key()],
         kind: 'Column'
       })
       spreadsheetEventDependency.definitionHandler = (deps, variable, payload) => {

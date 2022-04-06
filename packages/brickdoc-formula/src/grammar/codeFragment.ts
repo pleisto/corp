@@ -299,7 +299,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         }
 
         if (firstArgumentType === 'Row') {
-          console.log('Row', codeFragments)
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
             object = this.ctx.formulaContext.findRowById(attrs.namespaceId, attrs.id)
@@ -1037,6 +1036,10 @@ export const hideDot = (
 
   // console.log({ codeFragments, finalCodeFragments, positionFragment, finalPositionFragment })
   return { finalCodeFragments, finalPositionFragment }
+}
+
+export const isKey = ({ code }: CodeFragment): boolean => {
+  return ['StringLiteral', 'FunctionName', 'NumberLiteral'].includes(code)
 }
 
 export const addSpace = (

@@ -76,6 +76,7 @@ export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
   logic: boolean
   display: () => string
+  key: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
   cells: () => CellType[]
@@ -90,7 +91,10 @@ export interface Row {
 export interface RowType extends Row {
   listCells: () => CellType[]
   logic: boolean
+  display: () => string
+  key: () => string
   handleCodeFragments: handleCodeFragmentsType
+  handleInterpret: handleInterpretType
 }
 
 export interface RangeType {

@@ -44,6 +44,10 @@ export class ColumnClass implements ColumnType {
     return this.logic ? this.displayIndex : this.name
   }
 
+  key(): string {
+    return this.logic ? this.displayIndex : this.columnId
+  }
+
   cells(): CellType[] {
     return this.spreadsheet.listCells({ columnId: this.columnId })
   }
@@ -109,7 +113,7 @@ export class ColumnClass implements ColumnType {
       spreadsheetEventDependency.scopes.push(
         { keys: [name], kind: 'Row' },
         {
-          keys: [this.logic ? this.displayIndex : this.columnId],
+          keys: [this.key()],
           kind: 'Column'
         }
       )

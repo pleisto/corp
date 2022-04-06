@@ -162,7 +162,7 @@ const abbrev = ({
       }
     }
 
-    if (!['FunctionName', 'StringLiteral'].includes(tokenTypeName)) {
+    if (!['FunctionName', 'StringLiteral', 'NumberLiteral'].includes(tokenTypeName)) {
       newInput = newInput.concat(token.image)
       return
     }
