@@ -78,9 +78,7 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({ rootId, form
                 {React.cloneElement(icon, { className: 'autocomplete-list-item-icon' })}
                 <div className="autocomplete-list-item-content">
                   <span className="autocomplete-list-item-name">{c.name}</span>
-                  <span className="autocomplete-list-item-desc">
-                    {c.kind} {c.renderDescription(rootId)}
-                  </span>
+                  <span className="autocomplete-list-item-desc">{c.kind}</span>
                 </div>
               </div>
             )

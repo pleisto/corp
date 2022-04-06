@@ -126,7 +126,7 @@ export const SpreadsheetHeaderColumn: React.FC<{
   width?: number
   setWidth?: (width: number) => void
 }> = ({ context, columnId, children, className = '', columnActions, draggable, onResize, width, setWidth }) => {
-  const { t } = useEditorI18n()
+  const [t] = useEditorI18n()
   const columnRef = React.createRef<HTMLTableHeaderCellElement>()
   const selected = context.selection.columnIds?.includes(columnId)
   const dragging = context.dragging.columnId === columnId
@@ -256,7 +256,7 @@ export const SpreadsheetRowAction: React.FC<{
   draggable?: boolean
   height?: number
 }> = ({ context, rowId, children, rowNumber, rowActions, draggable, height }) => {
-  const { t } = useEditorI18n()
+  const [t] = useEditorI18n()
 
   const { hoverRowId } = context
 
@@ -427,7 +427,7 @@ export const SpreadsheetCellContainer: React.FC<{
   cellId: SpreadsheetSelectionCellId
   children?: React.ReactNode
 }> = ({ children, context, cellId }) => {
-  const { t } = useEditorI18n()
+  const [t] = useEditorI18n()
 
   const cellIdStr = `${cellId.rowId},${cellId.columnId}`
   const { selection } = context
