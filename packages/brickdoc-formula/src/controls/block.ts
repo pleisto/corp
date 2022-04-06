@@ -122,7 +122,6 @@ export class BlockClass implements BlockType {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetUpdateNameViaId,
         kind: 'SpreadsheetName',
-        scopes: [],
         definitionHandler: (deps, variable, payload) => {
           const newCodeFragments = variable.t.codeFragments.map(c => {
             if (c.code !== 'Spreadsheet') return c
@@ -136,7 +135,6 @@ export class BlockClass implements BlockType {
       const spreadsheetReloadEventDependency: EventDependency = {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetReloadViaId,
-        scopes: [],
         kind: 'Column'
       }
 

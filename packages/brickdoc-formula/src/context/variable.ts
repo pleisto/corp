@@ -374,8 +374,8 @@ export class VariableClass implements VariableInterface {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
         e => {
-          // console.log('event',e.type,e.payload,dependency,shouldReceiveEvent(dependency.scopes, e.payload.scopes))
-          if (!shouldReceiveEvent(dependency.scopes, e.payload.scopes)) return
+          console.log('event', e.type, e.payload, dependency, shouldReceiveEvent(dependency.scope, e.payload.scope))
+          if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
           void this.maybeReparseAndPersist(e.payload.key, definition)
         },

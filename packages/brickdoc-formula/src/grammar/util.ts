@@ -13,21 +13,38 @@ import {
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
-export const shouldReceiveEvent = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
-  let result = true
-  listenedScopes.forEach(listenedScope => {
-    const eventScope = eventScopes.find(scope => scope.kind === listenedScope.kind)
-    if (!eventScope) {
-      return
+export const shouldReceiveEvent = (
+  listenedScope: EventScope | undefined,
+  eventScope: EventScope | undefined
+): boolean => {
+  if (!listenedScope || !eventScope) return true
+  const listenedRows = listenedScope.rows ?? []
+  const listenedColumns = listenedScope.columns ?? []
+  const eventRows = eventScope.rows ?? []
+  const eventColumns = eventScope.columns ?? []
+
+  const rowMatched = _.intersection(listenedRows, eventRows).length > 0
+  const columnMatched = _.intersection(listenedColumns, eventColumns).length > 0
+
+  if (!listenedRows.length && !listenedColumns.length) return true
+
+  if (listenedRows.length && listenedColumns.length) {
+    if (eventRows.length && eventColumns.length) {
+      return rowMatched && columnMatched
     }
 
-    const filteredArray = listenedScope.keys.filter(key => eventScope.keys.includes(key))
-    if (filteredArray.length === 0) {
-      result = false
+    if (eventRows.length) {
+      return rowMatched
+    } else {
+      return columnMatched
     }
-  })
+  }
 
-  return result
+  if (listenedRows.length) {
+    return rowMatched && eventColumns.length === 0
+  } else {
+    return columnMatched && eventRows.length === 0
+  }
 }
 
 export const reverseTraversalString = (str: string, min = 1): string[] => {

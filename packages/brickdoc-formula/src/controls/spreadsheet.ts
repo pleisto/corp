@@ -127,7 +127,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
-            scopes: [{ kind: 'Column', keys: changedColumnIds }],
+            scope: { columns: changedColumnIds },
             namespaceId: this.namespaceId,
             key: this.spreadsheetId
           })
@@ -156,7 +156,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
-            scopes: [{ kind: 'Row', keys: changedRowIds }],
+            scope: [{ kind: 'Row', keys: changedRowIds }],
             namespaceId: this.namespaceId,
             key: this.spreadsheetId
           })
@@ -274,24 +274,24 @@ export class SpreadsheetClass implements SpreadsheetType {
       }
     }
 
-    const spreadsheetEventDependency = visitor.eventDependencies
+    visitor.eventDependencies = visitor.eventDependencies
       .reverse()
-      .find(
+      .filter(
         d =>
-          d.kind === 'Spreadsheet' &&
-          d.event === SpreadsheetReloadViaId &&
-          d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+          !(
+            d.kind === 'Spreadsheet' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+          )
       )
+      .reverse()
 
-    if (spreadsheetEventDependency) {
-      spreadsheetEventDependency.kind = 'Row'
-      spreadsheetEventDependency.scopes = [
-        {
-          keys: [String(number)],
-          kind: 'Row'
-        }
-      ]
-    }
+    visitor.eventDependencies.push({
+      kind: 'Row',
+      event: SpreadsheetReloadViaId,
+      eventId: `${this.namespaceId},${this.spreadsheetId}`,
+      scope: { rows: [String(number)] }
+    })
 
     const firstArgumentType = 'Row'
     let finalRhsCodeFragments = codeFragments
@@ -329,24 +329,24 @@ export class SpreadsheetClass implements SpreadsheetType {
       finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
     }
 
-    const spreadsheetEventDependency = visitor.eventDependencies
+    visitor.eventDependencies = visitor.eventDependencies
       .reverse()
-      .find(
+      .filter(
         d =>
-          d.kind === 'Spreadsheet' &&
-          d.event === SpreadsheetReloadViaId &&
-          d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+          !(
+            d.kind === 'Spreadsheet' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
+          )
       )
+      .reverse()
 
-    if (spreadsheetEventDependency) {
-      spreadsheetEventDependency.kind = 'Column'
-      spreadsheetEventDependency.scopes = [
-        {
-          keys: [column.key()],
-          kind: 'Column'
-        }
-      ]
-      spreadsheetEventDependency.definitionHandler = (deps, variable, payload) => {
+    visitor.eventDependencies.push({
+      kind: 'Column',
+      event: SpreadsheetReloadViaId,
+      eventId: `${this.namespaceId},${this.spreadsheetId}`,
+      scope: { columns: [column.key()] },
+      definitionHandler: (deps, variable, payload) => {
         if (column.logic) return
         const newColumn = this._columns.find(c => c.columnId === column.columnId)
         if (!newColumn) return
@@ -357,7 +357,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         })
         return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
       }
-    }
+    })
 
     return {
       errors,

@@ -88,10 +88,10 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       BrickdocEventBus.dispatch(
         SpreadsheetReloadViaId({
           spreadsheetId: tableId,
-          scopes: [
-            { kind: 'Row', keys: [String(columnIdx + 1), rowId] },
-            { kind: 'Column', keys: [block.data.columnId, columnDisplayIndex(columnSort)] }
-          ],
+          scope: {
+            rows: [String(columnIdx + 1), rowId],
+            columns: [block.data.columnId, columnDisplayIndex(columnSort)]
+          },
           namespaceId: rootId,
           key: tableId
         })

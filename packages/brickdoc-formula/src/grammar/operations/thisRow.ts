@@ -49,9 +49,8 @@ export const thisRowOperator: OperatorType = {
       kind: 'Row',
       event: SpreadsheetReloadViaId,
       eventId: `${namespaceId},${spreadsheetId}`,
-      scopes: [{ kind: 'Row', keys: [rowId] }]
+      scope: { rows: [rowId] }
     }
-
     cstVisitor.eventDependencies.push(rowDependencyEvent)
 
     const row = cstVisitor.ctx.formulaContext.findRowById(spreadsheetId, rowId)

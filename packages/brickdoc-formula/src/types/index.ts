@@ -684,15 +684,15 @@ export interface SyncVariableTask extends BaseVariableTask {
 }
 
 export interface EventScope {
-  kind: 'Row' | 'Column'
-  keys: string[]
+  rows?: string[]
+  columns?: string[]
 }
 
 export interface EventDependency {
   kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
   readonly event: EventType
   readonly eventId: string
-  scopes: EventScope[]
+  scope?: EventScope
   definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
 }
 

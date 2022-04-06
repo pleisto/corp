@@ -112,8 +112,26 @@ export class ColumnClass implements ColumnType {
       }
     }
 
-    const cell = result.result
+    visitor.eventDependencies = visitor.eventDependencies
+      .reverse()
+      .filter(
+        d =>
+          !(
+            d.kind === 'Column' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+          )
+      )
+      .reverse()
 
+    visitor.eventDependencies.push({
+      kind: 'Cell',
+      event: SpreadsheetReloadViaId,
+      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+      scope: { rows: [name], columns: [this.key()] }
+    })
+
+    const cell = result.result
     if (visitor.ctx.meta.richType.type === 'spreadsheet') {
       const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
       if (spreadsheetId === this.spreadsheetId && rowId === cell.rowId && columnId === cell.columnId) {
@@ -123,26 +141,6 @@ export class ColumnClass implements ColumnType {
           codeFragments
         }
       }
-    }
-
-    const spreadsheetEventDependency = visitor.eventDependencies
-      .reverse()
-      .find(
-        d =>
-          d.kind === 'Column' &&
-          d.event === SpreadsheetReloadViaId &&
-          d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-      )
-
-    if (spreadsheetEventDependency) {
-      spreadsheetEventDependency.kind = 'Cell'
-      spreadsheetEventDependency.scopes = [
-        { keys: [name], kind: 'Row' },
-        {
-          keys: [this.key()],
-          kind: 'Column'
-        }
-      ]
     }
 
     const firstArgumentType = 'Cell'

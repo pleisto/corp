@@ -87,17 +87,6 @@ export class RowClass implements RowType {
       }
     }
 
-    if (visitor.ctx.meta.richType.type === 'spreadsheet') {
-      const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
-      if (spreadsheetId === this.spreadsheetId && rowId === this.rowId && columnId === column.columnId) {
-        return {
-          errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
-          firstArgumentType: undefined,
-          codeFragments
-        }
-      }
-    }
-
     const cell = this.spreadsheet.listCells({ rowId: this.rowId, columnId: column.columnId })[0]
     if (!cell) {
       return {
@@ -109,24 +98,34 @@ export class RowClass implements RowType {
 
     const errors: ErrorMessage[] = []
 
-    const spreadsheetEventDependency = visitor.eventDependencies
+    visitor.eventDependencies = visitor.eventDependencies
       .reverse()
-      .find(
+      .filter(
         d =>
-          d.kind === 'Row' &&
-          d.event === SpreadsheetReloadViaId &&
-          d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+          !(
+            d.kind === 'Row' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+          )
       )
+      .reverse()
 
-    if (spreadsheetEventDependency) {
-      spreadsheetEventDependency.kind = 'Cell'
-      spreadsheetEventDependency.scopes = [
-        { keys: [this.key()], kind: 'Row' },
-        {
-          keys: [column.key()],
-          kind: 'Column'
+    visitor.eventDependencies.push({
+      kind: 'Cell',
+      event: SpreadsheetReloadViaId,
+      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+      scope: { rows: [this.key()], columns: [column.key()] }
+    })
+
+    if (visitor.ctx.meta.richType.type === 'spreadsheet') {
+      const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
+      if (spreadsheetId === this.spreadsheetId && rowId === this.rowId && columnId === column.columnId) {
+        return {
+          errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
+          firstArgumentType: undefined,
+          codeFragments
         }
-      ]
+      }
     }
 
     const firstArgumentType = 'Cell'
