@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[core/locales/index.ts:4](https://github.com/brickdoc/brickdoc/blob/99e6e73f/apps/server-api/src/core/locales/index.ts#L4)
+[core/locales/index.ts:4](https://github.com/brickdoc/brickdoc/blob/c531a595/apps/server-api/src/core/locales/index.ts#L4)

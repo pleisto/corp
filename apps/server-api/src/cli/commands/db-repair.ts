@@ -3,10 +3,10 @@ import { exit } from 'process'
 import { currentMigrator, dumpCurrentDbSchema } from '../utils'
 
 export const command = 'db:repair'
-export const describe = 'Show database migrate status.'
+export const describe = 'Repair hashes in the migration table.'
 export const builder = (yargs: yargs.Argv): yargs.Argv =>
   yargs.option('dry-run', {
-    describe: 'Repair hashes in the migration table.',
+    describe: 'do not actually run the repair',
     type: 'boolean',
     default: false
   })
