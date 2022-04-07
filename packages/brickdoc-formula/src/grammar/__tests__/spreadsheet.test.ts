@@ -26,6 +26,15 @@ const meta: VariableMetadata = {
   richType: { type: 'normal' }
 }
 
+const spreadsheetMeta: VariableMetadata = {
+  namespaceId,
+  variableId,
+  name: 'example',
+  input: '=!!!',
+  position: 0,
+  richType: { type: 'spreadsheet', meta: { spreadsheetId, columnId: firstColumnId, rowId: firstRowId } }
+}
+
 const rows: Row[] = [
   { rowId: firstRowId, rowIndex: 0, spreadsheetId },
   { rowId: secondRowId, rowIndex: 1, spreadsheetId },
@@ -180,21 +189,119 @@ interface TestCase {
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
+const spreadsheetTestCases: TestCase[] = [
+  {
+    label: 'thisRow inside B',
+    input: `=ThisRow.B`,
+    value: cells[1]
+  },
+  {
+    label: 'thisRow inside [B]',
+    input: `=ThisRow["B"]`,
+    value: cells[1]
+  },
+  {
+    label: 'thisRow inside second',
+    input: `=ThisRow.second`,
+    value: cells[1]
+  },
+  {
+    label: 'thisRow inside [second]',
+    input: `=ThisRow["second"]`,
+    value: cells[1]
+  },
+  {
+    label: 'thisRow inside A',
+    input: `=ThisRow.A`,
+    error: 'Circular dependency found'
+  }
+]
+
 const testCases: TestCase[] = [
   {
     label: 'column',
     input: `=${spreadsheetToken}."first"`,
-    value: SNAPSHOT_FLAG
+    value: spreadsheet.getColumnByName('first')
+  },
+  {
+    label: 'column 2',
+    input: `=${spreadsheetToken}["first"]`,
+    value: spreadsheet.getColumnByName('first')
   },
   {
     label: 'column logic',
     input: `=${spreadsheetToken}.A`,
-    value: SNAPSHOT_FLAG
+    value: spreadsheet.getColumnByName('A')
   },
   {
     label: 'column unknown',
     input: `=${spreadsheetToken}.Z`,
     error: `Column "Z" not found`
+  },
+  {
+    label: 'row 1 TODO',
+    input: `=${spreadsheetToken}.1`,
+    value: SNAPSHOT_FLAG
+  },
+  {
+    label: 'row 1 2 TODO',
+    input: `=${spreadsheetToken}[1]`,
+    value: SNAPSHOT_FLAG
+  },
+  {
+    label: 'row 100',
+    input: `=${spreadsheetToken}.100`,
+    error: 'Row "100" not found'
+  },
+  {
+    label: 'thisRow outside',
+    input: `=ThisRow`,
+    error: `thisRow is only available in spreadsheet`
+  },
+  {
+    label: 'thisRecord outside',
+    input: `=ThisRecord`,
+    error: `thisRecord is only available in spreadsheet`
+  },
+  {
+    label: 'cell 1.1 A',
+    input: `=${spreadsheetToken}.1.A`,
+    value: cells[0]
+  },
+  {
+    label: 'cell 1.[1] A',
+    input: `=${spreadsheetToken}[1].A`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 1.1 first',
+    input: `=${spreadsheetToken}.1.first`,
+    value: cells[0]
+  },
+  {
+    label: 'cell 1.[1] first',
+    input: `=${spreadsheetToken}[1].first`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 1.1 [A]',
+    input: `=${spreadsheetToken}.1["A"]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell 1.[1] [A]',
+    input: `=${spreadsheetToken}[1]["A"]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell 1.1 [first]',
+    input: `=${spreadsheetToken}.1["first"]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell 1.[1] [first]',
+    input: `=${spreadsheetToken}[1]["first"]`,
+    value: cells[0]
   },
   {
     label: 'cell logic',
@@ -209,6 +316,26 @@ const testCases: TestCase[] = [
   {
     label: 'cell access',
     input: `=${spreadsheetToken}."first"[1]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell logic 2',
+    input: `=${spreadsheetToken}["A"][1]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell logic 3',
+    input: `=${spreadsheetToken}["A"].1`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 2',
+    input: `=${spreadsheetToken}["first"][1]`,
+    value: cells[0]
+  },
+  {
+    label: 'cell access 2',
+    input: `=${spreadsheetToken}["first"][1]`,
     value: cells[0]
   },
   {
@@ -337,6 +464,31 @@ describe('Spreadsheet Functions', () => {
   BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+
+  spreadsheetTestCases.forEach(({ input, label, value, error }) => {
+    it(`Spreadsheet [${label}] ${input}`, async () => {
+      const newMeta = { ...spreadsheetMeta, input }
+      const newCtx = { ...ctx, meta: newMeta }
+      const parseResult = parse({ ctx: newCtx })
+      const { codeFragments, errorMessages } = parseResult
+      expect(codeFragments).toMatchSnapshot()
+
+      if (error) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(errorMessages[0]?.message).toEqual(error)
+        return
+      }
+      expect(errorMessages).toEqual([])
+      const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
+      if (value === SNAPSHOT_FLAG) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(result).toMatchSnapshot()
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(result).toEqual(value)
+      }
+    })
+  })
 
   testCases.forEach(({ input, label, value, error }) => {
     it(`[${label}] ${input}`, async () => {
