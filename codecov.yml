@@ -16,6 +16,8 @@ ignore:
   - 'apps/client-web/BrickdocGraphQL.ts'
   - 'packages/briockdoc-design-system/.storybook'
   - 'packages/brickdoc-design-system/components/*/demos'
+  - 'packages/dotenv/**/*'
+  - 'packages/eslint-plugin-brickdoc/**/*'
   - '**/*.stories.*'
   - '**/spec'
   - '**/dist'
