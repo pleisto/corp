@@ -11,7 +11,6 @@ import {
   column2codeFragment,
   maybeEncodeString,
   objectDiff,
-  codeFragments2definition,
   row2codeFragment,
   isKey,
   FormulaInterpreter
@@ -28,6 +27,11 @@ import {
   VariableDisplayData
 } from '../types'
 import { ColumnClass } from './column'
+import {
+  column2eventDependency,
+  spreadsheetColumnKey2eventDependency,
+  spreadsheetRowKey2eventDependency
+} from './event'
 import { RowClass } from './row'
 import {
   SpreadsheetType,
@@ -35,7 +39,7 @@ import {
   SpreadsheetDynamicPersistence,
   Row,
   ColumnInitializer,
-  CellType,
+  Cell,
   SpreadsheetAllPersistence,
   handleCodeFragmentsResult,
   ColumnType,
@@ -60,7 +64,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     columnId: uuid
     rowIndex: number
     columnIndex: number
-  }) => CellType
+  }) => Cell
 
   _columns: ColumnInitializer[]
   _rows: Row[]
@@ -175,7 +179,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     return this._rows
   }
 
-  public listCells({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }): CellType[] {
+  public listCells({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }): Cell[] {
     const finalRowIdsWithIndex = rowId ? this._rows.filter(row => row.rowId === rowId) : this._rows
     const finalColumnIdsWithIndex = columnId
       ? this._columns.filter(column => column.columnId === columnId)
@@ -262,18 +266,6 @@ export class SpreadsheetClass implements SpreadsheetType {
     number: number,
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
-    const errors: ErrorMessage[] = []
-    const row = this.getRowByIndex(number - 1)
-
-    if (!row) {
-      errors.push({ type: 'deps', message: `Row "${number}" not found` })
-      return {
-        errors,
-        firstArgumentType: undefined,
-        codeFragments
-      }
-    }
-
     visitor.eventDependencies = visitor.eventDependencies
       .reverse()
       .filter(
@@ -286,12 +278,18 @@ export class SpreadsheetClass implements SpreadsheetType {
       )
       .reverse()
 
-    visitor.eventDependencies.push({
-      kind: 'Row',
-      event: SpreadsheetReloadViaId,
-      eventId: `${this.namespaceId},${this.spreadsheetId}`,
-      scope: { rows: [String(number)] }
-    })
+    visitor.eventDependencies.push(spreadsheetRowKey2eventDependency(this, String(number)))
+
+    const errors: ErrorMessage[] = []
+    const row = this.getRowByIndex(number - 1)
+    if (!row) {
+      errors.push({ type: 'deps', message: `Row "${number}" not found` })
+      return {
+        errors,
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
 
     const firstArgumentType = 'Row'
     let finalRhsCodeFragments = codeFragments
@@ -310,25 +308,6 @@ export class SpreadsheetClass implements SpreadsheetType {
     name: string,
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
-    const errors: ErrorMessage[] = []
-    const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
-
-    if (!column) {
-      errors.push({ type: 'deps', message: `Column "${name}" not found` })
-      return {
-        errors,
-        firstArgumentType: undefined,
-        codeFragments
-      }
-    }
-
-    const firstArgumentType = 'Column'
-    let finalRhsCodeFragments = codeFragments
-
-    if (isKey(codeFragments[0])) {
-      finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
-    }
-
     visitor.eventDependencies = visitor.eventDependencies
       .reverse()
       .filter(
@@ -341,23 +320,26 @@ export class SpreadsheetClass implements SpreadsheetType {
       )
       .reverse()
 
-    visitor.eventDependencies.push({
-      kind: 'Column',
-      event: SpreadsheetReloadViaId,
-      eventId: `${this.namespaceId},${this.spreadsheetId}`,
-      scope: { columns: [column.key()] },
-      definitionHandler: (deps, variable, payload) => {
-        if (column.logic) return
-        const newColumn = this._columns.find(c => c.columnId === column.columnId)
-        if (!newColumn) return
-        const newCodeFragments = variable.t.codeFragments.map(c => {
-          if (c.code !== 'Column') return c
-          if (c.attrs.id !== column.columnId) return c
-          return { ...c, attrs: { ...c.attrs, name: newColumn.name } }
-        })
-        return codeFragments2definition(newCodeFragments, variable.t.namespaceId)
+    const errors: ErrorMessage[] = []
+    const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
+
+    if (!column) {
+      visitor.eventDependencies.push(spreadsheetColumnKey2eventDependency(this, name))
+      errors.push({ type: 'deps', message: `Column "${name}" not found` })
+      return {
+        errors,
+        firstArgumentType: undefined,
+        codeFragments
       }
-    })
+    }
+    visitor.eventDependencies.push(column2eventDependency(column))
+
+    const firstArgumentType = 'Column'
+    let finalRhsCodeFragments = codeFragments
+
+    if (isKey(codeFragments[0])) {
+      finalRhsCodeFragments = [column2codeFragment(column, visitor.ctx.meta.namespaceId)]
+    }
 
     return {
       errors,

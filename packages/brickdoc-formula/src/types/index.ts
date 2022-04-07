@@ -8,9 +8,9 @@ import {
   SelectType,
   SwitchType,
   BlockType,
-  CellType,
   RowType,
-  RangeType
+  RangeType,
+  CellType
 } from '../controls'
 import { PositionFragment } from '../grammar'
 

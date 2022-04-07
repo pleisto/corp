@@ -1,4 +1,4 @@
-import { ColumnType, ColumnInitializer, SpreadsheetType, CellType } from './types'
+import { ColumnType, ColumnInitializer, SpreadsheetType, Cell } from './types'
 import {
   AnyTypeResult,
   CellResult,
@@ -13,6 +13,8 @@ import {
 } from '../types'
 import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
+import { columnRowKey2eventDependency } from './event'
+import { CellClass } from '.'
 
 export class ColumnClass implements ColumnType {
   columnId: ColumnId
@@ -49,7 +51,7 @@ export class ColumnClass implements ColumnType {
     return this.logic ? this.displayIndex : this.columnId
   }
 
-  cells(): CellType[] {
+  cells(): Cell[] {
     return this.spreadsheet.listCells({ columnId: this.columnId })
   }
 
@@ -88,7 +90,7 @@ export class ColumnClass implements ColumnType {
       }
     }
 
-    return { type: 'Cell', result: cell }
+    return { type: 'Cell', result: new CellClass(this.spreadsheet, cell, { columnKey: this.key(), rowKey: name }) }
   }
 
   async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
@@ -112,12 +114,7 @@ export class ColumnClass implements ColumnType {
       )
       .reverse()
 
-    visitor.eventDependencies.push({
-      kind: 'Cell',
-      event: SpreadsheetReloadViaId,
-      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-      scope: { rows: [name], columns: [this.key()] }
-    })
+    visitor.eventDependencies.push(columnRowKey2eventDependency(this, name))
 
     const result = this.findCellByNumber(visitor.ctx.meta, name)
     const errors: ErrorMessage[] = []

@@ -18,13 +18,8 @@ import {
   variable2codeFragment
 } from '../grammar'
 import { fetchResult } from '../context/variable'
-import {
-  BlockNameLoad,
-  BrickdocEventBus,
-  EventSubscribed,
-  SpreadsheetReloadViaId,
-  SpreadsheetUpdateNameViaId
-} from '@brickdoc/schema'
+import { BlockNameLoad, BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
+import { spreadsheet2eventDependency } from './event'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
@@ -133,14 +128,7 @@ export class BlockClass implements BlockType {
         }
       }
 
-      const spreadsheetReloadEventDependency: EventDependency = {
-        eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
-        event: SpreadsheetReloadViaId,
-        scope: {},
-        kind: 'Spreadsheet'
-      }
-
-      visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheetReloadEventDependency)
+      visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheet2eventDependency(spreadsheet))
 
       return {
         errors: [],

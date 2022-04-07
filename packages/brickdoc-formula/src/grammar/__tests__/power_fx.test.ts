@@ -1,6 +1,6 @@
 import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
-import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, CellType } from '../../controls'
+import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
 import { VariableMetadata } from '../../types'
 import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
 
@@ -30,7 +30,7 @@ const rows: Row[] = [
   { rowId: thirdRowId, rowIndex: 2, spreadsheetId }
 ]
 
-const cells: CellType[] = [
+const cells: Cell[] = [
   {
     rowId: firstRowId,
     spreadsheetId,

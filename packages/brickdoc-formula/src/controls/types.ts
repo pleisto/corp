@@ -80,7 +80,7 @@ export interface ColumnType extends ColumnInitializer {
   key: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
-  cells: () => CellType[]
+  cells: () => Cell[]
 }
 
 export interface Row {
@@ -90,7 +90,8 @@ export interface Row {
 }
 
 export interface RowType extends Row {
-  listCells: () => CellType[]
+  spreadsheet: SpreadsheetType
+  listCells: () => Cell[]
   logic: boolean
   display: () => string
   key: () => string
@@ -104,11 +105,11 @@ export interface RangeType {
   rowSize: number
   rowIds: uuid[]
   columnIds: uuid[]
-  startCell: CellType
-  endCell: CellType
+  startCell: Cell
+  endCell: Cell
 }
 
-export interface CellType {
+export interface Cell {
   spreadsheetId: SpreadsheetId
   cellId: uuid
   columnId: ColumnId
@@ -117,6 +118,12 @@ export interface CellType {
   rowIndex: number
   value: string
   displayData: VariableDisplayData | undefined
+}
+
+export interface CellType extends Cell {
+  spreadsheet: SpreadsheetType
+  columnKey: string
+  rowKey: string
 }
 
 export interface SpreadsheetInitializer {
@@ -137,7 +144,7 @@ export interface SpreadsheetInitializer {
     columnId: uuid
     rowIndex: number
     columnIndex: number
-  }) => CellType
+  }) => Cell
 }
 
 export interface SpreadsheetDynamicPersistence {
@@ -146,7 +153,7 @@ export interface SpreadsheetDynamicPersistence {
   spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
-  cells: CellType[]
+  cells: Cell[]
 }
 
 export interface SpreadsheetAllPersistence {
@@ -171,7 +178,7 @@ export interface SpreadsheetType {
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
   findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
   getRowById: (rowId: uuid) => RowType | undefined

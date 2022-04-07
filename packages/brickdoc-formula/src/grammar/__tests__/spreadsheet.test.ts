@@ -1,6 +1,7 @@
+/* eslint-disable jest/no-conditional-expect */
 import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
-import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, CellType } from '../../controls'
+import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
 import { VariableMetadata } from '../../types'
 import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
 
@@ -70,7 +71,7 @@ const columns: ColumnInitializer[] = [
   }
 ]
 
-const cells: CellType[] = [
+const cells: Cell[] = [
   {
     rowId: firstRowId,
     spreadsheetId,
@@ -188,27 +189,36 @@ interface TestCase {
 }
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
+const CELL_FLAG = '<CELL>'
+const ROW_FLAG = '<ROW>'
+const COLUMN_FLAG = '<COLUMN>'
+const RANGE_FLAG = '<RANGE>'
 
 const spreadsheetTestCases: TestCase[] = [
   {
+    label: 'thisrow',
+    input: `=thisrow`,
+    value: [ROW_FLAG, firstRowId]
+  },
+  {
     label: 'thisRow B',
     input: `=ThisRow.B`,
-    value: cells[1]
+    value: [CELL_FLAG, 1]
   },
   {
     label: 'thisRow [B]',
     input: `=ThisRow["B"]`,
-    value: cells[1]
+    value: [CELL_FLAG, 1]
   },
   {
     label: 'thisRow second',
     input: `=ThisRow.second`,
-    value: cells[1]
+    value: [CELL_FLAG, 1]
   },
   {
     label: 'thisRow [second]',
     input: `=ThisRow["second"]`,
-    value: cells[1]
+    value: [CELL_FLAG, 1]
   },
   {
     label: 'thisRow A',
@@ -228,7 +238,7 @@ const spreadsheetTestCases: TestCase[] = [
   {
     label: 'ThisRecord B.1',
     input: `=ThisRecord.B.1`,
-    value: cells[1]
+    value: [CELL_FLAG, 1]
   }
 ]
 
@@ -236,17 +246,17 @@ const testCases: TestCase[] = [
   {
     label: 'column',
     input: `=${spreadsheetToken}."first"`,
-    value: spreadsheet.getColumnByName('first')
+    value: [COLUMN_FLAG, firstColumnId]
   },
   {
     label: 'column 2',
     input: `=${spreadsheetToken}["first"]`,
-    value: spreadsheet.getColumnByName('first')
+    value: [COLUMN_FLAG, firstColumnId]
   },
   {
     label: 'column logic',
     input: `=${spreadsheetToken}.A`,
-    value: spreadsheet.getColumnByName('A')
+    value: [COLUMN_FLAG, 'A']
   },
   {
     label: 'column unknown',
@@ -256,12 +266,12 @@ const testCases: TestCase[] = [
   {
     label: 'row 1 TODO',
     input: `=${spreadsheetToken}.1`,
-    value: SNAPSHOT_FLAG
+    value: [ROW_FLAG, '1']
   },
   {
     label: 'row 1 2 TODO',
     input: `=${spreadsheetToken}[1]`,
-    value: SNAPSHOT_FLAG
+    value: [ROW_FLAG, '1']
   },
   {
     label: 'row 100',
@@ -281,7 +291,7 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 A',
     input: `=${spreadsheetToken}.1.A`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell 1.[1] A',
@@ -291,7 +301,7 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 first',
     input: `=${spreadsheetToken}.1.first`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell 1.[1] first',
@@ -301,42 +311,42 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 [A]',
     input: `=${spreadsheetToken}.1["A"]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell 1.[1] [A]',
     input: `=${spreadsheetToken}[1]["A"]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell 1.1 [first]',
     input: `=${spreadsheetToken}.1["first"]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell 1.[1] [first]',
     input: `=${spreadsheetToken}[1]["first"]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell logic',
     input: `=${spreadsheetToken}.A.1`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell',
     input: `=${spreadsheetToken}."first".1`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell access',
     input: `=${spreadsheetToken}."first"[1]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell logic 2',
     input: `=${spreadsheetToken}["A"][1]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell logic 3',
@@ -346,12 +356,12 @@ const testCases: TestCase[] = [
   {
     label: 'cell 2',
     input: `=${spreadsheetToken}["first"][1]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell access 2',
     input: `=${spreadsheetToken}["first"][1]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell error1',
@@ -366,7 +376,7 @@ const testCases: TestCase[] = [
   {
     label: 'Range 1',
     input: `=${spreadsheetToken}.first.1:${spreadsheetToken}.first.2`,
-    value: SNAPSHOT_FLAG
+    value: RANGE_FLAG
   },
   { label: 'in spreadsheet true', input: `=3 in ${spreadsheetToken}`, value: true },
   { label: 'toArray', input: `=${spreadsheetToken}.toArray()`, value: SNAPSHOT_FLAG },
@@ -485,21 +495,27 @@ describe('Spreadsheet Functions', () => {
       const newMeta = { ...spreadsheetMeta, input }
       const newCtx = { ...ctx, meta: newMeta }
       const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages } = parseResult
+      const { codeFragments, errorMessages, eventDependencies } = parseResult
       expect(codeFragments).toMatchSnapshot()
+      expect(eventDependencies).toMatchSnapshot()
 
       if (error) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(errorMessages[0]?.message).toEqual(error)
         return
       }
       expect(errorMessages).toEqual([])
       const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
       if (value === SNAPSHOT_FLAG) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toMatchSnapshot()
+      } else if (value === RANGE_FLAG) {
+        expect([(result as any).rowIds, (result as any).columnIds]).toMatchSnapshot()
+      } else if (Array.isArray(value) && value[0] === ROW_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
+        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toEqual(value)
       }
     })
@@ -510,21 +526,27 @@ describe('Spreadsheet Functions', () => {
       const newMeta = { ...meta, input }
       const newCtx = { ...ctx, meta: newMeta }
       const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages } = parseResult
+      const { codeFragments, errorMessages, eventDependencies } = parseResult
       expect(codeFragments).toMatchSnapshot()
+      expect(eventDependencies).toMatchSnapshot()
 
       if (error) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(errorMessages[0]?.message).toEqual(error)
         return
       }
       expect(errorMessages).toEqual([])
       const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
       if (value === SNAPSHOT_FLAG) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toMatchSnapshot()
+      } else if (value === RANGE_FLAG) {
+        expect([(result as any).rowIds, (result as any).columnIds]).toMatchSnapshot()
+      } else if (Array.isArray(value) && value[0] === ROW_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
+        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toEqual(value)
       }
     })

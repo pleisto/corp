@@ -1,7 +1,9 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
 import { AnyTypeResult, CodeFragment, ErrorMessage, FormulaType, SpreadsheetId, uuid } from '../types'
-import { CellType, Row, RowType, SpreadsheetType } from './types'
+import { CellClass } from './cell'
+import { rowColumnKey2eventDependency } from './event'
+import { Cell, Row, RowType, SpreadsheetType } from './types'
 
 export class RowClass implements RowType {
   spreadsheetId: SpreadsheetId
@@ -27,7 +29,7 @@ export class RowClass implements RowType {
     return this.logic ? String(this.rowIndex + 1) : this.rowId
   }
 
-  listCells: () => CellType[] = () => {
+  listCells: () => Cell[] = () => {
     return this.spreadsheet.listCells({ rowId: this.rowId })
   }
 
@@ -69,7 +71,7 @@ export class RowClass implements RowType {
       }
     }
 
-    return { type: 'Cell', result: cell }
+    return { type: 'Cell', result: new CellClass(this.spreadsheet, cell, { rowKey: this.key(), columnKey: name }) }
   }
 
   handleCodeFragments(
@@ -77,27 +79,23 @@ export class RowClass implements RowType {
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
+    visitor.eventDependencies = visitor.eventDependencies
+      .reverse()
+      .filter(
+        d =>
+          !(
+            d.kind === 'Row' &&
+            d.event === SpreadsheetReloadViaId &&
+            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
+          )
+      )
+      .reverse()
+
+    visitor.eventDependencies.push(rowColumnKey2eventDependency(this, name))
+
     const column = this.spreadsheet.getColumnByName(name)
 
     if (!column) {
-      visitor.eventDependencies = visitor.eventDependencies
-        .reverse()
-        .filter(
-          d =>
-            !(
-              d.kind === 'Row' &&
-              d.event === SpreadsheetReloadViaId &&
-              d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-            )
-        )
-        .reverse()
-
-      visitor.eventDependencies.push({
-        kind: 'Cell',
-        event: SpreadsheetReloadViaId,
-        eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-        scope: { rows: [this.key()], columns: [name] }
-      })
       return {
         errors: [{ type: 'deps', message: `Column "${name}" not found` }],
         firstArgumentType: undefined,
@@ -115,25 +113,6 @@ export class RowClass implements RowType {
     }
 
     const errors: ErrorMessage[] = []
-
-    visitor.eventDependencies = visitor.eventDependencies
-      .reverse()
-      .filter(
-        d =>
-          !(
-            d.kind === 'Row' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-          )
-      )
-      .reverse()
-
-    visitor.eventDependencies.push({
-      kind: 'Cell',
-      event: SpreadsheetReloadViaId,
-      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-      scope: { rows: [this.key()], columns: [column.key()] }
-    })
 
     if (visitor.ctx.meta.richType.type === 'spreadsheet') {
       const { spreadsheetId, rowId, columnId } = visitor.ctx.meta.richType.meta
