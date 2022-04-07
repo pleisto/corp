@@ -191,29 +191,44 @@ const SNAPSHOT_FLAG = '<SNAPSHOT>'
 
 const spreadsheetTestCases: TestCase[] = [
   {
-    label: 'thisRow inside B',
+    label: 'thisRow B',
     input: `=ThisRow.B`,
     value: cells[1]
   },
   {
-    label: 'thisRow inside [B]',
+    label: 'thisRow [B]',
     input: `=ThisRow["B"]`,
     value: cells[1]
   },
   {
-    label: 'thisRow inside second',
+    label: 'thisRow second',
     input: `=ThisRow.second`,
     value: cells[1]
   },
   {
-    label: 'thisRow inside [second]',
+    label: 'thisRow [second]',
     input: `=ThisRow["second"]`,
     value: cells[1]
   },
   {
-    label: 'thisRow inside A',
+    label: 'thisRow A',
     input: `=ThisRow.A`,
     error: 'Circular dependency found'
+  },
+  {
+    label: 'ThisRecord 1',
+    input: `=ThisRecord`,
+    value: spreadsheet
+  },
+  {
+    label: 'ThisRecord A.1',
+    input: `=ThisRecord.A.1`,
+    error: 'Circular dependency found'
+  },
+  {
+    label: 'ThisRecord B.1',
+    input: `=ThisRecord.B.1`,
+    value: cells[1]
   }
 ]
 

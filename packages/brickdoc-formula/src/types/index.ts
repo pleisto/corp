@@ -400,6 +400,8 @@ export type ComplexCodeFragmentType =
   | 'LogicColumn'
   | 'Row'
   | 'LogicRow'
+  | 'ThisRow'
+  | 'ThisRecord'
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'

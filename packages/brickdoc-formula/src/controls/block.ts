@@ -135,7 +135,7 @@ export class BlockClass implements BlockType {
       const spreadsheetReloadEventDependency: EventDependency = {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetReloadViaId,
-        kind: 'Column'
+        kind: 'Spreadsheet'
       }
 
       visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheetReloadEventDependency)

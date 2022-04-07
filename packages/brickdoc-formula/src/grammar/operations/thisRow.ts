@@ -1,6 +1,6 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
-import { ErrorMessage, EventDependency } from '../../types'
-import { row2codeFragment } from '../convert'
+import { CodeFragment, ErrorMessage, EventDependency } from '../../types'
+import { row2attrs, row2codeFragment } from '../convert'
 import { OperatorType } from '../operator'
 
 const unavailableMessage: ErrorMessage = {
@@ -65,8 +65,13 @@ export const thisRowOperator: OperatorType = {
       }
     }
 
-    const finalCodeFragments = [
-      { ...row2codeFragment(row, cstVisitor.ctx.meta.namespaceId), display: codeFragments[0].display }
+    const finalCodeFragments: CodeFragment[] = [
+      {
+        ...row2codeFragment(row, cstVisitor.ctx.meta.namespaceId),
+        display: codeFragments[0].display,
+        code: 'ThisRow',
+        attrs: row2attrs(row)
+      }
     ]
 
     const errorMessages: ErrorMessage[] = []

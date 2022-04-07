@@ -140,7 +140,8 @@ export const codeFragment2display = (
     code === 'Spreadsheet' &&
     prevText !== '.' &&
     pageId === attrs.namespaceId &&
-    !value.startsWith('#CurrentBlock')
+    !value.startsWith('#CurrentBlock') &&
+    !text.toUpperCase().startsWith('THISRECORD')
   ) {
     return `#CurrentBlock.${finalText}`
   }

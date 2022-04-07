@@ -1,6 +1,6 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
-import { ErrorMessage, EventDependency } from '../../types'
-import { row2codeFragment } from '../convert'
+import { CodeFragment, ErrorMessage, EventDependency } from '../../types'
+import { spreadsheet2attrs, spreadsheet2codeFragment } from '../convert'
 import { OperatorType } from '../operator'
 
 const unavailableMessage: ErrorMessage = {
@@ -21,14 +21,14 @@ export const thisRecordOperator: OperatorType = {
 
     const {
       richType: {
-        meta: { spreadsheetId, rowId }
+        meta: { spreadsheetId }
       }
     } = interpreter.ctx.meta
 
-    const row = interpreter.ctx.formulaContext.findRowById(spreadsheetId, rowId)
-    if (!row) return { type: 'Error', result: `Row ${rowId} not found`, errorKind: 'runtime' }
+    const spreadsheet = interpreter.ctx.formulaContext.findSpreadsheetById(spreadsheetId)
+    if (!spreadsheet) return { type: 'Error', result: `Spreadsheet ${spreadsheet} not found`, errorKind: 'runtime' }
 
-    return { type: 'Row', result: row }
+    return { type: 'Spreadsheet', result: spreadsheet }
   },
   dynamicParseValidator: (cstVisitor, { image, codeFragments, type }) => {
     if (cstVisitor.ctx.meta.richType.type !== 'spreadsheet') {
@@ -40,33 +40,38 @@ export const thisRecordOperator: OperatorType = {
     }
     const {
       richType: {
-        meta: { spreadsheetId, rowId }
+        meta: { spreadsheetId }
       },
       namespaceId
     } = cstVisitor.ctx.meta
 
-    const rowDependencyEvent: EventDependency = {
-      kind: 'Row',
-      event: SpreadsheetReloadViaId,
+    const spreadsheetReloadEventDependency: EventDependency = {
       eventId: `${namespaceId},${spreadsheetId}`,
-      scope: { rows: [rowId] }
+      event: SpreadsheetReloadViaId,
+      kind: 'Spreadsheet'
     }
-    cstVisitor.eventDependencies.push(rowDependencyEvent)
 
-    const row = cstVisitor.ctx.formulaContext.findRowById(spreadsheetId, rowId)
-    if (!row) {
+    cstVisitor.eventDependencies.push(spreadsheetReloadEventDependency)
+
+    const spreadsheet = cstVisitor.ctx.formulaContext.findSpreadsheetById(spreadsheetId)
+    if (!spreadsheet) {
       return {
         image,
         codeFragments: codeFragments.map(c => ({
           ...c,
-          errors: [{ type: 'syntax', message: `Row ${rowId} not found` }, ...c.errors]
+          errors: [{ type: 'syntax', message: 'Spreadsheet not found' }, ...c.errors]
         })),
         type
       }
     }
 
-    const finalCodeFragments = [
-      { ...row2codeFragment(row, cstVisitor.ctx.meta.namespaceId), display: codeFragments[0].display }
+    const finalCodeFragments: CodeFragment[] = [
+      {
+        ...spreadsheet2codeFragment(spreadsheet, namespaceId),
+        display: codeFragments[0].display,
+        code: 'ThisRecord',
+        attrs: spreadsheet2attrs(spreadsheet)
+      }
     ]
 
     const errorMessages: ErrorMessage[] = []

@@ -15580,7 +15580,164 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions Spreadsheet [thisRow inside [B]] =ThisRow["B"] 1`] = `
+exports[`Spreadsheet Functions Spreadsheet [ThisRecord 1] =ThisRecord 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "ThisRecord",
+    "display": "ThisRecord",
+    "errors": Array [],
+    "hide": false,
+    "type": "Spreadsheet",
+  },
+]
+`;
+
+exports[`Spreadsheet Functions Spreadsheet [ThisRecord A.1] =ThisRecord.A.1 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "ThisRecord",
+    "display": "ThisRecord",
+    "errors": Array [],
+    "hide": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": Object {
+      "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "LogicColumn",
+      "name": "A",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Column",
+    "display": "A",
+    "errors": Array [],
+    "hide": false,
+    "type": "Column",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [
+      Object {
+        "message": "Circular dependency found",
+        "type": "circular_dependency",
+      },
+    ],
+    "hide": false,
+    "type": "number",
+  },
+]
+`;
+
+exports[`Spreadsheet Functions Spreadsheet [ThisRecord B.1] =ThisRecord.B.1 1`] = `
+Array [
+  Object {
+    "attrs": undefined,
+    "code": "Equal",
+    "display": "=",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": Object {
+      "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "name": "MySpreadsheet",
+      "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+    },
+    "code": "ThisRecord",
+    "display": "ThisRecord",
+    "errors": Array [],
+    "hide": false,
+    "type": "Spreadsheet",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": Object {
+      "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "LogicColumn",
+      "name": "B",
+      "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
+    },
+    "code": "Column",
+    "display": "B",
+    "errors": Array [],
+    "hide": false,
+    "type": "Column",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "Dot",
+    "display": ".",
+    "errors": Array [],
+    "hide": false,
+    "type": "any",
+  },
+  Object {
+    "attrs": undefined,
+    "code": "NumberLiteral",
+    "display": "1",
+    "errors": Array [],
+    "hide": false,
+    "type": "number",
+  },
+]
+`;
+
+exports[`Spreadsheet Functions Spreadsheet [thisRow [B]] =ThisRow["B"] 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -15597,7 +15754,7 @@ Array [
       "name": "1",
       "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Row",
+    "code": "ThisRow",
     "display": "ThisRow",
     "errors": Array [],
     "hide": false,
@@ -15630,7 +15787,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions Spreadsheet [thisRow inside [second]] =ThisRow["second"] 1`] = `
+exports[`Spreadsheet Functions Spreadsheet [thisRow [second]] =ThisRow["second"] 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -15647,7 +15804,7 @@ Array [
       "name": "1",
       "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Row",
+    "code": "ThisRow",
     "display": "ThisRow",
     "errors": Array [],
     "hide": false,
@@ -15680,7 +15837,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions Spreadsheet [thisRow inside A] =ThisRow.A 1`] = `
+exports[`Spreadsheet Functions Spreadsheet [thisRow A] =ThisRow.A 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -15697,7 +15854,7 @@ Array [
       "name": "1",
       "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Row",
+    "code": "ThisRow",
     "display": "ThisRow",
     "errors": Array [],
     "hide": false,
@@ -15727,7 +15884,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions Spreadsheet [thisRow inside B] =ThisRow.B 1`] = `
+exports[`Spreadsheet Functions Spreadsheet [thisRow B] =ThisRow.B 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -15744,7 +15901,7 @@ Array [
       "name": "1",
       "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Row",
+    "code": "ThisRow",
     "display": "ThisRow",
     "errors": Array [],
     "hide": false,
@@ -15769,7 +15926,7 @@ Array [
 ]
 `;
 
-exports[`Spreadsheet Functions Spreadsheet [thisRow inside second] =ThisRow.second 1`] = `
+exports[`Spreadsheet Functions Spreadsheet [thisRow second] =ThisRow.second 1`] = `
 Array [
   Object {
     "attrs": undefined,
@@ -15786,7 +15943,7 @@ Array [
       "name": "1",
       "namespaceId": "28e28190-63bd-4f70-aeca-26e72574c01a",
     },
-    "code": "Row",
+    "code": "ThisRow",
     "display": "ThisRow",
     "errors": Array [],
     "hide": false,
