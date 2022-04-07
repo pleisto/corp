@@ -48,8 +48,8 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
     onToggleExpansion(data)
   })
 
-  const hasEmptyNode = useMemo(() => parentId === undefined && !hasChildren, [parentId, hasChildren])
-  const canbeExpand = hasChildren || hasEmptyNode
+  const hasEmptyNode = useMemo(() => !parentId && !hasChildren, [parentId, hasChildren])
+  const canExpand = hasChildren || hasEmptyNode
 
   const [{ isDragging }, drag] = useDrag({
     type: DND_NODE_TYPE,
@@ -170,7 +170,7 @@ export const InternalNode: ForwardRefRenderFunction<HTMLDivElement, NodeProps> =
         >
           <TreeRoot.ItemContent data-testid="item-content" onClick={handleSelect}>
             <TreeRoot.Content data-testid="content">
-              {canbeExpand ? (
+              {canExpand ? (
                 <TreeRoot.ContentArrow isExpanded={isExpanded} data-testid="content-arrow" onClick={handleToggleExpand}>
                   <Right data-testid="content-icon" />
                 </TreeRoot.ContentArrow>
