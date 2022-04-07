@@ -35,6 +35,7 @@ import {
   rangeOperator,
   recordFieldOperator,
   recordOperator,
+  thisRecordOperator,
   thisRowOperator
 } from './operations'
 import { interpretByOperator } from './operator'
@@ -397,6 +398,15 @@ export class FormulaInterpreter extends InterpretCstVisitor {
         operators: ctx.ThisRow,
         args,
         operator: thisRowOperator,
+        rhs: undefined,
+        lhs: undefined
+      })
+    } else if (ctx.ThisRecord) {
+      return await interpretByOperator({
+        interpreter: this,
+        operators: ctx.ThisRecord,
+        args,
+        operator: thisRecordOperator,
         rhs: undefined,
         lhs: undefined
       })

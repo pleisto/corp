@@ -35,7 +35,8 @@ import {
   LambdaArgumentNumber,
   CurrentBlock,
   DecimalLiteral,
-  ThisRow
+  ThisRow,
+  ThisRecord
 } from './lexer'
 
 const errorProvider: IParserErrorMessageProvider = {
@@ -257,7 +258,8 @@ export class FormulaParser extends CstParser {
       { ALT: () => this.CONSUME(LambdaArgumentNumber) },
       { ALT: () => this.CONSUME(Self) },
       { ALT: () => this.CONSUME(Input) },
-      { ALT: () => this.CONSUME(ThisRow) }
+      { ALT: () => this.CONSUME(ThisRow) },
+      { ALT: () => this.CONSUME(ThisRecord) }
     ])
   })
 

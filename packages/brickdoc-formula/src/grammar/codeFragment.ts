@@ -35,6 +35,7 @@ import {
   rangeOperator,
   recordFieldOperator,
   recordOperator,
+  thisRecordOperator,
   thisRowOperator
 } from './operations'
 import { parseByOperator } from './operator'
@@ -798,6 +799,16 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         bodyToken: ctx.ThisRow,
         args,
         operator: thisRowOperator,
+        rhs: [],
+        lhs: undefined
+      })
+    } else if (ctx.ThisRecord) {
+      return parseByOperator({
+        cstVisitor: this,
+        operators: [],
+        bodyToken: ctx.ThisRecord,
+        args,
+        operator: thisRecordOperator,
         rhs: [],
         lhs: undefined
       })

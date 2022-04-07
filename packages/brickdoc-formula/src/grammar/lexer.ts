@@ -14,6 +14,7 @@ export const Self = createToken({ name: 'Self', pattern: /Self/i })
 export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock/i })
 export const Input = createToken({ name: 'Input', pattern: /Input/i })
 export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow/i })
+export const ThisRecord = createToken({ name: 'ThisRecord', pattern: /ThisRecord/i })
 
 export const And = createToken({
   name: 'And',
@@ -224,6 +225,7 @@ export const allTokens = [
 
   CurrentBlock, // CurrentBlock
   ThisRow, // ThisRow
+  ThisRecord, // ThisRecord
   Self, // Self
   Input, // Input
   ExactIn, // exactin
