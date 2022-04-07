@@ -48,6 +48,7 @@ export const thisRecordOperator: OperatorType = {
     const spreadsheetReloadEventDependency: EventDependency = {
       eventId: `${namespaceId},${spreadsheetId}`,
       event: SpreadsheetReloadViaId,
+      scope: {},
       kind: 'Spreadsheet'
     }
 

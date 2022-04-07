@@ -2,16 +2,22 @@ import { EventScope } from '../../types'
 import { shouldReceiveEvent } from '../util'
 
 const testCases: Array<{
-  listenedScope: EventScope | undefined
+  listenedScope: EventScope
   eventScope: EventScope | undefined
   label: string
   result: boolean
 }> = [
   {
-    listenedScope: undefined,
+    listenedScope: {},
     eventScope: undefined,
     label: 'empty',
     result: true
+  },
+  {
+    listenedScope: {},
+    eventScope: { columns: ['column1'], rows: ['row1'] },
+    label: 'cell change',
+    result: false
   },
   {
     listenedScope: {},

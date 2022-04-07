@@ -13,15 +13,16 @@ import {
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
-export const shouldReceiveEvent = (
-  listenedScope: EventScope | undefined,
-  eventScope: EventScope | undefined
-): boolean => {
-  if (!listenedScope || !eventScope) return true
+// eslint-disable-next-line complexity
+export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventScope | undefined): boolean => {
+  if (!eventScope) return true
   const listenedRows = listenedScope.rows ?? []
   const listenedColumns = listenedScope.columns ?? []
   const eventRows = eventScope.rows ?? []
   const eventColumns = eventScope.columns ?? []
+
+  if (listenedRows.length === 0 && listenedColumns.length === 0 && eventRows.length > 0 && eventColumns.length > 0)
+    return false
 
   const rowMatched = _.intersection(listenedRows, eventRows).length > 0
   const columnMatched = _.intersection(listenedColumns, eventColumns).length > 0

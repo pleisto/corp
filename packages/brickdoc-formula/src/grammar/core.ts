@@ -34,7 +34,7 @@ import { CodeFragmentVisitor } from './codeFragment'
 import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { createVariableTask } from '../context'
-import { hideDotStep, addSpaceStep } from './steps'
+import { hideDotStep, addSpaceStep, applyThisRecordStep } from './steps'
 
 export interface BaseParseResult {
   success: boolean
@@ -456,7 +456,8 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 
   const { codeFragments: finalCodeFragments, positionFragment: finalPositionFragment } = [
     addSpaceStep,
-    hideDotStep
+    hideDotStep,
+    applyThisRecordStep
   ].reduce((prev, step) => step({ input: prev, meta: { ...ctx.meta, input: newInput } }), {
     codeFragments: parseCodeFragments,
     positionFragment

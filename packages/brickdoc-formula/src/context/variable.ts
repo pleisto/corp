@@ -94,7 +94,7 @@ export class VariableClass implements VariableInterface {
 
   tickTimeout: number = 1000
   eventListeners: EventSubscribed[] = []
-  currentUUID: string = ''
+  currentUUID: string = uuid()
   builtinEventListeners: EventSubscribed[] = []
 
   constructor({ t, formulaContext }: { t: VariableData; formulaContext: ContextInterface }) {
@@ -338,10 +338,12 @@ export class VariableClass implements VariableInterface {
     return { ...formula, ...richType }
   }
 
-  private async maybeReparseAndPersist(sourceUuid: string, definition?: string): Promise<void> {
+  private async maybeReparseAndPersist(source: string, sourceUuid: string, definition?: string): Promise<void> {
     if (sourceUuid && this.currentUUID === sourceUuid) {
       return
     }
+    // console.debug('reparse', source, sourceUuid, this.currentUUID, definition)
+
     this.currentUUID = sourceUuid
 
     const formula = this.buildFormula(definition)
@@ -356,7 +358,7 @@ export class VariableClass implements VariableInterface {
   }
 
   public updateDefinition(definition: Definition): void {
-    void this.maybeReparseAndPersist(uuid(), definition)
+    void this.maybeReparseAndPersist('updateDefinition', uuid(), definition)
   }
 
   private subscripeEvents(): void {
@@ -374,10 +376,14 @@ export class VariableClass implements VariableInterface {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
         e => {
-          console.log('event', this.currentUUID, { type: e.type, payload: e.payload, dependency })
+          // console.log('event', this.currentUUID, { type: e.type, payload: e.payload, dependency })
           if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
-          void this.maybeReparseAndPersist(e.payload.key, definition)
+          void this.maybeReparseAndPersist(
+            `${dependency.event.eventType}_${dependency.eventId}`,
+            e.payload.key,
+            definition
+          )
         },
         {
           eventId: dependency.eventId,
@@ -392,7 +398,7 @@ export class VariableClass implements VariableInterface {
         BlockNameLoad,
         e => {
           if (this.isReadySavedT) return
-          void this.maybeReparseAndPersist(blockId)
+          void this.maybeReparseAndPersist(`BlockNameLoad_${blockId}`, blockId)
         },
         { subscribeId: `Variable#${this.t.variableId}`, eventId: blockId }
       )
@@ -410,7 +416,7 @@ export class VariableClass implements VariableInterface {
             return { ...c, attrs: { ...c.attrs, name: e.payload.t.name } }
           })
           const definition = codeFragments2definition(newCodeFragments, this.t.namespaceId)
-          void this.maybeReparseAndPersist(e.payload.t.currentUUID, definition)
+          void this.maybeReparseAndPersist(`FormulaUpdatedViaId_${variableId}`, e.payload.t.currentUUID, definition)
         },
         {
           eventId: `${namespaceId},${variableId}`,
@@ -425,7 +431,7 @@ export class VariableClass implements VariableInterface {
         FormulaContextNameChanged,
         e => {
           if (this.isReadySavedT) return
-          void this.maybeReparseAndPersist(e.payload.id)
+          void this.maybeReparseAndPersist(`FormulaContextNameChanged_${name}_${namespaceId}`, e.payload.id)
         },
         { eventId: `${namespaceId}#${name}`, subscribeId: `NameSetDependency#${t.variableId}` }
       )
@@ -434,7 +440,7 @@ export class VariableClass implements VariableInterface {
       const nameRemoveSubscription = BrickdocEventBus.subscribe(
         FormulaContextNameRemove,
         e => {
-          void this.maybeReparseAndPersist(e.payload.id)
+          void this.maybeReparseAndPersist(`FormulaContextNameRemove_${name}_${namespaceId}`, e.payload.id)
         },
         { eventId: `${namespaceId}#${name}`, subscribeId: `NameRemoveDependency#${t.variableId}` }
       )
