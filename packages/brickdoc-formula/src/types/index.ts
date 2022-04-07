@@ -12,6 +12,7 @@ import {
   RowType,
   RangeType
 } from '../controls'
+import { PositionFragment } from '../grammar'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
 type FormulaObjectType =
@@ -616,6 +617,19 @@ export interface CodeFragmentAttrs {
 }
 
 export type CodeFragment = SpecialCodeFragment | OtherCodeFragment
+
+export interface CodeFragmentStepInput {
+  codeFragments: CodeFragment[]
+  positionFragment: PositionFragment
+}
+
+export type CodeFragmentStep = ({
+  input,
+  meta
+}: {
+  input: CodeFragmentStepInput
+  meta: VariableMetadata
+}) => CodeFragmentStepInput
 
 export interface CodeFragmentResult {
   readonly codeFragments: CodeFragment[]

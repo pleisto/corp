@@ -30,10 +30,11 @@ import { FORMULA_PARSER_VERSION } from '../version'
 import { FormulaParser } from './parser'
 import { complete } from './completer'
 import { FormulaInterpreter } from './interpreter'
-import { addSpace, CodeFragmentVisitor, hideDot } from './codeFragment'
+import { CodeFragmentVisitor } from './codeFragment'
 import { blockKey } from './convert'
 import { checkValidName, parseString, shouldReturnEarly } from './util'
 import { createVariableTask } from '../context'
+import { hideDotStep, addSpaceStep } from './steps'
 
 export interface BaseParseResult {
   success: boolean
@@ -453,14 +454,14 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
     ]
   }
 
-  const { finalCodeFragments: addSpaceCodeFragment, finalPositionFragment: addSpacePositionFragment } = addSpace(
-    parseCodeFragments,
-    newInput,
-    positionFragment,
-    namespaceId
-  )
+  const { codeFragments: finalCodeFragments, positionFragment: finalPositionFragment } = [
+    addSpaceStep,
+    hideDotStep
+  ].reduce((prev, step) => step({ input: prev, meta: { ...ctx.meta, input: newInput } }), {
+    codeFragments: parseCodeFragments,
+    positionFragment
+  })
 
-  const { finalCodeFragments, finalPositionFragment } = hideDot(addSpaceCodeFragment, addSpacePositionFragment)
   const newPosition = changePosition(finalCodeFragments, position, input, finalPositionFragment)
   const newPositionWithoutEqual = type === 'normal' ? newPosition - 1 : newPosition
 

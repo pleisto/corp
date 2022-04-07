@@ -18,8 +18,7 @@ import {
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
-import { block2codeFragment, codeFragment2value } from './convert'
-import { PositionFragment } from './core'
+import { block2codeFragment } from './convert'
 import {
   additionOperator,
   arrayOperator,
@@ -1020,84 +1019,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   }
 }
 
-export const hideDot = (
-  codeFragments: CodeFragment[],
-  positionFragment: PositionFragment
-): { finalCodeFragments: CodeFragment[]; finalPositionFragment: PositionFragment } => {
-  const finalCodeFragments: CodeFragment[] = []
-  let finalPositionFragment = positionFragment
-  codeFragments.forEach((c, idx) => {
-    if (c.code === 'Dot' && !c.hide) {
-      const prevCodeFragment = codeFragments[idx - 1]
-      const nextCodeFragment = codeFragments[idx + 1]
-      if (prevCodeFragment && nextCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
-        const nextErrors = nextCodeFragment.errors
-        if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
-          finalCodeFragments.pop()
-          if (finalPositionFragment.tokenIndex >= idx - 1) {
-            finalPositionFragment = { ...finalPositionFragment, tokenIndex: finalPositionFragment.tokenIndex - 3 }
-          }
-          return
-        }
-      }
-    }
-
-    finalCodeFragments.push(c)
-  })
-
-  // console.log({ codeFragments, finalCodeFragments, positionFragment, finalPositionFragment })
-  return { finalCodeFragments, finalPositionFragment }
-}
-
 export const isKey = ({ code }: CodeFragment): boolean => {
   return ['StringLiteral', 'FunctionName', 'NumberLiteral'].includes(code)
 }
 
-export const addSpace = (
-  codeFragments: CodeFragment[],
-  input: string,
-  positionFragment: PositionFragment,
-  namespaceId: string
-): { finalCodeFragments: CodeFragment[]; finalPositionFragment: PositionFragment } => {
-  const finalCodeFragments: CodeFragment[] = []
-  const spaceCodeFragment: CodeFragment = {
-    code: 'Space',
-    hide: false,
-    type: 'any',
-    display: ' ',
-    errors: [],
-    attrs: undefined
-  }
-
-  let restInput = input
-  let error = false
-  let image = ''
-  codeFragments.forEach((codeFragment, idx) => {
-    let match = false
-    if (error) return
-    image = codeFragment2value(codeFragment, namespaceId)
-
-    if (restInput.startsWith(image)) {
-      finalCodeFragments.push(codeFragment)
-      restInput = restInput.substring(image.length)
-      match = true
-    }
-
-    const prefixSpaceCount = restInput.length - restInput.trimStart().length
-    if (prefixSpaceCount > 0) {
-      const spaceValue = ' '.repeat(prefixSpaceCount)
-      finalCodeFragments.push({ ...spaceCodeFragment, display: spaceValue })
-      restInput = restInput.substring(prefixSpaceCount)
-    }
-
-    if (!match) {
-      error = true
-    }
-  })
-
-  if (error) {
-    return { finalCodeFragments: codeFragments, finalPositionFragment: positionFragment }
-  }
-
-  return { finalCodeFragments, finalPositionFragment: positionFragment }
-}
