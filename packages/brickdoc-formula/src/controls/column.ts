@@ -100,18 +100,6 @@ export class ColumnClass implements ColumnType {
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
-    const result = this.findCellByNumber(visitor.ctx.meta, name)
-    const errors: ErrorMessage[] = []
-
-    if (result.type === 'Error') {
-      errors.push({ type: result.errorKind, message: result.result })
-      return {
-        errors,
-        firstArgumentType: undefined,
-        codeFragments
-      }
-    }
-
     visitor.eventDependencies = visitor.eventDependencies
       .reverse()
       .filter(
@@ -130,6 +118,18 @@ export class ColumnClass implements ColumnType {
       eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
       scope: { rows: [name], columns: [this.key()] }
     })
+
+    const result = this.findCellByNumber(visitor.ctx.meta, name)
+    const errors: ErrorMessage[] = []
+
+    if (result.type === 'Error') {
+      errors.push({ type: result.errorKind, message: result.result })
+      return {
+        errors,
+        firstArgumentType: undefined,
+        codeFragments
+      }
+    }
 
     const cell = result.result
     if (visitor.ctx.meta.richType.type === 'spreadsheet') {
