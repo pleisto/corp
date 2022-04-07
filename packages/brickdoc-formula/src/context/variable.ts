@@ -339,7 +339,7 @@ export class VariableClass implements VariableInterface {
   }
 
   private async maybeReparseAndPersist(sourceUuid: string, definition?: string): Promise<void> {
-    if (this.currentUUID === sourceUuid) {
+    if (sourceUuid && this.currentUUID === sourceUuid) {
       return
     }
     this.currentUUID = sourceUuid
@@ -374,7 +374,7 @@ export class VariableClass implements VariableInterface {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
         e => {
-          console.log('event', e.type, e.payload, dependency, shouldReceiveEvent(dependency.scope, e.payload.scope))
+          console.log('event', this.currentUUID, { type: e.type, payload: e.payload, dependency })
           if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
           void this.maybeReparseAndPersist(e.payload.key, definition)
