@@ -5670,7 +5670,7 @@ Array [
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#1#A",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#A#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -5813,7 +5813,7 @@ Array [
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#1#first",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#first#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -8981,7 +8981,7 @@ Array [
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#A",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#A#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -9076,7 +9076,7 @@ Array [
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#B",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#B#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -9171,7 +9171,7 @@ Array [
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#second",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#second#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
