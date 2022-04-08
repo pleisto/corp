@@ -437,7 +437,7 @@ export const useFormula = ({
   const onSaveFormula = React.useCallback((): void => {
     // devLog({ variable: variableRef.current, name, defaultName })
     if (!variableRef.current) {
-      console.error('variable is not found')
+      // console.error('variable is not found')
       onUpdateFormula?.(undefined)
       BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId, rootId }))
       return
