@@ -14,7 +14,7 @@ import { queryPageBlocks } from '../common/graphql'
 import { FormulaContextVar } from '../reactiveVars'
 import { validate as isValidUUID } from 'uuid'
 import { appendFormulas, FormulaContext } from '@brickdoc/formula'
-import Logo from '@/common/assets/logo_brickdoc.svg'
+import Logo from '@/common/assets/logo_brickdoc_without_name.svg'
 import * as Root from './DocumentContentPage.style'
 import { useFormulaActions } from './hooks/useFormulaActions'
 import { AppError404 } from '@/AppError'
@@ -191,7 +191,7 @@ export const DocumentContentPage: React.FC = () => {
     (docMeta.isMine ? (
       <>
         <div className="mainActions">
-          <header>
+          <header style={{ fontSize: 0 }}>
             <img className="brk-logo" src={Logo} alt="Brickdoc" />
           </header>
           <nav>

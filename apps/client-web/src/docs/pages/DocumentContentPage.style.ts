@@ -21,8 +21,7 @@ export const Layout = styled('div', {
   backgroundClip: 'border-box',
   [`${Section}`]: {
     '.mainActions header > .brk-logo': {
-      height: '22px',
-      width: '84px',
+      height: '24px',
       margin: '1rem 18px'
     },
     '& > footer': {
