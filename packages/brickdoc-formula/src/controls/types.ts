@@ -106,6 +106,7 @@ export interface Row {
 export interface RowType extends Row {
   spreadsheet: SpreadsheetType
   namespaceId: NamespaceId
+  findKey: FindKey
   listCells: () => Cell[]
   logic: boolean
   display: () => string
@@ -200,8 +201,7 @@ export interface SpreadsheetType {
   listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
   findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
-  getRowById: (rowId: uuid) => RowType | undefined
-  getRowByIndex: (number: number) => RowType | undefined
+  findRow: (key: FindKey) => RowType | undefined
   findColumn: (key: FindKey) => ColumnType | undefined
   toArray: () => string[][]
   toRecord: () => Array<Record<string, StringResult>>

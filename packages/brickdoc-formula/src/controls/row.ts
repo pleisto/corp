@@ -5,6 +5,7 @@ import {
   CodeFragment,
   ErrorMessage,
   EventDependency,
+  FindKey,
   FormulaType,
   NamespaceId,
   SpreadsheetId,
@@ -18,14 +19,16 @@ export class RowClass implements RowType {
   namespaceId: NamespaceId
   rowId: uuid
   rowIndex: number
+  findKey: FindKey
   spreadsheet: SpreadsheetType
   logic: boolean
 
-  constructor(spreadsheet: SpreadsheetType, { spreadsheetId, rowId, rowIndex }: Row, logic: boolean) {
+  constructor(spreadsheet: SpreadsheetType, { spreadsheetId, rowId, rowIndex }: Row, logic: boolean, findKey: FindKey) {
     this.spreadsheetId = spreadsheetId
     this.namespaceId = spreadsheet.namespaceId
     this.rowId = rowId
     this.rowIndex = rowIndex
+    this.findKey = findKey
 
     this.spreadsheet = spreadsheet
     this.logic = logic

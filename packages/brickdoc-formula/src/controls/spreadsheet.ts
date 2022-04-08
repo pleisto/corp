@@ -269,7 +269,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretRow(number: number): AnyTypeResult {
-    const row = this.getRowByIndex(number - 1)
+    const row = this.findRow({namespaceId: this.namespaceId, type: 'name', value: String(number)})
     if (!row) {
       return { type: 'Error', result: `Row ${number} not found`, errorKind: 'runtime' }
     }
@@ -297,7 +297,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     visitor.eventDependencies.push(this.eventDependency({ rowKey: String(number) }))
 
     const errors: ErrorMessage[] = []
-    const row = this.getRowByIndex(number - 1)
+    const row = this.findRow({ namespaceId: this.namespaceId, type: 'name', value: String(number) })
     if (!row) {
       errors.push({ type: 'deps', message: `Row "${number}" not found` })
       return {
@@ -381,16 +381,16 @@ export class SpreadsheetClass implements SpreadsheetType {
     return this.listRows().length
   }
 
-  getRowById(rowId: string): RowType | undefined {
-    const row = this.listRows().find(row => row.rowId === rowId)
-    if (!row) return undefined
-    return new RowClass(this, row, false)
-  }
-
-  getRowByIndex(number: number): RowType | undefined {
-    const row = this.listRows()[number]
-    if (!row) return undefined
-    return new RowClass(this, row, true)
+  findRow(key: FindKey): RowType | undefined {
+    if (key.type === 'id') {
+      const row = this.listRows().find(row => row.rowId === key.value)
+      if (!row) return undefined
+      return new RowClass(this, row, false, key)
+    } else {
+      const row = this.listRows()[Number(key.value) - 1]
+      if (!row) return undefined
+      return new RowClass(this, row, true, key)
+    }
   }
 
   findColumn(key: FindKey): ColumnType | undefined {

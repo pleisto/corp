@@ -354,13 +354,10 @@ export class FormulaContext implements ContextInterface {
     return spreadsheet.findColumn(key)
   }
 
-  public findRow(spreadsheetId: SpreadsheetId, { type, value, namespaceId }: FindKey): RowType | undefined {
-    const spreadsheet = this.findSpreadsheet({ namespaceId, type: 'id', value: spreadsheetId })
+  public findRow(spreadsheetId: SpreadsheetId, key: FindKey): RowType | undefined {
+    const spreadsheet = this.findSpreadsheet({ namespaceId: key.namespaceId, type: 'id', value: spreadsheetId })
     if (!spreadsheet) return undefined
-    if (type === 'id') {
-      return spreadsheet.getRowById(value)
-    }
-    return spreadsheet.getRowByIndex(Number(value) - 1)
+    return spreadsheet.findRow(key)
   }
 
   public setSpreadsheet(spreadsheet: SpreadsheetType): void {
