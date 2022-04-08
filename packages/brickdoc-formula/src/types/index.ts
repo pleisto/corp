@@ -475,6 +475,7 @@ export interface DirtyFormulaInfo {
 }
 
 export interface FindKey {
+  namespaceId: NamespaceId
   type: 'id' | 'name'
   value: string
 }
@@ -497,9 +498,9 @@ export interface ContextInterface {
   setName: (nameDependency: NameDependencyWithKind) => void
   removeName: (id: NamespaceId) => void
   findNames: (namespaceId: NamespaceId, name: string) => NameDependencyWithKind[]
-  findSpreadsheet: (namespaceId: NamespaceId, key: FindKey) => SpreadsheetType | undefined
-  findColumn: (namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey) => ColumnType | undefined
-  findRow: (namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey) => RowType | undefined
+  findSpreadsheet: (key: FindKey) => SpreadsheetType | undefined
+  findColumn: (spreadsheetId: SpreadsheetId, key: FindKey) => ColumnType | undefined
+  findRow: (spreadsheetId: SpreadsheetId, key: FindKey) => RowType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
   removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]

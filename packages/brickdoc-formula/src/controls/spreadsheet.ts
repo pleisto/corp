@@ -229,7 +229,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretColumn(name: string): AnyTypeResult {
-    const column = this.findColumn({ type: 'name', value: name })
+    const column = this.findColumn({ namespaceId: this.namespaceId, type: 'name', value: name })
 
     if (column) {
       return { type: 'Column', result: column }
@@ -325,7 +325,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const column = this.findColumn({ type: 'name', value: name })
+    const column = this.findColumn({ namespaceId: this.namespaceId, type: 'name', value: name })
 
     if (!column) {
       visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))

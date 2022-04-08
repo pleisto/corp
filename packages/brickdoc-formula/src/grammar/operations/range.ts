@@ -10,7 +10,8 @@ export const rangeOperator: OperatorType = {
     const startCell = lhs.result as Cell
     const endCell = rhs!.result as Cell
 
-    const spreadsheet = interpreter.ctx.formulaContext.findSpreadsheet(startCell.namespaceId, {
+    const spreadsheet = interpreter.ctx.formulaContext.findSpreadsheet({
+      namespaceId: startCell.namespaceId,
       type: 'id',
       value: startCell.spreadsheetId
     })

@@ -340,7 +340,7 @@ export class FormulaContext implements ContextInterface {
     BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
   }
 
-  public findSpreadsheet(namespaceId: NamespaceId, { type, value }: FindKey): SpreadsheetType | undefined {
+  public findSpreadsheet({ namespaceId, type, value }: FindKey): SpreadsheetType | undefined {
     if (type === 'id') {
       return this.spreadsheets[value]
     } else {
@@ -348,18 +348,14 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  public findColumn(namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey): ColumnType | undefined {
-    const spreadsheet = this.findSpreadsheet(namespaceId, { type: 'id', value: spreadsheetId })
+  public findColumn(spreadsheetId: SpreadsheetId, key: FindKey): ColumnType | undefined {
+    const spreadsheet = this.findSpreadsheet({ namespaceId: key.namespaceId, type: 'id', value: spreadsheetId })
     if (!spreadsheet) return undefined
     return spreadsheet.findColumn(key)
   }
 
-  public findRow(
-    namespaceId: NamespaceId,
-    spreadsheetId: SpreadsheetId,
-    { type, value }: FindKey
-  ): RowType | undefined {
-    const spreadsheet = this.findSpreadsheet(namespaceId, { type: 'id', value: spreadsheetId })
+  public findRow(spreadsheetId: SpreadsheetId, { type, value, namespaceId }: FindKey): RowType | undefined {
+    const spreadsheet = this.findSpreadsheet({ namespaceId, type: 'id', value: spreadsheetId })
     if (!spreadsheet) return undefined
     if (type === 'id') {
       return spreadsheet.getRowById(value)

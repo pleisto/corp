@@ -26,7 +26,8 @@ export const thisRecordOperator: OperatorType = {
       namespaceId
     } = interpreter.ctx.meta
 
-    const spreadsheet = interpreter.ctx.formulaContext.findSpreadsheet(namespaceId, {
+    const spreadsheet = interpreter.ctx.formulaContext.findSpreadsheet({
+      namespaceId,
       value: spreadsheetId,
       type: 'id'
     })
@@ -60,7 +61,7 @@ export const thisRecordOperator: OperatorType = {
 
     cstVisitor.eventDependencies.push(spreadsheetReloadEventDependency)
 
-    const spreadsheet = cstVisitor.ctx.formulaContext.findSpreadsheet(namespaceId, { type: 'id', value: spreadsheetId })
+    const spreadsheet = cstVisitor.ctx.formulaContext.findSpreadsheet({ namespaceId, type: 'id', value: spreadsheetId })
     if (!spreadsheet) {
       return {
         image,

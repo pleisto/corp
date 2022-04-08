@@ -162,7 +162,8 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
         })
       }
     } else {
-      const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.namespaceId, {
+      const spreadsheet = ctx.formulaContext.findSpreadsheet({
+        namespaceId: result.result.namespaceId,
         value: result.result.spreadsheetId,
         type: 'id'
       })
@@ -175,7 +176,8 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Range') {
-    const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.namespaceId, {
+    const spreadsheet = ctx.formulaContext.findSpreadsheet({
+      namespaceId: result.result.namespaceId,
       type: 'id',
       value: result.result.spreadsheetId
     })
@@ -183,7 +185,8 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Column' && !(result.result instanceof ColumnClass)) {
-    const column = ctx.formulaContext.findColumn(result.result.namespaceId, result.result.spreadsheetId, {
+    const column = ctx.formulaContext.findColumn(result.result.spreadsheetId, {
+      namespaceId: result.result.namespaceId,
       type: 'id',
       value: result.result.columnId
     })
@@ -195,7 +198,8 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   }
 
   if (result.type === 'Row' && !(result.result instanceof RowClass)) {
-    const row = ctx.formulaContext.findRow(result.result.namespaceId, result.result.spreadsheetId, {
+    const row = ctx.formulaContext.findRow(result.result.spreadsheetId, {
+      namespaceId: result.result.namespaceId,
       type: 'id',
       value: result.result.rowId
     })

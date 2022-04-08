@@ -281,7 +281,11 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Spreadsheet') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findSpreadsheet(attrs.namespaceId, { type: 'id', value: attrs.id })
+            object = this.ctx.formulaContext.findSpreadsheet({
+              namespaceId: attrs.namespaceId,
+              type: 'id',
+              value: attrs.id
+            })
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })
@@ -291,7 +295,11 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Column') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findColumn('', attrs.namespaceId, { type: 'id', value: attrs.id })
+            object = this.ctx.formulaContext.findColumn(attrs.namespaceId, {
+              namespaceId: '',
+              type: 'id',
+              value: attrs.id
+            })
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Column not found' })
@@ -301,7 +309,11 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Row') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findRow('', attrs.namespaceId, { type: 'id', value: attrs.id })
+            object = this.ctx.formulaContext.findRow(attrs.namespaceId, {
+              namespaceId: '',
+              type: 'id',
+              value: attrs.id
+            })
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Row not found' })
