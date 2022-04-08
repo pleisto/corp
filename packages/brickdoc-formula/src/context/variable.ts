@@ -28,7 +28,7 @@ import { parse, interpret } from '../grammar/core'
 import { dumpValue } from './persist'
 import { codeFragments2definition, variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
-import { maybeEncodeString, shouldReceiveEvent } from '../grammar'
+import { cleanupEventDependency, maybeEncodeString, shouldReceiveEvent } from '../grammar'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
   if (task.async) {
@@ -372,10 +372,10 @@ export class VariableClass implements VariableInterface {
       ? t.eventDependencies
       : [
           ...new Map(
-            [...t.eventDependencies, ...(t.task.variableValue.runtimeEventDependencies ?? [])].map(item => [
-              `${item.kind},${item.event.eventType},${item.eventId},${JSON.stringify(item.scope)}`,
-              item
-            ])
+            [
+              ...cleanupEventDependency('parse', t.eventDependencies),
+              ...cleanupEventDependency('runtime', t.task.variableValue.runtimeEventDependencies ?? [])
+            ].map(item => [`${item.kind},${item.event.eventType},${item.eventId},${item.key}`, item])
           ).values()
         ]
 

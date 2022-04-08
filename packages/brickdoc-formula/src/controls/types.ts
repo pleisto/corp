@@ -122,6 +122,7 @@ export interface RangeType {
 }
 
 export interface Cell {
+  namespaceId: NamespaceId
   spreadsheetId: SpreadsheetId
   cellId: uuid
   columnId: ColumnId

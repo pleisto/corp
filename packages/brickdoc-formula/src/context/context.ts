@@ -36,7 +36,8 @@ import {
   DeleteFormula,
   SpreadsheetId,
   NameDependencyWithKind,
-  RowId
+  RowId,
+  FindKey
 } from '../types'
 import {
   function2completion,
@@ -345,8 +346,12 @@ export class FormulaContext implements ContextInterface {
     BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
   }
 
-  public findSpreadsheetByName(namespaceId: NamespaceId, name: string): SpreadsheetType | undefined {
-    return Object.values(this.spreadsheets).find(s => s!.namespaceId === namespaceId && s!.name() === name)
+  public findSpreadsheet(namespaceId: NamespaceId, { type, value }: FindKey): SpreadsheetType | undefined {
+    if (type === 'name') {
+      return Object.values(this.spreadsheets).find(s => s!.namespaceId === namespaceId && s!.name() === value)
+    } else {
+      return this.spreadsheets[value]
+    }
   }
 
   public findColumnById(namespaceId: NamespaceId, variableId: VariableId): ColumnType | undefined {

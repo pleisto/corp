@@ -159,13 +159,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -174,9 +190,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -346,13 +370,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -361,9 +401,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -438,12 +486,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -535,13 +585,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -637,13 +703,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -755,13 +837,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -881,13 +979,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -983,13 +1097,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1127,12 +1257,59 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -1144,8 +1321,28 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#2",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -1256,13 +1453,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1432,13 +1645,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1447,9 +1676,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1611,13 +1848,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1626,9 +1879,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1766,13 +2027,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -1781,9 +2058,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -2421,13 +2706,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -2592,13 +2893,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -2739,13 +3056,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -2910,13 +3243,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3057,13 +3406,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3204,13 +3569,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3375,13 +3756,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3546,13 +3943,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3693,13 +4106,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3861,13 +4290,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -3876,9 +4321,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -4064,13 +4517,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -4079,9 +4548,17 @@ Array [
     },
   },
   Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -4172,12 +4649,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -4264,12 +4743,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -4345,12 +4826,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -4426,12 +4909,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -4515,12 +5000,28 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -4608,12 +5109,28 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -4693,12 +5210,57 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
+    "kind": "Row",
+    "scope": Object {
+      "rows": Array [
+        "1",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "kind": "Row",
+      "scope": Object {
+        "rows": Array [
+          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#A",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -4781,12 +5343,57 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
+    "kind": "Row",
+    "scope": Object {
+      "rows": Array [
+        "1",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "kind": "Row",
+      "scope": Object {
+        "rows": Array [
+          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#first",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -4880,12 +5487,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -4972,12 +5581,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -5061,13 +5672,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -5152,12 +5779,59 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#foobar",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -5245,12 +5919,59 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#100",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -5344,12 +6065,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -5425,12 +6148,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -5506,12 +6231,59 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#A",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "A",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -5594,12 +6366,59 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -5669,12 +6488,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -5734,13 +6555,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#A",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -5804,12 +6641,28 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#Z",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -5873,13 +6726,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -5975,13 +6844,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -6077,13 +6962,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -6163,13 +7064,29 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
     "kind": "Column",
     "scope": Object {
       "columns": Array [
@@ -6244,12 +7161,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6320,12 +7239,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6388,12 +7309,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6453,12 +7376,28 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -6522,12 +7461,28 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#100",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -6658,12 +7613,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6811,12 +7768,14 @@ Array [
     "definitionHandler": [Function],
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
   },
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6913,6 +7872,7 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "Spreadsheet",
     "scope": Object {},
   },
@@ -6992,6 +7952,52 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#A",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "A",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -7073,6 +8079,52 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Spreadsheet",
+    "scope": Object {},
+  },
+  Object {
+    "cleanup": Object {
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+      "kind": "Spreadsheet",
+      "scope": Object {},
+    },
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#B",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "B",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "definitionHandler": [Function],
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "kind": "Column",
+      "scope": Object {
+        "columns": Array [
+          "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -7141,6 +8193,7 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -7206,6 +8259,7 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Row",
     "scope": Object {
       "rows": Array [
@@ -7268,6 +8322,36 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+    "kind": "Row",
+    "scope": Object {
+      "rows": Array [
+        "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "kind": "Row",
+      "scope": Object {
+        "rows": Array [
+          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#A",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -7328,6 +8412,36 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+    "kind": "Row",
+    "scope": Object {
+      "rows": Array [
+        "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "kind": "Row",
+      "scope": Object {
+        "rows": Array [
+          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#B",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -7388,6 +8502,36 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+    "kind": "Row",
+    "scope": Object {
+      "rows": Array [
+        "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      ],
+    },
+  },
+  Object {
+    "cleanup": Object {
+      "cleanup": Object {
+        "event": [Function],
+        "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+        "key": "Spreadsheet#28e28190-63bd-4f70-aeca-26e72574c01a",
+        "kind": "Spreadsheet",
+        "scope": Object {},
+      },
+      "event": [Function],
+      "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "kind": "Row",
+      "scope": Object {
+        "rows": Array [
+          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        ],
+      },
+    },
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#second",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
@@ -7432,6 +8576,7 @@ Array [
   Object {
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
     "kind": "Row",
     "scope": Object {
       "rows": Array [

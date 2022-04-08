@@ -76,7 +76,7 @@ export class BlockClass implements BlockType {
   }
 
   async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
-    const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
+    const spreadsheet = this._formulaContext.findSpreadsheet(this.id, { value: name, type: 'name' })
     if (spreadsheet) {
       return { type: 'Spreadsheet', result: spreadsheet }
     }
@@ -104,7 +104,7 @@ export class BlockClass implements BlockType {
   } {
     visitor.nameDependencies.push({ namespaceId: this.id, name })
 
-    const spreadsheet = this._formulaContext.findSpreadsheetByName(this.id, name)
+    const spreadsheet = this._formulaContext.findSpreadsheet(this.id, { value: name, type: 'name' })
     if (spreadsheet) {
       let finalCodeFragments = codeFragments
 
@@ -116,6 +116,7 @@ export class BlockClass implements BlockType {
         eventId: `${spreadsheet.namespaceId},${spreadsheet.spreadsheetId}`,
         event: SpreadsheetUpdateNameViaId,
         kind: 'SpreadsheetName',
+        key: spreadsheet.spreadsheetId,
         scope: {},
         definitionHandler: (deps, variable, payload) => {
           const newCodeFragments = variable.t.codeFragments.map(c => {

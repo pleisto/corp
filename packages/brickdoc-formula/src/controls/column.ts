@@ -90,18 +90,29 @@ export class ColumnClass implements ColumnType {
       }
     }
 
-    return { type: 'Cell', result: new CellClass(this.spreadsheet, cell, { columnKey: this.key(), rowKey: name }) }
+    return {
+      type: 'Cell',
+      result: new CellClass(this.spreadsheet, cell, {
+        columnKey: this.key(),
+        rowKey: name,
+        cleanupEventDependency: this.eventDependency({})
+      })
+    }
   }
 
   eventDependency({ rowKey }: getEventDependencyInput): EventDependency {
     if (rowKey) {
+      console.log('debug1', rowKey, this.key())
       return {
         kind: 'Cell',
         event: SpreadsheetReloadViaId,
+        key: `Column#Cell#${this.spreadsheetId}#${this.key()}#${rowKey}`,
         eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-        scope: { rows: [rowKey], columns: [this.key()] }
+        scope: { rows: [rowKey], columns: [this.key()] },
+        cleanup: this.eventDependency({})
       }
     }
+    console.log('debug2', rowKey, this.key())
     return {
       ...this.spreadsheet.eventDependency({ columnKey: this.key() }),
       definitionHandler: (deps, variable, payload) => {
@@ -127,18 +138,6 @@ export class ColumnClass implements ColumnType {
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
-    visitor.eventDependencies = visitor.eventDependencies
-      .reverse()
-      .filter(
-        d =>
-          !(
-            d.kind === 'Column' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-          )
-      )
-      .reverse()
-
     visitor.eventDependencies.push(this.eventDependency({ rowKey: name }))
 
     const result = this.findCellByNumber(visitor.ctx.meta, name)

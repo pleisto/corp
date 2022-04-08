@@ -4,6 +4,7 @@ import {
   CodeFragment,
   ErrorMessage,
   ErrorResult,
+  EventDependency,
   EventScope,
   ExpressionType,
   FormulaColorType,
@@ -46,6 +47,28 @@ export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventS
   } else {
     return columnMatched && eventRows.length === 0
   }
+}
+
+export const cleanupEventDependency = (label: string, dependencies: EventDependency[]): EventDependency[] => {
+  if (!dependencies.length) return []
+  const finalEventDependencies: EventDependency[] = []
+
+  dependencies.forEach((dependency, index) => {
+    const lastDependency = dependencies[index - 1]
+
+    if (dependency.cleanup && lastDependency) {
+      if (lastDependency.key === dependency.cleanup.key) {
+        finalEventDependencies.pop()
+      } else {
+        console.error('cleanupEventDependency not matched', { label, dependency, lastDependency, dependencies })
+      }
+    }
+
+    finalEventDependencies.push(dependency)
+  })
+
+  console.log('start cleanup', label, dependencies, finalEventDependencies)
+  return finalEventDependencies
 }
 
 export const reverseTraversalString = (str: string, min = 1): string[] => {

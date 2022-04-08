@@ -162,7 +162,10 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
         })
       }
     } else {
-      const spreadsheet = ctx.formulaContext.findSpreadsheetById(result.result.blockId)
+      const spreadsheet = ctx.formulaContext.findSpreadsheet(result.result.namespaceId, {
+        value: result.result.spreadsheetId,
+        type: 'id'
+      })
       if (spreadsheet) {
         return { type: 'Spreadsheet', result: spreadsheet }
       } else {

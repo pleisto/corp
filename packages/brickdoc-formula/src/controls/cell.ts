@@ -1,8 +1,9 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
-import { ColumnId, EventDependency, SpreadsheetId, uuid, VariableDisplayData } from '../types'
+import { ColumnId, EventDependency, NamespaceId, SpreadsheetId, uuid, VariableDisplayData } from '../types'
 import { CellType, SpreadsheetType, Cell } from './types'
 
 export class CellClass implements CellType {
+  namespaceId: NamespaceId
   spreadsheetId: SpreadsheetId
   cellId: uuid
   columnId: ColumnId
@@ -15,12 +16,18 @@ export class CellClass implements CellType {
   spreadsheet: SpreadsheetType
   columnKey: string
   rowKey: string
+  cleanupEventDependency: EventDependency
 
   constructor(
     spreadsheet: SpreadsheetType,
-    { spreadsheetId, cellId, columnId, rowId, columnIndex, rowIndex, value, displayData }: Cell,
-    { columnKey, rowKey }: { columnKey: string; rowKey: string }
+    { namespaceId, spreadsheetId, cellId, columnId, rowId, columnIndex, rowIndex, value, displayData }: Cell,
+    {
+      columnKey,
+      rowKey,
+      cleanupEventDependency
+    }: { columnKey: string; rowKey: string; cleanupEventDependency: EventDependency }
   ) {
+    this.namespaceId = namespaceId
     this.spreadsheetId = spreadsheetId
     this.rowId = rowId
     this.rowIndex = rowIndex
@@ -34,14 +41,17 @@ export class CellClass implements CellType {
 
     this.columnKey = columnKey
     this.rowKey = rowKey
+    this.cleanupEventDependency = cleanupEventDependency
   }
 
   eventDependency(): EventDependency {
     return {
       kind: 'Cell',
       event: SpreadsheetReloadViaId,
+      key: `${this.cleanupEventDependency.kind}#Cell2#${this.spreadsheetId}#${this.rowKey}#${this.columnKey}`,
       eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-      scope: { rows: [this.rowKey], columns: [this.columnKey] }
+      scope: { rows: [this.rowKey], columns: [this.columnKey] },
+      cleanup: this.cleanupEventDependency
     }
   }
 }

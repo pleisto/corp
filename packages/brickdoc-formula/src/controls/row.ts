@@ -46,7 +46,9 @@ export class RowClass implements RowType {
         kind: 'Cell',
         event: SpreadsheetReloadViaId,
         eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-        scope: { rows: [this.key()], columns: [columnKey] }
+        key: `Row#Cell#${this.spreadsheetId}#${this.key()}#${columnKey}`,
+        scope: { rows: [this.key()], columns: [columnKey] },
+        cleanup: this.eventDependency({})
       }
     }
 
@@ -83,7 +85,14 @@ export class RowClass implements RowType {
       }
     }
 
-    return { type: 'Cell', result: new CellClass(this.spreadsheet, cell, { rowKey: this.key(), columnKey: name }) }
+    return {
+      type: 'Cell',
+      result: new CellClass(this.spreadsheet, cell, {
+        rowKey: this.key(),
+        columnKey: name,
+        cleanupEventDependency: this.eventDependency({})
+      })
+    }
   }
 
   handleCodeFragments(
@@ -91,18 +100,6 @@ export class RowClass implements RowType {
     name: string,
     codeFragments: CodeFragment[]
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
-    visitor.eventDependencies = visitor.eventDependencies
-      .reverse()
-      .filter(
-        d =>
-          !(
-            d.kind === 'Row' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.spreadsheet.namespaceId},${this.spreadsheetId}`
-          )
-      )
-      .reverse()
-
     visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
 
     const column = this.spreadsheet.getColumnByName(name)

@@ -45,9 +45,11 @@ export const thisRowOperator: OperatorType = {
       namespaceId
     } = cstVisitor.ctx.meta
 
+    // TODO same as row
     const rowDependencyEvent: EventDependency = {
       kind: 'Row',
       event: SpreadsheetReloadViaId,
+      key: `Spreadsheet#Row#${spreadsheetId}#${rowId}`,
       eventId: `${namespaceId},${spreadsheetId}`,
       scope: { rows: [rowId] }
     }

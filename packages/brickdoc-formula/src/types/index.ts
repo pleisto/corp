@@ -473,6 +473,12 @@ export interface FormulaNameToken {
 export interface DirtyFormulaInfo {
   updatedAt: Date
 }
+
+export interface FindKey {
+  type: 'id' | 'name'
+  value: string
+}
+
 export interface ContextInterface {
   features: string[]
   dirtyFormulas: Record<VariableKey, DirtyFormulaInfo>
@@ -492,7 +498,7 @@ export interface ContextInterface {
   setName: (nameDependency: NameDependencyWithKind) => void
   removeName: (id: NamespaceId) => void
   findNames: (namespaceId: NamespaceId, name: string) => NameDependencyWithKind[]
-  findSpreadsheetByName: (namespaceId: NamespaceId, name: string) => SpreadsheetType | undefined
+  findSpreadsheet: (namespaceId: NamespaceId, key: FindKey) => SpreadsheetType | undefined
   findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
   findRowById: (namespaceId: NamespaceId, rowId: RowId) => RowType | undefined
   findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
@@ -707,11 +713,13 @@ export interface EventScope {
 }
 
 export interface EventDependency {
-  kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
+  readonly kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
   readonly event: EventType
   readonly eventId: string
-  scope: EventScope
-  definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
+  readonly scope: EventScope
+  readonly key: string
+  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
+  readonly cleanup?: EventDependency
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask

@@ -242,21 +242,26 @@ export class SpreadsheetClass implements SpreadsheetType {
       return {
         kind: 'Row',
         event: SpreadsheetReloadViaId,
+        key: `Spreadsheet#Row#${this.spreadsheetId}#${rowKey}`,
         eventId: `${this.namespaceId},${this.spreadsheetId}`,
-        scope: { rows: [rowKey] }
+        scope: { rows: [rowKey] },
+        cleanup: this.eventDependency({})
       }
     }
     if (columnKey) {
       return {
         kind: 'Column',
         event: SpreadsheetReloadViaId,
+        key: `Spreadsheet#Column#${this.spreadsheetId}#${columnKey}`,
         eventId: `${this.namespaceId},${this.spreadsheetId}`,
-        scope: { columns: [columnKey] }
+        scope: { columns: [columnKey] },
+        cleanup: this.eventDependency({})
       }
     }
     return {
       eventId: `${this.namespaceId},${this.spreadsheetId}`,
       event: SpreadsheetReloadViaId,
+      key: `Spreadsheet#${this.spreadsheetId}`,
       scope: {},
       kind: 'Spreadsheet'
     }
@@ -288,18 +293,6 @@ export class SpreadsheetClass implements SpreadsheetType {
     number: number,
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
-    visitor.eventDependencies = visitor.eventDependencies
-      .reverse()
-      .filter(
-        d =>
-          !(
-            d.kind === 'Spreadsheet' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
-          )
-      )
-      .reverse()
-
     visitor.eventDependencies.push(this.eventDependency({ rowKey: String(number) }))
 
     const errors: ErrorMessage[] = []
@@ -330,18 +323,6 @@ export class SpreadsheetClass implements SpreadsheetType {
     name: string,
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
-    visitor.eventDependencies = visitor.eventDependencies
-      .reverse()
-      .filter(
-        d =>
-          !(
-            d.kind === 'Spreadsheet' &&
-            d.event === SpreadsheetReloadViaId &&
-            d.eventId === `${this.namespaceId},${this.spreadsheetId}`
-          )
-      )
-      .reverse()
-
     const errors: ErrorMessage[] = []
     const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
 
@@ -414,11 +395,14 @@ export class SpreadsheetClass implements SpreadsheetType {
   getColumnById(columnId: string): ColumnType | undefined {
     const column = this.listColumns().find(col => col.columnId === columnId)
     if (!column) return undefined
+    console.log('getColumnById', columnId, column)
     return new ColumnClass(this, column, false)
   }
 
   getColumnByName(name: string): ColumnType | undefined {
     const column = this._columns.find(col => col.title === name)
+
+    console.log('getColumnByName', name)
 
     if (column) return new ColumnClass(this, column, false)
 
