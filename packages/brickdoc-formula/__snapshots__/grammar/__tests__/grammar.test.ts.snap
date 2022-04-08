@@ -3511,6 +3511,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+        "type": "id",
+        "value": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+      },
       "id": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
       "kind": "Block",
       "name": "Untitled",
@@ -3532,6 +3537,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "cd4f6e1e-765e-4064-badd-b5585c7eff8e",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "bar",

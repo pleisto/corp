@@ -28,6 +28,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -49,6 +54,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -78,6 +88,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -99,6 +114,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -239,6 +259,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -260,6 +285,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -289,6 +319,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -310,6 +345,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -434,6 +474,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -512,6 +557,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -533,6 +583,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -630,6 +685,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -651,6 +711,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "third",
+      },
       "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
       "kind": "Column",
       "name": "third",
@@ -764,6 +829,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -785,6 +855,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -898,6 +973,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -919,6 +999,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1024,6 +1109,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1045,6 +1135,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1142,6 +1237,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1163,6 +1263,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1200,6 +1305,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1221,6 +1331,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1380,6 +1495,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1401,6 +1521,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1514,6 +1639,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1535,6 +1665,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1564,6 +1699,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1585,6 +1725,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -1725,6 +1870,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1746,6 +1896,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1775,6 +1930,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1796,6 +1956,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -1928,6 +2093,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1949,6 +2119,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -1978,6 +2153,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -1999,6 +2179,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -2628,6 +2813,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -2657,6 +2847,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -2678,6 +2873,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -2791,6 +2991,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -2820,6 +3025,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -2841,6 +3051,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -2978,6 +3193,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3007,6 +3227,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3028,6 +3253,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -3141,6 +3371,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3170,6 +3405,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3191,6 +3431,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -3328,6 +3573,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3357,6 +3607,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3378,6 +3633,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -3491,6 +3751,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3520,6 +3785,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3541,6 +3811,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -3654,6 +3929,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3683,6 +3963,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3704,6 +3989,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -3841,6 +4131,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3870,6 +4165,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -3891,6 +4191,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -4028,6 +4333,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4057,6 +4367,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4078,6 +4393,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -4191,6 +4511,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4212,6 +4537,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -4241,6 +4571,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4262,6 +4597,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -4394,6 +4734,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4415,6 +4760,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -4444,6 +4794,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4465,6 +4820,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -4581,6 +4941,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4675,6 +5040,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4769,6 +5139,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4852,6 +5227,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4935,6 +5315,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -4956,6 +5341,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "1",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "LogicRow",
       "name": "1",
@@ -5044,6 +5434,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5065,6 +5460,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "1",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "LogicRow",
       "name": "1",
@@ -5153,6 +5553,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5174,6 +5579,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "1",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "LogicRow",
       "name": "1",
@@ -5250,24 +5660,24 @@ Array [
       },
       "event": [Function],
       "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
       "kind": "Row",
       "scope": Object {
         "rows": Array [
-          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+          "1",
         ],
       },
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#A",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#1#A",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
         "A",
       ],
       "rows": Array [
-        "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        "1",
       ],
     },
   },
@@ -5286,6 +5696,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5307,6 +5722,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "1",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "LogicRow",
       "name": "1",
@@ -5383,24 +5803,24 @@ Array [
       },
       "event": [Function],
       "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      "key": "Spreadsheet#Row#28e28190-63bd-4f70-aeca-26e72574c01a#1",
       "kind": "Row",
       "scope": Object {
         "rows": Array [
-          "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+          "1",
         ],
       },
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#ec4fdfe8-4a12-4a76-aeae-2dea0229e734#first",
+    "key": "Row#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#1#first",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
         "first",
       ],
       "rows": Array [
-        "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+        "1",
       ],
     },
   },
@@ -5419,6 +5839,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5513,6 +5938,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5607,6 +6037,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5628,6 +6063,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -5717,6 +6157,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5738,6 +6183,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -5857,6 +6307,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -5878,6 +6333,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -5997,6 +6457,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6091,6 +6556,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6174,6 +6644,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6195,6 +6670,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "A",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "LogicColumn",
       "name": "A",
@@ -6273,21 +6753,21 @@ Array [
       "definitionHandler": [Function],
       "event": [Function],
       "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#A",
       "kind": "Column",
       "scope": Object {
         "columns": Array [
-          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+          "A",
         ],
       },
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#A#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
-        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        "A",
       ],
       "rows": Array [
         "1",
@@ -6309,6 +6789,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6330,6 +6815,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -6444,6 +6934,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6514,6 +7009,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6535,6 +7035,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "A",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "LogicColumn",
       "name": "A",
@@ -6600,6 +7105,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6685,6 +7195,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6706,6 +7221,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "first",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "Column",
       "name": "first",
@@ -6803,6 +7323,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6824,6 +7349,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "third",
+      },
       "id": "2723b7d9-22ce-4d93-b2ef-7cce1b122d64",
       "kind": "Column",
       "name": "third",
@@ -6921,6 +7451,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -6942,6 +7477,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -7023,6 +7563,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7044,6 +7589,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "second",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "Column",
       "name": "second",
@@ -7141,6 +7691,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7219,6 +7774,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7265,6 +7825,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7335,6 +7900,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7356,6 +7926,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "1",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "LogicRow",
       "name": "1",
@@ -7420,6 +7995,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7561,6 +8141,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7716,6 +8301,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7853,6 +8443,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7891,6 +8486,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -7912,6 +8512,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "A",
+      },
       "id": "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       "kind": "LogicColumn",
       "name": "A",
@@ -7987,21 +8592,21 @@ Array [
       "definitionHandler": [Function],
       "event": [Function],
       "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#A",
       "kind": "Column",
       "scope": Object {
         "columns": Array [
-          "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+          "A",
         ],
       },
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6#1",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#A#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
-        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+        "A",
       ],
       "rows": Array [
         "1",
@@ -8023,6 +8628,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+      },
       "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
       "kind": "Spreadsheet",
       "name": "MySpreadsheet",
@@ -8044,6 +8654,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "name",
+        "value": "B",
+      },
       "id": "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       "kind": "LogicColumn",
       "name": "B",
@@ -8114,21 +8729,21 @@ Array [
       "definitionHandler": [Function],
       "event": [Function],
       "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+      "key": "Spreadsheet#Column#28e28190-63bd-4f70-aeca-26e72574c01a#B",
       "kind": "Column",
       "scope": Object {
         "columns": Array [
-          "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+          "B",
         ],
       },
     },
     "event": [Function],
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
-    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#4e6f9adb-6f33-454e-9f9e-635dc98e3f28#1",
+    "key": "Column#Cell#28e28190-63bd-4f70-aeca-26e72574c01a#B#1",
     "kind": "Cell",
     "scope": Object {
       "columns": Array [
-        "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
+        "B",
       ],
       "rows": Array [
         "1",
@@ -8150,6 +8765,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8216,6 +8836,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8282,6 +8907,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8377,6 +9007,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8467,6 +9102,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8557,6 +9197,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
+      },
       "id": "ec4fdfe8-4a12-4a76-aeae-2dea0229e734",
       "kind": "Row",
       "name": "1",
@@ -8716,6 +9361,11 @@ Object {
   "codeFragments": Array [
     Object {
       "attrs": Object {
+        "findKey": Object {
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "type": "id",
+          "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+        },
         "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
         "kind": "Spreadsheet",
         "name": "MySpreadsheet",
@@ -13748,6 +14398,11 @@ Object {
   "codeFragments": Array [
     Object {
       "attrs": Object {
+        "findKey": Object {
+          "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+          "type": "id",
+          "value": "28e28190-63bd-4f70-aeca-26e72574c01a",
+        },
         "id": "28e28190-63bd-4f70-aeca-26e72574c01a",
         "kind": "Spreadsheet",
         "name": "MySpreadsheet",

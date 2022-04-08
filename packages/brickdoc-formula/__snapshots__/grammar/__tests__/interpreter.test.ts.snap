@@ -52,6 +52,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "d986e871-cb85-4bd5-b675-87307f60b882",
+      },
       "id": "d986e871-cb85-4bd5-b675-87307f60b882",
       "kind": "Variable",
       "name": "foo",

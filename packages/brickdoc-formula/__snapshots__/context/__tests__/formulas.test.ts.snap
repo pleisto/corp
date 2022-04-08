@@ -700,6 +700,11 @@ Array [
       },
       Object {
         "attrs": Object {
+          "findKey": Object {
+            "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+            "type": "id",
+            "value": "d986e871-cb85-4bd5-b675-87307f60b882",
+          },
           "id": "d986e871-cb85-4bd5-b675-87307f60b882",
           "kind": "Block",
           "name": "Untitled",
@@ -721,6 +726,11 @@ Array [
       },
       Object {
         "attrs": Object {
+          "findKey": Object {
+            "namespaceId": "d986e871-cb85-4bd5-b675-87307f60b882",
+            "type": "id",
+            "value": "1588aedf-06e1-47f1-9282-d2ffe865974c",
+          },
           "id": "1588aedf-06e1-47f1-9282-d2ffe865974c",
           "kind": "Variable",
           "name": "foo",

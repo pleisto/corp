@@ -3676,6 +3676,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "foo",
@@ -4150,6 +4155,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "id": "57622108-1337-4edd-833a-2557835bcfe0",
       "kind": "Block",
       "name": "Untitled",
@@ -4581,6 +4591,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "foo",
@@ -4991,6 +5006,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "foo",
@@ -6259,6 +6279,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "57622108-1337-4edd-833a-2557835bcfe0",
+      },
       "id": "57622108-1337-4edd-833a-2557835bcfe0",
       "kind": "Block",
       "name": "Untitled",
@@ -6690,6 +6715,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "foo",
@@ -7100,6 +7130,11 @@ Array [
   },
   Object {
     "attrs": Object {
+      "findKey": Object {
+        "namespaceId": "57622108-1337-4edd-833a-2557835bcfe0",
+        "type": "id",
+        "value": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
+      },
       "id": "481b6dd1-e668-4477-9e47-cfe5cb1239d0",
       "kind": "Variable",
       "name": "foo",

@@ -619,6 +619,7 @@ export interface CodeFragmentAttrs {
   readonly namespaceId: NamespaceId
   readonly id: uuid
   readonly name: string
+  readonly findKey: FindKey
 }
 
 export type CodeFragment = SpecialCodeFragment | OtherCodeFragment
