@@ -60,7 +60,7 @@ export class RowClass implements RowType {
         kind: 'Cell',
         event: SpreadsheetReloadViaId,
         eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
-        key: `Row#Cell#${this.spreadsheetId}#${this.key()}#${columnKey}`,
+        key: `Row#Cell#${this.spreadsheetId}#${columnKey}#${this.key()}`,
         scope: { rows: [this.key()], columns: [columnKey] },
         cleanup: this.eventDependency({})
       }

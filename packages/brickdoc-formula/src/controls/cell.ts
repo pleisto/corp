@@ -48,8 +48,8 @@ export class CellClass implements CellType {
     return {
       kind: 'Cell',
       event: SpreadsheetReloadViaId,
-      key: `${this.cleanupEventDependency.kind}#Cell2#${this.spreadsheetId}#${this.rowKey}#${this.columnKey}`,
-      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+      key: `${this.cleanupEventDependency.kind}#Cell#${this.spreadsheetId}#${this.columnKey}#${this.rowKey}`,
+      eventId: `${this.namespaceId},${this.spreadsheetId}`,
       scope: { rows: [this.rowKey], columns: [this.columnKey] },
       cleanup: this.cleanupEventDependency
     }

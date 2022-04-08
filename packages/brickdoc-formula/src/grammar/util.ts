@@ -67,7 +67,7 @@ export const cleanupEventDependency = (label: string, dependencies: EventDepende
     finalEventDependencies.push(dependency)
   })
 
-  console.log('start cleanup', label, dependencies, finalEventDependencies)
+  // console.log('start cleanup', label, dependencies, finalEventDependencies)
   return finalEventDependencies
 }
 
