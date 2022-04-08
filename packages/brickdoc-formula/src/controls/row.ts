@@ -1,11 +1,21 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
-import { AnyTypeResult, CodeFragment, ErrorMessage, EventDependency, FormulaType, SpreadsheetId, uuid } from '../types'
+import {
+  AnyTypeResult,
+  CodeFragment,
+  ErrorMessage,
+  EventDependency,
+  FormulaType,
+  NamespaceId,
+  SpreadsheetId,
+  uuid
+} from '../types'
 import { CellClass } from './cell'
 import { Cell, getEventDependencyInput, Row, RowType, SpreadsheetType } from './types'
 
 export class RowClass implements RowType {
   spreadsheetId: SpreadsheetId
+  namespaceId: NamespaceId
   rowId: uuid
   rowIndex: number
   spreadsheet: SpreadsheetType
@@ -13,6 +23,7 @@ export class RowClass implements RowType {
 
   constructor(spreadsheet: SpreadsheetType, { spreadsheetId, rowId, rowIndex }: Row, logic: boolean) {
     this.spreadsheetId = spreadsheetId
+    this.namespaceId = spreadsheet.namespaceId
     this.rowId = rowId
     this.rowIndex = rowIndex
 

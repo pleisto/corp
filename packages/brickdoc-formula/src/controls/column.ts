@@ -19,6 +19,7 @@ import { CellClass } from '.'
 export class ColumnClass implements ColumnType {
   columnId: ColumnId
   name: ColumnName
+  namespaceId: NamespaceId
   spreadsheetId: NamespaceId
   index: number
   sort: number
@@ -29,14 +30,15 @@ export class ColumnClass implements ColumnType {
 
   constructor(
     spreadsheet: SpreadsheetType,
-    { columnId, spreadsheetId: namespaceId, name, index, sort, displayIndex, title }: ColumnInitializer,
+    { columnId, spreadsheetId, name, index, sort, displayIndex, title }: ColumnInitializer,
     logic: boolean
   ) {
     this.sort = sort
     this.title = title
     this.displayIndex = displayIndex
     this.columnId = columnId
-    this.spreadsheetId = namespaceId
+    this.spreadsheetId = spreadsheetId
+    this.namespaceId = spreadsheet.namespaceId
     this.name = name
     this.index = index
     this.logic = logic
@@ -102,7 +104,6 @@ export class ColumnClass implements ColumnType {
 
   eventDependency({ rowKey }: getEventDependencyInput): EventDependency {
     if (rowKey) {
-      console.log('debug1', rowKey, this.key())
       return {
         kind: 'Cell',
         event: SpreadsheetReloadViaId,
@@ -112,7 +113,6 @@ export class ColumnClass implements ColumnType {
         cleanup: this.eventDependency({})
       }
     }
-    console.log('debug2', rowKey, this.key())
     return {
       ...this.spreadsheet.eventDependency({ columnKey: this.key() }),
       definitionHandler: (deps, variable, payload) => {

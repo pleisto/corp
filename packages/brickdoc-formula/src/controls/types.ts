@@ -85,6 +85,7 @@ export interface ColumnInitializer {
 
 export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
+  namespaceId: NamespaceId
   logic: boolean
   display: () => string
   key: () => string
@@ -102,6 +103,7 @@ export interface Row {
 
 export interface RowType extends Row {
   spreadsheet: SpreadsheetType
+  namespaceId: NamespaceId
   listCells: () => Cell[]
   logic: boolean
   display: () => string

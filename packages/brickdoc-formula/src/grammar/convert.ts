@@ -309,11 +309,5 @@ export const attrs2completion = (
     return variable2completion(variable, pageId)
   }
 
-  // if (kind === 'Spreadsheet') {
-  //   const spreadsheet = formulaContext.findSpreadsheetById(id)
-  //   if (!spreadsheet) return undefined
-  //   return spreadsheet2completion(spreadsheet, pageId)
-  // }
-
   return undefined
 }

@@ -491,7 +491,6 @@ export interface ContextInterface {
   getDefaultVariableName: (namespaceId: NamespaceId, type: FormulaType) => DefaultVariableName
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findViewRender: (viewType: ViewType) => ViewRender | undefined
-  findSpreadsheetById: (spreadsheetId: SpreadsheetId) => SpreadsheetType | undefined
   findBlockById: (blockId: NamespaceId) => BlockType | undefined
   setBlock: (blockId: NamespaceId, name: string) => void
   removeBlock: (blockId: NamespaceId) => void
@@ -499,9 +498,8 @@ export interface ContextInterface {
   removeName: (id: NamespaceId) => void
   findNames: (namespaceId: NamespaceId, name: string) => NameDependencyWithKind[]
   findSpreadsheet: (namespaceId: NamespaceId, key: FindKey) => SpreadsheetType | undefined
-  findColumnById: (namespaceId: NamespaceId, variableId: VariableId) => ColumnType | undefined
-  findRowById: (namespaceId: NamespaceId, rowId: RowId) => RowType | undefined
-  findColumnByName: (namespaceId: NamespaceId, name: ColumnName) => ColumnType | undefined
+  findColumn: (namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey) => ColumnType | undefined
+  findRow: (namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey) => RowType | undefined
   setSpreadsheet: (spreadsheet: SpreadsheetType) => void
   removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]

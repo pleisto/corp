@@ -324,7 +324,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
+    const column = this._formulaContext.findColumn(this.namespaceId, this.spreadsheetId, { type: 'name', value: name })
 
     if (!column) {
       visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
