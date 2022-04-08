@@ -88,7 +88,12 @@ export const complete = ({
           if (spreadsheet) {
             const columnCompletions = spreadsheet
               .listColumns()
-              .map(column => column2completion(new ColumnClass(spreadsheet, column, false), namespaceId))
+              .map(column =>
+                column2completion(
+                  new ColumnClass(spreadsheet, column, false, { type: 'id', value: column.columnId }),
+                  namespaceId
+                )
+              )
 
             completions.push(...columnCompletions)
           }

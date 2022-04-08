@@ -67,7 +67,7 @@ export class RowClass implements RowType {
   }
 
   async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
-    const column = this.spreadsheet.getColumnByName(name)
+    const column = this.spreadsheet.findColumn({ value: name, type: 'name' })
     if (!column) {
       return {
         type: 'Error',
@@ -113,7 +113,7 @@ export class RowClass implements RowType {
   ): { errors: ErrorMessage[]; firstArgumentType: FormulaType | undefined; codeFragments: CodeFragment[] } {
     visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
 
-    const column = this.spreadsheet.getColumnByName(name)
+    const column = this.spreadsheet.findColumn({ value: name, type: 'name' })
 
     if (!column) {
       return {

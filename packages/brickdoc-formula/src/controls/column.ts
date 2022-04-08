@@ -8,6 +8,7 @@ import {
   ErrorMessage,
   ErrorResult,
   EventDependency,
+  FindKey,
   FormulaType,
   NamespaceId,
   VariableMetadata
@@ -21,6 +22,7 @@ export class ColumnClass implements ColumnType {
   name: ColumnName
   namespaceId: NamespaceId
   spreadsheetId: NamespaceId
+  findKey: FindKey
   index: number
   sort: number
   title: string | undefined
@@ -31,7 +33,8 @@ export class ColumnClass implements ColumnType {
   constructor(
     spreadsheet: SpreadsheetType,
     { columnId, spreadsheetId, name, index, sort, displayIndex, title }: ColumnInitializer,
-    logic: boolean
+    logic: boolean,
+    findKey: FindKey
   ) {
     this.sort = sort
     this.title = title
@@ -42,6 +45,7 @@ export class ColumnClass implements ColumnType {
     this.name = name
     this.index = index
     this.logic = logic
+    this.findKey = findKey
     this.spreadsheet = spreadsheet
   }
 

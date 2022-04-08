@@ -21,6 +21,7 @@ import {
   ContextInterface,
   ErrorMessage,
   EventDependency,
+  FindKey,
   NameDependencyWithKind,
   NamespaceId,
   StringResult,
@@ -228,7 +229,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretColumn(name: string): AnyTypeResult {
-    const column = this.getColumnByName(name)
+    const column = this.findColumn({ type: 'name', value: name })
 
     if (column) {
       return { type: 'Column', result: column }
@@ -324,7 +325,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     codeFragments: CodeFragment[]
   ): handleCodeFragmentsResult {
     const errors: ErrorMessage[] = []
-    const column = this._formulaContext.findColumn(this.namespaceId, this.spreadsheetId, { type: 'name', value: name })
+    const column = this.findColumn({ type: 'name', value: name })
 
     if (!column) {
       visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
@@ -392,24 +393,21 @@ export class SpreadsheetClass implements SpreadsheetType {
     return new RowClass(this, row, true)
   }
 
-  getColumnById(columnId: string): ColumnType | undefined {
-    const column = this.listColumns().find(col => col.columnId === columnId)
-    if (!column) return undefined
-    console.log('getColumnById', columnId, column)
-    return new ColumnClass(this, column, false)
-  }
+  findColumn(key: FindKey): ColumnType | undefined {
+    if (key.type === 'id') {
+      const column = this.listColumns().find(col => col.columnId === key.value)
+      if (!column) return undefined
+      return new ColumnClass(this, column, false, key)
+    } else {
+      const column = this._columns.find(col => col.title === key.value)
 
-  getColumnByName(name: string): ColumnType | undefined {
-    const column = this._columns.find(col => col.title === name)
+      if (column) return new ColumnClass(this, column, false, key)
 
-    console.log('getColumnByName', name)
+      const logicColumn = this._columns.find(col => col.displayIndex === key.value)
+      if (logicColumn) return new ColumnClass(this, logicColumn, true, key)
 
-    if (column) return new ColumnClass(this, column, false)
-
-    const logicColumn = this._columns.find(col => col.displayIndex === name)
-    if (logicColumn) return new ColumnClass(this, logicColumn, true)
-
-    return undefined
+      return undefined
+    }
   }
 
   findCellValue({ rowId, columnId }: { rowId: uuid; columnId: uuid }): string | undefined {

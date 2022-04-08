@@ -18,7 +18,8 @@ import {
   FormulaType,
   SpreadsheetId,
   NameDependencyWithKind,
-  EventDependency
+  EventDependency,
+  FindKey
 } from '../types'
 
 export interface ControlType {
@@ -86,6 +87,7 @@ export interface ColumnInitializer {
 export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
   namespaceId: NamespaceId
+  findKey: FindKey
   logic: boolean
   display: () => string
   key: () => string
@@ -200,8 +202,7 @@ export interface SpreadsheetType {
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
   getRowById: (rowId: uuid) => RowType | undefined
   getRowByIndex: (number: number) => RowType | undefined
-  getColumnById: (columnId: ColumnId) => ColumnType | undefined
-  getColumnByName: (name: string) => ColumnType | undefined
+  findColumn: (key: FindKey) => ColumnType | undefined
   toArray: () => string[][]
   toRecord: () => Array<Record<string, StringResult>>
   persistAll: () => SpreadsheetAllPersistence

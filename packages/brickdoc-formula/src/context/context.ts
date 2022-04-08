@@ -348,17 +348,10 @@ export class FormulaContext implements ContextInterface {
     }
   }
 
-  public findColumn(
-    namespaceId: NamespaceId,
-    spreadsheetId: SpreadsheetId,
-    { type, value }: FindKey
-  ): ColumnType | undefined {
+  public findColumn(namespaceId: NamespaceId, spreadsheetId: SpreadsheetId, key: FindKey): ColumnType | undefined {
     const spreadsheet = this.findSpreadsheet(namespaceId, { type: 'id', value: spreadsheetId })
     if (!spreadsheet) return undefined
-    if (type === 'id') {
-      return spreadsheet.getColumnById(value)
-    }
-    return spreadsheet.getColumnByName(value)
+    return spreadsheet.findColumn(key)
   }
 
   public findRow(
