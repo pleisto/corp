@@ -17,7 +17,8 @@ import {
   ErrorMessage,
   FormulaType,
   SpreadsheetId,
-  NameDependencyWithKind
+  NameDependencyWithKind,
+  EventDependency
 } from '../types'
 
 export interface ControlType {
@@ -42,6 +43,15 @@ export interface BlockInitializer {
 }
 
 type handleInterpretType = (interpreter: FormulaInterpreter, name: string) => Promise<AnyTypeResult>
+export type getEventDependencyInput = { rowKey?: string; columnKey?: string } & (
+  | {
+      rowKey: string
+    }
+  | { columnKey: string }
+  | {}
+)
+
+type getEventDependency = ({ rowKey, columnKey }: getEventDependencyInput) => EventDependency
 export interface handleCodeFragmentsResult {
   errors: ErrorMessage[]
   firstArgumentType: FormulaType | undefined
@@ -80,6 +90,7 @@ export interface ColumnType extends ColumnInitializer {
   key: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
+  eventDependency: getEventDependency
   cells: () => Cell[]
 }
 
@@ -97,6 +108,7 @@ export interface RowType extends Row {
   key: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
+  eventDependency: getEventDependency
 }
 
 export interface RangeType {
@@ -124,6 +136,7 @@ export interface CellType extends Cell {
   spreadsheet: SpreadsheetType
   columnKey: string
   rowKey: string
+  eventDependency: getEventDependency
 }
 
 export interface SpreadsheetInitializer {
@@ -172,6 +185,7 @@ export interface SpreadsheetType {
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
+  eventDependency: getEventDependency
   nameDependency: () => NameDependencyWithKind
   columnCount: () => number
   rowCount: () => number

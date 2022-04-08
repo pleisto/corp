@@ -575,7 +575,7 @@ const innerInterpretFirst = ({
   // }
   if (!cst || kind === 'literal') {
     const result: StringResult = { type: 'string', result: ctx.meta.input }
-    return { success: true, result }
+    return { success: true, result, runtimeEventDependencies: [] }
   }
   return undefined
 }
@@ -599,7 +599,7 @@ export const innerInterpret = async ({
     const result: AnyTypeResult = await interpreter.visit(cst!, { type: 'any', finalTypes: [] })
     // const lazy = interpreter.lazy
 
-    return { success: true, result }
+    return { success: true, result, runtimeEventDependencies: interpreter.runtimeEventDependencies }
   } catch (e) {
     console.error(e)
     const message = `[FATAL] ${(e as any).message as string}`

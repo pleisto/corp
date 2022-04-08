@@ -1,9 +1,8 @@
 import { SpreadsheetReloadViaId } from '@brickdoc/schema'
 import { CodeFragmentVisitor, FormulaInterpreter } from '../grammar'
-import { AnyTypeResult, CodeFragment, ErrorMessage, FormulaType, SpreadsheetId, uuid } from '../types'
+import { AnyTypeResult, CodeFragment, ErrorMessage, EventDependency, FormulaType, SpreadsheetId, uuid } from '../types'
 import { CellClass } from './cell'
-import { rowColumnKey2eventDependency } from './event'
-import { Cell, Row, RowType, SpreadsheetType } from './types'
+import { Cell, getEventDependencyInput, Row, RowType, SpreadsheetType } from './types'
 
 export class RowClass implements RowType {
   spreadsheetId: SpreadsheetId
@@ -39,6 +38,19 @@ export class RowClass implements RowType {
       rowId: this.rowId,
       spreadsheetId: this.spreadsheetId
     }
+  }
+
+  eventDependency({ columnKey }: getEventDependencyInput): EventDependency {
+    if (columnKey) {
+      return {
+        kind: 'Cell',
+        event: SpreadsheetReloadViaId,
+        eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+        scope: { rows: [this.key()], columns: [columnKey] }
+      }
+    }
+
+    return this.spreadsheet.eventDependency({ rowKey: this.key() })
   }
 
   async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {
@@ -91,7 +103,7 @@ export class RowClass implements RowType {
       )
       .reverse()
 
-    visitor.eventDependencies.push(rowColumnKey2eventDependency(this, name))
+    visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
 
     const column = this.spreadsheet.getColumnByName(name)
 

@@ -20,6 +20,7 @@ import {
   CodeFragment,
   ContextInterface,
   ErrorMessage,
+  EventDependency,
   NameDependencyWithKind,
   NamespaceId,
   StringResult,
@@ -27,11 +28,6 @@ import {
   VariableDisplayData
 } from '../types'
 import { ColumnClass } from './column'
-import {
-  column2eventDependency,
-  spreadsheetColumnKey2eventDependency,
-  spreadsheetRowKey2eventDependency
-} from './event'
 import { RowClass } from './row'
 import {
   SpreadsheetType,
@@ -43,7 +39,8 @@ import {
   SpreadsheetAllPersistence,
   handleCodeFragmentsResult,
   ColumnType,
-  RowType
+  RowType,
+  getEventDependencyInput
 } from './types'
 
 export class SpreadsheetClass implements SpreadsheetType {
@@ -240,6 +237,31 @@ export class SpreadsheetClass implements SpreadsheetType {
     return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
   }
 
+  eventDependency({ rowKey, columnKey }: getEventDependencyInput): EventDependency {
+    if (rowKey) {
+      return {
+        kind: 'Row',
+        event: SpreadsheetReloadViaId,
+        eventId: `${this.namespaceId},${this.spreadsheetId}`,
+        scope: { rows: [rowKey] }
+      }
+    }
+    if (columnKey) {
+      return {
+        kind: 'Column',
+        event: SpreadsheetReloadViaId,
+        eventId: `${this.namespaceId},${this.spreadsheetId}`,
+        scope: { columns: [columnKey] }
+      }
+    }
+    return {
+      eventId: `${this.namespaceId},${this.spreadsheetId}`,
+      event: SpreadsheetReloadViaId,
+      scope: {},
+      kind: 'Spreadsheet'
+    }
+  }
+
   private handleInterpretRow(number: number): AnyTypeResult {
     const row = this.getRowByIndex(number - 1)
     if (!row) {
@@ -278,7 +300,7 @@ export class SpreadsheetClass implements SpreadsheetType {
       )
       .reverse()
 
-    visitor.eventDependencies.push(spreadsheetRowKey2eventDependency(this, String(number)))
+    visitor.eventDependencies.push(this.eventDependency({ rowKey: String(number) }))
 
     const errors: ErrorMessage[] = []
     const row = this.getRowByIndex(number - 1)
@@ -324,7 +346,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     const column = this._formulaContext.findColumnByName(this.spreadsheetId, name)
 
     if (!column) {
-      visitor.eventDependencies.push(spreadsheetColumnKey2eventDependency(this, name))
+      visitor.eventDependencies.push(this.eventDependency({ columnKey: name }))
       errors.push({ type: 'deps', message: `Column "${name}" not found` })
       return {
         errors,
@@ -332,7 +354,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         codeFragments
       }
     }
-    visitor.eventDependencies.push(column2eventDependency(column))
+    visitor.eventDependencies.push(column.eventDependency({}))
 
     const firstArgumentType = 'Column'
     let finalRhsCodeFragments = codeFragments

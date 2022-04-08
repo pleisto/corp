@@ -1,4 +1,5 @@
-import { ColumnId, SpreadsheetId, uuid, VariableDisplayData } from '../types'
+import { SpreadsheetReloadViaId } from '@brickdoc/schema'
+import { ColumnId, EventDependency, SpreadsheetId, uuid, VariableDisplayData } from '../types'
 import { CellType, SpreadsheetType, Cell } from './types'
 
 export class CellClass implements CellType {
@@ -33,5 +34,14 @@ export class CellClass implements CellType {
 
     this.columnKey = columnKey
     this.rowKey = rowKey
+  }
+
+  eventDependency(): EventDependency {
+    return {
+      kind: 'Cell',
+      event: SpreadsheetReloadViaId,
+      eventId: `${this.spreadsheet.namespaceId},${this.spreadsheetId}`,
+      scope: { rows: [this.rowKey], columns: [this.columnKey] }
+    }
   }
 }

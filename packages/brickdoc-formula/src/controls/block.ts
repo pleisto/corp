@@ -19,7 +19,6 @@ import {
 } from '../grammar'
 import { fetchResult } from '../context/variable'
 import { BlockNameLoad, BrickdocEventBus, EventSubscribed, SpreadsheetUpdateNameViaId } from '@brickdoc/schema'
-import { spreadsheet2eventDependency } from './event'
 
 export class BlockClass implements BlockType {
   _formulaContext: ContextInterface
@@ -128,7 +127,7 @@ export class BlockClass implements BlockType {
         }
       }
 
-      visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheet2eventDependency(spreadsheet))
+      visitor.eventDependencies.push(spreadsheetNameEventDependency, spreadsheet.eventDependency({}))
 
       return {
         errors: [],

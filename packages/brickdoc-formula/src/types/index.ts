@@ -656,10 +656,12 @@ export interface NameDependencyWithKind extends NameDependency {
 interface BaseVariableValue {
   readonly success: boolean
   readonly result: AnyTypeResult
+  readonly runtimeEventDependencies?: EventDependency[]
 }
 
 interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
+  readonly runtimeEventDependencies: EventDependency[]
   readonly result: AnyTypeResult
 }
 
