@@ -169,6 +169,17 @@ Array [
     "kind": "Column",
     "scope": Object {
       "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
         "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       ],
     },
@@ -337,6 +348,17 @@ Array [
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
   },
   Object {
     "definitionHandler": [Function],
@@ -1117,6 +1139,19 @@ Array [
         "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
       ],
       "rows": Array [
+        "1",
+      ],
+    },
+  },
+  Object {
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Cell",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+      "rows": Array [
         "2",
       ],
     },
@@ -1407,6 +1442,17 @@ Array [
     "kind": "Column",
     "scope": Object {
       "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
         "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       ],
     },
@@ -1575,6 +1621,17 @@ Array [
     "kind": "Column",
     "scope": Object {
       "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
         "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       ],
     },
@@ -1711,6 +1768,17 @@ Array [
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
   },
   Object {
     "definitionHandler": [Function],
@@ -3803,6 +3871,17 @@ Array [
     "kind": "Column",
     "scope": Object {
       "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
         "4e6f9adb-6f33-454e-9f9e-635dc98e3f28",
       ],
     },
@@ -3987,6 +4066,17 @@ Array [
     "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
     "kind": "SpreadsheetName",
     "scope": Object {},
+  },
+  Object {
+    "definitionHandler": [Function],
+    "event": [Function],
+    "eventId": "57622108-1337-4edd-833a-2557835bcfe0,28e28190-63bd-4f70-aeca-26e72574c01a",
+    "kind": "Column",
+    "scope": Object {
+      "columns": Array [
+        "62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6",
+      ],
+    },
   },
   Object {
     "definitionHandler": [Function],

@@ -389,7 +389,10 @@ export const parse = ({ ctx }: { ctx: FunctionContext; position?: number }): Par
 
   returnValue.eventDependencies = [
     ...new Map(
-      codeFragmentVisitor.eventDependencies.map(item => [`${item.kind},${item.event.eventType},${item.eventId}`, item])
+      codeFragmentVisitor.eventDependencies.map(item => [
+        `${item.kind},${item.event.eventType},${item.eventId},${JSON.stringify(item.scope)}`,
+        item
+      ])
     ).values()
   ]
   returnValue.flattenVariableDependencies = [
