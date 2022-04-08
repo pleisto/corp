@@ -156,6 +156,17 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
+  async accessExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.LBracket,
+      args,
+      operator: accessOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
+    })
+  }
+
   async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
@@ -184,17 +195,6 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       operators: ctx.Dot,
       args,
       operator: chainOperator,
-      rhs: ctx.rhs,
-      lhs: ctx.lhs
-    })
-  }
-
-  async accessExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
-    return await interpretByOperator({
-      interpreter: this,
-      operators: ctx.LBracket,
-      args,
-      operator: accessOperator,
       rhs: ctx.rhs,
       lhs: ctx.lhs
     })

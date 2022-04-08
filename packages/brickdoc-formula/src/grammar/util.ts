@@ -272,6 +272,16 @@ export const attrsToColorType = ({ code, display, attrs }: CodeFragment): Formul
   }
 }
 
+export const castNumber = (data: AnyTypeResult | undefined): number => {
+  if (!data) return NaN
+  if (data.type === 'number') return data.result
+  if (data.type === 'Cell') {
+    return Number(data.result.value)
+  }
+
+  return NaN
+}
+
 export const castData = (data: any): AnyTypeResult => {
   switch (typeof data) {
     case 'string':

@@ -230,6 +230,11 @@ const spreadsheetTestCases: TestCase[] = [
     value: [CELL_FLAG, 1]
   },
   {
+    label: 'thisRow [second] + 1',
+    input: `=ThisRow["second"] + 1`,
+    value: 3
+  },
+  {
     label: 'thisRow A',
     input: `=ThisRow.A`,
     error: 'Circular dependency found'
@@ -301,6 +306,11 @@ const testCases: TestCase[] = [
     label: 'cell 1.1 A',
     input: `=${spreadsheetToken}.1.A`,
     value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.1 A * 3 + 1',
+    input: `=${spreadsheetToken}.1.A * 3 + 1`,
+    value: 4
   },
   {
     label: 'cell 1.[1] A',
