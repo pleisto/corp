@@ -22,7 +22,6 @@ export const additionOperator: OperatorType = {
     }
 
     if (isNaN(result)) {
-      console.log({ lhs, rhs })
       return { type: 'Error', result: `NaN`, errorKind: 'runtime' }
     }
 
