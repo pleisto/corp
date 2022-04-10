@@ -195,13 +195,13 @@ export const DocumentContentPage: React.FC = () => {
             <img className="brk-logo" src={Logo} alt="Brickdoc" />
           </header>
           <nav>
+            <SpaceSelect docMeta={docMeta} />
             <PageTree docMeta={docMeta} />
-            <NewPage docMeta={docMeta} />
-            <TrashButton docMeta={docMeta} />
           </nav>
         </div>
         <footer>
-          <SpaceSelect docMeta={docMeta} />
+          <NewPage docMeta={docMeta} />
+          <TrashButton docMeta={docMeta} />
         </footer>
       </>
     ) : (
