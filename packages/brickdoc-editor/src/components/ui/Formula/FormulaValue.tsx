@@ -1,9 +1,9 @@
 import { FC, ReactElement } from 'react'
 import { resultToColorType, VariableDisplayData } from '@brickdoc/formula'
 import './Formula.less'
-import { FORMULA_COLOR_METAS, FORMULA_ICONS } from '../../../helpers'
 import { css, cx, Icon, Tooltip } from '@brickdoc/design-system'
 import { SelectedType } from '../../blockViews/FormulaView'
+import { FORMULA_COLOR_METAS, FORMULA_ICONS } from './color'
 
 export interface FormulaValueProps {
   displayData: VariableDisplayData

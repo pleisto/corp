@@ -1,9 +1,9 @@
 import { attrsToColorType, CodeFragment } from '@brickdoc/formula'
 import { JSONContent, mergeAttributes } from '@tiptap/core'
-import { FORMULA_COLOR_METAS } from '../../../helpers'
 import { SetDocAttrStep } from '../../extensions/sync/SetDocAttrStep'
 import { meta } from './meta'
 import { createMark } from '../../common'
+import { FORMULA_COLOR_METAS } from '../../../components/ui/Formula'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
