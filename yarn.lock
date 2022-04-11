@@ -1987,6 +1987,7 @@ __metadata:
     refractor: ^4.5.0
     tippy.js: ^6.3.7
     uuid: ^8.3.2
+    y-protocols: ^1.0.5
     yjs: ^13.5.34
   peerDependencies:
     react: ">=17.0.2"
@@ -26553,6 +26554,15 @@ __metadata:
     y-protocols: ^1.0.1
     yjs: ^13.3.2
   checksum: 3013972b1e4617825fb4808bfc7201c1c4b233801a463c04d4572908d727dfac80f1fb2882019aae3e7666a5bdd17416bac349f65a94bd796ffb15b1ac5f1522
+  languageName: node
+  linkType: hard
+
+"y-protocols@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "y-protocols@npm:1.0.5"
+  dependencies:
+    lib0: ^0.2.42
+  checksum: d19404a4ebafcf3761c28b881abe8c32ab6e457db0e5ffc7dbb749cbc2c3bb98e003a43f3e8eba7f245b2698c76f2c4cdd1c2db869f8ec0c6ef94736d9a88652
   languageName: node
   linkType: hard
 

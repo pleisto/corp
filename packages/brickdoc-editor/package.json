@@ -54,6 +54,7 @@
     "refractor": "^4.5.0",
     "tippy.js": "^6.3.7",
     "uuid": "^8.3.2",
+    "y-protocols": "^1.0.5",
     "yjs": "^13.5.34"
   },
   "devDependencies": {
