@@ -23,13 +23,18 @@ import {
 } from '@/BrickdocGraphQL'
 import { queryBlockPins, queryPageBlocks } from '../../graphql'
 import styles from './styles.module.less'
-import { DocMeta } from '@/docs/pages/DocumentContentPage'
 import { useApolloClient, useReactiveVar } from '@apollo/client'
 import { editorVar, FormulaContextVar } from '@/docs/reactiveVars'
 import { appendFormulas } from '@brickdoc/formula'
 import { useFormulaActions } from '@/docs/pages/hooks/useFormulaActions'
 
 type UUID = Scalars['UUID']
+
+interface DocMeta {
+  id?: string | undefined
+  domain: string
+  host: string
+}
 
 interface PageMenuProps {
   mutable?: boolean

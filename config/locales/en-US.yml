@@ -541,6 +541,7 @@ en-US:
       in_trash_prompt: This page is in trash.
       restore_action: Restore page
       hard_delete_action: Delete permanently
+      selected: selected
     discussion:
       menu: Comment
       tooltip: show comments on current page

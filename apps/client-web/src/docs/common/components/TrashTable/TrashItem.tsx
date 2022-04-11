@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import {
-  Block,
   BlockEmoji,
   BlockRestoreInput,
   Blocktype,
@@ -10,28 +9,37 @@ import {
   useBlockHardDeleteMutation,
   BlockHardDeleteInput
 } from '@/BrickdocGraphQL'
-import { Avatar, Button, ConfirmDialog } from '@brickdoc/design-system'
+import { BlockWithChecked } from './TrashList'
+import { Checkbox, Button, ConfirmDialog, theme } from '@brickdoc/design-system'
 import React from 'react'
 import { FilePages, Delete, Undo } from '@brickdoc/design-icons'
 import { useNavigate } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
-import styles from './BlockListItem.module.less'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 import { useApolloClient } from '@apollo/client'
+import { Page, Owner, Time, Action, ActionButtonStyle, AvatarEmoji, SelectBlock } from './Trash.style'
 
-interface BlockListItemProps {
-  block: Block
+interface TrashItemProps {
+  block: BlockWithChecked
   domain: string
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  onChange: (checked: boolean) => void
 }
 
-export const BlockListItem: React.FC<BlockListItemProps> = ({ domain, block, setVisible }) => {
+export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange }) => {
   const { t } = useDocsI18n()
   const client = useApolloClient()
 
   // TODO support image type
-  const avatar = block.meta.icon?.type === Blocktype.Emoji ? (block.meta.icon as BlockEmoji).emoji : <FilePages />
+  const avatar = (
+    <AvatarEmoji>
+      {block.meta.icon?.type === Blocktype.Emoji ? (
+        (block.meta.icon as BlockEmoji).emoji
+      ) : (
+        <FilePages size="1.25rem" color={theme.colors.typeThirdary.value} />
+      )}
+    </AvatarEmoji>
+  )
 
   const navigate = useNavigate()
   const [hardDeleteModalVisible, setHardDeleteModalVisible] = React.useState<boolean>(false)
@@ -45,7 +53,6 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ domain, block, set
   const link = `/${domain}/${block.id}`
 
   const onClickLink = (): void => {
-    setVisible(false)
     navigate(link)
   }
 
@@ -86,36 +93,51 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ domain, block, set
     block.pathArray.length === 0 ? (
       <></>
     ) : (
-      <p className={styles.subTitle}>
-        {block.pathArray.map(p => `${getEmoji(p)}${p.text || t('title.untitled')}`).join(' / ')}
-      </p>
+      <p className="path">{block.pathArray.map(p => `${getEmoji(p)}${p.text || t('title.untitled')}`).join(' / ')}</p>
     )
 
   return (
     <>
-      <div className={styles.popoverTrash}>
-        <div className={styles.content} onClick={onClickLink}>
-          <Avatar className={styles.avatar} src={avatar} />
-          <div className={styles.titleWarp}>
-            <p className={styles.title}>{title}</p>
-            {titleData}
-          </div>
+      <Page>
+        <SelectBlock checked={!!block.checked}>
+          <Checkbox
+            checked={!!block.checked}
+            onChange={onChange as any}
+            noLabel
+            checkboxStyle={
+              block.checked ? undefined : { border: '2px solid', borderColor: theme.colors.overlaySecondary.value }
+            }
+            style={{ background: theme.colors.white.value }}
+          />
+        </SelectBlock>
+        <div onClick={onClickLink}>
+          <p className="title">
+            {avatar}
+            {title}
+          </p>
+          {titleData}
         </div>
-        <div className={styles.action}>
-          <Button className={styles.button} type="text" loading={restoreButtonLoading} onClick={onRestore}>
-            <Undo />
-          </Button>
-          <Button
-            type="text"
-            onClick={() => {
-              setHardDeleteModalVisible(true)
-            }}
-            className={styles.button}
-          >
-            <Delete />
-          </Button>
-        </div>
-      </div>
+      </Page>
+      <Owner>Owner</Owner>
+      <Time>Time</Time>
+      <Action>
+        {!block.checked && (
+          <>
+            <Button css={ActionButtonStyle} type="text" loading={restoreButtonLoading} onClick={onRestore}>
+              <Undo />
+            </Button>
+            <Button
+              css={ActionButtonStyle}
+              type="text"
+              onClick={() => {
+                setHardDeleteModalVisible(true)
+              }}
+            >
+              <Delete />
+            </Button>
+          </>
+        )}
+      </Action>
       <ConfirmDialog
         confirmBtnProps={{
           loading: hardDeleteConfirmLoading
