@@ -130,6 +130,7 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
           Y.applyUpdate(newEditorYdoc, state)
           Y.applyUpdate(newStateYdoc, state)
           stateId.current = document.stateId
+          initBlocksToEditor.current = false
         } else {
           devLog('need to commit init state')
           initBlocksToEditor.current = true
