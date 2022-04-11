@@ -21,7 +21,7 @@ import {
   useBlockPinOrUnpinMutation,
   useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
-import { queryBlockPins, queryPageBlocks } from '../../graphql'
+import { queryBlockPins, queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import styles from './styles.module.less'
 import { useApolloClient, useReactiveVar } from '@apollo/client'
 import { editorVar, FormulaContextVar } from '@/docs/reactiveVars'
@@ -65,7 +65,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const [copied, setCopied] = React.useState<boolean>(false)
 
   const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
-    refetchQueries: [queryPageBlocks]
+    refetchQueries: [queryPageBlocks, queryTrashBlocks]
   })
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
