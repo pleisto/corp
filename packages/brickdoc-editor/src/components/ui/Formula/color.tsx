@@ -1,6 +1,7 @@
-import { Icon } from '@brickdoc/design-system'
+import { Icon, css } from '@brickdoc/design-system'
 import { Palettes } from '@brickdoc/design-system/src/themes/ceramic-light/colors/palettes'
 import { FormulaColorType } from '@brickdoc/formula'
+import _ from 'lodash'
 
 const primary = '#35313C' // palette/type/primary
 const thirdary = '#908B9C' // palette/type/thirdary
@@ -117,6 +118,35 @@ export const FORMULA_COLOR_METAS: Record<FormulaColorType, FormulaColorMeta> = {
   Waiting: defaultColorMeta,
   NoPersist: defaultColorMeta
 }
+
+export const FORMULA_STYLES = _.mapValues(FORMULA_COLOR_METAS, ({ colorMain, color1, color2, color3 }) => {
+  return css({
+    color: colorMain,
+    fontFamily: 'Fira Code',
+    backgroundColor: color1,
+    border: '1px solid',
+    '&:hover': {
+      color: colorMain,
+      borderColor: color2,
+      backgroundColor: color2
+    },
+    '&:focus, &:active': {
+      color: colorMain,
+      borderColor: color3,
+      backgroundColor: color3
+    },
+    variants: {
+      selected: {
+        true: {
+          borderColor: colorMain
+        },
+        false: {
+          borderColor: color1
+        }
+      }
+    }
+  })
+})
 
 const defaultIcon = <Icon.Function />
 export const FORMULA_ICONS: Record<FormulaColorType, JSX.Element> = {

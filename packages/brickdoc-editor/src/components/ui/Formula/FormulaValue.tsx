@@ -1,9 +1,9 @@
 import { FC, ReactElement } from 'react'
 import { resultToColorType, VariableDisplayData } from '@brickdoc/formula'
 import './Formula.less'
-import { css, cx, Icon, Tooltip } from '@brickdoc/design-system'
+import { cx, Icon, Tooltip } from '@brickdoc/design-system'
 import { SelectedType } from '../../blockViews/FormulaView'
-import { FORMULA_COLOR_METAS, FORMULA_ICONS } from './color'
+import { FORMULA_COLOR_METAS, FORMULA_ICONS, FORMULA_STYLES } from './color'
 
 export interface FormulaValueProps {
   displayData: VariableDisplayData
@@ -23,7 +23,7 @@ export const FormulaValue: FC<FormulaValueProps> = ({
   displayData: { result, type }
 }) => {
   const colorType = resultToColorType(result)
-  const { colorMain, color1, color2, color3, colorCode } = FORMULA_COLOR_METAS[colorType]
+  const { colorCode } = FORMULA_COLOR_METAS[colorType]
   const icon = FORMULA_ICONS[colorType]
   const hasBorder = type === 'normal' && border
 
@@ -35,23 +35,7 @@ export const FormulaValue: FC<FormulaValueProps> = ({
     )
   }
 
-  const formulaStyle = css({
-    color: colorMain,
-    fontFamily: 'Fira Code',
-    backgroundColor: color1,
-    border: '1px solid',
-    borderColor: selected ? colorMain : color1,
-    '&:hover': {
-      color: colorMain,
-      borderColor: color2,
-      backgroundColor: color2
-    },
-    '&:focus, &:active': {
-      color: colorMain,
-      borderColor: color3,
-      backgroundColor: color3
-    }
-  })
+  const formulaStyle = FORMULA_STYLES[colorType]({ selected: !!selected })
 
   // eslint-disable-next-line no-nested-ternary
   const finalDisplay = result.type === 'boolean' ? (result.result ? '✓' : '✗') : display
@@ -61,7 +45,7 @@ export const FormulaValue: FC<FormulaValueProps> = ({
   switch (result.type) {
     case 'Error':
       data = (
-        <span className={cx(formulaStyle(), 'brickdoc-formula-error')}>
+        <span className={cx(formulaStyle, 'brickdoc-formula-error')}>
           <Icon.Formula className="brickdoc-formula-error-icon" />
         </span>
       )
@@ -69,14 +53,14 @@ export const FormulaValue: FC<FormulaValueProps> = ({
     case 'Waiting':
     case 'Pending':
       data = (
-        <span className={cx(formulaStyle(), 'brickdoc-formula-pending')}>
+        <span className={cx(formulaStyle, 'brickdoc-formula-pending')}>
           <Icon.Formula className="brickdoc-formula-pending-icon" />
         </span>
       )
       break
     default:
       data = (
-        <span className={cx(formulaStyle(), 'brickdoc-formula-normal')}>
+        <span className={cx(formulaStyle, 'brickdoc-formula-normal')}>
           <span className="brickdoc-formula-normal-icon">{icon}</span>
           <span className="brickdoc-formula-normal-display">{finalDisplay}</span>
         </span>
