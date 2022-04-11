@@ -2,6 +2,8 @@ import { theme, utils, styled } from '@brickdoc/design-system'
 
 export const PageContainer = styled('div', {
   height: '100vh',
+  overflowY: 'auto',
+  overflowX: 'hidden',
   ...utils.mixins.refractionSecondary,
   ...utils.mixins.ceramicSecondary,
   padding: '5rem 7rem 0'
@@ -122,9 +124,6 @@ export const Item = styled('li', {
       title: {
         fontSize: '0.875rem',
         background: 'transparent',
-        '&::after': {
-          background: theme.colors.dividerOverlayPrimary
-        },
         [Action.toString()]: {
           opacity: 1
         }
@@ -162,6 +161,8 @@ export const SelectedBar = styled(Item, {
   height: '5rem',
   background: theme.colors.overlaySecondary,
   padding: '0 0.5rem 0 0',
+  position: 'sticky',
+  bottom: 0,
   borderRadius: 4,
   '&:hover': {
     backgroundColor: theme.colors.overlaySecondary
@@ -169,5 +170,9 @@ export const SelectedBar = styled(Item, {
   [Action.toString()]: {
     flex: 4,
     opacity: 1
+  },
+  button: {
+    paddingLeft: '0.5rem',
+    paddingRight: '0.5rem'
   }
 })

@@ -61,7 +61,7 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
     const input: BlockRestoreInput = { ids: [block.id] }
     await blockRestore({ variables: { input } })
     client.cache.modify({
-      id: client.cache.identify({ __typename: 'BlockInfo', ids: [block.id] }),
+      id: client.cache.identify({ __typename: 'BlockInfo', id: block.id }),
       fields: {
         isDeleted() {
           return false
@@ -140,7 +140,8 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
       </Action>
       <ConfirmDialog
         confirmBtnProps={{
-          loading: hardDeleteConfirmLoading
+          loading: hardDeleteConfirmLoading,
+          danger: true
         }}
         confirmBtnText={t('trash.delete_confirmation_ok')}
         cancelBtnText={t('trash.delete_confirmation_cancel')}

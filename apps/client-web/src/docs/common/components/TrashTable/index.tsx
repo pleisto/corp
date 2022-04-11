@@ -1,5 +1,5 @@
 import { Input, theme } from '@brickdoc/design-system'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDocsI18n } from '../../hooks'
 import { PageTrash } from './TrashList'
 import * as Root from './Trash.style'
@@ -14,15 +14,25 @@ interface TrashTableProps {
 export const TrashTable: React.FC<TrashTableProps> = ({ docMeta }) => {
   const [keyword, setSearchKeyword] = useState<string>('')
   const { t } = useDocsI18n()
-
+  const ref = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    const handleMetaK = (e: KeyboardEvent): void => {
+      if (e.key === 'k' && e.metaKey) {
+        ref.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleMetaK)
+    return () => document.removeEventListener('keydown', handleMetaK)
+  }, [])
   return (
     <Root.PageContainer>
       <Root.Title>
         <h1>{t('trash.name')}</h1>
         <Input
+          ref={ref}
           css={{ width: 368, height: 32, background: theme.colors.ceramicQuaternary }}
           placeholder={t('trash.search')}
-          suffix={<Root.InputSuffix>⌘+P</Root.InputSuffix>}
+          suffix={<Root.InputSuffix>⌘+K</Root.InputSuffix>}
           onChange={e => setSearchKeyword(e.target.value)}
         />
       </Root.Title>
