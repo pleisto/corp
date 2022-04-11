@@ -45,7 +45,6 @@
     "@tiptap/extension-unique-id": "^2.0.0-beta.4",
     "@tiptap/react": "^2.0.0-beta.108",
     "@tiptap/suggestion": "^2.0.0-beta.90",
-    "lib0": "^0.2.49",
     "popper-max-size-modifier": "^0.2.0",
     "re-resizable": "^6.9.5",
     "react-dnd": "^16.0.0",

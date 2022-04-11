@@ -1976,7 +1976,6 @@ __metadata:
     "@tiptap/suggestion": ^2.0.0-beta.90
     "@types/react-pdf": ^5.0.9
     i18next: ^21.6.15
-    lib0: ^0.2.49
     popper-max-size-modifier: ^0.2.0
     re-resizable: ^6.9.5
     react: ^17.0.2
