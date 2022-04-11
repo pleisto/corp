@@ -3,7 +3,7 @@ import { Skeleton, devLog } from '@brickdoc/design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import { useSyncProvider } from './hooks'
+import { useSyncProvider, useDocSyncProvider } from './hooks'
 import { blocksToJSONContents } from '../common/blocks'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
@@ -34,7 +34,9 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   )
 
   // rootBlock
-  const { data, loading, onDocSave, ydoc, initBlocksToEditor } = useSyncProvider(queryVariables)
+  const { data, loading, onDocSave } = useSyncProvider(queryVariables)
+
+  const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id })
 
   const freeze = mode === 'presentation'
   // const currentRootBlock = rootBlock.current
