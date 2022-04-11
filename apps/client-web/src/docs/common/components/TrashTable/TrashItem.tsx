@@ -58,10 +58,10 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
 
   const onRestore = async (): Promise<void> => {
     setRestoreButtonLoading(true)
-    const input: BlockRestoreInput = { id: block.id }
+    const input: BlockRestoreInput = { ids: [block.id] }
     await blockRestore({ variables: { input } })
     client.cache.modify({
-      id: client.cache.identify({ __typename: 'BlockInfo', id: block.id }),
+      id: client.cache.identify({ __typename: 'BlockInfo', ids: [block.id] }),
       fields: {
         isDeleted() {
           return false
@@ -78,7 +78,7 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
 
   const onConfirmDelete = async (): Promise<void> => {
     setHardDeleteConfirmLoading(true)
-    const input: BlockHardDeleteInput = { id: block.id }
+    const input: BlockHardDeleteInput = { ids: [block.id] }
     await blockHardDelete({ variables: { input } })
     setHardDeleteModalVisible(false)
     setHardDeleteConfirmLoading(false)
