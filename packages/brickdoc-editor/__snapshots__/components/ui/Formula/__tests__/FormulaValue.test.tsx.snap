@@ -3,7 +3,7 @@
 exports[`FormulaValue renders Error type correctly 1`] = `
 <div>
   <span
-    class="brd-c-eguIdc brickdoc-formula-error"
+    class="brd-c-kQpcaB brickdoc-formula-error"
   >
     <span
       aria-label="formula"
@@ -30,7 +30,7 @@ exports[`FormulaValue renders Error type correctly 1`] = `
 exports[`FormulaValue renders Number type correctly 1`] = `
 <div>
   <span
-    class="brd-c-fpQzbi brickdoc-formula-normal"
+    class="brd-c-iUaTUt brickdoc-formula-normal"
   >
     <span
       class="brickdoc-formula-normal-icon"
@@ -73,7 +73,7 @@ exports[`FormulaValue renders Number type correctly 1`] = `
 exports[`FormulaValue renders Waiting/Pending type correctly 1`] = `
 <div>
   <span
-    class="brd-c-fXKgdt brickdoc-formula-pending"
+    class="brd-c-dSPVGR brickdoc-formula-pending"
   >
     <span
       aria-label="formula"

@@ -60,46 +60,44 @@ export const COLOR: ColorMeta[] = [
     label: 'Purplish Red'
   }
 ]
+
+const primary = '#35313C' // palette/type/primary
+const thirdary = '#908B9C' // palette/type/thirdary
 export interface FormulaColorMeta {
   colorMain: string
-  colorSecond: string
-  label: string
+  colorCode: string
   color1: string
   color2: string
   color3: string
 }
 
 const defaultColorMeta: FormulaColorMeta = {
-  colorMain: '#908B9C',
-  colorSecond: '#908B9C',
-  label: 'palette/bg/primary',
+  colorMain: primary,
+  colorCode: '#908B9C',
   color1: '#F9F9F9',
   color2: '#F0F0F0',
   color3: '#F0F0F0'
 }
 
 const blueColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.blue6,
-  colorSecond: Palettes.blue8,
-  label: 'palette/hue/blue/6',
+  colorMain: primary,
+  colorCode: Palettes.blue6,
   color1: Palettes.blue1,
   color2: Palettes.blue2,
   color3: Palettes.blue3
 }
 
 const cyanColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.cyan6,
-  colorSecond: Palettes.cyan9,
-  label: 'palette/hue/cyan/6',
+  colorMain: primary,
+  colorCode: Palettes.cyan6,
   color1: Palettes.cyan1,
   color2: Palettes.cyan2,
   color3: Palettes.cyan3
 }
 
 const greenColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.green8,
-  colorSecond: Palettes.green9,
-  label: 'palette/hue/green/8',
+  colorMain: primary,
+  colorCode: Palettes.green6,
   color1: Palettes.green1,
   color2: Palettes.green2,
   color3: Palettes.green3
@@ -107,41 +105,37 @@ const greenColorMeta: FormulaColorMeta = {
 
 const pinkColorMeta: FormulaColorMeta = {
   colorMain: Palettes.pink6,
-  colorSecond: Palettes.pink9,
-  label: 'palette/hue/pink/6',
+  colorCode: Palettes.pink6,
   color1: Palettes.pink1,
   color2: Palettes.pink2,
   color3: Palettes.pink3
 }
 
 const redColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.red7,
-  colorSecond: Palettes.red9,
-  label: 'palette/hue/red/7',
+  colorMain: primary,
+  colorCode: Palettes.red7,
   color1: Palettes.red1,
   color2: Palettes.red2,
   color3: Palettes.red3
 }
 
 const purpleColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.purple5,
-  colorSecond: Palettes.purple8,
-  label: 'palette/hue/purple/5',
+  colorMain: primary,
+  colorCode: Palettes.purple5,
   color1: Palettes.purple1,
   color2: Palettes.purple2,
   color3: Palettes.purple3
 }
 
 const orangeColorMeta: FormulaColorMeta = {
-  colorMain: Palettes.orange8,
-  colorSecond: Palettes.orange9,
-  label: 'palette/hue/orange/8',
+  colorMain: primary,
+  colorCode: Palettes.orange7,
   color1: Palettes.orange1,
   color2: Palettes.orange2,
   color3: Palettes.orange3
 }
 
-export const FORMULA_COLORS: Record<FormulaColorType, FormulaColorMeta> = {
+export const FORMULA_COLOR_METAS: Record<FormulaColorType, FormulaColorMeta> = {
   null: purpleColorMeta,
   number: cyanColorMeta,
   string: pinkColorMeta,
@@ -158,7 +152,7 @@ export const FORMULA_COLORS: Record<FormulaColorType, FormulaColorMeta> = {
   Block: blueColorMeta,
   Spreadsheet: blueColorMeta,
   Function: orangeColorMeta,
-  Blank: greenColorMeta,
+  Blank: { ...greenColorMeta, colorCode: thirdary },
   Predicate: cyanColorMeta,
   Button: blueColorMeta,
 

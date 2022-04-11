@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { resultToColorType, VariableDisplayData } from '@brickdoc/formula'
 import './Formula.less'
-import { FORMULA_COLORS, FORMULA_ICONS } from '../../../helpers'
+import { FORMULA_COLOR_METAS, FORMULA_ICONS } from '../../../helpers'
 import { css, cx, Icon, Tooltip } from '@brickdoc/design-system'
 import { SelectedType } from '../../blockViews/FormulaView'
 
@@ -23,13 +23,13 @@ export const FormulaValue: FC<FormulaValueProps> = ({
   displayData: { result, type }
 }) => {
   const colorType = resultToColorType(result)
-  const { colorMain, colorSecond, color1, color2, color3 } = FORMULA_COLORS[colorType]
+  const { colorMain, color1, color2, color3, colorCode } = FORMULA_COLOR_METAS[colorType]
   const icon = FORMULA_ICONS[colorType]
   const hasBorder = type === 'normal' && border
 
   if (!hasBorder) {
     return (
-      <span className="brickdoc-formula-borderless" style={{ color: colorMain, fontFamily: 'Fira Code' }}>
+      <span className="brickdoc-formula-borderless" style={{ color: colorCode, fontFamily: 'Fira Code' }}>
         {display}
       </span>
     )
@@ -40,14 +40,14 @@ export const FormulaValue: FC<FormulaValueProps> = ({
     fontFamily: 'Fira Code',
     backgroundColor: color1,
     border: '1px solid',
-    borderColor: selected ? colorSecond : color2,
+    borderColor: selected ? colorMain : color1,
     '&:hover': {
-      color: colorSecond,
-      borderColor: color3,
+      color: colorMain,
+      borderColor: color2,
       backgroundColor: color2
     },
     '&:focus, &:active': {
-      color: colorSecond,
+      color: colorMain,
       borderColor: color3,
       backgroundColor: color3
     }
