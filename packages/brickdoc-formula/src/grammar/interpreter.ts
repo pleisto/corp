@@ -3,8 +3,6 @@
 import { CstElement, CstNode, IToken } from 'chevrotain'
 import {
   AnyTypeResult,
-  NullResult,
-  SpreadsheetResult,
   NumberResult,
   BooleanResult,
   PredicateResult,
@@ -13,7 +11,7 @@ import {
   FunctionContext,
   FormulaType,
   ExpressionType,
-  BlockResult
+  EventDependency
 } from '../types'
 import { extractSubType, parseString, runtimeCheckType, shouldReturnEarly } from './util'
 import { buildFunctionKey } from '../functions'
@@ -23,6 +21,7 @@ import {
   additionOperator,
   argumentsOperator,
   arrayOperator,
+  blockOperator,
   chainOperator,
   combineOperator,
   compareOperator,
@@ -36,7 +35,9 @@ import {
   predicateOperator,
   rangeOperator,
   recordFieldOperator,
-  recordOperator
+  recordOperator,
+  thisRecordOperator,
+  thisRowOperator
 } from './operations'
 import { interpretByOperator } from './operator'
 
@@ -54,6 +55,7 @@ const InterpretCstVisitor = ParserInstance.getBaseCstVisitorConstructor<Interpre
 export class FormulaInterpreter extends InterpretCstVisitor {
   ctx: FunctionContext
   lazy: boolean = false
+  runtimeEventDependencies: EventDependency[] = []
 
   constructor({ ctx }: { ctx: FunctionContext }) {
     super()
@@ -154,6 +156,17 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     })
   }
 
+  async accessExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.LBracket,
+      args,
+      operator: accessOperator,
+      rhs: ctx.rhs,
+      lhs: ctx.lhs
+    })
+  }
+
   async notExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
     return await interpretByOperator({
       interpreter: this,
@@ -182,17 +195,6 @@ export class FormulaInterpreter extends InterpretCstVisitor {
       operators: ctx.Dot,
       args,
       operator: chainOperator,
-      rhs: ctx.rhs,
-      lhs: ctx.lhs
-    })
-  }
-
-  async accessExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
-    return await interpretByOperator({
-      interpreter: this,
-      operators: ctx.LBracket,
-      args,
-      operator: accessOperator,
       rhs: ctx.rhs,
       lhs: ctx.lhs
     })
@@ -369,30 +371,15 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     }
   }
 
-  async blockExpression(
-    ctx: any,
-    args: InterpretArgument
-  ): Promise<NullResult | SpreadsheetResult | BlockResult | ErrorResult> {
-    let namespaceId
-    if (ctx.UUID) {
-      namespaceId = ctx.UUID[0].image
-    } else if (ctx.CurrentBlock) {
-      namespaceId = this.ctx.meta.namespaceId
-    } else {
-      throw new Error('unsupported expression')
-    }
-
-    const block = this.ctx.formulaContext.findBlockById(namespaceId)
-
-    if (block) {
-      const parentType: FormulaType = 'Block'
-      const typeError = runtimeCheckType(args, parentType, 'blockExpression', this.ctx)
-      if (shouldReturnEarly(typeError)) return typeError!
-
-      return { type: 'Block', result: block }
-    }
-
-    return { type: 'null', result: null }
+  async blockExpression(ctx: any, args: InterpretArgument): Promise<AnyTypeResult> {
+    return await interpretByOperator({
+      interpreter: this,
+      operators: ctx.UUID ?? ctx.CurrentBlock,
+      args,
+      operator: blockOperator,
+      rhs: undefined,
+      lhs: undefined
+    })
   }
 
   // TODO runtime type check
@@ -407,6 +394,24 @@ export class FormulaInterpreter extends InterpretCstVisitor {
     if (ctx.Self) {
       // TODO runtime type check
       return { type: 'Reference', result: { kind: 'self' } }
+    } else if (ctx.ThisRow) {
+      return await interpretByOperator({
+        interpreter: this,
+        operators: ctx.ThisRow,
+        args,
+        operator: thisRowOperator,
+        rhs: undefined,
+        lhs: undefined
+      })
+    } else if (ctx.ThisRecord) {
+      return await interpretByOperator({
+        interpreter: this,
+        operators: ctx.ThisRecord,
+        args,
+        operator: thisRecordOperator,
+        rhs: undefined,
+        lhs: undefined
+      })
     } else if (ctx.LambdaArgumentNumber) {
       // TODO runtime type check
       const number = Number(ctx.LambdaArgumentNumber[0].image.substring(1))

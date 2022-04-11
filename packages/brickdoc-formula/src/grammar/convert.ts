@@ -19,7 +19,7 @@ import {
   SpreadsheetKey,
   ColumnCompletion
 } from '../types'
-import { BlockType, ColumnType, SpreadsheetType } from '../controls'
+import { BlockType, ColumnType, RowType, SpreadsheetType } from '../controls'
 import { maybeEncodeString, parseString, reverseTraversalString } from './util'
 import { fetchResult } from '../context'
 
@@ -37,28 +37,40 @@ const block2attrs = (block: BlockType, pageId: NamespaceId): CodeFragmentAttrs =
   kind: 'Block',
   namespaceId: block.id,
   id: block.id,
-  name: block.name(pageId)
+  name: block.name(pageId),
+  findKey: { namespaceId: block.id, type: 'id', value: block.id }
 })
 
 export const variable2attrs = (variable: VariableInterface): CodeFragmentAttrs => ({
   kind: 'Variable',
   namespaceId: variable.t.namespaceId,
   id: variable.t.variableId,
-  name: variable.t.name
+  name: variable.t.name,
+  findKey: { namespaceId: variable.t.namespaceId, type: 'id', value: variable.t.variableId }
 })
 
 export const spreadsheet2attrs = (spreadsheet: SpreadsheetType): CodeFragmentAttrs => ({
   kind: 'Spreadsheet',
   namespaceId: spreadsheet.namespaceId,
   id: spreadsheet.spreadsheetId,
-  name: spreadsheet.name()
+  name: spreadsheet.name(),
+  findKey: { namespaceId: spreadsheet.namespaceId, type: 'id', value: spreadsheet.spreadsheetId }
 })
 
 export const column2attrs = (column: ColumnType): CodeFragmentAttrs => ({
   kind: column.logic ? 'LogicColumn' : 'Column',
   namespaceId: column.spreadsheet.spreadsheetId,
   id: column.columnId,
-  name: column.logic ? column.displayIndex : column.name
+  name: column.display(),
+  findKey: column.findKey
+})
+
+export const row2attrs = (row: RowType): CodeFragmentAttrs => ({
+  kind: row.logic ? 'LogicRow' : 'Row',
+  namespaceId: row.spreadsheetId,
+  id: row.rowId,
+  name: row.display(),
+  findKey: row.findKey
 })
 
 const renderText = ({ code, display }: CodeFragment, text: string, value: string): string => {
@@ -133,7 +145,8 @@ export const codeFragment2display = (
     code === 'Spreadsheet' &&
     prevText !== '.' &&
     pageId === attrs.namespaceId &&
-    !value.startsWith('#CurrentBlock')
+    !value.startsWith('#CurrentBlock') &&
+    !text.toUpperCase().startsWith('THISRECORD')
   ) {
     return `#CurrentBlock.${finalText}`
   }
@@ -154,12 +167,23 @@ export const block2codeFragment = (block: BlockType, pageId: NamespaceId): CodeF
 export const column2codeFragment = (column: ColumnType, pageId: NamespaceId): CodeFragment => {
   // const value = columnKey(column.namespaceId, column.columnId)
   return {
-    display: column.logic ? column.displayIndex : column.name,
+    display: column.display(),
     errors: [],
     code: 'Column',
     type: 'Column',
     hide: false,
     attrs: column2attrs(column)
+  }
+}
+
+export const row2codeFragment = (row: RowType, pageId: NamespaceId): CodeFragment => {
+  return {
+    display: row.display(),
+    errors: [],
+    code: 'Row',
+    type: 'Row',
+    hide: false,
+    attrs: row2attrs(row)
   }
 }
 
@@ -289,12 +313,6 @@ export const attrs2completion = (
     if (!variable) return undefined
     return variable2completion(variable, pageId)
   }
-
-  // if (kind === 'Spreadsheet') {
-  //   const spreadsheet = formulaContext.findSpreadsheetById(id)
-  //   if (!spreadsheet) return undefined
-  //   return spreadsheet2completion(spreadsheet, pageId)
-  // }
 
   return undefined
 }

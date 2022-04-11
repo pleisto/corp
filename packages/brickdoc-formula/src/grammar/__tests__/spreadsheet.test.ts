@@ -1,6 +1,7 @@
+/* eslint-disable jest/no-conditional-expect */
 import { parse, innerInterpret } from '../core'
 import { FormulaContext } from '../../context'
-import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, CellType } from '../../controls'
+import { Row, ColumnInitializer, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
 import { VariableMetadata } from '../../types'
 import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
 
@@ -17,7 +18,23 @@ const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
 const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
 const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
 
-const meta: VariableMetadata = { namespaceId, variableId, name: 'example', input: '=!!!', position: 0, type: 'normal' }
+const meta: VariableMetadata = {
+  namespaceId,
+  variableId,
+  name: 'example',
+  input: '=!!!',
+  position: 0,
+  richType: { type: 'normal' }
+}
+
+const spreadsheetMeta: VariableMetadata = {
+  namespaceId,
+  variableId,
+  name: 'example',
+  input: '=!!!',
+  position: 0,
+  richType: { type: 'spreadsheet', meta: { spreadsheetId, columnId: firstColumnId, rowId: firstRowId } }
+}
 
 const rows: Row[] = [
   { rowId: firstRowId, rowIndex: 0, spreadsheetId },
@@ -54,8 +71,9 @@ const columns: ColumnInitializer[] = [
   }
 ]
 
-const cells: CellType[] = [
+const cells: Cell[] = [
   {
+    namespaceId,
     rowId: firstRowId,
     spreadsheetId,
     rowIndex: 0,
@@ -66,6 +84,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: firstRowId,
     spreadsheetId,
     rowIndex: 0,
@@ -76,6 +95,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: firstRowId,
     spreadsheetId,
     rowIndex: 0,
@@ -86,6 +106,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: secondRowId,
     spreadsheetId,
     rowIndex: 1,
@@ -96,6 +117,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: secondRowId,
     spreadsheetId,
     rowIndex: 1,
@@ -106,6 +128,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: secondRowId,
     spreadsheetId,
     rowIndex: 1,
@@ -116,6 +139,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: thirdRowId,
     spreadsheetId,
     rowIndex: 2,
@@ -126,6 +150,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: thirdRowId,
     spreadsheetId,
     rowIndex: 2,
@@ -136,6 +161,7 @@ const cells: CellType[] = [
     cellId: ''
   },
   {
+    namespaceId,
     rowId: thirdRowId,
     spreadsheetId,
     rowIndex: 2,
@@ -172,22 +198,189 @@ interface TestCase {
 }
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
+const CELL_FLAG = '<CELL>'
+const ROW_FLAG = '<ROW>'
+const COLUMN_FLAG = '<COLUMN>'
+const RANGE_FLAG = '<RANGE>'
+
+const spreadsheetTestCases: TestCase[] = [
+  {
+    label: 'thisrow',
+    input: `=thisrow`,
+    value: [ROW_FLAG, firstRowId]
+  },
+  {
+    label: 'thisRow B',
+    input: `=ThisRow.B`,
+    value: [CELL_FLAG, 1]
+  },
+  {
+    label: 'thisRow [B]',
+    input: `=ThisRow["B"]`,
+    value: [CELL_FLAG, 1]
+  },
+  {
+    label: 'thisRow second',
+    input: `=ThisRow.second`,
+    value: [CELL_FLAG, 1]
+  },
+  {
+    label: 'thisRow [second]',
+    input: `=ThisRow["second"]`,
+    value: [CELL_FLAG, 1]
+  },
+  {
+    label: 'thisRow [second] + 1',
+    input: `=ThisRow["second"] + 1`,
+    value: 3
+  },
+  {
+    label: 'thisRow A',
+    input: `=ThisRow.A`,
+    error: 'Circular dependency found'
+  },
+  {
+    label: 'ThisRecord 1',
+    input: `=ThisRecord`,
+    value: spreadsheet
+  },
+  {
+    label: 'ThisRecord A.1',
+    input: `=ThisRecord.A.1`,
+    error: 'Circular dependency found'
+  },
+  {
+    label: 'ThisRecord B.1',
+    input: `=ThisRecord.B.1`,
+    value: [CELL_FLAG, 1]
+  }
+]
 
 const testCases: TestCase[] = [
   {
     label: 'column',
     input: `=${spreadsheetToken}."first"`,
-    value: SNAPSHOT_FLAG
+    value: [COLUMN_FLAG, firstColumnId]
+  },
+  {
+    label: 'column 2',
+    input: `=${spreadsheetToken}["first"]`,
+    value: [COLUMN_FLAG, firstColumnId]
+  },
+  {
+    label: 'column logic',
+    input: `=${spreadsheetToken}.A`,
+    value: [COLUMN_FLAG, 'A']
+  },
+  {
+    label: 'column unknown',
+    input: `=${spreadsheetToken}.Z`,
+    error: `Column "Z" not found`
+  },
+  {
+    label: 'row 1 TODO',
+    input: `=${spreadsheetToken}.1`,
+    value: [ROW_FLAG, '1']
+  },
+  {
+    label: 'row 1 2 TODO',
+    input: `=${spreadsheetToken}[1]`,
+    value: [ROW_FLAG, '1']
+  },
+  {
+    label: 'row 100',
+    input: `=${spreadsheetToken}.100`,
+    error: 'Row "100" not found'
+  },
+  {
+    label: 'thisRow outside',
+    input: `=ThisRow`,
+    error: `thisRow is only available in spreadsheet`
+  },
+  {
+    label: 'thisRecord outside',
+    input: `=ThisRecord`,
+    error: `thisRecord is only available in spreadsheet`
+  },
+  {
+    label: 'cell 1.1 A',
+    input: `=${spreadsheetToken}.1.A`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.1 A * 3 + 1',
+    input: `=${spreadsheetToken}.1.A * 3 + 1`,
+    value: 4
+  },
+  {
+    label: 'cell 1.[1] A',
+    input: `=${spreadsheetToken}[1].A`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 1.1 first',
+    input: `=${spreadsheetToken}.1.first`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.[1] first',
+    input: `=${spreadsheetToken}[1].first`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 1.1 [A]',
+    input: `=${spreadsheetToken}.1["A"]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.[1] [A]',
+    input: `=${spreadsheetToken}[1]["A"]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.1 [first]',
+    input: `=${spreadsheetToken}.1["first"]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell 1.[1] [first]',
+    input: `=${spreadsheetToken}[1]["first"]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell logic',
+    input: `=${spreadsheetToken}.A.1`,
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell',
     input: `=${spreadsheetToken}."first".1`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell access',
     input: `=${spreadsheetToken}."first"[1]`,
-    value: cells[0]
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell logic 2',
+    input: `=${spreadsheetToken}["A"][1]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell logic 3',
+    input: `=${spreadsheetToken}["A"].1`,
+    error: 'Not all input parsed: .'
+  },
+  {
+    label: 'cell 2',
+    input: `=${spreadsheetToken}["first"][1]`,
+    value: [CELL_FLAG, 0]
+  },
+  {
+    label: 'cell access 2',
+    input: `=${spreadsheetToken}["first"][1]`,
+    value: [CELL_FLAG, 0]
   },
   {
     label: 'cell error1',
@@ -202,7 +395,7 @@ const testCases: TestCase[] = [
   {
     label: 'Range 1',
     input: `=${spreadsheetToken}.first.1:${spreadsheetToken}.first.2`,
-    value: SNAPSHOT_FLAG
+    value: RANGE_FLAG
   },
   { label: 'in spreadsheet true', input: `=3 in ${spreadsheetToken}`, value: true },
   { label: 'toArray', input: `=${spreadsheetToken}.toArray()`, value: SNAPSHOT_FLAG },
@@ -316,26 +509,63 @@ describe('Spreadsheet Functions', () => {
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 
-  testCases.forEach(({ input, label, value, error }) => {
-    it(`[${label}] ${input}`, async () => {
-      const newMeta = { ...meta, input }
+  spreadsheetTestCases.forEach(({ input, label, value, error }) => {
+    it(`Spreadsheet [${label}] ${input}`, async () => {
+      const newMeta = { ...spreadsheetMeta, input }
       const newCtx = { ...ctx, meta: newMeta }
       const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages } = parseResult
+      const { codeFragments, errorMessages, eventDependencies } = parseResult
       expect(codeFragments).toMatchSnapshot()
+      expect(eventDependencies).toMatchSnapshot()
 
       if (error) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(errorMessages[0]?.message).toEqual(error)
         return
       }
       expect(errorMessages).toEqual([])
       const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
       if (value === SNAPSHOT_FLAG) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(result).toMatchSnapshot()
+      } else if (value === RANGE_FLAG) {
+        expect([(result as any).rowIds, (result as any).columnIds]).toMatchSnapshot()
+      } else if (Array.isArray(value) && value[0] === ROW_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
+        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
+        expect(result).toEqual(value)
+      }
+    })
+  })
+
+  testCases.forEach(({ input, label, value, error }) => {
+    it(`[${label}] ${input}`, async () => {
+      const newMeta = { ...meta, input }
+      const newCtx = { ...ctx, meta: newMeta }
+      const parseResult = parse({ ctx: newCtx })
+      const { codeFragments, errorMessages, eventDependencies } = parseResult
+      expect(codeFragments).toMatchSnapshot()
+      expect(eventDependencies).toMatchSnapshot()
+
+      if (error) {
+        expect(errorMessages[0]?.message).toEqual(error)
+        return
+      }
+      expect(errorMessages).toEqual([])
+      const result = (await innerInterpret({ parseResult, ctx: newCtx })).result.result
+      if (value === SNAPSHOT_FLAG) {
+        expect(result).toMatchSnapshot()
+      } else if (value === RANGE_FLAG) {
+        expect([(result as any).rowIds, (result as any).columnIds]).toMatchSnapshot()
+      } else if (Array.isArray(value) && value[0] === ROW_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
+        expect((result as any).key()).toEqual(value[1])
+      } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
+        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
+      } else {
         expect(result).toEqual(value)
       }
     })
@@ -364,7 +594,7 @@ describe('Spreadsheet Functions', () => {
           name: 'foo',
           input: input1,
           position: 0,
-          type: 'normal'
+          richType: { type: 'normal' }
         }
       },
       position: input1.length

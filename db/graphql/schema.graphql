@@ -1262,6 +1262,11 @@ type Formula {
   id: UUID!
 
   """
+  meta
+  """
+  meta: JSON!
+
+  """
   formula name
   """
   name: String!
@@ -1347,6 +1352,11 @@ input FormulaModifyInput {
   id
   """
   id: UUID!
+
+  """
+  meta
+  """
+  meta: JSON!
 
   """
   name

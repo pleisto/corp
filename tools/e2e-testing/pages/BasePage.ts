@@ -2,10 +2,7 @@ import { COMMON_SELECTORS } from '@/selectors/common'
 import { Locator, Page } from '@playwright/test'
 
 export class BasePage {
-  public readonly page
-  constructor(page: Page) {
-    this.page = page
-  }
+  constructor(readonly page: Page) {}
 
   getTooltip(): Locator {
     return this.page.locator(COMMON_SELECTORS.tooltip)
@@ -21,7 +18,6 @@ export class BasePage {
   }
 
   async waitForResponseWithAction(operationName: string, actionFn: Promise<void>): Promise<void> {
-    await actionFn
-    await this.waitForResponse(operationName)
+    await Promise.all([this.waitForResponse(operationName), actionFn])
   }
 }

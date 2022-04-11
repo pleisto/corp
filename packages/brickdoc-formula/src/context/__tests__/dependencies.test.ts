@@ -32,7 +32,7 @@ const metas: VariableMetadata[] = [
 ].map(({ name, input }) => ({
   name,
   namespaceId,
-  type: 'normal',
+  richType: { type: 'normal' },
   position: 0,
   variableId: variableWithNames.find(v => v.name === name)!.variableId,
   input: input.replace(/\$([a-zA-Z0-9_-]+)/g, (a, variableName): string => {
@@ -80,7 +80,7 @@ describe('Dependency', () => {
       name: 'num0',
       input,
       position: 0,
-      type: 'normal'
+      richType: { type: 'normal' }
     }
     const { errorMessages } = parse({ ctx: { formulaContext, meta, interpretContext } })
     expect(errorMessages).toEqual([{ message: 'Circular dependency found', type: 'circular_dependency' }])
@@ -130,7 +130,7 @@ describe('Dependency', () => {
     await new Promise(resolve => setTimeout(resolve, 50))
 
     const num4 = formulaContext.findVariableById(namespaceId, variableIds[4])!
-    expect((num4.t.task.variableValue as VariableValue).result.result).toEqual('Expected number but got boolean')
+    expect((num4.t.task.variableValue as VariableValue).result.result).toEqual('Expected number,Cell but got boolean')
 
     const num2 = formulaContext.findVariableById(namespaceId, variableIds[2])!
     expect((num2.t.task.variableValue as VariableValue).result.result).toEqual(true)
@@ -139,7 +139,7 @@ describe('Dependency', () => {
 
     // const num1 = formulaContext.findVariable(namespaceId, variableIds[1])!
     // num3 = num2 + num1 = 3
-    expect((num3.t.task.variableValue as VariableValue).result.result).toEqual('Expected number but got boolean')
+    expect((num3.t.task.variableValue as VariableValue).result.result).toEqual('Expected number,Cell but got boolean')
     jest.clearAllTimers()
   })
 
@@ -153,7 +153,7 @@ describe('Dependency', () => {
       name: 'num1',
       input,
       position: 0,
-      type: 'normal'
+      richType: { type: 'normal' }
     }
     const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } }) as SuccessParseResult
     expect(parseResult.errorMessages).toEqual([])

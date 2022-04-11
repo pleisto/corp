@@ -18,8 +18,7 @@ import {
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
 import { intersectType, parseString } from './util'
-import { block2codeFragment, codeFragment2value } from './convert'
-import { PositionFragment } from './core'
+import { block2codeFragment } from './convert'
 import {
   additionOperator,
   arrayOperator,
@@ -34,7 +33,9 @@ import {
   parenthesisOperator,
   rangeOperator,
   recordFieldOperator,
-  recordOperator
+  recordOperator,
+  thisRecordOperator,
+  thisRowOperator
 } from './operations'
 import { parseByOperator } from './operator'
 
@@ -189,6 +190,75 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     })
   }
 
+  accessExpression(ctx: any, { type }: CstVisitorArgument): CodeFragmentResult {
+    if (!ctx.LBracket) {
+      return this.visit(ctx.lhs, { type })
+    }
+
+    const codeFragments: CodeFragment[] = []
+    const images: string[] = []
+    const {
+      codeFragments: lhsCodeFragments,
+      type: lhsType,
+      image
+    }: CodeFragmentResult = this.visit(ctx.lhs, { type: 'any' })
+    codeFragments.push(...lhsCodeFragments)
+    images.push(image)
+
+    let firstArgumentType: FormulaType = lhsType
+
+    ctx.LBracket.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
+      const rhsCst = ctx.rhs?.[idx]
+      const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
+      const missingRBracketErrors: ErrorMessage[] = ctx.RBracket?.[idx]
+        ? []
+        : [{ message: 'Missing closing bracket', type: 'syntax' }]
+
+      codeFragments.push({
+        ...token2fragment(ctx.LBracket[idx], 'any'),
+        errors: [...missingRhsErrors, ...missingRBracketErrors]
+      })
+      images.push(ctx.LBracket[idx].image)
+
+      if (!rhsCst) {
+        return
+      }
+
+      // TODO type check
+      const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
+        type: 'any',
+        firstArgumentType
+      })
+
+      firstArgumentType = 'any'
+      images.push(rhsImage)
+      codeFragments.push(...rhsCodeFragments)
+
+      if (ctx.RBracket?.[idx]) {
+        codeFragments.push(token2fragment(ctx.RBracket[idx], 'any'))
+        images.push(ctx.RBracket[idx].image)
+      }
+    })
+
+    if (codeFragments.find(c => c.errors.length > 0)) {
+      return {
+        image: images.join(''),
+        codeFragments,
+        type: firstArgumentType
+      }
+    }
+
+    const { errorMessages, newType } = intersectType(type, firstArgumentType, 'accessExpression', this.ctx)
+    return {
+      image: images.join(''),
+      codeFragments: codeFragments.map(codeFragment => ({
+        ...codeFragment,
+        errors: [...codeFragment.errors, ...errorMessages]
+      })),
+      type: newType
+    }
+  }
+
   rangeExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
     return parseByOperator({
       cstVisitor: this,
@@ -280,7 +350,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Spreadsheet') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findSpreadsheetById(attrs.id)
+            object = this.ctx.formulaContext.findSpreadsheet(attrs.findKey)
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Spreadsheet not found' })
@@ -290,10 +360,20 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         if (firstArgumentType === 'Column') {
           const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
           if (attrs) {
-            object = this.ctx.formulaContext.findColumnById(attrs.namespaceId, attrs.id)
+            object = this.ctx.formulaContext.findColumn(attrs.namespaceId, attrs.findKey)
           }
           if (!object) {
             extraErrorMessages.push({ type: 'syntax', message: 'Column not found' })
+          }
+        }
+
+        if (firstArgumentType === 'Row') {
+          const attrs: CodeFragmentAttrs | undefined = codeFragments[codeFragments.length - 2]?.attrs
+          if (attrs) {
+            object = this.ctx.formulaContext.findRow(attrs.namespaceId, attrs.findKey)
+          }
+          if (!object) {
+            extraErrorMessages.push({ type: 'syntax', message: 'Row not found' })
           }
         }
 
@@ -335,75 +415,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
 
     const { errorMessages, newType } = intersectType(type, firstArgumentType, 'chainExpression', this.ctx)
-    return {
-      image: images.join(''),
-      codeFragments: codeFragments.map(codeFragment => ({
-        ...codeFragment,
-        errors: [...codeFragment.errors, ...errorMessages]
-      })),
-      type: newType
-    }
-  }
-
-  accessExpression(ctx: any, { type }: CstVisitorArgument): CodeFragmentResult {
-    if (!ctx.LBracket) {
-      return this.visit(ctx.lhs, { type })
-    }
-
-    const codeFragments: CodeFragment[] = []
-    const images: string[] = []
-    const {
-      codeFragments: lhsCodeFragments,
-      type: lhsType,
-      image
-    }: CodeFragmentResult = this.visit(ctx.lhs, { type: 'any' })
-    codeFragments.push(...lhsCodeFragments)
-    images.push(image)
-
-    let firstArgumentType: FormulaType = lhsType
-
-    ctx.LBracket.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
-      const rhsCst = ctx.rhs?.[idx]
-      const missingRhsErrors: ErrorMessage[] = rhsCst ? [] : [{ message: 'Missing expression', type: 'syntax' }]
-      const missingRBracketErrors: ErrorMessage[] = ctx.RBracket?.[idx]
-        ? []
-        : [{ message: 'Missing closing bracket', type: 'syntax' }]
-
-      codeFragments.push({
-        ...token2fragment(ctx.LBracket[idx], 'any'),
-        errors: [...missingRhsErrors, ...missingRBracketErrors]
-      })
-      images.push(ctx.LBracket[idx].image)
-
-      if (!rhsCst) {
-        return
-      }
-
-      // TODO type check
-      const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult = this.visit(rhsCst, {
-        type: 'any',
-        firstArgumentType
-      })
-
-      firstArgumentType = 'any'
-      images.push(rhsImage)
-      codeFragments.push(...rhsCodeFragments)
-
-      if (ctx.RBracket?.[idx]) {
-        codeFragments.push(token2fragment(ctx.RBracket[idx], 'any'))
-        images.push(ctx.RBracket[idx].image)
-      }
-    })
-
-    if (codeFragments.find(c => c.errors.length > 0)) {
-      return {
-        image: images.join(''),
-        codeFragments,
-        type: firstArgumentType
-      }
-    }
-
-    const { errorMessages, newType } = intersectType(type, firstArgumentType, 'accessExpression', this.ctx)
     return {
       image: images.join(''),
       codeFragments: codeFragments.map(codeFragment => ({
@@ -771,7 +782,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     }
   }
 
-  lazyVariableExpression(ctx: any, { type }: CstVisitorArgument): CodeFragmentResult {
+  lazyVariableExpression(ctx: any, args: CstVisitorArgument): CodeFragmentResult {
     if (ctx.Self) {
       return { codeFragments: [token2fragment(ctx.Self[0], 'Reference')], type: 'Reference', image: ctx.Self[0].image }
     } else if (ctx.Input) {
@@ -780,6 +791,26 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
         type: 'Record',
         image: ctx.Input[0].image
       }
+    } else if (ctx.ThisRow) {
+      return parseByOperator({
+        cstVisitor: this,
+        operators: [],
+        bodyToken: ctx.ThisRow,
+        args,
+        operator: thisRowOperator,
+        rhs: [],
+        lhs: undefined
+      })
+    } else if (ctx.ThisRecord) {
+      return parseByOperator({
+        cstVisitor: this,
+        operators: [],
+        bodyToken: ctx.ThisRecord,
+        args,
+        operator: thisRecordOperator,
+        rhs: [],
+        lhs: undefined
+      })
     } else if (ctx.LambdaArgumentNumber) {
       return {
         codeFragments: [token2fragment(ctx.LambdaArgumentNumber[0], 'Reference')],
@@ -988,80 +1019,6 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   }
 }
 
-export const hideDot = (
-  codeFragments: CodeFragment[],
-  positionFragment: PositionFragment
-): { finalCodeFragments: CodeFragment[]; finalPositionFragment: PositionFragment } => {
-  const finalCodeFragments: CodeFragment[] = []
-  let finalPositionFragment = positionFragment
-  codeFragments.forEach((c, idx) => {
-    if (c.code === 'Dot' && !c.hide) {
-      const prevCodeFragment = codeFragments[idx - 1]
-      const nextCodeFragment = codeFragments[idx + 1]
-      if (prevCodeFragment && nextCodeFragment && prevCodeFragment.code === 'Block' && prevCodeFragment.hide) {
-        const nextErrors = nextCodeFragment.errors
-        if (nextErrors.length === 0 || (nextErrors.length === 1 && nextErrors[0].type !== 'deps')) {
-          finalCodeFragments.pop()
-          if (finalPositionFragment.tokenIndex >= idx - 1) {
-            finalPositionFragment = { ...finalPositionFragment, tokenIndex: finalPositionFragment.tokenIndex - 3 }
-          }
-          return
-        }
-      }
-    }
-
-    finalCodeFragments.push(c)
-  })
-
-  // console.log({ codeFragments, finalCodeFragments, positionFragment, finalPositionFragment })
-  return { finalCodeFragments, finalPositionFragment }
-}
-
-export const addSpace = (
-  codeFragments: CodeFragment[],
-  input: string,
-  positionFragment: PositionFragment,
-  namespaceId: string
-): { finalCodeFragments: CodeFragment[]; finalPositionFragment: PositionFragment } => {
-  const finalCodeFragments: CodeFragment[] = []
-  const spaceCodeFragment: CodeFragment = {
-    code: 'Space',
-    hide: false,
-    type: 'any',
-    display: ' ',
-    errors: [],
-    attrs: undefined
-  }
-
-  let restInput = input
-  let error = false
-  let image = ''
-  codeFragments.forEach((codeFragment, idx) => {
-    let match = false
-    if (error) return
-    image = codeFragment2value(codeFragment, namespaceId)
-
-    if (restInput.startsWith(image)) {
-      finalCodeFragments.push(codeFragment)
-      restInput = restInput.substring(image.length)
-      match = true
-    }
-
-    const prefixSpaceCount = restInput.length - restInput.trimStart().length
-    if (prefixSpaceCount > 0) {
-      const spaceValue = ' '.repeat(prefixSpaceCount)
-      finalCodeFragments.push({ ...spaceCodeFragment, display: spaceValue })
-      restInput = restInput.substring(prefixSpaceCount)
-    }
-
-    if (!match) {
-      error = true
-    }
-  })
-
-  if (error) {
-    return { finalCodeFragments: codeFragments, finalPositionFragment: positionFragment }
-  }
-
-  return { finalCodeFragments, finalPositionFragment: positionFragment }
+export const isKey = ({ code }: CodeFragment): boolean => {
+  return ['StringLiteral', 'FunctionName', 'NumberLiteral'].includes(code)
 }

@@ -1,9 +1,25 @@
 import { AnyTypeResult } from '../../types'
+import { FormulaInterpreter } from '../interpreter'
 import { OperatorType } from '../operator'
 
-export const accessAttribute = async (result: AnyTypeResult, key: string): Promise<AnyTypeResult> => {
-  if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column') {
-    return await result.result.handleInterpret(key)
+const maybeTrackRuntimeDependency = (interpreter: FormulaInterpreter, result: AnyTypeResult): void => {
+  if (!(result.type === 'Spreadsheet' || result.type === 'Column' || result.type === 'Row' || result.type === 'Cell')) {
+    return
+  }
+
+  const eventDependency = result.result.eventDependency({})
+  interpreter.runtimeEventDependencies.push(eventDependency)
+}
+
+export const accessAttribute = async (
+  interpreter: FormulaInterpreter,
+  result: AnyTypeResult,
+  key: string
+): Promise<AnyTypeResult> => {
+  if (result.type === 'Block' || result.type === 'Spreadsheet' || result.type === 'Column' || result.type === 'Row') {
+    const finalResult = await result.result.handleInterpret(interpreter, key)
+    maybeTrackRuntimeDependency(interpreter, finalResult)
+    return finalResult
   }
 
   if (result.type === 'Record') {
@@ -42,7 +58,7 @@ export const accessOperator: OperatorType = {
   expressionType: 'any',
   lhsType: 'any',
   rhsType: 'any',
-  interpret: async ({ lhs, rhs, cst }) => {
-    return await accessAttribute(lhs, rhs!.result as string)
+  interpret: async ({ lhs, rhs, cst, interpreter }) => {
+    return await accessAttribute(interpreter, lhs, String(rhs!.result) as string)
   }
 }

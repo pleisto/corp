@@ -60,7 +60,6 @@ export function useFormulaSpreadsheet({
       SpreadsheetUpdateNameViaId({
         spreadsheetId,
         name: title,
-        scopes: [],
         key: spreadsheetId,
         namespaceId: rootId
       })
@@ -104,6 +103,7 @@ export function useFormulaSpreadsheet({
         const cellBlock = getCellBlock(rowId, columnId)
 
         return {
+          namespaceId: rootId,
           spreadsheetId,
           columnId,
           rowIndex,

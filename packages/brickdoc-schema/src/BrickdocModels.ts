@@ -668,6 +668,8 @@ export type Formula = {
   definition: Scalars['String']
   /** object unique id */
   id: Scalars['UUID']
+  /** meta */
+  meta: Scalars['JSON']
   /** formula name */
   name: Scalars['String']
   /** type */
@@ -713,6 +715,8 @@ export type FormulaModifyInput = {
   definition: Scalars['String']
   /** id */
   id: Scalars['UUID']
+  /** meta */
+  meta: Scalars['JSON']
   /** name */
   name: Scalars['String']
   /** type */

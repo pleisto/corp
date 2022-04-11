@@ -253,6 +253,11 @@ const testCases: TestCase[] = [
     value: 'foo'
   },
   {
+    input: '=[2, "foo", true][1]+1 * 12',
+    label: 'access and add',
+    value: 14
+  },
+  {
     input: '=[2, "foo", true].4',
     label: 'Array access 2',
     value: 'Index 4 out of bounds'
@@ -519,7 +524,7 @@ const testCases: TestCase[] = [
   {
     input: '= 2 ^ true',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got boolean'
+    errorMessage: 'Expected number,Cell but got boolean'
   },
   {
     input: '= 2^0',
@@ -567,7 +572,7 @@ const testCases: TestCase[] = [
     input: '=!1+1',
     label: 'not operator vs addition',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got boolean'
+    errorMessage: 'Expected number,Cell but got boolean'
   },
   {
     input: '=1 and 2',
@@ -770,14 +775,6 @@ const testCases: TestCase[] = [
     value: 3
   },
   {
-    input: '=AND(true, false, false)',
-    value: false
-  },
-  {
-    input: '=OR(true)',
-    value: true
-  },
-  {
     input: '=ABS(IF(false, -3, -4))',
     value: 4
   },
@@ -926,7 +923,7 @@ const testCases: TestCase[] = [
   {
     input: '=null + 1',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got null'
+    errorMessage: 'Expected number,Cell but got null'
   },
   {
     input: '=ABS ( "a" )',
@@ -944,11 +941,6 @@ const testCases: TestCase[] = [
     errorMessage: 'Expected number but got Date'
   },
   {
-    input: '=AND(1, 2)',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected boolean but got number'
-  },
-  {
     input: '=ABS ( true )',
     parseErrorType: 'syntax',
     errorMessage: 'Expected number but got boolean'
@@ -957,7 +949,7 @@ const testCases: TestCase[] = [
     input: '= 2 * (2 = 4)',
     label: 'type check',
     parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got boolean'
+    errorMessage: 'Expected number,Cell but got boolean'
   },
   {
     input: '=1; 2; (1+3)',
@@ -1106,7 +1098,14 @@ const testCases: TestCase[] = [
 const formulaContext = new FormulaContext({ domain: 'test' })
 
 const name = 'foo'
-const meta: VariableMetadata = { variableId, namespaceId, name, input: '!!!', position: 0, type: 'normal' }
+const meta: VariableMetadata = {
+  variableId,
+  namespaceId,
+  name,
+  input: '!!!',
+  position: 0,
+  richType: { type: 'normal' }
+}
 
 const ctx: FunctionContext = {
   formulaContext,
@@ -1128,7 +1127,7 @@ describe('Simple test case', () => {
           variableId: barVariableId,
           input: '=24',
           position: 0,
-          type: 'normal'
+          richType: { type: 'normal' }
         }
       }
     })

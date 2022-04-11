@@ -1,3 +1,4 @@
+import { FormulaInterpreter } from '../grammar'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import {
   ColumnId,
@@ -16,7 +17,9 @@ import {
   ErrorMessage,
   FormulaType,
   SpreadsheetId,
-  NameDependencyWithKind
+  NameDependencyWithKind,
+  EventDependency,
+  FindKey
 } from '../types'
 
 export interface ControlType {
@@ -40,7 +43,16 @@ export interface BlockInitializer {
   name: string
 }
 
-type handleInterpretType = (name: string) => Promise<AnyTypeResult>
+type handleInterpretType = (interpreter: FormulaInterpreter, name: string) => Promise<AnyTypeResult>
+export type getEventDependencyInput = { rowKey?: string; columnKey?: string } & (
+  | {
+      rowKey: string
+    }
+  | { columnKey: string }
+  | {}
+)
+
+type getEventDependency = ({ rowKey, columnKey }: getEventDependencyInput) => EventDependency
 export interface handleCodeFragmentsResult {
   errors: ErrorMessage[]
   firstArgumentType: FormulaType | undefined
@@ -74,11 +86,15 @@ export interface ColumnInitializer {
 
 export interface ColumnType extends ColumnInitializer {
   spreadsheet: SpreadsheetType
+  namespaceId: NamespaceId
+  findKey: FindKey
   logic: boolean
   display: () => string
+  key: () => string
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
-  cells: () => CellType[]
+  eventDependency: getEventDependency
+  cells: () => Cell[]
 }
 
 export interface Row {
@@ -88,7 +104,16 @@ export interface Row {
 }
 
 export interface RowType extends Row {
-  cells: CellType[]
+  spreadsheet: SpreadsheetType
+  namespaceId: NamespaceId
+  findKey: FindKey
+  listCells: () => Cell[]
+  logic: boolean
+  display: () => string
+  key: () => string
+  handleCodeFragments: handleCodeFragmentsType
+  handleInterpret: handleInterpretType
+  eventDependency: getEventDependency
 }
 
 export interface RangeType {
@@ -97,11 +122,12 @@ export interface RangeType {
   rowSize: number
   rowIds: uuid[]
   columnIds: uuid[]
-  startCell: CellType
-  endCell: CellType
+  startCell: Cell
+  endCell: Cell
 }
 
-export interface CellType {
+export interface Cell {
+  namespaceId: NamespaceId
   spreadsheetId: SpreadsheetId
   cellId: uuid
   columnId: ColumnId
@@ -110,6 +136,13 @@ export interface CellType {
   rowIndex: number
   value: string
   displayData: VariableDisplayData | undefined
+}
+
+export interface CellType extends Cell {
+  spreadsheet: SpreadsheetType
+  columnKey: string
+  rowKey: string
+  eventDependency: getEventDependency
 }
 
 export interface SpreadsheetInitializer {
@@ -130,7 +163,7 @@ export interface SpreadsheetInitializer {
     columnId: uuid
     rowIndex: number
     columnIndex: number
-  }) => CellType
+  }) => Cell
 }
 
 export interface SpreadsheetDynamicPersistence {
@@ -139,7 +172,7 @@ export interface SpreadsheetDynamicPersistence {
   spreadsheetName: string
   columns: ColumnInitializer[]
   rows: Row[]
-  cells: CellType[]
+  cells: Cell[]
 }
 
 export interface SpreadsheetAllPersistence {
@@ -158,18 +191,18 @@ export interface SpreadsheetType {
   persistence?: SpreadsheetDynamicPersistence
   handleCodeFragments: handleCodeFragmentsType
   handleInterpret: handleInterpretType
+  eventDependency: getEventDependency
   nameDependency: () => NameDependencyWithKind
   columnCount: () => number
   rowCount: () => number
   name: () => string
   listColumns: () => ColumnInitializer[]
   listRows: () => Row[]
-  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => CellType[]
+  listCells: ({ rowId, columnId }: { rowId?: uuid; columnId?: uuid }) => Cell[]
   findCellValue: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => string | undefined
   findCellDisplayData: ({ rowId, columnId }: { rowId: uuid; columnId: uuid }) => VariableDisplayData | undefined
-  getRow: (rowId: uuid) => Row | undefined
-  getColumnById: (columnId: ColumnId) => ColumnType | undefined
-  getColumnByName: (name: string) => ColumnType | undefined
+  findRow: (key: FindKey) => RowType | undefined
+  findColumn: (key: FindKey) => ColumnType | undefined
   toArray: () => string[][]
   toRecord: () => Array<Record<string, StringResult>>
   persistAll: () => SpreadsheetAllPersistence

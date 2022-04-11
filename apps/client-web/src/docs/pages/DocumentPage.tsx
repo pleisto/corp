@@ -36,7 +36,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   // rootBlock
   const { data, loading, onDocSave } = useSyncProvider(queryVariables)
 
-  const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id })
+  const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id as string })
 
   const freeze = mode === 'presentation'
   // const currentRootBlock = rootBlock.current

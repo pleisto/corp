@@ -4,6 +4,7 @@ import {
   CodeFragment,
   ErrorMessage,
   ErrorResult,
+  EventDependency,
   EventScope,
   ExpressionType,
   FormulaColorType,
@@ -13,16 +14,61 @@ import {
 import { InterpretArgument } from './interpreter'
 import { FormulaLexer } from './lexer'
 
-export const shouldReceiveEventByScope = (listenedScopes: EventScope[], eventScopes: EventScope[]): boolean => {
-  listenedScopes.forEach(listenedScope => {
-    const eventScope = eventScopes.find(scope => scope.kind === listenedScope.kind)
-    if (!eventScope) return false
+// eslint-disable-next-line complexity
+export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventScope | undefined): boolean => {
+  if (!eventScope) return true
+  const listenedRows = listenedScope.rows ?? []
+  const listenedColumns = listenedScope.columns ?? []
+  const eventRows = eventScope.rows ?? []
+  const eventColumns = eventScope.columns ?? []
 
-    const filteredArray = listenedScope.keys.filter(key => eventScope.keys.includes(key))
-    if (filteredArray.length === 0) return false
+  if (listenedRows.length === 0 && listenedColumns.length === 0 && eventRows.length > 0 && eventColumns.length > 0)
+    return false
+
+  const rowMatched = _.intersection(listenedRows, eventRows).length > 0
+  const columnMatched = _.intersection(listenedColumns, eventColumns).length > 0
+
+  if (!listenedRows.length && !listenedColumns.length) return true
+
+  if (listenedRows.length && listenedColumns.length) {
+    if (eventRows.length && eventColumns.length) {
+      return rowMatched && columnMatched
+    }
+
+    if (eventRows.length) {
+      return rowMatched
+    } else {
+      return columnMatched
+    }
+  }
+
+  if (listenedRows.length) {
+    return rowMatched && eventColumns.length === 0
+  } else {
+    return columnMatched && eventRows.length === 0
+  }
+}
+
+export const cleanupEventDependency = (label: string, dependencies: EventDependency[]): EventDependency[] => {
+  if (!dependencies.length) return []
+  const finalEventDependencies: EventDependency[] = []
+
+  dependencies.forEach((dependency, index) => {
+    const lastDependency = dependencies[index - 1]
+
+    if (dependency.cleanup && lastDependency) {
+      if (lastDependency.key === dependency.cleanup.key) {
+        finalEventDependencies.pop()
+      } else {
+        console.error('cleanupEventDependency not matched', { label, dependency, lastDependency, dependencies })
+      }
+    }
+
+    finalEventDependencies.push(dependency)
   })
 
-  return true
+  // console.log('start cleanup', label, dependencies, finalEventDependencies)
+  return finalEventDependencies
 }
 
 export const reverseTraversalString = (str: string, min = 1): string[] => {
@@ -204,6 +250,7 @@ export const resultToColorType = ({ type, result }: AnyTypeResult): FormulaColor
   }
 
   if (type === 'Column' && result.logic) return 'LogicColumn'
+  if (type === 'Row' && result.logic) return 'LogicRow'
 
   return type
 }
@@ -223,6 +270,16 @@ export const attrsToColorType = ({ code, display, attrs }: CodeFragment): Formul
     default:
       return code as FormulaColorType
   }
+}
+
+export const castNumber = (data: AnyTypeResult | undefined): number => {
+  if (!data) return NaN
+  if (data.type === 'number') return data.result
+  if (data.type === 'Cell') {
+    return Number(data.result.value)
+  }
+
+  return NaN
 }
 
 export const castData = (data: any): AnyTypeResult => {
