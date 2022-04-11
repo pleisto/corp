@@ -1827,6 +1827,7 @@ __metadata:
     react-helmet-async: ^1.2.3
     react-i18next: ^11.16.2
     react-router-dom: ^6.3.0
+    rfc4648: ^1.5.1
     vite-plugin-pwa: ^0.11.13
     vite-plugin-ruby: ^3.0.9
     yup: ^0.32.11
@@ -1986,7 +1987,6 @@ __metadata:
     refractor: ^4.5.0
     tippy.js: ^6.3.7
     uuid: ^8.3.2
-    y-prosemirror: ^1.0.18
     yjs: ^13.5.34
   peerDependencies:
     react: ">=17.0.2"
@@ -2091,13 +2091,11 @@ __metadata:
     jest: ^27.5.1
     jest-axe: ^6.0.0
     jest-junit: ^13.1.0
-    js-base64: ^3.7.2
     less: ^4.1.2
     lint-staged: ^12.3.7
     mocha: ^9.2.2
     mocha-junit-reporter: ^2.0.2
     prettier: ^2.6.2
-    rfc4648: ^1.5.1
     rollup-plugin-visualizer: ^5.6.0
     ts-node: ^10.7.0
     turbo: ^1.2.1
@@ -2108,8 +2106,6 @@ __metadata:
     vite-plugin-istanbul: ^2.5.1
     vite-plugin-pwa: ^0.11.13
     vite-plugin-ruby: ^3.0.9
-    y-protocols: ^1.0.5
-    yjs: ^13.5.28
   languageName: unknown
   linkType: soft
 
@@ -16791,13 +16787,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-base64@npm:^3.7.2":
-  version: 3.7.2
-  resolution: "js-base64@npm:3.7.2"
-  checksum: 573f28e9a27c3df60096d4d3f551bcb4fcb6d49161cf83396e9bad9b76f94736a70bb70b8808fe834dff2a388f76604ba09d6e153bbf181646e407720139fa5b
-  languageName: node
-  linkType: hard
-
 "js-cookie@npm:^2.2.1, js-cookie@npm:^2.x.x":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
@@ -17269,7 +17258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lib0@npm:^0.2.42, lib0@npm:^0.2.43":
+"lib0@npm:^0.2.42":
   version: 0.2.46
   resolution: "lib0@npm:0.2.46"
   dependencies:
@@ -26557,30 +26546,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"y-prosemirror@npm:^1.0.18":
-  version: 1.0.18
-  resolution: "y-prosemirror@npm:1.0.18"
-  dependencies:
-    lib0: ^0.2.42
-  peerDependencies:
-    prosemirror-model: ^1.7.1
-    prosemirror-state: ^1.2.3
-    prosemirror-view: ^1.9.10
-    y-protocols: ^1.0.1
-    yjs: ^13.3.2
-  checksum: 7ab5b7e3fe8d2e9fcabe8f0a72ca51d6510752b69f3794672dfb3555dfa8ffc1035fefa04cb555675f67a8e6504847dbc6bbdbc1889a1621cdb822f5e65765c7
-  languageName: node
-  linkType: hard
-
-"y-protocols@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "y-protocols@npm:1.0.5"
-  dependencies:
-    lib0: ^0.2.42
-  checksum: d19404a4ebafcf3761c28b881abe8c32ab6e457db0e5ffc7dbb749cbc2c3bb98e003a43f3e8eba7f245b2698c76f2c4cdd1c2db869f8ec0c6ef94736d9a88652
-  languageName: node
-  linkType: hard
-
 "y18n@npm:^4.0.0":
   version: 4.0.3
   resolution: "y18n@npm:4.0.3"
@@ -26739,15 +26704,6 @@ __metadata:
   dependencies:
     buffer-crc32: ~0.2.3
   checksum: daec5154b5485d8621bfea359e905ddca0b2f068430a4aa0a802bf5d67391157a383e0c2767acccbf5964264851da643bc740155a9458e2d8dce55b94c1cc2ed
-  languageName: node
-  linkType: hard
-
-"yjs@npm:^13.5.28":
-  version: 13.5.28
-  resolution: "yjs@npm:13.5.28"
-  dependencies:
-    lib0: ^0.2.43
-  checksum: c1cdb65e05e0b1cbc8a33055c40c5abe0a366526a0d18ec7d20bc4721d3d78fe281fcbf8bd31c021fb17168f95c4d8f9f3311e56f9f866ac2c5417b929463b29
   languageName: node
   linkType: hard
 

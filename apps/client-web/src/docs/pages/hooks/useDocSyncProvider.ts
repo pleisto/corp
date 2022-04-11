@@ -1,9 +1,9 @@
 import React from 'react'
-import * as Y from 'yjs'
+import { Y } from '@brickdoc/editor'
 import { base64 } from 'rfc4648'
 import { v4 } from 'uuid'
 
-import { useGetDocumentQuery, useSyncDocumentMutation } from '@/BrickdocGraphQL'
+import { useGetDocumentQuery, useSyncDocumentMutation, useYdocSubscription } from '@/BrickdocGraphQL'
 import { BrickdocContext } from '@/common/brickdocContext'
 import { devLog } from '@brickdoc/design-system'
 
@@ -27,6 +27,26 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
 
   const { data, loading } = useGetDocumentQuery({
     fetchPolicy: 'no-cache',
+    variables: { docId }
+  })
+
+  useYdocSubscription({
+    onSubscriptionData: ({ subscriptionData: { data } }) => {
+      if (data) {
+        const {
+          ydoc: { operatorId, stateId: newStateId, updates }
+        } = data
+        if (operatorId && operatorId !== globalThis.brickdocContext.uuid) {
+          devLog('received update', stateId, operatorId)
+          if (editorYdoc.current && stateYdoc.current) {
+            const diffUpdate = base64.parse(updates)
+            Y.applyUpdate(editorYdoc.current, diffUpdate)
+            Y.applyUpdate(stateYdoc.current, diffUpdate)
+            stateId.current = newStateId
+          }
+        }
+      }
+    },
     variables: { docId }
   })
 
@@ -106,7 +126,7 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
         if (document?.state && document?.stateId) {
           devLog(`init from state ${document.stateId}`)
           const state = base64.parse(document.state)
-          devLog(`decoded:`, state)
+          // devLog(`decoded:`, state)
           Y.applyUpdate(newEditorYdoc, state)
           Y.applyUpdate(newStateYdoc, state)
           stateId.current = document.stateId

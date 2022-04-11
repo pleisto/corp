@@ -21,6 +21,11 @@ module Docs
         # document.state = state
         document.state_id = state_id
         document.save
+        BrickdocSchema.subscriptions.trigger(:ydoc, { doc_id: doc_id }, {
+          operator_id: operator_id,
+          updates: updates,
+          state_id: state_id
+        })
         {
           document: {
             id: doc_id,

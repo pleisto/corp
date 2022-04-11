@@ -54,7 +54,6 @@
     "refractor": "^4.5.0",
     "tippy.js": "^6.3.7",
     "uuid": "^8.3.2",
-    "y-prosemirror": "^1.0.18",
     "yjs": "^13.5.34"
   },
   "devDependencies": {

@@ -2,8 +2,9 @@
 module Docs
   class Subscriptions::Ydoc < BrickGraphQL::BaseSubscription
     argument :doc_id, BrickGraphQL::Scalars::UUID, required: true
-    field :updates, [Integer], null: false
+    field :updates, String, null: false
     field :operator_id, BrickGraphQL::Scalars::UUID
+    field :state_id, BrickGraphQL::Scalars::UUID
     # https://graphql-ruby.org/subscriptions/triggers.html
     # https://graphql-ruby.org/subscriptions/subscription_classes
     # https://graphql-ruby.org/subscriptions/broadcast.html

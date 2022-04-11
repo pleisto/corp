@@ -61,18 +61,11 @@ export const NewPatch = gql`
   }
 `
 
-export const YdocSync = gql`
-  mutation ydocSync($input: YdocSyncInput!) {
-    ydocSync(input: $input) {
-      errors
-    }
-  }
-`
-
 export const Ydoc = gql`
   subscription ydoc($docId: UUID!) {
     ydoc(docId: $docId) {
       operatorId
+      stateId
       updates
     }
   }

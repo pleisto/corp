@@ -115,11 +115,7 @@
   "dependencies": {
     "@swc/core": "^1.2.164",
     "@swc/helpers": "^0.3.8",
-    "js-base64": "^3.7.2",
-    "rfc4648": "^1.5.1",
-    "ts-node": "^10.7.0",
-    "y-protocols": "^1.0.5",
-    "yjs": "^13.5.28"
+    "ts-node": "^10.7.0"
   },
   "volta": {
     "node": "16.14.0"

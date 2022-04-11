@@ -73,17 +73,6 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
     }
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
-  // due to #914, to reduce conflicts, temporarily disable subscription for documents in presentation mode
-  if (docMeta.snapshotVersion === 0 && !freeze) {
-    // Fix #1155
-    // useDocumentSubscription({
-    //   docid: docMeta.id as string,
-    //   editor,
-    //   setDocumentEditable,
-    //   refetchDocument: refetch
-    // })
-  }
-
   if (loading || docMeta.documentInfoLoading) {
     return <Skeleton type="article" />
   }
