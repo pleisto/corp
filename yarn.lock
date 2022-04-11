@@ -1975,6 +1975,7 @@ __metadata:
     "@tiptap/suggestion": ^2.0.0-beta.90
     "@types/react-pdf": ^5.0.9
     i18next: ^21.6.14
+    lib0: ^0.2.49
     popper-max-size-modifier: ^0.2.0
     re-resizable: ^6.9.5
     react: ^17.0.2
@@ -1985,7 +1986,8 @@ __metadata:
     refractor: ^4.5.0
     tippy.js: ^6.3.7
     uuid: ^8.3.2
-    yjs: ^13.5.28
+    y-prosemirror: ^1.0.18
+    yjs: ^13.5.34
   peerDependencies:
     react: ">=17.0.2"
     react-dom: ">=17.0.2"
@@ -17276,6 +17278,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lib0@npm:^0.2.49":
+  version: 0.2.49
+  resolution: "lib0@npm:0.2.49"
+  dependencies:
+    isomorphic.js: ^0.2.4
+  checksum: e981cc4ba86681a9ff987377196970496c8dad1b709da808a773407fb04f51be3528f9097b8a9f25945ff8b3a34c4718a3018518b7213362b44b6e93b95d2824
+  languageName: node
+  linkType: hard
+
 "lie@npm:3.1.1":
   version: 3.1.1
   resolution: "lie@npm:3.1.1"
@@ -26546,6 +26557,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"y-prosemirror@npm:^1.0.18":
+  version: 1.0.18
+  resolution: "y-prosemirror@npm:1.0.18"
+  dependencies:
+    lib0: ^0.2.42
+  peerDependencies:
+    prosemirror-model: ^1.7.1
+    prosemirror-state: ^1.2.3
+    prosemirror-view: ^1.9.10
+    y-protocols: ^1.0.1
+    yjs: ^13.3.2
+  checksum: 7ab5b7e3fe8d2e9fcabe8f0a72ca51d6510752b69f3794672dfb3555dfa8ffc1035fefa04cb555675f67a8e6504847dbc6bbdbc1889a1621cdb822f5e65765c7
+  languageName: node
+  linkType: hard
+
 "y-protocols@npm:^1.0.5":
   version: 1.0.5
   resolution: "y-protocols@npm:1.0.5"
@@ -26722,6 +26748,15 @@ __metadata:
   dependencies:
     lib0: ^0.2.43
   checksum: c1cdb65e05e0b1cbc8a33055c40c5abe0a366526a0d18ec7d20bc4721d3d78fe281fcbf8bd31c021fb17168f95c4d8f9f3311e56f9f866ac2c5417b929463b29
+  languageName: node
+  linkType: hard
+
+"yjs@npm:^13.5.34":
+  version: 13.5.34
+  resolution: "yjs@npm:13.5.34"
+  dependencies:
+    lib0: ^0.2.49
+  checksum: 1d52c45f53d42db183162e5e576bc331122af80c6a4661d096de91469c6bf8611860f0dfaa2f5dce671a10c7a04ea49f9431188a1a018d7fa4271a02f1a4b6fa
   languageName: node
   linkType: hard
 

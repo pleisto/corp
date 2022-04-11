@@ -45,6 +45,7 @@
     "@tiptap/extension-unique-id": "^2.0.0-beta.4",
     "@tiptap/react": "^2.0.0-beta.108",
     "@tiptap/suggestion": "^2.0.0-beta.90",
+    "lib0": "^0.2.49",
     "popper-max-size-modifier": "^0.2.0",
     "re-resizable": "^6.9.5",
     "react-dnd": "^16.0.0",
@@ -53,7 +54,8 @@
     "refractor": "^4.5.0",
     "tippy.js": "^6.3.7",
     "uuid": "^8.3.2",
-    "yjs": "^13.5.28"
+    "y-prosemirror": "^1.0.18",
+    "yjs": "^13.5.34"
   },
   "devDependencies": {
     "@types/react-pdf": "^5.0.9",
