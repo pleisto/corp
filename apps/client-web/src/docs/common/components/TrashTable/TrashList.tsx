@@ -9,7 +9,7 @@ import { Spin, useList, Checkbox, Button, theme, ConfirmDialog } from '@brickdoc
 import React, { useCallback, useState } from 'react'
 import { useDocsI18n } from '../../hooks'
 import { TrashItem } from './TrashItem'
-import { Table, Delete, Undo } from '@brickdoc/design-icons'
+import { Card, Delete, Undo } from '@brickdoc/design-icons'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import { useApolloClient } from '@apollo/client'
 import { List, Item, NotFound, Page, Owner, Time, Action, SelectBlock, SelectedBar } from './Trash.style'
@@ -111,7 +111,7 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
         <Owner>{t('trash.owner')}</Owner>
         <Time>{t('trash.delete_at')}</Time>
         <Action>
-          <Table />
+          <Card />
         </Action>
       </Item>
       {list.map((item: Block, index: number) => (
