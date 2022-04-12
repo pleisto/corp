@@ -12,7 +12,9 @@ import {
   FormulaType,
   codeFragments2definition,
   VariableMetadata,
-  VariableRichType
+  VariableRichType,
+  FormulaUpdatedDraftTViaId,
+  FormulaUpdatedViaId
 } from '@brickdoc/formula'
 import {
   BrickdocEventBus,
@@ -20,11 +22,9 @@ import {
   FormulaEditorSaveEventTrigger,
   FormulaCalculateTrigger,
   FormulaKeyboardEventTrigger,
-  FormulaUpdatedViaId,
   FormulaEditorSavedTrigger,
   FormulaEditorHoverEventTrigger,
-  FormulaEditorSelectEventTrigger,
-  FormulaUpdatedDraftTViaId
+  FormulaEditorSelectEventTrigger
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import { devLog } from '@brickdoc/design-system'

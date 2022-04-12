@@ -1,16 +1,4 @@
-import {
-  BlockNameLoad,
-  BrickdocEventBus,
-  EventSubscribed,
-  FormulaContextNameChanged,
-  FormulaContextNameRemove,
-  FormulaInnerRefresh,
-  FormulaTaskCompleted,
-  FormulaTaskStarted,
-  FormulaTickViaId,
-  FormulaUpdatedDraftTViaId,
-  FormulaUpdatedViaId
-} from '@brickdoc/schema'
+import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 import {
   ContextInterface,
   VariableData,
@@ -30,6 +18,16 @@ import { dumpValue } from './persist'
 import { codeFragments2definition, variableKey } from '../grammar/convert'
 import { v4 as uuid } from 'uuid'
 import { cleanupEventDependency, maybeEncodeString, shouldReceiveEvent } from '../grammar'
+import {
+  FormulaContextNameChanged,
+  FormulaContextNameRemove,
+  FormulaInnerRefresh,
+  FormulaTaskCompleted,
+  FormulaTaskStarted,
+  FormulaTickViaId,
+  FormulaUpdatedDraftTViaId,
+  FormulaUpdatedViaId
+} from '../events'
 
 export const errorIsFatal = ({ task }: VariableData): boolean => {
   if (task.async) {
@@ -443,7 +441,7 @@ export class VariableClass implements VariableInterface {
             return { ...c, attrs: { ...c.attrs, name: e.payload.t.name } }
           })
           const definition = codeFragments2definition(newCodeFragments, this.t.namespaceId)
-          void this.maybeReparseAndPersist(`FormulaUpdatedViaId_${variableId}`, e.payload.t.currentUUID, definition)
+          void this.maybeReparseAndPersist(`FormulaUpdatedViaId_${variableId}`, e.payload.currentUUID, definition)
         },
         {
           eventId: `${namespaceId},${variableId}`,
