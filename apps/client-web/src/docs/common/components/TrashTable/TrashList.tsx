@@ -105,10 +105,11 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
     <List>
       <Item type="title" key="title">
         <Page>
-          <SelectBlock /> Pages
+          <SelectBlock />
+          {t('trash.pages')}
         </Page>
-        <Owner>Owner</Owner>
-        <Time>Remaining time</Time>
+        <Owner> {t('trash.owner')}</Owner>
+        <Time> {t('trash.remaining_time')}</Time>
         <Action>
           <Table />
         </Action>

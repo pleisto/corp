@@ -530,6 +530,9 @@ en-US:
       remove_tooltip: Unpin this page
     trash:
       name: Trash
+      pages: Pages
+      owner: Owner
+      remaining_time: Remaining time
       all_pages: All pages
       current_page: In current page
       search: Filter by page title...
