@@ -8,6 +8,7 @@ import {
   FormulaTaskCompleted,
   FormulaTaskStarted,
   FormulaTickViaId,
+  FormulaUpdatedDraftTViaId,
   FormulaUpdatedViaId
 } from '@brickdoc/schema'
 import {
@@ -151,7 +152,11 @@ export class VariableClass implements VariableInterface {
     tNotMatched?: boolean
     savedTNotMatched?: boolean
   }): void {
-    if (!savedTNotMatched) {
+    if (savedTNotMatched) {
+      if (!tNotMatched) {
+        BrickdocEventBus.dispatch(FormulaUpdatedDraftTViaId(this))
+      }
+    } else {
       BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     }
     if (!skipPersist) {
@@ -216,7 +221,6 @@ export class VariableClass implements VariableInterface {
     }
 
     this.subscribeDependencies(savedTMatched ? this.savedT! : this.t)
-
     this.onUpdate({ savedTNotMatched: !savedTMatched, tNotMatched: !tMatched })
   }
 

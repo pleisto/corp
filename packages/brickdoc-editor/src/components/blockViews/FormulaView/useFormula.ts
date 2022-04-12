@@ -23,7 +23,8 @@ import {
   FormulaUpdatedViaId,
   FormulaEditorSavedTrigger,
   FormulaEditorHoverEventTrigger,
-  FormulaEditorSelectEventTrigger
+  FormulaEditorSelectEventTrigger,
+  FormulaUpdatedDraftTViaId
 } from '@brickdoc/schema'
 import { JSONContent } from '@tiptap/core'
 import { devLog } from '@brickdoc/design-system'
@@ -594,6 +595,20 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedViaId,
+      e => {
+        updateVariable(e.payload)
+      },
+      {
+        eventId: `${rootId},${formulaId}`,
+        subscribeId: `UseFormula#${rootId},${formulaId}`
+      }
+    )
+    return () => listener.unsubscribe()
+  }, [updateVariable, formulaId, rootId])
+
+  React.useEffect(() => {
+    const listener = BrickdocEventBus.subscribe(
+      FormulaUpdatedDraftTViaId,
       e => {
         updateVariable(e.payload)
       },
