@@ -480,6 +480,10 @@ describe('useFormula', () => {
     jest.clearAllTimers()
   })
 
+  // TODO refactor me
+  // https://jestjs.io/docs/timer-mocks#advance-timers-by-time
+  // await new Promise(resolve => setTimeout(resolve, 50))
+  // jest.advanceTimersByTime(50)
   it('async', async () => {
     jest.useRealTimers()
     const { result } = renderHook(() => useFormula(normalInput))
@@ -494,11 +498,9 @@ describe('useFormula', () => {
     expect(result.current.variableT!.task.async).toEqual(true)
 
     await new Promise(resolve => setTimeout(resolve, 50))
-
     expect(result.current.variableT!.task.async).toEqual(true)
 
     await new Promise(resolve => setTimeout(resolve, 200))
-
     expect(result.current.variableT!.task.async).toEqual(false)
     jest.clearAllTimers()
   })
