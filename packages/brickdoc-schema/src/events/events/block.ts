@@ -25,3 +25,7 @@ export const BlockSynced = event<Block>()('BlockSynced', (block: Block) => {
 export const BlockNameLoad = event<{ id: string; name: string }>()('BlockNameLoad', ({ id }) => {
   return { id }
 })
+
+export const BlockJustCreated = event<{ id: string }>({ persist: true })('BlockJustCreated', ({ id }) => {
+  return { id }
+})
