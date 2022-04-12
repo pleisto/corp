@@ -8,6 +8,9 @@ import { cookieRegister } from './cookie'
 import { sessionRegister } from './session'
 import { registerDebugContext } from './debugger'
 
+/**
+ * loadInitializers will be called by `/main.ts` when the application is bootstrapped and listening for connections.
+ */
 export const loadInitializers = async (app: NestFastifyApplication): Promise<void> => {
   // Get Injection Service
   const kmsService = app.get(KMSService)

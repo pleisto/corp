@@ -1,22 +1,46 @@
+import { env } from 'process'
 import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { LoggerModule, Params } from 'nestjs-pino'
+import { ConfigModule } from '@nestjs/config'
+import { RedisModule } from '@brickdoc/nestjs-redis'
+import { SlonikModule } from '@brickdoc/nestjs-slonik'
+import { LoggerModule } from './logger'
 import { configOptions } from './config'
-import { KMSModule } from './kms/kms.module'
-import { RedisModule, RedisModuleOptions } from '@brickdoc/nestjs-redis'
+import { KMSModule, KMSService } from './kms'
+import { SettingsModule } from './settings'
 
+/**
+ * All Modules in the Common Module are global modules.
+ */
 @Module({
   imports: [
-    LoggerModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => config.get<Params>('logger')!
-    }),
+    LoggerModule.forRoot(),
     ConfigModule.forRoot(configOptions),
-    KMSModule,
+    KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! }),
     RedisModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => config.get<RedisModuleOptions>('database.redis')!
-    })
+      inject: [KMSService],
+      useFactory: (kms: KMSService) => ({
+        url: env.REDIS_URL!,
+        cryptoService: kms
+      })
+    }),
+    SlonikModule.forRoot({
+      connectionUri: `${env.DATABASE_URL_BASE}/${env.DATABASE_NAME}`,
+      verboseRetryLog: true,
+      name: env.DATABASE_NAME
+    }),
+    SettingsModule.forRoot()
   ]
 })
-export class CommonModule {}
+export class CommonModule {
+  /**
+   * Called once the host module's dependencies have been resolved.
+   */
+  public async onModuleInit(): Promise<void> {
+    // Check required environment variables are set
+    const missedEnvVars = ['NODE_ENV', 'REDIS_URL', 'SECRET_KEY_SEED', 'DATABASE_URL_BASE', 'DATABASE_NAME'].filter(
+      // eslint-disable-next-line no-prototype-builtins
+      key => !env.hasOwnProperty(key)
+    )
+    if (missedEnvVars.length > 0) throw new Error(`Missing environment variables: ${missedEnvVars.join(', ')}`)
+  }
+}
