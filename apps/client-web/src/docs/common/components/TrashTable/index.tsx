@@ -1,5 +1,5 @@
 import { Input, theme } from '@brickdoc/design-system'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useDocsI18n } from '../../hooks'
 import { PageTrash } from './TrashList'
 import * as Root from './Trash.style'
@@ -24,12 +24,18 @@ export const TrashTable: React.FC<TrashTableProps> = ({ docMeta }) => {
     document.addEventListener('keydown', handleMetaK)
     return () => document.removeEventListener('keydown', handleMetaK)
   }, [])
+  const handleEscape: React.KeyboardEventHandler<HTMLInputElement> = useCallback(e => {
+    if (e.key === 'Escape') {
+      ref.current?.blur()
+    }
+  }, [])
   return (
     <Root.PageContainer>
       <Root.Title>
         <h1>{t('trash.name')}</h1>
         <Input
           ref={ref}
+          onKeyDown={handleEscape}
           css={{ width: 368, height: 32, background: theme.colors.ceramicQuaternary }}
           placeholder={t('trash.search')}
           suffix={<Root.InputSuffix>⌘+K</Root.InputSuffix>}
