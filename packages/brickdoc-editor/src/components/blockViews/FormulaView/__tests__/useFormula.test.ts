@@ -341,7 +341,7 @@ describe('useFormula', () => {
       input: '',
       position: 0
     })
-    expect(result.current.nameRef.current).toBe(undefined)
+    expect(result.current.nameRef.current).toBe('')
     expect(result.current.defaultName).toBe('var1')
   })
   it('spreadsheet initial', () => {
@@ -353,7 +353,7 @@ describe('useFormula', () => {
       input: '=',
       position: 0
     })
-    expect(result.current.nameRef.current).toBe(undefined)
+    expect(result.current.nameRef.current).toBe('')
     expect(result.current.defaultName).toBe('var1')
   })
 
