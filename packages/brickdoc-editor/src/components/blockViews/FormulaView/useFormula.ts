@@ -52,7 +52,7 @@ export interface UseFormulaOutput {
   variableT: VariableData | undefined
   savedVariableT: VariableData | undefined
   selected: SelectedType | undefined
-  nameRef: React.MutableRefObject<string | undefined>
+  nameRef: React.MutableRefObject<string>
   defaultName: string
   formulaIsNormal: boolean
   editorContent: EditorContentType
@@ -152,7 +152,7 @@ export const useFormula = ({
 
   // Refs
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const nameRef = React.useRef(formulaName || (defaultVariable?.t.name ?? ''))
+  const nameRef = React.useRef<string>(formulaName || (defaultVariable?.t.name ?? ''))
   const variableRef = React.useRef(defaultVariable)
   const editorContentRef = React.useRef(defaultEditorContent)
   const defaultNameRef = React.useRef(contextDefaultName)
@@ -233,7 +233,6 @@ export const useFormula = ({
       const meta: VariableMetadata = {
         namespaceId,
         variableId: newVariableId,
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         name: nameRef.current || defaultNameRef.current,
         input: editorContentRef.current.input,
         position: realInputs.prevText.length,
@@ -349,7 +348,6 @@ export const useFormula = ({
   const isDisableSave = React.useCallback((): boolean => {
     if (!formulaContext) return true
     if (!variableRef.current) return true
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (!(nameRef.current || defaultNameRef.current)) return true
     // if (!inputRef.current) return true
 
@@ -421,7 +419,7 @@ export const useFormula = ({
     const input = editorContentRef.current.input
     const v = variableRef.current!
     v.t.definition = input
-    v.t.name = nameRef.current!
+    v.t.name = nameRef.current
     doUnselectedFormula()
 
     v.save()
