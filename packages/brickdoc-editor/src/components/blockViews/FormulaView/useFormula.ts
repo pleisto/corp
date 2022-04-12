@@ -152,7 +152,7 @@ export const useFormula = ({
 
   // Refs
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const nameRef = React.useRef(formulaName || defaultVariable?.t.name)
+  const nameRef = React.useRef(formulaName || (defaultVariable?.t.name ?? ''))
   const variableRef = React.useRef(defaultVariable)
   const editorContentRef = React.useRef(defaultEditorContent)
   const defaultNameRef = React.useRef(contextDefaultName)
