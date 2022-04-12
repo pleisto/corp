@@ -4,8 +4,10 @@ module Docs
     argument :ids, [BrickGraphQL::Scalars::UUID], 'block unique id', required: true
 
     def resolve(ids:)
-      ids.each do |id|
-        Docs::Block.find(id).restore!
+      Docs::Block.transaction do
+        ids.each do |id|
+          Docs::Block.unscoped.find(id).restore!
+        end
       end
       nil
     rescue => e
