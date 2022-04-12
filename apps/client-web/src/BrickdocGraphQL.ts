@@ -3731,6 +3731,12 @@ export const GetTrashBlocksDocument = gql`
       type
       text
       meta {
+        people {
+          type
+          domain
+          name
+          avatarUrl
+        }
         cover {
           ... on BlockImage {
             type

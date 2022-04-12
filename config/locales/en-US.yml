@@ -532,7 +532,7 @@ en-US:
       name: Trash
       pages: Pages
       owner: Owner
-      delete_at: Delete At
+      deleted_at: Deleted At
       all_pages: All pages
       current_page: In current page
       search: Filter by page title...

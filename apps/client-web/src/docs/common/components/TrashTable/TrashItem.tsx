@@ -19,7 +19,7 @@ import { useDocsI18n } from '../../hooks'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 import { useApolloClient } from '@apollo/client'
-import { Page, Owner, Time, Action, ActionButtonStyle, AvatarEmoji, SelectBlock } from './Trash.style'
+import { Page, Time, Action, ActionButtonStyle, AvatarEmoji, SelectBlock } from './Trash.style'
 
 interface TrashItemProps {
   block: BlockWithChecked
@@ -119,7 +119,7 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
           {titleData}
         </div>
       </Page>
-      <Owner />
+      {/* TODO: May need to add creator or holder concept later */}
       <Time>{block.deletedAt && dayjs(block.deletedAt).format('YYYY-MM-DD HH:mm:ss')}</Time>
       <Action>
         {!block.checked && (

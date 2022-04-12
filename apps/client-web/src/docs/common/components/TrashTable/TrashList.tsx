@@ -12,7 +12,7 @@ import { TrashItem } from './TrashItem'
 import { Card, Delete, Undo } from '@brickdoc/design-icons'
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import { useApolloClient } from '@apollo/client'
-import { List, Item, NotFound, Page, Owner, Time, Action, SelectBlock, SelectedBar } from './Trash.style'
+import { List, Item, NotFound, Page, Time, Action, SelectBlock, SelectedBar } from './Trash.style'
 
 interface PageTrashProps {
   domain: string
@@ -108,8 +108,7 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
           <SelectBlock />
           {t('trash.pages')}
         </Page>
-        <Owner>{t('trash.owner')}</Owner>
-        <Time>{t('trash.delete_at')}</Time>
+        <Time>{t('trash.deleted_at')}</Time>
         <Action>
           <Card />
         </Action>
