@@ -2011,6 +2011,7 @@ export type GetTrashBlocksQuery = {
   trashBlocks?: Array<{
     __typename?: 'block'
     id: string
+    deletedAt?: any | null
     rootId: string
     parentId?: string | null
     type: string
@@ -3708,6 +3709,7 @@ export const GetTrashBlocksDocument = gql`
   query GetTrashBlocks($domain: String!, $blockId: UUID, $search: String) {
     trashBlocks(domain: $domain, blockId: $blockId, search: $search) {
       id
+      deletedAt
       pathArray {
         id
         text

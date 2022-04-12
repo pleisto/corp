@@ -9,6 +9,7 @@ import {
   useBlockHardDeleteMutation,
   BlockHardDeleteInput
 } from '@/BrickdocGraphQL'
+import dayjs from 'dayjs'
 import { BlockWithChecked } from './TrashList'
 import { Checkbox, Button, ConfirmDialog, theme } from '@brickdoc/design-system'
 import React from 'react'
@@ -118,8 +119,8 @@ export const TrashItem: React.FC<TrashItemProps> = ({ domain, block, onChange })
           {titleData}
         </div>
       </Page>
-      <Owner>Owner</Owner>
-      <Time>Time</Time>
+      <Owner />
+      <Time>{block.deletedAt && dayjs(block.deletedAt).format('YYYY-MM-DD HH:mm:ss')}</Time>
       <Action>
         {!block.checked && (
           <>
