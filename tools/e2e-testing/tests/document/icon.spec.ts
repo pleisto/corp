@@ -123,7 +123,7 @@ test.describe('Add Icon', () => {
   })
 
   test.describe('Upload an Image', async () => {
-    test('Verify icon will be addded when upload an image', async () => {
+    test('Verify icon will be added when upload an image', async () => {
       await icon.switchTab(IconTab.UploadImage)
 
       await icon.uploadImage(path.join(__dirname, '../../data/imgs/icon.jpg'))
