@@ -116,7 +116,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
               size="sm"
               className="formula-menu-field"
               placeholder={namePlaceholder}
-              value={inputName || nameRef.current}
+              value={inputName}
               onChange={handleNameChange}
             />
           </label>
