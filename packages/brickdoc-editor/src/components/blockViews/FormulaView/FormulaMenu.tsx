@@ -45,6 +45,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
 }) => {
   const [t] = useEditorI18n()
   const [visible, setVisible] = React.useState(defaultVisible)
+  const [inputName, setInputName] = React.useState<string>(nameRef.current)
 
   const close = React.useCallback((): void => {
     setVisible(false)
@@ -88,6 +89,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name = e.target.value
     nameRef.current = name
+    setInputName(name)
     triggerCalculate()
   }
 
@@ -114,7 +116,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
               size="sm"
               className="formula-menu-field"
               placeholder={namePlaceholder}
-              value={nameRef.current}
+              value={inputName || nameRef.current}
               onChange={handleNameChange}
             />
           </label>
