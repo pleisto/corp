@@ -103,4 +103,22 @@ describe('useKeyboardEvent', () => {
 
     expect(hide).toBeTruthy()
   })
+
+  it('triggers = correctly', () => {
+    const command = jest.fn()
+    renderHook(() => {
+      const itemRef = useRef(item)
+      const itemLength = useRef(3)
+      return useKeyboardEvent([formulaItem], itemRef, itemLength, setActiveIndex, command)
+    })
+
+    BrickdocEventBus.dispatch(
+      SlashMenuKeyboardEventTrigger({
+        key: '='
+      })
+    )
+
+    expect(activeIndex).toBe(1)
+    expect(command).toBeCalled()
+  })
 })
