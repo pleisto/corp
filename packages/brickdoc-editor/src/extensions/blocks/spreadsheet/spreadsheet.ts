@@ -51,6 +51,9 @@ export const Spreadsheet = createBlock<SpreadsheetOptions, SpreadsheetAttributes
       },
       title: {
         default: ''
+      },
+      isDefaultTitle: {
+        default: true
       }
     }
   },
@@ -92,6 +95,7 @@ export const Spreadsheet = createBlock<SpreadsheetOptions, SpreadsheetAttributes
                 type: this.name,
                 attrs: {
                   isNew: true,
+                  isDefaultTitle: true,
                   title: newTitle,
                   data: {
                     columns: [
