@@ -84,7 +84,7 @@ export const SlashCommands = createExtension<SlashCommandsOptions, SlashCommands
 
               const key = event.key
 
-              if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'Enter' || key === 'Escape') {
+              if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'Enter' || key === 'Escape' || key === '=') {
                 BrickdocEventBus.dispatch(SlashMenuKeyboardEventTrigger({ key }))
                 return true
               }
