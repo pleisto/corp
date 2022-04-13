@@ -29,6 +29,19 @@ export const spinStyle = css({
           stroke: theme.colors.iconPrimary
         }
       }
+    },
+    isInBlockCenter: {
+      true: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+      }
+    },
+    spining: {
+      false: {
+        display: 'none'
+      }
     }
   }
 })

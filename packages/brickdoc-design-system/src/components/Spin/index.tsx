@@ -9,6 +9,8 @@ export type Color = 'dark' | 'light'
 export interface SpinProps {
   size?: Size
   color?: Color
+  isInBlockCenter?: boolean // 需要把父节点设置为 relative
+  spining?: boolean
 }
 
 const SpinRoot = styled(motion.svg, spinStyle)
