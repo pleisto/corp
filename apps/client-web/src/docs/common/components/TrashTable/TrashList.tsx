@@ -123,7 +123,7 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
 
   return (
     <List>
-      <Spin size="lg" isInBlockCenter spining={showSpin} />
+      <Spin size="lg" className="trash-spin" spining={showSpin} />
       <Item type="title" key="title">
         <Page>
           <SelectBlock />
