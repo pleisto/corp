@@ -40,7 +40,6 @@ export const DocumentCover: React.FC<DocumentCoverProps> = ({
     setValue(documentCoverMeta.color)
   }
   if (documentCoverMeta?.type === Blocktype.Image) {
-    console.log(documentCoverMeta)
     const url = getDocCoverUrl() ?? localUrl ?? ''
     if (url && value !== url) {
       setValue(url)
