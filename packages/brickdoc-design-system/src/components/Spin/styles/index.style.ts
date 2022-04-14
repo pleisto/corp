@@ -29,11 +29,6 @@ export const spinStyle = css({
           stroke: theme.colors.iconPrimary
         }
       }
-    },
-    spining: {
-      false: {
-        display: 'none'
-      }
     }
   }
 })

@@ -9,7 +9,6 @@ export type Color = 'dark' | 'light'
 export interface SpinProps {
   size?: Size
   color?: Color
-  spining?: boolean
   className?: string
 }
 

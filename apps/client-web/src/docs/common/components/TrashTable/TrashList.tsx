@@ -87,15 +87,15 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
     [blockRestore, client.cache, selectedItem, list, resetList]
   )
 
-  const onClickBatchDelete = async () => {
+  const onClickBatchDelete = async (): Promise<void> => {
     await onBatchDelete()
   }
 
-  const onItemDelele = async (id: string) => {
+  const onItemDelele = async (id: string): Promise<void> => {
     await onBatchDelete([id])
   }
 
-  const onItemRestore = async (id: string) => {
+  const onItemRestore = async (id: string): Promise<void> => {
     await onBatchRestore([id])
   }
 
@@ -123,7 +123,7 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
 
   return (
     <List>
-      <Spin size="lg" className="trash-spin" spining={showSpin} />
+      {showSpin && <Spin size="lg" className="trash-spin" />}
       <Item type="title" key="title">
         <Page>
           <SelectBlock />
