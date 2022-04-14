@@ -65,9 +65,34 @@ export const globalStyleSheet = {
   },
   'h1, h2, h3, h4, h5, h6': {
     marginTop: 0,
-    marginBottom: '0.5em',
-    fontWeight: '500',
+    marginBottom: 0,
+    fontWeight: '600',
     color: '$colors$typePrimary'
+  },
+  h1: {
+    fontSize: 30,
+    lineHeight: '46px',
+    paddingTop: 12
+  },
+  h2: {
+    fontSize: 26,
+    lineHeight: '32px',
+    paddingTop: 8
+  },
+  h3: {
+    fontSize: 22,
+    lineHeight: '30px',
+    paddingTop: 4
+  },
+  h4: {
+    fontSize: 20,
+    lineHeight: '30px',
+    paddingTop: 4
+  },
+  h5: {
+    fontSize: 16,
+    lineHeight: '24px',
+    paddingTop: 4
   },
   p: {
     marginTop: 0,
