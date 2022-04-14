@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ImageWithSpinWrapper } from './style'
+import { ImageWithSpinWrapper, Image } from './style'
 import { Spin } from '@brickdoc/design-system'
 import type { CSS } from '@stitches/react'
 
@@ -16,8 +16,8 @@ export const ImageWithSpin: React.FC<IImageWithSpin> = ({ src, alt, ...otherProp
   }, [src])
   return (
     <ImageWithSpinWrapper {...otherProps}>
+      <Image spining={spining} alt={alt} src={src} onLoad={() => setSpining(false)} />
       {spining && <Spin size="lg" className="cover-spin" />}
-      <img alt={alt} className="cover" src={src} onLoad={() => setSpining(false)} />
     </ImageWithSpinWrapper>
   )
 }
