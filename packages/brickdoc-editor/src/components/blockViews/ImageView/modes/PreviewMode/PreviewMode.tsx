@@ -45,6 +45,11 @@ export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, ur
       deleteNode={deleteNode}
       actionOptions={['copy', 'delete']}
     >
+      {!loaded && (
+        <div className="spining-wrapper">
+          <Spin size="lg" className="spin" />
+        </div>
+      )}
       <div role="cell" className="brickdoc-block-image-section-container">
         <Resizable
           lockAspectRatio={true}
@@ -89,11 +94,6 @@ export const PreviewMode: FC<PreviewModeProps> = ({ node, deleteNode, getPos, ur
             })
           }}
         >
-          {!loaded && (
-            <div className="spining-wrapper">
-              <Spin size="lg" className="spin" />
-            </div>
-          )}
           <ImagePreview
             wrapStyle={{ pointerEvents: 'none', width: '100%' }}
             overlayBgColorEnd="rgba(153, 153, 153, 0.4)"
