@@ -224,17 +224,27 @@ export class SpreadsheetClass implements SpreadsheetType {
     if (!isNaN(number)) {
       return this.handleInterpretRow(number)
     }
-    return this.handleInterpretColumn(name)
+    return this.handleInterpretColumn(interpreter, name)
   }
 
-  private handleInterpretColumn(name: string): AnyTypeResult {
+  private handleInterpretColumn(interpreter: FormulaInterpreter, name: string): AnyTypeResult {
     const column = this.findColumn({ namespaceId: this.namespaceId, type: 'name', value: name })
 
-    if (column) {
-      return { type: 'Column', result: column }
-    }
+    if (!column) return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
 
-    return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
+    // TODO: cleanup this when parse cell
+    // if (interpreter.ctx.meta.richType.type === 'spreadsheet') {
+    //   const { spreadsheetId, columnId } = interpreter.ctx.meta.richType.meta
+    //   if (spreadsheetId === this.spreadsheetId && columnId === column.columnId) {
+    //     return {
+    //       result: 'Circular dependency found',
+    //       type: 'Error',
+    //       errorKind: 'circular_dependency'
+    //     }
+    //   }
+    // }
+
+    return { type: 'Column', result: column }
   }
 
   eventDependency({ rowKey, columnKey }: getEventDependencyInput): EventDependency {
@@ -336,6 +346,18 @@ export class SpreadsheetClass implements SpreadsheetType {
       }
     }
     visitor.eventDependencies.push(column.eventDependency({}))
+
+    // TODO: cleanup this when parse cell
+    // if (visitor.ctx.meta.richType.type === 'spreadsheet') {
+    //   const { spreadsheetId, columnId } = visitor.ctx.meta.richType.meta
+    //   if (spreadsheetId === this.spreadsheetId && columnId === column.columnId) {
+    //     return {
+    //       errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
+    //       firstArgumentType: undefined,
+    //       codeFragments
+    //     }
+    //   }
+    // }
 
     const firstArgumentType = 'Column'
     let finalRhsCodeFragments = codeFragments
