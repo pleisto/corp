@@ -96,7 +96,7 @@ export const globalStyleSheet = {
   },
   p: {
     marginTop: 0,
-    marginBottom: '1em'
+    marginBottom: 0
   },
   'input, button, select, optgroup, textarea': {
     margin: 0,
