@@ -1,4 +1,6 @@
 import { fontFaceSets } from './fontFaceSets.style'
+import { ceramicLightTheme } from '../ceramic-light/index'
+
 export const globalStyleSheet = {
   ...fontFaceSets,
   html: {
@@ -70,29 +72,29 @@ export const globalStyleSheet = {
     color: '$colors$typePrimary'
   },
   h1: {
-    fontSize: 30,
-    lineHeight: '46px',
-    paddingTop: 12
+    fontSize: ceramicLightTheme.fontSizes.title1,
+    lineHeight: ceramicLightTheme.lineHeights.title1,
+    paddingTop: ceramicLightTheme.titleOffset.title1
   },
   h2: {
-    fontSize: 26,
-    lineHeight: '32px',
-    paddingTop: 8
+    fontSize: ceramicLightTheme.fontSizes.title2,
+    lineHeight: ceramicLightTheme.lineHeights.title2,
+    paddingTop: ceramicLightTheme.titleOffset.title2
   },
   h3: {
-    fontSize: 22,
-    lineHeight: '30px',
-    paddingTop: 4
+    fontSize: ceramicLightTheme.fontSizes.title3,
+    lineHeight: ceramicLightTheme.lineHeights.title3,
+    paddingTop: ceramicLightTheme.titleOffset.title3
   },
   h4: {
-    fontSize: 20,
-    lineHeight: '30px',
-    paddingTop: 4
+    fontSize: ceramicLightTheme.fontSizes.title4,
+    lineHeight: ceramicLightTheme.lineHeights.title4,
+    paddingTop: ceramicLightTheme.titleOffset.title4
   },
   h5: {
-    fontSize: 16,
-    lineHeight: '24px',
-    paddingTop: 4
+    fontSize: ceramicLightTheme.fontSizes.title5,
+    lineHeight: ceramicLightTheme.lineHeights.title5,
+    paddingTop: ceramicLightTheme.titleOffset.title5
   },
   p: {
     marginTop: 0,
