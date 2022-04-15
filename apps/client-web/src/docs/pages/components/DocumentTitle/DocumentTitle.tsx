@@ -43,20 +43,22 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
   // const cover = editor?.state.doc.attrs.cover
   // const title = editor?.state.doc.attrs.title
 
-  const inputRef = React.useRef<any>(null)
+  // const inputRef = React.useRef<any>(null)
   // const inputComposing = React.useRef(false)
 
   const [meta, setMeta] = React.useState<{ [key: string]: any }>({})
 
-  const icon = meta.icon
-  const cover = meta.cover
-  const title = meta.title
+  const docBlock = blocks?.find(b => b.id === docId)
 
-  React.useEffect(() => {
-    if (inputRef.current && title !== undefined) {
-      inputRef.current.value = title
-    }
-  }, [title])
+  const icon = meta.icon ?? docBlock?.meta?.icon
+  const cover = meta.cover ?? docBlock?.meta?.cover
+  const title = meta.title ?? docBlock?.meta?.title
+
+  // React.useEffect(() => {
+  //   if (inputRef.current && title !== undefined) {
+  //     inputRef.current.value = title
+  //   }
+  // }, [title])
 
   BrickdocEventBus.subscribe(
     DocMetaLoaded,
@@ -82,10 +84,17 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
   const createDocAttrsUpdater = React.useCallback(
     (field: string) => {
       return (value: any): void => {
+        // TODO: remove from doc attrs
+        if (editor && !editor.isDestroyed) {
+          editor.commands.setDocAttrs({
+            ...editor.state.doc.attrs,
+            [field]: value
+          })
+        }
         changeDocMeta({ ...meta, [field]: value })
       }
     },
-    [changeDocMeta, meta]
+    [changeDocMeta, meta, editor]
   )
 
   const docIconGetter = useBlobGetter('icon', blocks)
@@ -175,13 +184,13 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
             <Root.Input
               type="text"
               bordered={false}
-              ref={(container: HTMLInputElement) => {
-                if (container) {
-                  inputRef.current = container
-                  // TODO: fix this hack
-                  container.value = title
-                }
-              }}
+              // ref={(container: HTMLInputElement) => {
+              //   if (container) {
+              //     inputRef.current = container
+              //     // TODO: fix this hack
+              //     container.value = title
+              //   }
+              // }}
               value={title}
               data-testid={TEST_ID_ENUM.page.DocumentPage.titleInput.id}
               // onCompositionStart={() => {
