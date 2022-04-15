@@ -56,9 +56,9 @@ export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventS
   }
 
   if (listenedRows.length) {
-    return rowMatched // && eventColumns.length === 0
+    return rowMatched
   } else {
-    return columnMatched // && eventRows.length === 0
+    return columnMatched
   }
 }
 

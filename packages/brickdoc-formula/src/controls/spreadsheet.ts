@@ -232,18 +232,6 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     if (!column) return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
 
-    // TODO: cleanup this when parse cell
-    // if (interpreter.ctx.meta.richType.type === 'spreadsheet') {
-    //   const { spreadsheetId, columnId } = interpreter.ctx.meta.richType.meta
-    //   if (spreadsheetId === this.spreadsheetId && columnId === column.columnId) {
-    //     return {
-    //       result: 'Circular dependency found',
-    //       type: 'Error',
-    //       errorKind: 'circular_dependency'
-    //     }
-    //   }
-    // }
-
     return { type: 'Column', result: column }
   }
 
@@ -346,18 +334,6 @@ export class SpreadsheetClass implements SpreadsheetType {
       }
     }
     visitor.eventDependencies.push(column.eventDependency({}))
-
-    // TODO: cleanup this when parse cell
-    // if (visitor.ctx.meta.richType.type === 'spreadsheet') {
-    //   const { spreadsheetId, columnId } = visitor.ctx.meta.richType.meta
-    //   if (spreadsheetId === this.spreadsheetId && columnId === column.columnId) {
-    //     return {
-    //       errors: [{ type: 'circular_dependency', message: `Circular dependency found` }],
-    //       firstArgumentType: undefined,
-    //       codeFragments
-    //     }
-    //   }
-    // }
 
     const firstArgumentType = 'Column'
     let finalRhsCodeFragments = codeFragments
