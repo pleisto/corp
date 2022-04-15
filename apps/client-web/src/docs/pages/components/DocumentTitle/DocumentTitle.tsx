@@ -84,17 +84,10 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
   const createDocAttrsUpdater = React.useCallback(
     (field: string) => {
       return (value: any): void => {
-        // TODO: remove from doc attrs
-        if (editor && !editor.isDestroyed) {
-          editor.commands.setDocAttrs({
-            ...editor.state.doc.attrs,
-            [field]: value
-          })
-        }
         changeDocMeta({ ...meta, [field]: value })
       }
     },
-    [changeDocMeta, meta, editor]
+    [changeDocMeta, meta]
   )
 
   const docIconGetter = useBlobGetter('icon', blocks)
