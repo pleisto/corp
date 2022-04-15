@@ -100,11 +100,12 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
           if (!b.parentId || b.type === 'doc') {
             BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
           }
-          BrickdocEventBus.dispatch(BlockUpdated(b))
+          BrickdocEventBus.dispatch(BlockUpdated(b as Block))
           dirtyBlocksMap.current.delete(b.id)
         })
         deletedIds.forEach(id => {
-          BrickdocEventBus.dispatch(BlockDeleted({ id }))
+          const block = { id }
+          BrickdocEventBus.dispatch(BlockDeleted(block as Block))
           dirtyToDeleteIds.current.delete(id)
         })
 
@@ -120,7 +121,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         })
         await syncPromise
         blocks.forEach(b => {
-          BrickdocEventBus.dispatch(BlockSynced(b))
+          BrickdocEventBus.dispatch(BlockSynced(b as Block))
         })
       }
     } catch (e) {
@@ -168,8 +169,8 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     BlockUpdated,
-    (e: Event) => {
-      const block: Block = e.payload
+    e => {
+      const block = e.payload
       const oldBlock = docBlocksMap.current.get(block.id) ?? {}
       if (docBlocksMap.current.get(block.id)) {
         // update only on doc blocks
@@ -216,8 +217,8 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     BlockDeleted,
-    (e: Event) => {
-      const block: Block = e.payload
+    e => {
+      const block = e.payload
       docBlocksMap.current.delete(block.id)
     },
     { subscribeId: 'SyncProvider' }
@@ -225,7 +226,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     UpdateBlock,
-    (e: Event) => {
+    e => {
       // isSavingVar(true)
       const { block, commit } = e.payload
       dirtyBlocksMap.current.set(block.id, block)
@@ -238,7 +239,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     DeleteBlock,
-    (e: Event) => {
+    e => {
       // isSavingVar(true)
       const { blockId, commit } = e.payload
       dirtyToDeleteIds.current.add(blockId)
@@ -260,7 +261,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     loadSpreadsheetBlocks,
-    (e: Event) => {
+    e => {
       const parentId = e.payload
       devLog(`loading spreadsheet ${parentId}`)
       void (async () => {

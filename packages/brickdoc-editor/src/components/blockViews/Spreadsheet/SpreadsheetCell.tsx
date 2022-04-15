@@ -1,21 +1,16 @@
 import React from 'react'
 
-import {
-  BrickdocEventBus,
-  Event,
-  BlockInput,
-  SpreadsheetUpdateCellValue,
-  FormulaEditorSavedTrigger,
-  SpreadsheetReloadViaId
-} from '@brickdoc/schema'
+import { BrickdocEventBus, BlockInput, SpreadsheetUpdateCellValue, FormulaEditorSavedTrigger } from '@brickdoc/schema'
 import { FormulaBlockRender, useFormula } from '../FormulaView'
 import {
   columnDisplayIndex,
   displayValue,
   dumpDisplayResultForDisplay,
   fetchResult,
+  SpreadsheetReloadViaId,
   VariableDisplayData,
-  VariableInterface
+  VariableInterface,
+  VariableMetadata
 } from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { devLog } from '@brickdoc/design-system'
@@ -25,7 +20,7 @@ import { FormulaDisplay } from '../../ui/Formula'
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
   block: BlockInput
-  columnIdx: number
+  rowIdx: number
   columnSort: number
   tableId: string
   saveBlock: (block: BlockInput) => void
@@ -37,7 +32,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   context,
   tableId,
   block,
-  columnIdx,
+  rowIdx,
   columnSort,
   saveBlock,
   width,
@@ -90,7 +85,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
         SpreadsheetReloadViaId({
           spreadsheetId: tableId,
           scope: {
-            rows: [String(columnIdx + 1), rowId],
+            rows: [String(rowIdx + 1), rowId],
             columns: [block.data.columnId, columnDisplayIndex(columnSort)]
           },
           namespaceId: rootId,
@@ -100,7 +95,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       // console.log('dispatch update cell', variable)
       // setEditing(false)
     },
-    [tableId, columnIdx, rowId, block, columnSort, rootId, cellId, saveBlock]
+    [tableId, rowIdx, rowId, block, columnSort, rootId, cellId, saveBlock]
   )
 
   React.useEffect(() => {
@@ -117,19 +112,23 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
     return () => listener.unsubscribe()
   }, [formulaId, rootId, setEditing])
 
-  const { variableT, editorContent, commitFormula, completion, updateEditor } = useFormula({
-    rootId,
-    formulaId,
-    onUpdateFormula,
-    formulaRichType: {
+  const meta: Pick<VariableMetadata, 'richType' | 'variableId' | 'namespaceId' | 'name'> = {
+    namespaceId: rootId,
+    variableId: formulaId,
+    name: formulaName,
+    richType: {
       type: 'spreadsheet',
       meta: {
         spreadsheetId: tableId,
         columnId,
         rowId
       }
-    },
-    formulaName,
+    }
+  }
+
+  const { variableT, editorContent, commitFormula, completion, updateEditor } = useFormula({
+    meta,
+    onUpdateFormula,
     formulaContext
   })
 
@@ -138,7 +137,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       SpreadsheetUpdateCellValue,
-      (e: Event) => {
+      e => {
         const { value } = e.payload
         devLog('Spreadsheet update cell', { eventId, value })
         void commitFormula(value)
@@ -171,11 +170,13 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
 
   const display = variableT ? displayValue(fetchResult(variableT), rootId) : currentBlock.text
   const fallbackDisplayData: VariableDisplayData | undefined = display
-    ? ({
-        result: { type: 'string', result: display },
-        kind: 'literal',
-        type: 'spreadsheet'
-      } as unknown as VariableDisplayData)
+    ? {
+        definition: display,
+        display,
+        version: 0,
+        meta: { ...meta, input: display, position: 0 },
+        result: { type: 'literal', result: display }
+      }
     : undefined
   const displayData: VariableDisplayData | undefined = variableT
     ? dumpDisplayResultForDisplay(variableT)

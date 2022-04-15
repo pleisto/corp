@@ -725,6 +725,11 @@ const testCases: TestCase[] = [
     value: 2
   },
   {
+    input: '= \n1\n+\n2\n',
+    label: 'newline 5',
+    value: 3
+  },
+  {
     input: '="foo" &&& 123',
     parseErrorType: 'syntax',
     label: 'TODO &&&',
@@ -743,6 +748,11 @@ const testCases: TestCase[] = [
   {
     input: '=core::ABS ( -1  )',
     value: 1
+  },
+  {
+    input: '=custom::ADD (  -1,  1  )',
+    label: 'function with group',
+    value: 0
   },
   {
     input: '=ABS ()',

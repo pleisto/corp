@@ -48,18 +48,16 @@ import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
-import {
-  BlockNameLoad,
-  BrickdocEventBus,
-  EventSubscribed,
-  FormulaContextNameChanged,
-  FormulaContextNameRemove,
-  FormulaContextTickTrigger,
-  SpreadsheetReloadViaId
-} from '@brickdoc/schema'
+import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 import { DEFAULT_VIEWS } from '../render'
+import {
+  FormulaContextTickTrigger,
+  FormulaContextNameChanged,
+  FormulaContextNameRemove,
+  SpreadsheetReloadViaId
+} from '../events'
 
 export interface FormulaContextArgs {
   domain: string
@@ -69,13 +67,14 @@ export interface FormulaContextArgs {
   features?: string[]
 }
 
-type ContextState = any
+export type ContextState = any
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|spreadsheet|function|column|row|cell|range|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|literal|spreadsheet|function|column|row|cell|range|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName> = {
   string: 'str',
+  literal: 'str',
   number: 'num',
   boolean: 'bool',
   void: 'void',
@@ -134,6 +133,7 @@ export class FormulaContext implements ContextInterface {
     number: {},
     Button: {},
     Switch: {},
+    literal: {},
     void: {},
     Select: {},
     Slider: {},

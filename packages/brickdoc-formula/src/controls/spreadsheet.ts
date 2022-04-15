@@ -1,11 +1,10 @@
+import { BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 import {
-  BrickdocEventBus,
-  EventSubscribed,
   SpreadsheetReloadViaId,
   SpreadsheetUpdateColumnsViaId,
   SpreadsheetUpdateNameViaId,
   SpreadsheetUpdateRowsViaId
-} from '@brickdoc/schema'
+} from '../events'
 import {
   CodeFragmentVisitor,
   column2codeFragment,

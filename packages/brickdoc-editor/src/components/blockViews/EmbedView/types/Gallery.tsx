@@ -9,6 +9,7 @@ import { EditorContext } from '../../../../context/EditorContext'
 import { EmbedBlockAttributes } from '../EmbedView'
 import { useExternalProps } from '../../../../hooks/useExternalProps'
 import { EmbedViewProps } from '../../../../extensions/blocks/embed/meta'
+import { usePopoverVisible } from './usePopoverVisible'
 
 export interface GalleryTypeEmbedBlockProps {
   deleteNode: EmbedViewProps['deleteNode']
@@ -100,6 +101,9 @@ export const GalleryTypeEmbedBlock: FC<GalleryTypeEmbedBlockProps> = ({
   const { t } = useContext(EditorContext)
   const externalProps = useExternalProps()
   const [unsplashImages, setUnsplashImages] = useState<UnsplashImage[]>([])
+
+  const [popoverVisible, handlePopoverVisibleChange] = usePopoverVisible(node.attrs.uuid)
+
   const fetching = useRef(false)
   const lastQuery = useRef('')
   const page = useRef(1)
@@ -183,7 +187,8 @@ export const GalleryTypeEmbedBlock: FC<GalleryTypeEmbedBlockProps> = ({
     <BlockContainer node={node} actionOptions={['delete']} deleteNode={deleteNode} getPos={getPos}>
       <Popover
         trigger="click"
-        defaultVisible={node.attrs.isNew}
+        visible={popoverVisible}
+        onVisibleChange={handlePopoverVisibleChange}
         content={
           <Gallery>
             <GalleryTitle>{t('embed_block.types.gallery.title')}</GalleryTitle>

@@ -1,32 +1,41 @@
 import { FormulaContext, FormulaSourceType, quickInsert, VariableMetadata, VariableValue } from '@brickdoc/formula'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { JSONContent } from '@tiptap/core'
-import { buildJSONContentByArray, contentArrayToInput, fetchJSONContentArray } from '../../../../helpers'
-import { useFormula } from '../useFormula'
+import {
+  buildJSONContentByArray,
+  buildJSONContentByDefinition,
+  contentArrayToInput,
+  fetchJSONContentArray
+} from '../../../../helpers'
+import { useFormula, UseFormulaInput } from '../useFormula'
 
 const rootId = 'eb373fbc-a6e9-40a6-8c4b-45cda7230dda'
 const formulaId = '2838c176-9a82-4e4f-a197-969d70c64694'
-const updateFormula = (): void => {}
+const onUpdateFormula = (): void => {}
 const normalFormulaType: FormulaSourceType = 'normal'
-const formulaName = undefined
+const formulaName = ''
 const formulaContext = new FormulaContext({ domain: 'test' })
 
-const normalInput = {
-  rootId,
-  formulaId,
-  updateFormula,
-  formulaRichType: { type: normalFormulaType },
-  formulaName,
+const normalInput: UseFormulaInput = {
+  meta: {
+    namespaceId: rootId,
+    variableId: formulaId,
+    name: formulaName,
+    richType: { type: normalFormulaType }
+  },
+  onUpdateFormula,
   formulaContext
 }
 
 const spreadsheetFormulaType: FormulaSourceType = 'spreadsheet'
-const spreadsheetInput = {
-  rootId,
-  formulaId,
-  updateFormula,
-  formulaRichType: { type: spreadsheetFormulaType, meta: { spreadsheetId: '', columnId: '', rowId: '' } },
-  formulaName,
+const spreadsheetInput: UseFormulaInput = {
+  meta: {
+    namespaceId: rootId,
+    variableId: formulaId,
+    name: formulaName,
+    richType: { type: spreadsheetFormulaType, meta: { spreadsheetId: '', columnId: '', rowId: '' } }
+  },
+  onUpdateFormula,
   formulaContext
 }
 
@@ -145,7 +154,9 @@ const simpleCommonTestCases = [
     resultData: 'Expected string but got number'
   },
   { input: ' num1 & " "', newInput: ' #CurrentBlock.num1 & " "', resultData: 'Expected string but got number' },
-  { input: 'a+num1', newInput: 'a+#CurrentBlock.num1', positions: [1], resultData: 'Unknown function a' }
+  { input: 'a+num1', newInput: 'a+#CurrentBlock.num1', positions: [1], resultData: 'Unknown function a' },
+
+  { input: 'custom::ADD(1)', positions: [1, 12], resultData: 'Argument count mismatch' }
 ]
 
 const simpleNormalTestCases = [
@@ -320,6 +331,7 @@ describe('useFormula', () => {
       await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
     }
   })
+
   it('normal initial', () => {
     const { result } = renderHook(() => useFormula(spreadsheetInput))
 
@@ -329,7 +341,7 @@ describe('useFormula', () => {
       input: '',
       position: 0
     })
-    expect(result.current.nameRef.current).toBe(undefined)
+    expect(result.current.nameRef.current).toBe('')
     expect(result.current.defaultName).toBe('var1')
   })
   it('spreadsheet initial', () => {
@@ -341,7 +353,7 @@ describe('useFormula', () => {
       input: '=',
       position: 0
     })
-    expect(result.current.nameRef.current).toBe(undefined)
+    expect(result.current.nameRef.current).toBe('')
     expect(result.current.defaultName).toBe('var1')
   })
 
@@ -469,6 +481,31 @@ describe('useFormula', () => {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
+    jest.clearAllTimers()
+  })
+
+  // TODO refactor me
+  // https://jestjs.io/docs/timer-mocks#advance-timers-by-time
+  // await new Promise(resolve => setTimeout(resolve, 50))
+  // jest.advanceTimersByTime(50)
+  it('async', async () => {
+    jest.useRealTimers()
+    const { result } = renderHook(() => useFormula(normalInput))
+
+    const content = buildJSONContentByDefinition('SLEEP(111)')!
+
+    await act(async () => {
+      result.current.updateEditor(content, 0)
+    })
+
+    expect(result.current.variableT?.valid).toEqual(true)
+    expect(result.current.variableT!.task.async).toEqual(true)
+
+    await new Promise(resolve => setTimeout(resolve, 50))
+    expect(result.current.variableT!.task.async).toEqual(true)
+
+    await new Promise(resolve => setTimeout(resolve, 200))
+    expect(result.current.variableT!.task.async).toEqual(false)
     jest.clearAllTimers()
   })
 })

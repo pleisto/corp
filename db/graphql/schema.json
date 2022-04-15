@@ -981,15 +981,23 @@
               "deprecationReason": null
             },
             {
-              "name": "id",
+              "name": "ids",
               "description": "block unique id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "UUID",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "UUID",
+                      "ofType": null
+                    }
+                  }
                 }
               },
               "defaultValue": null,
@@ -2494,15 +2502,23 @@
               "deprecationReason": null
             },
             {
-              "name": "id",
+              "name": "ids",
               "description": "block unique id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "UUID",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "UUID",
+                      "ofType": null
+                    }
+                  }
                 }
               },
               "defaultValue": null,
@@ -8075,13 +8091,9 @@
               "description": null,
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "UUID",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -8091,13 +8103,9 @@
               "description": null,
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "UUID",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

@@ -36,7 +36,7 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
         const {
           ydoc: { operatorId, stateId: newStateId, updates }
         } = data
-        if (operatorId && operatorId !== globalThis.brickdocContext.uuid) {
+        if (newStateId && operatorId && operatorId !== globalThis.brickdocContext.uuid) {
           devLog('received update', stateId, operatorId)
           if (editorYdoc.current && stateYdoc.current) {
             const diffUpdate = base64.parse(updates)

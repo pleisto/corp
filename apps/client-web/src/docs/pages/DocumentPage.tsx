@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Skeleton, devLog } from '@brickdoc/design-system'
+import { Spin, devLog } from '@brickdoc/design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
@@ -74,7 +74,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
   if (loading || docMeta.documentInfoLoading) {
-    return <Skeleton type="article" />
+    return (
+      <Root.PageSpinWrapper>
+        <Spin size="lg" />
+      </Root.PageSpinWrapper>
+    )
   }
 
   const redirectPersonalSpacePath = `/${docMeta.personalDomain}`

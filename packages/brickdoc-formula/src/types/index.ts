@@ -38,6 +38,7 @@ export type FormulaType =
   | FormulaBasicType
   | FormulaObjectType
   | FormulaControlType
+  | 'literal'
   | 'any'
   | 'void'
   | 'Pending'
@@ -181,6 +182,11 @@ export interface BooleanResult extends BaseResult {
 export interface StringResult extends BaseResult {
   result: string
   type: 'string'
+}
+
+export interface LiteralResult extends BaseResult {
+  result: string
+  type: 'literal'
 }
 
 export interface NullResult extends BaseResult {
@@ -337,6 +343,7 @@ export type AnyTypeResult =
   | NumberResult
   | BooleanResult
   | StringResult
+  | LiteralResult
   | NullResult
   | RecordResult
   | BlankResult
@@ -406,6 +413,8 @@ export type ComplexCodeFragmentType =
 export type SimpleCodeFragmentType =
   | 'FunctionName'
   | 'Function'
+  | 'FunctionGroup'
+  | 'DoubleColon'
   | 'StringLiteral'
   | 'NumberLiteral'
   | 'BooleanLiteral'
@@ -680,8 +689,6 @@ export type VariableValue = SuccessVariableValue | ErrorVariableValue
 export interface VariableDisplayData {
   definition: Definition
   result: AnyTypeResult
-  kind: VariableKind
-  type: FormulaSourceType
   version: number
   meta: VariableMetadata
   display: string
@@ -714,7 +721,7 @@ export interface EventScope {
 
 export interface EventDependency {
   readonly kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
-  readonly event: EventType
+  readonly event: EventType<any>
   readonly eventId: string
   readonly scope: EventScope
   readonly key: string
