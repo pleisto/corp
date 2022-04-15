@@ -140,6 +140,8 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
   const onDocSave = async (doc: Node): Promise<void> => {
     if (!docBlocksMap.current.size) return
     isSavingVar(true)
+    // NOTE: tempfix for root uuid
+    doc.attrs.uuid = rootId.current ?? doc.attrs.uuid
     const docBlocks = nodeToBlock(doc, 0)
     const deletedIds = new Set(docBlocksMap.current.keys())
     deletedIds.delete(rootId.current)
