@@ -5,15 +5,19 @@
 ### Classes
 
 - [SettingsModule](../classes/common_settings.SettingsModule.md)
+- [SettingsService](../classes/common_settings.SettingsService.md)
 
 ### Interfaces
 
+- [ConfigMapProviders](../interfaces/common_settings.ConfigMapProviders.md)
 - [ItemOptions](../interfaces/common_settings.ItemOptions.md)
+- [SettingsItem](../interfaces/common_settings.SettingsItem.md)
 
 ### Variables
 
-- [CONFIG\_MAP\_NAME\_METADATA](common_settings.md#config_map_name_metadata)
+- [CONFIG\_MAP\_NAMESPACE\_METADATA](common_settings.md#config_map_namespace_metadata)
 - [ITEM\_OPTIONS\_METADATA](common_settings.md#item_options_metadata)
+- [SCOPE\_ROOT\_NODE](common_settings.md#scope_root_node)
 
 ### Functions
 
@@ -22,13 +26,13 @@
 
 ## Variables
 
-### <a id="config_map_name_metadata" name="config_map_name_metadata"></a> CONFIG\_MAP\_NAME\_METADATA
+### <a id="config_map_namespace_metadata" name="config_map_namespace_metadata"></a> CONFIG\_MAP\_NAMESPACE\_METADATA
 
-• `Const` **CONFIG\_MAP\_NAME\_METADATA**: `string`
+• `Const` **CONFIG\_MAP\_NAMESPACE\_METADATA**: `string`
 
 #### Defined in
 
-common/settings/settings.interface.ts:2
+[common/settings/settings.interface.ts:3](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L3)
 
 ___
 
@@ -38,7 +42,17 @@ ___
 
 #### Defined in
 
-common/settings/settings.interface.ts:3
+[common/settings/settings.interface.ts:4](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L4)
+
+___
+
+### <a id="scope_root_node" name="scope_root_node"></a> SCOPE\_ROOT\_NODE
+
+• `Const` **SCOPE\_ROOT\_NODE**: ``"root"``
+
+#### Defined in
+
+[common/settings/settings.interface.ts:5](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L5)
 
 ## Functions
 
@@ -58,13 +72,13 @@ common/settings/settings.interface.ts:3
 
 #### Defined in
 
-common/settings/config-map.decorator.ts:4
+[common/settings/config-map.decorator.ts:4](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/config-map.decorator.ts#L4)
 
 ___
 
 ### <a id="item" name="item"></a> Item
 
-▸ **Item**(`options`): `PropertyDecorator` & `MethodDecorator`
+▸ **Item**(`options`): `PropertyDecorator`
 
 #### Parameters
 
@@ -74,8 +88,8 @@ ___
 
 #### Returns
 
-`PropertyDecorator` & `MethodDecorator`
+`PropertyDecorator`
 
 #### Defined in
 
-common/settings/item.decorator.ts:3
+[common/settings/item.decorator.ts:3](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/item.decorator.ts#L3)

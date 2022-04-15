@@ -20,7 +20,7 @@ The public fields will be exposed to the client.
 
 #### Defined in
 
-common/settings/settings.interface.ts:10
+[common/settings/settings.interface.ts:12](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L12)
 
 ___
 
@@ -29,10 +29,11 @@ ___
 • `Optional` **encrypted**: `boolean`
 
 Enabled data at rest encryption.
+if `static` is true, encrypted will be ignored.
 
 #### Defined in
 
-common/settings/settings.interface.ts:15
+[common/settings/settings.interface.ts:18](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L18)
 
 ___
 
@@ -45,4 +46,4 @@ It's value will be get from the ConfigMap file directly.
 
 #### Defined in
 
-common/settings/settings.interface.ts:21
+[common/settings/settings.interface.ts:24](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L24)

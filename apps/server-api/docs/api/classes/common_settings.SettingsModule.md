@@ -30,4 +30,4 @@
 
 #### Defined in
 
-common/settings/settings.module.ts:5
+[common/settings/settings.module.ts:14](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.module.ts#L14)

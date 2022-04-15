@@ -30,4 +30,4 @@
 
 #### Defined in
 
-common/logger/logger.module.ts:9
+[common/logger/logger.module.ts:9](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.module.ts#L9)

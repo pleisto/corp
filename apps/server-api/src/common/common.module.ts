@@ -14,7 +14,6 @@ import { SettingsModule } from './settings'
 @Module({
   imports: [
     LoggerModule.forRoot(),
-    ConfigModule.forRoot(configOptions),
     KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! }),
     RedisModule.forRootAsync({
       inject: [KMSService],
@@ -25,9 +24,9 @@ import { SettingsModule } from './settings'
     }),
     SlonikModule.forRoot({
       connectionUri: `${env.DATABASE_URL_BASE}/${env.DATABASE_NAME}`,
-      verboseRetryLog: true,
-      name: env.DATABASE_NAME
+      verboseRetryLog: true
     }),
+    ConfigModule.forRoot(configOptions),
     SettingsModule.forRoot()
   ]
 })

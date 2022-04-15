@@ -7,7 +7,7 @@ export class CoreConfigMap {
    * Application environment
    */
   @Item({ static: true })
-  appEnv: string = env.NODE_ENV!
+  appEnv?: string = env.NODE_ENV!
 
   /**
    * Application base URL, it's used to generate links in emails or other places
@@ -21,10 +21,7 @@ export class CoreConfigMap {
    * @returns default value
    */
   @Item({})
-  tlsEnabled(): boolean {
-    // Don't use `this.appEnv` here, because value are not auto-updated when dependencies properties changed
-    return env.NODE_ENV === 'production'
-  }
+  tlsEnabled: boolean = env.NODE_ENV === 'production'
 
   /**
    * Default language

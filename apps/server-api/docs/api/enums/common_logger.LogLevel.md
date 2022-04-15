@@ -22,7 +22,7 @@
 
 #### Defined in
 
-common/logger/logger.interface.ts:4
+[common/logger/logger.interface.ts:4](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L4)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:7
+[common/logger/logger.interface.ts:7](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L7)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:8
+[common/logger/logger.interface.ts:8](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L8)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:5
+[common/logger/logger.interface.ts:5](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L5)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:2
+[common/logger/logger.interface.ts:2](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L2)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:3
+[common/logger/logger.interface.ts:3](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L3)
 
 ___
 
@@ -82,4 +82,4 @@ ___
 
 #### Defined in
 
-common/logger/logger.interface.ts:6
+[common/logger/logger.interface.ts:6](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/logger/logger.interface.ts#L6)

@@ -53,20 +53,26 @@ export const queryLoggingInterceptor = (): Interceptor => {
     afterQueryExecution: (context, _query, result) => {
       for (const notice of result.notices) {
         if (notice.message && isAutoExplainJsonMessage(notice.message)) {
-          logger.log('Auto explain', {
-            message: notice.message,
-            ...loggerContext(context)
-          })
+          logger.log(
+            {
+              message: notice.message,
+              ...loggerContext(context)
+            },
+            'Auto explain'
+          )
         }
       }
 
       const executionTime = ms(calcExecutionTime(context))
 
-      logger.debug('Query execution result', {
-        executionTime,
-        rowCount: result.rowCount,
-        ...loggerContext(context)
-      })
+      logger.debug(
+        {
+          executionTime,
+          rowCount: result.rowCount,
+          ...loggerContext(context)
+        },
+        'Query execution result'
+      )
 
       return null
     },
@@ -94,20 +100,27 @@ export const queryLoggingInterceptor = (): Interceptor => {
         values.push(Buffer.isBuffer(value) ? `[Buffer ${value.byteLength}]` : value)
       }
 
-      logger.debug('Executing query', {
-        sql: query.sql,
-        stackTrace,
-        values,
-        ...loggerContext(context)
-      })
+      logger.debug(
+        {
+          sql: query.sql,
+          stackTrace,
+          values,
+          ...loggerContext(context)
+        },
+        'Executing query'
+      )
 
       return null
     },
-    queryExecutionError: (context, _query, error) => {
-      logger.error('query execution produced an error', {
-        error: err(error),
-        ...loggerContext(context)
-      })
+    queryExecutionError: (context, query, error) => {
+      logger.error(
+        {
+          query,
+          error: err(error),
+          ...loggerContext(context)
+        },
+        'query execution produced an error'
+      )
 
       return null
     }
