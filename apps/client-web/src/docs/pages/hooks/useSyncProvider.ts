@@ -19,6 +19,8 @@ import {
   BlockUpdated,
   BlockDeleted,
   BlockNameLoad,
+  DocMetaLoaded,
+  UpdateDocMeta,
   BlockSynced,
   UpdateBlock,
   DeleteBlock,
@@ -69,6 +71,10 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       docBlocksMap.current.set(block.id, block)
     })
     rootBlock.current = docBlocksMap.current.get(rootId.current)
+    if (rootBlock.current) {
+      const { id, meta } = rootBlock.current
+      BrickdocEventBus.dispatch(DocMetaLoaded({ id, meta }))
+    }
   }, [queryVariables, data?.childrenBlocks])
 
   const commitDirty = async (): Promise<void> => {
@@ -88,8 +94,21 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         )
         .map(b => {
           // HACK: delete all __typename
-          const block = { __typename: undefined, ...b, meta: b.meta ?? {} }
+          const block = {
+            __typename: undefined,
+            deletedAt: undefined,
+            blobs: undefined,
+            rootId: undefined,
+            ...b,
+            meta: b.meta ?? {}
+          }
           delete block.__typename
+          delete block.deletedAt
+          delete block.blobs
+          delete block.rootId
+          if (!block.parentId) {
+            delete block.parentId
+          }
           return block
         })
 
@@ -244,6 +263,20 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       const { blockId, commit } = e.payload
       dirtyToDeleteIds.current.add(blockId)
       if (commit) {
+        void commitDirty()
+      }
+    },
+    { subscribeId: 'SyncProvider' }
+  )
+
+  BrickdocEventBus.subscribe(
+    UpdateDocMeta,
+    e => {
+      const { id, meta } = e.payload
+      if (id === rootBlock.current?.id) {
+        const newBlock = { ...rootBlock.current, meta: { ...rootBlock.current.meta, ...meta } }
+        newBlock.text = newBlock.meta.title ?? ''
+        dirtyBlocksMap.current.set(id, newBlock)
         void commitDirty()
       }
     },
