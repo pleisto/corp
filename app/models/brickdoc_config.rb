@@ -129,6 +129,6 @@ class BrickdocConfig < ApplicationRecord
   scope :features do
     field :page_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
     field :experiment_discussion, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
-    field :experiment_collaboration, type: :boolean, default: false, frontend: true
+    field :experiment_collaboration, type: :boolean, default: true, frontend: true
   end
 end
