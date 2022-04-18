@@ -47,6 +47,7 @@ const innerDisplayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncat
     case 'string':
       return truncateString(v.result, disableTruncate ? -1 : undefined)
     case 'Date':
+      if (isNaN(v.result as unknown as number)) return v.result.toDateString()
       return v.result.toISOString()
     case 'Error':
       return `#<Error> ${v.result}`

@@ -3,11 +3,13 @@ import { parse, innerInterpret } from '../core'
 import { FunctionContext, ParseErrorType, VariableMetadata } from '../../types'
 import { FormulaContext } from '../../context/context'
 import { quickInsert } from '../testHelper'
+import { displayValue } from '../../context/persist'
 
 interface TestCase {
   input: string
   value?: any
   label?: string
+  display?: string
   parseErrorType?: ParseErrorType
   errorMessage?: string
   debug?: true
@@ -801,6 +803,21 @@ const testCases: TestCase[] = [
     parseErrorType: 'syntax',
     errorMessage: 'Function UNKNOWN not found'
   },
+  {
+    input: '=DATE("")',
+    value: new Date(NaN),
+    display: 'Invalid Date'
+  },
+  {
+    input: '=DATE("22/2/2022")',
+    value: new Date(NaN),
+    display: 'Invalid Date'
+  },
+  {
+    input: '=DATE("2022-2-22")',
+    value: new Date('2022-2-22'),
+    display: new Date('2022-2-22').toISOString()
+  },
   // Case insensitive
   {
     input: '=if(true, 1+2, "2")',
@@ -1143,7 +1160,7 @@ describe('Simple test case', () => {
     })
   })
 
-  testCases.forEach(({ input, label, parseErrorType, errorMessage, value, debug }) => {
+  testCases.forEach(({ input, label, parseErrorType, errorMessage, value, debug, display }) => {
     const prefix = label ? `[${label}] ` : ''
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     it(`${prefix}${input}${suffix}`, async () => {
@@ -1185,8 +1202,12 @@ describe('Simple test case', () => {
         expect(errorType).toEqual(undefined)
         expect(success).toEqual(true)
 
-        expect(variableValue.result.result).toEqual(value)
-        expect(variableValue.success).toEqual(true)
+        if (display) {
+          expect(displayValue(variableValue.result, '')).toEqual(display)
+        } else {
+          expect(variableValue.result.result).toEqual(value)
+          expect(variableValue.success).toEqual(true)
+        }
       } else if (parseErrorType) {
         expect(errorMessages[0]).not.toEqual(undefined)
         expect(errorMessages[0]!.message).toContain(errorMessage)
