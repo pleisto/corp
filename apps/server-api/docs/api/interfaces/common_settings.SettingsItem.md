@@ -4,9 +4,9 @@
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `unknown` |
+| Name |
+| :------ |
+| `T` |
 
 ## Table of contents
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[common/settings/settings.interface.ts:34](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L34)
+[common/settings/settings.interface.ts:64](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L64)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[common/settings/settings.interface.ts:32](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L32)
+[common/settings/settings.interface.ts:62](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L62)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[common/settings/settings.interface.ts:35](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L35)
+[common/settings/settings.interface.ts:65](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L65)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[common/settings/settings.interface.ts:33](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L33)
+[common/settings/settings.interface.ts:63](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L63)

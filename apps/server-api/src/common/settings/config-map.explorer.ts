@@ -35,6 +35,23 @@ export class ConfigMapExplorer implements OnApplicationBootstrap {
   }
 
   /**
+   * Get all items.
+   */
+  all(): Array<SettingsItem<any>> {
+    return Object.entries(this.providers()).flatMap(([namespace, wrapper]) =>
+      this.getItemNames(wrapper).flatMap(name => {
+        const item = this.getItem(wrapper, namespace, name)!
+        return [
+          {
+            ...item,
+            key: this.fullKey(namespace, name)
+          }
+        ]
+      })
+    )
+  }
+
+  /**
    * List all config maps namespaces from providers that have @ConfigMap() decorator
    */
   allNamespaces(): string[] {
@@ -47,42 +64,25 @@ export class ConfigMapExplorer implements OnApplicationBootstrap {
    */
   allKeys(): string[] {
     return Object.entries(this.providers()).flatMap(([namespace, wrapper]) =>
-      this.getItemNames(wrapper).map(name => `${namespace}.${name}`)
+      this.getItemNames(wrapper).map(name => this.fullKey(namespace, name))
     )
   }
 
   /**
    * Get config map item by InstanceWrapper and name
    */
-  getItem<T>(wrapper: InstanceWrapper, namespace: string, itemName: string): SettingsItem<T> | undefined {
+  protected getItem(wrapper: InstanceWrapper, namespace: string, itemName: string): SettingsItem<unknown> | undefined {
     const options = this.metadataAccessor.getItemOptions(wrapper, itemName)
+    const value = wrapper.instance[itemName]
     if (!options) return undefined
-    return {
-      key: `${namespace}.${itemName}`,
-      options,
-      defaultValue: wrapper.instance[itemName]
+    if (options.validation) {
+      options.validation.validateSync(value)
     }
-  }
-
-  /**
-   * Get config map item by key(namespace.itemName)
-   */
-  getItemByKey<T>(key: string): SettingsItem<T> | undefined {
-    const keyArray = key.split('.')
-    const namespace = keyArray.slice(0, -1).join('.')
-    const itemName = keyArray.at(-1)!
-    const provider = this.providers()[namespace]
-    if (!provider) return undefined
-    return this.getItem<T>(provider, namespace, itemName)
-  }
-
-  /**
-   * Get all items from a given namespace
-   */
-  getItemsByNamespace<T>(namespace: string): Array<SettingsItem<T>> | undefined {
-    const provider = this.providers()[namespace]
-    if (!provider) return undefined
-    return this.getItemNames(provider).map(name => this.getItem<T>(provider, namespace, name)!)
+    return {
+      key: this.fullKey(namespace, itemName),
+      options,
+      defaultValue: value
+    }
   }
 
   /**
@@ -90,8 +90,15 @@ export class ConfigMapExplorer implements OnApplicationBootstrap {
    * @param InstanceWrapper
    * @returns
    */
-  getItemNames(wrapper: InstanceWrapper): string[] {
+  protected getItemNames(wrapper: InstanceWrapper): string[] {
     const propertyNames = Object.getOwnPropertyNames(wrapper.instance)
     return propertyNames.filter(name => this.metadataAccessor.getItemOptions(wrapper, name))
+  }
+
+  /**
+   * Join namespace and key to a string
+   */
+  protected fullKey(namespace: string, key: string): string {
+    return `${namespace}.${key}`
   }
 }

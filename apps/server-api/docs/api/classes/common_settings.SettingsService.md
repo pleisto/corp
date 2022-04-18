@@ -10,20 +10,26 @@
 
 ### Properties
 
+- [cache](common_settings.SettingsService.md#cache)
+- [configMap](common_settings.SettingsService.md#configmap)
 - [explorer](common_settings.SettingsService.md#explorer)
 
 ### Methods
 
-- [findItemValue](common_settings.SettingsService.md#finditemvalue)
+- [allExportedItemsCachedKey](common_settings.SettingsService.md#allexporteditemscachedkey)
+- [allExposedItems](common_settings.SettingsService.md#allexposeditems)
+- [batchDeleteCache](common_settings.SettingsService.md#batchdeletecache)
+- [cachedKey](common_settings.SettingsService.md#cachedkey)
+- [calculateScope](common_settings.SettingsService.md#calculatescope)
+- [findItem](common_settings.SettingsService.md#finditem)
 - [get](common_settings.SettingsService.md#get)
-- [scopeWrapper](common_settings.SettingsService.md#scopewrapper)
 - [update](common_settings.SettingsService.md#update)
 
 ## Constructors
 
 ### <a id="constructor" name="constructor"></a> constructor
 
-• **new SettingsService**(`explorer`, `kms`, `pool`, `logger`)
+• **new SettingsService**(`explorer`, `kms`, `pool`)
 
 #### Parameters
 
@@ -32,13 +38,32 @@
 | `explorer` | `ConfigMapExplorer` |
 | `kms` | [`KMSService`](common_kms.KMSService.md) |
 | `pool` | `DatabasePool` |
-| `logger` | `PinoLogger` |
 
 #### Defined in
 
-common/settings/settings.service.ts:11
+[common/settings/settings.service.ts:14](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L14)
 
 ## Properties
+
+### <a id="cache" name="cache"></a> cache
+
+• `Protected` **cache**: `LRUCache`<`string`, `unknown`\>
+
+#### Defined in
+
+[common/settings/settings.service.ts:11](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L11)
+
+___
+
+### <a id="configmap" name="configmap"></a> configMap
+
+• `Protected` **configMap**: [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`any`\>[]
+
+#### Defined in
+
+[common/settings/settings.service.ts:12](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L12)
+
+___
 
 ### <a id="explorer" name="explorer"></a> explorer
 
@@ -46,11 +71,121 @@ common/settings/settings.service.ts:11
 
 ## Methods
 
-### <a id="finditemvalue" name="finditemvalue"></a> findItemValue
+### <a id="allexporteditemscachedkey" name="allexporteditemscachedkey"></a> allExportedItemsCachedKey
 
-▸ `Protected` **findItemValue**<`T`\>(`item`, `scope`): `Promise`<[`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`T`\>\>
+▸ `Protected` **allExportedItemsCachedKey**(`context?`): `string`
 
-find a setting item by key and scope
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`ScopeContext`](../interfaces/common_settings.ScopeContext.md) |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[common/settings/settings.service.ts:165](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L165)
+
+___
+
+### <a id="allexposeditems" name="allexposeditems"></a> allExposedItems
+
+▸ **allExposedItems**(`context?`): `Promise`<`undefined` \| [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`unknown`\>[]\>
+
+Get all setting items that are exposed to the client
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`ScopeContext`](../interfaces/common_settings.ScopeContext.md) |
+
+#### Returns
+
+`Promise`<`undefined` \| [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`unknown`\>[]\>
+
+#### Defined in
+
+[common/settings/settings.service.ts:102](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L102)
+
+___
+
+### <a id="batchdeletecache" name="batchdeletecache"></a> batchDeleteCache
+
+▸ `Protected` **batchDeleteCache**(`keyPrefix`): `void`
+
+Batch delete cached items
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `keyPrefix` | `string` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[common/settings/settings.service.ts:173](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L173)
+
+___
+
+### <a id="cachedkey" name="cachedkey"></a> cachedKey
+
+▸ `Protected` **cachedKey**(`key`, `scope`): `string`
+
+generate a cache key for the given scope and key
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `scope` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[common/settings/settings.service.ts:161](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L161)
+
+___
+
+### <a id="calculatescope" name="calculatescope"></a> calculateScope
+
+▸ `Protected` **calculateScope**(`strategy?`, `context`): `string`
+
+calculate the scope based on the session context
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `strategy` | [`ScopeLookupStrategy`](../enums/common_settings.ScopeLookupStrategy.md) | `ScopeLookupStrategy.ROOT_ONLY` |
+| `context` | [`ScopeContext`](../interfaces/common_settings.ScopeContext.md) | `undefined` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[common/settings/settings.service.ts:136](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L136)
+
+___
+
+### <a id="finditem" name="finditem"></a> findItem
+
+▸ `Protected` **findItem**<`T`\>(`key`): `undefined` \| [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`T`\>
+
+Find the config map item by key
 
 #### Type parameters
 
@@ -62,22 +197,21 @@ find a setting item by key and scope
 
 | Name | Type |
 | :------ | :------ |
-| `item` | [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`T`\> |
-| `scope` | `string` |
+| `key` | `string` |
 
 #### Returns
 
-`Promise`<[`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`T`\>\>
+`undefined` \| [`SettingsItem`](../interfaces/common_settings.SettingsItem.md)<`T`\>
 
 #### Defined in
 
-common/settings/settings.service.ts:66
+[common/settings/settings.service.ts:129](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L129)
 
 ___
 
 ### <a id="get" name="get"></a> get
 
-▸ **get**<`I`, `K`\>(`key`, `scope?`): `Promise`<`undefined` \| `K`\>
+▸ **get**<`I`, `K`\>(`key`, `context?`): `Promise`<`undefined` \| `K`\>
 
 Get a setting value
 
@@ -93,7 +227,7 @@ Get a setting value
 | Name | Type |
 | :------ | :------ |
 | `key` | `K` |
-| `scope?` | `string` |
+| `context` | [`ScopeContext`](../interfaces/common_settings.ScopeContext.md) |
 
 #### Returns
 
@@ -101,35 +235,13 @@ Get a setting value
 
 #### Defined in
 
-common/settings/settings.service.ts:23
-
-___
-
-### <a id="scopewrapper" name="scopewrapper"></a> scopeWrapper
-
-▸ `Protected` **scopeWrapper**(`scope`): `string`
-
-Make sure that the scope must be a descendant of the root node
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `scope` | `undefined` \| `string` |
-
-#### Returns
-
-`string`
-
-#### Defined in
-
-common/settings/settings.service.ts:57
+[common/settings/settings.service.ts:31](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L31)
 
 ___
 
 ### <a id="update" name="update"></a> update
 
-▸ **update**<`I`, `K`\>(`key`, `value`, `scope?`): `Promise`<`boolean`\>
+▸ **update**<`I`, `K`\>(`key`, `value`, `context?`): `Promise`<`boolean`\>
 
 Update a setting value on the database
 
@@ -146,7 +258,7 @@ Update a setting value on the database
 | :------ | :------ |
 | `key` | `K` |
 | `value` | `I`[`K`] |
-| `scope?` | `string` |
+| `context` | [`ScopeContext`](../interfaces/common_settings.ScopeContext.md) |
 
 #### Returns
 
@@ -154,4 +266,4 @@ Update a setting value on the database
 
 #### Defined in
 
-common/settings/settings.service.ts:35
+[common/settings/settings.service.ts:62](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.service.ts#L62)

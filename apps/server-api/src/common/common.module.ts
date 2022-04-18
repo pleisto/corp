@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { RedisModule } from '@brickdoc/nestjs-redis'
 import { SlonikModule } from '@brickdoc/nestjs-slonik'
-import { LoggerModule } from './logger'
 import { configOptions } from './config'
 import { KMSModule, KMSService } from './kms'
 import { SettingsModule } from './settings'
@@ -13,7 +12,6 @@ import { SettingsModule } from './settings'
  */
 @Module({
   imports: [
-    LoggerModule.forRoot(),
     KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! }),
     RedisModule.forRootAsync({
       inject: [KMSService],

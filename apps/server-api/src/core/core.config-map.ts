@@ -1,18 +1,21 @@
 import { env } from 'process'
-import { ConfigMap, Item } from '../common/settings'
+import { ConfigMap, Item, ScopeLookupStrategy } from '../common/settings'
+import { string, mixed } from 'yup'
+import { supportLocales } from './locales'
+import { supportedTimezones } from './timezones'
 
 @ConfigMap('core')
 export class CoreConfigMap {
   /**
    * Application environment
    */
-  @Item({ static: true })
+  @Item({ scope: ScopeLookupStrategy.LOCAL_STATIC, clientExposed: true })
   appEnv?: string = env.NODE_ENV!
 
   /**
    * Application base URL, it's used to generate links in emails or other places
    */
-  @Item({ clientExposed: true })
+  @Item({ clientExposed: true, validation: string().url() })
   appUrl: string = env.SERVER_BASE_URL ?? 'http://example.com/'
 
   /**
@@ -26,12 +29,20 @@ export class CoreConfigMap {
   /**
    * Default language
    */
-  @Item({ clientExposed: true })
+  @Item({
+    clientExposed: true,
+    scope: ScopeLookupStrategy.USER_FIRST,
+    validation: mixed().oneOf(supportLocales.map(l => l.tag))
+  })
   defaultLanguage: string = 'en-US'
 
   /**
    * Default timezone
    */
-  @Item({ clientExposed: true })
-  defaultTimezone: string = 'UTC'
+  @Item({
+    clientExposed: true,
+    scope: ScopeLookupStrategy.USER_FIRST,
+    validation: mixed().oneOf(supportedTimezones)
+  })
+  defaultTimezone: string = 'Etc/UTC'
 }

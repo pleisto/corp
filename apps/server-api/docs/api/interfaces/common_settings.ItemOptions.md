@@ -8,7 +8,8 @@
 
 - [clientExposed](common_settings.ItemOptions.md#clientexposed)
 - [encrypted](common_settings.ItemOptions.md#encrypted)
-- [static](common_settings.ItemOptions.md#static)
+- [scope](common_settings.ItemOptions.md#scope)
+- [validation](common_settings.ItemOptions.md#validation)
 
 ## Properties
 
@@ -20,7 +21,7 @@ The public fields will be exposed to the client.
 
 #### Defined in
 
-[common/settings/settings.interface.ts:12](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L12)
+[common/settings/settings.interface.ts:38](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L38)
 
 ___
 
@@ -33,17 +34,28 @@ if `static` is true, encrypted will be ignored.
 
 #### Defined in
 
-[common/settings/settings.interface.ts:18](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L18)
+[common/settings/settings.interface.ts:44](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L44)
 
 ___
 
-### <a id="static" name="static"></a> static
+### <a id="scope" name="scope"></a> scope
 
-• `Optional` **static**: `boolean`
+• `Optional` **scope**: [`ScopeLookupStrategy`](../enums/common_settings.ScopeLookupStrategy.md)
 
-Static item will not read/write from/to the database.
-It's value will be get from the ConfigMap file directly.
+Defaults to `ScopeLookupStrategy.ROOT_ONLY`.
 
 #### Defined in
 
-[common/settings/settings.interface.ts:24](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L24)
+[common/settings/settings.interface.ts:49](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L49)
+
+___
+
+### <a id="validation" name="validation"></a> validation
+
+• `Optional` **validation**: `default`<`any`, `AnyObject`, `any`\>
+
+yup schema for validation
+
+#### Defined in
+
+[common/settings/settings.interface.ts:54](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L54)

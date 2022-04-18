@@ -2,6 +2,10 @@
 
 ## Table of contents
 
+### Enumerations
+
+- [ScopeLookupStrategy](../enums/common_settings.ScopeLookupStrategy.md)
+
 ### Classes
 
 - [SettingsModule](../classes/common_settings.SettingsModule.md)
@@ -11,6 +15,7 @@
 
 - [ConfigMapProviders](../interfaces/common_settings.ConfigMapProviders.md)
 - [ItemOptions](../interfaces/common_settings.ItemOptions.md)
+- [ScopeContext](../interfaces/common_settings.ScopeContext.md)
 - [SettingsItem](../interfaces/common_settings.SettingsItem.md)
 
 ### Variables
@@ -32,7 +37,7 @@
 
 #### Defined in
 
-[common/settings/settings.interface.ts:3](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L3)
+[common/settings/settings.interface.ts:5](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L5)
 
 ___
 
@@ -42,7 +47,7 @@ ___
 
 #### Defined in
 
-[common/settings/settings.interface.ts:4](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L4)
+[common/settings/settings.interface.ts:6](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L6)
 
 ___
 
@@ -52,7 +57,7 @@ ___
 
 #### Defined in
 
-[common/settings/settings.interface.ts:5](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L5)
+[common/settings/settings.interface.ts:7](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/common/settings/settings.interface.ts#L7)
 
 ## Functions
 

@@ -45,3 +45,38 @@ LIMIT 1
   if (!result) return undefined
   return JSON.parse(result.value) as T
 }
+
+/**
+ * find multiple settings by keys and scope
+ */
+export const findSettings = async (
+  dbPool: DatabasePool,
+  items: Array<{ key: string; scope: string }>
+): Promise<Array<{ value: string; key: string }> | undefined> => {
+  // use a window function to get the latest matching value for each key
+  const result = await dbPool.many<{ value: string; key: string }>(sql`
+SELECT
+    *
+FROM (
+    SELECT
+        key,
+        value,
+        row_number() OVER (PARTITION BY key ORDER BY nlevel (scope) DESC) AS row_number
+    FROM
+        settings
+        JOIN (
+            VALUES (${sql.join(
+              [...items.map(({ key, scope }) => sql.join([sql`${key}::ltree`, sql`${scope}::ltree`], sql`,`))],
+              sql`), (`
+            )})) AS t (k, s) ON k = key
+                AND (scope @> s)) temp
+WHERE
+    row_number = 1;
+
+`)
+  if (!result) return undefined
+  return result.map(row => ({
+    ...row,
+    value: JSON.parse(row.value)
+  }))
+}
