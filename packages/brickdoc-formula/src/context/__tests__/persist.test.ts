@@ -217,7 +217,13 @@ const testCases: {
   NoPersist: { cases: [{ type: 'NoPersist', result: null }] },
   Pending: { cases: [{ type: 'Pending', result: 'Pending' }] },
   Waiting: { cases: [{ type: 'Waiting', result: 'Waiting' }] },
-  Date: { cases: [{ type: 'Date', result: new Date() }] },
+  Date: {
+    cases: [
+      { type: 'Date', result: new Date() },
+      { type: 'Date', result: new Date('') },
+      { type: 'Date', result: new Date('foo bar') }
+    ]
+  },
   Error: { cases: [{ type: 'Error', result: 'bang!', errorKind: 'runtime' }] },
   Array: {
     cases: [
