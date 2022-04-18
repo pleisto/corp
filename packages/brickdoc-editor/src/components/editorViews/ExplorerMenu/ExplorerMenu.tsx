@@ -1,12 +1,6 @@
 import { useCallback, useState, useMemo, useContext, ChangeEventHandler, useEffect, cloneElement } from 'react'
 import { Icon, Menu } from '@brickdoc/design-system'
-import {
-  BrickdocEventBus,
-  DiscussionMarkActive,
-  ExplorerMenuGroup,
-  ExplorerMenuItem,
-  ExplorerMenuTrigger
-} from '@brickdoc/schema'
+import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuItem, ExplorerMenuTrigger } from '@brickdoc/schema'
 import { EditorContext } from '../../../context/EditorContext'
 import {
   InnerMenu,
@@ -18,6 +12,7 @@ import {
   SearchInputContainer
 } from './styled'
 import { Drawer } from '../../ui'
+import { useDrawerService, DrawerView } from '../../../services/DrawerService'
 
 export interface ExplorerMenuProps {}
 
@@ -30,25 +25,17 @@ const isMatchSearch =
 
 export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   const { t } = useContext(EditorContext)
-  const [visible, setVisible] = useState(false)
   const [groupSource, setGroupSource] = useState<ExplorerMenuGroup[]>()
   const [search, setSearch] = useState('')
-
-  useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(ExplorerMenuTrigger, event => {
-      setGroupSource(event.payload.items)
-      setVisible(event.payload.visible)
-    })
-
-    // TODO: create a drawer manager to manage all drawers' visible state
-    const listener2 = BrickdocEventBus.subscribe(DiscussionMarkActive, event => {
-      setVisible(false)
-    })
-    return () => {
-      listener.unsubscribe()
-      listener2.unsubscribe()
-    }
-  }, [])
+  const visible = useDrawerService(service => service.view) === DrawerView.ExplorerMenu
+  const close = useDrawerService(service => service.close)
+  useEffect(
+    () =>
+      BrickdocEventBus.subscribe(ExplorerMenuTrigger, event => {
+        setGroupSource(event.payload.items)
+      }).unsubscribe,
+    []
+  )
 
   const groups = useMemo<ExplorerMenuGroup[]>(
     () =>
@@ -78,15 +65,13 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
     setSearch(event.target.value)
   }, [])
 
-  const handleClose = useCallback(() => {
-    setVisible(false)
-  }, [])
-
   return (
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
+      // visible={visible}
+      // onClose={() => setVisible(false)}
       visible={visible}
-      onClose={() => setVisible(false)}
+      onClose={close}
       title={t('explorer_menu.title')}
       renderBody={() => (
         <>
@@ -106,7 +91,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
                     <MenuItem
                       onAction={() => {
                         item.onAction?.()
-                        handleClose()
+                        close()
                       }}
                       key={index}
                       itemKey={`item-${index}`}

@@ -50,7 +50,8 @@
     "react-medium-image-zoom": "^4.3.7",
     "refractor": "^4.5.0",
     "tippy.js": "^6.3.7",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zustand": "^3.7.2"
   },
   "devDependencies": {
     "@types/react-pdf": "^5.0.9",
