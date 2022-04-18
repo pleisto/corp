@@ -1196,6 +1196,7 @@ describe('Simple test case', () => {
 
       if (value !== undefined) {
         const variableValue = await innerInterpret({ parseResult, ctx: { ...ctx, meta: newMeta } })
+        const displayResult = displayValue(variableValue.result, '')
 
         expect(errorMessages).toEqual([])
 
@@ -1203,7 +1204,7 @@ describe('Simple test case', () => {
         expect(success).toEqual(true)
 
         if (display) {
-          expect(displayValue(variableValue.result, '')).toEqual(display)
+          expect(displayResult).toEqual(display)
         } else {
           expect(variableValue.result.result).toEqual(value)
           expect(variableValue.success).toEqual(true)
