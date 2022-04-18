@@ -33,14 +33,24 @@ export class PageListPage extends BasePage {
     return this.page.locator(PAGE_SELECTOR.arrow(index))
   }
 
-  async clickPage(index: number = 0): Promise<void> {
+  getRenameInput(): Locator {
+    return this.page.locator(PAGE_SELECTOR.renameInput)
+  }
+
+  async clickPage(index?: number): Promise<void> {
     await this.waitForResponseWithAction('GetBlockInfo', this.getPageByIndex(index).click())
   }
 
-  async expandArrow(index: number = 0): Promise<void> {
+  async expandArrow(index?: number): Promise<void> {
     const arrowClass = await this.getArrow(index).getAttribute('class')
     if (!arrowClass?.includes('-isExpanded-true')) {
       await this.getArrow(index).click()
+    }
+  }
+
+  async expandSubPageOneByOne(layer: number): Promise<void> {
+    for (let index = 0; index < layer; index++) {
+      await this.expandArrow(index)
     }
   }
 
@@ -48,23 +58,23 @@ export class PageListPage extends BasePage {
     await this.waitForResponseWithAction('GetPageBlocks', this.page.locator(PAGE_SELECTOR.addPageButton).click())
   }
 
-  async addSubPage(index: number = 0): Promise<void> {
+  async addSubPage(index?: number): Promise<void> {
     await this.getPageByIndex(index).hover()
     await this.waitForResponseWithAction('GetPageBlocks', this.getAddSubPageButton(index).click())
     await this.expandArrow()
   }
 
-  async removePage(index: number = 0): Promise<void> {
+  async removePage(index?: number): Promise<void> {
     await this.getPageByIndex(index).hover()
     await this.getMoreActionIcon(index).click()
     await this.waitForResponseWithAction('GetPageBlocks', this.getMoreButtonByText('Delete', index).click())
   }
 
-  async renamePage(pageName: string, index: number = 0): Promise<void> {
+  async renamePage(pageName: string, index?: number): Promise<void> {
     await this.getPageByIndex(index).hover()
     await this.getMoreActionIcon(index).click()
     await this.getMoreButtonByText('Rename', index).click()
-    await this.page.fill(PAGE_SELECTOR.renameInput, pageName)
-    await this.waitForResponseWithAction('GetPageBlocks', this.page.press(PAGE_SELECTOR.renameInput, 'Enter'))
+    await this.getRenameInput().fill(pageName)
+    await this.waitForResponseWithAction('GetPageBlocks', this.getRenameInput().press('Enter'))
   }
 }

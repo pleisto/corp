@@ -1,11 +1,10 @@
+import { BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 import {
-  BrickdocEventBus,
-  EventSubscribed,
   SpreadsheetReloadViaId,
   SpreadsheetUpdateColumnsViaId,
   SpreadsheetUpdateNameViaId,
   SpreadsheetUpdateRowsViaId
-} from '@brickdoc/schema'
+} from '../events'
 import {
   CodeFragmentVisitor,
   column2codeFragment,
@@ -225,17 +224,15 @@ export class SpreadsheetClass implements SpreadsheetType {
     if (!isNaN(number)) {
       return this.handleInterpretRow(number)
     }
-    return this.handleInterpretColumn(name)
+    return this.handleInterpretColumn(interpreter, name)
   }
 
-  private handleInterpretColumn(name: string): AnyTypeResult {
+  private handleInterpretColumn(interpreter: FormulaInterpreter, name: string): AnyTypeResult {
     const column = this.findColumn({ namespaceId: this.namespaceId, type: 'name', value: name })
 
-    if (column) {
-      return { type: 'Column', result: column }
-    }
+    if (!column) return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
 
-    return { type: 'Error', result: `Column ${name} not found`, errorKind: 'runtime' }
+    return { type: 'Column', result: column }
   }
 
   eventDependency({ rowKey, columnKey }: getEventDependencyInput): EventDependency {
@@ -269,7 +266,7 @@ export class SpreadsheetClass implements SpreadsheetType {
   }
 
   private handleInterpretRow(number: number): AnyTypeResult {
-    const row = this.findRow({namespaceId: this.namespaceId, type: 'name', value: String(number)})
+    const row = this.findRow({ namespaceId: this.namespaceId, type: 'name', value: String(number) })
     if (!row) {
       return { type: 'Error', result: `Row ${number} not found`, errorKind: 'runtime' }
     }

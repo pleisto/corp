@@ -21,15 +21,20 @@ import {
   useBlockPinOrUnpinMutation,
   useBlockDuplicateMutation
 } from '@/BrickdocGraphQL'
-import { queryBlockPins, queryPageBlocks } from '../../graphql'
+import { queryBlockPins, queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import styles from './styles.module.less'
-import { DocMeta } from '@/docs/pages/DocumentContentPage'
 import { useApolloClient, useReactiveVar } from '@apollo/client'
 import { editorVar, FormulaContextVar } from '@/docs/reactiveVars'
 import { appendFormulas } from '@brickdoc/formula'
 import { useFormulaActions } from '@/docs/pages/hooks/useFormulaActions'
 
 type UUID = Scalars['UUID']
+
+interface DocMeta {
+  id?: string | undefined
+  domain: string
+  host: string
+}
 
 interface PageMenuProps {
   mutable?: boolean
@@ -39,6 +44,8 @@ interface PageMenuProps {
   // setPopoverKey: React.Dispatch<React.SetStateAction<string | undefined>>
   titleText: string
   pin: boolean
+  parentId?: string | null
+  nearNodeId?: string
 }
 
 export const PageMenu: React.FC<PageMenuProps> = ({
@@ -48,7 +55,9 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   mutable = true,
   pin,
   title,
-  titleText
+  titleText,
+  parentId,
+  nearNodeId
 }) => {
   const navigate = useNavigate()
   const client = useApolloClient()
@@ -60,7 +69,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const [copied, setCopied] = React.useState<boolean>(false)
 
   const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
-    refetchQueries: [queryPageBlocks]
+    refetchQueries: [queryPageBlocks, queryTrashBlocks]
   })
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
@@ -91,6 +100,22 @@ export const PageMenu: React.FC<PageMenuProps> = ({
           }
         }
       })
+    }
+    if (location.pathname !== `/${domain}/${pageId}`) {
+      return
+    }
+    if (nearNodeId) {
+      navigate(`/${domain}/${nearNodeId}`)
+      return
+    }
+    if (parentId) {
+      navigate(`/${domain}/${parentId}`)
+      return
+    }
+    const newPageInput = { title: '' }
+    const { data } = await blockCreate({ variables: { input: newPageInput } })
+    if (data?.blockCreate?.id) {
+      navigate(`/${domain}/${data?.blockCreate?.id}`)
     }
   }
 

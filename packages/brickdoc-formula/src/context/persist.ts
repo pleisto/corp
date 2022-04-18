@@ -18,8 +18,6 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
   return {
     definition: t.definition,
     result: fetchResult(t),
-    type: t.richType.type,
-    kind: t.kind,
     version: VARIABLE_VERSION,
     display: displayValue(fetchResult(t), ''),
     meta: {
@@ -34,8 +32,7 @@ export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayDat
 }
 
 export const displayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncate: boolean = false): string => {
-  const value = innerDisplayValue(v, pageId, disableTruncate)
-  return value || '#Empty'
+  return innerDisplayValue(v, pageId, disableTruncate)
 }
 
 // eslint-disable-next-line complexity
@@ -46,6 +43,7 @@ const innerDisplayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncat
     case 'boolean':
       // return v.result ? '✓' : '✗'
       return String(v.result)
+    case 'literal':
     case 'string':
       return truncateString(v.result, disableTruncate ? -1 : undefined)
     case 'Date':
