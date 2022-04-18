@@ -69,7 +69,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const [copied, setCopied] = React.useState<boolean>(false)
 
   const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
-    refetchQueries: [queryPageBlocks, queryTrashBlocks]
+    // refetchQueries: [queryPageBlocks]
   })
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
@@ -91,25 +91,16 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const deletePage = async (): Promise<void> => {
     const input = { id: pageId, hardDelete: false }
     await blockSoftDelete({ variables: { input } })
-    if (pageId === id) {
-      client.cache.modify({
-        id: client.cache.identify({ __typename: 'BlockInfo', id }),
-        fields: {
-          isDeleted() {
-            return true
-          }
-        }
-      })
+    await client.refetchQueries({ include: [queryPageBlocks] })
+    if (location.pathname === `/${domain}/trash`) {
+      await client.refetchQueries({ include: [queryTrashBlocks] })
+      return
     }
     if (location.pathname !== `/${domain}/${pageId}`) {
       return
     }
-    if (nearNodeId) {
-      navigate(`/${domain}/${nearNodeId}`)
-      return
-    }
-    if (parentId) {
-      navigate(`/${domain}/${parentId}`)
+    if (nearNodeId ?? parentId) {
+      navigate(`/${domain}/${nearNodeId ?? parentId}`)
       return
     }
     const newPageInput = { title: '' }
