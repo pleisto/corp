@@ -50,10 +50,10 @@
     "@graphql-codegen/typescript-react-apollo": "^3.2.11",
     "@swc/cli": "^0.1.57",
     "@swc/jest": "^0.2.20",
-    "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^12.1.4",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^7.0.2",
-    "@testing-library/user-event": "^14.0.2",
+    "@testing-library/user-event": "^14.1.1",
     "@types/is-ci": "^3.0.0",
     "@types/jest": "^27.4.1",
     "@types/jest-axe": "^3.5.3",
@@ -112,7 +112,7 @@
     "minimist": ">= 1.2.6"
   },
   "dependencies": {
-    "@swc/core": "^1.2.167",
+    "@swc/core": "^1.2.168",
     "@swc/helpers": "^0.3.8",
     "dayjs": "^1.11.1",
     "ts-node": "^10.7.0"

@@ -57,7 +57,7 @@
     "@storybook/addon-essentials": "^6.5.0-alpha.58",
     "@storybook/addon-links": "^6.5.0-alpha.58",
     "@storybook/addons": "^6.5.0-alpha.58",
-    "@storybook/builder-vite": "^0.1.24",
+    "@storybook/builder-vite": "^0.1.29",
     "@storybook/react": "^6.5.0-alpha.58",
     "@storybook/testing-react": "^1.2.4",
     "@storybook/theming": "^6.5.0-alpha.58",
