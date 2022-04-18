@@ -68,9 +68,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
   const [copied, setCopied] = React.useState<boolean>(false)
 
-  const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
-    // refetchQueries: [queryPageBlocks]
-  })
+  const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({})
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
     refetchQueries: [queryPageBlocks]
