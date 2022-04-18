@@ -358,7 +358,7 @@ export type AnyTypeResult =
   | WaitingResult
   | NoPersistResult
 
-export type TypedResult<T extends FormulaType> = AnyTypeResult & { type: T }
+export type TypedResult<T extends FormulaType> = Extract<AnyTypeResult, { type: T }>
 
 export type AnyFunctionResult<T extends FormulaType> = TypedResult<T> | ErrorResult
 
