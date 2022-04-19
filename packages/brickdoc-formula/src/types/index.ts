@@ -22,6 +22,8 @@ type FormulaComplexType = 'Cst' | 'Reference' | 'Function' | 'Predicate'
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
 
+type UnusedFormulaControlType = 'Radio' | 'Rate' | 'Slider'
+
 export type FormulaType =
   | FormulaBasicType
   | FormulaObjectType
@@ -39,6 +41,8 @@ export type PersistFormulaType = Exclude<
   FormulaType,
   'any' | 'void' | 'Blank' | 'Range' | FormulaControlType | FormulaComplexType
 >
+
+type UsedFormulaType = Exclude<FormulaType, 'any' | 'void' | UnusedFormulaControlType>
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
@@ -322,7 +326,7 @@ interface SelfReference extends BaseReference {
   kind: 'self'
 }
 
-export type AnyTypeResult =
+type AnyResult =
   | NumberResult
   | BooleanResult
   | StringResult
@@ -350,6 +354,8 @@ export type AnyTypeResult =
   | PendingResult
   | WaitingResult
   | NoPersistResult
+
+export type AnyTypeResult = UsedFormulaType extends AnyResult['type'] ? AnyResult : never
 
 export type TypedResult<T extends FormulaType> = Extract<AnyTypeResult, { type: T }>
 
