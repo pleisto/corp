@@ -29,7 +29,7 @@ Create a set of identifiers from an array of strings.
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/identifiers.helper.ts:9
+[packages/nestjs-slonik/src/helpers/identifiers.helper.ts:9](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/identifiers.helper.ts#L9)
 
 ___
 
@@ -52,7 +52,7 @@ Create a set of identifiers from an object.
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/identifiers.helper.ts:28
+[packages/nestjs-slonik/src/helpers/identifiers.helper.ts:28](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/identifiers.helper.ts#L28)
 
 ___
 
@@ -75,4 +75,4 @@ Create a set of identifiers from a Set<string>
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/identifiers.helper.ts:38
+[packages/nestjs-slonik/src/helpers/identifiers.helper.ts:38](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/identifiers.helper.ts#L38)

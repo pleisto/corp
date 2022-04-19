@@ -31,7 +31,7 @@ Create a list of values from Map<string, any>.
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/values.helper.ts:26
+[packages/nestjs-slonik/src/helpers/values.helper.ts:26](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/values.helper.ts#L26)
 
 ___
 
@@ -54,4 +54,4 @@ Create a list of values from an object.
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/values.helper.ts:11
+[packages/nestjs-slonik/src/helpers/values.helper.ts:11](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/values.helper.ts#L11)

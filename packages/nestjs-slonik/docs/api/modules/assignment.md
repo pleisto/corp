@@ -25,7 +25,7 @@
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/assignment.helper.ts:15
+[packages/nestjs-slonik/src/helpers/assignment.helper.ts:15](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/assignment.helper.ts#L15)
 
 ___
 
@@ -46,4 +46,4 @@ ___
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/assignment.helper.ts:5
+[packages/nestjs-slonik/src/helpers/assignment.helper.ts:5](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/assignment.helper.ts#L5)

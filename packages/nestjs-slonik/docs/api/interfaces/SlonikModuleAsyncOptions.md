@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:46](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L46)
+[packages/nestjs-slonik/src/slonik.interface.ts:45](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L45)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:42](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L42)
+[packages/nestjs-slonik/src/slonik.interface.ts:41](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L41)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:44](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L44)
+[packages/nestjs-slonik/src/slonik.interface.ts:43](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L43)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:43](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L43)
+[packages/nestjs-slonik/src/slonik.interface.ts:42](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L42)
 
 ## Methods
 
@@ -95,4 +95,4 @@ ___
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:45](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L45)
+[packages/nestjs-slonik/src/slonik.interface.ts:44](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L44)
