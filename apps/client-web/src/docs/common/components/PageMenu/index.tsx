@@ -19,9 +19,10 @@ import {
   useBlockCreateMutation,
   useBlockRenameMutation,
   useBlockPinOrUnpinMutation,
-  useBlockDuplicateMutation
+  useBlockDuplicateMutation,
+  GetTrashBlocksDocument
 } from '@/BrickdocGraphQL'
-import { queryBlockPins, queryPageBlocks, queryTrashBlocks } from '../../graphql'
+import { queryBlockPins, queryPageBlocks } from '../../graphql'
 import styles from './styles.module.less'
 import { useApolloClient, useReactiveVar } from '@apollo/client'
 import { editorVar, FormulaContextVar } from '@/docs/reactiveVars'
@@ -68,7 +69,9 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
   const [copied, setCopied] = React.useState<boolean>(false)
 
-  const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({})
+  const [blockSoftDelete, { loading: blockDeleteLoading }] = useBlockSoftDeleteMutation({
+    refetchQueries: [queryPageBlocks, GetTrashBlocksDocument]
+  })
 
   const [blockCreate, { loading: createBlockLoading }] = useBlockCreateMutation({
     refetchQueries: [queryPageBlocks]
@@ -89,11 +92,6 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const deletePage = async (): Promise<void> => {
     const input = { id: pageId, hardDelete: false }
     await blockSoftDelete({ variables: { input } })
-    await client.refetchQueries({ include: [queryPageBlocks] })
-    if (location.pathname === `/${domain}/trash`) {
-      await client.refetchQueries({ include: [queryTrashBlocks] })
-      return
-    }
     if (location.pathname !== `/${domain}/${pageId}`) {
       return
     }

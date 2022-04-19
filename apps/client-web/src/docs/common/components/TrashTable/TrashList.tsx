@@ -10,6 +10,7 @@ import React, { useCallback, useState } from 'react'
 import { useDocsI18n } from '../../hooks'
 import { TrashItem } from './TrashItem'
 import { Card, Delete, Undo } from '@brickdoc/design-icons'
+
 import { queryPageBlocks, queryTrashBlocks } from '../../graphql'
 import { useApolloClient } from '@apollo/client'
 import { List, Item, NotFound, Page, Time, Action, SelectBlock, SelectedBar } from './Trash.style'
