@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[packages/nestjs-slonik/src/slonik.interface.ts:42](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L42)
+[packages/nestjs-slonik/src/slonik.interface.ts:38](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/slonik.interface.ts#L38)
