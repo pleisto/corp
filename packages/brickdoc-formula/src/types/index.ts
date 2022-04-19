@@ -42,14 +42,7 @@ export type PersistFormulaType = Exclude<
 
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
-export type FormulaCodeFragmentType =
-  | 'TRUE'
-  | 'FALSE'
-  | 'Function'
-  | 'Variable'
-  | 'FunctionName'
-  | 'LogicColumn'
-  | 'LogicRow'
+type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName' | 'LogicColumn' | 'LogicRow'
 
 export type FormulaColorType = Exclude<FormulaType, 'boolean'> | FormulaCodeFragmentType
 
