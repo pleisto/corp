@@ -1,6 +1,6 @@
-import { useCallback, useState, useMemo, useContext, ChangeEventHandler, useEffect, cloneElement } from 'react'
+import { useCallback, useState, useMemo, useContext, ChangeEventHandler, cloneElement } from 'react'
 import { Icon, Menu } from '@brickdoc/design-system'
-import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuItem, ExplorerMenuTrigger } from '@brickdoc/schema'
+import { ExplorerMenuGroup, ExplorerMenuItem } from '@brickdoc/schema'
 import { EditorContext } from '../../../context/EditorContext'
 import {
   InnerMenu,
@@ -12,7 +12,7 @@ import {
   SearchInputContainer
 } from './styled'
 import { Drawer } from '../../ui'
-import { useDrawerService, DrawerView } from '../../../services/DrawerService'
+import { useExplorerMenu } from './useExplorerMenu'
 
 export interface ExplorerMenuProps {}
 
@@ -25,22 +25,13 @@ const isMatchSearch =
 
 export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   const { t } = useContext(EditorContext)
-  const [groupSource, setGroupSource] = useState<ExplorerMenuGroup[]>()
   const [search, setSearch] = useState('')
-  const visible = useDrawerService(service => service.view) === DrawerView.ExplorerMenu
-  const close = useDrawerService(service => service.close)
-  useEffect(
-    () =>
-      BrickdocEventBus.subscribe(ExplorerMenuTrigger, event => {
-        setGroupSource(event.payload.items)
-      }).unsubscribe,
-    []
-  )
+  const { groupSource, visible, toggle } = useExplorerMenu()
 
   const groups = useMemo<ExplorerMenuGroup[]>(
     () =>
       // filter groups by search
-      groupSource?.reduce<ExplorerMenuGroup[]>((prev, group) => {
+      groupSource.reduce<ExplorerMenuGroup[]>((prev, group) => {
         const newGroup: ExplorerMenuGroup = {
           ...group,
           items: group.items
@@ -57,7 +48,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
 
         if (newGroup.items.length > 0) return [...prev, newGroup]
         return prev
-      }, []) ?? [],
+      }, []),
     [groupSource, search]
   )
 
@@ -68,10 +59,8 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   return (
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
-      // visible={visible}
-      // onClose={() => setVisible(false)}
       visible={visible}
-      onClose={close}
+      onClose={() => toggle(false)}
       title={t('explorer_menu.title')}
       renderBody={() => (
         <>
@@ -91,7 +80,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
                     <MenuItem
                       onAction={() => {
                         item.onAction?.()
-                        close()
+                        toggle(false)
                       }}
                       key={index}
                       itemKey={`item-${index}`}

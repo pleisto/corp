@@ -7,7 +7,7 @@ import { PageDiscussionContext, usePageDiscussionContextValue } from './PageDisc
 import { FilterTabs, DiscussionListContainer } from './styled'
 import { useActiveMarkId } from './useActiveMarkId'
 import { useCommentedNodes } from './useCommentedNodes'
-import { useDiscussionListVisible } from './useDiscussionListVisible'
+import { useDiscussionList } from './useDiscussionList'
 
 export interface DiscussionListProps {}
 
@@ -20,7 +20,8 @@ export const DiscussionList: FC<DiscussionListProps> = () => {
   const [activeTab, setActiveTab] = useState(TAB_ALL)
   const [commentedNodes] = useCommentedNodes()
   const [activeMarkId, setActiveMarkId] = useActiveMarkId(commentedNodes)
-  const [visible, setVisible] = useDiscussionListVisible(commentedNodes, setActiveMarkId)
+  const { visible, toggle } = useDiscussionList(commentedNodes, setActiveMarkId)
+
   const handleTabClick = useCallback(
     (activeTab: string) => {
       setActiveTab(activeTab)
@@ -34,7 +35,7 @@ export const DiscussionList: FC<DiscussionListProps> = () => {
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
       visible={visible}
-      onClose={() => setVisible(false)}
+      onClose={() => toggle(false)}
       title={t('discussion.title')}
     >
       <PageDiscussionContext.Provider value={pageDiscussion}>
