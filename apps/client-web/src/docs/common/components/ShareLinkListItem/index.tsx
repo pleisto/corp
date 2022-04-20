@@ -5,7 +5,7 @@ import {
   ShareLinkState,
   useBlockCreateShareLinkMutation
 } from '@/BrickdocGraphQL'
-import anyoneIcon from '@/common/assets/anyOne.svg'
+import anyoneIcon from '@/common/assets/anyone.svg'
 import { Dropdown, Menu, MenuProps } from '@brickdoc/design-system'
 import React from 'react'
 import { useDocsI18n } from '../../hooks'
