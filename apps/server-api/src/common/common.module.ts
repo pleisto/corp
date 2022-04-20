@@ -1,22 +1,28 @@
+import { env } from 'process'
 import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { LoggerModule, Params } from 'nestjs-pino'
-import { configOptions } from './config'
-import { KMSModule } from './kms/kms.module'
-import { RedisModule, RedisModuleOptions } from '@brickdoc/nestjs-redis'
+import { RedisModule } from '@brickdoc/nestjs-redis'
+import { SlonikModule } from '@brickdoc/nestjs-slonik'
+import { KMSModule, KMSService } from './kms'
+import { SettingsModule } from './settings'
 
+/**
+ * All Modules in the Common Module are global modules.
+ */
 @Module({
   imports: [
-    LoggerModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => config.get<Params>('logger')!
-    }),
-    ConfigModule.forRoot(configOptions),
-    KMSModule,
+    KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! }),
     RedisModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => config.get<RedisModuleOptions>('database.redis')!
-    })
+      inject: [KMSService],
+      useFactory: (kms: KMSService) => ({
+        url: env.REDIS_URL!,
+        cryptoService: kms
+      })
+    }),
+    SlonikModule.forRoot({
+      connectionUri: `${env.DATABASE_URL_BASE}/${env.DATABASE_NAME}`,
+      verboseRetryLog: true
+    }),
+    SettingsModule.forRoot()
   ]
 })
 export class CommonModule {}

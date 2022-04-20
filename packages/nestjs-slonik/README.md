@@ -34,7 +34,6 @@ The `forRoot()` method supports configuration properties described below.
 * `verboseRetryLog`: If `true`, will show verbose error messages on each connection retry (default: `false`)
 * `retryAttempts`: Number of attempts to connect to the database (default: `10`)
 * `retryDelay`: Delay between connection retry attempts (ms) (default: `3000`)
-* `camelCaseFieldNames`: If `true`, will convert field names to camelCase (default: `false`)
 
 Once this is done, the Slonik pool will be available to inject across the entire project (without needing to
 import any modules), for example:
@@ -43,12 +42,11 @@ import any modules), for example:
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { InjectPool } from '@brickdoc/nestjs-slonik';
-import { DatabasePoolType, sql } from 'slonik';
+import { InjectPool, sql, DatabasePool } from '@brickdoc/nestjs-slonik';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectPool() private pool: DatabasePoolType) {}
+  constructor(@InjectPool() private pool: DatabasePool) {}
 
   getHello(): Promise<string> {
     return this.pool.oneFirst<string>(sql`SELECT 'Hello World!';`);
@@ -86,9 +84,9 @@ Now you can inject the Slonik pool for a given pool name:
 export class AlbumsService {
   constructor(
     @InjectPool()
-    private usersPool: DatabasePoolType,
+    private usersPool: DatabasePool,
     @InjectPool('albumsConnection')
-    private albumsPool: DatabasePoolType,
+    private albumsPool: DatabasePool,
   ) {}
 }
 ```
@@ -96,14 +94,13 @@ export class AlbumsService {
 It's also possible to inject any Slonik pool instance to the providers:
 
 ```typescript
-import { DatabasePoolType } from 'slonik';
-import { getPoolToken } from '@brickdoc/nestjs-slonik';
+import { getPoolToken, DatabasePool } from '@brickdoc/nestjs-slonik';
 
 @Module({
   providers: [
     {
       provide: AlbumsService,
-      useFactory: (albumsConnection: DatabasePoolType) => {
+      useFactory: (albumsConnection: DatabasePool) => {
         return new AlbumsService(albumsConnection);
       },
       inject: [getPoolToken('albumsConnection')],
@@ -243,7 +240,7 @@ Read more about this pattern here: [Slonik docs](https://github.com/gajus/slonik
     }),
     SlonikModule.forRootAsync({
       inject: [getPoolToken('slave')],
-      useFactory: (slavePool: DatabasePoolType) => ({
+      useFactory: (slavePool: DatabasePool) => ({
         connectionUri: 'postgres://master',
         clientConfigurationInput: {
           interceptors: [
@@ -271,12 +268,11 @@ We register `master` pool as the default pool, but use Slonik interceptors to re
 
 ```typescript
 import { Controller, Get } from '@nestjs/common';
-import { InjectPool } from '@brickdoc/@brickdoc/nestjs-slonik';
-import { DatabasePoolType, sql } from 'slonik';
+import { InjectPool, sql, DatabasePool } from '@brickdoc/nestjs-slonik';
 
 @Controller()
 export class AppController {
-  constructor(@InjectPool() private readonly pool: DatabasePoolType) {}
+  constructor(@InjectPool() private readonly pool: DatabasePool) {}
 
   @Get()
   async getHello() {
@@ -289,3 +285,169 @@ export class AppController {
 The first query will use `postgres://master` connection.
 
 The second query will use `postgres://slave` connection.
+
+## Helpers
+
+The module exports several objects that group types of functionality.
+
+### `values`
+
+Create a list of values from an object.
+
+```ts
+import { sql, values } from "@brickdoc/nestjs-slonik"
+
+const payload = {
+  col1: "val1",
+  col2: "val2",
+}
+
+const query = sql`
+  INSERT INTO table (col1, col2)
+  VALUES (${values.fromObject(payload)})
+`
+```
+
+#### `fromMap()`
+
+Convenience for passing a `Map<string, any>`.
+
+```ts
+import { sql, values } from "@brickdoc/nestjs-slonik"
+
+const payload = new Map([
+  ["col1", "first value"],
+  ["col2", 222],
+])
+
+const query = sql`
+  INSERT INTO table (col1, col2)
+  VALUES (${values.fromMap(payload)})
+`
+```
+
+### `identifiers`
+
+Create a set of identifiers from an array of strings.
+
+```ts
+import { sql, identifiers } from "@brickdoc/nestjs-slonik"
+
+const query = sql`
+  SELECT ${identifiers.fromArray(['col1', 'col2'], 'table')}
+  FROM table
+`
+```
+
+Create a set of identifiers from an object.
+
+```ts
+import { sql, identifiers } from "@brickdoc/nestjs-slonik"
+
+const payload = {
+  col1: "val1",
+  col2: "val2",
+}
+
+const query = sql`
+  SELECT ${identifiers.fromObject(payload, 'table')}
+  FROM table
+`
+```
+
+#### `fromSet()`
+
+Convenience for passing a `Set<string>` (behaves the same as `fromArray()`).
+
+```ts
+import { identifiers } from "@brickdoc/nestjs-slonik"
+
+const PUBLIC_COLUMNS = identifiers.fromSet(new Set(["col_1", "col_2", "col_3"]), "table")
+```
+
+### `assignment`
+
+Create an assignment statement from an object for an update.
+
+```ts
+import { sql, assignment } from "@brickdoc/nestjs-slonik"
+
+const payload = {
+  col1: "val1",
+  col2: "val2",
+}
+
+const query = sql`
+  UPDATE table SET ${assignment.fromObject(payload)}
+`
+```
+
+#### `fromMap()`
+
+Convenience for passing a `Map<string, any>`.
+
+```ts
+import { sql, assignment } from "@brickdoc/nestjs-slonik"
+
+const payload = new Map([
+  ["col1", "first value"],
+  ["col2", 222],
+])
+
+const query = sql`
+  UPDATE table SET ${assignment.fromMap(payload)}
+`
+```
+
+### `TranslateFn`
+
+Methods that insert values into `sql` statements accept an optional `translate` argument as a function. You can use this as a callback to modify the value inserted into the statement. This allows making sure the value is handled with the proper `sql` query building helper.
+
+```ts
+import { sql, assignment } from "@brickdoc/nestjs-slonik"
+
+const payload = {
+  col1: "val1",
+  col2: {
+    nested1: "val2",
+    nested2: "val3",
+  },
+  col4: 'val4'
+}
+
+const expression = assignment.fromObject(payload, (col, val) => {
+  switch (col) {
+    case 'col2':
+      return sql.json(val) // val is { nested1: "val2", nested2: "val3" }
+    case 'col3':
+      return sql.binary(Buffer.from(val)) // val is 'val4'
+    default:
+      return val
+  }
+})
+
+const query = sql`
+  UPDATE table
+  SET ${expression}
+`
+```
+
+#### Returning a Tuple
+
+The `TranslateFn` function type also allows returning a Tuple with arity-2 where the first element is a `string` and the second element the translated value (any `ValueExpressionType` from slonik). This allows translation of the column name at the same time as value translation.
+
+```ts
+import { sql, assignment } from "@brickdoc/nestjs-slonik"
+import { snakeCase } from "@brickdoc/active-support" // or from "lodash"
+const payload = {
+  myColumn: "val1",
+  anotherColumn: "val2",
+}
+
+const expression = assignment.fromObject(payload, (col, val) => [snakeCase(col), val])
+
+const query = sql`
+  UPDATE table
+  SET ${expression}
+`
+```
