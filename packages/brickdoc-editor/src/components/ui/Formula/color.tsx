@@ -77,24 +77,36 @@ const orangeColorMeta: FormulaColorMeta = {
   color3: Palettes.orange3
 }
 
+export const formulaCodeStyle = (colorType: string): string => {
+  const colorMeta = FORMULA_COLOR_METAS[colorType as FormulaColorType]
+  if (!colorMeta) return ''
+  return `color: ${colorMeta.colorCode};`
+}
+
+export const FORMULA_CODE_ERROR_STYLE = `
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: ${Palettes.red7};
+`
+
 export const FORMULA_COLOR_METAS: Record<FormulaColorType, FormulaColorMeta> = {
   null: purpleColorMeta,
   number: cyanColorMeta,
   string: pinkColorMeta,
   literal: defaultColorMeta,
-  Record: blueColorMeta,
-  Array: blueColorMeta,
+  Record: orangeColorMeta,
+  Array: orangeColorMeta,
   Date: cyanColorMeta,
   Error: redColorMeta,
-  Column: greenColorMeta,
-  LogicColumn: blueColorMeta,
-  LogicRow: blueColorMeta,
+  Column: blueColorMeta,
+  LogicColumn: greenColorMeta,
+  Row: blueColorMeta,
+  LogicRow: cyanColorMeta,
   Range: redColorMeta,
-  Row: greenColorMeta,
   Cell: purpleColorMeta,
   Block: blueColorMeta,
   Spreadsheet: blueColorMeta,
-  Function: orangeColorMeta,
+  Function: blueColorMeta,
   Blank: { ...greenColorMeta, colorCode: thirdary },
   Predicate: cyanColorMeta,
   Button: blueColorMeta,

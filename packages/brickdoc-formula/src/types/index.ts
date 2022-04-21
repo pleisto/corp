@@ -15,29 +15,21 @@ import {
 import { PositionFragment } from '../grammar'
 
 type FormulaBasicType = 'number' | 'string' | 'boolean' | 'null'
-type FormulaObjectType =
-  | 'Date'
-  | 'Column'
-  | 'Row'
-  | 'Cell'
-  | 'Range'
-  | 'Spreadsheet'
-  | 'Block'
-  | 'Blank'
-  | 'Record'
-  | 'Array'
-  | 'Error'
-  | 'Predicate'
-  | 'Function'
-  | 'Reference'
-  | 'Cst'
+type FormulaObjectType = 'Date' | 'Block' | 'Blank' | 'Record' | 'Array' | 'Error'
+
+type FormulaSpreadsheetType = 'Spreadsheet' | 'Row' | 'Cell' | 'Column' | 'Range'
+type FormulaComplexType = 'Cst' | 'Reference' | 'Function' | 'Predicate'
 
 export type FormulaControlType = 'Button' | 'Switch' | 'Select' | 'Input' | 'Radio' | 'Rate' | 'Slider'
+
+type UnusedFormulaControlType = 'Radio' | 'Rate' | 'Slider'
 
 export type FormulaType =
   | FormulaBasicType
   | FormulaObjectType
   | FormulaControlType
+  | FormulaComplexType
+  | FormulaSpreadsheetType
   | 'literal'
   | 'any'
   | 'void'
@@ -45,16 +37,16 @@ export type FormulaType =
   | 'Waiting'
   | 'NoPersist'
 
+export type PersistFormulaType = Exclude<
+  FormulaType,
+  'any' | 'void' | 'Blank' | 'Range' | FormulaControlType | FormulaComplexType
+>
+
+type UsedFormulaType = Exclude<FormulaType, 'any' | 'void' | UnusedFormulaControlType>
+
 export type FormulaCheckType = FormulaType | [FormulaType, ...FormulaType[]]
 
-export type FormulaCodeFragmentType =
-  | 'TRUE'
-  | 'FALSE'
-  | 'Function'
-  | 'Variable'
-  | 'FunctionName'
-  | 'LogicColumn'
-  | 'LogicRow'
+type FormulaCodeFragmentType = 'TRUE' | 'FALSE' | 'Function' | 'Variable' | 'FunctionName' | 'LogicColumn' | 'LogicRow'
 
 export type FormulaColorType = Exclude<FormulaType, 'boolean'> | FormulaCodeFragmentType
 
@@ -317,11 +309,6 @@ export interface NoPersistResult extends BaseResult {
   type: 'NoPersist'
 }
 
-export interface AnyResult extends BaseResult {
-  result: any
-  type: 'any'
-}
-
 export type Reference = VariableReference | SelfReference
 
 interface BaseReference {
@@ -339,7 +326,7 @@ interface SelfReference extends BaseReference {
   kind: 'self'
 }
 
-export type AnyTypeResult =
+type AnyResult =
   | NumberResult
   | BooleanResult
   | StringResult
@@ -368,7 +355,11 @@ export type AnyTypeResult =
   | WaitingResult
   | NoPersistResult
 
-export type AnyFunctionResult<T> = (AnyTypeResult & { type: T }) | ErrorResult
+export type AnyTypeResult = UsedFormulaType extends AnyResult['type'] ? AnyResult : never
+
+export type TypedResult<T extends FormulaType> = Extract<AnyTypeResult, { type: T }>
+
+export type AnyFunctionResult<T extends FormulaType> = TypedResult<T> | ErrorResult
 
 export type FormulaSourceType = 'normal' | 'spreadsheet'
 export interface BaseFormula {

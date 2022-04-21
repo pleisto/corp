@@ -268,7 +268,7 @@ export const resultToColorType = ({ type, result }: AnyTypeResult): FormulaColor
   return type
 }
 
-export const attrsToColorType = ({ code, display, attrs }: CodeFragment): FormulaColorType => {
+export const attrsToColorType = ({ code, display, attrs }: CodeFragment): FormulaColorType | string => {
   switch (code) {
     case 'NullLiteral':
       return 'null'
@@ -279,6 +279,7 @@ export const attrsToColorType = ({ code, display, attrs }: CodeFragment): Formul
     case 'BooleanLiteral':
       return display === 'true' ? 'TRUE' : 'FALSE'
     case 'Column':
+    case 'Row':
       return attrs.kind as FormulaColorType
     default:
       return code as FormulaColorType
