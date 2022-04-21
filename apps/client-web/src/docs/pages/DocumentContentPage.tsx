@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useMemo } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import Split from '@uiw/react-split'
 import { DocumentTopBar } from './components/DocumentTopBar'
 import { DocumentPage } from './DocumentPage'
 import { BrickdocContext } from '@/common/brickdocContext'
@@ -223,25 +224,27 @@ export const DocumentContentPage: React.FC = () => {
           '@smDown': 'sm'
         }}
       >
-        {siderBar && <Root.Section>{siderBar}</Root.Section>}
-        <main>
-          {(!loading || docMeta.isMine) && (
-            <header>
-              <DocumentTopBar docMeta={docMeta} />
-            </header>
-          )}
-          <section>
-            <article id="article">
-              {docMeta.id && (
-                <DocumentPage
-                  docMeta={{ ...docMeta, editable: docMeta.editable && !isAnonymous && !docMeta.isDeleted }}
-                  mode={!docMeta.editable || isAnonymous ? 'presentation' : 'default'}
-                />
-              )}
-            </article>
-            <aside id="aside" />
-          </section>
-        </main>
+        <Split>
+          {siderBar && <Root.Section>{siderBar}</Root.Section>}
+          <main className="content">
+            {(!loading || docMeta.isMine) && (
+              <header>
+                <DocumentTopBar docMeta={docMeta} />
+              </header>
+            )}
+            <section>
+              <article id="article">
+                {docMeta.id && (
+                  <DocumentPage
+                    docMeta={{ ...docMeta, editable: docMeta.editable && !isAnonymous && !docMeta.isDeleted }}
+                    mode={!docMeta.editable || isAnonymous ? 'presentation' : 'default'}
+                  />
+                )}
+              </article>
+              <aside id="aside" />
+            </section>
+          </main>
+        </Split>
       </Root.Layout>
     </>
   )

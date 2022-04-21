@@ -4,11 +4,12 @@ import { theme, styled } from '@brickdoc/design-system'
 export const Section = styled('section', {
   display: 'flex',
   flexDirection: 'column',
-  width: '270px',
   height: '100vh',
-  padding: '0.1px 0.5rem 0',
+  padding: '0.1px 0 0 0.5rem',
   marginTop: '-0.1px',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  minWidth: 270,
+  maxWidth: 496
 })
 
 export const Layout = styled('div', {
@@ -19,6 +20,23 @@ export const Layout = styled('div', {
   background: `url(${bg}) no-repeat center center fixed`,
   backgroundSize: 'cover, cover',
   backgroundClip: 'border-box',
+  '.w-split': {
+    height: '100%',
+    width: '100%'
+  },
+  '.w-split-horizontal': {
+    '.w-split-bar': {
+      width: '0.5rem',
+      background: 'transparent',
+      boxShadow: 'none',
+      '&:hover': {
+        background: theme.colors.overlaySecondary
+      },
+      '&::after, &::before': {
+        display: 'none'
+      }
+    }
+  },
   [`${Section}`]: {
     '.mainActions header > .brk-logo': {
       height: '24px',
@@ -32,7 +50,7 @@ export const Layout = styled('div', {
       overflow: 'hidden'
     }
   },
-  '& > main': {
+  '& main.content': {
     display: 'flex',
     flexDirection: 'column',
     flex: 'auto',
@@ -68,7 +86,10 @@ export const Layout = styled('div', {
         [`${Section}`]: {
           display: 'none'
         },
-        '& > main': {
+        '.w-split-bar': {
+          display: 'none'
+        },
+        '& main.content': {
           flex: 1,
           '& > header': {
             background: theme.colors.ceramicSecondary
@@ -88,7 +109,7 @@ export const Layout = styled('div', {
         [`${Section}`]: {
           display: 'none'
         },
-        '& > main': {
+        '& main.content': {
           flex: 1,
           '& > header': {
             background: theme.colors.backgroundSecondary

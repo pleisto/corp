@@ -1811,7 +1811,8 @@ __metadata:
     "@sentry/tracing": ^6.19.6
     "@types/rails__actioncable": ^6.1.6
     "@types/rails__activestorage": ^7.0.1
-    autoprefixer: ^10.4.5
+    "@uiw/react-split": ^5.8.7
+    autoprefixer: ^10.4.4
     browserlist: ^1.0.1
     dayjs: ^1.11.1
     framer-motion: ^6.3.1
@@ -8287,6 +8288,16 @@ __metadata:
     "@typescript-eslint/types": 5.20.0
     eslint-visitor-keys: ^3.0.0
   checksum: 1e1aa5f14fd60f1846ee26947d571953898dc82eb635a7eab3984c6b7db9bb8897743416713a129cc95c8cd63325cc0c64b3935d264f73100911fc5da76fc65f
+  languageName: node
+  linkType: hard
+
+"@uiw/react-split@npm:^5.8.7":
+  version: 5.8.7
+  resolution: "@uiw/react-split@npm:5.8.7"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 6c5d57f7d34b68be4184e250e2f476a5fa0957ca26d38e201fdfff32e1c05e2ffcc1cbbaeb50b945533d7410a30aac7e63f3bf169f995516362443b4bbff67dc
   languageName: node
   linkType: hard
 

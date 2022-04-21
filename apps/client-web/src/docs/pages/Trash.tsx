@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import Split from '@uiw/react-split'
 import { BrickdocContext } from '@/common/brickdocContext'
 import { PageTree } from '@/docs/common/components/PageTree'
 import { SpaceSelect } from '@/docs/common/components/SpaceSelect'
@@ -58,10 +59,12 @@ export const Trash: React.FC = () => {
           '@smDown': 'sm'
         }}
       >
-        {siderBar && <Root.Section>{siderBar}</Root.Section>}
-        <main>
-          <TrashTable docMeta={{ domain }} />
-        </main>
+        <Split>
+          {siderBar && <Root.Section>{siderBar}</Root.Section>}
+          <main className="content">
+            <TrashTable docMeta={{ domain }} />
+          </main>
+        </Split>
       </Root.Layout>
     </>
   )
