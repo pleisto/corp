@@ -1,12 +1,12 @@
-import { useEffect, Dispatch, SetStateAction, useRef, useCallback } from 'react'
+import { useEffect, Dispatch, SetStateAction, useRef } from 'react'
 import { selectDiscussionMark } from '../../../helpers/discussion'
 import { CommentedNode } from './useCommentedNodes'
 import { useExternalProps } from '../../../hooks/useExternalProps'
-import { useDrawerService, DrawerView } from '../../../services/DrawerService'
+import { useDrawer } from '../../ui/Drawer'
 
 interface UseDiscussionListReturn {
   visible: boolean
-  toggle: (visible: boolean) => void
+  setVisible: (visible: boolean) => void
 }
 
 export function useDiscussionList(
@@ -15,17 +15,7 @@ export function useDiscussionList(
 ): UseDiscussionListReturn {
   const { pageQuery } = useExternalProps()
   const latestPageQuery = useRef<URLSearchParams | null>()
-
-  const visible = useDrawerService(service => service.view) === DrawerView.DiscussionList
-  const close = useDrawerService(service => service.close)
-  const open = useDrawerService(service => service.open)
-
-  const toggle = useCallback(
-    (visible: boolean) => {
-      visible ? open(DrawerView.DiscussionList) : close()
-    },
-    [close, open]
-  )
+  const { visible, setVisible } = useDrawer('discussionList')
 
   // open discussion list when open an url with comment info
   useEffect(() => {
@@ -35,7 +25,7 @@ export function useDiscussionList(
     const commentedNode = commentedNodes.find(node => node.markId === markId)
     if (!commentedNode) return
 
-    toggle(true)
+    setVisible(true)
     selectDiscussionMark(commentedNode.domNode)
     latestPageQuery.current = pageQuery
 
@@ -44,10 +34,10 @@ export function useDiscussionList(
       setActiveMarkId(commentedNode.markId)
     }, 200)
     return () => clearTimeout(timer)
-  }, [commentedNodes, pageQuery, setActiveMarkId, toggle])
+  }, [commentedNodes, pageQuery, setActiveMarkId, setVisible])
 
   return {
     visible,
-    toggle
+    setVisible
   }
 }

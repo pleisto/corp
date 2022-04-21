@@ -20,7 +20,7 @@ export const DiscussionList: FC<DiscussionListProps> = () => {
   const [activeTab, setActiveTab] = useState(TAB_ALL)
   const [commentedNodes] = useCommentedNodes()
   const [activeMarkId, setActiveMarkId] = useActiveMarkId(commentedNodes)
-  const { visible, toggle } = useDiscussionList(commentedNodes, setActiveMarkId)
+  const { visible, setVisible } = useDiscussionList(commentedNodes, setActiveMarkId)
 
   const handleTabClick = useCallback(
     (activeTab: string) => {
@@ -35,7 +35,7 @@ export const DiscussionList: FC<DiscussionListProps> = () => {
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
       visible={visible}
-      onClose={() => toggle(false)}
+      onClose={() => setVisible(false)}
       title={t('discussion.title')}
     >
       <PageDiscussionContext.Provider value={pageDiscussion}>

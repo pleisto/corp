@@ -1,6 +1,6 @@
-import { useCallback, useState, useMemo, useContext, ChangeEventHandler, cloneElement } from 'react'
+import { useCallback, useState, useMemo, useContext, ChangeEventHandler, cloneElement, useEffect } from 'react'
 import { Icon, Menu } from '@brickdoc/design-system'
-import { ExplorerMenuGroup, ExplorerMenuItem } from '@brickdoc/schema'
+import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuItem, ExplorerMenuTrigger } from '@brickdoc/schema'
 import { EditorContext } from '../../../context/EditorContext'
 import {
   InnerMenu,
@@ -12,7 +12,7 @@ import {
   SearchInputContainer
 } from './styled'
 import { Drawer } from '../../ui'
-import { useExplorerMenu } from './useExplorerMenu'
+import { useDrawer } from '../../ui/Drawer'
 
 export interface ExplorerMenuProps {}
 
@@ -25,8 +25,17 @@ const isMatchSearch =
 
 export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   const { t } = useContext(EditorContext)
+  const { visible, setVisible } = useDrawer('explorerMenu')
   const [search, setSearch] = useState('')
-  const { groupSource, visible, toggle } = useExplorerMenu()
+  const [groupSource, setGroupSource] = useState<ExplorerMenuGroup[]>([])
+
+  useEffect(
+    () =>
+      BrickdocEventBus.subscribe(ExplorerMenuTrigger, event => {
+        setGroupSource(event.payload.items ?? [])
+      }).unsubscribe,
+    []
+  )
 
   const groups = useMemo<ExplorerMenuGroup[]>(
     () =>
@@ -60,7 +69,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
       visible={visible}
-      onClose={() => toggle(false)}
+      onClose={() => setVisible(false)}
       title={t('explorer_menu.title')}
       renderBody={() => (
         <>
@@ -80,7 +89,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
                     <MenuItem
                       onAction={() => {
                         item.onAction?.()
-                        toggle(false)
+                        setVisible(false)
                       }}
                       key={index}
                       itemKey={`item-${index}`}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import {
   useEditor as useTiptapEditor,
   EditorContent as TiptapEditorContent,
@@ -14,7 +14,7 @@ import { SyncOptions } from '../../extensions'
 import { Base } from '../../extensions/base'
 import { ExternalProps, ExternalPropsContext } from '../../context'
 import './styles.less'
-import { useDrawerService } from '../../services/DrawerService'
+import { useDrawerService } from '../../components/ui/Drawer'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
@@ -24,8 +24,7 @@ export interface EditorContentProps {
 export const EditorContent: React.FC<EditorContentProps> = ({ editor, externalProps }) => {
   const [t] = useEditorI18n()
   const editorContext = useMemo<EditorContextData>(() => ({ editor, t }), [editor, t])
-  const attachDrawerService = useDrawerService(service => service.attach)
-  useEffect(() => attachDrawerService(), [attachDrawerService])
+  useDrawerService()
   return (
     <EditorContext.Provider value={editorContext}>
       <ExternalPropsContext.Provider value={externalProps}>
