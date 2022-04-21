@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom'
 import { DocMeta, NonNullDocMeta } from './DocumentContentPage'
 import { editorVar } from '../reactiveVars'
 import { useEditorExternalProps } from './hooks/useEditorExternalProps'
-// import { useDocumentEditable } from './hooks/useDocumentEditable'
+import { useDocumentEditable } from './hooks/useDocumentEditable'
 import * as Root from './DocumentPage.style'
 
 interface DocumentPageProps {
@@ -33,17 +33,16 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
     [docMeta.id, docMeta.snapshotVersion]
   )
 
-  // rootBlock
-  const { data, loading, onDocSave } = useSyncProvider(queryVariables)
+  const { rootBlock, data, loading, onDocSave } = useSyncProvider(queryVariables)
 
   const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id as string })
 
   const freeze = mode === 'presentation'
-  // const currentRootBlock = rootBlock.current
-  // const [documentEditable] = useDocumentEditable(freeze ?? false, docMeta, currentRootBlock)
+  const currentRootBlock = rootBlock.current
+  const [documentEditable] = useDocumentEditable(freeze ?? false, docMeta, currentRootBlock)
 
-  // TODO: refactor editor editable and reactive var
-  const documentEditable = !freeze
+  // TODO: refactor editor and editable reactive var
+  // const documentEditable = !freeze
 
   const externalProps = useEditorExternalProps({
     docMeta,
@@ -58,8 +57,9 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
     ydoc: ydoc.current
   })
 
+  // TODO: refactor editor reactive var
   useEffect(() => {
-    if (!freeze) editorVar(editor)
+    editorVar(freeze ? null : editor)
   }, [editor, freeze])
 
   useEffect(() => {
