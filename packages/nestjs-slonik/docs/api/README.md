@@ -1047,4 +1047,4 @@ Query the database with result type
 
 #### Defined in
 
-packages/nestjs-slonik/src/helpers/result-type.helper.ts:30
+[packages/nestjs-slonik/src/helpers/result-type.helper.ts:30](https://github.com/brickdoc/brickdoc/blob/master/packages/nestjs-slonik/src/helpers/result-type.helper.ts#L30)
