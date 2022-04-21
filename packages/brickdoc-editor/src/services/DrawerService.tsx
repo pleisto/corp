@@ -35,9 +35,9 @@ export const useDrawerService = create<DrawerService>((set, get) => ({
         open(payload.visible ?? !isDiscussionOpen ? DrawerView.DiscussionList : DrawerView.Closed)
       }),
       BrickdocEventBus.subscribe(DiscussionMarkActive, event => {
-        const { view, close } = get()
+        const { view, open } = get()
         if (view !== DrawerView.DiscussionList) {
-          close()
+          open(DrawerView.DiscussionList)
         }
       })
     ]
