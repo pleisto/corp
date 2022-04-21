@@ -7,6 +7,7 @@ import {
 } from '@/BrickdocGraphQL'
 import { Spin, useList, Checkbox, Button, theme, ConfirmDialog } from '@brickdoc/design-system'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
 import { TrashItem } from './TrashItem'
 import { Card, Delete, Undo } from '@brickdoc/design-icons'
@@ -43,11 +44,18 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
     []
   )
 
+  const { key } = useLocation()
+
   useEffect(() => {
     setInputDebounce(domain, keyword)
   }, [domain, keyword, setInputDebounce])
 
-  const { data, loading: listLoading } = useGetTrashBlocksQuery({ variables: input })
+  const { data, loading: listLoading, refetch } = useGetTrashBlocksQuery({ variables: input })
+
+  useEffect(() => {
+    refetch()
+  }, [key, refetch])
+
   const [actionLoading, setActionLoading] = useState(false)
   const [hardDeleteModalVisible, setHardDeleteModalVisible] = useState(false)
 
