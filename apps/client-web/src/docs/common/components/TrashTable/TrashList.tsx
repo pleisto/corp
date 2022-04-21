@@ -93,6 +93,10 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
     await onBatchDelete()
   }
 
+  const onClickBatchRestore = async (): Promise<void> => {
+    await onBatchRestore()
+  }
+
   const onItemDelele = async (id: string): Promise<void> => {
     await onBatchDelete([id])
   }
@@ -166,7 +170,7 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
             </span>
           </Page>
           <Action>
-            <Button style={{ marginRight: '0.5rem' }} icon={<Undo />} onClick={onClickBatchDelete}>
+            <Button style={{ marginRight: '0.5rem' }} icon={<Undo />} onClick={onClickBatchRestore}>
               {t('trash.restore_action')}
             </Button>
             <Button icon={<Delete />} type="danger" onClick={() => setHardDeleteModalVisible(true)}>
