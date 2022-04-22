@@ -24,6 +24,8 @@ jobs:
     if: fromJSON(needs.changes.outputs.apps)[0] != null && github.event.deployment_status.state == 'success' && (github.event.deployment_status.environment == 'pr_preview' || github.event.deployment_status.environment == 'trunk')
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v3
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
