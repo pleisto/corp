@@ -62,6 +62,4 @@ test.describe('Page List', () => {
 
     await expect(pageList.getSubPage(1)).toHaveCSS('width', rem2Pixel('1rem'))
   })
-
-  // just a test
 })
