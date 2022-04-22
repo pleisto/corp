@@ -19,6 +19,7 @@ jobs:
           filters: .github/e2e_rule.yml
 
   playwright:
+    needs: changes
     name: Playwright Test
     if: fromJSON(needs.changes.outputs.apps)[0] != null && github.event.deployment_status.state == 'success' && (github.event.deployment_status.environment == 'pr_preview' || github.event.deployment_status.environment == 'trunk')
     runs-on: ubuntu-latest
