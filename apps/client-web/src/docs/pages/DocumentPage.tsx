@@ -97,13 +97,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
           '@smDown': 'sm'
         }}
       >
-        <DocumentTitle
-          document={document}
-          saveDocument={saveDocument}
-          docId={docMeta.id}
-          blocks={document?.blocks}
-          editable={documentEditable}
-        />
+        <DocumentTitle document={document} saveDocument={saveDocument} editable={documentEditable} />
         <Root.PageContent>
           <EditorContent editor={editor} externalProps={externalProps} />
         </Root.PageContent>

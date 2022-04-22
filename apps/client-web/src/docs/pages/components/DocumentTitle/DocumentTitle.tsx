@@ -15,22 +15,19 @@ import {
 import { useReactiveVar } from '@apollo/client'
 import { editorVar } from '@/docs/reactiveVars'
 import { useBlobGetter } from '../../hooks/useBlobGetter'
-import { GetChildrenBlocksQuery } from '@/BrickdocGraphQL'
 import { Document, DocumentMeta } from '@/common/models'
 // import { EditorContentProps } from '@brickdoc/editor'
 
 export interface DocumentTitleProps {
-  document?: Document
+  document: Document
   saveDocument: (doc: Document) => void
-  docId?: string
-  blocks: GetChildrenBlocksQuery['childrenBlocks']
   editable: boolean
 }
 
-export const DocumentTitle: React.FC<DocumentTitleProps> = ({ document, saveDocument, docId, editable, blocks }) => {
+export const DocumentTitle: React.FC<DocumentTitleProps> = ({ document, saveDocument, editable }) => {
   const { t } = useDocsI18n()
   const editor = useReactiveVar(editorVar)
-  const blockId = editor?.state.doc.attrs.uuid
+  const { id: blockId, blocks } = document ?? {}
 
   const [meta, setMeta] = React.useState<DocumentMeta>(document?.meta ?? {})
 
