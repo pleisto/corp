@@ -16,7 +16,7 @@ export const Path = styled(Link, {
   color: theme.colors.typeSecondary,
   fontSize: theme.fontSizes.callout,
   lineHeight: '1.25rem',
-  maxWidth: '150px',
+  maxWidth: '25rem',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

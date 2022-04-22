@@ -29,6 +29,7 @@ export const Layout = styled('div', {
       width: '0.5rem',
       background: 'transparent',
       boxShadow: 'none',
+      flexShrink: 0,
       '&:hover': {
         background: theme.colors.overlaySecondary
       },
