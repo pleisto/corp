@@ -56,6 +56,7 @@ export const Layout = styled('div', {
     flexDirection: 'column',
     flex: 'auto',
     height: '100vh',
+    overflow: 'hidden',
     '& > header': {
       height: '3.5rem',
       padding: '0 3.5rem 0 0',

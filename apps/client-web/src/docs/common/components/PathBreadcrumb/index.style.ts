@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 
 export const Warp = styled('div', {
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  minWidth: 0,
+  overflow: 'hidden'
 })
 
 export const Tip = styled('p', {
