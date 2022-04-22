@@ -1,10 +1,10 @@
 import React from 'react'
 import { Node } from 'prosemirror-model'
 // import { BrickdocModelStore } from '../store'
-import { Document } from '../models'
-import { Block } from '@brickdoc/schema'
+import { Document, DocumentMeta } from '../models'
+import { Block, BrickdocEventBus, UpdateDocMeta } from '@brickdoc/schema'
 
-import { useSyncProvider } from '../../../docs/pages/hooks'
+import { useSyncProvider } from '@/docs/pages/hooks'
 
 export const useDocument = (options: {
   docId: string
@@ -14,6 +14,7 @@ export const useDocument = (options: {
   rootBlock: React.MutableRefObject<Block | undefined>
   loading: boolean
   onDocSave: (doc: Node) => Promise<void>
+  saveDocument: (document: Document) => void
 } => {
   const { docId } = options
   const [document, setDocument] = React.useState<Document>()
@@ -32,17 +33,28 @@ export const useDocument = (options: {
 
   React.useEffect(() => {
     const newDocument = {
+      meta: rootBlock.current?.meta, // TODO: new document meta
       blocks: data?.childrenBlocks as Block[]
     }
 
     setLoading(blocksLoading)
     setDocument(newDocument)
-  }, [data?.childrenBlocks, blocksLoading])
+  }, [data?.childrenBlocks, blocksLoading, rootBlock])
+
+  const saveDocument = React.useCallback(
+    (newDocument: Document) => {
+      setDocument(newDocument)
+      // TODO: eventbus dispatch
+      BrickdocEventBus.dispatch(UpdateDocMeta({ id: docId, meta: newDocument.meta as DocumentMeta }))
+    },
+    [docId]
+  )
 
   return {
     document,
     rootBlock,
     loading,
-    onDocSave
+    onDocSave,
+    saveDocument
   }
 }

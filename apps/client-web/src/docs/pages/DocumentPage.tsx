@@ -4,7 +4,7 @@ import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
 import { useDocSyncProvider } from './hooks'
-import { useDocument } from '../../common/models'
+import { useDocument } from '@/common/models'
 import { blocksToJSONContents } from '../common/blocks'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
@@ -29,7 +29,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   // promote this call to the beginning of this render fn.
   useEditorI18n()
 
-  const { document, loading, rootBlock, onDocSave } = useDocument({ docId: docMeta.id as string })
+  const { document, loading, rootBlock, onDocSave, saveDocument } = useDocument({ docId: docMeta.id as string })
 
   const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id as string })
 
@@ -97,7 +97,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
           '@smDown': 'sm'
         }}
       >
-        <DocumentTitle docId={docMeta.id} blocks={document?.blocks} editable={documentEditable} />
+        <DocumentTitle
+          document={document}
+          saveDocument={saveDocument}
+          docId={docMeta.id}
+          blocks={document?.blocks}
+          editable={documentEditable}
+        />
         <Root.PageContent>
           <EditorContent editor={editor} externalProps={externalProps} />
         </Root.PageContent>
