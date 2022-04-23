@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import Split from '@uiw/react-split'
 import { BrickdocContext } from '@/common/brickdocContext'
@@ -12,10 +12,12 @@ import { useDocsI18n } from '../common/hooks'
 import Logo from '@/common/assets/logo_brickdoc_without_name.svg'
 import { TrashTable } from '@/docs/common/components/TrashTable'
 import { AppError404 } from '@/AppError'
+import { getSidebarStyle, logSideBarWidth } from '@/common/utils/sidebarStyle'
 import * as Root from './DocumentContentPage.style'
 
 export const Trash: React.FC = () => {
   const { t } = useDocsI18n()
+  const preStyle = useMemo<React.CSSProperties>(getSidebarStyle, [])
   const { loading: spaceDataloding, data: sapceData } = useGetSpacesQuery()
   const { currentSpace, currentUser, host } = useContext(BrickdocContext)
 
@@ -59,8 +61,8 @@ export const Trash: React.FC = () => {
           '@smDown': 'sm'
         }}
       >
-        <Split>
-          {siderBar && <Root.Section>{siderBar}</Root.Section>}
+        <Split onDragEnd={logSideBarWidth}>
+          {siderBar && <Root.Section style={preStyle}>{siderBar}</Root.Section>}
           <main className="content">
             <TrashTable docMeta={{ domain }} />
           </main>

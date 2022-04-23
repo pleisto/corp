@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react'
+import { getSidebarStyle, logSideBarWidth } from '@/common/utils/sidebarStyle'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import Split from '@uiw/react-split'
 import { DocumentTopBar } from './components/DocumentTopBar'
@@ -71,6 +72,7 @@ export const DocumentContentPage: React.FC = () => {
   const { currentSpace, currentUser, host, lastDomain, lastBlockIds, featureFlags } = useContext(BrickdocContext)
   const { t } = useDocsI18n()
   const navigate = useNavigate()
+  const preSidebarStyle = useMemo(getSidebarStyle, [])
 
   const loginDomain = currentSpace.domain
 
@@ -224,8 +226,8 @@ export const DocumentContentPage: React.FC = () => {
           '@smDown': 'sm'
         }}
       >
-        <Split>
-          {siderBar && <Root.Section>{siderBar}</Root.Section>}
+        <Split onDragEnd={logSideBarWidth}>
+          {siderBar && <Root.Section style={preSidebarStyle}>{siderBar}</Root.Section>}
           <main className="content">
             {(!loading || docMeta.isMine) && (
               <header>
