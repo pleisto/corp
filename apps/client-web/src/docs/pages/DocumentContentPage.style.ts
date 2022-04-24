@@ -57,7 +57,7 @@ export const Layout = styled('div', {
       boxShadow: 'none',
       flexShrink: 0,
       '&:hover': {
-        background: theme.colors.overlaySecondary
+        background: 'transparent'
       },
       '&::after, &::before': {
         display: 'none'
