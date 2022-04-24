@@ -3,12 +3,10 @@ import { getSidebarStyle, logSideBarWidth } from '@/common/utils/sidebarStyle'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import Split from '@uiw/react-split'
 import { DocumentTopBar } from './components/DocumentTopBar'
+import { ContentSidebar } from './components/ContentSidebar'
 import { DocumentPage } from './DocumentPage'
 import { BrickdocContext } from '@/common/brickdocContext'
-import { PageTree } from '@/docs/common/components/PageTree'
 import { SpaceSelect } from '@/docs/common/components/SpaceSelect'
-import { TrashButton } from '@/docs/common/components/TrashButton'
-import { NewPage } from './components/NewPage'
 import { Helmet } from 'react-helmet-async'
 import { GetBlockInfoQuery, Policytype, useBlockCreateMutation, useGetBlockInfoQuery } from '@/BrickdocGraphQL'
 import { useDocsI18n } from '../common/hooks'
@@ -16,7 +14,6 @@ import { queryPageBlocks } from '../common/graphql'
 import { FormulaContextVar } from '../reactiveVars'
 import { validate as isValidUUID } from 'uuid'
 import { appendFormulas, FormulaContext } from '@brickdoc/formula'
-import Logo from '@/common/assets/logo_brickdoc_without_name.svg'
 import * as Root from './DocumentContentPage.style'
 import { useFormulaActions } from './hooks/useFormulaActions'
 import { AppError404 } from '@/AppError'
@@ -190,26 +187,7 @@ export const DocumentContentPage: React.FC = () => {
   }, [blockCreate, docid, history, domain, docMeta, lastDomain, lastBlockIds])
 
   const siderBar =
-    !docMeta.isAnonymous &&
-    (docMeta.isMine ? (
-      <>
-        <div className="mainActions">
-          <header style={{ fontSize: 0 }}>
-            <img className="brk-logo" src={Logo} alt="Brickdoc" />
-          </header>
-          <nav>
-            <SpaceSelect docMeta={docMeta} />
-            <PageTree docMeta={docMeta} />
-          </nav>
-        </div>
-        <footer>
-          <NewPage docMeta={docMeta} />
-          <TrashButton docMeta={docMeta} />
-        </footer>
-      </>
-    ) : (
-      <SpaceSelect docMeta={docMeta} />
-    ))
+    !docMeta.isAnonymous && (docMeta.isMine ? <ContentSidebar docMeta={docMeta} /> : <SpaceSelect docMeta={docMeta} />)
   if (docMeta.isNotExist) {
     return <AppError404 btnCallback={() => navigate('/')} />
   }

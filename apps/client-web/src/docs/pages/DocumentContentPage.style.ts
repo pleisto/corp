@@ -9,7 +9,33 @@ export const Section = styled('section', {
   marginTop: '-0.1px',
   justifyContent: 'space-between',
   minWidth: 270,
-  maxWidth: 496
+  maxWidth: 496,
+  '.mainActions': {
+    position: 'relative',
+    flex: 1,
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    overflow: 'hidden',
+    header: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      fontSize: 0,
+      zIndex: 2,
+      backdropFilter: 'blur(5px)'
+    },
+    nav: {
+      flex: 1
+    }
+  },
+  footer: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    left: 0,
+    backdropFilter: 'blur(5px)'
+  }
 })
 
 export const Layout = styled('div', {
@@ -43,12 +69,12 @@ export const Layout = styled('div', {
       height: '24px',
       margin: '1rem 18px'
     },
-    '& > footer': {
+    '& > .mainActions > footer': {
       display: 'flex',
       alignItems: 'center'
     },
     '.mainActions nav': {
-      overflow: 'hidden'
+      overflow: 'hidden auto'
     }
   },
   '& main.content': {
