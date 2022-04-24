@@ -17,9 +17,7 @@ export const ContentSidebar: React.FC<IContentSidebar> = ({ docMeta }) => {
         <SpaceSelect docMeta={docMeta} />
       </header>
       <nav>
-        <div style={{ height: 112 }} />
         <PageTree docMeta={docMeta} />
-        <div style={{ height: 47 }} />
       </nav>
       <footer>
         <NewPage docMeta={docMeta} />

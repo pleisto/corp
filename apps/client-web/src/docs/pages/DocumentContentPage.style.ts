@@ -11,13 +11,13 @@ export const Section = styled('section', {
   minWidth: 270,
   maxWidth: 496,
   '.mainActions': {
-    position: 'relative',
+    position: 'sticky',
     flex: 1,
     display: 'flex',
     flexFlow: 'column nowrap',
-    overflow: 'hidden',
+    overflow: 'hidden auto',
     header: {
-      position: 'absolute',
+      position: 'sticky',
       top: 0,
       left: 0,
       width: '100%',
@@ -30,7 +30,7 @@ export const Section = styled('section', {
     }
   },
   footer: {
-    position: 'absolute',
+    position: 'sticky',
     width: '100%',
     bottom: 0,
     left: 0,
@@ -72,9 +72,6 @@ export const Layout = styled('div', {
     '& > .mainActions > footer': {
       display: 'flex',
       alignItems: 'center'
-    },
-    '.mainActions nav': {
-      overflow: 'hidden auto'
     }
   },
   '& main.content': {
