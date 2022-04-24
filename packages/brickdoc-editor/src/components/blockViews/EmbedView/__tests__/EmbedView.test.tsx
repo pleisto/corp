@@ -3,7 +3,7 @@ import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ExternalProps } from '../../../../context'
 import { EmbedAttributes, EmbedOptions } from '../../../../extensions'
-import { mockBlockViewProps } from '../../../common/tests'
+import { mockBlockViewProps } from '../../../../test'
 import { EmbedView } from '../EmbedView'
 
 const uuid = 'uuid'
@@ -122,7 +122,7 @@ describe('EmbedView', () => {
 
     render(<EmbedView {...props} />)
 
-    expect(screen.getByText('embed_block.types.link.label')).toBeInTheDocument()
+    expect(screen.getByText('embed_block.embed_types.link.label')).toBeInTheDocument()
   })
 
   describe('Gallery', () => {

@@ -46,8 +46,9 @@ export function useModeSwitchOptions(
   const options: ToolbarOptionGroup = [
     {
       type: 'item',
-      name: t('embed_block.view_types.card.tooltip'),
-      tooltip: t('embed_block.view_types.card.tooltip'),
+      name: 'card',
+      label: t('embed_block.view_types.card.name'),
+      tooltip: t('embed_block.view_types.card.name'),
       icon: (
         <Icon active={isCard}>
           <Preview />
@@ -58,8 +59,9 @@ export function useModeSwitchOptions(
     },
     {
       type: 'item',
-      name: t('embed_block.view_types.bookmark.tooltip'),
-      tooltip: t('embed_block.view_types.bookmark.tooltip'),
+      name: 'bookmark',
+      label: t('embed_block.view_types.bookmark.name'),
+      tooltip: t('embed_block.view_types.bookmark.name'),
       icon: (
         <Icon active={isBookmark}>
           <BookmarkView />
@@ -70,8 +72,9 @@ export function useModeSwitchOptions(
     },
     {
       type: 'item',
-      name: t('embed_block.view_types.text.tooltip'),
-      tooltip: t('embed_block.view_types.text.tooltip'),
+      name: 'text',
+      label: t('embed_block.view_types.text.name'),
+      tooltip: t('embed_block.view_types.text.name'),
       icon: (
         <Icon active={isText}>
           <TextView />

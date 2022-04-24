@@ -877,11 +877,11 @@ en-US:
     embed_block:
       view_types:
         card:
-          tooltip: card view
+          name: card view
         bookmark:
-          tooltip: bookmark view
+          name: bookmark view
         text:
-          tooltip: text view
+          name: text view
       embed_types:
         link:
           label: Add a link to web or file.
