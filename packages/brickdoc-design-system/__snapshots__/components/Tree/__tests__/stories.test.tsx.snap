@@ -10,7 +10,6 @@ exports[`Tree Basic should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 300px; overflow-y: auto;"
       >
         <div>
           <div
@@ -256,7 +255,6 @@ exports[`Tree ExpandAllOnLoad should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 300px; overflow-y: auto;"
       >
         <div>
           <div
@@ -631,7 +629,6 @@ exports[`Tree ExpandInitialSelection should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 300px; overflow-y: auto;"
       >
         <div>
           <div
@@ -920,7 +917,6 @@ exports[`Tree ExpandOnSelect should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 300px; overflow-y: auto;"
       >
         <div>
           <div
@@ -1166,7 +1162,6 @@ exports[`Tree RenderCustomNode should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 300px; overflow-y: auto;"
       >
         <div>
           <div
@@ -1425,7 +1420,6 @@ exports[`Tree SortByDragging should match the snapshot 1`] = `
     >
       <div
         class="rc-virtual-list-holder"
-        style="height: 200px; overflow-y: auto;"
       >
         <div>
           <div
