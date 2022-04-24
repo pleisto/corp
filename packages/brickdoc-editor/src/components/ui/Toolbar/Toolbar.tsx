@@ -145,7 +145,7 @@ const ToolbarMenuOption: FC<{ option: ToolbarOption }> = ({ option }) => {
 
 // TODO: implement by menu
 export const Toolbar: FC<ToolbarProps> = ({ type, options }) => {
-  const { t } = useEditorI18n()
+  const [t] = useEditorI18n()
 
   const menuOptions = useMemo(
     () =>
