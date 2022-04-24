@@ -69,7 +69,8 @@ describe('EmbedView', () => {
             key: url,
             title: 'brickdoc',
             description: 'desc',
-            cover: 'cover'
+            cover: 'cover',
+            mode: 'bookmark'
           },
           attachment: {
             type: 'ATTACHMENT'
