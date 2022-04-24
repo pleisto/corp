@@ -7,7 +7,8 @@ import {
   ExplorerMenuTrigger
 } from '@brickdoc/schema'
 
-export type DrawerView = 'explorerMenu' | 'discussionList'
+export type BuiltInDrawerView = 'explorerMenu' | 'discussionList'
+export type DrawerView = BuiltInDrawerView | (string & {})
 export type DrawerState = 'closed' | DrawerView
 
 interface DrawerStore {
@@ -25,6 +26,11 @@ export const useDrawerStore = create<DrawerStore>((set, get) => ({
   isAttached: false,
   state: 'closed',
   attach(): Disposal {
+    // Prevent re-attaching the drawer service for multiple times
+    if (get().isAttached) {
+      return () => {}
+    }
+
     const subscriptions: EventSubscribed[] = [
       BrickdocEventBus.subscribe(ExplorerMenuTrigger, ({ payload }) => {
         const { open, close } = get()
@@ -47,9 +53,15 @@ export const useDrawerStore = create<DrawerStore>((set, get) => ({
     }
   },
   open(view: DrawerView) {
+    if (!get().isAttached) {
+      throw new Error('attach the drawer service with "useDrawerService" before using a drawer')
+    }
     set({ state: view })
   },
   close() {
+    if (!get().isAttached) {
+      throw new Error('attach the drawer service with "useDrawerService" before using a drawer')
+    }
     set({ state: 'closed' })
   }
 }))
