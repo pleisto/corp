@@ -14,3 +14,5 @@ export const ModeSwitch: FC<ModeSwitchProps> = ({ mode, blockType, updateEmbedBl
 
   return <Toolbar type="transparent" options={options} />
 }
+
+ModeSwitch.toString = () => '.embed-view-mode-switch'

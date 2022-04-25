@@ -17,7 +17,7 @@ exports[`EmbedView matches correct snapshot 1`] = `
         style="background-image: url(cover);"
       />
       <div
-        class="brd-c-lluRiF"
+        class="brd-c-bzfXri"
       >
         <div
           class="brd-c-hVJEfX"
@@ -36,7 +36,7 @@ exports[`EmbedView matches correct snapshot 1`] = `
           https://www.brickdoc.com
         </div>
         <div
-          class="brd-c-bxPvTc"
+          class="brd-c-isbGtc"
         >
           <ul
             class="brd-c-gRhnPc"
