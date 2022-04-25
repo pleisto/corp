@@ -7,7 +7,8 @@
   "workspaces": [
     "packages/*",
     "apps/*",
-    "tools/*"
+    "tools/*",
+    "plugins/*"
   ],
   "scripts": {
     "postinstall": "husky install && ./bin/pdftron static ",
@@ -85,9 +86,9 @@
     "mocha-junit-reporter": "^2.0.2",
     "prettier": "^2.6.2",
     "rollup-plugin-visualizer": "^5.6.0",
-    "turbo": "^1.2.4",
+    "turbo": "^1.2.5",
     "typedoc": "^0.22.15",
-    "typedoc-plugin-markdown": "^3.12.0",
+    "typedoc-plugin-markdown": "^3.12.1",
     "typescript": "^4.6.3",
     "vite": "^2.9.5",
     "vite-plugin-pwa": "^0.12.0",
@@ -101,7 +102,7 @@
     "@storybook/builder-webpack4": "npm:storybook-builder-vite@>=0.1.16",
     "@storybook/manager-webpack4": "npm:@storybook/manager-webpack5@>=6.5.0-alpha.40",
     "webpack": ">=5",
-    "esbuild": "^0.14.36",
+    "esbuild": "^0.14.38",
     "@rails/actioncable": "patch:@rails/actioncable@npm:7.0.1#.yarn/patches/@rails-actioncable-npm-7.0.1-7dd9553527",
     "cached-path-relative": ">=1.1.0",
     "trim": ">= 1.0.1",
@@ -112,12 +113,12 @@
     "minimist": ">= 1.2.6"
   },
   "dependencies": {
-    "@swc/core": "^1.2.170",
+    "@swc/core": "^1.2.171",
     "@swc/helpers": "^0.3.8",
     "dayjs": "^1.11.1",
     "ts-node": "^10.7.0"
   },
   "volta": {
-    "node": "16.14.0"
+    "node": "18.0.0"
   }
 }
