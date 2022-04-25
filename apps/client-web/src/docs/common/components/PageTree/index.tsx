@@ -68,6 +68,7 @@ const PageTreeHeading = styled('div', {
 })
 
 const TREE_HEAD_HEIGHT = 32
+const FOOTER_HEIGHT = 46
 
 export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
@@ -345,7 +346,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
         {pinTree}
         {!hideHeading && (
           <PageTreeHeading
-            style={{ top: showPin ? TREE_HEAD_HEIGHT : 0, bottom: TREE_HEAD_HEIGHT }} // Consider also the two cases of sticking to the bottom and the top
+            style={{ top: showPin ? TREE_HEAD_HEIGHT : 0, bottom: FOOTER_HEIGHT }} // Consider also the two cases of sticking to the bottom and the top
             data-testid={TEST_ID_ENUM.page.pageTree.heading.id}
           >
             Pages
