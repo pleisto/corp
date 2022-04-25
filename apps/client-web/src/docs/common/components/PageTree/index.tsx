@@ -240,10 +240,10 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
     return (
       <Tree
         emptyNode={t('blocks.no_pages')}
-        // selectable={!docMeta.documentInfoLoading}
         initialSelectedId={docMeta.id}
         currentSelectedId={docMeta.id}
         treeNodeClassName={mode === 'subPage' ? subPageModeNodeStyle() : ''}
+        height={mode === 'subPage' ? 200 : undefined}
         data={treeData as unknown as TreeNode[]}
         draggable={draggable && isDraggable}
         onDrop={onDrop}
