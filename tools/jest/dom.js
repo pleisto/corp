@@ -8,7 +8,9 @@ expect.extend(toHaveNoViolations)
 globalThis.React = React
 
 Object.defineProperty(global.self, 'crypto', {
-  value: Object.setPrototypeOf({ subtle: crypto.subtle }, crypto)
+  value: {
+    getRandomValues: arr => crypto.randomBytes(arr.length)
+  }
 })
 
 window.matchMedia =
