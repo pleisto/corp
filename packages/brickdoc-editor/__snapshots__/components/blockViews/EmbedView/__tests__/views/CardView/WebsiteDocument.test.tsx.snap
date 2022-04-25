@@ -3,7 +3,7 @@
 exports[`WebsiteDocument renders WebsiteDocument correctly 1`] = `
 <div>
   <div
-    class="brd-c-kAqCas"
+    class="brd-c-iDaLcP"
   >
     <iframe
       class="brd-c-bPNjhd"
@@ -24,7 +24,7 @@ exports[`WebsiteDocument renders WebsiteDocument correctly 1`] = `
         url
       </div>
       <div
-        class="brd-c-cmvGPT"
+        class="brd-c-isbGtc"
       >
         <ul
           class="brd-c-gRhnPc"
