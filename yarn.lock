@@ -19676,7 +19676,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-
 "moize@npm:^6.1.1":
   version: 6.1.1
   resolution: "moize@npm:6.1.1"
