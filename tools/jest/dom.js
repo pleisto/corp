@@ -1,10 +1,15 @@
 require('@testing-library/jest-dom/extend-expect')
+const crypto = require('crypto')
 const { toHaveNoViolations } = require('jest-axe')
 const React = require('react')
 
 expect.extend(toHaveNoViolations)
 
 globalThis.React = React
+
+Object.defineProperty(global.self, 'crypto', {
+  value: Object.setPrototypeOf({ subtle: crypto.subtle }, crypto)
+})
 
 window.matchMedia =
   window.matchMedia ||
