@@ -169,6 +169,7 @@ const TreeInternal: ForwardRefRenderFunction<TreeRef, TreeProps> = (
           <List<InternalTreeNode>
             className={className}
             data={nodeList}
+            height={height}
             data-testid="virtual-list"
             itemHeight={NODE_HEIGHT}
             itemKey="id"
