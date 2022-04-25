@@ -64,7 +64,7 @@ const PageTreeHeading = styled('div', {
   paddingLeft: theme.space.md,
   position: 'sticky',
   zIndex: 1,
-  backdropFilter: 'blur(5px)'
+  backdropFilter: 'blur(10px)'
 })
 
 export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {

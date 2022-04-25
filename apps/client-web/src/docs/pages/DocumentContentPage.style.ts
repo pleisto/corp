@@ -23,7 +23,7 @@ export const Section = styled('section', {
       width: '100%',
       fontSize: 0,
       zIndex: 2,
-      backdropFilter: 'blur(5px)'
+      backdropFilter: 'blur(10px)'
     },
     nav: {
       flex: 1
@@ -34,7 +34,7 @@ export const Section = styled('section', {
     width: '100%',
     bottom: 0,
     left: 0,
-    backdropFilter: 'blur(5px)'
+    backdropFilter: 'blur(10px)'
   }
 })
 
