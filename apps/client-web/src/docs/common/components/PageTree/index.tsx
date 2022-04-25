@@ -67,6 +67,8 @@ const PageTreeHeading = styled('div', {
   backdropFilter: 'blur(10px)'
 })
 
+const TREE_HEAD_HEIGHT = 32
+
 export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
   type BlockType = Exclude<Exclude<GetPageBlocksQuery['pageBlocks'], undefined>, null>[0]
   const mutable = mode !== 'subPage'
@@ -327,10 +329,10 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
         return block
       }
     })
-
-  const pinTree = pinTreeBlocks.length ? (
+  const showPin = !!pinTreeBlocks.length
+  const pinTree = showPin ? (
     <>
-      <PageTreeHeading style={{ top: 112 }}>Pin</PageTreeHeading>
+      <PageTreeHeading style={{ top: 0 }}>Pin</PageTreeHeading>
       {treeElement(pinTreeBlocks, false)}
     </>
   ) : (
@@ -342,7 +344,10 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
       <PageTreeRoot>
         {pinTree}
         {!hideHeading && (
-          <PageTreeHeading style={{ top: 144, bottom: 60 }} data-testid={TEST_ID_ENUM.page.pageTree.heading.id}>
+          <PageTreeHeading
+            style={{ top: showPin ? TREE_HEAD_HEIGHT : 0, bottom: TREE_HEAD_HEIGHT }} // Consider also the two cases of sticking to the bottom and the top
+            data-testid={TEST_ID_ENUM.page.pageTree.heading.id}
+          >
             Pages
           </PageTreeHeading>
         )}

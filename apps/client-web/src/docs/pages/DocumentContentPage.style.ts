@@ -1,5 +1,17 @@
 import bg from '@/common/assets/ceramicBg.webp'
 import { theme, styled } from '@brickdoc/design-system'
+import { getNativeSidebarWdith } from '@/settings/common/sidebar'
+
+const hideScrollStyle = getNativeSidebarWdith()
+  ? {
+      '&::-webkit-scrollbar-thumb': {
+        background: 'transparent'
+      },
+      '&:hover::-webkit-scrollbar-thumb': {
+        background: theme.colors.overlayPrimary
+      }
+    }
+  : null
 
 export const Section = styled('section', {
   display: 'flex',
@@ -16,6 +28,7 @@ export const Section = styled('section', {
     display: 'flex',
     flexFlow: 'column nowrap',
     overflow: 'hidden auto',
+    ...hideScrollStyle,
     header: {
       position: 'sticky',
       top: 0,
@@ -30,6 +43,7 @@ export const Section = styled('section', {
     }
   },
   footer: {
+    zIndex: 2,
     position: 'sticky',
     width: '100%',
     bottom: 0,
@@ -65,7 +79,7 @@ export const Layout = styled('div', {
     }
   },
   [`${Section}`]: {
-    '.mainActions header > .brk-logo': {
+    'header > .brk-logo': {
       height: '24px',
       margin: '1rem 18px'
     },

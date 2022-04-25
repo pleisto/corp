@@ -15,7 +15,7 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
   const paths: Path[] = docMeta.pathArray.concat([{ id: docMeta.id, text: docMeta.title, icon: docMeta.icon }])
   const { t } = useDocsI18n()
 
-  const renderPath = (path: Path, idx: number, noSplit?: boolean): React.ReactNode => {
+  const renderPath = (path: Path, idx: number, showSplit: boolean): React.ReactNode => {
     const link = docMeta.isMine ? `/${docMeta.domain}/${path.id}` : '#'
     const hasEmoji = path.icon && path.icon.type === Blocktype.Emoji
     const emoji = hasEmoji ? (path.icon as BlockEmoji).emoji : ''
@@ -31,7 +31,7 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
         <Root.Warp>
           <Root.Emoji show={Boolean(hasEmoji)}>{emoji}</Root.Emoji>
           <Root.Path to={link}>{path.text || t('title.untitled')}</Root.Path>
-          <Root.Split show={Boolean(idx < paths.length - 1) && noSplit}>/</Root.Split>
+          <Root.Split show={showSplit}>/</Root.Split>
         </Root.Warp>
       </Tooltip>
     )
@@ -39,7 +39,7 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
   const pathData =
     paths.length >= 4
       ? [
-          renderPath(paths[0], 0),
+          renderPath(paths[0], 0, true),
           <Popover
             key={1}
             content={
@@ -61,10 +61,10 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
               <Root.Split show>/</Root.Split>
             </div>
           </Popover>,
-          renderPath(paths[paths.length - 2], paths.length - 2),
-          renderPath(paths[paths.length - 1], paths.length - 1)
+          renderPath(paths[paths.length - 2], paths.length - 2, true),
+          renderPath(paths[paths.length - 1], paths.length - 1, false)
         ]
-      : paths.map((item, idx) => renderPath(item, idx))
+      : paths.map((item, idx) => renderPath(item, idx, idx < paths.length - 1))
 
   return (
     <div data-testid={TEST_ID_ENUM.layout.header.PathBreadcrumb.id} className={className}>

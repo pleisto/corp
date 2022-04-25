@@ -11,18 +11,20 @@ interface IContentSidebar {
 
 export const ContentSidebar: React.FC<IContentSidebar> = ({ docMeta }) => {
   return (
-    <div className="mainActions">
+    <>
       <header>
         <img className="brk-logo" src={Logo} alt="Brickdoc" />
         <SpaceSelect docMeta={docMeta} />
       </header>
-      <nav>
-        <PageTree docMeta={docMeta} />
-      </nav>
-      <footer>
-        <NewPage docMeta={docMeta} />
-        <TrashButton docMeta={docMeta} />
-      </footer>
-    </div>
+      <div className="mainActions">
+        <nav>
+          <PageTree docMeta={docMeta} />
+        </nav>
+        <footer>
+          <NewPage docMeta={docMeta} />
+          <TrashButton docMeta={docMeta} />
+        </footer>
+      </div>
+    </>
   )
 }
