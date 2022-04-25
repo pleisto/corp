@@ -31,6 +31,24 @@ CREATE TABLE public.db_migrations (
     date timestamp with time zone DEFAULT now() NOT NULL
 );
 
+CREATE TABLE public.documents (
+    id uuid NOT NULL,
+    path public.ltree NOT NULL,
+    space_id uuid NOT NULL,
+    type smallint NOT NULL,
+    title text,
+    content text,
+    slug text,
+    slug_path public.ltree NOT NULL,
+    state bytea,
+    state_id uuid,
+    sort bigint,
+    meta jsonb,
+    deleted_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
 CREATE TABLE public.settings (
     id integer NOT NULL,
     key public.ltree NOT NULL,
@@ -59,8 +77,13 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 ALTER TABLE ONLY public.db_migrations
     ADD CONSTRAINT db_migrations_pkey PRIMARY KEY (name);
 
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY public.settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
+
+CREATE UNIQUE INDEX documents_slug_ukey ON public.documents USING btree (slug, slug_path, space_id) WHERE (slug IS NOT NULL);
 
 CREATE UNIQUE INDEX settings_key_scope_ukey ON public.settings USING btree (key, scope);
 
