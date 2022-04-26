@@ -852,7 +852,7 @@ Object {
                                                                                                                     "tokenTypeIdx": 7,
                                                                                                                   },
                                                                                                                 ],
-                                                                                                                "PATTERN": /and\\|&&/i,
+                                                                                                                "PATTERN": /and\\\\b\\|&&/i,
                                                                                                                 "categoryMatches": Array [],
                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                 "isParent": false,
@@ -887,7 +887,7 @@ Object {
                                                                                                                     "tokenTypeIdx": 7,
                                                                                                                   },
                                                                                                                 ],
-                                                                                                                "PATTERN": /or\\|\\\\\\|\\\\\\|/i,
+                                                                                                                "PATTERN": /or\\\\b\\|\\\\\\|\\\\\\|/i,
                                                                                                                 "categoryMatches": Array [],
                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                 "isParent": false,
@@ -950,7 +950,7 @@ Object {
                                                                                                                                                                                                   "startOffset": 26,
                                                                                                                                                                                                   "tokenType": Object {
                                                                                                                                                                                                     "CATEGORIES": Array [],
-                                                                                                                                                                                                    "PATTERN": /true\\|false/i,
+                                                                                                                                                                                                    "PATTERN": /true\\\\b\\|false\\\\b/i,
                                                                                                                                                                                                     "categoryMatches": Array [],
                                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                                     "isParent": false,
@@ -995,7 +995,7 @@ Object {
                                                                                                                                                               "startOffset": 24,
                                                                                                                                                               "tokenType": Object {
                                                                                                                                                                 "CATEGORIES": Array [],
-                                                                                                                                                                "PATTERN": /not\\|!/i,
+                                                                                                                                                                "PATTERN": /not\\\\b\\|!/i,
                                                                                                                                                                 "categoryMatches": Array [],
                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                 "isParent": false,
@@ -1014,7 +1014,7 @@ Object {
                                                                                                                                                               "startOffset": 25,
                                                                                                                                                               "tokenType": Object {
                                                                                                                                                                 "CATEGORIES": Array [],
-                                                                                                                                                                "PATTERN": /not\\|!/i,
+                                                                                                                                                                "PATTERN": /not\\\\b\\|!/i,
                                                                                                                                                                 "categoryMatches": Array [],
                                                                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                                                                 "isParent": false,
@@ -1109,7 +1109,7 @@ Object {
                                                                                                                                                                                                   "startOffset": 35,
                                                                                                                                                                                                   "tokenType": Object {
                                                                                                                                                                                                     "CATEGORIES": Array [],
-                                                                                                                                                                                                    "PATTERN": /true\\|false/i,
+                                                                                                                                                                                                    "PATTERN": /true\\\\b\\|false\\\\b/i,
                                                                                                                                                                                                     "categoryMatches": Array [],
                                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                                     "isParent": false,
@@ -1226,7 +1226,7 @@ Object {
                                                                                                                                                                                                   "startOffset": 44,
                                                                                                                                                                                                   "tokenType": Object {
                                                                                                                                                                                                     "CATEGORIES": Array [],
-                                                                                                                                                                                                    "PATTERN": /true\\|false/i,
+                                                                                                                                                                                                    "PATTERN": /true\\\\b\\|false\\\\b/i,
                                                                                                                                                                                                     "categoryMatches": Array [],
                                                                                                                                                                                                     "categoryMatchesMap": Object {},
                                                                                                                                                                                                     "isParent": false,
@@ -3419,7 +3419,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -4041,7 +4041,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -4484,7 +4484,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -4906,7 +4906,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -6200,7 +6200,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -6643,7 +6643,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,
@@ -7065,7 +7065,7 @@ Object {
                                                                                             "startOffset": 2,
                                                                                             "tokenType": Object {
                                                                                               "CATEGORIES": Array [],
-                                                                                              "PATTERN": /CurrentBlock/i,
+                                                                                              "PATTERN": /CurrentBlock\\\\b/i,
                                                                                               "categoryMatches": Array [],
                                                                                               "categoryMatchesMap": Object {},
                                                                                               "isParent": false,

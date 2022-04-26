@@ -7,30 +7,30 @@ export const MultiplicationOperator = createToken({ name: 'MultiplicationOperato
 export const CombineOperator = createToken({ name: 'CombineOperator', pattern: Lexer.NA })
 export const InOperator = createToken({ name: 'InOperator', pattern: Lexer.NA })
 
-export const In = createToken({ name: 'In', pattern: /in/i, categories: InOperator })
-export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin/i, categories: InOperator })
+export const In = createToken({ name: 'In', pattern: /in\b/i, categories: InOperator })
+export const ExactIn = createToken({ name: 'ExactIn', pattern: /exactin\b/i, categories: InOperator })
 
-export const Self = createToken({ name: 'Self', pattern: /Self/i })
-export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock/i })
-export const Input = createToken({ name: 'Input', pattern: /Input/i })
-export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow/i })
-export const ThisRecord = createToken({ name: 'ThisRecord', pattern: /ThisRecord/i })
+export const Self = createToken({ name: 'Self', pattern: /Self\b/i })
+export const CurrentBlock = createToken({ name: 'CurrentBlock', pattern: /CurrentBlock\b/i })
+export const Input = createToken({ name: 'Input', pattern: /Input\b/i })
+export const ThisRow = createToken({ name: 'ThisRow', pattern: /ThisRow\b/i })
+export const ThisRecord = createToken({ name: 'ThisRecord', pattern: /ThisRecord\b/i })
 
 export const And = createToken({
   name: 'And',
-  pattern: /and|&&/i,
+  pattern: /and\b|&&/i,
   categories: CombineOperator
 })
 
 export const Or = createToken({
   name: 'Or',
-  pattern: /or|\|\|/i,
+  pattern: /or\b|\|\|/i,
   categories: CombineOperator
 })
 
 export const Not = createToken({
   name: 'Not',
-  pattern: /not|!/i
+  pattern: /not\b|!/i
 })
 
 export const GreaterThan = createToken({
@@ -170,7 +170,7 @@ export const DecimalLiteral = createToken({
 
 export const BooleanLiteral = createToken({
   name: 'BooleanLiteral',
-  pattern: /true|false/i
+  pattern: /true\b|false\b/i
 })
 
 export const StringLiteral = createToken({
@@ -180,7 +180,7 @@ export const StringLiteral = createToken({
 
 export const NullLiteral = createToken({
   name: 'NullLiteral',
-  pattern: /null/i
+  pattern: /null\b/i
 })
 
 export const Comma = createToken({ name: 'Comma', pattern: /,/ })
