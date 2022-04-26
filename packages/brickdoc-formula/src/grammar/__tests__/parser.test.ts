@@ -96,7 +96,8 @@ const validInputs: string[] = [
   '<',
   '<>',
   'ABS(1 {a: 1}.a',
-  '(1 {}.'
+  '(1 {}.',
+  '='
 ]
 
 describe('parser', () => {
