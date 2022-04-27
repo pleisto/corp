@@ -1103,7 +1103,7 @@ Object {
                                                                                                               "startOffset": 3,
                                                                                                               "tokenType": Object {
                                                                                                                 "CATEGORIES": Array [],
-                                                                                                                "PATTERN": /true\\\\b\\|false\\\\b/i,
+                                                                                                                "PATTERN": /\\(\\?:true\\|false\\)\\(\\?!\\[\\^,"'\\\\\`&#@:!\\\\\\$%\\\\\\^<>/\\?\\*=\\.;~\\|\\[\\(\\)\\{\\}\\+\\\\\\\\\\\\-\\\\\\]\\\\s\\]\\)/i,
                                                                                                                 "categoryMatches": Array [],
                                                                                                                 "categoryMatchesMap": Object {},
                                                                                                                 "isParent": false,
