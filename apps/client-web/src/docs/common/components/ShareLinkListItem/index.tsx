@@ -5,11 +5,10 @@ import {
   ShareLinkState,
   useBlockCreateShareLinkMutation
 } from '@/BrickdocGraphQL'
-import anyoneIcon from '@/common/assets/anyone.svg'
 import { Dropdown, Menu, MenuProps } from '@brickdoc/design-system'
 import React from 'react'
 import { useDocsI18n } from '../../hooks'
-import { LineDown } from '@brickdoc/design-icons'
+import { LineDown, Anyone } from '@brickdoc/design-icons'
 import { queryBlockShareLinks } from '../../graphql'
 import * as Root from './index.style'
 import { SpaceCard, SpaceType } from '@/common/components/SpaceCard'
@@ -121,7 +120,14 @@ export const ShareLinkListItem: React.FC<ShareLinkListItemProps> = ({ docMeta, i
     isAnyOne
       ? {
           domain: ANYONE_DOMAIN,
-          avatarData: { url: anyoneIcon }
+          avatarData: {
+            __typename: 'avatarComp',
+            comp: (
+              <div className="anyone-icon">
+                <Anyone />
+              </div>
+            )
+          }
         }
       : item.shareSpaceData
   ) as SpaceType

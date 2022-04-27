@@ -3,7 +3,18 @@ import { theme, styled, css } from '@brickdoc/design-system'
 export const Item = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  '.anyone-icon': {
+    height: '2rem',
+    width: '2rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: theme.colors.ceramicSecondary,
+    border: '1px solid',
+    borderColor: theme.colors.borderSecondary,
+    borderRadius: '100%'
+  }
 })
 
 export const Action = styled('div', {
