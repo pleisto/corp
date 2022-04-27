@@ -34,7 +34,6 @@ export const List = styled('ul', {
   listStyle: 'none',
   margin: 0,
   padding: 0,
-  marginTop: 16,
   position: 'relative',
   '.trash-spin': {
     position: 'absolute',
@@ -188,7 +187,8 @@ export const NotFound = styled('p', {
   height: '100%'
 })
 
-export const SelectedBar = styled(Item, {
+export const SelectedBar = styled('div', {
+  alignItems: 'center',
   flexShrink: 0,
   display: 'flex',
   height: '5rem',
