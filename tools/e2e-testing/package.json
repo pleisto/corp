@@ -4,7 +4,7 @@
   "scripts": {
     "install-deps": "yarn playwright install --with-deps",
     "start": "yarn cleanup && yarn run-playwright",
-    "run-playwright": "yarn playwright test breadcrumb",
+    "run-playwright": "yarn playwright test",
     "cleanup": "rm -rf allure-report test-results allure-results",
     "allure:generate": "npx allure generate ./allure-results --clean",
     "allure:open": "npx allure open ./allure-report",
