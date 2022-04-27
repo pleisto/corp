@@ -162,7 +162,7 @@ const simpleCommonTestCases = [
 ]
 
 const simpleNormalTestCases = [
-  { input: '', newInput: undefined, positions: [0], resultData: undefined },
+  { input: '', newInput: undefined, positions: [0], resultData: 'Parse error: ""' },
   ...simpleCommonTestCases
 ]
 
@@ -171,7 +171,7 @@ const simpleNormalTestCasesWithPosition = simpleNormalTestCases.flatMap(t =>
 )
 
 const simpleSpreadsheetTestCases = [
-  { input: '', newInput: undefined, positions: [0], resultData: 'Parse error: ""' },
+  { input: '', newInput: undefined, positions: [0], resultData: '' },
   { input: '=', newInput: undefined, positions: [0], resultData: '=' },
   { input: '=  ', newInput: undefined, positions: [0], resultData: '=  ' },
 
