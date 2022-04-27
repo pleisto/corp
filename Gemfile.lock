@@ -359,16 +359,16 @@ GEM
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
     os (1.1.4)
-    packwerk (2.1.1)
+    packwerk (2.2.0)
       activesupport (>= 5.2)
       ast
       better_html
       bundler
-      constant_resolver
+      constant_resolver (>= 0.2.0)
       digest
       parallel
       parser
-      sorbet-runtime
+      sorbet-runtime (>= 0.5.9914)
     parallel (1.22.1)
     paranoia (2.6.0)
       activerecord (>= 5.1, < 7.1)
