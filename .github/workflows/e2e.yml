@@ -51,7 +51,7 @@ jobs:
         id: allure
         if: ${{ always() }}
         with:
-          allure-server-url: ${{ secrets.ALLURE_SERVER_URL }}
+          allure-server-url: https://allure.brickdoc.dev
 
   slack:
     needs: playwright
