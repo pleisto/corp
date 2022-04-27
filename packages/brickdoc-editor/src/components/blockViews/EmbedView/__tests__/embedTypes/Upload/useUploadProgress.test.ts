@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { useRef } from 'react'
+import { act } from 'react-dom/test-utils'
 import { EmbedAttributes, EmbedOptions } from '../../../../../../extensions'
 import { mockBlockViewProps } from '../../../../../../test'
 import { useUploadProgress } from '../../../embedTypes/Upload/useUploadPorgress'
@@ -27,7 +28,10 @@ describe('useUploadProgress', () => {
         files: [new File([], 'name')]
       }
     }
-    onFileInputChange(event as any)
+
+    act(() => {
+      onFileInputChange(event as any)
+    })
 
     expect(updateEmbedBlockAttributes).toBeCalled()
   })
@@ -46,7 +50,9 @@ describe('useUploadProgress', () => {
 
     const { onChooseFile } = result.current
 
-    onChooseFile()
+    act(() => {
+      onChooseFile()
+    })
 
     expect(inputRef.current.click).toBeCalled()
   })
