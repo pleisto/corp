@@ -46,7 +46,7 @@ export const List = styled('ul', {
 export const Page = styled('div', {
   flex: 4,
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'start',
   cursor: 'pointer',
   overflow: 'hidden',
   minWidth: 0,
@@ -116,8 +116,9 @@ export const PageTile = styled('div', {
 export const SelectBlock = styled('div', {
   width: '2rem',
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex',
   justifyContent: 'center',
+  padding: '2px 0',
   fontSize: 18,
   opacity: 0,
   flexShrink: 0,
