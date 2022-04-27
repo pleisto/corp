@@ -7,7 +7,7 @@ export const MultiplicationOperator = createToken({ name: 'MultiplicationOperato
 export const CombineOperator = createToken({ name: 'CombineOperator', pattern: Lexer.NA })
 export const InOperator = createToken({ name: 'InOperator', pattern: Lexer.NA })
 
-export const WORD_BOUNDARY_PATTERN = String.raw`,"'\`&#@:!\$%\^<>/?*=.;~|[(){}+\\\-\]\s`
+const WORD_BOUNDARY_PATTERN = String.raw`,"'\`&#@:!\$%\^<>/?*=.;~|[(){}+\\\-\]\s`
 // export const FUNCTION_NAME_REGEX = /[a-zA-Z_]((?![,"'`&#@:!$%^<>/?*=.;~|[(){}+\\\-\]\s]).)*/
 export const FUNCTION_NAME_REGEX = RegExp(String.raw`[a-zA-Z_]((?![${WORD_BOUNDARY_PATTERN}]).)*`)
 
