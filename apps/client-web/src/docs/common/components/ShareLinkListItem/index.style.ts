@@ -32,7 +32,8 @@ export const menu = css({
   '.content': {
     display: 'flex',
     flexFlow: 'column nowrap',
-    padding: '0 1rem'
+    padding: '0 1rem',
+    flex: 1
   },
 
   '.head': {
@@ -43,5 +44,10 @@ export const menu = css({
   '.desc': {
     lineHeight: theme.lineHeights.callout,
     fontSize: theme.fontSizes.callout
+  },
+
+  '.check-icon': {
+    marginRight: '1rem',
+    color: theme.colors.primaryDefault
   }
 })

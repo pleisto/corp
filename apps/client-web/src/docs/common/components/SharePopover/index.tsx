@@ -14,7 +14,7 @@ import {
   QuerySpaceSearchQueryVariables as Variables,
   BlockCreateShareLinkInput
 } from '@/BrickdocGraphQL'
-import { LineDown } from '@brickdoc/design-icons'
+import { LineDown, Check } from '@brickdoc/design-icons'
 import { useImperativeQuery } from '@/common/hooks'
 import { ShareLinkListItem } from '../ShareLinkListItem'
 import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
@@ -120,12 +120,14 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
           <div className="head">{t('invite.view_message')}</div>
           <div className="desc">{t('invite.view_message_description')}</div>
         </div>
+        {Policytype.View === inviteUserPolicy && <Check className="check-icon" />}
       </Menu.Item>
       <Menu.Item className={menuClassName} itemKey={Policytype.Edit} active={Policytype.Edit === inviteUserPolicy}>
         <div className="content">
           <div className="head">{t('invite.edit_message')}</div>
           <div className="desc">{t('invite.edit_message_description')}</div>
         </div>
+        {Policytype.Edit === inviteUserPolicy && <Check className="check-icon" />}
       </Menu.Item>
     </Menu>
   )
