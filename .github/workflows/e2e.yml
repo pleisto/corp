@@ -11,6 +11,9 @@ jobs:
   playwright:
     name: Playwright Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2]
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v3
@@ -36,7 +39,7 @@ jobs:
           echo ::set-output name=firefox-email::${{ secrets.TRUNK_E2E_LOGIN_EMAIL_2 }}
           echo ::set-output name=firefox-password::${{ secrets.TRUNK_E2E_LOGIN_PASSWORD_2 }}
       - name: Run Playwright tests
-        run: yarn e2e-testing start
+        run: yarn e2e-testing clean && yarn e2e-testing run-playwright ${{ matrix.shard }}/2
         env:
           NODE_OPTIONS: '--max-old-space-size=5950'
           PLAYWRIGHT_BASE_URL: https://trunk.brickdoc.dev
@@ -61,5 +64,5 @@ jobs:
         if: ${{ always() }}
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_TOKEN }}
-          slack-channel: C03D6SMBGTW
+          slack-channel: C03CV8Y9BFZ
           slack-text: Your report is uploaded in ${{ steps.allure.outputs.report-url }} at ${{ steps.date.outputs.upload-date }}, go to check it~ 😉

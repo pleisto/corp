@@ -31,7 +31,7 @@ const config: PlaywrightTestConfig = {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
-        storageState: './storageState-chromium.json'
+        storageState: './storageState-firefox.json'
       }
     }
     // {
