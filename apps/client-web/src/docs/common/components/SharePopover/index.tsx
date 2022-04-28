@@ -28,15 +28,14 @@ const menuClassName = menu()
 const prefixCls = selectStyle()
 interface SharePopoverProps {
   docMeta: NonNullDocMeta
-  visible: boolean
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  children: React.ReactElement
 }
 
 const debounceTimeout = 800
 
 type SpaceValue = string
 
-export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, setVisible }) => {
+export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, children }) => {
   const { t } = useDocsI18n()
   const [inviteLoading, setInviteLoading] = React.useState<boolean>(false)
   const [copied, setCopied] = React.useState<boolean>(false)
@@ -141,7 +140,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
         top: 8
       }}
     >
-      <Dropdown overlay={menu}>
+      <Dropdown trigger="click" overlay={menu}>
         <div>
           {policyMessage} <LineDown />
         </div>
@@ -176,7 +175,12 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
           ))}
         </Select>
         {policyData}
-        <Button onClick={inviteUsers} disabled={inviteLoading || !spaceValue.length} className="invite-btn">
+        <Button
+          type="primary"
+          onClick={inviteUsers}
+          disabled={inviteLoading || !spaceValue.length}
+          className="invite-btn"
+        >
           {t('share.invite_button')}
         </Button>
       </InviteBar>
@@ -192,14 +196,9 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ docMeta, visible, se
 
   return (
     <>
-      <Popover
-        title={null}
-        trigger="click"
-        placement="bottomStart"
-        visible={visible}
-        overlayStyle={{ zIndex: 1 }}
-        content={shareContent}
-      />
+      <Popover title={null} trigger="click" placement="bottom" overlayStyle={{ zIndex: 1 }} content={shareContent}>
+        {children}
+      </Popover>
     </>
   )
 }
