@@ -1,7 +1,7 @@
 import { theme, styled } from '@brickdoc/design-system'
 import { Link } from 'react-router-dom'
 
-export const Warp = styled('div', {
+export const Warp = styled(Link, {
   display: 'flex',
   alignItems: 'center',
   minWidth: 0,
@@ -15,7 +15,7 @@ export const Tip = styled('p', {
   color: theme.colors.white
 })
 
-export const Path = styled(Link, {
+export const Path = styled('div', {
   color: theme.colors.typeSecondary,
   fontSize: theme.fontSizes.callout,
   lineHeight: '1.25rem',
