@@ -5,7 +5,8 @@ export const Warp = styled('div', {
   display: 'flex',
   alignItems: 'center',
   minWidth: 0,
-  overflow: 'hidden'
+  overflow: 'hidden',
+  maxWidth: '25rem'
 })
 
 export const Tip = styled('p', {
@@ -18,7 +19,7 @@ export const Path = styled(Link, {
   color: theme.colors.typeSecondary,
   fontSize: theme.fontSizes.callout,
   lineHeight: '1.25rem',
-  maxWidth: '25rem',
+
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
