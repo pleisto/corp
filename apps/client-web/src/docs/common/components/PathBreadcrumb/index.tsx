@@ -52,7 +52,7 @@ export const PathBreadcrumb: React.FC<PathBreadcrumbProps> = ({ docMeta, classNa
               </Menu>
             }
             title={null}
-            placement="bottom"
+            placement="bottomStart"
             overlayInnerStyle={{ padding: 0, minHeight: 'fit-content' }}
             trigger={['click', 'hover']}
           >
