@@ -12,8 +12,8 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
   CREATE TABLE "accounts_providers" (
     "id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
-    "provider" CHARACTER VARYING NOT NULL,
-    "subject" CHARACTER VARYING NOT NULL,
+    "provider" CHARACTER VARYING(50) NOT NULL,
+    "subject" CHARACTER VARYING(50) NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
     "created_at" TIMESTAMP NOT NULL,
     "updated_at" TIMESTAMP NOT NULL,
@@ -29,12 +29,12 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
     "created_at" TIMESTAMP NOT NULL,
     "updated_at" TIMESTAMP NOT NULL,
     "domain" CHARACTER VARYING(50) NOT NULL,
-    "name" CHARACTER VARYING(50) NOT NULL,
-    "bio" CHARACTER VARYING,
+    "name" TEXT NOT NULL,
+    "bio" TEXT,
     "initialized" BOOLEAN NOT NULL DEFAULT FALSE,
     "personal" BOOLEAN NOT NULL DEFAULT FALSE,
     "invite_enable" BOOLEAN NOT NULL DEFAULT FALSE,
-    "invite_secret" CHARACTER VARYING NOT NULL,
+    "invite_secret" CHARACTER VARYING(50) NOT NULL,
     CONSTRAINT spaces_owner_id_fk FOREIGN KEY(owner_id) REFERENCES accounts_users(id) ON DELETE RESTRICT
   );
   CREATE UNIQUE INDEX "spaces_invite_secret_ukey" ON "spaces" ("invite_secret");
@@ -54,13 +54,14 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
 
   CREATE TABLE "events" (
     "id" SERIAL PRIMARY KEY,
-    "space_id" BIGINT NOT NULL,
-    "user_id" BIGINT NOT NULL,
+    "actor_type" CHARACTER VARYING(50) NOT NULL,
+    "actor_id" CHARACTER VARYING(50) NOT NULL,
+    "event" CHARACTER VARYING(255) NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
-    "created_at" TIMESTAMP NOT NULL,
-    CONSTRAINT events_space_id_fk FOREIGN KEY(space_id) REFERENCES spaces(id) ON DELETE CASCADE,
-    CONSTRAINT events_user_id_fk FOREIGN KEY(user_id) REFERENCES accounts_users(id) ON DELETE CASCADE
-  );
+    "created_at" TIMESTAMP NOT NULL
+  ) with(fillfactor=85);
+
+  CREATE INDEX "events_actor_type_actor_id_event_key" ON "events" ("actor_type", "actor_id", "event");
   `)
 }
 

@@ -30,8 +30,8 @@ COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback 
 CREATE TABLE public.accounts_providers (
     id integer NOT NULL,
     user_id bigint NOT NULL,
-    provider character varying NOT NULL,
-    subject character varying NOT NULL,
+    provider character varying(50) NOT NULL,
+    subject character varying(50) NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -74,11 +74,13 @@ CREATE TABLE public.db_migrations (
 
 CREATE TABLE public.events (
     id integer NOT NULL,
-    space_id bigint NOT NULL,
-    user_id bigint NOT NULL,
+    actor_type character varying(50) NOT NULL,
+    actor_id character varying(50) NOT NULL,
+    event character varying(255) NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
-);
+)
+WITH (fillfactor='85');
 
 CREATE SEQUENCE public.events_id_seq
     AS integer
@@ -120,12 +122,12 @@ CREATE TABLE public.spaces (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     domain character varying(50) NOT NULL,
-    name character varying(50) NOT NULL,
-    bio character varying,
+    name text NOT NULL,
+    bio text,
     initialized boolean DEFAULT false NOT NULL,
     personal boolean DEFAULT false NOT NULL,
     invite_enable boolean DEFAULT false NOT NULL,
-    invite_secret character varying NOT NULL
+    invite_secret character varying(50) NOT NULL
 );
 
 CREATE SEQUENCE public.spaces_id_seq
@@ -168,13 +170,11 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 ALTER TABLE ONLY public.spaces ALTER COLUMN id SET DEFAULT nextval('public.spaces_id_seq'::regclass);
 
-ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'::regclass);
+ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'
 
 
+::regclass);
 
-TRAINT;
- Schema: public;
- Owner: -
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_pkey PRIMARY KEY (id);
 
@@ -198,6 +198,8 @@ ALTER TABLE ONLY public.spaces
 
 CREATE UNIQUE INDEX accounts_providers_provider_subject_ukey ON public.accounts_providers USING btree (provider, subject);
 
+CREATE INDEX events_actor_type_actor_id_event_key ON public.events USING btree (actor_type, actor_id, event);
+
 CREATE UNIQUE INDEX settings_key_scope_ukey ON public.settings USING btree (key, scope);
 
 CREATE UNIQUE INDEX spaces_invite_secret_ukey ON public.spaces USING btree (invite_secret);
@@ -206,12 +208,6 @@ CREATE UNIQUE INDEX spaces_lower_domain_text_ukey ON public.spaces USING btree (
 
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
-
-ALTER TABLE ONLY public.events
-    ADD CONSTRAINT events_space_id_fk FOREIGN KEY (space_id) REFERENCES public.spaces(id) ON DELETE CASCADE;
-
-ALTER TABLE ONLY public.events
-    ADD CONSTRAINT events_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY public.spaces_members
     ADD CONSTRAINT spaces_members_space_id_fk FOREIGN KEY (space_id) REFERENCES public.spaces(id) ON DELETE CASCADE;
