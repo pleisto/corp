@@ -30,8 +30,8 @@ COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback 
 CREATE TABLE public.accounts_providers (
     id integer NOT NULL,
     user_id bigint NOT NULL,
-    provider character varying(50) NOT NULL,
-    subject character varying(50) NOT NULL,
+    provider character varying(255) NOT NULL,
+    subject character varying(512) NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -74,8 +74,8 @@ CREATE TABLE public.db_migrations (
 
 CREATE TABLE public.events (
     id integer NOT NULL,
-    actor_type character varying(50) NOT NULL,
-    actor_id character varying(50) NOT NULL,
+    actor_type character varying(255) NOT NULL,
+    actor_id character varying(255) NOT NULL,
     event character varying(255) NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
@@ -121,13 +121,13 @@ CREATE TABLE public.spaces (
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    domain character varying(50) NOT NULL,
+    domain character varying(255) NOT NULL,
     name text NOT NULL,
     bio text,
     initialized boolean DEFAULT false NOT NULL,
     personal boolean DEFAULT false NOT NULL,
     invite_enable boolean DEFAULT false NOT NULL,
-    invite_secret character varying(50) NOT NULL
+    invite_secret character varying(255) NOT NULL
 );
 
 CREATE SEQUENCE public.spaces_id_seq
@@ -170,10 +170,10 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 ALTER TABLE ONLY public.spaces ALTER COLUMN id SET DEFAULT nextval('public.spaces_id_seq'::regclass);
 
-ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'
+ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_i
 
 
-::regclass);
+d_seq'::regclass);
 
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_pkey PRIMARY KEY (id);
