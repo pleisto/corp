@@ -220,5 +220,5 @@ ALTER TABLE ONLY public.spaces_members
     ADD CONSTRAINT spaces_members_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY public.spaces
-    ADD CONSTRAINT spaces_owner_id_fk FOREIGN KEY (owner_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
+    ADD CONSTRAINT spaces_owner_id_fk FOREIGN KEY (owner_id) REFERENCES public.accounts_users(id) ON DELETE RESTRICT;
 

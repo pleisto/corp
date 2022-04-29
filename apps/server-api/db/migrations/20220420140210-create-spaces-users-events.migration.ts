@@ -35,7 +35,7 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
     "personal" BOOLEAN NOT NULL DEFAULT FALSE,
     "invite_enable" BOOLEAN NOT NULL DEFAULT FALSE,
     "invite_secret" CHARACTER VARYING NOT NULL,
-    CONSTRAINT spaces_owner_id_fk FOREIGN KEY(owner_id) REFERENCES accounts_users(id) ON DELETE CASCADE
+    CONSTRAINT spaces_owner_id_fk FOREIGN KEY(owner_id) REFERENCES accounts_users(id) ON DELETE RESTRICT
   );
   CREATE UNIQUE INDEX "spaces_invite_secret_ukey" ON "spaces" ("invite_secret");
   CREATE UNIQUE INDEX "spaces_lower_domain_text_ukey" ON "spaces" USING btree (lower(("domain")::text));
