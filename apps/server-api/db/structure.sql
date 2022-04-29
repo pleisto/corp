@@ -10,11 +10,6 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
-CREATE TYPE public.pod_kind AS ENUM (
-    'user',
-    'space'
-);
-
 CREATE FUNCTION public.settings_scope_priority(scope public.ltree, fallback text DEFAULT ''::text, root text DEFAULT 'root'::text) RETURNS integer
     LANGUAGE plpgsql
     AS $$
@@ -37,48 +32,32 @@ CREATE TABLE public.db_migrations (
     date timestamp with time zone DEFAULT now() NOT NULL
 );
 
-CREATE TABLE public.events (
-    id integer NOT NULL,
+CREATE TABLE public.event_logs (
+    id bigint NOT NULL,
     actor_type text NOT NULL,
-    actor_id text NOT NULL,
-    target_type text,
-    target_id text,
-    event text NOT NULL,
+    actor_id text,
+    event public.ltree NOT NULL,
     context jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
 )
-WITH (fillfactor='85');
+WITH (fillfactor='95');
 
-CREATE SEQUENCE public.events_id_seq
-    AS integer
+COMMENT ON TABLE public.event_logs IS 'event_logs is a generic event log table';
+
+COMMENT ON COLUMN public.event_logs.actor_type IS 'actor_type is the type of the action trigger, such as user, background_job, etc.';
+
+COMMENT ON COLUMN public.event_logs.actor_id IS 'actor_id is the identifier of the actor and can be null';
+
+COMMENT ON COLUMN public.event_logs.event IS 'event name could has multiple levels, such as "user.create"';
+
+CREATE SEQUENCE public.event_logs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
 
-ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
-
-CREATE TABLE public.pods (
-    id integer NOT NULL,
-    kind public.pod_kind NOT NULL,
-    locked_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    slug text NOT NULL,
-    name text NOT NULL,
-    bio text
-);
-
-CREATE SEQUENCE public.pods_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER SEQUENCE public.pods_id_seq OWNED BY public.pods.id;
+ALTER SEQUENCE public.event_logs_id_seq OWNED BY public.event_logs.id;
 
 CREATE TABLE public.settings (
     id integer NOT NULL,
@@ -103,111 +82,22 @@ CREATE SEQUENCE public.settings_id_seq
 
 ALTER SEQUENCE public.settings_id_seq OWNED BY public.settings.id;
 
-CREATE TABLE public.spaces (
-    owner_id bigint NOT NULL,
-    invite_enable boolean DEFAULT false NOT NULL,
-    invite_secret text NOT NULL
-)
-INHERITS (public.pods);
-
-CREATE TABLE public.spaces_members (
-    id integer NOT NULL,
-    space_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    role integer NOT NULL,
-    state integer DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-CREATE SEQUENCE public.spaces_members_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER SEQUENCE public.spaces_members_id_seq OWNED BY public.spaces_members.id;
-
-CREATE TABLE public.users (
-    initialized boolean DEFAULT false NOT NULL
-)
-INHERITS (public.pods);
-
-CREATE TABLE public.users_providers (
-    id integer NOT NULL,
-    user_id bigint NOT NULL,
-    provider text NOT NULL,
-    subject text NOT NULL,
-    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-COMMENT ON COLUMN public.users_providers.meta IS 'Provider metadata';
-
-CREATE SEQUENCE public.users_providers_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER SEQUENCE public.users_providers_id_seq OWNED BY public.users_providers.id;
-
-ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
-
-ALTER TABLE ONLY public.pods ALTER COLUMN id SET DEFAULT nextval('public.pods_id_seq'::regclass);
+ALTER TABLE ONLY public.event_logs ALTER COLUMN id SET DEFAULT nextval('public.event_logs_id_seq'::regclass);
 
 ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.settings_id_seq'::regclass);
-
-ALTER TABLE ONLY public.spaces ALTER COLUMN id SET DEFAULT nextval('public.pods_id_seq'::regclass);
-
-ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'::regclass);
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.pods_id_seq'::regclass);
-
-ALTER TABLE ONLY public.users_providers ALTER COLUMN id SET DEFAULT nextval('public.users_providers_id_seq'::regclass);
 
 ALTER TABLE ONLY public.db_migrations
     ADD CONSTRAINT db_migrations_pkey PRIMARY KEY (name);
 
-ALTER TABLE ONLY public.events
-    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY public.pods
-    ADD CONSTRAINT pods_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.event_logs
+    ADD CONSTRAINT event_logs_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY public.spaces_members
-    ADD CONSTRAINT spaces_members_pkey PRIMARY KEY (id);
+CREATE INDEX events_actor_type_actor_id ON public.event_logs USING btree (actor_type, actor_id);
 
-ALTER TABLE ONLY public.users_providers
-    ADD CONSTRAINT users_providers_pkey PRIMARY KEY (id);
-
-CREATE INDEX events_actor_type_actor_id_event_key ON public.events USING btree (actor_type, actor_id, event);
-
-CREATE UNIQUE INDEX pods_lower_slug_text_ukey ON public.pods USING btree (lower(slug));
+CREATE INDEX events_created_at ON public.event_logs USING brin (created_at);
 
 CREATE UNIQUE INDEX settings_key_scope_ukey ON public.settings USING btree (key, scope);
-
-CREATE UNIQUE INDEX spaces_invite_secret_ukey ON public.spaces USING btree (invite_secret);
-
-CREATE UNIQUE INDEX users_providers_provider_subject_ukey ON public.users_providers USING btree (provider, subject);
-
-ALTER TABLE ONLY public.spaces_members
-    ADD CONSTRAINT spaces_members_space_id_fk FOREIGN KEY (space_id) REFERENCES public.pods(id) ON DELETE CASCADE;
-
-ALTER TABLE ONLY public.spaces_members
-    ADD CONSTRAINT spaces_members_user_id_fk FOREIGN KEY (user_id) REFERENCES public.pods(id) ON DELETE CASCADE;
-
-ALTER TABLE ONLY public.spaces
-    ADD CONSTRAINT spaces_owner_id_fk FOREIGN KEY (owner_id) REFERENCES public.pods(id) ON DELETE RESTRICT;
-
-ALTER TABLE ONLY public.users_providers
-    ADD CONSTRAINT users_providers_user_id_fk FOREIGN KEY (user_id) REFERENCES public.pods(id) ON DELETE CASCADE;
 
