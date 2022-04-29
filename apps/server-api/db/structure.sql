@@ -2,7 +2,6 @@
 -- THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY) --
 -----------------------------------------------------------
 
-
 CREATE EXTENSION IF NOT EXISTS ltree WITH SCHEMA public;
 
 COMMENT ON EXTENSION ltree IS 'data type for hierarchical tree-like structures';
@@ -30,8 +29,8 @@ COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback 
 CREATE TABLE public.accounts_providers (
     id integer NOT NULL,
     user_id bigint NOT NULL,
-    provider character varying(256) NOT NULL,
-    subject character varying(512) NOT NULL,
+    provider text NOT NULL,
+    subject text NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -74,9 +73,9 @@ CREATE TABLE public.db_migrations (
 
 CREATE TABLE public.events (
     id integer NOT NULL,
-    actor_type character varying(256) NOT NULL,
-    actor_id character varying(256) NOT NULL,
-    event character varying(256) NOT NULL,
+    actor_type text NOT NULL,
+    actor_id text NOT NULL,
+    event text NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
 )
@@ -121,13 +120,13 @@ CREATE TABLE public.spaces (
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    domain character varying(256) NOT NULL,
+    domain text NOT NULL,
     name text NOT NULL,
     bio text,
     initialized boolean DEFAULT false NOT NULL,
     personal boolean DEFAULT false NOT NULL,
     invite_enable boolean DEFAULT false NOT NULL,
-    invite_secret character varying(256) NOT NULL
+    invite_secret text NOT NULL
 );
 
 CREATE SEQUENCE public.spaces_id_seq
@@ -170,10 +169,7 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 ALTER TABLE ONLY public.spaces ALTER COLUMN id SET DEFAULT nextval('public.spaces_id_seq'::regclass);
 
-ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_i
-
-
-d_seq'::regclass);
+ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'::regclass);
 
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_pkey PRIMARY KEY (id);
@@ -204,7 +200,7 @@ CREATE UNIQUE INDEX settings_key_scope_ukey ON public.settings USING btree (key,
 
 CREATE UNIQUE INDEX spaces_invite_secret_ukey ON public.spaces USING btree (invite_secret);
 
-CREATE UNIQUE INDEX spaces_lower_domain_text_ukey ON public.spaces USING btree (lower((domain)::text));
+CREATE UNIQUE INDEX spaces_lower_domain_text_ukey ON public.spaces USING btree (lower(domain));
 
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;

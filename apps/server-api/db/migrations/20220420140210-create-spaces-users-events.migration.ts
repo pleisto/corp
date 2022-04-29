@@ -12,8 +12,8 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
   CREATE TABLE "accounts_providers" (
     "id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
-    "provider" CHARACTER VARYING(256) NOT NULL,
-    "subject" CHARACTER VARYING(512) NOT NULL,
+    "provider" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
     "created_at" TIMESTAMP NOT NULL,
     "updated_at" TIMESTAMP NOT NULL,
@@ -28,13 +28,13 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
     "locked_at" TIMESTAMP,
     "created_at" TIMESTAMP NOT NULL,
     "updated_at" TIMESTAMP NOT NULL,
-    "domain" CHARACTER VARYING(256) NOT NULL,
+    "domain" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "bio" TEXT,
     "initialized" BOOLEAN NOT NULL DEFAULT FALSE,
     "personal" BOOLEAN NOT NULL DEFAULT FALSE,
     "invite_enable" BOOLEAN NOT NULL DEFAULT FALSE,
-    "invite_secret" CHARACTER VARYING(256) NOT NULL,
+    "invite_secret" TEXT NOT NULL,
     CONSTRAINT spaces_owner_id_fk FOREIGN KEY(owner_id) REFERENCES accounts_users(id) ON DELETE RESTRICT
   );
   CREATE UNIQUE INDEX "spaces_invite_secret_ukey" ON "spaces" ("invite_secret");
@@ -54,9 +54,9 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
 
   CREATE TABLE "events" (
     "id" SERIAL PRIMARY KEY,
-    "actor_type" CHARACTER VARYING(256) NOT NULL,
-    "actor_id" CHARACTER VARYING(256) NOT NULL,
-    "event" CHARACTER VARYING(256) NOT NULL,
+    "actor_type" TEXT NOT NULL,
+    "actor_id" TEXT NOT NULL,
+    "event" TEXT NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
     "created_at" TIMESTAMP NOT NULL
   ) with(fillfactor=85);
