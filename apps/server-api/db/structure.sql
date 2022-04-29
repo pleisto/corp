@@ -27,33 +27,12 @@ $$;
 
 COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback text, root text) IS 'Returns the priority of a scope. The root scope has the lowest priority.';
 
-CREATE TABLE public.accounts_members (
-    id integer NOT NULL,
-    space_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    role integer NOT NULL,
-    state integer DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-CREATE SEQUENCE public.accounts_members_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER SEQUENCE public.accounts_members_id_seq OWNED BY public.accounts_members.id;
-
 CREATE TABLE public.accounts_providers (
     id integer NOT NULL,
     user_id bigint NOT NULL,
     provider character varying NOT NULL,
-    uid character varying NOT NULL,
+    subject character varying NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
-    locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -74,11 +53,8 @@ CREATE TABLE public.accounts_users (
     id integer NOT NULL,
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    last_space_domain character varying
+    updated_at timestamp without time zone NOT NULL
 );
-
-COMMENT ON COLUMN public.accounts_users.last_space_domain IS 'Last visited domain';
 
 CREATE SEQUENCE public.accounts_users_id_seq
     AS integer
@@ -101,14 +77,8 @@ CREATE TABLE public.events (
     space_id bigint NOT NULL,
     user_id bigint NOT NULL,
     meta jsonb DEFAULT '{}'::jsonb NOT NULL,
-    state integer DEFAULT 0 NOT NULL,
-    kind integer NOT NULL,
-    key character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL
 );
-
-COMMENT ON COLUMN public.events.key IS 'Key of event, used to index';
 
 CREATE SEQUENCE public.events_id_seq
     AS integer
@@ -168,24 +138,43 @@ CREATE SEQUENCE public.spaces_id_seq
 
 ALTER SEQUENCE public.spaces_id_seq OWNED BY public.spaces.id;
 
-ALTER TABLE ONLY public.accounts_members ALTER COLUMN id SET DEFAULT nextval('public.accounts_members_id_seq'::regclass);
+CREATE TABLE public.spaces_members (
+    id integer NOT NULL,
+    space_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    role integer NOT NULL,
+    state integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+CREATE SEQUENCE public.spaces_members_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE public.spaces_members_id_seq OWNED BY public.spaces_members.id;
 
 ALTER TABLE ONLY public.accounts_providers ALTER COLUMN id SET DEFAULT nextval('public.accounts_providers_id_seq'::regclass);
 
 ALTER TABLE ONLY public.accounts_users ALTER COLUMN id SET DEFAULT nextval('public.accounts_users_id_seq'::regclass);
 
--
-
-
--ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
 
 ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.settings_id_seq'::regclass);
 
 ALTER TABLE ONLY public.spaces ALTER COLUMN id SET DEFAULT nextval('public.spaces_id_seq'::regclass);
 
-ALTER TABLE ONLY public.accounts_members
-    ADD CONSTRAINT accounts_members_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'::regclass);
 
+
+
+TRAINT;
+ Schema: public;
+ Owner: -
 ALTER TABLE ONLY public.accounts_providers
     ADD CONSTRAINT accounts_providers_pkey PRIMARY KEY (id);
 
@@ -201,20 +190,13 @@ ALTER TABLE ONLY public.events
 ALTER TABLE ONLY public.settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY public.spaces_members
+    ADD CONSTRAINT spaces_members_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY public.spaces
     ADD CONSTRAINT spaces_pkey PRIMARY KEY (id);
 
-CREATE INDEX accounts_members_space_id_key ON public.accounts_members USING btree (space_id);
-
-CREATE INDEX accounts_members_user_id_key ON public.accounts_members USING btree (user_id);
-
-CREATE UNIQUE INDEX accounts_providers_provider_uid_ukey ON public.accounts_providers USING btree (provider, uid);
-
-CREATE INDEX accounts_providers_user_id_key ON public.accounts_providers USING btree (user_id);
-
-CREATE INDEX events_space_id_kind_key_key ON public.events USING btree (space_id, kind, key);
-
-CREATE INDEX events_user_id_key ON public.events USING btree (user_id);
+CREATE UNIQUE INDEX accounts_providers_provider_subject_ukey ON public.accounts_providers USING btree (provider, subject);
 
 CREATE UNIQUE INDEX settings_key_scope_ukey ON public.settings USING btree (key, scope);
 
@@ -222,5 +204,21 @@ CREATE UNIQUE INDEX spaces_invite_secret_ukey ON public.spaces USING btree (invi
 
 CREATE UNIQUE INDEX spaces_lower_domain_text_ukey ON public.spaces USING btree (lower((domain)::text));
 
-CREATE INDEX spaces_owner_id_key ON public.spaces USING btree (owner_id);
+ALTER TABLE ONLY public.accounts_providers
+    ADD CONSTRAINT accounts_providers_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_space_id_fk FOREIGN KEY (space_id) REFERENCES public.spaces(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.spaces_members
+    ADD CONSTRAINT spaces_members_space_id_fk FOREIGN KEY (space_id) REFERENCES public.spaces(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.spaces_members
+    ADD CONSTRAINT spaces_members_user_id_fk FOREIGN KEY (user_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.spaces
+    ADD CONSTRAINT spaces_owner_id_fk FOREIGN KEY (owner_id) REFERENCES public.accounts_users(id) ON DELETE CASCADE;
 

@@ -6,36 +6,21 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
     "id" SERIAL PRIMARY KEY,
     "locked_at" TIMESTAMP,
     "created_at" TIMESTAMP NOT NULL,
-    "updated_at" TIMESTAMP NOT NULL,
-    "last_space_domain" CHARACTER VARYING
+    "updated_at" TIMESTAMP NOT NULL
   );
-  COMMENT ON COLUMN "accounts_users"."last_space_domain" IS 'Last visited domain';
 
   CREATE TABLE "accounts_providers" (
     "id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
     "provider" CHARACTER VARYING NOT NULL,
-    "uid" CHARACTER VARYING NOT NULL,
+    "subject" CHARACTER VARYING NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
-    "locked_at" TIMESTAMP,
     "created_at" TIMESTAMP NOT NULL,
-    "updated_at" TIMESTAMP NOT NULL
+    "updated_at" TIMESTAMP NOT NULL,
+    CONSTRAINT accounts_providers_user_id_fk FOREIGN KEY(user_id) REFERENCES accounts_users(id) ON DELETE CASCADE
   );
-  CREATE INDEX "accounts_providers_user_id_key" ON "accounts_providers" ("user_id");
-  CREATE UNIQUE INDEX "accounts_providers_provider_uid_ukey" ON "accounts_providers" ("provider", "uid");
+  CREATE UNIQUE INDEX "accounts_providers_provider_subject_ukey" ON "accounts_providers" ("provider", "subject");
   COMMENT ON COLUMN "accounts_providers"."meta" IS 'Provider metadata';
-
-  CREATE TABLE "accounts_members" (
-    "id" SERIAL PRIMARY KEY,
-    "space_id" BIGINT NOT NULL,
-    "user_id" BIGINT NOT NULL,
-    "role" INTEGER NOT NULL,
-    "state" INTEGER DEFAULT 0 NOT NULL,
-    "created_at" TIMESTAMP NOT NULL,
-    "updated_at" TIMESTAMP NOT NULL
-  );
-  CREATE INDEX "accounts_members_user_id_key" ON "accounts_members" ("user_id");
-  CREATE INDEX "accounts_members_space_id_key" ON "accounts_members" ("space_id");
 
   CREATE TABLE "spaces" (
     "id" SERIAL PRIMARY KEY,
@@ -49,26 +34,33 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
     "initialized" BOOLEAN NOT NULL DEFAULT FALSE,
     "personal" BOOLEAN NOT NULL DEFAULT FALSE,
     "invite_enable" BOOLEAN NOT NULL DEFAULT FALSE,
-    "invite_secret" CHARACTER VARYING NOT NULL
+    "invite_secret" CHARACTER VARYING NOT NULL,
+    CONSTRAINT spaces_owner_id_fk FOREIGN KEY(owner_id) REFERENCES accounts_users(id) ON DELETE CASCADE
   );
-  CREATE INDEX "spaces_owner_id_key" ON "spaces" ("owner_id");
   CREATE UNIQUE INDEX "spaces_invite_secret_ukey" ON "spaces" ("invite_secret");
   CREATE UNIQUE INDEX "spaces_lower_domain_text_ukey" ON "spaces" USING btree (lower(("domain")::text));
+
+  CREATE TABLE "spaces_members" (
+    "id" SERIAL PRIMARY KEY,
+    "space_id" BIGINT NOT NULL,
+    "user_id" BIGINT NOT NULL,
+    "role" INTEGER NOT NULL,
+    "state" INTEGER DEFAULT 0 NOT NULL,
+    "created_at" TIMESTAMP NOT NULL,
+    "updated_at" TIMESTAMP NOT NULL,
+    CONSTRAINT spaces_members_space_id_fk FOREIGN KEY(space_id) REFERENCES spaces(id) ON DELETE CASCADE,
+    CONSTRAINT spaces_members_user_id_fk FOREIGN KEY(user_id) REFERENCES accounts_users(id) ON DELETE CASCADE
+  );
 
   CREATE TABLE "events" (
     "id" SERIAL PRIMARY KEY,
     "space_id" BIGINT NOT NULL,
     "user_id" BIGINT NOT NULL,
     "meta" JSONB NOT NULL DEFAULT '{}'::jsonb,
-    "state" INTEGER DEFAULT 0 NOT NULL,
-    "kind" INTEGER NOT NULL,
-    "key" CHARACTER VARYING NOT NULL,
     "created_at" TIMESTAMP NOT NULL,
-    "updated_at" TIMESTAMP NOT NULL
+    CONSTRAINT events_space_id_fk FOREIGN KEY(space_id) REFERENCES spaces(id) ON DELETE CASCADE,
+    CONSTRAINT events_user_id_fk FOREIGN KEY(user_id) REFERENCES accounts_users(id) ON DELETE CASCADE
   );
-  CREATE INDEX "events_user_id_key" ON "events" ("user_id");
-  CREATE INDEX "events_space_id_kind_key_key" ON "events" ("space_id", "kind", "key");
-  COMMENT ON COLUMN "events"."key" IS 'Key of event, used to index';
   `)
 }
 
@@ -76,7 +68,7 @@ export const down: Migration = async ({ context: { connection, sql } }) => {
   await connection.query(sql`
   DROP TABLE IF EXISTS "accounts_users";
   DROP TABLE IF EXISTS "accounts_providers";
-  DROP TABLE IF EXISTS "accounts_members";
+  DROP TABLE IF EXISTS "spaces_members";
   DROP TABLE IF EXISTS "spaces";
   DROP TABLE IF EXISTS "events";
   `)
