@@ -5,7 +5,6 @@ export const Warp = styled(Link, {
   display: 'flex',
   alignItems: 'center',
   minWidth: 0,
-  overflow: 'hidden',
   maxWidth: '25rem'
 })
 
