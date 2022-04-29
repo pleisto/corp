@@ -15,7 +15,7 @@ describe('useModeSwitchOptions', () => {
 
     option.onAction?.('key')
 
-    expect(updateEmbedBlockAttributes).toBeCalledWith({ mode: 'preview' }, blockType)
+    expect(updateEmbedBlockAttributes).toBeCalledWith({ mode: 'card' }, blockType)
   })
 
   it('triggers preview view correctly', () => {
@@ -45,6 +45,6 @@ describe('useModeSwitchOptions', () => {
 
     option.onAction?.('key')
 
-    expect(updateEmbedBlockAttributes).toBeCalledWith({ mode: 'link' }, blockType)
+    expect(updateEmbedBlockAttributes).toBeCalledWith({ mode: 'text' }, blockType)
   })
 })

@@ -190,7 +190,8 @@ describe('EmbedView', () => {
             key: url,
             title,
             description,
-            cover: 'cover'
+            cover: 'cover',
+            mode: 'card'
           },
           attachment: {
             type: 'ATTACHMENT'
@@ -251,7 +252,8 @@ describe('EmbedView', () => {
             type: 'ATTACHMENT',
             key: url,
             source: 'ORIGIN',
-            name
+            name,
+            mode: 'preview'
           }
         }
       }
