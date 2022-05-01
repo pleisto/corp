@@ -41,8 +41,8 @@ on:
 
 env:
   YARN_CHECKSUM_BEHAVIOR: update
-  REDIS_URL: redis://127.0.0.1:6379
-  DATABASE_URL_BASE: postgres://postgres:just4testing@127.0.0.1:5432
+  REDIS_URL: redis://localhost:6379
+  DATABASE_URL_BASE: postgres://postgres:just4testing@localhost:5432
 jobs:
   jest:
     name: Jest Test

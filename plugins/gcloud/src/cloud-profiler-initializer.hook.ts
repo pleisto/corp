@@ -6,7 +6,6 @@ import { withNamespace, serviceContext, projectId } from './gcloud-plugin.utils'
 export class CloudProfilerInitializerHook implements HookProvider<HookType.CORE_INITIALIZER> {
   async forHookAsync(setting: SettingsService): Promise<void> {
     const enabledCloudDebugger = (await setting.get<boolean>(withNamespace('enabledCloudProfiler'))).unwrapOr(false)
-    console.log(9999, enabledCloudDebugger)
     if (enabledCloudDebugger)
       /**
        * Google Cloud Profiler will open handler when it is imported.
