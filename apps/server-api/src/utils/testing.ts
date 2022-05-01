@@ -24,7 +24,7 @@ export const useGraphQLTestingInstance = async (): Promise<() => [ApolloServerBa
     apollo = graphqlModule.graphQlAdapter?.instance
   })
 
-  afterAll(async () => await app.close())
+  afterAll(async () => await app?.close())
 
   return () => [apollo, app]
 }

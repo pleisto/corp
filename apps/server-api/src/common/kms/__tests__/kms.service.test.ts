@@ -18,7 +18,7 @@ describe('KMSService', () => {
   })
 
   afterAll(async () => {
-    await module.close()
+    await module?.close()
   })
 
   it('should get key', async () => {

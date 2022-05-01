@@ -15,7 +15,7 @@ describe('SettingService', () => {
   })
 
   afterAll(async () => {
-    await module.close()
+    await module?.close()
   })
 
   it('should get local setting', async () => {
