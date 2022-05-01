@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing'
 import { env } from 'process'
 import { KMSModule } from '../kms.module'
+import { ServerPluginModule } from '../../server-plugin/server-plugin.module'
 import { KMSService } from '../kms.service'
 import { SecretSubKey } from '../kms.interface'
 import { faker } from '@faker-js/faker'
@@ -10,7 +11,7 @@ describe('KMSService', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! })]
+      imports: [KMSModule.forRoot({ seed: env.SECRET_KEY_SEED! }), ServerPluginModule]
     }).compile()
     kms = moduleRef.get<KMSService>(KMSService)
   })
