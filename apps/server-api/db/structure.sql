@@ -38,6 +38,7 @@ COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback 
 
 CREATE TABLE public.blobs (
     id bigint NOT NULL,
+    pod_id bigint NOT NULL,
     cid text NOT NULL,
     bucket public.blob_bucket NOT NULL,
     mime_type text DEFAULT 'application/octet-stream'::text NOT NULL,
@@ -48,7 +49,10 @@ CREATE TABLE public.blobs (
 
 COMMENT ON TABLE public.blobs IS 'blobs is a table for uploaded files metadata';
 
-COMMENT ON COLUMN public.blobs.cid IS 'cid is the unique content id of the file. It is compatible with IPFS CIDv1 spec';
+COMMENT ON COLUMN public.blobs.pod_id IS 'associated with a pod';
+
+COMMENT ON COLUMN public.blobs.cid IS 'cid is the unique content id of the file. It is compatible with IPFS CIDv1 spec.
+    Multihash is blake3(mime_type:byte_size:md5_checksum)';
 
 CREATE SEQUENCE public.blobs_id_seq
     START WITH 1
@@ -156,10 +160,7 @@ CREATE TABLE public.settings (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-y;
- Type: COMMENT;
- Schema: public;
- Owner: -
+
 COMMENT ON COLUMN public.settings.key IS 'Settings key with namespace';
 
 COMMENT ON COLUMN public.settings.scope IS 'Scope of application of key. format: {spaceId}.{userId}';
@@ -263,9 +264,9 @@ ALTER TABLE ONLY public.settings
 ALTER TABLE ONLY public.spaces_members
     ADD CONSTRAINT spaces_members_pkey PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX blobs_cid_bucket_ukey ON public.blobs USING btree (cid, bucket);
-
 CREATE INDEX blobs_metadata ON public.blobs USING gin (metadata);
+
+CREATE UNIQUE INDEX blobs_pod_id_cid_bucket_ukey ON public.blobs USING btree (pod_id, cid, bucket);
 
 CREATE INDEX event_logs_actor_type_actor_id ON public.event_logs USING btree (actor_type, actor_id);
 

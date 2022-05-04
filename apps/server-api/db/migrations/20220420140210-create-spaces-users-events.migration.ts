@@ -27,7 +27,6 @@ export const up: Migration = async ({ context: { connection, sql } }) => {
   In Brickdoc, pods is an abstract table used to represent tenants, which can be either users or spaces';
   COMMENT ON CONSTRAINT "pods_owner_id_fkey" ON "pods" IS 'deleting a user will fail if the user is the owner of any space';
 
-
   CREATE VIEW "v_users" AS SELECT
     id, slug, name, bio, type, avatar_url, locked_at, created_at, updated_at,user_is_initialized as "is_initialized"
     FROM pods WHERE type = 'user' WITH LOCAL CHECK OPTION;
