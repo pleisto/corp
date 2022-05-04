@@ -10,6 +10,11 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
+CREATE TYPE public.blob_bucket AS ENUM (
+    'public_read',
+    'private_attachment'
+);
+
 CREATE TYPE public.pod_type AS ENUM (
     'user',
     'space'
@@ -34,6 +39,7 @@ COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback 
 CREATE TABLE public.blobs (
     id bigint NOT NULL,
     cid text NOT NULL,
+    bucket public.blob_bucket NOT NULL,
     mime_type text DEFAULT 'application/octet-stream'::text NOT NULL,
     metadata jsonb DEFAULT '{"analyzed": false}'::jsonb NOT NULL,
     byte_size integer NOT NULL,
@@ -150,7 +156,10 @@ CREATE TABLE public.settings (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-
+y;
+ Type: COMMENT;
+ Schema: public;
+ Owner: -
 COMMENT ON COLUMN public.settings.key IS 'Settings key with namespace';
 
 COMMENT ON COLUMN public.settings.scope IS 'Scope of application of key. format: {spaceId}.{userId}';
@@ -254,7 +263,7 @@ ALTER TABLE ONLY public.settings
 ALTER TABLE ONLY public.spaces_members
     ADD CONSTRAINT spaces_members_pkey PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX blobs_cid_ukey ON public.blobs USING btree (cid);
+CREATE UNIQUE INDEX blobs_cid_bucket_ukey ON public.blobs USING btree (cid, bucket);
 
 CREATE INDEX blobs_metadata ON public.blobs USING gin (metadata);
 
