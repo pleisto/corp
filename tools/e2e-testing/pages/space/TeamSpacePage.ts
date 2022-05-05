@@ -1,12 +1,8 @@
-import { MENUBAR_SELECTOR, TEAM_SPACE_SELECTOR } from '@/selectors/space/space'
+import { TEAM_SPACE_SELECTOR } from '@/selectors/space/space'
 import { Locator } from '@playwright/test'
 import { BasePage } from '../BasePage'
 
 export class TeamSpacePage extends BasePage {
-  getMenu(): Locator {
-    return this.page.locator(MENUBAR_SELECTOR.menu)
-  }
-
   // team Space page
   getTeamSpacePace(): Locator {
     return this.page.locator(TEAM_SPACE_SELECTOR.teamSpacePage)
@@ -29,8 +25,7 @@ export class TeamSpacePage extends BasePage {
     return this.page.locator(TEAM_SPACE_SELECTOR.resetConfirm)
   }
 
-  async InviteLinkReset(spaceText: string): Promise<void> {
-    await this.settingPage(spaceText)
+  async InviteLinkReset(): Promise<void> {
     await this.getTeamSpacePace().click()
     await this.getEnableInviteBtn().click()
     await this.getResetBtn().click()
@@ -46,8 +41,7 @@ export class TeamSpacePage extends BasePage {
     return this.page.locator(TEAM_SPACE_SELECTOR.deleteConfirm)
   }
 
-  async deleteSpace(spaceText: string, spaceName: string): Promise<void> {
-    await this.settingPage(spaceText)
+  async deleteSpace(spaceName: string): Promise<void> {
     await this.getTeamSpacePace().click()
     await this.getDeleteBtn().click()
     await this.page.fill(TEAM_SPACE_SELECTOR.deleteInput, spaceName)

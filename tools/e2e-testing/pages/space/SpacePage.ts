@@ -4,8 +4,8 @@ import { BasePage } from '../BasePage'
 
 export class SpacePage extends BasePage {
   //  space create
-  getMenu(): Locator {
-    return this.page.locator(MENUBAR_SELECTOR.menu)
+  getMenubarUnfold(): Locator {
+    return this.page.locator(MENUBAR_SELECTOR.menubarUnfold)
   }
 
   getCreateSpaceItem(): Locator {

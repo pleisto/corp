@@ -48,17 +48,4 @@ export class CommonPage {
   async waitForResponseWithAction(operationName: string, actionFn: Promise<void>): Promise<void> {
     await Promise.all([this.waitForResponse(operationName), actionFn])
   }
-
-  getMenubarUnfold(): Locator {
-    return this.page.locator(MENUBAR_SELECTOR.menubarUnfold)
-  }
-
-  getSectionSpaceName(spaceText: string): Locator {
-    return this.page.locator(MENUBAR_SELECTOR.settingIcon(spaceText))
-  }
-
-  async settingPage(spaceText: string): Promise<void> {
-    await this.getMenubarUnfold().click()
-    await this.getSectionSpaceName(spaceText).click()
-  }
 }
