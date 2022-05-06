@@ -48,7 +48,7 @@
     "cross-spawn": "^7.0.3",
     "date-fns": "^2.28.0",
     "enquirer": "^2.3.6",
-    "globby": "^11.0.4",
+    "globby": "^11.1.0",
     "graphql": "^16.4.0",
     "graphql-type-json": "^0.3.2",
     "lru-cache": "^7.9.0",
