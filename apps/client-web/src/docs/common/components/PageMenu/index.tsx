@@ -132,21 +132,6 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const linkPath = `/${domain}/${pageId}`
   const link = `${host}${linkPath}`
 
-  /* const addSelectedKey = (): void => {
-*   setPopoverKey(pageId)
-* }
-
-* const removeSelectedKey = (): void => {
-*   setPopoverKey(undefined)
-* } */
-
-  const onClickMoreButton = (e: { preventDefault: () => void; stopPropagation: () => void }): void => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDropdownVisible(true)
-    // addSelectedKey()
-  }
-
   const onRename = async (e: any): Promise<void> => {
     const title = e?.target?.value
     const input = { id: pageId, title }
@@ -320,14 +305,17 @@ export const PageMenu: React.FC<PageMenuProps> = ({
         destoryPopupOnHide={true}
         visible={dropdownVisible}
         onVisibleChange={onDropdownVisibleChange}
+        placement="bottomStart"
       >
         <div className={styles.menu}>
           {linkData}
           <div>
             <Tooltip title={t('blocks.more')}>
-              <Button className={styles.moreBtn} type="text" onClick={onClickMoreButton}>
-                <Icon.More />
-              </Button>
+              <Dropdown destoryPopupOnHide={true} trigger={['click']} overlay={menu} placement="bottomStart">
+                <Button className={styles.moreBtn} type="text">
+                  <Icon.More />
+                </Button>
+              </Dropdown>
             </Tooltip>
             <Tooltip title={t('blocks.create_sub_pages')}>
               <Button
