@@ -207,13 +207,21 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   }
 
   const inputRef = React.useRef<any>(null)
+  const handleEscape: React.KeyboardEventHandler<HTMLInputElement> = React.useCallback(e => {
+    if (e.key === 'Escape') {
+      setPopoverVisible(false)
+    }
+  }, [])
   const renamePopoverContent = (
     <Input
+      // eslint-disable-next-line
+      autoFocus
       prefix={<Icon.Edit />}
       disabled={renameBlockLoading}
       size="sm"
       bordered={false}
       onPressEnter={onRename}
+      onKeyDown={handleEscape}
       onBlur={onRename}
       ref={inputRef}
       defaultValue={titleText}
