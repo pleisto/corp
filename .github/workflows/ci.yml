@@ -93,6 +93,8 @@ jobs:
           cache: yarn
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - name: Run yarn install
         run: yarn install --immutable
         if: steps.changed-es-files.outputs.any_changed == 'true'
