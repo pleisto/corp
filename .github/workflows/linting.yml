@@ -35,6 +35,10 @@ jobs:
         with:
           node-version: 18
           cache: yarn
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+      - name: build Rust deps
+        run: yarn api-carate build:prod
       - name: Run yarn install
         if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn install --immutable
