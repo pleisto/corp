@@ -290,13 +290,13 @@ export const PageMenu: React.FC<PageMenuProps> = ({
     <Popover
       content={renamePopoverContent}
       title={null}
-      placement="bottom"
+      placement="bottomStart"
       trigger="customEvent"
       visible={popoverVisible}
       onVisibleChange={onRenamePopoverVisibleChange}
       destroyTooltipOnHide={true}
-      className={styles.title}
-    >
+      overlayInnerStyle={{ marginLeft: -36 }}
+      className={styles.title}>
       <Link to={linkPath}>{title}</Link>
     </Popover>
   )
