@@ -99,7 +99,7 @@ jobs:
         run: yarn install --immutable
         if: steps.changed-es-files.outputs.any_changed == 'true'
       - name: build Rust deps
-        run: yarn api-carate build:prod
+        run: yarn api-crate build:prod
       - name: Run Jest tests
         if: steps.changed-es-files.outputs.any_changed == 'true'
         run: yarn test:jest
