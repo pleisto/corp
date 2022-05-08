@@ -5,20 +5,16 @@
       "path": "."
     },
     {
-      "name": "client-web",
+      "name": "apps/client-web",
       "path": "apps/client-web"
     },
     {
-      "name": "landing-page",
+      "name": "apps/landing-page",
       "path": "apps/landing-page"
     },
     {
-      "name": "server-api",
+      "name": "apps/server-api",
       "path": "apps/server-api"
-    },
-    {
-      "name": "server-api-crate",
-      "path": "packages/server-api-crate"
     },
     {
       "name": "packages/active-support",
@@ -67,6 +63,10 @@
     {
       "name": "packages/nestjs-slonik",
       "path": "packages/nestjs-slonik"
+    },
+    {
+      "name": "packages/server-api-crate",
+      "path": "packages/server-api-crate"
     },
     {
       "name": "plugins/gcloud",
@@ -185,7 +185,7 @@
       "vitejs",
       "xxxl",
       "yarnpkg"
-    ],
+    ]
   },
   "extensions": {
     "recommendations": [

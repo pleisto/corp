@@ -1,8 +1,5 @@
-/**
- * TODO: delete me after rails project retired
- */
+import path from 'path'
 import { defineConfig } from 'vite'
-import RubyPlugin from 'vite-plugin-ruby'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import swc from 'unplugin-swc'
@@ -11,7 +8,6 @@ import { visualizer } from 'rollup-plugin-visualizer'
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   plugins: [
-    RubyPlugin(),
     react({
       babel: {
         parserOpts: {
@@ -78,7 +74,9 @@ export default defineConfig({
     sourcemap: true,
     cssCodeSplit: false,
     target: ['chrome74', 'ios13', 'safari13'],
+    manifest: true,
     rollupOptions: {
+      input: 'src/entrypoints/application.tsx',
       output: {
         manualChunks: {
           common: ['react', 'react-dom', '@brickdoc/active-support', 'i18next', '@apollo/client', 'yup'],
@@ -93,6 +91,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@/': `${path.resolve(__dirname, 'src')}/`,
       lodash: 'lodash-es'
     },
     dedupe: ['react', 'react-dom', 'i18next', 'react-i18next']
