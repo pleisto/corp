@@ -1,7 +1,7 @@
 {
   "name": "@brickdoc/server-api-crate",
   "version": "0.1.0",
-  "description": "An omakase-style high-level wrapper for modern crypto libraries for NodeJS.",
+  "description": "Crate has some utilities written in Rust and based on napi-rs.",
   "license": "Apache-2.0",
   "main": "./index.js",
   "volta": {
@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "napi build --platform && yarn fmt",
+    "postinstall": "napi build --platform --release",
     "build:prod": "napi build --platform --release",
     "lint": "yarn lint:eslint && yarn lint:rust",
     "lint:eslint": "TIMING=1 run -T eslint --cache --ext ts,tsx __tests__",
