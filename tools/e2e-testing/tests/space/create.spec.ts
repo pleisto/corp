@@ -1,9 +1,10 @@
 import { test, expect } from '@/fixtures'
-import { SettingPage } from '@/pages/space/settingPage'
-import { SpacePage } from '@/pages/space/SpacePage'
-import { TeamSpacePage } from '@/pages/space/TeamSpacePage'
+import { SettingPage } from '@/pages/space/setting.page'
+import { SpacePage } from '@/pages/space/space.page'
 
-test.describe('space', () => {
+import { TeamSpacePage } from '@/pages/space/teamSpace.page'
+
+test.describe('space create', () => {
   let spacePage: SpacePage
   let teamSpace: TeamSpacePage
   let settingPage: SettingPage

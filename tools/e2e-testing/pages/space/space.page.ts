@@ -1,4 +1,4 @@
-import { MENUBAR_SELECTOR } from '@/selectors/space/space'
+import { MENUBAR_SELECTOR } from '@/selectors/space/space.selector'
 import { Locator } from '@playwright/test'
 import { BasePage } from '../BasePage'
 
