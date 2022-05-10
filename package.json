@@ -39,7 +39,8 @@
     "e2e-testing": "yarn workspace @brickdoc/e2e-testing",
     "redis": "yarn workspace @brickdoc/nestjs-redis",
     "slonik": "yarn workspace @brickdoc/nestjs-slonik",
-    "api-crate": "yarn workspace @brickdoc/server-api-crate"
+    "api-crate": "yarn workspace @brickdoc/server-api-crate",
+    "build-support": "yarn workspace @brickdoc/build-support"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "workspace:^",

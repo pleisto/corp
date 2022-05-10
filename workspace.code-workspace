@@ -90,15 +90,94 @@
     }
   ],
   "settings": {
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.formatOnPaste": true,
+    "editor.renderWhitespace": "all",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.rulers": [
+      120
+    ],
+    "files.watcherExclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/tmp": true,
+      "**/dist": true,
+      "**/coverage": true,
+      "public": true
+    },
     "files.associations": {
       ".babelrc": "json",
       ".eslintrc": "jsonc",
       ".eslintrc*.json": "jsonc"
     },
+    "search.useIgnoreFiles": true,
+    "search.exclude": {
+      "**/build": true,
+      "**/output": true,
+      "**/dist": true,
+      "**/*.log": true,
+      "**/*.pid": true,
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/.eslintcache": true,
+      "**/coverage": true,
+      "**/tmp": true,
+      "**/*.snap": true,
+      "**/docs/api": true,
+      "/.yarn": true,
+      "/yarn.lock": true,
+      "**/storybook-static": true
+    },
+    "[plaintext]": {
+      "files.insertFinalNewline": false
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features",
+      "editor.tabSize": 2,
+      "editor.formatOnType": true
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features",
+      "editor.tabSize": 2,
+      "editor.formatOnType": true
+    },
+    "npm.packageManager": "yarn",
     "typescript.tsc.autoDetect": "on",
     "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.validate.enable": true,
+    "eslint.workingDirectories": [
+      {
+        "mode": "auto"
+      }
+    ],
+    "eslint.enable": true,
+    "eslint.format.enable": true,
     "eslint.alwaysShowStatus": true,
+    "eslint.codeActionsOnSave.mode": "problems",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "eslint.lintTask.enable": true,
+    "eslint.packageManager": "yarn",
+    "eslint.useESLintClass": true,
     "jest.jestCommandLine": "yarn run -T jest",
     "jest.disabledWorkspaceFolders": [
       "/",
@@ -112,6 +191,8 @@
       "tools/e2e-testing",
       "tools/schematics"
     ],
+    "pgsql.debugServerPort": 13000,
+    "cSpell.diagnosticLevel": "Hint",
     "cSpell.words": [
       "affordance",
       "ahooks",

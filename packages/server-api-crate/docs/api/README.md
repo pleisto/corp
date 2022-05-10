@@ -194,7 +194,7 @@ decoded buffer
 
 #### Defined in
 
-[index.d.ts:133](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L133)
+[index.d.ts:129](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L129)
 
 ---
 
@@ -218,7 +218,7 @@ base64 encoded string
 
 #### Defined in
 
-[index.d.ts:127](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L127)
+[index.d.ts:123](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L123)
 
 ---
 
@@ -266,7 +266,7 @@ slugs
 
 #### Defined in
 
-[index.d.ts:139](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L139)
+[index.d.ts:135](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L135)
 
 ---
 

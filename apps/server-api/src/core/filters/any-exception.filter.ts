@@ -153,7 +153,8 @@ export class AnyExceptionFilter implements GqlExceptionFilter {
       void (async () => {
         // @ts-expect-error
         let view: string | undefined = await fastify.view('index.hbs', {
-          webAppEntrypoint: this.webAppEntrypoint
+          webAppEntrypoint: this.webAppEntrypoint,
+          enableGoogleAnalytics: env.NODE_ENV === 'production'
         })
 
         if (env.NODE_ENV === 'development') {

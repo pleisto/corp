@@ -12,7 +12,7 @@
     "extends": "../../package.json"
   },
   "scripts": {
-    "build": "vite build --config src/vite.config.ts",
+    "build:client-web": "vite build --config src/vite.config.ts",
     "lint": "yarn lint:eslint && yarn lint:type",
     "lint:eslint": "TIMING=1 run -T eslint --cache --ext ts,tsx src",
     "lint:fix": "TIMING=1 run -T eslint --cache --ext ts,tsx src --fix",

@@ -38,7 +38,7 @@ export const loadInitializers = async (app: NestFastifyApplication): Promise<voi
   // Inject context to `globalThis.ctx` when Nodejs Debugger is enabled
   const v8InspectorEnabled =
     typeof (globalThis as any).v8debug === 'object' || /--debug|--inspect/.test(process.execArgv.join(' '))
-  if (v8InspectorEnabled) await debugContextRegister()
+  if (v8InspectorEnabled) await debugContextRegister(app)
 
   // hooks initializers
   initializerHooks.forEach(async hook => {
