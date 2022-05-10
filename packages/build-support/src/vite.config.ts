@@ -4,9 +4,14 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import swc from 'unplugin-swc'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { WEB_APP_ENTRYPOINT } from './web-app/web-app.constants'
+
+const monorepoRoot = path.resolve(__dirname, '../../..')
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
+  root: monorepoRoot,
+  publicDir: false, // We serve public dir from our own nestjs app, not using vite's public dir
   plugins: [
     react({
       babel: {
@@ -70,13 +75,15 @@ export default defineConfig({
       : undefined
   ],
   build: {
+    outDir: 'public/esm-bundle',
     chunkSizeWarningLimit: 1024,
     sourcemap: true,
+    minify: 'esbuild',
     cssCodeSplit: false,
     target: ['chrome74', 'ios13', 'safari13'],
     manifest: true,
     rollupOptions: {
-      input: 'src/entrypoints/application.tsx',
+      input: path.resolve(monorepoRoot, WEB_APP_ENTRYPOINT),
       output: {
         manualChunks: {
           common: ['react', 'react-dom', '@brickdoc/active-support', 'i18next', '@apollo/client', 'yup'],
@@ -91,7 +98,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
+      '@/': `${path.resolve(monorepoRoot, 'apps/client-web/src')}/`,
       lodash: 'lodash-es'
     },
     dedupe: ['react', 'react-dom', 'i18next', 'react-i18next']
