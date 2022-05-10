@@ -10,6 +10,8 @@
 - [anyAscii](README.md#anyascii)
 - [base58Decode](README.md#base58decode)
 - [base58Encode](README.md#base58encode)
+- [base64UrlSafeDecode](README.md#base64urlsafedecode)
+- [base64UrlSafeEncode](README.md#base64urlsafeencode)
 - [deriveKey](README.md#derivekey)
 - [genSlug](README.md#genslug)
 - [generateKey](README.md#generatekey)
@@ -33,8 +35,8 @@ Make UUID v4 string shorted
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `uuidV4` | `string` |
 
 #### Returns
@@ -45,9 +47,9 @@ shorted UUID v4 string
 
 #### Defined in
 
-[index.d.ts:98](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L98)
+[index.d.ts:94](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L94)
 
-___
+---
 
 ### <a id="aeaddecrypt" name="aeaddecrypt"></a> aeadDecrypt
 
@@ -57,10 +59,10 @@ Decrypts a message using XChaCha20-Poly1305-IETF
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `cipher` | `string` | z85 encoded ciphertext with nonce |
-| `key` | `string` | 32bytes encryption key |
+| Name     | Type     | Description                                   |
+| :------- | :------- | :-------------------------------------------- |
+| `cipher` | `string` | base64 url-safe encoded ciphertext with nonce |
+| `key`    | `string` | 32bytes encryption key                        |
 
 #### Returns
 
@@ -70,9 +72,9 @@ plaintext buffer
 
 #### Defined in
 
-[index.d.ts:72](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L72)
+[index.d.ts:68](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L68)
 
-___
+---
 
 ### <a id="aeadencrypt" name="aeadencrypt"></a> aeadEncrypt
 
@@ -82,22 +84,22 @@ Encrypts a message using XChaCha20-Poly1305-IETF
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `plain` | `string` \| `Buffer` | plaintext |
-| `key` | `string` | 32bytes encryption key |
+| Name    | Type                 | Description            |
+| :------ | :------------------- | :--------------------- |
+| `plain` | `string` \| `Buffer` | plaintext              |
+| `key`   | `string`             | 32bytes encryption key |
 
 #### Returns
 
 `string`
 
-ciphertext - z85 encoded ciphertext with nonce
+ciphertext - base64 url-safe encoded ciphertext with nonce
 
 #### Defined in
 
-[index.d.ts:65](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L65)
+[index.d.ts:61](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L61)
 
-___
+---
 
 ### <a id="anyascii" name="anyascii"></a> anyAscii
 
@@ -108,8 +110,8 @@ all Unicode characters.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type     | Description        |
+| :------ | :------- | :----------------- |
 | `input` | `string` | Any unicode string |
 
 #### Returns
@@ -120,9 +122,9 @@ ASCII-only string
 
 #### Defined in
 
-[index.d.ts:79](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L79)
+[index.d.ts:75](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L75)
 
-___
+---
 
 ### <a id="base58decode" name="base58decode"></a> base58Decode
 
@@ -132,8 +134,8 @@ Base58 decoding (Bitcoin style)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type     | Description           |
+| :------ | :------- | :-------------------- |
 | `input` | `string` | base58 encoded string |
 
 #### Returns
@@ -144,9 +146,9 @@ decoded buffer
 
 #### Defined in
 
-[index.d.ts:91](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L91)
+[index.d.ts:87](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L87)
 
-___
+---
 
 ### <a id="base58encode" name="base58encode"></a> base58Encode
 
@@ -156,8 +158,8 @@ Base58 encoding (Bitcoin style)
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type                 | Description      |
+| :------ | :------------------- | :--------------- |
 | `input` | `string` \| `Buffer` | string or buffer |
 
 #### Returns
@@ -168,9 +170,57 @@ base58 encoded string
 
 #### Defined in
 
-[index.d.ts:85](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L85)
+[index.d.ts:81](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L81)
 
-___
+---
+
+### <a id="base64urlsafedecode" name="base64urlsafedecode"></a> base64UrlSafeDecode
+
+▸ **base64UrlSafeDecode**(`input`): `Buffer`
+
+Base64 decoding (url safe)
+
+#### Parameters
+
+| Name    | Type     | Description           |
+| :------ | :------- | :-------------------- |
+| `input` | `string` | base64 encoded string |
+
+#### Returns
+
+`Buffer`
+
+decoded buffer
+
+#### Defined in
+
+[index.d.ts:129](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L129)
+
+---
+
+### <a id="base64urlsafeencode" name="base64urlsafeencode"></a> base64UrlSafeEncode
+
+▸ **base64UrlSafeEncode**(`input`): `string`
+
+Base64 encoding (url safe)
+
+#### Parameters
+
+| Name    | Type                 | Description      |
+| :------ | :------------------- | :--------------- |
+| `input` | `string` \| `Buffer` | string or buffer |
+
+#### Returns
+
+`string`
+
+base64 encoded string
+
+#### Defined in
+
+[index.d.ts:123](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L123)
+
+---
 
 ### <a id="derivekey" name="derivekey"></a> deriveKey
 
@@ -180,11 +230,11 @@ Derive a new key from a master key.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `keySeed` | `string` \| `Buffer` | master key |
-| `subKeyId` | `number` | sub key id |
-| `context?` | `string` | It don't have to be secret and can have a low entropy |
+| Name       | Type                 | Description                                           |
+| :--------- | :------------------- | :---------------------------------------------------- |
+| `keySeed`  | `string` \| `Buffer` | master key                                            |
+| `subKeyId` | `number`             | sub key id                                            |
+| `context?` | `string`             | It don't have to be secret and can have a low entropy |
 
 #### Returns
 
@@ -192,9 +242,9 @@ Derive a new key from a master key.
 
 #### Defined in
 
-[index.d.ts:37](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L37)
+[index.d.ts:33](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L33)
 
-___
+---
 
 ### <a id="genslug" name="genslug"></a> genSlug
 
@@ -204,8 +254,8 @@ Generate a slug based on the User Name
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type     |
+| :----- | :------- |
 | `name` | `string` |
 
 #### Returns
@@ -216,9 +266,9 @@ slugs
 
 #### Defined in
 
-[index.d.ts:127](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L127)
+[index.d.ts:135](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L135)
 
-___
+---
 
 ### <a id="generatekey" name="generatekey"></a> generateKey
 
@@ -234,9 +284,9 @@ hex encoded string
 
 #### Defined in
 
-[index.d.ts:42](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L42)
+[index.d.ts:38](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L38)
 
-___
+---
 
 ### <a id="generichash" name="generichash"></a> genericHash
 
@@ -247,10 +297,10 @@ Suitable for most use cases other than hashing passwords.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `data` | `string` \| `Buffer` | Message String or Buffer to hash. |
-| `salt?` | `string` | 32 bytes hex string. (string length must be 64) |
+| Name    | Type                 | Description                                     |
+| :------ | :------------------- | :---------------------------------------------- |
+| `data`  | `string` \| `Buffer` | Message String or Buffer to hash.               |
+| `salt?` | `string`             | 32 bytes hex string. (string length must be 64) |
 
 #### Returns
 
@@ -260,9 +310,9 @@ hex string
 
 #### Defined in
 
-[index.d.ts:30](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L30)
+[index.d.ts:26](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L26)
 
-___
+---
 
 ### <a id="intdecrypt" name="intdecrypt"></a> intDecrypt
 
@@ -273,10 +323,10 @@ That is safer alternative to hashids
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type     |
+| :-------- | :------- |
 | `dataStr` | `string` |
-| `keyStr` | `string` |
+| `keyStr`  | `string` |
 
 #### Returns
 
@@ -286,9 +336,9 @@ original integer
 
 #### Defined in
 
-[index.d.ts:58](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L58)
+[index.d.ts:54](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L54)
 
-___
+---
 
 ### <a id="intencrypt" name="intencrypt"></a> intEncrypt
 
@@ -299,9 +349,9 @@ That is safer alternative to hashids
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `number` |
+| Name     | Type     |
+| :------- | :------- |
+| `data`   | `number` |
 | `keyStr` | `string` |
 
 #### Returns
@@ -312,9 +362,9 @@ base58 encoded ciphertext
 
 #### Defined in
 
-[index.d.ts:50](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L50)
+[index.d.ts:46](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L46)
 
-___
+---
 
 ### <a id="passwordhash" name="passwordhash"></a> passwordHash
 
@@ -324,10 +374,10 @@ Generate a password hash and salt using Argon2id.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `password` | `string` | password string to hash |
-| `abortSignal?` | ``null`` \| `AbortSignal` | - |
+| Name           | Type                    | Description             |
+| :------------- | :---------------------- | :---------------------- |
+| `password`     | `string`                | password string to hash |
+| `abortSignal?` | `null` \| `AbortSignal` | -                       |
 
 #### Returns
 
@@ -339,7 +389,7 @@ password hash
 
 [index.d.ts:11](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L11)
 
-___
+---
 
 ### <a id="passwordhashverify" name="passwordhashverify"></a> passwordHashVerify
 
@@ -349,11 +399,11 @@ Verifies a password hash generated by `passwordHash()`
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `hashed` | `string` | password hash |
-| `password` | `string` | password string to verify |
-| `abortSignal?` | ``null`` \| `AbortSignal` | - |
+| Name           | Type                    | Description               |
+| :------------- | :---------------------- | :------------------------ |
+| `hashed`       | `string`                | password hash             |
+| `password`     | `string`                | password string to verify |
+| `abortSignal?` | `null` \| `AbortSignal` | -                         |
 
 #### Returns
 
@@ -365,7 +415,7 @@ true if the password is correct
 
 [index.d.ts:18](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L18)
 
-___
+---
 
 ### <a id="shortuuidexpand" name="shortuuidexpand"></a> shortUUIDExpand
 
@@ -375,8 +425,8 @@ Expand shorted UUID v4 string
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name        | Type     |
+| :---------- | :------- |
 | `shortUuid` | `string` |
 
 #### Returns
@@ -387,9 +437,9 @@ standard UUID v4 string
 
 #### Defined in
 
-[index.d.ts:109](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L109)
+[index.d.ts:105](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L105)
 
-___
+---
 
 ### <a id="shortuuidgen" name="shortuuidgen"></a> shortUUIDGen
 
@@ -405,9 +455,9 @@ shorted UUID v4 string
 
 #### Defined in
 
-[index.d.ts:103](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L103)
+[index.d.ts:99](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L99)
 
-___
+---
 
 ### <a id="z85decode" name="z85decode"></a> z85Decode
 
@@ -417,8 +467,8 @@ Z85 decoding
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type     | Description        |
+| :------ | :------- | :----------------- |
 | `input` | `string` | z85 encoded string |
 
 #### Returns
@@ -429,9 +479,9 @@ decoded buffer
 
 #### Defined in
 
-[index.d.ts:121](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L121)
+[index.d.ts:117](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L117)
 
-___
+---
 
 ### <a id="z85encode" name="z85encode"></a> z85Encode
 
@@ -441,8 +491,8 @@ Z85 encoding
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name    | Type                 | Description      |
+| :------ | :------------------- | :--------------- |
 | `input` | `string` \| `Buffer` | string or buffer |
 
 #### Returns
@@ -453,4 +503,4 @@ z85 encoded string
 
 #### Defined in
 
-[index.d.ts:115](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L115)
+[index.d.ts:111](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L111)
