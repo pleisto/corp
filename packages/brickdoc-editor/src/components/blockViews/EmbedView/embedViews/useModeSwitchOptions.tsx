@@ -38,16 +38,13 @@ const EditInput = styled(Input, {
   }
 })
 
-const EditPanel: FC<{
-  link: string
-  displayName: string
-  blockType: EmbedBlockType
+export function useDisplayName(
+  blockType: EmbedBlockType,
+  displayName: string,
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
-}> = ({ link, displayName, blockType, updateEmbedBlockAttributes }) => {
+): [string, ChangeEventHandler<HTMLInputElement>, VoidFunction] {
   const [editDisplayName, setEditDisplayName] = useState(displayName)
-  const [editLink, onLinkChange, , onSubmitLink] = useLinkValue(updateEmbedBlockAttributes, link)
-
-  const onTitleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(event => {
+  const onDisplayNameChange = useCallback<ChangeEventHandler<HTMLInputElement>>(event => {
     setEditDisplayName(event.target.value)
   }, [])
 
@@ -56,6 +53,22 @@ const EditPanel: FC<{
     updateEmbedBlockAttributes({ displayName: editDisplayName }, blockType)
   }, [blockType, displayName, editDisplayName, updateEmbedBlockAttributes])
 
+  return [editDisplayName, onDisplayNameChange, onSubmitDisplayName]
+}
+
+export const EditPanel: FC<{
+  link: string
+  displayName: string
+  blockType: EmbedBlockType
+  updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
+}> = ({ link, displayName, blockType, updateEmbedBlockAttributes }) => {
+  const [editDisplayName, onDisplayNameChange, onSubmitDisplayName] = useDisplayName(
+    blockType,
+    displayName,
+    updateEmbedBlockAttributes
+  )
+  const [editLink, onLinkChange, , onSubmitLink] = useLinkValue(updateEmbedBlockAttributes, link)
+
   return (
     <EditPanelContainer>
       <EditInput
@@ -63,7 +76,7 @@ const EditPanel: FC<{
         bordered={false}
         size="md"
         value={editDisplayName}
-        onChange={onTitleChange}
+        onChange={onDisplayNameChange}
       />
       <InputDivider />
       <EditInput
