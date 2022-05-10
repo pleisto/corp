@@ -18,7 +18,6 @@ describe('WebAppModule', () => {
   afterAll(async () => {
     globalThis.__enableViteDevServer__ = false
     await app.close()
-    await viteServer.close()
   })
 
   it('should export VITE_DEV_SERVER', async () => {
