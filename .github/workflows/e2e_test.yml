@@ -1,4 +1,4 @@
-name: Full E2E test
+name: E2E Test
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ env:
 
 jobs:
   playwright:
-    name: Playwright Test
+    name: Playwright
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the codebase
