@@ -28,6 +28,7 @@
     </style>
     {{! TODO: inject brickdoc context here }}
     <script type='module' src='{{webAppEntrypoint}}'></script>
+    {{{devContext}}}
   </head>
   <body style='overflow-y: hidden'>
     <noscript>
@@ -46,6 +47,5 @@
         {{! TODO: insert localized noscript message here }}
       </span>
     </noscript>
-    {{{devContext}}}
   </body>
 </html>
