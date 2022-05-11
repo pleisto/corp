@@ -18,6 +18,7 @@ jobs:
   jest:
     name: Jest
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     services:
       # image version suggestion same as tools/helm-charts/brickdoc
       postgres:

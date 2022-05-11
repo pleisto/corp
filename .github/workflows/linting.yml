@@ -16,7 +16,7 @@ jobs:
   es:
     name: ECMAScript
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     env:
       # GitHub-hosted runner have 7 gb RAM.
       # 5250mb === 7gb * 0.75

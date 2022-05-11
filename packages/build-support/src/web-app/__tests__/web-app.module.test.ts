@@ -35,12 +35,4 @@ describe('WebAppModule', () => {
     })
     expect(res.body).toBe('pong')
   })
-
-  it('can transform TS/TSX files on the fly', async () => {
-    const res = await app.inject({
-      method: 'GET',
-      url: '/apps/client-web/src/BrickdocGraphQL.ts'
-    })
-    expect(res.body).toContain('node_modules')
-  })
 })
