@@ -5,7 +5,7 @@ import {
   useBlockRestoreMutation,
   useBlockHardDeleteMutation
 } from '@/BrickdocGraphQL'
-import { Spin, useList, Checkbox, Button, theme, ConfirmDialog } from '@brickdoc/design-system'
+import { Spin, useList, Checkbox, Button, theme, ConfirmDialog, toast } from '@brickdoc/design-system'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDocsI18n } from '../../hooks'
@@ -77,13 +77,22 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
     async (_ids?: string[]) => {
       const ids = _ids ?? selectedItem.map(item => item.id)
       setActionLoading(true)
-      await blockHardDelete({ variables: { input: { ids } } })
-      const nextList = list.filter(item => !ids.includes(item.id))
-      resetList(nextList)
+      try {
+        await blockHardDelete({ variables: { input: { ids } } })
+        const nextList = list.filter(item => !ids.includes(item.id))
+        resetList(nextList)
+      } catch (e) {
+        if (e instanceof Error) {
+          toast.error(`${e.message})`)
+        }
+        console.error(e)
+        refetch()
+      }
+
       setHardDeleteModalVisible(false)
       setActionLoading(false)
     },
-    [selectedItem, blockHardDelete, list, resetList]
+    [selectedItem, blockHardDelete, list, resetList, refetch]
   )
 
   const onBatchRestore = useCallback(
@@ -91,22 +100,30 @@ export const PageTrash: React.FC<PageTrashProps> = ({ domain, keyword }) => {
       const ids = _ids ?? selectedItem.map(item => item.id)
 
       setActionLoading(true)
-      await blockRestore({ variables: { input: { ids } } })
-      const nextList = list.filter(item => !ids.includes(item.id))
-      resetList(nextList)
-      ids.forEach(id =>
-        client.cache.modify({
-          id: client.cache.identify({ __typename: 'BlockInfo', id }),
-          fields: {
-            isDeleted() {
-              return false
+      try {
+        await blockRestore({ variables: { input: { ids } } })
+        const nextList = list.filter(item => !ids.includes(item.id))
+        resetList(nextList)
+        ids.forEach(id =>
+          client.cache.modify({
+            id: client.cache.identify({ __typename: 'BlockInfo', id }),
+            fields: {
+              isDeleted() {
+                return false
+              }
             }
-          }
-        })
-      )
+          })
+        )
+      } catch (e) {
+        if (e instanceof Error) {
+          toast.error(`${e.message})`)
+        }
+        console.error(e)
+        refetch()
+      }
       setActionLoading(false)
     },
-    [blockRestore, client.cache, selectedItem, list, resetList]
+    [blockRestore, client.cache, selectedItem, list, resetList, refetch]
   )
 
   const onClickBatchDelete = async (): Promise<void> => {
