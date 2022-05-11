@@ -2,9 +2,9 @@ import { FC } from 'react'
 import { EmbedViewMode } from '../../../../extensions/blocks/embed/meta'
 import { Toolbar } from '../../../ui'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../EmbedView'
-import { useModeSwitchOptions } from './useModeSwitchOptions'
+import { useEmbedToolbarOptions } from './useEmbedToolbarOptions'
 
-export interface ModeSwitchProps {
+export interface EmbedToolbarProps {
   mode: EmbedViewMode
   blockType: EmbedBlockType
   displayName: string
@@ -13,7 +13,7 @@ export interface ModeSwitchProps {
   onFullScreen?: VoidFunction
 }
 
-export const ModeSwitch: FC<ModeSwitchProps> = ({
+export const EmbedToolbar: FC<EmbedToolbarProps> = ({
   mode,
   blockType,
   displayName,
@@ -21,7 +21,7 @@ export const ModeSwitch: FC<ModeSwitchProps> = ({
   updateEmbedBlockAttributes,
   onFullScreen
 }) => {
-  const [options] = useModeSwitchOptions({
+  const [options] = useEmbedToolbarOptions({
     mode,
     blockType,
     displayName,
@@ -33,4 +33,4 @@ export const ModeSwitch: FC<ModeSwitchProps> = ({
   return <Toolbar type="transparent" options={options} />
 }
 
-ModeSwitch.toString = () => '.embed-view-mode-switch'
+EmbedToolbar.toString = () => '.embed-view-toolbar'

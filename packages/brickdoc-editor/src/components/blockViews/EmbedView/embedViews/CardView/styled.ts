@@ -1,8 +1,8 @@
 import { styled, theme, Button } from '@brickdoc/design-system'
 import { maxWidth } from '../../styled'
-import { ModeSwitch } from '../ModeSwitch'
+import { EmbedToolbar } from '../EmbedToolbar'
 
-export const ModeSwitchContainer = styled('div', {
+export const EmbedToolbarContainer = styled('div', {
   bottom: '.5rem',
   opacity: 0,
   pointerEvents: 'none',
@@ -10,7 +10,7 @@ export const ModeSwitchContainer = styled('div', {
   right: '.75rem',
   transition: 'opacity 100ms ease-in-out',
 
-  [`& ${ModeSwitch}`]: {}
+  [`& ${EmbedToolbar}`]: {}
 })
 
 export const Content = styled('div', {
@@ -18,7 +18,7 @@ export const Content = styled('div', {
   position: 'relative',
 
   '&:hover': {
-    [`& ${ModeSwitchContainer}`]: {
+    [`& ${EmbedToolbarContainer}`]: {
       opacity: 1,
       pointerEvents: 'inherit'
     }

@@ -2,7 +2,7 @@ import { FC, MouseEvent, ReactElement, useCallback } from 'react'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { BlockContainer } from '../../../BlockContainer'
 import { EmbedViewProps } from '../../../../../extensions/blocks/embed/meta'
-import { ModeSwitch } from '../ModeSwitch'
+import { EmbedToolbar } from '../EmbedToolbar'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../../EmbedView'
 import { useActionOptions } from '../useActionOptions'
 import {
@@ -16,7 +16,7 @@ import {
   Title,
   Description,
   LinkText,
-  ModeSwitchContainer
+  EmbedToolbarContainer
 } from './styled'
 
 export interface CardViewProps {
@@ -95,15 +95,15 @@ export const CardView: FC<CardViewProps> = ({
               <LinkText>{linkUrl}</LinkText>
             </Link>
           )}
-          <ModeSwitchContainer onClick={handleStopPropagation}>
-            <ModeSwitch
+          <EmbedToolbarContainer onClick={handleStopPropagation}>
+            <EmbedToolbar
               mode="card"
               blockType={blockType}
               displayName={displayName}
               url={linkUrl}
               updateEmbedBlockAttributes={updateEmbedBlockAttributes}
             />
-          </ModeSwitchContainer>
+          </EmbedToolbarContainer>
         </Content>
       </CardContainer>
     </BlockContainer>

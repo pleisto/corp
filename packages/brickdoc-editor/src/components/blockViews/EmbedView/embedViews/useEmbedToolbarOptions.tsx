@@ -5,7 +5,7 @@ import { useEditorI18n } from '../../../../hooks'
 import { ToolbarOptionGroup } from '../../../ui/Toolbar'
 import { useLinkValue } from '../embedTypes/Link/useLinkValue'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../EmbedView'
-import { ModeSwitchProps } from './ModeSwitch'
+import { EmbedToolbarProps } from './EmbedToolbar'
 
 const Icon = styled('span', {
   variants: {
@@ -101,14 +101,14 @@ export const EditPanel: FC<{
   )
 }
 
-export function useModeSwitchOptions({
+export function useEmbedToolbarOptions({
   mode,
   blockType,
   displayName,
   url,
   updateEmbedBlockAttributes,
   onFullScreen
-}: ModeSwitchProps): [ToolbarOptionGroup] {
+}: EmbedToolbarProps): [ToolbarOptionGroup] {
   const isPreview = mode === 'preview'
   const isCard = mode === 'card'
   const isText = mode === 'text'
