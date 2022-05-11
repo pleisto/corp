@@ -1,11 +1,11 @@
-import { Preview, BookmarkView, TextView, Edit, Link } from '@brickdoc/design-icons'
+import { Preview, BookmarkView, TextView, Edit, Link, ScreenFull } from '@brickdoc/design-icons'
 import { Input, Popover, Spin, styled, theme } from '@brickdoc/design-system'
 import { ChangeEventHandler, FC, useCallback, useState } from 'react'
-import { EmbedViewMode } from '../../../../extensions/blocks/embed/meta'
 import { useEditorI18n } from '../../../../hooks'
 import { ToolbarOptionGroup } from '../../../ui/Toolbar'
 import { useLinkValue } from '../embedTypes/Link/useLinkValue'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../EmbedView'
+import { ModeSwitchProps } from './ModeSwitch'
 
 const Icon = styled('span', {
   variants: {
@@ -101,13 +101,14 @@ export const EditPanel: FC<{
   )
 }
 
-export function useModeSwitchOptions(
-  mode: EmbedViewMode,
-  blockType: EmbedBlockType,
-  displayName: string,
-  url: string,
-  updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
-): [ToolbarOptionGroup] {
+export function useModeSwitchOptions({
+  mode,
+  blockType,
+  displayName,
+  url,
+  updateEmbedBlockAttributes,
+  onFullScreen
+}: ModeSwitchProps): [ToolbarOptionGroup] {
   const isPreview = mode === 'preview'
   const isCard = mode === 'card'
   const isText = mode === 'text'
@@ -197,6 +198,21 @@ export function useModeSwitchOptions(
       ]
     }
   ]
+
+  if (typeof onFullScreen === 'function') {
+    options.push({
+      type: 'group',
+      items: [
+        {
+          type: 'item',
+          name: 'full_screen',
+          tooltip: t('embed_block.full_screen.tooltip'),
+          icon: <ScreenFull />,
+          onAction: onFullScreen
+        }
+      ]
+    })
+  }
 
   return [options]
 }

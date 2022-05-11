@@ -1,15 +1,10 @@
 import { FC, ReactElement } from 'react'
 import { styled, theme } from '@brickdoc/design-system'
-import { ModeSwitch } from '../ModeSwitch'
-import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../../EmbedView'
+import { ModeSwitch, ModeSwitchProps } from '../ModeSwitch'
 
-export interface DocumentFooterProps {
+export interface DocumentFooterProps extends Omit<ModeSwitchProps, 'mode'> {
   icon?: ReactElement | string | null
   name: string
-  displayName: string
-  url: string
-  blockType: EmbedBlockType
-  updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
 }
 
 const Footer = styled('div', {
@@ -55,7 +50,8 @@ export const DocumentFooter: FC<DocumentFooterProps> = ({
   name,
   icon,
   blockType,
-  updateEmbedBlockAttributes
+  updateEmbedBlockAttributes,
+  onFullScreen
 }) => (
   <Footer>
     <Info>
@@ -69,6 +65,7 @@ export const DocumentFooter: FC<DocumentFooterProps> = ({
         mode="preview"
         blockType={blockType}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
+        onFullScreen={onFullScreen}
       />
     </ModeSwitchContainer>
   </Footer>

@@ -10,10 +10,25 @@ export interface ModeSwitchProps {
   displayName: string
   url: string
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
+  onFullScreen?: VoidFunction
 }
 
-export const ModeSwitch: FC<ModeSwitchProps> = ({ mode, blockType, displayName, url, updateEmbedBlockAttributes }) => {
-  const [options] = useModeSwitchOptions(mode, blockType, displayName, url, updateEmbedBlockAttributes)
+export const ModeSwitch: FC<ModeSwitchProps> = ({
+  mode,
+  blockType,
+  displayName,
+  url,
+  updateEmbedBlockAttributes,
+  onFullScreen
+}) => {
+  const [options] = useModeSwitchOptions({
+    mode,
+    blockType,
+    displayName,
+    url,
+    updateEmbedBlockAttributes,
+    onFullScreen
+  })
 
   return <Toolbar type="transparent" options={options} />
 }
