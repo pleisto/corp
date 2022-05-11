@@ -11,7 +11,7 @@
     "plugins/*"
   ],
   "scripts": {
-    "postinstall": "husky install && ./bin/pdftron static ",
+    "postinstall": "husky install && ./tools/scripts/pdftron static ",
     "start": "./bin/vite dev",
     "dist": "./bin/vite build",
     "analyze": "BUNDLE_STATS=1 yarn dist && open ./tmp/esm-bundle-stats.html",
