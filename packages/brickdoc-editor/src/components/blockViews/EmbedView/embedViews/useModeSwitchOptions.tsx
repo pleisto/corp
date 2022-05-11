@@ -1,5 +1,5 @@
 import { Preview, BookmarkView, TextView, Edit, Link } from '@brickdoc/design-icons'
-import { Input, Popover, styled, theme } from '@brickdoc/design-system'
+import { Input, Popover, Spin, styled, theme } from '@brickdoc/design-system'
 import { ChangeEventHandler, FC, useCallback, useState } from 'react'
 import { EmbedViewMode } from '../../../../extensions/blocks/embed/meta'
 import { useEditorI18n } from '../../../../hooks'
@@ -27,10 +27,17 @@ const EditPanelContainer = styled('div', {
   padding: '.8rem 1rem'
 })
 
+const EditField = styled('div', {
+  alignItems: 'center',
+  display: 'flex',
+  flexDirection: 'row'
+})
+
 const EditInput = styled(Input, {
   variants: {
     size: {
       md: {
+        flex: '1 !important',
         paddingLeft: 0,
         paddingRight: 0
       }
@@ -67,7 +74,7 @@ export const EditPanel: FC<{
     displayName,
     updateEmbedBlockAttributes
   )
-  const [editLink, onLinkChange, , onSubmitLink] = useLinkValue(updateEmbedBlockAttributes, link)
+  const [editLink, onLinkChange, , onSubmitLink, progress] = useLinkValue(updateEmbedBlockAttributes, link)
 
   return (
     <EditPanelContainer>
@@ -79,14 +86,17 @@ export const EditPanel: FC<{
         onChange={onDisplayNameChange}
       />
       <InputDivider />
-      <EditInput
-        onPressEnter={onSubmitLink}
-        bordered={false}
-        size="md"
-        prefix={<Link />}
-        value={editLink}
-        onChange={onLinkChange}
-      />
+      <EditField>
+        <EditInput
+          onPressEnter={onSubmitLink}
+          bordered={false}
+          size="md"
+          prefix={<Link />}
+          value={editLink}
+          onChange={onLinkChange}
+        />
+        {progress.percentage > 0 && progress.percentage !== 1 && <Spin />}
+      </EditField>
     </EditPanelContainer>
   )
 }
