@@ -19,7 +19,7 @@
       "outputs": ["docs/api/**"]
     },
     "build:rust": {
-      "outputs": ["target/**", "*.node", "index.d.ts", "index.js"]
+      "outputs": ["*.node", "index.d.ts", "index.js"]
     }
   }
 }
