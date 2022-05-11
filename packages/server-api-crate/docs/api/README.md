@@ -47,7 +47,7 @@ shorted UUID v4 string
 
 #### Defined in
 
-[index.d.ts:94](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L94)
+[index.d.ts:106](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L106)
 
 ---
 
@@ -194,7 +194,7 @@ decoded buffer
 
 #### Defined in
 
-[index.d.ts:129](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L129)
+[index.d.ts:99](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L99)
 
 ---
 
@@ -218,7 +218,7 @@ base64 encoded string
 
 #### Defined in
 
-[index.d.ts:123](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L123)
+[index.d.ts:93](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L93)
 
 ---
 
@@ -437,7 +437,7 @@ standard UUID v4 string
 
 #### Defined in
 
-[index.d.ts:105](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L105)
+[index.d.ts:117](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L117)
 
 ---
 
@@ -455,7 +455,7 @@ shorted UUID v4 string
 
 #### Defined in
 
-[index.d.ts:99](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L99)
+[index.d.ts:111](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L111)
 
 ---
 
@@ -479,7 +479,7 @@ decoded buffer
 
 #### Defined in
 
-[index.d.ts:117](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L117)
+[index.d.ts:129](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L129)
 
 ---
 
@@ -503,4 +503,4 @@ z85 encoded string
 
 #### Defined in
 
-[index.d.ts:111](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L111)
+[index.d.ts:123](https://github.com/brickdoc/brickdoc/blob/master/packages/server-api-crate/index.d.ts#L123)
