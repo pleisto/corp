@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react'
-import { Icon, Popover } from '@brickdoc/design-system'
+import { Icon, ImageWithSpin, Popover, Spin } from '@brickdoc/design-system'
 import { UnsplashImage } from '@brickdoc/uploader'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { EmbedBlockPlaceholder } from '../../Placeholder'
@@ -30,7 +30,7 @@ export const GalleryContent: FC<Pick<GalleryTypeEmbedBlockProps, 'updateEmbedBlo
   updateEmbedBlockAttributes
 }) => {
   const [t] = useEditorI18n()
-  const [unsplashImages, handleUnsplashSearch] = useUnsplashImages()
+  const [loadMoreRef, unsplashImages, fetching, handleUnsplashSearch] = useUnsplashImages()
 
   const handleSelectImage = useCallback(
     (item: UnsplashImage) => () => {
@@ -44,20 +44,16 @@ export const GalleryContent: FC<Pick<GalleryTypeEmbedBlockProps, 'updateEmbedBlo
       <SearchInput placeholder={t('embed_block.types.gallery.search.placeholder')} onChange={handleUnsplashSearch} />
       <GalleryImageList>
         {unsplashImages.map(item => (
-          <GalleryImage
-            role="img"
-            key={item.id}
-            css={{
-              backgroundImage: `url(${item.smallUrl})`
-            }}
-            onClick={handleSelectImage(item)}>
+          <GalleryImage key={item.id} onClick={handleSelectImage(item)}>
+            <ImageWithSpin src={item.smallUrl} />
             <GalleryImageInfo>
               <GalleryImageUsername>{item.username}</GalleryImageUsername>
             </GalleryImageInfo>
           </GalleryImage>
         ))}
+        {fetching && <Spin />}
+        <LoadMorePlaceholder ref={loadMoreRef} />
       </GalleryImageList>
-      <LoadMorePlaceholder />
     </Gallery>
   )
 }

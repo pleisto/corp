@@ -1,9 +1,10 @@
 import { Input, styled, theme } from '@brickdoc/design-system'
 
 export const Gallery = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
   height: '28.5rem',
   maxHeight: '28.5rem',
-  overflow: 'scroll',
   padding: '1rem',
   width: '39.6875rem'
 })
@@ -25,9 +26,11 @@ export const GalleryImage = styled('div', {
 export const GalleryImageList = styled('div', {
   alignItems: 'center',
   display: 'flex',
+  flex: 1,
   flexDirection: 'row',
   flexWrap: 'wrap',
   justifyContent: 'center',
+  overflow: 'scroll',
   paddingBottom: '.1rem',
   [`${GalleryImage}:nth-child(4n)`]: {
     marginRight: 0
