@@ -16,6 +16,7 @@ import { Base } from '../../extensions/base'
 import { ExternalProps, ExternalPropsContext } from '../../context'
 import './styles.less'
 import { useDrawerService } from '../../components/ui/Drawer'
+import { useDropBlock } from '../../helpers/useDropBlock'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
@@ -26,13 +27,14 @@ export const EditorContent: React.FC<EditorContentProps> = ({ editor, externalPr
   const [t] = useEditorI18n()
   const editorContext = useMemo<EditorContextData>(() => ({ editor, t }), [editor, t])
   useDrawerService()
+  useDropBlock(editor)
   return (
     <EditorContext.Provider value={editorContext}>
       <ExternalPropsContext.Provider value={externalProps}>
         <BubbleMenu editor={editor} />
         <TiptapEditorContent className="brickdoc" editor={editor} />
         <DiscussionList />
-        <ExplorerMenu />
+        <ExplorerMenu editor={editor} />
       </ExternalPropsContext.Provider>
     </EditorContext.Provider>
   )
@@ -127,7 +129,8 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
             ? {
                 document: ydoc
               }
-            : false
+            : false,
+          dropBlock: true
         })
       ],
       autofocus: true,

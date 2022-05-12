@@ -1,8 +1,10 @@
 import React from 'react'
 import { CollaboratorsMenu } from '@/docs/common/components/CollaboratorsMenu'
 import { PathBreadcrumb } from '@/docs/common/components/PathBreadcrumb'
-import { PinMenu } from '@/docs/common/components/PinMenu'
-import { DiscussionMenu } from '@/docs/common/components/DiscussionMenu'
+// import { PinMenu } from '@/docs/common/components/PinMenu'
+// import { DiscussionMenu } from '@/docs/common/components/DiscussionMenu'
+import { ExploreSlash } from '@/docs/common/components/ExploreSlash'
+import { TopbarMore } from '@/docs/common/components/TopbarMore'
 import { useReactiveVar } from '@apollo/client'
 import { Button, Box } from '@brickdoc/design-system'
 import { useNavigate } from 'react-router-dom'
@@ -42,8 +44,10 @@ export const DocumentTopBar: React.FC<DocumentTopBarProps> = ({ docMeta }) => {
       <Root.HiddenItem as={CollaboratorsMenu} docMeta={docMeta as NonNullDocMeta} />
       <ShareMenu docMeta={docMeta as NonNullDocMeta} />
       {features.page_history && <HistoryMenu docMeta={docMeta as NonNullDocMeta} />}
-      {docMeta.isMine && <PinMenu docMeta={docMeta as NonNullDocMeta} />}
-      {features.experiment_discussion && <DiscussionMenu />}
+      <ExploreSlash />
+      <TopbarMore />
+      {/* {docMeta.isMine && <PinMenu docMeta={docMeta as NonNullDocMeta} />} */}
+      {/* {features.experiment_discussion && <DiscussionMenu />} */}
     </>
   )
 

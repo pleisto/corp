@@ -549,6 +549,8 @@ en-US:
     discussion:
       menu: Comment
       tooltip: show comments on current page
+    more:
+      tooltip: more options
     share:
       menu: Share
       invite: Invite
@@ -724,6 +726,7 @@ en-US:
       suggestion: Suggestions
       no_suggestion: No result
       footer: Explore
+      tooltip: Explore Slash Menu
       explorer_menu:
         group:
           data:
