@@ -35,3 +35,5 @@ export const DiscussionMarkInactive = event<{ markId?: string }>()('DiscussionMa
 export const DiscussionListToggle = event<{ visible?: boolean }>()('DiscussionListTrigger', ({ visible }) => {
   return { visible }
 })
+
+export const Undo = event<{}>()('Undo')

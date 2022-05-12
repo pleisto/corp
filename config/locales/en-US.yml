@@ -514,6 +514,7 @@ en-US:
       create_sub_pages: Add Subpage
       delete: Delete
       rename: Rename
+      undo: Undo
       more: Delete, Duplicate, and more...
     copy_link:
       button: Copy link

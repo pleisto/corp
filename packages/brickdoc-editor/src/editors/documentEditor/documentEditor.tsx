@@ -16,7 +16,7 @@ import { Base } from '../../extensions/base'
 import { ExternalProps, ExternalPropsContext } from '../../context'
 import './styles.less'
 import { useDrawerService } from '../../components/ui/Drawer'
-import { useDropBlock } from '../../helpers/useDropBlock'
+import { useDropBlock, useUndo } from '../../helpers'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
@@ -28,6 +28,7 @@ export const EditorContent: React.FC<EditorContentProps> = ({ editor, externalPr
   const editorContext = useMemo<EditorContextData>(() => ({ editor, t }), [editor, t])
   useDrawerService()
   useDropBlock(editor)
+  useUndo(editor)
   return (
     <EditorContext.Provider value={editorContext}>
       <ExternalPropsContext.Provider value={externalProps}>

@@ -320,8 +320,6 @@ export const BLOCK_MAP = Object.fromEntries(
   ].map(item => [item.key, item])
 )
 
-console.log(BLOCK_MAP)
-
 export const ORDER_TOGGLE_BLOCK: BlockItemKey[] = [
   PARAPGRAPH.key,
   HEADING_1.key,
