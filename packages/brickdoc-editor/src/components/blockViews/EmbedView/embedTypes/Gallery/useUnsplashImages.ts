@@ -5,13 +5,9 @@ import { useExternalProps } from '../../../../../hooks'
 
 const UNSPLASH_PER_PAGE = 20
 
-export function useUnsplashImages(): [
-  RefObject<HTMLDivElement>,
-  UnsplashImage[],
-  boolean,
-  (event: ChangeEvent<HTMLInputElement>) => void
-] {
-  const loadMoreRef = useRef<HTMLDivElement>(null)
+export function useUnsplashImages(
+  loadMoreRef: RefObject<HTMLDivElement>
+): [UnsplashImage[], boolean, (event: ChangeEvent<HTMLInputElement>) => void] {
   const externalProps = useExternalProps()
   const [unsplashImages, setUnsplashImages] = useState<UnsplashImage[]>([])
   const [fetching, setFetching] = useState(false)
@@ -48,8 +44,11 @@ export function useUnsplashImages(): [
 
   const observeY = useRef<number>()
 
-  const createScrollObserver = (ele: HTMLElement): void => {
+  useEffect(() => {
+    const ele = loadMoreRef.current
     if (!ele) return
+
+    void fetchUnsplashImage()
 
     const options = {
       root: null,
@@ -57,20 +56,17 @@ export function useUnsplashImages(): [
       threshold: 1.0
     }
 
-    new IntersectionObserver((entities): void => {
+    const observer = new IntersectionObserver((entities): void => {
       const y = entities[0].boundingClientRect.y
       if (observeY.current! > y) {
         void fetchUnsplashImage()
       }
       observeY.current = y
-    }, options).observe(ele)
-  }
+    }, options)
 
-  useEffect(() => {
-    if (!loadMoreRef.current) return
+    observer.observe(ele)
 
-    void fetchUnsplashImage()
-    createScrollObserver(loadMoreRef.current)
+    return () => observer.unobserve(ele)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -84,5 +80,5 @@ export function useUnsplashImages(): [
     []
   )
 
-  return [loadMoreRef, unsplashImages, fetching, handleUnsplashSearch]
+  return [unsplashImages, fetching, handleUnsplashSearch]
 }

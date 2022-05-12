@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useRef } from 'react'
 import { Icon, ImageWithSpin, Popover, Spin } from '@brickdoc/design-system'
 import { UnsplashImage } from '@brickdoc/uploader'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
@@ -30,7 +30,8 @@ export const GalleryContent: FC<Pick<GalleryTypeEmbedBlockProps, 'updateEmbedBlo
   updateEmbedBlockAttributes
 }) => {
   const [t] = useEditorI18n()
-  const [loadMoreRef, unsplashImages, fetching, handleUnsplashSearch] = useUnsplashImages()
+  const loadMoreRef = useRef<HTMLDivElement>(null)
+  const [unsplashImages, fetching, handleUnsplashSearch] = useUnsplashImages(loadMoreRef)
 
   const handleSelectImage = useCallback(
     (item: UnsplashImage) => () => {
