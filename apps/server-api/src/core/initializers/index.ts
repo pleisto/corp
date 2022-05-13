@@ -13,6 +13,7 @@ import { debugContextRegister } from './debugger.register'
 import { viewEngineRegister } from './view-engine.register'
 import { initCheckRegister } from './init-check.register'
 import { uncaughtHandlerRegister } from './uncaught-handler.register'
+import { passportRegister } from './passport.register'
 
 /**
  * loadInitializers will be called by `/main.ts` when the application is bootstrapped and listening for connections.
@@ -31,6 +32,7 @@ export const loadInitializers = async (app: NestFastifyApplication, log: Logger)
   // common initializers
   app.enableShutdownHooks()
   await requestIDRegister(app)
+  await passportRegister(app)
   loggerRegister(app)
   cookieRegister(app, kmsService.subKey(SecretSubKey.SECURE_COOKIE, 'signature'))
   const tlsEnabled = await settingsService.get<boolean>('core.tlsEnabled')

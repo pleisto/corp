@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+directive @slug on FIELD_DEFINITION
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -32,6 +39,45 @@ type Metadata {
 }
 
 type Query {
+  hello(id: UserInput!): User!
+
   """Return information about current Brickdoc server instance."""
   metadata: Metadata!
+
+  """Return current user profile."""
+  profile: User!
+}
+
+"""User"""
+type User {
+  """User avatar URL"""
+  avatarUrl: String
+
+  """User bio"""
+  bio: String
+
+  """User created at"""
+  createdAt: DateTime!
+
+  """User ID"""
+  id: ID!
+
+  """User is initialized"""
+  isInitialized: Boolean!
+
+  """User locked at"""
+  lockedAt: DateTime
+
+  """User name"""
+  name: String!
+
+  """User slug"""
+  slug: String!
+
+  """User updated at"""
+  updatedAt: DateTime!
+}
+
+input UserInput {
+  id: Float!
 }

@@ -5,6 +5,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'path/posix'
 import { LoggingPlugin } from './logging.plugin'
 import { IS_PROD_MODE } from '../../common/utils'
+import { slugDirectiveTransformer } from './directives/slug.directive'
+import { DirectiveLocation, GraphQLDirective } from 'graphql'
 
 @Module({
   imports: [
@@ -16,6 +18,15 @@ import { IS_PROD_MODE } from '../../common/utils'
         debug: !IS_PROD_MODE,
         path: '/.internal-apis/$graph',
         autoSchemaFile: join(process.cwd(), 'db/schema.gql'),
+        transformSchema: schema => slugDirectiveTransformer(schema, 'slug'),
+        buildSchemaOptions: {
+          directives: [
+            new GraphQLDirective({
+              name: 'slug',
+              locations: [DirectiveLocation.FIELD_DEFINITION]
+            })
+          ]
+        },
         playground: false,
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
         autoTransformHttpErrors: false

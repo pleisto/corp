@@ -31,3 +31,5 @@ ignore:
   - 'tmp/**/*'
   - 'plugins/gcloud/**/*'
   - 'plugins/sentry/**/*'
+  - 'plugins/google-auth/**/*'
+  - 'plugins/mock/**/*'
