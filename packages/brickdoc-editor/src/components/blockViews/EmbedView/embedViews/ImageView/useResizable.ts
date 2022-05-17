@@ -2,7 +2,7 @@ import { css, theme } from '@brickdoc/design-system'
 import { ResizableProps, ResizeCallback } from 're-resizable'
 import { useCallback, useMemo } from 'react'
 import { UpdateEmbedBlockAttributes } from '../../EmbedView'
-import { minWidth } from './styled'
+import { maxWidth, minWidth } from './styled'
 
 const handleStyle = {
   background: theme.colors.overlayPrimary,
@@ -63,8 +63,8 @@ export function useResizable(
     () => ({
       lockAspectRatio: true,
       className: resizableContainerStyle(),
-      maxWidth: '960px',
-      minWidth,
+      maxWidth: `${maxWidth}px`,
+      minWidth: `${minWidth}px`,
       handleClasses: {
         left: 'left-handle',
         right: 'right-handle'

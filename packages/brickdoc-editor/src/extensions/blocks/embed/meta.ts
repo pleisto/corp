@@ -36,6 +36,7 @@ export interface EmbedAttributes {
     height?: number
     width?: number
     ratio?: number
+    align?: 'left' | 'right' | 'center'
   }
   attachment: {
     name?: string

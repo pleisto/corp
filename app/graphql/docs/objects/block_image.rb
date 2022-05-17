@@ -12,6 +12,7 @@ module Docs
       field :name, String, "name", null: true
       field :size, Int, "size", null: true
       field :mode, String, "mode", null: true
+      field :align, String, "align", null: true
     end
   end
 end

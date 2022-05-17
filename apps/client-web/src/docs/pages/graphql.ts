@@ -168,6 +168,7 @@ export const queryChildrenBlocks = gql`
           mode
           name
           size
+          align
         }
         page {
           type

@@ -20,7 +20,7 @@ const renderImage = (
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
   { node, deleteNode, getPos }: EmbedViewProps
 ): ReactElement => {
-  const { name, displayName, height, width, size, mode } = node.attrs.image
+  const { name, displayName, height, width, align, size, mode } = node.attrs.image
 
   if (node.attrs.image.mode === 'preview') {
     return (
@@ -29,6 +29,7 @@ const renderImage = (
         url={imageUrl}
         height={height}
         width={width}
+        align={align}
         deleteNode={deleteNode}
         getPos={getPos}
         node={node}
