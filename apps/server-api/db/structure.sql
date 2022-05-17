@@ -2,6 +2,7 @@
 -- THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY) --
 -----------------------------------------------------------
 
+
 CREATE EXTENSION IF NOT EXISTS ltree WITH SCHEMA public;
 
 COMMENT ON EXTENSION ltree IS 'data type for hierarchical tree-like structures';
@@ -24,9 +25,7 @@ BEGIN
          WHEN fallback THEN 1
          ELSE nlevel(scope)
          END;
-
 END;
-
 $$;
 
 COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback text, root text) IS 'Returns the priority of a scope. The root scope has the lowest priority.';
@@ -153,8 +152,7 @@ CREATE TABLE public.spaces_members (
 );
 
 COMMENT ON TABLE public.spaces_members IS 'spaces_members will delete cascade on space or user deletion';
-lic;
- Owner: -
+
 CREATE SEQUENCE public.spaces_members_id_seq
     START WITH 1
     INCREMENT BY 1
