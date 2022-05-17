@@ -106,8 +106,7 @@ export const TextView: FC<TextViewProps> = ({
       contentForCopy={url}
       deleteNode={deleteNode}
       getPos={getPos}
-      actionOptions={actionOptions}
-    >
+      actionOptions={actionOptions}>
       <TextViewContainer onClick={handleClick}>
         <EmbedToolbarContainer onClick={handleEmbedToolbarClick}>
           <EmbedToolbarContainerInner>
@@ -124,7 +123,7 @@ export const TextView: FC<TextViewProps> = ({
           <FileIcon fileType={fileType} />
         </TextViewIcon>
         <TextViewContent>
-          <Name>{name}</Name>
+          <Name>{name || url}</Name>
         </TextViewContent>
       </TextViewContainer>
     </BlockContainer>
