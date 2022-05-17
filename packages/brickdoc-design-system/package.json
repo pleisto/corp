@@ -26,7 +26,7 @@
     "@brickdoc/active-support": "workspace:^",
     "@brickdoc/design-icons": "workspace:^",
     "@hookform/resolvers": "^2.8.10",
-    "@mui/base": "^5.0.0-alpha.80",
+    "@mui/base": "^5.0.0-alpha.81",
     "@stitches/core": "^1.2.8",
     "@stitches/react": "^1.2.8",
     "ahooks": "^3.3.12",
