@@ -31,6 +31,11 @@ export class SettingsService {
     this.configMap = this.explorer.all()
   }
 
+  /**
+   * Get a setting value where the scope is LOCAL_STATIC in a synchronous way
+   * @param key
+   * @param context
+   */
   getLocalSync<T = unknown>(key: string, context: ScopeContext = {}): Result<T | undefined, Error> {
     const item = this.findItem<T>(key as string)
     if (!item) return ok(undefined)

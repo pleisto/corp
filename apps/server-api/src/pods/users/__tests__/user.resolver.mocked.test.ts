@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { AppModule } from '../../../app.module'
 import { mockUserService } from '../testing/mock-user.service'
+import { UserModule } from '../user.module'
 import { UserResolver } from '../user.resolve'
 import { UserService } from '../user.service'
 describe('UserResolver', () => {
   let resolver: UserResolver
   let module: TestingModule
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [UserModule]
     })
       .overrideProvider(UserService)
       .useValue(mockUserService)
@@ -18,7 +18,7 @@ describe('UserResolver', () => {
   })
 
   afterAll(async () => {
-    await module?.close()
+    await module.close()
   })
 
   it('should be defined', () => {

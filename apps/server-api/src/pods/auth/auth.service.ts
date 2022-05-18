@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { User } from '../users/models/user.object'
+import { User } from '../users/user.model'
 import { SESSION_USER_KEY, UserSession } from './auth.interface'
 import { type FastifyRequest } from 'fastify'
 import { type Logger } from 'winston'

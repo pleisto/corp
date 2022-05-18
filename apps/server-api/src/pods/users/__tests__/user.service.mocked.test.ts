@@ -7,7 +7,7 @@ describe('UsersService mocked', () => {
   let userService: UserService
   let module: TestingModule
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     module = await Test.createTestingModule({
       providers: [
         {
@@ -30,7 +30,7 @@ describe('UsersService mocked', () => {
   })
 
   afterAll(async () => {
-    await module?.close()
+    await module.close()
   })
 
   it('should be defined', () => {

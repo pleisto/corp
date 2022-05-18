@@ -1,6 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing'
+import { NestFastifyApplication } from '@nestjs/platform-fastify'
 import { gql } from 'apollo-server-fastify'
-import { AppModule } from '../../../app.module'
 import { useAppInstanceWithGraphQL } from '../../../common/testing'
 import { UserService } from '../user.service'
 import type { ApolloServerBase } from 'apollo-server-core'
@@ -9,25 +8,21 @@ import { SESSION_USER_KEY, UserSession } from '../../auth'
 import { MaskId } from '../../../common/utils'
 
 describe('UserResolver', () => {
-  let module: TestingModule
+  let app: NestFastifyApplication
   let service: UserService
 
   let apollo: ApolloServerBase<any>
-  const instance = useAppInstanceWithGraphQL()
+  const createInstance = useAppInstanceWithGraphQL()
 
   beforeAll(async () => {
-    apollo = (await instance)()[0]
-  })
-
-  beforeEach(async () => {
-    module = await Test.createTestingModule({
-      imports: [AppModule]
-    }).compile()
-    service = module.get<UserService>(UserService)
+    const instance = (await createInstance)()
+    apollo = instance[0]
+    app = instance[1]
+    service = app.get<UserService>(UserService)
   })
 
   afterAll(async () => {
-    await module?.close()
+    await app.close()
   })
 
   const profileQuery = gql`

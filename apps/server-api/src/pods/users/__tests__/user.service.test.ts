@@ -1,22 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing'
-import { AppModule } from '../../../app.module'
-import { User } from '../models/user.object'
+import { User } from '../user.model'
 import { UserCredentialInput } from '../user.interface'
 import { UserService } from '../user.service'
+import { useAppInstance } from '../../../common/testing'
 
 describe('UserService', () => {
   let userService: UserService
-  let module: TestingModule
 
-  beforeAll(async () => {
-    module = await Test.createTestingModule({
-      imports: [AppModule]
-    }).compile()
-    userService = module.get<UserService>(UserService)
+  const createInstance = useAppInstance(async (_app, moduleRef) => {
+    userService = moduleRef.get<UserService>(UserService)
   })
 
-  afterAll(async () => {
-    await module?.close()
+  beforeAll(async () => {
+    await createInstance
   })
 
   const input: UserCredentialInput = {
