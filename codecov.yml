@@ -38,4 +38,4 @@ ignore:
   - 'plugins/gcloud/**/*'
   - 'plugins/sentry/**/*'
   - 'plugins/google-auth/**/*'
-  - 'plugins/mock/**/*'
+  - 'plugins/mock-auth/**/*'

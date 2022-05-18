@@ -4,7 +4,7 @@ import { UserService } from '@brickdoc/server-api/src/accounts/users'
 import { type FastifyRequest } from 'fastify'
 
 @Controller('mock')
-export class MockController {
+export class MockAuthController {
   constructor(private readonly authService: AuthService, private readonly userService: UserService) {}
 
   @Get('hello')

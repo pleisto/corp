@@ -1,8 +1,7 @@
 import { UserModule } from '@brickdoc/server-api/src/accounts/users'
 import { AuthModule } from '@brickdoc/server-api/src/accounts/auth'
 import { DynamicModule, Module } from '@nestjs/common'
-import { MockController } from './mock.controller'
-
+import { MockAuthController } from './mock-auth.controller'
 import { Session } from '@brickdoc/server-api/src/core/session/session.class'
 
 declare module 'fastify' {
@@ -14,11 +13,11 @@ declare module 'fastify' {
 @Module({
   imports: [UserModule, AuthModule]
 })
-export class MockModule {
+export class MockAuthModule {
   static forRoot(): DynamicModule {
     return {
-      module: MockModule,
-      controllers: [MockController]
+      module: MockAuthModule,
+      controllers: [MockAuthController]
     }
   }
 }

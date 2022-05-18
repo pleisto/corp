@@ -1,16 +1,16 @@
 import { Test } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
-import { MockModule } from '../mock.module'
+import { MockAuthModule } from '../mock-auth.module'
 import { UserService } from '@brickdoc/server-api/src/accounts/users'
 import request from 'supertest'
 
-describe('Mock', () => {
+describe('MockAuth', () => {
   let app: INestApplication
   const userService = { findAll: () => ['test'] }
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [MockModule]
+      imports: [MockAuthModule]
     })
       .overrideProvider(UserService)
       .useValue(userService)

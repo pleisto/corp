@@ -1,15 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { gql } from 'apollo-server-fastify'
 import { AppModule } from '../../../app.module'
-import { useGraphQLTestingInstance } from '../../../common/testing'
+import { useAppInstanceWithGraphQL } from '../../../common/testing'
 import { mockUserService } from '../testing/mock-user.service'
 import { UserResolver } from '../user.resolve'
 import { UserService } from '../user.service'
+import type { ApolloServerBase } from 'apollo-server-core'
 
 describe('UserResolver', () => {
   let resolver: UserResolver
   let module: TestingModule
-  const getInstance = useGraphQLTestingInstance()
+
+  let apollo: ApolloServerBase<any>
+  const instance = useAppInstanceWithGraphQL()
+
+  beforeAll(async () => {
+    apollo = (await instance)()[0]
+  })
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
@@ -41,8 +48,6 @@ describe('UserResolver', () => {
         }
       }
     `
-    const [apollo] = (await getInstance)()
-    console.log(apollo.requestOptions)
     apollo.requestOptions.context = { foo: 'bar' }
     const result = await apollo.executeOperation({ query })
     console.log('result', result)
@@ -59,7 +64,7 @@ describe('UserResolver', () => {
         }
       }
     `
-    const [apollo] = (await getInstance)()
+
     const result = await apollo.executeOperation({ query, variables: { id: { id: 1 } } })
     expect(result.errors).toBeUndefined()
     expect(result.data?.hello?.name).toEqual('User 1')

@@ -81,8 +81,8 @@
       "path": "plugins/google-auth"
     },
     {
-      "name": "plugins/mock",
-      "path": "plugins/mock"
+      "name": "plugins/mock-auth",
+      "path": "plugins/mock-auth"
     },
     {
       "name": "plugins/sentry",
@@ -165,7 +165,7 @@
       "plugins/gcloud",
       "plugins/sentry",
       "plugins/google-auth",
-      "plugins/mock",
+      "plugins/mock-auth",
       "tools/e2e-testing",
       "tools/schematics"
     ],

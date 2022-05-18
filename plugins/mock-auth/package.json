@@ -1,8 +1,8 @@
 {
-  "name": "@brickdoc/plugin-mock",
+  "name": "@brickdoc/plugin-mock-auth",
   "version": "0.1.0",
-  "description": "Mock Plugin for Brickdoc",
-  "addonsId": "brickdoc.mock",
+  "description": "Mock Auth Plugin for Brickdoc",
+  "addonsId": "brickdoc.mock-auth",
   "addonsType": "serverPlugin",
   "engines": {
     "brickdoc": ">=0.0.1"
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/brickdoc/brickdoc-ce.git"
   },
   "bugs": {
-    "url": "https://github.com/brickdoc/brickdoc-ce/labels/plugin-mock"
+    "url": "https://github.com/brickdoc/brickdoc-ce/labels/plugin-mock-auth"
   },
   "license": "Apache-2.0",
   "main": "./src/index.ts",
