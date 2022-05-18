@@ -2,6 +2,7 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleAuthGuard } from './google-auth.guard'
 import { AuthService } from '@brickdoc/server-api/src/pods/auth'
 import { AUTH_REDIRECT_PATH } from '@brickdoc/server-api/src/pods/users'
+import type { FastifyReply, FastifyRequest } from 'fastify'
 
 @Controller('accounts/auth/google_oauth2')
 export class GoogleAuthController {
@@ -9,15 +10,15 @@ export class GoogleAuthController {
 
   @Get()
   @UseGuards(GoogleAuthGuard)
-  async googleAuth(@Req() _req: Request): Promise<void> {
+  async googleAuth(@Req() _req: FastifyRequest): Promise<void> {
     // Guard redirects
   }
 
   @Get('callback')
   @UseGuards(GoogleAuthGuard)
-  async googleAuthRedirect(@Req() req: any, @Res() res: any): Promise<any> {
+  async googleAuthRedirect(@Req() req: FastifyRequest, @Res() res: FastifyReply): Promise<any> {
     await this.authService.createSession(req, req.user)
     // Redirect
-    return res.status(302).redirect(AUTH_REDIRECT_PATH)
+    return await res.status(302).redirect(AUTH_REDIRECT_PATH)
   }
 }
