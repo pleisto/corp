@@ -54,7 +54,10 @@ const ImageViewLayout = styled('div', {
 
 const ImageViewContainer = styled('div', {
   display: 'inline-flex',
+  maxWidth: '100%',
+  overflow: 'hidden',
   position: 'relative',
+
   '&:hover': {
     [`& ${EmbedToolbarContainer}`]: {
       opacity: 1,

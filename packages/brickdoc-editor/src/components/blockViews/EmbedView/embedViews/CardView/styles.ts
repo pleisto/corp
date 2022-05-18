@@ -138,6 +138,7 @@ export const FileIconWrapper = styled('div', {
 export const FileCoverWrapper = styled('div', {
   include: ['flexCenter'],
 
+  alignSelf: 'center',
   display: 'flex',
   fontSize: '2rem',
   height: '2rem',
