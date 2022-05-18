@@ -1,27 +1,14 @@
-import { Test } from '@nestjs/testing'
-import { INestApplication } from '@nestjs/common'
-import { MockAuthModule } from '../mock-auth.module'
-import { UserService } from '@brickdoc/server-api/src/accounts/users'
 import request from 'supertest'
+import { NestFastifyApplication } from '@nestjs/platform-fastify'
+import { useAppInstanceWithHttp } from '@brickdoc/server-api/src/common/testing'
 
 describe('MockAuth', () => {
-  let app: INestApplication
-  const userService = { findAll: () => ['test'] }
+  let app: NestFastifyApplication
+
+  const instance = useAppInstanceWithHttp()
 
   beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({
-      imports: [MockAuthModule]
-    })
-      .overrideProvider(UserService)
-      .useValue(userService)
-      .compile()
-
-    app = moduleRef.createNestApplication()
-    await app.init()
-  })
-
-  afterAll(async () => {
-    await app.close()
+    app = (await instance)()
   })
 
   it.todo('fix mock test')

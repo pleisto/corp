@@ -39,8 +39,6 @@ type Metadata {
 }
 
 type Query {
-  hello(id: UserInput!): User!
-
   """Return information about current Brickdoc server instance."""
   metadata: Metadata!
 
@@ -48,7 +46,7 @@ type Query {
   profile: User!
 }
 
-"""User"""
+"""User Model"""
 type User {
   """User avatar URL"""
   avatarUrl: String
@@ -76,8 +74,4 @@ type User {
 
   """User updated at"""
   updatedAt: DateTime!
-}
-
-input UserInput {
-  id: Float!
 }

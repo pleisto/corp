@@ -31,7 +31,7 @@ export class SettingsService {
     this.configMap = this.explorer.all()
   }
 
-  getSync<T = unknown>(key: string, context: ScopeContext = {}): Result<T | undefined, Error> {
+  getLocalSync<T = unknown>(key: string, context: ScopeContext = {}): Result<T | undefined, Error> {
     const item = this.findItem<T>(key as string)
     if (!item) return ok(undefined)
     // LOCAL_STATIC items are not stored in the database
@@ -40,7 +40,7 @@ export class SettingsService {
       new ChangeConflictError({
         key,
         options: item.options,
-        reason: 'ScopeLookupStrategy.LOCAL_STATIC needs to be used with getSync'
+        reason: 'ScopeLookupStrategy.LOCAL_STATIC needs to be used with getLocalSync'
       })
     )
   }

@@ -54,19 +54,4 @@ describe('UserResolver', () => {
     expect(result.errors).toBeUndefined()
     expect(result.data?.metadata?.supportedLocales?.length).toBeGreaterThanOrEqual(1)
   })
-
-  it('should query profile', async () => {
-    const query = gql`
-      query ($id: UserInput!) {
-        hello(id: $id) {
-          id
-          name
-        }
-      }
-    `
-
-    const result = await apollo.executeOperation({ query, variables: { id: { id: 1 } } })
-    expect(result.errors).toBeUndefined()
-    expect(result.data?.hello?.name).toEqual('User 1')
-  })
 })

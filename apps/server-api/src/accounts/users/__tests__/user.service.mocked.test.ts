@@ -31,10 +31,4 @@ describe('UsersService mocked', () => {
   it('should be defined', () => {
     expect(userService).toBeDefined()
   })
-
-  describe('users service', () => {
-    it('should return "Hello World!"', () => {
-      expect(userService.getHello()).toBe('Hello World!')
-    })
-  })
 })

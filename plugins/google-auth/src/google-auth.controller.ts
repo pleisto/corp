@@ -1,6 +1,7 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleAuthGuard } from './google-auth.guard'
 import { AuthService } from '@brickdoc/server-api/src/accounts/auth'
+import { AUTH_REDIRECT_PATH } from '@brickdoc/server-api/src/accounts/users'
 
 @Controller('accounts/auth/google_oauth2')
 export class GoogleAuthController {
@@ -15,8 +16,8 @@ export class GoogleAuthController {
   @Get('callback')
   @UseGuards(GoogleAuthGuard)
   async googleAuthRedirect(@Req() req: any, @Res() res: any): Promise<any> {
-    await this.authService.login(req, req.user)
+    await this.authService.createSession(req, req.user)
     // Redirect
-    return res.status(302).redirect('/u')
+    return res.status(302).redirect(AUTH_REDIRECT_PATH)
   }
 }

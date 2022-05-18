@@ -7,11 +7,6 @@ import { type FastifyRequest } from 'fastify'
 export class MockAuthController {
   constructor(private readonly authService: AuthService, private readonly userService: UserService) {}
 
-  @Get('hello')
-  async hello(): Promise<any> {
-    return 'world'
-  }
-
   @Get('login_as_real_user')
   async loginAsRealUser(@Req() req: FastifyRequest): Promise<void> {
     const slug = (req.query as any).slug
@@ -19,7 +14,7 @@ export class MockAuthController {
     const result = await this.userService.getUserBySlug(slug)
     if (result.isErr()) throw result.error
 
-    await this.authService.login(req, result.value!)
+    await this.authService.createSession(req, result.value!)
   }
 
   @Get('login_as_virtual_user')
@@ -29,6 +24,6 @@ export class MockAuthController {
     const id: number = (req.query as any).id
     if (!id) throw new Error('id is required')
 
-    await this.authService.login(req, { slug, id })
+    await this.authService.createSession(req, { slug, id })
   }
 }

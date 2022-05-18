@@ -8,9 +8,9 @@ import { withNamespace } from './google-auth.utils'
 @Injectable()
 export class GoogleAuthStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(settingsService: SettingsService, private readonly userService: UserService) {
-    const googleClientId = settingsService.getSync<string>(withNamespace('googleClientId'))
-    const googleClientSecret = settingsService.getSync<string>(withNamespace('googleClientSecret'))
-    const appUrl = settingsService.getSync<string>('core.appUrl')
+    const googleClientId = settingsService.getLocalSync<string>(withNamespace('googleClientId'))
+    const googleClientSecret = settingsService.getLocalSync<string>(withNamespace('googleClientSecret'))
+    const appUrl = settingsService.getLocalSync<string>('core.appUrl')
     if (googleClientId.isErr()) throw googleClientId.error
     if (googleClientSecret.isErr()) throw googleClientSecret.error
     if (appUrl.isErr()) throw appUrl.error
