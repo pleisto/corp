@@ -2,11 +2,12 @@
   "name": "@brickdoc/client-web",
   "description": "The web client app for the Brickdoc website.",
   "private": true,
+  "license": "GPL-3.0-or-later WITH Classpath-exception-2.0",
   "volta": {
     "extends": "../../package.json"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.3",
+    "@apollo/client": "^3.6.4",
     "@brickdoc/active-support": "workspace:^",
     "@brickdoc/design-icons": "workspace:^",
     "@brickdoc/design-system": "workspace:^",

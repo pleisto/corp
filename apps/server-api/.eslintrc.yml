@@ -2,6 +2,9 @@ root: true
 
 extends:
   - plugin:@brickdoc/eslint-plugin/node
+rules:
+  max-params: ['error', { max: 6 }]
+  max-nested-callbacks: ['warn', { max: 5 }]
 
 parserOptions:
   project:
