@@ -7,7 +7,7 @@ import { EmbedViewProps } from '../../../../../extensions/blocks/embed/meta'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../../EmbedView'
 import { styled, theme } from '@brickdoc/design-system'
 import { EmbedToolbar } from '../EmbedToolbar'
-import { maxWidth } from '../../styled'
+import { maxWidth } from '../../styles'
 
 export interface TextViewProps {
   blockType: EmbedBlockType

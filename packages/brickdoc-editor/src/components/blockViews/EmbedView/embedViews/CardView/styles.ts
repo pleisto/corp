@@ -1,5 +1,5 @@
 import { styled, theme, Button } from '@brickdoc/design-system'
-import { maxWidth } from '../../styled'
+import { maxWidth } from '../../styles'
 import { EmbedToolbar } from '../EmbedToolbar'
 
 export const EmbedToolbarContainer = styled('div', {

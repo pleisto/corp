@@ -7,7 +7,7 @@ import { BlockContainer } from '../../../BlockContainer'
 import { UpdateEmbedBlockAttributes } from '../../EmbedView'
 import { EmbedToolbar } from '../EmbedToolbar'
 import { Resizable } from 're-resizable'
-import { minWidth } from './styled'
+import { minWidth } from './styles'
 import { useImageState } from './useImageState'
 
 export interface ImageViewProps {
