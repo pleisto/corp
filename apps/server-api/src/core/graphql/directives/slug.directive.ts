@@ -1,5 +1,6 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
 import { defaultFieldResolver, GraphQLSchema } from 'graphql'
+import { MaskId } from '../../../common/utils'
 
 /**
  * Name of the directive
@@ -20,9 +21,7 @@ export function idSlugDirectiveTransformer(schema: GraphQLSchema, directiveName:
         // the original resolver, then converts its result to upper case
         fieldConfig.resolve = async (source, args, context, info) => {
           const result = await resolve(source, args, context, info)
-          if (typeof result === 'number') {
-            return `SLUG${result}`
-          }
+          if (typeof result === 'number') return MaskId(result)
           return result
         }
         return fieldConfig

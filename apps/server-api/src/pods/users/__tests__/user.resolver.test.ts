@@ -6,6 +6,7 @@ import { UserService } from '../user.service'
 import type { ApolloServerBase } from 'apollo-server-core'
 import { Session } from '../../../core/session/session.class'
 import { SESSION_USER_KEY, UserSession } from '../../auth'
+import { MaskId } from '../../../common/utils'
 
 describe('UserResolver', () => {
   let module: TestingModule
@@ -71,6 +72,6 @@ describe('UserResolver', () => {
     apollo.requestOptions.context = { req: { session } }
     const result = await apollo.executeOperation({ query: profileQuery })
     expect(result.errors).toBeUndefined()
-    expect(result.data?.profile.id).toBe(`SLUG${user.id}`)
+    expect(result.data?.profile.id).toBe(MaskId(user.id))
   })
 })
