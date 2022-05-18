@@ -1,4 +1,24 @@
 import { CSS, globalCss, theme } from '@brickdoc/design-system'
+import anchorLine from './assets/anchor-line.png'
+
+const anchorMarkStyles = {
+  'span[data-anchor]': {
+    position: 'relative'
+  },
+
+  'span[data-anchor]::after': {
+    content: '',
+    position: 'absolute',
+    right: 0,
+    bottom: '-2px',
+    height: '1px',
+    left: '3px',
+    backgroundImage: `url(${anchorLine})`,
+    backgroundRepeat: 'repeat-x',
+    backgroundPosition: '0 0',
+    backgroundSize: '10%'
+  }
+}
 
 const listLevelStyles = {
   'ul[data-node-view-content=""]': {
@@ -183,6 +203,8 @@ export const documentEditorStyles = globalCss({
         marginTop: '.75rem',
         marginBottom: 0
       },
+
+      ...anchorMarkStyles,
 
       ...listStyles,
 
