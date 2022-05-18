@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useCallback, useState } from 'react'
+import { FC } from 'react'
 import { Spin, styled, theme } from '@brickdoc/design-system'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Controlled as ImagePreview } from 'react-medium-image-zoom'
@@ -6,10 +6,9 @@ import { EmbedAttributes, EmbedViewProps } from '../../../../../extensions/block
 import { BlockContainer } from '../../../BlockContainer'
 import { UpdateEmbedBlockAttributes } from '../../EmbedView'
 import { EmbedToolbar } from '../EmbedToolbar'
-import { useActionOptions } from '../useActionOptions'
 import { Resizable } from 're-resizable'
-import { minWidth, maxWidth } from './styled'
-import { useResizable } from './useResizable'
+import { minWidth } from './styled'
+import { useImageState } from './useImageState'
 
 export interface ImageViewProps {
   displayName: string
@@ -112,46 +111,10 @@ const PreviewButton = styled('button', {
   padding: 0
 })
 
-export const ImageView: FC<ImageViewProps> = ({
-  displayName,
-  url,
-  height,
-  align,
-  width,
-  deleteNode,
-  getPos,
-  node,
-  updateEmbedBlockAttributes
-}) => {
-  const [loaded, setLoaded] = useState(false)
-  const [showPreview, setShowPreview] = useState(false)
-  const [actionOptions] = useActionOptions(url)
-
-  const previewImage = useCallback((): void => {
-    if (node.attrs.image?.key && !loaded) return
-    if (showPreview) return
-    setShowPreview(true)
-  }, [loaded, node.attrs.image?.key, showPreview])
-
-  const onImageLoad = useCallback(
-    (event: SyntheticEvent<HTMLImageElement>): void => {
-      const img = event.target as HTMLImageElement
-      // Update image dimensions on loaded if there is no dimensions data before
-      if (!node.attrs.image?.ratio) {
-        updateEmbedBlockAttributes(
-          {
-            width: Math.min(maxWidth, img.naturalWidth),
-            ratio: img.naturalWidth / img.naturalHeight
-          },
-          'image'
-        )
-      }
-      setLoaded(true)
-    },
-    [node.attrs.image?.ratio, updateEmbedBlockAttributes]
-  )
-
-  const resizableProps = useResizable(updateEmbedBlockAttributes, width)
+export const ImageView: FC<ImageViewProps> = props => {
+  const { displayName, url, align, width, deleteNode, getPos, node, updateEmbedBlockAttributes } = props
+  const { loaded, showPreview, setShowPreview, actionOptions, previewImage, onImageLoad, resizableProps } =
+    useImageState(props)
 
   return (
     <BlockContainer
