@@ -1,12 +1,19 @@
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
 import { defaultFieldResolver, GraphQLSchema } from 'graphql'
 
-export function slugDirectiveTransformer(schema: GraphQLSchema, directiveName: string): GraphQLSchema {
+/**
+ * Name of the directive
+ */
+export const ID_SLUG_DIRECTIVE_NAME = `idSlug`
+/**
+ * Convert id to a masked string
+ */
+export function idSlugDirectiveTransformer(schema: GraphQLSchema, directiveName: string): GraphQLSchema {
   return mapSchema(schema, {
     [MapperKind.OBJECT_FIELD]: fieldConfig => {
-      const slugDirective = getDirective(schema, fieldConfig, directiveName)?.[0]
+      const isSlugDirective = getDirective(schema, fieldConfig, directiveName)?.[0]
 
-      if (slugDirective) {
+      if (isSlugDirective) {
         const { resolve = defaultFieldResolver } = fieldConfig
 
         // Replace the original resolver with a function that *first* calls
