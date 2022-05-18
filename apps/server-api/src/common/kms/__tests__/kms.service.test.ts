@@ -1,22 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing'
 import { KMSService } from '../kms.service'
 import { SecretSubKey } from '../kms.interface'
 import { faker } from '@faker-js/faker'
-import { AppModule } from '../../../app.module'
+import { useAppInstance } from '../../testing'
 
 describe('KMSService', () => {
   let kms: KMSService
-  let module: TestingModule
 
-  beforeAll(async () => {
-    const module = await Test.createTestingModule({
-      imports: [AppModule]
-    }).compile()
-    kms = module.get<KMSService>(KMSService)
+  const createInstance = useAppInstance(async (_app, moduleRef) => {
+    kms = moduleRef.get<KMSService>(KMSService)
   })
 
-  afterAll(async () => {
-    await module?.close()
+  beforeAll(async () => {
+    await createInstance
   })
 
   it('should get key', async () => {
