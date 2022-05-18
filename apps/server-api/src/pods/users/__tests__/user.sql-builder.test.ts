@@ -1,7 +1,7 @@
 import { type DatabasePool, InjectPool } from '@brickdoc/nestjs-slonik'
 import { getPoolToken } from '@brickdoc/nestjs-slonik/src/slonik.utils'
 import { Module } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
+import { Test, TestingModule } from '@nestjs/testing'
 import { sql, createMockPool, createMockQueryResult } from 'slonik'
 
 @Module({})
@@ -10,10 +10,11 @@ class DBTestService {
 }
 
 let service: DBTestService
+let moduleRef: TestingModule
 
 describe('SlonikModule', () => {
   beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({
+    moduleRef = await Test.createTestingModule({
       providers: [
         {
           provide: getPoolToken(),
@@ -31,6 +32,10 @@ describe('SlonikModule', () => {
       ]
     }).compile()
     service = moduleRef.get(DBTestService)
+  })
+
+  afterAll(async () => {
+    await moduleRef?.close()
   })
 
   it('should injectPool work', async () => {

@@ -5,9 +5,10 @@ import { UserService } from '../user.service'
 
 describe('UsersService mocked', () => {
   let userService: UserService
+  let module: TestingModule
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       providers: [
         {
           provide: getPoolToken(),
@@ -25,7 +26,11 @@ describe('UsersService mocked', () => {
       ]
     }).compile()
 
-    userService = app.get<UserService>(UserService)
+    userService = module.get<UserService>(UserService)
+  })
+
+  afterAll(async () => {
+    await module?.close()
   })
 
   it('should be defined', () => {

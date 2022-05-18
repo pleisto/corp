@@ -26,6 +26,10 @@ describe('UserResolver', () => {
     service = module.get<UserService>(UserService)
   })
 
+  afterAll(async () => {
+    await module?.close()
+  })
+
   const profileQuery = gql`
     query {
       profile {

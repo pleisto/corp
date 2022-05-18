@@ -17,6 +17,10 @@ describe('UserResolver', () => {
     resolver = module.get<UserResolver>(UserResolver)
   })
 
+  afterAll(async () => {
+    await module?.close()
+  })
+
   it('should be defined', () => {
     expect(resolver).toBeDefined()
   })
