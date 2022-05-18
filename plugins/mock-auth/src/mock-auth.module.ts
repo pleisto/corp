@@ -1,5 +1,5 @@
-import { UserModule } from '@brickdoc/server-api/src/accounts/users'
-import { AuthModule } from '@brickdoc/server-api/src/accounts/auth'
+import { UserModule } from '@brickdoc/server-api/src/pods/users'
+import { AuthModule } from '@brickdoc/server-api/src/pods/auth'
 import { DynamicModule, Module } from '@nestjs/common'
 import { MockAuthController } from './mock-auth.controller'
 import { Session } from '@brickdoc/server-api/src/core/session/session.class'

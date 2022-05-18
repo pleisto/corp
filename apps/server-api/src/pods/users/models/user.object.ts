@@ -2,6 +2,9 @@ import { Directive, Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'User Model' })
 export class User {
+  /**
+   * Masked id
+   */
   @Directive('@idSlug')
   @Field(type => ID, { description: 'User ID' })
   id: number

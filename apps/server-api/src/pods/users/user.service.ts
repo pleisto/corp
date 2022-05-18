@@ -28,8 +28,4 @@ export class UserService {
   async getUserBySlug(slug: string): Promise<Result<User, Error>> {
     return await findUserBySlug(this.pool, slug)
   }
-
-  getHello(): string {
-    return 'Hello World!'
-  }
 }

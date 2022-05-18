@@ -2,7 +2,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { Profile, Strategy } from 'passport-google-oauth20'
 import { Injectable } from '@nestjs/common'
 import { SettingsService } from '@brickdoc/server-api/src/common/settings'
-import { User, UserCredentialInput, UserService } from '@brickdoc/server-api/src/accounts/users'
+import { User, UserCredentialInput, UserService } from '@brickdoc/server-api/src/pods/users'
 import { withNamespace } from './google-auth.utils'
 
 @Injectable()

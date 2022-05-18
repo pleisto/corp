@@ -1,7 +1,7 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleAuthGuard } from './google-auth.guard'
-import { AuthService } from '@brickdoc/server-api/src/accounts/auth'
-import { AUTH_REDIRECT_PATH } from '@brickdoc/server-api/src/accounts/users'
+import { AuthService } from '@brickdoc/server-api/src/pods/auth'
+import { AUTH_REDIRECT_PATH } from '@brickdoc/server-api/src/pods/users'
 
 @Controller('accounts/auth/google_oauth2')
 export class GoogleAuthController {

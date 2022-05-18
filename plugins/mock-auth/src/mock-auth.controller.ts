@@ -1,6 +1,6 @@
 import { Controller, Get, Req } from '@nestjs/common'
-import { AuthService } from '@brickdoc/server-api/src/accounts/auth'
-import { UserService } from '@brickdoc/server-api/src/accounts/users'
+import { AuthService } from '@brickdoc/server-api/src/pods/auth'
+import { UserService } from '@brickdoc/server-api/src/pods/users'
 import { type FastifyRequest } from 'fastify'
 
 @Controller('mock')

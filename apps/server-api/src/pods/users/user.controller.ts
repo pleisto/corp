@@ -1,6 +1,6 @@
 import { Controller, forwardRef, Get, Inject, UseGuards, Request } from '@nestjs/common'
 import { SessionAuthGuard } from '../auth/guards/session-auth.guard'
-import { User, UserService } from '../users'
+import { User, UserService } from '.'
 
 @Controller('/.internal-apis/accounts')
 export class UserController {
