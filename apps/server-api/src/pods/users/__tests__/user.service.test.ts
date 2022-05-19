@@ -77,11 +77,11 @@ describe('UserService', () => {
     expect(result.isOk()).toBe(true)
     const id = result._unsafeUnwrap().id
 
-    const result2 = await userService.getUserById(id)
+    const result2 = await userService.findUserById(id)
     expect(result2.isOk()).toBe(true)
     expect(result2._unsafeUnwrap().slug).toEqual(baz)
 
-    const result3 = await userService.getUserBySlug(baz)
+    const result3 = await userService.findUserBySlug(baz)
     expect(result3.isOk()).toBe(true)
     expect(result3._unsafeUnwrap().id).toEqual(id)
   })

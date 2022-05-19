@@ -7,20 +7,29 @@ import { Session } from '../../../core/session/session.class'
 import { SESSION_USER_KEY, UserSession } from '../../auth'
 import { KMSService, SecretSubKey } from '../../../common/kms'
 import { intEncrypt } from '@brickdoc/server-api-crate'
+import { findUserByIdSpyFunction } from '../testing/mock-user.service'
 
 describe('UserResolver', () => {
   let app: NestFastifyApplication
   let service: UserService
   let kms: KMSService
+  let findUserByIdSpy: any
 
   let apollo: ApolloServerBase<any>
-  const createInstance = useAppInstanceWithGraphQL()
+  const createInstance = useAppInstanceWithGraphQL(
+    async (app, moduleRef) => {
+      service = moduleRef.get<UserService>(UserService)
+      findUserByIdSpy = jest.spyOn(service, 'findUserById').mockImplementation(findUserByIdSpyFunction)
+    },
+    async app => {
+      findUserByIdSpy.mockRestore()
+    }
+  )
 
   beforeAll(async () => {
     const instance = (await createInstance)()
     apollo = instance[0]
     app = instance[1]
-    service = app.get<UserService>(UserService)
     kms = app.get<KMSService>(KMSService)
   })
 
@@ -42,12 +51,12 @@ describe('UserResolver', () => {
   // https://github.com/nestjs/graphql/issues/502
   // eslint-disable-next-line jest/no-disabled-tests
   it('currentUserQuery: user not found', async () => {
-    const user: UserSession = { id: 123123, slug: 'unmatched' }
+    const user: UserSession = { id: 0, slug: 'unmatched' }
     const session = new Session({ [SESSION_USER_KEY]: user })
     apollo.requestOptions.context = { req: { session } }
     const result = await apollo.executeOperation({ query: currentUserQuery })
     expect(result.errors).not.toBeUndefined()
-    expect(result.errors![0].message).toContain('Resource not found.')
+    expect(result.errors![0].message).toContain('User not found')
   })
 
   it('currentUserQuery: Unauthorized', async () => {
@@ -59,17 +68,7 @@ describe('UserResolver', () => {
   })
 
   it('currentUserQuery: ok', async () => {
-    const userResult = await service.findOrCreateUser({
-      provider: 'test',
-      subject: '1234',
-      name: 'foobar',
-      avatarUrl: null,
-      bio: null,
-      locale: null,
-      meta: {}
-    })
-    expect(userResult.isOk()).toBe(true)
-    const user = userResult._unsafeUnwrap()
+    const user = { id: 1, slug: 'existed' }
     const session = new Session({ [SESSION_USER_KEY]: user })
     apollo.requestOptions.context = { req: { session } }
     const result = await apollo.executeOperation({ query: currentUserQuery })

@@ -29,14 +29,14 @@ export class UserService {
    * Get a user by id
    * @param id
    */
-  async getUserById(id: number): Promise<Result<User, Error>> {
+  async findUserById(id: number): Promise<Result<User, Error>> {
     return await findUserById(this.pool, id)
   }
 
   /**
    * Get a user by slug
    */
-  async getUserBySlug(slug: string): Promise<Result<User, Error>> {
+  async findUserBySlug(slug: string): Promise<Result<User, Error>> {
     return await findUserBySlug(this.pool, slug)
   }
 }
