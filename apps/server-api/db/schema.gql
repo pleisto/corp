@@ -39,6 +39,11 @@ type Metadata {
   supportedTimezones: [String!]!
 }
 
+type Mutation {
+  """Logout current user."""
+  logout: Boolean!
+}
+
 """
 In Brickdoc, Pod is an abstract table used to represent tenants, which can be either users or spaces. A data pod is a place for storing documents, with mechanisms for controlling who can access what.
 """
