@@ -1,29 +1,21 @@
-import { render, act } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { BlockContainer } from '../'
-import { ExternalProps, ExternalPropsContext } from '../../../../context'
+import { EditorPropsContext } from '../../../../context'
+import * as editorPropsHooks from '../../../../hooks/useEditorPropsContext'
 
 describe('BlockContainer', () => {
   it(`changes block pointer event when editor editable state change`, () => {
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    const externalProps = new ExternalProps()
+    const editorProps = { ...EditorPropsContext }
     const node: any = { attrs: { uuid: 1 } }
-    const { container, rerender } = render(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <BlockContainer node={node} />
-      </ExternalPropsContext.Provider>
-    )
+    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
+
+    const { container, rerender } = render(<BlockContainer node={node} />)
     // expect dom has 'pointer-event: none' style
     expect(container).toMatchSnapshot()
 
-    act(() => {
-      externalProps.documentEditable = true
-    })
+    editorProps.documentEditable = true
 
-    rerender(
-      <ExternalPropsContext.Provider value={externalProps}>
-        <BlockContainer node={node} />
-      </ExternalPropsContext.Provider>
-    )
+    rerender(<BlockContainer node={node} />)
 
     // expect dom has 'pointer-event: unset' style
     expect(container).toMatchSnapshot()

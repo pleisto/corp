@@ -1,10 +1,10 @@
-import { cloneElement, FC, Key, ReactElement, useCallback, useContext } from 'react'
+import { cloneElement, FC, Key, ReactElement, useCallback } from 'react'
 import { cx, css, Menu, MenuProps, styled, theme } from '@brickdoc/design-system'
 import { ActionOptionGroup } from '../BlockActions'
 import { Add, IconBackground, ToolbarOption } from '../../../ui'
-import { EditorContext } from '../../../../context/EditorContext'
 import { useOptions } from './useOptions'
 import { ActionGroupOption } from '..'
+import { useEditorI18n } from '../../../../hooks'
 
 export interface BlockActionsMenuProps {
   baseId?: MenuProps['baseId']
@@ -36,7 +36,7 @@ const ActionMenuItem = styled(Menu.Item, {
 })
 
 export const BlockActionsMenu: FC<BlockActionsMenuProps> = ({ extraOptions, basicOptions, baseId, onClose }) => {
-  const { t } = useContext(EditorContext)
+  const { t } = useEditorI18n()
   const [options, blockOptions] = useOptions(extraOptions, basicOptions)
 
   const renderMenuItem = useCallback(
