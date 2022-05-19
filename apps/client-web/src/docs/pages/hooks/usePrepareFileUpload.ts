@@ -41,7 +41,7 @@ export function usePrepareFileUpload(): EditorProps['prepareFileUpload'] {
         checksum: await checksum(file)
       }
 
-      return directUpload({
+      return await directUpload({
         variables: {
           input: {
             input,
