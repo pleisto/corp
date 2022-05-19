@@ -14,6 +14,8 @@
 
 ### Type aliases
 
+- [DeepPartial](README.md#deeppartial)
+- [RequiredKeys](README.md#requiredkeys)
 - [Result](README.md#result)
 
 ### Properties
@@ -2513,6 +2515,42 @@ node_modules/@types/lodash/common/object.d.ts:2008
 
 ## Other
 
+### <a id="deeppartial" name="deeppartial"></a> DeepPartial
+
+Ƭ **DeepPartial**<`T`\>: `T` extends `object` ? { [P in keyof T]?: DeepPartial<T[P]\> } : `T`
+
+make all properties optional recursively.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/active-support/src/typescript.ts:4](https://github.com/brickdoc/brickdoc/blob/master/packages/active-support/src/typescript.ts#L4)
+
+___
+
+### <a id="requiredkeys" name="requiredkeys"></a> RequiredKeys
+
+Ƭ **RequiredKeys**<`T`\>: { [K in keyof T]-?: Object extends Pick<T, K\> ? never : K }[keyof `T`]
+
+pick all required properties from an object.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Defined in
+
+[packages/active-support/src/typescript.ts:13](https://github.com/brickdoc/brickdoc/blob/master/packages/active-support/src/typescript.ts#L13)
+
+___
+
 ### <a id="result" name="result"></a> Result
 
 Ƭ **Result**<`T`, `E`\>: [`Ok`](classes/Ok.md)<`T`, `E`\> \| [`Err`](classes/Err.md)<`T`, `E`\>
@@ -2640,7 +2678,7 @@ Converts an array of items with ids and parent ids to a nested tree in a perform
 
 #### Defined in
 
-[packages/active-support/src/index.ts:21](https://github.com/brickdoc/brickdoc/blob/master/packages/active-support/src/index.ts#L21)
+[packages/active-support/src/index.ts:22](https://github.com/brickdoc/brickdoc/blob/master/packages/active-support/src/index.ts#L22)
 
 ___
 

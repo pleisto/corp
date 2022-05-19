@@ -19,17 +19,18 @@
 
 ### <a id="constructor" name="constructor"></a> constructor
 
-• **new UserService**(`pool`)
+• **new UserService**(`pool`, `settingService`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `pool` | `DatabasePool` |
+| `settingService` | [`SettingsService`](common_settings.SettingsService.md) |
 
 #### Defined in
 
-[pods/users/user.service.ts:10](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L10)
+[pods/users/user.service.ts:12](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L12)
 
 ## Methods
 
@@ -51,7 +52,7 @@ Find or create a user by credential
 
 #### Defined in
 
-[pods/users/user.service.ts:16](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L16)
+[pods/users/user.service.ts:18](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L18)
 
 ___
 
@@ -73,7 +74,7 @@ Get a user by id
 
 #### Defined in
 
-[pods/users/user.service.ts:33](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L33)
+[pods/users/user.service.ts:35](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L35)
 
 ___
 
@@ -95,13 +96,13 @@ Get a user by slug
 
 #### Defined in
 
-[pods/users/user.service.ts:40](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L40)
+[pods/users/user.service.ts:42](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L42)
 
 ___
 
 ### <a id="updateuserappearance" name="updateuserappearance"></a> updateUserAppearance
 
-▸ **updateUserAppearance**(`userId`, `input`): `Promise`<`Result`<`boolean`, `Error`\>\>
+▸ **updateUserAppearance**(`user`, `input`): `Promise`<`Result`<`boolean`, `Error`\>\>
 
 Update user appearance
 
@@ -109,7 +110,7 @@ Update user appearance
 
 | Name | Type |
 | :------ | :------ |
-| `userId` | `number` |
+| `user` | [`UserSession`](../interfaces/pods_auth.UserSession.md) |
 | `input` | `UserAppearanceUpdateInput` |
 
 #### Returns
@@ -118,4 +119,4 @@ Update user appearance
 
 #### Defined in
 
-[pods/users/user.service.ts:49](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L49)
+[pods/users/user.service.ts:51](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L51)
