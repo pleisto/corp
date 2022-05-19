@@ -13,6 +13,7 @@
 - [findOrCreateUser](pods_users.UserService.md#findorcreateuser)
 - [findUserById](pods_users.UserService.md#finduserbyid)
 - [findUserBySlug](pods_users.UserService.md#finduserbyslug)
+- [updateUserAppearance](pods_users.UserService.md#updateuserappearance)
 
 ## Constructors
 
@@ -28,7 +29,7 @@
 
 #### Defined in
 
-[pods/users/user.service.ts:9](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L9)
+[pods/users/user.service.ts:10](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L10)
 
 ## Methods
 
@@ -50,7 +51,7 @@ Find or create a user by credential
 
 #### Defined in
 
-[pods/users/user.service.ts:15](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L15)
+[pods/users/user.service.ts:16](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L16)
 
 ___
 
@@ -72,7 +73,7 @@ Get a user by id
 
 #### Defined in
 
-[pods/users/user.service.ts:32](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L32)
+[pods/users/user.service.ts:33](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L33)
 
 ___
 
@@ -94,4 +95,27 @@ Get a user by slug
 
 #### Defined in
 
-[pods/users/user.service.ts:39](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L39)
+[pods/users/user.service.ts:40](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L40)
+
+___
+
+### <a id="updateuserappearance" name="updateuserappearance"></a> updateUserAppearance
+
+▸ **updateUserAppearance**(`userId`, `input`): `Promise`<`Result`<`boolean`, `Error`\>\>
+
+Update user appearance
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `userId` | `number` |
+| `input` | `UserAppearanceUpdateInput` |
+
+#### Returns
+
+`Promise`<`Result`<`boolean`, `Error`\>\>
+
+#### Defined in
+
+[pods/users/user.service.ts:49](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L49)

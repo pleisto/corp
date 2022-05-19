@@ -11,6 +11,7 @@
 ### Methods
 
 - [createSession](pods_auth.AuthService.md#createsession)
+- [deleteSession](pods_auth.AuthService.md#deletesession)
 - [validate](pods_auth.AuthService.md#validate)
 
 ## Constructors
@@ -54,6 +55,26 @@ Create session for user.
 
 ___
 
+### <a id="deletesession" name="deletesession"></a> deleteSession
+
+▸ **deleteSession**(`req`): `Promise`<`boolean`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `req` | `FastifyRequest`<`RouteGenericInterface`, `Server`, `IncomingMessage`, `unknown`, `FastifyLoggerInstance`\> |
+
+#### Returns
+
+`Promise`<`boolean`\>
+
+#### Defined in
+
+[pods/auth/auth.service.ts:20](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/auth/auth.service.ts#L20)
+
+___
+
 ### <a id="validate" name="validate"></a> validate
 
 ▸ **validate**(`__namedParameters`): `Promise`<``null`` \| [`User`](pods_users.User.md)\>
@@ -70,4 +91,4 @@ ___
 
 #### Defined in
 
-[pods/auth/auth.service.ts:20](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/auth/auth.service.ts#L20)
+[pods/auth/auth.service.ts:26](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/auth/auth.service.ts#L26)
