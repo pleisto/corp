@@ -127,7 +127,7 @@ describe('UserResolver', () => {
       }
     `
     apollo.requestOptions.context = { req: { session: matchedSession } }
-    const input: UserAppearanceUpdateInput = { locale: 'en-US', timezone: 'WET' }
+    const input: UserAppearanceUpdateInput = { locale: 'en-US', timezone: 'Africa/Mogadishu' }
     const result = await apollo.executeOperation({
       query: userAppearanceUpdateMutation,
       variables: { input }

@@ -2,11 +2,14 @@ import { User } from '../user.object-type'
 import { UserCredentialInput } from '../user.interface'
 import { UserService } from '../user.service'
 import { useAppInstance } from '../../../common/testing'
+import { SettingsService } from '../../../common/settings'
 
 describe('UserService', () => {
   let userService: UserService
+  let settingService: SettingsService
 
   const createInstance = useAppInstance(async (_app, moduleRef) => {
+    settingService = moduleRef.get<SettingsService>(SettingsService)
     userService = moduleRef.get<UserService>(UserService)
   })
 
@@ -84,5 +87,23 @@ describe('UserService', () => {
     const result3 = await userService.findUserBySlug(baz)
     expect(result3.isOk()).toBe(true)
     expect(result3._unsafeUnwrap().id).toEqual(id)
+  })
+
+  it('update user appearance', async () => {
+    const user = { id: 123, slug: 'test' }
+    const context = { userId: String(user.id) }
+
+    const defaultTz = (await settingService.get<string>('core.defaultTimezone', context))._unsafeUnwrap()
+
+    const input = { locale: 'en-US', timezone: 'Africa/Mogadishu' } as const
+    expect(defaultTz).not.toBe(input.timezone)
+
+    const result = await userService.updateUserAppearance(user, input)
+    expect(result.isOk()).toBe(true)
+    expect(result._unsafeUnwrap()).toEqual(true)
+
+    // TODO check if timezone was updated
+    // const newTz = (await settingService.get<string>('core.defaultTimezone', context))._unsafeUnwrap()
+    // expect(newTz).toBe(input.timezone)
   })
 })

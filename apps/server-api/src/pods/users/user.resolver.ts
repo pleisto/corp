@@ -48,8 +48,7 @@ export class UserResolver {
     @CurrentUser() user: UserSession,
     @Args('input') input: UserAppearanceUpdateInput
   ): Promise<boolean> {
-    console.log('userAppearanceUpdate', user, input)
-    const result = await this.userService.updateUserAppearance(user.id, input)
+    const result = await this.userService.updateUserAppearance(user, input)
     if (result.isErr()) throw result.error
     return result.value
   }
