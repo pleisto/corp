@@ -1,8 +1,9 @@
 import { forwardRef, Inject, UseGuards } from '@nestjs/common'
-import { Resolver, Query, Mutation, Context, type GqlExecutionContext } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Context, type GqlExecutionContext, Args } from '@nestjs/graphql'
 import { AuthService, type UserSession } from '../auth'
 import { CurrentUser } from '../auth/currentUser.decorator'
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard'
+import { UserAppearanceUpdateInput } from './models/user_appearance_update.input'
 import { User } from './user.object-type'
 import { UserService } from './user.service'
 // import { FastifyRequest } from 'fastify'
@@ -35,6 +36,21 @@ export class UserResolver {
   })
   @UseGuards(GqlAuthGuard)
   async logout(@Context() ctx: GqlExecutionContext): Promise<boolean> {
+    // TODO add type: `ctx.req`
     return await this.authService.deleteSession((ctx as any).req)
+  }
+
+  @Mutation(() => Boolean, {
+    description: 'Update user appearance.'
+  })
+  @UseGuards(GqlAuthGuard)
+  async userAppearanceUpdate(
+    @CurrentUser() user: UserSession,
+    @Args('input') input: UserAppearanceUpdateInput
+  ): Promise<boolean> {
+    console.log('userAppearanceUpdate', user, input)
+    const result = await this.userService.updateUserAppearance(user.id, input)
+    if (result.isErr()) throw result.error
+    return result.value
   }
 }

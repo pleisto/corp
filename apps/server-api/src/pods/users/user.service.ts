@@ -3,7 +3,8 @@ import { UserCredentialInput } from './user.interface'
 import { InjectPool, type DatabasePool } from '@brickdoc/nestjs-slonik'
 import { User } from './user.object-type'
 import { createUserByCredential, findCredential, findUserById, findUserBySlug } from './user.sql-builder'
-import { err, Result } from '@brickdoc/active-support'
+import { err, Result, ok } from '@brickdoc/active-support'
+import { UserAppearanceUpdateInput } from './models/user_appearance_update.input'
 @Injectable()
 export class UserService {
   constructor(@InjectPool() private readonly pool: DatabasePool) {}
@@ -38,5 +39,14 @@ export class UserService {
    */
   async findUserBySlug(slug: string): Promise<Result<User, Error>> {
     return await findUserBySlug(this.pool, slug)
+  }
+
+  /**
+   * Update user appearance
+   * @param id
+   * @param input
+   */
+  async updateUserAppearance(userId: number, input: UserAppearanceUpdateInput): Promise<Result<boolean, Error>> {
+    return ok(true)
   }
 }

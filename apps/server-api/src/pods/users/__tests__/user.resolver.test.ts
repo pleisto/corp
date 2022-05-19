@@ -8,12 +8,14 @@ import { SESSION_USER_KEY } from '../../auth'
 import { KMSService, SecretSubKey } from '../../../common/kms'
 import { intEncrypt } from '@brickdoc/server-api-crate'
 import { findUserByIdSpyFunction } from '../testing/mock-user.service'
+import { UserAppearanceUpdateInput } from '../models/user_appearance_update.input'
 
 describe('UserResolver', () => {
   let app: NestFastifyApplication
   let service: UserService
   let kms: KMSService
   let findUserByIdSpy: any
+  let unmatchedSession: Session, matchedSession: Session, emptySession: Session
 
   let apollo: ApolloServerBase<any>
   const createInstance = useAppInstanceWithGraphQL(
@@ -37,6 +39,12 @@ describe('UserResolver', () => {
     await app.close()
   })
 
+  beforeEach(() => {
+    unmatchedSession = new Session({ [SESSION_USER_KEY]: { id: 0, slug: 'unmatched' } })
+    matchedSession = new Session({ [SESSION_USER_KEY]: { id: 1, slug: 'matched' } })
+    emptySession = new Session({})
+  })
+
   afterEach(() => {
     apollo.requestOptions.context = {}
   })
@@ -57,10 +65,6 @@ describe('UserResolver', () => {
   `
 
   it.todo('fix auth in graphql')
-
-  const unmatchedSession = new Session({ [SESSION_USER_KEY]: { id: 0, slug: 'unmatched' } })
-  const matchedSession = new Session({ [SESSION_USER_KEY]: { id: 1, slug: 'matched' } })
-  const emptySession = new Session({})
 
   // https://github.com/nestjs/graphql/issues/502
   // eslint-disable-next-line jest/no-disabled-tests
@@ -114,5 +118,21 @@ describe('UserResolver', () => {
     const result2 = await apollo.executeOperation({ query: currentUserQuery })
     expect(result2.errors).not.toBeUndefined()
     expect(result2.errors![0].message).toContain('Unauthorized')
+  })
+
+  it('userAppearanceUpdateMutation: ok', async () => {
+    const userAppearanceUpdateMutation = gql`
+      mutation ($input: UserAppearanceUpdateInput!) {
+        userAppearanceUpdate(input: $input)
+      }
+    `
+    apollo.requestOptions.context = { req: { session: matchedSession } }
+    const input: UserAppearanceUpdateInput = { locale: 'en-US', timezone: 'WET' }
+    const result = await apollo.executeOperation({
+      query: userAppearanceUpdateMutation,
+      variables: { input }
+    })
+    expect(result.errors).toBeUndefined()
+    expect(result.data?.userAppearanceUpdate).toBe(true)
   })
 })

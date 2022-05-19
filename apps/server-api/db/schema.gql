@@ -42,6 +42,9 @@ type Metadata {
 type Mutation {
   """Logout current user."""
   logout: Boolean!
+
+  """Update user appearance."""
+  userAppearanceUpdate(input: UserAppearanceUpdateInput!): Boolean!
 }
 
 """
@@ -117,4 +120,13 @@ type User implements Pod {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
+}
+
+"""User appearance update input"""
+input UserAppearanceUpdateInput {
+  """locale"""
+  locale: String!
+
+  """timezone"""
+  timezone: String!
 }
