@@ -22,7 +22,7 @@ export function useOptions(
   basicOptions: BlockActionsMenuProps['basicOptions']
 ): [ToolbarOptionGroup, ToolbarOptionGroup] {
   const { editor } = useEditorContext()
-  const { t } = useEditorI18n()
+  const [t] = useEditorI18n()
   const { getPosition } = useBlockContext()
 
   const options = useMemo<ToolbarOptionGroup>(() => {

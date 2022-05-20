@@ -22,6 +22,9 @@ describe('BlockContainer', () => {
   })
 
   it('inline', () => {
+    const editorProps = { ...EditorPropsContext }
+    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
+
     const node: any = { attrs: { uuid: 1 } }
     const { container } = render(
       <BlockContainer node={node} inline={true}>
@@ -33,8 +36,10 @@ describe('BlockContainer', () => {
     expect(container).toMatchSnapshot()
   })
 
-  // TODO: move to e2e test
   it('with actionOptions', () => {
+    const editorProps = { ...EditorPropsContext }
+    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
+
     const node: any = { attrs: { uuid: 1 } }
     const { container } = render(
       <BlockContainer
@@ -44,8 +49,7 @@ describe('BlockContainer', () => {
             type: 'item',
             name: 'item'
           }
-        ]}
-      >
+        ]}>
         block
       </BlockContainer>
     )
@@ -66,7 +70,6 @@ describe('BlockContainer', () => {
     })
   })
 
-  // TODO: move to e2e test
   it('hide action options when node without uuid', () => {
     const node: any = { attrs: {} }
     const { container } = render(

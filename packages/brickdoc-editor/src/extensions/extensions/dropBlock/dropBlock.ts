@@ -1,9 +1,10 @@
-import { Plugin } from 'prosemirror-state'
+import { Plugin, PluginKey } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import { Extension } from '@tiptap/core'
 import { BrickdocEventBus, BlockDropAdd } from '@brickdoc/schema'
+import { DropBlockAttributes, DropBlockOptions, meta } from './meta'
+import { createExtension } from '../../common'
 
-class DropBlock {
+export class DropBlockView {
   editorView: EditorView
 
   constructor(editorView: EditorView) {
@@ -33,22 +34,15 @@ class DropBlock {
   }
 }
 
-export const dropBlock = Extension.create({
-  name: 'dropBlock',
-
-  addOptions() {
-    return {
-      color: 'currentColor',
-      width: 1,
-      class: null
-    }
-  },
+export const DropBlock = createExtension<DropBlockOptions, DropBlockAttributes>({
+  name: meta.name,
 
   addProseMirrorPlugins() {
     return [
       new Plugin({
+        key: new PluginKey(meta.name),
         view(editorView: EditorView) {
-          return new DropBlock(editorView)
+          return new DropBlockView(editorView)
         }
       })
     ]
