@@ -11,6 +11,7 @@
 ### Methods
 
 - [findOrCreateUser](pods_users.UserService.md#findorcreateuser)
+- [findUserApprearance](pods_users.UserService.md#finduserapprearance)
 - [findUserById](pods_users.UserService.md#finduserbyid)
 - [findUserBySlug](pods_users.UserService.md#finduserbyslug)
 - [updateUserAppearance](pods_users.UserService.md#updateuserappearance)
@@ -30,7 +31,7 @@
 
 #### Defined in
 
-[pods/users/user.service.ts:12](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L12)
+[pods/users/user.service.ts:13](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L13)
 
 ## Methods
 
@@ -52,7 +53,29 @@ Find or create a user by credential
 
 #### Defined in
 
-[pods/users/user.service.ts:18](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L18)
+[pods/users/user.service.ts:19](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L19)
+
+___
+
+### <a id="finduserapprearance" name="finduserapprearance"></a> findUserApprearance
+
+▸ **findUserApprearance**(`user`): `Promise`<`Result`<`UserAppearance`, `Error`\>\>
+
+Find user appearance
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `user` | [`UserSession`](../interfaces/pods_auth.UserSession.md) |
+
+#### Returns
+
+`Promise`<`Result`<`UserAppearance`, `Error`\>\>
+
+#### Defined in
+
+[pods/users/user.service.ts:50](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L50)
 
 ___
 
@@ -74,7 +97,7 @@ Get a user by id
 
 #### Defined in
 
-[pods/users/user.service.ts:35](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L35)
+[pods/users/user.service.ts:36](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L36)
 
 ___
 
@@ -96,7 +119,7 @@ Get a user by slug
 
 #### Defined in
 
-[pods/users/user.service.ts:42](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L42)
+[pods/users/user.service.ts:43](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L43)
 
 ___
 
@@ -119,4 +142,4 @@ Update user appearance
 
 #### Defined in
 
-[pods/users/user.service.ts:51](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L51)
+[pods/users/user.service.ts:65](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L65)

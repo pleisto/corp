@@ -3,16 +3,10 @@ import { Resolver, Query, Mutation, Context, type GqlExecutionContext, Args } fr
 import { AuthService, type UserSession } from '../auth'
 import { CurrentUser } from '../auth/currentUser.decorator'
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard'
-import { UserAppearanceUpdateInput } from './models/user_appearance_update.input'
+import { UserAppearance } from './models/user_appearance.object-type'
+import { UserAppearanceUpdateInput } from './models/user_appearance_update.input-type'
 import { User } from './user.object-type'
 import { UserService } from './user.service'
-// import { FastifyRequest } from 'fastify'
-
-// declare module '@nestjs/graphql' {
-//   interface GqlExecutionContext {
-//     req: FastifyRequest
-//   }
-// }
 
 @Resolver((of: unknown) => User)
 export class UserResolver {
@@ -38,6 +32,14 @@ export class UserResolver {
   async logout(@Context() ctx: GqlExecutionContext): Promise<boolean> {
     // TODO add type: `ctx.req`
     return await this.authService.deleteSession((ctx as any).req)
+  }
+
+  @Query(() => UserAppearance, { description: 'Query user appearance.' })
+  @UseGuards(GqlAuthGuard)
+  async userAppearance(@CurrentUser() user: UserSession): Promise<UserAppearance> {
+    const result = await this.userService.findUserApprearance(user)
+    if (result.isErr()) throw result.error
+    return result.value
   }
 
   @Mutation(() => Boolean, {

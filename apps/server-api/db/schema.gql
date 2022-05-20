@@ -81,6 +81,9 @@ type Query {
 
   """Return information about current Brickdoc server instance."""
   metadata: Metadata!
+
+  """Query user appearance."""
+  userAppearance: UserAppearance!
 }
 
 """
@@ -120,6 +123,15 @@ type User implements Pod {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: DateTime!
+}
+
+"""User appearance object"""
+type UserAppearance {
+  """locale"""
+  locale: String!
+
+  """timezone"""
+  timezone: String!
 }
 
 """User appearance update input"""

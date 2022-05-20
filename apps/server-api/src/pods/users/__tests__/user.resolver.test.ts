@@ -8,7 +8,7 @@ import { SESSION_USER_KEY } from '../../auth'
 import { KMSService, SecretSubKey } from '../../../common/kms'
 import { intEncrypt } from '@brickdoc/server-api-crate'
 import { findUserByIdSpyFunction } from '../testing/mock-user.service'
-import { UserAppearanceUpdateInput } from '../models/user_appearance_update.input'
+import { UserAppearanceUpdateInput } from '../models/user_appearance_update.input-type'
 
 describe('UserResolver', () => {
   let app: NestFastifyApplication
@@ -118,6 +118,21 @@ describe('UserResolver', () => {
     const result2 = await apollo.executeOperation({ query: currentUserQuery })
     expect(result2.errors).not.toBeUndefined()
     expect(result2.errors![0].message).toContain('Unauthorized')
+  })
+
+  it('userAppearanceQuery: ok', async () => {
+    const userAppearanceQuery = gql`
+      query {
+        userAppearance {
+          locale
+          timezone
+        }
+      }
+    `
+    apollo.requestOptions.context = { req: { session: matchedSession } }
+    const result = await apollo.executeOperation({ query: userAppearanceQuery })
+    expect(result.errors).toBeUndefined()
+    expect(result.data?.userAppearance.locale).toBe('en-US')
   })
 
   it('userAppearanceUpdateMutation: ok', async () => {
