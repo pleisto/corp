@@ -68,7 +68,7 @@ export const CardView: FC<CardViewProps> = ({
     event.stopPropagation()
   }, [])
   const isWebsite = blockType === 'link'
-  const isFile = blockType === 'attachment'
+  const isFile = blockType === 'attachment' || blockType === 'image'
   const type = isFile ? 'file' : 'default'
   const [actionOptions] = useActionOptions(isWebsite ? undefined : linkUrl)
   const onClick = useCallback(() => window.open(linkUrl, '_blank'), [linkUrl])
