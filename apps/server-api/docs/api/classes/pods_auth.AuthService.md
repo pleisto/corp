@@ -21,8 +21,8 @@
 
 #### Parameters
 
-| Name     | Type     |
-| :------- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `logger` | `Logger` |
 
 #### Defined in
@@ -39,10 +39,10 @@ Create session for user.
 
 #### Parameters
 
-| Name   | Type                                                                                                        |
-| :----- | :---------------------------------------------------------------------------------------------------------- |
-| `req`  | `FastifyRequest`<`RouteGenericInterface`, `Server`, `IncomingMessage`, `unknown`, `FastifyLoggerInstance`\> |
-| `user` | [`UserSession`](../interfaces/pods_auth.UserSession.md)                                                     |
+| Name | Type |
+| :------ | :------ |
+| `req` | `FastifyRequest`<`RouteGenericInterface`, `Server`, `IncomingMessage`, `unknown`, `FastifyLoggerInstance`\> |
+| `user` | [`UserSession`](../interfaces/pods_auth.UserSession.md) |
 
 #### Returns
 
@@ -52,21 +52,21 @@ Create session for user.
 
 [pods/auth/auth.service.ts:15](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/auth/auth.service.ts#L15)
 
----
+___
 
 ### <a id="validate" name="validate"></a> validate
 
-▸ **validate**(`__namedParameters`): `Promise`<`null` \| [`User`](pods_users.User.md)\>
+▸ **validate**(`__namedParameters`): `Promise`<``null`` \| [`User`](pods_users.User.md)\>
 
 #### Parameters
 
-| Name                | Type      |
-| :------------------ | :-------- |
+| Name | Type |
+| :------ | :------ |
 | `__namedParameters` | `Request` |
 
 #### Returns
 
-`Promise`<`null` \| [`User`](pods_users.User.md)\>
+`Promise`<``null`` \| [`User`](pods_users.User.md)\>
 
 #### Defined in
 

@@ -1226,12 +1226,16 @@ input DirectUploadInput {
 Brickdoc Docs::Document
 """
 type Document {
+  content: String
+
   """
   object unique id
   """
   id: UUID!
+  meta: JSON!
   state: String
   stateId: UUID
+  title: String
 }
 
 """
@@ -1820,7 +1824,7 @@ type RootQuery {
     """
     document id
     """
-    docId: String!
+    id: String!
   ): Document
 
   """
@@ -2090,7 +2094,7 @@ input SyncDocumentInput {
   """
   doc id
   """
-  docId: UUID!
+  id: UUID!
 
   """
   operator id

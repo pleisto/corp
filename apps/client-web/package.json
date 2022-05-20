@@ -25,6 +25,7 @@
     "dayjs": "^1.11.2",
     "framer-motion": "^6.3.3",
     "graphql": "^16.5.0",
+    "graphql-codegen": "^0.4.0",
     "graphql-ruby-client": "^1.10.7",
     "i18next": "^21.8.2",
     "i18next-http-backend": "^1.4.0",
@@ -42,5 +43,8 @@
     "lint:fix": "TIMING=1 run -T eslint --cache --ext ts,tsx src --fix",
     "lint:type": "run -T tsc",
     "test:jest": "run -T jest"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2"
   }
 }

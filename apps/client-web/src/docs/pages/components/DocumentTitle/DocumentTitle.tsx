@@ -3,10 +3,9 @@ import { Button, Popover, Icon } from '@brickdoc/design-system'
 import styles from './DocumentTitle.module.less'
 import * as Root from './DocumentTitle.style'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
-import { DocumentIcon } from './DocumentIcon'
-import { DocumentCover } from './DocumentCover'
+import { DocumentIcon, DocumentIconMeta } from './DocumentIcon'
+import { DocumentCover, DocumentCoverMeta } from './DocumentCover'
 import { useDocsI18n } from '../../../common/hooks'
-import { BrickdocEventBus, DocMetaLoaded, UpdateDocMeta } from '@brickdoc/schema'
 import {
   useDocumentIconUploader,
   useDocumentCoverUploader,
@@ -16,73 +15,30 @@ import {
 import { useReactiveVar } from '@apollo/client'
 import { editorVar } from '@/docs/reactiveVars'
 import { useBlobGetter } from '../../hooks/useBlobGetter'
-import { GetChildrenBlocksQuery } from '@/BrickdocGraphQL'
+import { Document, DocumentMeta } from '@/common/models'
 // import { EditorContentProps } from '@brickdoc/editor'
 
 export interface DocumentTitleProps {
-  docId?: string
-  blocks: GetChildrenBlocksQuery['childrenBlocks']
+  document: Document
+  saveDocument: (doc: Document) => void
   editable: boolean
 }
 
-// const createDocAttrsUpdater =
-//   (editor: EditorContentProps['editor'], field: string) =>
-//   (value: any): void => {
-//     if (!editor || editor.isDestroyed) return
-//     editor.commands.setDocAttrs({
-//       ...editor.state.doc.attrs,
-//       [field]: value
-//     })
-//   }
-
-export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, blocks }) => {
+export const DocumentTitle: React.FC<DocumentTitleProps> = ({ document, saveDocument, editable }) => {
   const { t } = useDocsI18n()
   const editor = useReactiveVar(editorVar)
-  const blockId = editor?.state.doc.attrs.uuid
-  // const icon = editor?.state.doc.attrs.icon
-  // const cover = editor?.state.doc.attrs.cover
-  // const title = editor?.state.doc.attrs.title
+  const { id: blockId, blocks } = document ?? {}
 
-  // const inputRef = React.useRef<any>(null)
-  // const inputComposing = React.useRef(false)
+  const [meta, setMeta] = React.useState<DocumentMeta>(document?.meta ?? {})
 
-  const [meta, setMeta] = React.useState<{ [key: string]: any }>({})
-
-  const docBlock = blocks?.find(b => b.id === docId)
-
-  const icon = meta.icon ?? docBlock?.meta?.icon
-  const cover = meta.cover ?? docBlock?.meta?.cover
-  const title = meta.title ?? docBlock?.meta?.title
-
-  // React.useEffect(() => {
-  //   if (inputRef.current && title !== undefined) {
-  //     inputRef.current.value = title
-  //   }
-  // }, [title])
-
-  BrickdocEventBus.subscribe(
-    DocMetaLoaded,
-    e => {
-      const { id, meta } = e.payload
-      if (id === docId) {
-        setMeta(meta)
-      }
-    },
-    { subscribeId: 'DocumentTitle' }
-  )
+  const { icon, cover, title } = meta
 
   const changeDocMeta = React.useCallback(
     (newMeta: { [key: string]: any }) => {
       setMeta(newMeta)
-      if (docId) {
-        BrickdocEventBus.dispatch(UpdateDocMeta({ id: docId, meta: newMeta }))
-        editor?.commands.setDocAttrs({
-          ...editor.state.doc.attrs,
-          ...newMeta
-        })
-      }
+      saveDocument({ ...document, meta: { ...meta, ...newMeta } })
     },
-    [docId, editor]
+    [document, meta, saveDocument]
   )
 
   const createDocAttrsUpdater = React.useCallback(
@@ -114,7 +70,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
   const fetchUnsplashImages = useFetchUnsplashImages()
   const [localIcon, setLocalIcon] = React.useState('')
   const [localCover, setLocalCover] = React.useState('')
-  const [documentIconMeta, iconPopoverProps] = useDocumentIconUploader(icon, {
+  const [documentIconMeta, iconPopoverProps] = useDocumentIconUploader(icon as DocumentIconMeta, {
     blockId,
     prepareFileUpload,
     fetchUnsplashImages,
@@ -122,7 +78,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
     onChange: setIcon,
     onFileLoaded: setLocalIcon
   })
-  const [documentCoverMeta, coverPopoverProps] = useDocumentCoverUploader(cover, {
+  const [documentCoverMeta, coverPopoverProps] = useDocumentCoverUploader(cover as DocumentCoverMeta, {
     blockId,
     prepareFileUpload,
     fetchUnsplashImages,
@@ -181,30 +137,9 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
             <Root.Input
               type="text"
               bordered={false}
-              // ref={(container: HTMLInputElement) => {
-              //   if (container) {
-              //     inputRef.current = container
-              //     // TODO: fix this hack
-              //     container.value = title
-              //   }
-              // }}
-              value={title}
+              value={title as string}
               data-testid={TEST_ID_ENUM.page.DocumentPage.titleInput.id}
-              // onCompositionStart={() => {
-              //   inputComposing.current = true
-              // }}
-              // onCompositionUpdate={() => {
-              //   inputComposing.current = true
-              // }}
-              // onCompositionEnd={(e: any) => {
-              //   inputComposing.current = false
-              //   setTitle((e.target as any).value)
-              // }}
               onChange={(e: any) => {
-                // if (inputComposing.current) {
-                //   inputComposing.current = false
-                //   return
-                // }
                 setTitle(e.target.value)
               }}
               placeholder={t('title.untitled')}

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { HashedID, URL } from './index'
+import { HashedID, URL, UUID } from './index'
 @Module({
-  providers: [HashedID, URL]
+  providers: [HashedID, URL, UUID]
 })
 export class ScalarsModule {}

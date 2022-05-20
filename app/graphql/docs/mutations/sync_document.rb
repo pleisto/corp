@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Docs
   class Mutations::SyncDocument < BrickGraphQL::BaseMutation
-    argument :doc_id, BrickGraphQL::Scalars::UUID, 'doc id', required: true
+    argument :id, BrickGraphQL::Scalars::UUID, 'doc id', required: true
     argument :operator_id, String, 'operator id', required: true
     argument :state, String, 'full state', required: true
     argument :state_id, BrickGraphQL::Scalars::UUID, 'state id', required: true

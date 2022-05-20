@@ -19,5 +19,6 @@
 - [core/locales](modules/core_locales.md)
 - [core/locales/en-US](modules/core_locales_en_US.md)
 - [core/timezones](modules/core_timezones.md)
+- [docs/document](modules/docs_document.md)
 - [pods/auth](modules/pods_auth.md)
 - [pods/users](modules/pods_users.md)

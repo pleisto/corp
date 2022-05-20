@@ -21,6 +21,12 @@ const httpLink = securityLink.concat(
   })
 )
 
+const nextUri = `https://${location.hostname}:3080/.internal-apis/$graph`
+
+const nextLink = createHttpLink({
+  uri: nextUri, // NOTE: fixed for dev
+})
+
 export const cable = ActionCable.createConsumer()
 
 const websocketLink = new ActionCableLink({ cable, channelName: 'InternalGraphQLChannel' })
@@ -38,7 +44,21 @@ const brickdocLink = split(
   httpLink
 )
 
+const nextOperationNames: string[] = [
+  'GetDocument',
+  'SyncDocument'
+]
+
+// NOTE: temp split link to next version
+const nextSplitLink = split(
+  ({ operationName }) => {
+    return nextOperationNames.includes(operationName)
+  },
+  nextLink,
+  brickdocLink
+)
+
 export const apolloClient = new ApolloClient({
-  link: brickdocLink,
+  link: nextSplitLink,
   cache: new InMemoryCache({ typePolicies })
 })

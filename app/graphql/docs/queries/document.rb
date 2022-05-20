@@ -4,11 +4,11 @@ module Docs
   class Queries::Document < BrickGraphQL::BaseResolver
     type Docs::Objects::Document, null: true
 
-    argument :doc_id, GraphQL::Types::String, required: true,
+    argument :id, GraphQL::Types::String, required: true,
              description: 'document id'
 
-    def resolve(doc_id:)
-      Docs::Document.find_by(id: doc_id)
+    def resolve(id:)
+      Docs::Document.find_by(id: id)
     end
   end
 end

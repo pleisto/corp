@@ -6,8 +6,12 @@ module Docs
       description 'Brickdoc Docs::Document'
 
       has_primary_key uuid: true
+
+      field :title, String, null: true
+      field :content, String, null: true
       field :state, String, null: true
       field :state_id, BrickGraphQL::Scalars::UUID, null: true
+      field :meta, GraphQL::Types::JSON, null: false
 
       def state
         object.respond_to?(:state) ? Base64.strict_encode64(object.state) : nil

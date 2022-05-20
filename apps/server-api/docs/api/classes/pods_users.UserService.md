@@ -22,8 +22,8 @@
 
 #### Parameters
 
-| Name   | Type           |
-| :----- | :------------- |
+| Name | Type |
+| :------ | :------ |
 | `pool` | `DatabasePool` |
 
 #### Defined in
@@ -40,8 +40,8 @@ Find or create a user by credential
 
 #### Parameters
 
-| Name         | Type                                                                                                  |
-| :----------- | :---------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :------ | :------ |
 | `credential` | [`UserCredentialInput`](../interfaces/pods_users.UserCredentialInput.md)<`Record`<`string`, `any`\>\> |
 
 #### Returns
@@ -52,7 +52,7 @@ Find or create a user by credential
 
 [pods/users/user.service.ts:15](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L15)
 
----
+___
 
 ### <a id="getuserbyid" name="getuserbyid"></a> getUserById
 
@@ -62,8 +62,8 @@ Get a user by id
 
 #### Parameters
 
-| Name | Type     |
-| :--- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `id` | `number` |
 
 #### Returns
@@ -74,7 +74,7 @@ Get a user by id
 
 [pods/users/user.service.ts:32](https://github.com/brickdoc/brickdoc/blob/master/apps/server-api/src/pods/users/user.service.ts#L32)
 
----
+___
 
 ### <a id="getuserbyslug" name="getuserbyslug"></a> getUserBySlug
 
@@ -84,8 +84,8 @@ Get a user by slug
 
 #### Parameters
 
-| Name   | Type     |
-| :----- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `slug` | `string` |
 
 #### Returns

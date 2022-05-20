@@ -3937,6 +3937,20 @@
           "description": "Brickdoc Docs::Document",
           "fields": [
             {
+              "name": "content",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "id",
               "description": "object unique id",
               "args": [
@@ -3948,6 +3962,24 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "UUID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "meta",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSON",
                   "ofType": null
                 }
               },
@@ -3977,6 +4009,20 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -6203,7 +6249,7 @@
               "description": null,
               "args": [
                 {
-                  "name": "docId",
+                  "name": "id",
                   "description": "document id",
                   "type": {
                     "kind": "NON_NULL",
@@ -7425,7 +7471,7 @@
               "deprecationReason": null
             },
             {
-              "name": "docId",
+              "name": "id",
               "description": "doc id",
               "type": {
                 "kind": "NON_NULL",

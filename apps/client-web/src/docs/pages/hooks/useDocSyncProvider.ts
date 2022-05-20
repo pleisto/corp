@@ -27,7 +27,7 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
 
   const { data, loading } = useGetDocumentQuery({
     fetchPolicy: 'no-cache',
-    variables: { docId }
+    variables: { id: docId }
   })
 
   useYdocSubscription({
@@ -70,7 +70,7 @@ export function useDocSyncProvider(queryVariables: { docId: string }): {
       const syncPromise = syncDocument({
         variables: {
           input: {
-            docId,
+            id: docId,
             operatorId: globalThis.brickdocContext.uuid,
             state: base64.stringify(stateToSync),
             updates: base64.stringify(mergedUpdates),

@@ -258,24 +258,24 @@ export const querySpreadsheetChildren = gql`
   }
 `
 
-export const queryGetDocument = gql`
-  query GetDocument($docId: String!) {
-    document(docId: $docId) {
-      id
-      stateId
-      state
-    }
-  }
-`
+// export const queryGetDocument = gql`
+//   query GetDocument($docId: String!) {
+//     document(docId: $docId) {
+//       id
+//       stateId
+//       state
+//     }
+//   }
+// `
 
-export const SyncDocument = gql`
-  mutation SyncDocument($input: SyncDocumentInput!) {
-    syncDocument(input: $input) {
-      errors
-      document {
-        state
-        stateId
-      }
-    }
-  }
-`
+// export const SyncDocument = gql`
+//   mutation SyncDocument($input: SyncDocumentInput!) {
+//     syncDocument(input: $input) {
+//       errors
+//       document {
+//         state
+//         stateId
+//       }
+//     }
+//   }
+// `

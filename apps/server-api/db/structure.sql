@@ -11,6 +11,11 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
+CREATE TYPE public.block_type AS ENUM (
+    'document',
+    'component'
+);
+
 CREATE TYPE public.pod_type AS ENUM (
     'user',
     'space'
@@ -30,10 +35,40 @@ $$;
 
 COMMENT ON FUNCTION public.settings_scope_priority(scope public.ltree, fallback text, root text) IS 'Returns the priority of a scope. The root scope has the lowest priority.';
 
+CREATE TABLE public.blocks (
+    id uuid NOT NULL,
+    type public.block_type NOT NULL,
+    state text,
+    state_id uuid,
+    sort bigint,
+    meta jsonb,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
 CREATE TABLE public.db_migrations (
     name text NOT NULL,
     hash text NOT NULL,
     date timestamp with time zone DEFAULT now() NOT NULL
+);
+
+CREATE TABLE public.documents (
+    id uuid NOT NULL,
+    path public.ltree NOT NULL,
+    space_id uuid NOT NULL,
+    type smallint NOT NULL,
+    title text,
+    content text,
+    slug text,
+    slug_path public.ltree NOT NULL,
+    state bytea,
+    state_id uuid,
+    sort bigint,
+    meta jsonb,
+    deleted_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 CREATE TABLE public.event_logs (
@@ -209,8 +244,14 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 ALTER TABLE ONLY public.spaces_members ALTER COLUMN id SET DEFAULT nextval('public.spaces_members_id_seq'::regclass);
 
+ALTER TABLE ONLY public.blocks
+    ADD CONSTRAINT blocks_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY public.db_migrations
     ADD CONSTRAINT db_migrations_pkey PRIMARY KEY (name);
+
+ALTER TABLE ONLY public.documents
+    ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.event_logs
     ADD CONSTRAINT event_logs_pkey PRIMARY KEY (id);
@@ -226,6 +267,8 @@ ALTER TABLE ONLY public.settings
 
 ALTER TABLE ONLY public.spaces_members
     ADD CONSTRAINT spaces_members_pkey PRIMARY KEY (id);
+
+CREATE UNIQUE INDEX documents_slug_ukey ON public.documents USING btree (slug, slug_path, space_id) WHERE (slug IS NOT NULL);
 
 CREATE INDEX event_logs_actor_type_actor_id ON public.event_logs USING btree (actor_type, actor_id);
 

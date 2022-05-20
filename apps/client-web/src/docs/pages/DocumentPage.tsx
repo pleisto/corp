@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { Spin, devLog } from '@brickdoc/design-system'
 import { EditorContent, useEditor, useEditorI18n } from '@brickdoc/editor'
 import { Block } from '@/BrickdocGraphQL'
 import { DocumentTitle } from './components/DocumentTitle'
-import { useSyncProvider, useDocSyncProvider } from './hooks'
+import { useDocument } from '@/common/models'
 import { blocksToJSONContents } from '../common/blocks'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
@@ -28,14 +28,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   // promote this call to the beginning of this render fn.
   useEditorI18n()
 
-  const queryVariables = useMemo(
-    () => ({ rootId: docMeta.id as string, snapshotVersion: docMeta.snapshotVersion }),
-    [docMeta.id, docMeta.snapshotVersion]
-  )
+  const { document, loading, rootBlock, onDocSave, saveDocument } = useDocument({ docId: docMeta.id as string })
 
-  const { rootBlock, data, loading, onDocSave } = useSyncProvider(queryVariables)
+  // const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id as string })
 
-  const { ydoc, initBlocksToEditor } = useDocSyncProvider({ docId: docMeta.id as string })
+  const initBlocksToEditor = React.useRef<boolean>(true)
 
   const freeze = mode === 'presentation'
   const currentRootBlock = rootBlock.current
@@ -47,14 +44,14 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   const externalProps = useEditorExternalProps({
     docMeta,
     documentEditable,
-    blocks: data?.childrenBlocks
+    blocks: document?.blocks ?? []
   })
 
   const editor = useEditor({
     onSave: onDocSave,
     externalProps,
     editable: documentEditable,
-    ydoc: ydoc.current
+    ydoc: document.ydoc
   })
 
   // TODO: refactor editor reactive var
@@ -63,15 +60,15 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
   }, [editor, freeze])
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed && data?.childrenBlocks && initBlocksToEditor.current) {
+    if (editor && !editor.isDestroyed && document?.blocks && initBlocksToEditor.current) {
       devLog('init blocks to editor')
-      const content: JSONContent[] = blocksToJSONContents(data?.childrenBlocks as Block[])
+      const content: JSONContent[] = blocksToJSONContents(document?.blocks as Block[])
 
       if (content.length) {
         editor.chain().setMeta('preventUpdate', true).replaceRoot(content[0]).run()
       }
     }
-  }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
+  }, [editor, document?.blocks, initBlocksToEditor])
 
   if (loading || docMeta.documentInfoLoading) {
     return (
@@ -83,11 +80,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
 
   const redirectPersonalSpacePath = `/${docMeta.personalDomain}`
 
-  if (data === undefined) {
+  if (!document) {
     return null
   }
 
-  if (!docMeta.viewable || (docMeta.isAnonymous && !data?.childrenBlocks?.length)) {
+  if (!docMeta.viewable || (docMeta.isAnonymous && !document?.blocks?.length)) {
     return <Navigate to={redirectPersonalSpacePath} />
     // return <Alert message="TODO Page not found" type="error" />
   }
@@ -101,7 +98,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
           '@smDown': 'sm'
         }}
       >
-        <DocumentTitle docId={docMeta.id} blocks={data?.childrenBlocks} editable={documentEditable} />
+        <DocumentTitle document={document} saveDocument={saveDocument} editable={documentEditable} />
         <Root.PageContent>
           <EditorContent editor={editor} externalProps={externalProps} />
         </Root.PageContent>
@@ -113,7 +110,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ docMeta, mode }) => 
     return PageElement
   }
 
-  if (data?.childrenBlocks?.length) {
+  if (document?.blocks?.length) {
     return PageElement
   } else {
     return <Navigate to={redirectPersonalSpacePath} />

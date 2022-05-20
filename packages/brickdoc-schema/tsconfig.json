@@ -3,6 +3,7 @@
   "compilerOptions": { "outDir": "dist" },
   "include": ["**/*"],
   "exclude": [
-    "dist/**/*"
+    "dist/**/*",
+    "./src/BrickdocModels.ts"
   ]
 }
