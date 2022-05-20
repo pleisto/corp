@@ -10,6 +10,36 @@ describe('useImageState', () => {
     const { node } = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
       node: {
         attrs: {
+          image: {
+            key: 'key'
+          }
+        }
+      }
+    })
+    const updateEmbedBlockAttributes = jest.fn()
+    const props: any = { displayName, url, node, updateEmbedBlockAttributes }
+    const { result } = renderHook(() => useImageState(props))
+
+    const { onImageLoad } = result.current
+
+    // make image loaded
+    const image = { naturalWidth: 1, naturalHeight: 1 }
+    const event: any = { target: image }
+    onImageLoad(event)
+
+    expect(result.current.showPreview).toBeFalsy()
+
+    result.current.previewImage()
+
+    expect(result.current.showPreview).toBeTruthy()
+  })
+
+  it('not triggers previewImage if no key', () => {
+    const displayName = 'displayName'
+    const url = 'url'
+    const { node } = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      node: {
+        attrs: {
           image: {}
         }
       }
@@ -19,11 +49,9 @@ describe('useImageState', () => {
 
     const { previewImage } = result.current
 
-    expect(result.current.showPreview).toBeFalsy()
-
     previewImage()
 
-    expect(result.current.showPreview).toBeTruthy()
+    expect(result.current.showPreview).toBeFalsy()
   })
 
   it(`updates image's ratio normally when image loaded`, () => {

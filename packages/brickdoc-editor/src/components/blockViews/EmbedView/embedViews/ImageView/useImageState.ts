@@ -22,8 +22,7 @@ export function useImageState({ url, node, updateEmbedBlockAttributes, width }: 
   const [actionOptions] = useActionOptions(url)
 
   const previewImage = useCallback((): void => {
-    if (node.attrs.image?.key && !loaded) return
-    if (showPreview) return
+    if (!node.attrs.image?.key || !loaded || showPreview) return
     setShowPreview(true)
   }, [loaded, node.attrs.image?.key, showPreview])
 
