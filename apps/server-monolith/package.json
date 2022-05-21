@@ -21,6 +21,6 @@
     "lint:fix": "bundle exec rubocop --config .rubocop.yml -a",
     "lint:sorbet": "bundle exec sorbet tc",
     "vite:start": "./bin/vite dev",
-    "vite:build": "/bin/vite build"
+    "vite:build": "./bin/vite build"
   }
 }
