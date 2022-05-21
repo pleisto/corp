@@ -5,8 +5,12 @@
       "path": "."
     },
     {
-      "name": "clients/web",
-      "path": "clients/web"
+      "name": "apps/client-web",
+      "path": "apps/client-web"
+    },
+        {
+      "name": "apps/server-monolith",
+      "path": "apps/server-monolith"
     },
     {
       "name": "packages/active-support",

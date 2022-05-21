@@ -13,7 +13,7 @@ GIT
       rails (>= 5)
 
 PATH
-  remote: gems/brickdoc_settings
+  remote: /Users/ding/Projects/brickdoc/gems/brickdoc_settings
   specs:
     brickdoc_settings (0.0.1)
       activesupport (>= 7.0.0)

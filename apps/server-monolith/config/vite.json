@@ -1,7 +1,7 @@
 {
   "all": {
-    "sourceCodeDir": "clients/web/src",
-    "watchAdditionalPaths": ["packages/**/*"],
+    "sourceCodeDir": "../client-web/src",
+    "watchAdditionalPaths": ["../../packages/**/*"],
     "publicOutputDir": "esm-bundle"
   },
   "development": {

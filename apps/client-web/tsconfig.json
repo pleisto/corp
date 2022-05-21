@@ -7,6 +7,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*"],
+  "include": ["**/*", "../server-monolith/vite.config.ts"],
   "exclude": ["dist/**/*"]
 }

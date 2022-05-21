@@ -1,8 +1,0 @@
-{
-  "name": "@brickdoc/turborepo-rails",
-  "private": true,
-  "description": "It's a stub package for make turborepo could be work with rails in root directory",
-  "scripts": {
-    "lint:rubocop": "cd ../../ && bundle exec rubocop --parallel --config .rubocop.yml"
-  }
-}

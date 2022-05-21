@@ -69,10 +69,10 @@ Some plugins require external dependencies such as api keys, credentials, etc. Y
 
 ## Start development
 
-1. Run `yarn install && bundle install` to install all dependencies.
+1. Run `yarn install && yarn server bundle install` to install all dependencies.
 2. Run `yarn dev generate dotenv` to initialize the dotenv file.
-3. Run `rails db:create && rails db:migrate` to updates your database using migrations.
-4. Run `yarn start` to start the development server.
+3. Run `yarn server db:create && yarn server db:migrate` to updates your database using migrations.
+4. Run `yarn server s` && `yarn web start` to start the development server.
 5. Visit `http://localhost:3000`, and you should now see the login page.
 
 - To lint your code, run `yarn lint`
@@ -94,11 +94,12 @@ yarn cleanup # Clean up all the building artifacts / intermediates
 yarn graphql # Generate GraphQL schema and run graphql-codegen
 
 # API Server
-rails s
-rails db:{create | migrate | drop} # Create or drop database
+yarn server s # rails server
+yarn server c # rails console
+yarn server db:{create | migrate | drop} # Create or drop database
 
 # Generator
-rails g # Rails generators
+yarn server g # Rails generators
 yarn dev g {dotenv} # Angular schematics tools
 
 # Other packages

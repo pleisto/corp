@@ -2,16 +2,15 @@ flag_management:
   default_rules:
     carryforward: true
 ignore:
-  - 'config/**/*'
-  - 'public/**/*'
+  - 'apps/server-monolith/config/**/*'
+  - 'apps/server-monolith/public/**/*'
   - 'gems/**/*'
   - 'e2e-testing/**/*'
   - 'tools/**/*'
+  - 'apps/client-web/BrickdocGraphQL.ts'
   - 'packages/brickdoc-design-icons/**/*'
-  - 'clients/web/BrickdocGraphQL.ts'
   - 'packages/briockdoc-design-system/.storybook'
   - 'packages/brickdoc-design-system/components/*/demos'
-  - 'packages/dotenv/**/*'
   - 'packages/eslint-plugin-brickdoc/**/*'
   - '**/*.stories.*'
   - '**/spec'
@@ -20,5 +19,4 @@ ignore:
   - '**/node_modules'
   - '**/vendor'
   - 'docs/**/*'
-  - 'spec/**/*'
-  - 'tmp/**/*'
+  - '**/tmp'

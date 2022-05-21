@@ -24,12 +24,12 @@ ENV YARN_CHECKSUM_BEHAVIOR=update
 
 COPY . .
 RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
-RUN bundle install --retry 2 --jobs 4 \
-  && yarn install --immutable
-RUN COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV yarn dist
+RUN yarn install --immutable \
+  && yarn server bundle install --retry 2 --jobs 4
+RUN COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV yarn server vite:build
 RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli releases files brickdoc@$VERSION upload-sourcemaps ./public/esm-bundle --url-prefix '~/globalcdn/brickdoc-saas-prod/esm-bundle'; fi
 
-RUN rm -rf node_modules .yarn clients/web dist public/esm-bundle/stats.json yarn.lock \
+RUN rm -rf node_modules .yarn apps/client-web dist apps/server-monolith/public/esm-bundle/stats.json yarn.lock \
   && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
   && rm -rf ./packages/* \
   && mkdir tmp/pids
@@ -47,5 +47,6 @@ ENV RAILS_ENV=$RAILS_ENV
 ENV RAILS_SERVE_STATIC_FILES=true
 COPY --from=builder /app .
 
+WORKDIR /app/apps/server-monolith
 EXPOSE 3000
-ENTRYPOINT ["bundle", "exec" ,"pumactl", "-F" ,"/app/config/puma.rb", "start"]
+ENTRYPOINT ["bundle", "exec" ,"pumactl", "-F" ,"/app/apps/server-monolith/config/puma.rb", "start"]

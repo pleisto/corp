@@ -89,7 +89,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         with:
-          ruby-version: 3.0.2
+          ruby-version: 3.1.2
+          working-directory: 'apps/server-monolith'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -98,14 +99,14 @@ jobs:
           toolchain: stable
       - name: Run DB migrations
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
-        run: bundle exec rails db:prepare
+        run: yarn server bundle exec rails db:prepare
         env:
           RAILS_ENV: test
       - name: Run RSpec tests
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         env:
           RAILS_ENV: test
-        run: bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
+        run: yarn server bundle exec rspec --format RspecJunitFormatter --out junit-reports/rspec.xml
       - name: Publish RSpec test reports
         if: always() && steps.changed-ruby-files.outputs.any_changed == 'true'
         uses: mikepenz/action-junit-report@v2
@@ -129,21 +130,21 @@ jobs:
         uses: tj-actions/changed-files@v14.6
         with:
           files: |
-            db\/migrate
+            apps\/server-monolith\/db\/migrate
       - name: Get changed GraphQL type definitions
         id: changed-gql-typeds
         uses: tj-actions/changed-files@v14.6
         with:
           files: |
-            app\/graphql
-            lib\/brick_graphql
+            apps\/server-monolith\/app\/graphql
+            apps\/server-monolith\/lib\/brick_graphql
             graphql.ts$
-      - name: Dump the graphql schema & GRPC schema
+      - name: Dump the graphql schema
         if: steps.changed-gql-typeds.outputs.any_changed == 'true'
-        run: yarn install --immutable && yarn graphql && yarn grpc
+        run: yarn install --immutable && yarn graphql
       - name: Dump the database schema
         if: steps.changed-db-migrations.outputs.any_changed == 'true'
-        run: bundle exec rails db:prepare db:schema:dump
+        run: yarn server bundle exec rails db:prepare db:schema:dump
       - name: Add and commit everything
         uses: EndBug/add-and-commit@v8.0.2
         if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main'
@@ -152,4 +153,4 @@ jobs:
         with:
           default_author: github_actions
           message: 'chore: bump schemas and dists'
-          add: 'app lib packages spec config db clients'
+          add: 'apps packages'

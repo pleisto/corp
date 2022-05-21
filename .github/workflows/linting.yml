@@ -29,10 +29,6 @@ jobs:
         with:
           node-version: 18
           cache: yarn
-      - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
       - name: Run yarn install
         run: yarn install --immutable
       - name: Run yarn lint
@@ -54,24 +50,39 @@ jobs:
             .(rb)$
             Gemfile.lock
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install libsodium23 rustc
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        run: sudo apt-get update && sudo apt-get install libsodium23
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         with:
-          ruby-version: 3.0.2
+          working-directory: 'apps/server-monolith'
+          ruby-version: 3.1.2
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Setup NodeJS
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Run yarn install
+        if: steps.changed-ruby-files.outputs.any_changed == 'true'
+        run: yarn install --immutable
       - name: Run Rubocop
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: |
           echo "::add-matcher::.github/matchers/rubocop.json"
-          bundle exec rubocop --parallel --config .rubocop.yml
+          yarn lint:rubocop
       - name: Run Brakeman
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: |
           echo "::add-matcher::.github/matchers/brakeman.json"
-          bundle exec brakeman --no-pager -f csv -o /dev/stdout
+          yarn server lint:brakeman
       - name: Run Sorbet Static Type Checker
         if: steps.changed-ruby-files.outputs.any_changed == 'true'
         run: |
-          bundle exec srb tc
+          yarn server lint:sorbet

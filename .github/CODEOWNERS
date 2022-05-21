@@ -5,7 +5,7 @@
 /lib @aligo @Darmody @clszzyh
 /config @aligo @Darmody @clszzyh
 /gems @aligo @Darmody @clszzyh
-/clients/web/ @melchior-voidwolf @Darmody
+/apps/client-web/ @melchior-voidwolf @Darmody
 /packages/brickdoc-design-system/ @melchior-voidwolf @wizcas
 /packages/brickdoc-editor/ @Darmody @clszzyh
 /packages/brickdoc-formula/ @clszzyh @aligo

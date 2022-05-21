@@ -1,10 +1,11 @@
 /**
  * TODO: delete me after rails project retired
  */
-import { defineConfig } from 'vite'
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
 import RubyPlugin from 'vite-plugin-ruby'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { join } from 'node:path/posix'
 import swc from 'unplugin-swc'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -95,5 +96,13 @@ export default defineConfig({
       lodash: 'lodash-es'
     },
     dedupe: ['react', 'react-dom', 'i18next', 'react-i18next']
+  },
+  server: {
+    fs: {
+      allow: [
+        // Define correct path for monorepo
+        searchForWorkspaceRoot(join(process.cwd(), '..', '..'))
+      ]
+    }
   }
 })

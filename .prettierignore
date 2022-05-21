@@ -7,7 +7,7 @@ tmp/
 log/
 node_modules/
 /public/esm-bundle/
-db/*
+apps/server-monolith/db/*
 sorbet/*
 
 CHANGELOG.*

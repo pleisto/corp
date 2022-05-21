@@ -1,5 +1,5 @@
 {
-  "name": "@brickdoc/web",
+  "name": "@brickdoc/client-web",
   "description": "The web client app for the Brickdoc website.",
   "private": true,
   "license": "GPL-3.0-or-later WITH Classpath-exception-2.0",
@@ -47,6 +47,8 @@
     "lint:eslint": "TIMING=1 run -T eslint --cache --ext ts,tsx src",
     "lint:fix": "TIMING=1 run -T eslint --cache --ext ts,tsx src --fix",
     "lint:type": "run -T tsc",
-    "test:jest": "run -T jest"
+    "test:jest": "run -T jest",
+    "start": "run -T server vite:start",
+    "dist": "run -T server vite:build"
   }
 }

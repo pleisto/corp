@@ -28,7 +28,7 @@ class BrickdocPlugin
       register(plugin_name).config(&block) if block
     end
 
-    def load_plugins(plugins_paths = Rails.root.join('plugins/*'))
+    def load_plugins(plugins_paths = Brickdoc.monorepo_root.join('plugins/*'))
       Dir[plugins_paths].each do |path|
         load_plugin(path)
       end

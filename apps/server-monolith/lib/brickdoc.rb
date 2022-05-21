@@ -8,6 +8,10 @@ module Brickdoc
     Pathname.new File.expand_path('..', __dir__)
   end
 
+  def self.monorepo_root
+    Pathname.new File.expand_path('../../..', __dir__)
+  end
+
   VERSION = JSON.parse(File.read(root.join('package.json')))['version'].freeze
   BOOTED_AT = Time.now.utc.freeze
 end
