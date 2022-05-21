@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Add NodeJS & PostgreSQL apt sources.
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-  && apt-get install --no-install-recommends -y nodejs build-essential && npm install -g yarn @sentry/cli
+  && apt-get install --no-install-recommends -y nodejs build-essential git && npm install -g yarn @sentry/cli
 
 ARG RAILS_ENV=production
 ARG VERSION=0.0.0
