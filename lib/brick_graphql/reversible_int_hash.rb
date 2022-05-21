@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module BrickGraphQL
@@ -6,11 +7,12 @@ module BrickGraphQL
     # @see https://web.archive.org/web/20071223173210/http://www.concentric.net/~Ttwang/tech/inthash.htm
     # and https://github.com/jenssegers/optimus
     attr_accessor :prime, :inverse_integer, :random_integer, :max_integer
+
     SIZE = 31 # int32
     DEFAULT_SEED = {
       prime: 2130011327,
       inverse_integer: 1941441343,
-      random_integer: 1986383814
+      random_integer: 1986383814,
     }
 
     DEFAULT_SEED_WARN = <<-EOF
@@ -29,6 +31,7 @@ module BrickGraphQL
 
     def encode(value)
       raise ArgumentError, "value #{value} must be less than #{@max_integer}" if value > @max_integer
+
       (((value * prime) & max_integer) ^ random_integer).to_s(36)
     end
 
@@ -42,17 +45,13 @@ module BrickGraphQL
         {
           prime: prime.to_i,
           inverse_integer: prime.mod_inverse(2**SIZE).to_i,
-          random_integer: OpenSSL::BN.rand(SIZE).to_i
+          random_integer: OpenSSL::BN.rand(SIZE).to_i,
         }
       end
 
-      def encode(value)
-        system_instance.encode value
-      end
+      delegate :encode, to: :system_instance
 
-      def decode(value)
-        system_instance.decode value
-      end
+      delegate :decode, to: :system_instance
 
       def system_instance
         @instance ||= if BrickdocConfig.reversible_int_hash[:prime].blank?

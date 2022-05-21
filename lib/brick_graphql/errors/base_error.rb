@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module BrickGraphQL
@@ -16,7 +17,7 @@ module BrickGraphQL
         # ref: https://spec.graphql.org/draft/#example-fce18
         { extensions: {
           type: type,
-          code: "#{type}.#{sub_code}"
+          code: "#{type}.#{sub_code}",
         } }.merge(super)
       end
     end

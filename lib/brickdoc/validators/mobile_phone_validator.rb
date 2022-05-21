@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Brickdoc
@@ -8,8 +9,9 @@ module Brickdoc
       REGEXP = /^[1-9]\d{5,13}$/i
 
       def validate_each(record, attribute, value)
-        message = ::I18n.t("errors.messages.mobile_phone_invalid")
+        message = ::I18n.t('errors.messages.mobile_phone_invalid')
         return record.errors.add attribute, message unless value =~ REGEXP
+
         if value.start_with?('86')
           # Chinese mobile phone validator
           # There are 11 digits. Start with 1{3-9}.

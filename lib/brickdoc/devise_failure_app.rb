@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Brickdoc
@@ -20,13 +21,13 @@ module Brickdoc
       operation_name = request.params[:operationName]
       results = {
         errors: [i18n_message],
-        '__typename': "#{operation_name}Payload".camelize
+        '__typename': "#{operation_name}Payload".camelize,
       }
 
       # make all data fields nullable.
       ast = GraphQL.parse(params[:query])
       fields = ast.children[0].selections.find { |i| i.name === operation_name }
-        .selections.map(&:name) - %w[errors __typename]
+        .selections.map(&:name) - ['errors', '__typename']
       fields.each { |f| results[f] = nil }
 
       self.response_body = Oj.dump({ data: { operation_name => results } })

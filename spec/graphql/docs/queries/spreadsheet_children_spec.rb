@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -11,7 +12,7 @@ describe Docs::Queries::SpreadsheetChildren, type: :query do
       self.current_space = space.as_session_context
 
       parent_block = create(:docs_block, space: space, type: 'spreadsheetBlock', collaborators: [user.id])
-      _rows_blocks = 10.times { create(:docs_block, space: space, type: 'spreadsheetRow', parent: parent_block) }
+      _rows_blocks = create_list(:docs_block, 10, space: space, type: 'spreadsheetRow', parent: parent_block)
 
       # block
       query = <<-'GRAPHQL'

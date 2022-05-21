@@ -1,4 +1,7 @@
+# typed: true
 # frozen_string_literal: true
+
+# rubocop:disable Sorbet/ConstantsFromStrings
 
 module BrickGraphQL
   # Find all ruby modules that match the rules
@@ -23,6 +26,7 @@ module BrickGraphQL
         namespaces.filter_map do |namespace|
           # Skip all modules that do not contain resolvers.
           next unless namespace.const_defined? module_name
+
           namespace.const_get module_name
         end
       end

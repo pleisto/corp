@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -10,7 +12,8 @@
 return if Rails.env.production?
 
 users = 5.times.map do |n|
-  Accounts::User.create!(name: "ADMIN#{n}", password: "PASSWORD#{n}", email: "ADMIN#{n}@brickdoc.com", domain: "ADMIN#{n}").tap(&:confirm)
+  Accounts::User.create!(name: "ADMIN#{n}", password: "PASSWORD#{n}", email: "ADMIN#{n}@brickdoc.com",
+    domain: "ADMIN#{n}").tap(&:confirm)
 end
 
 spaces = users.map { |u| u.spaces.first }
@@ -39,7 +42,7 @@ def create_block(space, id, parent_id, spaces)
     parent_id: parent_id,
     root_id: parent_id,
     text: FFaker::Lorem.phrase,
-    content: []
+    content: [],
   }
   Docs::Block.create!(params)
 end

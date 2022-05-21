@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Brickdoc
@@ -7,8 +8,8 @@ module Brickdoc
       REGEXP = /\A[a-z0-9]+(-[a-z0-9]+)*\z/i
 
       def validate_each(record, attribute, value)
-        if value !~ REGEXP || Brickdoc::DomainBlacklist.all.include?(value)
-          record.errors.add attribute, ::I18n.t("errors.messages.domain_invalid")
+        if value !~ REGEXP || Brickdoc::DomainDenylist.all.include?(value)
+          record.errors.add attribute, ::I18n.t('errors.messages.domain_invalid')
         end
       end
     end

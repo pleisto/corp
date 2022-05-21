@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 require 'active_support/core_ext/hash/keys'
@@ -10,16 +11,16 @@ module Brickdoc
       state: 1,
       queue: 2,
       persistence: 3,
-      object: 4
+      object: 4,
     }
 
     class << self
-      def with(db)
-        pool(db).with { |redis| yield redis }
+      def with(db, &block)
+        pool(db).with(&block)
       end
 
-      def with_encryption(db)
-        encryption_pool(db).with { |redis| yield redis }
+      def with_encryption(db, &block)
+        encryption_pool(db).with(&block)
       end
 
       def version
@@ -61,8 +62,8 @@ module Brickdoc
           db: DB_MAPPING[db],
           namespace: "#{Rails.env}:brickdoc:#{db}",
           ssl_params: {
-            verify_mode: OpenSSL::SSL::VERIFY_NONE
-          }
+            verify_mode: OpenSSL::SSL::VERIFY_NONE,
+          },
         }
       end
     end

@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :accounts_user, class: 'Accounts::User', aliases: [:owner] do
     name { FFaker::Name.name }

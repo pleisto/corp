@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -42,20 +43,20 @@ describe Docs::Queries::TrashBlocks, type: :query do
       space = create(:space)
       self.current_space = space.as_session_context
 
-      block = create(:docs_block, space: space, collaborators: [user.id], text: "foo bar zzz")
+      block = create(:docs_block, space: space, collaborators: [user.id], text: 'foo bar zzz')
       block.soft_delete!
 
       internal_graphql_execute(query, { domain: space.domain })
       expect(response.success?).to be true
-      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to eq(true)
+      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to be(true)
 
-      internal_graphql_execute(query, { domain: space.domain, search: "baz" })
+      internal_graphql_execute(query, { domain: space.domain, search: 'baz' })
       expect(response.success?).to be true
       expect(response.data['trashBlocks']).to eq([])
 
-      internal_graphql_execute(query, { domain: space.domain, search: "bar" })
+      internal_graphql_execute(query, { domain: space.domain, search: 'bar' })
       expect(response.success?).to be true
-      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to eq(true)
+      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to be(true)
 
       self.current_user = nil
       self.current_space = nil
@@ -74,7 +75,7 @@ describe Docs::Queries::TrashBlocks, type: :query do
       internal_graphql_execute(query, { domain: space.domain, blockId: root.id })
 
       expect(response.success?).to be true
-      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to eq(true)
+      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to be(true)
 
       self.current_user = nil
       self.current_space = nil
@@ -87,13 +88,13 @@ describe Docs::Queries::TrashBlocks, type: :query do
       self.current_space = space.as_session_context
 
       root = create(:docs_block, space: space, collaborators: [user.id])
-      block = root.create_sub_block!("abc")
+      block = root.create_sub_block!('abc')
       block.soft_delete!
 
       internal_graphql_execute(query, { domain: space.domain, blockId: root.id })
 
       expect(response.success?).to be true
-      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to eq(true)
+      expect(response.data['trashBlocks'].any? { |b| b['id'] == block.id }).to be(true)
 
       self.current_user = nil
       self.current_space = nil
@@ -106,9 +107,9 @@ describe Docs::Queries::TrashBlocks, type: :query do
       self.current_space = space.as_session_context
 
       root = create(:docs_block, space: space, collaborators: [user.id])
-      block = root.create_sub_block!("abc")
-      sub_block = block.create_sub_block!("abc")
-      sub_sub_block = sub_block.create_sub_block!("abc")
+      block = root.create_sub_block!('abc')
+      sub_block = block.create_sub_block!('abc')
+      sub_sub_block = sub_block.create_sub_block!('abc')
       root.soft_delete!
       block.soft_delete!
 

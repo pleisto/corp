@@ -4,7 +4,8 @@
   "globalDependencies": ["$CI"],
   "pipeline": {
     "lint:eslint": {
-      "outputs": [".eslintcache"]
+      "outputs": [".eslintcache"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "lint:fix": {
       "outputs": [".eslintcache"]
@@ -12,8 +13,12 @@
     "lint:type": {
       "outputs": ["dist/tsconfig.tsbuildinfo"]
     },
+    "lint:rubocop": {
+      "outputs": ["../../tmp/cache/rubocop_cache/**"]
+    },
     "test:jest": {
-      "outputs": ["coverage/**", "junit-reports/jest.xml"]
+      "outputs": ["coverage/**", "junit-reports/jest.xml"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "package.json"]
     },
     "tsdoc": {
       "outputs": ["docs/api/**"]

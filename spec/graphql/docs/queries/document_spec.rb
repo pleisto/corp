@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -24,7 +25,7 @@ describe Docs::Queries::SpreadsheetChildren, type: :query do
 
       expect(response.success?).to be true
 
-      expect(response.data['document']).to be nil
+      expect(response.data['document']).to be_nil
     end
 
     it 'can query no document' do

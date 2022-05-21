@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -80,9 +81,12 @@ describe Docs::Queries::Block, type: :query do
 
       block1 = create(:docs_block, space: space)
       block2 = create(:docs_block, space: space, collaborators: [user.id])
-      child1 = create(:docs_block, space: space, sort: 100, collaborators: [user.id], parent: block2, root_id: block2.id)
-      child2 = create(:docs_block, space: space, sort: 200, collaborators: [user.id], parent: block2, root_id: block2.id)
-      child3 = create(:docs_block, space: space, sort: 300, collaborators: [user.id], parent: block2, root_id: block2.id)
+      child1 = create(:docs_block, space: space, sort: 100, collaborators: [user.id], parent: block2,
+        root_id: block2.id)
+      child2 = create(:docs_block, space: space, sort: 200, collaborators: [user.id], parent: block2,
+        root_id: block2.id)
+      child3 = create(:docs_block, space: space, sort: 300, collaborators: [user.id], parent: block2,
+        root_id: block2.id)
 
       expect do
         internal_graphql_execute(get_block_query, { id: block1.id })
@@ -91,7 +95,7 @@ describe Docs::Queries::Block, type: :query do
       internal_graphql_execute(get_block_query, { id: block2.id })
       expect(response.success?).to be true
       expect(response.data['block']['id']).to eq block2.id
-      expect(response.data['block']['permissions']['canShow']['value']).to eq true
+      expect(response.data['block']['permissions']['canShow']['value']).to be true
 
       # pageBlocks
 
@@ -102,13 +106,13 @@ describe Docs::Queries::Block, type: :query do
       expect(root['id']).to eq block2.id
       expect(root['rootId']).to eq block2.id
       expect(root['nextSort'].class).to eq String
-      expect(root['nextSort'].to_i).to_not eq 0
+      expect(root['nextSort'].to_i).not_to eq 0
       expect(root['firstChildSort'].to_i).to eq child1.reload.sort
       sort_map = {
         # block2.id => [Docs::Block::SORT_GAP, Docs::Block::SORT_GAP * 2],
         child1.id => [0, Docs::Block::SORT_GAP * 1],
         child2.id => [Docs::Block::SORT_GAP * 1, Docs::Block::SORT_GAP * 2],
-        child3.id => [Docs::Block::SORT_GAP * 2, Docs::Block::SORT_GAP * 3]
+        child3.id => [Docs::Block::SORT_GAP * 2, Docs::Block::SORT_GAP * 3],
       }
       expect(response.data['pageBlocks'].each_with_object({}) do |x, h|
         h[x['id']] = [x['sort'].to_i, x['nextSort'].to_i] if x['id'] != block2.id
@@ -125,7 +129,7 @@ describe Docs::Queries::Block, type: :query do
       expect(response.data['childrenBlocks'].length).to eq 6
       expect(response.data['childrenBlocks'].map do |b|
                b['id']
-             end .sort).to eq [block2.id, child1.id, child2.id, child3.id, block3.id, block4.id].sort
+             end.sort).to eq [block2.id, child1.id, child2.id, child3.id, block3.id, block4.id].sort
     end
 
     it 'snapshots' do
@@ -170,7 +174,7 @@ describe Docs::Queries::Block, type: :query do
       internal_graphql_execute(children_blocks_query, { root_id: block.id, snapshot_version: 0 })
 
       expect(response.success?).to be false
-      expect(response.errors[0]['message']).to eq(I18n.t("errors.graphql.argument_error.already_hard_deleted"))
+      expect(response.errors[0]['message']).to eq(I18n.t('errors.graphql.argument_error.already_hard_deleted'))
 
       self.current_user = nil
       self.current_space = nil

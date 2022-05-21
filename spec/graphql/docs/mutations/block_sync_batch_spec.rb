@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -23,18 +24,18 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: [{
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 147
-      }] } }
+        sort: 147,
+      }], } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
       root = Docs::Block.non_deleted.find(root_id)
-      expect(root.type).to eq("doc")
+      expect(root.type).to eq('doc')
       expect(root.sort).to eq(147)
       expect(root.descendants.count).to eq(1)
 
@@ -48,19 +49,19 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
       space = user.personal_space
       self.current_space = space.as_session_context
 
-      expect(user.last_space_domain).to eq(nil)
+      expect(user.last_space_domain).to be_nil
       expect(user.last_block_ids).to eq({})
 
       root_id = SecureRandom.uuid
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: [{
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 147
-      }] } }
+        sort: 147,
+      }], } }
       internal_graphql_execute(mutation, input)
 
       user.reload
@@ -77,27 +78,27 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
 
       blocks = [{
         id: SecureRandom.uuid,
-        type: "doc",
+        type: 'doc',
         parentId: root_id,
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 321
+        sort: 321,
       }, {
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 159
-      }]
+        sort: 159,
+      },]
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: blocks } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
       root = Docs::Block.find(root_id)
       expect(root.descendants.count).to eq(2)
       expect(root.sort).to eq(159)
@@ -106,7 +107,7 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: blocks } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
       root.reload
       expect(root.descendants.count).to eq(2)
       expect(root.sort).to eq(333)
@@ -115,7 +116,7 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: blocks } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
 
       self.current_user = nil
       self.current_space = nil
@@ -130,37 +131,37 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
 
       blocks = [{
         id: block_id,
-        type: "doc",
+        type: 'doc',
         parentId: root_id,
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 321
+        sort: 321,
       }, {
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "",
+        text: '',
         content: [],
-        sort: 159
-      }]
+        sort: 159,
+      },]
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: blocks } }
       internal_graphql_execute(mutation, input)
       root = Docs::Block.find(root_id)
 
       expect(root.descendants.count).to eq(2)
-      expect(Docs::Block.find(block_id).deleted_at).to eq(nil)
+      expect(Docs::Block.find(block_id).deleted_at).to be_nil
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [block_id], blocks: [] } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
 
       expect(root.descendants.count).to eq(1)
-      expect(Docs::Block.find(block_id).deleted_at).not_to eq(nil)
+      expect(Docs::Block.find(block_id).deleted_at).not_to be_nil
     end
 
     it 'edit deleted blocks' do
@@ -172,28 +173,28 @@ describe Docs::Mutations::BlockSyncBatch, type: :mutation do
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: [{
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "123",
+        text: '123',
         content: [],
-        sort: 147
-      }] } }
+        sort: 147,
+      }], } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data).to eq({ "blockSyncBatch" => nil })
+      expect(response.data).to eq({ 'blockSyncBatch' => nil })
 
       block.soft_delete!
 
       input = { input: { operatorId: operator_id, rootId: root_id, deletedIds: [], blocks: [{
         id: root_id,
-        type: "doc",
+        type: 'doc',
         meta: {},
         data: {},
-        text: "123456",
+        text: '123456',
         content: [],
-        sort: 147
-      }] } }
+        sort: 147,
+      }], } }
       internal_graphql_execute(mutation, input)
       expect(response.success?).to be(true)
 

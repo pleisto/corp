@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts_federated_identities
@@ -16,15 +18,17 @@
 #  index_accounts_federated_identities_on_provider_and_uid  (provider,uid) UNIQUE
 #
 
-class Accounts::FederatedIdentity < ApplicationRecord
-  belongs_to :user, class_name: 'Accounts::User', foreign_key: :accounts_user_id
+module Accounts
+  class FederatedIdentity < ApplicationRecord
+    belongs_to :user, class_name: 'Accounts::User', foreign_key: :accounts_user_id, inverse_of: :federated_identities
 
-  second_level_cache expires_in: 1.week
+    second_level_cache expires_in: 1.week
 
-  validates_presence_of :uid, :provider
-  validates :uid, uniqueness: { scope: :provider }
+    validates :uid, :provider, presence: true
+    validates :uid, uniqueness: { scope: :provider }
 
-  def self.find_user_via(provider, uid)
-    where(provider: provider, uid: uid).first
+    def self.find_user_via(provider, uid)
+      where(provider: provider, uid: uid).first
+    end
   end
 end

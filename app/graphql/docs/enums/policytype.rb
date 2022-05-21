@@ -1,8 +1,11 @@
+# typed: strict
 # frozen_string_literal: true
 
 module Docs
-  class Enums::Policytype < BrickGraphQL::BaseEnum
-    value "view", "VIEW"
-    value "edit", "EDIT"
+  module Enums
+    class Policytype < BrickGraphQL::BaseEnum
+      value 'view', 'VIEW'
+      value 'edit', 'EDIT'
+    end
   end
 end

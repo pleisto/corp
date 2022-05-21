@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::BlockPolicy, type: :policy do
@@ -21,7 +23,7 @@ RSpec.describe Docs::BlockPolicy, type: :policy do
   end
 
   it 'owner 2' do
-    new_space = user.own_spaces.create!(domain: "PolicyOwner", name: "PolicyOwner")
+    new_space = user.own_spaces.create!(domain: 'PolicyOwner', name: 'PolicyOwner')
     block2 = create(:docs_block, space: new_space)
     expect(described_class.new(block2, user: user).apply(:show?)).to be true
     expect(block2.show_policy?(user)).to be true

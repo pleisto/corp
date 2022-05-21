@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 # @see https://graphql-ruby.org/api-doc/1.11.6/GraphQL/Subscriptions/ActionCableSubscriptions
@@ -7,9 +8,9 @@ class InternalGraphQLChannel < ApplicationCable::Channel
   end
 
   def execute(data)
-    query = data["query"]
-    variables = BrickGraphQL.ensure_hash(data["variables"])
-    operation_name = data["operationName"]
+    query = data['query']
+    variables = BrickGraphQL.ensure_hash(data['variables'])
+    operation_name = data['operationName']
     request = ActionDispatch::Request.new(connection.env)
     context = {
       protocol: 'websocket',
@@ -18,11 +19,11 @@ class InternalGraphQLChannel < ApplicationCable::Channel
       current_user: current_user,
       current_space: current_space,
       channel: self,
-      request_id: request.uuid
+      request_id: request.uuid,
     }
 
     result = BrickdocSchema.execute(query, context: context,
-                                    variables: variables, operation_name: operation_name)
+      variables: variables, operation_name: operation_name)
     payload = { result: result.to_h, more: result.subscription? }
 
     # Track the subscription here so we can remove it

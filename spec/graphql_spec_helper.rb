@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module GraphqlHelpers
@@ -50,15 +51,16 @@ module GraphqlHelpers
       session: request.session,
       request_id: FFaker::Guid.guid,
       routes: Rails.application.routes.url_helpers,
-      warden: request.env['warden']
+      warden: request.env['warden'],
     }
   end
 
   def request
     return @request if @request.is_a? ActionDispatch::TestRequest
+
     @request = ActionDispatch::TestRequest.create
     @request.session = ActionController::TestSession.new
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env['devise.mapping'] = Devise.mappings[:user]
     @request.env['warden'] = spy(Warden)
     @request
   end

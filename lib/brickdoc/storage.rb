@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 module Brickdoc
   module Storage
     extend self
@@ -14,7 +16,7 @@ module Brickdoc
     def real_url(blob, params = {})
       return nil if blob.nil?
 
-      filename = blob.filename_in_database.presence || "unknown"
+      filename = blob.filename_in_database.presence || 'unknown'
       signed_id = blob.signed_id
 
       p = params.merge({ filename: filename, signed_id: signed_id })

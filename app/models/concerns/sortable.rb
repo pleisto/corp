@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module Sortable
@@ -9,6 +10,7 @@ module Sortable
 
       loop do
         break if roots_result.blank?
+
         parent_ids = roots_result.map(&:id)
         roots_result = blocks.select { |block| block.parent_id.in?(parent_ids) }
         target += roots_result

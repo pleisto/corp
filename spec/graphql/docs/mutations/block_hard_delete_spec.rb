@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -19,27 +20,27 @@ describe Docs::Mutations::BlockHardDelete, type: :mutation do
       self.current_space = user.personal_space.as_session_context
 
       root_block = create(:docs_block, space: user.personal_space)
-      expect(root_block.deleted_at).to eq(nil)
+      expect(root_block.deleted_at).to be_nil
 
       input = { input: { ids: [root_block.id] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(false)
-      expect(response.errors[0]['message']).to eq(I18n.t("errors.graphql.argument_error.not_deleted"))
+      expect(response.success?).to be(false)
+      expect(response.errors[0]['message']).to eq(I18n.t('errors.graphql.argument_error.not_deleted'))
 
       root_block.soft_delete!
 
       input = { input: { ids: [root_block.id] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
-      expect(response.data).to eq({ "blockHardDelete" => nil })
+      expect(response.success?).to be(true)
+      expect(response.data).to eq({ 'blockHardDelete' => nil })
 
       root_block.reload
-      expect(root_block.deleted_permanently_at).to_not be(nil)
+      expect(root_block.deleted_permanently_at).not_to be_nil
 
       input = { input: { ids: [root_block.id] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(false)
-      expect(response.errors[0]['message']).to eq(I18n.t("errors.graphql.argument_error.already_hard_delete"))
+      expect(response.success?).to be(false)
+      expect(response.errors[0]['message']).to eq(I18n.t('errors.graphql.argument_error.already_hard_delete'))
 
       self.current_user = nil
       self.current_space = nil

@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Brickdoc
@@ -9,7 +10,7 @@ module Brickdoc
         payload = {
           level: severity,
           timestamp: time.to_i,
-          hostname: Brickdoc::Runtime.hostname
+          hostname: Brickdoc::Runtime.hostname,
         }
         if message.is_a?(Hash) && message[:event].present?
           payload.merge!(message)

@@ -1,9 +1,12 @@
+# typed: strict
 # frozen_string_literal: true
 
 module Docs
-  class Enums::Patchstate < BrickGraphQL::BaseEnum
-    value "DELETED", "DELETED"
-    value "ACTIVE", "ACTIVE"
-    value "SUBSCRIBED", "SUBSCRIBED"
+  module Enums
+    class Patchstate < BrickGraphQL::BaseEnum
+      value 'DELETED', 'DELETED'
+      value 'ACTIVE', 'ACTIVE'
+      value 'SUBSCRIBED', 'SUBSCRIBED'
+    end
   end
 end

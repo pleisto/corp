@@ -1,7 +1,9 @@
+# typed: strict
 # frozen_string_literal: true
-require "active_support/core_ext/integer/time"
-require "brickdoc/logger"
-require "brickdoc/log/json_formatter"
+
+require 'active_support/core_ext/integer/time'
+require 'brickdoc/logger'
+require 'brickdoc/log/json_formatter'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -62,14 +64,14 @@ Rails.application.configure do
 
   ## Logger
   config.log_level = :debug
-  config.logger = Brickdoc::Logger.new(STDOUT)
+  config.logger = Brickdoc::Logger.new($stdout)
   config.colorize_logging = false
   config.lograge.enabled = true
   config.lograge.keep_original_rails_log = false
-  config.lograge.base_controller_class = %w[ActionController::API]
+  config.lograge.base_controller_class = ['ActionController::API']
   config.lograge.formatter = Lograge::Formatters::Raw.new
   config.lograge.custom_options = lambda do |event|
-    exceptions = %w(controller action format id)
+    exceptions = ['controller', 'action', 'format', 'id']
 
     {
       event: 'http.request',
@@ -78,7 +80,7 @@ Rails.application.configure do
       request_id: event.payload[:request_id],
       params: event.payload[:params]&.except(*exceptions),
       current_user_id: event.payload[:current_user]&.id,
-      current_space_id: event.payload[:current_space]&.fetch('id')
+      current_space_id: event.payload[:current_space]&.fetch('id'),
     }
   end
 

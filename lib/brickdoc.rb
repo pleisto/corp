@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 require 'pathname'
@@ -8,5 +9,5 @@ module Brickdoc
   end
 
   VERSION = JSON.parse(File.read(root.join('package.json')))['version'].freeze
-  BOOTED_AT = Time.now.freeze
+  BOOTED_AT = Time.now.utc.freeze
 end

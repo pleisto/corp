@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 if !Rails.env.development? && !Rails.env.test?
   Sentry.init do |config|
     config.dsn = BrickdocConfig.sentry_dsn

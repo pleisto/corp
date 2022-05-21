@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :accounts_federated_identity, class: 'Accounts::FederatedIdentity' do
     accounts_user

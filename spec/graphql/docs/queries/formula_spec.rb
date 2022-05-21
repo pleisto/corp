@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -28,7 +29,7 @@ describe Docs::Queries::Formulas, type: :query do
       block = create(:docs_block, space: user.personal_space)
       formula = Docs::Formula.create!(
         block_id: block.id, id: SecureRandom.uuid, name: 'foo', meta: {},
-        cache_value: { "type" => 'string', 'value' => '123' }, definition: "=123"
+        cache_value: { 'type' => 'string', 'value' => '123' }, definition: '=123'
       )
 
       internal_graphql_execute(query, { domain: block.space.domain })
@@ -41,7 +42,7 @@ describe Docs::Queries::Formulas, type: :query do
         'name' => formula.name,
         'meta' => formula.meta,
         'definition' => formula.definition,
-        'cacheValue' => formula.cache_value
+        'cacheValue' => formula.cache_value,
       })
     end
   end

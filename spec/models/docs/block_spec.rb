@@ -1,15 +1,17 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::Block, type: :model do
-  context '.basic' do
+  describe '.basic' do
     let(:space) { create(:space) }
     let(:block) { create(:docs_block) }
     let(:child) { create(:docs_block_child) }
     let(:attrs) do
       {
         meta: { title: FFaker::Lorem.phrase },
-        data: { text: "", content: []	}
+        data: { text: '', content: []	},
       }
     end
 
@@ -26,12 +28,13 @@ RSpec.describe Docs::Block, type: :model do
       expect(child.root_id).to eq(child.parent_id)
       expect(parent.root_id).to eq(parent.id)
 
-      expect(parent.children_version_meta).to eq({ child.id => child.history_version, parent.id => parent.history_version })
+      expect(parent.children_version_meta).to eq({ child.id => child.history_version,
+parent.id => parent.history_version, })
     end
 
     it 'create' do
       params = attrs.merge({ page: true, space: space, id: SecureRandom.uuid, collaborators: [space.owner.id] })
-      block = Docs::Block.create!(params)
+      block = described_class.create!(params)
 
       expect(block.histories.count).to eq(1)
       expect(block.snapshots.count).to eq(0)
@@ -39,7 +42,7 @@ RSpec.describe Docs::Block, type: :model do
 
     it 'modify' do
       old_version = block.history_version
-      block.update!(meta: { title: "changed title" })
+      block.update!(meta: { title: 'changed title' })
       expect(block.history_version).to eq(old_version + 1)
     end
 
@@ -73,7 +76,7 @@ RSpec.describe Docs::Block, type: :model do
       old_version = block.history_version
       block.move!(nil, 168)
       expect(block.sort).to eq(168)
-      expect(block.parent_id).to eq(nil)
+      expect(block.parent_id).to be_nil
       expect(block.history_version).to eq(old_version + 1)
       history = block.histories.find_by!(history_version: block.history_version)
       expect(history.sort).to eq(block.sort)
@@ -85,30 +88,30 @@ RSpec.describe Docs::Block, type: :model do
     end
 
     it 'root to child' do
-      expect(block.type).to eq("doc")
+      expect(block.type).to eq('doc')
       old_version = block.history_version
       block.move!(child.id, 231)
       expect(block.sort).to eq(231)
       expect(block.parent_id).to eq(child.id)
-      expect(block.type).to eq("doc")
+      expect(block.type).to eq('doc')
       expect(block.history_version).to eq(old_version + 1)
       history = block.histories.find_by!(history_version: block.history_version)
       expect(history.sort).to eq(block.sort)
-      expect(history.type).to eq("doc")
+      expect(history.type).to eq('doc')
       expect(history.parent_id).to eq(block.parent_id)
     end
 
     it 'child to root' do
-      expect(child.type).to eq("doc")
+      expect(child.type).to eq('doc')
       old_version = child.history_version
       child.move!(nil, 412)
       expect(child.sort).to eq(412)
-      expect(child.parent_id).to eq(nil)
-      expect(child.type).to eq("doc")
+      expect(child.parent_id).to be_nil
+      expect(child.type).to eq('doc')
       expect(child.history_version).to eq(old_version + 1)
       history = child.histories.find_by!(history_version: child.history_version)
       expect(history.sort).to eq(child.sort)
-      expect(history.type).to eq("doc")
+      expect(history.type).to eq('doc')
       expect(history.parent_id).to eq(child.parent_id)
     end
   end

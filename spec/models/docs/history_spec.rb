@@ -1,8 +1,10 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::History, type: :model do
-  context '.histories' do
+  describe '.histories' do
     let(:block) { create(:docs_block) }
     let(:child) { create(:docs_block_child) }
 
@@ -34,7 +36,7 @@ RSpec.describe Docs::History, type: :model do
       expect(child.history_version).to eq(1)
       expect(child.realtime_history_version_value).to eq(1)
 
-      expect(Docs::History.from_version_meta({ child.id => 1, parent.id => 1 }).count).to eq(2)
+      expect(described_class.from_version_meta({ child.id => 1, parent.id => 1 }).count).to eq(2)
     end
   end
 end

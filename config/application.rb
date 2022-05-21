@@ -1,16 +1,18 @@
+# typed: false
 # frozen_string_literal: true
-require_relative "boot"
+
+require_relative 'boot'
 
 # See {https://github.com/rails/rails/blob/v6.1.3/railties/lib/rails/all.rb}
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "action_cable/engine"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_view/railtie'
+require 'action_cable/engine'
 # require "rails/test_unit/railtie"
 
 # eager load some dependencies
@@ -28,12 +30,11 @@ module Brickdoc
 
     config.action_mailer.deliver_later_queue_name = :default
 
-    config.autoload_paths << Rails.root.join('app', 'graphql')
-    config.autoload_paths << Rails.root.join('app', 'services')
+    config.autoload_paths << Rails.root.join('app/graphql')
+    config.autoload_paths << Rails.root.join('app/services')
 
     config.active_record.query_log_tags_enabled = true
     config.active_job.queue_adapter = :async
-
 
     # Run some initializers before Zeitwerk is loaded.
     # This empty initializer forces the :let_zeitwerk_take_over initializer to run before we load initializers
@@ -63,7 +64,7 @@ module Brickdoc
       BrickdocPlugin.load_plugins
 
       ## Enabled Global Plugin
-      default_global_plugins = %i(google_auth github_auth)
+      default_global_plugins = [:google_auth, :github_auth]
       BrickdocConfig.on(:global) do
         default_global_plugins.each { |name| BrickdocPlugin.plugin(name).default_enabled! }
       end

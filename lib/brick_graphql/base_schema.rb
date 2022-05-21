@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module BrickGraphQL
@@ -47,6 +48,7 @@ module BrickGraphQL
 
       def max_query_complexity(ctx)
         return 1_000 if ctx[:entrypoint].blank? # rake graphql:schema:dump
+
         current_user = ctx&.fetch(:current_user, nil)
         current_user.present? ? AUTHENTICATED_COMPLEXITY : DEFAULT_MAX_COMPLEXITY
       end

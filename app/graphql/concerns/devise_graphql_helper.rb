@@ -1,10 +1,13 @@
+# typed: false
 # frozen_string_literal: true
+
 module DeviseGraphQLHelper
   extend ActiveSupport::Concern
 
   def redirect_path
     key = :user_return_to
     return context[:routes].root_path if context[:session][key].blank?
+
     context[:session].delete(key)
   end
 

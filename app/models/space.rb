@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 # == Schema Information
@@ -26,18 +27,20 @@
 class Space < ApplicationRecord
   acts_as_paranoid
   belongs_to :owner, class_name: 'Accounts::User'
-  validates :domain, presence: true, domain: true, uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
+  validates :domain, presence: true, domain: true, uniqueness: { case_sensitive: false, conditions: -> {
+                                                                                                      with_deleted
+                                                                                                    }, }
   validates :name, presence: true
-  validates_presence_of :name
-  validates_uniqueness_of :owner_id, scope: :personal, if: proc { personal? }
-  has_many :blocks, class_name: 'Docs::Block'
+  validates :name, presence: true
+  validates :owner_id, uniqueness: { scope: :personal, if: proc { personal? } }
+  has_many :blocks, class_name: 'Docs::Block', dependent: :destroy
   has_many :share_links, dependent: :restrict_with_exception, class_name: 'Docs::ShareLink'
-  has_many :members, -> { enabled }, class_name: 'Accounts::Member'
-  has_many :all_members, class_name: 'Accounts::Member'
+  has_many :members, -> { enabled }, class_name: 'Accounts::Member', dependent: :destroy, inverse_of: :space
+  has_many :all_members, class_name: 'Accounts::Member', dependent: :destroy
   has_many :users, class_name: 'Accounts::User', through: :members
 
-  after_create :ensure_owner_member!
   before_save :set_invite_secret
+  after_create :ensure_owner_member!
 
   ANYONE_DOMAIN = 'anyone'
   ANONYMOUS_DOMAIN = 'anonymous'
@@ -76,8 +79,8 @@ class Space < ApplicationRecord
 
     {
       url: avatar.blob.real_url,
-      download_url: avatar.blob.real_url(disposition: "attachment"),
-      signed_id: avatar.blob.signed_id
+      download_url: avatar.blob.real_url(disposition: 'attachment'),
+      signed_id: avatar.blob.signed_id,
     }
   end
 
@@ -85,19 +88,19 @@ class Space < ApplicationRecord
     instance = new
     instance.domain = domain
 
-    return { success: true, message: "ok" } if instance.valid?
+    return { success: true, message: 'ok' } if instance.valid?
 
     errors = instance.errors[:domain]
 
     if errors.blank?
-      { success: true, message: "ok" }
+      { success: true, message: 'ok' }
     else
       { success: false, message: errors.first }
     end
   end
 
   ANONYMOUS_CONTEXT = {
-    'domain' => ANONYMOUS_DOMAIN
+    'domain' => ANONYMOUS_DOMAIN,
   }
 
   def ensure_owner_member!

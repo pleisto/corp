@@ -1,8 +1,11 @@
 * @stackia
 
-/apps/landing-page/ @melchior-voidwolf @Darmody
-/apps/server-api/ @aligo @Darmody @clszzyh
-/apps/client-web/ @melchior-voidwolf @Darmody
+/app @aligo @Darmody @clszzyh
+/db @aligo @Darmody @clszzyh @0xding
+/lib @aligo @Darmody @clszzyh
+/config @aligo @Darmody @clszzyh
+/gems @aligo @Darmody @clszzyh
+/clients/web/ @melchior-voidwolf @Darmody
 /packages/brickdoc-design-system/ @melchior-voidwolf @wizcas
 /packages/brickdoc-editor/ @Darmody @clszzyh
 /packages/brickdoc-formula/ @clszzyh @aligo

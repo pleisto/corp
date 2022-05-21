@@ -1,9 +1,10 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
 
 describe BrickGraphQL::Scalars::HttpUrl do
-  subject { BrickGraphQL::Scalars::HttpUrl }
+  subject { described_class }
 
   it 'invalid uri should be raise error' do
     expect { subject.coerce_input('data:text/plain;Hello%2C%20World!', nil) }.to raise_error(GraphQL::CoercionError)

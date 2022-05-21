@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -8,7 +9,7 @@ describe BrickGraphQL::Concerns::CopyFieldDescription do
   describe '.copy_field_description' do
     let(:type) do
       Class.new(BrickGraphQL::BaseObject) do
-        graphql_name "TestType"
+        graphql_name 'TestType'
 
         field :field_name, GraphQL::Types::String, null: true, description: 'Foo'
       end

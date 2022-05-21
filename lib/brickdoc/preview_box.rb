@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'faraday'
 require 'faraday/net_http'
 
@@ -25,17 +27,19 @@ module Brickdoc
         data = {
           title: response.body.dig('meta', 'title') || url,
           description: response.body.dig('meta', 'description'),
-          cover: thumbnail[0]&.dig('href') || icon.select { |i| i["rel"]&.include?('apple-touch-icon') }[0]&.dig('href') || '',
-          icon: icon.select { |i| i["rel"]&.include?('shortcut') }[0]&.dig('href') || '',
-          type: "website"
+          cover: thumbnail[0]&.dig('href') || icon.select do |i|
+                                                i['rel']&.include?('apple-touch-icon')
+                                              end [0]&.dig('href') || '',
+          icon: icon.select { |i| i['rel']&.include?('shortcut') }[0]&.dig('href') || '',
+          type: 'website',
         }
 
-        if medium == "image"
-          data[:type] = "image"
+        if medium == 'image'
+          data[:type] = 'image'
         elsif medium == 'file'
-          file = (response.body.dig('links', 'file') || []).detect { |f| f["href"] == url } || {}
-          data[:type] = file["type"] || "unknown"
-          data[:size] = file["content_length"]
+          file = (response.body.dig('links', 'file') || []).detect { |f| f['href'] == url } || {}
+          data[:type] = file['type'] || 'unknown'
+          data[:size] = file['content_length']
         end
         data
       else
@@ -43,7 +47,7 @@ module Brickdoc
           title: url,
           description: '',
           cover: nil,
-          type: "unknown"
+          type: 'unknown',
         }
       end
     rescue => e
@@ -53,7 +57,7 @@ module Brickdoc
         title: url,
         description: '',
         cover: nil,
-        type: "unknown"
+        type: 'unknown',
       }
     end
 

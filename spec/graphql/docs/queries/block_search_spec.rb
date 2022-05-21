@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -20,24 +21,24 @@ describe Docs::Queries::BlockSearch, type: :query do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
 
-      internal_graphql_execute(query, domain: user.domain, input: "")
-      expect(response.success?).to eq(true)
+      internal_graphql_execute(query, domain: user.domain, input: '')
+      expect(response.success?).to be(true)
       expect(response.data['blockSearch']).to eq([])
 
-      _block = create(:docs_block, space: user.personal_space, text: "Foo Bar Baz")
+      _block = create(:docs_block, space: user.personal_space, text: 'Foo Bar Baz')
 
-      internal_graphql_execute(query, domain: user.domain, input: "")
-      expect(response.success?).to eq(true)
+      internal_graphql_execute(query, domain: user.domain, input: '')
+      expect(response.success?).to be(true)
       expect(response.data['blockSearch'].length).to eq(1)
-      expect(response.data['blockSearch'][0]['text']).to eq("Foo Bar Baz")
+      expect(response.data['blockSearch'][0]['text']).to eq('Foo Bar Baz')
 
-      internal_graphql_execute(query, domain: user.domain, input: "Bar")
-      expect(response.success?).to eq(true)
+      internal_graphql_execute(query, domain: user.domain, input: 'Bar')
+      expect(response.success?).to be(true)
       expect(response.data['blockSearch'].length).to eq(1)
-      expect(response.data['blockSearch'][0]['text']).to eq("Foo Bar Baz")
+      expect(response.data['blockSearch'][0]['text']).to eq('Foo Bar Baz')
 
-      internal_graphql_execute(query, domain: user.domain, input: "Barzzz")
-      expect(response.success?).to eq(true)
+      internal_graphql_execute(query, domain: user.domain, input: 'Barzzz')
+      expect(response.success?).to be(true)
       expect(response.data['blockSearch']).to eq([])
 
       self.current_user = nil

@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -19,16 +20,18 @@ describe System::Queries::EmailAvailable, type: :query do
 
     it 'works' do
       internal_graphql_execute(query, { email: 'legitimate name example' })
-      expect(response.data['emailAvailable']).to eq({ "success" => false, "message" => I18n.t("errors.messages.invalid") })
+      expect(response.data['emailAvailable']).to eq({ 'success' => false,
+'message' => I18n.t('errors.messages.invalid'), })
     end
 
     it 'expect email uniqueness' do
       stub = create(:accounts_user)
       internal_graphql_execute(query, { email: stub.email })
-      expect(response.data['emailAvailable']).to eq({ "success" => false, "message" => I18n.t("errors.messages.taken") })
+      expect(response.data['emailAvailable']).to eq({ 'success' => false,
+'message' => I18n.t('errors.messages.taken'), })
 
-      internal_graphql_execute(query, { email: "legitimate@brickdoc.com" })
-      expect(response.data['emailAvailable']).to eq({ "success" => true, "message" => "ok" })
+      internal_graphql_execute(query, { email: 'legitimate@brickdoc.com' })
+      expect(response.data['emailAvailable']).to eq({ 'success' => true, 'message' => 'ok' })
     end
   end
 end

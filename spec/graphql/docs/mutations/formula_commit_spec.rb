@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -29,12 +30,12 @@ describe Docs::Mutations::FormulaCommit, type: :mutation do
           cacheValue: { type: 'string', result: '123' },
           definition: '=123',
           meta: {},
-          version: 0
-        }], deleteFormulas: []
+          version: 0,
+        }], deleteFormulas: [],
       } }
 
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
+      expect(response.success?).to be(true)
 
       self.current_user = nil
       self.current_space = nil
@@ -48,14 +49,14 @@ describe Docs::Mutations::FormulaCommit, type: :mutation do
         block_id: block.id,
         id: SecureRandom.uuid,
         name: 'formula_update',
-        definition: "=123",
+        definition: '=123',
         meta: {},
         cache_value: { type: 'string', result: '123' },
         version: 0,
         type: 'normal'
       )
 
-      new_name = "formula_update_name"
+      new_name = 'formula_update_name'
 
       input = { input: { commitFormulas: [{
         id: formula.id,
@@ -65,11 +66,11 @@ describe Docs::Mutations::FormulaCommit, type: :mutation do
         cacheValue: { type: 'string', result: '123' },
         meta: {},
         version: 0,
-        type: 'normal'
-      }], deleteFormulas: [] } }
+        type: 'normal',
+      }], deleteFormulas: [], } }
 
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
+      expect(response.success?).to be(true)
 
       formula.reload
 
@@ -85,16 +86,16 @@ describe Docs::Mutations::FormulaCommit, type: :mutation do
 
       formula = Docs::Formula.create!(
         block_id: block.id, id: SecureRandom.uuid, name: 'formula delete', meta: {},
-        definition: "=123", cache_value: { 'value' => "123", 'type' => 'number' }
+        definition: '=123', cache_value: { 'value' => '123', 'type' => 'number' }
       )
 
       input = { input: { commitFormulas: [], deleteFormulas: [{
         id: formula.id,
-        blockId: block.id
-      }] } }
+        blockId: block.id,
+      }], } }
 
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
+      expect(response.success?).to be(true)
 
       expect do
         formula.reload

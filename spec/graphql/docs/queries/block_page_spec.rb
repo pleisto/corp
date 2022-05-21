@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -72,9 +73,9 @@ describe Docs::Queries::PageBlocks, type: :query do
       self.current_space = space.as_session_context
 
       root = create(:docs_block, space: space, collaborators: [user.id])
-      child = root.create_sub_block!("abc")
-      sub_child = child.create_sub_block!("abc")
-      _sub_sub_child = sub_child.create_sub_block!("abc")
+      child = root.create_sub_block!('abc')
+      sub_child = child.create_sub_block!('abc')
+      _sub_sub_child = sub_child.create_sub_block!('abc')
 
       internal_graphql_execute(query, { domain: space.domain })
       expect(response.success?).to be true

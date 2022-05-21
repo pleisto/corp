@@ -1,3 +1,5 @@
+# rubocop:disable Sorbet/FalseSigil, Sorbet/ValidSigil
+# typed: ignore
 # frozen_string_literal: true
 
 module Apiable
@@ -18,8 +20,8 @@ module Apiable
     payload = {
       errors: [{
         message: opts[:message] || 'API Error',
-        extensions: { code: event.to_s.camelize }
-      }]
+        extensions: { code: event.to_s.camelize },
+      }],
     }
     render(json: Oj.dump(payload), status: event)
   end

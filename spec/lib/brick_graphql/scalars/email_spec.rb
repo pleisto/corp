@@ -1,9 +1,10 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
 
 describe BrickGraphQL::Scalars::Email do
-  subject { BrickGraphQL::Scalars::Email }
+  subject { described_class }
 
   it 'invalid email address should be raise error' do
     expect { subject.coerce_input('test.local', nil) }.to raise_error(GraphQL::CoercionError)

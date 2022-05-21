@@ -39,7 +39,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-8D93T65J3Z'<%= ", {
-    'user_id': '#{ Current.user&.hashed_id}'
+    'user_id': '#{h(Current.user&.hashed_id)}'
     }".html_safe if current_user.present? %>);
   </script>
   <% end %>

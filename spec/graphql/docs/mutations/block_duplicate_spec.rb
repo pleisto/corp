@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -26,7 +27,7 @@ describe Docs::Mutations::BlockDuplicate, type: :mutation do
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
       expect(response.data['blockDuplicate']['errors']).to eq([])
-      expect(response.data['blockDuplicate']['id']).to_not eq(nil)
+      expect(response.data['blockDuplicate']['id']).not_to be_nil
 
       self.current_user = nil
       self.current_space = nil

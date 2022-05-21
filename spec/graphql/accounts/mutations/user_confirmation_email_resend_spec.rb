@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -16,7 +17,7 @@ describe Accounts::Mutations::UserConfirmationEmailResend, type: :mutation do
       expect(unavailable_on_openapi(mutation)).to be true
     end
 
-    it 'should email address exists' do
+    it 'emails address exists' do
       internal_graphql_execute(mutation, { input: { email: FFaker::Internet.email } })
       expect(response.data[:userConfirmationEmailResend][:errors][0]).to start_with('Email')
     end

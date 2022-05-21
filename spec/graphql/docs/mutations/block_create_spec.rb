@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -23,10 +24,10 @@ describe Docs::Mutations::BlockCreate, type: :mutation do
 
       expect(block.descendants.count).to eq(1)
 
-      input = { input: { parentId: block.id, title: "child block1" } }
+      input = { input: { parentId: block.id, title: 'child block1' } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data['blockCreate']['id']).not_to eq(nil)
+      expect(response.data['blockCreate']['id']).not_to be_nil
       expect(block.descendants.count).to eq(1)
       expect(block.descendants_raw.count).to eq(2)
       expect(block.descendants_raw.find { |b| b.id != block.id }.sort).to eq(Docs::Block::SORT_GAP)
@@ -39,10 +40,10 @@ describe Docs::Mutations::BlockCreate, type: :mutation do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
 
-      input = { input: { title: "child block1" } }
+      input = { input: { title: 'child block1' } }
       internal_graphql_execute(mutation, input)
       expect(response.errors).to eq({})
-      expect(response.data['blockCreate']['id']).not_to eq(nil)
+      expect(response.data['blockCreate']['id']).not_to be_nil
 
       self.current_user = nil
       self.current_space = nil

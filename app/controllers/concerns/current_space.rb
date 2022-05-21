@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module CurrentSpace
@@ -35,9 +36,11 @@ module CurrentSpace
     ## NOTE Get space via URL params
     domain = request.params['path'].to_s.split('/')[0]
     return nil if domain.blank?
+
     space = current_user.spaces.find_by(domain: domain)
 
     return space.as_session_context if space
+
     Rails.logger.error("Can't find space: #{current_user.id} #{domain}")
 
     nil

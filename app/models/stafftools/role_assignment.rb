@@ -1,4 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: stafftools_role_assignments
@@ -20,7 +22,9 @@
 #  fk_rails_...  (stafftools_role_id => stafftools_roles.id)
 #
 
-class Stafftools::RoleAssignment < ApplicationRecord
-  belongs_to :accounts_user, class_name: 'Accounts::User', foreign_key: :accounts_user_id
-  belongs_to :stafftools_role, class_name: 'Stafftools::Role', foreign_key: :stafftools_role_id
+module Stafftools
+  class RoleAssignment < ApplicationRecord
+    belongs_to :accounts_user, class_name: 'Accounts::User'
+    belongs_to :stafftools_role, class_name: 'Stafftools::Role'
+  end
 end

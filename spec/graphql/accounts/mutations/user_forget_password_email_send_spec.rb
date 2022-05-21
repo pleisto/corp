@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -17,12 +18,12 @@ describe Accounts::Mutations::UserForgetPasswordMailSend, type: :mutation do
     end
 
     it 'email format invalid' do
-      internal_graphql_execute(mutation, { input: { email: "foo" } })
+      internal_graphql_execute(mutation, { input: { email: 'foo' } })
       expect(response.data).to eq({})
       expect(response.errors[0]['message']).to include('is not a valid email address')
     end
 
-    it 'should check email address exists' do
+    it 'checks email address exists' do
       internal_graphql_execute(mutation, { input: { email: FFaker::Internet.email } })
       expect(response.data[:userForgetPasswordMailSend][:errors][0]).to eq("Email #{I18n.t('errors.messages.not_found')}")
     end
@@ -32,10 +33,10 @@ describe Accounts::Mutations::UserForgetPasswordMailSend, type: :mutation do
       internal_graphql_execute(mutation, { input: { email: user.email } })
       expect(response.data[:userForgetPasswordMailSend][:errors]).to eq([])
 
-      expect(user.reset_password_token).to be(nil)
+      expect(user.reset_password_token).to be_nil
       user.reload
-      expect(user.reset_password_token).not_to be(nil)
-      expect(user.reset_password_sent_at).not_to be(nil)
+      expect(user.reset_password_token).not_to be_nil
+      expect(user.reset_password_sent_at).not_to be_nil
 
       internal_graphql_execute(mutation, { input: { email: user.email } })
       expect(response.data[:userForgetPasswordMailSend][:errors]).to eq([I18n.t('errors.messages.send_interval')])

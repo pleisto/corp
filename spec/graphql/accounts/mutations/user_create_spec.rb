@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -25,8 +26,8 @@ describe Accounts::Mutations::UserCreate, type: :mutation do
           email: FFaker::Internet.email(Time.now.to_i.to_s(36)),
           password: FFaker::Internet.password,
           locale: 'enUS',
-          timezone: 'utc'
-        }
+          timezone: 'utc',
+        },
       }
       internal_graphql_execute(mutation, variables)
       expect(response.data[:userCreate][:errors]).to eq([])
@@ -42,8 +43,8 @@ describe Accounts::Mutations::UserCreate, type: :mutation do
         'uid' => Time.now.to_i,
         'info' => {
           'email' => email,
-          'avatar' => nil
-        }
+          'avatar' => nil,
+        },
       }
 
       variables = {
@@ -51,8 +52,8 @@ describe Accounts::Mutations::UserCreate, type: :mutation do
           domain: domain,
           name: FFaker::Name.name,
           locale: 'enUS',
-          timezone: 'utc'
-        }
+          timezone: 'utc',
+        },
       }
 
       internal_graphql_execute(mutation, variables)
@@ -63,8 +64,8 @@ describe Accounts::Mutations::UserCreate, type: :mutation do
     it 'email&password sign up requires password' do
       variables = {
         input: {
-          domain: 'no-password-errors', name: FFaker::Name.name, locale: 'enUS', timezone: 'utc'
-        }
+          domain: 'no-password-errors', name: FFaker::Name.name, locale: 'enUS', timezone: 'utc',
+        },
       }
       internal_graphql_execute(mutation, variables)
       expect(response.failure?).to be true

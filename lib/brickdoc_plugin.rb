@@ -1,4 +1,7 @@
+# typed: true
 # frozen_string_literal: true
+
+# rubocop:disable Sorbet/ConstantsFromStrings
 
 class BrickdocPlugin
   @plugins = {}
@@ -25,7 +28,7 @@ class BrickdocPlugin
       register(plugin_name).config(&block) if block
     end
 
-    def load_plugins(plugins_paths = Rails.root.join('gems/plugins/*'))
+    def load_plugins(plugins_paths = Rails.root.join('plugins/*'))
       Dir[plugins_paths].each do |path|
         load_plugin(path)
       end
@@ -46,7 +49,13 @@ class BrickdocPlugin
       require "#{path}/lib/#{plugin_name}" if File.exist?("#{plugin_main_file}.rb")
 
       plugin_constant_name = plugin_name.to_s.camelize
-      plugin_constant = const_defined?(plugin_constant_name) ? const_get(plugin_constant_name) : const_set(plugin_constant_name, Module.new)
+      plugin_constant = if const_defined?(plugin_constant_name)
+        const_get(plugin_constant_name)
+      else
+        const_set(
+          plugin_constant_name, Module.new
+        )
+      end
 
       # non-engine plugin autoload dirs
       ['app/models', 'app/helpers', 'app/graphql', 'app/controllers', 'app/policies'].each do |dir|
@@ -123,8 +132,8 @@ class BrickdocPlugin
       name: @plugin_name,
       metadata: @metadata,
       version: @metadata.fetch(:version),
-      logo: @metadata[:logo] || "",
-      enabled: enabled?
+      logo: @metadata[:logo] || '',
+      enabled: enabled?,
     }
   end
 

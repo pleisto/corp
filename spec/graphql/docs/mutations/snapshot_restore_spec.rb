@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -24,7 +25,7 @@ describe Docs::Mutations::SnapshotRestore, type: :mutation do
       input = { input: { blockId: block.id, snapshotVersion: block.snapshot_version } }
       internal_graphql_execute(mutation, input)
       expect(response.success?).to be(true)
-      expect(response.data).to eq({ "snapshotRestore" => nil })
+      expect(response.data).to eq({ 'snapshotRestore' => nil })
 
       self.current_user = nil
       self.current_space = nil

@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 class BrickdocHook
@@ -17,7 +18,9 @@ class BrickdocHook
     def off(hook_name, scope: '', &block)
       hook_name = hook_name.to_sym
       if @hooks[hook_name]
-        @hooks[hook_name] = @hooks[hook_name].reject { |h| (h[:scope] == scope) && (block.nil? || (h[:block] == block)) }
+        @hooks[hook_name] = @hooks[hook_name].reject do |h|
+          (h[:scope] == scope) && (block.nil? || (h[:block] == block))
+        end
       end
     end
 

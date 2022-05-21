@@ -1,6 +1,8 @@
+# rubocop:disable Sorbet/FalseSigil, Sorbet/ValidSigil
+# typed: ignore
 # frozen_string_literal: true
 
-class StoragesController < ActionController::Base
+class StoragesController < ApplicationController
   include Apiable
   include CurrentSpace
   include ActionController::Cookies
@@ -23,7 +25,7 @@ class StoragesController < ActionController::Base
     key = decode_verified_key
     if key
       serve_file named_disk_service(key[:service_name]).path_for(key[:key]), content_type: key[:content_type],
-disposition: key[:disposition]
+        disposition: key[:disposition]
     else
       head :not_found
     end
@@ -39,12 +41,12 @@ disposition: key[:disposition]
 
   # https://github.com/rails/rails/blob/main/activestorage/app/controllers/active_storage/blobs/proxy_controller.rb
   def blob_proxy
-    if request.headers["Range"].present?
-      send_blob_byte_range_data @blob, request.headers["Range"]
+    if request.headers['Range'].present?
+      send_blob_byte_range_data @blob, request.headers['Range']
     else
       http_cache_forever public: true do
-        response.headers["Accept-Ranges"] = "bytes"
-        response.headers["Content-Length"] = @blob.byte_size.to_s
+        response.headers['Accept-Ranges'] = 'bytes'
+        response.headers['Content-Length'] = @blob.byte_size.to_s
 
         send_blob_stream @blob
       end
@@ -85,7 +87,7 @@ disposition: key[:disposition]
   def authenticate_blob
     return :ok if blob_can_view?
 
-    Rails.logger.info("No space permission")
+    Rails.logger.info('No space permission')
     head :not_found
   end
 

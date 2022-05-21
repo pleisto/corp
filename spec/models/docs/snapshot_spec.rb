@@ -1,8 +1,10 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::Snapshot, type: :model do
-  context '.snapshots' do
+  describe '.snapshots' do
     let(:child) { create(:docs_block_child) }
 
     it 'basic' do
@@ -35,8 +37,8 @@ RSpec.describe Docs::Snapshot, type: :model do
 
       child_history_version_0 = child.history_version
       parent_history_version_0 = parent.history_version
-      child.update!(meta: { "meta" => "child first edit" })
-      parent.update!(meta: { "meta" => "parent first edit" })
+      child.update!(meta: { 'meta' => 'child first edit' })
+      parent.update!(meta: { 'meta' => 'parent first edit' })
 
       child_history_version_1 = child.history_version
       parent_history_version_1 = parent.history_version
@@ -54,8 +56,8 @@ RSpec.describe Docs::Snapshot, type: :model do
       expect(snapshot.blocks.first.history_version).to eq(parent_history_version_1)
       expect(snapshot.blocks.last.history_version).to eq(child_history_version_1)
 
-      child.update!(meta: { "meta" => "child second edit" })
-      parent.update!(meta: { "meta" => "parent second edit" })
+      child.update!(meta: { 'meta' => 'child second edit' })
+      parent.update!(meta: { 'meta' => 'parent second edit' })
 
       expect(snapshot.blocks.first.history_version).to eq(parent_history_version_1)
       expect(snapshot.blocks.last.history_version).to eq(child_history_version_1)
@@ -67,12 +69,12 @@ RSpec.describe Docs::Snapshot, type: :model do
       old_snapshot_version = block.snapshot_version
 
       block.save_snapshot!
-      new_text = "foo bar"
+      new_text = 'foo bar'
       block.update!(text: new_text)
 
       expect(block.snapshot_version).to eq(old_snapshot_version + 1)
 
-      snapshot = Docs::Snapshot.find_by!(block_id: block.id, snapshot_version: block.snapshot_version)
+      snapshot = described_class.find_by!(block_id: block.id, snapshot_version: block.snapshot_version)
       snapshot.restore!
       block.reload
 

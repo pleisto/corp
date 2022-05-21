@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 module ApplicationHelper
   def global_context
     {
@@ -20,7 +22,7 @@ module ApplicationHelper
       settings: BrickdocConfig.to_frontend,
       features: BrickdocConfig.to_frontend(scope: :features),
       serverMessage: flash[:alert] == I18n.t('devise.failure.unauthenticated') ? nil : flash[:alert],
-      sentryDsn: BrickdocConfig.sentry_dsn
+      sentryDsn: BrickdocConfig.sentry_dsn,
     }
   end
 

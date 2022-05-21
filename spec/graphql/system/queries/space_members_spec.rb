@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -42,7 +43,7 @@ describe System::Queries::SpaceMembers, type: :query do
 
     it 'group' do
       user = create(:accounts_user)
-      domain = "group-spec"
+      domain = 'group-spec'
       space = user.own_spaces.create!(domain: domain, name: domain)
 
       self.current_user = user

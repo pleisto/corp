@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module BrickGraphQL
@@ -10,9 +11,9 @@ module BrickGraphQL
     include BrickGraphQL::Concerns::EntrypointValidatable
 
     field :errors, [String],
-          null: false,
-          description: 'Errors encountered during execution of the mutation.',
-          default_value: []
+      null: false,
+      description: 'Errors encountered during execution of the mutation.',
+      default_value: []
 
     def current_user
       context[:current_user]

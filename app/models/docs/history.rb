@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: docs_histories
@@ -24,44 +26,48 @@
 #  index_docs_histories_on_space_id                      (space_id)
 #
 
-class Docs::History < ApplicationRecord
-  self.inheritance_column = :_type_disabled
+module Docs
+  class History < ApplicationRecord
+    self.inheritance_column = :_type_disabled
 
-  belongs_to :space, optional: true
-  belongs_to :block
+    belongs_to :space, optional: true
+    belongs_to :block
 
-  def self.from_version_meta(version_meta)
-    return [] if version_meta.blank?
-    # parameters = version_meta.map { |k, v| "(#{k},#{v})" }.join(',')
-    # Docs::History.where("(block_id, history_version) IN (?)", parameters)
-    parameters = version_meta.size.times.collect { '(?,?)' }.join(',')
-    Docs::History.where(deleted_at: nil).where("(block_id, history_version) IN (#{parameters})", *version_meta.flatten)
-  end
+    def self.from_version_meta(version_meta)
+      return [] if version_meta.blank?
 
-  def self.graphql_normalize(root_id)
-    histories = all
-    block_ids = histories.map(&:block_id)
-    preload_attachments = ActiveStorage::Attachment.where(name: "attachments", record_type: "Docs::Block", record_id: block_ids).pluck(
-      :blob_id, :record_id
-    ).to_h
-    preload_blobs = ActiveStorage::Blob.where(id: preload_attachments.keys).each_with_object({}) do |blob, h|
-      h[preload_attachments.fetch(blob.id)] =
-        h[preload_attachments.fetch(blob.id)].to_a + [{ blob_key: blob.key, url: blob.real_url,
-                                                        download_url: blob.real_url(disposition: "attachment") }]
+      # parameters = version_meta.map { |k, v| "(#{k},#{v})" }.join(',')
+      # Docs::History.where("(block_id, history_version) IN (?)", parameters)
+      parameters = version_meta.size.times.collect { '(?,?)' }.join(',')
+      Docs::History.where(deleted_at: nil).where("(block_id, history_version) IN (#{parameters})",
+        *version_meta.flatten)
     end
 
-    histories.map { |h| h.cast_block.merge('blobs' => preload_blobs[h.block_id].to_a, 'root_id' => root_id) }
-  end
+    def self.graphql_normalize(root_id)
+      histories = all
+      block_ids = histories.map(&:block_id)
+      preload_attachments = ActiveStorage::Attachment.where(name: 'attachments', record_type: 'Docs::Block', record_id: block_ids).pluck(
+        :blob_id, :record_id
+      ).to_h
+      preload_blobs = ActiveStorage::Blob.where(id: preload_attachments.keys).each_with_object({}) do |blob, h|
+        h[preload_attachments.fetch(blob.id)] =
+          h[preload_attachments.fetch(blob.id)].to_a + [{ blob_key: blob.key, url: blob.real_url,
+                                                          download_url: blob.real_url(disposition: 'attachment'), }]
+      end
 
-  def update_params
-    attributes.slice('sort', 'meta', 'data', 'parent_id', 'type', 'text', 'content', 'deleted_at')
-  end
+      histories.map { |h| h.cast_block.merge('blobs' => preload_blobs[h.block_id].to_a, 'root_id' => root_id) }
+    end
 
-  ## TODO refactor this
-  ## try `def id = block_id`
-  def cast_block
-    attributes.slice(
-      'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'space_id', 'text', 'content'
-    ).merge('id' => block_id)
+    def update_params
+      attributes.slice('sort', 'meta', 'data', 'parent_id', 'type', 'text', 'content', 'deleted_at')
+    end
+
+    ## TODO refactor this
+    ## try `def id = block_id`
+    def cast_block
+      attributes.slice(
+        'sort', 'history_version', 'created_at', 'updated_at', 'meta', 'data', 'parent_id', 'type', 'space_id', 'text', 'content'
+      ).merge('id' => block_id)
+    end
   end
 end

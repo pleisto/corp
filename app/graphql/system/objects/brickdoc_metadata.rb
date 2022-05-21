@@ -1,4 +1,6 @@
+# typed: true
 # frozen_string_literal: true
+
 module System
   module Objects
     class BrickdocMetadata < BrickGraphQL::BaseObject
@@ -6,8 +8,8 @@ module System
       description 'Represents information about the Brickdoc Server Instance.'
       has_primary_key
 
-      field :available_timezones, [String], null: false
       field :available_locales, [BrickdesignSelectOption], 'Current available locales.', null: false
+      field :available_timezones, [String], null: false
       field :config, BrickdocConfig, 'Brickdoc Global Config', null: false
 
       def available_locales

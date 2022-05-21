@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -26,7 +27,8 @@ describe System::Mutations::CreateDirectUpload, type: :mutation do
     it 'avatar' do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
-      input = { input: { type: "AVATAR", input: { filename: "foo.txt", checksum: "123123", byteSize: 123, contentType: "text" } } }
+      input = { input: { type: 'AVATAR',
+                         input: { filename: 'foo.txt', checksum: '123123', byteSize: 123, contentType: 'text' }, } }
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
@@ -39,8 +41,8 @@ describe System::Mutations::CreateDirectUpload, type: :mutation do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
       block = create(:docs_block, space: user.personal_space)
-      input = { input: { type: "DOC", blockId: block.id,
-                         input: { filename: "foo.txt", checksum: "123123", byteSize: 123, contentType: "text" } } }
+      input = { input: { type: 'DOC', blockId: block.id,
+                         input: { filename: 'foo.txt', checksum: '123123', byteSize: 123, contentType: 'text' }, } }
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})

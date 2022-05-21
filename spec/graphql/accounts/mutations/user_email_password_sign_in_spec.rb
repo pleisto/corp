@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -26,7 +27,7 @@ describe Accounts::Mutations::UserEmailPasswordSignIn, type: :mutation do
       expect(response.data[:userEmailPasswordSignIn][:redirectPath]).not_to be_blank
     end
 
-    it 'should returns invalid password message' do
+    it 'returnses invalid password message' do
       input = { input: { email: user.email, password: 'wrong-pwd', remember: false } }
       internal_graphql_execute(mutation, input)
       error_message = I18n.t('devise.failure.invalid', authentication_keys: 'email')

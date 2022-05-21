@@ -1,4 +1,7 @@
+# typed: false
 # frozen_string_literal: true
+
+# rubocop:disable Sorbet/ConstantsFromStrings
 
 # Add all fields for modules as resolvers, mutations or subscriptions.
 module AutoGraphQLFields

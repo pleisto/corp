@@ -1,4 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: docs_documents
@@ -9,5 +11,7 @@
 #  updated_at :datetime         not null
 #  state_id   :uuid
 #
-class Docs::Document < ApplicationRecord
+module Docs
+  class Document < ApplicationRecord
+  end
 end

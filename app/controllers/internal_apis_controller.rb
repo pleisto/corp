@@ -1,3 +1,5 @@
+# rubocop:disable Sorbet/FalseSigil, Sorbet/ValidSigil
+# typed: ignore
 # frozen_string_literal: true
 
 class InternalApisController < ActionController::API
@@ -12,6 +14,7 @@ class InternalApisController < ActionController::API
     @locale = params[:locale]&.to_sym
     @ns = params[:ns]&.to_sym
     raise ActionController::RoutingError, 'Not Found' unless Brickdoc::I18n.available_locales.include? @locale
+
     @translations = ::I18n.t(@ns, locale: @locale, default: {})
     render json: Oj.dump(@translations)
   end
@@ -20,7 +23,7 @@ class InternalApisController < ActionController::API
   def graphql
     variables = BrickGraphQL.ensure_hash params[:variables]
     resp = BrickdocSchema.execute(params[:query], variables: variables,
-                                  context: context, operation_name: params[:operationName])
+      context: context, operation_name: params[:operationName])
     render json: Oj.dump(resp)
   end
 
@@ -39,7 +42,7 @@ class InternalApisController < ActionController::API
       session: session,
       request_id: request.uuid,
       routes: Rails.application.routes.url_helpers,
-      warden: request.env['warden']
+      warden: request.env['warden'],
     }
   end
 end

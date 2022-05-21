@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -30,17 +31,17 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
 
       input = {
         input: {
-          docId:      doc_id,
+          docId: doc_id,
           operatorId: SecureRandom.uuid,
-          state:      Base64.strict_encode64(state),
-          stateId:    state_id,
-        }
+          state: Base64.strict_encode64(state),
+          stateId: state_id,
+        },
       }
       internal_graphql_execute(mutation, input)
 
       expect(response.success?).to be(true)
       expect(response.data['syncDocument']['document']['stateId']).to eq(state_id)
-      expect(response.data['syncDocument']['document']['state']).to eq(nil)
+      expect(response.data['syncDocument']['document']['state']).to be_nil
 
       document = Docs::Document.find(doc_id)
       expect(document.state).to eq(state)
@@ -61,12 +62,12 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
 
       input = {
         input: {
-          docId:           document.id,
-          operatorId:      SecureRandom.uuid,
-          state:           Base64.strict_encode64(state),
-          stateId:         state_id,
+          docId: document.id,
+          operatorId: SecureRandom.uuid,
+          state: Base64.strict_encode64(state),
+          stateId: state_id,
           previousStateId: SecureRandom.uuid,
-        }
+        },
       }
       internal_graphql_execute(mutation, input)
 
@@ -81,6 +82,5 @@ describe Docs::Mutations::SyncDocument, type: :mutation do
       self.current_user = nil
       self.current_space = nil
     end
-
   end
 end

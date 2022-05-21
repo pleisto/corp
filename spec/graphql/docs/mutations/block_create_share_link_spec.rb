@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -20,14 +21,14 @@ describe Docs::Mutations::BlockCreateShareLink, type: :mutation do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
 
-      input = { input: { id: block.id, target: [{ policy: "view", state: "enabled", domain: Space::ANYONE_DOMAIN }] } }
+      input = { input: { id: block.id, target: [{ policy: 'view', state: 'enabled', domain: Space::ANYONE_DOMAIN }] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
+      expect(response.success?).to be(true)
       expect(response.data).to eq({ 'blockCreateShareLink' => nil })
 
-      input = { input: { id: block.id, target: [{ policy: "edit", state: "enabled", domain: share_user.domain }] } }
+      input = { input: { id: block.id, target: [{ policy: 'edit', state: 'enabled', domain: share_user.domain }] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(true)
+      expect(response.success?).to be(true)
       expect(response.data).to eq({ 'blockCreateShareLink' => nil })
 
       self.current_user = nil
@@ -38,10 +39,10 @@ describe Docs::Mutations::BlockCreateShareLink, type: :mutation do
       self.current_user = user
       self.current_space = user.personal_space.as_session_context
 
-      input = { input: { id: block.id, target: [{ policy: "view", state: "enabled", domain: "foobar" }] } }
+      input = { input: { id: block.id, target: [{ policy: 'view', state: 'enabled', domain: 'foobar' }] } }
       internal_graphql_execute(mutation, input)
-      expect(response.success?).to eq(false)
-      expect(response.errors[0]['message']).to include(I18n.t("errors.messages.domain_presence_invalid"))
+      expect(response.success?).to be(false)
+      expect(response.errors[0]['message']).to include(I18n.t('errors.messages.domain_presence_invalid'))
 
       self.current_user = nil
       self.current_space = nil

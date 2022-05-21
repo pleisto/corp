@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -12,13 +13,13 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
       }
     GRAPHQL
 
+    let(:user) { create(:accounts_user) }
+
     it 'only available on internal apis entrypoint' do
       expect(unavailable_on_openapi(mutation)).to be true
     end
 
-    let(:user) { create(:accounts_user) }
-
-    it 'should check token exists' do
+    it 'checks token exists' do
       internal_graphql_execute(mutation, { input: { token: FFaker::Guid.guid, password: FFaker::Internet.password } })
       expect(response.data[:userPasswordReset][:errors][0]).to eq(I18n.t('devise.passwords.no_token'))
     end
@@ -30,12 +31,12 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
 
       internal_graphql_execute(mutation, { input: { token: token, password: FFaker::Internet.password } })
 
-      expect(response.data[:userPasswordReset][:errors][0]).to eq(I18n.t("devise.failure.reset_password_token_expired"))
+      expect(response.data[:userPasswordReset][:errors][0]).to eq(I18n.t('devise.failure.reset_password_token_expired'))
     end
 
     it 'password too short' do
       token = user.send_reset_password_instructions
-      internal_graphql_execute(mutation, { input: { token: token, password: "foo" } })
+      internal_graphql_execute(mutation, { input: { token: token, password: 'foo' } })
       expect(response.data[:userPasswordReset][:errors][0]).to eq(
         "Password #{I18n.t('activerecord.errors.models.accounts/user.attributes.password.too_short')}"
       )
@@ -46,7 +47,8 @@ describe Accounts::Mutations::UserPasswordReset, type: :mutation do
 
       expect(user.reset_password_period_valid?).to be(true)
 
-      expect(Devise.token_generator.digest(Accounts::User, :reset_password_token, token)).to eq(user.reset_password_token)
+      expect(Devise.token_generator.digest(Accounts::User, :reset_password_token,
+        token)).to eq(user.reset_password_token)
       password = FFaker::Internet.password
 
       expect(user.valid_password?(password)).to be(false)

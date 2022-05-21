@@ -1,21 +1,23 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::Block, type: :model do
   it 'single block' do
-    block = create(:docs_block, text: "foo")
+    block = create(:docs_block, text: 'foo')
     block.save_snapshot!
-    block.update!(text: "bar")
+    block.update!(text: 'bar')
     snapshot = block.snapshots.last
     snapshot.restore!
     block.reload
 
-    expect(block.text).to eq("foo")
+    expect(block.text).to eq('foo')
   end
 
   it 'complex block' do
-    old_text = "foo"
-    new_text = "bar"
+    old_text = 'foo'
+    new_text = 'bar'
     block = create(:docs_block, text: old_text)
     child_block1 = create(:docs_block, text: old_text, space: block.space, parent: block, root_id: block.id)
     child_block2 = create(:docs_block, text: old_text, space: block.space, parent: block, root_id: block.id)
@@ -35,7 +37,8 @@ RSpec.describe Docs::Block, type: :model do
     expect(child_block1.histories.count).to eq(2)
 
     expect(block.descendants.ids.sort).to eq([block.id, child_block2.id, child_block3.id].sort)
-    expect(block.descendants(unscoped: true).ids.sort).to eq([block.id, child_block1.id, child_block2.id, child_block3.id].sort)
+    expect(block.descendants(unscoped: true).ids.sort).to eq([block.id, child_block1.id, child_block2.id,
+                                                              child_block3.id,].sort)
 
     snapshot1 = block.snapshots.find_by!(snapshot_version: 1)
     expect(snapshot1.version_meta.keys.sort).to eq([block.id, child_block1.id, child_block2.id].sort)
@@ -50,16 +53,17 @@ RSpec.describe Docs::Block, type: :model do
     block.reload
     expect(block.snapshot_version).to eq(2)
 
-    expect(child_block1.deleted_at).not_to be(nil)
+    expect(child_block1.deleted_at).not_to be_nil
 
     snapshot1.restore!
 
     child_block1.reload
-    expect(child_block1.deleted_at).to be(nil)
+    expect(child_block1.deleted_at).to be_nil
     expect(child_block1.histories.count).to eq(3)
 
     expect(block.descendants.ids.sort).to eq([block.id, child_block1.id, child_block2.id].sort)
-    expect(block.descendants(unscoped: true).ids.sort).to eq([block.id, child_block1.id, child_block2.id, child_block3.id].sort)
+    expect(block.descendants(unscoped: true).ids.sort).to eq([block.id, child_block1.id, child_block2.id,
+                                                              child_block3.id,].sort)
 
     expect(block.snapshots.count).to eq(3)
     block.reload
@@ -87,8 +91,8 @@ RSpec.describe Docs::Block, type: :model do
 
     expect(sub_block2.text).to eq(new_text)
     expect(child_block1.text).to eq(old_text)
-    expect(child_block2.deleted_at).to be(nil)
-    expect(child_block4.deleted_at).to_not be(nil)
+    expect(child_block2.deleted_at).to be_nil
+    expect(child_block4.deleted_at).not_to be_nil
     expect(block.descendants.ids.sort).to eq([block.id, child_block1.id, child_block2.id].sort)
 
     expect(child_block1.histories.count).to eq(5)

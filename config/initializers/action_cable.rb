@@ -1,4 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
+
 require 'action_cable/subscription_adapter/redis'
 
 Rails.application.configure do

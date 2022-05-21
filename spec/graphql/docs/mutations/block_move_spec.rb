@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -38,7 +39,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
-      expect(response.data[:blockMove]).to eq(nil)
+      expect(response.data[:blockMove]).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -55,7 +56,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
-      expect(response.data[:blockMove]).to eq(nil)
+      expect(response.data[:blockMove]).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -73,7 +74,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
-      expect(response.data[:blockMove]).to eq(nil)
+      expect(response.data[:blockMove]).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -90,7 +91,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
-      expect(response.data[:blockMove]).to eq(nil)
+      expect(response.data[:blockMove]).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -106,7 +107,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       internal_graphql_execute(mutation, input)
 
       expect(response.errors).to eq({})
-      expect(response.data[:blockMove]).to eq(nil)
+      expect(response.data[:blockMove]).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -121,7 +122,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       input = { input: { id: root.id, targetParentId: root.id, sort: 300 } }
       internal_graphql_execute(mutation, input)
 
-      expect(response.data[:blockMove]).to eq({ "errors" => ['Invalid target'] })
+      expect(response.data[:blockMove]).to eq({ 'errors' => ['Invalid target'] })
 
       self.current_user = nil
       self.current_space = nil
@@ -139,7 +140,7 @@ describe Docs::Mutations::BlockMove, type: :mutation do
       input = { input: { id: root.id, targetParentId: child.id, sort: 300 } }
       internal_graphql_execute(mutation, input)
 
-      expect(response.data[:blockMove]).to eq({ "errors" => ['Invalid target'] })
+      expect(response.data[:blockMove]).to eq({ 'errors' => ['Invalid target'] })
 
       self.current_user = nil
       self.current_space = nil

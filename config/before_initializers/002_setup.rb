@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 Rails.application.reloader.to_prepare do
@@ -22,15 +23,12 @@ Rails.application.reloader.to_prepare do
   Rails.application.config.cache_store = [:redis_cache_store, {
     redis: Brickdoc::Redis.pool(:cache),
     compress: 1,
-    expires_in: 20.days
-  }]
-
-  # @see https://github.com/jhawthorn/actionview_precompiler
-  ActionviewPrecompiler.precompile unless Rails.env.development?
+    expires_in: 20.days,
+  },]
 
   Rails.application.default_url_options = {
     host: BrickdocConfig.host,
-    port: Rails.env.development? ? 3000 : nil
+    port: Rails.env.development? ? 3000 : nil,
   }
 
   ## ActiveStorage
@@ -49,7 +47,7 @@ Rails.application.reloader.to_prepare do
     config.action_mailer.default_url_options = Rails.application.default_url_options
     config.action_mailer.delivery_method = Rails.env.production? ? :smtp : :test
     config.action_mailer.default_options = {
-      from: BrickdocConfig.mailer[:from]
+      from: BrickdocConfig.mailer[:from],
     }
     config.action_mailer.smtp_settings = {
       address: smtp_settings.hostname,
@@ -57,11 +55,11 @@ Rails.application.reloader.to_prepare do
       tls: smtp_settings.scheme == 'smtps',
       user_name: URI.decode_www_form_component(smtp_settings.user.to_s),
       password: smtp_settings.password,
-      enable_starttls_auto: true
+      enable_starttls_auto: true,
     }
     Devise::Async.enabled = false unless Rails.env.production?
     config.active_storage.default_url_options = Rails.application.default_url_options
     ActiveStorage::Current.url_options = Rails.application.default_url_options
-    config.action_mailer.preview_path = Rails.root.join('spec', 'mailer_previews')
+    config.action_mailer.preview_path = Rails.root.join('spec/mailer_previews')
   end
 end

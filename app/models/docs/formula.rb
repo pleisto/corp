@@ -1,4 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: docs_formulas
@@ -21,18 +23,20 @@
 #  index_docs_formulas_on_space_id           (space_id)
 #
 
-class Docs::Formula < ApplicationRecord
-  self.inheritance_column = :_type_disabled
+module Docs
+  class Formula < ApplicationRecord
+    self.inheritance_column = :_type_disabled
 
-  belongs_to :block, class_name: 'Docs::Block'
-  belongs_to :space, optional: true
+    belongs_to :block, class_name: 'Docs::Block'
+    belongs_to :space, optional: true
 
-  enum type: {
-    normal: 0,
-    spreadsheet: 1
-  }
+    enum type: {
+      normal: 0,
+      spreadsheet: 1,
+    }
 
-  before_create do
-    self.space_id = block.space_id
+    before_create do
+      self.space_id = block.space_id
+    end
   end
 end

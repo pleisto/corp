@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -78,16 +79,16 @@ describe Docs::Queries::BlockInfo, type: :query do
       expect(response.success?).to be true
       expect(response.data).to eq({ 'blockInfo' =>
       {
-        "title" => block.title,
-        "collaborators" => [],
-        "pin" => false,
-        "enabledAlias" => nil,
-        "isDeleted" => false,
-        "pathArray" => [],
-        "icon" => nil,
-        "permission" => nil,
+        'title' => block.title,
+        'collaborators' => [],
+        'pin' => false,
+        'enabledAlias' => nil,
+        'isDeleted' => false,
+        'pathArray' => [],
+        'icon' => nil,
+        'permission' => nil,
         'id' => block.id,
-        'isMaster' => true
+        'isMaster' => true,
       } })
 
       self.current_user = nil
@@ -100,7 +101,7 @@ describe Docs::Queries::BlockInfo, type: :query do
       space = user.personal_space
       self.current_space = space.as_session_context
 
-      expect(user.last_space_domain).to eq(nil)
+      expect(user.last_space_domain).to be_nil
       expect(user.last_block_ids).to eq({})
 
       block = create(:docs_block, space: space, collaborators: [user.id])
@@ -123,17 +124,17 @@ describe Docs::Queries::BlockInfo, type: :query do
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
       expect(response.data['blockInfo']['id']).to eq(block.id)
-      expect(response.data['blockInfo']['isDeleted']).to eq(false)
+      expect(response.data['blockInfo']['isDeleted']).to be(false)
 
       block.soft_delete!
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['isDeleted']).to eq(true)
+      expect(response.data['blockInfo']['isDeleted']).to be(true)
 
       block.restore!
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['isDeleted']).to eq(false)
+      expect(response.data['blockInfo']['isDeleted']).to be(false)
 
       block.soft_delete!
       block.hard_delete!
@@ -154,19 +155,19 @@ describe Docs::Queries::BlockInfo, type: :query do
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['pin']).to eq(false)
+      expect(response.data['blockInfo']['pin']).to be(false)
 
       pin = Docs::Pin.create!(user_id: user.id, space_id: space.id, block_id: block.id)
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['pin']).to eq(true)
+      expect(response.data['blockInfo']['pin']).to be(true)
 
       pin.update!(deleted_at: Time.current)
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['pin']).to eq(false)
+      expect(response.data['blockInfo']['pin']).to be(false)
 
       self.current_user = nil
       self.current_space = nil
@@ -184,7 +185,7 @@ describe Docs::Queries::BlockInfo, type: :query do
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']).to eq(nil)
+      expect(response.data['blockInfo']).to be_nil
 
       block.upsert_share_links!([domain: user.domain, state: 'enabled', policy: 'view'])
 
@@ -196,7 +197,7 @@ describe Docs::Queries::BlockInfo, type: :query do
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']).to eq(nil)
+      expect(response.data['blockInfo']).to be_nil
 
       self.current_user = nil
       self.current_space = nil
@@ -223,14 +224,14 @@ describe Docs::Queries::BlockInfo, type: :query do
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']).to eq(nil)
+      expect(response.data['blockInfo']).to be_nil
 
       self.current_user = user
       self.current_space = space.as_session_context
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']).to eq(nil)
+      expect(response.data['blockInfo']).to be_nil
 
       block.upsert_share_links!([domain: Space::ANYONE_DOMAIN, state: 'enabled', policy: 'edit'])
 
@@ -251,27 +252,27 @@ describe Docs::Queries::BlockInfo, type: :query do
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
-      expect(response.data['blockInfo']['enabledAlias']).to eq(nil)
+      expect(response.data['blockInfo']['enabledAlias']).to be_nil
 
-      a = block.aliases.create!(alias: "foo_bar", payload: { "key" => "baz" })
-      internal_graphql_execute(query, { id: "foo_bar", domain: block.space.domain })
+      a = block.aliases.create!(alias: 'foo_bar', payload: { 'key' => 'baz' })
+      internal_graphql_execute(query, { id: 'foo_bar', domain: block.space.domain })
       expect(response.success?).to be true
       expect(response.data['blockInfo']['id']).to eq(block.id)
-      expect(response.data['blockInfo']['enabledAlias']).to eq({ "key" => "foo_bar", "payload" => { "key" => "baz" } })
+      expect(response.data['blockInfo']['enabledAlias']).to eq({ 'key' => 'foo_bar', 'payload' => { 'key' => 'baz' } })
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
       expect(response.data['blockInfo']['id']).to eq(block.id)
-      expect(response.data['blockInfo']['enabledAlias']).to eq({ "key" => "foo_bar", "payload" => { "key" => "baz" } })
+      expect(response.data['blockInfo']['enabledAlias']).to eq({ 'key' => 'foo_bar', 'payload' => { 'key' => 'baz' } })
 
       a.disabled!
 
       internal_graphql_execute(query, { id: block.id, domain: block.space.domain })
       expect(response.success?).to be true
       expect(response.data['blockInfo']['id']).to eq(block.id)
-      expect(response.data['blockInfo']['enabledAlias']).to eq(nil)
+      expect(response.data['blockInfo']['enabledAlias']).to be_nil
 
-      internal_graphql_execute(query, { id: "foo_bar", domain: block.space.domain })
+      internal_graphql_execute(query, { id: 'foo_bar', domain: block.space.domain })
       expect(response.success?).to be true
       expect(response.data).to eq('blockInfo' => nil)
 

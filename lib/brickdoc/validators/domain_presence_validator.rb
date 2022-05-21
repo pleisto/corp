@@ -1,3 +1,4 @@
+# typed: true
 # frozen_string_literal: true
 
 module Brickdoc
@@ -9,7 +10,7 @@ module Brickdoc
 
         exists = Space.exists?(domain: domain)
 
-        record.errors.add field, ::I18n.t("errors.messages.domain_presence_invalid") unless exists
+        record.errors.add field, ::I18n.t('errors.messages.domain_presence_invalid') unless exists
       end
     end
   end

@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -27,12 +28,12 @@ describe System::Queries::UnsplashImage, type: :query do
       data = response.data[:unsplashImage]
       expect(response.success?).to be true
       expect(data.size).to be 1
-      expect(data.first[:id]).not_to be(nil)
-      expect(data.first[:width]).not_to be(nil)
-      expect(data.first[:height]).not_to be(nil)
-      expect(data.first[:fullUrl]).not_to be(nil)
-      expect(data.first[:smallUrl]).not_to be(nil)
-      expect(data.first[:username]).not_to be(nil)
+      expect(data.first[:id]).not_to be_nil
+      expect(data.first[:width]).not_to be_nil
+      expect(data.first[:height]).not_to be_nil
+      expect(data.first[:fullUrl]).not_to be_nil
+      expect(data.first[:smallUrl]).not_to be_nil
+      expect(data.first[:username]).not_to be_nil
     end
 
     it 'works with blank search' do
@@ -58,12 +59,12 @@ describe System::Queries::UnsplashImage, type: :query do
       data = response.data[:unsplashImage]
       expect(response.success?).to be true
       expect(data.size).to be 2
-      expect(data.first[:id]).not_to be(nil)
-      expect(data.first[:width]).not_to be(nil)
-      expect(data.first[:height]).not_to be(nil)
-      expect(data.first[:fullUrl]).not_to be(nil)
-      expect(data.first[:smallUrl]).not_to be(nil)
-      expect(data.first[:username]).not_to be(nil)
+      expect(data.first[:id]).not_to be_nil
+      expect(data.first[:width]).not_to be_nil
+      expect(data.first[:height]).not_to be_nil
+      expect(data.first[:fullUrl]).not_to be_nil
+      expect(data.first[:smallUrl]).not_to be_nil
+      expect(data.first[:username]).not_to be_nil
     end
   end
 end

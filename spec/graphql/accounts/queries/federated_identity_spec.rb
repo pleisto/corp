@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -28,8 +29,8 @@ describe Accounts::Queries::FederatedIdentitySession, type: :query do
         'provider' => :github,
         info: {
           domain: 'cccp',
-          name: 'USSR'
-        }
+          name: 'USSR',
+        },
       }
       internal_graphql_execute(query)
       expect(response.data[:federatedIdentitySession][:name]).to be 'USSR'

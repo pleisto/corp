@@ -1,4 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: docs_pins
@@ -16,10 +18,12 @@
 #  index_docs_pins_on_user_id_and_space_id_and_block_id  (user_id,space_id,block_id) UNIQUE
 #
 
-class Docs::Pin < ApplicationRecord
-  belongs_to :space
-  belongs_to :user, class_name: 'Accounts::User'
-  belongs_to :block, class_name: 'Docs::Block'
+module Docs
+  class Pin < ApplicationRecord
+    belongs_to :space
+    belongs_to :user, class_name: 'Accounts::User'
+    belongs_to :block, class_name: 'Docs::Block'
 
-  delegate :text, :meta, to: :block
+    delegate :text, :meta, to: :block
+  end
 end

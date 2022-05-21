@@ -1,4 +1,6 @@
+# typed: false
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: brickdoc_configs
@@ -41,6 +43,7 @@ class BrickdocConfig < ApplicationRecord
     def on(domain, &block)
       # domian argument must is :global or Space instance
       raise ArgumentError, "unsupported domain: #{domain}" unless domain == :global || domain.class == Space
+
       config = domain == :global ? self : at("space.#{domain.id}")
       old_current = current
       self.current = config
@@ -63,9 +66,9 @@ class BrickdocConfig < ApplicationRecord
 
     def to_frontend(scope: '')
       scope = scope.to_s
-      frontend_fields[scope].uniq.map do |key|
-        [key, get(key, scope: scope)]
-      end.to_h
+      frontend_fields[scope].uniq.index_with do |key|
+        get(key, scope: scope)
+      end
     end
   end
 
@@ -78,7 +81,7 @@ class BrickdocConfig < ApplicationRecord
   # ActionMailer
   field :mailer, type: :hash, symbolize_keys: true, default: {
     from: ENV['SMTP_FROM'] || 'webmaster@localhost',
-    url: ENV['SMTP_URL'] || 'smtp://localhost:1025'
+    url: ENV['SMTP_URL'] || 'smtp://localhost:1025',
   }
 
   # The reversible_int_hash algorithm can help us hide the real database primary key of the resource in GraphQL.
@@ -86,13 +89,13 @@ class BrickdocConfig < ApplicationRecord
   field :reversible_int_hash, type: :hash, symbolize_keys: true, read_only: true, default: {
     prime: ENV['SECURITY_REVERSIBLE_INT_PRIME'],
     inverse_integer: ENV['SECURITY_REVERSIBLE_INT_INVERSE'],
-    random_integer: ENV['SECURITY_REVERSIBLE_INT_RANDOM']
+    random_integer: ENV['SECURITY_REVERSIBLE_INT_RANDOM'],
   }
 
   # Rails.application.config.active_storage.service
   field :active_storage_service, default: (
     if Rails.env.test?
-      "test"
+      'test'
     else
       (Rails.env.development? ? 'local' : 'gcs_privtae')
     end
@@ -100,7 +103,7 @@ class BrickdocConfig < ApplicationRecord
 
   field :gcs_config, type: :hash, symbolize_keys: true, default: {
     private_bucket: ENV['GCS_PRIVATE_BUCKET'],
-    public_bucket: ENV['GCS_PUBLIC_BUCKET']
+    public_bucket: ENV['GCS_PUBLIC_BUCKET'],
   }
 
   field :user_agreement_link, type: :string, default: 'https://help.brickdoc.com/en/articles/5971105-terms-of-service'
@@ -123,7 +126,7 @@ class BrickdocConfig < ApplicationRecord
 
   # helpdesk Knowledge Base
   field :kb_articles, type: :hash, default: {
-    changing_domain: 'https://help.brickdoc.com/en/articles/5972616-brickdoc-username-policy'
+    changing_domain: 'https://help.brickdoc.com/en/articles/5972616-brickdoc-username-policy',
   }, frontend: true
 
   scope :features do

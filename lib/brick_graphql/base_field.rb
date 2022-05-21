@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module BrickGraphQL
@@ -8,7 +9,7 @@ module BrickGraphQL
       # puts kwargs
       super(*args, **kwargs, &block)
       extension(BrickGraphQL::Extensions::DefaultValueExtension,
-                default_value: default_value) unless default_value.nil?
+        default_value: default_value) unless default_value.nil?
     end
   end
 end

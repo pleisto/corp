@@ -1,9 +1,10 @@
+# typed: false
 # frozen_string_literal: true
 
 require 'rails_helper'
 
 describe BrickGraphQL::Scalars::HexColorCode do
-  subject { BrickGraphQL::Scalars::HexColorCode }
+  subject { described_class }
 
   it 'invalid hex color code should be raise error' do
     expect { subject.coerce_input('#333F', nil) }.to raise_error(GraphQL::CoercionError)

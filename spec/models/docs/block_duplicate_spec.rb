@@ -1,9 +1,11 @@
+# typed: false
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Docs::Block, type: :model do
   it 'normal' do
-    title = "foo"
+    title = 'foo'
     block = create(:docs_block, text: title)
     _child_block1 = create(:docs_block, text: title, space: block.space, parent: block, root_id: block.id)
     _child_block2 = create(:docs_block, text: title, space: block.space, parent: block, root_id: block.id)
@@ -14,7 +16,7 @@ RSpec.describe Docs::Block, type: :model do
     expect(block.descendants.count).to eq(3)
 
     new_id = block.duplicate!.fetch('id')
-    new_block = Docs::Block.find(new_id)
+    new_block = described_class.find(new_id)
     new_title = I18n.t('docs.duplicate.new_title', title: block.text)
 
     expect(new_block.snapshot_version).to eq(1)
@@ -43,7 +45,7 @@ RSpec.describe Docs::Block, type: :model do
     expect(block.descendants.count).to eq(2)
 
     new_id = block.duplicate!.fetch('id')
-    new_block = Docs::Block.find(new_id)
+    new_block = described_class.find(new_id)
 
     expect(new_block.descendants_raw.count).to eq(3)
     expect(new_block.descendants.count).to eq(2)
@@ -57,7 +59,7 @@ RSpec.describe Docs::Block, type: :model do
     _sub_block2 = create(:docs_block, space: block.space, parent: block, id: SecureRandom.uuid)
 
     new_id = sub_block1.duplicate!.fetch('id')
-    new_block = Docs::Block.find(new_id)
+    new_block = described_class.find(new_id)
 
     expect(new_block.parent_id).to eq(block.id)
     expect(new_block.root_id).to eq(new_id)
