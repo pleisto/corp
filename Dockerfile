@@ -23,8 +23,9 @@ ENV SENTRY_PROJECT=$SENTRY_PROJECT
 ENV YARN_CHECKSUM_BEHAVIOR=update
 
 COPY . .
-RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
-RUN yarn install --immutable \
+RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json && \
+  yarn config set unsafe-perm true && \
+  yarn install --immutable \
   && yarn server bundle install --retry 2 --jobs 4
 RUN COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV yarn server vite:build
 RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli releases files brickdoc@$VERSION upload-sourcemaps ./public/esm-bundle --url-prefix '~/globalcdn/brickdoc-saas-prod/esm-bundle'; fi
