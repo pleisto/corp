@@ -31,7 +31,7 @@ gem 'second_level_cache', '~> 2.7.1'
 gem 'paranoia', '~> 2.5', '>= 2.5.2'
 gem 'easymon'
 gem 'default_value_for', github: 'brickdoc/default_value_for'
-gem 'brickdoc_settings', path: MONOREPO_ROOT.join('gems/brickdoc_settings')
+gem 'brickdoc_settings', path: '../../gems/brickdoc_settings'
 gem 'unsplash'
 gem 'cloak-rb', '>= 0.1.1'
 gem 'lockbox', '>= 0.6.8'
