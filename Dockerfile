@@ -17,7 +17,8 @@ ARG COVERAGE
 ENV RAILS_ENV=$RAILS_ENV
 ENV BUNDLE_WITHOUT="test development"
 ENV GEM_HOME /app/bundle
-ENV BUNDLE_APP_CONFIG="$GEM_HOME"
+ENV BUNDLE_APP_CONFIG="$GEM_HOME" \
+  BUNDLE_PATH="$GEM_HOME"
 ENV PATH $GEM_HOME/bin:$PATH
 ENV NODE_OPTIONS=--max-old-space-size=5950
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
@@ -34,9 +35,9 @@ RUN cd apps/server-monolith && chmod a+x bin/* && COVERAGE=$COVERAGE NODE_ENV=$R
 RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli releases files brickdoc@$VERSION upload-sourcemaps ./public/esm-bundle --url-prefix '~/globalcdn/brickdoc-saas-prod/esm-bundle'; fi
 
 RUN rm -rf node_modules .yarn apps/client-web dist apps/server-monolith/public/esm-bundle/stats.json yarn.lock \
-   && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
-   && rm -rf ./packages/* \
-   && mkdir apps/server-monolith/tmp/pids
+  && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
+  && rm -rf ./packages/* \
+  && mkdir apps/server-monolith/tmp/pids
 
 
 FROM ghcr.io/brickdoc/ruby-3:latest
@@ -49,7 +50,8 @@ LABEL org.opencontainers.image.source="https://github.com/brickdoc/brickdoc"
 ARG RAILS_ENV=production
 ENV RAILS_ENV=$RAILS_ENV
 ENV GEM_HOME /app/bundle
-ENV BUNDLE_APP_CONFIG="$GEM_HOME"
+ENV BUNDLE_APP_CONFIG="$GEM_HOME" \
+  BUNDLE_PATH="$GEM_HOME"
 ENV PATH $GEM_HOME/bin:$PATH
 ENV RAILS_SERVE_STATIC_FILES=true
 COPY --from=builder /app .

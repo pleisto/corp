@@ -10,7 +10,7 @@ storybook-static/
 !.yarn/sdks
 !.yarn/versions
 .nyc_output/
-/.bundle/config
+**/.bundle/config
 /.github/
 /.husky/
 /templates/
