@@ -33,6 +33,6 @@
             - name: SMTP_URL
               value: smtp://{{ include "brickdoc.devDependenciesService" . }}:1025
             - name: RAILS_MAX_THREADS
-              value: 16
+              value: "8"
             {{- end }}
 {{- end }}
