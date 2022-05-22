@@ -8,7 +8,7 @@
     "bundle": "bundle",
     "rake": "rake",
     "rails": "rails",
-    "start": "rails start",
+    "start": "rails s",
     "s": "rails s",
     "g": "rails g",
     "c": "rails c",

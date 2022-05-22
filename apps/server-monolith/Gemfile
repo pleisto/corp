@@ -39,6 +39,8 @@ gem 'lograge', '~> 0.12.0'
 gem 'logstop', '~> 0.2.8'
 gem 'accept_language', '>= 2.0.1'
 gem 'nokogiri', '>= 1.13.6'
+gem 'bootsnap', require: false
+gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.5' # Don't rely on Linux/macOS timezone data.
 
 # Feature toggles
 gem 'flipper', '~> 0.24.1'
@@ -69,8 +71,9 @@ gem 'omniauth', '~> 2.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
 ## Background Tasks
-gem 'bootsnap', require: false
-gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.5' # Don't rely on Linux/macOS timezone data.
+gem 'sidekiq', '~> 6.4'
+gem 'sidekiq-scheduler', '~> 4.0'
+gem 'sidekiq-unique-jobs', '~> 7.1', '>= 7.1.22'
 
 # stafftools
 gem 'console1984'
