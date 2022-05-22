@@ -26,13 +26,13 @@ COPY . .
 RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
 RUN yarn install --immutable \
   && yarn server bundle install --retry 2 --jobs 4
-RUN COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV apps/server-monolith/bin/vite build
+RUN cd apps/server-monolith && COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV bin/vite build
 RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli releases files brickdoc@$VERSION upload-sourcemaps ./public/esm-bundle --url-prefix '~/globalcdn/brickdoc-saas-prod/esm-bundle'; fi
 
 RUN rm -rf node_modules .yarn apps/client-web dist apps/server-monolith/public/esm-bundle/stats.json yarn.lock \
-  && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
-  && rm -rf ./packages/* \
-  && mkdir tmp/pids
+   && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
+   && rm -rf ./packages/* \
+   && mkdir tmp/pids
 
 
 FROM ghcr.io/brickdoc/ruby-3:latest
