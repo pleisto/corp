@@ -23,10 +23,10 @@ ENV SENTRY_PROJECT=$SENTRY_PROJECT
 ENV YARN_CHECKSUM_BEHAVIOR=update
 
 COPY . .
-RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json && chmod a+x apps/server-monolith/bin
+RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
 RUN yarn install --immutable \
   && yarn server bundle install --retry 2 --jobs 4
-RUN cd apps/server-monolith && COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV bin/vite build
+RUN cd apps/server-monolith && chmod a+x bin/* && COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV bin/vite build
 RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli releases files brickdoc@$VERSION upload-sourcemaps ./public/esm-bundle --url-prefix '~/globalcdn/brickdoc-saas-prod/esm-bundle'; fi
 
 RUN rm -rf node_modules .yarn apps/client-web dist apps/server-monolith/public/esm-bundle/stats.json yarn.lock \
