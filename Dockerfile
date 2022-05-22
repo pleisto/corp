@@ -23,7 +23,7 @@ ENV SENTRY_PROJECT=$SENTRY_PROJECT
 ENV YARN_CHECKSUM_BEHAVIOR=update
 
 COPY . .
-RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
+RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json && chmod a+x apps/server-monolith/bin
 RUN yarn install --immutable \
   && yarn server bundle install --retry 2 --jobs 4
 RUN cd apps/server-monolith && COVERAGE=$COVERAGE NODE_ENV=$RAILS_ENV bin/vite build
