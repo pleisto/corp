@@ -77,6 +77,7 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1024,
     sourcemap: true,
+    cssCodeSplit: false,
     target: ['chrome74', 'ios13', 'safari13'],
     rollupOptions: {
       output: {
