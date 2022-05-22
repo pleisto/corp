@@ -32,7 +32,7 @@ RUN if [ "$VERSION" != "0.0.0" ] && [ "$SENTRY_AUTH_TOKEN" ]; then sentry-cli re
 RUN rm -rf node_modules .yarn apps/client-web dist apps/server-monolith/public/esm-bundle/stats.json yarn.lock \
    && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + \
    && rm -rf ./packages/* \
-   && mkdir tmp/pids
+   && mkdir apps/server-monolith/tmp/pids
 
 
 FROM ghcr.io/brickdoc/ruby-3:latest
