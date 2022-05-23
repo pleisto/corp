@@ -13,10 +13,6 @@
       "path": "apps/server-monolith"
     },
     {
-      "name": "apps/backend-for-backend",
-      "path": "apps/backend-for-backend"
-    },
-    {
       "name": "packages/active-support",
       "path": "packages/active-support"
     },
