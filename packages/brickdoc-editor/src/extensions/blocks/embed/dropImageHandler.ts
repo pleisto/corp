@@ -2,11 +2,7 @@ import { Embedtype } from '@brickdoc/schema'
 import { Editor } from '@tiptap/core'
 
 export const dropImageHandler = (editor: Editor, event: DragEvent): boolean => {
-  const dataTransfer = event.dataTransfer
-
-  if (!dataTransfer) return false
-
-  const files = dataTransfer.files
+  const files = event.dataTransfer?.files ?? []
 
   if (files?.length === 0) return false
 
