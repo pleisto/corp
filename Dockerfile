@@ -6,7 +6,9 @@ WORKDIR /app
 
 # Add NodeJS & PostgreSQL apt sources.
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-  && apt-get install --no-install-recommends -y nodejs build-essential git && npm install -g yarn @sentry/cli
+  && apt-get install --no-install-recommends -y nodejs build-essential curl ca-certificates git \
+  && npm install -g yarn @sentry/cli \
+  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ARG RAILS_ENV=production
 ARG VERSION=0.0.0
@@ -25,6 +27,7 @@ ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 ENV SENTRY_ORG=$SENTRY_ORG
 ENV SENTRY_PROJECT=$SENTRY_PROJECT
 ENV YARN_CHECKSUM_BEHAVIOR=update
+ENV PATH=/root/.cargo/bin:$PATH
 
 COPY . .
 RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json

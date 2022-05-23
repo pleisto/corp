@@ -38,7 +38,8 @@
     "web": "yarn workspace @brickdoc/client-web",
     "e2e-testing": "yarn workspace @brickdoc/e2e-testing",
     "active-support": "yarn workspace @brickdoc/active-support",
-    "server": "yarn workspace @brickdoc/server-monolith"
+    "server": "yarn workspace @brickdoc/server-monolith",
+    "bfb": "yarn workspace @brickdoc/backend-for-backend"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "workspace:^",

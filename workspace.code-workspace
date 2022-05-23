@@ -8,9 +8,13 @@
       "name": "apps/client-web",
       "path": "apps/client-web"
     },
-        {
+    {
       "name": "apps/server-monolith",
       "path": "apps/server-monolith"
+    },
+    {
+      "name": "apps/backend-for-backend",
+      "path": "apps/backend-for-backend"
     },
     {
       "name": "packages/active-support",
@@ -55,6 +59,10 @@
     {
       "name": "tools/schematics",
       "path": "tools/schematics"
+    },
+    {
+      "name": "gems/rubocop-brickdoc",
+      "path": "gems/rubocop-brickdoc"
     }
   ],
   "settings": {
