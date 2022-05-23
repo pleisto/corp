@@ -6,9 +6,9 @@ WORKDIR /app
 
 # Add NodeJS & PostgreSQL apt sources.
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-  && apt-get install --no-install-recommends -y nodejs build-essential curl ca-certificates git \
+  && apt-get install --no-install-recommends -y nodejs build-essential curl git \
   && npm install -g yarn @sentry/cli \
-  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable -y
 
 ARG RAILS_ENV=production
 ARG VERSION=0.0.0
@@ -17,17 +17,12 @@ ARG SENTRY_ORG
 ARG SENTRY_PROJECT
 ARG COVERAGE
 ENV RAILS_ENV=$RAILS_ENV
-ENV GEM_HOME /app/bundle
-ENV BUNDLE_APP_CONFIG="$GEM_HOME" \
-  BUNDLE_PATH="$GEM_HOME" \
-  BUNDLE_WITHOUT="test development"
-ENV PATH $GEM_HOME/bin:$PATH
+ENV PATH /root/.cargo/bin:$GEM_HOME/bin:$PATH
 ENV NODE_OPTIONS=--max-old-space-size=5950
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 ENV SENTRY_ORG=$SENTRY_ORG
 ENV SENTRY_PROJECT=$SENTRY_PROJECT
 ENV YARN_CHECKSUM_BEHAVIOR=update
-ENV PATH=/root/.cargo/bin:$PATH
 
 COPY . .
 RUN sed -i "s/[\"]version[\"]: [\"]0.0.0[\"]/\"version\": \"$VERSION\"/g" package.json
@@ -52,10 +47,6 @@ LABEL org.opencontainers.image.source="https://github.com/brickdoc/brickdoc"
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=$RAILS_ENV
-ENV GEM_HOME /app/bundle
-ENV BUNDLE_APP_CONFIG="$GEM_HOME" \
-  BUNDLE_PATH="$GEM_HOME" \
-  BUNDLE_WITHOUT="test development"
 ENV PATH $GEM_HOME/bin:$PATH
 ENV RAILS_SERVE_STATIC_FILES=true
 COPY --from=builder /app .
