@@ -6,6 +6,7 @@ import {
   FormulaContext,
   FormulaType,
   FunctionClause,
+  generateVariable,
   interpret,
   parse,
   SpreadsheetType,
@@ -241,7 +242,8 @@ describe('AutocompleteList', () => {
         interpretContext
       }
 
-      const variable = await interpret({ ctx, parseResult })
+      const tempT = await interpret({ ctx, parseResult })
+      const variable = generateVariable({ formulaContext, t: tempT })
 
       const activeCompletion: Partial<Completion> = {
         kind: 'variable',

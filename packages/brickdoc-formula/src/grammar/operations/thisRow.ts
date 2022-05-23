@@ -1,4 +1,4 @@
-import { SpreadsheetReloadViaId } from '../../events'
+import { SpreadsheetReloadViaId, SpreadsheetUpdateNameViaIdPayload } from '../../events'
 import { CodeFragment, ErrorMessage, EventDependency } from '../../types'
 import { row2attrs, row2codeFragment } from '../convert'
 import { OperatorType } from '../operator'
@@ -51,7 +51,7 @@ export const thisRowOperator: OperatorType = {
     } = cstVisitor.ctx.meta
 
     // TODO same as row
-    const rowDependencyEvent: EventDependency = {
+    const rowDependencyEvent: EventDependency<SpreadsheetUpdateNameViaIdPayload> = {
       kind: 'Row',
       event: SpreadsheetReloadViaId,
       key: `Spreadsheet#Row#${spreadsheetId}#${rowId}`,

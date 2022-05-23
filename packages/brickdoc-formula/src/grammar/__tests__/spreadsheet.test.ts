@@ -1,9 +1,8 @@
 /* eslint-disable jest/no-conditional-expect */
 import { parse, innerInterpret } from '../core'
-import { FormulaContext } from '../../context'
-import { Row, Column, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
 import { VariableMetadata } from '../../types'
-import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
+import { makeContext, SpreadsheetInput } from '../../tests'
+import { SpreadsheetType } from '../../controls'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
@@ -12,181 +11,9 @@ const testNamespaceId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
 const testVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
 const firstColumnId = '62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6'
-const secondColumnId = '4e6f9adb-6f33-454e-9f9e-635dc98e3f28'
-const thirdColumnId = '2723b7d9-22ce-4d93-b2ef-7cce1b122d64'
 const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
-const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
-const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
-
-const meta: VariableMetadata = {
-  namespaceId,
-  variableId,
-  name: 'example',
-  input: '=!!!',
-  position: 0,
-  richType: { type: 'normal' }
-}
-
-const spreadsheetMeta: VariableMetadata = {
-  namespaceId,
-  variableId,
-  name: 'example',
-  input: '=!!!',
-  position: 0,
-  richType: { type: 'spreadsheet', meta: { spreadsheetId, columnId: firstColumnId, rowId: firstRowId } }
-}
-
-const rows: Row[] = [
-  { rowId: firstRowId, rowIndex: 0, spreadsheetId },
-  { rowId: secondRowId, rowIndex: 1, spreadsheetId },
-  { rowId: thirdRowId, rowIndex: 2, spreadsheetId }
-]
-const columns: Column[] = [
-  {
-    columnId: firstColumnId,
-    spreadsheetId,
-    sort: 0,
-    title: 'first',
-    displayIndex: 'A',
-    name: 'first',
-    index: 0
-  },
-  {
-    columnId: secondColumnId,
-    spreadsheetId,
-    sort: 1,
-    title: 'second',
-    displayIndex: 'B',
-    name: 'second',
-    index: 1
-  },
-  {
-    columnId: thirdColumnId,
-    spreadsheetId,
-    sort: 2,
-    title: 'third',
-    displayIndex: 'C',
-    name: 'third',
-    index: 2
-  }
-]
-
-const cells: Cell[] = [
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '1',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '2',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: '3',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '3',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '4',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: '',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '5',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '6',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: 'Foo',
-    displayData: undefined,
-    cellId: ''
-  }
-]
-
-const formulaContext = new FormulaContext({ domain: 'test' })
-
-const spreadsheet: SpreadsheetType = new SpreadsheetClass({
-  name: 'MySpreadsheet',
-  ctx: { formulaContext },
-  dynamic: false,
-  spreadsheetId,
-  namespaceId,
-  columns,
-  rows,
-  getCell: ({ rowId, columnId }) => {
-    return cells.find(cell => cell.rowId === rowId && cell.columnId === columnId)!
-  }
-})
+const firstCellId = 'c53c6bf7-c79f-40ce-be2c-da916f1cdb5f'
+const secondCellId = 'ce01e6e0-7a82-4ea7-a470-29d76673ecd0'
 
 const spreadsheetToken = `#${namespaceId}.MySpreadsheet`
 
@@ -202,6 +29,7 @@ const CELL_FLAG = '<CELL>'
 const ROW_FLAG = '<ROW>'
 const COLUMN_FLAG = '<COLUMN>'
 const RANGE_FLAG = '<RANGE>'
+const SPREADSHEET_FLAG = '<SPREADSHEET>'
 
 const spreadsheetTestCases: TestCase[] = [
   {
@@ -212,7 +40,7 @@ const spreadsheetTestCases: TestCase[] = [
   {
     label: 'thisRow B',
     input: `=ThisRow.B`,
-    value: [CELL_FLAG, 1]
+    value: [CELL_FLAG, secondCellId]
   },
   {
     label: 'thisRow ROW',
@@ -227,17 +55,17 @@ const spreadsheetTestCases: TestCase[] = [
   {
     label: 'thisRow [B]',
     input: `=ThisRow["B"]`,
-    value: [CELL_FLAG, 1]
+    value: [CELL_FLAG, secondCellId]
   },
   {
     label: 'thisRow second',
     input: `=ThisRow.second`,
-    value: [CELL_FLAG, 1]
+    value: [CELL_FLAG, secondCellId]
   },
   {
     label: 'thisRow [second]',
     input: `=ThisRow["second"]`,
-    value: [CELL_FLAG, 1]
+    value: [CELL_FLAG, secondCellId]
   },
   {
     label: 'thisRow [second] + 1',
@@ -252,7 +80,7 @@ const spreadsheetTestCases: TestCase[] = [
   {
     label: 'ThisRecord 1',
     input: `=ThisRecord`,
-    value: spreadsheet
+    value: SPREADSHEET_FLAG
   },
   {
     label: 'ThisRecord A.1',
@@ -262,7 +90,7 @@ const spreadsheetTestCases: TestCase[] = [
   {
     label: 'ThisRecord B.1',
     input: `=ThisRecord.B.1`,
-    value: [CELL_FLAG, 1]
+    value: [CELL_FLAG, secondCellId]
   }
 ]
 
@@ -325,7 +153,7 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 A',
     input: `=${spreadsheetToken}.1.A`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell 1.1 A toString',
@@ -345,7 +173,7 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 first',
     input: `=${spreadsheetToken}.1.first`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell 1.[1] first',
@@ -355,42 +183,42 @@ const testCases: TestCase[] = [
   {
     label: 'cell 1.1 [A]',
     input: `=${spreadsheetToken}.1["A"]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell 1.[1] [A]',
     input: `=${spreadsheetToken}[1]["A"]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell 1.1 [first]',
     input: `=${spreadsheetToken}.1["first"]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell 1.[1] [first]',
     input: `=${spreadsheetToken}[1]["first"]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell logic',
     input: `=${spreadsheetToken}.A.1`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell',
     input: `=${spreadsheetToken}."first".1`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell access',
     input: `=${spreadsheetToken}."first"[1]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell logic 2',
     input: `=${spreadsheetToken}["A"][1]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell logic 3',
@@ -400,12 +228,12 @@ const testCases: TestCase[] = [
   {
     label: 'cell 2',
     input: `=${spreadsheetToken}["first"][1]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell access 2',
     input: `=${spreadsheetToken}["first"][1]`,
-    value: [CELL_FLAG, 0]
+    value: [CELL_FLAG, firstCellId]
   },
   {
     label: 'cell error1',
@@ -530,16 +358,62 @@ const testCases: TestCase[] = [
 ]
 
 describe('Spreadsheet Functions', () => {
-  BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
-  formulaContext.setSpreadsheet(spreadsheet)
-  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+  let ctx: Awaited<ReturnType<typeof makeContext>>
+  let spreadsheet: SpreadsheetType
+
+  beforeAll(async () => {
+    ctx = await makeContext({
+      pages: [
+        {
+          pageName: 'Page1',
+          pageId: namespaceId,
+          spreadsheets: [
+            <SpreadsheetInput<3, 3>>{
+              name: 'MySpreadsheet',
+              spreadsheetId,
+              columns: [
+                {
+                  name: 'first',
+                  columnId: firstColumnId,
+                  displayIndex: 'A',
+                  cells: [{ value: '1', cellId: firstCellId }, { value: '3' }, { value: '5' }]
+                },
+                {
+                  name: 'second',
+                  displayIndex: 'B',
+                  cells: [{ value: '2', cellId: secondCellId }, { value: '4' }, { value: '6' }]
+                },
+                {
+                  name: 'third',
+                  displayIndex: 'C',
+                  cells: [{ value: '3' }, { value: '' }, { value: 'Foo' }]
+                }
+              ],
+              rows: [{ rowId: firstRowId }, {}, {}]
+            }
+          ]
+        }
+      ]
+    })
+    spreadsheet = ctx.formulaContext.findSpreadsheet({ namespaceId, type: 'id', value: spreadsheetId })!
+  })
 
   spreadsheetTestCases.forEach(({ input, label, value, error }) => {
     it(`Spreadsheet [${label}] ${input}`, async () => {
-      const newMeta = { ...spreadsheetMeta, input }
-      const newCtx = { ...ctx, meta: newMeta }
-      const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages, eventDependencies } = parseResult
+      const spreadsheetMeta: VariableMetadata = {
+        namespaceId,
+        variableId,
+        name: 'example',
+        input: '=!!!',
+        position: 0,
+        richType: { type: 'spreadsheet', meta: { spreadsheetId, columnId: firstColumnId, rowId: firstRowId } }
+      }
+      const newCtx = { ...ctx, meta: { ...spreadsheetMeta, input } }
+      const parseResult = parse(newCtx)
+      const {
+        variableParseResult: { codeFragments, eventDependencies },
+        errorMessages
+      } = parseResult
       expect(codeFragments).toMatchSnapshot()
       expect(eventDependencies).toMatchSnapshot()
 
@@ -557,8 +431,10 @@ describe('Spreadsheet Functions', () => {
         expect((result as any).key()).toEqual(value[1])
       } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
         expect((result as any).key()).toEqual(value[1])
+      } else if (value === SPREADSHEET_FLAG) {
+        expect(result).toEqual(spreadsheet)
       } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
-        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
+        expect((result as any).cellId).toEqual(value[1])
       } else {
         expect(result).toEqual(value)
       }
@@ -567,10 +443,21 @@ describe('Spreadsheet Functions', () => {
 
   testCases.forEach(({ input, label, value, error }) => {
     it(`[${label}] ${input}`, async () => {
-      const newMeta = { ...meta, input }
-      const newCtx = { ...ctx, meta: newMeta }
-      const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages, eventDependencies } = parseResult
+      const meta: VariableMetadata = {
+        namespaceId,
+        variableId,
+        name: 'example',
+        input: '=!!!',
+        position: 0,
+        richType: { type: 'normal' }
+      }
+
+      const newCtx = { ...ctx, meta: { ...meta, input } }
+      const parseResult = parse(newCtx)
+      const {
+        errorMessages,
+        variableParseResult: { codeFragments, eventDependencies }
+      } = parseResult
       expect(codeFragments).toMatchSnapshot()
       expect(eventDependencies).toMatchSnapshot()
 
@@ -588,8 +475,10 @@ describe('Spreadsheet Functions', () => {
         expect((result as any).key()).toEqual(value[1])
       } else if (Array.isArray(value) && value[0] === COLUMN_FLAG) {
         expect((result as any).key()).toEqual(value[1])
+      } else if (value === SPREADSHEET_FLAG) {
+        expect(result).toEqual(spreadsheet)
       } else if (Array.isArray(value) && value[0] === CELL_FLAG) {
-        expect((result as any).cellId).toEqual(cells[value[1]].cellId)
+        expect((result as any).cellId).toEqual(value[1])
       } else {
         expect(result).toEqual(value)
       }
@@ -604,25 +493,22 @@ describe('Spreadsheet Functions', () => {
   })
 
   it('completion TODO', () => {
-    const completions = formulaContext.completions(namespaceId, variableId)
+    const completions = ctx.formulaContext.completions(namespaceId, variableId)
     expect(completions[0].kind).toEqual('spreadsheet')
     expect(completions[0]).toMatchSnapshot()
     expect(completions.filter(c => c.kind === 'column').length).toEqual(0)
 
     const input1 = `=#${spreadsheetToken}.first.`
     const { completions: input1Completions } = parse({
-      ctx: {
-        ...ctx,
-        meta: {
-          namespaceId: testNamespaceId,
-          variableId: testVariableId,
-          name: 'foo',
-          input: input1,
-          position: 0,
-          richType: { type: 'normal' }
-        }
-      },
-      position: input1.length
+      ...ctx,
+      meta: {
+        namespaceId: testNamespaceId,
+        variableId: testVariableId,
+        name: 'foo',
+        input: input1,
+        position: 0,
+        richType: { type: 'normal' }
+      }
     })
     expect(input1Completions[0]).toMatchSnapshot()
     // expect(input1Completions[0].kind).toEqual('function')

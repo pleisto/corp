@@ -1,4 +1,4 @@
-import { SpreadsheetReloadViaId } from '../../events'
+import { SpreadsheetReloadViaId, SpreadsheetUpdateNameViaIdPayload } from '../../events'
 import { CodeFragment, ErrorMessage, EventDependency } from '../../types'
 import { spreadsheet2attrs, spreadsheet2codeFragment } from '../convert'
 import { OperatorType } from '../operator'
@@ -51,7 +51,7 @@ export const thisRecordOperator: OperatorType = {
     } = cstVisitor.ctx.meta
 
     // TODO same as spreadsheet
-    const spreadsheetReloadEventDependency: EventDependency = {
+    const spreadsheetReloadEventDependency: EventDependency<SpreadsheetUpdateNameViaIdPayload> = {
       eventId: `${namespaceId},${spreadsheetId}`,
       event: SpreadsheetReloadViaId,
       key: `Spreadsheet#${spreadsheetId}`,

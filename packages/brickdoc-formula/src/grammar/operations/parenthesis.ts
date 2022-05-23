@@ -6,5 +6,18 @@ export const parenthesisOperator: OperatorType = {
   dynamicParseType: lhsType => lhsType,
   lhsType: 'any',
   rhsType: 'any',
-  interpret: async ({ lhs }) => lhs
+  interpret: async ({ lhs }) => lhs,
+  testCases: {
+    successTestCases: [{ definition: '= ( 3 + 4 ) * 5 - 2', result: 33 }],
+    errorTestCases: [
+      {
+        definition: '=()',
+        errorType: 'parse',
+        label: 'Empty parentheses',
+        errorMessage: 'Parse error: ")"',
+        valid: false
+      },
+      { definition: '=(1', errorType: 'syntax', errorMessage: 'Missing closing token' }
+    ]
+  }
 }

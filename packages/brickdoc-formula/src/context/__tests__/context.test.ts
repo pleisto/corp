@@ -1,4 +1,5 @@
-import { appendFormulas, interpret, parse, SuccessParseResult } from '../../grammar/core'
+import { dispatchFormulaBlockNameChangeOrDelete } from '../../events'
+import { appendFormulas, generateVariable, interpret, parse, SuccessParseResult } from '../../grammar/core'
 import { Formula, SyncVariableTask, VariableMetadata } from '../../types'
 import { FormulaContext } from '../context'
 
@@ -43,6 +44,8 @@ const formulas: Formula[] = [
 
 describe('Context', () => {
   beforeAll(async () => {
+    dispatchFormulaBlockNameChangeOrDelete({ id: fooNamespaceId, name: 'Page1', deleted: false })
+    dispatchFormulaBlockNameChangeOrDelete({ id: barNamespaceId, name: 'Page2', deleted: false })
     await appendFormulas(formulaContext, formulas)
   })
 
@@ -71,10 +74,18 @@ describe('Context', () => {
     const bar = formulaContext.findVariableById(barNamespaceId, barVariableId)!
 
     expect({
-      foo: [foo.t.functionDependencies, foo.t.variableDependencies, foo.t.nameDependencies]
+      foo: [
+        foo.t.variableParseResult.functionDependencies,
+        foo.t.variableParseResult.variableDependencies,
+        foo.t.variableParseResult.nameDependencies
+      ]
     }).toMatchSnapshot()
     expect({
-      bar: [bar.t.functionDependencies, bar.t.variableDependencies, bar.t.nameDependencies]
+      bar: [
+        bar.t.variableParseResult.functionDependencies,
+        bar.t.variableParseResult.variableDependencies,
+        bar.t.variableParseResult.nameDependencies
+      ]
     }).toMatchSnapshot()
   })
 
@@ -100,7 +111,7 @@ describe('Context', () => {
       position: 0,
       richType: { type: 'normal' }
     }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+    const parseResult = parse({ formulaContext, meta, interpretContext })
     expect(parseResult.errorMessages).toEqual([{ message: 'Name exist in same namespace', type: 'name_unique' }])
   })
 
@@ -116,7 +127,7 @@ describe('Context', () => {
       position: 0,
       richType: { type: 'normal' }
     }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+    const parseResult = parse({ formulaContext, meta, interpretContext })
     expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is reserved', type: 'name_check' }])
   })
 
@@ -132,7 +143,7 @@ describe('Context', () => {
       position: 0,
       richType: { type: 'normal' }
     }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+    const parseResult = parse({ formulaContext, meta, interpretContext })
     expect(parseResult.errorMessages).toEqual([{ message: 'Variable name is not valid', type: 'name_invalid' }])
   })
 
@@ -142,16 +153,14 @@ describe('Context', () => {
     const namespaceId = '37198be0-d10d-42dc-ae8b-20d45a95401b'
     const variableId = 'b4289606-2a52-48e3-a50f-77ee321dd84e'
     const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, richType: { type: 'normal' } }
-    const parseResult = parse({ ctx: { formulaContext, meta, interpretContext } })
+    const parseResult = parse({ formulaContext, meta, interpretContext })
 
     expect(parseResult.errorMessages).toEqual([{ message: 'Expected boolean but got number', type: 'type' }])
 
     const parseResult2 = parse({
-      ctx: {
-        formulaContext,
-        meta: { ...meta, input: `=IF((#${fooNamespaceId}.foo = 3), 1, 2)` },
-        interpretContext
-      }
+      formulaContext,
+      meta: { ...meta, input: `=IF((#${fooNamespaceId}.foo = 3), 1, 2)` },
+      interpretContext
     })
     expect(parseResult2.errorMessages).toEqual([])
   })
@@ -163,7 +172,7 @@ describe('Context', () => {
     const name = 'baz'
     const input = `= #${fooNamespaceId}."foo"+#${barNamespaceId}."bar" `
     const meta: VariableMetadata = { namespaceId, variableId, name, input, position: 0, richType: { type: 'normal' } }
-    const parseInput = { ctx: { formulaContext, meta, interpretContext } }
+    const parseInput = { formulaContext, meta, interpretContext }
     const parseResult = parse(parseInput) as SuccessParseResult
 
     expect(parseResult.success).toEqual(true)
@@ -173,9 +182,10 @@ describe('Context', () => {
       interpretContext: { ctx: {}, arguments: [] }
     }
 
-    const variable = await interpret({ ctx, parseResult })
+    const tempT = await interpret({ ctx, parseResult })
+    const variable = generateVariable({ formulaContext, t: tempT })
 
-    formulaContext.commitVariable({ variable })
+    await variable.save()
 
     expect(formulaContext.variableCount()).toEqual(3)
 
@@ -189,8 +199,9 @@ describe('Context', () => {
     expect(formulaContext.reverseVariableDependencies).toMatchSnapshot()
 
     // Update
-    variable.t.name = 'bazNew'
-    formulaContext.commitVariable({ variable })
+    variable.t.meta.name = 'bazNew'
+
+    await variable.save()
 
     expect(formulaContext.variableCount()).toEqual(3)
 

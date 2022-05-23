@@ -24,7 +24,7 @@ export const Map = async (
   const newResult = await Promise.all(
     interpretContexts.map(async interpretContext => {
       const variableValue = await innerInterpret({
-        parseResult: { cst, kind: 'expression', errorMessages: [], async: false },
+        parseResult: { variableParseResult: { cst, kind: 'expression', async: false }, errorMessages: [] },
         ctx: { ...ctx, interpretContext }
       })
       return variableValue.result

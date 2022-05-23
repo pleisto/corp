@@ -8,7 +8,7 @@ export const Set = (ctx: FunctionContext, ref: ReferenceResult, cst: CstResult):
     if (!variable) {
       return { type: 'Error', errorKind: 'runtime', result: 'Variable not found' }
     }
-    if (variable.t.kind === 'expression') {
+    if (variable.t.variableParseResult.kind === 'expression') {
       return {
         type: 'Error',
         errorKind: 'runtime',

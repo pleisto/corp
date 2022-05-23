@@ -4,16 +4,12 @@ import {
   ErrorMessage,
   FormulaType,
   Argument,
-  VariableDependency,
-  FunctionClause,
   CodeFragmentResult,
-  NamespaceId,
   FunctionContext,
   ExpressionType,
   SimpleCodeFragmentType,
-  NameDependency,
   CodeFragmentAttrs,
-  EventDependency
+  VariableParseResult
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
@@ -60,12 +56,12 @@ const CodeFragmentCstVisitor = ParserInstance.getBaseCstVisitorConstructor<CstVi
 
 export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
   ctx: FunctionContext
-  variableDependencies: VariableDependency[] = []
-  nameDependencies: NameDependency[] = []
-  functionDependencies: Array<FunctionClause<any>> = []
-  eventDependencies: EventDependency[] = []
-  blockDependencies: NamespaceId[] = []
-  flattenVariableDependencies: VariableDependency[] = []
+  variableDependencies: VariableParseResult['variableDependencies'] = []
+  nameDependencies: VariableParseResult['nameDependencies'] = []
+  functionDependencies: VariableParseResult['functionDependencies'] = []
+  eventDependencies: VariableParseResult['eventDependencies'] = []
+  blockDependencies: VariableParseResult['blockDependencies'] = []
+  flattenVariableDependencies: VariableParseResult['flattenVariableDependencies'] = []
   kind: 'constant' | 'expression' = 'constant'
   async: boolean = false
   pure: boolean = true
@@ -889,6 +885,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
           ]
 
     if (!ctx.LParen) {
+      // console.log('nameDependency', functionKey)
       this.nameDependencies.push({ namespaceId: this.ctx.meta.namespaceId, name: functionKey })
 
       return {

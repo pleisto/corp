@@ -86,5 +86,41 @@ export const inOperator: OperatorType = {
     }
 
     throw new Error(`Unsupported type ${rhs!.type}`)
+  },
+  testCases: {
+    successTestCases: [
+      // Array
+      { definition: '=1 in [1]', result: true },
+      { definition: '=1 in []', result: false },
+      { definition: '=1 in [1, 2]', result: true },
+      { definition: '= 1 in [1, "foo", true]', result: true },
+      { definition: '= "Foo" in [1, "foo", true, null]', result: true },
+      { definition: '= "Foo" exactin [1, "foo", true, null]', result: false },
+      { definition: '= true in [1, "foo", true, null]', result: true },
+      { definition: '= true exactin [1, "foo", true, null]', result: true },
+      { definition: '= null exactin [1, "foo", true, null]', result: true },
+      { definition: '= false exactin [1, "foo", true, null]', result: false },
+      // String
+      { definition: '= "foo" in "barfoobaz"', result: true },
+      { definition: '= "foo" in "barFoobaz"', result: true },
+      { definition: '= "foo" exactin "barFoobaz"', result: false },
+      { definition: '= "foo" exactin "barfoobaz"', result: true }
+    ],
+    errorTestCases: [
+      {
+        definition: '= "foo" in 123',
+        errorType: 'type',
+        errorMessage: 'Expected string,Array,Spreadsheet,Column but got number'
+      },
+      {
+        definition: '= false exactin "foo"',
+        errorType: 'type',
+        errorMessage: 'Expected Array but got string'
+      },
+      { definition: '= "foo" in', errorType: 'syntax', errorMessage: 'Missing expression' },
+      { definition: '=in', errorType: 'syntax', errorMessage: 'Missing expression' },
+      { definition: '=in 123', errorType: 'type', errorMessage: 'Expected Array but got number' },
+      { definition: '=in []', errorType: 'parse', errorMessage: 'Parse error: "in"', valid: false }
+    ]
   }
 }

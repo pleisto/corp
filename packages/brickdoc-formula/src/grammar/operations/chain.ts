@@ -27,5 +27,19 @@ export const chainOperator: OperatorType = {
     }
 
     throw new Error(`Unexpected cst type ${cst.name}`)
+  },
+  testCases: {
+    successTestCases: [
+      { definition: '={a:1}.a', result: 1 },
+      { definition: '={a:1}.b', result: 'Key b not found' },
+      { definition: '=[1,2,3].1', result: 1 },
+      { definition: '=[123].b', result: 'Need a number: b' },
+      { definition: '={a:1}."a"', result: 1 }
+    ],
+    errorTestCases: [
+      { definition: '=1.a', errorType: 'syntax', errorMessage: 'Access error' },
+      { definition: '=1."a"', errorType: 'syntax', errorMessage: 'Access error' },
+      { definition: '=true.a', errorType: 'syntax', errorMessage: 'Access error' }
+    ]
   }
 }

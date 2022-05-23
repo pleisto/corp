@@ -103,7 +103,7 @@ export const complete = ({
           break
         case 'Block':
           completions = completions.map(c => {
-            return c.kind === 'variable' && c.preview.t.namespaceId === last2CodeFragment.attrs?.id
+            return c.kind === 'variable' && c.preview.t.meta.namespaceId === last2CodeFragment.attrs?.id
               ? { ...c, weight: c.weight + 1000 }
               : c
           })

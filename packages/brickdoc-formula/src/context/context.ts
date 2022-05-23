@@ -48,7 +48,7 @@ import { buildFunctionKey, BUILTIN_CLAUSES } from '../functions'
 import { CodeFragmentVisitor } from '../grammar/codeFragment'
 import { FormulaParser } from '../grammar/parser'
 import { FormulaLexer } from '../grammar/lexer'
-import { BlockNameLoad, BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
+import { BrickdocEventBus, EventSubscribed } from '@brickdoc/schema'
 import { FORMULA_FEATURE_CONTROL } from './features'
 import { BlockClass } from '../controls/block'
 import { DEFAULT_VIEWS } from '../render'
@@ -56,7 +56,8 @@ import {
   FormulaContextTickTrigger,
   FormulaContextNameChanged,
   FormulaContextNameRemove,
-  SpreadsheetReloadViaId
+  SpreadsheetReloadViaId,
+  FormulaBlockNameChangedOrDeleted
 } from '../events'
 
 export interface FormulaContextArgs {
@@ -116,6 +117,7 @@ const ReverseCastName = Object.entries(FormulaTypeCastName).reduce(
 ) as Record<SpecialDefaultVariableName, FormulaType>
 
 export class FormulaContext implements ContextInterface {
+  private static instance?: FormulaContext
   domain: string
   tickKey: string
   tickTimeout: number
@@ -191,9 +193,9 @@ export class FormulaContext implements ContextInterface {
     }, {})
 
     const blockNameSubscription = BrickdocEventBus.subscribe(
-      BlockNameLoad,
+      FormulaBlockNameChangedOrDeleted,
       e => {
-        this.setBlock(e.payload.id, e.payload.name)
+        if (!e.payload.meta.deleted) this.setBlock(e.payload.id, e.payload.meta.name)
       },
       { subscribeId: `Domain#${this.domain}` }
     )
@@ -269,7 +271,7 @@ export class FormulaContext implements ContextInterface {
       return function2completion(f, weight)
     })
     const completionVariables: Array<[string, VariableInterface]> = Object.entries(this.variables).filter(
-      ([key, c]) => c.t.variableId !== variableId && c.t.richType.type === 'normal'
+      ([key, c]) => c.t.meta.variableId !== variableId && c.t.meta.richType.type === 'normal'
     )
     const variables: VariableCompletion[] = completionVariables.map(([key, v]) => {
       return variable2completion(v, namespaceId)
@@ -310,10 +312,12 @@ export class FormulaContext implements ContextInterface {
   }
 
   public removeBlock(blockId: NamespaceId): void {
-    if (!this.blocks[blockId]) return
-    this.blocks[blockId].cleanup()
+    const block = this.blocks[blockId]
+    if (!block) return
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.blocks[blockId]
+
+    block.cleanup()
   }
 
   public findNames(namespaceId: NamespaceId, name: string): NameDependencyWithKind[] {
@@ -328,7 +332,18 @@ export class FormulaContext implements ContextInterface {
     this.names[nameDependency.id] = nameDependency
     if (oldName && oldName.name === nameDependency.name) return
 
-    BrickdocEventBus.dispatch(FormulaContextNameChanged(nameDependency))
+    BrickdocEventBus.dispatch(
+      FormulaContextNameChanged({
+        id: nameDependency.id,
+        namespaceId: nameDependency.namespaceId,
+        key: nameDependency.id,
+        scope: null,
+        meta: {
+          name: nameDependency.name,
+          kind: nameDependency.kind
+        }
+      })
+    )
   }
 
   public removeName(id: NamespaceId): void {
@@ -337,7 +352,18 @@ export class FormulaContext implements ContextInterface {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.names[id]
 
-    BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
+    BrickdocEventBus.dispatch(
+      FormulaContextNameRemove({
+        id: oldName.id,
+        namespaceId: oldName.namespaceId,
+        key: oldName.id,
+        scope: null,
+        meta: {
+          name: oldName.name,
+          kind: oldName.kind
+        }
+      })
+    )
   }
 
   public findSpreadsheet({ namespaceId, type, value }: FindKey): SpreadsheetType | undefined {
@@ -364,12 +390,14 @@ export class FormulaContext implements ContextInterface {
     if (this.spreadsheets[spreadsheet.spreadsheetId]) return
 
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
-    this.setBlock(spreadsheet.namespaceId, '')
+    // this.setBlock(spreadsheet.namespaceId, '')
     this.setName(spreadsheet.nameDependency())
     BrickdocEventBus.dispatch(
       SpreadsheetReloadViaId({
-        spreadsheetId: spreadsheet.spreadsheetId,
+        id: spreadsheet.spreadsheetId,
         namespaceId: spreadsheet.namespaceId,
+        scope: null,
+        meta: null,
         key: spreadsheet.spreadsheetId
       })
     )
@@ -388,16 +416,16 @@ export class FormulaContext implements ContextInterface {
   }
 
   public findVariableByName(namespaceId: NamespaceId, name: string): VariableInterface | undefined {
-    const v = Object.values(this.variables).find(v => v.t.namespaceId === namespaceId && v.t.name === name)
+    const v = Object.values(this.variables).find(v => v.t.meta.namespaceId === namespaceId && v.t.meta.name === name)
     return v
   }
 
   public listVariables(namespaceId: NamespaceId): VariableInterface[] {
-    return Object.values(this.variables).filter(v => v.t.namespaceId === namespaceId)
+    return Object.values(this.variables).filter(v => v.t.meta.namespaceId === namespaceId)
   }
 
-  public commitVariable({ variable }: { variable: VariableInterface }): void {
-    const { namespaceId, variableId } = variable.t
+  public async commitVariable({ variable }: { variable: VariableInterface }): Promise<void> {
+    const { namespaceId, variableId } = variable.t.meta
     const oldVariable = this.findVariableById(namespaceId, variableId)
 
     // 1. clear old dependencies
@@ -406,7 +434,6 @@ export class FormulaContext implements ContextInterface {
     }
 
     variable.isNew = false
-    variable.savedT = variable.t
 
     // 2. replace variable object
     this.variables[variableKey(namespaceId, variableId)] = variable
@@ -415,7 +442,7 @@ export class FormulaContext implements ContextInterface {
     variable.trackDependency()
 
     // 4. update name counter
-    const match = variable.t.name.match(matchRegex)
+    const match = variable.t.meta.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
       const realName = ReverseCastName[defaultName as SpecialDefaultVariableName]
@@ -507,5 +534,12 @@ export class FormulaContext implements ContextInterface {
     }
 
     return codeFragments
+  }
+
+  public static getInstance(args: FormulaContextArgs): FormulaContext {
+    if (this.instance === undefined) {
+      this.instance = new FormulaContext(args)
+    }
+    return this.instance
   }
 }

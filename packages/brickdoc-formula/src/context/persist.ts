@@ -16,17 +16,17 @@ const VARIABLE_VERSION = 0
 
 export const dumpDisplayResultForDisplay = (t: VariableData): VariableDisplayData => {
   return {
-    definition: t.definition,
+    definition: t.variableParseResult.definition,
     result: fetchResult(t),
     version: VARIABLE_VERSION,
     display: displayValue(fetchResult(t), ''),
     meta: {
-      namespaceId: t.namespaceId,
-      variableId: t.variableId,
-      name: t.name,
-      position: 0,
-      input: t.definition,
-      richType: t.richType
+      namespaceId: t.meta.namespaceId,
+      variableId: t.meta.variableId,
+      name: t.meta.name,
+      position: t.variableParseResult.position,
+      input: t.variableParseResult.definition,
+      richType: t.meta.richType
     }
   }
 }
@@ -107,7 +107,7 @@ export const loadDisplayResult = (ctx: FunctionContext, displayResult: VariableD
 }
 
 export const dumpValue = (result: BaseResult, t?: VariableData): BaseResult => {
-  if (t && !t.isPersist) {
+  if (t && !t.variableParseResult.persist) {
     return { type: 'NoPersist', result: null }
   }
 

@@ -507,7 +507,7 @@ export interface ContextInterface {
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
-  commitVariable: ({ variable }: { variable: VariableInterface }) => void
+  commitVariable: ({ variable }: { variable: VariableInterface }) => Promise<void>
   removeVariable: (namespaceId: NamespaceId, variableId: VariableId) => Promise<void>
   findFunctionClause: (group: FunctionGroup, name: FunctionNameType) => FunctionClause<FormulaType> | undefined
   resetFormula: VoidFunction
@@ -600,7 +600,6 @@ export type FunctionClause<T extends FormulaType> = Omit<BaseFunctionClauseWithK
 
 export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
-  readonly valuePrefix?: string
   readonly display: string
   readonly hide: boolean
   readonly type: FormulaType
@@ -663,12 +662,12 @@ export interface NameDependencyWithKind extends NameDependency {
 interface BaseVariableValue {
   readonly success: boolean
   readonly result: AnyTypeResult
-  readonly runtimeEventDependencies?: EventDependency[]
+  readonly runtimeEventDependencies?: Array<EventDependency<FormulaEventPayload<any>>>
 }
 
 interface SuccessVariableValue extends BaseVariableValue {
   readonly success: true
-  readonly runtimeEventDependencies: EventDependency[]
+  readonly runtimeEventDependencies: Array<EventDependency<FormulaEventPayload<any>>>
   readonly result: AnyTypeResult
 }
 
@@ -711,39 +710,59 @@ export interface EventScope {
   columns?: string[]
 }
 
-export interface EventDependency {
-  readonly kind: 'SpreadsheetName' | 'ColumnName' | 'Spreadsheet' | 'Column' | 'Row' | 'Cell'
-  readonly event: EventType<any, any>
+export interface FormulaEventPayload<T> {
+  readonly key: string
+  readonly scope: EventScope | null
+  readonly id: string
+  readonly namespaceId: string
+  readonly meta: T
+}
+
+export interface EventDependency<T extends FormulaEventPayload<any>> {
+  readonly kind:
+    | 'SpreadsheetName'
+    | 'ColumnName'
+    | 'Spreadsheet'
+    | 'Column'
+    | 'Row'
+    | 'Cell'
+    | 'Variable'
+    | 'NameChange'
+    | 'NameRemove'
+    | 'BlockRenameOrDelete'
+  readonly event: EventType<T>
   readonly eventId: string
   readonly scope: EventScope
   readonly key: string
-  readonly definitionHandler?: (deps: EventDependency, variable: VariableInterface, payload: any) => string | undefined
-  readonly cleanup?: EventDependency
+  readonly skipIf?: (variable: VariableInterface, payload: T) => boolean
+  readonly definitionHandler?: (deps: EventDependency<T>, variable: VariableInterface, payload: T) => string | undefined
+  readonly cleanup?: EventDependency<FormulaEventPayload<any>>
 }
 
 export type VariableTask = AsyncVariableTask | SyncVariableTask
-export interface VariableData {
+export interface VariableParseResult {
   definition: Definition
-  isAsync: boolean
-  isEffect: boolean
-  isPure: boolean
-  isPersist: boolean
-  task: VariableTask
+  position: number
+  async: boolean
+  effect: boolean
+  pure: boolean
+  persist: boolean
   kind: VariableKind
-  richType: VariableRichType
-  name: VariableName
   version: number
-  namespaceId: NamespaceId
-  variableId: VariableId
   valid: boolean
-  cst?: CstNode
+  cst: CstNode | undefined
   codeFragments: CodeFragment[]
   flattenVariableDependencies: VariableDependency[]
   nameDependencies: NameDependency[]
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
-  eventDependencies: EventDependency[]
+  eventDependencies: Array<EventDependency<FormulaEventPayload<any>>>
   functionDependencies: Array<FunctionClause<FormulaType>>
+}
+export interface VariableData {
+  meta: Pick<VariableMetadata, 'namespaceId' | 'variableId' | 'name' | 'richType'>
+  variableParseResult: VariableParseResult
+  task: VariableTask
 }
 
 export type VariableRichType = {
@@ -768,13 +787,13 @@ export interface VariableMetadata {
   readonly variableId: VariableId
   readonly input: string
   readonly position: number
-  readonly name: VariableName
+  name: VariableName
   readonly richType: VariableRichType
 }
 
 export interface VariableInterface {
   t: VariableData
-  savedT: VariableData | undefined
+  isReadyT: boolean
   isNew: boolean
   currentUUID: string
   formulaContext: ContextInterface
@@ -783,20 +802,12 @@ export interface VariableInterface {
   cleanup: (hard: boolean) => void
   trackDependency: VoidFunction
   trackDirty: VoidFunction
-  save: VoidFunction
+  save: () => Promise<void>
   nameDependency: () => NameDependencyWithKind
   namespaceName: (pageId: NamespaceId) => string
-  updateDefinition: (definition: Definition) => void
+  updateDefinition: (definition: Definition) => Promise<void>
   meta: () => VariableMetadata
-  onUpdate: ({
-    skipPersist,
-    tNotMatched,
-    savedTNotMatched
-  }: {
-    skipPersist?: boolean
-    tNotMatched?: boolean
-    savedTNotMatched?: boolean
-  }) => void
+  onUpdate: ({ skipPersist }: { skipPersist?: boolean }) => void
 }
 
 export interface BackendActions {

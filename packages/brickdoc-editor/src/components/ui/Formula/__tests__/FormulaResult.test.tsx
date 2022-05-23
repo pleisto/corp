@@ -23,9 +23,9 @@ describe('FormulaResult', () => {
       interpretContext
     }
 
-    const variable = await interpret({ ctx, parseResult })
+    const tempT = await interpret({ ctx, parseResult })
 
-    const { container } = render(<FormulaResult pageId="pageId" variableT={variable.t} />)
+    const { container } = render(<FormulaResult pageId="pageId" variableT={tempT} />)
 
     expect(container).toMatchSnapshot()
   })
@@ -47,9 +47,9 @@ describe('FormulaResult', () => {
       interpretContext
     }
 
-    const variable = await interpret({ ctx, parseResult })
+    const tempT = await interpret({ ctx, parseResult })
 
-    const { container } = render(<FormulaResult pageId="pageId" variableT={variable.t} />)
+    const { container } = render(<FormulaResult pageId="pageId" variableT={tempT} />)
 
     expect(container).toMatchSnapshot()
   })
@@ -76,9 +76,9 @@ describe('FormulaResult', () => {
       interpretContext
     }
 
-    const variable = await interpret({ ctx, parseResult })
+    const tempT = await interpret({ ctx, parseResult })
 
-    const { container } = render(<FormulaResult pageId="pageId" variableT={variable.t} />)
+    const { container } = render(<FormulaResult pageId="pageId" variableT={tempT} />)
 
     expect(container).toMatchSnapshot()
   })

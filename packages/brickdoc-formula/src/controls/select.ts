@@ -32,7 +32,13 @@ export class SelectClass implements SelectType {
       )()
       this.value = option
       BrickdocEventBus.dispatch(
-        FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })
+        FormulaInnerRefresh({
+          namespaceId: ctx.meta.namespaceId,
+          id: ctx.meta.variableId,
+          meta: null,
+          scope: null,
+          key: ctx.meta.variableId
+        })
       )
     }
   }

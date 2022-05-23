@@ -1,20 +1,16 @@
-import { checkValidName, FormulaLexer, FUNCTION_NAME_REGEX, TOKEN_SUFFIX_PATTERN } from '../lexer'
-
-const SPECIAL_INVALID_CHARS = [...'()[]{}!@#$%^&*-+=|\\:;\'"<>,./?`~', ' ', '\t', '\n', '\r', '\u2003']
-const VALID_SUFFIX_ONLY = ['中文', 'é', '😉', '1', '감사']
-const BUILTIN_STRINGS = ['in', 'EXACTIN', 'true', 'False', 'and', 'not', 'Null', 'Or']
-const VALID_PREFIX = ['a', '_', ...BUILTIN_STRINGS]
+import { BUILTIN_STRINGS, NAME_SPECIAL_INVALID_CHARS, NAME_VALID_PREFIX, NAME_VALID_SUFFIX_ONLY } from '../tests'
+import { checkValidName, FormulaLexer, FUNCTION_NAME_REGEX, TOKEN_SUFFIX_PATTERN } from '../grammar/lexer'
 
 const validNames: string[] = [
-  ...[...VALID_SUFFIX_ONLY, ...VALID_PREFIX].flatMap(s => VALID_PREFIX.map(p => `${p}${s}`))
+  ...[...NAME_VALID_SUFFIX_ONLY, ...NAME_VALID_PREFIX].flatMap(s => NAME_VALID_PREFIX.map(p => `${p}${s}`))
 ]
 const invalidNames: string[] = [
   '',
-  ...VALID_SUFFIX_ONLY.flatMap(s => [s, ...VALID_PREFIX.map(p => `${s}${p}`)]),
-  ...SPECIAL_INVALID_CHARS.flatMap(char => [
+  ...NAME_VALID_SUFFIX_ONLY.flatMap(s => [s, ...NAME_VALID_PREFIX.map(p => `${s}${p}`)]),
+  ...NAME_SPECIAL_INVALID_CHARS.flatMap(char => [
     char,
-    ...VALID_PREFIX.map(p => `${char}${p}`),
-    ...VALID_PREFIX.map(p => `${p}${char}`)
+    ...NAME_VALID_PREFIX.map(p => `${char}${p}`),
+    ...NAME_VALID_PREFIX.map(p => `${p}${char}`)
   ])
 ]
 
@@ -47,17 +43,19 @@ describe('name', () => {
     expect(input.match(trueOrRegex)?.[0]).toBe('!')
   })
 
-  it.each(['true', 'TRUE', 'True'].flatMap(t => [...VALID_SUFFIX_ONLY, ...VALID_PREFIX].map(s => `${t}${s}`)))(
-    'true invalid "%s"',
-    (input: string) => {
-      expect(input.match(trueRegex)?.[0]).not.toBe(input)
-      expect(input.match(trueFalseRegex)?.[0]).not.toBe(input)
-      expect(input.match(trueOrRegex)?.[0]).not.toBe(input)
-    }
-  )
+  it.each(
+    ['true', 'TRUE', 'True'].flatMap(t => [...NAME_VALID_SUFFIX_ONLY, ...NAME_VALID_PREFIX].map(s => `${t}${s}`))
+  )('true invalid "%s"', (input: string) => {
+    expect(input.match(trueRegex)?.[0]).not.toBe(input)
+    expect(input.match(trueFalseRegex)?.[0]).not.toBe(input)
+    expect(input.match(trueOrRegex)?.[0]).not.toBe(input)
+  })
 
   it.each(
-    ['true', 'TRUE', 'True'].flatMap(t => [t, ...SPECIAL_INVALID_CHARS.flatMap(s => [`${t}${s}`, `${t}${s}foobar`])])
+    ['true', 'TRUE', 'True'].flatMap(t => [
+      t,
+      ...NAME_SPECIAL_INVALID_CHARS.flatMap(s => [`${t}${s}`, `${t}${s}foobar`])
+    ])
   )('true valid "%s"', (input: string) => {
     expect(input.match(trueRegex)![0].toUpperCase()).toBe('TRUE')
     expect(input.match(trueFalseRegex)![0].toUpperCase()).toBe('TRUE')

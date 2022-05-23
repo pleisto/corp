@@ -1,11 +1,9 @@
 import { parse } from '../core'
-import { CodeFragment, VariableMetadata } from '../../types'
-import { FormulaContext } from '../../context'
+import { CodeFragment } from '../../types'
 import { FormulaLexer } from '../lexer'
 import { complete } from '../completer'
-import { quickInsert } from '../testHelper'
+import { makeContext } from '../../tests'
 
-const formulaContext = new FormulaContext({ domain: 'test' })
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const barVariableId = '28e28190-63bd-4f70-aeca-26e72574c01a'
@@ -13,40 +11,34 @@ const test2VariableId = '99499117-5694-4d83-9ccd-85a3ab0b8f25'
 const testNamespaceId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
 const testVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
-const interpretContext = { ctx: {}, arguments: [] }
-
 const testName1 = 'varvarabcvar'
 const testName2 = 'a中文baz345_space_foo'
 
-const meta: VariableMetadata = {
-  namespaceId,
-  variableId,
-  name: testName1,
-  input: '=24',
-  position: 0,
-  richType: { type: 'normal' }
-}
-const barMeta: VariableMetadata = {
-  namespaceId,
-  variableId: barVariableId,
-  name: 'bar',
-  input: '=43',
-  position: 0,
-  richType: { type: 'normal' }
-}
-const test2Meta: VariableMetadata = {
-  namespaceId,
-  variableId: test2VariableId,
-  name: testName2,
-  input: '=80',
-  position: 0,
-  richType: { type: 'normal' }
-}
 describe('Complete', () => {
+  let ctx: Awaited<ReturnType<typeof makeContext>>
+
   beforeAll(async () => {
-    await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
-    await quickInsert({ ctx: { formulaContext, meta: barMeta, interpretContext } })
-    await quickInsert({ ctx: { formulaContext, meta: test2Meta, interpretContext } })
+    ctx = await makeContext({
+      pages: [
+        {
+          pageName: 'Page1',
+          pageId: namespaceId,
+          variables: [
+            { variableName: testName1, definition: '=24', variableId },
+            {
+              variableName: 'bar',
+              definition: '=43',
+              variableId: barVariableId
+            },
+            {
+              variableName: testName2,
+              definition: '=80',
+              variableId: test2VariableId
+            }
+          ]
+        }
+      ]
+    })
   })
 
   it('basic', () => {
@@ -56,11 +48,7 @@ describe('Complete', () => {
     const codeFragments: CodeFragment[] = []
 
     const completions = complete({
-      ctx: {
-        formulaContext,
-        interpretContext: { ctx: {}, arguments: [] },
-        meta: { namespaceId, variableId: testVariableId, name: 'foo', input, position: 0, richType: { type: 'normal' } }
-      },
+      ctx: { ...ctx, meta: { ...ctx.meta, input } },
       tokens,
       position: input.length,
       codeFragments
@@ -69,18 +57,7 @@ describe('Complete', () => {
     expect(completions[0].kind).toBe('variable')
 
     const completions2 = complete({
-      ctx: {
-        formulaContext,
-        interpretContext: { ctx: {}, arguments: [] },
-        meta: {
-          namespaceId: testNamespaceId,
-          variableId: testVariableId,
-          name: 'foo',
-          input,
-          position: 0,
-          richType: { type: 'normal' }
-        }
-      },
+      ctx: { ...ctx, meta: { ...ctx.meta, input, namespaceId: testNamespaceId } },
       tokens,
       position: input.length,
       codeFragments
@@ -226,26 +203,13 @@ describe('Complete', () => {
       it(`[${label}] ${input}`, async () => {
         const {
           errorMessages,
-          valid,
+          variableParseResult: { valid, codeFragments, definition: newInput },
           completions,
-          codeFragments,
           inputImage,
-          input: newInput,
           parseImage
         } = parse({
-          ctx: {
-            formulaContext,
-            interpretContext,
-            meta: {
-              namespaceId: testcaseNamespaceId,
-              variableId: testVariableId,
-              name: 'foo',
-              input,
-              position: 0,
-              richType: { type: 'normal' }
-            }
-          },
-          position: input.length
+          ...ctx,
+          meta: { ...ctx.meta, input, namespaceId: testcaseNamespaceId, variableId: testVariableId }
         })
 
         expect(valid).toBe(true)

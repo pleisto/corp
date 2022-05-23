@@ -1,4 +1,5 @@
 import { Cell, CellType, Column, ColumnType, Row, RowType, SpreadsheetClass, SpreadsheetType } from '../../controls'
+import { dispatchFormulaBlockNameChangeOrDelete } from '../../events'
 import { PersistFormulaType, TypedResult, VariableMetadata } from '../../types'
 import { FormulaContext } from '../context'
 import { dumpValue, loadValue } from '../persist'
@@ -184,8 +185,6 @@ const ctx = {
   meta
 }
 
-formulaContext.setSpreadsheet(spreadsheet)
-
 const columnTypes: ColumnType[] = [
   spreadsheet.findColumn({ type: 'name', value: 'first', namespaceId })!,
   spreadsheet.findColumn({ type: 'name', value: 'A', namespaceId })!,
@@ -245,6 +244,9 @@ const testCases: {
 }
 
 describe('persist', () => {
+  dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: 'Page1', deleted: false })
+  formulaContext.setSpreadsheet(spreadsheet)
+
   const input = Object.entries(testCases).flatMap(([k, { cases, serializesSameError, stringifyError }]) => {
     return cases.map((c, index) => ({ index, type: k, serializesSameError, stringifyError, testCase: c }))
   })

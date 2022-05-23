@@ -1,4 +1,5 @@
 import { CstNode, IToken } from 'chevrotain'
+import { TestCaseType } from '../tests'
 import { AnyTypeResult, CodeFragment, CodeFragmentResult, ErrorMessage, FormulaCheckType, FormulaType } from '../types'
 import { CodeFragmentVisitor, CstVisitorArgument, token2fragment } from './codeFragment'
 import { InterpretArgument, FormulaInterpreter } from './interpreter'
@@ -9,6 +10,7 @@ export interface OperatorType {
   readonly skipReturnFinalCheck?: boolean
   readonly skipRhsCstParse?: boolean
   readonly reverseLhsAndRhs?: boolean
+  readonly testCases?: TestCaseType
   readonly expressionType: FormulaType
   readonly lhsType: FormulaCheckType
   readonly dynamicInterpretLhs?: (

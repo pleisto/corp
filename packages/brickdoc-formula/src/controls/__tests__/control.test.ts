@@ -1,41 +1,32 @@
 /* eslint-disable max-len */
 /* eslint-disable jest/no-conditional-expect */
 import { innerInterpret, parse } from '../../grammar/core'
-import { FormulaContext, FORMULA_FEATURE_CONTROL } from '../../context'
-import { quickInsert } from '../../grammar/testHelper'
-import { VariableMetadata } from '../../types'
+import { FORMULA_FEATURE_CONTROL } from '../../context'
+import { makeContext } from '../../tests'
 
-const formulaContext = new FormulaContext({ domain: 'test' })
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const barVariableId = '28e28190-63bd-4f70-aeca-26e72574c01a'
-const testVariableId = 'd986e871-cb85-4bd5-b675-87307f60b882'
 
 const testName1 = 'varvarabcvar'
 
 const SNAPSHOT_FLAG = '<SNAPSHOT>'
+const pages = [
+  {
+    pageName: 'Page1',
+    pageNamespaceId: namespaceId,
+    variables: [
+      { variableName: testName1, definition: '=24', variableNamespaceId: variableId },
+      { variableName: 'bar', definition: `=#${namespaceId}.${testName1}`, variableNamespaceId: barVariableId }
+    ]
+  }
+]
 
-const interpretContext = { ctx: {}, arguments: [] }
-const meta: VariableMetadata = {
-  namespaceId,
-  variableId,
-  name: testName1,
-  input: '=24',
-  position: 0,
-  richType: { type: 'normal' }
-}
-const barMeta: VariableMetadata = {
-  namespaceId,
-  variableId: barVariableId,
-  name: 'bar',
-  input: `=#${namespaceId}.${testName1}`,
-  position: 0,
-  richType: { type: 'normal' }
-}
 describe('Controls', () => {
+  let ctx: Awaited<ReturnType<typeof makeContext>>
+
   beforeAll(async () => {
-    await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
-    await quickInsert({ ctx: { formulaContext, meta: barMeta, interpretContext } })
+    ctx = await makeContext({ pages })
   })
 
   interface TestCase {
@@ -126,66 +117,38 @@ describe('Controls', () => {
     }
   ]
 
-  it('feature', () => {
+  it('feature', async () => {
+    const noFeatureCtx = await makeContext({ initializeOptions: { domain: 'test', features: [] }, pages })
     const input = `=Button("Foo", Set(#${namespaceId}.${testName1}, (1 + #${namespaceId}.${testName1})))`
-    const meta: VariableMetadata = {
-      namespaceId,
-      variableId: testVariableId,
-      name: 'foo',
-      input,
-      position: 0,
-      richType: { type: 'normal' }
-    }
-    const interpretContext = { ctx: {}, arguments: [] }
-    const { errorMessages: errorMessage1 } = parse({
-      ctx: { formulaContext: new FormulaContext({ domain: 'test', features: [] }), meta, interpretContext }
-    })
-
+    const { errorMessages: errorMessage1 } = parse({ ...noFeatureCtx, meta: { ...noFeatureCtx.meta, input } })
     expect(errorMessage1).toEqual([{ message: 'Function Button not found', type: 'deps' }])
 
-    formulaContext.features = []
-
-    const { errorMessages: errorMessage2 } = parse({
-      ctx: { formulaContext, meta, interpretContext }
-    })
-
+    const featureCtx = await makeContext({ initializeOptions: { domain: 'test' }, pages })
+    featureCtx.formulaContext.features = []
+    const { errorMessages: errorMessage2 } = parse({ ...featureCtx, meta: { ...featureCtx.meta, input } })
     expect(errorMessage2).toEqual([{ message: 'Feature formula-controls not enabled', type: 'deps' }])
 
-    formulaContext.features = [FORMULA_FEATURE_CONTROL]
-
-    const { errorMessages: errorMessage3 } = parse({ ctx: { formulaContext, meta, interpretContext } })
-
+    featureCtx.formulaContext.features = [FORMULA_FEATURE_CONTROL]
+    const { errorMessages: errorMessage3 } = parse({ ...featureCtx, meta: { ...featureCtx.meta, input } })
     expect(errorMessage3).toEqual([])
   })
 
   testCases.forEach(({ input, label, parseErrorMessage, result }) => {
     it(`[${label}] ${input}`, async () => {
-      const meta: VariableMetadata = {
-        namespaceId,
-        variableId: testVariableId,
-        name: 'foo',
-        input,
-        position: 0,
-        richType: { type: 'normal' }
-      }
-      const parseResult = parse({
-        ctx: {
-          formulaContext,
-          meta,
-          interpretContext
-        }
-      })
-      const { errorMessages, valid, codeFragments, success } = parseResult
+      const newCtx = { ...ctx, meta: { ...ctx.meta, input } }
+      const parseResult = parse(newCtx)
+      const {
+        errorMessages,
+        variableParseResult: { valid, codeFragments },
+        success
+      } = parseResult
 
       expect(valid).toBe(true)
       expect(codeFragments).toMatchSnapshot()
       expect(errorMessages[0]?.message).toEqual(parseErrorMessage)
 
       if (success) {
-        const variableValue = await innerInterpret({
-          parseResult,
-          ctx: { meta, formulaContext, interpretContext: { ctx: {}, arguments: [] } }
-        })
+        const variableValue = await innerInterpret({ parseResult, ctx: newCtx })
 
         expect(variableValue.success).toBe(true)
         if (result === SNAPSHOT_FLAG) {

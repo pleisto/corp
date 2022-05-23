@@ -46,14 +46,7 @@ export const FunctionPreview: React.FC<FunctionPreviewProps> = ({ functionClause
           <div className="autocomplete-preview-section-head">Example</div>
           {functionClause.examples.map((example, index) => (
             <div key={index} className="autocomplete-preview-example">
-              <FormulaEditor
-                editorContent={{
-                  content: codeFragmentsToJSONContentTotal(example.codeFragments),
-                  input: '',
-                  position: 0
-                }}
-                editable={false}
-              />
+              <FormulaEditor content={codeFragmentsToJSONContentTotal(example.codeFragments)} editable={false} />
               <br />
               <span className="autocomplete-preview-example-result">={JSON.stringify(example?.output?.result)}</span>
             </div>

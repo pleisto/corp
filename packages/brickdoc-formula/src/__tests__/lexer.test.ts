@@ -1,4 +1,4 @@
-import { FormulaLexer, tokenVocabulary } from '../lexer'
+import { FormulaLexer, tokenVocabulary } from '../grammar/lexer'
 import { tokenMatcher } from 'chevrotain'
 
 const lexer = FormulaLexer

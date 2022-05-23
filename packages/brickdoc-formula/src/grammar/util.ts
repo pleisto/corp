@@ -15,7 +15,7 @@ import { InterpretArgument } from './interpreter'
 import { checkValidName } from './lexer'
 
 // eslint-disable-next-line complexity
-export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventScope | undefined): boolean => {
+export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventScope | null): boolean => {
   if (!eventScope) return true
 
   const listenedRows = listenedScope.rows ?? []
@@ -62,9 +62,12 @@ export const shouldReceiveEvent = (listenedScope: EventScope, eventScope: EventS
   }
 }
 
-export const cleanupEventDependency = (label: string, dependencies: EventDependency[]): EventDependency[] => {
+export const cleanupEventDependency = (
+  label: string,
+  dependencies: Array<EventDependency<any>>
+): Array<EventDependency<any>> => {
   if (!dependencies.length) return []
-  const finalEventDependencies: EventDependency[] = []
+  const finalEventDependencies: Array<EventDependency<any>> = []
 
   dependencies.forEach((dependency, index) => {
     const lastDependency = dependencies[index - 1]

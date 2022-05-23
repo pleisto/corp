@@ -1,15 +1,15 @@
-import { EventScope } from '../../types'
-import { shouldReceiveEvent } from '../util'
+import { EventScope } from '../types'
+import { shouldReceiveEvent } from '../grammar/util'
 
 const testCases: Array<{
   listenedScope: EventScope
-  eventScope: EventScope | undefined
+  eventScope: EventScope | null
   label: string
   result: boolean
 }> = [
   {
     listenedScope: {},
-    eventScope: undefined,
+    eventScope: null,
     label: 'empty',
     result: true
   },

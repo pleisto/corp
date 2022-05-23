@@ -1,181 +1,8 @@
 import { parse, innerInterpret } from '../core'
-import { FormulaContext } from '../../context'
-import { Row, Column, SpreadsheetType, SpreadsheetClass, Cell } from '../../controls'
-import { VariableMetadata } from '../../types'
-import { BlockNameLoad, BrickdocEventBus } from '@brickdoc/schema'
+import { makeContext, SpreadsheetInput } from '../../tests'
 
 const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
-const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const spreadsheetId = '28e28190-63bd-4f70-aeca-26e72574c01a'
-
-const firstColumnId = '62d9a9ee-88a1-46c7-a929-4a0d9dc0a4d6'
-const secondColumnId = '4e6f9adb-6f33-454e-9f9e-635dc98e3f28'
-const thirdColumnId = '2723b7d9-22ce-4d93-b2ef-7cce1b122d64'
-const firstRowId = 'ec4fdfe8-4a12-4a76-aeae-2dea0229e734'
-const secondRowId = '5d1e4a83-383a-4991-a33c-52a9b3169549'
-const thirdRowId = '05f5ae67-b982-406e-a92f-e559c10a7ba6'
-
-const meta: VariableMetadata = {
-  namespaceId,
-  variableId,
-  name: 'example',
-  input: '=!!!',
-  position: 0,
-  richType: { type: 'normal' }
-}
-
-const rows: Row[] = [
-  { rowId: firstRowId, rowIndex: 0, spreadsheetId },
-  { rowId: secondRowId, rowIndex: 1, spreadsheetId },
-  { rowId: thirdRowId, rowIndex: 2, spreadsheetId }
-]
-
-const cells: Cell[] = [
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '1',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '2',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: firstRowId,
-    spreadsheetId,
-    rowIndex: 0,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: '3',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '3',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '4',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: secondRowId,
-    spreadsheetId,
-    rowIndex: 1,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: '',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 0,
-    columnId: firstColumnId,
-    value: '5',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 1,
-    columnId: secondColumnId,
-    value: '6',
-    displayData: undefined,
-    cellId: ''
-  },
-  {
-    namespaceId,
-    rowId: thirdRowId,
-    spreadsheetId,
-    rowIndex: 2,
-    columnIndex: 2,
-    columnId: thirdColumnId,
-    value: 'Foo',
-    displayData: undefined,
-    cellId: ''
-  }
-]
-
-const columns: Column[] = [
-  {
-    columnId: firstColumnId,
-    spreadsheetId,
-    sort: 0,
-    title: 'first',
-    displayIndex: 'A',
-    name: 'first',
-    index: 0
-  },
-  {
-    columnId: secondColumnId,
-    spreadsheetId,
-    sort: 1,
-    title: 'second',
-    displayIndex: 'B',
-    name: 'second',
-    index: 1
-  },
-  {
-    columnId: thirdColumnId,
-    spreadsheetId,
-    sort: 2,
-    title: 'third',
-    displayIndex: 'C',
-    name: 'third',
-    index: 2
-  }
-]
-
-const formulaContext = new FormulaContext({ domain: 'test' })
-
-const spreadsheet: SpreadsheetType = new SpreadsheetClass({
-  name: 'MySpreadsheet',
-  dynamic: false,
-  ctx: { formulaContext },
-  namespaceId,
-  spreadsheetId,
-  columns,
-  rows,
-  getCell: ({ rowId, columnId }) => {
-    return cells.find(cell => cell.rowId === rowId && cell.columnId === columnId)!
-  }
-})
 
 interface TestCase {
   input: string
@@ -204,16 +31,50 @@ const testCases: TestCase[] = [
 ]
 
 describe('Power Fx Functions', () => {
-  BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
-  formulaContext.setSpreadsheet(spreadsheet)
-  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+  let ctx: Awaited<ReturnType<typeof makeContext>>
+
+  beforeAll(async () => {
+    ctx = await makeContext({
+      pages: [
+        {
+          pageName: 'Page1',
+          pageId: namespaceId,
+          spreadsheets: [
+            <SpreadsheetInput<3, 3>>{
+              name: 'MySpreadsheet',
+              spreadsheetId,
+              columns: [
+                {
+                  name: 'first',
+                  displayIndex: 'A',
+                  cells: [{ value: '1' }, { value: '3' }, { value: '5' }]
+                },
+                {
+                  name: 'second',
+                  displayIndex: 'B',
+                  cells: [{ value: '2' }, { value: '4' }, { value: '6' }]
+                },
+                {
+                  name: 'third',
+                  displayIndex: 'C',
+                  cells: [{ value: '3' }, { value: '' }, { value: 'Foo' }]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    })
+  })
 
   testCases.forEach(({ input, label, value, error }) => {
     it(`[${label}] ${input}`, async () => {
-      const newMeta = { ...meta, input }
-      const newCtx = { ...ctx, meta: newMeta }
-      const parseResult = parse({ ctx: newCtx })
-      const { codeFragments, errorMessages } = parseResult
+      const newCtx = { ...ctx, meta: { ...ctx.meta, input } }
+      const parseResult = parse(newCtx)
+      const {
+        variableParseResult: { codeFragments },
+        errorMessages
+      } = parseResult
       expect(codeFragments).toMatchSnapshot()
       if (error) {
         // eslint-disable-next-line jest/no-conditional-expect

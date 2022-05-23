@@ -19,7 +19,8 @@ import {
   SpreadsheetId,
   NameDependencyWithKind,
   EventDependency,
-  FindKey
+  FindKey,
+  FormulaEventPayload
 } from '../types'
 
 export interface ControlType {
@@ -52,7 +53,7 @@ export type getEventDependencyInput = { rowKey?: string; columnKey?: string } & 
   | {}
 )
 
-type getEventDependency = ({ rowKey, columnKey }: getEventDependencyInput) => EventDependency
+type getEventDependency = ({ rowKey, columnKey }: getEventDependencyInput) => EventDependency<FormulaEventPayload<any>>
 export interface handleCodeFragmentsResult {
   errors: ErrorMessage[]
   firstArgumentType: FormulaType | undefined

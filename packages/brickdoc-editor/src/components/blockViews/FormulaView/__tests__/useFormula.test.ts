@@ -1,4 +1,5 @@
 import { FormulaContext, FormulaSourceType, quickInsert, VariableMetadata, VariableValue } from '@brickdoc/formula'
+import { BrickdocEventBus, FormulaEditorUpdateTrigger } from '@brickdoc/schema'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { JSONContent } from '@tiptap/core'
 import {
@@ -325,38 +326,36 @@ const spreadsheetTestCases = [
   }
 ]
 
+const updateEditor = async (content: JSONContent, position: number): Promise<void> => {
+  const result = BrickdocEventBus.dispatch(FormulaEditorUpdateTrigger({ formulaId, rootId, content, position }))
+
+  await Promise.all(result)
+}
+
 describe('useFormula', () => {
   beforeEach(async () => {
     formulaContext.resetFormula()
 
     for (const meta of [...simpleMetas, ...complexMetas]) {
-      await quickInsert({ ctx: { formulaContext, meta, interpretContext } })
+      await quickInsert({ formulaContext, meta, interpretContext })
     }
   })
 
   it('normal initial', () => {
     const { result } = renderHook(() => useFormula(spreadsheetInput))
 
-    expect(result.current.variableT).toBe(undefined)
-    expect(result.current.editorContent).toEqual({
-      content: undefined,
-      input: '',
-      position: 0
-    })
-    expect(result.current.nameRef.current).toBe('')
-    expect(result.current.defaultName).toBe('var1')
+    expect(result.current.temporaryVariableT).toBe(undefined)
+    expect(result.current.content).toEqual(undefined)
+    expect(result.current.nameRef.current.name).toBe('')
+    expect(result.current.nameRef.current.defaultName).toBe('var1')
   })
   it('spreadsheet initial', () => {
     const { result } = renderHook(() => useFormula(normalInput))
 
-    expect(result.current.variableT).toBe(undefined)
-    expect(result.current.editorContent).toEqual({
-      content: undefined,
-      input: '=',
-      position: 0
-    })
-    expect(result.current.nameRef.current).toBe('')
-    expect(result.current.defaultName).toBe('var1')
+    expect(result.current.temporaryVariableT).toBe(undefined)
+    expect(result.current.content).toEqual(undefined)
+    expect(result.current.nameRef.current.name).toBe('')
+    expect(result.current.nameRef.current.defaultName).toBe('var1')
   })
 
   it.each(simpleNormalTestCasesWithPosition)(
@@ -374,20 +373,24 @@ describe('useFormula', () => {
       ])
 
       await act(async () => {
-        result.current.updateEditor(jsonContent, editorPosition)
+        await updateEditor(jsonContent, editorPosition)
         await new Promise(resolve => setTimeout(resolve, 50))
       })
 
-      // expect(result.current.editorContent.position).toEqual(position)
-      if (result.current.editorContent.position !== position) {
-        // eslint-disable-next-line jest/no-conditional-expect
-        expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
-      }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content), namespaceId)).toEqual(
-        newInput ?? input
-      )
+      const { position: newPosition, definition: newDefinition } =
+        result.current.temporaryVariableT!.variableParseResult
 
-      const data = (result.current.variableT!.task.variableValue as VariableValue).result.result
+      // expect(result.current.editorContent.position).toEqual(position)
+      if (newPosition !== position) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect([
+          'Position unmatched',
+          { content: result.current.content, input: newDefinition, position: newPosition }
+        ]).toMatchSnapshot()
+      }
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.content), namespaceId)).toEqual(newInput ?? input)
+
+      const data = (result.current.temporaryVariableT!.task.variableValue as VariableValue).result.result
       if (typeof data === 'object') {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data!.constructor.name).toEqual(resultData)
@@ -414,21 +417,27 @@ describe('useFormula', () => {
       ])
 
       await act(async () => {
-        result.current.updateEditor(jsonContent, editorPosition)
+        await updateEditor(jsonContent, editorPosition)
         await new Promise(resolve => setTimeout(resolve, 50))
       })
 
+      const { position: newPosition, definition: newDefinition } =
+        result.current.temporaryVariableT!.variableParseResult
+
       // expect(result.current.editorContentRef.current.position).toEqual(position)
-      if (result.current.editorContent.position !== position) {
+      if (newPosition !== position) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(['Position unmatched', result.current.editorContent]).toMatchSnapshot()
+        expect([
+          'Position unmatched',
+          { content: result.current.content, input: newDefinition, position: newPosition }
+        ]).toMatchSnapshot()
       }
-      expect(contentArrayToInput(fetchJSONContentArray(result.current.editorContent.content), namespaceId)).toEqual(
+      expect(contentArrayToInput(fetchJSONContentArray(result.current.content), namespaceId)).toEqual(
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         newInput ?? input
       )
 
-      const data = (result.current.variableT!.task.variableValue as VariableValue).result.result
+      const data = (result.current.temporaryVariableT!.task.variableValue as VariableValue).result.result
       if (typeof data === 'object') {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(data!.constructor.name).toEqual(resultData)
@@ -448,17 +457,17 @@ describe('useFormula', () => {
     const jsonContent = buildJSONContentByArray(input.content)
 
     await act(async () => {
-      result.current.updateEditor(jsonContent, editorPosition)
+      await updateEditor(jsonContent, editorPosition)
       await new Promise(resolve => setTimeout(resolve, 50))
     })
 
-    expect(result.current.editorContent.position).toEqual(output.position)
+    expect(result.current.temporaryVariableT!.variableParseResult.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContent.content).toMatchSnapshot()
+      expect(result.current.content).toMatchSnapshot()
     } else {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
+      expect(result.current.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
     jest.clearAllTimers()
   })
@@ -471,17 +480,17 @@ describe('useFormula', () => {
     const jsonContent = buildJSONContentByArray(input.content)
 
     await act(async () => {
-      result.current.updateEditor(jsonContent, editorPosition)
+      await updateEditor(jsonContent, editorPosition)
       await new Promise(resolve => setTimeout(resolve, 50))
     })
 
-    expect(result.current.editorContent.position).toEqual(output.position)
+    expect(result.current.temporaryVariableT!.variableParseResult.position).toEqual(output.position)
     if (output.content === SNAPSHOT_FLAG) {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContent.content).toMatchSnapshot()
+      expect(result.current.content).toMatchSnapshot()
     } else {
       // eslint-disable-next-line jest/no-conditional-expect
-      expect(result.current.editorContent.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
+      expect(result.current.content).toEqual(buildJSONContentByArray(output.content as JSONContent[]))
     }
     jest.clearAllTimers()
   })
@@ -497,17 +506,17 @@ describe('useFormula', () => {
     const content = buildJSONContentByDefinition('SLEEP(111)')!
 
     await act(async () => {
-      result.current.updateEditor(content, 0)
+      await updateEditor(content, 0)
     })
 
-    expect(result.current.variableT?.valid).toEqual(true)
-    expect(result.current.variableT!.task.async).toEqual(true)
+    expect(result.current.temporaryVariableT!.variableParseResult.valid).toEqual(true)
+    expect(result.current.temporaryVariableT!.task.async).toEqual(true)
 
     await new Promise(resolve => setTimeout(resolve, 50))
-    expect(result.current.variableT!.task.async).toEqual(true)
+    expect(result.current.temporaryVariableT!.task.async).toEqual(true)
 
     await new Promise(resolve => setTimeout(resolve, 200))
-    expect(result.current.variableT!.task.async).toEqual(false)
+    expect(result.current.temporaryVariableT!.task.async).toEqual(false)
     jest.clearAllTimers()
   })
 })
