@@ -127,7 +127,7 @@ namespace :rust do
   # Build rust binary
   task cargo_build: [:cargo_check] do
     profile = RakeCargoHelper.profile
-    args = profile == 'release' ? ['--release', '--locked'] : ['--profile', profile]
+    args = profile == 'release' ? ['--release'] : ['--profile', profile]
     sh 'cargo', 'rustc', *args, '--', *RakeCargoHelper.flags
   end
 

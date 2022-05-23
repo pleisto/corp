@@ -1,10 +1,12 @@
 use magnus::{define_module, Error};
-use mimalloc::MiMalloc;
 
-/// mimalloc is a compact general purpose allocator with excellent performance.
-/// https://github.com/microsoft/mimalloc
+#[cfg(not(target_env = "msvc"))]
+use tikv_jemallocator::Jemalloc;
+
+/// Our ruby runtime is also bundled with the jemalloc allocator.
+#[cfg(not(target_env = "msvc"))]
 #[global_allocator]
-static GLOBAL: MiMalloc = MiMalloc;
+static GLOBAL: Jemalloc = Jemalloc;
 
 mod core_ext;
 mod utils;

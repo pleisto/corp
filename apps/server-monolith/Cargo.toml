@@ -16,7 +16,7 @@ magnus = "0.3"
 any_ascii = "0.3"
 bs58 = "0.4"
 radix_fmt = "1"
-mimalloc = { version = "*", default-features = false }
+tikv-jemallocator = "0.4"
 blake3 = "1"
 hex = "0.4"
 rand ={ version = "0.8", features = ["getrandom"] }
