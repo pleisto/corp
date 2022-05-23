@@ -17,7 +17,7 @@ ARG SENTRY_ORG
 ARG SENTRY_PROJECT
 ARG COVERAGE
 ENV RAILS_ENV=$RAILS_ENV
-ENV PATH /root/.cargo/bin:$GEM_HOME/bin:$PATH
+ENV PATH /root/.cargo/bin:$PATH
 ENV NODE_OPTIONS=--max-old-space-size=5950
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 ENV SENTRY_ORG=$SENTRY_ORG
@@ -49,6 +49,7 @@ ARG RAILS_ENV=production
 ENV RAILS_ENV=$RAILS_ENV
 ENV PATH $GEM_HOME/bin:$PATH
 ENV RAILS_SERVE_STATIC_FILES=true
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY --from=builder /app .
 
 WORKDIR /app/apps/server-monolith
