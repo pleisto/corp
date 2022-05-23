@@ -107,8 +107,8 @@ end
 # Plugin dependencies
 Dir.glob(MONOREPO_ROOT.join('plugins/*/Gemfile')).each { |p| eval_gemfile(p) }
 
-# Build native extensions if it is not exist
-unless File.exist?(File.join(__dir__, 'lib', "brickdoc_ext.#{RbConfig::CONFIG['DLEXT']}"))
+# Build native extensions when bundle install
+if ARGV[0] == 'install'
   require 'rake'
   Rake.load_rakefile(File.join(__dir__, 'ext', 'Rakefile'))
   Rake::Task['rust:build'].invoke
