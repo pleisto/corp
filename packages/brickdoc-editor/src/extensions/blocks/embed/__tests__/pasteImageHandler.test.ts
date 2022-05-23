@@ -1,14 +1,13 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { useTestEditor } from '../../../../test/testEditor'
-import { Embed } from '../../../blocks'
-import { EventHandler } from '../eventHandler'
+import { Embed } from '../embed'
 import { pasteImageHandler } from '../pasteImageHandler'
 
 describe('pasteImageHandler', () => {
   it('creates image blocks when paste images', () => {
     const { result } = renderHook(() =>
       useTestEditor({
-        extensions: [Embed, EventHandler]
+        extensions: [Embed]
       })
     )
 
