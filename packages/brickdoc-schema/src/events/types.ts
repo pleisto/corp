@@ -31,12 +31,12 @@ export interface EventSubscriber<EventPayload, EventResult> {
   config: EventSubscribeConfig
 }
 
-export interface EventSubscribers<EventPayload, EventResult> {
-  [key: string]: Array<EventSubscriber<EventPayload, EventResult>> | undefined
+export interface EventSubscribers {
+  [key: string]: Array<EventSubscriber<any, any>> | undefined
 }
 
-export interface EventIdSubscribers<EventPayload, EventResult> {
-  [key: string]: EventSubscribers<EventPayload, EventResult> | undefined
+export interface EventIdSubscribers {
+  [key: string]: EventSubscribers | undefined
 }
 
 export interface EventsPool {

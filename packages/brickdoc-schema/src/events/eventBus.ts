@@ -12,8 +12,8 @@ import {
 
 class EventBus {
   private static instance?: EventBus = undefined
-  private eventSubscribers: EventSubscribers<any, any> = {}
-  private eventIdSubscribers: EventIdSubscribers<any, any> = {}
+  private eventSubscribers: EventSubscribers = {}
+  private eventIdSubscribers: EventIdSubscribers = {}
   private eventsPool: EventsPool = {}
 
   private subscribers<Payload, Result>(event: Event<Payload, Result>): Array<EventSubscriber<Payload, Result>> {
