@@ -1,13 +1,5 @@
 use magnus::{define_module, Error};
 
-#[cfg(not(target_env = "msvc"))]
-use tikv_jemallocator::Jemalloc;
-
-/// Our ruby runtime is also bundled with the jemalloc allocator.
-#[cfg(not(target_env = "msvc"))]
-#[global_allocator]
-static GLOBAL: Jemalloc = Jemalloc;
-
 mod core_ext;
 mod utils;
 

@@ -24,6 +24,8 @@ storybook-static/
 /apps/server-monolith/storage/
 /apps/server-monolith/public/uploads/
 /apps/server-monolith/spec/
+/apps/server-monolith/target/
+/apps/server-monolith/ext/
 /junit-reports/
 /gems/*/spec/
 /plugins/*/spec/
