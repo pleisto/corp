@@ -202,7 +202,7 @@ export const DocumentContentPage: React.FC = () => {
           '@smDown': 'sm'
         }}
       >
-        <Split onDragEnd={logSideBarWidth}>
+        <Split visiable={!docMeta.isAnonymous} onDragEnd={logSideBarWidth}>
           {!isAnonymous && <Root.Section style={preSidebarStyle}>{siderBar}</Root.Section>}
           <main className="content">
             {(!loading || docMeta.isMine) && (
