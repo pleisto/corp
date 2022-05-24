@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test'
-import { MENUBAR_SELECTOR } from '../space/settingPage/setting.selector'
 import { COMMON_SELECTORS } from './common.selector'
 
 export class CommonPage {

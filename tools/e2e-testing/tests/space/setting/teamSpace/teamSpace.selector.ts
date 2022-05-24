@@ -1,4 +1,3 @@
-
 export const TEAM_SPACE_SELECTOR = {
   enableInviteBtn: 'input[type="checkbox"]',
   inviteLink: 'input[type="text"]',

@@ -1,6 +1,6 @@
 import { test, expect } from '@/fixtures'
 import { SettingPage } from '@/tests/space/settingPage/setting.page'
-import { SectionPage } from '../section/section.page'
+import { SectionPage } from '@/tests/space/setting/section/section.page'
 import { ChangeDomainPage } from './changeDomain.page'
 
 test.describe('general -- Change Domain Name', () => {

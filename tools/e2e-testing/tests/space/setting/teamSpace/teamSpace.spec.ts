@@ -3,8 +3,6 @@ import { SettingPage } from '@/tests/space/settingPage/setting.page'
 import { SpacePage } from '@/tests/space/create/create.page'
 import { TeamSpacePage } from './teamSpace.page'
 
-
-
 test.describe('teamSpace', () => {
   let spacePage: SpacePage
   let teamSpace: TeamSpacePage
@@ -17,14 +15,14 @@ test.describe('teamSpace', () => {
     await page.goto('/', { waitUntil: 'networkidle' })
   })
 
-  test('Verify InviteLinkReset', async ({ page }) => {
+  test('Verify InviteLinkReset', async () => {
     await spacePage.createSpace('test003')
     await settingPage.settingPage('test003')
     await teamSpace.InviteLinkReset()
     expect(teamSpace.getEnableInviteBtn()).toBeTruthy()
   })
 
-  test('Verify space delete', async ({ page }) => {
+  test('Verify space delete', async () => {
     await settingPage.settingPage('test003')
     await teamSpace.deleteSpace('test003')
     expect(settingPage.getMenu()).toBeTruthy()

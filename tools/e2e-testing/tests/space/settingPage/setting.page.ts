@@ -2,13 +2,11 @@ import { CommonPage } from '@/tests/common/common.page'
 import { Locator } from '@playwright/test'
 import { MENUBAR_SELECTOR } from './setting.selector'
 
-
 export class SettingPage extends CommonPage {
   getMenu(): Locator {
     return this.page.locator(MENUBAR_SELECTOR.menu)
   }
 
-  static settingPage: any
   getMenubarUnfold(): Locator {
     return this.page.locator(MENUBAR_SELECTOR.menubarUnfold)
   }
@@ -21,7 +19,4 @@ export class SettingPage extends CommonPage {
     await this.getMenubarUnfold().click()
     await this.getSettingIcon(spaceText).click({ force: true })
   }
-
-
-
 }

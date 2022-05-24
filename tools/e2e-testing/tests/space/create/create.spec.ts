@@ -1,8 +1,7 @@
 import { test, expect } from '@/fixtures'
 import { SpacePage } from '@/tests/space/create/create.page'
-import { SettingPage } from '../settingPage/setting.page'
-import { TeamSpacePage } from '../setting/teamSpace/teamSpace.page'
-
+import { SettingPage } from '@/tests/space/settingPage/setting.page'
+import { TeamSpacePage } from '@/tests/space/setting/teamSpace/teamSpace.page'
 
 test.describe('space create', () => {
   let spacePage: SpacePage
@@ -16,10 +15,11 @@ test.describe('space create', () => {
     await page.goto('/', { waitUntil: 'networkidle' })
   })
 
-  test('Verify space create', async ({ page }) => {
-    await spacePage.createSpace('newSpace')
-    await expect(settingPage.getMenu()).toContainText('newSpace')
-    await settingPage.settingPage('newSpace')
-    await teamSpace.deleteSpace('newSpace')
+  test('Verify space create', async () => {
+    const spaceName = 'newSpace'
+    await spacePage.createSpace(spaceName)
+    await expect(settingPage.getMenu()).toContainText(spaceName)
+    await settingPage.settingPage(spaceName)
+    await teamSpace.deleteSpace(spaceName)
   })
 })

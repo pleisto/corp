@@ -3,7 +3,6 @@ import { Locator } from '@playwright/test'
 import { DOMAIN_SELECTOR } from './changeDomain.selector'
 
 export class ChangeDomainPage extends CommonPage {
-  // Change Domain
   getUpdateBtn(): Locator {
     return this.page.locator(DOMAIN_SELECTOR.updateBtn)
   }

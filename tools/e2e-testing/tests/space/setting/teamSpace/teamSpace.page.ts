@@ -3,15 +3,11 @@ import { CommonPage } from '@/tests/common/common.page'
 import { TEAM_SPACE_SELECTOR } from './teamSpace.selector'
 import { SECTION_SELECTOR } from '../section/section.selector'
 
-
-
 export class TeamSpacePage extends CommonPage {
-  // team Space page
   getTeamSpacePage(): Locator {
     return this.page.locator(SECTION_SELECTOR.teamSpacePage)
   }
 
-  // inviteLink
   getEnableInviteBtn(): Locator {
     return this.page.locator(TEAM_SPACE_SELECTOR.enableInviteBtn)
   }
@@ -28,21 +24,20 @@ export class TeamSpacePage extends CommonPage {
     return this.page.locator(TEAM_SPACE_SELECTOR.resetConfirm)
   }
 
-  async InviteLinkReset(): Promise<void> {
-    await this.getTeamSpacePage().click()
-    await this.getEnableInviteBtn().click({force : true})
-    await this.getResetBtn().click()
-    await this.getResetConfirm().click()
-    await this.waitForResponseWithAction('createOrUpdateSpace', this.getEnableInviteBtn().click({force : true}))
-  }
-
-  // delete space
   getDeleteBtn(): Locator {
     return this.page.locator(TEAM_SPACE_SELECTOR.deleteBtn)
   }
 
   getDeleteConfirm(): Locator {
     return this.page.locator(TEAM_SPACE_SELECTOR.deleteConfirm)
+  }
+
+  async InviteLinkReset(): Promise<void> {
+    await this.getTeamSpacePage().click()
+    await this.getEnableInviteBtn().click({ force: true })
+    await this.getResetBtn().click()
+    await this.getResetConfirm().click()
+    await this.waitForResponseWithAction('createOrUpdateSpace', this.getEnableInviteBtn().click({ force: true }))
   }
 
   async deleteSpace(spaceName: string): Promise<void> {

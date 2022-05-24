@@ -1,8 +1,7 @@
 import { CommonPage } from '@/tests/common/common.page'
 import { Locator } from '@playwright/test'
-import { MENUBAR_SELECTOR } from '../../settingPage/setting.selector'
+import { MENUBAR_SELECTOR } from '@/tests/space/settingPage/setting.selector'
 import { SECTION_SELECTOR } from './section.selector'
-
 
 export class SectionPage extends CommonPage {
   getMenubarUnfold(): Locator {

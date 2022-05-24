@@ -3,9 +3,7 @@ import { CommonPage } from '@/tests/common/common.page'
 import { CREATE_SELECTOR } from './create.selector'
 import { MENUBAR_SELECTOR } from '../settingPage/setting.selector'
 
-
 export class SpacePage extends CommonPage {
-  //  space create
   getMenubarUnfold(): Locator {
     return this.page.locator(MENUBAR_SELECTOR.menubarUnfold)
   }
