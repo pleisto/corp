@@ -117,7 +117,7 @@ describe('BrickdocEventBus', () => {
     expect(str).toEqual('a1b1c1')
   })
 
-  it('result', async () => {
+  it('define callback result type and check dispatch result', async () => {
     const subscribeAsyncIdEvent = event<number, Promise<number>>()('subscribeAsyncIdEvent')
 
     let counter = 0
@@ -130,7 +130,7 @@ describe('BrickdocEventBus', () => {
         await Promise.resolve(1)
         counter += 100
 
-        return 10000
+        return counter
       },
       { subscribeId: 'subscribe1' }
     )
@@ -141,7 +141,9 @@ describe('BrickdocEventBus', () => {
     const result = await Promise.all(promise1)
 
     expect(counter).toEqual(101)
-    expect(result).toEqual([10000])
+    counter += 1000
+
+    expect(result).toEqual([101])
   })
 
   it('can only subscribe once with same subscribeId', async () => {
