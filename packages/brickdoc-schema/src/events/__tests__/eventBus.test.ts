@@ -135,7 +135,9 @@ describe('BrickdocEventBus', () => {
       { subscribeId: 'subscribe1' }
     )
 
-    const promise1 = BrickdocEventBus.dispatch(subscribeAsyncIdEvent(0))
+    const event1 = subscribeAsyncIdEvent(0)
+
+    const promise1 = BrickdocEventBus.dispatch(event1)
     expect(counter).toEqual(1)
 
     const result = await Promise.all(promise1)

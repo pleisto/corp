@@ -5,7 +5,7 @@ export function event<EventPayload = void, CallbackResult = void>(configure?: Ev
     type: T,
     customConstructor?: EventConstructor<EventPayload>
   ): EventType<EventPayload, CallbackResult> => {
-    function eventConstructor(payload: EventPayload): Event<EventPayload> {
+    function eventConstructor(payload: EventPayload): Event<EventPayload, CallbackResult> {
       return {
         type,
         payload,
