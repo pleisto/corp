@@ -68,7 +68,7 @@ export const Image = createBlock<ImageOptions, ImageAttributes>({
           const result = chain().insertBlockAt(content, position).run()
 
           if (result) {
-            BrickdocEventBus.dispatch(BlockJustCreated({ id }))
+            void BrickdocEventBus.dispatch(BlockJustCreated({ id }))
           }
 
           return result

@@ -102,7 +102,7 @@ export const useSpreadsheet = (options: {
 
   BrickdocEventBus.subscribe(
     SpreadsheetLoaded,
-    e => {
+    async e => {
       const { parentId, blocks } = e.payload
       devLog(`loaded spreadsheet ${parentId}`, blocks)
       const newRows = [...rows]
@@ -132,26 +132,26 @@ export const useSpreadsheet = (options: {
             const newBlock = { ...block, sort: i }
             if (!isEqual(oldBlock, newBlock)) {
               devLog(`Saving row block ${newBlock.id}`)
-              BrickdocEventBus.dispatch(UpdateBlock({ block: newBlock as Block }))
+              void BrickdocEventBus.dispatch(UpdateBlock({ block: newBlock as Block }))
               blocksMap.current.set(block.id, newBlock)
             }
             return newBlock
           })
       )
       toDeleteRowIds.forEach(rowId => {
-        BrickdocEventBus.dispatch(DeleteBlock({ blockId: rowId }))
+        void BrickdocEventBus.dispatch(DeleteBlock({ blockId: rowId }))
         const rowCellsMap = cellsMap.current.get(rowId)
         if (rowCellsMap) {
           rowCellsMap.forEach(block => {
             if (blocksMap.current.get(block.id)) {
-              BrickdocEventBus.dispatch(DeleteBlock({ blockId: block.id }))
+              void BrickdocEventBus.dispatch(DeleteBlock({ blockId: block.id }))
             }
           })
         }
       })
       latestRowsCount.current = newRows.length
       updateSpreadsheetAttributes(columns)
-      BrickdocEventBus.dispatch(CommitBlocks({}))
+      void BrickdocEventBus.dispatch(CommitBlocks({}))
     },
     [updateSpreadsheetAttributes, rows, columns]
   )
@@ -291,8 +291,8 @@ export const useSpreadsheet = (options: {
       devLog(`Saving cell block`, block)
       setBlockToCellsMap(block)
       blocksMap.current.set(block.id, block)
-      BrickdocEventBus.dispatch(UpdateBlock({ block: block as Block }))
-      BrickdocEventBus.dispatch(CommitBlocks({}))
+      void BrickdocEventBus.dispatch(UpdateBlock({ block: block as Block }))
+      void BrickdocEventBus.dispatch(CommitBlocks({}))
     },
     [setBlockToCellsMap]
   )
@@ -304,7 +304,7 @@ export const useSpreadsheet = (options: {
       isNewRef.current = false
       loaded.current = true
     } else if (!loaded.current) {
-      BrickdocEventBus.dispatch(loadSpreadsheetBlocks(parentId))
+      void BrickdocEventBus.dispatch(loadSpreadsheetBlocks(parentId))
     }
   }, [parentId, columns, latestRowsCount, addColumn, saveRowBlocks, getRowBlock, updateSpreadsheetAttributes])
 

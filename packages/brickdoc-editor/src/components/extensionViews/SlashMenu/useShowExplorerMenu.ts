@@ -3,8 +3,8 @@ import { BrickdocEventBus, SlashMenuHide, ExplorerMenuTrigger } from '@brickdoc/
 
 export function useShowExplorerMenu(): [VoidFunction] {
   const handleShowExplorerMenu = useCallback(() => {
-    BrickdocEventBus.dispatch(SlashMenuHide({}))
-    BrickdocEventBus.dispatch(ExplorerMenuTrigger({ visible: true }))
+    void BrickdocEventBus.dispatch(SlashMenuHide({}))
+    void BrickdocEventBus.dispatch(ExplorerMenuTrigger({ visible: true }))
   }, [])
 
   return [handleShowExplorerMenu]

@@ -102,7 +102,7 @@ export const Embed = createBlock<EmbedOptions, EmbedAttributes>({
           const result = chain().insertBlockAt(content, position).run()
 
           if (result) {
-            BrickdocEventBus.dispatch(BlockJustCreated({ id }))
+            void BrickdocEventBus.dispatch(BlockJustCreated({ id }))
           }
 
           return result

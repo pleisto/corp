@@ -32,7 +32,7 @@ export const useDrawerStore = create<DrawerStore>((set, get) => ({
     }
 
     const subscriptions: EventSubscribed[] = [
-      BrickdocEventBus.subscribe(ExplorerMenuTrigger, ({ payload }) => {
+      BrickdocEventBus.subscribe(ExplorerMenuTrigger, async ({ payload }) => {
         const { state, open, close } = get()
         if (payload.visible === undefined) {
           if (state === 'closed' || state === 'discussionList') {
@@ -48,12 +48,12 @@ export const useDrawerStore = create<DrawerStore>((set, get) => ({
           close()
         }
       }),
-      BrickdocEventBus.subscribe(DiscussionListToggle, ({ payload }) => {
+      BrickdocEventBus.subscribe(DiscussionListToggle, async ({ payload }) => {
         const { state: view, open, close } = get()
         const isDiscussionOpen = view === 'discussionList'
         payload.visible ?? !isDiscussionOpen ? open('discussionList') : close()
       }),
-      BrickdocEventBus.subscribe(DiscussionMarkActive, event => {
+      BrickdocEventBus.subscribe(DiscussionMarkActive, async event => {
         const { open } = get()
         open('discussionList')
       })

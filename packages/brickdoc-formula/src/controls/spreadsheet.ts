@@ -103,7 +103,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     const nameSubscription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateNameViaId,
-      e => {
+      async e => {
         this._name = e.payload.name
         this._formulaContext.setName(this.nameDependency())
       },
@@ -113,7 +113,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     const columnsSubcription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateColumnsViaId,
-      e => {
+      async e => {
         const oldColumns = this._columns
         const newColumns = e.payload.columns
         this._columns = newColumns
@@ -125,7 +125,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         ]
         if (!changedColumnIds.length) return
 
-        BrickdocEventBus.dispatch(
+        void BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
             scope: { columns: changedColumnIds },
@@ -140,7 +140,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     const rowsSubcription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateRowsViaId,
-      e => {
+      async e => {
         const oldRows = this._rows
         const newRows = e.payload.rows
         this._rows = newRows
@@ -154,7 +154,7 @@ export class SpreadsheetClass implements SpreadsheetType {
         ]
         if (!changedRowIds.length) return
 
-        BrickdocEventBus.dispatch(
+        void BrickdocEventBus.dispatch(
           SpreadsheetReloadViaId({
             spreadsheetId: this.spreadsheetId,
             scope: { rows: changedRowIds },

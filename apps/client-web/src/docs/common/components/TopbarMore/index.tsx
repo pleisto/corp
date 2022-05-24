@@ -128,7 +128,7 @@ const PopMenu = (props: { docMeta: DocMeta; menuToggle: (state: boolean) => void
   }, [blockCreate, navigate, menuToggle, blockSoftDelete, docMeta.id, getPageBlocks, loginDomain])
 
   const onUndo = () => {
-    BrickdocEventBus.dispatch(Undo({}))
+    void BrickdocEventBus.dispatch(Undo({}))
     menuToggle(false)
   }
 
@@ -210,8 +210,7 @@ export const TopbarMore: React.FC<DiscussionMenuProps> = ({ className, docMeta }
       destroyTooltipOnHide
       visible={popoverVisible}
       onVisibleChange={setPopoverVisible}
-      content={<PopMenu docMeta={docMeta} menuToggle={setPopoverVisible} />}
-    >
+      content={<PopMenu docMeta={docMeta} menuToggle={setPopoverVisible} />}>
       <Button className={className} type="text" css={itemStyle}>
         <Icon.More aria-label={t('more.tooltip')} />
       </Button>

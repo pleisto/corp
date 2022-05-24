@@ -106,7 +106,7 @@ export class VariableClass implements VariableInterface {
 
     const tickSubscription = BrickdocEventBus.subscribe(
       FormulaTickViaId,
-      e => {
+      async e => {
         void this.tick(e.payload.uuid)
       },
       {
@@ -118,7 +118,7 @@ export class VariableClass implements VariableInterface {
 
     const taskStartSubscription = BrickdocEventBus.subscribe(
       FormulaTaskStarted,
-      e => {
+      async e => {
         this.startTask(e.payload)
       },
       {
@@ -130,7 +130,7 @@ export class VariableClass implements VariableInterface {
 
     const taskCompleteSubscription = BrickdocEventBus.subscribe(
       FormulaTaskCompleted,
-      e => {
+      async e => {
         this.completeTask(e.payload)
       },
       {
@@ -152,10 +152,10 @@ export class VariableClass implements VariableInterface {
   }): void {
     if (savedTNotMatched) {
       if (!tNotMatched) {
-        BrickdocEventBus.dispatch(FormulaUpdatedDraftTViaId(this))
+        void BrickdocEventBus.dispatch(FormulaUpdatedDraftTViaId(this))
       }
     } else {
-      BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
+      void BrickdocEventBus.dispatch(FormulaUpdatedViaId(this))
     }
     if (!skipPersist) {
       this.trackDirty()
@@ -191,7 +191,7 @@ export class VariableClass implements VariableInterface {
 
     this.onUpdate({ skipPersist: true, tNotMatched: !tMatched, savedTNotMatched: !savedTMatched })
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
-    BrickdocEventBus.dispatch(
+    void BrickdocEventBus.dispatch(
       FormulaTickViaId({ uuid, variableId: this.t.variableId, namespaceId: this.t.namespaceId })
     )
   }
@@ -386,7 +386,7 @@ export class VariableClass implements VariableInterface {
     finalEventDependencies.forEach(dependency => {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
-        e => {
+        async e => {
           // console.log('event', this.currentUUID, { type: e.type, payload: e.payload, dependency })
           if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
@@ -409,7 +409,7 @@ export class VariableClass implements VariableInterface {
     const t = this.t
     const innerRefreshSubscription = BrickdocEventBus.subscribe(
       FormulaInnerRefresh,
-      e => {
+      async e => {
         this.onUpdate({})
       },
       { eventId: `${t.namespaceId},${t.variableId}`, subscribeId: `InnerRefresh#${t.variableId}` }
@@ -421,7 +421,7 @@ export class VariableClass implements VariableInterface {
     t.blockDependencies.forEach(blockId => {
       const blockNameSubscription = BrickdocEventBus.subscribe(
         BlockNameLoad,
-        e => {
+        async e => {
           if (this.isReadySavedT) return
           void this.maybeReparseAndPersist(`BlockNameLoad_${blockId}`, blockId)
         },
@@ -433,7 +433,7 @@ export class VariableClass implements VariableInterface {
     t.variableDependencies.forEach(({ variableId, namespaceId }) => {
       const variableIdSubscription = BrickdocEventBus.subscribe(
         FormulaUpdatedViaId,
-        e => {
+        async e => {
           if (e.payload.isNew) return
           const newCodeFragments = this.t.codeFragments.map(c => {
             if (c.code !== 'Variable') return c
@@ -454,7 +454,7 @@ export class VariableClass implements VariableInterface {
     t.nameDependencies.forEach(({ name, namespaceId }) => {
       const nameSubscription = BrickdocEventBus.subscribe(
         FormulaContextNameChanged,
-        e => {
+        async e => {
           if (this.isReadySavedT) return
           void this.maybeReparseAndPersist(`FormulaContextNameChanged_${name}_${namespaceId}`, e.payload.id)
         },
@@ -464,7 +464,7 @@ export class VariableClass implements VariableInterface {
 
       const nameRemoveSubscription = BrickdocEventBus.subscribe(
         FormulaContextNameRemove,
-        e => {
+        async e => {
           void this.maybeReparseAndPersist(`FormulaContextNameRemove_${name}_${namespaceId}`, e.payload.id)
         },
         { eventId: `${namespaceId}#${name}`, subscribeId: `NameRemoveDependency#${t.variableId}` }

@@ -8,7 +8,7 @@ export function usePopoverVisible(id: string): [boolean, (visible: boolean) => v
   useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       BlockJustCreated,
-      () => {
+      async () => {
         setPopoverVisible(true)
       },
       { eventId: id }

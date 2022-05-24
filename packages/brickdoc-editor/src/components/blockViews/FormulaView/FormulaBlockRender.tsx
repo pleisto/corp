@@ -45,7 +45,7 @@ export const FormulaBlockRender: FC<FormulaBlockRenderProps> = ({
 
   const onEditorBlur = useCallback((): void => {
     if (saveOnBlur) {
-      BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
+      void BrickdocEventBus.dispatch(FormulaEditorSaveEventTrigger({ formulaId, rootId }))
     }
   }, [formulaId, rootId, saveOnBlur])
 
@@ -75,8 +75,7 @@ export const FormulaBlockRender: FC<FormulaBlockRenderProps> = ({
       destroyTooltipOnHide={true}
       content={formulaResult}
       placement="bottom"
-      trigger={['click']}
-    >
+      trigger={['click']}>
       {editor}
     </Popover>
   )

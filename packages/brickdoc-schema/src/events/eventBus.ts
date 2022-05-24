@@ -23,7 +23,7 @@ class EventBus {
     ].sort((a, b) => (a.config.priority ?? 0) - (b.config.priority ?? 0))
   }
 
-  private consume(event: Event): void {
+  private async consume(event: Event): Promise<void> {
     const subscribers = this.subscribers(event)
 
     const consumable = subscribers.length > 0 || !event.configure.sticky
@@ -32,11 +32,9 @@ class EventBus {
     while ((this.eventsPool[event.type]?.length ?? 0) > 0) {
       const currentEvent = this.eventsPool[event.type]?.shift()
 
-      if (currentEvent) {
-        subscribers.forEach(s => {
-          s.callback(currentEvent)
-        })
-      }
+      if (!currentEvent) return
+
+      await Promise.all(subscribers.map(async s => await s.callback(currentEvent)))
     }
   }
 
@@ -84,17 +82,17 @@ class EventBus {
     }
 
     this.eventsPool[eventType.eventType]?.forEach(event => {
-      this.consume(event)
+      void this.consume(event)
     })
 
     return { unsubscribe }
   }
 
-  public dispatch(event: Event): void {
+  public async dispatch(event: Event): Promise<void> {
     if (!this.eventsPool[event.type]) this.eventsPool[event.type] = []
     this.eventsPool[event.type]?.push(event)
 
-    this.consume(event)
+    await this.consume(event)
   }
 
   public static getInstance(): EventBus {

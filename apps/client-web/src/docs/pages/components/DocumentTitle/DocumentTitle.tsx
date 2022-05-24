@@ -60,7 +60,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
 
   BrickdocEventBus.subscribe(
     DocMetaLoaded,
-    e => {
+    async e => {
       const { id, meta } = e.payload
       if (id === docId) {
         setMeta(meta)
@@ -73,7 +73,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
     (newMeta: { [key: string]: any }) => {
       setMeta(newMeta)
       if (docId) {
-        BrickdocEventBus.dispatch(UpdateDocMeta({ id: docId, meta: newMeta }))
+        void BrickdocEventBus.dispatch(UpdateDocMeta({ id: docId, meta: newMeta }))
         editor?.commands.setDocAttrs({
           ...editor.state.doc.attrs,
           ...newMeta
@@ -142,8 +142,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
       <Root.TitleWrapper
         width={{
           '@smDown': 'sm'
-        }}
-      >
+        }}>
         <Root.MaxWidth>
           {editable && (
             <Root.Actions data-testid={TEST_ID_ENUM.page.DocumentPage.actionButtons.id}>
@@ -161,8 +160,7 @@ export const DocumentTitle: React.FC<DocumentTitleProps> = ({ docId, editable, b
                     as={Button}
                     data-testid={TEST_ID_ENUM.page.DocumentPage.coverButton.id}
                     type="unstyled"
-                    disabled={!editable}
-                  >
+                    disabled={!editable}>
                     <Root.Icon as={Icon.Image} />
                     <Root.Name>{t('title.add_cover')}</Root.Name>
                   </Root.Item>

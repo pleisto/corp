@@ -280,7 +280,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
   useEffect(() => {
     pageBlocks.forEach(b => {
       if (!b.parentId || b.type === 'doc') {
-        BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
+        void BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
       }
     })
   }, [pageBlocks])
@@ -347,8 +347,7 @@ export const PageTree: React.FC<PageTreeProps> = ({ docMeta, mode }) => {
         {!hideHeading && (
           <PageTreeHeading
             style={{ top: showPin ? TREE_HEAD_HEIGHT : 0, bottom: FOOTER_HEIGHT }} // Consider also the two cases of sticking to the bottom and the top
-            data-testid={TEST_ID_ENUM.page.pageTree.heading.id}
-          >
+            data-testid={TEST_ID_ENUM.page.pageTree.heading.id}>
             Pages
           </PageTreeHeading>
         )}

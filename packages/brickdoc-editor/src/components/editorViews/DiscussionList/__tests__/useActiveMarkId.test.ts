@@ -18,7 +18,7 @@ describe('useActiveMarkId', () => {
     const { result } = renderHook(() => useActiveMarkId(commentedNodes))
 
     act(() => {
-      BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
+      void BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
     })
 
     expect(result.current[0]).toEqual(activeMarkId)
@@ -37,13 +37,13 @@ describe('useActiveMarkId', () => {
     const { result } = renderHook(() => useActiveMarkId(commentedNodes))
 
     act(() => {
-      BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
+      void BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
     })
 
     expect(result.current[0]).toEqual(activeMarkId)
 
     act(() => {
-      BrickdocEventBus.dispatch(DiscussionMarkInactive({ markId: activeMarkId }))
+      void BrickdocEventBus.dispatch(DiscussionMarkInactive({ markId: activeMarkId }))
     })
 
     expect(result.current[0]).toBeNull()
@@ -62,7 +62,7 @@ describe('useActiveMarkId', () => {
     const { result, rerender } = renderHook(() => useActiveMarkId(commentedNodes))
 
     act(() => {
-      BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
+      void BrickdocEventBus.dispatch(DiscussionMarkActive({ markId: activeMarkId }))
 
       commentedNodes.pop()
 

@@ -530,7 +530,7 @@ const testCases: TestCase[] = [
 ]
 
 describe('Spreadsheet Functions', () => {
-  BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
+  void BrickdocEventBus.dispatch(BlockNameLoad({ id: namespaceId, name: 'Page1' }))
   formulaContext.setSpreadsheet(spreadsheet)
   const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
 

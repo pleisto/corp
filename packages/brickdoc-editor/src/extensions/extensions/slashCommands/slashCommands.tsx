@@ -61,7 +61,7 @@ export const SlashCommands = createExtension<SlashCommandsOptions, SlashCommands
               )(this.editor.state.selection)?.node
               if (insideList) return
 
-              hideListener = BrickdocEventBus.subscribe(SlashMenuHide, () => {
+              hideListener = BrickdocEventBus.subscribe(SlashMenuHide, async () => {
                 exit()
               })
 
@@ -87,7 +87,7 @@ export const SlashCommands = createExtension<SlashCommandsOptions, SlashCommands
               const key = event.key
 
               if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'Enter' || key === 'Escape') {
-                BrickdocEventBus.dispatch(SlashMenuKeyboardEventTrigger({ key }))
+                void BrickdocEventBus.dispatch(SlashMenuKeyboardEventTrigger({ key }))
                 return true
               }
 
@@ -95,7 +95,7 @@ export const SlashCommands = createExtension<SlashCommandsOptions, SlashCommands
                 const state = pluginKey.getState(this.editor.view.state)
 
                 if (state && state.query === '') {
-                  BrickdocEventBus.dispatch(SlashMenuKeyboardEventTrigger({ key }))
+                  void BrickdocEventBus.dispatch(SlashMenuKeyboardEventTrigger({ key }))
                   return true
                 }
               }

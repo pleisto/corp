@@ -5,21 +5,21 @@ describe('BrickdocEventBus', () => {
   beforeEach(() => {
     BrickdocEventBus.reset()
   })
-  it('can subscribe and dispatch', () => {
+  it('can subscribe and dispatch', async () => {
     const testEvent = event<string>()('testEvent', payload => {
       return { id: payload }
     })
 
     const testResult = new Map<string, boolean>()
 
-    BrickdocEventBus.subscribe(testEvent, e => {
+    BrickdocEventBus.subscribe(testEvent, async e => {
       testResult.set('testEventHit', true)
       testResult.set('testEventHitRight', e.id === 'right')
     })
 
     BrickdocEventBus.subscribe(
       testEvent,
-      e => {
+      async e => {
         testResult.set('testEventHitMiddle', true)
       },
       { eventId: 'middle' }
@@ -30,52 +30,52 @@ describe('BrickdocEventBus', () => {
     expect(testResult.get('testEventHit')).not.toBe(true)
     expect(testResult.get('testEventHitRight')).not.toBe(true)
 
-    BrickdocEventBus.dispatch(testEvent('left'))
+    await BrickdocEventBus.dispatch(testEvent('left'))
 
     expect(testResult.get('testEventHit')).toBe(true)
     expect(testResult.get('testEventHitRight')).not.toBe(true)
 
-    BrickdocEventBus.dispatch(testEvent('right'))
+    await BrickdocEventBus.dispatch(testEvent('right'))
 
     expect(testResult.get('testEventHit')).toBe(true)
     expect(testResult.get('testEventHitRight')).toBe(true)
 
     expect(testResult.get('testEventHitMiddle')).not.toBe(true)
-    BrickdocEventBus.dispatch(testEvent('middle'))
+    await BrickdocEventBus.dispatch(testEvent('middle'))
     expect(testResult.get('testEventHitMiddle')).toBe(true)
   })
 
-  it('can unsubscribe', () => {
+  it('can unsubscribe', async () => {
     const testEvent = event<string>()('testEvent', payload => {
       return { id: payload }
     })
 
     const testResult = new Map<string, boolean>()
 
-    const { unsubscribe } = BrickdocEventBus.subscribe(testEvent, e => {
+    const { unsubscribe } = BrickdocEventBus.subscribe(testEvent, async e => {
       testResult.set('testEventHit', true)
     })
 
     unsubscribe()
-    BrickdocEventBus.dispatch(testEvent(''))
+    await BrickdocEventBus.dispatch(testEvent(''))
 
     expect(testResult.get('testEventHit')).not.toBe(true)
   })
 
-  it('can subscribe sticky event', () => {
+  it('can subscribe sticky event', async () => {
     const testEvent = event<string>({ sticky: true })('testEvent', payload => {
       return { id: payload }
     })
 
     const testResult = new Map<string, boolean>()
 
-    BrickdocEventBus.dispatch(testEvent(''))
+    await BrickdocEventBus.dispatch(testEvent(''))
 
-    BrickdocEventBus.subscribe(testEvent, e => {
+    BrickdocEventBus.subscribe(testEvent, async e => {
       testResult.set('testEventHit', true)
     })
 
-    BrickdocEventBus.subscribe(testEvent, e => {
+    BrickdocEventBus.subscribe(testEvent, async e => {
       testResult.set('testEventSecondHit', true)
     })
 
@@ -83,14 +83,14 @@ describe('BrickdocEventBus', () => {
     expect(testResult.get('testEventSecondHit')).not.toBe(true)
   })
 
-  it('can dispatch subscriber in order of priority', () => {
+  it('can dispatch subscriber in order of priority', async () => {
     const priorityEvent = event<string>()('priorityEvent')
 
     let str = ''
 
     BrickdocEventBus.subscribe(
       priorityEvent,
-      e => {
+      async e => {
         str += `b${e.payload}`
       },
       { priority: 10 }
@@ -98,7 +98,7 @@ describe('BrickdocEventBus', () => {
 
     BrickdocEventBus.subscribe(
       priorityEvent,
-      e => {
+      async e => {
         str += `c${e.payload}`
       },
       { priority: 15 }
@@ -106,25 +106,25 @@ describe('BrickdocEventBus', () => {
 
     BrickdocEventBus.subscribe(
       priorityEvent,
-      e => {
+      async e => {
         str += `a${e.payload}`
       },
       { priority: 5 }
     )
 
-    BrickdocEventBus.dispatch(priorityEvent('1'))
+    await BrickdocEventBus.dispatch(priorityEvent('1'))
 
     expect(str).toEqual('a1b1c1')
   })
 
-  it('can only subscribe once with same subscribeId', () => {
+  it('can only subscribe once with same subscribeId', async () => {
     const subscribeIdEvent = event<number>()('subscribeIdEvent')
 
     let counter = 0
 
     BrickdocEventBus.subscribe(
       subscribeIdEvent,
-      e => {
+      async e => {
         counter += e.payload as number
       },
       { subscribeId: 'subscribeA' }
@@ -132,7 +132,7 @@ describe('BrickdocEventBus', () => {
 
     BrickdocEventBus.subscribe(
       subscribeIdEvent,
-      e => {
+      async e => {
         counter += (e.payload as number) * 2
       },
       { subscribeId: 'subscribeA' }
@@ -140,13 +140,13 @@ describe('BrickdocEventBus', () => {
 
     BrickdocEventBus.subscribe(
       subscribeIdEvent,
-      e => {
+      async e => {
         counter += (e.payload as number) * 4
       },
       { subscribeId: 'subscribeB' }
     )
 
-    BrickdocEventBus.dispatch(subscribeIdEvent(1))
+    await BrickdocEventBus.dispatch(subscribeIdEvent(1))
 
     expect(counter).toEqual(6)
   })
