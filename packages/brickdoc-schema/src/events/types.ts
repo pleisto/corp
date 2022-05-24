@@ -14,7 +14,7 @@ export interface EventType<EventPayload = {}> {
   (args: EventPayload): Event<EventPayload>
 }
 
-export type EventCallback<EventPayload> = (event: Event<EventPayload>) => void
+export type EventCallback<EventPayload, EventResult> = (event: Event<EventPayload>) => EventResult
 
 export type EventConstructor<T> = (payload: T) => { [key: string]: any }
 
@@ -25,17 +25,17 @@ export interface EventSubscribeConfig {
   subscribeId?: string
 }
 
-export interface EventSubscriber {
-  callback: EventCallback<any>
+export interface EventSubscriber<EventPayload, EventResult> {
+  callback: EventCallback<EventPayload, EventResult>
   config: EventSubscribeConfig
 }
 
-export interface EventSubscribers {
-  [key: string]: EventSubscriber[] | undefined
+export interface EventSubscribers<EventPayload, EventResult> {
+  [key: string]: Array<EventSubscriber<EventPayload, EventResult>> | undefined
 }
 
-export interface EventIdSubscribers {
-  [key: string]: EventSubscribers | undefined
+export interface EventIdSubscribers<EventPayload, EventResult> {
+  [key: string]: EventSubscribers<EventPayload, EventResult> | undefined
 }
 
 export interface EventsPool {

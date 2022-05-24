@@ -117,34 +117,28 @@ describe('BrickdocEventBus', () => {
     expect(str).toEqual('a1b1c1')
   })
 
-  it('async', async () => {
+  it('result', async () => {
     const subscribeAsyncIdEvent = event<number>()('subscribeAsyncIdEvent')
 
     let counter = 0
 
-    BrickdocEventBus.subscribe(
-      subscribeAsyncIdEvent,
-      async e => {
-        counter += 1
+    const callback = async (e: any): Promise<void> => {
+      counter += 1
 
-        // eslint-disable-next-line max-nested-callbacks
-        setTimeout(() => {
-          counter += 10
-        }, 0)
+      await Promise.resolve(1)
+      counter += 100
+    }
 
-        await new Promise(resolve => setTimeout(resolve, 0))
-        counter += 100
-      },
-      { subscribeId: 'subscribe1' }
-    )
+    type Result = ReturnType<typeof callback>
 
-    const promise1 = BrickdocEventBus.dispatch(subscribeAsyncIdEvent(0))
+    BrickdocEventBus.subscribe<number, Result>(subscribeAsyncIdEvent, callback, { subscribeId: 'subscribe1' })
+
+    const promise1 = BrickdocEventBus.dispatch<number, Result>(subscribeAsyncIdEvent(0))
     expect(counter).toEqual(1)
 
-    jest.runAllTimers()
-    await promise1
+    await Promise.all(promise1)
 
-    expect(counter).toEqual(111)
+    expect(counter).toEqual(101)
   })
 
   it('can only subscribe once with same subscribeId', async () => {
