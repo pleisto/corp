@@ -16,14 +16,14 @@ class EventBus {
   private eventIdSubscribers: EventIdSubscribers<any, any> = {}
   private eventsPool: EventsPool = {}
 
-  private subscribers<Payload, Result>(event: Event<Payload>): Array<EventSubscriber<Payload, Result>> {
+  private subscribers<Payload, Result>(event: Event<Payload, Result>): Array<EventSubscriber<Payload, Result>> {
     return [
       ...(this.eventSubscribers[event.type] ?? []),
       ...(this.eventIdSubscribers[event.type]?.[event.id ?? ''] ?? [])
     ].sort((a, b) => (a.config.priority ?? 0) - (b.config.priority ?? 0))
   }
 
-  private consume<Payload, Result>(event: Event<Payload>): Result[] {
+  private consume<Payload, Result>(event: Event<Payload, Result>): Result[] {
     const subscribers = this.subscribers<Payload, Result>(event)
     const results: Result[] = []
 
@@ -35,7 +35,7 @@ class EventBus {
 
       if (currentEvent) {
         subscribers.forEach(s => {
-          const result = s.callback(currentEvent as Event<Payload>)
+          const result = s.callback(currentEvent as Event<Payload, Result>)
           results.push(result)
         })
       }
@@ -50,7 +50,7 @@ class EventBus {
   }
 
   public subscribe<Payload = {}, Result = void>(
-    eventType: EventType<Payload>,
+    eventType: EventType<Payload, Result>,
     callback: EventCallback<Payload, Result>,
     config: EventSubscribeConfig = {}
   ): EventSubscribed {
@@ -87,13 +87,13 @@ class EventBus {
     }
 
     this.eventsPool[eventType.eventType]?.forEach(event => {
-      this.consume<Payload, Result>(event as Event<Payload>)
+      this.consume<Payload, Result>(event as Event<Payload, Result>)
     })
 
     return { unsubscribe }
   }
 
-  public dispatch<Payload = {}, Result = void>(event: Event<Payload>): Result[] {
+  public dispatch<Payload = {}, Result = void>(event: Event<Payload, Result>): Result[] {
     if (!this.eventsPool[event.type]) this.eventsPool[event.type] = []
     this.eventsPool[event.type]?.push(event)
 
