@@ -15,7 +15,7 @@ describe('DropBlock', () => {
 
     let subscribed = false
 
-    BrickdocEventBus.subscribe(BlockDropAdd, async () => {
+    BrickdocEventBus.subscribe(BlockDropAdd, () => {
       subscribed = true
     })
 

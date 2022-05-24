@@ -58,7 +58,7 @@ export function useFormulaSpreadsheet({
   const columnsRef = React.useRef(columnData)
 
   React.useEffect(() => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SpreadsheetUpdateNameViaId({
         spreadsheetId,
         name: title,
@@ -69,7 +69,7 @@ export function useFormulaSpreadsheet({
   }, [rootId, spreadsheetId, title])
 
   React.useEffect(() => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SpreadsheetUpdateRowsViaId({
         spreadsheetId,
         rows: rowData,
@@ -80,7 +80,7 @@ export function useFormulaSpreadsheet({
   }, [rootId, spreadsheetId, rowData])
 
   React.useEffect(() => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SpreadsheetUpdateColumnsViaId({
         spreadsheetId,
         columns: columnData,

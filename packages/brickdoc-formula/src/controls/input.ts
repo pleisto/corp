@@ -29,7 +29,7 @@ export class InputClass implements InputType {
         this
       )()
       this.value = value
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })
       )
     }

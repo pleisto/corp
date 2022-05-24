@@ -14,7 +14,7 @@ export interface EventType<EventPayload = {}> {
   (args: EventPayload): Event<EventPayload>
 }
 
-export type EventCallback<EventPayload> = (event: Event<EventPayload>) => Promise<void>
+export type EventCallback<EventPayload> = (event: Event<EventPayload>) => void
 
 export type EventConstructor<T> = (payload: T) => { [key: string]: any }
 

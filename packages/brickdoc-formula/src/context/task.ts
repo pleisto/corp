@@ -73,10 +73,10 @@ export const createVariableTask = ({
   }
 
   setTimeout(() => {
-    void BrickdocEventBus.dispatch(FormulaTaskStarted({ task, namespaceId, variableId }))
+    BrickdocEventBus.dispatch(FormulaTaskStarted({ task, namespaceId, variableId }))
     void variableValue.then(value => {
       const newTask: VariableTask = { ...task, variableValue: value, execEndTime: new Date(), async: false }
-      void BrickdocEventBus.dispatch(FormulaTaskCompleted({ task: newTask, namespaceId, variableId }))
+      BrickdocEventBus.dispatch(FormulaTaskCompleted({ task: newTask, namespaceId, variableId }))
     })
   })
   return task

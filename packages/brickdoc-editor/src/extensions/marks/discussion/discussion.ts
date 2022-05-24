@@ -21,11 +21,11 @@ export interface DiscussionAttributes {
 }
 
 const openDiscussionList = (markId: string | null): void => {
-  void BrickdocEventBus.dispatch(DiscussionListToggle({ visible: true }))
+  BrickdocEventBus.dispatch(DiscussionListToggle({ visible: true }))
   if (!markId) return
   // wait for drawer open animation
   setTimeout(() => {
-    void BrickdocEventBus.dispatch(DiscussionMarkActive({ markId }))
+    BrickdocEventBus.dispatch(DiscussionMarkActive({ markId }))
   }, 300)
 }
 

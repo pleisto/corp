@@ -31,7 +31,7 @@ export class SelectClass implements SelectType {
         this
       )()
       this.value = option
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })
       )
     }

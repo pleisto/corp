@@ -13,7 +13,7 @@ describe('EmbedView > usePopoverVisible', () => {
     expect(result.current[0]).toBeFalsy()
 
     act(() => {
-      void BrickdocEventBus.dispatch(BlockJustCreated({ id }))
+      BrickdocEventBus.dispatch(BlockJustCreated({ id }))
       jest.runAllTimers()
     })
 

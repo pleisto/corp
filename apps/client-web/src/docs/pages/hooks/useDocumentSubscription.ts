@@ -104,9 +104,9 @@ export function useDocumentSubscription({
     })
 
     if (patch.patchType === Patchtype.Delete) {
-      void BrickdocEventBus.dispatch(BlockDeleted(block))
+      BrickdocEventBus.dispatch(BlockDeleted(block))
     } else {
-      void BrickdocEventBus.dispatch(BlockUpdated(block))
+      BrickdocEventBus.dispatch(BlockUpdated(block))
     }
   }
   useNewPatchSubscription({

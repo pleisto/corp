@@ -29,7 +29,7 @@ export class SwitchClass implements SwitchType {
         this
       )()
       this.checked = checked
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         FormulaInnerRefresh({ namespaceId: ctx.meta.namespaceId, variableId: ctx.meta.variableId })
       )
     }

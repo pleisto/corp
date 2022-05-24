@@ -35,7 +35,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
 
   useEffect(
     () =>
-      BrickdocEventBus.subscribe(ExplorerMenuTrigger, async () => {
+      BrickdocEventBus.subscribe(ExplorerMenuTrigger, () => {
         setGroupSource(
           slashMenuGroup.map(group => ({
             label: t(`slash_menu.explorer_menu.group.${group.key}.label`),

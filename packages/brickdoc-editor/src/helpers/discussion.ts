@@ -31,7 +31,7 @@ export const focusDiscussionMark = (node: Node | null): void => {
 
     // lose focus on discussion mark
   } else {
-    void BrickdocEventBus.dispatch(DiscussionMarkInactive({}))
+    BrickdocEventBus.dispatch(DiscussionMarkInactive({}))
   }
 
   // TODO: without setTimeout, modify dom will cause dom node be replaced

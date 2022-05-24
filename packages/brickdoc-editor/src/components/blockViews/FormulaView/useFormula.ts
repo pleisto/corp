@@ -101,7 +101,7 @@ const replaceRoot = ({
   formulaId: string
 }): void => {
   // console.log('replace root', formulaId, editorContent)
-  void BrickdocEventBus.dispatch(
+  BrickdocEventBus.dispatch(
     FormulaEditorReplaceRootTrigger({
       position: editorContent.position,
       content: editorContent.content,
@@ -176,7 +176,7 @@ export const useFormula = ({
   const doSelectFormula = React.useCallback(
     (selectRootId, selectFormulaId) => {
       selectFormula.current = { selectFormulaId, selectRootId }
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         FormulaEditorSelectEventTrigger({
           formulaId: selectFormulaId,
           rootId: selectRootId,
@@ -202,7 +202,7 @@ export const useFormula = ({
 
   const doUnselectedFormula = React.useCallback(() => {
     if (!selectFormula.current) return
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       FormulaEditorSelectEventTrigger({
         formulaId: selectFormula.current.selectFormulaId,
         rootId: selectFormula.current.selectRootId,
@@ -362,7 +362,7 @@ export const useFormula = ({
       const newInput = contentArrayToInput(fetchJSONContentArray(jsonContent), namespaceId)
       const value = formulaIsNormal ? `=${newInput}` : newInput
       editorContentRef.current = { content: jsonContent, input: value, position: editorPosition }
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         FormulaCalculateTrigger({ formulaId: variableId, rootId: namespaceId, skipExecute: false })
       )
     },
@@ -424,7 +424,7 @@ export const useFormula = ({
 
     v.save()
 
-    void BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId: variableId, rootId: namespaceId }))
+    BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId: variableId, rootId: namespaceId }))
 
     devLog('save ...', { input, variable: variableRef.current, formulaContext })
   }, [doUnselectedFormula, formulaContext, variableId, namespaceId])
@@ -434,7 +434,7 @@ export const useFormula = ({
     if (!variableRef.current) {
       // console.error('variable is not found')
       onUpdateFormula?.(undefined)
-      void BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId: variableId, rootId: namespaceId }))
+      BrickdocEventBus.dispatch(FormulaEditorSavedTrigger({ formulaId: variableId, rootId: namespaceId }))
       return
     }
 
@@ -467,7 +467,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaKeyboardEventTrigger,
-      async event => {
+      event => {
         const { isEditor, key, completionIndex } = event.payload
         let newIndex: number
         switch (key) {
@@ -515,7 +515,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorHoverEventTrigger,
-      async event => {
+      event => {
         const attrs = event.payload.attrs as CodeFragmentAttrs | undefined
         if (attrs) {
           const attrCompletion = attrs2completion(formulaContext!, attrs, namespaceId)
@@ -542,7 +542,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSelectEventTrigger,
-      async event => {
+      event => {
         const { parentFormulaId, parentRootId, selected } = event.payload
         if (selected) {
           setSelected({ formulaId: parentFormulaId, rootId: parentRootId })
@@ -561,7 +561,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSaveEventTrigger,
-      async event => {
+      event => {
         onSaveFormula()
       },
       {
@@ -575,7 +575,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaCalculateTrigger,
-      async e => {
+      e => {
         void doCalculate(e.payload.skipExecute)
       },
       {
@@ -589,7 +589,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedViaId,
-      async e => {
+      e => {
         updateVariable(e.payload)
       },
       {
@@ -603,7 +603,7 @@ export const useFormula = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaUpdatedDraftTViaId,
-      async e => {
+      e => {
         updateVariable(e.payload)
       },
       {

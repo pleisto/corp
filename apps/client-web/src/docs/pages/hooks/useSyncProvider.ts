@@ -72,7 +72,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
     rootBlock.current = docBlocksMap.current.get(rootId.current)
     if (rootBlock.current) {
       const { id, meta } = rootBlock.current
-      void BrickdocEventBus.dispatch(DocMetaLoaded({ id, meta }))
+      BrickdocEventBus.dispatch(DocMetaLoaded({ id, meta }))
     }
   }, [queryVariables, data?.childrenBlocks])
 
@@ -120,14 +120,14 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
       if (blocks.length > 0 || deletedIds.length > 0) {
         blocks.forEach(b => {
           if (b.type === 'doc') {
-            void BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
+            BrickdocEventBus.dispatch(BlockNameLoad({ id: b.id, name: b.text }))
           }
-          void BrickdocEventBus.dispatch(BlockUpdated(b as Block))
+          BrickdocEventBus.dispatch(BlockUpdated(b as Block))
           dirtyBlocksMap.current.delete(b.id)
         })
         deletedIds.forEach(id => {
           const block = { id }
-          void BrickdocEventBus.dispatch(BlockDeleted(block as Block))
+          BrickdocEventBus.dispatch(BlockDeleted(block as Block))
           dirtyToDeleteIds.current.delete(id)
         })
 
@@ -143,7 +143,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         })
         await syncPromise
         blocks.forEach(b => {
-          void BrickdocEventBus.dispatch(BlockSynced(b as Block))
+          BrickdocEventBus.dispatch(BlockSynced(b as Block))
         })
       }
     } catch (e) {
@@ -191,7 +191,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     BlockUpdated,
-    async e => {
+    e => {
       const block = e.payload
       const oldBlock = docBlocksMap.current.get(block.id) ?? {}
       if (docBlocksMap.current.get(block.id)) {
@@ -239,7 +239,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     BlockDeleted,
-    async e => {
+    e => {
       const block = e.payload
       docBlocksMap.current.delete(block.id)
     },
@@ -248,7 +248,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     UpdateBlock,
-    async e => {
+    e => {
       // isSavingVar(true)
       const { block, commit } = e.payload
       dirtyBlocksMap.current.set(block.id, block)
@@ -261,7 +261,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     DeleteBlock,
-    async e => {
+    e => {
       // isSavingVar(true)
       const { blockId, commit } = e.payload
       dirtyToDeleteIds.current.add(blockId)
@@ -274,7 +274,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     UpdateDocMeta,
-    async e => {
+    e => {
       const { id, meta } = e.payload
       if (id === rootBlock.current?.id) {
         const newBlock = { ...rootBlock.current, meta: { ...rootBlock.current.meta, ...meta } }
@@ -288,7 +288,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     CommitBlocks,
-    async (e: Event) => {
+    (e: Event) => {
       isSavingVar(true)
       void commitDirty()
     },
@@ -297,7 +297,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
 
   BrickdocEventBus.subscribe(
     loadSpreadsheetBlocks,
-    async e => {
+    e => {
       const parentId = e.payload
       devLog(`loading spreadsheet ${parentId}`)
       void (async () => {
@@ -312,7 +312,7 @@ export function useSyncProvider(queryVariables: { rootId: string; snapshotVersio
         blocks.forEach((block: Block) => {
           cachedBlocksMap.current.set(block.id, block)
         })
-        void BrickdocEventBus.dispatch(
+        BrickdocEventBus.dispatch(
           SpreadsheetLoaded({
             parentId,
             blocks

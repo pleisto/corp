@@ -38,7 +38,7 @@ export class BlockClass implements BlockType {
 
     const blockNameSubscription = BrickdocEventBus.subscribe(
       BlockNameLoad,
-      async e => {
+      e => {
         this._name = e.payload.name || 'Untitled'
         this._formulaContext.setName(this.nameDependency())
       },

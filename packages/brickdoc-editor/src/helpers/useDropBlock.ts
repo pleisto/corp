@@ -6,7 +6,7 @@ import { Editor as TiptapEditor } from '@tiptap/react'
 export const useDropBlock = (editor: TiptapEditor | null): void => {
   useEffect(
     () =>
-      BrickdocEventBus.subscribe(BlockDropAdd, async event => {
+      BrickdocEventBus.subscribe(BlockDropAdd, event => {
         const { key, pos } = event.payload
         if (editor) {
           const chain = editor.chain()

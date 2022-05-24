@@ -5,7 +5,7 @@ import { Editor as TiptapEditor } from '@tiptap/react'
 export const useUndo = (editor: TiptapEditor | null): void => {
   useEffect(
     () =>
-      BrickdocEventBus.subscribe(Undo, async () => {
+      BrickdocEventBus.subscribe(Undo, () => {
         editor?.commands.undo()
       }).unsubscribe,
     [editor]

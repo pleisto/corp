@@ -12,7 +12,7 @@ export const ExploreSlash: React.FC<DiscussionMenuProps> = ({ className }) => {
   const { t } = useTranslation('editor')
 
   const onClick = useCallback(() => {
-    void BrickdocEventBus.dispatch(ExplorerMenuTrigger({}))
+    BrickdocEventBus.dispatch(ExplorerMenuTrigger({}))
   }, [])
 
   return (

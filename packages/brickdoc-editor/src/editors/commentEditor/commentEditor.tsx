@@ -33,7 +33,7 @@ export const CommentEditorContent: FC<CommentEditorProps> = ({ markId, onSend })
     (event: MouseEvent) => {
       event.stopPropagation()
       clearDraft(markId)
-      void BrickdocEventBus.dispatch(DiscussionMarkInactive({}))
+      BrickdocEventBus.dispatch(DiscussionMarkInactive({}))
     },
     [markId]
   )

@@ -11,7 +11,7 @@ describe('ImageView UploaderMode > usePopoverVisible', () => {
     expect(result.current[0]).toBeFalsy()
 
     act(() => {
-      void BrickdocEventBus.dispatch(BlockJustCreated({ id }))
+      BrickdocEventBus.dispatch(BlockJustCreated({ id }))
     })
 
     expect(result.current[0]).toBeTruthy()

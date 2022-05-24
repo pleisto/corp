@@ -2,7 +2,7 @@
 import React from 'react'
 import { Icon, cx } from '@brickdoc/design-system'
 import { Completion, CompletionKind } from '@brickdoc/formula'
-import { FormulaAutocomplete } from './style'
+import {FormulaAutocomplete} from './style'
 import { CompletionType } from '../../../blockViews/FormulaView'
 import { BlockPreview, ColumnPreview, SpreadsheetPreview, FunctionPreview, VariablePreview } from '../Preview'
 import { BrickdocEventBus, FormulaKeyboardEventTrigger } from '@brickdoc/schema'
@@ -48,13 +48,13 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({ rootId, form
   }
 
   const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       FormulaKeyboardEventTrigger({ key: event.key, formulaId, rootId, isEditor: false, completionIndex: -1 })
     )
   }
 
   const handleOnClick = (index: number): void => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       FormulaKeyboardEventTrigger({ key: 'Click', formulaId, rootId, isEditor: false, completionIndex: index })
     )
   }
@@ -72,7 +72,8 @@ export const AutocompleteList: React.FC<AutocompleteListProps> = ({ rootId, form
                 onClick={() => handleOnClick(index)}
                 key={index}
                 onKeyDown={onKeyDown}
-                className={cx('autocomplete-list-item', { active: index === completion.activeCompletionIndex })}>
+                className={cx('autocomplete-list-item', { active: index === completion.activeCompletionIndex })}
+              >
                 {React.cloneElement(icon, { className: 'autocomplete-list-item-icon' })}
                 <div className="autocomplete-list-item-content">
                   <span className="autocomplete-list-item-name">{c.name}</span>

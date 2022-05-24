@@ -192,7 +192,7 @@ export class FormulaContext implements ContextInterface {
 
     const blockNameSubscription = BrickdocEventBus.subscribe(
       BlockNameLoad,
-      async e => {
+      e => {
         this.setBlock(e.payload.id, e.payload.name)
       },
       { subscribeId: `Domain#${this.domain}` }
@@ -202,7 +202,7 @@ export class FormulaContext implements ContextInterface {
 
     const tickSubscription = BrickdocEventBus.subscribe(
       FormulaContextTickTrigger,
-      async e => {
+      e => {
         void this.tick(e.payload.state)
       },
       {
@@ -328,7 +328,7 @@ export class FormulaContext implements ContextInterface {
     this.names[nameDependency.id] = nameDependency
     if (oldName && oldName.name === nameDependency.name) return
 
-    void BrickdocEventBus.dispatch(FormulaContextNameChanged(nameDependency))
+    BrickdocEventBus.dispatch(FormulaContextNameChanged(nameDependency))
   }
 
   public removeName(id: NamespaceId): void {
@@ -337,7 +337,7 @@ export class FormulaContext implements ContextInterface {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.names[id]
 
-    void BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
+    BrickdocEventBus.dispatch(FormulaContextNameRemove(oldName))
   }
 
   public findSpreadsheet({ namespaceId, type, value }: FindKey): SpreadsheetType | undefined {
@@ -366,7 +366,7 @@ export class FormulaContext implements ContextInterface {
     this.spreadsheets[spreadsheet.spreadsheetId] = spreadsheet
     this.setBlock(spreadsheet.namespaceId, '')
     this.setName(spreadsheet.nameDependency())
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SpreadsheetReloadViaId({
         spreadsheetId: spreadsheet.spreadsheetId,
         namespaceId: spreadsheet.namespaceId,
@@ -453,7 +453,7 @@ export class FormulaContext implements ContextInterface {
     await this.commitDirty()
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
     const newState = state
-    await BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
+    BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
   }
 
   private async commitDirty(): Promise<void> {

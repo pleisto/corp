@@ -3,7 +3,7 @@ import { useEditor, EditorContent, JSONContent, EditorEvents } from '@tiptap/rea
 import { devLog } from '@brickdoc/design-system'
 import { BrickdocEventBus, FormulaEditorReplaceRootTrigger } from '@brickdoc/schema'
 import { Base } from '../../extensions/base'
-import { BrickdocFomulaEditor } from './style'
+import {  BrickdocFomulaEditor }from './style'
 
 export interface EditorContentType {
   content: JSONContent | undefined
@@ -99,7 +99,7 @@ export const FormulaEditor: React.FC<FormulaEditorProps> = ({
 
       const listener = BrickdocEventBus.subscribe(
         FormulaEditorReplaceRootTrigger,
-        async e => {
+        e => {
           const content = e.payload.content ?? defaultContent
           const position: number = e.payload.position
 

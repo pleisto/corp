@@ -139,7 +139,7 @@ export const useSpreadsheetContext = (options: {
           const columnId = columnIds[columnIdx + ci]
           if (rowId && columnId) {
             const cellId = `${rowId},${columnId}`
-            void BrickdocEventBus.dispatch(SpreadsheetUpdateCellValue({ parentId: parentId!, cellId, value: c }))
+            BrickdocEventBus.dispatch(SpreadsheetUpdateCellValue({ parentId: parentId!, cellId, value: c }))
           }
         })
       })
@@ -180,7 +180,7 @@ export const useSpreadsheetContext = (options: {
       if (e.code === 'Backspace') {
         if (cellIds?.length && parentId) {
           cellIds.forEach(cellId => {
-            void BrickdocEventBus.dispatch(SpreadsheetUpdateCellValue({ parentId, cellId, value: '' }))
+            BrickdocEventBus.dispatch(SpreadsheetUpdateCellValue({ parentId, cellId, value: '' }))
           })
         }
       }

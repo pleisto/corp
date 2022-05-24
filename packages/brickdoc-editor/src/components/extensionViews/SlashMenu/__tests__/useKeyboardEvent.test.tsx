@@ -37,7 +37,7 @@ describe('useKeyboardEvent', () => {
       return useKeyboardEvent([formulaItem], itemRef, itemLength, setActiveIndex, command)
     })
 
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SlashMenuKeyboardEventTrigger({
         key: 'ArrowUp'
       })
@@ -54,7 +54,7 @@ describe('useKeyboardEvent', () => {
       return useKeyboardEvent([formulaItem], itemRef, itemLength, setActiveIndex, command)
     })
 
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SlashMenuKeyboardEventTrigger({
         key: 'ArrowDown'
       })
@@ -71,7 +71,7 @@ describe('useKeyboardEvent', () => {
       return useKeyboardEvent([formulaItem], itemRef, itemLength, setActiveIndex, command)
     })
 
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SlashMenuKeyboardEventTrigger({
         key: 'Enter'
       })
@@ -91,11 +91,11 @@ describe('useKeyboardEvent', () => {
 
     let hide = false
 
-    BrickdocEventBus.subscribe(SlashMenuHide, async () => {
+    BrickdocEventBus.subscribe(SlashMenuHide, () => {
       hide = true
     })
 
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SlashMenuKeyboardEventTrigger({
         key: 'Escape'
       })
@@ -112,7 +112,7 @@ describe('useKeyboardEvent', () => {
       return useKeyboardEvent([formulaItem], itemRef, itemLength, setActiveIndex, command)
     })
 
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       SlashMenuKeyboardEventTrigger({
         key: '='
       })

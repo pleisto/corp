@@ -19,7 +19,7 @@ export class DropBlockView {
     if (!this.editorView.editable) return
     const position = this.editorView.posAtCoords({ left: e.clientX, top: e.clientY })
     if (key && position) {
-      void BrickdocEventBus.dispatch(BlockDropAdd({ key, pos: position.pos }))
+      BrickdocEventBus.dispatch(BlockDropAdd({ key, pos: position.pos }))
     }
     e.preventDefault()
   }

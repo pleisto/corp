@@ -80,7 +80,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
       setCurrentBlock(newBlock)
       saveBlock(newBlock)
 
-      void BrickdocEventBus.dispatch(
+      BrickdocEventBus.dispatch(
         SpreadsheetReloadViaId({
           spreadsheetId: tableId,
           scope: {
@@ -100,7 +100,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSavedTrigger,
-      async e => {
+      e => {
         setEditing(false)
       },
       {
@@ -136,7 +136,7 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       SpreadsheetUpdateCellValue,
-      async e => {
+      e => {
         const { value } = e.payload
         devLog('Spreadsheet update cell', { eventId, value })
         void commitFormula(value)

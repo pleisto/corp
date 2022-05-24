@@ -20,7 +20,7 @@ const formulaHandleKeyDown: ({
 
     if (['Enter', 'Tab', 'ArrowUp', 'ArrowDown'].includes(key)) {
       if (rootId && formulaId) {
-        void BrickdocEventBus.dispatch(
+        BrickdocEventBus.dispatch(
           FormulaKeyboardEventTrigger({ key, formulaId, rootId, isEditor: true, completionIndex: -1 })
         )
       }
@@ -50,12 +50,12 @@ const gapHoverHandler = ({
   // }
 
   if (position - 1 < 0) {
-    // void BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
+    // BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
     return
   }
   const node = view.state.doc.nodeAt(position)
   if (!node) {
-    void BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
+    BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
     return
   }
 
@@ -68,7 +68,7 @@ const gapHoverHandler = ({
   const { attrs } = mark.attrs as CodeFragment
   // if (!['Spreadsheet', 'Column', 'Variable', 'Block'].includes(code)) return
 
-  void BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs, formulaId, rootId }))
+  BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs, formulaId, rootId }))
 }
 
 export interface FormulaHandleKeyDownOptions {
@@ -104,7 +104,7 @@ export const FormulaHandleKeyDown = createExtension<FormulaHandleKeyDownOptions,
               return false
             },
             mouseleave(view, event) {
-              void BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
+              BrickdocEventBus.dispatch(FormulaEditorHoverEventTrigger({ attrs: undefined, formulaId, rootId }))
               return false
             }
           }

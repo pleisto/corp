@@ -20,7 +20,7 @@ export function useKeyboardEvent(
       ?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
 
   useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(SlashMenuKeyboardEventTrigger, async event => {
+    const listener = BrickdocEventBus.subscribe(SlashMenuKeyboardEventTrigger, event => {
       switch (event.payload.key) {
         case 'ArrowUp':
           setActiveIndex(index => {
@@ -46,7 +46,7 @@ export function useKeyboardEvent(
           if (currentItem.current) command(currentItem.current)
           break
         case 'Escape':
-          void BrickdocEventBus.dispatch(SlashMenuHide({}))
+          BrickdocEventBus.dispatch(SlashMenuHide({}))
           break
         case '=':
           if (formulaMenuItem) command(formulaMenuItem)

@@ -55,7 +55,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   React.useEffect(() => {
     const listener = BrickdocEventBus.subscribe(
       FormulaEditorSavedTrigger,
-      async e => {
+      e => {
         close()
       },
       {
@@ -67,7 +67,7 @@ export const FormulaMenu: React.FC<FormulaMenuProps> = ({
   }, [close, formulaId, rootId])
 
   const triggerCalculate = (): void => {
-    void BrickdocEventBus.dispatch(
+    BrickdocEventBus.dispatch(
       FormulaCalculateTrigger({
         skipExecute: true,
         formulaId,

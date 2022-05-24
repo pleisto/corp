@@ -12,7 +12,7 @@ export const DiscussionMenu: React.FC<DiscussionMenuProps> = ({ className }) => 
   const { t } = useDocsI18n()
 
   const onClick = useCallback(() => {
-    void BrickdocEventBus.dispatch(DiscussionListToggle({}))
+    BrickdocEventBus.dispatch(DiscussionListToggle({}))
   }, [])
 
   return (

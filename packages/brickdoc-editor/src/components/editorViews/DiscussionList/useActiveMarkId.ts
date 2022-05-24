@@ -16,7 +16,7 @@ export function useActiveMarkId(
 
   // listener for active mark event
   useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(DiscussionMarkActive, async ({ payload: { markId } }) => {
+    const listener = BrickdocEventBus.subscribe(DiscussionMarkActive, ({ payload: { markId } }) => {
       setActiveMarkId(markId)
     })
 
@@ -25,7 +25,7 @@ export function useActiveMarkId(
 
   // listener for inactive mark event
   useEffect(() => {
-    const listener = BrickdocEventBus.subscribe(DiscussionMarkInactive, async () => {
+    const listener = BrickdocEventBus.subscribe(DiscussionMarkInactive, () => {
       setActiveMarkId(null)
     })
 
