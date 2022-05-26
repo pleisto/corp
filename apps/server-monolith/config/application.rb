@@ -64,9 +64,7 @@ module Brickdoc
 
       ## Enabled Global Plugin
       default_global_plugins = [:google_auth, :github_auth]
-      BrickdocConfig.on(:global) do
-        default_global_plugins.each { |name| BrickdocPlugin.plugin(name).default_enabled! }
-      end
+      default_global_plugins.each { |name| BrickdocPlugin.plugin(name).default_enabled! }
 
       Devise.setup do |config|
         BrickdocHook.trigger :omniauth_providers_setup, config

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Brickdoc::Logger do
+describe Brickdoc::Logger::RailsLogger do
   let(:msg) { 'logger-test' }
   let(:log) { StringIO.new }
   let(:logger) { described_class.new(log) }
