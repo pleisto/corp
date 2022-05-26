@@ -107,7 +107,7 @@ export const CodeBlockView: FC<CodeBlockViewProps> = ({ node, updateAttributes, 
             <Switch checked={!!autoWrap} size="sm" onChange={onAutoWrapChange} />
           </SwitchContainer>
         </ViewModeBar>
-        <pre>
+        <pre spellCheck={false}>
           <NodeViewContent className={autoWrap ? undefined : CodeScroll()} as="code" />
         </pre>
       </CodeContainer>
