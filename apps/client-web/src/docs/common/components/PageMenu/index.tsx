@@ -49,7 +49,7 @@ interface PageMenuProps {
   pin: boolean
   parentId?: string | null
   nearNodeId?: string
-  icon?: string
+  icon: boolean
 }
 
 export const PageMenu: React.FC<PageMenuProps> = ({
@@ -287,17 +287,17 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       </Menu.Item>
     </Menu>
   )
-
+  console.log(icon)
   const linkData = (
     <Popover
       content={renamePopoverContent}
       title={null}
       placement="bottomStart"
       trigger="customEvent"
-      visible={popoverVisible}
+      visible={true || popoverVisible}
       onVisibleChange={onRenamePopoverVisibleChange}
       destroyTooltipOnHide={true}
-      overlayInnerStyle={{ marginLeft: icon ? -18 : -40 }}
+      overlayInnerStyle={{ marginLeft: icon ? -25 : 0 }}
     >
       <Root.Title to={linkPath}>{title}</Root.Title>
     </Popover>
