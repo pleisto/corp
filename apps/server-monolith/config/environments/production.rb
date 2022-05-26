@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
-require 'brickdoc/logger'
-require 'brickdoc/log/json_formatter'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.

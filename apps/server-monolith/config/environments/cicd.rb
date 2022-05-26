@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'active_support/core_ext/integer/time'
-require 'brickdoc/logger'
-require 'brickdoc/log/json_formatter'
 
 # CICD environment is for Staging and PR-Preview enviroments.
 Rails.application.configure do
