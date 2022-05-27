@@ -1,208 +1,192 @@
 # frozen_string_literal: true
 
 module Brickdoc
+  # Brickdoc::Settings is a multi-scope settings module for Rails applications.
+  # Multi-scope means that you can set different values in same key for for different session contexts.
+  # session context is defined by `at` method, which accepts `user_id` and `space_id` as arguments.
+  #
+  # @example
+  #  class Config < ApplicationRecord
+  #    include Brickdoc::Settings::Base
+  #    serialize :value
+  #    field :admin_email
+  #    # `belongs_to` can be `:user`, `:space` or `:global`
+  #    # If `belons_to` not specified, it will be `:global` by default
+  #    field :language, default: 'en-US', belongs_to: :user
+  #    field :first_day_of_week, default: 'Monday', belongs_to: :space
+  #
+  #    namespace :mailer do
+  #      field :host, default: 'localhost'
+  #      # `type` can be `:string`, `:integer`, `:float`, `:boolean`, `:encrypted`.
+  #      #  If `:encrypted` means that the value will be encrypted before saving to database.
+  #      field :port, default: 25, type: :integer
+  #    end
+  #  end
+  #
+  #  # Set value for global field requires call `set_global` method
+  #  Config.at(user_id: 1, space_id: 1).set :admin_email, 'a@1.com' #=> ArgumentError
+  #  Config.at(user_id: 1, space_id: 1).set_global :admin_email, 'a@1.com' #=> OK
+  #  # global field's value is completely independent from current session's context
+  #  Config.at(user_id: 7, space_id: 2).get :admin_email #=> 'a@1.com'
+  #
+  #  # When getting the value of user field, it will first try to get the value that matches both
+  #  # `user_id` and `space_id` and then fallback to `user_id` only. If no value is found, it will
+  #  # fallback to global value.
+  #  Config.at(user_id: 1, space_id: 1).set :language, 'en-GB' #=> OK
+  #  Config.at(user_id: 1, space_id: 1).set_all_spaces_in_user :language, 'en-SG' #=> OK
+  #  # Same as above
+  #  Config.at(user_id: 1, space_id: 1).set :language, 'en-SG', space_id: nil #=> OK
+  #  Config.at(user_id: 1, space_id: 1).get :language # => 'en-GB'
+  #  Config.at(user_id: 1, space_id: 2).get :language # => 'en-SG'
+  #  Config.at(user_id: 3, space_id: 3).get :language # => 'en-US'
+  #
+  #  # When getting the value of space field, it will first try to get the value that matches both
+  #  # `user_id` and `space_id` and then fallback to `space_id` only. If no value is found, it will
+  #  # fallback to global value.
+  #  Config.at(user_id: 1, space_id: 1).set :first_day_of_week, 'Sunday' #=> OK
+  #  Config.at(user_id: 1, space_id: 1).set_all_users_in_space :first_day_of_week, 'foo' #=> OK
+  #  # Same as above
+  #  Config.at(user_id: 1, space_id: 1).set :first_day_of_week, 'foo', user_id: nil #=> OK
+  #  Config.at(user_id: 1, space_id: 1).get :first_day_of_week # => 'Sunday'
+  #  Config.at(user_id: 1, space_id: 2).get :first_day_of_week # => 'foo'
+  #  Config.at(user_id: 3, space_id: 3).get :first_day_of_week # => 'Monday'
+  #
+  #  # In addition, Brickdoc::Settings also support nested settings with `namespace` method.
+  #  Config.get :host # => nil
+  #  Config.namespace(:mailer).get :host #=> 'localhost'
+  #  Config.namespace :mailer do
+  #    get :host #=> 'localhost'
+  #    set_global :host, 'foo.com' #=> OK
+  #  end
   module Settings
     module Base
       extend ActiveSupport::Concern
       module ClassMethods
         include Brickdoc::Settings::AccessorBase
+        include Brickdoc::Settings::Types
+        include Brickdoc::Settings::DSL
+        include Brickdoc::Settings::DatabaseStore
+        include Brickdoc::Settings::Cache
 
-        BELONG_TYPE = [:global, :user, :space]
-
-        def cached_values
-          Thread.current[:"#{self.class.name.underscore}_values"] ||= {}
-        end
-
-        def cached_namespaces
-          Thread.current[:"#{self.class.name.underscore}_namespaces"] ||= {}
-        end
-
-        # Find key by namespace
-        def namespace(*namespace, &block)
-          namespace = namespace.join('.')
-          cached_namespaces[namespace] ||= Brickdoc::Settings::Accessor.new(self, namespace: namespace)
-          cached_namespaces[namespace].with_block(&block)
-        end
-
-        # at_contexts is a current session's context for calculating the scope.
-        def cached_session_contexts
-          Thread.current[:"#{self.class.name.underscore}_at_contexts"] ||= {}
-        end
-
-        # Calculate the cached key for current user's context
-        def session_context_cached_key(user_id: nil, space_id: nil)
-          "space#{space_id}.user#{user_id}"
-        end
-
-        # Set current session's context
-        def at(user_id: nil, space_id: nil, &block)
-          cached_key = session_context_cached_key(user_id: user_id, space_id: space_id)
-          cached_session_contexts[cached_key] ||= Brickdoc::Settings::Accessor.new(self, user_id: user_id, space_id: space_id)
-          cached_session_contexts[cached_key].with_block(&block)
-        end
-
-        def defined_fields
-          @defined_fields
-        end
-
-        def frontend_fields
-          @frontend_fields
-        end
-
-        def current
-          Thread.current[:brickdoc_config_current] || self
-        end
-
-        def current=(config)
-          Thread.current[:brickdoc_config_current] = config
-        end
-
-        def to_frontend(namespace: '')
-          namespace = namespace.to_s
-          frontend_fields[namespace].uniq.index_with do |key|
-            get(key, namespace: namespace)
-          end
-        end
-
-        def field(key, namespace: '', belongs_to: :global, type: :string, default: nil, read_only: false, **options)
-          key = key.to_s
-          # belongs_to value must be a valid scope
-          raise ArgumentError, "unsupported belongs_to: #{belongs_to}" unless BELONG_TYPE.include?(belongs_to)
-
-          # Avoid dirty data, this attributes is not allowed static defined.
-          options.delete(:user_id)
-          options.delete(:space_id)
-
-          @frontend_fields ||= {}
-          if options[:frontend]
-            frontend_fields[namespace] ||= []
-            frontend_fields[namespace].push key
-          end
-
-          @defined_fields ||= {}
-          @defined_fields[namespace] ||= {}
-          @defined_fields[namespace][key] = {
-            type: type,
-            default: default,
-            read_only: read_only,
-            options: options,
-            belongs_to: belongs_to,
-          }
-        end
-
-        def get_field(key, namespace: '', **_)
-          key = key.to_s
-          @defined_fields[namespace][key]
-        end
-
-        def defined_keys(namespace: '', **_)
-          @defined_fields[namespace].keys
-        end
-
-        def truthy?(value)
-          ['t', 'true', '1', 1, true].include?(value)
-        end
-
-        # Get value by key, namespace and session context
+        # Get the value of the field.
+        # If `at` method is called, `space_id` and `user_id` will be auto-injected.
+        #
+        # @param key [Symbol, String] the key of the field
+        # @param :namespace [Symbol, String] the namespace of the field. set to nil if you want it to be global.
+        # @param :space_id [Integer, nil] the space id of current session.
+        # @param :user_id [Integer, nil] the user id of current session.
+        # @return [Object] the value of the field. If the field is not found, it will return nil.
         def get(key, namespace: '', space_id: nil, user_id: nil, **_)
-          key = key.to_s
-          namespace = namespace.to_s
-          cache_key = "#{namespace}.#{key}@#{session_context_cached_key(user_id: user_id, space_id: space_id)}"
-          unless cached_values[cache_key]
-            field_config = @defined_fields.dig(namespace, key) || {}
-            value = _get_value(key, namespace: namespace,
-              space_id: space_id, user_id: user_id, belongs_to: field_config[:belongs_to])
-            value = if !value.nil?
-              case field_config[:type]
-              when :boolean
-                truthy?(value)
-              when :integer
-                value&.to_i
-              when :float
-                value&.to_f
-              when :encrypted
-                _lockbox(cache_key).decrypt(value)
-              else
-                value
-              end
+          field_config = _field_metadata(namespace, key, allow_blank: true)
+          belongs_to = field_config[:belongs_to]
+          cache_key = _cached_field_key(namespace, key, space_id, user_id, belongs_to)
+          unless _get_cached_values(cache_key)
+            # Do not query database if the field is readonly
+            value = if field_config[:read_only]
+              nil
             else
-              field_config[:default]
+              _find_field(key, namespace: namespace, space_id: space_id, user_id: user_id, belongs_to: belongs_to)
             end
+            value = value.nil? ? field_config[:default] : decode_value(field_config[:type], value, cache_key: cache_key)
             value = value.deep_symbolize_keys if field_config.dig(:options, :symbolize_keys)
-            cached_values[cache_key] = value
+            _set_cached_values(cache_key, value)
           end
-          cached_values[cache_key]
+          _get_cached_values(cache_key)
         end
 
+        # Set the value of the field.
+        # If `at` method is called, `space_id` and `user_id` will be auto-injected.
+        #
+        # @param key [Symbol, String] the key of the field
+        # @param value [Object] the value of the field
+        # @param :namespace [Symbol, String] the namespace of the field. set to nil if you want it to be global.
+        # @param :space_id [Integer, nil] the space id of current session.
+        # @param :user_id [Integer, nil] the user id of current session.
+        #
+        # @raise [Errors::ReadOnlyField] if the field is read-only
+        # @raise [Errors::ArgumentError] if trying to set a global value but `allow_global` is false
+        # @raise [Errors::NotFoundField] if the field is not found
         def set(key, value, namespace: '', space_id: nil, user_id: nil, allow_global: false)
-          field_config = @defined_fields.dig(namespace.to_s, key.to_s)
-          raise Errors::NotFoundField.new(self, key, namespace: namespace) if field_config.nil?
+          # Get field metadata
+          field_config = _field_metadata(namespace, key)
 
-          # Deny set value for read_only field
+          # Raise error if the field is set to readonly
           raise Errors::ReadOnlyField.new(self, key, namespace: namespace) if field_config[:read_only]
 
-          # Deny set value when field belongs_to is not global with empty session context
+          # Raise error if trying to set a global value but `allow_global` is false
+          belongs_to = field_config[:belongs_to]
           empty_context = space_id.nil? && user_id.nil?
           if !allow_global && (empty_context || field_config[:belongs_to] == :global)
             raise ArgumentError, 'Please add `allow_global: true` options to set value for global scope'
           end
 
-          # encrypted type fields
-          if field_config[:type] == :encrypted
-            cache_key = "#{namespace}.#{key}@#{session_context_cached_key(user_id: user_id, space_id: space_id)}"
-            value = _lockbox(cache_key).encrypt(value.to_s)
-          end
+          # Encode typed value to database value
+          value = encode_value(field_config[:type], value,
+            cache_key: _cached_field_key(namespace, key, space_id, user_id, belongs_to))
 
-          _save_value(key.to_s, value, namespace: namespace, user_id: user_id, space_id: space_id, belongs_to: field_config[:belongs_to])
+          # Set value to database
+          _update_field(
+            key,
+            value,
+            namespace: namespace, user_id: user_id, space_id: space_id, belongs_to: belongs_to
+          )
+          # Flush cache
           touch(key, namespace: namespace, user_id: user_id, space_id: space_id)
         end
 
+        # Set the value of the field in global scope.
+        # This will ignore current session context, including `space_id` and `user_id`.
+        # (see #set)
+        def set_global(key, value, namespace: '', space_id: nil, user_id: nil)
+          set(key, value, namespace: namespace, space_id: nil, user_id: nil, allow_global: true)
+        end
+
+        # Set the value of the field in all users in current space.
+        # This will ignore `user_id` in current session context.
+        # (see #set)
+        def set_all_users_in_space(key, value, namespace: '', space_id:, user_id: nil)
+          set(key, value, namespace: namespace, space_id: space_id, user_id: nil)
+        end
+
+        # Set the value of the field in all users in current space.
+        # This will ignore `user_id` in current session context.
+        # (see #set)
+        def set_all_spaces_in_user(key, value, namespace: '', space_id: nil, user_id:)
+          set(key, value, namespace: namespace, space_id: nil, user_id: user_id)
+        end
+
+        # Flush the cache of the field.
+        # If `at` method is called, `space_id` and `user_id` will be auto-injected.
+        #
+        # @param key [Symbol, String] the key of the field
+        # @param :namespace [Symbol, String] the namespace of the field. set to nil if you want it to be global.
+        # @param :space_id [Integer, nil] the space id of current session.
+        # @param :user_id [Integer, nil] the user id of current session.
         def touch(key, namespace: '', user_id:, space_id:)
-          cached_values.delete "#{namespace}.#{key}@#{session_context_cached_key(user_id: user_id, space_id: space_id)}"
+          belongs_to = _field_metadata(namespace, key)[:belongs_to]
+          _delete_cached_values(_cached_field_key(namespace, key, space_id, user_id, belongs_to))
         end
 
-        # Calculate the full key with namespace for database access
-        def _full_key(namespace, key)
-          namespace.blank? ? key : "#{namespace}.#{key}"
+        # Get all frontend fields in the namespace.
+        def to_frontend(namespace: '')
+          namespace = namespace.to_s
+          frontend_fields[namespace].uniq.index_with { |key| get(key, namespace: namespace) }
         end
 
-        # Calculate the scope by current session's context
-        def _calc_scope(key, namespace, space_id, user_id, belongs_to)
-          space_label = space_id.present? ? "space_#{Crypto.int_id_obfuscate(space_id)}" : nil
-          user_label =  user_id.present? ? "user_#{Crypto.int_id_obfuscate(user_id)}" : nil
-          scope = ['R']
-          case belongs_to
-          when :space
-            scope.push space_label if space_label.present?
-            scope.push user_label if space_label.present? && user_label.present?
-          when :user
-            scope.push user_label if user_label.present?
-            scope.push space_label if user_label.present? && space_label.present?
-          end
-          scope.join('.')
+        # Get field metadata.
+        # @param key [Symbol, String] the key of the field
+        # @param :namespace [Symbol, String] the namespace of the field. set to nil if you want it to be global.
+        # @return [Hash] the metadata of the field.
+        def get_field(key, namespace: '', **_)
+          key = key.to_s
+          defined_fields[namespace][key]
         end
 
-        # get value from database
-        def _get_value(key, namespace: 'Undefined settings field', belongs_to:, space_id:, user_id:)
-          scope = _calc_scope(key, namespace, space_id, user_id, belongs_to)
-          # nlevel will returns number of labels in path. e.g. 'a.b.c' will return 3
-          select('value', 'nlevel(scope::ltree) as depth')
-            # ltree @> ltree → boolean.  Is left argument an ancestor of right (or equal)?
-            .where('key = :key and scope @> :scope', key: _full_key(namespace, key), scope: scope)
-            .order('depth desc')
-            .first&.value
-        end
-
-        # save value to database
-        def _save_value(key, value, namespace: '', belongs_to:, space_id:, user_id:)
-          scope = _calc_scope(key, namespace, space_id, user_id, belongs_to)
-          record = where(key: _full_key(namespace, key), scope: scope).first_or_initialize
-          record.value = value
-          record.save
-        end
-
-        def _lockbox(cache_key)
-          Lockbox.new(key: Lockbox.attribute_key(table: :settings, attribute: cache_key))
+        # List all defined fields in the namespace.
+        # @param :namespace [Symbol, String] the namespace of the field. set to nil if you want it to be global.
+        # @return [Array<Symbol>] the list of defined fields.
+        def defined_keys(namespace: '', **_)
+          defined_fields[namespace].keys
         end
       end
     end

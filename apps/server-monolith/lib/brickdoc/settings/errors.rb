@@ -2,6 +2,7 @@
 
 module Brickdoc
   module Settings
+    # @private
     module Errors
     end
   end

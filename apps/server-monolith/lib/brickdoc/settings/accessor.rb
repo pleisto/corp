@@ -30,7 +30,7 @@ module Brickdoc
         @settings.defined_keys(namespace: @namespace)
       end
 
-      [:field, :get_field, :get, :set, :touch].each do |method_name|
+      [:field, :get_field, :get, :set, :set_global, :set_all_users_in_space, :set_all_spaces_in_user, :touch].each do |method_name|
         define_method(method_name) do |key, *args, **options|
           @settings.send(method_name, key, *args, **{
             namespace: @namespace,

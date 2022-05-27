@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe BrickdocConfig, type: :model do
+  before do
+    Rails.cache.clear
+  end
+
   it 'can be read' do
     # expect(BrickdocConfig.accounts_federated_providers.first[:name]).to eq('github')
     expect(described_class.accounts_email_password_auth?).to be(true)
@@ -56,12 +60,12 @@ RSpec.describe BrickdocConfig, type: :model do
       field :space, default: 'bar', belongs_to: :space
       field :user, default: 'baz', belongs_to: :user
 
-      at(space_id: 1).set(:space, 'space1')
+      at(space_id: 1, user_id: 9).set_all_users_in_space(:space, 'space1')
       at(space_id: 1, user_id: 1).set(:space, 'space1-1')
       at(space_id: 1, user_id: 2).set(:space, 'space1-2')
       at(space_id: 2, user_id: 2).set(:space, 'space2-2')
 
-      at(user_id: 1).set(:user, 'user1')
+      at(user_id: 1, space_id: 6666).set_all_spaces_in_user(:user, 'user1')
       at(user_id: 1, space_id: 1).set(:user, 'user1-1')
       at(user_id: 1, space_id: 2).set(:user, 'user1-2')
       at(user_id: 2, space_id: 2).set(:user, 'user2-2')
@@ -69,7 +73,7 @@ RSpec.describe BrickdocConfig, type: :model do
     testing = described_class.namespace(:testing)
     # global
     expect { testing.at(space_id: 2).global = 'eee' }.to raise_error(ArgumentError)
-    testing.at(user_id: 9).set(:global, 'gogogo', allow_global: true)
+    testing.at(user_id: 9).set_global(:global, 'gogogo')
     expect(testing.global).to eq('gogogo')
     expect(testing.at(space_id: 8, user_id: 7).global).to eq('gogogo')
 

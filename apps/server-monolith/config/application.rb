@@ -49,6 +49,7 @@ module Brickdoc
         inflect.acronym 'UUID'
         inflect.acronym 'ID'
         inflect.acronym 'SaaS'
+        inflect.acronym 'DSL'
       end
 
       loader = Zeitwerk::Loader.new

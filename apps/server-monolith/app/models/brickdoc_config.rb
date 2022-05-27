@@ -15,8 +15,8 @@
 #
 
 class BrickdocConfig < ApplicationRecord
+  # See lib/brickdoc/settings/base.rb for more details
   include Brickdoc::Settings::Base
-
   serialize :value
 
   field :default_locale, default: 'en-US'
