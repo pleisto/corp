@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Button, CSS, css, styled, theme } from '@brickdoc/design-system'
 import { ToolbarOption, ToolbarGroupOption } from '../../../ui'
 import { BubbleItemMeta } from './useBubbleMenuItems'
@@ -148,30 +148,43 @@ export function useFontColorGroup(): [ToolbarOption | ToolbarGroupOption | null]
   const fontColorGroupStyles = FontColorGroupStyles()
   const resetItemStyles = ResetItemStyles()
 
+  const fontColorItems: BubbleItemMeta[] = useMemo(
+    () =>
+      TEXT_COLORS.map(colorMeta => ({
+        name: colorMeta.color,
+        icon: (
+          <FontColorIcon>
+            <FontSize style={{ color: colorMeta.color }} />
+          </FontColorIcon>
+        ),
+        onAction: () => editor?.chain().focus().setFontColor(colorMeta.color).run()
+      })),
+    [editor]
+  )
+
+  const bgColorItems: BubbleItemMeta[] = useMemo(
+    () =>
+      BG_COLORS.map(colorMeta => ({
+        name: colorMeta.color,
+        icon: (
+          <FontBgColorIcon css={{ background: colorMeta.color }}>
+            <FontSize />
+          </FontBgColorIcon>
+        ),
+        onAction: () => editor?.chain().focus().setFontBgColor(colorMeta.color).run()
+      })),
+    [editor]
+  )
+
+  const resetFontColor = useCallback(() => {
+    editor?.chain().focus().unsetFontColor().unsetFontBgColor().run()
+  }, [editor])
+
   const option = useMemo<ToolbarOption | ToolbarGroupOption | null>(() => {
     if (!isBubbleMenuVisible(editor)) return null
 
     const activeColor = TEXT_COLORS.find(color => editor?.isActive('textStyle', { fontColor: color.color }))
     const activeBgColor = BG_COLORS.find(color => editor?.isActive('textStyle', { fontBgColor: color.color }))
-    const fontColorItems: BubbleItemMeta[] = TEXT_COLORS.map(colorMeta => ({
-      name: colorMeta.color,
-      icon: (
-        <FontColorIcon>
-          <FontSize style={{ color: colorMeta.color }} />
-        </FontColorIcon>
-      ),
-      onAction: () => editor.chain().focus().setFontColor(colorMeta.color).run()
-    }))
-
-    const bgColorItems: BubbleItemMeta[] = BG_COLORS.map(colorMeta => ({
-      name: colorMeta.color,
-      icon: (
-        <FontBgColorIcon css={{ background: colorMeta.color }}>
-          <FontSize />
-        </FontBgColorIcon>
-      ),
-      onAction: () => editor.chain().focus().setFontBgColor(colorMeta.color).run()
-    }))
 
     const fontColorGroup: ToolbarGroupOption = {
       type: 'group',
@@ -225,6 +238,7 @@ export function useFontColorGroup(): [ToolbarOption | ToolbarGroupOption | null]
               name: 'reset',
               className: resetItemStyles.className,
               closeOnAction: true,
+              onAction: resetFontColor,
               content: <ResetButton size="md">{t('bubble_menu.fontColor.reset_button.label')}</ResetButton>
             }
           ]
