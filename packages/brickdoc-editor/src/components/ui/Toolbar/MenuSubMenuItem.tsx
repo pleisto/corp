@@ -110,7 +110,7 @@ export const ToolbarMenuSubMenuItem: FC<ToolbarMenuSubMenuItemProps> = ({ option
   return (
     <Popover
       {...props}
-      trigger="click"
+      trigger={option.trigger ?? 'click'}
       visible={visible}
       onVisibleChange={handleVisibleChange}
       placement="bottom"

@@ -192,6 +192,7 @@ export function useFontColorGroup(): [ToolbarOption | ToolbarGroupOption | null]
         {
           type: 'subMenu',
           name: 'fontColor',
+          trigger: 'hover',
           css: {
             color: activeColor ? activeColor.color : 'unset',
             backgroundColor: activeBgColor ? activeBgColor.color : 'unset'
