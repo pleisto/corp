@@ -13,7 +13,7 @@ exports[`CodeBlock renders CodeBlock correctly 1`] = `
         class="react-renderer node-codeBlock"
       >
         <div
-          class="brd-c-juTxah"
+          class="brd-c-fwHUHW"
           data-node-view-wrapper=""
           style="pointer-events: none; white-space: normal;"
         >
@@ -84,29 +84,29 @@ exports[`CodeBlock renders CodeBlock correctly 1`] = `
             >
               <code
                 as="code"
-                class="undefined typescript"
+                class="undefined language-typescript"
                 data-node-view-content=""
                 style="white-space: pre-wrap;"
               >
                 <div
                   style="white-space: inherit;"
                 >
-                  <span
+                  <div
                     class="line-numbers-rows ProseMirror-widget"
                   />
                         
 
-                  <span
+                  <div
                     class="line-numbers-rows ProseMirror-widget"
                   />
                           code content
 
-                  <span
+                  <div
                     class="line-numbers-rows ProseMirror-widget"
                   />
                         
 
-                  <span
+                  <div
                     class="line-numbers-rows ProseMirror-widget"
                   />
                       
