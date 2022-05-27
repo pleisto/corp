@@ -287,7 +287,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
       </Menu.Item>
     </Menu>
   )
-  console.log(icon)
+
   const linkData = (
     <Popover
       content={renamePopoverContent}
