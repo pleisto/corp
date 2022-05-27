@@ -36,7 +36,7 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, ...props }) => {
   return (
     <EditorContext.Provider value={editorContext}>
       <BubbleMenu editor={editor} />
-      <TiptapEditorContent editor={editor} />
+      <TiptapEditorContent className="brickdoc" editor={editor} />
       <DiscussionList />
       <ExplorerMenu editor={editor} />
     </EditorContext.Provider>

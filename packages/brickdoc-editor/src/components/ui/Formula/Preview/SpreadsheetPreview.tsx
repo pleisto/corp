@@ -8,9 +8,11 @@ export interface SpreadsheetPreviewProps {
 
 export const SpreadsheetPreview: React.FC<SpreadsheetPreviewProps> = ({ spreadsheet, rootId }) => {
   return (
-    <div className="ProseMirror">
-      <div className="autocomplete-preview-spreadsheet">
-        <FormulaSpreadsheet spreadsheet={spreadsheet} />
+    <div className="brickdoc">
+      <div className="ProseMirror">
+        <div className="autocomplete-preview-spreadsheet">
+          <FormulaSpreadsheet spreadsheet={spreadsheet} />
+        </div>
       </div>
     </div>
   )

@@ -8,9 +8,11 @@ export interface ColumnPreviewProps {
 
 export const ColumnPreview: React.FC<ColumnPreviewProps> = ({ column, rootId }) => {
   return (
-    <div className="ProseMirror">
-      <div className="autocomplete-preview-column">
-        <FormulaSpreadsheet spreadsheet={column.spreadsheet} columnIds={[column.columnId]} select={true} />
+    <div className="brickdoc">
+      <div className="ProseMirror">
+        <div className="autocomplete-preview-column">
+          <FormulaSpreadsheet spreadsheet={column.spreadsheet} columnIds={[column.columnId]} select={true} />
+        </div>
       </div>
     </div>
   )
