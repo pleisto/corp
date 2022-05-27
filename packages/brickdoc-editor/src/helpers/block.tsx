@@ -31,7 +31,7 @@ import { meta as spreadsheetMeta } from '../extensions/blocks/spreadsheet/meta'
 import { meta as embedMeta } from '../extensions/blocks/embed/meta'
 import { meta as subPageMenuMeta } from '../extensions/blocks/subPageMenu/meta'
 import { meta as tocMeta } from '../extensions/blocks/toc/meta'
-import { Blockquote } from '../extensions'
+import { meta as blockquoteMeta } from '../extensions/blocks/blockquote/meta'
 
 export type BlockItemKey =
   | 'text'
@@ -217,13 +217,13 @@ export const ORDERED_LIST: BlockCommandItem = {
 
 export const BLOCKQUOTE: BlockCommandItem = {
   key: 'blockquote',
-  blockType: Blockquote.name,
+  blockType: blockquoteMeta.name,
   alias: ['quo'],
   squareIcon: <Quote square={true} />,
   icon: <Quote />,
   setBlock: chain => chain.setBlockquote(),
   toggleBlock: chain => chain.toggleBlockquote(),
-  insertBlockAt: (chain, position) => chain.insertBlockAt({ type: Blockquote.name }, position)
+  insertBlockAt: (chain, position) => chain.insertBlockAt({ type: blockquoteMeta.name }, position)
 }
 
 export const CODE: BlockCommandItem = {
