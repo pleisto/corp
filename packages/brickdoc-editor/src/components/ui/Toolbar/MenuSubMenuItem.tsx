@@ -2,7 +2,7 @@ import { FC, Fragment, ReactElement, useState } from 'react'
 import { Icon, Menu, Popover, styled, theme } from '@brickdoc/design-system'
 import { ToolbarSubMenuOption, ToolbarItemOption, ToolbarItemGroupOption } from './Toolbar'
 import { ToolbarMenuItem } from './MenuItem'
-import { itemCommon, itemHeight } from './styles/index.style'
+import { itemCommon, itemHeight, LinkInputWrapper } from './styles/index.style'
 import { variants } from './styles/variants.style'
 
 const SubMenuItem = styled('li', {
@@ -58,6 +58,9 @@ const renderMenu = (
               {index < items.length - 1 && <Menu.Separator key={`separator-${index}`} />}
             </Fragment>
           )
+        }
+        if (menuItem.name === 'linkInput') {
+          return <LinkInputWrapper>{menuItem.content}</LinkInputWrapper>
         }
         return (
           <Menu.Item
