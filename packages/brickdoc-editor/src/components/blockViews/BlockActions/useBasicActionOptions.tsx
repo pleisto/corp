@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { __serializeForClipboard } from 'prosemirror-view'
 import { NodeSelection } from 'prosemirror-state'
-import { Copy, Link, Delete, CornerDownRight } from '@brickdoc/design-icons'
+import { Cutting, Link, Delete, CornerDownRight } from '@brickdoc/design-icons'
 import { BLOCK, BlockCommandItem, ORDER_TOGGLE_BLOCK } from '../../../helpers/block'
 import { useDocumentEditable, useEditorContext, useEditorI18n } from '../../../hooks'
 import { ActionGroupOption, ActionItemOption } from './BlockActions'
@@ -61,7 +61,7 @@ export function useBasicActionOptions({ types }: UseActionOptionsProps): ActionG
         label: t('block_actions.basic.cut'),
         name: 'cut',
         type: 'item',
-        icon: <Copy />,
+        icon: <Cutting />,
         onAction: async () => {
           if (!editor) return
           if (!setNodeSelection()) return
