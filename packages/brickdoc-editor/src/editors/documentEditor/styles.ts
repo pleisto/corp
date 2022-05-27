@@ -149,7 +149,9 @@ const imageStyles: CSS = {
 
 const blockquoteStyles: CSS = {
   blockquote: {
-    borderLeft: '2px solid rgb(#0d0d0d 0.1)',
+    borderLeft: `2px solid ${theme.colors.backgroundThirdary}`,
+    color: theme.colors.typeSecondary,
+    fontWeight: 450,
     paddingLeft: '1rem'
   }
 }

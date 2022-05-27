@@ -693,6 +693,8 @@ en-US:
         label: Subpage menu
       code:
         label: Code
+      blockquote:
+        label: Quote
     block_actions:
       basic:
         copy: Copy
