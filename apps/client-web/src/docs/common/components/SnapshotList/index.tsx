@@ -5,11 +5,10 @@ import { SnapshotRestoreInput, useGetBlockSnapshotsQuery, useSnapshotRestoreMuta
 import { useDocsI18n } from '../../hooks'
 import Pic from '@/common/assets/cloud_brain_2.svg'
 import { queryBlockInfo, queryChildrenBlocks } from '@/docs/pages/graphql'
-import { NonNullDocMeta } from '@/docs/pages/DocumentContentPage'
 import * as Root from './index.style'
+import { DocMetaProvider, useNonNullDocMeta } from '@/docs/store/DocMeta'
 
 interface SnapshotListProps {
-  docMeta: NonNullDocMeta
   currentVersion: number | undefined
   setCurrentVersion: React.Dispatch<React.SetStateAction<number | undefined>>
   confirmLoading: boolean
@@ -18,7 +17,6 @@ interface SnapshotListProps {
 }
 
 export const SnapshotList: React.FC<SnapshotListProps> = ({
-  docMeta,
   currentVersion,
   setCurrentVersion,
   confirmLoading,
@@ -26,6 +24,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
   setConfirmLoading
 }) => {
   const { t } = useDocsI18n()
+  const docMeta = useNonNullDocMeta()
   const { data } = useGetBlockSnapshotsQuery({ variables: { id: docMeta.id } })
   const { list, getKey } = useList(data?.blockSnapshots ?? [])
   const [snapshotRestore, { loading }] = useSnapshotRestoreMutation({
@@ -94,10 +93,16 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
   return skelecton(
     <div className={Root.page}>
       {snapshotTitle}
-      <DocumentPage
-        mode="presentation"
-        docMeta={{ ...docMeta, snapshotVersion: currentVersion ?? firstVersion, editable: false, viewable: true }}
-      />
+      <DocMetaProvider
+        inherit
+        docMeta={{
+          snapshotVersion: currentVersion ?? firstVersion,
+          editable: false,
+          viewable: true
+        }}
+      >
+        <DocumentPage mode="presentation" />
+      </DocMetaProvider>
     </div>,
     snapshotData,
     !currentVersion || confirmLoading
