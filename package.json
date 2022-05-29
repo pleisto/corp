@@ -78,7 +78,7 @@
     "@types/is-ci": "^3.0.0",
     "@types/jest": "^27.5.1",
     "@types/jest-axe": "^3.5.3",
-    "@types/node": "^17.0.35",
+    "@types/node": "^17.0.36",
     "@types/rails__actioncable": "^6.1.6",
     "@types/rails__activestorage": "^7.0.1",
     "@types/react": "^18.0.9",
