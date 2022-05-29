@@ -24,8 +24,8 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
   setConfirmLoading
 }) => {
   const { t } = useDocsI18n()
-  const docMeta = useNonNullDocMeta()
-  const { data } = useGetBlockSnapshotsQuery({ variables: { id: docMeta.id } })
+  const { id, title } = useNonNullDocMeta()
+  const { data } = useGetBlockSnapshotsQuery({ variables: { id } })
   const { list, getKey } = useList(data?.blockSnapshots ?? [])
   const [snapshotRestore, { loading }] = useSnapshotRestoreMutation({
     refetchQueries: [queryChildrenBlocks, queryBlockInfo]
@@ -33,7 +33,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
 
   const onRestore = async (): Promise<void> => {
     setConfirmLoading(true)
-    const input: SnapshotRestoreInput = { blockId: docMeta.id, snapshotVersion: currentVersion as number }
+    const input: SnapshotRestoreInput = { blockId: id, snapshotVersion: currentVersion as number }
     await snapshotRestore({ variables: { input } })
     onCleanup()
   }
@@ -73,7 +73,7 @@ export const SnapshotList: React.FC<SnapshotListProps> = ({
 
   const snapshotTitle = (
     <div className={Root.topBar}>
-      <p>{docMeta.title}</p>
+      <p>{title}</p>
     </div>
   )
 
