@@ -1,73 +1,41 @@
 import { parse } from '../grammar'
+import { ALL_TEST_CASE } from '../tests'
 import { makeContext } from '../tests/testHelper'
 
 const validInputs: string[] = [
-  '1',
-  'a',
-  '1+123',
-  '-1.%',
-  '01.2000100',
-  'hel"lo',
-  'he中文"',
-  '中文"123asd',
-  '1:',
-  '1:1',
-  '1.%',
-  '1.123%',
-  '"123":1',
-  ' 1  +  1 +  ',
-  '(',
-  ')',
-  '()',
-  '[',
-  ']',
-  '[]',
-  '{',
-  '}',
-  '{}',
-  ')=',
-  '>=',
-  '<',
-  '<>',
-  'ABS(1 {a: 1}.a',
-  '(1 {}.',
-  '='
+  '=a',
+  '=-1.%',
+  '=01.2000100',
+  '=hel"lo',
+  '=he中文"',
+  '=中文"123asd',
+  '=1:',
+  '=1:1',
+  '=1.%',
+  '=1.123%',
+  '="123":1',
+  '=)=',
+  '=>=',
+  '=<',
+  '=<>',
+  '=ABS(1 {a: 1}.a',
+  '=(1 {}.',
+  '==',
+  ...ALL_TEST_CASE.successTestCases.map(({ definition }) => definition),
+  ...ALL_TEST_CASE.errorTestCases.map(({ definition }) => definition)
 ]
 
 describe('parser', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeAll(async () => {
-    ctx = await makeContext({
-      pages: [
-        {
-          pageName: 'Simple',
-          variables: [
-            { variableName: 'num0', definition: '=1' },
-            { variableName: 'num1', definition: '=2' },
-            { variableName: 'num2', definition: '=num0' },
-            { variableName: 'num3', definition: '=num2 + num1' },
-            { variableName: 'num4', definition: '=num2 + num0' },
-            { variableName: 'num5', definition: '=num3 + num0 + num2' },
-            { variableName: 'num6', definition: '=num4 + num1' }
-          ]
-        },
-        {
-          pageName: 'Complex',
-          variables: [
-            {
-              definition: '=123123',
-              variableName: 'foo'
-            }
-          ]
-        }
-      ]
-    })
+    jest.useRealTimers()
+    ctx = await makeContext(ALL_TEST_CASE.options)
+    jest.clearAllTimers()
   })
-  it.each(validInputs)('valid: "=%s"', i => {
-    const input = `=${i}`
+  it.each(validInputs)('valid: "=%s"', input => {
     const {
       variableParseResult: { definition: newInput, codeFragments }
-    } = parse({ ...ctx, meta: { ...ctx.meta, input } })
+    } = parse({ ...ctx, meta: ctx.meta({ definition: input }) })
     expect(codeFragments.map(c => c.display).join('')).toEqual(newInput)
   })
 })

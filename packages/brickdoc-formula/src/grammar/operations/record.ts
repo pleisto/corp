@@ -72,6 +72,7 @@ export const recordOperator: OperatorType = {
     ],
     errorTestCases: [
       { definition: '={', errorType: 'syntax', errorMessage: 'Missing closing token' },
+      { definition: '=}', errorType: 'parse', errorMessage: 'Parse error: "}"', valid: false },
       { definition: '={a}', errorType: 'parse', errorMessage: 'TODO mismatch token recordField', valid: false },
       { definition: '={a', errorType: 'syntax', errorMessage: 'Missing closing token' },
       { definition: '={a: }', errorType: 'syntax', errorMessage: 'Missing expression' },

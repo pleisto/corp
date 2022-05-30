@@ -39,6 +39,7 @@ export const multiplicationOperator: OperatorType = {
       {
         pageName: 'Multi',
         spreadsheets: [
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           <SpreadsheetInput<1, 4>>{
             name: 'spreadsheet',
             columns: [

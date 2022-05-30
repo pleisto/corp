@@ -1,36 +1,17 @@
 import { RequireField } from '@brickdoc/active-support'
 import { OPERATORS } from '../grammar'
-import { ErrorType } from '../types'
-import { PageInput } from './testHelper'
-
-interface SuccessTestCaseType {
-  definition: string
-  group?: string
-  label?: string
-  result: any
-}
-
-interface ErrorTestCaseType {
-  definition: string
-  group?: string
-  valid?: boolean
-  label?: string
-  errorType: ErrorType
-  errorMessage: string
-}
-
-export interface TestCaseType {
-  pages?: PageInput[]
-  successTestCases?: SuccessTestCaseType[]
-  errorTestCases?: ErrorTestCaseType[]
-}
+import { FeatureTestCases } from './feature'
+import { ErrorTestCaseType, MakeContextOptions, SuccessTestCaseType, TestCaseInterface, TestCaseType } from './testType'
 
 export const NAME_SPECIAL_INVALID_CHARS = [...'()[]{}!@#$%^&*-+=|\\:;\'"<>,./?`~', ' ', '\t', '\n', '\r', '\u2003']
 export const NAME_VALID_SUFFIX_ONLY = ['中文', 'é', '😉', '1', '감사']
 export const BUILTIN_STRINGS = ['in', 'EXACTIN', 'true', 'False', 'and', 'not', 'Null', 'Or']
 export const NAME_VALID_PREFIX = ['a', '_', ...BUILTIN_STRINGS]
 
-const ALL_TEST_CASES: TestCaseType[] = OPERATORS.filter(o => o.testCases).map(o => ({
+const OPERATION_TEST_CASES: TestCaseType[] = [
+  ...OPERATORS.filter(o => o.testCases).map<TestCaseInterface>(o => o as TestCaseInterface),
+  ...FeatureTestCases
+].map((o: TestCaseInterface) => ({
   ...o.testCases!,
   successTestCases: o.testCases!.successTestCases?.map(s => ({
     ...s,
@@ -44,20 +25,27 @@ const ALL_TEST_CASES: TestCaseType[] = OPERATORS.filter(o => o.testCases).map(o 
   }))
 }))
 
-export const SUCCESS_TEST_CASE = ALL_TEST_CASES.reduce<RequireField<TestCaseType, 'pages' | 'successTestCases'>>(
-  (prev, curr) => ({
-    successTestCases: [...(prev.successTestCases ?? []), ...(curr.successTestCases ?? [])],
-    pages: [...(prev.pages ?? []), ...(curr.pages ?? [])]
-  }),
-  { pages: [], successTestCases: [] }
-)
+interface TestCaseInput extends Required<Pick<TestCaseType, 'successTestCases' | 'errorTestCases'>> {
+  options: Required<MakeContextOptions>
+}
 
-export const ERROR_TEST_CASE = ALL_TEST_CASES.reduce<RequireField<TestCaseType, 'pages' | 'errorTestCases'>>(
+export const ALL_TEST_CASE = OPERATION_TEST_CASES.reduce<TestCaseInput>(
   (prev, curr) => ({
-    errorTestCases: [...(prev.errorTestCases ?? []), ...(curr.errorTestCases ?? [])],
-    pages: [...(prev.pages ?? []), ...(curr.pages ?? [])]
+    options: {
+      pages: [...prev.options.pages, ...(curr.pages ?? [])],
+      initializeOptions: {
+        ...prev.options.initializeOptions,
+        functionClauses: [...(prev.options.initializeOptions.functionClauses ?? []), ...(curr.functionClauses ?? [])]
+      }
+    },
+    successTestCases: [...prev.successTestCases, ...(curr.successTestCases ?? [])],
+    errorTestCases: [...prev.errorTestCases, ...(curr.errorTestCases ?? [])]
   }),
-  { pages: [], errorTestCases: [] }
+  {
+    options: { pages: [{ pageName: 'Default' }], initializeOptions: { domain: 'test' } },
+    successTestCases: [],
+    errorTestCases: []
+  }
 )
 
 const ASYNC_SUCCESS_DEFINITIONS: SuccessTestCaseType[] = [

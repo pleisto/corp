@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-conditional-expect */
-import { parse, innerInterpret } from '../core'
-import { ParseErrorType } from '../../types'
-import { displayValue } from '../../context/persist'
-import { makeContext } from '../../tests/testHelper'
+import { parse, innerInterpret } from '../grammar/core'
+import { ParseErrorType } from '../types'
+import { displayValue } from '../context/persist'
+import { makeContext } from '../tests/testHelper'
 
 interface TestCase {
   input: string
@@ -14,8 +14,8 @@ interface TestCase {
   debug?: true
 }
 
-const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
-const barNamespaceId = 'cd4f6e1e-765e-4064-badd-b5585c7eff8e'
+const namespaceId = '11111111-1111-4444-1111-111111111111'
+const barNamespaceId = '11111111-1111-6666-1111-111111111111'
 const barVariableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const bazVariableId = 'c53c6bf7-c79f-40ce-be2c-da916f1cdb5f'
 
@@ -33,32 +33,6 @@ const testCases: TestCase[] = [
     input: '=123123123123123123123',
     label: 'js precision',
     value: 123123123123123130000
-  },
-  // Array
-  {
-    input: '=[2, "foo", true].2',
-    label: 'Array access 1',
-    value: 'foo'
-  },
-  {
-    input: '=[2, "foo", true][2]',
-    label: 'Array access [] 1',
-    value: 'foo'
-  },
-  {
-    input: '=[2, "foo", true][1]+1 * 12',
-    label: 'access and add',
-    value: 14
-  },
-  {
-    input: '=[2, "foo", true].4',
-    label: 'Array access 2',
-    value: 'Index 4 out of bounds'
-  },
-  {
-    input: '=[2, "foo", true].foo',
-    label: 'Array access 3',
-    value: 'Need a number: foo'
   },
   // {
   //   input: '=[2, "foo", true, null].Map(1)',
@@ -86,10 +60,6 @@ const testCases: TestCase[] = [
     value: { kind: 'self' }
   },
   {
-    input: `=#${barNamespaceId}.bar`,
-    value: 24
-  },
-  {
     input: `=#`,
     parseErrorType: 'syntax',
     errorMessage: 'Miss expression'
@@ -98,32 +68,6 @@ const testCases: TestCase[] = [
     input: `=#CurrentBlock`,
     value: 'SNAPSHOT',
     display: 'Page1'
-  },
-  {
-    input: `=#CurrentBlock.baz`,
-    value: 25
-  },
-  {
-    input: `=baz`,
-    value: 25
-  },
-  {
-    input: `="baz"`,
-    value: 25
-  },
-  {
-    input: `=#${barNamespaceId}.Bar`,
-    label: 'variable name is case insensitive',
-    value: 24
-  },
-  {
-    input: `=bar`,
-    parseErrorType: 'syntax',
-    errorMessage: 'Unknown function bar'
-  },
-  {
-    input: `=Untitled.bar`,
-    value: 24
   },
   {
     input: `=&#${barNamespaceId}.bar`,
@@ -144,32 +88,6 @@ const testCases: TestCase[] = [
   {
     input: '=&Self."foo bar"',
     value: { kind: 'self', attribute: 'foo bar' }
-  },
-  // Record
-  {
-    input: '={a: 1}[a]',
-    parseErrorType: 'syntax',
-    errorMessage: 'Unknown function a'
-  },
-  {
-    input: '={a: 1}.a+1',
-    value: 2
-  },
-  {
-    input: '={a: 1}[1]',
-    value: 'Key 1 not found'
-  },
-  {
-    input: '={a: 1}[1+1]',
-    value: 'Key 2 not found'
-  },
-  {
-    input: '={a: 1}["a"]',
-    value: 1
-  },
-  {
-    input: '={a: 1}["a" & ""]',
-    value: 1
   },
   // Number Literal
   {
@@ -278,97 +196,8 @@ const testCases: TestCase[] = [
   },
   // Error
   {
-    input: '= ABS(1/0)',
-    value: 'Division by zero'
-  },
-  {
     input: '= IFERROR(1/0, "Foo")',
     value: 'Foo'
-  },
-  {
-    input: '=ABS(',
-    parseErrorType: 'syntax',
-    label: 'Missing closing parenthesis2',
-    errorMessage: 'Miss argument'
-  },
-  {
-    input: '=ABS(1',
-    parseErrorType: 'syntax',
-    label: 'Missing closing parenthesis3',
-    errorMessage: 'Missing closing parenthesis'
-  },
-  {
-    input: '=POWER(1,',
-    parseErrorType: 'syntax',
-    label: 'Missing closing parenthesis4',
-    errorMessage: 'Missing closing parenthesis'
-  },
-  {
-    input: '=POWER(1,2',
-    parseErrorType: 'syntax',
-    label: 'Missing closing parenthesis5',
-    errorMessage: 'Missing closing parenthesis'
-  },
-  // Function Call
-  {
-    input: '=ABS ( -1  )',
-    value: 1
-  },
-  {
-    input: '=core::ABS ( -1  )',
-    value: 1
-  },
-  {
-    input: '=custom::ADD (  -1,  1  )',
-    label: 'function with group',
-    value: 0
-  },
-  {
-    input: '=ABS ()',
-    parseErrorType: 'syntax',
-    errorMessage: 'Miss argument'
-  },
-  {
-    input: '=ABS(1,2)',
-    parseErrorType: 'syntax',
-    errorMessage: 'Argument count mismatch'
-  },
-  {
-    input: '=AVERAGE()',
-    parseErrorType: 'syntax',
-    errorMessage: 'Miss argument',
-    label: 'Spread operator with no argument'
-  },
-  {
-    input: '=AVERAGE(1)',
-    value: 1,
-    label: 'spread operator'
-  },
-  {
-    input: '=AVERAGE(1, 2, 3)',
-    value: 2,
-    label: 'spread operator'
-  },
-  {
-    input: '=IF(true, 1+2, "2")',
-    value: 3
-  },
-  {
-    input: '=ABS(IF(false, -3, -4))',
-    value: 4
-  },
-  {
-    input: '=toString(1)',
-    value: '1'
-  },
-  {
-    input: '=toString("Foo")',
-    value: '"Foo"'
-  },
-  {
-    input: '=UNKNOWN ()',
-    parseErrorType: 'syntax',
-    errorMessage: 'Function UNKNOWN not found'
   },
   {
     input: '=DATE("")',
@@ -390,58 +219,6 @@ const testCases: TestCase[] = [
     input: '=if(true, 1+2, "2")',
     label: 'Case insensitive',
     value: 3
-  },
-  {
-    input: '=Abs(-1) + abs(1) + ABS(1)',
-    value: 3
-  },
-  // Chain
-  {
-    input: '="FOO".',
-    parseErrorType: 'syntax',
-    errorMessage: 'Missing expression'
-  },
-  {
-    input: '="FOO".T',
-    parseErrorType: 'syntax',
-    errorMessage: 'Access error'
-  },
-  {
-    input: '="FOO".T().T()',
-    value: 'FOO'
-  },
-  {
-    input: '=(1+1).TYPE()',
-    value: 'number'
-  },
-  {
-    input: '=[1,false,"foo"].toString()',
-    value: '[1, false, "foo"]'
-  },
-  {
-    input: '="foobar".START_WITH("foo")',
-    value: true
-  },
-  {
-    input: '="foobar".START_WITH("bar")',
-    value: false
-  },
-  {
-    input: '="foo".START_WITH(123)',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected string but got number',
-    label: 'chain type 1'
-  },
-  {
-    input: '=true.START_WITH("123")',
-    parseErrorType: 'syntax',
-    label: 'TODO chain type 2',
-    errorMessage: 'Expected string but got boolean'
-  },
-  {
-    input: '="123".LEN()',
-    parseErrorType: 'syntax',
-    errorMessage: 'LEN is not chainable'
   },
   // Predicate
   {
@@ -477,27 +254,6 @@ const testCases: TestCase[] = [
     input: '= <= (1+1)',
     value: { type: 'number', result: 2 }
   },
-  // Type
-  {
-    input: '=ABS ( "a" )',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got string'
-  },
-  {
-    input: '=IF(1, -3, -4)',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected boolean but got number'
-  },
-  {
-    input: '=ABS( NOW() )',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got Date'
-  },
-  {
-    input: '=ABS ( true )',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected number but got boolean'
-  },
   // TODO List
   {
     input: '= 中文',
@@ -522,26 +278,10 @@ const testCases: TestCase[] = [
     label: 'not is a operator',
     parseErrorType: 'syntax',
     errorMessage: 'Unknown function nottrue'
-  },
-  {
-    input: '=1.T()',
-    label: 'should success',
-    parseErrorType: 'syntax',
-    value: 1
-  },
-  {
-    input: '=1.START_WITH("123")',
-    parseErrorType: 'syntax',
-    errorMessage: 'Expected string but got number'
-  },
-  {
-    input: '=123.ABS()',
-    parseErrorType: 'syntax',
-    errorMessage: 'core::ABS is not chainable'
   }
 ]
 
-describe('Simple test case', () => {
+describe('Simple test case TODO', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeAll(async () => {
     ctx = await makeContext({
@@ -576,7 +316,7 @@ describe('Simple test case', () => {
     const prefix = label ? `[${label}] ` : ''
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     it(`${prefix}${input}${suffix}`, async () => {
-      const newMeta = { ...ctx.meta, input }
+      const newMeta = ctx.meta({ definition: input })
       const parseResult = parse({ ...ctx, meta: newMeta })
       const {
         success,

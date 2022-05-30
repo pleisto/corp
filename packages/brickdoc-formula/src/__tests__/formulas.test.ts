@@ -1,8 +1,8 @@
-import { appendFormulas } from '../../grammar/core'
-import { Formula } from '../../types'
-import { FormulaContext } from '../context'
+import { appendFormulas } from '../grammar/core'
+import { Formula } from '../types'
+import { FormulaContext } from '../context/context'
 
-describe('appendFormulas', () => {
+describe('appendFormulas TODO', () => {
   it('constant', async () => {
     const formulaContext = new FormulaContext({ domain: 'test' })
     await appendFormulas(formulaContext, [])

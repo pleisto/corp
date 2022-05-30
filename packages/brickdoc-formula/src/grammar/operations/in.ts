@@ -1,5 +1,8 @@
+import { SpreadsheetInput } from '../../tests'
 import { ExpressionType } from '../../types'
 import { OperatorType } from '../operator'
+
+const spreadsheetToken = 'InOperator.spreadsheet'
 
 export const inOperator: OperatorType = {
   name: 'in',
@@ -88,6 +91,34 @@ export const inOperator: OperatorType = {
     throw new Error(`Unsupported type ${rhs!.type}`)
   },
   testCases: {
+    pages: [
+      {
+        pageName: 'InOperator',
+        spreadsheets: [
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          <SpreadsheetInput<3, 3>>{
+            name: 'spreadsheet',
+            columns: [
+              {
+                name: 'first',
+                displayIndex: 'A',
+                cells: [{ value: '1' }, { value: '3' }, { value: '5' }]
+              },
+              {
+                name: 'second',
+                displayIndex: 'B',
+                cells: [{ value: '2' }, { value: '4' }, { value: '6' }]
+              },
+              {
+                name: 'third',
+                displayIndex: 'C',
+                cells: [{ value: '3' }, { value: '' }, { value: 'Foo' }]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     successTestCases: [
       // Array
       { definition: '=1 in [1]', result: true },
@@ -104,7 +135,14 @@ export const inOperator: OperatorType = {
       { definition: '= "foo" in "barfoobaz"', result: true },
       { definition: '= "foo" in "barFoobaz"', result: true },
       { definition: '= "foo" exactin "barFoobaz"', result: false },
-      { definition: '= "foo" exactin "barfoobaz"', result: true }
+      { definition: '= "foo" exactin "barfoobaz"', result: true },
+
+      // Spreadsheet
+      { label: 'in spreadsheet true', definition: `=3 in ${spreadsheetToken}`, result: true },
+      { label: 'in spreadsheet false', definition: `=4 in ${spreadsheetToken}`, result: false },
+      { label: 'in column true', definition: `=3 in ${spreadsheetToken}."second"`, result: false },
+      { label: 'in column false', definition: `=4 in ${spreadsheetToken}.second`, result: true },
+      { label: 'exactin column true', definition: `="foo" in ${spreadsheetToken}.third`, result: true }
     ],
     errorTestCases: [
       {

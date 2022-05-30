@@ -42,3 +42,15 @@ export type FixedLengthTuple<T, N extends number, R extends readonly T[] = []> =
  * Make some field required
  */
 export type RequireField<T, K extends keyof T> = T & Required<Pick<T, K>>
+
+/**
+ * Repeat string
+ *
+ * const x: Repeat<'1' | '2', 4> = '1122'
+ */
+export type Repeat<
+  Char extends string,
+  Count extends number,
+  Joined extends string = ``,
+  Acc extends Array<0> = []
+> = Acc['length'] extends Count ? Joined : Repeat<Char, Count, `${Joined}${Char}`, [0, ...Acc]>

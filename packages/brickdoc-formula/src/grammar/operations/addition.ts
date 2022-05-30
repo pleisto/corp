@@ -34,6 +34,7 @@ export const additionOperator: OperatorType = {
         pageName: 'Addition',
         variables: [{ variableName: 'bar', definition: '=123' }],
         spreadsheets: [
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           <SpreadsheetInput<1, 4>>{
             name: 'spreadsheet',
             columns: [

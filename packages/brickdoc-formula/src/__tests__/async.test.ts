@@ -21,7 +21,7 @@ describe('async', () => {
   it.each(testCases)('[async: $async] "$input"', async ({ definition, output, async }) => {
     jest.useRealTimers()
 
-    const newCtx = { ...ctx, meta: { ...ctx.meta, input: definition } }
+    const newCtx = { ...ctx, meta: ctx.meta({ definition }) }
     const parseResult = parse(newCtx)
     expect(parseResult.variableParseResult.async).toBe(async)
     expect(parseResult.variableParseResult.valid).toBe(true)

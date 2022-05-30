@@ -4,7 +4,7 @@ import { FormulaLexer } from '../lexer'
 import { complete } from '../completer'
 import { makeContext } from '../../tests'
 
-const namespaceId = '57622108-1337-4edd-833a-2557835bcfe0'
+const namespaceId = '11111111-1111-4412-1111-111111111111'
 const variableId = '481b6dd1-e668-4477-9e47-cfe5cb1239d0'
 const barVariableId = '28e28190-63bd-4f70-aeca-26e72574c01a'
 const test2VariableId = '99499117-5694-4d83-9ccd-85a3ab0b8f25'

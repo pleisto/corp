@@ -653,7 +653,7 @@ const generateTask = async ({
   if (!parseResult.variableParseResult.async) {
     const interpretResult = await innerInterpret({ parseResult, ctx })
     return createVariableTask({
-      async: parseResult.variableParseResult.async,
+      async: false,
       variableValue: interpretResult,
       ctx,
       parseResult
@@ -662,7 +662,7 @@ const generateTask = async ({
 
   // 2. Async
   return createVariableTask({
-    async: parseResult.variableParseResult.async,
+    async: true,
     variableValue: innerInterpret({ parseResult, ctx }),
     ctx,
     parseResult

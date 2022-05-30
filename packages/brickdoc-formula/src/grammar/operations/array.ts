@@ -34,6 +34,7 @@ export const arrayOperator: OperatorType = {
     ],
     errorTestCases: [
       { definition: '=[', errorType: 'syntax', errorMessage: 'Missing closing token' },
+      { definition: '=]', errorType: 'parse', errorMessage: 'Parse error: "]"', valid: false },
       { definition: '=[1', errorType: 'syntax', errorMessage: 'Missing closing token' },
       { definition: '=[1,', errorType: 'syntax', errorMessage: 'Missing closing token' },
       { definition: '=[1,]', errorType: 'syntax', errorMessage: 'Expression count mismatch' },

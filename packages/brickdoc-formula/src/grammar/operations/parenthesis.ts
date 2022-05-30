@@ -17,6 +17,8 @@ export const parenthesisOperator: OperatorType = {
         errorMessage: 'Parse error: ")"',
         valid: false
       },
+      { definition: '=(', errorType: 'syntax', errorMessage: 'Missing closing token' },
+      { definition: '=)', errorType: 'parse', errorMessage: 'Parse error: ")"', valid: false },
       { definition: '=(1', errorType: 'syntax', errorMessage: 'Missing closing token' }
     ]
   }

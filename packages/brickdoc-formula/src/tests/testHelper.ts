@@ -1,74 +1,39 @@
 import { generateVariable, interpret, parse } from '../grammar/core'
 import { FormulaContext, FormulaContextArgs } from '../context'
 import { dispatchFormulaBlockNameChangeOrDelete } from '../events'
-import {
-  BaseFunctionClause,
-  ContextInterface,
-  FunctionContext,
-  InterpretContext,
-  NumberResult,
-  VariableMetadata
-} from '../types'
+import { ContextInterface, FunctionContext, InterpretContext } from '../types'
 import { Cell, Column, Row, SpreadsheetClass, SpreadsheetType } from '../controls'
-import { FixedLengthTuple } from '@brickdoc/active-support'
 import { columnDisplayIndex } from '../grammar'
+import {
+  CellInput,
+  ColumnInput,
+  InsertOptions,
+  MakeContextOptions,
+  MakeContextResult,
+  RowInput,
+  SpreadsheetInput,
+  uuids
+} from './testType'
+import { uuid } from '@brickdoc/active-support'
 
-const uuids = [...Array(999)].map((o, index) => `00000000-0000-${String(index).padStart(4, '0')}-0000-000000000000`)
-
-interface VariableInput {
-  variableName: string
-  variableId?: string
-  definition: string
-  position?: number
-}
-
-interface ColumnInput<RowCount extends number> {
-  columnId?: string
-  name: string
-  displayIndex?: string
-  cells: FixedLengthTuple<CellInput, RowCount>
-}
-
-interface CellInput extends Pick<Cell, 'value'> {
-  cellId?: string
-}
-
-interface RowInput {
-  rowId?: string
-}
-export interface SpreadsheetInput<ColumnCount extends number, RowCount extends number> {
-  spreadsheetId?: string
-  name: string
-  columns: FixedLengthTuple<ColumnInput<RowCount>, ColumnCount>
-  rows?: FixedLengthTuple<RowInput, RowCount>
-}
-export interface PageInput {
-  pageId?: string
-  pageName: string
-  variables?: VariableInput[]
-  spreadsheets?: Array<SpreadsheetInput<any, any>>
-}
-
-interface makeContextOptions {
-  initializeOptions?: FormulaContextArgs
-  pages: PageInput[]
-  insertOptions?: InsertOptions
-}
-
-interface InsertOptions {
-  ignoreError?: true
-}
-
-const quickInsert = async (ctx: FunctionContext, { ignoreError }: InsertOptions): Promise<void> => {
+const quickInsert = async (
+  ctx: FunctionContext,
+  { ignoreParseError, ignoreSyntaxError }: InsertOptions
+): Promise<void> => {
   const parseResult = parse(ctx)
-  if (!parseResult.success && !ignoreError) {
+  if (!parseResult.success && !ignoreParseError) {
     throw new Error(parseResult.errorMessages[0]!.message)
   }
 
   const tempT = await interpret({ parseResult, ctx })
   const variable = generateVariable({ formulaContext: ctx.formulaContext, t: tempT })
 
-  await variable.t.task.variableValue
+  const result = await variable.t.task.variableValue
+  if (!ignoreSyntaxError) {
+    if (result.result.type === 'Error' && !['runtime'].includes(result.result.errorKind)) {
+      throw new Error(result.result.result)
+    }
+  }
   await variable.save()
 }
 
@@ -161,62 +126,9 @@ const buildSpreadsheet = (
   ]
 }
 
-const functionClauses: Array<BaseFunctionClause<any>> = [
-  {
-    name: 'PLUS',
-    async: false,
-    pure: true,
-    lazy: false,
-    persist: false,
-    acceptError: false,
-    effect: false,
-    args: [
-      {
-        type: 'number',
-        name: 'a'
-      },
-      {
-        type: 'number',
-        name: 'b'
-      }
-    ],
-    examples: [{ input: '=1', output: { type: 'number', result: 1 } }],
-    description: '',
-    group: 'custom',
-    returns: 'number',
-    testCases: [],
-    chain: false,
-    reference: (ctx, a: NumberResult, b: NumberResult) => ({ type: 'number', result: a.result + b.result })
-  },
-  {
-    name: 'FORTY_TWO',
-    async: false,
-    lazy: false,
-    persist: false,
-    acceptError: false,
-    pure: true,
-    effect: false,
-    args: [],
-    examples: [{ input: '=1', output: { type: 'number', result: 1 } }],
-    description: '',
-    group: 'custom',
-    returns: 'number',
-    testCases: [],
-    chain: false,
-    reference: () => ({ type: 'number', result: 42 })
-  }
-]
+const defaultInitializeOptions: FormulaContextArgs = { domain: 'test' }
 
-const defaultInitializeOptions: FormulaContextArgs = {
-  domain: 'test',
-  functionClauses
-}
-
-export const makeContext = async ({
-  pages,
-  insertOptions,
-  initializeOptions
-}: makeContextOptions): Promise<FunctionContext> => {
+export const makeContext = async ({ pages, initializeOptions }: MakeContextOptions): Promise<MakeContextResult> => {
   const formulaContext = new FormulaContext(initializeOptions ?? defaultInitializeOptions)
   const interpretContext: InterpretContext = {
     ctx: { bar: { type: 'string', result: 'bar123' } },
@@ -224,13 +136,13 @@ export const makeContext = async ({
   }
 
   let counter = 0
-  let firstNamespaceId
+  let firstNamespaceId: string | undefined
   for (const { pageId, pageName, variables, spreadsheets } of [...pages]) {
     const namespaceId = pageId ?? uuids[counter++]
     if (!firstNamespaceId) firstNamespaceId = namespaceId
     dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: pageName, deleted: false })
 
-    for (const { variableName, variableId, definition, position } of variables ?? []) {
+    for (const { variableName, variableId, definition, position, insertOptions } of variables ?? []) {
       await quickInsert(
         {
           formulaContext,
@@ -255,14 +167,14 @@ export const makeContext = async ({
     }
   }
 
-  const meta: VariableMetadata = {
-    variableId: 'uuiduuid-input-uuiduuid',
-    namespaceId: firstNamespaceId ?? 'uuiduuid-namespaceId-uuiduuid',
-    name: 'testInput',
-    input: '!!!',
+  const meta: MakeContextResult['meta'] = args => ({
+    variableId: uuid(),
+    input: args.definition,
+    namespaceId: args.namespaceId ?? firstNamespaceId ?? uuid(),
+    name: args.name ?? 'testInput',
     position: 0,
-    richType: { type: 'normal' }
-  }
+    richType: args.richType ?? { type: 'normal' }
+  })
 
   return { formulaContext, interpretContext, meta }
 }
