@@ -2660,6 +2660,8 @@ __metadata:
     "@tiptap/extension-ordered-list": ^2.0.0-beta.27
     "@tiptap/extension-paragraph": ^2.0.0-beta.23
     "@tiptap/extension-strike": ^2.0.0-beta.27
+    "@tiptap/extension-task-item": ^2.0.0-beta.32
+    "@tiptap/extension-task-list": ^2.0.0-beta.26
     "@tiptap/extension-text": ^2.0.0-beta.15
     "@tiptap/extension-text-style": ^2.0.0-beta.23
     "@tiptap/extension-underline": ^2.0.0-beta.23
@@ -6417,6 +6419,24 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.0.0-beta.1
   checksum: 407d39dc6adbe9ff097e2805b899e011c06916ff3cf094f0d28fcd41bc00b89583a5bc942c507bffdfd06d65da6e6808d54d55e8fd781b05e3e612138062b47c
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-task-item@npm:^2.0.0-beta.32":
+  version: 2.0.0-beta.32
+  resolution: "@tiptap/extension-task-item@npm:2.0.0-beta.32"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: 0d895bbe1c5f80698a88fca104d8de8dd0a761951945e72e01870784e43eceb370e8345cd16ceeb83093fe255466bfda12ed6fad394b92156737c5e1059ce9cb
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-task-list@npm:^2.0.0-beta.26":
+  version: 2.0.0-beta.26
+  resolution: "@tiptap/extension-task-list@npm:2.0.0-beta.26"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: 11cde88eec8b8762f3cdd5d2fb49cce986d05c6912fe78741ac2d0ee4f0ea4180a69c99dbacbfcfe4949bca1b830583a02b9fc840bd42f66e3017d2e12e78f45
   languageName: node
   linkType: hard
 
