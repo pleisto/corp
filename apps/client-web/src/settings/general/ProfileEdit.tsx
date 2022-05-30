@@ -12,6 +12,7 @@ import {
   CreateOrUpdateSpaceInput
 } from '@/BrickdocGraphQL'
 import * as Root from './styles/ProfileEdit.style'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 const profileValidation = object({
   name: string().required(),
@@ -57,13 +58,21 @@ export const ProfileEdit: FC<{ space: SettingsContextProps['space'] }> = ({ spac
         <Root.Box>
           <Root.BoxLeft>
             <Form.Field name="name" label={t('docs:spaces.name')}>
-              <Input type="text" />
+              <Input type="text" data-testid={TEST_ID_ENUM.space.profile.nameInput.id} />
             </Form.Field>
             <Form.Field name="bio" label={t('docs:spaces.bio.label')}>
-              <TextArea placeholder={t('docs:spaces.bio.placeholder')} />
+              <TextArea
+                placeholder={t('docs:spaces.bio.placeholder')}
+                data-testid={TEST_ID_ENUM.space.profile.bioInput.id}
+              />
             </Form.Field>
             <Form.Field>
-              <Button type="primary" htmlType="submit" loading={profileSubmitting}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={profileSubmitting}
+                data-testid={TEST_ID_ENUM.space.profile.updateButton.id}
+              >
                 {t('general.update_profile')}
               </Button>
             </Form.Field>

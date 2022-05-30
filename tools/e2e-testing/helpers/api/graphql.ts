@@ -48,5 +48,27 @@ export const GRAPHQL_GROUP: graphqlGroupType = {
         id
       }
     }
+  `,
+  SPACE_DESTORY: `
+    mutation SpaceDestroy($input: SpaceDestroyInput!) {
+      spaceDestroy(input: $input) {
+        errors
+        __typename
+      }
+    }
+  `,
+  GET_SPACES: `
+    query GetSpaces {
+      spaces {
+        id
+        domain
+        personal
+      }
+    }
+  `,
+  CREATE_OR_UPDATE_SPACE: `
+    mutation createOrUpdateSpace($input: CreateOrUpdateSpaceInput!) {
+      createOrUpdateSpace(input: $input) {}
+    }
   `
 }

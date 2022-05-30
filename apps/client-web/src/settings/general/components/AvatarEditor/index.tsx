@@ -6,6 +6,7 @@ import { usePrepareFileUpload } from '@/docs/pages/hooks'
 import { Dashboard, ImportSourceOption, UploadResultData } from '@brickdoc/uploader'
 import { SpaceOperation, useCreateOrUpdateSpaceMutation } from '@/BrickdocGraphQL'
 import { useSettingsI18n } from '@/settings/common/hooks'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 const Wrapper = styled(Popover, {
   margin: '.5rem 0',
@@ -71,6 +72,7 @@ export const AvatarEditor: FC = () => {
           bottom: '0',
           right: '0'
         }}
+        data-testid={TEST_ID_ENUM.space.profile.avatarUpdate.id}
       />
     </Wrapper>
   )

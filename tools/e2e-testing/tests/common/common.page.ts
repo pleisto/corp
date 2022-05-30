@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test'
-import { COMMON_SELECTORS } from './common.selector'
+import { ActionType, COMMON_SELECTORS } from './common.selector'
 
 export class CommonPage {
   constructor(readonly page: Page) {}
@@ -16,12 +16,8 @@ export class CommonPage {
     return this.page.locator(COMMON_SELECTORS.dialog.component)
   }
 
-  getDialogCancelButton(): Locator {
-    return this.page.locator(COMMON_SELECTORS.dialog.cancelButton)
-  }
-
-  getDialogDeleteButton(): Locator {
-    return this.page.locator(COMMON_SELECTORS.dialog.deleteButton)
+  getDialogActionButton(action: ActionType): Locator {
+    return this.page.locator(COMMON_SELECTORS.dialog.actionButton(action))
   }
 
   async scrollUntilElementIntoView(waitingSelector: string, scrollSelector: string, offset = 100): Promise<void> {

@@ -8,6 +8,7 @@ import { object, string, lazy } from 'yup'
 import { BrickdocContext } from '@/common/brickdocContext'
 import { useUpdateDomainMutation } from '@/BrickdocGraphQL'
 import * as Root from './styles/DomainUpdate.style'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 export const DomainUpdate: FC<{ space: SettingsContextProps['space'] }> = ({ space }) => {
   const { t } = useSettingsI18n(['docs'])
@@ -57,7 +58,7 @@ export const DomainUpdate: FC<{ space: SettingsContextProps['space'] }> = ({ spa
       <Root.Warp>
         <Form form={form} onSubmit={onSubmit}>
           <Form.Field name="new_domain" label={t('docs:spaces.domain')}>
-            <Input type="text" />
+            <Input type="text" data-testid={TEST_ID_ENUM.space.domain.input.id} />
           </Form.Field>
         </Form>
         <Root.Desc>
@@ -66,7 +67,12 @@ export const DomainUpdate: FC<{ space: SettingsContextProps['space'] }> = ({ spa
             {t('general.change_domain_more')}
           </a>
         </Root.Desc>
-        <Button type="primary" htmlType="submit" loading={loading}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loading}
+          data-testid={TEST_ID_ENUM.space.domain.updateButton.id}
+        >
           {t(`general.change_domain_btn`)}
         </Button>
       </Root.Warp>

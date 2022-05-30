@@ -60,13 +60,30 @@ export interface GetTrashBlocksInput {
   search: string
 }
 
+export interface SpaceDestroyInput {
+  input: {
+    domain: string
+  }
+}
+
+export interface CreateOrUpdateSpaceInput {
+  input: {
+    type: 'CREATE' | 'UPDATE'
+    domain: string
+    name: string
+  }
+}
+
 export type OperationName =
   | 'GetPageBlocks'
   | 'GetTrashBlocks'
+  | 'GetSpaces'
   | 'blockSyncBatch'
   | 'blockCreate'
   | 'blockSoftDelete'
   | 'blockHardDelete'
+  | 'spaceDestroy'
+  | 'createOrUpdateSpace'
 
 export type InputType =
   | GetPageBlocksInput
@@ -75,6 +92,8 @@ export type InputType =
   | CreateBlockInput
   | BlockSoftDeleteInput
   | BlockHardDeleteInput
+  | SpaceDestroyInput
+  | CreateOrUpdateSpaceInput
 
 export interface graphqlGroupType {
   BLOCK_SYNC_BATCH: string
@@ -83,13 +102,16 @@ export interface graphqlGroupType {
   GET_PAGE_BLOCKS: string
   BLOCK_HARD_DELETE: string
   GET_TRASH_BLOCKS: string
+  SPACE_DESTORY: string
+  GET_SPACES: string
+  CREATE_OR_UPDATE_SPACE: string
 }
 
 export interface OptionsType {
   data: {
     query: string
     operationName: OperationName
-    variables: InputType
+    variables?: InputType
   }
   headers: {
     'x-csrf-token': string
@@ -102,4 +124,10 @@ export interface CreateBlockOutput {
       id: string
     }
   }
+}
+
+export interface SpaceOutput {
+  id: string
+  domain: string
+  personal: boolean
 }

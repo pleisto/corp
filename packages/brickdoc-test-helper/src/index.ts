@@ -271,5 +271,40 @@ export const TEST_ID_ENUM = {
         }
       }
     }
+  },
+  space: {
+    icon: {
+      id: 'space-current-icon'
+    },
+    name: {
+      id: 'space-current-name'
+    },
+    profile: {
+      nameInput: {
+        id: 'space-profile-nameInput'
+      },
+      bioInput: {
+        id: 'space-profile-bioInput'
+      },
+      updateButton: {
+        id: 'space-profile-updateButton'
+      },
+      avatarUpdate: {
+        id: 'space-profile-avatarUpdate'
+      }
+    },
+    domain: {
+      input: {
+        id: 'space-domain-input'
+      },
+      updateButton: {
+        id: 'space-domain-updateButton'
+      }
+    },
+    display: {
+      saveButton: {
+        id: 'space-display-saveButton'
+      }
+    }
   }
 }

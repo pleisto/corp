@@ -10,6 +10,7 @@ import {
   useGetMetadataFromWsQuery
 } from '@/BrickdocGraphQL'
 import * as Root from './styles/Display.style'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 const AppearanceSelect: FC<{
   name: string
@@ -68,7 +69,12 @@ export const Display: FC<{ space: SettingsContextProps['space'] }> = ({ space })
             <AppearanceSelect name="locale" control={form.control} options={availableLocales} />
           </FormControl>
           <FormControl>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              data-testid={TEST_ID_ENUM.space.display.saveButton.id}
+            >
               {t('general.update_appearance')}
             </Button>
           </FormControl>

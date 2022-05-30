@@ -1,3 +1,4 @@
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import React from 'react'
 import { SpaceAvatar } from '../SpaceAvatar'
 import * as Root from './index.style'
@@ -27,10 +28,10 @@ export const SpaceCard: React.FC<SpaceCardProps> = ({ space, label, aliasName, s
   return (
     <Root.Card size={size}>
       <Root.AvatarWrapper>
-        <SpaceAvatar className="avatar" space={space} size={size} />
+        <SpaceAvatar className="avatar" space={space} size={size} data-testid={TEST_ID_ENUM.space.icon.id} />
       </Root.AvatarWrapper>
       <Root.Content>
-        <Root.Name>{aliasName ?? space.name}</Root.Name>
+        <Root.Name data-testid={TEST_ID_ENUM.space.name.id}>{aliasName ?? space.name}</Root.Name>
         {extra && size === 'md' && <Root.Email>{extra}</Root.Email>}
       </Root.Content>
     </Root.Card>

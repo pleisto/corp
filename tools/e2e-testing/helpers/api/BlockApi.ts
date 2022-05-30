@@ -9,7 +9,8 @@ import {
   InputType,
   OperationName,
   OptionsType,
-  PageType
+  PageType,
+  SpaceOutput
 } from '@/helpers/types/graphql.types'
 
 export class BlockApi {
@@ -30,7 +31,7 @@ export class BlockApi {
     await this.page.reload({ waitUntil: 'networkidle' })
   }
 
-  options(gqlQuery: string, operationName: OperationName, variables: InputType): OptionsType {
+  options(gqlQuery: string, operationName: OperationName, variables?: InputType): OptionsType {
     return {
       data: {
         query: gqlQuery,
@@ -115,6 +116,34 @@ export class BlockApi {
     await this.request.post(
       this.REQUEST_URL,
       this.options(GRAPHQL_GROUP.BLOCK_HARD_DELETE, 'blockHardDelete', { input: { ids: pages } })
+    )
+  }
+
+  async getSpaces(): Promise<SpaceOutput[]> {
+    const response = await this.request.post(this.REQUEST_URL, this.options(GRAPHQL_GROUP.GET_SPACES, 'GetSpaces'))
+
+    return (await response.json()).data.spaces
+  }
+
+  async destroySpace(domain: string): Promise<void> {
+    await this.request.post(
+      this.REQUEST_URL,
+      this.options(GRAPHQL_GROUP.SPACE_DESTORY, 'spaceDestroy', { input: { domain } })
+    )
+  }
+
+  async destroyAllCreatedSpace(): Promise<void> {
+    const createdSpaces = (await this.getSpaces()).filter(space => !space.personal)
+
+    await Promise.all(createdSpaces.map(space => this.destroySpace(space.domain)))
+  }
+
+  async createSpace(name: string): Promise<void> {
+    await this.request.post(
+      this.REQUEST_URL,
+      this.options(GRAPHQL_GROUP.CREATE_OR_UPDATE_SPACE, 'createOrUpdateSpace', {
+        input: { type: 'CREATE', domain: name, name }
+      })
     )
   }
 }

@@ -1,6 +1,7 @@
 import { Locator } from '@playwright/test'
 import { CommonPage } from '@/tests/common/common.page'
 import { TRASH_SELECTOR } from './trash.selector'
+import { ActionType } from '@/tests/common/common.selector'
 
 export class TrashPage extends CommonPage {
   getTrashButton(): Locator {
@@ -83,7 +84,10 @@ export class TrashPage extends CommonPage {
   async itemRemove(index: number = 0): Promise<void> {
     await this.getItemByIndex(index).hover()
     await this.getItemRemoveButton(index).click()
-    await this.waitForResponseWithAction('blockHardDelete', this.getDialogDeleteButton().click())
+    await this.waitForResponseWithAction(
+      'blockHardDelete',
+      this.getDialogActionButton(ActionType['Delete Page']).click()
+    )
   }
 
   async selectedBarRestore(): Promise<void> {
@@ -92,6 +96,9 @@ export class TrashPage extends CommonPage {
 
   async selectedBarRemove(): Promise<void> {
     await this.getSelectedBarRemoveButton().click()
-    await this.waitForResponseWithAction('blockHardDelete', this.getDialogDeleteButton().click())
+    await this.waitForResponseWithAction(
+      'blockHardDelete',
+      this.getDialogActionButton(ActionType['Delete Page']).click()
+    )
   }
 }
