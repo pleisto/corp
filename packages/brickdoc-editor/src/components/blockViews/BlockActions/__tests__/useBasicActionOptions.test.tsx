@@ -37,7 +37,7 @@ describe('useBasicActionOptions', () => {
   })
 
   it('returns options according to types', () => {
-    const types: UseActionOptionsProps['types'] = ['copy', 'delete', 'duplicate', 'move', 'transform']
+    const types: UseActionOptionsProps['types'] = ['copy', 'delete', 'cut', 'transform']
     const { result } = renderHook(() => useBasicActionOptions({ types }))
 
     expect(result.current?.items.length).toBe(types.length)
