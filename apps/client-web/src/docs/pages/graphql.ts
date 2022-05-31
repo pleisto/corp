@@ -28,6 +28,22 @@ export const FormulaCommit = gql`
   }
 `
 
+export const ConversationCommentCreate = gql`
+  mutation conversationCommentCreate($input: ConversationCommentCreateInput!) {
+    conversationCommentCreate(input: $input) {
+      errors
+    }
+  }
+`
+
+export const ConversationCommentAppend = gql`
+  mutation conversationCommentAppend($input: ConversationCommentAppendInput!) {
+    conversationCommentAppend(input: $input) {
+      errors
+    }
+  }
+`
+
 export const queryConversationComments = gql`
   query GetConversationComments($pageIds: [UUID!]!) {
     conversationComments(pageIds: $pageIds) {

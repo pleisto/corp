@@ -19,9 +19,11 @@
 #
 module Accounts
   class Notification < ApplicationRecord
+    belongs_to :source, polymorphic: true, optional: true
+
     enum notification_type: {
       at: 0,
-      comment_on_page: 5,
+      create_conversation_on_page: 5,
       conversation_update: 6
     }
 
@@ -30,5 +32,13 @@ module Accounts
       read: 1,
       deleted: 10
     }
+
+    before_create do
+      self.status ||= :unread
+    end
+
+    after_create do
+      Rails.logger.info('TODO broadcast notification')
+    end
   end
 end

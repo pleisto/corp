@@ -172,12 +172,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
     t.uuid "mark_ids", default: [], comment: "Mark ids", array: true
     t.uuid "block_ids", default: [], comment: "Block ids", array: true
     t.uuid "doc_id", null: false
+    t.bigint "creator_id", null: false
     t.bigint "collaborators", default: [], null: false, array: true
     t.integer "status", null: false, comment: "opened / resolved / deleted"
     t.datetime "latest_reply_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collaborators"], name: "index_docs_conversations_on_collaborators", using: :gin
+    t.index ["creator_id"], name: "index_docs_conversations_on_creator_id"
     t.index ["doc_id"], name: "index_docs_conversations_on_doc_id"
     t.index ["space_id"], name: "index_docs_conversations_on_space_id"
   end

@@ -33,6 +33,7 @@ class CreateDiscussionComment < ActiveRecord::Migration[7.0]
       t.uuid :mark_ids, array: true, default: [], comment: 'Mark ids'
       t.uuid :block_ids, array: true, default: [], comment: 'Block ids'
       t.uuid :doc_id, null: false
+      t.bigint :creator_id, null: false
 
       t.bigint :collaborators, array: true, default: [], null: false
       t.integer :status, null: false, comment: 'opened / resolved / deleted'
@@ -41,6 +42,7 @@ class CreateDiscussionComment < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index :collaborators, using: :gin
+      t.index :creator_id
       t.index :space_id
       t.index :doc_id
     end
