@@ -11,6 +11,7 @@ test.describe('Space Sidebar', () => {
   test.beforeEach(async ({ api }) => {
     await api.destroyAllCreatedSpace()
     await api.createSpace(spaceName)
+
     ;[, spaceSideBar] = await switchSpaceMenu.gotoPersonalSetting()
   })
 

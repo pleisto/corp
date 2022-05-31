@@ -135,7 +135,7 @@ export class BlockApi {
   async destroyAllCreatedSpace(): Promise<void> {
     const createdSpaces = (await this.getSpaces()).filter(space => !space.personal)
 
-    await Promise.all(createdSpaces.map(space => this.destroySpace(space.domain)))
+    await Promise.all(createdSpaces.map(async space => await this.destroySpace(space.domain)))
   }
 
   async createSpace(name: string): Promise<void> {

@@ -1,5 +1,7 @@
 export enum ActionType {
   Cancel,
+  Confirm,
+  'Delete Space',
   'Delete Page',
   'Create'
 }
@@ -9,6 +11,11 @@ export const COMMON_SELECTORS = {
   menubarItems: '[role="menubar"] li[role=menuitem]',
   dialog: {
     component: 'div[role=presentation]',
-    actionButton: (action: ActionType) => `div[role=presentation] button:has-text("${action}")`
+    actionButton: (action: ActionType) => `div[role=presentation] button:has-text("${action}")`,
+    input: 'div[role=presentation] .MuiInput-input'
+  },
+  listBox: {
+    listItems: '[role=listbox] [role=option]',
+    listItem: (name: string) => `[role=listbox] [role=option]:has-text("${name}")`
   }
 }

@@ -5,6 +5,7 @@ import { SettingsContextProps } from '@/settings/SettingContext'
 import { Switch, useId, toast, useBoolean, Input, Button, ConfirmDialog } from '@brickdoc/design-system'
 import { SpaceOperation, useCreateOrUpdateSpaceMutation, CreateOrUpdateSpaceInput } from '@/BrickdocGraphQL'
 import * as Root from './styles/Invite.style'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 export const Invite: FC<{ space: SettingsContextProps['space'] }> = ({ space }) => {
   const { t } = useSettingsI18n(['docs'])
@@ -80,8 +81,8 @@ export const Invite: FC<{ space: SettingsContextProps['space'] }> = ({ space }) 
         </Root.Warp>
         {inviteEnabled && (
           <Root.InviteLink>
-            <Input value={inviteUrl} readOnly />
-            <Button type="secondary" onClick={setOpen}>
+            <Input value={inviteUrl} readOnly data-testid={TEST_ID_ENUM.space.teamSpace.inviteInput.id} />
+            <Button type="secondary" onClick={setOpen} data-testid={TEST_ID_ENUM.space.teamSpace.reset.id}>
               {t(`team.invite_secret_reset`)}
             </Button>
           </Root.InviteLink>

@@ -20,6 +20,18 @@ export class CommonPage {
     return this.page.locator(COMMON_SELECTORS.dialog.actionButton(action))
   }
 
+  getDialogInput(): Locator {
+    return this.page.locator(COMMON_SELECTORS.dialog.input)
+  }
+
+  getListItems(): Locator {
+    return this.page.locator(COMMON_SELECTORS.listBox.listItems)
+  }
+
+  getListItemByName(name: string): Locator {
+    return this.page.locator(COMMON_SELECTORS.listBox.listItem(name))
+  }
+
   async scrollUntilElementIntoView(waitingSelector: string, scrollSelector: string, offset = 100): Promise<void> {
     while (!(await this.page.locator(waitingSelector).isVisible())) {
       await this.page.evaluate(

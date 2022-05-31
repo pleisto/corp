@@ -19,6 +19,22 @@ export class GeneralTabPage extends CommonPage {
     return this.page.locator(GENERAL_TAB_SELECTOR.profile.updateButton)
   }
 
+  getAvatar(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.profile.avatar.avatarImg)
+  }
+
+  getEditAvatarButton(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.profile.avatar.editAvatar)
+  }
+
+  getUploadDashboard(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.profile.avatar.dialogTab)
+  }
+
+  getUploadAvatarButton(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.profile.avatar.uploadButton)
+  }
+
   getDomainInput(): Locator {
     return this.page.locator(GENERAL_TAB_SELECTOR.domain.input)
   }
@@ -29,6 +45,18 @@ export class GeneralTabPage extends CommonPage {
 
   getDomainLearnMore(): Locator {
     return this.page.locator(GENERAL_TAB_SELECTOR.domain.learnMore)
+  }
+
+  getTimezoneInput(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.display.timezone)
+  }
+
+  getLanguageInput(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.display.language)
+  }
+
+  getDisplaySaveButton(): Locator {
+    return this.page.locator(GENERAL_TAB_SELECTOR.display.saveButton)
   }
 
   async updateProfileName(name: string): Promise<void> {
@@ -48,5 +76,26 @@ export class GeneralTabPage extends CommonPage {
 
   async domainLearnMore(): Promise<void> {
     await this.getDomainLearnMore().click()
+  }
+
+  async openUploadAvatarDialog(): Promise<void> {
+    await this.getEditAvatarButton().click()
+  }
+
+  async updateAvatar(path: string): Promise<void> {
+    await this.openUploadAvatarDialog()
+    await this.waitForResponseWithAction('createOrUpdateSpace', this.getUploadAvatarButton().setInputFiles(path))
+  }
+
+  async updateTimezone(timezone: string): Promise<void> {
+    await this.getTimezoneInput().click()
+    await this.getListItemByName(timezone).click()
+    await this.waitForResponseWithAction('UserAppearanceUpdate', this.getDisplaySaveButton().click())
+  }
+
+  async updateLanguage(language: string): Promise<void> {
+    await this.getLanguageInput().click()
+    await this.getListItemByName(language).click()
+    await this.waitForResponseWithAction('UserAppearanceUpdate', this.getDisplaySaveButton().click())
   }
 }

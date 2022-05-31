@@ -3,6 +3,11 @@ import { CommonPage } from '@/tests/common/common.page'
 import { SpaceSettingTab, SPACE_SIDEBAR_SELECTOR } from './sidebar.selector'
 import { COMMON_SELECTORS } from '@/tests/common/common.selector'
 import { PageTreePage } from '@/tests/sidebar/pageTree/pageTree.page'
+import { GeneralTabPage } from '../generalTab/generalTab.page'
+import { TeamSpacePage } from '../teamSpace/teamSpace.page'
+import { AccountPage } from '../account/account.page'
+
+type SidebarTabPage = GeneralTabPage | TeamSpacePage | AccountPage
 
 export class SpaceSidebarPage extends CommonPage {
   getCurrentSpaceName(): Locator {
@@ -31,8 +36,17 @@ export class SpaceSidebarPage extends CommonPage {
     await this.page.waitForNavigation()
   }
 
-  async toggleTab(tab: SpaceSettingTab): Promise<void> {
+  async toggleTab(tab: SpaceSettingTab): Promise<SidebarTabPage> {
     await this.getSideBarTab(tab).click()
+
+    switch (tab) {
+      case SpaceSettingTab['Team Space']:
+        return new TeamSpacePage(this.page)
+      case SpaceSettingTab.Account:
+        return new AccountPage(this.page)
+      default:
+        return new GeneralTabPage(this.page)
+    }
   }
 
   async backToSpace(): Promise<PageTreePage> {

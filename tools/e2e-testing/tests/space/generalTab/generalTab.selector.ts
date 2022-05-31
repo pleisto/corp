@@ -4,7 +4,12 @@ export const GENERAL_TAB_SELECTOR = {
     nameInput: 'div[data-testid=space-profile-nameInput] input',
     bioInput: 'textarea[data-testid=space-profile-bioInput]',
     updateButton: 'button[data-testid=space-profile-updateButton]',
-    editAvatar: 'button[data-testid=space-profile-avatarUpdate]'
+    avatar: {
+      editAvatar: 'button[data-testid=space-profile-avatarUpdate]',
+      avatarImg: '#sdfsdf img',
+      dialogTab: '.uploader-dashboard-navbar',
+      uploadButton: '.uploader-dashboard-upload-panel .dashboard-upload-file-input'
+    }
   },
   domain: {
     input: 'div[data-testid=space-domain-input] input',

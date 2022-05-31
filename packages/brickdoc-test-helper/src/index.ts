@@ -305,6 +305,19 @@ export const TEST_ID_ENUM = {
       saveButton: {
         id: 'space-display-saveButton'
       }
+    },
+    teamSpace: {
+      inviteInput: {
+        id: 'space-teamSpace-inviteInput'
+      },
+      reset: {
+        id: 'space-teamSpace-reset'
+      }
+    }
+  },
+  component: {
+    switch: {
+      id: 'component-switch'
     }
   }
 }
