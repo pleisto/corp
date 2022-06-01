@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errorParse <ERROR> variable  "=#CurrentBlock.baz" -> [deps] ""baz" not found" 1`] = `
+exports[`errorParse <ERROR> variable "=#CurrentBlock.baz" -> [deps] ""baz" not found" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -55,7 +55,7 @@ Array [
 ]
 `;
 
-exports[`errorParse <ERROR> variable  "=Variable.baz" -> [deps] ""baz" not found" 1`] = `
+exports[`errorParse <ERROR> variable "=Variable.baz" -> [deps] ""baz" not found" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -110,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`errorParse <ERROR> variable  "=baz" -> [syntax] "Unknown function baz" 1`] = `
+exports[`errorParse <ERROR> variable "=baz" -> [syntax] "Unknown function baz" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -129,6 +129,39 @@ Array [
       "errors": Array [
         Object {
           "message": "Unknown function baz",
+          "type": "syntax",
+        },
+        Object {
+          "message": "TODO mismatch token FunctionCall",
+          "type": "parse",
+        },
+      ],
+      "hide": false,
+      "type": "any",
+    },
+  ],
+]
+`;
+
+exports[`errorParse <ERROR> variable "=fo" -> [syntax] "Unknown function fo" 1`] = `
+Array [
+  "codeFragments",
+  Array [
+    Object {
+      "attrs": undefined,
+      "code": "Equal",
+      "display": "=",
+      "errors": Array [],
+      "hide": false,
+      "type": "any",
+    },
+    Object {
+      "attrs": undefined,
+      "code": "Function",
+      "display": "fo",
+      "errors": Array [
+        Object {
+          "message": "Unknown function fo",
           "type": "syntax",
         },
         Object {

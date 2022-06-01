@@ -284,7 +284,9 @@ export class FormulaContext implements ContextInterface {
       return block2completion(this, b, namespaceId)
     })
 
-    return [...functions, ...variables, ...blocks, ...spreadsheets].sort((a, b) => b.weight - a.weight)
+    return [...functions, ...variables, ...blocks, ...spreadsheets]
+      .map(c => ({ ...c, weight: c.namespaceId === namespaceId ? c.weight + 100 : c.weight }))
+      .sort((a, b) => b.weight - a.weight)
   }
 
   public getDefaultVariableName(namespaceId: NamespaceId, type: FormulaType): DefaultVariableName {

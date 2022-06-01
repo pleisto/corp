@@ -35,7 +35,7 @@ describe('parser', () => {
   it.each(validInputs)('valid: "=%s"', input => {
     const {
       variableParseResult: { definition: newInput, codeFragments }
-    } = parse({ ...ctx, meta: ctx.meta({ definition: input }) })
+    } = parse({ ...ctx, meta: ctx.buildMeta({ definition: input }) })
     expect(codeFragments.map(c => c.display).join('')).toEqual(newInput)
   })
 })

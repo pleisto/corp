@@ -9,9 +9,9 @@ describe('successExecute', () => {
     ctx = await makeContext(ALL_TEST_CASE.options)
     jest.clearAllTimers()
   })
-  it.each(ALL_TEST_CASE.successTestCases)('<SUCCESS> $group $label "$definition"', async args => {
+  it.each(ALL_TEST_CASE.successTestCases)('<SUCCESS> $jestTitle', async args => {
     jest.useRealTimers()
-    const newCtx = { ...ctx, meta: ctx.meta(args) }
+    const newCtx = { ...ctx, meta: ctx.buildMeta(args) }
     const parseResult = parse(newCtx)
     expect([parseResult.variableParseResult.valid, parseResult.success, parseResult.errorMessages]).toStrictEqual([
       true,

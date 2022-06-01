@@ -29,6 +29,7 @@ export const VariableTestCase: TestCaseInterface = {
       {
         definition: '=foo',
         namespaceId: pageId,
+        groupOptions: [{ name: 'complete', options: { name: 'bar', kind: 'variable' } }],
         result: 10,
         expected: [
           { key: 'codeFragments', matchType: 'toMatchSnapshot' },
@@ -137,16 +138,13 @@ export const VariableTestCase: TestCaseInterface = {
           }
         ]
       },
-      { definition: '= SLEEP(10)', result: 10, expected: [{ key: 'async', match: true }] },
+      { definition: '= SLEEP(10)', result: 10 },
       {
         definition: '=Variable.fooMax',
         result: 12,
         expected: [
           { key: 'blockDependencies', match: [pageId] },
-          {
-            key: 'variableDependencies',
-            match: [{ namespaceId: pageId, variableId: fooMaxId }]
-          },
+          { key: 'variableDependencies', match: [{ namespaceId: pageId, variableId: fooMaxId }] },
           {
             key: 'flattenVariableDependencies',
             match: [
@@ -155,10 +153,7 @@ export const VariableTestCase: TestCaseInterface = {
               { namespaceId: pageId, variableId: fooMaxId }
             ]
           },
-          {
-            key: 'nameDependencies',
-            match: [{ name: 'fooMax', namespaceId: pageId }]
-          }
+          { key: 'nameDependencies', match: [{ name: 'fooMax', namespaceId: pageId }] }
         ]
       }
     ],
@@ -189,12 +184,20 @@ export const VariableTestCase: TestCaseInterface = {
         errorMessage: 'Unknown function baz',
         expected: [
           { key: 'codeFragments', matchType: 'toMatchSnapshot' },
-          {
-            key: 'nameDependencies',
-
-            match: [{ name: 'baz', namespaceId: DEFAULT_FIRST_NAMESPACEID }]
-          },
+          { key: 'nameDependencies', match: [{ name: 'baz', namespaceId: DEFAULT_FIRST_NAMESPACEID }] },
           { key: 'blockDependencies', match: [] }
+        ]
+      },
+      {
+        definition: '=fo',
+        namespaceId: pageId,
+        groupOptions: [{ name: 'complete', options: { name: 'bar', kind: 'variable' } }],
+        errorType: 'syntax',
+        errorMessage: 'Unknown function fo',
+        expected: [
+          { key: 'codeFragments', matchType: 'toMatchSnapshot' },
+          { key: 'blockDependencies', match: [] },
+          { key: 'nameDependencies', match: [{ name: 'fo', namespaceId: pageId }] }
         ]
       }
     ]

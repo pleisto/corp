@@ -316,7 +316,7 @@ describe('Simple test case TODO', () => {
     const prefix = label ? `[${label}] ` : ''
     const suffix = value !== undefined ? ` // => ${value}` : ' // => ✗'
     it(`${prefix}${input}${suffix}`, async () => {
-      const newMeta = ctx.meta({ definition: input })
+      const newMeta = ctx.buildMeta({ definition: input })
       const parseResult = parse({ ...ctx, meta: newMeta })
       const {
         success,

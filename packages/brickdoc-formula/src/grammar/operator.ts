@@ -4,8 +4,31 @@ import { AnyTypeResult, CodeFragment, CodeFragmentResult, ErrorMessage, FormulaC
 import { CodeFragmentVisitor, CstVisitorArgument, token2fragment } from './codeFragment'
 import { InterpretArgument, FormulaInterpreter } from './interpreter'
 import { intersectType, runtimeCheckType, shouldReturnEarly } from './util'
+
+export type OperatorName =
+  | 'access'
+  | 'addition'
+  | 'arguments'
+  | 'array'
+  | 'block'
+  | 'chain'
+  | 'combine'
+  | 'compare'
+  | 'concat'
+  | 'equalCompare'
+  | 'expression'
+  | 'in'
+  | 'multiplication'
+  | 'not'
+  | 'parenthesis'
+  | 'predicate'
+  | 'range'
+  | 'record'
+  | 'recordField'
+  | 'thisRecord'
+  | 'thisRow'
 export interface OperatorType {
-  readonly name: string
+  readonly name: OperatorName
   readonly skipReturnEarlyCheck?: boolean
   readonly skipReturnFinalCheck?: boolean
   readonly skipRhsCstParse?: boolean

@@ -1,6 +1,7 @@
-import { FixedLengthTuple, Repeat } from '@brickdoc/active-support'
+import { FixedLengthTuple, Repeat, RequireField } from '@brickdoc/active-support'
 import { FormulaContextArgs } from '../context'
 import { Cell } from '../controls'
+import { OperatorName } from '../grammar'
 import { ErrorType, FunctionContext, VariableMetadata, VariableParseResult } from '../types'
 
 export const DEFAULT_FIRST_NAMESPACEID = '00000000-0000-0000-0000-000000000000'
@@ -70,15 +71,24 @@ export interface PageInput {
   variables?: VariableInput[]
   spreadsheets?: Array<SpreadsheetInput<any, any>>
 }
+type FeatureName = 'async' | 'functionCall' | 'nameCheck' | 'powerfx' | 'spreadsheet' | 'variable'
+type FeatureTestName = 'complete'
+export type TestCaseName = OperatorName | FeatureName | FeatureTestName
+
+interface GroupOption {
+  name: TestCaseName
+  options?: any
+}
 
 interface BaseTestCase {
   definition: string
-  group?: string
+  groupOptions?: GroupOption[]
   label?: string
   expected?: ExpectedType[]
-  namespaceId?: string
-  name?: string
+  namespaceId?: VariableMetadata['namespaceId']
+  name?: VariableMetadata['name']
   richType?: VariableMetadata['richType']
+  jestTitle?: string
 }
 export interface SuccessTestCaseType extends BaseTestCase {
   result: any
@@ -98,7 +108,7 @@ export interface TestCaseType {
 }
 
 export interface TestCaseInterface {
-  name: string
+  name: TestCaseName
   testCases: TestCaseType
 }
 
@@ -108,5 +118,11 @@ export interface MakeContextOptions {
 }
 
 export interface MakeContextResult extends Omit<FunctionContext, 'meta'> {
-  meta: (args: BaseTestCase) => FunctionContext['meta']
+  buildMeta: (args: BaseTestCase) => FunctionContext['meta']
+}
+
+export interface TestCaseInput {
+  options: Required<MakeContextOptions>
+  successTestCases: Array<RequireField<SuccessTestCaseType, 'groupOptions' | 'jestTitle'>>
+  errorTestCases: Array<RequireField<ErrorTestCaseType, 'groupOptions' | 'jestTitle'>>
 }

@@ -426,6 +426,7 @@ interface BaseCompletion {
   readonly value: any
   readonly preview: any
   readonly codeFragments: CodeFragment[]
+  readonly namespaceId?: NamespaceId
 }
 export interface FunctionCompletion extends BaseCompletion {
   readonly kind: 'function'

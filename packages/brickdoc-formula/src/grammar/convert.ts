@@ -138,13 +138,14 @@ export const column2completion = (column: ColumnType, pageId: NamespaceId): Colu
   return {
     kind: 'column',
     replacements: [`${column.name}`],
-    weight: 1000,
+    weight: 10,
     name: column.name,
     positionChange: value.length,
     namespace: column.spreadsheet.name(),
     value,
     preview: column,
-    codeFragments: [column2codeFragment(column, pageId)]
+    codeFragments: [column2codeFragment(column, pageId)],
+    namespaceId: column.namespaceId
   }
 }
 
@@ -164,11 +165,12 @@ export const block2completion = (ctx: ContextInterface, block: BlockType, pageId
   const name = block.name(pageId)
   return {
     kind: 'block',
-    weight: block.id === pageId ? 1 : -1,
+    weight: 10,
     replacements: [value, ...reverseTraversalString(name)],
     positionChange: value.length,
     name,
     namespace: block.id,
+    namespaceId: block.id,
     value,
     preview: block,
     codeFragments: [block2codeFragment(block, pageId)]
@@ -202,7 +204,8 @@ export const spreadsheet2completion = (spreadsheet: SpreadsheetType, pageId: Nam
     namespace: spreadsheet.spreadsheetId,
     value,
     preview: spreadsheet,
-    codeFragments: [codeFragment]
+    codeFragments: [codeFragment],
+    namespaceId: spreadsheet.namespaceId
   }
 }
 
@@ -213,9 +216,10 @@ export const variable2completion = (variable: VariableInterface, pageId: Namespa
   const namespaceName = variable.namespaceName(pageId)
   const codeFragment = variable2codeFragment(variable, pageId)
   return {
+    namespaceId: variable.t.meta.namespaceId,
     kind: 'variable',
     replacements: [...reverseTraversalString(value, namespaceKey.length), ...reverseTraversalString(name)],
-    weight: variable.t.meta.namespaceId === pageId ? 1 : -1,
+    weight: 10,
     name: variable.t.meta.name,
     namespace: namespaceName,
     value,

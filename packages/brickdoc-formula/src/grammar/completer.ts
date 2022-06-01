@@ -19,7 +19,6 @@ const matchTypeWeight = (type1: FormulaType, type2: FormulaType, weight: number)
   return weight
 }
 
-// TODO: https://github.com/Chevrotain/chevrotain/blob/master/examples/parser/content_assist/content_assist_complex.js
 export const complete = ({
   tokens,
   position,

@@ -30,23 +30,6 @@ const functionClauses: Array<BaseFunctionClause<any>> = [
     testCases: [],
     chain: false,
     reference: (ctx, a: NumberResult, b: NumberResult) => ({ type: 'number', result: a.result + b.result })
-  },
-  {
-    name: 'FORTY_TWO',
-    async: false,
-    pure: true,
-    persist: false,
-    acceptError: false,
-    effect: false,
-    lazy: false,
-    args: [],
-    examples: [{ input: '=1', output: { type: 'number', result: 1 } }],
-    description: '',
-    group: 'custom',
-    returns: 'number',
-    testCases: [],
-    chain: false,
-    reference: ctx => ({ type: 'number', result: 42 })
   }
 ]
 

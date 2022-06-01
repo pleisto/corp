@@ -167,7 +167,7 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
     }
   }
 
-  const meta: MakeContextResult['meta'] = args => ({
+  const meta: MakeContextResult['buildMeta'] = args => ({
     variableId: uuid(),
     input: args.definition,
     namespaceId: args.namespaceId ?? firstNamespaceId ?? uuid(),
@@ -176,5 +176,5 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
     richType: args.richType ?? { type: 'normal' }
   })
 
-  return { formulaContext, interpretContext, meta }
+  return { formulaContext, interpretContext, buildMeta: meta }
 }
