@@ -20,7 +20,7 @@ module System
       end
 
       def config
-        ::BrickdocConfig.current
+        ::BrickdocConfig
       end
     end
   end
