@@ -32,7 +32,7 @@ module Brickdoc
 
     config.active_record.query_log_tags_enabled = true
     config.active_job.queue_adapter = :async
-    config.logger = Brickdoc::Logger::RailsLogger.new($stdout)
+    config.logger = ::Logger.new($stdout)
 
     initializer :load_libs, after: :prepend_helpers_path, before: :load_config_initializers do
       require_relative '../app/models/application_record'
