@@ -6,7 +6,7 @@ exports[`useEmbedToolbarOptions renders EditPanel correctly 1`] = `
     class="brd-c-ekYIPB"
   >
     <div
-      class="MuiInput-root brd-c-esVllU brd-c-esVllU-kehwYu-size-md brd-c-esVllU-jvaFlz-bordered-false brd-c-PJLV brd-c-PJLV-cUBuKZ-size-md"
+      class="MuiInput-root brd-c-evILER brd-c-evILER-hfCMDt-size-md brd-c-evILER-jvaFlz-bordered-false brd-c-evILER-hGBFki-borderType-outline brd-c-PJLV brd-c-PJLV-cUBuKZ-size-md"
     >
       <input
         class="MuiInput-input"
@@ -21,7 +21,7 @@ exports[`useEmbedToolbarOptions renders EditPanel correctly 1`] = `
       class="brd-c-kAeOEu"
     >
       <div
-        class="MuiInput-root MuiInput-adornedStart brd-c-esVllU brd-c-esVllU-kehwYu-size-md brd-c-esVllU-jvaFlz-bordered-false brd-c-PJLV brd-c-PJLV-cUBuKZ-size-md"
+        class="MuiInput-root MuiInput-adornedStart brd-c-evILER brd-c-evILER-hfCMDt-size-md brd-c-evILER-jvaFlz-bordered-false brd-c-evILER-hGBFki-borderType-outline brd-c-PJLV brd-c-PJLV-cUBuKZ-size-md"
       >
         <span
           aria-label="link"
