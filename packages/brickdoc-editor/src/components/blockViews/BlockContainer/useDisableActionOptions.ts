@@ -1,5 +1,4 @@
-import { Editor } from '@tiptap/react'
-import { findParentNodeClosestToPos } from '@tiptap/react'
+import { Editor, findParentNodeClosestToPos } from '@tiptap/react'
 import { useMemo } from 'react'
 import { meta as listItemMeta } from '../../../extensions/blocks/listItem/meta'
 import { meta as taskItemMeta } from '../../../extensions/blocks/taskItem/meta'

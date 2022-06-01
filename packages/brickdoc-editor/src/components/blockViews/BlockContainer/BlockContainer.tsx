@@ -1,11 +1,10 @@
 import { CSSProperties, FC, forwardRef, MouseEventHandler, useState } from 'react'
-import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps, findParentNodeClosestToPos } from '@tiptap/react'
+import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps } from '@tiptap/react'
 import { BlockActionsProps } from '../BlockActions'
 import { BlockContext } from '../../../context/BlockContext'
 import { useDocumentEditable, useEditorContext } from '../../../hooks'
 import { useBlockContextDataProvider } from './useBlockContextDataProvider'
 import { useBlockElement } from './useBlockElement'
-import { Blockquote, ListItem } from '../../../extensions'
 import { useDisableActionOptions } from './useDisableActionOptions'
 export interface BlockContainerProps {
   inline?: boolean
