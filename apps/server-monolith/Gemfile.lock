@@ -260,7 +260,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    graphql (1.13.13)
+    graphql (2.0.9)
     graphql-batch (0.5.1)
       graphql (>= 1.10, < 3)
       promise.rb (~> 0.7.2)
@@ -623,7 +623,7 @@ DEPENDENCIES
   flipper-active_support_cache_store (~> 0.24.1)
   google-cloud-kms (~> 2.3)
   google-cloud-storage (~> 1.36, >= 1.36.2)
-  graphql (~> 1.13.13)
+  graphql (~> 2.0, >= 2.0.9)
   graphql-batch (~> 0.5.1)
   graphql-fragment_cache (~> 1.11)
   inertia_rails!
