@@ -2,7 +2,6 @@ import { CstNode, ILexingResult } from 'chevrotain'
 import { ColumnType, SpreadsheetType, BlockType, RowType } from '../controls'
 import {
   ContextInterface,
-  FunctionClause,
   NamespaceId,
   VariableDependency,
   VariableId,
@@ -17,9 +16,8 @@ import {
   VariableKey,
   DefaultVariableName,
   CodeFragment,
-  ExampleWithCodeFragments,
-  BaseFunctionClause,
-  BaseFunctionClauseWithKey,
+  Example,
+  FunctionClause,
   FunctionCompletion,
   VariableCompletion,
   SpreadsheetCompletion,
@@ -63,7 +61,7 @@ import {
 export interface FormulaContextArgs {
   domain: string
   tickTimeout?: number
-  functionClauses?: Array<BaseFunctionClause<any>>
+  functionClauses?: Array<FunctionClause<any>>
   backendActions?: BackendActions
   features?: string[]
 }
@@ -217,18 +215,18 @@ export class FormulaContext implements ContextInterface {
 
     void this.tick(undefined as ContextState)
 
-    const baseFunctionClauses: Array<BaseFunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
+    const baseFunctionClauses: Array<FunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
       f => !f.feature || this.features.includes(f.feature)
     )
 
     this.reservedNames = baseFunctionClauses.map(({ name }) => name.toUpperCase())
     this.functionClausesMap = baseFunctionClauses.reduce(
-      (o: Record<FunctionKey, BaseFunctionClauseWithKey<any>>, acc: BaseFunctionClause<any>) => {
-        const clause: BaseFunctionClauseWithKey<any> = {
+      (o: Record<FunctionKey, FunctionClause<any>>, acc: FunctionClause<any>) => {
+        const clause: FunctionClause<any> = {
           ...acc,
           key: buildFunctionKey(acc.group, acc.name)
         }
-        o[clause.key] = clause
+        o[clause.key!] = clause
         return o
       },
       {}
@@ -236,11 +234,11 @@ export class FormulaContext implements ContextInterface {
 
     this.functionClausesMap = Object.values(this.functionClausesMap).reduce(
       (o: Record<FunctionKey, FunctionClause<any>>, acc: FunctionClause<any>) => {
-        o[acc.key] = {
+        o[acc.key!] = {
           ...acc,
           examples: acc.examples.map(e => ({ ...e, codeFragments: this.parseCodeFragments(e.input) })) as [
-            ExampleWithCodeFragments<any>,
-            ...Array<ExampleWithCodeFragments<any>>
+            Example<any>,
+            ...Array<Example<any>>
           ]
         }
         return o

@@ -523,6 +523,7 @@ interface TestCase {
 interface Example<T extends FormulaType> {
   readonly input: Definition
   readonly output: AnyFunctionResult<T> | null
+  readonly codeFragments?: CodeFragment[]
 }
 
 export interface BaseFunctionContext {
@@ -570,8 +571,18 @@ type FunctionChain =
       readonly args: [Argument, ...Argument[]]
     }
 
-export type BaseFunctionClause<T extends FormulaType> = {
+// type AsyncFormulaFunction<T extends FormulaType> = (
+//   ctx: FunctionContext,
+//   ...args: AnyTypeResult[]
+// ) => Promise<AnyFunctionResult<T>>
+// type SyncFormulaFunction<T extends FormulaType> = (
+//   ctx: FunctionContext,
+//   ...args: AnyTypeResult[]
+// ) => AnyFunctionResult<T>
+
+export type FunctionClause<T extends FormulaType> = {
   readonly name: FunctionNameType
+  readonly key?: FunctionKey
   readonly pure: boolean
   readonly effect: boolean
   readonly persist: boolean
@@ -586,18 +597,6 @@ export type BaseFunctionClause<T extends FormulaType> = {
   readonly testCases: TestCase[]
 } & FunctionReference<T> &
   FunctionChain
-
-export type BaseFunctionClauseWithKey<T extends FormulaType> = BaseFunctionClause<T> & {
-  readonly key: FunctionKey
-}
-
-export interface ExampleWithCodeFragments<T extends FormulaType> extends Example<T> {
-  readonly codeFragments: CodeFragment[]
-}
-
-export type FunctionClause<T extends FormulaType> = Omit<BaseFunctionClauseWithKey<T>, 'examples'> & {
-  readonly examples: [ExampleWithCodeFragments<T>, ...Array<ExampleWithCodeFragments<T>>]
-}
 
 export interface BaseCodeFragment {
   readonly code: CodeFragmentCodes
@@ -758,7 +757,7 @@ export interface VariableParseResult {
   variableDependencies: VariableDependency[]
   blockDependencies: NamespaceId[]
   eventDependencies: Array<EventDependency<FormulaEventPayload<any>>>
-  functionDependencies: Array<FunctionClause<FormulaType>>
+  functionDependencies: Array<FinalFunctionClause<FormulaType>>
 }
 export interface VariableData {
   meta: Pick<VariableMetadata, 'namespaceId' | 'variableId' | 'name' | 'richType'>

@@ -1,6 +1,6 @@
 import {
   FunctionContext,
-  BaseFunctionClause,
+  FunctionClause,
   NumberResult,
   SpreadsheetResult,
   PredicateResult,
@@ -46,7 +46,7 @@ export const CountIf = (
   return { result: sum, type: 'number' }
 }
 
-export const CORE_POWERFX_CLAUSES: Array<BaseFunctionClause<'number'>> = [
+export const CORE_POWERFX_CLAUSES: Array<FunctionClause<'number'>> = [
   {
     name: 'CountIf',
     async: false,

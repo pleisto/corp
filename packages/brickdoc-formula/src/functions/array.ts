@@ -1,4 +1,4 @@
-import { ArrayResult, BaseFunctionClause, CstResult, ErrorResult, FunctionContext, StringResult } from '../types'
+import { ArrayResult, FunctionClause, CstResult, ErrorResult, FunctionContext, StringResult } from '../types'
 import { innerInterpret } from '../grammar/core'
 import { extractSubType } from '../grammar/util'
 
@@ -36,7 +36,7 @@ export const Map = async (
   return { type: 'Array', result: newResult, subType: extractSubType(newResult) }
 }
 
-export const CORE_ARRAY_CLAUSES: Array<BaseFunctionClause<'string' | 'Array'>> = [
+export const CORE_ARRAY_CLAUSES: Array<FunctionClause<'string' | 'Array'>> = [
   {
     name: 'Join',
     async: false,

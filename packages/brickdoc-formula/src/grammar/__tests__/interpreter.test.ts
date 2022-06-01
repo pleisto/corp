@@ -1,10 +1,10 @@
 import { parse } from '../core'
 import { FormulaContext } from '../../context/context'
-import { BaseFunctionClause, NumberResult, VariableMetadata } from '../../types'
+import { FunctionClause, NumberResult, VariableMetadata } from '../../types'
 import { quickInsert } from '../../tests/testHelper'
 import { dispatchFormulaBlockNameChangeOrDelete } from '../../events'
 
-const functionClauses: Array<BaseFunctionClause<any>> = [
+const functionClauses: Array<FunctionClause<any>> = [
   {
     name: 'PLUS',
     async: false,

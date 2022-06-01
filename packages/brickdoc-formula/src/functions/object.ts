@@ -1,4 +1,4 @@
-import { FunctionContext, StringResult, BaseFunctionClause, AnyTypeResult } from '../types'
+import { FunctionContext, StringResult, FunctionClause, AnyTypeResult } from '../types'
 
 export const T = (ctx: FunctionContext, obj: AnyTypeResult): AnyTypeResult => obj
 
@@ -22,7 +22,7 @@ export const toString = (ctx: FunctionContext, obj: AnyTypeResult): StringResult
   }
 }
 
-export const CORE_OBJECT_CLAUSES: Array<BaseFunctionClause<any>> = [
+export const CORE_OBJECT_CLAUSES: Array<FunctionClause<any>> = [
   {
     name: 'T',
     async: false,

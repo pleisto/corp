@@ -261,7 +261,7 @@ export class VariableClass implements VariableInterface {
     })
 
     this.t.variableParseResult.functionDependencies.forEach(dependency => {
-      const dependencyKey = dependency.key
+      const dependencyKey = dependency.key!
       this.formulaContext.reverseFunctionDependencies[dependencyKey] ||= []
       this.formulaContext.reverseFunctionDependencies[dependencyKey] = [
         ...this.formulaContext.reverseFunctionDependencies[dependencyKey].filter(

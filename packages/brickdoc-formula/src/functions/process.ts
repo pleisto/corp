@@ -1,11 +1,11 @@
-import { BaseFunctionClause, FunctionContext, NumberResult } from '../types'
+import { FunctionClause, FunctionContext, NumberResult } from '../types'
 
 export const SLEEP = async (ctx: FunctionContext, number: NumberResult): Promise<NumberResult> => {
   await new Promise(resolve => setTimeout(resolve, number.result))
   return number
 }
 
-export const CORE_PROCESS_CLAUSES: Array<BaseFunctionClause<'number'>> = [
+export const CORE_PROCESS_CLAUSES: Array<FunctionClause<'number'>> = [
   {
     name: 'SLEEP',
     async: true,

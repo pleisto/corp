@@ -1,11 +1,11 @@
-import { FunctionContext, BaseFunctionClause, NumberResult } from '../types'
+import { FunctionContext, FunctionClause, NumberResult } from '../types'
 
 export const ADD = (ctx: FunctionContext, left: NumberResult, right: NumberResult): NumberResult => ({
   result: left.result + right.result,
   type: 'number'
 })
 
-export const CUSTOM_CLAUSES: Array<BaseFunctionClause<'number'>> = [
+export const CUSTOM_CLAUSES: Array<FunctionClause<'number'>> = [
   {
     name: 'ADD',
     async: false,

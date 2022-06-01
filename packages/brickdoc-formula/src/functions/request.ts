@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BaseFunctionClause, ErrorResult, FunctionContext, RecordResult, StringResult } from '../types'
+import { FunctionClause, ErrorResult, FunctionContext, RecordResult, StringResult } from '../types'
 import { castData } from '../grammar'
 
 export const REQUEST_GET = async (
@@ -11,7 +11,7 @@ export const REQUEST_GET = async (
   return castData(response) as RecordResult
 }
 
-export const CORE_REQUEST_CLAUSES: Array<BaseFunctionClause<'Record'>> = [
+export const CORE_REQUEST_CLAUSES: Array<FunctionClause<'Record'>> = [
   {
     name: 'REQUEST_GET',
     async: true,

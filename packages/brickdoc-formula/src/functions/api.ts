@@ -1,4 +1,4 @@
-import { BaseFunctionClause, FunctionContext, RecordResult } from '../types'
+import { FunctionClause, FunctionContext, RecordResult } from '../types'
 
 export const CURRENT_POSITION = async (ctx: FunctionContext): Promise<RecordResult> => {
   if (!navigator.geolocation) {
@@ -36,7 +36,7 @@ export const CURRENT_POSITION = async (ctx: FunctionContext): Promise<RecordResu
   }
 }
 
-export const CORE_API_CLAUSES: Array<BaseFunctionClause<'Record'>> = [
+export const CORE_API_CLAUSES: Array<FunctionClause<'Record'>> = [
   {
     name: 'CURRENT_POSITION',
     async: true,

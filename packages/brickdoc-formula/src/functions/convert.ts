@@ -2,7 +2,7 @@ import { SpreadsheetType } from '../controls/types'
 import {
   AnyTypeResult,
   ArrayResult,
-  BaseFunctionClause,
+  FunctionClause,
   ErrorResult,
   FunctionContext,
   NumberResult,
@@ -84,7 +84,7 @@ export const toRecordArray = (ctx: FunctionContext, { result: spreadsheet }: Spr
   }
 }
 
-export const CORE_CONVERT_CLAUSES: Array<BaseFunctionClause<'number' | 'string' | 'Array' | 'Record'>> = [
+export const CORE_CONVERT_CLAUSES: Array<FunctionClause<'number' | 'string' | 'Array' | 'Record'>> = [
   {
     name: 'toNumber',
     async: false,

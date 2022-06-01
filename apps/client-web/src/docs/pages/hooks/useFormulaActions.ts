@@ -4,7 +4,7 @@ import {
   GetFormulasQueryVariables as Variables,
   GetFormulasQuery as Query
 } from '@/BrickdocGraphQL'
-import { BackendActions, BaseFunctionClause, FunctionContext, StringResult } from '@brickdoc/formula'
+import { BackendActions, FunctionClause, FunctionContext, StringResult } from '@brickdoc/formula'
 import { useImperativeQuery } from '@/common/hooks'
 import { type DocMeta } from '@/docs/store/DocMeta'
 
@@ -17,7 +17,7 @@ interface useFormulaActionsResult {
     success: boolean
     data: Query['formulas']
   }>
-  generateFormulaFunctionClauses: (docMeta: DocMeta) => Array<BaseFunctionClause<any>>
+  generateFormulaFunctionClauses: (docMeta: DocMeta) => Array<FunctionClause<any>>
 }
 
 export function useFormulaActions(): useFormulaActionsResult {

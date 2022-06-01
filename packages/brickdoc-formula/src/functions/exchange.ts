@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { castData } from '../grammar'
-import { BaseFunctionClause, ErrorResult, FunctionContext, RecordResult, StringResult } from '../types'
+import { FunctionClause, ErrorResult, FunctionContext, RecordResult, StringResult } from '../types'
 
 export const EXCHANGE = async (
   ctx: FunctionContext,
@@ -12,7 +12,7 @@ export const EXCHANGE = async (
   return castData(data.conversion_rates) as RecordResult
 }
 
-export const CORE_EXCHANGE_CLAUSES: Array<BaseFunctionClause<'Record'>> = [
+export const CORE_EXCHANGE_CLAUSES: Array<FunctionClause<'Record'>> = [
   {
     name: 'EXCHANGE',
     async: true,

@@ -1,4 +1,4 @@
-import { AnyTypeResult, BooleanResult, BaseFunctionClause, FunctionContext } from '../types'
+import { AnyTypeResult, BooleanResult, FunctionClause, FunctionContext } from '../types'
 
 export const IF = (
   ctx: FunctionContext,
@@ -7,7 +7,7 @@ export const IF = (
   ifFalse: AnyTypeResult
 ): AnyTypeResult => (condition.result ? ifTrue : ifFalse)
 
-const IF_CLAUSE: BaseFunctionClause<any> = {
+const IF_CLAUSE: FunctionClause<any> = {
   name: 'IF',
   async: false,
   pure: true,
@@ -38,4 +38,4 @@ const IF_CLAUSE: BaseFunctionClause<any> = {
   reference: IF
 }
 
-export const CORE_LOGIC_CLAUSES: Array<BaseFunctionClause<'boolean' | any>> = [IF_CLAUSE]
+export const CORE_LOGIC_CLAUSES: Array<FunctionClause<'boolean' | any>> = [IF_CLAUSE]
