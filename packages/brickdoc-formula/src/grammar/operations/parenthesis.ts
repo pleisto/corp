@@ -8,7 +8,7 @@ export const parenthesisOperator: OperatorType = {
   rhsType: 'any',
   interpret: async ({ lhs }) => lhs,
   testCases: {
-    successTestCases: [{ definition: '= ( 3 + 4 ) * 5 - 2', result: 33 }],
+    successTestCases: [{ definition: '= ( 3 + 4 ) * 5 - 2', result: 33, groupOptions: [{ name: 'cst' }] }],
     errorTestCases: [
       {
         definition: '=()',

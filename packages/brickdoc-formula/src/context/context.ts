@@ -16,8 +16,7 @@ import {
   VariableKey,
   DefaultVariableName,
   CodeFragment,
-  Example,
-  FunctionClause,
+  AnyFunctionClause,
   FunctionCompletion,
   VariableCompletion,
   SpreadsheetCompletion,
@@ -33,7 +32,8 @@ import {
   DeleteFormula,
   SpreadsheetId,
   NameDependencyWithKind,
-  FindKey
+  FindKey,
+  AnyFunctionClauseWithKeyAndExample
 } from '../types'
 import {
   function2completion,
@@ -61,7 +61,7 @@ import {
 export interface FormulaContextArgs {
   domain: string
   tickTimeout?: number
-  functionClauses?: Array<FunctionClause<any>>
+  functionClauses?: AnyFunctionClause[]
   backendActions?: BackendActions
   features?: string[]
 }
@@ -70,7 +70,7 @@ export type ContextState = any
 
 const matchRegex =
   // eslint-disable-next-line max-len
-  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|literal|spreadsheet|function|column|row|cell|range|button|switch|select|slider|input|radio|rate|error|block|var)([0-9]+)$/
+  /(str|num|bool|record|blank|cst|array|null|date|predicate|reference|literal|spreadsheet|function|column|row|cell|range|button|switch|error|block|var)([0-9]+)$/
 export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName> = {
   string: 'str',
   literal: 'str',
@@ -80,11 +80,6 @@ export const FormulaTypeCastName: Record<FormulaType, SpecialDefaultVariableName
   Blank: 'blank',
   Cst: 'cst',
   Switch: 'switch',
-  Select: 'select',
-  Slider: 'slider',
-  Input: 'input',
-  Radio: 'radio',
-  Rate: 'rate',
   Button: 'button',
   Predicate: 'predicate',
   Pending: 'pending',
@@ -135,11 +130,6 @@ export class FormulaContext implements ContextInterface {
     Switch: {},
     literal: {},
     void: {},
-    Select: {},
-    Slider: {},
-    Input: {},
-    Radio: {},
-    Rate: {},
     Function: {},
     boolean: {},
     Blank: {},
@@ -165,7 +155,7 @@ export class FormulaContext implements ContextInterface {
 
   reverseVariableDependencies: Record<VariableKey, VariableDependency[]> = {}
   reverseFunctionDependencies: Record<FunctionKey, VariableDependency[]> = {}
-  functionClausesMap: Record<FunctionKey, FunctionClause<any>>
+  functionClausesMap: Record<FunctionKey, AnyFunctionClauseWithKeyAndExample> = {}
   backendActions: BackendActions | undefined
   reservedNames: string[] = []
   eventListeners: EventSubscribed[] = []
@@ -215,32 +205,30 @@ export class FormulaContext implements ContextInterface {
 
     void this.tick(undefined as ContextState)
 
-    const baseFunctionClauses: Array<FunctionClause<any>> = [...BUILTIN_CLAUSES, ...functionClauses].filter(
+    const baseFunctionClauses: AnyFunctionClause[] = [...BUILTIN_CLAUSES, ...functionClauses].filter(
       f => !f.feature || this.features.includes(f.feature)
     )
 
     this.reservedNames = baseFunctionClauses.map(({ name }) => name.toUpperCase())
-    this.functionClausesMap = baseFunctionClauses.reduce(
-      (o: Record<FunctionKey, FunctionClause<any>>, acc: FunctionClause<any>) => {
-        const clause: FunctionClause<any> = {
-          ...acc,
-          key: buildFunctionKey(acc.group, acc.name)
-        }
-        o[clause.key!] = clause
+    this.functionClausesMap = baseFunctionClauses.reduce<Record<FunctionKey, AnyFunctionClauseWithKeyAndExample>>(
+      (o, acc) => {
+        const clause = { ...acc, key: buildFunctionKey(acc.group, acc.name) }
+        o[clause.key] = clause
         return o
       },
       {}
-    ) as Record<FunctionKey, FunctionClause<any>>
-
-    this.functionClausesMap = Object.values(this.functionClausesMap).reduce(
-      (o: Record<FunctionKey, FunctionClause<any>>, acc: FunctionClause<any>) => {
-        o[acc.key!] = {
+    )
+    this.functionClausesMap = baseFunctionClauses.reduce<Record<FunctionKey, AnyFunctionClauseWithKeyAndExample>>(
+      (o, acc) => {
+        const clause = {
           ...acc,
-          examples: acc.examples.map(e => ({ ...e, codeFragments: this.parseCodeFragments(e.input) })) as [
-            Example<any>,
-            ...Array<Example<any>>
-          ]
+          key: buildFunctionKey(acc.group, acc.name),
+          examples: acc.examples.map(e => ({
+            ...e,
+            codeFragments: this.parseCodeFragments(e.input)
+          })) as AnyFunctionClause['examples']
         }
+        o[clause.key] = clause
         return o
       },
       {}
@@ -464,7 +452,10 @@ export class FormulaContext implements ContextInterface {
     delete this.variables[key]
   }
 
-  public findFunctionClause(group: FunctionGroup, name: FunctionNameType): FunctionClause<any> | undefined {
+  public findFunctionClause(
+    group: FunctionGroup,
+    name: FunctionNameType
+  ): AnyFunctionClauseWithKeyAndExample | undefined {
     return this.functionClausesMap[buildFunctionKey(group, name)]
   }
 

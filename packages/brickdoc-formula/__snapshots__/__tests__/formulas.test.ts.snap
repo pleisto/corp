@@ -1395,7 +1395,10 @@ Array [
               "input": Array [
                 -1,
               ],
-              "output": 1,
+              "output": Object {
+                "result": 1,
+                "type": "number",
+              },
             },
           ],
         },
@@ -2546,7 +2549,10 @@ Array [
               "input": Array [
                 -1,
               ],
-              "output": 1,
+              "output": Object {
+                "result": 1,
+                "type": "number",
+              },
             },
           ],
         },

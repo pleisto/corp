@@ -42,7 +42,7 @@ export interface OperatorType {
     interpreter: FormulaInterpreter
   ) => AnyTypeResult
   readonly dynamicParseValidator?: (cstVisitor: CodeFragmentVisitor, result: CodeFragmentResult) => CodeFragmentResult
-  readonly dynamicParseType?: (lhsType: FormulaType) => FormulaType
+  readonly dynamicParseType?: (lhsType: FormulaCheckType) => FormulaCheckType
   readonly dynamicInterpretRhsType?: ({
     result,
     cst,
@@ -59,7 +59,7 @@ export interface OperatorType {
   readonly packageInterpretResult?: (result: AnyTypeResult) => AnyTypeResult
   readonly dynamicParseRhsType?: (
     cst: CstNode,
-    prevType: FormulaType,
+    prevType: FormulaCheckType,
     args: CstVisitorArgument,
     index: number
   ) => CstVisitorArgument

@@ -23,7 +23,7 @@ export type Cons<H, T extends readonly any[]> = ((h: H, ...t: T) => void) extend
  * Prepend Parameter.
  *
  * type F = (x: number) => boolean
- * type F2 = PrependParam<string, F> // type F2 = (s: string, x: number) => boolean
+ * type F2 = PrependParameter<string, F> // type F2 = (s: string, x: number) => boolean
  */
 export type PrependParameter<Param, F extends (...args: any[]) => any> = (
   ...args: Extract<Cons<Param, Parameters<F>>, readonly any[]>

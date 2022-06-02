@@ -10,7 +10,7 @@ export const inOperator: OperatorType = {
   lhsType: ['number', 'boolean', 'null', 'string'],
   rhsType: ['Spreadsheet', 'Column', 'Array', 'string'],
   dynamicParseRhsType: (cst, prevType, args, index) => {
-    const newType: ExpressionType = ['string', 'number'].includes(prevType)
+    const newType: ExpressionType = (['string', 'number'] as const).some(r => [prevType].flat().includes(r))
       ? ['string', 'Array', 'Spreadsheet', 'Column']
       : ['Array']
     return { ...args, type: newType }

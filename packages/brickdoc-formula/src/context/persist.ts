@@ -1,12 +1,5 @@
 import { AnyTypeResult, BaseResult, FunctionContext, NamespaceId, VariableData, VariableDisplayData } from '../types'
-import {
-  SwitchClass,
-  ButtonClass,
-  SelectClass,
-  ColumnClass,
-  SpreadsheetClass,
-  SpreadsheetDynamicPersistence
-} from '../controls'
+import { SwitchClass, ButtonClass, ColumnClass, SpreadsheetClass, SpreadsheetDynamicPersistence } from '../controls'
 import { BlockClass } from '../controls/block'
 import { fetchResult } from './variable'
 import { truncateArray, truncateString } from '../grammar'
@@ -83,8 +76,6 @@ const innerDisplayValue = (v: AnyTypeResult, pageId: NamespaceId, disableTruncat
       return `#<${v.type}> ${v.result.name}`
     case 'Switch':
       return `#<${v.type}> ${v.result.checked}`
-    case 'Select':
-      return `#<${v.type}> ${JSON.stringify(v.result.options)}`
     case 'Reference':
       return `#<Reference> ${JSON.stringify(v.result)}`
     case 'Function':
@@ -116,7 +107,6 @@ export const dumpValue = (result: BaseResult, t?: VariableData): BaseResult => {
     result.result instanceof BlockClass ||
     result.result instanceof RowClass ||
     result.result instanceof ButtonClass ||
-    result.result instanceof SelectClass ||
     result.result instanceof SwitchClass
   ) {
     return { type: result.type, result: result.result.persistence() }
@@ -218,11 +208,6 @@ export const loadValue = (ctx: FunctionContext, result: BaseResult): AnyTypeResu
   if (result.type === 'Switch' && !(result.result instanceof SwitchClass)) {
     const switchResult = new SwitchClass(ctx, result.result)
     return { type: 'Switch', result: switchResult }
-  }
-
-  if (result.type === 'Select' && !(result.result instanceof SelectClass)) {
-    const selectResult = new SelectClass(ctx, result.result)
-    return { type: 'Select', result: selectResult }
   }
 
   // devLog({ result })

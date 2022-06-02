@@ -7,6 +7,7 @@ import {
   EventDependency,
   EventScope,
   ExpressionType,
+  FormulaCheckType,
   FormulaColorType,
   FormulaType,
   FunctionContext
@@ -159,10 +160,10 @@ export const extractSubType = (array: AnyTypeResult[]): FormulaType => {
 
 export const intersectType = (
   expectedArgumentType: ExpressionType,
-  contextResultType: FormulaType,
+  contextResultType: FormulaCheckType,
   label: string,
   ctx: FunctionContext
-): { errorMessages: ErrorMessage[]; newType: FormulaType } => {
+): { errorMessages: ErrorMessage[]; newType: FormulaCheckType } => {
   if (expectedArgumentType === undefined) {
     return { errorMessages: [], newType: contextResultType }
   }
@@ -175,14 +176,14 @@ export const intersectType = (
     return { errorMessages: [], newType: contextResultType }
   }
 
-  if (['any', 'Pending', 'Waiting'].includes(contextResultType)) {
+  if ((['any', 'Pending', 'Waiting'] as const).some(r => [contextResultType].flat().includes(r))) {
     return {
       errorMessages: [],
       newType: expectedArgumentType instanceof Array ? expectedArgumentType[0] : expectedArgumentType
     }
   }
 
-  if (expectedArgumentType instanceof Array && expectedArgumentType.includes(contextResultType)) {
+  if (expectedArgumentType instanceof Array && expectedArgumentType.some(r => [contextResultType].flat().includes(r))) {
     return { errorMessages: [], newType: contextResultType }
   }
 
@@ -215,7 +216,7 @@ export const intersectType = (
 
 export const runtimeCheckType = (
   { type: expectedArgumentType, skipCheck }: InterpretArgument,
-  contextResultType: FormulaType,
+  contextResultType: FormulaCheckType,
   label: string,
   ctx: FunctionContext
 ): ErrorResult | undefined => {

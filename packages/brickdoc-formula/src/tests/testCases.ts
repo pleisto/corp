@@ -1,6 +1,6 @@
 import { OPERATORS } from '../grammar'
 import { FeatureTestCases } from './feature'
-import { TestCaseInput, TestCaseInterface } from './testType'
+import { TestCaseInput, TestCaseInterface, TestCaseName } from './testType'
 
 export const NAME_SPECIAL_INVALID_CHARS = [...'()[]{}!@#$%^&*-+=|\\:;\'"<>,./?`~', ' ', '\t', '\n', '\r', '\u2003']
 export const NAME_VALID_SUFFIX_ONLY = ['中文', 'é', '😉', '1', '감사']
@@ -57,4 +57,22 @@ const OPERATION_TEST_INTERFACES: TestCaseInterface[] = [
   ...FeatureTestCases
 ]
 
-export const ALL_TEST_CASE = reduceTestCaseInput(OPERATION_TEST_INTERFACES)
+const ALL_TEST_CASE = reduceTestCaseInput(OPERATION_TEST_INTERFACES)
+
+export const buildTestCases = (name?: TestCaseName): TestCaseInput => {
+  if (!name) return ALL_TEST_CASE
+
+  const interfaces = OPERATION_TEST_INTERFACES.filter(
+    o =>
+      o.name === name ||
+      (o.testCases.successTestCases ?? []).some(t => t.groupOptions?.map(g => g.name).includes(name)) ||
+      (o.testCases.errorTestCases ?? []).some(t => t.groupOptions?.map(g => g.name).includes(name))
+  )
+  const input = reduceTestCaseInput(interfaces)
+
+  return {
+    ...input,
+    successTestCases: input.successTestCases.filter(v => v.groupOptions.map(g => g.name).includes(name)),
+    errorTestCases: input.errorTestCases.filter(v => v.groupOptions.map(g => g.name).includes(name))
+  }
+}

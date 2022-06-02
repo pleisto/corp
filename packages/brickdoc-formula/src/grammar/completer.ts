@@ -1,7 +1,7 @@
 import type { IToken } from 'chevrotain'
 import { fetchResult } from '../context'
 import { ColumnClass } from '../controls'
-import { CodeFragment, Completion, FormulaType, FunctionContext } from '../types'
+import { CodeFragment, Completion, FormulaCheckType, FormulaType, FunctionContext } from '../types'
 import { codeFragment2value, column2completion } from './convert'
 
 export interface CompleteInput {
@@ -12,9 +12,14 @@ export interface CompleteInput {
   readonly cacheCompletions?: Completion[]
 }
 
-const matchTypeWeight = (type1: FormulaType, type2: FormulaType, weight: number): number => {
-  if (type1 === type2) return weight + 250
-  if (type2 === 'any') return weight + 125
+const matchTypeWeight = (type1: FormulaType, type2: FormulaCheckType, weight: number): number => {
+  if (type1 === 'any') return weight + 125
+  if (typeof type2 === 'string') {
+    if (type1 === type2) return weight + 250
+    return weight
+  }
+
+  if (type2.includes(type1)) return weight + 250
 
   return weight
 }

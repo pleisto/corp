@@ -168,7 +168,7 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
   }
 
   const meta: MakeContextResult['buildMeta'] = args => ({
-    variableId: uuid(),
+    variableId: args.variableId ?? uuid(),
     input: args.definition,
     namespaceId: args.namespaceId ?? firstNamespaceId ?? uuid(),
     name: args.name ?? 'testInput',

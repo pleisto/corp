@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errorParse <ERROR> variable "=#CurrentBlock.baz" -> [deps] ""baz" not found" 1`] = `
+exports[`errorParse variable "=#CurrentBlock.baz" -> [deps] ""baz" not found" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -55,7 +55,7 @@ Array [
 ]
 `;
 
-exports[`errorParse <ERROR> variable "=Variable.baz" -> [deps] ""baz" not found" 1`] = `
+exports[`errorParse variable "=Variable.baz" -> [deps] ""baz" not found" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -110,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`errorParse <ERROR> variable "=baz" -> [syntax] "Unknown function baz" 1`] = `
+exports[`errorParse variable "=baz" -> [syntax] "Unknown function baz" 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -143,7 +143,7 @@ Array [
 ]
 `;
 
-exports[`errorParse <ERROR> variable "=fo" -> [syntax] "Unknown function fo" 1`] = `
+exports[`errorParse variable "=fo" -> [syntax] "Unknown function fo" 1`] = `
 Array [
   "codeFragments",
   Array [

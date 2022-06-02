@@ -9,7 +9,8 @@ import {
   ExpressionType,
   SimpleCodeFragmentType,
   CodeFragmentAttrs,
-  VariableParseResult
+  VariableParseResult,
+  FormulaCheckType
 } from '../types'
 import { buildFunctionKey } from '../functions'
 import { ParserInstance } from './parser'
@@ -48,7 +49,7 @@ export const token2fragment = (token: IToken, type: FormulaType): CodeFragment =
 
 export interface CstVisitorArgument {
   readonly type: ExpressionType
-  readonly firstArgumentType?: FormulaType
+  readonly firstArgumentType?: ExpressionType
   readonly clauseArguments?: Argument[]
 }
 
@@ -201,7 +202,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     codeFragments.push(...lhsCodeFragments)
     images.push(image)
 
-    let firstArgumentType: FormulaType = lhsType
+    let firstArgumentType: FormulaCheckType = lhsType
 
     ctx.LBracket.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
       const rhsCst = ctx.rhs?.[idx]
@@ -284,7 +285,7 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
     codeFragments.push(...lhsCodeFragments)
     images.push(image)
 
-    let firstArgumentType: FormulaType = lhsType
+    let firstArgumentType: FormulaCheckType = lhsType
 
     // eslint-disable-next-line complexity
     ctx.Dot.forEach((dotOperand: CstNode | CstNode[], idx: number) => {
@@ -316,7 +317,8 @@ export class CodeFragmentVisitor extends CodeFragmentCstVisitor {
       if (rhsCst.name === 'keyExpression') {
         const extraErrorMessages: ErrorMessage[] = []
         const accessErrorMessages: ErrorMessage[] =
-          ['null', 'string', 'boolean', 'number'].includes(firstArgumentType) && type !== 'Reference'
+          (['null', 'string', 'boolean', 'number'] as const).some(r => [firstArgumentType].flat().includes(r)) &&
+          type !== 'Reference'
             ? [{ type: 'syntax', message: 'Access error' }]
             : []
         const { codeFragments: rhsCodeFragments, image: rhsImage }: CodeFragmentResult =

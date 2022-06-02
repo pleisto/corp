@@ -251,7 +251,8 @@ export const useFormula = ({
         success,
         variableParseResult: { valid }
       } = parseResult
-      updateDefaultName(success ? expressionType : 'any')
+      // eslint-disable-next-line no-nested-ternary
+      updateDefaultName(success ? ([expressionType].flat().length === 1 ? [expressionType].flat()[0] : 'any') : 'any')
       const tempT = await interpret({
         parseResult,
         ctx,

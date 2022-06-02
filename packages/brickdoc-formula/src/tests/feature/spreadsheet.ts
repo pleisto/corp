@@ -2,19 +2,19 @@ import { mockCell, mockColumn, mockRow } from '../testMock'
 import { SpreadsheetInput, TestCaseInterface } from '../testType'
 
 const namespaceId = '55555555-5555-4444-5555-555555555555'
-const spreadsheetId = '22222222-2222-4444-2222-222222222222'
+const spreadsheetId = '22222222-2222-4444-3333-222222222222'
 
 const firstColumnId = '66666666-6666-4444-6666-666666666666'
 const firstRowId = 'eeeeeeee-eeee-4444-aaaa-222222222222'
 const firstCellId = '33333333-3333-4444-3333-333333333333'
-const spreadsheetToken = 'Spreadsheet.spreadsheet'
+const spreadsheetToken = 'SpreadsheetPage.spreadsheet'
 
 export const SpreadsheetTestCase: TestCaseInterface = {
   name: 'spreadsheet',
   testCases: {
     pages: [
       {
-        pageName: 'Spreadsheet',
+        pageName: 'SpreadsheetPage',
         pageId: namespaceId,
         spreadsheets: [
           // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -94,12 +94,12 @@ export const SpreadsheetTestCase: TestCaseInterface = {
         definition: `=VLOOKUP("", ${spreadsheetToken}, ${spreadsheetToken}.first)`,
         result: 'Column cannot be the same as the first column'
       },
-      { definition: `=VLOOKUP(1, ${spreadsheetToken}, ${spreadsheetToken}.second)`, result: '2' },
+      { definition: `=VLOOKUP("1", ${spreadsheetToken}, ${spreadsheetToken}.second)`, result: '2' },
       { definition: `=VLOOKUP("2", ${spreadsheetToken}, ${spreadsheetToken}.second, false)`, result: 'Not found' },
       { definition: `=VLOOKUP("2", ${spreadsheetToken}, ${spreadsheetToken}.second)`, result: '2' },
       { definition: `=VLOOKUP("2", ${spreadsheetToken}, ${spreadsheetToken}.second, true)`, result: '2' },
-      { definition: `=VLOOKUP(1, ${spreadsheetToken}, ${spreadsheetToken}.second, true)`, result: '2' },
-      { definition: `=VLOOKUP(1, ${spreadsheetToken}, ${spreadsheetToken}.second, false)`, result: '2' },
+      { definition: `=VLOOKUP("1", ${spreadsheetToken}, ${spreadsheetToken}.second, true)`, result: '2' },
+      { definition: `=VLOOKUP("1", ${spreadsheetToken}, ${spreadsheetToken}.second, false)`, result: '2' },
       { definition: `=VLOOKUP("1", ${spreadsheetToken}, ${spreadsheetToken}.second)`, result: '2' },
       { definition: `=XLOOKUP("1", ${spreadsheetToken}.first, ${spreadsheetToken}.second)`, result: '2' },
       { definition: `=XLOOKUP("123", ${spreadsheetToken}.first, ${spreadsheetToken}.second, "100")`, result: '100' }

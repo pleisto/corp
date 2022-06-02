@@ -1,20 +1,18 @@
 import { parse } from '../grammar/core'
 import { makeContext } from '../tests/testHelper'
-import { ALL_TEST_CASE } from '../tests'
+import { buildTestCases } from '../tests'
 
-const testCases = [...ALL_TEST_CASE.successTestCases, ...ALL_TEST_CASE.errorTestCases].filter(v =>
-  v.groupOptions.map(g => g.name).includes('complete')
-)
+const testCases = buildTestCases('complete')
 
 describe('completer', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeAll(async () => {
     jest.useRealTimers()
-    ctx = await makeContext(ALL_TEST_CASE.options)
+    ctx = await makeContext(testCases.options)
     jest.clearAllTimers()
   })
 
-  it.each(testCases)('<Completer> $jestTitle', async args => {
+  it.each([...testCases.successTestCases, ...testCases.errorTestCases])('$jestTitle', async args => {
     jest.useRealTimers()
 
     const newCtx = { ...ctx, meta: ctx.buildMeta(args) }

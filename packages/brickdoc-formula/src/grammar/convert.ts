@@ -1,7 +1,6 @@
 import {
   ColumnId,
   ColumnKey,
-  FunctionClause,
   FunctionCompletion,
   NamespaceId,
   SpreadsheetCompletion,
@@ -17,7 +16,8 @@ import {
   CodeFragment,
   Completion,
   SpreadsheetKey,
-  ColumnCompletion
+  ColumnCompletion,
+  AnyFunctionClause
 } from '../types'
 import { BlockType, ColumnType, RowType, SpreadsheetType } from '../controls'
 import { maybeEncodeString, parseString, reverseTraversalString } from './util'
@@ -229,7 +229,7 @@ export const variable2completion = (variable: VariableInterface, pageId: Namespa
   }
 }
 
-export const function2completion = (functionClause: FunctionClause<any>, weight: number): FunctionCompletion => {
+export const function2completion = (functionClause: AnyFunctionClause, weight: number): FunctionCompletion => {
   const value: `${FunctionKey}()` = `${functionClause.key}()`
   return {
     kind: 'function',

@@ -16,9 +16,9 @@ import {
   BlockKey,
   BaseFormula,
   ErrorResult,
-  FormulaType,
   VariableTask,
-  VariableParseResult
+  VariableParseResult,
+  FormulaCheckType
 } from '../types'
 import { VariableClass, castVariable } from '../context/variable'
 import { checkValidName, FormulaLexer } from './lexer'
@@ -37,7 +37,7 @@ export interface BaseParseResult {
   success: boolean
   inputImage: string
   parseImage: string
-  expressionType: FormulaType
+  expressionType: FormulaCheckType
   errorType?: ParseErrorType
   errorMessages: ErrorMessage[]
   completions: Completion[]

@@ -2,7 +2,7 @@ import { TestCaseInterface, DEFAULT_FIRST_NAMESPACEID } from '../testType'
 
 const pageId = '22222222-2222-2222-2222-222222222222'
 const fooId = '22222222-2222-3333-2222-222222222222'
-const fooPlusId = '22222222-2222-4444-2222-222222222222'
+const fooPlusId = '22222222-2222-4444-7777-222222222222'
 const fooMaxId = '22222222-2222-5555-2222-222222222222'
 
 export const VariableTestCase: TestCaseInterface = {
@@ -199,6 +199,14 @@ export const VariableTestCase: TestCaseInterface = {
           { key: 'blockDependencies', match: [] },
           { key: 'nameDependencies', match: [{ name: 'fo', namespaceId: pageId }] }
         ]
+      },
+      {
+        definition: '=fooPlus1',
+        namespaceId: pageId,
+        variableId: fooId,
+        name: 'foo',
+        errorType: 'circular_dependency',
+        errorMessage: 'Circular dependency found'
       }
     ]
   }

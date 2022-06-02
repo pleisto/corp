@@ -1,15 +1,16 @@
 import { interpret, parse } from '../grammar'
-import { makeContext, ALL_TEST_CASE } from '../tests'
+import { makeContext, buildTestCases } from '../tests'
 import { matchObject } from '../tests/testMock'
 
 describe('successExecute', () => {
+  const testCases = buildTestCases()
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeAll(async () => {
     jest.useRealTimers()
-    ctx = await makeContext(ALL_TEST_CASE.options)
+    ctx = await makeContext(testCases.options)
     jest.clearAllTimers()
   })
-  it.each(ALL_TEST_CASE.successTestCases)('<SUCCESS> $jestTitle', async args => {
+  it.each(testCases.successTestCases)('$jestTitle', async args => {
     jest.useRealTimers()
     const newCtx = { ...ctx, meta: ctx.buildMeta(args) }
     const parseResult = parse(newCtx)

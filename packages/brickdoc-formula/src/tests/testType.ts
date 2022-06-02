@@ -72,7 +72,7 @@ export interface PageInput {
   spreadsheets?: Array<SpreadsheetInput<any, any>>
 }
 type FeatureName = 'async' | 'functionCall' | 'nameCheck' | 'powerfx' | 'spreadsheet' | 'variable'
-type FeatureTestName = 'complete'
+type FeatureTestName = 'complete' | 'cst' | 'dependency'
 export type TestCaseName = OperatorName | FeatureName | FeatureTestName
 
 interface GroupOption {
@@ -86,6 +86,7 @@ interface BaseTestCase {
   label?: string
   expected?: ExpectedType[]
   namespaceId?: VariableMetadata['namespaceId']
+  variableId?: VariableMetadata['variableId']
   name?: VariableMetadata['name']
   richType?: VariableMetadata['richType']
   jestTitle?: string

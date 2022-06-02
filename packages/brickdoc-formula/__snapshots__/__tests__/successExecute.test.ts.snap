@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`successExecute <SUCCESS> [Case insensitive] variable "=Variable.FOO" -> 10 1`] = `
+exports[`successExecute [Case insensitive] variable "=Variable.FOO" -> 10 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -60,7 +60,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> block "=#CurrentBlock" -> BLOCK_SNAPSHOT,Block,11111111-1111-1111-1111-111111111111 1`] = `
+exports[`successExecute block "=#CurrentBlock" -> BLOCK_SNAPSHOT,Block,11111111-1111-1111-1111-111111111111 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -94,7 +94,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> block "=Block" -> BLOCK_SNAPSHOT,Block,11111111-1111-1111-1111-111111111111 1`] = `
+exports[`successExecute block "=Block" -> BLOCK_SNAPSHOT,Block,11111111-1111-1111-1111-111111111111 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -128,7 +128,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> functionCall "=Abs(-1) + abs(1) + ABS(1) + core::ABS(-1)" -> 4 1`] = `
+exports[`successExecute functionCall "=Abs(-1) + abs(1) + ABS(1) + core::ABS(-1)" -> 4 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -360,7 +360,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> functionCall "=custom::PLUS(1, 1)" -> 2 1`] = `
+exports[`successExecute functionCall "=custom::PLUS(1, 1)" -> 2 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -448,7 +448,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> variable "="foo"" -> 10 1`] = `
+exports[`successExecute variable "="foo"" -> 10 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -482,101 +482,7 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> variable "=#22222222-2222-2222-2222-222222222222.foo" -> 10 1`] = `
-Array [
-  "codeFragments",
-  Array [
-    Object {
-      "attrs": undefined,
-      "code": "Equal",
-      "display": "=",
-      "errors": Array [],
-      "hide": false,
-      "type": "any",
-    },
-    Object {
-      "attrs": Object {
-        "findKey": Object {
-          "namespaceId": "22222222-2222-2222-2222-222222222222",
-          "type": "id",
-          "value": "22222222-2222-2222-2222-222222222222",
-        },
-        "id": "22222222-2222-2222-2222-222222222222",
-        "kind": "Block",
-        "name": "Variable",
-        "namespaceId": "22222222-2222-2222-2222-222222222222",
-      },
-      "code": "Block",
-      "display": "Variable",
-      "errors": Array [],
-      "hide": false,
-      "type": "Block",
-    },
-    Object {
-      "attrs": undefined,
-      "code": "Dot",
-      "display": ".",
-      "errors": Array [],
-      "hide": false,
-      "type": "any",
-    },
-    Object {
-      "attrs": Object {
-        "findKey": Object {
-          "namespaceId": "22222222-2222-2222-2222-222222222222",
-          "type": "id",
-          "value": "22222222-2222-3333-2222-222222222222",
-        },
-        "id": "22222222-2222-3333-2222-222222222222",
-        "kind": "Variable",
-        "name": "foo",
-        "namespaceId": "22222222-2222-2222-2222-222222222222",
-      },
-      "code": "Variable",
-      "display": "foo",
-      "errors": Array [],
-      "hide": false,
-      "type": "number",
-    },
-  ],
-]
-`;
-
-exports[`successExecute <SUCCESS> variable "=#CurrentBlock.foo" -> 10 1`] = `
-Array [
-  "codeFragments",
-  Array [
-    Object {
-      "attrs": undefined,
-      "code": "Equal",
-      "display": "=",
-      "errors": Array [],
-      "hide": false,
-      "type": "any",
-    },
-    Object {
-      "attrs": Object {
-        "findKey": Object {
-          "namespaceId": "22222222-2222-2222-2222-222222222222",
-          "type": "id",
-          "value": "22222222-2222-3333-2222-222222222222",
-        },
-        "id": "22222222-2222-3333-2222-222222222222",
-        "kind": "Variable",
-        "name": "foo",
-        "namespaceId": "22222222-2222-2222-2222-222222222222",
-      },
-      "code": "Variable",
-      "display": "foo",
-      "errors": Array [],
-      "hide": false,
-      "type": "number",
-    },
-  ],
-]
-`;
-
-exports[`successExecute <SUCCESS> variable "=Variable.foo" -> 10 1`] = `
+exports[`successExecute variable "=#22222222-2222-2222-2222-222222222222.foo" -> 10 1`] = `
 Array [
   "codeFragments",
   Array [
@@ -636,7 +542,101 @@ Array [
 ]
 `;
 
-exports[`successExecute <SUCCESS> variable "=foo" -> 10 1`] = `
+exports[`successExecute variable "=#CurrentBlock.foo" -> 10 1`] = `
+Array [
+  "codeFragments",
+  Array [
+    Object {
+      "attrs": undefined,
+      "code": "Equal",
+      "display": "=",
+      "errors": Array [],
+      "hide": false,
+      "type": "any",
+    },
+    Object {
+      "attrs": Object {
+        "findKey": Object {
+          "namespaceId": "22222222-2222-2222-2222-222222222222",
+          "type": "id",
+          "value": "22222222-2222-3333-2222-222222222222",
+        },
+        "id": "22222222-2222-3333-2222-222222222222",
+        "kind": "Variable",
+        "name": "foo",
+        "namespaceId": "22222222-2222-2222-2222-222222222222",
+      },
+      "code": "Variable",
+      "display": "foo",
+      "errors": Array [],
+      "hide": false,
+      "type": "number",
+    },
+  ],
+]
+`;
+
+exports[`successExecute variable "=Variable.foo" -> 10 1`] = `
+Array [
+  "codeFragments",
+  Array [
+    Object {
+      "attrs": undefined,
+      "code": "Equal",
+      "display": "=",
+      "errors": Array [],
+      "hide": false,
+      "type": "any",
+    },
+    Object {
+      "attrs": Object {
+        "findKey": Object {
+          "namespaceId": "22222222-2222-2222-2222-222222222222",
+          "type": "id",
+          "value": "22222222-2222-2222-2222-222222222222",
+        },
+        "id": "22222222-2222-2222-2222-222222222222",
+        "kind": "Block",
+        "name": "Variable",
+        "namespaceId": "22222222-2222-2222-2222-222222222222",
+      },
+      "code": "Block",
+      "display": "Variable",
+      "errors": Array [],
+      "hide": false,
+      "type": "Block",
+    },
+    Object {
+      "attrs": undefined,
+      "code": "Dot",
+      "display": ".",
+      "errors": Array [],
+      "hide": false,
+      "type": "any",
+    },
+    Object {
+      "attrs": Object {
+        "findKey": Object {
+          "namespaceId": "22222222-2222-2222-2222-222222222222",
+          "type": "id",
+          "value": "22222222-2222-3333-2222-222222222222",
+        },
+        "id": "22222222-2222-3333-2222-222222222222",
+        "kind": "Variable",
+        "name": "foo",
+        "namespaceId": "22222222-2222-2222-2222-222222222222",
+      },
+      "code": "Variable",
+      "display": "foo",
+      "errors": Array [],
+      "hide": false,
+      "type": "number",
+    },
+  ],
+]
+`;
+
+exports[`successExecute variable "=foo" -> 10 1`] = `
 Array [
   "codeFragments",
   Array [

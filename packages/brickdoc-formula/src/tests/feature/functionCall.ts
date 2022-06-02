@@ -1,8 +1,8 @@
-import { NumberResult } from '../../types'
-import { TestCaseInterface, TestCaseType } from '../testType'
+import { createFunctionClause } from '../../types'
+import { TestCaseInterface } from '../testType'
 
-const functionClauses: TestCaseType['functionClauses'] = [
-  {
+const functionClauses = [
+  createFunctionClause({
     name: 'PLUS',
     async: false,
     pure: true,
@@ -11,14 +11,8 @@ const functionClauses: TestCaseType['functionClauses'] = [
     lazy: false,
     persist: false,
     args: [
-      {
-        type: 'number',
-        name: 'a'
-      },
-      {
-        type: 'number',
-        name: 'b'
-      }
+      { type: 'number', name: 'a' },
+      { type: 'number', name: 'b' }
     ],
     examples: [{ input: '=1', output: { type: 'number', result: 1 } }],
     description: '',
@@ -26,9 +20,9 @@ const functionClauses: TestCaseType['functionClauses'] = [
     returns: 'number',
     testCases: [],
     chain: false,
-    reference: (ctx, a: NumberResult, b: NumberResult) => ({ type: 'number', result: a.result + b.result })
-  },
-  {
+    reference: (ctx, a, b) => ({ type: 'number', result: a.result + b.result })
+  }),
+  createFunctionClause({
     name: 'FORTY_TWO',
     async: false,
     pure: true,
@@ -37,14 +31,14 @@ const functionClauses: TestCaseType['functionClauses'] = [
     effect: false,
     lazy: false,
     args: [],
-    examples: [{ input: '=1', output: { type: 'number', result: 1 } }],
+    examples: [{ input: '=1', output: { type: 'number', result: 42 } }],
     description: '',
     group: 'custom',
     returns: 'number',
     testCases: [],
     chain: false,
     reference: ctx => ({ type: 'number', result: 42 })
-  }
+  })
 ]
 
 export const FunctionCallTestCase: TestCaseInterface = {
@@ -59,8 +53,8 @@ export const FunctionCallTestCase: TestCaseInterface = {
         expected: [{ key: 'codeFragments', matchType: 'toMatchSnapshot' }]
       },
       { definition: '=ABS(IF(false, -3, -4))', result: 4 },
-      { definition: '=AVERAGE(1)', result: 1, label: 'spread operator' },
-      { definition: '=AVERAGE(1, 2, 3)', result: 2, label: 'spread operator' },
+      { definition: '=AVERAGE([1])', result: 1, label: 'TODO spread operator' },
+      { definition: '=AVERAGE([1, 2, 3])', result: 2, label: 'spread operator' },
       {
         definition: '=custom::PLUS(1, 1)',
         result: 2,

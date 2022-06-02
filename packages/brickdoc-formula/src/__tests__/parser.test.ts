@@ -1,7 +1,8 @@
 import { parse } from '../grammar'
-import { ALL_TEST_CASE } from '../tests'
+import { buildTestCases } from '../tests'
 import { makeContext } from '../tests/testHelper'
 
+const finalTestCases = buildTestCases()
 const validInputs: string[] = [
   '=a',
   '=-1.%',
@@ -21,15 +22,15 @@ const validInputs: string[] = [
   '=ABS(1 {a: 1}.a',
   '=(1 {}.',
   '==',
-  ...ALL_TEST_CASE.successTestCases.map(({ definition }) => definition),
-  ...ALL_TEST_CASE.errorTestCases.map(({ definition }) => definition)
+  ...finalTestCases.successTestCases.map(({ definition }) => definition),
+  ...finalTestCases.errorTestCases.map(({ definition }) => definition)
 ]
 
 describe('parser', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeAll(async () => {
     jest.useRealTimers()
-    ctx = await makeContext(ALL_TEST_CASE.options)
+    ctx = await makeContext(finalTestCases.options)
     jest.clearAllTimers()
   })
   it.each(validInputs)('valid: "=%s"', input => {

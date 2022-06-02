@@ -1,9 +1,9 @@
-import { FormulaType, FunctionClause } from '@brickdoc/formula'
+import { AnyFunctionClause } from '@brickdoc/formula'
 import { FormulaEditor } from '../../../../editors/formulaEditor'
 import { codeFragmentsToJSONContentTotal } from '../../../../helpers'
 
 export interface FunctionPreviewProps {
-  functionClause: FunctionClause<FormulaType>
+  functionClause: AnyFunctionClause
   rootId: string
 }
 
