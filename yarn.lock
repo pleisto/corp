@@ -2614,6 +2614,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@brickdoc/dotcom@workspace:plugins/dotcom":
+  version: 0.0.0-use.local
+  resolution: "@brickdoc/dotcom@workspace:plugins/dotcom"
+  languageName: unknown
+  linkType: soft
+
 "@brickdoc/e2e-testing@workspace:tools/e2e-testing":
   version: 0.0.0-use.local
   resolution: "@brickdoc/e2e-testing@workspace:tools/e2e-testing"

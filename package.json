@@ -61,7 +61,8 @@
     "active-support": "yarn workspace @brickdoc/active-support",
     "server": "yarn workspace @brickdoc/server-monolith",
     "github-auth": "yarn workspace @brickdoc/github-auth",
-    "google-auth": "yarn workspace @brickdoc/google-auth"
+    "google-auth": "yarn workspace @brickdoc/google-auth",
+    "dotcom": "yarn workspace @brickdoc/dotcom"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "^1.0.1",
