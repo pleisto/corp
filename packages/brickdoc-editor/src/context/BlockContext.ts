@@ -5,6 +5,7 @@ export interface BlockContextData {
   deleteBlock: () => void
   getPosition: () => number | undefined
   updateDraggingStatus: (dragging: boolean) => void
+  contentForCopy?: string
   dragging: boolean
   node: NodeViewProps['node'] | null
 }

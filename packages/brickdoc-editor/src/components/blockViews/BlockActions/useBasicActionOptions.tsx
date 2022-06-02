@@ -16,7 +16,7 @@ export interface UseActionOptionsProps {
 const transformBlocks = ORDER_TOGGLE_BLOCK.map(key => Object.values(BLOCK).find(block => block.key === key))
 
 export function useBasicActionOptions({ types }: UseActionOptionsProps): ActionGroupOption | null {
-  const { deleteBlock, getPosition, node } = useBlockContext()
+  const { deleteBlock, getPosition, contentForCopy, node } = useBlockContext()
   const { editor } = useEditorContext()
   const [t] = useEditorI18n()
   const [documentEditable] = useDocumentEditable(undefined)
@@ -54,17 +54,16 @@ export function useBasicActionOptions({ types }: UseActionOptionsProps): ActionG
     const slice = editor!.state.selection.content()
     const { dom, text } = __serializeForClipboard(editor!.view, slice)
 
-    console.log(dom.innerHTML)
     // copy block to clipboard
     await navigator.clipboard.write([
       new ClipboardItem({
         'text/html': new Blob([dom.innerHTML], { type: 'text/html' }),
-        'text/plain': new Blob([text], { type: 'text/plain' })
+        'text/plain': new Blob([contentForCopy ?? text], { type: 'text/plain' })
       })
     ])
 
     return true
-  }, [editor, setNodeSelection])
+  }, [contentForCopy, editor, setNodeSelection])
 
   return useMemo<ActionGroupOption | null>(() => {
     const group: ActionGroupOption = { type: 'group', items: [] }
