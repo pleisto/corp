@@ -38,9 +38,8 @@ module Brickdoc
     config.active_job.queue_adapter = :async
     config.logger = ::Logger.new($stdout)
 
-    initializer :load_plugins, after: :load_config_initializers do
+    initializer :load_plugins, before: :load_config_initializers do
       Brickdoc::Plugins.load_all!
-
       ## Enabled Global Plugin defaults
       default_plugins = [
         '@brickdoc/github-auth',
