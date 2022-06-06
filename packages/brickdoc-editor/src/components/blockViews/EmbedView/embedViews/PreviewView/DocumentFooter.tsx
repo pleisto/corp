@@ -62,7 +62,7 @@ export const DocumentFooter: FC<DocumentFooterProps> = ({
 }) => (
   <Footer>
     <Info>
-      {icon && (typeof icon === 'string' ? <LinkIcon alt="icon" src={icon} /> : icon)}
+      {icon && (typeof icon === 'string' ? <LinkIcon alt="" src={icon} /> : icon)}
       <Name>{name}</Name>
     </Info>
     <EmbedToolbarContainer>
