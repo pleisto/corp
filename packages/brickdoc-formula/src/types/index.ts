@@ -1,4 +1,3 @@
-
 import { RequireField } from '@brickdoc/active-support'
 import { EventType } from '@brickdoc/schema'
 import { CstNode } from 'chevrotain'
@@ -19,10 +18,16 @@ const FORMULA_OBJECT_TYPES = ['Date', 'Block', 'Blank', 'Record', 'Array', 'Erro
 const FORMULA_SPREADSHEET_TYPES = ['Spreadsheet', 'Row', 'Cell', 'Column', 'Range'] as const
 const FORMULA_COMPLEX_TYPES = ['Cst', 'Reference', 'Function', 'Predicate'] as const
 const FORMULA_CONTROL_TYPES = ['Button', 'Switch'] as const
-const FORMULA_OTHER_TYPES = ['literal','Pending','Waiting','NoPersist'] as const
+const FORMULA_OTHER_TYPES = ['literal', 'Pending', 'Waiting', 'NoPersist'] as const
 
-export const FORMULA_USED_TYPES = [...FORMULA_BASIC_TYPES, ...FORMULA_OBJECT_TYPES, ...FORMULA_SPREADSHEET_TYPES,
-  ...FORMULA_COMPLEX_TYPES, ...FORMULA_CONTROL_TYPES, ...FORMULA_OTHER_TYPES] as const
+export const FORMULA_USED_TYPES = [
+  ...FORMULA_BASIC_TYPES,
+  ...FORMULA_OBJECT_TYPES,
+  ...FORMULA_SPREADSHEET_TYPES,
+  ...FORMULA_COMPLEX_TYPES,
+  ...FORMULA_CONTROL_TYPES,
+  ...FORMULA_OTHER_TYPES
+] as const
 const FORMULA_TYPES = [...FORMULA_USED_TYPES, 'any', 'void'] as const
 
 type FormulaComplexType = typeof FORMULA_COMPLEX_TYPES[number]
@@ -34,7 +39,6 @@ export type PersistFormulaType = Exclude<
   FormulaType,
   'any' | 'void' | 'Blank' | 'Range' | FormulaControlType | FormulaComplexType
 >
-
 
 export type FormulaCheckType = FormulaType | readonly [FormulaType, ...FormulaType[]]
 
@@ -518,32 +522,59 @@ export interface InterpretContext {
 }
 
 type FormulaArgumentsType<Chain extends boolean> = [
-  ...args: Chain extends true
-  ? [firstArgs: Argument, ...args: Argument[]]
-  : [...args: Argument[]]
+  ...args: Chain extends true ? [firstArgs: Argument, ...args: Argument[]] : [...args: Argument[]]
 ]
 
-type FlattenType<T extends UsedFormulaType | readonly UsedFormulaType[],
- R extends UsedFormulaType = never> = T extends UsedFormulaType ? T : (T extends [
-  infer First extends UsedFormulaType,
-    ...infer Other extends UsedFormulaType[]
-  ] ? FlattenType<Other, R | First> : R)
-
-type ArgumentArrayToResultTypeArray<
-Arguments extends Argument[], AcceptError extends boolean, R extends Array<TypedResult<any>> = []> = Arguments extends [
-  infer First extends Argument,
-  ...infer Other extends Argument[]
-]
-  ? ArgumentArrayToResultTypeArray<Other, AcceptError, [...R, TypedResult<AcceptError extends true ? FlattenType<First['type']> | 'Error' : FlattenType<First['type']>>]>
+type FlattenType<
+  T extends UsedFormulaType | readonly UsedFormulaType[],
+  R extends UsedFormulaType = never
+> = T extends UsedFormulaType
+  ? T
+  : T extends [infer First, ...infer Other]
+  ? Other extends UsedFormulaType[]
+    ? First extends UsedFormulaType
+      ? FlattenType<Other, R | First>
+      : never
+    : never
   : R
 
-  type ArgumentArrayToDataTypeArray<
-  Arguments extends Argument[], AcceptError extends boolean, R extends Array<FormulaResult<any>> = []> = Arguments extends [
-    infer First extends Argument,
-    ...infer Other extends Argument[]
-  ]
-    ? ArgumentArrayToDataTypeArray<Other, AcceptError, [...R, FormulaResult<AcceptError extends true ? FlattenType<First['type']> | 'Error' : FlattenType<First['type']>>]>
-    : R
+type ArgumentArrayToResultTypeArray<
+  Arguments extends Argument[],
+  AcceptError extends boolean,
+  R extends Array<TypedResult<any>> = []
+> = Arguments extends [infer First, ...infer Other]
+  ? Other extends Argument[]
+    ? First extends Argument
+      ? ArgumentArrayToResultTypeArray<
+          Other,
+          AcceptError,
+          [
+            ...R,
+            TypedResult<AcceptError extends true ? FlattenType<First['type']> | 'Error' : FlattenType<First['type']>>
+          ]
+        >
+      : never
+    : never
+  : R
+
+type ArgumentArrayToDataTypeArray<
+  Arguments extends Argument[],
+  AcceptError extends boolean,
+  R extends Array<FormulaResult<any>> = []
+> = Arguments extends [infer First, ...infer Other]
+  ? Other extends Argument[]
+    ? First extends Argument
+      ? ArgumentArrayToDataTypeArray<
+          Other,
+          AcceptError,
+          [
+            ...R,
+            FormulaResult<AcceptError extends true ? FlattenType<First['type']> | 'Error' : FlattenType<First['type']>>
+          ]
+        >
+      : never
+    : never
+  : R
 
 interface TestCase<T extends FormulaType, Input extends Array<FormulaResult<any>>> {
   readonly input: Input
@@ -596,12 +627,14 @@ export interface FunctionClause<
   readonly returns: T | readonly [T, ...T[]]
   readonly args: Arguments
   readonly testCases: Array<TestCase<T, ArgumentArrayToDataTypeArray<Arguments, AcceptError>>>
-  readonly reference: (ctx: FunctionContext, ...args: ArgumentArrayToResultTypeArray<Arguments, AcceptError>) =>
-    Async extends true ? Promise<AnyFunctionResult<T>> : AnyFunctionResult<T>
+  readonly reference: (
+    ctx: FunctionContext,
+    ...args: ArgumentArrayToResultTypeArray<Arguments, AcceptError>
+  ) => Async extends true ? Promise<AnyFunctionResult<T>> : AnyFunctionResult<T>
 }
 
 export const createFunctionClause = <
-  Return extends UsedFormulaType | readonly [UsedFormulaType,...UsedFormulaType[]],
+  Return extends UsedFormulaType | readonly [UsedFormulaType, ...UsedFormulaType[]],
   Async extends boolean,
   Chain extends boolean,
   AcceptError extends boolean,
