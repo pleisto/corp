@@ -57,7 +57,7 @@ export const BlockContainer: FC<BlockContainerProps> = forwardRef<HTMLElement, B
     })
     const [blockElement] = useBlockElement(children, actionOptions, {
       inline: inline ?? false,
-      disableActionOptions: !documentEditable || disableActionOptions,
+      disableActionOptions: disableActionOptions || !documentEditable,
       blockActionClassName: actionButtonClassName
     })
     const asElement = as ?? (inline ? 'span' : undefined)

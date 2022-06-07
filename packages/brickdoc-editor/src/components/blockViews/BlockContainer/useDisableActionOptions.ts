@@ -12,11 +12,11 @@ export function useDisableActionOptions(
   getPos: BlockContainerProps['getPos']
 ): boolean {
   return useMemo(() => {
-    // check if block inside a list
     const blockResolvedPosition = editor?.state.doc.resolve(getPos?.() ?? 0)
 
-    return !blockResolvedPosition
+    const result = !blockResolvedPosition
       ? true
-      : !!findParentNodeClosestToPos(blockResolvedPosition, node => !disabledList.includes(node.type.name))?.node
+      : !!findParentNodeClosestToPos(blockResolvedPosition, node => disabledList.includes(node.type.name))?.node
+    return result
   }, [editor, getPos])
 }
