@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useContext, useCallback } from 'react'
 import { EditorProps } from '@brickdoc/editor'
 import {
@@ -97,6 +97,8 @@ export function useEditorProps({ documentEditable, blocks }: UseEditorProps): Ed
     [metaCollaborators]
   )
 
+  const navigate = useNavigate()
+
   return {
     blobs,
     blocks,
@@ -114,6 +116,7 @@ export function useEditorProps({ documentEditable, blocks }: UseEditorProps): Ed
     rootId: id ?? '',
     historyId,
     settings,
-    spaceMembers
+    spaceMembers,
+    navigate
   }
 }

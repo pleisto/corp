@@ -6,8 +6,7 @@ import { InnerMenuContainer, InnerMenu, MenuItem, HistoryTime, Username } from '
 import { Drawer } from '../../ui'
 import { useDrawer } from '../../ui/Drawer'
 import { useEditorI18n } from '../../../hooks'
-
-import { useNavigate } from 'react-router-dom'
+import { To, NavigateOptions } from 'react-router-dom'
 
 import { useDocHistoryStore } from '@brickdoc/schema'
 
@@ -15,11 +14,11 @@ export interface HistoryListProps {
   domain: string
   docId: string
   historyId?: string
+  navigate: (to: To, options?: NavigateOptions) => void
 }
 
-export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, historyId }) => {
+export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, historyId, navigate }) => {
   const [t] = useEditorI18n()
-  const navigate = useNavigate()
   const { visible, setVisible } = useDrawer('historyList')
   const latestVisiable = React.useRef<boolean>(visible)
 

@@ -3,12 +3,14 @@
 class RootQuery < BrickGraphQL::BaseObject
   field :block, resolver: Docs::Queries::Block
   field :block_info, resolver: Docs::Queries::BlockInfo
+  field :block_new, resolver: Docs::Queries::BlockNew
   field :block_pins, resolver: Docs::Queries::BlockPins
   field :block_search, resolver: Docs::Queries::BlockSearch
   field :block_share_links, resolver: Docs::Queries::BlockShareLinks
   field :block_snapshots, resolver: Docs::Queries::BlockSnapshots
   field :children_blocks, resolver: Docs::Queries::ChildrenBlocks
   field :conversation_comments, resolver: Docs::Queries::ConversationComments
+  field :doc_history, resolver: Docs::Queries::DocHistory
   field :document, resolver: Docs::Queries::Document
   field :domain_available, resolver: System::Queries::DomainAvailable
   field :email_available, resolver: System::Queries::EmailAvailable

@@ -57,7 +57,7 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, ...props }) => {
       <BubbleMenu editor={editor} />
       <TiptapEditorContent className="brickdoc" editor={editor} />
       <DiscussionList />
-      <HistoryList docId={props.rootId} domain={props.domain} historyId={props.historyId} />
+      <HistoryList docId={props.rootId} domain={props.domain} historyId={props.historyId} navigate={props.navigate} />
       <ExplorerMenu editor={editor} />
     </EditorContext.Provider>
   )

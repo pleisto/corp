@@ -406,8 +406,8 @@
               "deprecationReason": null
             },
             {
-              "name": "documentId",
-              "description": "document id",
+              "name": "blockId",
+              "description": "block id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -422,8 +422,8 @@
               "deprecationReason": null
             },
             {
-              "name": "blockId",
-              "description": "block id",
+              "name": "documentId",
+              "description": "document id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -454,14 +454,26 @@
               "deprecationReason": null
             },
             {
-              "name": "stateId",
-              "description": "state id",
+              "name": "prevStateId",
+              "description": "previous state id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "state",
+              "description": "full or update state",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "UUID",
+                  "name": "String",
                   "ofType": null
                 }
               },
@@ -470,14 +482,14 @@
               "deprecationReason": null
             },
             {
-              "name": "statesCount",
-              "description": "states count",
+              "name": "stateId",
+              "description": "state id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Int",
+                  "name": "UUID",
                   "ofType": null
                 }
               },
@@ -502,26 +514,14 @@
               "deprecationReason": null
             },
             {
-              "name": "prevStateId",
-              "description": "previous state id",
-              "type": {
-                "kind": "SCALAR",
-                "name": "UUID",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "state",
-              "description": "full or update state",
+              "name": "statesCount",
+              "description": "states count",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "Int",
                   "ofType": null
                 }
               },
@@ -3997,22 +3997,6 @@
               "deprecationReason": null
             },
             {
-              "name": "conversationId",
-              "description": "Conversation id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "content",
               "description": null,
               "type": {
@@ -4021,6 +4005,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "JSON",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "conversationId",
+              "description": "Conversation id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               },
@@ -4105,15 +4105,19 @@
               "deprecationReason": null
             },
             {
-              "name": "docId",
-              "description": "comment doc id",
+              "name": "blockIds",
+              "description": null,
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "UUID",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "UUID",
+                    "ofType": null
+                  }
                 }
               },
               "defaultValue": null,
@@ -4137,19 +4141,15 @@
               "deprecationReason": null
             },
             {
-              "name": "blockIds",
-              "description": null,
+              "name": "docId",
+              "description": "comment doc id",
               "type": {
-                "kind": "LIST",
+                "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "UUID",
-                    "ofType": null
-                  }
+                  "kind": "SCALAR",
+                  "name": "UUID",
+                  "ofType": null
                 }
               },
               "defaultValue": null,
@@ -7015,6 +7015,18 @@
               "description": null,
               "args": [
                 {
+                  "name": "historyId",
+                  "description": "history id",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
                   "name": "id",
                   "description": "block id",
                   "type": {
@@ -7025,18 +7037,6 @@
                       "name": "String",
                       "ofType": null
                     }
-                  },
-                  "defaultValue": null,
-                  "isDeprecated": false,
-                  "deprecationReason": null
-                },
-                {
-                  "name": "historyId",
-                  "description": "history id",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
                   },
                   "defaultValue": null,
                   "isDeprecated": false,

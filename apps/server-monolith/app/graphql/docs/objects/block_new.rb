@@ -9,8 +9,8 @@ module Docs
       has_primary_key uuid: true
 
       field :block_type, String, 'Block Type'
-      field :state_id, String, 'Latest State Id', null: true, method: :states_sorted
-      field :states, [BlockState], 'Block States', null: true
+      field :state_id, String, 'Latest State Id', null: true
+      field :states, [BlockState], 'Block States', null: true, method: :states_sorted
       field :states_count, Integer, null: true
 
       def states_count

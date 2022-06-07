@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import { ContextInterface } from '@brickdoc/formula'
 import { DashboardPluginOptions } from '@brickdoc/uploader'
 import { Preview_Box, Block } from '@brickdoc/schema'
+import { To, NavigateOptions } from 'react-router-dom'
 
 export interface WebsiteMeta {
   url: string
@@ -71,6 +72,8 @@ export interface EditorProps {
   historyId?: string
 
   pageQuery: URLSearchParams | null
+
+  navigate: (to: To, options?: NavigateOptions) => void
 }
 
 // we don't want this context cause rerender, therefore it is not a React Context.
@@ -97,6 +100,9 @@ export const EditorPropsContext: EditorProps = {
   },
   fetchUnsplashImages() {
     throw new Error('fetchUnsplashImages is not implemented.')
+  },
+  navigate() {
+    throw new Error('navigate is not implemented.')
   }
 }
 
@@ -118,4 +124,5 @@ export function useEditorPropsEffect(nextProps: EditorProps): void {
   EditorPropsContext.historyId = nextProps.historyId
   EditorPropsContext.settings = nextProps.settings
   EditorPropsContext.spaceMembers = nextProps.spaceMembers
+  EditorPropsContext.navigate = nextProps.navigate
 }
