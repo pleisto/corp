@@ -8,12 +8,14 @@ import {
   BaseTestCase,
   CellInput,
   ColumnInput,
+  DEFAULT_UUID_FUNCTION,
   InsertOptions,
   MakeContextOptions,
   MakeContextResult,
+  MockedUUIDV4,
   RowInput,
   SpreadsheetInput,
-  uuids
+  UUIDState
 } from './testType'
 import { uuid } from '@brickdoc/active-support'
 
@@ -38,14 +40,43 @@ const quickInsert = async (
   await variable.save()
 }
 
+const fetchUUIDSymbol = (uuid: MockedUUIDV4 | undefined, state: UUIDState): string | undefined => {
+  if (typeof uuid === 'symbol') {
+    if (state.cache[uuid]) {
+      return state.cache[uuid]
+    }
+
+    throw new Error(`${String(uuid)} is not defined`)
+  }
+
+  return uuid
+}
+
+const getUuid = (uuid: MockedUUIDV4 | undefined, state: UUIDState): [string, UUIDState] => {
+  if (typeof uuid === 'symbol') {
+    if (state.cache[uuid]) {
+      return [state.cache[uuid], state]
+    } else {
+      const newUUID = state.uuidFunction(state.counter)
+      state.cache[uuid] = newUUID
+      return [newUUID, { ...state, counter: state.counter + 1 }]
+    }
+  }
+  if (typeof uuid === 'string') {
+    return [uuid, state]
+  }
+  return [state.uuidFunction(state.counter), { ...state, counter: state.counter + 1 }]
+}
+
 const buildSpreadsheet = (
+  oldState: UUIDState,
   namespaceId: string,
-  oldCounter: number,
   formulaContext: ContextInterface,
   { spreadsheetId: oldSpreadsheetId, name, rows, columns }: SpreadsheetInput<number, number>
-): [SpreadsheetType, number] => {
-  let counter = oldCounter
-  const spreadsheetId = oldSpreadsheetId ?? uuids[counter++]
+): [SpreadsheetType, UUIDState] => {
+  let uuidState = oldState
+  const [spreadsheetId, state] = getUuid(oldSpreadsheetId, uuidState)
+  uuidState = state
   if (columns.length === 0) {
     return [
       new SpreadsheetClass({
@@ -58,21 +89,23 @@ const buildSpreadsheet = (
         rows: [],
         getCell: ({ rowId, columnId }) => null!
       }),
-      counter
+      uuidState
     ]
   }
   const rowSize = ([...columns][0] as ColumnInput<number>).cells.length
-  const columnResult: Column[] = columns.map(
-    ({ columnId, name, displayIndex }: ColumnInput<number>, index: number) => ({
+  const columnResult: Column[] = columns.map(({ columnId, name, displayIndex }: ColumnInput<number>, index: number) => {
+    const [newColumnId, state] = getUuid(columnId, uuidState)
+    uuidState = state
+    return {
       spreadsheetId,
-      columnId: columnId ?? uuids[counter++],
+      columnId: newColumnId,
       name,
       title: name,
       displayIndex: displayIndex ?? columnDisplayIndex(index),
       index,
       sort: index
-    })
-  )
+    }
+  })
 
   if (rowSize === 0) {
     return [
@@ -86,30 +119,34 @@ const buildSpreadsheet = (
         rows: [],
         getCell: ({ rowId, columnId }) => null!
       }),
-      counter
+      uuidState
     ]
   }
 
   const rowResult: Row[] = (rows ?? [...Array(rowSize)].map((): RowInput => ({}))).map(
-    ({ rowId }: RowInput, index: number) => ({
-      spreadsheetId,
-      rowId: rowId ?? uuids[counter++],
-      rowIndex: index
-    })
+    ({ rowId }: RowInput, index: number) => {
+      const [newRowId, state] = getUuid(rowId, uuidState)
+      uuidState = state
+      return { spreadsheetId, rowId: newRowId, rowIndex: index }
+    }
   )
 
   const cells: Cell[] = columns.flatMap(({ cells }: ColumnInput<number>, columnIndex: number) => {
-    return cells.map((cell: CellInput, rowIndex: number) => ({
-      namespaceId,
-      rowId: rowResult[rowIndex].rowId,
-      spreadsheetId,
-      rowIndex,
-      columnIndex,
-      columnId: columnResult[columnIndex].columnId,
-      value: cell.value,
-      displayData: undefined,
-      cellId: cell.cellId ?? uuids[counter++]
-    }))
+    return cells.map((cell: CellInput, rowIndex: number) => {
+      const [cellId, state] = getUuid(cell.cellId, uuidState)
+      uuidState = state
+      return {
+        namespaceId,
+        rowId: rowResult[rowIndex].rowId,
+        spreadsheetId,
+        rowIndex,
+        columnIndex,
+        columnId: columnResult[columnIndex].columnId,
+        value: cell.value,
+        displayData: undefined,
+        cellId
+      }
+    })
   })
 
   return [
@@ -123,29 +160,31 @@ const buildSpreadsheet = (
       rows: rowResult,
       getCell: ({ rowId, columnId }) => cells.find(cell => cell.rowId === rowId && cell.columnId === columnId)!
     }),
-    counter
+    uuidState
   ]
 }
 
 const defaultInitializeOptions: FormulaContextArgs = { domain: 'test' }
 
-export const makeContext = async ({ pages, initializeOptions }: MakeContextOptions): Promise<MakeContextResult> => {
-  const formulaContext = new FormulaContext(initializeOptions ?? defaultInitializeOptions)
+export const makeContext = async (options: MakeContextOptions): Promise<MakeContextResult> => {
+  let uuidState: UUIDState = { uuidFunction: options.uuidFunction ?? DEFAULT_UUID_FUNCTION, counter: 0, cache: {} }
+  const formulaContext = new FormulaContext(options.initializeOptions ?? defaultInitializeOptions)
   const interpretContext: InterpretContext = {
     ctx: { bar: { type: 'string', result: 'bar123' } },
     arguments: [{ type: 'string', result: 'Foo1234123' }]
   }
 
-  let counter = 0
   let firstNamespaceId: string | undefined
   const checkVariables: Array<{ namespaceId: string; variableId: string; name: string; result: any }> = []
-  for (const { pageId, pageName, variables, spreadsheets } of [...pages]) {
-    const namespaceId = pageId ?? uuids[counter++]
+  for (const { pageId, pageName, variables, spreadsheets } of [...options.pages]) {
+    const [namespaceId, state] = getUuid(pageId, uuidState)
+    uuidState = state
     if (!firstNamespaceId) firstNamespaceId = namespaceId
     await dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: pageName, deleted: false })
 
     for (const { variableName, result, variableId, definition, position, insertOptions } of variables ?? []) {
-      const finalVariableId = variableId ?? uuids[counter++]
+      const [finalVariableId, state] = getUuid(variableId, uuidState)
+      uuidState = state
       await quickInsert(
         {
           formulaContext,
@@ -167,13 +206,12 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
     }
 
     for (const spreadsheetInput of spreadsheets ?? []) {
-      const [spreadsheet, newCounter] = buildSpreadsheet(namespaceId, counter, formulaContext, spreadsheetInput)
-      counter = newCounter
+      const [spreadsheet, state] = buildSpreadsheet(uuidState, namespaceId, formulaContext, spreadsheetInput)
+      uuidState = state
       await formulaContext.setSpreadsheet(spreadsheet)
     }
   }
 
-  console.log(checkVariables)
   for (const { namespaceId, variableId, name, result } of checkVariables) {
     const v = formulaContext.findVariableById(namespaceId, variableId)!
     if (!v) throw new Error(`variable ${name} not found`)
@@ -184,16 +222,22 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
     if (v2.t.meta.variableId !== v.t.meta.variableId) throw new Error(`variable ${name} id mismatch`)
   }
 
-  const meta: MakeContextResult['buildMeta'] = args => ({
-    variableId: args.variableId ?? uuid(),
-    input: args.definition!,
-    namespaceId: args.namespaceId ?? firstNamespaceId ?? uuid(),
-    name: args.name ?? 'testInput',
-    position: 0,
-    richType: args.richType ?? { type: 'normal' }
-  })
+  const meta: MakeContextResult['buildMeta'] = args => {
+    return {
+      variableId: fetchUUIDSymbol(args.variableId, uuidState) ?? uuid(),
+      input: args.definition!,
+      namespaceId: fetchUUIDSymbol(args.namespaceId, uuidState) ?? firstNamespaceId ?? uuid(),
+      name: args.name ?? 'testInput',
+      position: 0,
+      richType: args.richType ?? { type: 'normal' }
+    }
+  }
 
-  return { formulaContext, interpretContext, buildMeta: meta }
+  const fetchUUID: MakeContextResult['fetchUUID'] = uuid => {
+    return fetchUUIDSymbol(uuid, uuidState)!
+  }
+
+  return { formulaContext, interpretContext, buildMeta: meta, fetchUUID }
 }
 
 export const trackTodo = (it: jest.It, testCases: Array<BaseTestCase<{}>>): void => {

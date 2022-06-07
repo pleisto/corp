@@ -1,7 +1,7 @@
 import { TestCaseInterface } from '../testType'
 
-const parentPageNamespaceId = '77777777-7777-4444-bbbb-111111111111'
-const subPageNamespaceId = '88888888-8888-4444-bbbb-111111111111'
+const parentPageNamespaceId = Symbol('parentPageNamespaceId')
+const subPageNamespaceId = Symbol('subPageNamespaceId')
 
 export const DependencyTestCase: TestCaseInterface = {
   name: 'dependency',
@@ -145,7 +145,6 @@ export const DependencyTestCase: TestCaseInterface = {
         name: 'num0',
         label: 'rename: num0 -> var0',
         namespaceId: parentPageNamespaceId,
-        todo: 'fix me',
         testCases: [
           {
             action: 'updateDefinition',
@@ -156,7 +155,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num4', namespaceId: parentPageNamespaceId, match: 10 },
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 20 },
               { name: 'num0', namespaceId: subPageNamespaceId, match: 10 },
-              { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
+              { name: 'var2', namespaceId: parentPageNamespaceId, match: 10 },
               { name: 'var1', namespaceId: subPageNamespaceId, match: 10 }
             ]
           },
@@ -169,7 +168,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num4', namespaceId: parentPageNamespaceId, match: 100 },
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 200 },
               { name: 'num0', namespaceId: subPageNamespaceId, match: 100 },
-              { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
+              { name: 'var2', namespaceId: parentPageNamespaceId, match: 100 },
               { name: 'var1', namespaceId: subPageNamespaceId, match: 100 }
             ]
           },
@@ -182,7 +181,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num4', namespaceId: parentPageNamespaceId, match: 'Unknown function num0' },
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 'Unknown function num0' },
               { name: 'num0', namespaceId: subPageNamespaceId, match: '"num0" not found' },
-              { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
+              { name: 'var2', namespaceId: parentPageNamespaceId, match: '"num0" not found' },
               { name: 'var1', namespaceId: subPageNamespaceId, match: '"num0" not found' }
             ]
           }

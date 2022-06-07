@@ -1,19 +1,20 @@
 import { makeContext } from '../tests/testHelper'
 import { buildTestCases, trackTodo } from '../tests'
 import { VariableValue } from '../types'
+import { uuid } from '@brickdoc/active-support'
 
 const [testCases] = buildTestCases('dependency')
 
 describe('dependency', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeEach(async () => {
-    ctx = await makeContext(testCases.options)
+    ctx = await makeContext({ ...testCases.options, uuidFunction: index => uuid() })
   })
 
   trackTodo(it, testCases.dependencyTestCases)
 
   it.each(testCases.dependencyTestCases)('$jestTitle', async args => {
-    const v = ctx.formulaContext.findVariableByName(args.namespaceId, args.name)!
+    const v = ctx.formulaContext.findVariableByName(ctx.fetchUUID(args.namespaceId), args.name)!
     expect(v).not.toBeUndefined()
 
     for (const { formula, result, expected, action } of args.testCases) {
@@ -26,7 +27,7 @@ describe('dependency', () => {
       expect([formula, (v.t.task.variableValue as VariableValue).result.result]).toStrictEqual([formula, result])
 
       for (const { namespaceId, name, match, matchType } of expected) {
-        const v2 = ctx.formulaContext.findVariableByName(namespaceId, name)!
+        const v2 = ctx.formulaContext.findVariableByName(ctx.fetchUUID(namespaceId), name)!
         expect(v2).not.toBeUndefined()
 
         const matchData = [formula, { namespaceId, name }, (v2.t.task.variableValue as VariableValue).result.result]
