@@ -7,16 +7,12 @@ const [testCases] = buildTestCases('dependency')
 describe('dependency', () => {
   let ctx: Awaited<ReturnType<typeof makeContext>>
   beforeEach(async () => {
-    jest.useRealTimers()
     ctx = await makeContext(testCases.options)
-    jest.clearAllTimers()
   })
 
   trackTodo(it, testCases.dependencyTestCases)
 
   it.each(testCases.dependencyTestCases)('$jestTitle', async args => {
-    jest.useRealTimers()
-
     const v = ctx.formulaContext.findVariableByName(args.namespaceId, args.name)!
     expect(v).not.toBeUndefined()
 
@@ -52,7 +48,5 @@ describe('dependency', () => {
         }
       }
     }
-
-    jest.clearAllTimers()
   })
 })

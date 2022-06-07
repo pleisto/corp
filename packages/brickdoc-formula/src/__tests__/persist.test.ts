@@ -168,6 +168,8 @@ const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   }
 })
 
+void formulaContext.setSpreadsheet(spreadsheet)
+
 const meta: VariableMetadata = {
   namespaceId,
   variableId,
@@ -245,8 +247,6 @@ const testCases: {
 }
 
 describe('persist TODO', () => {
-  formulaContext.setSpreadsheet(spreadsheet)
-
   const input = Object.entries(testCases).flatMap(([k, { cases, serializesSameError, stringifyError }]) => {
     return cases.map((c, index) => ({ index, type: k, serializesSameError, stringifyError, testCase: c }))
   })

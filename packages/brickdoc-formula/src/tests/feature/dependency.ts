@@ -86,7 +86,6 @@ export const DependencyTestCase: TestCaseInterface = {
       {
         name: 'num1',
         namespaceId: parentPageNamespaceId,
-        todo: 'fix me',
         testCases: [
           {
             action: 'updateDefinition',
@@ -106,8 +105,8 @@ export const DependencyTestCase: TestCaseInterface = {
             expected: [
               { name: 'num2', namespaceId: parentPageNamespaceId, match: 0 },
               { name: 'num3', namespaceId: parentPageNamespaceId, match: 0 },
-              { name: 'num4', namespaceId: parentPageNamespaceId, match: 'Expected number,Cell but got string' },
-              { name: 'num5', namespaceId: parentPageNamespaceId, match: 'Expected number,Cell but got string' }
+              { name: 'num4', namespaceId: parentPageNamespaceId, match: 0 },
+              { name: 'num5', namespaceId: parentPageNamespaceId, match: 0 }
             ]
           }
         ]
@@ -182,7 +181,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 'Unknown function num0' },
               { name: 'num0', namespaceId: subPageNamespaceId, match: '"num0" not found' },
               { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
-              { name: 'var1', namespaceId: subPageNamespaceId, match: '"var0" not found' }
+              { name: 'var1', namespaceId: subPageNamespaceId, match: '"num0" not found' }
             ]
           }
         ]

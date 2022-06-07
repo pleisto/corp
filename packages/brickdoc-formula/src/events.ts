@@ -21,10 +21,6 @@ export const FormulaUpdatedViaId = event<FormulaEventPayload<VariableInterface>,
   }
 )
 
-export const FormulaInnerRefresh = event<FormulaEventPayload<null>>()('FormulaInnerRefresh', ({ namespaceId, id }) => {
-  return { id: `${namespaceId},${id}` }
-})
-
 export const FormulaTaskStarted = event<{ task: VariableTask; namespaceId: string; variableId: string }>()(
   'FormulaTaskStarted',
   v => {

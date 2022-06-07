@@ -164,7 +164,7 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
     for (const spreadsheetInput of spreadsheets ?? []) {
       const [spreadsheet, newCounter] = buildSpreadsheet(namespaceId, counter, formulaContext, spreadsheetInput)
       counter = newCounter
-      formulaContext.setSpreadsheet(spreadsheet)
+      await formulaContext.setSpreadsheet(spreadsheet)
     }
   }
 

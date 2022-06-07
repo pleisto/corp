@@ -106,7 +106,7 @@ export class SpreadsheetClass implements SpreadsheetType {
       SpreadsheetUpdateNameViaId,
       async e => {
         this._name = e.payload.meta
-        this._formulaContext.setName(this.nameDependency())
+        await this._formulaContext.setName(this.nameDependency())
       },
       { eventId: `${namespaceId},${spreadsheetId}`, subscribeId: `Spreadsheet#${spreadsheetId}` }
     )
@@ -192,8 +192,7 @@ export class SpreadsheetClass implements SpreadsheetType {
     )
   }
 
-  public cleanup(hard: boolean): void {
-    if (hard) this._formulaContext.removeName(this.spreadsheetId)
+  public cleanup(): void {
     this.eventListeners.forEach(listener => {
       listener.unsubscribe()
     })

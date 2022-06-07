@@ -484,16 +484,15 @@ export interface ContextInterface {
   completions: (namespaceId: NamespaceId, variableId: VariableId | undefined) => Completion[]
   findViewRender: (viewType: ViewType) => ViewRender | undefined
   findBlockById: (blockId: NamespaceId) => BlockType | undefined
-  setBlock: (blockId: NamespaceId, name: string) => void
-  removeBlock: (blockId: NamespaceId) => void
-  setName: (nameDependency: NameDependencyWithKind) => void
-  removeName: (id: NamespaceId) => void
+  removeBlock: (blockId: NamespaceId) => Promise<void>
+  setName: (nameDependency: NameDependencyWithKind) => Promise<void>
+  removeName: (id: NamespaceId) => Promise<void>
   findNames: (namespaceId: NamespaceId, name: string) => NameDependencyWithKind[]
   findSpreadsheet: (key: FindKey) => SpreadsheetType | undefined
   findColumn: (spreadsheetId: SpreadsheetId, key: FindKey) => ColumnType | undefined
   findRow: (spreadsheetId: SpreadsheetId, key: FindKey) => RowType | undefined
-  setSpreadsheet: (spreadsheet: SpreadsheetType) => void
-  removeSpreadsheet: (spreadsheetId: SpreadsheetId) => void
+  setSpreadsheet: (spreadsheet: SpreadsheetType) => Promise<void>
+  removeSpreadsheet: (spreadsheetId: SpreadsheetId) => Promise<void>
   listVariables: (namespaceId: NamespaceId) => VariableInterface[]
   findVariableById: (namespaceId: NamespaceId, variableId: VariableId) => VariableInterface | undefined
   findVariableByName: (namespaceId: NamespaceId, name: string) => VariableInterface | undefined
@@ -763,6 +762,7 @@ export interface EventScope {
 
 export interface FormulaEventPayload<T> {
   readonly key: string
+  readonly level?: number
   readonly scope: EventScope | null
   readonly id: string
   readonly namespaceId: string
@@ -846,12 +846,13 @@ export interface VariableInterface {
   t: VariableData
   isReadyT: boolean
   isNew: boolean
+  id: string
   currentUUID: string
   formulaContext: ContextInterface
 
   buildFormula: (input?: FormulaDefinition) => Formula
   cleanup: () => void
-  trackDependency: VoidFunction
+  trackDependency: () => Promise<void>
   trackDirty: VoidFunction
   save: () => Promise<void>
   nameDependency: () => NameDependencyWithKind
