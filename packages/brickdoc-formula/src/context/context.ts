@@ -430,10 +430,7 @@ export class FormulaContext implements ContextInterface {
     // 2. replace variable object
     this.variables[variableKey(namespaceId, variableId)] = variable
 
-    // 3. track dependencies
-    await variable.trackDependency()
-
-    // 4. update name counter
+    // 3. update name counter
     const match = variable.t.meta.name.match(matchRegex)
     if (match) {
       const [, defaultName, count] = match
@@ -443,6 +440,9 @@ export class FormulaContext implements ContextInterface {
         Number(count)
       )
     }
+
+    // 4. track dependencies
+    await variable.trackDependency()
 
     // 5. Persist
     await variable.onUpdate({})

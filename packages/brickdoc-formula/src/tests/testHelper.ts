@@ -138,12 +138,14 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
 
   let counter = 0
   let firstNamespaceId: string | undefined
+  const checkVariables: Array<{ namespaceId: string; variableId: string; name: string; result: any }> = []
   for (const { pageId, pageName, variables, spreadsheets } of [...pages]) {
     const namespaceId = pageId ?? uuids[counter++]
     if (!firstNamespaceId) firstNamespaceId = namespaceId
     await dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: pageName, deleted: false })
 
-    for (const { variableName, variableId, definition, position, insertOptions } of variables ?? []) {
+    for (const { variableName, result, variableId, definition, position, insertOptions } of variables ?? []) {
+      const finalVariableId = variableId ?? uuids[counter++]
       await quickInsert(
         {
           formulaContext,
@@ -151,7 +153,7 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
           meta: {
             namespaceId,
             name: variableName,
-            variableId: variableId ?? uuids[counter++],
+            variableId: finalVariableId,
             input: definition,
             position: position ?? 0,
             richType: { type: 'normal' }
@@ -159,6 +161,9 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
         },
         insertOptions ?? {}
       )
+      if (result !== undefined) {
+        checkVariables.push({ namespaceId, variableId: finalVariableId, name: variableName, result })
+      }
     }
 
     for (const spreadsheetInput of spreadsheets ?? []) {
@@ -166,6 +171,17 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
       counter = newCounter
       await formulaContext.setSpreadsheet(spreadsheet)
     }
+  }
+
+  console.log(checkVariables)
+  for (const { namespaceId, variableId, name, result } of checkVariables) {
+    const v = formulaContext.findVariableById(namespaceId, variableId)!
+    if (!v) throw new Error(`variable ${name} not found`)
+    const value = (await v!.t.task.variableValue).result.result
+    if (value !== result) throw new Error(`variable ${name} value mismatch: "${value}" !== "${result}"`)
+    const v2 = formulaContext.findVariableByName(namespaceId, name)
+    if (!v2) throw new Error(`variable ${name} not found`)
+    if (v2.t.meta.variableId !== v.t.meta.variableId) throw new Error(`variable ${name} id mismatch`)
   }
 
   const meta: MakeContextResult['buildMeta'] = args => ({

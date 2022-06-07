@@ -20,7 +20,8 @@ export const DependencyTestCase: TestCaseInterface = {
           {
             variableName: 'var2',
             definition: '=DependencySubPage.var1',
-            insertOptions: { ignoreSyntaxError: true, ignoreParseError: true }
+            insertOptions: { ignoreSyntaxError: true, ignoreParseError: true },
+            result: '"var0" not found'
           }
         ]
       },
@@ -28,11 +29,12 @@ export const DependencyTestCase: TestCaseInterface = {
         pageName: 'DependencySubPage',
         pageId: subPageNamespaceId,
         variables: [
-          { variableName: 'num0', definition: '=DependencyParentPage.num0' },
+          { variableName: 'num0', definition: '=DependencyParentPage.num0', result: 0 },
           {
             variableName: 'var1',
             definition: '=DependencyParentPage.var0',
-            insertOptions: { ignoreSyntaxError: true, ignoreParseError: true }
+            insertOptions: { ignoreSyntaxError: true, ignoreParseError: true },
+            result: '"var0" not found'
           }
         ]
       }
