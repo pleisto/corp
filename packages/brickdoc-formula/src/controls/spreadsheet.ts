@@ -104,7 +104,7 @@ export class SpreadsheetClass implements SpreadsheetType {
 
     const nameSubscription = BrickdocEventBus.subscribe(
       SpreadsheetUpdateNameViaId,
-      e => {
+      async e => {
         this._name = e.payload.meta
         this._formulaContext.setName(this.nameDependency())
       },

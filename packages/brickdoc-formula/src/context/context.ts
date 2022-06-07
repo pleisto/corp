@@ -182,7 +182,7 @@ export class FormulaContext implements ContextInterface {
 
     const blockNameSubscription = BrickdocEventBus.subscribe(
       FormulaBlockNameChangedOrDeleted,
-      e => {
+      async e => {
         if (!e.payload.meta.deleted) this.setBlock(e.payload.id, e.payload.meta.name)
       },
       { subscribeId: `Domain#${this.domain}` }
@@ -192,8 +192,8 @@ export class FormulaContext implements ContextInterface {
 
     const tickSubscription = BrickdocEventBus.subscribe(
       FormulaContextTickTrigger,
-      e => {
-        void this.tick(e.payload.state)
+      async e => {
+        await this.tick(e.payload.state)
       },
       {
         eventId: this.tickKey,
@@ -473,7 +473,8 @@ export class FormulaContext implements ContextInterface {
     await this.commitDirty()
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
     const newState = state
-    BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
+    const result = BrickdocEventBus.dispatch(FormulaContextTickTrigger({ domain: this.domain, state: newState }))
+    await Promise.all(result)
   }
 
   private async commitDirty(): Promise<void> {

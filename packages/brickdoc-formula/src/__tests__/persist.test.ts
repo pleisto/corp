@@ -153,7 +153,7 @@ const cells: Cell[] = [
 ]
 
 const formulaContext = new FormulaContext({ domain: 'test' })
-dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: 'Page1', deleted: false })
+void dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: 'Page1', deleted: false })
 
 const spreadsheet: SpreadsheetType = new SpreadsheetClass({
   name: 'MySpreadsheet',

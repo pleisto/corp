@@ -141,7 +141,7 @@ export const makeContext = async ({ pages, initializeOptions }: MakeContextOptio
   for (const { pageId, pageName, variables, spreadsheets } of [...pages]) {
     const namespaceId = pageId ?? uuids[counter++]
     if (!firstNamespaceId) firstNamespaceId = namespaceId
-    dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: pageName, deleted: false })
+    await dispatchFormulaBlockNameChangeOrDelete({ id: namespaceId, name: pageName, deleted: false })
 
     for (const { variableName, variableId, definition, position, insertOptions } of variables ?? []) {
       await quickInsert(

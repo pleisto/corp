@@ -42,7 +42,7 @@ export class BlockClass implements BlockType {
 
     const blockNameSubscription = BrickdocEventBus.subscribe(
       FormulaBlockNameChangedOrDeleted,
-      e => {
+      async e => {
         if (!e.payload.meta.deleted) {
           this._name = e.payload.meta.name || 'Untitled'
           this._formulaContext.setName(this.nameDependency())
@@ -91,7 +91,7 @@ export class BlockClass implements BlockType {
       listener.unsubscribe()
     })
     this.eventListeners = []
-    dispatchFormulaBlockNameChangeOrDelete({ id: this.id, name: this._name, deleted: true })
+    void dispatchFormulaBlockNameChangeOrDelete({ id: this.id, name: this._name, deleted: true })
   }
 
   async handleInterpret(interpreter: FormulaInterpreter, name: string): Promise<AnyTypeResult> {

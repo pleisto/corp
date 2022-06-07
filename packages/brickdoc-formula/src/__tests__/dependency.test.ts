@@ -26,7 +26,6 @@ describe('dependency', () => {
       } else if (action === 'removeVariable') {
         await ctx.formulaContext.removeVariable(v.t.meta.namespaceId, v.t.meta.variableId)
       }
-      await new Promise(resolve => setTimeout(resolve, 50))
 
       expect([formula, (v.t.task.variableValue as VariableValue).result.result]).toStrictEqual([formula, result])
 
@@ -34,17 +33,17 @@ describe('dependency', () => {
         const v2 = ctx.formulaContext.findVariableByName(namespaceId, name)!
         expect(v2).not.toBeUndefined()
 
-        const matchData = [name, formula, namespaceId, (v2.t.task.variableValue as VariableValue).result.result]
+        const matchData = [formula, { namespaceId, name }, (v2.t.task.variableValue as VariableValue).result.result]
 
         switch (matchType) {
           case undefined:
           case 'toStrictEqual':
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(matchData).toStrictEqual([name, formula, namespaceId, match])
+            expect(matchData).toStrictEqual([formula, { namespaceId, name }, match])
             break
           case 'toMatchObject':
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(matchData).toMatchObject([name, formula, namespaceId, match])
+            expect(matchData).toMatchObject([formula, { namespaceId, name }, match])
             break
           case 'toMatchSnapshot':
             // eslint-disable-next-line jest/no-conditional-expect

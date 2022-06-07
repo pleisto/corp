@@ -156,7 +156,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 20 },
               { name: 'num0', namespaceId: subPageNamespaceId, match: 10 },
               { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
-              { name: 'var1', namespaceId: subPageNamespaceId, match: '"var0" not found' }
+              { name: 'var1', namespaceId: subPageNamespaceId, match: 10 }
             ]
           },
           {
@@ -169,7 +169,7 @@ export const DependencyTestCase: TestCaseInterface = {
               { name: 'num5', namespaceId: parentPageNamespaceId, match: 200 },
               { name: 'num0', namespaceId: subPageNamespaceId, match: 100 },
               { name: 'var2', namespaceId: parentPageNamespaceId, match: '"var1" not found' },
-              { name: 'var1', namespaceId: subPageNamespaceId, match: '"var0" not found' }
+              { name: 'var1', namespaceId: subPageNamespaceId, match: 100 }
             ]
           },
           {

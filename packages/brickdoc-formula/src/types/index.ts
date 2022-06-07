@@ -781,7 +781,7 @@ export interface EventDependency<T extends FormulaEventPayload<any>> {
     | 'NameChange'
     | 'NameRemove'
     | 'BlockRenameOrDelete'
-  readonly event: EventType<T>
+  readonly event: EventType<T, Promise<void>>
   readonly eventId: string
   readonly scope: EventScope
   readonly key: string

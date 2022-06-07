@@ -113,8 +113,8 @@ export class VariableClass implements VariableInterface {
 
     const tickSubscription = BrickdocEventBus.subscribe(
       FormulaTickViaId,
-      e => {
-        void this.tick(e.payload.uuid)
+      async e => {
+        await this.tick(e.payload.uuid)
       },
       {
         eventId: `${t.meta.namespaceId},${t.meta.variableId}`,
@@ -158,7 +158,7 @@ export class VariableClass implements VariableInterface {
   }
 
   public async onUpdate({ skipPersist }: { skipPersist?: boolean }): Promise<void> {
-    BrickdocEventBus.dispatch(
+    const result = BrickdocEventBus.dispatch(
       FormulaUpdatedViaId({
         meta: this,
         scope: null,
@@ -167,6 +167,7 @@ export class VariableClass implements VariableInterface {
         id: this.t.meta.variableId
       })
     )
+    await Promise.all(result)
     if (!skipPersist) {
       this.trackDirty()
     }
@@ -193,9 +194,10 @@ export class VariableClass implements VariableInterface {
 
     await this.onUpdate({ skipPersist: true })
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
-    BrickdocEventBus.dispatch(
+    const result = BrickdocEventBus.dispatch(
       FormulaTickViaId({ uuid, variableId: this.t.meta.variableId, namespaceId: this.t.meta.namespaceId })
     )
+    await Promise.all(result)
   }
 
   private startTask({ task }: { task: VariableTask }): void {
@@ -321,7 +323,7 @@ export class VariableClass implements VariableInterface {
       blockId: this.t.meta.namespaceId,
       definition: input?.definition ?? this.t.variableParseResult.definition,
       id: this.t.meta.variableId,
-      name: this.t.meta.name,
+      name: input?.name ?? this.t.meta.name,
       version: this.t.variableParseResult.version,
       cacheValue: dumpValue(fetchResult(this.t), this.t)
     }
@@ -489,7 +491,7 @@ export class VariableClass implements VariableInterface {
     this.eventDependencies.forEach(dependency => {
       const eventSubscription = BrickdocEventBus.subscribe(
         dependency.event,
-        e => {
+        async e => {
           // console.log('event', dependency.event.eventType, this.formulaContext, this, this.currentUUID, {
           //   type: e.type,
           //   payload: e.payload,
@@ -498,7 +500,7 @@ export class VariableClass implements VariableInterface {
           if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           if (dependency.skipIf?.(this, e.payload)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
-          void this.maybeReparseAndPersist(`${dependency.event.eventType}_${dependency.eventId}`, e.payload.key, {
+          await this.maybeReparseAndPersist(`${dependency.event.eventType}_${dependency.eventId}`, e.payload.key, {
             definition
           })
         },
