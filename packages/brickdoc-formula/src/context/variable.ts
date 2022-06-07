@@ -150,14 +150,14 @@ export class VariableClass implements VariableInterface {
     const innerRefreshEventSubscription = BrickdocEventBus.subscribe(
       FormulaInnerRefresh,
       e => {
-        this.onUpdate({})
+        void this.onUpdate({})
       },
       { eventId: `${t.meta.namespaceId},${t.meta.variableId}`, subscribeId: `InnerRefresh#${t.meta.variableId}` }
     )
     this.builtinEventListeners.push(innerRefreshEventSubscription)
   }
 
-  public onUpdate({ skipPersist }: { skipPersist?: boolean }): void {
+  public async onUpdate({ skipPersist }: { skipPersist?: boolean }): Promise<void> {
     BrickdocEventBus.dispatch(
       FormulaUpdatedViaId({
         meta: this,
@@ -191,7 +191,7 @@ export class VariableClass implements VariableInterface {
     const async = this.t.task.async
     if (!async) return
 
-    this.onUpdate({ skipPersist: true })
+    await this.onUpdate({ skipPersist: true })
     await new Promise(resolve => setTimeout(resolve, this.tickTimeout))
     BrickdocEventBus.dispatch(
       FormulaTickViaId({ uuid, variableId: this.t.meta.variableId, namespaceId: this.t.meta.namespaceId })
@@ -212,11 +212,10 @@ export class VariableClass implements VariableInterface {
     this.t.task = task
 
     this.subscribeDependencies()
-    this.onUpdate({})
+    void this.onUpdate({})
   }
 
-  public cleanup(hard: boolean): void {
-    if (hard) this.formulaContext.removeName(this.t.meta.variableId)
+  public cleanup(): void {
     this.unsubscripeEvents()
 
     this.t.variableParseResult.variableDependencies.forEach(dependency => {
@@ -238,8 +237,6 @@ export class VariableClass implements VariableInterface {
         : []
       this.formulaContext.reverseFunctionDependencies[dependencyKey] = [...functionDependencies]
     })
-
-    if (hard) this.onUpdate({})
   }
 
   public trackDependency(): void {
@@ -347,13 +344,13 @@ export class VariableClass implements VariableInterface {
     this.currentUUID = sourceUuid
 
     const formula = this.buildFormula(input)
-    this.cleanup(false)
+    this.cleanup()
     await castVariable(this, this.formulaContext, formula)
 
     this.trackDependency()
     this.currentUUID = uuid()
     if (!this.t.task.async) {
-      this.onUpdate({})
+      await this.onUpdate({})
     }
   }
 

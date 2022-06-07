@@ -850,7 +850,7 @@ export interface VariableInterface {
   formulaContext: ContextInterface
 
   buildFormula: (input?: FormulaDefinition) => Formula
-  cleanup: (hard: boolean) => void
+  cleanup: () => void
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: () => Promise<void>
@@ -858,7 +858,7 @@ export interface VariableInterface {
   namespaceName: (pageId: NamespaceId) => string
   updateDefinition: (input: FormulaDefinition) => Promise<void>
   meta: () => VariableMetadata
-  onUpdate: ({ skipPersist }: { skipPersist?: boolean }) => void
+  onUpdate: ({ skipPersist }: { skipPersist?: boolean }) => Promise<void>
 }
 
 export interface BackendActions {
