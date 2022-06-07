@@ -5,7 +5,7 @@ import { uuid } from '@brickdoc/active-support'
 
 import {
   BlockNew,
-  BlockState,
+  DocumentHistory,
   Statetype,
   useBlockNewQuery,
   useBlockCommitMutation,
@@ -43,7 +43,7 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
     onSubscriptionData: ({ subscriptionData: { data } }) => {
       if (data) {
         const {
-          document: { operatorId, blocks, states }
+          document: { operatorId, blocks, states, histories }
         } = data
         if (blocks && states) {
           devLog('received update', states, blocks)
@@ -53,7 +53,7 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
           BrickdocEventBus.dispatch(
             docHistoryReceived({
               docId: blockId,
-              histories: Object.fromEntries((blockStates as BlockState[]).map(h => [h.id, h])),
+              histories: Object.fromEntries((histories as DocumentHistory[]).map(h => [h.id, h])),
               users: {}
             })
           )

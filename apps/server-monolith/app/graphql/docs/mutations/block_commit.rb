@@ -49,6 +49,7 @@ module Docs
             operator_id: args[:operator_id],
             blocks: [block],
             states: [state_model],
+            histories: [state_model.history],
           })
         else
           diff_states = block.states_sorted

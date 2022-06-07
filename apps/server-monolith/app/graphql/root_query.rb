@@ -10,8 +10,8 @@ class RootQuery < BrickGraphQL::BaseObject
   field :block_snapshots, resolver: Docs::Queries::BlockSnapshots
   field :children_blocks, resolver: Docs::Queries::ChildrenBlocks
   field :conversation_comments, resolver: Docs::Queries::ConversationComments
-  field :doc_history, resolver: Docs::Queries::DocHistory
   field :document, resolver: Docs::Queries::Document
+  field :document_histories, resolver: Docs::Queries::DocumentHistories
   field :domain_available, resolver: System::Queries::DomainAvailable
   field :email_available, resolver: System::Queries::EmailAvailable
   field :federated_identity_session, resolver: Accounts::Queries::FederatedIdentitySession

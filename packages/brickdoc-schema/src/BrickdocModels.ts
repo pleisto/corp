@@ -778,6 +778,7 @@ export type Document = {
 export type DocumentPayload = {
   __typename?: 'DocumentPayload'
   blocks?: Maybe<Array<BlockNew>>
+  histories?: Maybe<Array<DocumentHistory>>
   operatorId?: Maybe<Scalars['UUID']>
   states?: Maybe<Array<BlockState>>
 }
@@ -1163,8 +1164,8 @@ export type RootQuery = {
   childrenBlocks?: Maybe<Array<Block>>
   conversationComments?: Maybe<Array<Conversation>>
   currentSpaceDomain: Scalars['String']
-  docHistory?: Maybe<DocHistory>
   document?: Maybe<Document>
+  documentHistories?: Maybe<DocumentHistories>
   /**
    * Check domain available.
    * Required `context[:entrypoints]` is `[:internal]`.
@@ -1249,12 +1250,12 @@ export type RootQueryConversationCommentsArgs = {
   pageIds: Array<Scalars['UUID']>
 }
 
-export type RootQueryDocHistoryArgs = {
-  id: Scalars['String']
-}
-
 export type RootQueryDocumentArgs = {
   docId: Scalars['String']
+}
+
+export type RootQueryDocumentHistoriesArgs = {
+  id: Scalars['String']
 }
 
 export type RootQueryDomainAvailableArgs = {
@@ -1761,8 +1762,6 @@ export type BlockState = {
   state?: Maybe<Scalars['String']>
   /** State Type */
   stateType?: Maybe<Statetype>
-  /** Username */
-  username: Scalars['String']
 }
 
 /** Brickdoc Global Configuration */
@@ -1778,12 +1777,22 @@ export type Config = {
   userAgreementLink: Scalars['HttpUrl']
 }
 
-export type DocHistory = {
-  __typename?: 'docHistory'
+export type DocumentHistories = {
+  __typename?: 'documentHistories'
   /** History States */
-  histories?: Maybe<Array<BlockState>>
+  histories?: Maybe<Array<DocumentHistory>>
   /** History Users */
   users?: Maybe<Array<ThinUser>>
+}
+
+export type DocumentHistory = {
+  __typename?: 'documentHistory'
+  /** Created at */
+  createdAt: Scalars['ISO8601DateTime']
+  /** object unique id */
+  id: Scalars['UUID']
+  /** Username */
+  username: Scalars['String']
 }
 
 /** Accounts Federated Identity Provide Configuration */

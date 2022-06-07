@@ -737,7 +737,8 @@ module Docs
 
     def states
       if cur_history_id
-        base_state = Docs::BlockState.find(cur_history_id)
+        history_model = Docs::DocumentHistory.find(cur_history_id)
+        base_state = Docs::BlockState.where(history_id: history_model.id, block_id: id).order('created_at DESC').first
         case base_state.state_type
         when 'full'
           [base_state]

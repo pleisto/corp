@@ -1,4 +1,4 @@
-import { BlockState, ThinUser } from '../../BrickdocModels'
+import { DocumentHistory, ThinUser } from '../../BrickdocModels'
 import { event } from '../event'
 
 export const loadDocHistory = event<string>()('loadDocHistory', (docId: string) => {
@@ -7,7 +7,7 @@ export const loadDocHistory = event<string>()('loadDocHistory', (docId: string) 
 
 export const docHistoryReceived = event<{
   docId: string
-  histories: { [key: string]: BlockState }
+  histories: { [key: string]: DocumentHistory }
   users: { [key: number]: ThinUser }
 }>()('docHistoryReceived', ({ docId }) => {
   return { id: docId }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { BlockState, ThinUser, loadDocHistory, docHistoryReceived, BrickdocEventBus } from '../'
+import { DocumentHistory, ThinUser, loadDocHistory, docHistoryReceived, BrickdocEventBus } from '../'
 
 interface docHistoryStore {
-  histories: { [key: string]: BlockState }
+  histories: { [key: string]: DocumentHistory }
   users: { [key: string]: ThinUser }
 }
 

@@ -781,6 +781,7 @@ export type Document = {
 export type DocumentPayload = {
   __typename?: 'DocumentPayload'
   blocks?: Maybe<Array<BlockNew>>
+  histories?: Maybe<Array<DocumentHistory>>
   operatorId?: Maybe<Scalars['UUID']>
   states?: Maybe<Array<BlockState>>
 }
@@ -1166,8 +1167,8 @@ export type RootQuery = {
   childrenBlocks?: Maybe<Array<Block>>
   conversationComments?: Maybe<Array<Conversation>>
   currentSpaceDomain: Scalars['String']
-  docHistory?: Maybe<DocHistory>
   document?: Maybe<Document>
+  documentHistories?: Maybe<DocumentHistories>
   /**
    * Check domain available.
    * Required `context[:entrypoints]` is `[:internal]`.
@@ -1252,12 +1253,12 @@ export type RootQueryConversationCommentsArgs = {
   pageIds: Array<Scalars['UUID']>
 }
 
-export type RootQueryDocHistoryArgs = {
-  id: Scalars['String']
-}
-
 export type RootQueryDocumentArgs = {
   docId: Scalars['String']
+}
+
+export type RootQueryDocumentHistoriesArgs = {
+  id: Scalars['String']
 }
 
 export type RootQueryDomainAvailableArgs = {
@@ -1764,8 +1765,6 @@ export type BlockState = {
   state?: Maybe<Scalars['String']>
   /** State Type */
   stateType?: Maybe<Statetype>
-  /** Username */
-  username: Scalars['String']
 }
 
 /** Brickdoc Global Configuration */
@@ -1781,12 +1780,22 @@ export type Config = {
   userAgreementLink: Scalars['HttpUrl']
 }
 
-export type DocHistory = {
-  __typename?: 'docHistory'
+export type DocumentHistories = {
+  __typename?: 'documentHistories'
   /** History States */
-  histories?: Maybe<Array<BlockState>>
+  histories?: Maybe<Array<DocumentHistory>>
   /** History Users */
   users?: Maybe<Array<ThinUser>>
+}
+
+export type DocumentHistory = {
+  __typename?: 'documentHistory'
+  /** Created at */
+  createdAt: Scalars['ISO8601DateTime']
+  /** object unique id */
+  id: Scalars['UUID']
+  /** Username */
+  username: Scalars['String']
 }
 
 /** Accounts Federated Identity Provide Configuration */
@@ -2831,23 +2840,16 @@ export type BlockNewQuery = {
   } | null
 }
 
-export type DocHistoryQueryVariables = Exact<{
+export type DocumentHistoriesQueryVariables = Exact<{
   id: Scalars['String']
 }>
 
-export type DocHistoryQuery = {
+export type DocumentHistoriesQuery = {
   __typename?: 'RootQuery'
-  docHistory?: {
-    __typename?: 'docHistory'
+  documentHistories?: {
+    __typename?: 'documentHistories'
     users?: Array<{ __typename?: 'ThinUser'; name: string }> | null
-    histories?: Array<{
-      __typename?: 'blockState'
-      id: string
-      state?: string | null
-      createdAt: any
-      blockId?: string | null
-      username: string
-    }> | null
+    histories?: Array<{ __typename?: 'documentHistory'; id: string; createdAt: any; username: string }> | null
   } | null
 }
 
@@ -2867,13 +2869,7 @@ export type BlockCommitMutation = {
       stateId?: string | null
       blockType?: string | null
     } | null
-    diffStates?: Array<{
-      __typename?: 'blockState'
-      id: string
-      state?: string | null
-      createdAt: any
-      username: string
-    }> | null
+    diffStates?: Array<{ __typename?: 'blockState'; id: string; state?: string | null; createdAt: any }> | null
   } | null
 }
 
@@ -2899,8 +2895,8 @@ export type DocumentSubscription = {
       state?: string | null
       createdAt: any
       blockId?: string | null
-      username: string
     }> | null
+    histories?: Array<{ __typename?: 'documentHistory'; id: string; createdAt: any; username: string }> | null
   }
 }
 
@@ -5593,17 +5589,15 @@ export function useBlockNewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<B
 export type BlockNewQueryHookResult = ReturnType<typeof useBlockNewQuery>
 export type BlockNewLazyQueryHookResult = ReturnType<typeof useBlockNewLazyQuery>
 export type BlockNewQueryResult = Apollo.QueryResult<BlockNewQuery, BlockNewQueryVariables>
-export const DocHistoryDocument = gql`
-  query DocHistory($id: String!) {
-    docHistory(id: $id) {
+export const DocumentHistoriesDocument = gql`
+  query documentHistories($id: String!) {
+    documentHistories(id: $id) {
       users {
         name
       }
       histories {
         id
-        state
         createdAt
-        blockId
         username
       }
     }
@@ -5611,34 +5605,39 @@ export const DocHistoryDocument = gql`
 `
 
 /**
- * __useDocHistoryQuery__
+ * __useDocumentHistoriesQuery__
  *
- * To run a query within a React component, call `useDocHistoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useDocHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useDocumentHistoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentHistoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useDocHistoryQuery({
+ * const { data, loading, error } = useDocumentHistoriesQuery({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useDocHistoryQuery(baseOptions: Apollo.QueryHookOptions<DocHistoryQuery, DocHistoryQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<DocHistoryQuery, DocHistoryQueryVariables>(DocHistoryDocument, options)
-}
-export function useDocHistoryLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<DocHistoryQuery, DocHistoryQueryVariables>
+export function useDocumentHistoriesQuery(
+  baseOptions: Apollo.QueryHookOptions<DocumentHistoriesQuery, DocumentHistoriesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<DocHistoryQuery, DocHistoryQueryVariables>(DocHistoryDocument, options)
+  return Apollo.useQuery<DocumentHistoriesQuery, DocumentHistoriesQueryVariables>(DocumentHistoriesDocument, options)
 }
-export type DocHistoryQueryHookResult = ReturnType<typeof useDocHistoryQuery>
-export type DocHistoryLazyQueryHookResult = ReturnType<typeof useDocHistoryLazyQuery>
-export type DocHistoryQueryResult = Apollo.QueryResult<DocHistoryQuery, DocHistoryQueryVariables>
+export function useDocumentHistoriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<DocumentHistoriesQuery, DocumentHistoriesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<DocumentHistoriesQuery, DocumentHistoriesQueryVariables>(
+    DocumentHistoriesDocument,
+    options
+  )
+}
+export type DocumentHistoriesQueryHookResult = ReturnType<typeof useDocumentHistoriesQuery>
+export type DocumentHistoriesLazyQueryHookResult = ReturnType<typeof useDocumentHistoriesLazyQuery>
+export type DocumentHistoriesQueryResult = Apollo.QueryResult<DocumentHistoriesQuery, DocumentHistoriesQueryVariables>
 export const BlockCommitDocument = gql`
   mutation BlockCommit($input: BlockCommitInput!) {
     blockCommit(input: $input) {
@@ -5653,7 +5652,6 @@ export const BlockCommitDocument = gql`
         id
         state
         createdAt
-        username
       }
     }
   }
@@ -5701,6 +5699,10 @@ export const DocumentDocument = gql`
         state
         createdAt
         blockId
+      }
+      histories {
+        id
+        createdAt
         username
       }
     }

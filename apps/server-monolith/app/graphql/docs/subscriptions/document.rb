@@ -5,6 +5,7 @@ module Docs
     class Document < BrickGraphQL::BaseSubscription
       argument :doc_id, BrickGraphQL::Scalars::UUID, required: true
       field :blocks, [Docs::Objects::BlockNew], null: true
+      field :histories, [Docs::Objects::DocumentHistory], null: true
       field :operator_id, BrickGraphQL::Scalars::UUID
       field :states, [Docs::Objects::BlockState], null: true
       # https://graphql-ruby.org/subscriptions/triggers.html

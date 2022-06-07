@@ -329,17 +329,15 @@ export const queryBlockNew = gql`
     }
   }
 `
-export const queryDocHistory = gql`
-  query DocHistory($id: String!) {
-    docHistory(id: $id) {
+export const queryDocumentHistories = gql`
+  query documentHistories($id: String!) {
+    documentHistories(id: $id) {
       users {
         name
       }
       histories {
         id
-        state
         createdAt
-        blockId
         username
       }
     }
@@ -360,7 +358,6 @@ export const BlockCommit = gql`
         id
         state
         createdAt
-        username
       }
     }
   }
@@ -381,6 +378,10 @@ export const Document = gql`
         state
         createdAt
         blockId
+      }
+      histories {
+        id
+        createdAt
         username
       }
     }

@@ -13,14 +13,8 @@ module Docs
       field :state, String
       field :state_type, Enums::Statetype, 'State Type'
 
-      field :username, String, 'Username', null: false
-
       def state
         object.respond_to?(:state) ? Brickdoc::Utils::Encoding::Base64.strict_encode64(object.state) : nil
-      end
-
-      def username
-        object.user.name
       end
     end
   end

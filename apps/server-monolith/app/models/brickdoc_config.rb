@@ -73,9 +73,9 @@ class BrickdocConfig < ApplicationRecord
   field :history_gap_threshold, type: :integer, default: 5
 
   namespace :features do
-    field :page_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
+    # field :page_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
     field :experiment_discussion, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
-    field :experiment_collaboration, type: :boolean, default: false, frontend: true
-    field :experiment_history, type: :boolean, default: false, frontend: true
+    field :experiment_collaboration, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
+    field :experiment_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
   end
 end

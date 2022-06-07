@@ -1,7 +1,7 @@
 import React from 'react'
 import { useApolloClient } from '@apollo/client'
 import { BrickdocEventBus, loadDocHistory, docHistoryReceived, EventSubscribed } from '@brickdoc/schema'
-import { DocHistoryDocument, BlockState } from '@/BrickdocGraphQL'
+import { DocumentHistoriesDocument, DocumentHistory } from '@/BrickdocGraphQL'
 import { devLog } from '@brickdoc/design-system'
 
 export function useDocHistoryProvider(docId: string): void {
@@ -14,19 +14,19 @@ export function useDocHistoryProvider(docId: string): void {
           devLog(`loading doc history ${docId}`)
           void (async () => {
             const { data } = await client.query({
-              query: DocHistoryDocument,
+              query: DocumentHistoriesDocument,
               variables: {
                 id: docId
               },
               fetchPolicy: 'no-cache'
             })
             // TODO: users
-            const { histories } = data.docHistory
+            const { histories } = data.documentHistories
 
             BrickdocEventBus.dispatch(
               docHistoryReceived({
                 docId,
-                histories: Object.fromEntries((histories as BlockState[]).map(h => [h.id, h])),
+                histories: Object.fromEntries((histories as DocumentHistory[]).map(h => [h.id, h])),
                 users: {}
               })
             )
