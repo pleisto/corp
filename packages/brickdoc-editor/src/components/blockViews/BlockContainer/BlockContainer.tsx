@@ -55,7 +55,6 @@ export const BlockContainer: FC<BlockContainerProps> = forwardRef<HTMLElement, B
       dragging: blockDragging,
       node
     })
-    console.log(documentEditable)
     const [blockElement] = useBlockElement(children, actionOptions, {
       inline: inline ?? false,
       disableActionOptions: !documentEditable || disableActionOptions,
