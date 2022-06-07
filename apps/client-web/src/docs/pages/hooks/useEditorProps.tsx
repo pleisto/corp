@@ -29,7 +29,7 @@ function useQuery(): URLSearchParams {
 }
 
 export function useEditorProps({ documentEditable, blocks }: UseEditorProps): EditorProps {
-  const { id, collaborators: metaCollaborators, domain } = useDocMeta()
+  const { id, collaborators: metaCollaborators, domain, historyId } = useDocMeta()
   const { data } = useGetSpaceMembersQuery()
   const pageQuery = useQuery()
   const prepareFileUpload = usePrepareFileUpload()
@@ -112,6 +112,7 @@ export function useEditorProps({ documentEditable, blocks }: UseEditorProps): Ed
     prepareFileUpload,
     renderPageTree,
     rootId: id ?? '',
+    historyId,
     settings,
     spaceMembers
   }

@@ -68,6 +68,8 @@ export interface EditorProps {
 
   rootId: string
 
+  historyId?: string
+
   pageQuery: URLSearchParams | null
 }
 
@@ -113,6 +115,7 @@ export function useEditorPropsEffect(nextProps: EditorProps): void {
   EditorPropsContext.prepareFileUpload = nextProps.prepareFileUpload
   EditorPropsContext.renderPageTree = nextProps.renderPageTree
   EditorPropsContext.rootId = nextProps.rootId
+  EditorPropsContext.historyId = nextProps.historyId
   EditorPropsContext.settings = nextProps.settings
   EditorPropsContext.spaceMembers = nextProps.spaceMembers
 }

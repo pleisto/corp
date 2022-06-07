@@ -5,6 +5,7 @@
 # Table name: docs_blocks
 #
 #  id                       :uuid             not null, primary key
+#  block_type               :enum
 #  collaborators            :bigint           default([]), not null, is an Array
 #  content(node content)    :jsonb
 #  data(data props)         :jsonb            not null
@@ -22,6 +23,7 @@
 #  parent_id                :uuid
 #  root_id                  :uuid             not null
 #  space_id                 :bigint           not null
+#  state_id                 :uuid
 #
 # Indexes
 #
@@ -53,7 +55,7 @@ module Docs
     has_many :enabled_share_links, -> { enabled }, class_name: 'Docs::ShareLink', dependent: :restrict_with_exception, inverse_of: :block
     has_one :enabled_alias, -> { enabled }, class_name: 'Docs::Alias', inverse_of: :block, dependent: :destroy
     has_many :aliases, dependent: :destroy, inverse_of: :block
-    has_many :doc_conversations, dependent: :restrict_with_exception, class_name: 'Docs::Conversation', foreign_key: :doc_id
+    has_many :doc_conversations, dependent: :restrict_with_exception, class_name: 'Docs::Conversation', foreign_key: :doc_id # rubocop:disable Rails/InverseOf, Layout/LineLength
 
     validates :meta, presence: true, allow_blank: true
     # validates :data, presence: true
@@ -63,6 +65,7 @@ module Docs
     attribute :next_sort, :integer, default: 0
     attribute :first_child_sort, :integer, default: 0
     attribute :parent_path_array_value
+    attribute :cur_history_id, :string
 
     ## Distance for expansion
     SORT_GAP = 2**32
@@ -729,6 +732,28 @@ module Docs
 
     def children_version_meta
       descendants.pluck(:id, :history_version).to_h
+    end
+
+    def states
+      if cur_history_id
+        base_state = Docs::BlockState.find(cur_history_id)
+        case base_state.state_type
+        when 'full'
+          [base_state]
+        else
+          Docs::BlockState.where(block_id: id).includes(:user)
+            .where('id = :state_id OR prev_state_id = :state_id', state_id: base_state.prev_state_id)
+            .where('created_at <= ?', base_state.created_at)
+        end
+      else
+        Docs::BlockState.where(block_id: id).includes(:user).where('id = :state_id OR prev_state_id = :state_id', state_id: state_id)
+      end
+    end
+
+    def states_sorted
+      states.to_a.sort_by do |state|
+        state.created_at.to_i * (state.state_type == 'full' ? -1 : 1)
+      end
     end
   end
 end
