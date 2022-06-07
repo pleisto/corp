@@ -24,12 +24,7 @@ export const Item = styled('div', {
   marginRight: 4,
   borderRadius: 4,
   border: 'none',
-  fontSize: '14px',
-  color: theme.colors.typeThirdary,
-
-  '&:active, &:focus, &:hover': {
-    background: theme.colors.backgroundPrimary
-  }
+  fontSize: '14px'
 })
 
 export const Icon = styled('span', {
@@ -69,6 +64,7 @@ export const Input = styled(input, {
   padding: '0px !important',
   input: {
     lineHeight: '54px',
+    fontSize: '2.5rem',
     fontWeight: 600,
     border: 'none',
     padding: 0

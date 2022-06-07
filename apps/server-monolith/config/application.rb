@@ -16,6 +16,7 @@ require 'action_cable/engine'
 
 # eager load some dependencies
 require_relative '../lib/brickdoc'
+require_relative '../lib/brick_graphql'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,52 +25,37 @@ Dotenv::Railtie.load
 
 module Brickdoc
   class Application < Rails::Application
+    # Make sure global configuration is loaded early
+    require_relative '../app/models/application_record'
+    require_relative '../app/models/brickdoc_config'
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
     config.action_mailer.deliver_later_queue_name = :default
 
-    config.autoload_paths << Rails.root.join('app/graphql')
-    config.autoload_paths << Rails.root.join('app/services')
-
     config.active_record.query_log_tags_enabled = true
     config.active_job.queue_adapter = :async
+    config.logger = ::Logger.new($stdout)
 
-    # Run some initializers before Zeitwerk is loaded.
-    # This empty initializer forces the :let_zeitwerk_take_over initializer to run before we load initializers
-    # in `config/initializers`.
-    initializer(:move_initializers, before: :load_config_initializers, after: :let_zeitwerk_take_over) {}
-    initializer :before_zeitwerk, before: :let_zeitwerk_take_over, after: :prepend_helpers_path do
-      Dir[Rails.root.join('config/before_initializers/*.rb')].sort.each { |file| load_config_initializer(file) }
-    end
+    initializer :load_plugins, before: :load_config_initializers do
+      Brickdoc::Plugins.load_all!
+      ## Enabled Global Plugin defaults
+      default_plugins = [
+        '@brickdoc/github-auth',
+        '@brickdoc/google-auth',
+      ]
+      default_plugins.push '@brickdoc/dotcom' if ENV['BRICKDOC_DOTCOM_LICENSE'].present?
+      default_plugins.each do |name|
+        plugin = Brickdoc::Plugins.find(name)
+        raise "Plugin #{name} not found, but it should be enabled by default" if plugin.nil?
 
-    config.before_initialize do
-      ActiveSupport::Inflector.inflections do |inflect|
-        inflect.acronym 'GraphQL'
-        inflect.acronym 'UUID'
-        inflect.acronym 'ID'
-        inflect.acronym 'SaaS'
-        inflect.acronym 'DSL'
+        plugin.default_enabled!
       end
 
-      loader = Zeitwerk::Loader.new
-      loader.inflector = Rails.autoloaders.main.inflector
-      loader.push_dir Rails.root.join('lib')
-      loader.setup
-    end
-
-    initializer :load_plugins, after: :prepend_helpers_path, before: :load_config_initializers do
-      require_relative '../app/models/application_record'
-      require_relative '../app/models/brickdoc_config'
-      BrickdocPlugin.load_plugins
-
-      ## Enabled Global Plugin
-      default_global_plugins = [:google_auth, :github_auth]
-      default_global_plugins.each { |name| BrickdocPlugin.plugin(name).default_enabled! }
-
-      Devise.setup do |config|
-        BrickdocHook.trigger :omniauth_providers_setup, config
-      end
+      # Add extened edition plugin's initializer directory to load path if it is exist
+      path = Brickdoc::Plugins::ServerPlugin.extended_edition_path
+      Dir["#{path}/config/initializers/*.rb"].sort.each { |file| load_config_initializer(file) } if path.present?
     end
   end
 end

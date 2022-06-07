@@ -1,11 +1,11 @@
-import { CSSProperties, FC, forwardRef, MouseEventHandler, useState } from 'react'
-import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps, findParentNodeClosestToPos } from '@tiptap/react'
+import { CSSProperties, FC, forwardRef, MouseEventHandler, ReactNode, useState } from 'react'
+import { NodeViewWrapper, NodeViewWrapperProps, NodeViewProps } from '@tiptap/react'
 import { BlockActionsProps } from '../BlockActions'
 import { BlockContext } from '../../../context/BlockContext'
 import { useDocumentEditable, useEditorContext } from '../../../hooks'
 import { useBlockContextDataProvider } from './useBlockContextDataProvider'
 import { useBlockElement } from './useBlockElement'
-import { Blockquote, ListItem } from '../../../extensions'
+import { useDisableActionOptions } from './useDisableActionOptions'
 export interface BlockContainerProps {
   inline?: boolean
   editable?: boolean
@@ -21,6 +21,7 @@ export interface BlockContainerProps {
   onClick?: MouseEventHandler
   onMouseDown?: MouseEventHandler
   node: NodeViewProps['node']
+  children?: ReactNode
 }
 
 export const BlockContainer: FC<BlockContainerProps> = forwardRef<HTMLElement, BlockContainerProps>(
@@ -42,16 +43,8 @@ export const BlockContainer: FC<BlockContainerProps> = forwardRef<HTMLElement, B
     ref
   ) => {
     const { editor } = useEditorContext()
+    const disableActionOptions = useDisableActionOptions(editor, getPos)
 
-    // check if block inside a list
-    const blockResolvedPosition = editor?.state.doc.resolve(getPos?.() ?? 0)
-
-    const disableActionOptions = !blockResolvedPosition
-      ? true
-      : !!findParentNodeClosestToPos(
-          blockResolvedPosition,
-          node => node.type.name === ListItem.name || node.type.name === Blockquote.name
-        )?.node
     const [blockDragging, setBlockDragging] = useState(false)
     const [blockContextData] = useBlockContextDataProvider({
       deleteNode,

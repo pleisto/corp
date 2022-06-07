@@ -55,6 +55,7 @@ describe Docs::Queries::ConversationComments, type: :query do
 
       block = create(:docs_block, space: user.personal_space)
       conversation = Docs::Conversation.create!(
+        creator_id: user.id,
         doc_id: block.id,
         space_id: block.space_id
       )

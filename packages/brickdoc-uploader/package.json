@@ -1,7 +1,7 @@
 {
   "name": "@brickdoc/uploader",
   "version": "0.1.0",
-  "license": "GPL-3.0-or-later WITH Classpath-exception-2.0",
+  "license": "Apache-2.0",
   "private": true,
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -15,10 +15,11 @@
     "@brickdoc/active-support": "workspace:^",
     "@brickdoc/design-system": "workspace:^",
     "@brickdoc/test-helper": "workspace:^",
-    "@uppy/core": "^2.2.0",
-    "@uppy/dashboard": "^2.2.0",
-    "@uppy/react": "^2.2.0",
-    "@uppy/xhr-upload": "^2.1.0"
+    "@uppy/core": "^2.3.0",
+    "@uppy/dashboard": "^2.3.0",
+    "@uppy/react": "^2.2.1",
+    "@uppy/xhr-upload": "^2.1.1",
+    "react-virtuoso": "^2.12.1"
   },
   "scripts": {
     "lint": "yarn lint:eslint && yarn lint:type",

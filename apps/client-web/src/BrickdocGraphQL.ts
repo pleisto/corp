@@ -1200,8 +1200,6 @@ export type RootQuery = {
    * Required `context[:entrypoints]` is `[:internal]`.
    */
   passwordAvailable: Validate_Result
-  /** return all plugins for space. */
-  plugins: Array<Plugin>
   /** return preview box data of url */
   previewBox: Preview_Box
   /** return current space for user. */
@@ -1834,21 +1832,6 @@ export type Pin = {
   text: Scalars['String']
 }
 
-/** Brickdoc Plugin. */
-export type Plugin = {
-  __typename?: 'plugin'
-  /** Enabled */
-  enabled: Scalars['Boolean']
-  /** logo */
-  logo: Scalars['String']
-  /** metadata */
-  metadata: Scalars['JSON']
-  /** Plugin Name */
-  name: Scalars['String']
-  /** version */
-  version: Scalars['String']
-}
-
 export type Preview_Box = {
   __typename?: 'preview_box'
   /** preview cover */
@@ -1922,6 +1905,8 @@ export type Space_Member = {
 /** Unspash image. */
 export type Unsplash_Image = {
   __typename?: 'unsplash_image'
+  /** Blur hash for this image (see https://blurha.sh/) */
+  blurHash?: Maybe<Scalars['String']>
   /** url for full size image */
   fullUrl: Scalars['String']
   /** Image height */
@@ -2203,6 +2188,7 @@ export type QueryUnsplashImageQuery = {
     fullUrl: string
     smallUrl: string
     username?: string | null
+    blurHash?: string | null
   }> | null
 }
 
@@ -2503,20 +2489,6 @@ export type BlockCreateSnapshotMutationVariables = Exact<{
 export type BlockCreateSnapshotMutation = {
   __typename?: 'RootMutation'
   blockCreateSnapshot?: { __typename?: 'BlockCreateSnapshotPayload'; errors: Array<string> } | null
-}
-
-export type GetPluginQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetPluginQuery = {
-  __typename?: 'RootQuery'
-  plugins: Array<{
-    __typename?: 'plugin'
-    name: string
-    version: string
-    logo: string
-    enabled: boolean
-    metadata: any
-  }>
 }
 
 export type BlockSyncBatchMutationVariables = Exact<{
@@ -3842,6 +3814,7 @@ export const QueryUnsplashImageDocument = gql`
       fullUrl
       smallUrl
       username
+      blurHash
     }
   }
 `
@@ -4843,46 +4816,6 @@ export type BlockCreateSnapshotMutationOptions = Apollo.BaseMutationOptions<
   BlockCreateSnapshotMutation,
   BlockCreateSnapshotMutationVariables
 >
-export const GetPluginDocument = gql`
-  query GetPlugin {
-    plugins {
-      name
-      version
-      logo
-      enabled
-      metadata
-    }
-  }
-`
-
-/**
- * __useGetPluginQuery__
- *
- * To run a query within a React component, call `useGetPluginQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPluginQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPluginQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetPluginQuery(baseOptions?: Apollo.QueryHookOptions<GetPluginQuery, GetPluginQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetPluginQuery, GetPluginQueryVariables>(GetPluginDocument, options)
-}
-export function useGetPluginLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPluginQuery, GetPluginQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetPluginQuery, GetPluginQueryVariables>(GetPluginDocument, options)
-}
-export type GetPluginQueryHookResult = ReturnType<typeof useGetPluginQuery>
-export type GetPluginLazyQueryHookResult = ReturnType<typeof useGetPluginLazyQuery>
-export type GetPluginQueryResult = Apollo.QueryResult<GetPluginQuery, GetPluginQueryVariables>
 export const BlockSyncBatchDocument = gql`
   mutation blockSyncBatch($input: BlockSyncBatchInput!) {
     blockSyncBatch(input: $input) {

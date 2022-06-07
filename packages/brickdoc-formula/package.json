@@ -1,7 +1,7 @@
 {
   "name": "@brickdoc/formula",
   "version": "0.1.0",
-  "license": "GPL-3.0-or-later WITH Classpath-exception-2.0",
+  "license": "Apache-2.0",
   "private": true,
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -29,7 +29,7 @@
     "lint:eslint": "TIMING=1 run -T eslint --cache --ext ts,tsx src",
     "lint:fix": "TIMING=1 run -T eslint --cache --ext ts,tsx src --fix",
     "lint:type": "run -T tsc",
-    "test:jest": "run -T jest --silent",
+    "test:jest": "run -T jest",
     "test:jest:fix": "run -T jest --silent -u"
   }
 }

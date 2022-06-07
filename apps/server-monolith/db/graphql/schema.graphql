@@ -2150,11 +2150,6 @@ type RootQuery {
   passwordAvailable(password: String!): validate_result!
 
   """
-  return all plugins for space.
-  """
-  plugins: [plugin!]!
-
-  """
   return preview box data of url
   """
   previewBox(url: String!): preview_box!
@@ -3122,36 +3117,6 @@ type pin {
   text: String!
 }
 
-"""
-Brickdoc Plugin.
-"""
-type plugin {
-  """
-  Enabled
-  """
-  enabled: Boolean!
-
-  """
-  logo
-  """
-  logo: String!
-
-  """
-  metadata
-  """
-  metadata: JSON!
-
-  """
-  Plugin Name
-  """
-  name: String!
-
-  """
-  version
-  """
-  version: String!
-}
-
 type preview_box {
   """
   preview cover
@@ -3300,6 +3265,11 @@ type space_member {
 Unspash image.
 """
 type unsplash_image {
+  """
+  Blur hash for this image (see https://blurha.sh/)
+  """
+  blurHash: String
+
   """
   url for full size image
   """

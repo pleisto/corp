@@ -62,10 +62,6 @@ class BrickdocConfig < ApplicationRecord
 
   field :iframely_api_access_key, default: ENV['IFRAMELY_API_ACCESS_KEY']
 
-  field :sentry_dsn, default: ENV['SENTRY_DSN']
-
-  field :lockbox_test, type: :encrypted
-
   # Pdftron
   field :pdfjs_express_license, type: :string, default: ENV['PDFJS_EXPRESS_LICENSE'], frontend: true
 
@@ -79,7 +75,7 @@ class BrickdocConfig < ApplicationRecord
   namespace :features do
     field :page_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
     field :experiment_discussion, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
-    field :experiment_collaboration, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
-    field :experiment_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
+    field :experiment_collaboration, type: :boolean, default: false, frontend: true
+    field :experiment_history, type: :boolean, default: false, frontend: true
   end
 end

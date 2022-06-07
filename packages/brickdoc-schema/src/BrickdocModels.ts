@@ -1197,8 +1197,6 @@ export type RootQuery = {
    * Required `context[:entrypoints]` is `[:internal]`.
    */
   passwordAvailable: Validate_Result
-  /** return all plugins for space. */
-  plugins: Array<Plugin>
   /** return preview box data of url */
   previewBox: Preview_Box
   /** return current space for user. */
@@ -1831,21 +1829,6 @@ export type Pin = {
   text: Scalars['String']
 }
 
-/** Brickdoc Plugin. */
-export type Plugin = {
-  __typename?: 'plugin'
-  /** Enabled */
-  enabled: Scalars['Boolean']
-  /** logo */
-  logo: Scalars['String']
-  /** metadata */
-  metadata: Scalars['JSON']
-  /** Plugin Name */
-  name: Scalars['String']
-  /** version */
-  version: Scalars['String']
-}
-
 export type Preview_Box = {
   __typename?: 'preview_box'
   /** preview cover */
@@ -1919,6 +1902,8 @@ export type Space_Member = {
 /** Unspash image. */
 export type Unsplash_Image = {
   __typename?: 'unsplash_image'
+  /** Blur hash for this image (see https://blurha.sh/) */
+  blurHash?: Maybe<Scalars['String']>
   /** url for full size image */
   fullUrl: Scalars['String']
   /** Image height */
