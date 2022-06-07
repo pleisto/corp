@@ -14,9 +14,8 @@ export function useDisableActionOptions(
   return useMemo(() => {
     const blockResolvedPosition = editor?.state.doc.resolve(getPos?.() ?? 0)
 
-    const result = !blockResolvedPosition
+    return !blockResolvedPosition
       ? true
       : !!findParentNodeClosestToPos(blockResolvedPosition, node => disabledList.includes(node.type.name))?.node
-    return result
   }, [editor, getPos])
 }
