@@ -348,12 +348,15 @@ export type AnyFunctionResult<T extends FormulaType> = TypedResult<T> | ErrorRes
 export type FormulaResult<T extends FormulaType> = TypedResult<T>['result']
 
 export type FormulaSourceType = 'normal' | 'spreadsheet'
-export interface BaseFormula {
+
+export interface FormulaDefinition {
+  definition?: string
+  meta?: object
+  name?: VariableName
+}
+export interface BaseFormula extends Required<FormulaDefinition> {
   blockId: uuid
-  definition: string
-  meta: object
   id: uuid
-  name: VariableName
   cacheValue: BaseResult
   version: number
   type: string
@@ -846,14 +849,14 @@ export interface VariableInterface {
   currentUUID: string
   formulaContext: ContextInterface
 
-  buildFormula: (definition?: string) => Formula
+  buildFormula: (input?: FormulaDefinition) => Formula
   cleanup: (hard: boolean) => void
   trackDependency: VoidFunction
   trackDirty: VoidFunction
   save: () => Promise<void>
   nameDependency: () => NameDependencyWithKind
   namespaceName: (pageId: NamespaceId) => string
-  updateDefinition: (definition: Definition) => Promise<void>
+  updateDefinition: (input: FormulaDefinition) => Promise<void>
   meta: () => VariableMetadata
   onUpdate: ({ skipPersist }: { skipPersist?: boolean }) => void
 }

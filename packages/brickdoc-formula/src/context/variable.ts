@@ -5,7 +5,6 @@ import {
   VariableInterface,
   VariableMetadata,
   AnyTypeResult,
-  Definition,
   Formula,
   BaseFormula,
   NamespaceId,
@@ -13,7 +12,8 @@ import {
   NameDependencyWithKind,
   VariableRichType,
   EventDependency,
-  VariableParseResult
+  VariableParseResult,
+  FormulaDefinition
 } from '../types'
 import { parse, interpret, generateVariable } from '../grammar/core'
 import { dumpValue } from './persist'
@@ -319,10 +319,10 @@ export class VariableClass implements VariableInterface {
     await this.formulaContext.commitVariable({ variable: this })
   }
 
-  public buildFormula(definition?: string): Formula {
+  public buildFormula(input?: FormulaDefinition): Formula {
     const formula: Omit<Formula, 'type' | 'meta'> = {
       blockId: this.t.meta.namespaceId,
-      definition: definition ?? this.t.variableParseResult.definition,
+      definition: input?.definition ?? this.t.variableParseResult.definition,
       id: this.t.meta.variableId,
       name: this.t.meta.name,
       version: this.t.variableParseResult.version,
@@ -337,7 +337,7 @@ export class VariableClass implements VariableInterface {
     return { ...formula, ...richType }
   }
 
-  private async maybeReparseAndPersist(source: string, sourceUuid: string, definition?: string): Promise<void> {
+  private async maybeReparseAndPersist(source: string, sourceUuid: string, input?: FormulaDefinition): Promise<void> {
     // console.debug(`reparse: ${sourceUuid && this.currentUUID === sourceUuid}`, this.t.meta.name, source, definition)
 
     if (sourceUuid && this.currentUUID === sourceUuid) {
@@ -346,7 +346,7 @@ export class VariableClass implements VariableInterface {
 
     this.currentUUID = sourceUuid
 
-    const formula = this.buildFormula(definition)
+    const formula = this.buildFormula(input)
     this.cleanup(false)
     await castVariable(this, this.formulaContext, formula)
 
@@ -357,8 +357,8 @@ export class VariableClass implements VariableInterface {
     }
   }
 
-  public async updateDefinition(definition: Definition): Promise<void> {
-    await this.maybeReparseAndPersist('updateDefinition', uuid(), definition)
+  public async updateDefinition(input: FormulaDefinition): Promise<void> {
+    await this.maybeReparseAndPersist('updateDefinition', uuid(), input)
   }
 
   private setupEventDependencies(): void {
@@ -501,11 +501,9 @@ export class VariableClass implements VariableInterface {
           if (!shouldReceiveEvent(dependency.scope, e.payload.scope)) return
           if (dependency.skipIf?.(this, e.payload)) return
           const definition = dependency.definitionHandler?.(dependency, this, e.payload)
-          void this.maybeReparseAndPersist(
-            `${dependency.event.eventType}_${dependency.eventId}`,
-            e.payload.key,
+          void this.maybeReparseAndPersist(`${dependency.event.eventType}_${dependency.eventId}`, e.payload.key, {
             definition
-          )
+          })
         },
         {
           eventId: dependency.eventId,
