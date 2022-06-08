@@ -101,7 +101,6 @@ export function useEditorProps({ documentEditable, blocks }: UseEditorProps): Ed
 
   return {
     blobs,
-    blocks,
     collaborators,
     documentEditable,
     documentPages,

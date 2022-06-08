@@ -55,7 +55,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
   })
 
   const editor = useEditor({
-    onSave: onDocSave,
+    baseExtensionOptions: {
+      sync: {
+        onSave: onDocSave
+      }
+    },
     props: editorProps,
     editable: documentEditable && !docMeta.historyId,
     ydoc: ydoc.current
@@ -103,8 +107,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
         width={{
           '@mdOnly': 'md',
           '@smDown': 'sm'
-        }}
-      >
+        }}>
         <DocumentTitle
           title={docMeta.title}
           docId={docMeta.id}

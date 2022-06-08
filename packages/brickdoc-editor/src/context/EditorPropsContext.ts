@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ContextInterface } from '@brickdoc/formula'
 import { DashboardPluginOptions } from '@brickdoc/uploader'
-import { Preview_Box, Block } from '@brickdoc/schema'
+import { Preview_Box } from '@brickdoc/schema'
 import { To, NavigateOptions } from 'react-router-dom'
 
 export interface WebsiteMeta {
@@ -34,8 +34,6 @@ export interface DocumentPageData {
 
 // TODO: 重新梳理 editor props，避免与实现过度耦合（例如 featureFlags 这种 prop）
 export interface EditorProps {
-  blocks: Block[]
-
   featureFlags: Record<string, boolean>
 
   settings: Record<string, any>
@@ -78,7 +76,6 @@ export interface EditorProps {
 
 // we don't want this context cause rerender, therefore it is not a React Context.
 export const EditorPropsContext: EditorProps = {
-  blocks: [],
   domain: '',
   rootId: '',
   pageQuery: null,
@@ -108,7 +105,6 @@ export const EditorPropsContext: EditorProps = {
 
 export function useEditorPropsEffect(nextProps: EditorProps): void {
   EditorPropsContext.blobs = nextProps.blobs
-  EditorPropsContext.blocks = nextProps.blocks
   EditorPropsContext.collaborators = nextProps.collaborators
   EditorPropsContext.documentEditable = nextProps.documentEditable
   EditorPropsContext.documentPages = nextProps.documentPages
