@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import { Extension, Extensions } from '@tiptap/core'
+import { merge } from 'lodash'
 import * as EXTENSION from './index'
 
 export interface BaseOptions {
@@ -54,6 +55,18 @@ export interface BaseOptions {
 }
 
 const getConfigure = <T>(configure: T | boolean): Partial<T> => (configure === true ? {} : (configure as T))
+
+/**
+ * update extensions' options
+ */
+export const updateExtensionOptions = (extensions: Extensions, options: Partial<BaseOptions>): void => {
+  Object.entries(options).forEach(([name, value]) => {
+    const extension = extensions.find(extension => extension.name === name)
+    if (!extension) return
+
+    extension.options = merge(extension.options, value)
+  })
+}
 
 export const Base = Extension.create<BaseOptions>({
   name: 'base',

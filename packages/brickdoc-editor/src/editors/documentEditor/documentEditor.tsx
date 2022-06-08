@@ -29,7 +29,7 @@ import {
   TaskList,
   Toc
 } from '../../extensions'
-import { Base, BaseOptions } from '../../extensions/base'
+import { Base, BaseOptions, updateExtensionOptions as updateBaseExtensionOptions } from '../../extensions/base'
 import { useDrawerService } from '../../components/ui/Drawer'
 import { useDropBlock, useUndo } from '../../helpers'
 import { documentEditorStyles } from './styles'
@@ -90,11 +90,12 @@ const typesWithUuid = [
 ]
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { editable, props, baseExtensionOptions, ...restOptions } = options
+  const { editable, props, extensions, baseExtensionOptions, ...restOptions } = options
 
   const editorOptions = useMemo<Partial<TiptapEditorOptions>>(
     () => ({
       extensions: [
+        ...(extensions ?? []),
         Base.configure(
           merge(
             {
@@ -130,9 +131,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
                 autolink: false
               },
               listItem: true,
-              mentionCommands: {
-                editorProps: props
-              },
+              mentionCommands: true,
               orderedList: true,
               pageLink: true,
               paragraph: true,
@@ -156,7 +155,6 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
                 types: typesWithUuid
               },
               user: true,
-              collaboration: false,
               dropBlock: true
             },
             baseExtensionOptions
@@ -167,7 +165,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       editable,
       ...restOptions
     }),
-    [baseExtensionOptions, editable, props, restOptions]
+    [baseExtensionOptions, editable, extensions, restOptions]
   )
 
   const editor = useTiptapEditor(editorOptions, [])
@@ -175,6 +173,11 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
   useEffect(() => {
     editor?.setOptions(editorOptions)
   }, [editor, editorOptions])
+
+  useEffect(() => {
+    if (!editor || !baseExtensionOptions) return
+    updateBaseExtensionOptions(editor.extensionManager.extensions, baseExtensionOptions)
+  }, [baseExtensionOptions, editor, editor?.extensionManager.extensions])
 
   return editor
 }

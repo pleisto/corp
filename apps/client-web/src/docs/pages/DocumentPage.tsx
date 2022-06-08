@@ -54,10 +54,32 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     blocks: data?.childrenBlocks
   })
 
+  // editor options
+  const pages = editorProps.documentPages.map(item => ({
+    id: item.key,
+    icon: item.icon,
+    link: `/${docMeta.domain}/${item.key}`,
+    parentId: item.parentId,
+    title: item.title
+  }))
+  const users = editorProps.spaceMembers.map(item => ({
+    id: item.domain,
+    name: item.name,
+    avatar: item.avatar
+  }))
+
+  console.log('ydoc', ydoc.current)
+
   const editor = useEditor({
     baseExtensionOptions: {
-      collaboration: {
-        document: ydoc.current
+      collaboration: ydoc.current
+        ? {
+            document: ydoc.current
+          }
+        : false,
+      mentionCommands: {
+        pages,
+        users
       },
       sync: {
         onSave: onDocSave

@@ -12,8 +12,8 @@ export interface UserOptions {
 export interface UserAttributes {
   people: {
     type: 'PEOPLE'
-    name?: string
-    domain?: string
+    domain: string
+    name: string
     avatarUrl?: string
   }
 }

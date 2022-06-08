@@ -1,32 +1,45 @@
 import { Editor, Range } from '@tiptap/core'
-import { MentionCommandsOptions, MenuItems } from './mentionCommands'
+import { MentionCommandsOptions, MentionPage, MentionUser } from './meta'
+
+export interface UserItem extends MentionUser {
+  command: (editor: Editor, range: Range) => void
+}
+
+export interface PageItem extends MentionPage {
+  category?: string
+  command: (editor: Editor, range: Range) => void
+}
+
+export interface MenuItems {
+  users: UserItem[]
+  pages: PageItem[]
+}
 
 export const filterMenuItemsByQuery =
   (options: MentionCommandsOptions) =>
   ({ query }: { query: string }): MenuItems => {
     const searchValue = (query ?? '').toLowerCase()
-    const pages = options.editorProps.documentPages
-    const domain = options.editorProps.domain
+    const pages = options.pages
     const pagePath = (parentId: string | null | undefined, path: string[] = []): string[] => {
-      const parent = pages.find(p => p.key === parentId)
+      const parent = pages.find(p => p.id === parentId)
 
       if (!parent) return path
       return pagePath(parent.parentId, [parent.title ?? 'Untitled', ...path])
     }
     return {
       users:
-        options.editorProps.spaceMembers
+        options.users
           .filter(item => (item.name ?? '').toLowerCase().includes(searchValue))
           .map(item => ({
+            id: item.id,
             name: item.name,
-            domain: item.domain,
             avatar: item.avatar ?? '',
             command(editor: Editor, range: Range) {
               editor
                 .chain()
                 .focus()
                 .deleteRange(range)
-                .setUserBlock(item.domain, item.name, item.avatar ?? '')
+                .setUserBlock(item.id, item.name, item.avatar ?? '')
                 .run()
             }
           }))
@@ -38,7 +51,10 @@ export const filterMenuItemsByQuery =
             return !item.parentId
           })
           .map(item => ({
-            name: item.title ?? '',
+            id: item.id,
+            link: item.link,
+            parentId: item.parentId,
+            title: item.title ?? '',
             icon: item.icon,
             category: pagePath(item.parentId).join('/'),
             command(editor: Editor, range: Range) {
@@ -46,7 +62,7 @@ export const filterMenuItemsByQuery =
                 .chain()
                 .focus()
                 .deleteRange(range)
-                .setPageLinkBlock(item.key, `/${domain}/${item.key}`, item.title, item.icon)
+                .setPageLinkBlock(item.id, item.link, item.title, item.icon)
                 .run()
             }
           }))
