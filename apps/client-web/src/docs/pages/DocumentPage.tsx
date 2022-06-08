@@ -56,13 +56,15 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
 
   const editor = useEditor({
     baseExtensionOptions: {
+      collaboration: {
+        document: ydoc.current
+      },
       sync: {
         onSave: onDocSave
       }
     },
     props: editorProps,
-    editable: documentEditable && !docMeta.historyId,
-    ydoc: ydoc.current
+    editable: documentEditable && !docMeta.historyId
   })
 
   // TODO: refactor editor reactive var

@@ -5,7 +5,6 @@ import {
   Editor as TiptapEditor
 } from '@tiptap/react'
 import { EditorOptions as TiptapEditorOptions } from '@tiptap/core'
-import * as Y from 'yjs'
 import { theme } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../hooks'
 import { EditorContext, EditorContextData } from '../../context/EditorContext'
@@ -68,7 +67,6 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, ...props }) => {
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
   baseExtensionOptions?: Partial<BaseOptions>
   props: EditorProps
-  ydoc?: Y.Doc
 }
 
 const typesWithUuid = [
@@ -92,85 +90,84 @@ const typesWithUuid = [
 ]
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { editable, props, ydoc, baseExtensionOptions, ...restOptions } = options
+  const { editable, props, baseExtensionOptions, ...restOptions } = options
 
   const editorOptions = useMemo<Partial<TiptapEditorOptions>>(
     () => ({
       extensions: [
         Base.configure(
-          merge(baseExtensionOptions, {
-            anchor: true,
-            blockquote: true,
-            bold: true,
-            brickList: true,
-            bulletList: true,
-            commandHelper: true,
-            code: true,
-            codeBlock: true,
-            document: true,
-            discussion: true,
-            dropcursor: {
-              color: theme.colors.primaryDisable.value,
-              width: 2
+          merge(
+            {
+              anchor: true,
+              blockquote: true,
+              bold: true,
+              brickList: true,
+              bulletList: true,
+              commandHelper: true,
+              code: true,
+              codeBlock: true,
+              document: true,
+              discussion: true,
+              dropcursor: {
+                color: theme.colors.primaryDisable.value,
+                width: 2
+              },
+              embed: true,
+              eventHandler: true,
+              fontColor: true,
+              fontBgColor: true,
+              formula: true,
+              gapcursor: false,
+              hardBreak: true,
+              heading: true,
+              history: true,
+              horizontalRule: true,
+              indent: true,
+              image: true,
+              italic: true,
+              keyboardShortcut: true,
+              link: {
+                autolink: false
+              },
+              listItem: true,
+              mentionCommands: {
+                editorProps: props
+              },
+              orderedList: true,
+              pageLink: true,
+              paragraph: true,
+              slashCommands: true,
+              spreadsheet: true,
+              strike: true,
+              subPageMenu: true,
+              sync: {
+                types: typesWithUuid
+              },
+              taskItem: {
+                nested: true
+              },
+              taskList: true,
+              text: true,
+              textStyle: true,
+              toc: true,
+              underline: true,
+              uniqueID: {
+                attributeName: 'uuid',
+                types: typesWithUuid
+              },
+              user: true,
+              collaboration: false,
+              dropBlock: true
             },
-            embed: true,
-            eventHandler: true,
-            fontColor: true,
-            fontBgColor: true,
-            formula: true,
-            gapcursor: false,
-            hardBreak: true,
-            heading: true,
-            history: true,
-            horizontalRule: true,
-            indent: true,
-            image: true,
-            italic: true,
-            keyboardShortcut: true,
-            link: {
-              autolink: false
-            },
-            listItem: true,
-            mentionCommands: {
-              editorProps: props
-            },
-            orderedList: true,
-            pageLink: true,
-            paragraph: true,
-            slashCommands: true,
-            spreadsheet: true,
-            strike: true,
-            subPageMenu: true,
-            sync: {
-              types: typesWithUuid
-            },
-            taskItem: {
-              nested: true
-            },
-            taskList: true,
-            text: true,
-            textStyle: true,
-            toc: true,
-            underline: true,
-            uniqueID: {
-              attributeName: 'uuid',
-              types: typesWithUuid
-            },
-            user: true,
-            collaboration: ydoc
-              ? {
-                  document: ydoc
-                }
-              : false,
-            dropBlock: true
-          })
+            baseExtensionOptions
+          )
         )
       ],
       autofocus: true,
       editable,
       ...restOptions
     }),
-    [baseExtensionOptions, editable, props, restOptions, ydoc]
+    [baseExtensionOptions, editable, props, restOptions]
   )
 
   const editor = useTiptapEditor(editorOptions, [])
