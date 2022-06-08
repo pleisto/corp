@@ -85,6 +85,7 @@
       "**/*.min.js": true,
       "**/*.js.map": true,
       "**/*.log": true,
+      "**/public/pdftron": true,
       "**/*.pid": true,
       "**/.git": true,
       "**/node_modules": true,

@@ -81,7 +81,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'i18next', '@apollo/client', 'yup', 'dayjs', 'framer-motion', 'lodash-es'],
+          vendor1: ['react', 'react-dom', '@apollo/client'],
+          vendor2: ['i18next', 'react-i18next', 'yup', 'dayjs', 'framer-motion'],
+          vendor3: ['chevrotain', 'refractor', 'lodash-es'],
+          vendor4: ['yjs', '@tiptap/core', '@tiptap/react'],
+          vendor5: ['rc-dropdown', 'rc-select', 'rc-tabs', 'rc-trigger', 'rc-virtual-list', '@uiw/react-split'],
+          vendor6: ['react-vega'],
           telemetry: ['@sentry/react', '@sentry/tracing', '@sentry/integrations'],
           common: ['@brickdoc/active-support', '@brickdoc/design-system', '@brickdoc/design-icons', '@brickdoc/schema'],
           editor: ['@brickdoc/editor'],

@@ -1,6 +1,6 @@
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import { BrickdocPWA } from '@/core/App'
 import { initialization } from '@/core/initializers'
 
 initialization()
-createRoot(document.getElementById('app-entrypoint')!).render(<BrickdocPWA />)
+ReactDOM.render(<BrickdocPWA />, document.getElementById('app-entrypoint'))
