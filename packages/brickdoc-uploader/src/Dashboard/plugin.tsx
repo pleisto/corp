@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BasePlugin, Uppy } from '@uppy/core'
 import findDOMElement from '@uppy/utils/lib/findDOMElement'
 import { Dashboard, ImportSourceOption } from './Dashboard'
@@ -123,7 +123,7 @@ export class DashboardPlugin extends BasePlugin {
 
       this.uppy.log(`Installing ${callerPluginName} to a DOM element '${target}'`)
 
-      ReactDOM.render(this.render(), targetElement)
+      createRoot(targetElement).render(this.render())
     }
   }
 

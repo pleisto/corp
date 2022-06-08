@@ -79,7 +79,11 @@
     "search.exclude": {
       "**/build": true,
       "**/output": true,
+      "**/esm-bundle": true,
       "**/dist": true,
+      "**/*.chunk.js": true,
+      "**/*.min.js": true,
+      "**/*.js.map": true,
       "**/*.log": true,
       "**/*.pid": true,
       "**/.git": true,

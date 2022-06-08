@@ -77,14 +77,16 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1024,
     sourcemap: true,
-    cssCodeSplit: false,
     target: ['chrome74', 'ios13', 'safari13'],
     rollupOptions: {
       output: {
         manualChunks: {
-          common: ['react', 'react-dom', '@brickdoc/active-support', 'i18next', '@apollo/client', 'yup'],
+          vendor: ['react', 'react-dom', 'i18next', '@apollo/client', 'yup', 'dayjs', 'framer-motion', 'lodash-es'],
           telemetry: ['@sentry/react', '@sentry/tracing', '@sentry/integrations'],
-          'design-system': ['@brickdoc/design-system', '@brickdoc/design-icons', 'framer-motion']
+          common: ['@brickdoc/active-support', '@brickdoc/design-system', '@brickdoc/design-icons', '@brickdoc/schema'],
+          editor: ['@brickdoc/editor'],
+          formula: ['@brickdoc/formula'],
+          uploader: ['@brickdoc/uploader']
         }
       }
     }
