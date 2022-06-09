@@ -10,12 +10,6 @@ module Brickdoc
       def validate_each(record, attribute, value)
         message = ::I18n.t('errors.messages.mobile_phone_invalid')
         return record.errors.add attribute, message unless REGEXP.match?(value)
-
-        if value.start_with?('86')
-          # Chinese mobile phone validator
-          # There are 11 digits. Start with 1{3-9}.
-          record.errors.add attribute, message unless /^[1]([3-9])[0-9]{9}$/.match?(value[2..-1])
-        end
       end
     end
   end

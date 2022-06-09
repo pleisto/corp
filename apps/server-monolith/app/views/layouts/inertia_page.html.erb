@@ -1,0 +1,6 @@
+<% content_for :head_extra do %>
+  <%= csrf_meta_tag %>
+  <%= render partial: 'layouts/browser_checker' %>
+  <%= vite_frontend_entrypoint_tag 'inertia-views.tsx', defer: true  %>
+<% end %>
+<%= render template: 'layouts/application' %>

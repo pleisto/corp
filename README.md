@@ -13,7 +13,7 @@ but also a web3-ready [linked-data](https://www.w3.org/standards/semanticweb/dat
 ## Highlights
 
 - **Renaissance of the [mashup](<https://en.wikipedia.org/wiki/Mashup_(web_application_hybrid)>)** - Brickdoc can connect data from multiple sources; it provides not only human-and-human collaboration, but also human-and-machine collaboration.
-- **Use web3 in the present, not wait for the future** - Brickdoc progressively embraces the web3 ecosystem. You can import any web2.0 data that supports open API into Brickdoc and then provide it to DApp for use.
+- **Use web3.0 in the present, not wait for the future** - Brickdoc progressively embraces the web3.0 ecosystem. You can import any web2.0 data that supports open API into Brickdoc and then provide it to DApp for use.
 - **First-class formula and spreadsheet support** - Most similar software is built on an airtable-like database metaphor. Still, Brickdoc thinks a spreadsheet is a choice that best fits the citizen developer's mental model.
 - **Plugin architecture** - Brickdoc is built on a plugin architecture like WordPress, and it provides a way to extend Brickdoc's functionality freely.
 

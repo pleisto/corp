@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
+  before_action :require_signed_in, only: [:pwa]
   def pwa
-    authenticate_user! if request.path === '/'
   end
 
   def unsupported

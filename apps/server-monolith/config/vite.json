@@ -1,8 +1,13 @@
 {
   "all": {
     "sourceCodeDir": "../client-web/src",
-    "watchAdditionalPaths": ["../../packages/**/*"],
-    "additionalEntrypoints": ["../../plugins/*/src/entrypoints/*", "../../plugins/*/assets/*"],
+    "watchAdditionalPaths": ["../../packages/**/*", "../../plugins/*/src", "app/frontend"],
+    "additionalEntrypoints": [
+      "../../plugins/*/src/entrypoints",
+      "../../plugins/*/assets/**/*",
+      "app/frontend/entrypoints",
+      "app/frontend/assets/**/*"
+    ],
     "publicOutputDir": "esm-bundle"
   },
   "development": {

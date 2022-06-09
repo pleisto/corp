@@ -6,7 +6,8 @@ require_relative 'array'
 require_relative 'string'
 require_relative 'hash'
 
-# Do not include the rails patches here, ext.rb will be loaded by `config/boot.rb`
+# Do not include the rails patches here,
+# this file will be loaded by `/config/boot.rb` it is earlyer than rails load.
 Hash.prepend Patches::Hash
 String.prepend Patches::String
 Array.prepend Patches::Array

@@ -5,14 +5,14 @@ module Brickdoc
     extend self
     AVAILABLE_LANGUAGES = {
       'en-US': 'English',
-      'zh-CN': '简体中文',
+      # 'zh-CN': '简体中文',
       # 'ja-JP': '日本語',
       # 'ar-SA': 'اَلْعَرَبِيَّةُ',
       # 'zh-HK': '繁體中文'
     }
 
     # ignore this on I18Next
-    SERVER_ONLY_SCOPES = [:activerecord, :doorkeeper, :devise, :datetime, :helpers, :number,
+    SERVER_ONLY_SCOPES = [:activerecord, :doorkeeper, :datetime, :helpers, :number,
                           :date, :errors, :support, :time,]
 
     def available_locales
@@ -22,7 +22,7 @@ module Brickdoc
     def fallbacks
       {
         'en-US': :en,
-        'zh-CN': :'en-US',
+        # 'zh-CN': :'en-US',
         # 'zh-HK': :'zh-CN'
         # 'ja-JP': :'en-US',
         # 'ar-SA': :'en-US'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ImgHTMLAttributes } from 'react'
 
 export type StrokeLinejoin = 'miter' | 'round' | 'bevel'
 export type StrokeLinecap = 'butt' | 'round' | 'square'
@@ -201,6 +201,7 @@ export function IconWrapper(name: string, rtl: boolean, render: IconRender) {
   }
 }
 
-export const ImageIcon: React.FC<{ src: string; alt?: string }> = props => {
-  return <img src={props.src} alt={props.alt} className="brd-icon brd-icon-img" />
+export const ImageIcon: React.FC<ImgHTMLAttributes<HTMLImageElement>> = props => {
+  // eslint-disable-next-line jsx-a11y/alt-text
+  return <img className="brd-icon brd-icon-img" {...props} style={{ width: '1em', height: '1em', ...props.style }} />
 }

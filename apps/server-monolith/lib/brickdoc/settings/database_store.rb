@@ -6,15 +6,15 @@ module Brickdoc
     # Provide database store for Brickdoc::Settings::Base
     module DatabaseStore
       # scope ltree path start with
-      ROOT_SCOPE = 'R'
+      GLOBAL_SCOPE = 'G'
 
       # Get value from database
       #
       # @param key [String]
       # @param namespace [String]
-      # @param space_id [Integer]
+      # @param pod_id [Integer]
       # @param user_id [Integer]
-      def _find_field(key, namespace:, belongs_to:, space_id:, user_id:)
+      def _find_field(key, namespace:, belongs_to:, pod_id:, user_id:)
         # If table does not exist, return default static value
         # This may be triggered when `db:create` is executed, but `db:migrate` is not.
         unless _table_exists?
@@ -28,7 +28,7 @@ module Brickdoc
           # ltree @> ltree → boolean.  Is left argument an ancestor of right (or equal)?
           .where('key = :key and scope @> :scope',
             key: _full_key(namespace, key),
-            scope: scope_path(belongs_to, space_id: space_id, user_id: user_id))
+            scope: scope_path(belongs_to, pod_id: pod_id, user_id: user_id))
           .order('depth desc')
           .first&.value
       end
@@ -38,45 +38,42 @@ module Brickdoc
       # @param key [String]
       # @param value [Object]
       # @param namespace [String]
-      # @param space_id [Integer]
+      # @param pod_id [Integer]
       # @param user_id [Integer]
-      def _update_field(key, value, namespace:, belongs_to:, space_id:, user_id:)
+      def _update_field(key, value, namespace:, belongs_to:, pod_id:, user_id:)
         record = where(
           key: _full_key(namespace, key),
-          scope: scope_path(belongs_to, space_id: space_id, user_id: user_id)
+          scope: scope_path(belongs_to, pod_id: pod_id, user_id: user_id)
         ).first_or_initialize
         record.value = value
         record.save
       end
 
-      # Calculate ltree path based on belongs_to, space_id and user_id
+      # Calculate ltree path based on belongs_to, pod_id and user_id
       # @example
-      # scope_path(:global, space_id: 1, user_id: 1) #=> 'R'
-      # scope_path(:space, space_id: 1, user_id: 2) #=> 'R.space_1.user_2'
-      # scope_path(:space, space_id: 1, user_id: nil) #=> 'R.space_1'
-      # scope_path(:space, space_id: nil, user_id: 2) #=> 'R'
-      # scope_path(:user, space_id: 1, user_id: 2) #=> 'R.user_2.space_1'
-      def scope_path(belongs_to, space_id:, user_id:)
-        space_label = space_id.present? ? "space_#{space_id.to_s(36)}" : nil
-        user_label =  user_id.present? ? "user_#{user_id.to_s(36)}" : nil
-        scope = [ROOT_SCOPE]
+      # scope_path(:global, pod_id: 1, user_id: 1) #=> 'G'
+      # scope_path(:pod, pod_id: 1, user_id: 2) #=> 'G.P1.U2'
+      # scope_path(:pod, pod_id: 1, user_id: nil) #=> 'G.P1'
+      # scope_path(:pod, pod_id: nil, user_id: 2) #=> 'G'
+      # scope_path(:user, pod_id: 1, user_id: 2) #=> 'G.U2.P1'
+      def scope_path(belongs_to, pod_id:, user_id:)
+        pod_label = pod_id.present? ? "P#{pod_id.to_s(36)}" : nil
+        user_label = user_id.present? ? "U#{user_id.to_s(36)}" : nil
+        scope = [GLOBAL_SCOPE]
         case belongs_to
-        when :space
-          scope.push space_label if space_label.present?
-          scope.push user_label if space_label.present? && user_label.present?
+        when :pod
+          scope.push pod_label if pod_label.present?
+          scope.push user_label if pod_label.present? && user_label.present?
         when :user
           scope.push user_label if user_label.present?
-          scope.push space_label if user_label.present? && space_label.present?
+          scope.push pod_label if user_label.present? && pod_label.present?
         end
         scope.join('.')
       end
 
       # Check database table exists or not
       def _table_exists?
-        table_exists? &&
-          # Fix old version of BrickdocSettings
-          # TODO: remove this check berfore public release
-          BrickdocConfig.column_names.exclude?('domain_len')
+        table_exists?
       rescue
         false
       end

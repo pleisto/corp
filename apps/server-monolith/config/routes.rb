@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  draw :accounts
-  draw :stafftools
-  draw(:devtools) unless Rails.env.production?
+  draw :users
 
   ## ActiveStorage::Blob#service_url_for_direct_upload
   put '/.internal-apis/storage/disk/:encoded_token' => 'active_storage/disk#update', as: :update_rails_disk_service

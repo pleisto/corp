@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { forwardRef } from 'react'
 import { SubmitHandler, FieldValues, SubmitErrorHandler, UseFormReturn, Controller } from 'react-hook-form'
 import { useForm } from './hook'
 import { FormField, FormFieldProps } from './FormField'
@@ -9,13 +9,14 @@ import { styled, config } from '../../themes'
 
 const StyledForm = styled('form')
 
-export interface FormProps<TFieldValues extends FieldValues> {
-  form: UseFormReturn<TFieldValues>
+export interface FormProps<TFieldValues> {
+  form: UseFormReturn<TFieldValues | any>
   onSubmit?: SubmitHandler<TFieldValues>
   onError?: SubmitErrorHandler<TFieldValues>
   layout?: FormControlProps['layout']
   children: React.ReactNode
   css?: CSS<typeof config>
+  className?: string
 }
 
 /**
@@ -23,20 +24,26 @@ export interface FormProps<TFieldValues extends FieldValues> {
  * @param props
  * @returns
  */
-const Form = <T extends FieldValues>(props: FormProps<T>): ReactElement => {
-  const { css, onError, onSubmit, children, layout, form } = props
+const FormFC = forwardRef(<T extends FieldValues>(props: FormProps<T>, ref: React.Ref<HTMLFormElement>) => {
+  const { css, onError, onSubmit, children, layout, form, className } = props
   return (
     <FormProvider {...form} layout={layout}>
-      <StyledForm css={css as any} onSubmit={onSubmit ? form.handleSubmit(onSubmit, onError) : undefined}>
+      <StyledForm
+        ref={ref}
+        css={css as any}
+        className={className}
+        onSubmit={onSubmit ? form.handleSubmit(onSubmit, onError) : undefined}>
         {children}
       </StyledForm>
     </FormProvider>
   )
-}
+})
 
-Form.Field = FormField
-Form.useForm = useForm
-Form.Controller = Controller
+const Form = Object.assign(FormFC, {
+  Field: FormField,
+  Controller,
+  useForm
+})
 
 export type { FormControlProps, FormFieldProps, SubmitHandler, SubmitErrorHandler }
 export { Form, useFormContext, FormControl }

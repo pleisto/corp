@@ -2,6 +2,7 @@
 
 require_relative '../../lib/patches/action_dispatch/draw_route'
 require_relative '../../lib/patches/active_record/postgresql_drop_database'
+require_relative '../../lib/patches/omniauth'
 
 # Rails Monkey patch
 Rails.application.reloader.to_prepare do

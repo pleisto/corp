@@ -57,10 +57,6 @@ module GraphqlHelpers
   def request
     return @request if @request.is_a? ActionDispatch::TestRequest
 
-    @request = ActionDispatch::TestRequest.create
-    @request.session = ActionController::TestSession.new
-    @request.env['devise.mapping'] = Devise.mappings[:user]
-    @request.env['warden'] = spy(Warden)
     @request
   end
 end

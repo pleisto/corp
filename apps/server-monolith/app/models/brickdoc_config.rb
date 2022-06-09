@@ -19,16 +19,18 @@ class BrickdocConfig < ApplicationRecord
   include Brickdoc::Settings::Base
   serialize :value
 
-  field :default_locale, default: 'en-US'
-  field :default_timezone, default: 'UTC'
   field :host, default: (Rails.env.development? ? 'localhost' : Brickdoc::Runtime.hostname)
+  field :locale, default: 'en-US', belongs_to: :user
+  field :timezone, default: 'UTC', belongs_to: :user
 
-  # ActionMailer
-  field :mailer, type: :hash, symbolize_keys: true, default: {
-    from: ENV['SMTP_FROM'] || 'webmaster@localhost',
-    url: ENV['SMTP_URL'] || 'smtp://localhost:1025',
-  }
+  namespace :accounts do
+    field :sign_up_enabled, type: :boolean, default: true
+    field :password_auth_enabled, type: :boolean, default: true
+    field :magic_link_auth_enabled, type: :boolean, default: true
+    field :preferred_auth_providers, type: :array, default: ['@brickdoc/google-auth', 'magic_link']
+  end
 
+  # legacy support
   # The reversible_int_hash algorithm can help us hide the real database primary key of the resource in GraphQL.
   # Please Run `./bin/generate-reversible-int-hash-seed` and set the environment variables according to the result.
   field :reversible_int_hash, type: :hash, symbolize_keys: true, read_only: true, default: {
@@ -77,5 +79,10 @@ class BrickdocConfig < ApplicationRecord
     field :experiment_discussion, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
     field :experiment_collaboration, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
     field :experiment_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
+  end
+
+  ## shortcut methods
+  def self.accounts
+    namespace(:accounts)
   end
 end

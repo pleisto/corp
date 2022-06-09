@@ -1,4 +1,5 @@
 en-US:
-  accounts:
-    provider:
-      github: 'Github'
+  users:
+    auth_providers:
+      github:
+        name: GitHub

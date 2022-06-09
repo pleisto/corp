@@ -8,7 +8,6 @@
     "extends": "../../package.json"
   },
   "scripts": {
-    "lint:rubocop": "bundle exec rubocop --parallel --config .rubocop.yml",
     "test:rspec": "bundle exec rspec",
     "bundle": "bundle",
     "rake": "rake",
@@ -23,13 +22,29 @@
     "db:migrate": "rails db:migrate",
     "db:rollback": "rails db:rollback",
     "console": "rails c",
+    "lint:eslint": "TIMING=1 run -T eslint --cache --ext ts,tsx src",
+    "lint:type": "run -T tsc",
+    "lint:rubocop": "bundle exec rubocop --parallel --config .rubocop.yml",
     "lint:brakeman": "bundle exec brakeman  --no-pager --exit-on-warn",
-    "lint:fix": "bundle exec rubocop --config .rubocop.yml -a",
+    "lint:fix": "bundle exec rubocop --config .rubocop.yml -a && TIMING=1 run -T eslint --cache --ext ts,tsx app/frontend --fix",
     "vite:start": "./bin/vite dev",
     "vite:build": "./bin/vite build",
     "build": "rake rust:build",
     "build:dev": "rake rust:build PROFILE=dev",
     "lint:clippy": "rake rust:clippy",
     "fmt:rust": "rake rust:fmt"
+  },
+  "dependencies": {
+    "@brickdoc/active-support": "workspace:^",
+    "@brickdoc/design-system": "workspace:^",
+    "@inertiajs/inertia": "^0.11.0",
+    "@inertiajs/inertia-react": "^0.8.0",
+    "@inertiajs/progress": "^0.2.7",
+    "i18next": "^21.8.8",
+    "i18next-http-backend": "^1.4.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-helmet-async": "^1.3.0",
+    "react-i18next": "^11.17.0"
   }
 }

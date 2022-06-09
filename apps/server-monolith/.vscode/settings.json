@@ -1,3 +1,14 @@
 {
-  "cSpell.words": ["Brickdoc", "chacha", "hasher", "kwarg", "magnus", "rstring", "urlsafe"]
+  "cSpell.words": [
+    "Brickdoc",
+    "chacha",
+    "entrypoints",
+    "hasher",
+    "kwarg",
+    "magnus",
+    "Omniauth",
+    "rstring",
+    "unstyled",
+    "urlsafe"
+  ]
 }

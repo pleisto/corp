@@ -123,6 +123,5 @@ jobs:
           body: |
             This pull request is automatically built and testable in [${{ env.domain }}](https://${{ env.domain }}).
             ## Devtools
-            * [Mailer Mock](https://${{ env.domain }}/devtools/mailer)
             * [Pod Logs](https://console.cloud.google.com/logs/query?project=brickdoc-testnet)
           edit-mode: replace

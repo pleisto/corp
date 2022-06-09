@@ -3,6 +3,12 @@
 module I18nable
   extend ActiveSupport::Concern
 
+  included do
+    around_action :switch_locale
+  end
+
+  private
+
   def switch_locale(&action)
     locale = detect_accept_language
     Brickdoc::I18n.with_locale(locale, &action)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { styled, theme, Button, ButtonProps } from '@brickdoc/design-system'
-import { useAccountsI18n } from '@/accounts/common/hooks'
+import { useTranslation } from 'react-i18next'
 import ceramicBackground from '@/common/assets/ceramicBg.webp'
 import logo from '@/common/assets/logo_brickdoc_2.svg'
 import pic403 from '@/common/assets/http-status/403.png'
@@ -103,7 +103,7 @@ export const AppError: React.FC<AppErrorType> = ({
 }
 
 export const AppError404: React.FC<Partial<AppErrorType>> = props => {
-  const { t } = useAccountsI18n(['errors'])
+  const { t } = useTranslation(['errors'])
   return (
     <AppError
       title={t('errors:app_error.not_found_title')}
@@ -121,7 +121,7 @@ export const AppError404: React.FC<Partial<AppErrorType>> = props => {
 }
 
 export const AppError403: React.FC<Partial<AppErrorType>> = props => {
-  const { t } = useAccountsI18n(['errors'])
+  const { t } = useTranslation(['errors'])
   return (
     <AppError
       title={t('errors:app_error.not_found_title')}
@@ -139,7 +139,7 @@ export const AppError403: React.FC<Partial<AppErrorType>> = props => {
 }
 
 export const AppError500: React.FC<Partial<AppErrorType>> = props => {
-  const { t } = useAccountsI18n(['errors'])
+  const { t } = useTranslation(['errors'])
   return (
     <AppError
       title={t('errors:app_error.server_error_title')}

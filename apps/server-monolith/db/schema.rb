@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_143434) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
   enable_extension "pgcrypto"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+<<<<<<< HEAD
   create_enum "block_state_type", ["full", "update"]
   create_enum "block_type", ["document", "component"]
 
@@ -87,6 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
     t.index ["unlock_token"], name: "index_accounts_users_on_unlock_token", unique: true
   end
 
+  create_enum "pod_type", ["User", "Group"]
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_id", null: false
@@ -106,9 +109,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", null: false
-    t.bigint "space_id"
-    t.bigint "user_id"
-    t.uuid "block_id"
     t.string "operation_type", default: "THIRD", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -117,6 +117,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "audit_logs", force: :cascade do |t|
+    t.string "actor_type", null: false
+    t.bigint "actor_id", null: false, comment: "the actor who initiated the action"
+    t.string "resource_type"
+    t.bigint "resource_id", comment: "the resource affected by the action"
+    t.inet "actor_ip", comment: "the IP address of the actor"
+    t.string "actor_location", comment: "the location of the actor"
+    t.ltree "event", null: false, comment: "the event that occurred"
+    t.jsonb "context", default: {}, null: false, comment: "the context of the event"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_type", "actor_id"], name: "index_audit_logs_on_actor"
+    t.index ["resource_type", "resource_id"], name: "index_audit_logs_on_resource"
   end
 
   create_table "brickdoc_configs", force: :cascade do |t|
@@ -301,23 +316,76 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_080007) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
-  create_table "spaces", force: :cascade do |t|
-    t.bigint "owner_id", null: false
-    t.string "domain", null: false
-    t.string "name", null: false
-    t.string "bio", limit: 140, comment: "\"Bio\" means Biography in social media."
-    t.boolean "personal", default: false, null: false
-    t.datetime "deleted_at"
+  create_table "groups_members", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "the user who is a member of the group"
+    t.bigint "group_id", null: false, comment: "the group that the user is a member of"
+    t.integer "role", null: false, comment: "enumeration value for the role of the user in the group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "invite_enable", default: false, null: false
-    t.string "invite_secret"
-    t.index "lower((domain)::text)", name: "index_spaces_on_lower_domain_text", unique: true
-    t.index ["deleted_at"], name: "index_spaces_on_deleted_at"
-    t.index ["invite_secret"], name: "index_spaces_on_invite_secret", unique: true
-    t.index ["owner_id"], name: "index_spaces_on_owner_id"
+    t.index ["group_id"], name: "index_groups_members_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_groups_members_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_groups_members_on_user_id"
+  end
+
+  create_table "pods", comment: "Pod is an abstract model used to represent tenants, which can be either users or groups", force: :cascade do |t|
+    t.enum "type", null: false, enum_type: "pod_type"
+    t.string "username", null: false, comment: "a unique username for the pod"
+    t.string "display_name", null: false
+    t.string "bio"
+    t.datetime "suspended_at", comment: "the date when the user was suspended"
+    t.integer "suspended_reason", default: 0, comment: "enumeration value for the reason for the user suspension"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((username)::text)", name: "index_pods_on_lower_username_text", unique: true
+    t.index ["suspended_at"], name: "index_pods_on_suspended_at"
+  end
+
+  create_table "users_identities", comment: "stores user authentication provider data", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "the user that owns the identity"
+    t.string "provider", comment: "the authentication provider"
+    t.string "subject", null: false, comment: "the unique identifier for the user on the provider"
+    t.jsonb "meta", default: {}, null: false, comment: "meta is a JSON object that contains extra information about the user in the provider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "provider"], name: "index_users_identities_on_user_id_and_provider", unique: true
+    t.index ["user_id"], name: "index_users_identities_on_user_id"
+  end
+
+  create_table "users_magic_link_authenticates", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((email)::text)", name: "index_users_magic_link_authenticates_on_lower_email_text", unique: true
+    t.index ["user_id"], name: "index_users_magic_link_authenticates_on_user_id", unique: true
+  end
+
+  create_table "users_notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "notification_type", null: false
+    t.json "data", default: {}, null: false, comment: "Notification data"
+    t.integer "status", null: false, comment: "Unread / read / deleted"
+    t.string "source_id"
+    t.string "source_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_type", "source_id"], name: "index_users_notifications_on_source_type_and_source_id"
+    t.index ["user_id"], name: "index_users_notifications_on_user_id"
+  end
+
+  create_table "users_password_authenticates", comment: "password authn provider", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_users_password_authenticates_on_user_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "groups_members", "pods", column: "group_id"
+  add_foreign_key "groups_members", "pods", column: "user_id"
+  add_foreign_key "users_identities", "pods", column: "user_id"
+  add_foreign_key "users_magic_link_authenticates", "pods", column: "user_id"
+  add_foreign_key "users_password_authenticates", "pods", column: "user_id"
 end

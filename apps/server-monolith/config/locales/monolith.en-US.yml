@@ -1,0 +1,39 @@
+en-US:
+  meta:
+    lang: en-US
+    dir: ltr
+    noscript: We're sorry but Brickdoc doesn't work properly without JavaScript enabled. Please visit %{url} for more information.
+    noscript_url: https://www.wikihow.com/Enable-JavaScript
+  unsupported_browser:
+    title: 'Upgrade your browser'
+    download_latest_browser_html: Unfortunately, Brickdoc has updated features that can't run on this version of your browser.
+  status:
+    forbidden: 403 Forbidden
+    invalid_csrf_token: The session is expired, please try again.
+  users:
+    auth_providers:
+      password:
+        name: Password
+        username: Username
+        password: Password
+        sign_in: Sign In
+        sign_up: Sign up with password
+      magic_link:
+        name: Magic Link
+        email_placeholder: Enter your email address
+        sign_in_or_sign_up: Continue with magic link
+    sign_in:
+      title: Sign in
+      heading: Sign in to Brickdoc
+      more_login_options: More Login Options
+      sign_up_disabled: |
+        We couldn't find your account, and currently sign up is disabled.
+        Please contact site administrator for more information.
+      unknown_failed: Unknown error occurred. Please try again.
+    sign_up:
+      title: Sign up
+      disabled: |
+        Sign up is currently disabled for this site, please contact site administrator for more information.
+        If you already have an account, click logo to sign in.
+    sign_out:
+      success: Signed out successfully.

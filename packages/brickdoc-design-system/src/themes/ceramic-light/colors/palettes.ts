@@ -32,7 +32,6 @@ export const Palettes = {
    */
   ...generatePalette('yellow', '#ffd84e'),
   yellow1: '#fffbf0',
-  yellow6: '#ffd84e',
   yellow9: '#7e6409',
 
   /**
@@ -45,7 +44,7 @@ export const Palettes = {
    * Cyan
    */
   ...generatePalette('cyan', '#39b3e8'),
-  cyan1: '#f8fbff',
+  cyan1: '#fbfbfb',
   cyan9: '#095b85',
 
   /**

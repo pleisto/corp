@@ -1,30 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def global_context
-    {
-      version: Brickdoc::Runtime.version,
-      internalApiEndpoint: internal_graphql_api_path,
-      currentUser: Current.user&.as_global_context,
-      lastDomain: Brickdoc::Runtime.cypress? ? nil : Current.user&.last_space_domain,
-      lastBlockIds: Brickdoc::Runtime.cypress? ? nil : Current.user&.last_block_ids,
-      currentSpace: Current.space,
-      env: Rails.env,
-      locale: Brickdoc::I18n.locale,
-      rtl: t('meta.dir') == 'rtl',
-      timezone: Current.timezone,
-      defaultTimezone: BrickdocConfig.default_timezone,
-      host: Brickdoc::Runtime.host,
-      csrfToken: form_authenticity_token,
-      isDesktopApp: false,
-      featureFlags: Flipper.features.map(&:name),
-      settings: BrickdocConfig.to_frontend,
-      features: BrickdocConfig.to_frontend(namespace: :features),
-      serverMessage: flash[:alert] == I18n.t('devise.failure.unauthenticated') ? nil : flash[:alert],
-      sentryDsn: ENV['SENTRY_DSN'],
-    }
-  end
-
   # Loads js-bundle plugins entrypoint js file.
   def vite_plugin_bundle_tags
     entrypoints = Brickdoc::Plugins::JsBundlePlugin.enabled_entrypoints
@@ -33,6 +9,19 @@ module ApplicationHelper
     entrypoints.map do |entrypoint|
       concat javascript_include_tag Brickdoc::Plugins::Vite.get_path(entrypoint), extname: false
     end
+  end
+
+  # Get asset url for /apps/server-monolith/app/frontend/assets folder.
+  def vite_frontend_asset_path(path)
+    url_to_asset Brickdoc::Plugins::Vite.get_path(Rails.root.join('app/frontend/assets', path))
+  end
+
+  # Get entrypoint typescript tag for /apps/server-monolith/app/frontend/entrypoints folder.
+  def vite_frontend_entrypoint_tag(entrypoint, **options)
+    options = { extname: false, crossorigin: :anonymous, type: :module }.merge(options)
+    javascript_include_tag Brickdoc::Plugins::Vite.get_path(
+      Rails.root.join('app/frontend/entrypoints', entrypoint)
+    ), **options
   end
 
   # Render a partial when it is exist. The main purpose of this method is to

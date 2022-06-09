@@ -2844,6 +2844,18 @@ __metadata:
 "@brickdoc/server-monolith@workspace:apps/server-monolith":
   version: 0.0.0-use.local
   resolution: "@brickdoc/server-monolith@workspace:apps/server-monolith"
+  dependencies:
+    "@brickdoc/active-support": "workspace:^"
+    "@brickdoc/design-system": "workspace:^"
+    "@inertiajs/inertia": ^0.11.0
+    "@inertiajs/inertia-react": ^0.8.0
+    "@inertiajs/progress": ^0.2.7
+    i18next: ^21.8.8
+    i18next-http-backend: ^1.4.1
+    react: ^18.1.0
+    react-dom: ^18.1.0
+    react-helmet-async: ^1.3.0
+    react-i18next: ^11.17.0
   languageName: unknown
   linkType: soft
 
@@ -3790,6 +3802,40 @@ __metadata:
     tinycolor2: ^1.4.1
     xml-js: ^1.6.11
   checksum: a8c1558da9f6decdb0998280cb414faf1aa5ab3779a5d8e454575dff30b48db9780228b5a28ecbe2528752cdc56a1cf60e138a495e2eed716e0232fd06d9f425
+  languageName: node
+  linkType: hard
+
+"@inertiajs/inertia-react@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@inertiajs/inertia-react@npm:0.8.0"
+  dependencies:
+    lodash.isequal: ^4.5.0
+  peerDependencies:
+    "@inertiajs/inertia": ^0.11.0
+    react: ^16.9.0 || ^17.0.0
+  checksum: 1a736dc49c9fde67a547b92e6d556fb0e416c2bf12be54c2b1c1f0e47d642677fa60e9094b5c6d713827e916875a55c567acb3b05fcee36779c57d4ed76bcf9d
+  languageName: node
+  linkType: hard
+
+"@inertiajs/inertia@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@inertiajs/inertia@npm:0.11.0"
+  dependencies:
+    axios: ^0.21.1
+    deepmerge: ^4.0.0
+    qs: ^6.9.0
+  checksum: 69653f3cb45fb0b988fd3cafbc743bbe95d7a2ad6a1845351e316e21a7b6f78e61ceddf56a82a8dba332aa25311ce74b00b929544a81739988b1b222ba47a784
+  languageName: node
+  linkType: hard
+
+"@inertiajs/progress@npm:^0.2.7":
+  version: 0.2.7
+  resolution: "@inertiajs/progress@npm:0.2.7"
+  dependencies:
+    nprogress: ^0.2.0
+  peerDependencies:
+    "@inertiajs/inertia": ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0
+  checksum: 8c89d506b096000e5b621e3d3465fa7d07855ec45e275d9475a8f47b0431478439a838a860927c764e9d5d5600bd7f9f3bba4ccea2ef5f739d7d7f25caa96ca1
   languageName: node
   linkType: hard
 
@@ -9302,6 +9348,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.21.1":
+  version: 0.21.4
+  resolution: "axios@npm:0.21.4"
+  dependencies:
+    follow-redirects: ^1.14.0
+  checksum: 44245f24ac971e7458f3120c92f9d66d1fc695e8b97019139de5b0cc65d9b8104647db01e5f46917728edfc0cfd88eb30fc4c55e6053eef4ace76768ce95ff3c
+  languageName: node
+  linkType: hard
+
 "axios@npm:^0.27.2":
   version: 0.27.2
   resolution: "axios@npm:0.27.2"
@@ -11858,7 +11913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.2.2":
+"deepmerge@npm:^4.0.0, deepmerge@npm:^4.2.2":
   version: 4.2.2
   resolution: "deepmerge@npm:4.2.2"
   checksum: a8c43a1ed8d6d1ed2b5bf569fa4c8eb9f0924034baf75d5d406e47e157a451075c4db353efea7b6bcc56ec48116a8ce72fccf867b6e078e7c561904b5897530b
@@ -13960,6 +14015,16 @@ __metadata:
   version: 1.5.1
   resolution: "focus-options-polyfill@npm:1.5.1"
   checksum: 405b588fe20400a2d9e92d36704e96b39258c4662af9f11c30065842519804b6b498e367018ee85c2a0696174810d9ae9bda16058afd64f4ef93d470a36e75e5
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.14.0":
+  version: 1.15.1
+  resolution: "follow-redirects@npm:1.15.1"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 6aa4e3e3cdfa3b9314801a1cd192ba756a53479d9d8cca65bf4db3a3e8834e62139245cd2f9566147c8dfe2efff1700d3e6aefd103de4004a7b99985e71dd533
   languageName: node
   linkType: hard
 
@@ -17902,6 +17967,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.isequal@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.isequal@npm:4.5.0"
+  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
+  languageName: node
+  linkType: hard
+
 "lodash.isinteger@npm:^4.0.4":
   version: 4.0.4
   resolution: "lodash.isinteger@npm:4.0.4"
@@ -19309,6 +19381,13 @@ __metadata:
     gauge: ^4.0.3
     set-blocking: ^2.0.0
   checksum: ae238cd264a1c3f22091cdd9e2b106f684297d3c184f1146984ecbe18aaa86343953f26b9520dedd1b1372bc0316905b736c1932d778dbeb1fcf5a1001390e2a
+  languageName: node
+  linkType: hard
+
+"nprogress@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "nprogress@npm:0.2.0"
+  checksum: 66b7bec5d563ecf2d1c3d2815e6d5eb74ed815eee8563e0afa63d3f185ab1b9cf2ddd97e1ded263b9995c5019d26d600320e849e50f3747984daa033744619dc
   languageName: node
   linkType: hard
 
@@ -20910,7 +20989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.10.3, qs@npm:^6.10.0":
+"qs@npm:6.10.3, qs@npm:^6.10.0, qs@npm:^6.9.0":
   version: 6.10.3
   resolution: "qs@npm:6.10.3"
   dependencies:

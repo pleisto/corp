@@ -7,10 +7,10 @@ module Brickdoc
     module Cache
       # @private
       # Generate a cache key for a field
-      def _cached_field_key(namespace, key, space_id, user_id, belongs_to)
+      def _cached_field_key(namespace, key, pod_id, user_id, belongs_to)
         key = _full_key(namespace, key).to_s
-        scope = scope_path(belongs_to, space_id: space_id, user_id: user_id)
-        scope == DatabaseStore::ROOT_SCOPE ? key : "#{key}:#{scope}"
+        scope = scope_path(belongs_to, pod_id: pod_id, user_id: user_id)
+        scope == DatabaseStore::GLOBAL_SCOPE ? key : "#{key}:#{scope}"
       end
 
       # @private

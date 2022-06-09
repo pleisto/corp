@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class InternalApisController < ActionController::API
+  include ActionController::Cookies
   include Apiable
   include CurrentSpace
   include I18nable
-  include ActionController::Cookies
-  around_action :switch_locale
 
   # i18next.js
   def show_locales

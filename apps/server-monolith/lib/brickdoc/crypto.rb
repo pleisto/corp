@@ -2,7 +2,6 @@
 
 module Brickdoc
   module Crypto
-    PREFIX = 'CYPHERPUNK'
     SUBKEY_MAPPING = {
       hash_salt: 1,
       data_encryption: 2,

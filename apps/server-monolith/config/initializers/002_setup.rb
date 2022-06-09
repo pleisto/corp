@@ -5,7 +5,7 @@ Rails.application.reloader.to_prepare do
   require 'i18n/backend/fallbacks'
   I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
   I18n.available_locales = Brickdoc::I18n.available_locales
-  I18n.default_locale = BrickdocConfig.default_locale
+  I18n.default_locale = BrickdocConfig.locale
   ## Fallbacks
   I18n.fallbacks.map(Brickdoc::I18n.fallbacks)
 
@@ -40,25 +40,5 @@ Rails.application.reloader.to_prepare do
     ActiveStorage::Blob.send(:second_level_cache, expires_in: 1.week)
   end
 
-  # Mailer
-  smtp_settings = URI(BrickdocConfig.mailer[:url])
-  Rails.application.configure do
-    config.action_mailer.default_url_options = Rails.application.default_url_options
-    config.action_mailer.delivery_method = Rails.env.production? ? :smtp : :test
-    config.action_mailer.default_options = {
-      from: BrickdocConfig.mailer[:from],
-    }
-    config.action_mailer.smtp_settings = {
-      address: smtp_settings.hostname,
-      port: smtp_settings.port,
-      tls: smtp_settings.scheme == 'smtps',
-      user_name: URI.decode_www_form_component(smtp_settings.user.to_s),
-      password: smtp_settings.password,
-      enable_starttls_auto: true,
-    }
-    Devise::Async.enabled = false unless Rails.env.production?
-    config.active_storage.default_url_options = Rails.application.default_url_options
-    ActiveStorage::Current.url_options = Rails.application.default_url_options
-    config.action_mailer.preview_path = Rails.root.join('spec/mailer_previews')
-  end
+  ActiveStorage::Current.url_options = Rails.application.default_url_options
 end

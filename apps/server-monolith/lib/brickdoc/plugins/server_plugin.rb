@@ -50,6 +50,7 @@ module Brickdoc
         end
 
         # Find registered hook by hook name.
+        # @param [Symbol] hook_name
         def find_hook(hook_name)
           container = hook_containers[hook_name.to_sym]
           return nil if container.nil?
@@ -57,6 +58,13 @@ module Brickdoc
           # Ignore all hooks that provided by disabled plugins.
           container._container.delete_if { |key, _| !Plugins.enabled? key }
           container
+        end
+
+        # Find plugin ids for the enabled plugins that have the hook.
+        # @param [Symbol] hook_name
+        # @example `find_plugin_ids_for_hook(:oauth_provider)` # => [:github, :password]
+        def find_plugin_id_by_hook(hook_name)
+          find_hook(hook_name).keys
         end
 
         private

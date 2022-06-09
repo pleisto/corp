@@ -32,3 +32,4 @@ packages/brickdoc-design-icons/**/*.tsx linguist-generated merge=ours
 /.vscode/*.json linguist-language=JSON5
 /tools/**/*.js linguist-vendored
 **/.storybook/** linguist-vendored
+*.html linguist-generated

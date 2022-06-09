@@ -7,7 +7,6 @@ import { AppError404, AppError403, AppError500 } from './app-error'
 import { BrickdocContext } from '@/common/brickdocContext'
 import { rootPath } from '@/common/utils'
 
-const AccountsModule = lazy(async () => await import('@/accounts/Module'))
 const SettingsModule = lazy(async () => await import('@/settings/Module'))
 
 const RequireLogin: FC<{ children?: ReactNode }> = ({ children }) => {
@@ -23,7 +22,6 @@ export const RootRoutes: FC = () => {
         <Route path="code-404" element={<AppError404 />} />
         <Route path="code-403" element={<AppError403 />} />
         <Route path="code-500" element={<AppError500 />} />
-        <Route path="accounts/*" element={<AccountsModule />} />
         <Route path=":domain/*">
           <Route path="trash" element={<Trash />} />
           <Route

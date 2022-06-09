@@ -4,7 +4,7 @@ module Brickdoc
   module Settings
     module DSL
       # Enum of :belongs_to
-      BELONG_TYPE = [:global, :user, :space]
+      BELONG_TYPE = [:global, :user, :pod].freeze
 
       # Set namespace to current_context when chainning calls or defining fields.
       # @param namespace [String]
@@ -21,20 +21,20 @@ module Brickdoc
       end
 
       # Set session's context to current_context when chainning calls.
-      # @param space_id [Integer, nil]
+      # @param pod_id [Integer, nil]
       # @param user_id [Integer, nil]
       # @param &block [Proc]
       # @example
-      # Config.at(space_id: 1, user_id: 2).get :bar
+      # Config.at(pod_id: 1, user_id: 2).get :bar
       # Config.at(user_id: 1) { get :bar }
-      def at(user_id: nil, space_id: nil, &block)
-        Brickdoc::Settings::Accessor.new(self, user_id: user_id, space_id: space_id).with_block(&block)
+      def at(user_id: nil, pod_id: nil, &block)
+        Brickdoc::Settings::Accessor.new(self, user_id: user_id, pod_id: pod_id).with_block(&block)
       end
 
       # Define a field.
       # @param key [Symbol, String] the key of the field
       # @param namespace [Symbol, String] the namespace of the field. set to '' if you want it to be global.
-      # @param belongs_to [Symbol, String] the type of the field. It can be :global, :user, :space. default to :global.
+      # @param belongs_to [Symbol, String] the type of the field. It can be :global, :user, :pod. default to :global.
       # @param type [Symbol] the type of the field. It can be one of  `:string`, `:integer`, `:float`, `:boolean`,
       # `:encrypted`.
       # @param default [Object] the default value of the field.
@@ -48,7 +48,7 @@ module Brickdoc
 
         # Avoid dirty data, this attributes is not allowed static defined.
         options.delete(:user_id)
-        options.delete(:space_id)
+        options.delete(:pod_id)
 
         @frontend_fields ||= {}
         if options[:frontend]

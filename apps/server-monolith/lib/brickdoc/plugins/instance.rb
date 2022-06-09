@@ -12,7 +12,8 @@ module Brickdoc
         @path = path
 
         # define plugin enabled field in config
-        config.field(enabled_field_name, type: :boolean, belongs_to: :space, default: false)
+        # Currently, we only support enable/disable plugin in global scope
+        config.field(enabled_field_name, type: :boolean, belongs_to: :global, default: false)
         # Clear the cache to avoid the default value cache remaning when the plugin no longer
         # calls the `default_enabled!` method.
         config.touch(enabled_field_name)

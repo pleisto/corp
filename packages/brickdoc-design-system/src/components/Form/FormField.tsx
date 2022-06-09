@@ -19,13 +19,7 @@ const MemoizedFormField = memo(
       children
     )
     return (
-      <FormControl
-        layout={layout}
-        {...controlProps}
-        // TODO: Add i18n support when using name as the default label
-        label={label ?? name}
-        invalidMessage={error?.message}
-      >
+      <FormControl layout={layout} {...controlProps} label={label ?? name} invalidMessage={error?.message}>
         {name && !!register && isValidElement(children)
           ? cloneElement(children, {
               ...register(name, options),
@@ -36,7 +30,7 @@ const MemoizedFormField = memo(
     )
   },
   (prevProps, nextProps) => false
-  // TODO:  memoize has a bug when yup resolver is used
+  // FIXME:  memoize has a bug when yup resolver is used
   /**
    * @see https://react-hook-form.com/advanced-usage#FormProviderPerformance
    * prevProps?.formState?.isDirty === nextProps?.formState?.isDirty &&

@@ -32,8 +32,6 @@ module Brickdoc
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.action_mailer.deliver_later_queue_name = :default
-
     config.active_record.query_log_tags_enabled = true
     config.active_job.queue_adapter = :async
     config.logger = ::Logger.new($stdout)

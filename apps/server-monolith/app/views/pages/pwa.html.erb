@@ -1,4 +1,10 @@
-<%= render partial: 'layouts/browser_checker' %>
 <div role="application" id="app-entrypoint" data-server-side-render="false"
 style="width:100%;min-height:100vh;" data-app-mount="brickdoc-pwa"></div>
-<%= vite_plugin_bundle_tags %>
+<% content_for :head_extra do %>
+    <%= render partial: 'layouts/browser_checker' %>
+    <%= vite_typescript_tag 'entrypoints/application.tsx' %>
+    <%= vite_plugin_bundle_tags %>
+    <% if Rails.env.production? %>
+    <script src="/esm-bundle/registerSW.js"></script>
+    <% end %>
+<% end %>

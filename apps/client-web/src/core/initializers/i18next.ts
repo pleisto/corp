@@ -7,12 +7,9 @@ export const i18nextInit = (): void => {
     .use(HttpApi)
     .use(initReactI18next)
     .init({
-      lng: globalThis.brickdocContext?.locale,
+      lng: document.documentElement.lang,
       ns: 'meta',
-      fallbackLng: {
-        'zh-HK': ['zh-CN'],
-        'zh-TW': ['zh-CN']
-      },
+      fallbackLng: 'en-US',
       load: 'currentOnly',
       cleanCode: true,
       interpolation: {
@@ -21,10 +18,7 @@ export const i18nextInit = (): void => {
         suffix: '}'
       },
       backend: {
-        loadPath: '/.internal-apis/locales/%{ns}.%{lng}.json',
-        queryStringParams: {
-          ver: globalThis.brickdocContext?.version
-        }
+        loadPath: '/.internal-apis/locales/%{ns}.%{lng}.json'
       }
     })
 }
