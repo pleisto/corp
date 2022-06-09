@@ -36,7 +36,7 @@
     "framer-motion": "^6.3.11",
     "node-polyfill-webpack-plugin": "^1.1.4",
     "polished": "^4.2.2",
-    "rc-dropdown": "^4.0.0",
+    "rc-dropdown": "^4.0.1",
     "rc-select": "^14.1.5",
     "rc-tabs": "^11.16.0",
     "rc-trigger": "^5.3.1",
@@ -73,7 +73,7 @@
     "react-i18next": "^11.17.0",
     "react-json-view": "^1.21.3",
     "storybook-addon-designs": "^6.2.1",
-    "swc-loader": "^0.2.2"
+    "swc-loader": "^0.2.3"
   },
   "peerDependencies": {
     "i18next": ">=21.3.3",
