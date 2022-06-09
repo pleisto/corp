@@ -1,3 +1,15 @@
 {
-  "cSpell.words": ["brickdoc", "noscript", "Omniauth", "rubocop"]
+  "cSpell.words": [
+    "actioncable",
+    "activestorage",
+    "brickdoc",
+    "codegen",
+    "commitlint",
+    "noscript",
+    "Omniauth",
+    "pdftron",
+    "prosemirror",
+    "rubocop",
+    "tsdoc"
+  ]
 }

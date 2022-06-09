@@ -18,76 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_143434) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-<<<<<<< HEAD
   create_enum "block_state_type", ["full", "update"]
   create_enum "block_type", ["document", "component"]
-
-  create_table "accounts_federated_identities", force: :cascade do |t|
-    t.bigint "accounts_user_id"
-    t.string "provider", null: false
-    t.string "uid", null: false, comment: "unique identifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["accounts_user_id"], name: "index_accounts_federated_identities_on_accounts_user_id"
-    t.index ["provider", "uid"], name: "index_accounts_federated_identities_on_provider_and_uid", unique: true
-  end
-
-  create_table "accounts_members", force: :cascade do |t|
-    t.bigint "space_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "role", null: false
-    t.integer "state", default: 0, null: false
-    t.index ["space_id"], name: "index_accounts_members_on_space_id"
-    t.index ["user_id"], name: "index_accounts_members_on_user_id"
-  end
-
-  create_table "accounts_notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "notification_type", null: false
-    t.json "data", default: {}, null: false, comment: "Notification data"
-    t.integer "status", null: false, comment: "Unread / read / deleted"
-    t.string "source_id"
-    t.string "source_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["source_type", "source_id"], name: "index_accounts_notifications_on_source_type_and_source_id"
-    t.index ["user_id"], name: "index_accounts_notifications_on_user_id"
-  end
-
-  create_table "accounts_users", force: :cascade do |t|
-    t.string "email"
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at"
-    t.string "locale", limit: 17, comment: "BCP47 language codes."
-    t.string "timezone"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "last_space_domain"
-    t.json "last_block_ids", default: {}, null: false
-    t.index ["confirmation_token"], name: "index_accounts_users_on_confirmation_token", unique: true
-    t.index ["deleted_at"], name: "index_accounts_users_on_deleted_at"
-    t.index ["email"], name: "index_accounts_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_accounts_users_on_reset_password_token", unique: true
-    t.index ["unlock_token"], name: "index_accounts_users_on_unlock_token", unique: true
-  end
-
   create_enum "pod_type", ["User", "Group"]
 
   create_table "active_storage_attachments", force: :cascade do |t|

@@ -10,6 +10,29 @@ en-US:
   status:
     forbidden: 403 Forbidden
     invalid_csrf_token: The session is expired, please try again.
+  errors:
+    messages:
+      already_confirmed: was already confirmed, please try signing in
+      confirmation_period_expired: needs to be confirmed within %{period}, please request a new one
+      expired: has expired, please request a new one
+      not_found: not found
+      not_locked: was not locked
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: '%{count} errors prohibited this %{resource} from being saved:'
+      is_not_valid_domain: 'Space domain "%{domain}" is not available'
+      is_not_valid_email: 'Email "%{email}" is not available'
+      send_interval: Sending interval is too short, please try again after 1 minute
+      accepted: must be accepted
+      model_invalid: 'Validation failed: %{errors}'
+      email_invalid: is not an email
+      domain_invalid: is not a valid domain name
+      uuid_invalid: is not an uuid
+      domain_presence_invalid: is not presence
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      taken: has already been taken
+      InvalidImageUrl: Invalid image url
   users:
     auth_providers:
       password:
