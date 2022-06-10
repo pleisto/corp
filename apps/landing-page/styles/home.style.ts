@@ -49,7 +49,7 @@ export const SectionWrapper = styled('div', {
   display: 'flex',
   flexFlow: 'column nowrap',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'center'
 })
 
 export const Section1Title = styled('div', {
@@ -74,7 +74,7 @@ export const Section2Title = styled('div', {
   paddingBottom: 16,
   '@media (max-width: 420px)': {
     fontSize: '22px',
-    lineHeight: '30px',
+    lineHeight: '30px'
   }
 })
 
@@ -84,11 +84,11 @@ export const Section2Comment = styled('div', {
   lineHeight: '44px',
   textAlign: 'center',
   letterSpacing: '0.1em',
-  paddingBottom: 56,
+  // paddingBottom: 56,
   '@media (max-width: 420px)': {
     fontSize: '16px',
     lineHeight: '22px',
-    letterSpacing: '0.05em',
+    letterSpacing: '0.05em'
   }
 })
 
@@ -96,14 +96,14 @@ export const JoinButton = styled(Button, {
   width: 392,
   height: 64,
   span: {
-    fontSize: '24px',
+    fontSize: '24px'
   },
   '@media (max-width: 420px)': {
     width: 236,
     height: 40,
     span: {
-      fontSize: '18px',
-    },
+      fontSize: '18px'
+    }
   }
 })
 
@@ -111,7 +111,7 @@ export const LinkList = styled('div', {
   paddingTop: 56,
   display: 'flex',
   '@media (max-width: 420px)': {
-    paddingTop: 30,
+    paddingTop: 30
   }
 })
 
