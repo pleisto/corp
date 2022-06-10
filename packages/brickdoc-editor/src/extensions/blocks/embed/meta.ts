@@ -37,6 +37,18 @@ export interface EmbedOptions {
     success: boolean
     data: UrlData
   }>
+  prepareFileUpload?: (
+    blockId: string,
+    type: string,
+    file: File
+  ) => Promise<{
+    endpoint: string
+    headers: any
+    blobKey: string
+    signedId: string
+    downloadUrl: string
+    viewUrl: string
+  }>
 }
 
 export type EmbedViewMode = 'text' | 'preview' | 'card'

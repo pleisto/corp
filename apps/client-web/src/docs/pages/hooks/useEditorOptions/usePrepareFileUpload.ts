@@ -1,25 +1,15 @@
 import { useCallback } from 'react'
 import { Upload, useCreateDirectUploadMutation } from '@/BrickdocGraphQL'
-import { EditorProps } from '@brickdoc/editor'
-import { FileChecksum } from '@rails/activestorage/src/file_checksum'
+import { EmbedOptions } from '@brickdoc/editor'
+import { checksum } from '../usePrepareFileUpload'
+import { DocMeta } from '@/docs/store/DocMeta'
+import { CreateDirectUploadInput } from '@brickdoc/schema'
 
-export const checksum = async (file: File): Promise<string> =>
-  await new Promise((resolve, reject) => {
-    FileChecksum.create(file, (error, checksum) => {
-      if (error) {
-        reject(error)
-        return
-      }
-
-      resolve(checksum)
-    })
-  })
-
-export function usePrepareFileUpload(): EditorProps['prepareFileUpload'] {
+export function usePrepareFileUpload(docMeta: DocMeta): EmbedOptions['prepareFileUpload'] {
   const [directUpload] = useCreateDirectUploadMutation()
 
-  return useCallback(
-    async (blockId: string, type: string, file: File) => {
+  return useCallback<NonNullable<EmbedOptions['prepareFileUpload']>>(
+    async (blockId, type, file) => {
       let inputType: Upload
 
       switch (type) {
@@ -30,24 +20,23 @@ export function usePrepareFileUpload(): EditorProps['prepareFileUpload'] {
           inputType = Upload.Doc
       }
 
-      if (!blockId && type === 'image') {
+      if (!docMeta.id && type === 'image') {
         inputType = Upload.Avatar
       }
 
-      const input = {
+      const input: CreateDirectUploadInput['input'] = {
         filename: file.name,
         byteSize: file.size,
         contentType: file.type,
         checksum: await checksum(file)
       }
 
-      // eslint-disable-next-line @typescript-eslint/return-await
-      return await directUpload({
+      return directUpload({
         variables: {
           input: {
             input,
             type: inputType,
-            blockId
+            blockId: docMeta.id
           }
         }
         // TODO: handle error
@@ -68,6 +57,6 @@ export function usePrepareFileUpload(): EditorProps['prepareFileUpload'] {
         }
       })
     },
-    [directUpload]
+    [directUpload, docMeta.id]
   )
 }

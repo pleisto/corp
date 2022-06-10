@@ -261,6 +261,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
     <UploadTypeEmbedBlock
       deleteNode={deleteNode}
       getPos={getPos}
+      extension={extension}
       node={node}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
     />

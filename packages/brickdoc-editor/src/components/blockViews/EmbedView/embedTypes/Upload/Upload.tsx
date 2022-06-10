@@ -13,6 +13,7 @@ import { sizeFormat } from '../../../../../helpers'
 export interface UploadTypeEmbedBlockProps {
   deleteNode: EmbedViewProps['deleteNode']
   node: EmbedViewProps['node']
+  extension: EmbedViewProps['extension']
   getPos: EmbedViewProps['getPos']
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
 }
@@ -25,6 +26,7 @@ export const UploadTypeEmbedBlock: FC<UploadTypeEmbedBlockProps> = ({
   node,
   deleteNode,
   getPos,
+  extension,
   updateEmbedBlockAttributes
 }) => {
   const [t] = useEditorI18n()
@@ -32,6 +34,7 @@ export const UploadTypeEmbedBlock: FC<UploadTypeEmbedBlockProps> = ({
 
   const { progress, onChooseFile, onFileInputChange, file, fileType } = useUploadProgress(
     node,
+    extension,
     updateEmbedBlockAttributes,
     inputRef
   )
