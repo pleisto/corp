@@ -26,7 +26,7 @@ module Docs
   class Formula < ApplicationRecord
     self.inheritance_column = :_type_disabled
 
-    belongs_to :block, class_name: 'Docs::Block'
+    belongs_to :block, class_name: 'Docs::Block', optional: true
     belongs_to :space, optional: true
 
     enum type: {
