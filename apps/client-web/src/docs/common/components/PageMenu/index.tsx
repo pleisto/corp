@@ -62,7 +62,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
   const editor = useReactiveVar(editorVar)
   const formulaContext = useReactiveVar(FormulaContextVar)
 
-  const { id, domain, host } = useDocMeta()
+  const { id, domain } = useDocMeta()
 
   const [popoverVisible, setPopoverVisible] = React.useState(false)
   const [dropdownVisible, setDropdownVisible] = React.useState(false)
@@ -127,7 +127,7 @@ export const PageMenu: React.FC<PageMenuProps> = ({
 
   const { t } = useDocsI18n()
   const linkPath = `/${domain}/${pageId}`
-  const link = `${host}${linkPath}`
+  const link = `${window.location.origin}${linkPath}`
 
   const onRename = async (e: any): Promise<void> => {
     const title = e?.target?.value

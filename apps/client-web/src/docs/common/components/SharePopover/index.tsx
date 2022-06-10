@@ -36,7 +36,7 @@ type SpaceValue = string
 
 export const SharePopover: React.FC<SharePopoverProps> = ({ children }) => {
   const { t } = useDocsI18n()
-  const { id, host, path, domain } = useNonNullDocMeta()
+  const { id, path, domain } = useNonNullDocMeta()
   const [inviteLoading, setInviteLoading] = React.useState<boolean>(false)
   const [copied, setCopied] = React.useState<boolean>(false)
   const [blockCreateShareLink] = useBlockCreateShareLinkMutation({ refetchQueries: [queryBlockShareLinks] })
@@ -63,7 +63,7 @@ export const SharePopover: React.FC<SharePopoverProps> = ({ children }) => {
     setInviteLoading(false)
   }, [spaceValue, inviteUserPolicy, blockCreateShareLink, id, setOptions])
 
-  const link = `${host}${path}`
+  const link = `${window.location.origin}${path}`
   const handleCopy = async (): Promise<void> => {
     await navigator.clipboard.writeText(link)
     void toast.success(t('share.copy_hint'))
