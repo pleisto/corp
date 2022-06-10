@@ -2,10 +2,10 @@ import { useGetSpaceMembersQuery } from '@/BrickdocGraphQL'
 import { pagesVar } from '@/docs/reactiveVars'
 import { DocMeta } from '@/docs/store/DocMeta'
 import { useReactiveVar } from '@apollo/client'
-import { BaseOptions } from '@brickdoc/editor'
+import { MentionCommandsOptions } from '@brickdoc/editor'
 import { useMemo } from 'react'
 
-export function useMentionCommands(docMeta: DocMeta): BaseOptions['mentionCommands'] {
+export function useMentionCommands(docMeta: DocMeta): MentionCommandsOptions {
   const { data } = useGetSpaceMembersQuery()
 
   const users = useMemo(

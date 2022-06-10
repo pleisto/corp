@@ -20,10 +20,14 @@ export function useCommentEditor({ defaultContent, mentionCommands }: CommentEdi
                 size: 'sm',
                 ...mentionCommands
               }
-            : mentionCommands,
-        pageLink: {
-          size: 'sm'
-        },
+            : false,
+        pageLink:
+          typeof mentionCommands !== 'boolean'
+            ? {
+                size: 'sm',
+                pages: mentionCommands.pages
+              }
+            : false,
         paragraph: { native: true },
         text: true,
         user: {

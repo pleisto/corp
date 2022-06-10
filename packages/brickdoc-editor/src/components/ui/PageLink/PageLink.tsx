@@ -4,7 +4,6 @@ import { styled, theme } from '@brickdoc/design-system'
 import { useMemo } from 'react'
 import { PageLinkOptions, PageLinkAttributes } from '../../../extensions/blocks/pageLink/meta'
 import { useEditorI18n } from '../../../hooks'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 
 export interface PageLinkProps {
   options?: PageLinkOptions
@@ -54,11 +53,10 @@ const PageName = styled('span', {
 
 export const PageLink: React.FC<PageLinkProps> = ({ attributes, options }) => {
   const [t] = useEditorI18n()
-  const editorProps = useEditorPropsContext()
   const size = options?.size ?? 'md'
   const { key } = attributes?.page ?? {}
 
-  const page = useMemo(() => editorProps.documentPages.find(page => page.key === key), [editorProps.documentPages, key])
+  const page = useMemo(() => options?.pages?.find(page => page.id === key), [key, options?.pages])
   const icon = page?.icon ?? attributes?.page?.icon
   const title = page?.title ?? attributes?.page?.title
 

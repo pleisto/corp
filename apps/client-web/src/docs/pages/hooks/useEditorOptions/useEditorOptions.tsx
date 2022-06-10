@@ -43,6 +43,9 @@ export function useEditorOptions({
       embed,
       formula,
       mentionCommands,
+      pageLink: {
+        pages: mentionCommands.pages
+      },
       subPageMenu,
       sync: {
         onSave: onDocSave
