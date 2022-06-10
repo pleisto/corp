@@ -1,4 +1,4 @@
-import { useMemo, FC, useEffect } from 'react'
+import { useMemo, FC, useEffect, DependencyList } from 'react'
 import {
   useEditor as useTiptapEditor,
   EditorContent as TiptapEditorContent,
@@ -87,7 +87,7 @@ const typesWithUuid = [
   Spreadsheet.name
 ]
 
-export function useEditor(options: EditorOptions): TiptapEditor | null {
+export function useEditor(options: EditorOptions, deps?: DependencyList): TiptapEditor | null {
   const { editable, extensions, base, ...restOptions } = options
 
   const editorOptions = useMemo<Partial<TiptapEditorOptions>>(
@@ -166,9 +166,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     [base, editable, extensions, restOptions]
   )
 
-  // TODO: pass in deps from outside
-  const yDoc = typeof base?.collaboration !== 'boolean' ? base?.collaboration?.document : undefined
-  const editor = useTiptapEditor(editorOptions, [yDoc])
+  const editor = useTiptapEditor(editorOptions, deps)
 
   useEffect(() => {
     editor?.setOptions(editorOptions)
