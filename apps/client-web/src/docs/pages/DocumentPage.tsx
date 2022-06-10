@@ -57,7 +57,8 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     blocks: data?.childrenBlocks
   })
 
-  const editor = useEditor(editorOptions)
+  // new ydoc requires new editor to load it
+  const editor = useEditor(editorOptions, [ydoc.current])
 
   // TODO: refactor editor reactive var
   useEffect(() => {
@@ -75,7 +76,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     }
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
-  if (loading || !blocksLoading || !editor || editor.isDestroyed || docMeta.documentInfoLoading) {
+  if (loading || blocksLoading || !editor || editor.isDestroyed || docMeta.documentInfoLoading) {
     return (
       <Root.PageSpinWrapper>
         <Spin size="lg" />
