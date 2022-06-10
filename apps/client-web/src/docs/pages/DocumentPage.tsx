@@ -33,11 +33,11 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     [docMeta.id, docMeta.historyId]
   )
 
-  const { rootBlock, data, loading, onDocSave } = useSyncProvider(queryVariables)
+  const { rootBlock, data, loading: blocksLoading, onDocSave } = useSyncProvider(queryVariables)
 
   useDocHistoryProvider(docMeta.id as string)
 
-  const { ydoc, initBlocksToEditor } = useBlockSyncProvider({
+  const { ydoc, initBlocksToEditor, loading } = useBlockSyncProvider({
     blockId: docMeta.id as string,
     historyId: docMeta.historyId
   })
@@ -75,7 +75,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     }
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
-  if (loading || !ydoc.current || docMeta.documentInfoLoading) {
+  if (loading || !blocksLoading || !editor || editor.isDestroyed || docMeta.documentInfoLoading) {
     return (
       <Root.PageSpinWrapper>
         <Spin size="lg" />
