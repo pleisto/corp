@@ -73,6 +73,8 @@ export type BlockAttachment = {
   source?: Maybe<Filesourcetype>
   /** type */
   type: Blocktype
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -222,6 +224,8 @@ export type BlockEmbedMeta = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Scalars['String']>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -278,6 +282,8 @@ export type BlockImage = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -354,6 +360,8 @@ export type BlockLink = {
   title?: Maybe<Scalars['String']>
   /** type */
   type: Scalars['String']
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -433,6 +441,8 @@ export type BlockPage = {
   title?: Maybe<Scalars['String']>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -469,6 +479,8 @@ export type BlockPeople = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -2705,6 +2717,7 @@ export type GetChildrenBlocksQuery = {
         type?: Blocktype | null
         source?: Filesourcetype | null
         key?: string | null
+        viewUrl?: string | null
         displayName?: string | null
         height?: number | null
         width?: number | null
@@ -2735,6 +2748,7 @@ export type GetChildrenBlocksQuery = {
         type: Blocktype
         source?: Filesourcetype | null
         key?: string | null
+        viewUrl?: string | null
         height?: number | null
         width?: number | null
         name?: string | null
@@ -5294,6 +5308,7 @@ export const GetChildrenBlocksDocument = gql`
           type
           source
           key
+          viewUrl
           displayName
           height
           width
@@ -5324,6 +5339,7 @@ export const GetChildrenBlocksDocument = gql`
           type
           source
           key
+          viewUrl
           height
           width
           name

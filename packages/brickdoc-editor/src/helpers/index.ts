@@ -1,7 +1,6 @@
 export * from './color'
 export * from './file'
 export * from './formula'
-export * from './getBlobUrl'
 export * from './popup'
 export * from './prependHttp'
 export * from './selection'

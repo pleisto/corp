@@ -196,6 +196,7 @@ export const queryChildrenBlocks = gql`
           type
           source
           key
+          viewUrl
           displayName
           height
           width
@@ -226,6 +227,7 @@ export const queryChildrenBlocks = gql`
           type
           source
           key
+          viewUrl
           height
           width
           name

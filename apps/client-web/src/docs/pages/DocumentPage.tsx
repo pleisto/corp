@@ -13,6 +13,7 @@ import { useEditorProps } from './hooks/useEditorProps'
 import { useDocumentEditable } from './hooks/useDocumentEditable'
 import * as Root from './DocumentPage.style'
 import { useDocMeta } from '../store/DocMeta'
+import { useEditorOptions } from './hooks/useEditorOptions'
 
 interface DocumentPageProps {
   // default: user can edit/view document normally
@@ -54,40 +55,15 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     blocks: data?.childrenBlocks
   })
 
-  // editor options
-  const pages = editorProps.documentPages.map(item => ({
-    id: item.key,
-    icon: item.icon,
-    link: `/${docMeta.domain}/${item.key}`,
-    parentId: item.parentId,
-    title: item.title
-  }))
-  const users = editorProps.spaceMembers.map(item => ({
-    id: item.domain,
-    name: item.name,
-    avatar: item.avatar
-  }))
-
-  console.log('ydoc', ydoc.current)
-
-  const editor = useEditor({
-    baseExtensionOptions: {
-      collaboration: ydoc.current
-        ? {
-            document: ydoc.current
-          }
-        : false,
-      mentionCommands: {
-        pages,
-        users
-      },
-      sync: {
-        onSave: onDocSave
-      }
-    },
-    props: editorProps,
-    editable: documentEditable && !docMeta.historyId
+  const editorOptions = useEditorOptions({
+    docMeta,
+    ydoc: ydoc.current,
+    onDocSave,
+    documentEditable: documentEditable && !docMeta.historyId,
+    blocks: data?.childrenBlocks
   })
+
+  const editor = useEditor(editorOptions)
 
   // TODO: refactor editor reactive var
   useEffect(() => {

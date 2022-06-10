@@ -70,6 +70,8 @@ export type BlockAttachment = {
   source?: Maybe<Filesourcetype>
   /** type */
   type: Blocktype
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -219,6 +221,8 @@ export type BlockEmbedMeta = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Scalars['String']>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -275,6 +279,8 @@ export type BlockImage = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -351,6 +357,8 @@ export type BlockLink = {
   title?: Maybe<Scalars['String']>
   /** type */
   type: Scalars['String']
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -430,6 +438,8 @@ export type BlockPage = {
   title?: Maybe<Scalars['String']>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }
@@ -466,6 +476,8 @@ export type BlockPeople = {
   source?: Maybe<Filesourcetype>
   /** type */
   type?: Maybe<Blocktype>
+  /** view url */
+  viewUrl?: Maybe<Scalars['String']>
   /** width */
   width?: Maybe<Scalars['Int']>
 }

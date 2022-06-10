@@ -6,7 +6,9 @@ export const meta: ExtensionMeta = {
   extensionType: 'block'
 }
 
-export interface EmbedOptions {}
+export interface EmbedOptions {
+  getFileUrl?: (key: string, source: 'EXTERNAL' | 'ORIGIN') => string | undefined | null
+}
 
 export type EmbedViewMode = 'text' | 'preview' | 'card'
 export interface EmbedAttributes {
@@ -29,6 +31,7 @@ export interface EmbedAttributes {
     type: 'IMAGE'
     name?: string
     key?: string
+    viewUrl?: string
     displayName?: string | null
     source?: 'EXTERNAL' | 'ORIGIN'
     mode?: EmbedViewMode
@@ -42,6 +45,7 @@ export interface EmbedAttributes {
     name?: string
     displayName?: string | null
     key?: string
+    viewUrl?: string
     contentType?: string | null
     type: 'ATTACHMENT'
     source?: 'EXTERNAL' | 'ORIGIN'

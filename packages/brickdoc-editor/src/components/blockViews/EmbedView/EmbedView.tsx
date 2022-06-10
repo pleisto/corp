@@ -1,11 +1,10 @@
 import { FC, ReactElement, useCallback, useRef } from 'react'
 import { Embedtype } from '@brickdoc/schema'
 import { TextView, PreviewView, CardView } from './embedViews'
-import { linkStorage, getFileTypeByExtension, getBlobUrl, getFileTypeByContentType, sizeFormat } from '../../../helpers'
+import { getFileTypeByExtension, getFileTypeByContentType, sizeFormat } from '../../../helpers'
 import { GalleryTypeEmbedBlock, LinkTypeEmbedBlock, UploadTypeEmbedBlock } from './embedTypes'
 import { ImageView } from './embedViews/ImageView'
 import { EmbedAttributes, EmbedViewProps } from '../../../extensions/blocks/embed/meta'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 import { FileIcon } from '../../ui'
 
 export type EmbedBlockType = 'link' | 'attachment' | 'image'
@@ -128,8 +127,7 @@ const renderAttachment = (
 
 // eslint-disable-next-line complexity
 export const EmbedView: FC<EmbedViewProps> = props => {
-  const { node, updateAttributes, deleteNode, getPos } = props
-  const editorProps = useEditorPropsContext()
+  const { node, updateAttributes, deleteNode, getPos, extension } = props
   const latestEmbedBlockAttributes = useRef<Partial<EmbedAttributes>>({})
   const updateEmbedBlockAttributes = useCallback<UpdateEmbedBlockAttributes>(
     (newAttributes, type): void => {
@@ -157,11 +155,10 @@ export const EmbedView: FC<EmbedViewProps> = props => {
     [node.attrs, updateAttributes]
   )
 
-  const defaultUrl = linkStorage.get(node.attrs.uuid)
-
   // image
   if (node.attrs.image?.key) {
-    const imageUrl = getBlobUrl(editorProps.rootId, node.attrs?.image ?? {}, editorProps.blobs) ?? defaultUrl
+    const imageUrl =
+      extension.options.getFileUrl?.(node.attrs.image.key, node.attrs.image.source!) ?? node.attrs.image.viewUrl
     if (imageUrl) {
       return renderImage(imageUrl, updateEmbedBlockAttributes, props)
     }
@@ -169,7 +166,9 @@ export const EmbedView: FC<EmbedViewProps> = props => {
 
   // file
   if (node.attrs.attachment?.key) {
-    const fileUrl = getBlobUrl(editorProps.rootId, node.attrs?.attachment ?? {}, editorProps.blobs) ?? defaultUrl
+    const fileUrl =
+      node.attrs.attachment.viewUrl! ||
+      extension.options.getFileUrl?.(node.attrs.attachment.key, node.attrs.attachment.source!)
     if (fileUrl) {
       return renderAttachment(fileUrl, updateEmbedBlockAttributes, props)
     }

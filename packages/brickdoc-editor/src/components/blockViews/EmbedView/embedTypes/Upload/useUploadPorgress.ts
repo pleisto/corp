@@ -1,6 +1,6 @@
 import { useCallback, useState, ChangeEventHandler, RefObject } from 'react'
 import { UploadResultData, UploadProgress, imperativeUpload } from '@brickdoc/uploader'
-import { linkStorage, getFileTypeByExtension, getFileTypeByContentType, FileType } from '../../../../../helpers'
+import { getFileTypeByExtension, getFileTypeByContentType, FileType } from '../../../../../helpers'
 import { useEditorPropsContext } from '../../../../../hooks'
 import { useBlockJustCreated } from '../useBlockJustCreated'
 import { useDefaultFile } from './useDefaultFile'
@@ -25,8 +25,6 @@ export function useUploadProgress(
 
   const onUploaded = useCallback(
     (data: UploadResultData): void => {
-      linkStorage.set(node.attrs.uuid, data.downloadUrl ?? '')
-
       let fileType = getFileTypeByContentType(data.meta?.contentType ?? '')
       fileType = fileType === 'unknown' ? getFileTypeByExtension(data.meta?.name) : fileType
 
@@ -37,12 +35,13 @@ export function useUploadProgress(
           name: data.meta?.name,
           size: data.meta?.size,
           contentType: data.meta?.contentType,
-          mode: 'preview'
+          mode: 'preview',
+          viewUrl: data.viewUrl
         },
         fileType === 'image' ? 'image' : 'attachment'
       )
     },
-    [node.attrs.uuid, updateEmbedBlockAttributes]
+    [updateEmbedBlockAttributes]
   )
 
   const [progress, setProgress] = useState<UploadProgress>()

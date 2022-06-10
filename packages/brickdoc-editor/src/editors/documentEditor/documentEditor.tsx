@@ -19,7 +19,6 @@ import {
   HardBreak,
   Heading,
   HorizontalRule,
-  Image,
   ListItem,
   OrderedList,
   Paragraph,
@@ -65,8 +64,7 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, ...props }) => {
 }
 
 export interface EditorOptions extends Partial<TiptapEditorOptions> {
-  baseExtensionOptions?: Partial<BaseOptions>
-  props: EditorProps
+  base?: Partial<BaseOptions>
 }
 
 const typesWithUuid = [
@@ -90,7 +88,7 @@ const typesWithUuid = [
 ]
 
 export function useEditor(options: EditorOptions): TiptapEditor | null {
-  const { editable, props, extensions, baseExtensionOptions, ...restOptions } = options
+  const { editable, extensions, base, ...restOptions } = options
 
   const editorOptions = useMemo<Partial<TiptapEditorOptions>>(
     () => ({
@@ -157,7 +155,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
               user: true,
               dropBlock: true
             },
-            baseExtensionOptions
+            base
           )
         )
       ],
@@ -165,7 +163,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
       editable,
       ...restOptions
     }),
-    [baseExtensionOptions, editable, extensions, restOptions]
+    [base, editable, extensions, restOptions]
   )
 
   const editor = useTiptapEditor(editorOptions, [])
@@ -175,9 +173,9 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
   }, [editor, editorOptions])
 
   useEffect(() => {
-    if (!editor || !baseExtensionOptions) return
-    updateBaseExtensionOptions(editor.extensionManager.extensions, baseExtensionOptions)
-  }, [baseExtensionOptions, editor, editor?.extensionManager.extensions])
+    if (!editor || !base) return
+    updateBaseExtensionOptions(editor.extensionManager.extensions, base)
+  }, [base, editor, editor?.extensionManager.extensions])
 
   return editor
 }

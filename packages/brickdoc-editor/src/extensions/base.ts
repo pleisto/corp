@@ -28,7 +28,6 @@ export interface BaseOptions {
   history: Partial<EXTENSION.HistoryOptions> | boolean
   horizontalRule: Partial<EXTENSION.HorizontalRuleOptions> | boolean
   indent: Partial<EXTENSION.IndentOptions> | boolean
-  image: Partial<EXTENSION.ImageOptions> | boolean
   italic: Partial<EXTENSION.ItalicOptions> | boolean
   keyboardShortcut: boolean
   link: Partial<EXTENSION.LinkOptions> | boolean
@@ -56,12 +55,23 @@ export interface BaseOptions {
 
 const getConfigure = <T>(configure: T | boolean): Partial<T> => (configure === true ? {} : (configure as T))
 
+const optionNameToExtensionName = (name: keyof BaseOptions): string => {
+  switch (name) {
+    case 'embed':
+      return EXTENSION.Embed.name
+    default:
+      return name
+  }
+}
+
 /**
  * update extensions' options
  */
 export const updateExtensionOptions = (extensions: Extensions, options: Partial<BaseOptions>): void => {
   Object.entries(options).forEach(([name, value]) => {
-    const extension = extensions.find(extension => extension.name === name)
+    const extension = extensions.find(
+      extension => optionNameToExtensionName(name as keyof BaseOptions) === extension.name
+    )
     if (!extension) return
 
     extension.options = merge(extension.options, value)
@@ -102,7 +112,6 @@ export const Base = Extension.create<BaseOptions>({
     if (this.options.horizontalRule)
       extensions.push(EXTENSION.HorizontalRule.configure(getConfigure(this.options?.horizontalRule)))
     if (this.options.indent) extensions.push(EXTENSION.Indent.configure(getConfigure(this.options?.indent)))
-    if (this.options.image) extensions.push(EXTENSION.Image.configure(getConfigure(this.options?.image)))
     if (this.options.italic) extensions.push(EXTENSION.Italic.configure(getConfigure(this.options?.italic)))
     if (this.options.keyboardShortcut) extensions.push(EXTENSION.KeyboardShortcut)
     if (this.options.link) extensions.push(EXTENSION.Link.configure(getConfigure(this.options?.link)))
