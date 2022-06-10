@@ -17,6 +17,7 @@ import { devLog } from '@brickdoc/design-system'
 import { BrickdocEventBus, docHistoryReceived } from '@brickdoc/schema'
 
 export function useBlockSyncProvider(queryVariables: { blockId: string; historyId?: string }): {
+  loading: boolean
   ydoc: React.MutableRefObject<Y.Doc | undefined>
   initBlocksToEditor: React.MutableRefObject<boolean>
   blockCommitting: React.MutableRefObject<boolean>
@@ -179,6 +180,7 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
   }, [blockId, historyId, enableCollaboration, data, loading, commitState])
 
   return {
+    loading,
     ydoc,
     initBlocksToEditor,
     blockCommitting
