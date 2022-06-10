@@ -1,20 +1,18 @@
 import { Embedtype } from '@brickdoc/schema'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { EditorPropsContext } from '../../../../context'
 import { EmbedAttributes, EmbedOptions } from '../../../../extensions'
 import { mockBlockViewProps } from '../../../../test'
 import { EmbedView } from '../EmbedView'
 
-const uuid = 'uuid'
-const url = 'https://www.brickdoc.com'
+Object.assign(window, {
+  open: () => {}
+})
 
-jest.mock('../../../../hooks/useEditorPropsContext.ts', () => {
+describe('EmbedView', () => {
   const uuid = 'uuid'
   const url = 'https://www.brickdoc.com'
-  const editorPropsContext = { ...EditorPropsContext }
-  editorPropsContext.rootId = uuid
-  editorPropsContext.fetchUnsplashImages = async (query: string) => {
+  const fetchUnsplashImages: NonNullable<EmbedOptions['getGalleryImages']> = async ({ query }) => {
     return await new Promise(resolve => {
       resolve({
         success: true,
@@ -41,26 +39,8 @@ jest.mock('../../../../hooks/useEditorPropsContext.ts', () => {
       })
     })
   }
-  editorPropsContext.prepareFileUpload = (() => {}) as any
-  editorPropsContext.blobs = {
-    [uuid]: [
-      {
-        key: url,
-        url
-      }
-    ]
-  }
+  const prepareFileUpload = (() => {}) as any
 
-  return {
-    useEditorPropsContext: () => editorPropsContext
-  }
-})
-
-Object.assign(window, {
-  open: () => {}
-})
-
-describe('EmbedView', () => {
   it('matches correct snapshot', () => {
     const props = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
       node: {
@@ -78,6 +58,12 @@ describe('EmbedView', () => {
             type: 'ATTACHMENT'
           }
         }
+      },
+      extension: {
+        options: {
+          getGalleryImages: fetchUnsplashImages,
+          prepareFileUpload
+        }
       }
     })
 
@@ -93,6 +79,7 @@ describe('EmbedView', () => {
           image: {
             type: 'IMAGE',
             key: 'image',
+            viewUrl: 'viewUrl',
             source: 'EXTERNAL',
             mode: 'preview'
           }
@@ -114,6 +101,7 @@ describe('EmbedView', () => {
           image: {
             type: 'IMAGE',
             key: 'image',
+            viewUrl: 'viewUrl',
             source: 'EXTERNAL',
             name,
             mode: 'card'
@@ -136,6 +124,7 @@ describe('EmbedView', () => {
           image: {
             type: 'IMAGE',
             key: 'image',
+            viewUrl: 'viewUrl',
             source: 'EXTERNAL',
             name,
             mode: 'text'
@@ -247,8 +236,7 @@ describe('EmbedView', () => {
       },
       extension: {
         options: {
-          prepareFileUpload: () => {},
-          getAttachmentUrl: () => ''
+          prepareFileUpload
         }
       }
     })
@@ -284,8 +272,7 @@ describe('EmbedView', () => {
       },
       extension: {
         options: {
-          prepareFileUpload: () => {},
-          getAttachmentUrl: () => ''
+          prepareFileUpload
         }
       }
     })
@@ -317,8 +304,7 @@ describe('EmbedView', () => {
       },
       extension: {
         options: {
-          prepareFileUpload: () => {},
-          getAttachmentUrl: () => ''
+          prepareFileUpload
         }
       }
     })
@@ -340,6 +326,7 @@ describe('EmbedView', () => {
           attachment: {
             type: 'ATTACHMENT',
             key: url,
+            viewUrl: 'viewUrl',
             source: 'ORIGIN',
             name
           }
@@ -364,6 +351,7 @@ describe('EmbedView', () => {
           attachment: {
             type: 'ATTACHMENT',
             key: url,
+            viewUrl: 'viewUrl',
             source: 'ORIGIN',
             name,
             mode: 'preview'
@@ -389,6 +377,7 @@ describe('EmbedView', () => {
           attachment: {
             type: 'ATTACHMENT',
             key: url,
+            viewUrl: 'viewUrl',
             source: 'ORIGIN',
             name,
             mode: 'card'
@@ -414,6 +403,7 @@ describe('EmbedView', () => {
           attachment: {
             type: 'ATTACHMENT',
             key: url,
+            viewUrl: 'viewUrl',
             source: 'ORIGIN',
             name,
             mode: 'text'

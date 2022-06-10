@@ -106,9 +106,8 @@ const menuIconStyles = css({
 
 export const Conversation: FC<ConversationProps> = ({ active, commentedNode }) => {
   const { editor } = useEditorContext()
-  const mentionCommandsOptions = editor?.extensionManager.extensions.find(
-    extension => extension.name === MentionCommands.name
-  )?.options
+  const mentionCommandsOptions =
+    editor?.extensionManager.extensions.find(extension => extension.name === MentionCommands.name)?.options ?? {}
 
   const [t] = useEditorI18n()
   const { addConversation, removeConversation, resolveConversation, openConversation, addComment } =

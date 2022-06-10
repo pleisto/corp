@@ -1,8 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { useLinkValue } from '../../../embedTypes/Link/useLinkValue'
-import * as hooks from '../../../../../../hooks/useEditorPropsContext'
 import { act } from 'react-dom/test-utils'
-import { EditorPropsContext } from '../../../../../../context'
 
 jest.mock('../../../embedTypes/Link/useWebsiteMetaProgress.ts', () => ({
   useWebsiteMetaProgress: () => [0, () => {}, () => {}]
@@ -49,22 +47,21 @@ describe('useLinkValue', () => {
   })
 
   it('triggers handleSubmit correctly when fetch website meta failed', () => {
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => {
-      const editorPropsContext = { ...EditorPropsContext }
-      editorPropsContext.fetchWebsiteMeta = async () =>
-        await Promise.resolve({
-          success: false,
-          data: {
-            title: 'title',
-            url: 'url'
-          }
-        })
-
-      return editorPropsContext
-    })
+    const extension: any = {
+      options: {
+        getUrlData: async () =>
+          await Promise.resolve({
+            success: false,
+            data: {
+              title: 'title',
+              url: 'url'
+            }
+          })
+      }
+    }
     const updateEmbedBlockAttributes = jest.fn()
 
-    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes))
+    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes, extension))
 
     const [, handleLinkChange] = result.current
 
@@ -78,23 +75,22 @@ describe('useLinkValue', () => {
   })
 
   it('triggers handleSubmit correctly when fetched website data', async () => {
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => {
-      const editorPropsContext = { ...EditorPropsContext }
-      editorPropsContext.fetchWebsiteMeta = async () =>
-        await Promise.resolve({
-          success: true,
-          data: {
-            type: 'website',
-            title: 'title',
-            url: 'url'
-          }
-        })
-
-      return editorPropsContext
-    })
+    const extension: any = {
+      options: {
+        getUrlData: async () =>
+          await Promise.resolve({
+            success: true,
+            data: {
+              type: 'website',
+              title: 'title',
+              url: 'url'
+            }
+          })
+      }
+    }
     const updateEmbedBlockAttributes = jest.fn()
 
-    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes))
+    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes, extension))
 
     const [, handleLinkChange] = result.current
 
@@ -109,23 +105,23 @@ describe('useLinkValue', () => {
   })
 
   it('triggers handleSubmit correctly when fetched image data', async () => {
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => {
-      const editorPropsContext = { ...EditorPropsContext }
-      editorPropsContext.fetchWebsiteMeta = async () =>
-        await Promise.resolve({
-          success: true,
-          data: {
-            type: 'image',
-            title: 'title',
-            url: 'url'
-          }
-        })
+    const extension: any = {
+      options: {
+        getUrlData: async () =>
+          await Promise.resolve({
+            success: true,
+            data: {
+              type: 'image',
+              title: 'title',
+              url: 'url'
+            }
+          })
+      }
+    }
 
-      return editorPropsContext
-    })
     const updateEmbedBlockAttributes = jest.fn()
 
-    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes))
+    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes, extension))
 
     const [, handleLinkChange] = result.current
 
@@ -140,23 +136,23 @@ describe('useLinkValue', () => {
   })
 
   it('triggers handleSubmit correctly when fetched attachment data', async () => {
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => {
-      const editorPropsContext = { ...EditorPropsContext }
-      editorPropsContext.fetchWebsiteMeta = async () =>
-        await Promise.resolve({
-          success: true,
-          data: {
-            type: 'pdf',
-            title: 'title',
-            url: 'url'
-          }
-        })
+    const extension: any = {
+      options: {
+        getUrlData: async () =>
+          await Promise.resolve({
+            success: true,
+            data: {
+              type: 'pdf',
+              title: 'title',
+              url: 'url'
+            }
+          })
+      }
+    }
 
-      return editorPropsContext
-    })
     const updateEmbedBlockAttributes = jest.fn()
 
-    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes))
+    const { result } = renderHook(() => useLinkValue(updateEmbedBlockAttributes, extension))
 
     const [, handleLinkChange] = result.current
 

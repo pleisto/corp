@@ -37,9 +37,13 @@ import { merge } from 'lodash'
 export interface EditorContentProps {
   editor: TiptapEditor | null
   editable: boolean
+  // TODO: remove these props
+  rootId?: string
+  domain?: string
+  historyId?: string
 }
 
-export const EditorContent: FC<EditorContentProps> = ({ editor, editable }) => {
+export const EditorContent: FC<EditorContentProps> = ({ editor, editable, ...props }) => {
   documentEditorStyles()
 
   const editorContext = useMemo<EditorContextData>(() => ({ editor, documentEditable: editable }), [editable, editor])
@@ -53,7 +57,7 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, editable }) => {
       <BubbleMenu editor={editor} />
       <TiptapEditorContent className="brickdoc" editor={editor} />
       <DiscussionList />
-      <HistoryList docId={props.rootId} domain={props.domain} historyId={props.historyId} navigate={props.navigate} />
+      <HistoryList docId={props.rootId!} domain={props.domain!} historyId={props.historyId} />
       <ExplorerMenu editor={editor} />
     </EditorContext.Provider>
   )

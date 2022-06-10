@@ -13,7 +13,7 @@ exports[`BlockContainer changes block pointer event when editor editable state c
 <div>
   <div
     data-node-view-wrapper=""
-    style="pointer-events: none; white-space: normal;"
+    style="pointer-events: unset; white-space: normal;"
   />
 </div>
 `;
@@ -34,7 +34,7 @@ exports[`BlockContainer inline 1`] = `
   <span
     as="span"
     data-node-view-wrapper=""
-    style="pointer-events: none; white-space: normal;"
+    style="pointer-events: unset; white-space: normal;"
   >
     <span
       class="brd-c-bbClCh"
@@ -57,7 +57,7 @@ exports[`BlockContainer with actionOptions 1`] = `
 <div>
   <div
     data-node-view-wrapper=""
-    style="pointer-events: none; white-space: normal;"
+    style="pointer-events: unset; white-space: normal;"
   >
     block
   </div>

@@ -65,8 +65,8 @@ export const UserGroup: FC<UserGroupProps> = ({ editor, range, items, active, ac
             key={index}
             active={active && activeIndex === index}
             onAction={handleUserSelect(item)}>
-            <Avatar initials={item.name ?? item.domain} src={item.avatar} />
-            <Username>{item.name ?? item.domain}</Username>
+            <Avatar initials={item.name ?? item.id} src={item.avatar} />
+            <Username>{item.name ?? item.id}</Username>
           </StyledUserItem>
         ))}
       </UserGroupMain>

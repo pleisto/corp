@@ -31,7 +31,8 @@ export function usePrepareFileUpload(docMeta: DocMeta): EmbedOptions['prepareFil
         checksum: await checksum(file)
       }
 
-      return directUpload({
+      // eslint-disable-next-line @typescript-eslint/return-await
+      return await directUpload({
         variables: {
           input: {
             input,

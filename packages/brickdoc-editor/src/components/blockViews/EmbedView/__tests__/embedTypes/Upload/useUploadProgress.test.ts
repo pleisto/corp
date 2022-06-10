@@ -14,11 +14,17 @@ jest.mock('@brickdoc/uploader', () => ({
 
 describe('useUploadProgress', () => {
   it('uploads file correctly', () => {
-    const { node } = mockBlockViewProps<EmbedOptions, EmbedAttributes>()
+    const { node, extension } = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      extension: {
+        options: {
+          prepareFileUpload: (() => {}) as any
+        }
+      }
+    })
     const updateEmbedBlockAttributes = jest.fn()
     const { result } = renderHook(() => {
       const ref = useRef<HTMLInputElement>(document.createElement('input'))
-      return useUploadProgress(node, updateEmbedBlockAttributes, ref)
+      return useUploadProgress(node, extension, updateEmbedBlockAttributes, ref)
     })
 
     const { onFileInputChange } = result.current
@@ -37,7 +43,13 @@ describe('useUploadProgress', () => {
   })
 
   it('chooses file correctly', () => {
-    const { node } = mockBlockViewProps<EmbedOptions, EmbedAttributes>()
+    const { node, extension } = mockBlockViewProps<EmbedOptions, EmbedAttributes>({
+      extension: {
+        options: {
+          prepareFileUpload: (() => {}) as any
+        }
+      }
+    })
     const updateEmbedBlockAttributes = jest.fn()
     const inputRef = {
       current: {
@@ -45,7 +57,7 @@ describe('useUploadProgress', () => {
       }
     }
     const { result } = renderHook(() => {
-      return useUploadProgress(node, updateEmbedBlockAttributes, inputRef as any)
+      return useUploadProgress(node, extension, updateEmbedBlockAttributes, inputRef as any)
     })
 
     const { onChooseFile } = result.current

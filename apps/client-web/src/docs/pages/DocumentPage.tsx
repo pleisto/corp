@@ -109,7 +109,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
           editable={documentEditable}
         />
         <Root.PageContent>
-          <EditorContent editor={editor} editable={documentEditable} />
+          <EditorContent
+            editor={editor}
+            editable={documentEditable}
+            rootId={docMeta.id}
+            domain={docMeta.domain}
+            historyId={docMeta.historyId}
+          />
         </Root.PageContent>
       </Root.Page>
     </>
