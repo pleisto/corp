@@ -717,7 +717,6 @@ module Docs
     def save_snapshot!(params = {})
       transaction do
         update!(snapshot_version: realtime_snapshot_version_increment)
-        # snapshots.create!(params.merge(snapshot_version: snapshot_version))
       end
     end
 
