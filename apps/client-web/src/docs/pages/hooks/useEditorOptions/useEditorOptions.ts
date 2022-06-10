@@ -4,6 +4,8 @@ import { Block } from '@brickdoc/schema'
 import { DocMeta } from '@/docs/store/DocMeta'
 import { useMentionCommands } from './useMentionCommands'
 import { useEmbed } from './useEmbed'
+import { useReactiveVar } from '@apollo/client'
+import { FormulaContextVar } from '@/docs/reactiveVars'
 
 export interface UseEditorOptions {
   docMeta: DocMeta
@@ -22,6 +24,7 @@ export function useEditorOptions({
 }: UseEditorOptions): EditorOptions {
   const mentionCommands = useMentionCommands(docMeta)
   const embed = useEmbed(blocks, docMeta)
+  const formulaContext = useReactiveVar(FormulaContextVar)
 
   return {
     base: {
@@ -31,6 +34,9 @@ export function useEditorOptions({
           }
         : false,
       embed,
+      formula: {
+        formulaContext
+      },
       mentionCommands,
       sync: {
         onSave: onDocSave
