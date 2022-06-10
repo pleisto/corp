@@ -1,6 +1,17 @@
 import { css, Input, Menu, styled, theme } from '@brickdoc/design-system'
 import { horizontalPadding as drawHorizontalPadding } from '../../ui/Drawer'
 
+// layout header height
+const headerHeight = '3.5rem'
+
+export const drawerStyles = css({
+  maxHeight: `calc(100vh - ${headerHeight})`,
+  position: 'sticky',
+  top: 0,
+  left: 0,
+  overflow: 'scroll'
+})
+
 export const SearchInputContainer = styled('div', {
   padding: `0 ${drawHorizontalPadding} .625rem`
 })

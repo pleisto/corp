@@ -1,2 +1,2 @@
 export * from './embed'
-export type { EmbedAttributes, EmbedOptions } from './meta'
+export type { EmbedAttributes, EmbedOptions, GalleryImage } from './meta'

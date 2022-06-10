@@ -6,8 +6,23 @@ export const meta: ExtensionMeta = {
   extensionType: 'block'
 }
 
+export interface GalleryImage {
+  id: string
+  width: number
+  height: number
+  fullUrl: string
+  smallUrl: string
+  username: string
+  blurHash: string
+}
+
 export interface EmbedOptions {
   getFileUrl?: (key: string, source: 'EXTERNAL' | 'ORIGIN') => string | undefined | null
+  getGalleryImages?: (options: {
+    query?: string
+    page: number
+    perPage: number
+  }) => Promise<{ success: boolean; data: GalleryImage[] }>
 }
 
 export type EmbedViewMode = 'text' | 'preview' | 'card'

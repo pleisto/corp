@@ -246,6 +246,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         node={node}
         deleteNode={deleteNode}
         getPos={getPos}
+        extension={extension}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
       />
     )
