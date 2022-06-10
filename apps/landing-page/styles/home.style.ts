@@ -79,11 +79,12 @@ export const Section2Title = styled('div', {
 })
 
 export const Section2Comment = styled('div', {
-  fontWeight: '400',
+  fontWeight: '700',
   fontSize: '30px',
   lineHeight: '44px',
   textAlign: 'center',
   letterSpacing: '0.1em',
+  maxWidth: 1072,
   // paddingBottom: 56,
   '@media (max-width: 420px)': {
     fontSize: '16px',

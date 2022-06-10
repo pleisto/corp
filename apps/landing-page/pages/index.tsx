@@ -82,25 +82,24 @@ const Home: NextPage = () => {
                 <Image height={49} width={909} src="/home/title2.svg" alt="Picture of the author" />
               </Section2Title>
               <Section2Comment>
-                Brickdoc is an open source online workspace and low-code
-                <br />
-                development platform with Compound Document as its core.
+                Brickdoc is an open-source online workspace and low-code development platform with Compound Document as
+                its core.
               </Section2Comment>
               {/* <JoinButton type="primary">Apply to join our Private </JoinButton> */}
               <LinkList>
-                <LinkBlock>
+                <LinkBlock href="https://twitter.com/BrickdocHQ" target="_blank">
                   <div className="icon">
                     <Icon.Twitter />
                   </div>
                   <div className="label">Twitter</div>
                 </LinkBlock>
-                <LinkBlock>
+                <LinkBlock href="https://github.com/brickdoc/app-engine" target="_blank">
                   <div className="icon">
                     <Icon.Github />
                   </div>
                   <div className="label">Github</div>
                 </LinkBlock>
-                <LinkBlock>
+                <LinkBlock href="https://www.facebook.com/Brickdoc-100758925759280" target="_blank">
                   <div className="icon">
                     <Icon.Facebook />
                   </div>
