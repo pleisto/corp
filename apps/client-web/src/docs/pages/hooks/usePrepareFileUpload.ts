@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Upload, useCreateDirectUploadMutation } from '@/BrickdocGraphQL'
-import { EditorProps } from '@brickdoc/editor'
 import { FileChecksum } from '@rails/activestorage/src/file_checksum'
+import { DashboardPluginOptions } from '@brickdoc/uploader'
 
 export const checksum = async (file: File): Promise<string> =>
   await new Promise((resolve, reject) => {
@@ -15,7 +15,7 @@ export const checksum = async (file: File): Promise<string> =>
     })
   })
 
-export function usePrepareFileUpload(): EditorProps['prepareFileUpload'] {
+export function usePrepareFileUpload(): DashboardPluginOptions['prepareFileUpload'] {
   const [directUpload] = useCreateDirectUploadMutation()
 
   return useCallback(

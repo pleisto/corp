@@ -9,7 +9,6 @@ import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
 import { Navigate } from 'react-router-dom'
 import { editorVar } from '../reactiveVars'
-import { useEditorProps } from './hooks/useEditorProps'
 import { useDocumentEditable } from './hooks/useDocumentEditable'
 import * as Root from './DocumentPage.style'
 import { useDocMeta } from '../store/DocMeta'
@@ -45,21 +44,16 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
 
   const freeze = mode === 'presentation'
   const currentRootBlock = rootBlock.current
-  const [documentEditable] = useDocumentEditable(freeze ?? false, currentRootBlock)
+  const [documentEditable] = useDocumentEditable(freeze ?? docMeta.historyId, currentRootBlock)
 
   // TODO: refactor editor and editable reactive var
   // const documentEditable = !freeze
-
-  const editorProps = useEditorProps({
-    documentEditable,
-    blocks: data?.childrenBlocks
-  })
 
   const editorOptions = useEditorOptions({
     docMeta,
     ydoc: ydoc.current,
     onDocSave,
-    documentEditable: documentEditable && !docMeta.historyId,
+    documentEditable,
     blocks: data?.childrenBlocks
   })
 
@@ -115,7 +109,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
           editable={documentEditable}
         />
         <Root.PageContent>
-          <EditorContent editor={editor} {...editorProps} />
+          <EditorContent editor={editor} editable={documentEditable} />
         </Root.PageContent>
       </Root.Page>
     </>

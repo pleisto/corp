@@ -32,25 +32,21 @@ import { Base, BaseOptions, updateExtensionOptions as updateBaseExtensionOptions
 import { useDrawerService } from '../../components/ui/Drawer'
 import { useDropBlock, useUndo } from '../../helpers'
 import { documentEditorStyles } from './styles'
-import { EditorProps, useEditorPropsEffect } from '../../context'
 import { merge } from 'lodash'
 
-export interface EditorContentProps extends EditorProps {
+export interface EditorContentProps {
   editor: TiptapEditor | null
+  editable: boolean
 }
 
-export const EditorContent: FC<EditorContentProps> = ({ editor, ...props }) => {
+export const EditorContent: FC<EditorContentProps> = ({ editor, editable }) => {
   documentEditorStyles()
 
-  const editorContext = useMemo<EditorContextData>(
-    () => ({ editor, documentEditable: props.documentEditable }),
-    [editor, props.documentEditable]
-  )
+  const editorContext = useMemo<EditorContextData>(() => ({ editor, documentEditable: editable }), [editable, editor])
   useEditorI18n()
   useDrawerService()
   useDropBlock(editor)
   useUndo(editor)
-  useEditorPropsEffect(props)
 
   return (
     <EditorContext.Provider value={editorContext}>
