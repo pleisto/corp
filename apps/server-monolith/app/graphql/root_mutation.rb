@@ -4,7 +4,6 @@ class RootMutation < BrickGraphQL::BaseObject
   field :block_commit, mutation:  Docs::Mutations::BlockCommit
   field :block_create, mutation:  Docs::Mutations::BlockCreate
   field :block_create_share_link, mutation: Docs::Mutations::BlockCreateShareLink
-  field :block_create_snapshot, mutation: Docs::Mutations::BlockCreateSnapshot
   field :block_duplicate, mutation: Docs::Mutations::BlockDuplicate
   field :block_hard_delete, mutation: Docs::Mutations::BlockHardDelete
   field :block_move, mutation: Docs::Mutations::BlockMove
@@ -19,7 +18,6 @@ class RootMutation < BrickGraphQL::BaseObject
   field :create_or_update_space, mutation: System::Mutations::CreateOrUpdateSpace
   field :formula_commit, mutation: Docs::Mutations::FormulaCommit
   field :join_space, mutation: System::Mutations::JoinSpace
-  field :snapshot_restore, mutation: Docs::Mutations::SnapshotRestore
   field :space_destroy, mutation: System::Mutations::SpaceDestroy
   field :space_leave, mutation: System::Mutations::SpaceLeave
   field :sync_document, mutation: Docs::Mutations::SyncDocument

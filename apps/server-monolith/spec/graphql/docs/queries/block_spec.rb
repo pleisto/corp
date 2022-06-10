@@ -131,33 +131,6 @@ describe Docs::Queries::Block, type: :query do
              end.sort).to eq [block2.id, child1.id, child2.id, child3.id, block3.id, block4.id].sort
     end
 
-    it 'snapshots' do
-      user = create(:accounts_user)
-      self.current_user = user
-
-      space = create(:space)
-
-      self.current_space = space.as_session_context
-
-      block = create(:docs_block, space: space, collaborators: [user.id])
-      _child1 = create(:docs_block, space: space, sort: 100, collaborators: [user.id], parent: block, root_id: block.id)
-      _child2 = create(:docs_block, space: space, sort: 100, collaborators: [user.id], parent: block, root_id: block.id)
-
-      expect do
-        internal_graphql_execute(children_blocks_query, { root_id: block.id, snapshot_version: 1 })
-      end.to raise_error(ActiveRecord::RecordNotFound)
-
-      block.save_snapshot!
-
-      internal_graphql_execute(children_blocks_query, { root_id: block.id, snapshot_version: 1 })
-
-      expect(response.success?).to be true
-      expect(response.data['childrenBlocks'].length).to eq 3
-
-      self.current_user = nil
-      self.current_space = nil
-    end
-
     it 'hard deleted' do
       user = create(:accounts_user)
       self.current_user = user

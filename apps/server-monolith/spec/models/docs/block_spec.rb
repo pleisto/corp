@@ -34,9 +34,7 @@ parent.id => parent.history_version, })
     it 'create' do
       params = attrs.merge({ page: true, space: space, id: Brickdoc::Utils::Encoding::UUID.gen_v4, collaborators: [space.owner.id] })
       block = described_class.create!(params)
-
-      expect(block.histories.count).to eq(1)
-      expect(block.snapshots.count).to eq(0)
+      expect(block.id).to eq(params[:id])
     end
 
     it 'modify' do
@@ -57,8 +55,6 @@ parent.id => parent.history_version, })
       child.move!(child.parent_id, 100)
       expect(child.sort).to eq(100)
       expect(child.history_version).to eq(old_version + 1)
-      history = child.histories.find_by!(history_version: child.history_version)
-      expect(history.parent_id).to eq(child.parent_id)
     end
 
     it 'child to child: move different parent' do
@@ -67,8 +63,6 @@ parent.id => parent.history_version, })
       expect(child.sort).to eq(200)
       expect(child.parent_id).to eq(block.id)
       expect(child.history_version).to eq(old_version + 1)
-      history = child.histories.find_by!(history_version: child.history_version)
-      expect(history.parent_id).to eq(child.parent_id)
     end
 
     it 'root to root' do
@@ -77,8 +71,6 @@ parent.id => parent.history_version, })
       expect(block.sort).to eq(168)
       expect(block.parent_id).to be_nil
       expect(block.history_version).to eq(old_version + 1)
-      history = block.histories.find_by!(history_version: block.history_version)
-      expect(history.sort).to eq(block.sort)
     end
 
     it 'error' do
@@ -94,10 +86,6 @@ parent.id => parent.history_version, })
       expect(block.parent_id).to eq(child.id)
       expect(block.type).to eq('doc')
       expect(block.history_version).to eq(old_version + 1)
-      history = block.histories.find_by!(history_version: block.history_version)
-      expect(history.sort).to eq(block.sort)
-      expect(history.type).to eq('doc')
-      expect(history.parent_id).to eq(block.parent_id)
     end
 
     it 'child to root' do
@@ -108,10 +96,6 @@ parent.id => parent.history_version, })
       expect(child.parent_id).to be_nil
       expect(child.type).to eq('doc')
       expect(child.history_version).to eq(old_version + 1)
-      history = child.histories.find_by!(history_version: child.history_version)
-      expect(history.sort).to eq(child.sort)
-      expect(history.type).to eq('doc')
-      expect(history.parent_id).to eq(child.parent_id)
     end
   end
 end

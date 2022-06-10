@@ -115,11 +115,12 @@ module Docs
           end
 
           Docs::Block.upsert_all(upsert_blocks.map(&:block_attributes))
+          # rubocop:disable Lint/UselessAssignment
           insert_histories += insert_histories_2
         end
 
         ## Handle insert history
-        Docs::History.insert_all(insert_histories) if insert_histories.present?
+        # Docs::History.insert_all(insert_histories) if insert_histories.present?
 
         ## Handle attachment
         attachment_data.each do |block, attachment|
