@@ -166,8 +166,7 @@ export function useEditor(options: EditorOptions): TiptapEditor | null {
     [base, editable, extensions, restOptions]
   )
 
-  const yDoc = typeof base?.collaboration !== 'boolean' ? base?.collaboration?.document : undefined
-  const editor = useTiptapEditor(editorOptions, [yDoc])
+  const editor = useTiptapEditor(editorOptions, [])
 
   useEffect(() => {
     editor?.setOptions(editorOptions)

@@ -1,4 +1,4 @@
-import { FormulaContext } from '@brickdoc/formula'
+import { ContextInterface } from '@brickdoc/formula'
 import { ExtensionMeta } from '../../common'
 
 export const meta: ExtensionMeta = {
@@ -7,7 +7,7 @@ export const meta: ExtensionMeta = {
 }
 
 export interface FormulaOptions {
-  formulaContext?: FormulaContext
+  formulaContext?: ContextInterface | null
 }
 export interface FormulaAttributes {
   // TODO: add attributes types

@@ -6,7 +6,7 @@ import { useMentionCommands } from './useMentionCommands'
 import { useEmbed } from './useEmbed'
 import { useReactiveVar } from '@apollo/client'
 import { FormulaContextVar } from '@/docs/reactiveVars'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { PageTree } from '@/docs/common/components/PageTree'
 
 export interface UseEditorOptions {
@@ -26,31 +26,34 @@ export function useEditorOptions({
 }: UseEditorOptions): EditorOptions {
   const mentionCommands = useMentionCommands(docMeta)
   const embed = useEmbed(blocks, docMeta)
-  const formula = {
-    formulaContext: useReactiveVar(FormulaContextVar)
-  }
-  const subPageMenu = {
-    renderView: useCallback(() => <PageTree mode="subPage" />, [])
-  }
+  const formulaContext = useReactiveVar(FormulaContextVar)
+  const renderView = useCallback(() => <PageTree mode="subPage" />, [])
 
-  return {
-    base: {
-      collaboration: ydoc
-        ? {
-            document: ydoc
-          }
-        : false,
-      embed,
-      formula,
-      mentionCommands,
-      pageLink: {
-        pages: mentionCommands.pages
+  return useMemo(
+    () => ({
+      base: {
+        collaboration: ydoc
+          ? {
+              document: ydoc
+            }
+          : false,
+        embed,
+        formula: {
+          formulaContext
+        },
+        mentionCommands,
+        pageLink: {
+          pages: mentionCommands.pages
+        },
+        subPageMenu: {
+          renderView
+        },
+        sync: {
+          onSave: onDocSave
+        }
       },
-      subPageMenu,
-      sync: {
-        onSave: onDocSave
-      }
-    },
-    editable: documentEditable
-  }
+      editable: documentEditable
+    }),
+    [documentEditable, embed, formulaContext, mentionCommands, onDocSave, renderView, ydoc]
+  )
 }
