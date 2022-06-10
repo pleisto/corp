@@ -7,10 +7,10 @@ import {
 import { useImperativeQuery } from '@/common/hooks'
 import { EmbedOptions, GalleryImage } from '@brickdoc/editor'
 
-export function useGetGalleryImages(): NonNullable<EmbedOptions['getGalleryImages']> {
+export function useGetGalleryImages(): EmbedOptions['getGalleryImages'] {
   const queryUnsplashImages = useImperativeQuery<Query, Variables>(QueryUnsplashImageDocument)
 
-  return useCallback(
+  return useCallback<NonNullable<EmbedOptions['getGalleryImages']>>(
     async ({ query, page, perPage }) => {
       const { data, error } = await queryUnsplashImages({ query, page, perPage })
 

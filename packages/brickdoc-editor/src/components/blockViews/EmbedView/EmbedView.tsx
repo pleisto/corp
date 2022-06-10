@@ -17,7 +17,7 @@ export type UpdateEmbedBlockAttributes = <T extends 'link' | 'image' | 'attachme
 const renderImage = (
   imageUrl: string,
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
-  { node, deleteNode, getPos }: EmbedViewProps
+  { node, deleteNode, getPos, extension }: EmbedViewProps
 ): ReactElement => {
   const { name, displayName, height, width, align, size, mode } = node.attrs.image
 
@@ -62,6 +62,7 @@ const renderImage = (
       fileType="image"
       url={imageUrl}
       deleteNode={deleteNode}
+      extension={extension}
       node={node}
       getPos={getPos}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
@@ -72,7 +73,7 @@ const renderImage = (
 const renderAttachment = (
   fileUrl: string,
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
-  { node, deleteNode, getPos }: EmbedViewProps
+  { node, deleteNode, extension, getPos }: EmbedViewProps
 ): ReactElement => {
   const { name, displayName, contentType, size, mode } = node.attrs.attachment
   let fileType = getFileTypeByContentType(contentType ?? '')
@@ -119,6 +120,7 @@ const renderAttachment = (
       url={fileUrl}
       deleteNode={deleteNode}
       node={node}
+      extension={extension}
       getPos={getPos}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
     />
@@ -220,6 +222,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         fileType="html"
         url={linkUrl}
         node={node}
+        extension={extension}
         deleteNode={deleteNode}
         getPos={getPos}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
@@ -235,6 +238,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         deleteNode={deleteNode}
         getPos={getPos}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
+        extension={extension}
       />
     )
   }

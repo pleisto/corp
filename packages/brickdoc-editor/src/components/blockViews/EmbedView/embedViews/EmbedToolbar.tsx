@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { EmbedAttributes, EmbedViewMode } from '../../../../extensions/blocks/embed/meta'
+import { EmbedAttributes, EmbedViewMode, EmbedViewProps } from '../../../../extensions/blocks/embed/meta'
 import { Toolbar } from '../../../ui'
 import { EmbedBlockType, UpdateEmbedBlockAttributes } from '../EmbedView'
 import { useEmbedToolbarOptions } from './useEmbedToolbarOptions'
@@ -10,6 +10,7 @@ export interface EmbedToolbarProps {
   displayName: string
   url: string
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
+  extension?: EmbedViewProps['extension']
   onFullScreen?: VoidFunction
   zoomInImage?: VoidFunction
   zoomOutImage?: VoidFunction
@@ -21,6 +22,7 @@ export const EmbedToolbar: FC<EmbedToolbarProps> = ({
   blockType,
   displayName,
   url,
+  extension,
   updateEmbedBlockAttributes,
   onFullScreen,
   zoomInImage,
@@ -32,6 +34,7 @@ export const EmbedToolbar: FC<EmbedToolbarProps> = ({
     blockType,
     displayName,
     url,
+    extension,
     updateEmbedBlockAttributes,
     onFullScreen,
     align,

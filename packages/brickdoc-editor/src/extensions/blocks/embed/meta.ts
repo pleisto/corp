@@ -16,6 +16,16 @@ export interface GalleryImage {
   blurHash: string
 }
 
+export interface UrlData {
+  cover?: string | null
+  description?: string | null
+  icon?: string | null
+  size?: number | null
+  title: string | null
+  type?: string | null
+  url: string
+}
+
 export interface EmbedOptions {
   getFileUrl?: (key: string, source: 'EXTERNAL' | 'ORIGIN') => string | undefined | null
   getGalleryImages?: (options: {
@@ -23,6 +33,10 @@ export interface EmbedOptions {
     page: number
     perPage: number
   }) => Promise<{ success: boolean; data: GalleryImage[] }>
+  getUrlData?: (url: string) => Promise<{
+    success: boolean
+    data: UrlData
+  }>
 }
 
 export type EmbedViewMode = 'text' | 'preview' | 'card'

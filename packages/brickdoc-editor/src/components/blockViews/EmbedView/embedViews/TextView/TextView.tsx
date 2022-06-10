@@ -22,6 +22,7 @@ export interface TextViewProps {
   deleteNode: EmbedViewProps['deleteNode']
   getPos: EmbedViewProps['getPos']
   node: EmbedViewProps['node']
+  extension: EmbedViewProps['extension']
   name: string
   displayName: string
   fileType: FileType
@@ -32,6 +33,7 @@ export interface TextViewProps {
 export const TextView: FC<TextViewProps> = ({
   blockType,
   updateEmbedBlockAttributes,
+  extension,
   deleteNode,
   getPos,
   node,
@@ -61,6 +63,7 @@ export const TextView: FC<TextViewProps> = ({
             <EmbedToolbar
               mode="text"
               displayName={displayName}
+              extension={extension}
               url={url}
               blockType={blockType}
               updateEmbedBlockAttributes={updateEmbedBlockAttributes}

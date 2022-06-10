@@ -14,6 +14,7 @@ export interface LinkTypeEmbedBlockProps {
   deleteNode: EmbedViewProps['deleteNode']
   node: EmbedViewProps['node']
   getPos: EmbedViewProps['getPos']
+  extension: EmbedViewProps['extension']
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
 }
 
@@ -94,10 +95,14 @@ export const LinkTypeEmbedBlock: FC<LinkTypeEmbedBlockProps> = ({
   node,
   deleteNode,
   getPos,
-  updateEmbedBlockAttributes
+  updateEmbedBlockAttributes,
+  extension
 }) => {
   const [t] = useEditorI18n()
-  const [link, handleLinkChange, handleLinkClear, handleSubmit, progress] = useLinkValue(updateEmbedBlockAttributes)
+  const [link, handleLinkChange, handleLinkClear, handleSubmit, progress] = useLinkValue(
+    updateEmbedBlockAttributes,
+    extension
+  )
   const [popoverVisible, handlePopoverVisibleChange] = usePopoverVisible(node.attrs.uuid)
 
   return (
