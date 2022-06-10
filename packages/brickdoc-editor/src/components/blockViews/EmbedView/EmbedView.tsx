@@ -1,11 +1,10 @@
 import { FC, ReactElement, useCallback, useRef } from 'react'
 import { Embedtype } from '@brickdoc/schema'
 import { TextView, PreviewView, CardView } from './embedViews'
-import { linkStorage, getFileTypeByExtension, getBlobUrl, getFileTypeByContentType, sizeFormat } from '../../../helpers'
+import { getFileTypeByExtension, getFileTypeByContentType, sizeFormat } from '../../../helpers'
 import { GalleryTypeEmbedBlock, LinkTypeEmbedBlock, UploadTypeEmbedBlock } from './embedTypes'
 import { ImageView } from './embedViews/ImageView'
 import { EmbedAttributes, EmbedViewProps } from '../../../extensions/blocks/embed/meta'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 import { FileIcon } from '../../ui'
 
 export type EmbedBlockType = 'link' | 'attachment' | 'image'
@@ -18,7 +17,7 @@ export type UpdateEmbedBlockAttributes = <T extends 'link' | 'image' | 'attachme
 const renderImage = (
   imageUrl: string,
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
-  { node, deleteNode, getPos }: EmbedViewProps
+  { node, deleteNode, getPos, extension }: EmbedViewProps
 ): ReactElement => {
   const { name, displayName, height, width, align, size, mode } = node.attrs.image
 
@@ -63,6 +62,7 @@ const renderImage = (
       fileType="image"
       url={imageUrl}
       deleteNode={deleteNode}
+      extension={extension}
       node={node}
       getPos={getPos}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
@@ -73,7 +73,7 @@ const renderImage = (
 const renderAttachment = (
   fileUrl: string,
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
-  { node, deleteNode, getPos }: EmbedViewProps
+  { node, deleteNode, extension, getPos }: EmbedViewProps
 ): ReactElement => {
   const { name, displayName, contentType, size, mode } = node.attrs.attachment
   let fileType = getFileTypeByContentType(contentType ?? '')
@@ -120,6 +120,7 @@ const renderAttachment = (
       url={fileUrl}
       deleteNode={deleteNode}
       node={node}
+      extension={extension}
       getPos={getPos}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
     />
@@ -128,8 +129,7 @@ const renderAttachment = (
 
 // eslint-disable-next-line complexity
 export const EmbedView: FC<EmbedViewProps> = props => {
-  const { node, updateAttributes, deleteNode, getPos } = props
-  const editorProps = useEditorPropsContext()
+  const { node, updateAttributes, deleteNode, getPos, extension } = props
   const latestEmbedBlockAttributes = useRef<Partial<EmbedAttributes>>({})
   const updateEmbedBlockAttributes = useCallback<UpdateEmbedBlockAttributes>(
     (newAttributes, type): void => {
@@ -157,11 +157,10 @@ export const EmbedView: FC<EmbedViewProps> = props => {
     [node.attrs, updateAttributes]
   )
 
-  const defaultUrl = linkStorage.get(node.attrs.uuid)
-
   // image
   if (node.attrs.image?.key) {
-    const imageUrl = getBlobUrl(editorProps.rootId, node.attrs?.image ?? {}, editorProps.blobs) ?? defaultUrl
+    const imageUrl =
+      extension.options.getFileUrl?.(node.attrs.image.key, node.attrs.image.source!) ?? node.attrs.image.viewUrl
     if (imageUrl) {
       return renderImage(imageUrl, updateEmbedBlockAttributes, props)
     }
@@ -169,7 +168,9 @@ export const EmbedView: FC<EmbedViewProps> = props => {
 
   // file
   if (node.attrs.attachment?.key) {
-    const fileUrl = getBlobUrl(editorProps.rootId, node.attrs?.attachment ?? {}, editorProps.blobs) ?? defaultUrl
+    const fileUrl =
+      node.attrs.attachment.viewUrl! ||
+      extension.options.getFileUrl?.(node.attrs.attachment.key, node.attrs.attachment.source!)
     if (fileUrl) {
       return renderAttachment(fileUrl, updateEmbedBlockAttributes, props)
     }
@@ -221,6 +222,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         fileType="html"
         url={linkUrl}
         node={node}
+        extension={extension}
         deleteNode={deleteNode}
         getPos={getPos}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
@@ -236,6 +238,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         deleteNode={deleteNode}
         getPos={getPos}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
+        extension={extension}
       />
     )
   }
@@ -247,6 +250,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
         node={node}
         deleteNode={deleteNode}
         getPos={getPos}
+        extension={extension}
         updateEmbedBlockAttributes={updateEmbedBlockAttributes}
       />
     )
@@ -257,6 +261,7 @@ export const EmbedView: FC<EmbedViewProps> = props => {
     <UploadTypeEmbedBlock
       deleteNode={deleteNode}
       getPos={getPos}
+      extension={extension}
       node={node}
       updateEmbedBlockAttributes={updateEmbedBlockAttributes}
     />

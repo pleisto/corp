@@ -1,53 +1,41 @@
 import { mockEditor } from '../../../../test'
-import { EditorPropsContext } from '../../../../context'
 import { filterMenuItemsByQuery } from '../filterMenuItemsByQuery'
-import { MentionCommandsOptions } from '../mentionCommands'
+import { MentionCommandsOptions } from '../meta'
 
 describe('filterMenuItemsByQuery', () => {
   it('filters items correctly', () => {
-    const editorProps = { ...EditorPropsContext }
     const query = 'query'
 
-    editorProps.spaceMembers = [
-      {
-        name: query,
-        domain: 'domain',
-        avatar: 'avatar'
-      },
-      {
-        name: 'user2',
-        domain: 'domain',
-        avatar: 'avatar'
-      }
-    ]
-
-    editorProps.documentPages = [
-      {
-        key: 'key1',
-        value: 'value',
-        parentId: null,
-        sort: 0,
-        icon: 'string',
-        nextSort: 0,
-        firstChildSort: 0,
-        text: 'text',
-        title: 'page1'
-      },
-      {
-        key: 'key2',
-        value: 'value',
-        parentId: 'key1',
-        sort: 0,
-        icon: 'string',
-        nextSort: 0,
-        firstChildSort: 0,
-        text: 'text',
-        title: query
-      }
-    ]
-
     const option: MentionCommandsOptions = {
-      editorProps
+      users: [
+        {
+          name: query,
+          id: 'domain',
+          avatar: 'avatar'
+        },
+        {
+          name: 'user2',
+          id: 'domain',
+          avatar: 'avatar'
+        }
+      ],
+
+      pages: [
+        {
+          id: 'key1',
+          parentId: null,
+          icon: 'string',
+          link: 'link',
+          title: 'page1'
+        },
+        {
+          id: 'key2',
+          parentId: 'key1',
+          icon: 'string',
+          link: 'link',
+          title: query
+        }
+      ]
     }
 
     const { users, pages } = filterMenuItemsByQuery(option)({ query })
@@ -56,47 +44,35 @@ describe('filterMenuItemsByQuery', () => {
     expect(users[0].name).toEqual(query)
 
     expect(pages).toHaveLength(1)
-    expect(pages[0].name).toEqual(query)
+    expect(pages[0].title).toEqual(query)
   })
 
   it('clicks item correctly', () => {
-    const editorProps = { ...EditorPropsContext }
-
-    editorProps.spaceMembers = [
-      {
-        name: 'user2',
-        domain: 'domain',
-        avatar: 'avatar'
-      }
-    ]
-
-    editorProps.documentPages = [
-      {
-        key: 'key1',
-        value: 'value',
-        parentId: null,
-        sort: 0,
-        icon: 'string',
-        nextSort: 0,
-        firstChildSort: 0,
-        text: 'text',
-        title: 'page1'
-      },
-      {
-        key: 'key2',
-        value: 'value',
-        parentId: 'key1',
-        sort: 0,
-        icon: 'string',
-        nextSort: 0,
-        firstChildSort: 0,
-        text: 'text',
-        title: 'page2'
-      }
-    ]
-
     const option: MentionCommandsOptions = {
-      editorProps
+      users: [
+        {
+          name: 'user2',
+          id: 'domain',
+          avatar: 'avatar'
+        }
+      ],
+
+      pages: [
+        {
+          id: 'key1',
+          parentId: null,
+          icon: 'string',
+          link: 'link',
+          title: 'page1'
+        },
+        {
+          id: 'key2',
+          parentId: 'key1',
+          icon: 'string',
+          link: 'link',
+          title: 'page2'
+        }
+      ]
     }
 
     const { users, pages } = filterMenuItemsByQuery(option)({ query: '' })

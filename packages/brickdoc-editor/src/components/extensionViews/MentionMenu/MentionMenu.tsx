@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { SuggestionProps } from '@tiptap/suggestion'
-import { UserGroup, UserItem } from './UserGroup'
+import { UserGroup } from './UserGroup'
 import { Menu, styled } from '@brickdoc/design-system'
-import { PageGroup, PageItem } from './PageGroup'
+import { PageGroup } from './PageGroup'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
+import { PageItem, UserItem } from '../../../extensions/extensions/mentionCommands/filterMenuItemsByQuery'
 
 export interface MentionCommandsMenuProps
   extends Omit<SuggestionProps, 'items' | 'decorationNode' | 'text' | 'clientRect'> {

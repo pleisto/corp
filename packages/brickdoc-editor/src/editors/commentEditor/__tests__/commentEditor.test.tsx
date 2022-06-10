@@ -7,7 +7,7 @@ jest.useFakeTimers()
 
 describe('commentEditor', () => {
   it('renders commentEditor correctly', () => {
-    const { container } = render(<CommentEditorContent markId="markId" />)
+    const { container } = render(<CommentEditorContent markId="markId" mentionCommandsOptions={{}} />)
 
     act(() => {
       jest.runOnlyPendingTimers()
@@ -23,7 +23,7 @@ describe('commentEditor', () => {
       type: 'text',
       text: 'text'
     })
-    render(<CommentEditorContent markId={markId} onSend={mockSend} />)
+    render(<CommentEditorContent markId={markId} onSend={mockSend} mentionCommandsOptions={{}} />)
 
     fireEvent.click(screen.getByText('discussion.editor.send'))
 
@@ -36,7 +36,7 @@ describe('commentEditor', () => {
       type: 'text',
       text: 'text'
     })
-    render(<CommentEditorContent markId={markId} />)
+    render(<CommentEditorContent markId={markId} mentionCommandsOptions={{}} />)
 
     fireEvent.click(screen.getByText('discussion.editor.cancel'))
 

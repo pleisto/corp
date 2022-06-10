@@ -23,15 +23,17 @@ export interface GalleryTypeEmbedBlockProps {
   deleteNode: EmbedViewProps['deleteNode']
   getPos: EmbedViewProps['getPos']
   node: EmbedViewProps['node']
+  extension: EmbedViewProps['extension']
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
 }
 
-export const GalleryContent: FC<Pick<GalleryTypeEmbedBlockProps, 'updateEmbedBlockAttributes'>> = ({
+export const GalleryContent: FC<Pick<GalleryTypeEmbedBlockProps, 'updateEmbedBlockAttributes' | 'extension'>> = ({
+  extension,
   updateEmbedBlockAttributes
 }) => {
   const [t] = useEditorI18n()
   const loadMoreRef = useRef<HTMLDivElement>(null)
-  const [unsplashImages, fetching, handleUnsplashSearch] = useUnsplashImages(loadMoreRef)
+  const [unsplashImages, fetching, handleUnsplashSearch] = useUnsplashImages(loadMoreRef, extension)
 
   const handleSelectImage = useCallback(
     (item: UnsplashImage) => () => {
@@ -63,6 +65,7 @@ export const GalleryTypeEmbedBlock: FC<GalleryTypeEmbedBlockProps> = ({
   node,
   deleteNode,
   getPos,
+  extension,
   updateEmbedBlockAttributes
 }) => {
   const [t] = useEditorI18n()
@@ -76,7 +79,7 @@ export const GalleryTypeEmbedBlock: FC<GalleryTypeEmbedBlockProps> = ({
         getPopupContainer={c => c}
         compact={true}
         onVisibleChange={handlePopoverVisibleChange}
-        content={<GalleryContent updateEmbedBlockAttributes={updateEmbedBlockAttributes} />}>
+        content={<GalleryContent extension={extension} updateEmbedBlockAttributes={updateEmbedBlockAttributes} />}>
         <EmbedBlockPlaceholder
           data-testid={TEST_ID_ENUM.editor.embedBlock.addButton.id}
           icon={<Icon.Unsplash />}

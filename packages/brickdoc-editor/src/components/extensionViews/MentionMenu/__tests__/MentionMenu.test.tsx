@@ -4,8 +4,8 @@ import { MentionCommandsMenu, MentionCommandsMenuProps } from '../MentionMenu'
 
 describe('MentionMenu', () => {
   const items: MentionCommandsMenuProps['items'] = {
-    pages: [{ icon: 'icon', name: 'page name', command: () => {} }],
-    users: [{ avatar: 'avatar', name: 'people name', domain: 'domain', command: () => {} }]
+    pages: [{ id: 'p1', parentId: 'parentId', link: 'link', icon: 'icon', title: 'page name', command: () => {} }],
+    users: [{ avatar: 'avatar', name: 'people name', id: 'domain', command: () => {} }]
   }
   const editor = mockEditor()
   const props: MentionCommandsMenuProps = {

@@ -1,11 +1,12 @@
-import { UnsplashImage } from '@brickdoc/uploader'
 import { fireEvent, render, screen } from '@testing-library/react'
+import { GalleryImage } from '../../../../../../extensions'
 import { GalleryContent } from '../../../embedTypes'
 import * as hooks from '../../../embedTypes/Gallery/useUnsplashImages'
 
 describe('GalleryContent', () => {
   it('renders GalleryContent correctly', () => {
-    const images: UnsplashImage[] = [
+    const extension: any = { options: {} }
+    const images: GalleryImage[] = [
       {
         id: 'id',
         smallUrl: 'smallUrl',
@@ -20,13 +21,16 @@ describe('GalleryContent', () => {
     jest.spyOn(hooks, 'useUnsplashImages').mockImplementation(() => [images, true, () => {}])
     const updateEmbedBlockAttributes = jest.fn()
 
-    const { container } = render(<GalleryContent updateEmbedBlockAttributes={updateEmbedBlockAttributes} />)
+    const { container } = render(
+      <GalleryContent extension={extension} updateEmbedBlockAttributes={updateEmbedBlockAttributes} />
+    )
 
     expect(container).toMatchSnapshot()
   })
 
   it('selects image correctly', () => {
-    const images: UnsplashImage[] = [
+    const extension: any = { options: {} }
+    const images: GalleryImage[] = [
       {
         id: 'id',
         smallUrl: 'smallUrl',
@@ -41,7 +45,7 @@ describe('GalleryContent', () => {
     jest.spyOn(hooks, 'useUnsplashImages').mockImplementation(() => [images, true, () => {}])
     const updateEmbedBlockAttributes = jest.fn()
 
-    render(<GalleryContent updateEmbedBlockAttributes={updateEmbedBlockAttributes} />)
+    render(<GalleryContent extension={extension} updateEmbedBlockAttributes={updateEmbedBlockAttributes} />)
 
     fireEvent.click(screen.getByText(images[0].username))
 

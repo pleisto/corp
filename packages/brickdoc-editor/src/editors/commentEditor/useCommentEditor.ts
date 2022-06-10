@@ -1,9 +1,12 @@
 import { useEditor, Editor, Content } from '@tiptap/react'
-import { Base } from '../../extensions/base'
-import { useEditorPropsContext } from '../../hooks/useEditorPropsContext'
+import { Base, BaseOptions } from '../../extensions/base'
 
-export function useCommentEditor(defaultContent?: Content): Editor | null {
-  const editorProps = useEditorPropsContext()
+export interface CommentEditorOptions {
+  defaultContent?: Content
+  mentionCommands: BaseOptions['mentionCommands']
+}
+
+export function useCommentEditor({ defaultContent, mentionCommands }: CommentEditorOptions): Editor | null {
   return useEditor({
     autofocus: 'end',
     content: defaultContent,
@@ -11,13 +14,20 @@ export function useCommentEditor(defaultContent?: Content): Editor | null {
       Base.configure({
         commandHelper: true,
         document: true,
-        mentionCommands: {
-          editorProps,
-          size: 'sm'
-        },
-        pageLink: {
-          size: 'sm'
-        },
+        mentionCommands:
+          typeof mentionCommands !== 'boolean'
+            ? {
+                size: 'sm',
+                ...mentionCommands
+              }
+            : false,
+        pageLink:
+          typeof mentionCommands !== 'boolean'
+            ? {
+                size: 'sm',
+                pages: mentionCommands.pages
+              }
+            : false,
         paragraph: { native: true },
         text: true,
         user: {

@@ -290,6 +290,20 @@
               "deprecationReason": null
             },
             {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "width",
               "description": "width",
               "args": [
@@ -1242,6 +1256,20 @@
               "deprecationReason": null
             },
             {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "width",
               "description": "width",
               "args": [
@@ -1587,6 +1615,20 @@
               "type": {
                 "kind": "ENUM",
                 "name": "Blocktype",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2140,6 +2182,20 @@
               "deprecationReason": null
             },
             {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "width",
               "description": "width",
               "args": [
@@ -2644,6 +2700,20 @@
               "deprecationReason": null
             },
             {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "width",
               "description": "width",
               "args": [
@@ -2872,6 +2942,20 @@
               "type": {
                 "kind": "ENUM",
                 "name": "Blocktype",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "viewUrl",
+              "description": "view url",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,

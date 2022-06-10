@@ -1,7 +1,6 @@
 import { useCallback, useState, ChangeEventHandler, RefObject } from 'react'
 import { UploadResultData, UploadProgress, imperativeUpload } from '@brickdoc/uploader'
-import { linkStorage, getFileTypeByExtension, getFileTypeByContentType, FileType } from '../../../../../helpers'
-import { useEditorPropsContext } from '../../../../../hooks'
+import { getFileTypeByExtension, getFileTypeByContentType, FileType } from '../../../../../helpers'
 import { useBlockJustCreated } from '../useBlockJustCreated'
 import { useDefaultFile } from './useDefaultFile'
 import { EmbedViewProps } from '../../../../../extensions/blocks/embed/meta'
@@ -9,6 +8,7 @@ import { UpdateEmbedBlockAttributes } from '../../EmbedView'
 
 export function useUploadProgress(
   node: EmbedViewProps['node'],
+  extension: EmbedViewProps['extension'],
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes,
   inputRef: RefObject<HTMLInputElement>
 ): {
@@ -18,15 +18,11 @@ export function useUploadProgress(
   file: File | undefined
   fileType: FileType | undefined
 } {
-  const editorProps = useEditorPropsContext()
-
   const [file, setFile] = useState<File>()
   const [fileType, setFileType] = useState<FileType>()
 
   const onUploaded = useCallback(
     (data: UploadResultData): void => {
-      linkStorage.set(node.attrs.uuid, data.downloadUrl ?? '')
-
       let fileType = getFileTypeByContentType(data.meta?.contentType ?? '')
       fileType = fileType === 'unknown' ? getFileTypeByExtension(data.meta?.name) : fileType
 
@@ -37,12 +33,13 @@ export function useUploadProgress(
           name: data.meta?.name,
           size: data.meta?.size,
           contentType: data.meta?.contentType,
-          mode: 'preview'
+          mode: 'preview',
+          viewUrl: data.viewUrl
         },
         fileType === 'image' ? 'image' : 'attachment'
       )
     },
-    [node.attrs.uuid, updateEmbedBlockAttributes]
+    [updateEmbedBlockAttributes]
   )
 
   const [progress, setProgress] = useState<UploadProgress>()
@@ -56,7 +53,7 @@ export function useUploadProgress(
       // with the same name is selected.
       event.target.value = ''
 
-      if (!file) return
+      if (!file || !extension.options.prepareFileUpload) return
 
       setFile(file)
 
@@ -65,14 +62,14 @@ export function useUploadProgress(
       setFileType(fileType)
 
       void imperativeUpload(file, {
-        prepareFileUpload: editorProps.prepareFileUpload,
-        blockId: editorProps.rootId,
+        prepareFileUpload: extension.options.prepareFileUpload,
+        blockId: undefined,
         fileType,
         onUploaded,
         onProgress
       })
     },
-    [editorProps.prepareFileUpload, editorProps.rootId, onUploaded]
+    [extension.options.prepareFileUpload, onUploaded]
   )
   const handleChooseFile = useCallback(() => {
     inputRef.current?.click()
@@ -84,7 +81,7 @@ export function useUploadProgress(
   }, [handleChooseFile, node.attrs.defaultFile])
 
   useBlockJustCreated(node.attrs.uuid, handleBlockJustCreated)
-  useDefaultFile(node, onUploaded, onProgress)
+  useDefaultFile({ node, extension, onUploaded, onProgress })
 
   return {
     progress,

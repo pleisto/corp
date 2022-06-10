@@ -12,8 +12,8 @@ declare module '@tiptap/core' {
        */
       setPageLinkBlock: (
         id: string,
-        link: string,
-        title: string | undefined,
+        link: string | null | undefined,
+        title: string | null | undefined,
         icon: string | null | undefined
       ) => ReturnType
     }

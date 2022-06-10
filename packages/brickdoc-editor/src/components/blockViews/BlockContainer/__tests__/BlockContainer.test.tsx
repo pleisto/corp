@@ -1,19 +1,18 @@
 import { render } from '@testing-library/react'
 import { BlockContainer } from '../'
-import { EditorPropsContext } from '../../../../context'
-import * as editorPropsHooks from '../../../../hooks/useEditorPropsContext'
+import * as editorHooks from '../../../../hooks/useEditorContext'
 
 describe('BlockContainer', () => {
   it(`changes block pointer event when editor editable state change`, () => {
-    const editorProps = { ...EditorPropsContext }
     const node: any = { attrs: { uuid: 1 } }
-    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
+    const editorContext = { documentEditable: false }
+    jest.spyOn(editorHooks, 'useEditorContext').mockImplementation(() => editorContext)
 
     const { container, rerender } = render(<BlockContainer node={node} />)
     // expect dom has 'pointer-event: none' style
     expect(container).toMatchSnapshot()
 
-    editorProps.documentEditable = true
+    editorContext.documentEditable = true
 
     rerender(<BlockContainer node={node} />)
 
@@ -22,9 +21,6 @@ describe('BlockContainer', () => {
   })
 
   it('inline', () => {
-    const editorProps = { ...EditorPropsContext }
-    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
-
     const node: any = { attrs: { uuid: 1 } }
     const { container } = render(
       <BlockContainer node={node} inline={true}>
@@ -37,9 +33,6 @@ describe('BlockContainer', () => {
   })
 
   it('with actionOptions', () => {
-    const editorProps = { ...EditorPropsContext }
-    jest.spyOn(editorPropsHooks, 'useEditorPropsContext').mockImplementation(() => editorProps)
-
     const node: any = { attrs: { uuid: 1 } }
     const { container } = render(
       <BlockContainer

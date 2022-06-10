@@ -10,7 +10,7 @@ declare module '@tiptap/core' {
       /**
        * Set a user block
        */
-      setUserBlock: (domain: string, name: string | null | undefined, avatarUrl: string | undefined) => ReturnType
+      setUserBlock: (domain: string, name: string | undefined | null, avatarUrl: string | undefined) => ReturnType
     }
   }
 }

@@ -6,16 +6,6 @@ export const sizeFormat = (size?: number): string => {
   return `${(size / 1024 / 1024).toFixed(1)} MB`
 }
 
-const _linkStorage: { [key: string]: string | null } = {}
-export const linkStorage = {
-  set(key: string, url: string | null): void {
-    _linkStorage[key] = url
-  },
-  get(key: string): string | null | undefined {
-    return _linkStorage[key]
-  }
-}
-
 export type FileType = 'word' | 'excel' | 'ppt' | 'pdf' | 'image' | 'html' | 'unknown'
 
 export const getFileTypeByContentType = (name: string): FileType => {

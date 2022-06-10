@@ -8,15 +8,17 @@ import { useCommentEditor } from './useCommentEditor'
 import { clearDraft, getDraft } from './draft'
 import { useContentUpdated } from './useContentUpdated'
 import { useEditorI18n } from '../../hooks'
+import { BaseOptions } from '../../Editor'
 
 export interface CommentEditorProps {
   markId: string
   onSend?: (editor: Editor, content: JSONContent | undefined) => void
+  mentionCommandsOptions: BaseOptions['mentionCommands']
 }
 
-export const CommentEditorContent: FC<CommentEditorProps> = ({ markId, onSend }) => {
+export const CommentEditorContent: FC<CommentEditorProps> = ({ markId, onSend, mentionCommandsOptions }) => {
   const [t] = useEditorI18n()
-  const editor = useCommentEditor(getDraft(markId))
+  const editor = useCommentEditor({ defaultContent: getDraft(markId), mentionCommands: mentionCommandsOptions })
   const [placeholder] = usePlaceholder(editor)
 
   useContentUpdated(editor, markId)

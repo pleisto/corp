@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Spin, styled, theme } from '@brickdoc/design-system'
 import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 import { Controlled as ImagePreview } from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 import { EmbedAttributes, EmbedViewProps } from '../../../../../extensions/blocks/embed/meta'
 import { BlockContainer } from '../../../BlockContainer'
 import { UpdateEmbedBlockAttributes } from '../../EmbedView'
@@ -36,7 +37,6 @@ const EmbedToolbarContainer = styled('div', {
 const ImageViewContainer = styled('div', {
   display: 'inline-flex',
   maxWidth: '100%',
-  overflow: 'hidden',
   position: 'relative',
 
   '&:hover': {

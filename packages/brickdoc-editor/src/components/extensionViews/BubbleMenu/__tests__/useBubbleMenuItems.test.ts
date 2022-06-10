@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks'
 import * as editorContextHook from '../../../../hooks/useEditorContext'
-import * as editorPropsHook from '../../../../hooks/useEditorPropsContext'
 import * as selectionHelpers from '../../../../helpers/selection'
 import { useNodeGroup } from '../useBubbleMenuItems/useNodeGroup'
 import { mockEditor } from '../../../../test/editor'
@@ -11,7 +10,7 @@ import { useFontColorGroup } from '../useBubbleMenuItems/useFontColorGroup'
 import { useFormulaItem } from '../useBubbleMenuItems/useFormulaItem'
 import { useExtraItemsGroup } from '../useBubbleMenuItems/useExtraItemsGroup'
 import { useBubbleMenuItems } from '../useBubbleMenuItems'
-import { EditorPropsContext } from '../../../../context'
+import { Discussion } from '../../../../extensions'
 
 describe('useBubbleMenuItems', () => {
   it('gets menu items correctly', () => {
@@ -22,7 +21,10 @@ describe('useBubbleMenuItems', () => {
           to: 10
         }
       },
-      isActive: () => false
+      isActive: () => false,
+      extensionManager: {
+        extensions: [Discussion]
+      }
     })
     jest.spyOn(selectionHelpers, 'findFirstSelectedNodes').mockImplementation(() => ({
       node: undefined,
@@ -333,17 +335,15 @@ describe('useBubbleMenuItems', () => {
             from: 1,
             to: 10
           }
+        },
+        extensionManager: {
+          extensions: [Discussion]
         }
       })
       jest.spyOn(editorContextHook, 'useEditorContext').mockImplementation(() => ({
         editor,
         documentEditable: true
       }))
-      const editorProps = { ...EditorPropsContext }
-      editorProps.featureFlags = {
-        experiment_discussion: true
-      }
-      jest.spyOn(editorPropsHook, 'useEditorPropsContext').mockImplementation(() => editorProps)
       const { result } = renderHook(() => useExtraItemsGroup())
       const items = (result.current[0] as ToolbarGroupOption).items
 
@@ -364,17 +364,15 @@ describe('useBubbleMenuItems', () => {
             from: 1,
             to: 10
           }
+        },
+        extensionManager: {
+          extensions: [Discussion]
         }
       })
       jest.spyOn(editorContextHook, 'useEditorContext').mockImplementation(() => ({
         editor,
         documentEditable: true
       }))
-      const editorProps = { ...EditorPropsContext }
-      editorProps.featureFlags = {
-        experiment_discussion: true
-      }
-      jest.spyOn(editorPropsHook, 'useEditorPropsContext').mockImplementation(() => editorProps)
       const { result } = renderHook(() => useExtraItemsGroup())
       const items = ((result.current[0] as ToolbarGroupOption).items[1] as ToolbarSubMenuOption)
         .items as ToolbarItemOption[]
@@ -396,17 +394,15 @@ describe('useBubbleMenuItems', () => {
             from: 1,
             to: 10
           }
+        },
+        extensionManager: {
+          extensions: [Discussion]
         }
       })
       jest.spyOn(editorContextHook, 'useEditorContext').mockImplementation(() => ({
         editor,
         documentEditable: true
       }))
-      const editorProps = { ...EditorPropsContext }
-      editorProps.featureFlags = {
-        experiment_discussion: true
-      }
-      jest.spyOn(editorPropsHook, 'useEditorPropsContext').mockImplementation(() => editorProps)
       const { result } = renderHook(() => useExtraItemsGroup())
       const items = ((result.current[0] as ToolbarGroupOption).items[1] as ToolbarSubMenuOption)
         .items as ToolbarItemOption[]

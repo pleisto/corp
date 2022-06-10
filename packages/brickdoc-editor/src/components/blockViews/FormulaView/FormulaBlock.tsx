@@ -1,10 +1,17 @@
 import React from 'react'
-import { NodeViewProps } from '@tiptap/core'
-import { displayValue, dumpDisplayResultForDisplay, fetchResult, VariableData } from '@brickdoc/formula'
+import { Editor, NodeViewProps } from '@tiptap/core'
+import {
+  ContextInterface,
+  displayValue,
+  dumpDisplayResultForDisplay,
+  fetchResult,
+  VariableData
+} from '@brickdoc/formula'
 import { BlockContainer } from '../BlockContainer'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 import { FormulaDisplay } from '../../ui/Formula'
 import { FormulaMenuProps, useFormula, FormulaMenu, UseFormulaInput } from '.'
+import { useEditorContext } from '../../../hooks'
+import { Formula } from '../../../extensions'
 
 export interface FormulaBlockProps extends NodeViewProps {}
 
@@ -14,6 +21,13 @@ export interface FormulaRenderProps {
   handleDelete?: FormulaMenuProps['handleDelete']
 }
 
+export function getFormulaContext(editor: Editor | undefined | null): ContextInterface | null | undefined {
+  const extension = editor?.extensionManager.extensions.find(
+    extension => extension.name === Formula.name
+  ) as typeof Formula
+  return extension?.options.formulaContext
+}
+
 export const FormulaRender: React.FC<FormulaRenderProps> = ({
   attributes: { isNew, uuid },
   handleDefaultPopoverVisibleChange,
@@ -21,9 +35,9 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
 }) => {
   const defaultVisible = isNew
   const formulaId = uuid
-  const editorProps = useEditorPropsContext()
-  const rootId = editorProps.rootId
-  const formulaContext = editorProps.formulaContext
+  const { editor } = useEditorContext()
+  const rootId = editor?.state.doc.attrs.uuid
+  const formulaContext = getFormulaContext(editor)
   const formulaType = 'normal'
   const formulaName = ''
   const meta: UseFormulaInput['meta'] = {
@@ -63,8 +77,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
       onSaveFormula={onSaveFormula}
       nameRef={nameRef}
       completion={completion}
-      handleDelete={handleDelete}
-    >
+      handleDelete={handleDelete}>
       {renderData}
     </FormulaMenu>
   )
@@ -72,8 +85,7 @@ export const FormulaRender: React.FC<FormulaRenderProps> = ({
 
 export const FormulaBlock: React.FC<FormulaBlockProps> = ({ editor, node, updateAttributes, getPos }) => {
   const defaultVisible = node.attrs.isNew
-  const editorProps = useEditorPropsContext()
-  const formulaContext = editorProps.formulaContext
+  const formulaContext = getFormulaContext(editor)
 
   const handleDelete = React.useCallback(
     async (variableT?: VariableData): Promise<void> => {

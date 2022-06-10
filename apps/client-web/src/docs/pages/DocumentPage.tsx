@@ -9,10 +9,10 @@ import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
 import { Navigate } from 'react-router-dom'
 import { editorVar } from '../reactiveVars'
-import { useEditorProps } from './hooks/useEditorProps'
 import { useDocumentEditable } from './hooks/useDocumentEditable'
 import * as Root from './DocumentPage.style'
 import { useDocMeta } from '../store/DocMeta'
+import { useEditorOptions } from './hooks/useEditorOptions'
 
 interface DocumentPageProps {
   // default: user can edit/view document normally
@@ -44,22 +44,20 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
 
   const freeze = mode === 'presentation'
   const currentRootBlock = rootBlock.current
-  const [documentEditable] = useDocumentEditable(freeze ?? false, currentRootBlock)
+  const [documentEditable] = useDocumentEditable(freeze ?? docMeta.historyId, currentRootBlock)
 
   // TODO: refactor editor and editable reactive var
   // const documentEditable = !freeze
 
-  const editorProps = useEditorProps({
+  const editorOptions = useEditorOptions({
+    docMeta,
+    ydoc: ydoc.current,
+    onDocSave,
     documentEditable,
     blocks: data?.childrenBlocks
   })
 
-  const editor = useEditor({
-    onSave: onDocSave,
-    props: editorProps,
-    editable: documentEditable && !docMeta.historyId,
-    ydoc: ydoc.current
-  })
+  const editor = useEditor(editorOptions)
 
   // TODO: refactor editor reactive var
   useEffect(() => {
@@ -77,7 +75,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     }
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
-  if (loading || docMeta.documentInfoLoading) {
+  if (loading || !ydoc.current || docMeta.documentInfoLoading) {
     return (
       <Root.PageSpinWrapper>
         <Spin size="lg" />
@@ -103,8 +101,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
         width={{
           '@mdOnly': 'md',
           '@smDown': 'sm'
-        }}
-      >
+        }}>
         <DocumentTitle
           title={docMeta.title}
           docId={docMeta.id}
@@ -112,7 +109,13 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
           editable={documentEditable}
         />
         <Root.PageContent>
-          <EditorContent editor={editor} {...editorProps} />
+          <EditorContent
+            editor={editor}
+            editable={documentEditable}
+            rootId={docMeta.id}
+            domain={docMeta.domain}
+            historyId={docMeta.historyId}
+          />
         </Root.PageContent>
       </Root.Page>
     </>

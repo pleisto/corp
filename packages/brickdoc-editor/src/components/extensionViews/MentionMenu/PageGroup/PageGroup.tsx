@@ -4,13 +4,7 @@ import { Menu, styled, theme } from '@brickdoc/design-system'
 import { FilePages } from '@brickdoc/design-icons'
 import { IconBackground } from '../../../ui'
 import { useEditorI18n } from '../../../../hooks'
-
-export interface PageItem {
-  icon: string | null
-  name: string
-  category?: string
-  command: (editor: Editor, range: Range) => void
-}
+import { PageItem } from '../../../../extensions/extensions/mentionCommands/filterMenuItemsByQuery'
 
 export interface PageGroupProps {
   active: boolean
@@ -51,7 +45,7 @@ export const PageGroup: FC<PageGroupProps> = ({ active, activeIndex, editor, ite
           onAction={handlePageSelect(item)}
           // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           icon={<StyledIconBackground>{item.icon || <FilePages />}</StyledIconBackground>}
-          label={item.name}
+          label={item.title ?? ''}
           description={item.category}
           active={active && activeIndex === index}
         />

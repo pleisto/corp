@@ -14,6 +14,7 @@ import {
 } from '@brickdoc/design-icons'
 import { Input, Popover, Spin, styled, theme } from '@brickdoc/design-system'
 import { ChangeEventHandler, FC, useCallback, useState } from 'react'
+import { EmbedViewProps } from '../../../../extensions/blocks/embed/meta'
 import { useEditorI18n } from '../../../../hooks'
 import { ToolbarOptionGroup } from '../../../ui/Toolbar'
 import { useLinkValue } from '../embedTypes/Link/useLinkValue'
@@ -75,20 +76,21 @@ export const EditPanel: FC<{
   link: string
   displayName: string
   blockType: EmbedBlockType
+  extension?: EmbedViewProps['extension']
   updateEmbedBlockAttributes: UpdateEmbedBlockAttributes
-}> = ({ link, displayName, blockType, updateEmbedBlockAttributes }) => {
+}> = ({ link, displayName, blockType, extension, updateEmbedBlockAttributes }) => {
   const [editDisplayName, onDisplayNameChange, onSubmitDisplayName] = useDisplayName(
     blockType,
     displayName,
     updateEmbedBlockAttributes
   )
-  const [editLink, onLinkChange, , onSubmitLink, progress] = useLinkValue(updateEmbedBlockAttributes, link)
+  const [editLink, onLinkChange, , onSubmitLink, progress] = useLinkValue(updateEmbedBlockAttributes, extension, link)
 
   return (
     <EditPanelContainer>
       <EditInput
         onPressEnter={onSubmitDisplayName}
-        borderType='underline'
+        borderType="underline"
         size="md"
         value={editDisplayName}
         onChange={onDisplayNameChange}
@@ -96,7 +98,7 @@ export const EditPanel: FC<{
       <EditField>
         <EditInput
           onPressEnter={onSubmitLink}
-          borderType='underline'
+          borderType="underline"
           size="md"
           prefix={<Link />}
           value={editLink}
@@ -113,6 +115,7 @@ export function useEmbedToolbarOptions({
   blockType,
   displayName,
   url,
+  extension,
   updateEmbedBlockAttributes,
   onFullScreen,
   align,
@@ -275,6 +278,7 @@ export function useEmbedToolbarOptions({
               content={
                 <EditPanel
                   blockType={blockType}
+                  extension={extension}
                   updateEmbedBlockAttributes={updateEmbedBlockAttributes}
                   displayName={displayName}
                   link={url}

@@ -2,9 +2,10 @@ import React from 'react'
 import { Icon } from '@brickdoc/design-system'
 import { FormulaSourceType, VariableDisplayData, loadDisplayResult } from '@brickdoc/formula'
 import { SelectedType } from '../../blockViews/FormulaView/useFormula'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 import { FormulaLiteral, FormulaValue } from '.'
 import * as Root from './Formula.style'
+import { useEditorContext } from '../../../hooks'
+import { getFormulaContext } from '../../blockViews/FormulaView'
 
 export interface FormulaDisplayProps {
   displayData?: VariableDisplayData
@@ -24,7 +25,9 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
   disablePopover,
   ...props
 }) => {
-  const editorProps = useEditorPropsContext()
+  const { editor } = useEditorContext()
+  const formulaContext = getFormulaContext(editor)
+
   if (!displayData) {
     if (formulaType === 'normal') {
       return (
@@ -46,9 +49,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
     )
   }
 
-  const formulaContext = editorProps.formulaContext!
-
-  const ctx = { formulaContext, meta, interpretContext: { ctx: {}, arguments: [] } }
+  const ctx = { formulaContext: formulaContext!, meta, interpretContext: { ctx: {}, arguments: [] } }
   const newDisplayData = loadDisplayResult(ctx, displayData)
 
   let preview: React.ReactElement | null = null
@@ -56,7 +57,7 @@ export const FormulaDisplay: React.FC<FormulaDisplayProps> = ({
   const dataResult = newDisplayData.result
 
   if (dataResult.view) {
-    const viewRender = formulaContext.findViewRender(dataResult.view.type)
+    const viewRender = formulaContext!.findViewRender(dataResult.view.type)
     if (viewRender) {
       preview = viewRender(dataResult.view.attrs, newDisplayData)
     }

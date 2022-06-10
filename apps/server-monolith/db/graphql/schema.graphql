@@ -99,6 +99,11 @@ type BlockAttachment {
   type: Blocktype!
 
   """
+  view url
+  """
+  viewUrl: String
+
+  """
   width
   """
   width: Int
@@ -377,6 +382,11 @@ type BlockEmbedMeta {
   type: String
 
   """
+  view url
+  """
+  viewUrl: String
+
+  """
   width
   """
   width: Int
@@ -484,6 +494,11 @@ type BlockImage {
   type
   """
   type: Blocktype
+
+  """
+  view url
+  """
+  viewUrl: String
 
   """
   width
@@ -655,6 +670,11 @@ type BlockLink {
   type: String!
 
   """
+  view url
+  """
+  viewUrl: String
+
+  """
   width
   """
   width: Int
@@ -824,6 +844,11 @@ type BlockPage {
   type: Blocktype
 
   """
+  view url
+  """
+  viewUrl: String
+
+  """
   width
   """
   width: Int
@@ -896,6 +921,11 @@ type BlockPeople {
   type
   """
   type: Blocktype
+
+  """
+  view url
+  """
+  viewUrl: String
 
   """
   width

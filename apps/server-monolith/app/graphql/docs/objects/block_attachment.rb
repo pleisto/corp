@@ -6,6 +6,7 @@ module Docs
       field :display_name, String, 'display name', null: true
       field :height, Int, 'height', null: true
       field :key, String, 'url or blob key', null: true
+      field :view_url, String, 'view url', null: true
       field :mode, String, 'mode', null: true
       field :name, String, 'name', null: true
       field :size, Int, 'size', null: true

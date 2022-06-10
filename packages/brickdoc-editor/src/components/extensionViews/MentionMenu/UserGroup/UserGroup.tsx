@@ -2,13 +2,7 @@ import { FC, useCallback } from 'react'
 import { Editor, Range } from '@tiptap/core'
 import { Avatar, Menu, styled, theme } from '@brickdoc/design-system'
 import { useEditorI18n } from '../../../../hooks'
-
-export interface UserItem {
-  avatar: string | undefined
-  name: string | null | undefined
-  domain: string
-  command: (editor: Editor, range: Range) => void
-}
+import { UserItem } from '../../../../extensions/extensions/mentionCommands/filterMenuItemsByQuery'
 
 export interface UserGroupProps {
   active: boolean
@@ -70,10 +64,9 @@ export const UserGroup: FC<UserGroupProps> = ({ editor, range, items, active, ac
             itemKey={index.toString()}
             key={index}
             active={active && activeIndex === index}
-            onAction={handleUserSelect(item)}
-          >
-            <Avatar initials={item.name ?? item.domain} src={item.avatar} />
-            <Username>{item.name ?? item.domain}</Username>
+            onAction={handleUserSelect(item)}>
+            <Avatar initials={item.name ?? item.id} src={item.avatar} />
+            <Username>{item.name ?? item.id}</Username>
           </StyledUserItem>
         ))}
       </UserGroupMain>

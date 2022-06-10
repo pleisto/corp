@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { BrickdocEventBus, BlockInput, SpreadsheetUpdateCellValue, FormulaEditorSavedTrigger } from '@brickdoc/schema'
-import { FormulaBlockRender, useFormula, UseFormulaInput } from '../FormulaView'
+import { FormulaBlockRender, getFormulaContext, useFormula, UseFormulaInput } from '../FormulaView'
 import {
   columnDisplayIndex,
   displayValue,
@@ -13,8 +13,8 @@ import {
 } from '@brickdoc/formula'
 import { SpreadsheetContext } from './SpreadsheetContext'
 import { devLog } from '@brickdoc/design-system'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 import { FormulaDisplay } from '../../ui/Formula'
+import { useEditorContext } from '../../../hooks'
 
 export interface SpreadsheetCellProps {
   context: SpreadsheetContext
@@ -39,9 +39,9 @@ export const SpreadsheetCell: React.FC<SpreadsheetCellProps> = ({
   width,
   height
 }) => {
-  const editorProps = useEditorPropsContext()
-  const formulaContext = editorProps.formulaContext
-  const rootId = editorProps.rootId
+  const { editor } = useEditorContext()
+  const rootId = editor?.state.doc.attrs.uuid
+  const formulaContext = getFormulaContext(editor)
   const minHeight = height ? height - 3 : undefined
 
   const [currentBlock, setCurrentBlock] = React.useState(block)

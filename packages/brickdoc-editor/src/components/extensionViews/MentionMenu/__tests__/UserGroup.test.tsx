@@ -8,19 +8,19 @@ describe('MentionMenuUserGroup', () => {
     {
       name: 'name 0',
       avatar: 'avatar 0',
-      domain: 'domain 0',
+      id: 'domain 0',
       command: jest.fn()
     },
     {
       name: 'name 1',
       avatar: 'avatar 1',
-      domain: 'domain 1',
+      id: 'domain 1',
       command: jest.fn()
     },
     {
       name: 'name 2',
       avatar: 'avatar 2',
-      domain: 'domain 2',
+      id: 'domain 2',
       command: jest.fn()
     }
   ]

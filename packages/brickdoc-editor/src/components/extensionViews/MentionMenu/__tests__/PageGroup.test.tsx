@@ -6,17 +6,26 @@ import { PageGroup, PageGroupProps } from '../PageGroup'
 describe('MentionMenuPageGroup', () => {
   const items: PageGroupProps['items'] = [
     {
-      name: 'page name 0',
+      id: 'p0',
+      parentId: 'p',
+      link: 'link',
+      title: 'page name 0',
       icon: 'icon 0',
       command: jest.fn()
     },
     {
-      name: 'page name 1',
+      id: 'p1',
+      parentId: 'p',
+      link: 'link',
+      title: 'page name 1',
       icon: 'icon 1',
       command: jest.fn()
     },
     {
-      name: 'page name 2',
+      id: 'p2',
+      parentId: 'p',
+      link: 'link',
+      title: 'page name 2',
       icon: null,
       command: jest.fn()
     }

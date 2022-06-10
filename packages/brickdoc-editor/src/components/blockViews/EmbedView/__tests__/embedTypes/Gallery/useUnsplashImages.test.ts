@@ -1,32 +1,32 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useUnsplashImages } from '../../../embedTypes/Gallery/useUnsplashImages'
-import * as hooks from '../../../../../../hooks/useEditorPropsContext'
 import { useRef } from 'react'
-import { EditorPropsContext } from '../../../../../../context'
 
 jest.useRealTimers()
 
 describe('useUnsplashImages', () => {
   it('fetches images correctly', async () => {
-    const editorPropsContext = { ...EditorPropsContext }
-    editorPropsContext.fetchUnsplashImages = async () => {
-      return {
-        success: true,
-        data: [
-          {
-            id: 'id',
-            smallUrl: 'smallUrl',
-            fullUrl: 'fullUrl',
-            username: 'username',
-            width: 100,
-            height: 100,
-            blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+    const extension: any = {
+      options: {
+        getGalleryImages: async () => {
+          return {
+            success: true,
+            data: [
+              {
+                id: 'id',
+                smallUrl: 'smallUrl',
+                fullUrl: 'fullUrl',
+                username: 'username',
+                width: 100,
+                height: 100,
+                blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+              }
+            ]
           }
-        ]
+        }
       }
     }
 
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => editorPropsContext)
     window.IntersectionObserver = jest.fn(() => ({
       observe: jest.fn(),
       unobserve: jest.fn()
@@ -35,7 +35,7 @@ describe('useUnsplashImages', () => {
     await act(async () => {
       const { result } = renderHook(() => {
         const ref = useRef<HTMLDivElement>(document.createElement('div'))
-        return useUnsplashImages(ref)
+        return useUnsplashImages(ref, extension)
       })
 
       // wait for async effect
@@ -52,25 +52,27 @@ describe('useUnsplashImages', () => {
   })
 
   it('fetches images correctly when observer triggers', async () => {
-    const editorPropsContext = { ...EditorPropsContext }
-    editorPropsContext.fetchUnsplashImages = async () => {
-      return {
-        success: true,
-        data: [
-          {
-            id: 'id',
-            smallUrl: 'smallUrl',
-            fullUrl: 'fullUrl',
-            username: 'username',
-            width: 100,
-            height: 100,
-            blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+    const extension: any = {
+      options: {
+        getGalleryImages: async () => {
+          return {
+            success: true,
+            data: [
+              {
+                id: 'id',
+                smallUrl: 'smallUrl',
+                fullUrl: 'fullUrl',
+                username: 'username',
+                width: 100,
+                height: 100,
+                blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+              }
+            ]
           }
-        ]
+        }
       }
     }
 
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => editorPropsContext)
     window.IntersectionObserver = class IntersectionObserver {
       cb: any
 
@@ -94,7 +96,7 @@ describe('useUnsplashImages', () => {
     await act(async () => {
       const { result } = renderHook(() => {
         const ref = useRef<HTMLDivElement>(document.createElement('div'))
-        return useUnsplashImages(ref)
+        return useUnsplashImages(ref, extension)
       })
 
       // wait for async effect
@@ -111,25 +113,27 @@ describe('useUnsplashImages', () => {
   })
 
   it('fetches images by query correctly', async () => {
-    const editorPropsContext = { ...EditorPropsContext }
-    editorPropsContext.fetchUnsplashImages = async () => {
-      return {
-        success: true,
-        data: [
-          {
-            id: 'id',
-            smallUrl: 'smallUrl',
-            fullUrl: 'fullUrl',
-            username: 'username',
-            width: 100,
-            height: 100,
-            blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+    const extension: any = {
+      options: {
+        getGalleryImages: async () => {
+          return {
+            success: true,
+            data: [
+              {
+                id: 'id',
+                smallUrl: 'smallUrl',
+                fullUrl: 'fullUrl',
+                username: 'username',
+                width: 100,
+                height: 100,
+                blurHash: 'LRE3@]RkxYV@00t7IVt7nNoL%2WV'
+              }
+            ]
           }
-        ]
+        }
       }
     }
 
-    jest.spyOn(hooks, 'useEditorPropsContext').mockImplementation(() => editorPropsContext)
     window.IntersectionObserver = jest.fn(() => ({
       observe: jest.fn(),
       unobserve: jest.fn()
@@ -138,7 +142,7 @@ describe('useUnsplashImages', () => {
     await act(async () => {
       const { result } = renderHook(() => {
         const ref = useRef<HTMLDivElement>(document.createElement('div'))
-        return useUnsplashImages(ref)
+        return useUnsplashImages(ref, extension)
       })
 
       const [, , search] = result.current

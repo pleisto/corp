@@ -4,28 +4,13 @@ import { PluginKey } from 'prosemirror-state'
 import Suggestion from '@tiptap/suggestion'
 import { createPopup, PopupInstance } from '../../../helpers/popup'
 import { MentionCommandsMenu, MentionCommandsMenuProps } from '../../../components/extensionViews'
-import { UserItem } from '../../../components/extensionViews/MentionMenu/UserGroup'
-import { PageItem } from '../../../components/extensionViews/MentionMenu/PageGroup'
-import { meta } from './meta'
+import { MentionCommandsAttributes, MentionCommandsOptions, meta } from './meta'
 import { createExtension } from '../../common'
-import { EditorProps } from '../../../context'
 import { filterMenuItemsByQuery } from './filterMenuItemsByQuery'
 
 const TRIGGER_CHAR = '@'
 
-export interface MenuItems {
-  users: UserItem[]
-  pages: PageItem[]
-}
-
-export interface MentionCommandsOptions {
-  editorProps: EditorProps
-  size?: 'sm' | 'md'
-}
-
-export interface MentionCommandsAttributes {}
-
-export const MentionCommands = createExtension<MentionCommandsOptions>({
+export const MentionCommands = createExtension<MentionCommandsOptions, MentionCommandsAttributes>({
   name: meta.name,
 
   addProseMirrorPlugins() {
@@ -59,7 +44,11 @@ export const MentionCommands = createExtension<MentionCommandsOptions>({
               if (!this.editor.isEditable) return
 
               reactRenderer = new ReactRenderer(MentionCommandsMenu as any, {
-                props: { ...props, size: this.options.size },
+                props: {
+                  ...props,
+                  items: filterMenuItemsByQuery(this.options)({ query: '' }),
+                  size: this.options.size
+                },
                 editor: props.editor as ReactEditor
               })
 
@@ -68,7 +57,11 @@ export const MentionCommands = createExtension<MentionCommandsOptions>({
             onUpdate: props => {
               if (!this.editor.isEditable) return
 
-              reactRenderer?.updateProps(props)
+              reactRenderer?.updateProps({
+                ...props,
+                items: filterMenuItemsByQuery(this.options)({ query: '' }),
+                size: this.options.size
+              })
 
               popup?.setProps({
                 getReferenceClientRect: props.clientRect

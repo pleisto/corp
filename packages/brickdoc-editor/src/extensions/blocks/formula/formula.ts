@@ -2,12 +2,7 @@ import { mergeAttributes } from '@tiptap/core'
 import { ReactNodeViewRenderer } from '@tiptap/react'
 import { createBlock } from '../../common'
 import { FormulaBlock } from '../../../components/blockViews'
-import { meta } from './meta'
-
-export interface FormulaOptions {}
-export interface FormulaAttributes {
-  // TODO: add attributes types
-}
+import { FormulaAttributes, FormulaOptions, meta } from './meta'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

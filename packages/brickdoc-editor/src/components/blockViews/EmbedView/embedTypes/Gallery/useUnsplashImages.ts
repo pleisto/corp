@@ -1,14 +1,15 @@
 import { debounce, uniqBy } from '@brickdoc/active-support'
 import { UnsplashImage } from '@brickdoc/uploader'
+import { Node } from '@tiptap/core'
 import { useState, useRef, useCallback, useEffect, ChangeEvent, RefObject } from 'react'
-import { useEditorPropsContext } from '../../../../../hooks'
+import { EmbedOptions } from '../../../../../extensions'
 
 const UNSPLASH_PER_PAGE = 20
 
 export function useUnsplashImages(
-  loadMoreRef: RefObject<HTMLDivElement>
+  loadMoreRef: RefObject<HTMLDivElement>,
+  extension: Node<EmbedOptions>
 ): [UnsplashImage[], boolean, (event: ChangeEvent<HTMLInputElement>) => void] {
-  const editorPropsContext = useEditorPropsContext()
   const [unsplashImages, setUnsplashImages] = useState<UnsplashImage[]>([])
   const [fetching, setFetching] = useState(false)
 
@@ -17,6 +18,7 @@ export function useUnsplashImages(
 
   const fetchUnsplashImage = useCallback(
     async (query?: string): Promise<void> => {
+      if (!extension.options.getGalleryImages) return
       if (fetching) return
 
       if (query && query !== lastQuery.current) {
@@ -27,11 +29,11 @@ export function useUnsplashImages(
       setFetching(true)
 
       try {
-        const response = await editorPropsContext.fetchUnsplashImages(
-          lastQuery.current,
-          page.current,
-          UNSPLASH_PER_PAGE
-        )
+        const response = await extension.options.getGalleryImages({
+          query: lastQuery.current,
+          page: page.current,
+          perPage: UNSPLASH_PER_PAGE
+        })
 
         if (response.success) {
           setUnsplashImages(prevData => uniqBy([...(page.current === 1 ? [] : prevData), ...response.data], 'id'))
@@ -43,7 +45,7 @@ export function useUnsplashImages(
 
       setFetching(false)
     },
-    [editorPropsContext, fetching]
+    [extension.options, fetching]
   )
 
   const observeY = useRef<number>()

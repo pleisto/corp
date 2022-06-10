@@ -1,15 +1,25 @@
 import { render } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import { EditorPropsContext } from '../../../context'
 import { EditorContent, useEditor } from '../documentEditor'
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => () => {}
+}))
 
 describe('documentEditor', () => {
   it('renders document editor correctly', () => {
-    const editorProps = { ...EditorPropsContext }
     const onSave = jest.fn()
-    const { result } = renderHook(() => useEditor({ props: editorProps, onSave }))
+    const { result } = renderHook(() =>
+      useEditor({
+        base: {
+          sync: {
+            onSave
+          }
+        }
+      })
+    )
     const editor = result.current
-    const { container } = render(<EditorContent editor={editor} {...editorProps} />, {
+    const { container } = render(<EditorContent editor={editor} editable={true} />, {
       // prosemirror will modify dom manually, add a wrapper for this purpose
       wrapper: ({ children }) => <div>{children}</div>
     })

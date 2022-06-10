@@ -382,7 +382,6 @@ export const sortBlock =
   }
 
 export const unselectableBlockType = [
-  'imageBlock',
   embedMeta.name,
   HorizontalRule.name,
   tocMeta.name,

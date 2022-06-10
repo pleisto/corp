@@ -3,6 +3,7 @@ import { Icon, Menu } from '@brickdoc/design-system'
 import { Editor } from '@tiptap/core'
 import { BrickdocEventBus, ExplorerMenuGroup, ExplorerMenuItem, ExplorerMenuTrigger } from '@brickdoc/schema'
 import {
+  drawerStyles,
   InnerMenu,
   InnerMenuContainer,
   MenuGroupLabel,
@@ -31,6 +32,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   const [t] = useEditorI18n()
   const { visible, setVisible } = useDrawer('explorerMenu')
   const [search, setSearch] = useState('')
+  const drawerContainerStyles = drawerStyles()
   const [groupSource, setGroupSource] = useState<ExplorerMenuGroup[]>([])
 
   useEffect(
@@ -83,6 +85,7 @@ export const ExplorerMenu: React.FC<ExplorerMenuProps> = () => {
   return (
     <Drawer
       container={document.getElementById('aside') as HTMLElement}
+      className={drawerContainerStyles}
       visible={visible}
       onClose={() => setVisible(false)}
       title={t('explorer_menu.title')}

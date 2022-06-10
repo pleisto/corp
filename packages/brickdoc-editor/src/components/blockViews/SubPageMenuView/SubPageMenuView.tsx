@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { styled, theme } from '@brickdoc/design-system'
 import { BlockContainer } from '../BlockContainer'
 import { SubPageMenuViewProps } from '../../../extensions/blocks/subPageMenu/meta'
-import { useEditorPropsContext } from '../../../hooks/useEditorPropsContext'
 
 const SubPageMenu = styled('div', {
   background: theme.colors.backgroundPrimary,
@@ -14,12 +13,10 @@ const SubPageMenu = styled('div', {
   padding: '1rem .25rem'
 })
 
-export const SubPageMenuView: FC<SubPageMenuViewProps> = ({ node, deleteNode, getPos }) => {
-  const editorProps = useEditorPropsContext()
-
+export const SubPageMenuView: FC<SubPageMenuViewProps> = ({ node, deleteNode, extension, getPos }) => {
   return (
     <BlockContainer node={node} deleteNode={deleteNode} getPos={getPos} actionOptions={['cut', 'copy', 'delete']}>
-      <SubPageMenu>{editorProps.renderPageTree()}</SubPageMenu>
+      <SubPageMenu>{extension.options.renderView?.()}</SubPageMenu>
     </BlockContainer>
   )
 }
