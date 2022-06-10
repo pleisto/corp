@@ -12,7 +12,6 @@ import {
   Section1Comment,
   Section2Title,
   Section2Comment,
-  JoinButton,
   LinkList,
   LinkBlock,
   SectionWrapper,
@@ -56,7 +55,8 @@ const Home: NextPage = () => {
           fadeEffect={{
             crossFade: true
           }}
-          modules={[Pagination, Mousewheel, EffectFade]}>
+          modules={[Pagination, Mousewheel, EffectFade]}
+        >
           <SwiperSlide>
             <SectionBg style={{ ...bgStyle, backgroundImage: section1bg }}></SectionBg>
             <SectionWrapper>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                 <br />
                 development platform with Compound Document as its core.
               </Section2Comment>
-              <JoinButton type="primary">Apply to join our Private </JoinButton>
+              {/* <JoinButton type="primary">Apply to join our Private </JoinButton> */}
               <LinkList>
                 <LinkBlock>
                   <div className="icon">
