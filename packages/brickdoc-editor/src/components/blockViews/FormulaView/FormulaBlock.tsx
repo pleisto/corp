@@ -1,6 +1,12 @@
 import React from 'react'
 import { Editor, NodeViewProps } from '@tiptap/core'
-import { displayValue, dumpDisplayResultForDisplay, fetchResult, FormulaContext, VariableData } from '@brickdoc/formula'
+import {
+  ContextInterface,
+  displayValue,
+  dumpDisplayResultForDisplay,
+  fetchResult,
+  VariableData
+} from '@brickdoc/formula'
 import { BlockContainer } from '../BlockContainer'
 import { FormulaDisplay } from '../../ui/Formula'
 import { FormulaMenuProps, useFormula, FormulaMenu, UseFormulaInput } from '.'
@@ -15,7 +21,7 @@ export interface FormulaRenderProps {
   handleDelete?: FormulaMenuProps['handleDelete']
 }
 
-export function getFormulaContext(editor: Editor | undefined | null): FormulaContext | undefined {
+export function getFormulaContext(editor: Editor | undefined | null): ContextInterface | null | undefined {
   const extension = editor?.extensionManager.extensions.find(
     extension => extension.name === Formula.name
   ) as typeof Formula
