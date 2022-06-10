@@ -6,6 +6,8 @@ import { useMentionCommands } from './useMentionCommands'
 import { useEmbed } from './useEmbed'
 import { useReactiveVar } from '@apollo/client'
 import { FormulaContextVar } from '@/docs/reactiveVars'
+import { useCallback } from 'react'
+import { PageTree } from '@/docs/common/components/PageTree'
 
 export interface UseEditorOptions {
   docMeta: DocMeta
@@ -24,7 +26,12 @@ export function useEditorOptions({
 }: UseEditorOptions): EditorOptions {
   const mentionCommands = useMentionCommands(docMeta)
   const embed = useEmbed(blocks, docMeta)
-  const formulaContext = useReactiveVar(FormulaContextVar)
+  const formula = {
+    formulaContext: useReactiveVar(FormulaContextVar)
+  }
+  const subPageMenu = {
+    renderView: useCallback(() => <PageTree mode="subPage" />, [])
+  }
 
   return {
     base: {
@@ -34,10 +41,9 @@ export function useEditorOptions({
           }
         : false,
       embed,
-      formula: {
-        formulaContext
-      },
+      formula,
       mentionCommands,
+      subPageMenu,
       sync: {
         onSave: onDocSave
       }

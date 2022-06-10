@@ -8,6 +8,7 @@ import { useConversationItem } from './useConversationItem'
 import { CommentedNode } from './useCommentedNodes'
 import { ConversationData, PageDiscussionContext } from './PageDiscussionContext'
 import { useEditorContext, useEditorI18n } from '../../../hooks'
+import { MentionCommands } from '../../../extensions'
 
 export interface ConversationItem extends ConversationData {}
 
@@ -105,6 +106,10 @@ const menuIconStyles = css({
 
 export const Conversation: FC<ConversationProps> = ({ active, commentedNode }) => {
   const { editor } = useEditorContext()
+  const mentionCommandsOptions = editor?.extensionManager.extensions.find(
+    extension => extension.name === MentionCommands.name
+  )?.options
+
   const [t] = useEditorI18n()
   const { addConversation, removeConversation, resolveConversation, openConversation, addComment } =
     useContext(PageDiscussionContext)
@@ -193,8 +198,7 @@ export const Conversation: FC<ConversationProps> = ({ active, commentedNode }) =
           trigger="click"
           // stick it to aside panel
           // avoid popover locate at wrong place when discussion list be scrolled
-          getPopupContainer={() => document.getElementById('aside') ?? document.body}
-        >
+          getPopupContainer={() => document.getElementById('aside') ?? document.body}>
           <ActionButton type="text" size="sm" icon={<More />} />
         </Popover>
         <ActionButton
@@ -213,7 +217,13 @@ export const Conversation: FC<ConversationProps> = ({ active, commentedNode }) =
           {conversationItem.comments.map(comment => (
             <Comment key={comment.id} comment={comment} />
           ))}
-          {active && <CommentEditorContent markId={commentedNode.markId} onSend={handleCommentSent} />}
+          {active && (
+            <CommentEditorContent
+              mentionCommandsOptions={mentionCommandsOptions}
+              markId={commentedNode.markId}
+              onSend={handleCommentSent}
+            />
+          )}
         </>
       )}
       <ConfirmDialog
@@ -221,8 +231,7 @@ export const Conversation: FC<ConversationProps> = ({ active, commentedNode }) =
         cancelBtnText={t('action_panel.more.delete_cancel')}
         onCancel={() => setRemoveConfirmVisible(false)}
         onConfirm={handleRemove}
-        open={removeConfirmVisible}
-      >
+        open={removeConfirmVisible}>
         {t('discussion.delete_message')}
       </ConfirmDialog>
     </ConversationCard>

@@ -2,12 +2,17 @@ import { useMemo } from 'react'
 import { Message, RemoveAnchorMark, AnchorMark, More } from '@brickdoc/design-icons'
 import { ToolbarSubMenuOption, ToolbarOption, ToolbarGroupOption } from '../../../ui/Toolbar'
 import { isBubbleMenuVisible } from '../BubbleMenu'
-import { useEditorContext, useEditorI18n, useEditorPropsContext } from '../../../../hooks'
+import { useEditorContext, useEditorI18n } from '../../../../hooks'
+import { Editor } from '@tiptap/core'
+import { Discussion } from '../../../../extensions'
+
+const isCommentActive = (editor: Editor | null | undefined): boolean => {
+  return !!editor?.extensionManager.extensions.find(extension => extension.name === Discussion.name)
+}
 
 export function useExtraItemsGroup(): [ToolbarOption | ToolbarGroupOption | null] {
   const { editor } = useEditorContext()
   const [t] = useEditorI18n()
-  const editorProps = useEditorPropsContext()
 
   const option = useMemo<ToolbarOption | ToolbarGroupOption | null>(() => {
     if (!isBubbleMenuVisible(editor)) return null
@@ -17,7 +22,7 @@ export function useExtraItemsGroup(): [ToolbarOption | ToolbarGroupOption | null
       items: []
     }
 
-    if (editorProps.featureFlags.experiment_discussion) {
+    if (isCommentActive(editor)) {
       extraItemsGroup.items.push({
         type: 'item',
         name: 'comment',
