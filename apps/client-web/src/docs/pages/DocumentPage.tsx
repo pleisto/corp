@@ -75,7 +75,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
     }
   }, [editor, data, data?.childrenBlocks, initBlocksToEditor])
 
-  if (loading || !blocksLoading || !editor || !editor.isDestroyed || docMeta.documentInfoLoading) {
+  if (loading || !blocksLoading || !editor || editor.isDestroyed || docMeta.documentInfoLoading) {
     return (
       <Root.PageSpinWrapper>
         <Spin size="lg" />
