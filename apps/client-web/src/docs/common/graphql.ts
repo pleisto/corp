@@ -209,18 +209,6 @@ export const queryTrashBlocks = gql`
   }
 `
 
-export const queryBlockSnapshots = gql`
-  query GetBlockSnapshots($id: String!) {
-    blockSnapshots(id: $id) {
-      id
-      snapshotVersion
-      name
-      createdAt
-      relativeTime
-    }
-  }
-`
-
 export const queryBlockShareLinks = gql`
   query GetBlockShareLinks($id: String!) {
     blockShareLinks(id: $id) {
@@ -309,22 +297,6 @@ export const BlockMove = gql`
 export const BlockRename = gql`
   mutation blockRename($input: BlockRenameInput!) {
     blockRename(input: $input) {
-      errors
-    }
-  }
-`
-
-export const SnapshotRestore = gql`
-  mutation snapshotRestore($input: SnapshotRestoreInput!) {
-    snapshotRestore(input: $input) {
-      errors
-    }
-  }
-`
-
-export const BlockCreateSnapshot = gql`
-  mutation blockCreateSnapshot($input: BlockCreateSnapshotInput!) {
-    blockCreateSnapshot(input: $input) {
       errors
     }
   }

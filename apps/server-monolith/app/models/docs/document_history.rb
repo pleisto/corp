@@ -13,6 +13,6 @@
 class Docs::DocumentHistory < ApplicationRecord # rubocop:disable Style/ClassAndModuleChildren
   belongs_to :space
   belongs_to :user, class_name: 'Accounts::User'
-  has_many :histories, class_name: 'Docs::DocumentHistory', dependent: :restrict_with_exception, foreign_key: :history_id,
+  has_many :states, class_name: 'Docs::BlockState', dependent: :restrict_with_exception, foreign_key: :history_id,
     inverse_of: :history
 end

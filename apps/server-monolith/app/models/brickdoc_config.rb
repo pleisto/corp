@@ -70,7 +70,11 @@ class BrickdocConfig < ApplicationRecord
     changing_domain: 'https://help.brickdoc.com/en/articles/5972616-brickdoc-username-policy',
   }, frontend: true
 
-  field :history_gap_threshold, type: :integer, default: 5
+  field :state_max_updates, type: :integer, default: 50
+
+  field :history_gap_threshold, type: :integer, default: 1
+  field :history_min_interval, type: :integer, default: 5
+  field :history_max_states, type: :integer, default: 50
 
   namespace :features do
     # field :page_history, type: :boolean, default: (Rails.env.development? ? true : false), frontend: true
