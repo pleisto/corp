@@ -18,7 +18,7 @@ import { BrickdocEventBus, docHistoryReceived } from '@brickdoc/schema'
 
 export function useBlockSyncProvider(queryVariables: { blockId: string; historyId?: string }): {
   loading: boolean
-  ydoc: React.MutableRefObject<Y.Doc | undefined>
+  ydoc?: Y.Doc
   initBlocksToEditor: React.MutableRefObject<boolean>
   blockCommitting: React.MutableRefObject<boolean>
 } {
@@ -30,7 +30,9 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
   const { blockId, historyId } = queryVariables
 
   const block = React.useRef<BlockNew>({ id: blockId })
-  const ydoc = React.useRef<Y.Doc | undefined>()
+  // const ydoc = React.useRef<Y.Doc | undefined>()
+  const [ydoc, setYdoc] = React.useState<Y.Doc>()
+
   const initBlocksToEditor = React.useRef<boolean>(false)
   const blockCommitting = React.useRef<boolean>(false)
   const updatesToCommit = React.useRef(new Set<Uint8Array>())
@@ -59,7 +61,7 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
             })
           )
 
-          if (ydoc.current && operatorId && operatorId !== globalThis.brickdocContext.uuid) {
+          if (ydoc && operatorId && operatorId !== globalThis.brickdocContext.uuid) {
             blocks.forEach(remoteBlock => {
               if (remoteBlock.id === blockId) {
                 block.current = remoteBlock
@@ -68,7 +70,7 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
             const remoteState = Y.mergeUpdates(
               blockStates.filter(s => s.state).map(s => base64.parse(s.state as string))
             )
-            Y.applyUpdate(ydoc.current, remoteState)
+            Y.applyUpdate(ydoc, remoteState)
           }
         }
       }
@@ -77,9 +79,9 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
   })
 
   const commitState = React.useCallback(
-    async (update?: Uint8Array, forceFull: boolean = false): Promise<void> => {
+    async (ydoc: Y.Doc, update?: Uint8Array, forceFull: boolean = false): Promise<void> => {
       if (historyId) return
-      if (!ydoc.current) return
+      if (!ydoc) return
       devLog(`try commit state, committing:`, blockCommitting.current)
       if (update) updatesToCommit.current.add(update)
       if (blockCommitting.current) return
@@ -109,33 +111,45 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
         }
       })
 
-      const { data: commitBlockResult } = await commitPromise
+      try {
+        const { data: commitBlockResult } = await commitPromise
 
-      const blockResult = commitBlockResult?.blockCommit?.block
-      const diffStates = commitBlockResult?.blockCommit?.diffStates
+        const blockResult = commitBlockResult?.blockCommit?.block
+        const diffStates = commitBlockResult?.blockCommit?.diffStates
+        const requireFull = commitBlockResult?.blockCommit?.requireFull
 
-      if (ydoc.current && blockResult) {
-        updatesToSync.forEach(update => updatesToCommit.current.delete(update))
-        // const oldBlock = {...block.current}
-        block.current = blockResult
-        if (diffStates && diffStates.length > 0) {
-          devLog(`need to merge state ${stateIdToCommit} with ${block.current.stateId}`)
-          const remoteState = Y.mergeUpdates(diffStates.filter(s => s.state).map(s => base64.parse(s.state as string)))
-          // const remoteYector = Y.encodeStateVectorFromUpdate(remoteState)
-          const localVector = Y.encodeStateVector(ydoc.current)
-          const diff = Y.diffUpdate(remoteState, localVector)
-          Y.applyUpdate(ydoc.current, diff)
-          const localState = Y.encodeStateAsUpdate(ydoc.current)
-          // const nextUpdate = Y.diffUpdate(localState, remoteYector)
-          blockCommitting.current = false
-          void commitState(localState, true)
-        } else {
-          devLog('committed, left updates: ', updatesToCommit.current.size)
-          blockCommitting.current = false
-          if (updatesToCommit.current.size !== 0) {
-            void commitState()
+        if (ydoc && blockResult) {
+          updatesToSync.forEach(update => updatesToCommit.current.delete(update))
+          // const oldBlock = {...block.current}
+          block.current = blockResult
+          if (diffStates && diffStates.length > 0) {
+            devLog(`need to merge state ${stateIdToCommit} with ${block.current.stateId}`)
+            const remoteState = Y.mergeUpdates(
+              diffStates.filter(s => s.state).map(s => base64.parse(s.state as string))
+            )
+            // const remoteYector = Y.encodeStateVectorFromUpdate(remoteState)
+            const localVector = Y.encodeStateVector(ydoc)
+            const diff = Y.diffUpdate(remoteState, localVector)
+            Y.applyUpdate(ydoc, diff)
+            const localState = Y.encodeStateAsUpdate(ydoc)
+            // const nextUpdate = Y.diffUpdate(localState, remoteYector)
+            blockCommitting.current = false
+            void commitState(ydoc, localState, true)
+          } else if (ydoc && requireFull) {
+            devLog(`full state is required`)
+            const localState = Y.encodeStateAsUpdate(ydoc)
+            blockCommitting.current = false
+            void commitState(ydoc, localState, true)
+          } else {
+            devLog('committed, left updates: ', updatesToCommit.current.size)
+            blockCommitting.current = false
+            if (updatesToCommit.current.size !== 0) {
+              void commitState(ydoc)
+            }
           }
         }
+      } catch (e) {
+        blockCommitting.current = false
       }
     },
     [blockCommit, blockId, historyId]
@@ -167,12 +181,12 @@ export function useBlockSyncProvider(queryVariables: { blockId: string; historyI
         }
 
         if (!historyId) {
-          newYdoc.on('update', async update => {
-            void commitState(update)
+          newYdoc.on('update', async (update: Uint8Array, origin: any, ydoc: Y.Doc) => {
+            void commitState(ydoc, update)
           })
         }
 
-        ydoc.current = newYdoc
+        setYdoc(newYdoc)
       }
     } else {
       initBlocksToEditor.current = true

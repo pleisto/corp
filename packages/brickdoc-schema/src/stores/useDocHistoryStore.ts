@@ -4,6 +4,7 @@ import { DocumentHistory, ThinUser, loadDocHistory, docHistoryReceived, Brickdoc
 interface docHistoryStore {
   histories: { [key: string]: DocumentHistory }
   users: { [key: string]: ThinUser }
+  loaded: boolean
 }
 
 export const useDocHistoryStore = (
@@ -14,7 +15,8 @@ export const useDocHistoryStore = (
 } => {
   const [store, setStore] = React.useState<docHistoryStore>({
     histories: {},
-    users: {}
+    users: {},
+    loaded: false
   })
   BrickdocEventBus.subscribe(
     docHistoryReceived,
@@ -25,9 +27,6 @@ export const useDocHistoryStore = (
         histories: {
           ...old.histories,
           ...payload.histories
-          // ...Object.fromEntries(
-          //    payload.histories.map(h => [h.id, h])
-          // )
         },
         users: {
           ...old.users,
@@ -42,15 +41,6 @@ export const useDocHistoryStore = (
 
   const refetch = React.useCallback(() => {
     BrickdocEventBus.dispatch(loadDocHistory(docId))
-    // BrickdocEventBus.dispatch(docHistoryReceived({
-    //   docId,
-    //   histories: {
-    //     'test': {
-    //       id: 'test'
-    //     }
-    //   },
-    //   users: {}
-    // }))
   }, [docId])
   return {
     store,

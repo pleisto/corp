@@ -14,6 +14,7 @@ module Docs
 
       field :block, Docs::Objects::BlockNew, null: true
       field :diff_states, [Docs::Objects::BlockState], 'Differ Block States with current state', null: true
+      field :require_full, Boolean, null: true
 
       def resolve(args)
         block = Docs::Block.non_deleted.find(args[:block_id])
@@ -22,6 +23,19 @@ module Docs
         diff_states = []
 
         if block.state_id.blank? || (block.state_id == args[:prev_state_id])
+          if (args[:state_type] != 'full') && block.state_id.present?
+            states_count = Docs::BlockState.where(block_id: block.id).where(
+              'id = :state_id OR prev_state_id = :state_id', state_id: block.state_id
+            ).count
+            if states_count > BrickdocConfig.state_max_updates
+              return {
+                block: block,
+                diff_states: diff_states,
+                require_full: true,
+              }
+            end
+          end
+
           state_model = Docs::BlockState.where(id: args[:state_id]).first_or_initialize
           state_model.state = Brickdoc::Utils::Encoding::Base64.strict_decode64(args[:state])
           state_model.state_type = args[:state_type]

@@ -44,21 +44,21 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
 
   const freeze = mode === 'presentation'
   const currentRootBlock = rootBlock.current
-  const [documentEditable] = useDocumentEditable(freeze ?? docMeta.historyId, currentRootBlock)
+  const [documentEditable] = useDocumentEditable(freeze ?? !docMeta.historyId, currentRootBlock)
 
   // TODO: refactor editor and editable reactive var
   // const documentEditable = !freeze
 
   const editorOptions = useEditorOptions({
     docMeta,
-    ydoc: ydoc.current,
+    ydoc,
     onDocSave,
     documentEditable,
     blocks: data?.childrenBlocks
   })
 
   // new ydoc requires new editor to load it
-  const editor = useEditor(editorOptions, [ydoc.current])
+  const editor = useEditor(editorOptions, [ydoc])
 
   // TODO: refactor editor reactive var
   useEffect(() => {
@@ -102,7 +102,8 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
         width={{
           '@mdOnly': 'md',
           '@smDown': 'sm'
-        }}>
+        }}
+      >
         <DocumentTitle
           title={docMeta.title}
           docId={docMeta.id}

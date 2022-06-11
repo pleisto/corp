@@ -195,6 +195,7 @@ type BlockCommitPayload {
   Errors encountered during execution of the mutation.
   """
   errors: [String!]!
+  requireFull: Boolean
 }
 
 """

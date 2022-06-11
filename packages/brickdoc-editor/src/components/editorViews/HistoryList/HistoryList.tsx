@@ -25,12 +25,12 @@ export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, history
   const { store, refetch } = useDocHistoryStore(docId)
 
   React.useEffect(() => {
-    if (visible && !latestVisiable.current) {
+    if (visible && (!latestVisiable.current || !store.loaded)) {
       // refetch on list reopen
       refetch()
     }
     latestVisiable.current = visible
-  }, [visible, refetch])
+  }, [visible, refetch, store.loaded])
 
   const historiesSorted = Object.values(store.histories).sort((a, b) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -53,7 +53,8 @@ export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, history
                   active={historyId ? historyId === history.id : i === 0}
                   onClick={() =>
                     i === 0 ? navigate(`/${domain}/${docId}`) : navigate(`/${domain}/${docId}/histories/${history.id}`)
-                  }>
+                  }
+                >
                   <div>
                     <HistoryTime>{history.createdAt}</HistoryTime>
                     <Username>{history.username}</Username>

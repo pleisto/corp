@@ -361,6 +361,7 @@ export const BlockCommit = gql`
         state
         createdAt
       }
+      requireFull
     }
   }
 `
