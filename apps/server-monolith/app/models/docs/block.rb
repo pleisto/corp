@@ -49,8 +49,6 @@ module Docs
     belongs_to :space, optional: true
     belongs_to :parent, class_name: 'Docs::Block', optional: true
     has_many :children, class_name: 'Docs::Block', foreign_key: :parent_id, dependent: :restrict_with_exception, inverse_of: :parent
-    has_many :histories, dependent: :restrict_with_exception
-    has_many :snapshots, dependent: :restrict_with_exception
     has_many :share_links, dependent: :restrict_with_exception
     has_many :enabled_share_links, -> { enabled }, class_name: 'Docs::ShareLink', dependent: :restrict_with_exception, inverse_of: :block
     has_one :enabled_alias, -> { enabled }, class_name: 'Docs::Alias', inverse_of: :block, dependent: :destroy
@@ -273,16 +271,12 @@ module Docs
       end
     end
 
-    after_save do
-      Docs::History.create!(history_attributes) if history_version_previously_changed? || id_previously_changed?
-    end
-
     def block_attributes
       attributes.slice(*Docs::Block.column_names)
     end
 
     def history_attributes
-      attributes.slice(*(Docs::History.column_names - ['id'])).merge('block_id' => id)
+      block_attributes
     end
 
     before_save :update_meta_link
@@ -723,12 +717,7 @@ module Docs
     def save_snapshot!(params = {})
       transaction do
         update!(snapshot_version: realtime_snapshot_version_increment)
-        snapshots.create!(params.merge(snapshot_version: snapshot_version))
       end
-    end
-
-    def current_histories
-      Docs::History.from_version_meta(children_version_meta)
     end
 
     def children_version_meta
