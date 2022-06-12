@@ -204,6 +204,11 @@ export const TEST_ID_ENUM = {
       menu: {
         id: 'editor-formula-block-menu'
       }
+    },
+    history: {
+      historyItem: {
+        id: 'history-item'
+      }
     }
   },
   uploader: {

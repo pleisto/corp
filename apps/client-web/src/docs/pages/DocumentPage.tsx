@@ -7,7 +7,7 @@ import { useSyncProvider, useBlockSyncProvider, useDocHistoryProvider } from './
 import { blocksToJSONContents } from '../common/blocks'
 import { JSONContent } from '@tiptap/core'
 import { TrashPrompt } from '../common/components/TrashPrompt'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { editorVar } from '../reactiveVars'
 import { useDocumentEditable } from './hooks/useDocumentEditable'
 import * as Root from './DocumentPage.style'
@@ -27,6 +27,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
   // promote this call to the beginning of this render fn.
   useEditorI18n()
   const docMeta = useDocMeta()
+  const navigate = useNavigate()
 
   const queryVariables = useMemo(
     () => ({ rootId: docMeta.id as string, historyId: docMeta.historyId }),
@@ -117,6 +118,7 @@ export const DocumentPage: React.FC<DocumentPageProps> = ({ mode }) => {
             rootId={docMeta.id}
             domain={docMeta.domain}
             historyId={docMeta.historyId}
+            navigate={navigate}
           />
         </Root.PageContent>
       </Root.Page>

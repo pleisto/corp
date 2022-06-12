@@ -6,9 +6,10 @@ import { InnerMenuContainer, InnerMenu, MenuItem, HistoryTime, Username, History
 import { Drawer } from '../../ui'
 import { useDrawer } from '../../ui/Drawer'
 import { useEditorI18n } from '../../../hooks'
-import { useNavigate } from 'react-router-dom'
+import { To, NavigateOptions } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
+import { TEST_ID_ENUM } from '@brickdoc/test-helper'
 
 import { useDocHistoryStore } from '@brickdoc/schema'
 
@@ -16,13 +17,13 @@ export interface HistoryListProps {
   domain: string
   docId: string
   historyId?: string
+  navigate: (to: To, options?: NavigateOptions) => void
 }
 
-export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, historyId }) => {
+export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, historyId, navigate }) => {
   const [editorT] = useEditorI18n()
   const [dateT] = useTranslation<string[]>(['date'])
   const [timeT] = useTranslation<string[]>(['time'])
-  const navigate = useNavigate()
   const { visible, setVisible } = useDrawer('historyList')
   const latestVisiable = React.useRef<boolean>(visible)
 
@@ -66,6 +67,7 @@ export const HistoryList: React.FC<HistoryListProps> = ({ domain, docId, history
                 }
                 return (
                   <MenuItem
+                    data-testid={TEST_ID_ENUM.editor.history.historyItem.id}
                     key={i}
                     itemKey={history.id}
                     active={historyId ? historyId === history.id : i === 0}
