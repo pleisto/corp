@@ -67,10 +67,14 @@ en-US:
       - Thursday
       - Friday
       - Saturday
+    days:
+      today: Today
+      yesterday: Yesterday
     formats:
       default: '%m-%d-%Y'
       long: '%B %d, %Y'
       short: '%b %d'
+      client: 'YY/MM/DD'
     month_names:
       -
       - January
@@ -273,6 +277,7 @@ en-US:
       default: '%a, %d %b %Y %I:%M:%S %p %Z'
       long: '%B %d, %Y %I:%M %p'
       short: '%d %b %I:%M %p'
+      client: 'HH:mm:ss'
     pm: pm
   devise:
     confirmations:

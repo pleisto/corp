@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_09_100150) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_12_023825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
   enable_extension "pgcrypto"
@@ -208,13 +208,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_100150) do
     t.bigint "space_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
-  end
-
-  create_table "docs_documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.binary "state"
-    t.uuid "state_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "docs_formulas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -33,6 +33,7 @@ import { useDrawerService } from '../../components/ui/Drawer'
 import { useDropBlock, useUndo } from '../../helpers'
 import { documentEditorStyles } from './styles'
 import { merge } from 'lodash'
+import { To, NavigateOptions } from 'react-router-dom'
 
 export interface EditorContentProps {
   editor: TiptapEditor | null
@@ -41,6 +42,7 @@ export interface EditorContentProps {
   rootId?: string
   domain?: string
   historyId?: string
+  navigate: (to: To, options?: NavigateOptions) => void
 }
 
 export const EditorContent: FC<EditorContentProps> = ({ editor, editable, ...props }) => {
@@ -57,7 +59,7 @@ export const EditorContent: FC<EditorContentProps> = ({ editor, editable, ...pro
       <BubbleMenu editor={editor} />
       <TiptapEditorContent className="brickdoc" editor={editor} />
       <DiscussionList />
-      <HistoryList docId={props.rootId!} domain={props.domain!} historyId={props.historyId} />
+      <HistoryList docId={props.rootId!} domain={props.domain!} historyId={props.historyId} navigate={props.navigate} />
       <ExplorerMenu editor={editor} />
     </EditorContext.Provider>
   )

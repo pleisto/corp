@@ -1,7 +1,7 @@
 import React from 'react'
 import { useApolloClient } from '@apollo/client'
 import { BrickdocEventBus, loadDocHistory, docHistoryReceived, EventSubscribed } from '@brickdoc/schema'
-import { DocumentHistoriesDocument, DocumentHistory } from '@/BrickdocGraphQL'
+import { DocumentHistoriesDocument, DocumentHistory, ThinUser } from '@/BrickdocGraphQL'
 import { devLog } from '@brickdoc/design-system'
 
 export function useDocHistoryProvider(docId: string): void {
@@ -16,13 +16,13 @@ export function useDocHistoryProvider(docId: string): void {
       fetchPolicy: 'no-cache'
     })
     // TODO: users
-    const { histories } = data.documentHistories
+    const { histories, users } = data.documentHistories
 
     BrickdocEventBus.dispatch(
       docHistoryReceived({
         docId,
         histories: Object.fromEntries((histories as DocumentHistory[]).map(h => [h.id, h])),
-        users: {}
+        users: Object.fromEntries((users as ThinUser[]).map(u => [u.name, u]))
       })
     )
   }, [docId, client])

@@ -20,7 +20,6 @@ class RootMutation < BrickGraphQL::BaseObject
   field :join_space, mutation: System::Mutations::JoinSpace
   field :space_destroy, mutation: System::Mutations::SpaceDestroy
   field :space_leave, mutation: System::Mutations::SpaceLeave
-  field :sync_document, mutation: Docs::Mutations::SyncDocument
   field :update_domain, mutation: System::Mutations::UpdateDomain
   field :update_member, mutation: System::Mutations::UpdateMember
   field :user_appearance_update, mutation: Accounts::Mutations::UserAppearanceUpdate

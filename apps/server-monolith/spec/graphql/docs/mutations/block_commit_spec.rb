@@ -18,6 +18,7 @@ describe Docs::Mutations::BlockCommit, type: :mutation do
             id
             state
           }
+          requireFull
         }
       }
     GRAPHQL
@@ -238,6 +239,56 @@ describe Docs::Mutations::BlockCommit, type: :mutation do
       expect do
         Docs::BlockState.find(input[:input][:stateId])
       end.to raise_exception(ActiveRecord::RecordNotFound)
+
+      self.current_user = nil
+      self.current_space = nil
+    end
+
+    it 'can not save block with update state which is have too many updates' do
+      self.current_user = user
+      self.current_space = user.personal_space.as_session_context
+
+      block.state_id = Brickdoc::Utils::Encoding::UUID.gen_v4
+      block.save
+
+      prev_state = Docs::BlockState.create!(
+        id: block.state_id, user_id: user.id, space_id: user.personal_space.id,
+        document_id: block.id, block_id: block.id,
+        state: Random.bytes(50)
+      )
+
+      BrickdocConfig.state_max_updates.times do
+        Docs::BlockState.create!(
+          id: Brickdoc::Utils::Encoding::UUID.gen_v4, user_id: user.id, space_id: user.personal_space.id,
+          document_id: block.id, block_id: block.id,
+          prev_state_id: prev_state.id, state_type: 'update',
+          state: Random.bytes(50)
+        )
+      end
+
+      state = Random.bytes(50)
+      state_id = Brickdoc::Utils::Encoding::UUID.gen_v4
+
+      input = {
+        input: {
+          documentId: block.id,
+          blockId: block.id,
+          operatorId: Brickdoc::Utils::Encoding::UUID.gen_v4,
+          stateType: 'update',
+          state: Brickdoc::Utils::Encoding::Base64.strict_encode64(state),
+          prevStateId: block.state_id,
+          stateId: state_id,
+          statesCount: 1,
+        },
+      }
+      internal_graphql_execute(mutation, input)
+
+      expect(response.success?).to be(true)
+      expect(response.data['blockCommit']['requireFull']).to be(true)
+
+      block_model = Docs::Block.find(block.id)
+
+      expect(block_model.state_id).to eq(prev_state.id)
 
       self.current_user = nil
       self.current_space = nil

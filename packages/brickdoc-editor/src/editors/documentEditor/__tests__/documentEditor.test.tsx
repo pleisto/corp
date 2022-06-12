@@ -19,7 +19,7 @@ describe('documentEditor', () => {
       })
     )
     const editor = result.current
-    const { container } = render(<EditorContent editor={editor} editable={true} />, {
+    const { container } = render(<EditorContent editor={editor} editable={true} navigate={jest.fn()} />, {
       // prosemirror will modify dom manually, add a wrapper for this purpose
       wrapper: ({ children }) => <div>{children}</div>
     })

@@ -8,7 +8,7 @@ export const loadDocHistory = event<string>()('loadDocHistory', (docId: string) 
 export const docHistoryReceived = event<{
   docId: string
   histories: { [key: string]: DocumentHistory }
-  users: { [key: number]: ThinUser }
+  users: { [key: string]: ThinUser }
 }>()('docHistoryReceived', ({ docId }) => {
   return { id: docId }
 })
