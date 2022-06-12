@@ -9,14 +9,12 @@ module Docs
       authenticate_user!
 
       def resolve(id:)
-        # TODO: eager load users
         # TODO: paginate
-
-        # histories = Docs::BlockState.where(block_id: id).includes(:user).order('created_at DESC').limit(100).to_a
         histories = Docs::DocumentHistory.where(document_id: id).includes(:user).order('created_at DESC').limit(100).to_a
+        users = histories.map(&:user).uniq(&:id)
         {
           histories: histories,
-          users: {},
+          users: users,
         }
       end
     end

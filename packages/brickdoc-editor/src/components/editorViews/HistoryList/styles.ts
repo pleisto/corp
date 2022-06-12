@@ -1,4 +1,4 @@
-import { css, Menu, styled, theme } from '@brickdoc/design-system'
+import { css, Menu, styled, theme, Avatar } from '@brickdoc/design-system'
 
 export const InnerMenuContainer = styled('div', {
   padding: '0 .25rem'
@@ -25,14 +25,17 @@ export const MenuItem = styled(Menu.Item, {
 })
 
 export const Username = styled('div', {
-  color: theme.colors.typePrimary,
-  fontSize: theme.fontSizes.callout,
-  fontWeight: 500,
-  lineHeight: '1.125rem'
+  color: theme.colors.typeThirdary,
+  fontSize: theme.fontSizes.subHeadline,
+  lineHeight: '1.3rem'
 })
 
 export const HistoryTime = styled('div', {
-  color: theme.colors.typeThirdary,
-  fontSize: '.8125rem',
-  lineHeight: '1.125rem'
+  color: theme.colors.typePrimary,
+  fontSize: theme.fontSizes.subHeadline,
+  lineHeight: theme.lineHeights.subHeadline
+})
+
+export const HistoryAvatar = styled(Avatar, {
+  marginRight: '.25rem'
 })
