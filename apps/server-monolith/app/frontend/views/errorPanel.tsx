@@ -1,4 +1,4 @@
-import { applicationLayout } from './layouts/application'
+import { applicationLayout } from './layouts/ApplicationLayout'
 import { styled } from '@brickdoc/design-system'
 
 const Message = styled('p', {

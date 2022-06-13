@@ -1,8 +1,10 @@
 use magnus::{module::RModule, Error, Module};
 mod crypto;
-mod encoding;
+pub mod encoding;
 mod ffi;
 mod json_schema;
+mod mjml;
+mod pod;
 mod user_agent;
 
 pub fn init(parent: RModule) -> Result<(), Error> {
@@ -11,5 +13,7 @@ pub fn init(parent: RModule) -> Result<(), Error> {
     crypto::init(module)?;
     user_agent::init(module)?;
     json_schema::init(module)?;
+    mjml::init(module)?;
+    pod::init(module)?;
     Ok(())
 }

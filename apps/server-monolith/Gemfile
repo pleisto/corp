@@ -38,6 +38,7 @@ gem 'tzinfo-data', '~> 1.2022' # Don't rely on Linux/macOS timezone data.
 gem 'rbnacl', '~> 7.1', '>= 7.1.1'
 gem 'dry-container', '~> 0.9.0'
 gem 'rails-i18n', '~> 7.0.0'
+gem 'file_validators', '~> 3.0'
 
 # Feature toggles
 gem 'flipper', '~> 0.24.1'

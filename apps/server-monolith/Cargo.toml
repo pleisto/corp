@@ -25,8 +25,10 @@ z85 = "3"
 base64-simd = "0.5"
 woothee = "0.13"
 jsonschema = "0.16.0"
-serde = "1.0"
+mrml = "1.2"
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+regex = "1.5"
 [dependencies.uuid]
 version = "1"
 features = ["v4", "fast-rng"]

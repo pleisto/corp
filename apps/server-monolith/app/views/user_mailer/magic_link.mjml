@@ -1,0 +1,14 @@
+<mj-section css-class="action-card">
+  <mj-column width="100%">
+    <mj-text font-weight="bold" font-size="26px">
+      <%= t("mailer.users.magic_link.title.#{@action}") %>
+    </mj-text>
+    <mj-button padding-top="24px" font-size="18px" background-color="#356CF9" align="left" color="#ffffff" href="<%= @url %>">
+      <%= t('mailer.users.magic_link.btn') %>
+    </mj-button>
+
+    <mj-text color="#908b9c" font-size="12px">
+      <%= t('mailer.users.magic_link.desc_html', link: link_to(@url, @url, class: 'text-link')) %>
+    </mj-text>
+  </mj-column>
+</mj-section>

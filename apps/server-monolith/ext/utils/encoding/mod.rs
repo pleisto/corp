@@ -2,7 +2,7 @@ use magnus::{module::RModule, Error, Module};
 
 mod base58;
 mod base64;
-mod uuid;
+pub mod uuid;
 mod z85;
 
 pub fn init(parent: RModule) -> Result<(), Error> {

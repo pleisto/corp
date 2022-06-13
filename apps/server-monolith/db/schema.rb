@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_07_143434) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_12_105825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
   enable_extension "pgcrypto"
@@ -268,6 +268,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_143434) do
     t.integer "suspended_reason", default: 0, comment: "enumeration value for the reason for the user suspension"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_avatar_url"
     t.index "lower((username)::text)", name: "index_pods_on_lower_username_text", unique: true
     t.index ["suspended_at"], name: "index_pods_on_suspended_at"
   end

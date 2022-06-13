@@ -2,12 +2,12 @@ use magnus::{exception, function, module::RModule, Error, Module};
 use uuid::Uuid;
 
 /// Generate a UUID v4
-fn gen_v4() -> String {
+pub fn gen_v4() -> String {
     Uuid::new_v4().to_string()
 }
 
 /// Generate a shorted UUID
-fn gen_short() -> String {
+pub fn gen_short() -> String {
     v4_to_short_internal(Uuid::new_v4())
 }
 

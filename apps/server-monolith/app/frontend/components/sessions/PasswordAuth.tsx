@@ -1,16 +1,19 @@
-import { FC, useRef } from 'react'
-import { Link } from '@inertiajs/inertia-react'
+import { FC, useState } from 'react'
+import { Link, usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import { Button, Input, Form, SubmitHandler, Box, theme } from '@brickdoc/design-system'
 import { Lock } from '@brickdoc/design-icons'
-import { object, string } from 'yup'
-import { useI18n, useSharedContext } from '../../hooks'
+import { object, string, InferType } from 'yup'
+import { useI18n, useSharedContext, useInertiaError } from '../../hooks'
 
 // client-side validation
-const validation = object({
+const schema = object({
+  authenticity_token: string().required(),
   username: string().required(),
   password: string().required()
 })
+
+type FormValues = InferType<typeof schema>
 
 interface PasswordAuthProps {
   preferred: boolean
@@ -19,29 +22,32 @@ interface PasswordAuthProps {
 
 export const PasswordAuth: FC<PasswordAuthProps> = ({ preferred, signUpEnabled }) => {
   const { t } = useI18n()
+  const { errors } = usePage().props
+  const [loading, setLoading] = useState(false)
   const name = t('auth_providers.password.name')
-  const form = Form.useForm({ yup: validation })
-  const fromRef = useRef<HTMLFormElement>(null)
+  const form = Form.useForm<FormValues>({ yup: schema })
   const { csrfToken } = useSharedContext()
 
-  const onSubmit: SubmitHandler<any> = () => {
-    const current = fromRef.current!
-    current.method = 'POST'
-    current.action = '/users/auth/password/callback'
-    current.submit()
+  useInertiaError(errors, form)
+
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    setLoading(true)
+    Inertia.post('/users/auth/password/callback', data, {
+      onFinish: () => setLoading(false)
+    })
   }
 
   const overlay = (
     <>
-      <Form form={form} ref={fromRef} onSubmit={onSubmit}>
-        <input type="hidden" name="authenticity_token" value={csrfToken} />
+      <Form form={form} onSubmit={onSubmit}>
+        <input type="hidden" value={csrfToken} {...form.register('authenticity_token')} />
         <Form.Field name="username" label={t('auth_providers.password.username')}>
           <Input />
         </Form.Field>
         <Form.Field name="password" label={t('auth_providers.password.password')}>
           <Input type="password" />
         </Form.Field>
-        <Button type="primary" htmlType="submit" size="lg" block>
+        <Button type="primary" loading={loading} htmlType="submit" size="lg" block>
           {t('auth_providers.password.sign_in')}
         </Button>
       </Form>
@@ -54,7 +60,7 @@ export const PasswordAuth: FC<PasswordAuthProps> = ({ preferred, signUpEnabled }
               color: theme.colors.typeThirdary
             }
           }}>
-          <Link href="/users/sign_up">{t('auth_providers.password.sign_up')}</Link>
+          <Link href="/users/sign_up?provider=password">{t('auth_providers.password.sign_up')}</Link>
         </Box>
       )}
     </>

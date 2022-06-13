@@ -35,6 +35,7 @@ module Brickdoc
     config.active_record.query_log_tags_enabled = true
     config.active_job.queue_adapter = :async
     config.logger = ::Logger.new($stdout)
+    config.action_mailer.preview_path = Rails.root.join('spec/mailer_previews')
 
     initializer :load_plugins, before: :load_config_initializers do
       Brickdoc::Plugins.load_all!

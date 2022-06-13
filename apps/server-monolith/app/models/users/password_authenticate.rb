@@ -21,6 +21,14 @@
 module Users
   class PasswordAuthenticate < ApplicationRecord
     belongs_to :user, inverse_of: :password_authenticate
-    validates :password_digest, presence: true
+
+    include Argon2Password
+    has_argon2_password :password
+
+    # Find by username
+    def self.find_by_username(username)
+      user = User.find_by(username: username)
+      user&.password_authenticate
+    end
   end
 end

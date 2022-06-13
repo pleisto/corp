@@ -194,9 +194,11 @@ dependencies = [
  "hex",
  "jsonschema",
  "magnus",
+ "mrml",
  "radix_fmt",
  "rand",
  "rand_chacha",
+ "regex",
  "serde",
  "serde_json",
  "uuid 1.0.0",
@@ -832,6 +834,18 @@ dependencies = [
  "log",
  "wasi 0.11.0+wasi-snapshot-preview1",
  "windows-sys",
+]
+
+[[package]]
+name = "mrml"
+version = "1.2.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b2fd038a54a4b1d0c40c4cea5a1dfc6841ab4824b88f221d197e95a62efc2afc"
+dependencies = [
+ "rand",
+ "serde",
+ "serde_json",
+ "xmlparser",
 ]
 
 [[package]]
@@ -1730,6 +1744,12 @@ dependencies = [
  "lazy_static",
  "regex",
 ]
+
+[[package]]
+name = "xmlparser"
+version = "0.13.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "114ba2b24d2167ef6d67d7d04c8cc86522b87f490025f39f0303b7db5bf5e3d8"
 
 [[package]]
 name = "z85"

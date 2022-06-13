@@ -31,6 +31,7 @@ class SessionsController < ApplicationController
       redirect_to sign_up_users_path
     else
       # When sign up is disabled, render a Error page.
+      @page_title = t('users.sign_in.sign_up_disabled')
       render inertia: 'ErrorPanel', props: {
         title: t('status.forbidden'),
         message: t('users.sign_in.sign_up_disabled'),
@@ -52,14 +53,17 @@ class SessionsController < ApplicationController
     case error_type
     in 'active_model_errors'
       redirect_to sign_in_users_path(current_provider: provider_id), inertia: { errors: request.env['omniauth.error.errors'] }
-    in 'redirect_uri_mismatch'
+    in 'redirect_uri_mismatch' | 'bad_request'
       redirect_to sign_in_users_path, alert: message
+    in 'invalid_token' if provider_id == :magic_link
+      redirect_to sign_in_users_path(current_provider: provider_id), alert: message
     in NilClass
       redirect_to sign_in_users_path, alert: t('users.sign_in.unknown_failed')
     else
+      @page_title = error_type
       render inertia: 'ErrorPanel', props: {
         title: "Error: #{error_type}",
-        message: params[:error_description],
+        message: message,
       }, status: :bad_request
     end
   end
@@ -70,14 +74,14 @@ class SessionsController < ApplicationController
     return @omniauth_hash if @omniauth_hash
 
     auth = request.env['omniauth.auth']
-    username = auth.info&.username || auth.info&.login || auth.info&.email&.split('@')&.first
+    username = Pod.suggested_username(auth.info&.username || auth.info&.login || auth.info&.name || auth.info&.nickname)
     @omniauth_hash = {
       provider: auth.provider,
       uid: auth.uid,
       info: {
         username: username,
         email: auth.info&.email,
-        name: auth.info&.name || username,
+        name: auth.info&.name,
         avatar: auth.info&.image,
       },
     }

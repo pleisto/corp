@@ -23,6 +23,12 @@ class BrickdocConfig < ApplicationRecord
   field :locale, default: 'en-US', belongs_to: :user
   field :timezone, default: 'UTC', belongs_to: :user
 
+  # ActionMailer
+  field :mailer, type: :hash, symbolize_keys: true, default: {
+    from: ENV['SMTP_FROM'] || 'webmaster@localhost',
+    url: ENV['SMTP_URL'] || 'smtp://localhost:1025',
+  }
+
   namespace :accounts do
     field :sign_up_enabled, type: :boolean, default: true
     field :password_auth_enabled, type: :boolean, default: true
@@ -54,10 +60,6 @@ class BrickdocConfig < ApplicationRecord
   }
 
   field :user_agreement_link, type: :string, default: 'https://help.brickdoc.com/en/articles/5971105-terms-of-service'
-
-  # Accounts
-  field :accounts_email_password_auth, type: :boolean, default: true
-  field :accounts_preferred_auth_method, default: 'email_password'
 
   field :unsplash_api_access_key, default: ENV['UNSPLASH_API_ACCESS_KEY']
   field :unsplash_api_secret, default: ENV['UNSPLASH_API_SECRET']

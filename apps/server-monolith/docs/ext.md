@@ -91,3 +91,26 @@ JSONSchema Draft 7 validator. It also supports fetch schema from a Internet.
 Brickdoc::Utils::JSONSchema.new(...schema).validate!(...json_str) #=> throws an exception if invalid
 Brickdoc::Utils::JSONSchema.new(...schema).valid?(...json_str) #=> Boolean
 ```
+
+#### MJML
+
+MJML is a markup language designed to reduce the pain of coding a responsive email.
+See [MJML Guides](https://documentation.mjml.io/) for more details.
+
+```ruby
+template = '<mjml><mj-body>foo</mj-body></mjml>'
+result = Brickdoc::Utils::MJML.new template
+result.title
+result.preview
+result.html
+```
+
+#### Pod
+
+##### to_username
+
+ Generate a username from a given display name. Returns a array of `[preferred_username, alternative_username, unique_username]`. When creating a new user could try in sequence until a first available username is found.
+
+```ruby
+Brickdoc::Utils::Pod.to_username "Öpik Oort" # => ["opikoort", "opikoort-558um2", "3dy7jij6z0fvgh3m1anlw26qw"]
+```

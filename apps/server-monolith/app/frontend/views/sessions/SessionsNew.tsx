@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { styled, Divider } from '@brickdoc/design-system'
 import { partition } from '@brickdoc/active-support'
-import { applicationLayout } from '../layouts/application'
+import { applicationLayout } from '../layouts/ApplicationLayout'
 import { useI18n } from '../../hooks'
 import { SocialLoginButton } from '../../components/sessions/SocialLoginButton'
 import { PasswordAuth } from '../../components/sessions/PasswordAuth'

@@ -7,8 +7,9 @@
 #  id                                                                         :bigint           not null, primary key
 #  bio                                                                        :string
 #  display_name                                                               :string           not null
+#  external_avatar_url                                                        :string
 #  suspended_at(the date when the user was suspended)                         :datetime
-#  suspended_reason(enumeration value for the reason for the user suspension) :integer          default(0)
+#  suspended_reason(enumeration value for the reason for the user suspension) :integer          default("suspended_by_admin")
 #  type                                                                       :enum             not null
 #  username(a unique username for the pod)                                    :string           not null
 #  created_at                                                                 :datetime         not null
@@ -26,7 +27,6 @@ class User < Pod
   has_many :owned_groups,
     # don't destroy the user if it is owner of a group
     -> { where(role: :owner) }, through: :group_members, source: :group, dependent: :restrict_with_exception
-  has_many :aduit_logs, class_name: 'AuditLog', as: :actor, dependent: :nil
   has_many :notifications, class_name: 'Users::Notification', dependent: :destroy
 
   # Built-in authentication providers

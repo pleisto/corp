@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DropLegacyModels < ActiveRecord::Migration[7.0]
-  # rubocop:disable Rails/ReversibleMigration, Rails/BulkChangeTable
+  # rubocop:disable Rails/ReversibleMigration
   def change
     drop_table :accounts_federated_identities
     drop_table :accounts_members

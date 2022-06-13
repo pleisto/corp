@@ -71,7 +71,7 @@ const Layout = styled('div', {
   }
 })
 
-export const Application: FC<Props> = ({ children }) => {
+export const ApplicationLayout: FC<Props> = ({ children }) => {
   // Inject global styles
   globalStyle()
 
@@ -113,4 +113,4 @@ export const Application: FC<Props> = ({ children }) => {
 /**
  * set up the application
  */
-export const applicationLayout = (page: ReactNode): JSX.Element => <Application children={page} />
+export const applicationLayout = (page: ReactNode): JSX.Element => <ApplicationLayout children={page} />

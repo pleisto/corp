@@ -10,6 +10,16 @@ en-US:
   status:
     forbidden: 403 Forbidden
     invalid_csrf_token: The session is expired, please try again.
+  mailer:
+    footer_message: You're receiving this email because you have an account on %{host}.
+    users:
+      magic_link:
+        subject: You activation link for Brickdoc
+        title:
+          sign_in: Sign in to Brickdoc
+          sign_up: Sign up for Brickdoc
+        btn: Click here to continue
+        desc_html: "This link will expire in 30 minutes, but you can always get a new one. Copy this url if the button above doesn't work: %{link}"
   errors:
     messages:
       already_confirmed: was already confirmed, please try signing in
@@ -25,9 +35,9 @@ en-US:
       send_interval: Sending interval is too short, please try again after 1 minute
       accepted: must be accepted
       model_invalid: 'Validation failed: %{errors}'
-      email_invalid: is not an email
+      email_invalid: is not a valid email
       domain_invalid: is not a valid domain name
-      uuid_invalid: is not an uuid
+      uuid_invalid: is not a valid uuid
       domain_presence_invalid: is not presence
       not_a_number: is not a number
       not_an_integer: must be an integer
@@ -39,12 +49,19 @@ en-US:
         name: Password
         username: Username
         password: Password
+        password_confirmation: Password confirmation
         sign_in: Sign In
         sign_up: Sign up with password
+        bad_request: Bad request, please try again.
+        invalid_credentials: Username or password is incorrect.
       magic_link:
         name: Magic Link
         email_placeholder: Enter your email address
         sign_in_or_sign_up: Continue with magic link
+        sent_desc: |
+          We just sent you an email with a link to continue.
+          If you don't see it in your inbox, please check your spam folder.
+        invalid_token: Token is invalid or expired, please request a new one.
     sign_in:
       title: Sign in
       heading: Sign in to Brickdoc
@@ -55,8 +72,11 @@ en-US:
       unknown_failed: Unknown error occurred. Please try again.
     sign_up:
       title: Sign up
+      heading: Last Step of Sign up
       disabled: |
         Sign up is currently disabled for this site, please contact site administrator for more information.
         If you already have an account, click logo to sign in.
+      username: Username
+      btn: Continue
     sign_out:
       success: Signed out successfully.

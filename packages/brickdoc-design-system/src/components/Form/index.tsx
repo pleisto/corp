@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, ReactElement, Ref } from 'react'
 import { SubmitHandler, FieldValues, SubmitErrorHandler, UseFormReturn, Controller } from 'react-hook-form'
 import { useForm } from './hook'
 import { FormField, FormFieldProps } from './FormField'
@@ -9,8 +9,8 @@ import { styled, config } from '../../themes'
 
 const StyledForm = styled('form')
 
-export interface FormProps<TFieldValues> {
-  form: UseFormReturn<TFieldValues | any>
+export interface FormProps<TFieldValues extends FieldValues> {
+  form: UseFormReturn<TFieldValues>
   onSubmit?: SubmitHandler<TFieldValues>
   onError?: SubmitErrorHandler<TFieldValues>
   layout?: FormControlProps['layout']
@@ -37,7 +37,7 @@ const FormFC = forwardRef(<T extends FieldValues>(props: FormProps<T>, ref: Reac
       </StyledForm>
     </FormProvider>
   )
-})
+}) as <T extends FieldValues>(p: FormProps<T> & { ref?: Ref<HTMLFormElement> }) => ReactElement
 
 const Form = Object.assign(FormFC, {
   Field: FormField,
