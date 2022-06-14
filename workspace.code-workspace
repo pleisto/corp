@@ -5,50 +5,6 @@
       "path": "."
     },
     {
-      "name": "apps/client-web",
-      "path": "apps/client-web"
-    },
-    {
-      "name": "apps/server-monolith",
-      "path": "apps/server-monolith"
-    },
-    {
-      "name": "packages/active-support",
-      "path": "packages/active-support"
-    },
-    {
-      "name": "packages/brickdoc-design-icons",
-      "path": "packages/brickdoc-design-icons"
-    },
-    {
-      "name": "packages/brickdoc-design-system",
-      "path": "packages/brickdoc-design-system"
-    },
-    {
-      "name": "packages/brickdoc-editor",
-      "path": "packages/brickdoc-editor"
-    },
-    {
-      "name": "packages/brickdoc-formula",
-      "path": "packages/brickdoc-formula"
-    },
-    {
-      "name": "packages/brickdoc-schema",
-      "path": "packages/brickdoc-schema"
-    },
-    {
-      "name": "packages/brickdoc-test-helper",
-      "path": "packages/brickdoc-test-helper"
-    },
-    {
-      "name": "packages/brickdoc-uploader",
-      "path": "packages/brickdoc-uploader"
-    },
-    {
-      "name": "tools/e2e-testing",
-      "path": "tools/e2e-testing"
-    },
-    {
       "name": "tools/schematics",
       "path": "tools/schematics"
     }
@@ -135,7 +91,7 @@
     "solargraph.formatting": true,
     "byesig.fold": false,
     "byesig.enabled": true,
-    "byesig.opacity": 0.70,
+    "byesig.opacity": 0.7,
     "byesig.showIcon": false,
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.words": [

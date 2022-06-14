@@ -7,7 +7,6 @@ tmp/
 log/
 node_modules/
 /public/esm-bundle/
-apps/server-monolith/db/*
 
 CHANGELOG.*
 *.env
@@ -16,3 +15,4 @@ tools/helm-charts/**/*.yaml
 .next
 *.tsbuildinfo
 BrickdocGraphQL.ts
+foss/
