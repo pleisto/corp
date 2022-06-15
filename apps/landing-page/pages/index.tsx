@@ -4,40 +4,46 @@ import Image from 'next/image'
 import { Pagination, Mousewheel, EffectFade } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { Icon } from '@brickdoc/design-system'
+import { Icon, theme } from '@brickdoc/design-system'
 import {
   SwiperContainer,
-  SectionBg,
+  ContentSection,
   Section1Title,
   Section1Comment,
-  Section2Title,
-  Section2Comment,
+  Section4Title,
+  Section4Comment,
+  Sec4bg2,
   LinkList,
   LinkBlock,
-  SectionWrapper,
-  SectionLogoWrapper
+  JoinButton,
+  ContentWrapper,
+  SnsLinkWrapper,
+  SnsLink,
+  SectionLogoWrapper,
+  sec3style,
+  sec4style,
+  Sec4BgFilter,
+  Timeline,
+  TimelineBlock,
+  TimelineContent,
+  TimelinePreview,
+  JoinPrivateTitle,
+  ContactBtn,
+  JoinBlock,
+  Footer,
+  FooterBlock,
+  Page
 } from '../styles/home.style'
 import { useEffect, useState } from 'react'
 
-const section1bg = 'url(/home/sec1.jpg)'
-const section2bg = 'url(/home/sec2.jpg)'
-
-const ratio = 30
+const block1bg = 'url(/home/block1.png)'
+const block2bg = 'url(/home/block2.png)'
+const block3bg = 'url(/home/block3.png)'
+const block4bg = 'url(/home/block4.png)'
 
 const Home: NextPage = () => {
-  const [bgStyle, setBgStyle] = useState<React.CSSProperties>({})
-  useEffect(() => {
-    const showMousePosition = (e: MouseEvent) => {
-      const { pageX, pageY } = e
-      setBgStyle({
-        backgroundPosition: `calc(50% - ${pageX / ratio}px) calc(50% - ${pageY / ratio}px)`
-      })
-    }
-    document.addEventListener('mousemove', showMousePosition, false)
-    return () => document.removeEventListener('mousemove', showMousePosition)
-  }, [])
   return (
-    <div>
+    <Page>
       <Head>
         <title>Brickdoc</title>
         <meta name="Brickdoc" content="Brickdoc" />
@@ -46,71 +52,262 @@ const Home: NextPage = () => {
       <SwiperContainer>
         <Swiper
           direction="vertical"
-          mousewheel={true}
+          mousewheel={{
+            releaseOnEdges: true
+          }}
           pagination={{
             clickable: true
           }}
           speed={500}
           effect="slide"
-          fadeEffect={{
-            crossFade: true
-          }}
-          modules={[Pagination, Mousewheel, EffectFade]}
-        >
+          modules={[Pagination, Mousewheel, EffectFade]}>
           <SwiperSlide>
-            <SectionBg style={{ ...bgStyle, backgroundImage: section1bg }}></SectionBg>
-            <SectionWrapper>
-              <SectionLogoWrapper>
-                <Image
-                  className="SectionLogoCls"
-                  height={50}
-                  width={220}
-                  src="/home/logo_en_dark.svg"
-                  alt="Picture of the author"
-                />
-              </SectionLogoWrapper>
-              <Section1Title>
-                <Image height={220} width={946} src="/home/title1.svg" alt="Picture of the author" />
-              </Section1Title>
-              <Section1Comment>OUR WEBSITE IS COMING SOON</Section1Comment>
-            </SectionWrapper>
+            <ContentSection style={{ backgroundImage: block1bg }}>
+              <ContentWrapper>
+                <SectionLogoWrapper>
+                  <Image
+                    height={32}
+                    width={138}
+                    src="/home/logo_en_dark.svg"
+                    alt="Picture of the author"
+                  />
+                </SectionLogoWrapper>
+                <SnsLinkWrapper>
+                  <SnsLink href="https://twitter.com/BrickdocHQ">
+                    Twitter <Icon.ArrowRightSmall />
+                  </SnsLink>
+                  <SnsLink href="https://github.com/brickdoc/app-engine">
+                    Github
+                    <Icon.ArrowRightSmall />
+                  </SnsLink>
+                </SnsLinkWrapper>
+                <Section1Title>Made on Earth by Humans</Section1Title>
+                <Section1Comment>
+                  Brickdoc is an open source online workspace <br />
+                  and low-code development platform with <br />
+                  Compound Document as its core.
+                </Section1Comment>
+                <JoinButton type="primary">Apply to Join Our Private</JoinButton>
+              </ContentWrapper>
+            </ContentSection>
           </SwiperSlide>
           <SwiperSlide>
-            <SectionBg style={{ ...bgStyle, backgroundImage: section2bg }}></SectionBg>
-            <SectionWrapper>
-              <Section2Title>
-                <Image height={49} width={909} src="/home/title2.svg" alt="Picture of the author" />
-              </Section2Title>
-              <Section2Comment>
-                Brickdoc is an open-source online workspace and low-code development platform with Compound Document as
-                its core.
-              </Section2Comment>
-              {/* <JoinButton type="primary">Apply to join our Private </JoinButton> */}
-              <LinkList>
-                <LinkBlock href="https://twitter.com/BrickdocHQ" target="_blank">
-                  <div className="icon">
-                    <Icon.Twitter />
-                  </div>
-                  <div className="label">Twitter</div>
-                </LinkBlock>
-                <LinkBlock href="https://github.com/brickdoc/app-engine" target="_blank">
-                  <div className="icon">
-                    <Icon.Github />
-                  </div>
-                  <div className="label">Github</div>
-                </LinkBlock>
-                <LinkBlock href="https://www.facebook.com/Brickdoc-100758925759280" target="_blank">
-                  <div className="icon">
-                    <Icon.Facebook />
-                  </div>
-                  <div className="label">Facebook</div>
-                </LinkBlock>
-              </LinkList>
-            </SectionWrapper>
+            <ContentSection style={{ backgroundImage: block2bg }}>
+              <ContentWrapper>
+                <Section1Title style={{ width: 592 }}>Man-computer Symbiosis</Section1Title>
+                <Section1Comment style={{ width: 592 }}>
+                  Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code
+                  tool designed around the concept of "Intelligence Augmentation". It aims to maximize productivity by
+                  combining the strongest attributes of human intelligence and machines in a "human-machine symbiosis"
+                  world.
+                </Section1Comment>
+              </ContentWrapper>
+            </ContentSection>
+          </SwiperSlide>
+          <SwiperSlide>
+            <ContentSection style={{ backgroundImage: block3bg }}>
+              <ContentWrapper css={sec3style}>
+                <Section1Title style={{ width: 592 }}>Semantic Highway</Section1Title>
+                <Section1Comment style={{ width: 592 }}>
+                  Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
+                  You'll focus on topics in a collaborative work environment with hundreds of people and businesses. All
+                  old data and new tools will be at your fingertips.
+                </Section1Comment>
+              </ContentWrapper>
+            </ContentSection>
+          </SwiperSlide>
+          <SwiperSlide>
+            <ContentSection
+              style={{
+                backgroundImage: block4bg,
+                backgroundPosition: 'right center',
+                backgroundSize: 'contain',
+                backgroundColor: '#151515',
+                padding: 0
+              }}>
+              <Sec4BgFilter />
+              <ContentWrapper css={sec4style}>
+                <Sec4bg2>
+                  <Section4Title>Transfer of Rights</Section4Title>
+                  <Section4Comment>
+                    Open source is the global democratization of an open, shared, collaborative model. The generation of
+                    data silos is a large number of separate economic forms. Brickdoc provides the most compatible and
+                    growth medium, which facilitates the transformation of economic lifestyles based on smaller economic
+                    aggregations.
+                  </Section4Comment>
+                </Sec4bg2>
+              </ContentWrapper>
+            </ContentSection>
           </SwiperSlide>
         </Swiper>
       </SwiperContainer>
-    </div>
+      <ContentWrapper style={{ maxWidth: 'unset' }}>
+        {' '}
+        <Timeline>
+          <TimelineBlock>
+            <TimelineContent>
+              <div className="func-icon">
+                <Icon.Formula />
+              </div>
+              <div className="title">2022 Q1</div>
+              <div className="sub-title">FORMULA</div>
+              <div className="detail">
+                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.
+              </div>
+              <div className="status-tag">Online</div>
+            </TimelineContent>
+            <TimelinePreview src="/home/s1.png" />
+          </TimelineBlock>
+          <TimelineBlock>
+            <TimelineContent>
+              <div className="func-icon">
+                <Icon.Search />
+              </div>
+              <div className="title">2022 Q3</div>
+              <div className="sub-title">Smart Search</div>
+              <div className="detail">
+                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.
+              </div>
+              <div className="status-tag">Online</div>
+            </TimelineContent>
+            <TimelinePreview src="/home/s1.png" />
+          </TimelineBlock>
+          <TimelineBlock>
+            <TimelineContent>
+              <div className="func-icon">
+                <Icon.Explore />
+              </div>
+              <div className="title">2022 Q3</div>
+              <div className="sub-title">Plug Store</div>
+              <div className="detail">
+                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.
+              </div>
+              <div className="status-tag">Online</div>
+            </TimelineContent>
+            <TimelinePreview src="/home/s1.png" />
+          </TimelineBlock>
+          <TimelineBlock>
+            <TimelineContent>
+              <div className="func-icon">
+                <Icon.Code />
+              </div>
+              <div className="title">2022 Q3</div>
+              <div className="sub-title">Low code</div>
+              <div className="detail">
+                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
+                formula.
+              </div>
+              <div className="status-tag">Coming soon</div>
+            </TimelineContent>
+            <TimelinePreview src="/home/s1.png" />
+          </TimelineBlock>
+          <TimelineBlock>
+            <TimelineContent>
+              <div className="func-icon">
+                <Icon.Rotation />
+              </div>
+              <div className="title">2022 Q4</div>
+              <div className="sub-title">To be continued</div>
+              <div className="status-tag coming">Coming soon</div>
+            </TimelineContent>
+          </TimelineBlock>
+        </Timeline>
+      </ContentWrapper>
+
+      <JoinBlock>
+        <JoinPrivateTitle>Apply to join our Private </JoinPrivateTitle>
+        <ContactBtn type="primary">Contact Us</ContactBtn>
+      </JoinBlock>
+      <ContentSection style={{ background: theme.colors.backgroundPrimary.value }}>
+        <Footer>
+          <FooterBlock>
+            <div className="desc">Brickdoc Is the New Electricity to Power Your Thinking</div>
+            <div className="copy">Copyright © 2021 Brickdoc Inc. All rights reserved. Made on Earth by humans.</div>
+          </FooterBlock>
+          <FooterBlock>
+            <div className="title">About Us</div>
+            <div className="link-list">
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Our Promise
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Terms & Conditions
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Privacy Policy
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Asked Questions
+              </a>
+            </div>
+          </FooterBlock>
+          <FooterBlock>
+            <div className="title">The Product</div>
+            <div className="link-list">
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Why People Love Us
+              </a>
+            </div>
+            <div className="title">Help</div>
+            <div className="link-list">
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Sign In{' '}
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                Create a New Account{' '}
+              </a>
+            </div>
+          </FooterBlock>
+          <FooterBlock>
+            <div className="title">Contact Us</div>
+            <div className="link-list">
+              <a href="">
+                <Icon.ArrowRightSmall />
+                <Image height={20} width={20} src="/home/link-producthunt.svg" alt="Producthunt"  />
+                <div className="text-offset">Producthunt</div>
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                <Image height={20} width={20} src="/home/link-twitter.svg" alt="Twitter"  />
+                <div className="text-offset">Twitter</div>
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                <Image height={20} width={20} src="/home/link-github.svg" alt="Github"  />
+                <div className="text-offset">Github</div>
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                <Image height={20} width={20} src="/home/link-Facebook.svg" alt="Facebook"  />
+                <div className="text-offset">Facebook</div>
+              </a>
+              <a href="">
+                <Icon.ArrowRightSmall />
+                <div className="bug-wrapper">
+                  <Icon.Bug />
+                </div>
+                <div className="text-offset">Report a Bug</div>
+                
+              </a>
+            </div>
+          </FooterBlock>
+        </Footer>
+      </ContentSection>
+    </Page>
   )
 }
 

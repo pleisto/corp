@@ -60,6 +60,7 @@
     "e2e-testing": "yarn workspace @brickdoc/e2e-testing",
     "active-support": "yarn workspace @brickdoc/active-support",
     "server": "yarn workspace @brickdoc/server-monolith",
+    "landing": "yarn workspace @brickdoc/landing-page",
     "github-auth": "yarn workspace @brickdoc/github-auth",
     "google-auth": "yarn workspace @brickdoc/google-auth",
     "dotcom": "yarn workspace @brickdoc/dotcom"
