@@ -1,7 +1,8 @@
 import { styled, theme, Button, css } from '@brickdoc/design-system'
 
 export const Page = styled('div', {
-  background: theme.colors.white
+  background: theme.colors.white,
+  boxSize: 'border-box'
 })
 
 export const SwiperContainer = styled('div', {
@@ -26,9 +27,9 @@ export const SwiperContainer = styled('div', {
 
 export const SectionLogoWrapper = styled('div', {
   position: 'absolute',
-  top: 46,
-  left: 120,
-  '@media (max-width: 420px)': {
+  top: 16,
+  left: 124,
+  '@media (max-width: 950px)': {
     left: 24
   }
 })
@@ -38,27 +39,48 @@ export const SnsLinkWrapper = styled('div', {
   top: 40,
   right: 140,
   display: 'flex',
-  '@media (max-width: 420px)': {
-    left: 24
+  '@media (max-width: 950px)': {
+    display: 'none'
+  }
+})
+
+export const MobileSnsLinkWrapper = styled('div', {
+  position: 'absolute',
+  height: 36,
+  width: 36,
+  lineHeight: '36px',
+  textAlign: 'center',
+  fontSize: 20,
+  top: 10,
+  right: 24,
+  display: 'none',
+  '@media (max-width: 950px)': {
+    display: 'block'
   }
 })
 
 export const SnsLink = styled('a', {
   fontWeight: '450',
-  fontSize: '22px',
   lineHeight: '44px',
   marginLeft: 24,
+  fontSize: '22px',
   color: theme.colors.typePrimary,
+  '@media (max-width: 950px)': {
+    lineHeight: '32px',
+    fontSize: '16px',
+    left: 24
+  },
   '.brd-icon': {
     marginLeft: 4,
-    fontSize: 20
+    fontSize: 18,
+    '@media (max-width: 950px)': {
+      marginLeft: 14,
+      fontSize: '12px'
+    }
   },
   '&:hover': {
     textDecoration: 'none',
     opacity: 0.7
-  },
-  '@media (max-width: 420px)': {
-    left: 24
   }
 })
 
@@ -69,53 +91,79 @@ export const ContentSection = styled('div', {
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  display: 'flex',
-  flexFlow: 'column nowrap',
-  alignItems: 'center',
   backgroundColor: theme.colors.white
 })
 
 export const ContentWrapper = styled('div', {
   position: 'relative',
   height: '100%',
-  width: '100%',
-  boxSize: 'border-box',
-  maxWidth: 1192,
-  margin: '0 auto',
-  padding: '0 120px',
+  // maxWidth: 1192,
+  margin: '0 var(--extra-margin)',
+  padding: '0 124px',
   display: 'flex',
   flexFlow: 'column nowrap',
   alignItems: 'flex-start',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  '@media (max-width: 950px)': {
+    alignItems: 'center',
+    padding: '0 24px'
+  }
 })
 
-export const Section1Title = styled('div', {
-  fontWeight: '700',
-  fontSize: '80px',
-  lineHeight: '90px',
-  padding: '80px 0 23px'
-})
-
-export const Section1Comment = styled('div', {
-  fontWeight: '450',
-  fontSize: '32px',
-  lineHeight: '47px',
-  color: theme.colors.typeSecondary
-})
-
-export const Section4Title = styled('div', {
+export const SectionTitle = styled('div', {
   fontWeight: '700',
   fontSize: '80px',
   lineHeight: '90px',
   padding: '80px 0 23px',
-  color: theme.colors.white
+  '@media (max-width: 950px)': {
+    fontSize: '44px',
+    lineHeight: '56px'
+  }
 })
 
-export const Section4Comment = styled('div', {
+export const SectionComment = styled('div', {
   fontWeight: '450',
   fontSize: '32px',
   lineHeight: '47px',
-  color: theme.colors.white
+  maxWidth: 592,
+  width: '100%',
+  color: theme.colors.typeSecondary,
+  '@media (max-width: 950px)': {
+    '@media (max-width: 950px)': {
+      fontSize: '16px',
+      lineHeight: '28px'
+    }
+  }
+})
+
+export const section1ContentCls = css({
+  '@media (max-width: 950px)': {
+    textAlign: 'center',
+    alignItems: 'center'
+  }
+})()
+
+export const Section4Title = styled(SectionTitle, {
+  fontWeight: '700',
+  fontSize: '80px',
+  lineHeight: '90px',
+  padding: '80px 0 23px',
+  color: theme.colors.white,
+  '@media (max-width: 950px)': {
+    fontSize: '44px',
+    lineHeight: '56px'
+  }
+})
+
+export const Section4Comment = styled(SectionComment, {
+  fontWeight: '450',
+  fontSize: '32px',
+  lineHeight: '47px',
+  color: theme.colors.white,
+  '@media (max-width: 950px)': {
+    fontSize: '16px',
+    lineHeight: '28px'
+  }
 })
 
 export const Sec4bg2 = styled('div', {
@@ -123,7 +171,6 @@ export const Sec4bg2 = styled('div', {
   flexFlow: 'column nowrap',
   alignItems: 'flex-start',
   justifyContent: 'center',
-  width: '60%',
   height: '100%',
   background: 'linear-gradient(89.77deg, #151515 57.32%, rgba(21, 21, 21, 0) 90.66%)'
 })
@@ -135,7 +182,8 @@ export const JoinButton = styled(Button, {
   span: {
     fontSize: '24px'
   },
-  '@media (max-width: 420px)': {
+  '@media (max-width: 950px)': {
+    alignSelf: 'center',
     width: 236,
     height: 40,
     span: {
@@ -147,7 +195,7 @@ export const JoinButton = styled(Button, {
 export const LinkList = styled('div', {
   paddingTop: 56,
   display: 'flex',
-  '@media (max-width: 420px)': {
+  '@media (max-width: 950px)': {
     paddingTop: 30
   }
 })
@@ -215,24 +263,41 @@ export const Timeline = styled('div', {
   paddingTop: 88,
   margin: '0 auto',
   position: 'relative',
+  '@media (max-width: 950px)': {
+    paddingTop: 56
+  },
   '&::before': {
     content: '',
     borderLeft: '1px dashed #ccc',
     position: 'absolute',
     top: 135,
-    height: 'calc(100% - 250px)'
+    height: 'calc(100% - 220px)',
+    '@media (max-width: 950px)': {
+      top: 70
+    }
   }
 })
 
 export const TimelineBlock = styled('div', {
   display: 'flex',
   position: 'relative',
-  paddingBottom: 56
+  paddingBottom: 56,
+  '@media (max-width: 950px)': {
+    flexFlow: 'column',
+    padding: '0 0 56px 25px'
+  },
+  img: {
+    borderRadius: 16
+  }
 })
 
 export const TimelineContent = styled('div', {
-  width: 450,
-  paddingLeft: 66,
+  width: 396,
+  padding: '0 70px 0 66px',
+  '@media (max-width: 950px)': {
+    padding: '0 0 24px',
+    width: 'unset'
+  },
   '.func-icon': {
     height: 52,
     width: 52,
@@ -240,22 +305,36 @@ export const TimelineContent = styled('div', {
     lineHeight: '56px',
     textAlign: 'center',
     position: 'absolute',
-    left: -26,
+    left: -25,
     top: 32,
     fontSize: 24,
     background: theme.colors.iconPrimary,
-    color: theme.colors.white
+    color: theme.colors.white,
+    '@media (max-width: 950px)': {
+      height: 24,
+      width: 24,
+      lineHeight: '24px',
+      borderRadius: 24,
+      fontSize: 14,
+      left: -11,
+      top: 4
+    }
   },
   '.title': {
     paddingTop: 36,
     fontWeight: '600',
     fontSize: '30px',
     lineHeight: '46px',
-    color: theme.colors.typeSecondary
+    color: theme.colors.typeSecondary,
+    '@media (max-width: 950px)': {
+      paddingTop: 0,
+      fontSize: '22px',
+      lineHeight: '32px'
+    }
   },
   'sub-title': {
     paddingTop: 8,
-    fontWeight: '600',
+    fontWeight: 600,
     fontSize: '22px',
     lineHeight: '30px',
     color: theme.colors.typePrimary
@@ -284,11 +363,6 @@ export const TimelineContent = styled('div', {
   }
 })
 
-export const TimelinePreview = styled('img', {
-  width: 592,
-  height: 440
-})
-
 export const JoinBlock = styled('div', {
   textAlign: 'center',
   position: 'relative',
@@ -299,29 +373,33 @@ export const JoinBlock = styled('div', {
     borderTop: `1px solid ${theme.colors.dividerPrimary}`,
     position: 'absolute',
     top: 0,
-    left: 107,
-    width: 'calc(100% - 214px)'
+    left: 24,
+    width: 'calc(100% - 48px)'
   }
 })
 
 export const JoinPrivateTitle = styled('div', {
   padding: '35px 0 24px',
   fontSize: '32px',
-  lineHeight: '44px'
+  lineHeight: '44px',
+  '@media (max-width: 950px)': {
+    fontSize: '20px',
+    lineHeight: '28px',
+    paddingBottom: 12
+  }
 })
 
 export const ContactBtn = styled(Button, {
-  marginTop: 24,
   width: 155,
   height: 52,
   span: {
     fontSize: '24px'
   },
-  '@media (max-width: 420px)': {
-    width: 236,
+  '@media (max-width: 950px)': {
+    width: 113,
     height: 40,
     span: {
-      fontSize: '18px'
+      fontSize: '16px'
     }
   }
 })
@@ -332,11 +410,21 @@ export const Footer = styled('footer', {
   maxWidth: 892,
   width: '100%',
   margin: '0 auto',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
+  '@media (max-width: 950px)': {
+    flexFlow: 'column nowrap',
+    padding: '0 24px',
+    flex: 1
+  }
 })
 
 export const FooterBlock = styled('div', {
   width: 172,
+
+  '@media (max-width: 950px)': {
+    width: 'unset',
+    paddingTop: 68
+  },
 
   '.desc': {
     fontWeight: '600',

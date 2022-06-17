@@ -4,17 +4,15 @@ import Image from 'next/image'
 import { Pagination, Mousewheel, EffectFade } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { Icon, theme } from '@brickdoc/design-system'
+import { Dropdown, Icon, Menu, theme } from '@brickdoc/design-system'
 import {
   SwiperContainer,
   ContentSection,
-  Section1Title,
-  Section1Comment,
+  SectionTitle,
+  SectionComment,
   Section4Title,
   Section4Comment,
   Sec4bg2,
-  LinkList,
-  LinkBlock,
   JoinButton,
   ContentWrapper,
   SnsLinkWrapper,
@@ -26,24 +24,38 @@ import {
   Timeline,
   TimelineBlock,
   TimelineContent,
-  TimelinePreview,
   JoinPrivateTitle,
   ContactBtn,
   JoinBlock,
   Footer,
   FooterBlock,
-  Page
+  Page,
+  MobileSnsLinkWrapper,
+  section1ContentCls
 } from '../styles/home.style'
 import { useEffect, useState } from 'react'
+import { debounce } from '@brickdoc/active-support'
 
 const block1bg = 'url(/home/block1.png)'
 const block2bg = 'url(/home/block2.png)'
 const block3bg = 'url(/home/block3.png)'
 const block4bg = 'url(/home/block4.png)'
 
+const getExtraMargin = (width: number) => (width + 8) % 60
+
 const Home: NextPage = () => {
+  const [extraMargin, setMargin] = useState(0)
+  useEffect(() =>  setMargin(getExtraMargin(window.innerWidth)), [])
+  useEffect(() => {
+    const cb = debounce(() => {
+      setMargin(getExtraMargin(window.innerWidth))
+    }, 100)
+    window.addEventListener('resize', cb)
+    return () => window.removeEventListener('resize', cb)
+  }, [setMargin])
+  const style = {'--extra-margin': `${extraMargin}px`} as React.CSSProperties;
   return (
-    <Page>
+    <Page style={style}>
       <Head>
         <title>Brickdoc</title>
         <meta name="Brickdoc" content="Brickdoc" />
@@ -52,6 +64,7 @@ const Home: NextPage = () => {
       <SwiperContainer>
         <Swiper
           direction="vertical"
+          touchReleaseOnEdges
           mousewheel={{
             releaseOnEdges: true
           }}
@@ -63,30 +76,48 @@ const Home: NextPage = () => {
           modules={[Pagination, Mousewheel, EffectFade]}>
           <SwiperSlide>
             <ContentSection style={{ backgroundImage: block1bg }}>
-              <ContentWrapper>
+              <ContentWrapper className={section1ContentCls}>
                 <SectionLogoWrapper>
-                  <Image
-                    height={32}
-                    width={138}
-                    src="/home/logo_en_dark.svg"
-                    alt="Picture of the author"
-                  />
+                  <Image height={32} width={138} src="/home/logo_en_dark.svg" alt="Picture of the author" />
                 </SectionLogoWrapper>
                 <SnsLinkWrapper>
-                  <SnsLink href="https://twitter.com/BrickdocHQ">
+                  <SnsLink key="0" href="https://twitter.com/BrickdocHQ">
                     Twitter <Icon.ArrowRightSmall />
                   </SnsLink>
-                  <SnsLink href="https://github.com/brickdoc/app-engine">
+                  <SnsLink key="1" href="https://github.com/brickdoc/app-engine">
                     Github
                     <Icon.ArrowRightSmall />
                   </SnsLink>
                 </SnsLinkWrapper>
-                <Section1Title>Made on Earth by Humans</Section1Title>
-                <Section1Comment>
+                <Dropdown
+                  overlay={
+                    <>
+                      <Menu>
+                        <Menu.Item itemKey="Twitter" style={{ minWidth: 160 }}>
+                          <SnsLink href="https://twitter.com/BrickdocHQ">
+                            <span style={{ width: 58, display: 'inline-block' }}>Twitter</span>
+                            <Icon.ArrowRightSmall />
+                          </SnsLink>
+                        </Menu.Item>
+                        <Menu.Item itemKey="Github" style={{ minWidth: 150 }}>
+                          <SnsLink href="https://github.com/brickdoc/app-engine">
+                            <span style={{ width: 58, display: 'inline-block' }}>Github</span>
+                            <Icon.ArrowRightSmall />
+                          </SnsLink>
+                        </Menu.Item>
+                      </Menu>
+                    </>
+                  }>
+                  <MobileSnsLinkWrapper>
+                    <Icon.More />
+                  </MobileSnsLinkWrapper>
+                </Dropdown>
+                <SectionTitle>Made on Earth by Humans</SectionTitle>
+                <SectionComment>
                   Brickdoc is an open source online workspace <br />
                   and low-code development platform with <br />
                   Compound Document as its core.
-                </Section1Comment>
+                </SectionComment>
                 <JoinButton type="primary">Apply to Join Our Private</JoinButton>
               </ContentWrapper>
             </ContentSection>
@@ -94,25 +125,25 @@ const Home: NextPage = () => {
           <SwiperSlide>
             <ContentSection style={{ backgroundImage: block2bg }}>
               <ContentWrapper>
-                <Section1Title style={{ width: 592 }}>Man-computer Symbiosis</Section1Title>
-                <Section1Comment style={{ width: 592 }}>
-                  Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code
+                <SectionTitle>Man-computer Symbiosis</SectionTitle>
+                <SectionComment>
+                  {`Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code
                   tool designed around the concept of "Intelligence Augmentation". It aims to maximize productivity by
                   combining the strongest attributes of human intelligence and machines in a "human-machine symbiosis"
-                  world.
-                </Section1Comment>
+                  world.`}
+                </SectionComment>
               </ContentWrapper>
             </ContentSection>
           </SwiperSlide>
           <SwiperSlide>
             <ContentSection style={{ backgroundImage: block3bg }}>
               <ContentWrapper css={sec3style}>
-                <Section1Title style={{ width: 592 }}>Semantic Highway</Section1Title>
-                <Section1Comment style={{ width: 592 }}>
-                  Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
+                <SectionTitle>Semantic Highway</SectionTitle>
+                <SectionComment>
+                  {`Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
                   You'll focus on topics in a collaborative work environment with hundreds of people and businesses. All
-                  old data and new tools will be at your fingertips.
-                </Section1Comment>
+                  old data and new tools will be at your fingertips.`}
+                </SectionComment>
               </ContentWrapper>
             </ContentSection>
           </SwiperSlide>
@@ -130,10 +161,10 @@ const Home: NextPage = () => {
                 <Sec4bg2>
                   <Section4Title>Transfer of Rights</Section4Title>
                   <Section4Comment>
-                    Open source is the global democratization of an open, shared, collaborative model. The generation of
+                    {`Open source is the global democratization of an open, shared, collaborative model. The generation of
                     data silos is a large number of separate economic forms. Brickdoc provides the most compatible and
                     growth medium, which facilitates the transformation of economic lifestyles based on smaller economic
-                    aggregations.
+                    aggregations.`}
                   </Section4Comment>
                 </Sec4bg2>
               </ContentWrapper>
@@ -152,13 +183,13 @@ const Home: NextPage = () => {
               <div className="title">2022 Q1</div>
               <div className="sub-title">FORMULA</div>
               <div className="detail">
-                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
-                formula.
+                formula.`}
               </div>
               <div className="status-tag">Online</div>
             </TimelineContent>
-            <TimelinePreview src="/home/s1.png" />
+            <Image width="770" height="480" src="/home/s1.png" alt="FORMULA" />
           </TimelineBlock>
           <TimelineBlock>
             <TimelineContent>
@@ -168,13 +199,13 @@ const Home: NextPage = () => {
               <div className="title">2022 Q3</div>
               <div className="sub-title">Smart Search</div>
               <div className="detail">
-                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
-                formula.
+                formula.`}
               </div>
               <div className="status-tag">Online</div>
             </TimelineContent>
-            <TimelinePreview src="/home/s1.png" />
+            <Image width="770" height="480" src="/home/s2.png" alt="Smart Search" />
           </TimelineBlock>
           <TimelineBlock>
             <TimelineContent>
@@ -184,13 +215,13 @@ const Home: NextPage = () => {
               <div className="title">2022 Q3</div>
               <div className="sub-title">Plug Store</div>
               <div className="detail">
-                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
-                formula.
+                formula.`}
               </div>
               <div className="status-tag">Online</div>
             </TimelineContent>
-            <TimelinePreview src="/home/s1.png" />
+            <Image width="770" height="480" src="/home/s3.png" alt="Plug Store" />
           </TimelineBlock>
           <TimelineBlock>
             <TimelineContent>
@@ -200,13 +231,13 @@ const Home: NextPage = () => {
               <div className="title">2022 Q3</div>
               <div className="sub-title">Low code</div>
               <div className="detail">
-                The structuring of data within documents can be realized more flexibly through Turing's Excel
+                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
-                formula.
+                formula.`}
               </div>
               <div className="status-tag">Coming soon</div>
             </TimelineContent>
-            <TimelinePreview src="/home/s1.png" />
+            <Image width="770" height="480" src="/home/s4.png" alt="Low code" />
           </TimelineBlock>
           <TimelineBlock>
             <TimelineContent>
@@ -268,7 +299,7 @@ const Home: NextPage = () => {
               </a>
               <a href="">
                 <Icon.ArrowRightSmall />
-                Create a New Account{' '}
+                Create a New Account
               </a>
             </div>
           </FooterBlock>
@@ -277,22 +308,22 @@ const Home: NextPage = () => {
             <div className="link-list">
               <a href="">
                 <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-producthunt.svg" alt="Producthunt"  />
+                <Image height={20} width={20} src="/home/link-producthunt.svg" alt="Producthunt" />
                 <div className="text-offset">Producthunt</div>
               </a>
               <a href="">
                 <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-twitter.svg" alt="Twitter"  />
+                <Image height={20} width={20} src="/home/link-twitter.svg" alt="Twitter" />
                 <div className="text-offset">Twitter</div>
               </a>
               <a href="">
                 <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-github.svg" alt="Github"  />
+                <Image height={20} width={20} src="/home/link-github.svg" alt="Github" />
                 <div className="text-offset">Github</div>
               </a>
               <a href="">
                 <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-Facebook.svg" alt="Facebook"  />
+                <Image height={20} width={20} src="/home/link-Facebook.svg" alt="Facebook" />
                 <div className="text-offset">Facebook</div>
               </a>
               <a href="">
@@ -301,7 +332,6 @@ const Home: NextPage = () => {
                   <Icon.Bug />
                 </div>
                 <div className="text-offset">Report a Bug</div>
-                
               </a>
             </div>
           </FooterBlock>
