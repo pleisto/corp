@@ -5,6 +5,26 @@ export const Page = styled('div', {
   boxSize: 'border-box'
 })
 
+export const ActiveBgWrapper = styled('div', {
+  position: 'relative',
+  '.active-bg': {
+    position: 'fixed',
+    bottom: 0,
+    height: '100vh',
+    width: '100%',
+    objectFit: 'cover',
+  },
+  variants: {
+    end: {
+      true: {
+        '.active-bg': {
+          position: 'absolute',
+        },
+      }
+    }
+  }
+})
+
 export const SwiperContainer = styled('div', {
   height: '100vh',
 
@@ -27,9 +47,10 @@ export const SwiperContainer = styled('div', {
 
 export const SectionLogoWrapper = styled('div', {
   position: 'absolute',
-  top: 16,
+  top: 40,
   left: 124,
   '@media (max-width: 950px)': {
+    top: 16,
     left: 24
   }
 })
@@ -91,7 +112,18 @@ export const ContentSection = styled('div', {
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  backgroundColor: theme.colors.white
+  // backgroundColor: theme.colors.white,
+  variants: {
+    fullpage: {
+      true: {
+        height: '100vh'
+      }
+    }
+  },
+  '@media (min-width: 950px)': {
+    background: 'transparent',
+    backgroundImage: 'unset!important',
+  },
 })
 
 export const ContentWrapper = styled('div', {
@@ -107,7 +139,7 @@ export const ContentWrapper = styled('div', {
   '@media (max-width: 950px)': {
     alignItems: 'center',
     padding: '0 24px'
-  }
+  },
 })
 
 export const SectionTitle = styled('div', {

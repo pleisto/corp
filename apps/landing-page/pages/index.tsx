@@ -31,9 +31,10 @@ import {
   FooterBlock,
   Page,
   MobileSnsLinkWrapper,
-  section1ContentCls
+  section1ContentCls,
+  ActiveBgWrapper
 } from '../styles/home.style'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { debounce } from '@brickdoc/active-support'
 
 const block1bg = 'url(/home/block1.png)'
@@ -43,9 +44,13 @@ const block4bg = 'url(/home/block4.png)'
 
 const getExtraMargin = (width: number) => (width + 8) % 60
 
+const end = 15
+  
 const Home: NextPage = () => {
   const [extraMargin, setMargin] = useState(0)
-  useEffect(() =>  setMargin(getExtraMargin(window.innerWidth)), [])
+  const [isEnd, setIsEnd] = useState(false)
+  const ref = useRef<null | HTMLVideoElement>(null)
+  useEffect(() => setMargin(getExtraMargin(window.innerWidth)), [])
   useEffect(() => {
     const cb = debounce(() => {
       setMargin(getExtraMargin(window.innerWidth))
@@ -53,7 +58,26 @@ const Home: NextPage = () => {
     window.addEventListener('resize', cb)
     return () => window.removeEventListener('resize', cb)
   }, [setMargin])
-  const style = {'--extra-margin': `${extraMargin}px`} as React.CSSProperties;
+  useEffect(() => {
+    const setTime = (time: number) => {
+      console.log(ref?.current?.currentTime)
+
+      if (ref?.current?.currentTime !== undefined) {
+        ref.current.currentTime = time
+      }
+    }
+    const scrollPlay = () => {
+      if (window.pageYOffset > 3 * window.innerHeight) {
+        setTime(end)
+        setIsEnd(true)
+      } else {
+        setIsEnd(false)
+        setTime((window.pageYOffset / 3 / window.innerHeight) * end)
+      }
+    }
+    window.addEventListener('scroll', scrollPlay)
+  }, [setIsEnd])
+  const style = { '--extra-margin': `${extraMargin}px` } as React.CSSProperties
   return (
     <Page style={style}>
       <Head>
@@ -61,117 +85,96 @@ const Home: NextPage = () => {
         <meta name="Brickdoc" content="Brickdoc" />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <SwiperContainer>
-        <Swiper
-          direction="vertical"
-          touchReleaseOnEdges
-          mousewheel={{
-            releaseOnEdges: true
-          }}
-          pagination={{
-            clickable: true
-          }}
-          speed={500}
-          effect="slide"
-          modules={[Pagination, Mousewheel, EffectFade]}>
-          <SwiperSlide>
-            <ContentSection style={{ backgroundImage: block1bg }}>
-              <ContentWrapper className={section1ContentCls}>
-                <SectionLogoWrapper>
-                  <Image height={32} width={138} src="/home/logo_en_dark.svg" alt="Picture of the author" />
-                </SectionLogoWrapper>
-                <SnsLinkWrapper>
-                  <SnsLink key="0" href="https://twitter.com/BrickdocHQ">
-                    Twitter <Icon.ArrowRightSmall />
-                  </SnsLink>
-                  <SnsLink key="1" href="https://github.com/brickdoc/app-engine">
-                    Github
-                    <Icon.ArrowRightSmall />
-                  </SnsLink>
-                </SnsLinkWrapper>
-                <Dropdown
-                  overlay={
-                    <>
-                      <Menu>
-                        <Menu.Item itemKey="Twitter" style={{ minWidth: 160 }}>
-                          <SnsLink href="https://twitter.com/BrickdocHQ">
-                            <span style={{ width: 58, display: 'inline-block' }}>Twitter</span>
-                            <Icon.ArrowRightSmall />
-                          </SnsLink>
-                        </Menu.Item>
-                        <Menu.Item itemKey="Github" style={{ minWidth: 150 }}>
-                          <SnsLink href="https://github.com/brickdoc/app-engine">
-                            <span style={{ width: 58, display: 'inline-block' }}>Github</span>
-                            <Icon.ArrowRightSmall />
-                          </SnsLink>
-                        </Menu.Item>
-                      </Menu>
-                    </>
-                  }>
-                  <MobileSnsLinkWrapper>
-                    <Icon.More />
-                  </MobileSnsLinkWrapper>
-                </Dropdown>
-                <SectionTitle>Made on Earth by Humans</SectionTitle>
-                <SectionComment>
-                  Brickdoc is an open source online workspace <br />
-                  and low-code development platform with <br />
-                  Compound Document as its core.
-                </SectionComment>
-                <JoinButton type="primary">Apply to Join Our Private</JoinButton>
-              </ContentWrapper>
-            </ContentSection>
-          </SwiperSlide>
-          <SwiperSlide>
-            <ContentSection style={{ backgroundImage: block2bg }}>
-              <ContentWrapper>
-                <SectionTitle>Man-computer Symbiosis</SectionTitle>
-                <SectionComment>
-                  {`Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code
+      <ActiveBgWrapper end={isEnd}>
+        <video className="active-bg" muted playsInline preload="preload" ref={ref}>
+          <source src="/home/bg.mp4" type="video/mp4" />
+        </video>
+        <ContentSection fullpage style={{ backgroundImage: block1bg }}>
+          <ContentWrapper className={section1ContentCls}>
+            <SectionLogoWrapper>
+              <Image height={32} width={138} src="/home/logo_en_dark.svg" alt="Picture of the author" />
+            </SectionLogoWrapper>
+            <SnsLinkWrapper>
+              <SnsLink key="0" href="https://twitter.com/BrickdocHQ">
+                Twitter <Icon.ArrowRightSmall />
+              </SnsLink>
+              <SnsLink key="1" href="https://github.com/brickdoc/app-engine">
+                Github
+                <Icon.ArrowRightSmall />
+              </SnsLink>
+            </SnsLinkWrapper>
+            <Dropdown
+              overlay={
+                <>
+                  <Menu>
+                    <Menu.Item itemKey="Twitter" style={{ minWidth: 160 }}>
+                      <SnsLink href="https://twitter.com/BrickdocHQ">
+                        <span style={{ width: 58, display: 'inline-block' }}>Twitter</span>
+                        <Icon.ArrowRightSmall />
+                      </SnsLink>
+                    </Menu.Item>
+                    <Menu.Item itemKey="Github" style={{ minWidth: 150 }}>
+                      <SnsLink href="https://github.com/brickdoc/app-engine">
+                        <span style={{ width: 58, display: 'inline-block' }}>Github</span>
+                        <Icon.ArrowRightSmall />
+                      </SnsLink>
+                    </Menu.Item>
+                  </Menu>
+                </>
+              }>
+              <MobileSnsLinkWrapper>
+                <Icon.More />
+              </MobileSnsLinkWrapper>
+            </Dropdown>
+            <SectionTitle>Made on Earth by Humans</SectionTitle>
+            <SectionComment>
+              Brickdoc is an open source online workspace <br />
+              and low-code development platform with <br />
+              Compound Document as its core.
+            </SectionComment>
+            <JoinButton type="primary">Apply to Join Our Private</JoinButton>
+          </ContentWrapper>
+        </ContentSection>
+
+        <ContentSection fullpage style={{ backgroundImage: block2bg }}>
+          <ContentWrapper>
+            <SectionTitle>Man-computer Symbiosis</SectionTitle>
+            <SectionComment>
+              {`Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code
                   tool designed around the concept of "Intelligence Augmentation". It aims to maximize productivity by
                   combining the strongest attributes of human intelligence and machines in a "human-machine symbiosis"
                   world.`}
-                </SectionComment>
-              </ContentWrapper>
-            </ContentSection>
-          </SwiperSlide>
-          <SwiperSlide>
-            <ContentSection style={{ backgroundImage: block3bg }}>
-              <ContentWrapper css={sec3style}>
-                <SectionTitle>Semantic Highway</SectionTitle>
-                <SectionComment>
-                  {`Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
+            </SectionComment>
+          </ContentWrapper>
+        </ContentSection>
+
+        <ContentSection fullpage style={{ backgroundImage: block3bg }}>
+          <ContentWrapper css={sec3style}>
+            <SectionTitle>Semantic Highway</SectionTitle>
+            <SectionComment>
+              {`Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
                   You'll focus on topics in a collaborative work environment with hundreds of people and businesses. All
                   old data and new tools will be at your fingertips.`}
-                </SectionComment>
-              </ContentWrapper>
-            </ContentSection>
-          </SwiperSlide>
-          <SwiperSlide>
-            <ContentSection
-              style={{
-                backgroundImage: block4bg,
-                backgroundPosition: 'right center',
-                backgroundSize: 'contain',
-                backgroundColor: '#151515',
-                padding: 0
-              }}>
-              <Sec4BgFilter />
-              <ContentWrapper css={sec4style}>
-                <Sec4bg2>
-                  <Section4Title>Transfer of Rights</Section4Title>
-                  <Section4Comment>
-                    {`Open source is the global democratization of an open, shared, collaborative model. The generation of
+            </SectionComment>
+          </ContentWrapper>
+        </ContentSection>
+
+        <ContentSection
+          fullpage
+          style={{
+            backgroundImage: block4bg
+          }}>
+          <ContentWrapper css={sec4style}>
+            <SectionTitle>Transfer of Rights</SectionTitle>
+            <SectionComment>
+              {`Open source is the global democratization of an open, shared, collaborative model. The generation of
                     data silos is a large number of separate economic forms. Brickdoc provides the most compatible and
                     growth medium, which facilitates the transformation of economic lifestyles based on smaller economic
                     aggregations.`}
-                  </Section4Comment>
-                </Sec4bg2>
-              </ContentWrapper>
-            </ContentSection>
-          </SwiperSlide>
-        </Swiper>
-      </SwiperContainer>
+            </SectionComment>
+          </ContentWrapper>
+        </ContentSection>
+      </ActiveBgWrapper>
       <ContentWrapper style={{ maxWidth: 'unset' }}>
         {' '}
         <Timeline>
