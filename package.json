@@ -43,7 +43,8 @@
     "lint:type": "turbo run lint:type --filter=\"!./foss/**/*\"",
     "test": "turbo run lint:type test:jest --filter=\"!./foss/**/*\"",
     "test:jest": "NODE_ENV=test turbo run test:jest --filter=\"!./foss/**/*\"",
-    "commit": "git add . && cz"
+    "commit": "git add . && cz",
+    "page": "yarn workspace @brickdoc/landing-page"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "^1.0.2",
