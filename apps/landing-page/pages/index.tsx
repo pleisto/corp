@@ -7,12 +7,9 @@ import {
   ContentSection,
   SectionTitle,
   SectionComment,
-  JoinButton,
   ContentWrapper,
   SnsLinkWrapper,
   SectionLogoWrapper,
-  sec3style,
-  sec4style,
   Timeline,
   TimelineBlock,
   TimelineContent,
@@ -22,7 +19,6 @@ import {
   Footer,
   FooterBlock,
   Page,
-  section1ContentCls,
   ActiveBgWrapper
 } from '../styles/home.style'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -32,10 +28,11 @@ const block1bg = 'url(/home/block1.png)'
 const block2bg = 'url(/home/block2.png)'
 const block3bg = 'url(/home/block3.png)'
 const block4bg = 'url(/home/block4.png)'
+const block5bg = 'url(/home/block5.png)'
 
 const getExtraMargin = (width: number) => (width + 8) % 60
 
-const end = 16
+const end = 0.1
 
 const Home: NextPage = () => {
   const [extraMargin, setMargin] = useState(0)
@@ -84,11 +81,12 @@ const Home: NextPage = () => {
         {isScriptEnable && <script async defer src="https://buttons.github.io/buttons.js" />}
       </Head>
       <ActiveBgWrapper end={isEnd}>
-        <video className="active-bg" muted playsInline preload="preload" ref={ref}>
+        {/* <video className="active-bg" muted playsInline preload="preload" ref={ref}>
           <source src="/home/bg.mp4" type="video/mp4" />
-        </video>
+        </video> */}
+
         <ContentSection fullpage style={{ backgroundImage: block1bg }}>
-          <ContentWrapper className={section1ContentCls}>
+          <ContentWrapper verticalCenter horizontalLeft>
             <SectionLogoWrapper>
               <Image height={32} width={138} src="/home/logo_en_dark.svg" alt="Picture of the author" />
             </SectionLogoWrapper>
@@ -99,38 +97,50 @@ const Home: NextPage = () => {
                   href="https://github.com/mashcard/mashcard"
                   data-icon="octicon-star"
                   data-show-count="true"
-                  aria-label="Star mashcard/mashcard on GitHub"
-                >
+                  aria-label="Star mashcard/mashcard on GitHub">
                   Star
                 </a>
               )}
             </SnsLinkWrapper>
-
-            <SectionTitle style={{ paddingBottom: 8 }}>Made on Earth by Humans</SectionTitle>
-            <SectionComment>
-              Brickdoc is an open source online workspace and low-code development platform with Compound Document as
-              its core.
+            <SectionTitle sec1 style={{ paddingBottom: 8 }}>
+              A bicycle of the mind to <br />
+              <b>Internet OS</b>
+            </SectionTitle>
+            <SectionComment sec1>
+              The next iteration of mashup and <b>compound document</b>. <br />
+              Create, connect and collaborate with your own docs, widgets, and data in a single place under your
+              control.
             </SectionComment>
-            <JoinButton type="primary">Apply to Join Our Private</JoinButton>
           </ContentWrapper>
         </ContentSection>
 
         <ContentSection fullpage style={{ backgroundImage: block2bg }}>
           <ContentWrapper>
-            <SectionTitle>Man-computer Symbiosis</SectionTitle>
-            <SectionComment sec1commont>
-              {`Advances in technology are blurring the lines between humans and machines, and Brickdoc is a low-code tool designed around the concept of "Intelligence Augmentation".`}
+            <SectionTitle>
+              Meet Human-machine <br />
+              Collaboration
+            </SectionTitle>
+            <SectionComment sec2>
+              <p>{`Enhancing synergy in modern productivity tool is a movement that will give rise to a platform shift where human and machines complement each other. `}</p>
+              <p>{`Create applications in the office suite as if they were documents and apply AI to aid in actions like using excel-like formulas to import live data in apps or calling in external APIs.  `}</p>
             </SectionComment>
           </ContentWrapper>
         </ContentSection>
 
         <ContentSection fullpage style={{ backgroundImage: block3bg }}>
-          <ContentWrapper css={sec3style}>
-            <SectionTitle>Semantic Highway</SectionTitle>
-            <SectionComment sec2commont>
-              {`Brickdoc provides a network for everyone and all programs to understand that it is the same thing.
-                  You'll focus on topics in a collaborative work environment with hundreds of people and businesses. All
-                  old data and new tools will be at your fingertips.`}
+          <ContentWrapper verticalCenter verticalBottomMobile>
+            <SectionTitle>Integrate everything</SectionTitle>
+            <SectionComment sec3>
+              {`With the exponential rate that SaaS is eating the world, RPA and automated workflows are not able to
+              satiate anymore.`}
+              <br />
+              {`The people needs instead an Internet OS that can connect, modify and share structured data between sources
+              as easily as copy-paste.`}
+              <br />
+              {`OS is essentially a system software that provides interoperability and functionality for applications.`}
+              <br />
+              {`MashCard is an Internet OS with micro-kernel architecture that provides a WordPress-like plugin system to
+              build, customize and express on top of it for an enhanced experience.`}
             </SectionComment>
           </ContentWrapper>
         </ContentSection>
@@ -139,18 +149,38 @@ const Home: NextPage = () => {
           fullpage
           style={{
             backgroundImage: block4bg
-          }}
-        >
-          <ContentWrapper css={sec4style}>
-            <SectionTitle>Transfer of Rights</SectionTitle>
-            <SectionComment sec3commont>
-              {`Open source is the global democratization of an open, shared, collaborative model. `}
+          }}>
+          <ContentWrapper>
+            <SectionTitle sec4>
+              All your data <br />
+              is under your control
+            </SectionTitle>
+            <SectionComment sec4>
+              <p>{`MashCard is free and open-source software that can be hosted on your own server or from a cloud provider. `}</p>
+              <p>{`As a Solid inspired decentralized data store, any access to the structured data and regular files stored can be granted or revoked as needed to any extent. `}</p>
+            </SectionComment>
+          </ContentWrapper>
+        </ContentSection>
+
+        <ContentSection
+          fullpage
+          style={{
+            backgroundImage: block5bg
+          }}>
+          <ContentWrapper>
+            <SectionComment sec5>
+              <p className='main'>
+                <span className="mark begin">“</span>
+                {`A tool that can augment human intelligence should accumulate structured and unstructured information in a single place and have instruments to collaboratively create, mix, connect, visualize and retrieve information. `}
+                <span className="mark end">”</span>
+              </p>
+              <p>-  By : Michael Dubakov</p>
             </SectionComment>
           </ContentWrapper>
         </ContentSection>
       </ActiveBgWrapper>
+
       <ContentWrapper style={{ maxWidth: 'unset' }}>
-        {' '}
         <Timeline>
           <TimelineBlock>
             <TimelineContent>

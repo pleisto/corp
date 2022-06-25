@@ -1,5 +1,7 @@
 import { styled, theme, Button, css } from '@mashcard/design-system'
 
+const max950 = '@media (max-width: 950px)'
+
 export const Page = styled('div', {
   background: theme.colors.white,
   boxSize: 'border-box'
@@ -28,23 +30,27 @@ export const ActiveBgWrapper = styled('div', {
 export const SectionLogoWrapper = styled('div', {
   position: 'absolute',
   top: 40,
-  left: 124,
-  '@media (max-width: 950px)': {
+  left: 60,
+  width: 138,
+  height: 32,
+  [max950]: {
     top: 16,
-    left: 24
+    left: 24,
+    width: 99,
+    height: 24
   }
 })
 
 export const SnsLinkWrapper = styled('div', {
   position: 'absolute',
-  top: 40,
-  right: 140,
+  top: 46,
+  right: 60,
   display: 'flex',
   a: {
     color: 'transparent'
   },
-  '@media (max-width: 950px)': {
-    top: 20,
+  [max950]: {
+    top: 18,
     right: 24
   }
 })
@@ -55,7 +61,7 @@ export const SnsLink = styled('a', {
   marginLeft: 24,
   fontSize: '22px',
   color: theme.colors.typePrimary,
-  '@media (max-width: 950px)': {
+  [max950]: {
     lineHeight: '32px',
     fontSize: '16px',
     left: 24
@@ -63,7 +69,7 @@ export const SnsLink = styled('a', {
   '.brd-icon': {
     marginLeft: 4,
     fontSize: 18,
-    '@media (max-width: 950px)': {
+    [max950]: {
       marginLeft: 14,
       fontSize: '12px'
     }
@@ -81,115 +87,182 @@ export const ContentSection = styled('div', {
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
-  // backgroundColor: theme.colors.white,
   variants: {
     fullpage: {
       true: {
         height: '100vh'
       }
     }
-  },
-  '@media (min-width: 950px)': {
-    background: 'transparent',
-    backgroundImage: 'unset!important'
   }
+  // '@media (min-width: 950px)': {
+  //   background: 'transparent',
+  //   backgroundImage: 'unset!important'
+  // }
 })
 
 export const ContentWrapper = styled('div', {
   position: 'relative',
   height: '100%',
   margin: '0 var(--extra-margin)',
-  padding: '0 124px',
+  padding: '0 60px',
   display: 'flex',
   flexFlow: 'column nowrap',
   alignItems: 'flex-start',
   justifyContent: 'flex-end',
-  '@media (max-width: 950px)': {
+  [max950]: {
     margin: 0,
-    alignItems: 'center',
     padding: '0 24px'
+  },
+  variants: {
+    verticalCenter: {
+      true: {
+        justifyContent: 'center'
+      }
+    },
+    verticalBottomMobile: {
+      true: {
+        [max950]: {
+          justifyContent: 'flex-end'
+        }
+      }
+    },
+    horizontalRight: {
+      true: {
+        alignItems: 'flex-end'
+      }
+    },
+    horizontalLeft: {
+      true: {
+        alignItems: 'flex-start'
+      }
+    }
   }
 })
 
 export const SectionTitle = styled('div', {
-  fontWeight: '700',
-  fontSize: '80px',
-  lineHeight: '90px',
-  paddingBottom: '12px',
-  '@media (max-width: 950px)': {
-    fontSize: '44px',
-    lineHeight: '56px'
+  fontWeight: 700,
+  fontSize: 46,
+  lineHeight: '50px',
+  paddingBottom: 14,
+  [max950]: {
+    fontSize: 24,
+    lineHeight: '28px',
+    paddingBottom: 15
+  },
+  variants: {
+    sec1: {
+      true: {
+        fontSize: 88,
+        lineHeight: '94px',
+        fontWeight: 400,
+        b: {
+          fontWeight: 700
+        },
+        [max950]: {
+          fontSize: 44,
+          lineHeight: '46px'
+        }
+      }
+    },
+    sec4: {
+      true: {
+        color: theme.colors.white
+      }
+    }
   }
 })
 
 export const SectionComment = styled('div', {
   fontWeight: '450',
-  fontSize: '32px',
-  lineHeight: '47px',
-  maxWidth: 592,
+  fontSize: 18,
+  lineHeight: '28px',
+  maxWidth: 471,
   width: '100%',
   color: theme.colors.typeSecondary,
-  '@media (max-width: 950px)': {
+  [max950]: {
     fontSize: '16px',
     lineHeight: '28px'
   },
-  variants: {
-    sec1commont: {
-      true: {
-        paddingBottom: 120,
-        '@media (max-width: 950px)': {
-          paddingBottom: 120
-        }
-      }
-    },
-    sec2commont: {
-      true: {
-        paddingBottom: 101,
-        '@media (max-width: 950px)': {
-          paddingBottom: 68
-        }
-      }
-    },
-    sec3commont: {
-      true: {
-        paddingBottom: 98,
-        '@media (max-width: 950px)': {
-          paddingBottom: 100
-        }
-      }
-    }
-  }
-})
-
-export const section1ContentCls = css({
-  justifyContent: 'center!important',
-  '@media (max-width: 950px)': {
-    textAlign: 'center',
-    alignItems: 'center'
-  }
-})()
-
-export const JoinButton = styled(Button, {
-  marginTop: 24,
-  width: 392,
-  height: 64,
-  span: {
-    fontSize: '24px'
+  p: {
+    padding: 0,
+    margin: 0
   },
-  '@media (max-width: 950px)': {
-    alignSelf: 'center',
-    width: 236,
-    height: 40,
-    span: {
-      fontSize: '18px'
-    }
+  'p + p': {
+    marginTop: 26
+  },
+  variants: {
+    sec1: {
+      true: {
+        maxWidth: 780,
+        fontSize: 24,
+        lineHeight: '35px'
+      }
+    },
+    sec2: {
+      true: {
+        paddingBottom: 72,
+        [max950]: {
+          paddingBottom: 49
+        }
+      }
+    },
+    sec3: {
+      true: {
+        [max950]: {
+          paddingBottom: 29
+        }
+      }
+    },
+    sec4: {
+      true: {
+        color: theme.colors.white,
+        paddingBottom: 60,
+        [max950]: {
+          paddingBottom: 26
+        }
+      }
+    },
+    sec5: {
+      true: {
+        maxWidth: 712,
+        fontSize: 20,
+        lineHeight: '32px',
+        fontStyle: 'italic',
+        paddingBottom: 60,
+        '.mark': {
+          transform: 'scale(2)',
+          display: 'inline-block',
+          position: 'relative',
+          top: 10
+        },
+        '.begin': {
+          marginRight: '0.75em'
+        },
+        '.end': {
+          marginLeft: '0.75em'
+        },
+        '.main': {
+          fontSize: 20,
+          color: theme.colors.typePrimary
+        },
+        'p + p': {
+          marginTop: 11
+        },
+        [max950]: {
+          paddingBottom: 24,
+          'p + p': {
+            marginTop: 11
+          },
+        }
+      }
+    },
   }
 })
 
 export const LinkList = styled('div', {
   paddingTop: 56,
   display: 'flex',
-  '@media (max-width: 950px)': {
+  [max950]: {
     paddingTop: 30
   }
 })
@@ -235,20 +308,11 @@ export const LinkBlock = styled('a', {
   }
 })
 
-export const sec3style = {
-  alignItems: 'flex-end',
-  textAlign: 'right'
-}
-
-export const sec4style = {
-  color: theme.colors.white
-}
-
 export const Timeline = styled('div', {
   paddingTop: 88,
   margin: '0 auto',
   position: 'relative',
-  '@media (max-width: 950px)': {
+  [max950]: {
     paddingTop: 56
   },
   '&::before': {
@@ -257,7 +321,7 @@ export const Timeline = styled('div', {
     position: 'absolute',
     top: 135,
     height: 'calc(100% - 220px)',
-    '@media (max-width: 950px)': {
+    [max950]: {
       top: 70
     }
   }
@@ -267,7 +331,7 @@ export const TimelineBlock = styled('div', {
   display: 'flex',
   position: 'relative',
   paddingBottom: 56,
-  '@media (max-width: 950px)': {
+  [max950]: {
     flexFlow: 'column',
     padding: '0 0 56px 25px'
   },
@@ -279,7 +343,7 @@ export const TimelineBlock = styled('div', {
 export const TimelineContent = styled('div', {
   width: 396,
   padding: '0 70px 0 66px',
-  '@media (max-width: 950px)': {
+  [max950]: {
     padding: '0 0 24px',
     width: 'unset'
   },
@@ -295,7 +359,7 @@ export const TimelineContent = styled('div', {
     fontSize: 24,
     background: theme.colors.iconPrimary,
     color: theme.colors.white,
-    '@media (max-width: 950px)': {
+    [max950]: {
       height: 24,
       width: 24,
       lineHeight: '24px',
@@ -311,7 +375,7 @@ export const TimelineContent = styled('div', {
     fontSize: '30px',
     lineHeight: '46px',
     color: theme.colors.typeSecondary,
-    '@media (max-width: 950px)': {
+    [max950]: {
       paddingTop: 0,
       fontSize: '22px',
       lineHeight: '32px'
@@ -367,7 +431,7 @@ export const JoinPrivateTitle = styled('div', {
   padding: '35px 0 24px',
   fontSize: '32px',
   lineHeight: '44px',
-  '@media (max-width: 950px)': {
+  [max950]: {
     fontSize: '20px',
     lineHeight: '28px',
     paddingBottom: 12
@@ -380,7 +444,7 @@ export const ContactBtn = styled(Button, {
   span: {
     fontSize: '24px'
   },
-  '@media (max-width: 950px)': {
+  [max950]: {
     width: 113,
     height: 40,
     span: {
@@ -396,7 +460,7 @@ export const Footer = styled('footer', {
   width: '100%',
   margin: '0 auto',
   justifyContent: 'space-around',
-  '@media (max-width: 950px)': {
+  [max950]: {
     flexFlow: 'column nowrap',
     padding: '0 24px',
     flex: 1
@@ -406,7 +470,7 @@ export const Footer = styled('footer', {
 export const FooterBlock = styled('div', {
   width: 172,
 
-  '@media (max-width: 950px)': {
+  [max950]: {
     width: 'unset',
     paddingTop: 68
   },
