@@ -1,4 +1,4 @@
-import { styled, theme, Button, css } from '@brickdoc/design-system'
+import { styled, theme, Button, css } from '@mashcard/design-system'
 
 export const Page = styled('div', {
   background: theme.colors.white,

@@ -102,7 +102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.18.2, @babel/core@npm:^7.7.5":
+"@babel/core@npm:^7.1.0, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.18.5, @babel/core@npm:^7.7.5":
   version: 7.18.5
   resolution: "@babel/core@npm:7.18.5"
   dependencies:
@@ -1632,94 +1632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@brickdoc/active-support@workspace:^, @brickdoc/active-support@workspace:foss/packages/active-support":
-  version: 0.0.0-use.local
-  resolution: "@brickdoc/active-support@workspace:foss/packages/active-support"
-  dependencies:
-    "@lukeed/uuid": ^2.0.0
-    "@types/lodash": ^4.14.182
-    lodash: ^4.17.21
-    moize: ^6.1.1
-    ms: ^3.0.0-canary.1
-    neverthrow: ^4.3.1
-    performant-array-to-tree: ^1.11.0
-  languageName: unknown
-  linkType: soft
-
-"@brickdoc/design-icons@workspace:^, @brickdoc/design-icons@workspace:foss/packages/brickdoc-design-icons":
-  version: 0.0.0-use.local
-  resolution: "@brickdoc/design-icons@workspace:foss/packages/brickdoc-design-icons"
-  dependencies:
-    "@icon-park/compiler": ^1.0.7
-    glob: ^8.0.3
-    mkdirp: ^1.0.4
-  peerDependencies:
-    react: ">= 17.0.2"
-    react-dom: ">= 17.0.2"
-  languageName: unknown
-  linkType: soft
-
-"@brickdoc/design-system@workspace:^, @brickdoc/design-system@workspace:foss/packages/brickdoc-design-system":
-  version: 0.0.0-use.local
-  resolution: "@brickdoc/design-system@workspace:foss/packages/brickdoc-design-system"
-  dependencies:
-    "@babel/core": ^7.18.2
-    "@brickdoc/active-support": "workspace:^"
-    "@brickdoc/design-icons": "workspace:^"
-    "@hookform/resolvers": ^2.9.1
-    "@mui/base": ^5.0.0-alpha.84
-    "@stitches/core": ^1.2.8
-    "@stitches/react": ^1.2.8
-    "@storybook/addon-a11y": ^6.5.8
-    "@storybook/addon-actions": ^6.5.8
-    "@storybook/addon-docs": ^6.5.8
-    "@storybook/addon-essentials": ^6.5.8
-    "@storybook/addon-links": ^6.5.8
-    "@storybook/addons": ^6.5.8
-    "@storybook/builder-webpack5": ^6.5.8
-    "@storybook/manager-webpack5": ^6.5.8
-    "@storybook/react": ^6.5.8
-    "@storybook/testing-react": ^1.3.0
-    "@storybook/theming": ^6.5.8
-    "@types/react-transition-group": ^4.4.4
-    ahooks: ^3.4.1
-    babel-loader: ^8.2.5
-    blurhash: ^1.1.5
-    classnames: ^2.3.1
-    fast-deep-equal: ^3.1.3
-    framer-motion: ^6.3.11
-    i18next: ^21.8.9
-    node-polyfill-webpack-plugin: ^1.1.4
-    polished: ^4.2.2
-    rc-dropdown: ^4.0.1
-    rc-select: ^14.1.5
-    rc-tabs: ^11.16.0
-    rc-trigger: ^5.3.1
-    rc-util: ^5.21.5
-    rc-virtual-list: ^3.4.8
-    react: ^18.1.0
-    react-blurhash: ^0.1.3
-    react-colorful: ^5.5.1
-    react-content-loader: ^6.2.0
-    react-dnd: ^16.0.1
-    react-dnd-html5-backend: ^16.0.1
-    react-dom: ^18.1.0
-    react-hook-form: ^7.32.0
-    react-hot-toast: ^2.2.0
-    react-i18next: ^11.17.1
-    react-json-view: ^1.21.3
-    reakit: ^1.3.11
-    stitches-mixins: ^1.0.0
-    storybook-addon-designs: ^6.2.1
-    swc-loader: ^0.2.3
-  peerDependencies:
-    i18next: ">=21.3.3"
-    react: ">=17.0.2"
-    react-dom: ">=17.0.2"
-    react-i18next: ">=11.12.0"
-  languageName: unknown
-  linkType: soft
-
 "@brickdoc/eslint-plugin@npm:^1.0.2":
   version: 1.0.2
   resolution: "@brickdoc/eslint-plugin@npm:1.0.2"
@@ -1746,9 +1658,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@brickdoc/landing-page@workspace:apps/landing-page"
   dependencies:
-    "@brickdoc/active-support": "workspace:^"
-    "@brickdoc/design-icons": "workspace:^"
-    "@brickdoc/design-system": "workspace:^"
+    "@mashcard/active-support": "workspace:^"
+    "@mashcard/design-icons": "workspace:^"
+    "@mashcard/design-system": "workspace:^"
     "@types/node": 17.0.40
     "@types/react": 18.0.12
     "@types/react-dom": 18.0.5
@@ -2577,6 +2489,101 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mashcard/active-support@workspace:^, @mashcard/active-support@workspace:foss/packages/active-support":
+  version: 0.0.0-use.local
+  resolution: "@mashcard/active-support@workspace:foss/packages/active-support"
+  dependencies:
+    "@lukeed/uuid": ^2.0.0
+    "@types/lodash": ^4.14.182
+    lodash: ^4.17.21
+    moize: ^6.1.1
+    ms: ^3.0.0-canary.1
+    neverthrow: ^4.3.1
+    performant-array-to-tree: ^1.11.0
+  languageName: unknown
+  linkType: soft
+
+"@mashcard/design-icons@workspace:^, @mashcard/design-icons@workspace:foss/packages/design-icons":
+  version: 0.0.0-use.local
+  resolution: "@mashcard/design-icons@workspace:foss/packages/design-icons"
+  dependencies:
+    "@icon-park/compiler": ^1.0.7
+    glob: ^8.0.3
+    mkdirp: ^1.0.4
+  peerDependencies:
+    react: ">= 17.0.2"
+    react-dom: ">= 17.0.2"
+  languageName: unknown
+  linkType: soft
+
+"@mashcard/design-system@workspace:^, @mashcard/design-system@workspace:foss/packages/design-system":
+  version: 0.0.0-use.local
+  resolution: "@mashcard/design-system@workspace:foss/packages/design-system"
+  dependencies:
+    "@babel/core": ^7.18.5
+    "@hookform/resolvers": ^2.9.1
+    "@mashcard/active-support": "workspace:^"
+    "@mashcard/design-icons": "workspace:^"
+    "@mashcard/test-helper": "workspace:^"
+    "@mui/base": ^5.0.0-alpha.86
+    "@stitches/core": ^1.2.8
+    "@stitches/react": ^1.2.8
+    "@storybook/addon-a11y": ^6.5.9
+    "@storybook/addon-actions": ^6.5.9
+    "@storybook/addon-docs": ^6.5.9
+    "@storybook/addon-essentials": ^6.5.9
+    "@storybook/addon-links": ^6.5.9
+    "@storybook/addons": ^6.5.9
+    "@storybook/builder-webpack5": ^6.5.9
+    "@storybook/manager-webpack5": ^6.5.9
+    "@storybook/react": ^6.5.9
+    "@storybook/testing-react": ^1.3.0
+    "@storybook/theming": ^6.5.9
+    "@types/react-transition-group": ^4.4.5
+    ahooks: ^3.5.0
+    babel-loader: ^8.2.5
+    blurhash: ^1.1.5
+    classnames: ^2.3.1
+    fast-deep-equal: ^3.1.3
+    framer-motion: ^6.3.13
+    i18next: ^21.8.10
+    node-polyfill-webpack-plugin: ^1.1.4
+    polished: ^4.2.2
+    rc-dropdown: ^4.0.1
+    rc-select: ^14.1.7
+    rc-tabs: ^11.16.0
+    rc-trigger: ^5.3.1
+    rc-util: ^5.22.4
+    rc-virtual-list: ^3.4.8
+    react: ^18.2.0
+    react-blurhash: ^0.1.3
+    react-colorful: ^5.5.1
+    react-content-loader: ^6.2.0
+    react-dnd: ^16.0.1
+    react-dnd-html5-backend: ^16.0.1
+    react-dom: ^18.2.0
+    react-hook-form: ^7.32.2
+    react-hot-toast: ^2.2.0
+    react-i18next: ^11.17.2
+    react-json-view: ^1.21.3
+    reakit: ^1.3.11
+    stitches-mixins: ^1.0.0
+    storybook-addon-designs: ^6.3.1
+    swc-loader: ^0.2.3
+  peerDependencies:
+    i18next: ">=21.3.3"
+    react: ">=17.0.2"
+    react-dom: ">=17.0.2"
+    react-i18next: ">=11.12.0"
+  languageName: unknown
+  linkType: soft
+
+"@mashcard/test-helper@workspace:^, @mashcard/test-helper@workspace:foss/packages/test-helper":
+  version: 0.0.0-use.local
+  resolution: "@mashcard/test-helper@workspace:foss/packages/test-helper"
+  languageName: unknown
+  linkType: soft
+
 "@mdx-js/mdx@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/mdx@npm:1.6.22"
@@ -2630,9 +2637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/base@npm:^5.0.0-alpha.84":
-  version: 5.0.0-alpha.85
-  resolution: "@mui/base@npm:5.0.0-alpha.85"
+"@mui/base@npm:^5.0.0-alpha.86":
+  version: 5.0.0-alpha.86
+  resolution: "@mui/base@npm:5.0.0-alpha.86"
   dependencies:
     "@babel/runtime": ^7.17.2
     "@emotion/is-prop-valid": ^1.1.2
@@ -2649,7 +2656,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 36970ceeaf95298f28b284632ad4f7fd78da93334f30f93fe789233b64f2745d4af2f51e8bd108e49863b0c70071859d1100eaf902a16cb51f79db731e81600e
+  checksum: fea157d932b7230c155ff2cdce167cfe4763ae819367513db551f2cafda89b627a06701ae963b10b9b6a57242480288830f177bc823973eb79c14f26e4be81b0
   languageName: node
   linkType: hard
 
@@ -2969,7 +2976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-a11y@npm:^6.5.8":
+"@storybook/addon-a11y@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addon-a11y@npm:6.5.9"
   dependencies:
@@ -3001,7 +3008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-actions@npm:6.5.9, @storybook/addon-actions@npm:^6.5.8":
+"@storybook/addon-actions@npm:6.5.9, @storybook/addon-actions@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addon-actions@npm:6.5.9"
   dependencies:
@@ -3093,7 +3100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:6.5.9, @storybook/addon-docs@npm:^6.5.8":
+"@storybook/addon-docs@npm:6.5.9, @storybook/addon-docs@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addon-docs@npm:6.5.9"
   dependencies:
@@ -3140,7 +3147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:^6.5.8":
+"@storybook/addon-essentials@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addon-essentials@npm:6.5.9"
   dependencies:
@@ -3200,7 +3207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^6.5.8":
+"@storybook/addon-links@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addon-links@npm:6.5.9"
   dependencies:
@@ -3328,7 +3335,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addons@npm:6.5.9, @storybook/addons@npm:^6.5.8":
+"@storybook/addons@npm:6.5.9, @storybook/addons@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/addons@npm:6.5.9"
   dependencies:
@@ -3439,7 +3446,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/builder-webpack5@npm:^6.5.8":
+"@storybook/builder-webpack5@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/builder-webpack5@npm:6.5.9"
   dependencies:
@@ -3893,7 +3900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/manager-webpack5@npm:^6.5.8":
+"@storybook/manager-webpack5@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/manager-webpack5@npm:6.5.9"
   dependencies:
@@ -4025,7 +4032,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:^6.5.8":
+"@storybook/react@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/react@npm:6.5.9"
   dependencies:
@@ -4200,7 +4207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/theming@npm:6.5.9, @storybook/theming@npm:^6.5.8":
+"@storybook/theming@npm:6.5.9, @storybook/theming@npm:^6.5.9":
   version: 6.5.9
   resolution: "@storybook/theming@npm:6.5.9"
   dependencies:
@@ -4924,23 +4931,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.4.4":
-  version: 4.4.4
-  resolution: "@types/react-transition-group@npm:4.4.4"
+"@types/react-transition-group@npm:^4.4.5":
+  version: 4.4.5
+  resolution: "@types/react-transition-group@npm:4.4.5"
   dependencies:
     "@types/react": "*"
-  checksum: 86e9ff9731798e12bc2afe0304678918769633b531dcf6397f86af81718fb7930ef8648e894eeb3718fc6eab6eb885cfb9b82a44d1d74e10951ee11ebc4643ae
+  checksum: 265f1c74061556708ffe8d15559e35c60d6c11478c9950d3735575d2c116ca69f461d85effa06d73a613eb8b73c84fd32682feb57cf7c5f9e4284021dbca25b0
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.12, @types/react@npm:^18.0.12":
-  version: 18.0.12
-  resolution: "@types/react@npm:18.0.12"
+"@types/react@npm:^18.0.0":
+  version: 18.0.14
+  resolution: "@types/react@npm:18.0.14"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 526ea13b3adf7fe4b475e55b7426510a7861ef2910664a9014ef42cba0c699d5167dc378eb161e2ec26c07a3b6fde9b6bdcbbb6f4b5580612246bc289395ef03
+  checksum: 608eb57a383eedc54c79949673e5e8314f6b0c61542bff58721c8c47a18c23e2832e77c656050c2c2c004b62cf25582136c7c56fe1b6263a285c065fae31dbcf
   languageName: node
   linkType: hard
 
@@ -5854,9 +5861,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ahooks@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "ahooks@npm:3.4.1"
+"ahooks@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "ahooks@npm:3.5.0"
   dependencies:
     "@types/js-cookie": ^2.x.x
     ahooks-v3-count: ^1.0.0
@@ -5868,7 +5875,7 @@ __metadata:
     screenfull: ^5.0.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: bbc41172536df594377263c2e3afc901f6713e49978be51b32b616fcba1d7f6a36392068e0be1bb545271cc4e7abf55a0e3c30efc20f483185ab584f91ab1bf9
+  checksum: c8a2f059da098bc2f6916ea325b09effd1619b5251fc1cec22d09c935ea6ef1afb7349587b09d6e9653139aae77c8ec6b8e73e7a638f9e27e0c16b6104ea02f2
   languageName: node
   linkType: hard
 
@@ -10451,9 +10458,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^6.3.11":
-  version: 6.3.11
-  resolution: "framer-motion@npm:6.3.11"
+"framer-motion@npm:^6.3.13":
+  version: 6.3.15
+  resolution: "framer-motion@npm:6.3.15"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
@@ -10467,7 +10474,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 2333b296a109ec0ef86421453f66a92b63e07930a491102f1007bbe48f40594d8c51a96ca937f8f3f013ba658147049bf1fa9feebc44487b8e7617bb674fb254
+  checksum: d761745e25c7c81c96e15c73b311afb1b732c31f8deb6dc9f71edff32f4b0495af28580707288ae3827a8c1b2a71e093b7b97746ddf73dc7aaecf5d2a29ce71c
   languageName: node
   linkType: hard
 
@@ -11516,12 +11523,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^21.8.9":
-  version: 21.8.9
-  resolution: "i18next@npm:21.8.9"
+"i18next@npm:^21.8.10":
+  version: 21.8.10
+  resolution: "i18next@npm:21.8.10"
   dependencies:
     "@babel/runtime": ^7.17.2
-  checksum: 4e5303c935ca8402f880a673f56a36038a1effa93ee8b8356ff67c927d5d21ec766b44459e7b95c354b640e685ab3a90ad4ba3bd5fc073d96675c3f9b6765b90
+  checksum: 3cb1f2b0451fb3408edf2ca4d7e43db1dac5e1f1418bf5550835e348cbd398916df09affdb19fdb11d73280051f8b99c361b9b07e5b11fd1ff9d59043bd10c84
   languageName: node
   linkType: hard
 
@@ -16410,9 +16417,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-select@npm:^14.1.5":
-  version: 14.1.5
-  resolution: "rc-select@npm:14.1.5"
+"rc-select@npm:^14.1.7":
+  version: 14.1.7
+  resolution: "rc-select@npm:14.1.7"
   dependencies:
     "@babel/runtime": ^7.10.1
     classnames: 2.x
@@ -16424,7 +16431,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: e93eee363962838e6b0f5606e6a9f439e5e6a03dc7d7917828d0008f77fd8dce2c1aef37c93cffb54b786cdfb227fabd24b483b7fa674b1bb399efb0140c1997
+  checksum: 5574d3a6ace72b21e8876a80eae78b7507b95cb396499865b6e0fedde3f7339a853cc3cdbd07d4148b4db0bcae54bc3b340945e23fe076402cc51abda8037897
   languageName: node
   linkType: hard
 
@@ -16461,7 +16468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-util@npm:^5.12.0, rc-util@npm:^5.15.0, rc-util@npm:^5.16.1, rc-util@npm:^5.17.0, rc-util@npm:^5.19.2, rc-util@npm:^5.21.0, rc-util@npm:^5.21.5, rc-util@npm:^5.3.0, rc-util@npm:^5.5.0":
+"rc-util@npm:^5.12.0, rc-util@npm:^5.15.0, rc-util@npm:^5.16.1, rc-util@npm:^5.17.0, rc-util@npm:^5.19.2, rc-util@npm:^5.21.0, rc-util@npm:^5.3.0, rc-util@npm:^5.5.0":
   version: 5.21.5
   resolution: "rc-util@npm:5.21.5"
   dependencies:
@@ -16472,6 +16479,20 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 39434002f228381b6a6dbb135a1c099b2e5c5f63aba4616cee1ed9b1436cdc8011d78055b06cc169d44b1a79c42d40ecd3d2f6123a61043510aa2a9de48e0e72
+  languageName: node
+  linkType: hard
+
+"rc-util@npm:^5.22.4":
+  version: 5.22.5
+  resolution: "rc-util@npm:5.22.5"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    react-is: ^16.12.0
+    shallowequal: ^1.1.0
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 006c172fdba5de580430ed5b921a098e455d8115d020e801822731a63578749cc7fea70aaab3e40ce5947846b68c814532c924195723042d4ecaa1f19f9508e3
   languageName: node
   linkType: hard
 
@@ -16593,15 +16614,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.1.0, react-dom@npm:^18.1.0":
-  version: 18.1.0
-  resolution: "react-dom@npm:18.1.0"
+"react-dom@npm:^18.0.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
   dependencies:
     loose-envify: ^1.1.0
-    scheduler: ^0.22.0
+    scheduler: ^0.23.0
   peerDependencies:
-    react: ^18.1.0
-  checksum: bb0d48eeb0b297c79c2a03978baa29f5b3ff7ba3d070b21e34c9af1a6e7fdf0ca8b8d73e41f9214d91ad40eeb6d1f3559f884cbbc338713374a51320637c23df
+    react: ^18.2.0
+  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
   languageName: node
   linkType: hard
 
@@ -16630,12 +16651,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.32.0":
-  version: 7.32.1
-  resolution: "react-hook-form@npm:7.32.1"
+"react-hook-form@npm:^7.32.2":
+  version: 7.33.0
+  resolution: "react-hook-form@npm:7.33.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: de318ccb608eb9a4d5475ca7b7069dee16a5c2bc99e12a943e760f6739832305a4d71727a53c9fc47d821aec16615afc8a7ea74d2cc5c9fa88398e320cf9ccce
+  checksum: af64d1eeb4bf46c6fc6f43529fde9eb5992319af0a85814744b14c7dd4d51b1faec8c00c71c273258b6f607f2d0155485ca528fb78c9d2d9e65abcb3274f72c1
   languageName: node
   linkType: hard
 
@@ -16651,9 +16672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^11.17.1":
-  version: 11.17.1
-  resolution: "react-i18next@npm:11.17.1"
+"react-i18next@npm:^11.17.2":
+  version: 11.17.2
+  resolution: "react-i18next@npm:11.17.2"
   dependencies:
     "@babel/runtime": ^7.14.5
     html-escaper: ^2.0.2
@@ -16666,7 +16687,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 7b28776fe2f48c5d5f7cae3db9b2dd8741aedbd39e83a6d456e7d381e3718dee38f4119efe58a0f657cc75a85d18b1ada8b07dbe2515249946e1928ed92058e8
+  checksum: 9318b3c6ee669f73199b212bd1168004c30bb4de9fac43507ff284593661f988dff1f66bf510e3b7468f0d626c5984169da83b7974dbff44bd728921f8286267
   languageName: node
   linkType: hard
 
@@ -16773,12 +16794,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.1.0, react@npm:^18.1.0":
-  version: 18.1.0
-  resolution: "react@npm:18.1.0"
+"react@npm:^18.0.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: 5bb296b561b43ef2220395da4faac86c14a087c8c80e1a7598a5740f01ee605c11eaf249985c1e2000971c4cd32ccb46d40f00479bbd9fb6b1c7cf857393b7d4
+  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
   languageName: node
   linkType: hard
 
@@ -17541,12 +17562,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.22.0":
-  version: 0.22.0
-  resolution: "scheduler@npm:0.22.0"
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: a8ef5cab769c020cd6382ad9ecc3f72dbde56a50a36639b3a42ad9c11f7724f03700bcad373044059b8067d4a6365154dc7c0ca8027ef20ff4900cf58a0fc2c5
+  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
   languageName: node
   linkType: hard
 
@@ -18235,7 +18256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-designs@npm:^6.2.1":
+"storybook-addon-designs@npm:^6.3.1":
   version: 6.3.1
   resolution: "storybook-addon-designs@npm:6.3.1"
   dependencies:

@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import 'swiper/css'
-import { Icon, theme } from '@brickdoc/design-system'
+import { Icon, theme } from '@mashcard/design-system'
 import {
   ContentSection,
   SectionTitle,
@@ -26,7 +26,7 @@ import {
   ActiveBgWrapper
 } from '../styles/home.style'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { debounce } from '@brickdoc/active-support'
+import { debounce } from '@mashcard/active-support'
 
 const block1bg = 'url(/home/block1.png)'
 const block2bg = 'url(/home/block2.png)'
@@ -70,7 +70,12 @@ const Home: NextPage = () => {
   }, [setIsEnd])
   const style = useMemo(() => {
     // eslint-disable-next-line
-    const variables: React.CSSProperties = { '--extra-margin': `${extraMargin}px`, '--scroll-align': isEnd ? 'none' : 'start end' }
+    // @ts-ignore-start
+    const variables: React.CSSProperties = {
+      '--extra-margin': `${extraMargin}px`,
+      '--scroll-align': isEnd ? 'none' : 'start end'
+    }
+    // @ts-ignore-end
     return variables
   }, [isEnd, extraMargin])
   return (
@@ -97,7 +102,8 @@ const Home: NextPage = () => {
                   href="https://github.com/mashcard/mashcard"
                   data-icon="octicon-star"
                   data-show-count="true"
-                  aria-label="Star mashcard/mashcard on GitHub">
+                  aria-label="Star mashcard/mashcard on GitHub"
+                >
                   Star
                 </a>
               )}
@@ -136,7 +142,8 @@ const Home: NextPage = () => {
           fullpage
           style={{
             backgroundImage: block4bg
-          }}>
+          }}
+        >
           <ContentWrapper css={sec4style}>
             <SectionTitle>Transfer of Rights</SectionTitle>
             <SectionComment sec3commont>
