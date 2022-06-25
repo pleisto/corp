@@ -85,7 +85,6 @@ export const ContentSection = styled('div', {
   variants: {
     fullpage: {
       true: {
-        scrollSnapAlign: 'var(--scroll-align)',
         height: '100vh'
       }
     }

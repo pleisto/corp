@@ -69,13 +69,10 @@ const Home: NextPage = () => {
     window.addEventListener('scroll', scrollPlay)
   }, [setIsEnd])
   const style = useMemo(() => {
-    // eslint-disable-next-line
-    // @ts-ignore-start
     const variables: React.CSSProperties = {
       '--extra-margin': `${extraMargin}px`,
       '--scroll-align': isEnd ? 'none' : 'start end'
     }
-    // @ts-ignore-end
     return variables
   }, [isEnd, extraMargin])
   return (
