@@ -30,7 +30,11 @@ const block3bg = 'url(/home/block3.png)'
 const block4bg = 'url(/home/block4.png)'
 const block5bg = 'url(/home/block5.png)'
 
-const getExtraMargin = (width: number) => (width + 8) % 60
+const getExtraMargin = (width: number) => {
+  const columnNums = ~~((width + 8) / 60)
+  const extraWidth = width - columnNums * 52 - (columnNums - 1) * 8
+  return extraWidth / 2
+}
 
 const end = 0.1
 
@@ -169,12 +173,12 @@ const Home: NextPage = () => {
           }}>
           <ContentWrapper>
             <SectionComment sec5>
-              <p className='main'>
+              <p className="main">
                 <span className="mark begin">“</span>
                 {`A tool that can augment human intelligence should accumulate structured and unstructured information in a single place and have instruments to collaboratively create, mix, connect, visualize and retrieve information. `}
                 <span className="mark end">”</span>
               </p>
-              <p>-  By : Michael Dubakov</p>
+              <p>- By : Michael Dubakov</p>
             </SectionComment>
           </ContentWrapper>
         </ContentSection>
@@ -242,7 +246,7 @@ const Home: NextPage = () => {
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.`}
               </div>
-              <div className="status-tag">Coming soon</div>
+              <div className="status-tag coming">Coming soon</div>
             </TimelineContent>
             <Image width="770" height="480" src="/home/s4.png" alt="Low code" />
           </TimelineBlock>
@@ -253,16 +257,18 @@ const Home: NextPage = () => {
               </div>
               <div className="title">2022 Q4</div>
               <div className="sub-title">To be continued</div>
-              <div className="status-tag coming">Coming soon</div>
             </TimelineContent>
           </TimelineBlock>
         </Timeline>
       </ContentWrapper>
 
-      <JoinBlock>
-        <JoinPrivateTitle>Apply to join our Private </JoinPrivateTitle>
-        <ContactBtn type="primary">Contact Us</ContactBtn>
-      </JoinBlock>
+      <ContentWrapper doublePadding>
+        <JoinBlock>
+          <JoinPrivateTitle>Apply to join our Private </JoinPrivateTitle>
+          <ContactBtn type="primary">Join the Wait List</ContactBtn>
+        </JoinBlock>
+      </ContentWrapper>
+
       <ContentSection style={{ background: theme.colors.backgroundPrimary.value }}>
         <Footer>
           <FooterBlock>
