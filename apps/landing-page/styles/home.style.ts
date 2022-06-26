@@ -1,41 +1,61 @@
-import { styled, theme, Button, css } from '@mashcard/design-system'
+import { styled, keyframes, theme, Button } from '@mashcard/design-system'
 
-const max950 = '@media (max-width: 950px)'
+const phone = '@media (max-width: 950px)'
+const pad = '@media (min-device-width: 951px) and (max-device-width: 1200px)'
+
+const pcPadding = 120
+const padPadding = 60
+const phonePadding = 24
+
+export const SectionTitleWrapper = styled('div', {
+  overflow: 'hidden'
+})
 
 export const Page = styled('div', {
   background: theme.colors.white,
-  boxSize: 'border-box'
+  boxSize: 'border-box',
+
+  '.swiper': {
+    width: '100%',
+    height: '100vh'
+  },
+
+  '.swiper-slide': {
+    height: '100vh',
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    color: theme.colors.black,
+    fontFamily: '"42sans"'
+  }
 })
 
 export const ActiveBgWrapper = styled('div', {
   position: 'relative',
   '.active-bg': {
-    position: 'fixed',
+    position: 'sticky',
+    top: 0,
     bottom: 0,
     height: '100vh',
     width: '100%',
-    objectFit: 'cover'
-  },
-  variants: {
-    end: {
-      true: {
-        '.active-bg': {
-          position: 'absolute'
-        }
-      }
-    }
+    objectFit: 'cover',
   }
 })
 
 export const SectionLogoWrapper = styled('div', {
   position: 'absolute',
   top: 40,
-  left: 60,
+  left: pcPadding,
   width: 138,
   height: 32,
-  [max950]: {
+  [pad]: {
+    left: padPadding
+  },
+  [phone]: {
     top: 16,
-    left: 24,
+    left: phonePadding,
     width: 99,
     height: 24
   }
@@ -44,12 +64,15 @@ export const SectionLogoWrapper = styled('div', {
 export const SnsLinkWrapper = styled('div', {
   position: 'absolute',
   top: 46,
-  right: 60,
+  right: pcPadding,
   display: 'flex',
   a: {
     color: 'transparent'
   },
-  [max950]: {
+  [pad]: {
+    right: padPadding
+  },
+  [phone]: {
     top: 18,
     right: 24
   }
@@ -61,7 +84,7 @@ export const SnsLink = styled('a', {
   marginLeft: 24,
   fontSize: '22px',
   color: theme.colors.typePrimary,
-  [max950]: {
+  [phone]: {
     lineHeight: '32px',
     fontSize: '16px',
     left: 24
@@ -69,7 +92,7 @@ export const SnsLink = styled('a', {
   '.brd-icon': {
     marginLeft: 4,
     fontSize: 18,
-    [max950]: {
+    [phone]: {
       marginLeft: 14,
       fontSize: '12px'
     }
@@ -80,38 +103,21 @@ export const SnsLink = styled('a', {
   }
 })
 
-export const ContentSection = styled('div', {
-  height: '100%',
-  width: '100%',
-  zIndex: -1,
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  variants: {
-    fullpage: {
-      true: {
-        height: '100vh'
-      }
-    }
-  }
-  // '@media (min-width: 950px)': {
-  //   background: 'transparent',
-  //   backgroundImage: 'unset!important'
-  // }
-})
-
 export const ContentWrapper = styled('div', {
   position: 'relative',
   height: '100%',
   margin: '0 var(--extra-margin)',
-  padding: '0 60px',
+  padding: `0 ${pcPadding}px`,
   display: 'flex',
   flexFlow: 'column nowrap',
   alignItems: 'flex-start',
   justifyContent: 'flex-end',
-  [max950]: {
+  [phone]: {
     margin: 0,
     padding: '0 24px'
+  },
+  [pad]: {
+    padding: `0 ${padPadding}px`
   },
   variants: {
     verticalCenter: {
@@ -119,11 +125,9 @@ export const ContentWrapper = styled('div', {
         justifyContent: 'center'
       }
     },
-    verticalBottomMobile: {
+    verticalBottom: {
       true: {
-        [max950]: {
-          justifyContent: 'flex-end'
-        }
+        justifyContent: 'flex-end'
       }
     },
     horizontalRight: {
@@ -135,6 +139,24 @@ export const ContentWrapper = styled('div', {
       true: {
         alignItems: 'flex-start'
       }
+    },
+    horizontalLeftMobile: {
+      true: {
+        [phone]: {
+          alignItems: 'flex-start'
+        },
+      }
+    },
+    doublePadding: {
+      true: {
+        pad: `0 ${padPadding * 2}px`,
+        [phone]: {
+          justifyContent: `0 ${padPadding * 2}px`
+        },
+        [phone]: {
+          padding: '0 24px'
+        }
+      }
     }
   }
 })
@@ -144,7 +166,8 @@ export const SectionTitle = styled('div', {
   fontSize: 46,
   lineHeight: '50px',
   paddingBottom: 14,
-  [max950]: {
+  transform: 'translateY(100%)',
+  [phone]: {
     fontSize: 24,
     lineHeight: '28px',
     paddingBottom: 15
@@ -158,9 +181,17 @@ export const SectionTitle = styled('div', {
         b: {
           fontWeight: 700
         },
-        [max950]: {
+        [phone]: {
           fontSize: 44,
           lineHeight: '46px'
+        }
+      }
+    },
+    sec3: {
+      true: {
+        width: 471,
+        [phone]: {
+          width: 'unset'
         }
       }
     },
@@ -173,13 +204,14 @@ export const SectionTitle = styled('div', {
 })
 
 export const SectionComment = styled('div', {
-  fontWeight: '450',
+  fontWeight: 400,
   fontSize: 18,
   lineHeight: '28px',
   maxWidth: 471,
   width: '100%',
   color: theme.colors.typeSecondary,
-  [max950]: {
+  opacity: 0,
+  [phone]: {
     fontSize: '16px',
     lineHeight: '28px'
   },
@@ -201,14 +233,14 @@ export const SectionComment = styled('div', {
     sec2: {
       true: {
         paddingBottom: 72,
-        [max950]: {
+        [phone]: {
           paddingBottom: 49
         }
       }
     },
     sec3: {
       true: {
-        [max950]: {
+        [phone]: {
           paddingBottom: 29
         }
       }
@@ -217,7 +249,7 @@ export const SectionComment = styled('div', {
       true: {
         color: theme.colors.white,
         paddingBottom: 60,
-        [max950]: {
+        [phone]: {
           paddingBottom: 26
         }
       }
@@ -248,21 +280,50 @@ export const SectionComment = styled('div', {
         'p + p': {
           marginTop: 11
         },
-        [max950]: {
+        [phone]: {
           paddingBottom: 24,
           'p + p': {
             marginTop: 11
-          },
+          }
         }
       }
+    }
+  }
+})
+
+export const ContentSection = styled('div', {
+  height: '100%',
+  width: '100%',
+
+  variants: {
+    fullpage: {
+      true: {
+        height: '100vh',
+        position: 'sticky',
+        bottom: 0,
+      }
     },
+    active: {
+      true: {
+        [SectionComment.toString()]: {
+          transition: 'opacity 2s cubic-bezier(0.33, 0.0, 0.2, 1.0)',
+          opacity: 1,
+          display: 'block',
+        },
+        [SectionTitle.toString()]: {
+          transition: 'transform 0.6s 0.2s',
+          transform: 'translateY(0%)',
+          display: 'block',
+        }
+      }
+    }
   }
 })
 
 export const LinkList = styled('div', {
   paddingTop: 56,
   display: 'flex',
-  [max950]: {
+  [phone]: {
     paddingTop: 30
   }
 })
@@ -309,20 +370,41 @@ export const LinkBlock = styled('a', {
 })
 
 export const Timeline = styled('div', {
-  paddingTop: 88,
+  paddingTop: 56,
   margin: '0 auto',
   position: 'relative',
-  [max950]: {
+  [phone]: {
     paddingTop: 56
+  },
+  '.time-stikcy-wrapper': {
+    position: 'absolute',
+    top: 0,
+    left: '66px',
+    height: 'calc(100% - 330px)',
+    color: theme.colors.typeSecondary,
+    zIndex: 1,
+    [phone]: {
+      display: 'none'
+    },
+    '.time-stikcy': {
+      position: 'sticky',
+      top: 0,
+      fontWeight: '600',
+      fontSize: '32px',
+      lineHeight: '52px',
+      width: 260,
+      background: 'linear-gradient(180deg, #ffff 0%, #fffe 50%, #fff0)'
+    }
   },
   '&::before': {
     content: '',
     borderLeft: '1px dashed #ccc',
     position: 'absolute',
     top: 135,
-    height: 'calc(100% - 220px)',
-    [max950]: {
-      top: 70
+    height: 'calc(100% - 520px)',
+    [phone]: {
+      top: 110,
+      height: 'calc(100% - 160px)'
     }
   }
 })
@@ -331,9 +413,14 @@ export const TimelineBlock = styled('div', {
   display: 'flex',
   position: 'relative',
   paddingBottom: 56,
-  [max950]: {
+  height: 452,
+  [phone]: {
+    height: 'unset',
     flexFlow: 'column',
-    padding: '0 0 56px 25px'
+    padding: '0 0 56px 25px',
+    '&:last-child': {
+      paddingBottom: 22
+    }
   },
   img: {
     borderRadius: 16
@@ -342,24 +429,46 @@ export const TimelineBlock = styled('div', {
 
 export const TimelineContent = styled('div', {
   width: 396,
-  padding: '0 70px 0 66px',
-  [max950]: {
-    padding: '0 0 24px',
-    width: 'unset'
+  flexShrink: 0,
+  padding: '52px 70px 0 66px',
+  height: 'fit-content',
+  position: 'sticky',
+  top: 0,
+  bottom: 0,
+  variants: {
+    hideInPC: {
+      true: {
+        '.title': {
+          display: 'none',
+          [phone]: {
+            display: 'unset'
+          }
+        }
+      }
+    }
+  },
+
+  [phone]: {
+    padding: '0 0',
+    width: 'unset',
+    position: 'unset'
   },
   '.func-icon': {
-    height: 52,
-    width: 52,
-    borderRadius: 52,
-    lineHeight: '56px',
+    height: 32,
+    width: 32,
+    borderRadius: 32,
+    lineHeight: '32px',
     textAlign: 'center',
     position: 'absolute',
-    left: -25,
-    top: 32,
-    fontSize: 24,
+    left: -15,
+    top: 52,
+    fontSize: 20,
     background: theme.colors.iconPrimary,
     color: theme.colors.white,
-    [max950]: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [phone]: {
       height: 24,
       width: 24,
       lineHeight: '24px',
@@ -370,27 +479,41 @@ export const TimelineContent = styled('div', {
     }
   },
   '.title': {
-    paddingTop: 36,
     fontWeight: '600',
-    fontSize: '30px',
-    lineHeight: '46px',
+    fontSize: '32px',
+    lineHeight: '52px',
     color: theme.colors.typeSecondary,
-    [max950]: {
+    position: 'absolute',
+    top: 0,
+    [phone]: {
       paddingTop: 0,
+      paddingBottom: 2,
       fontSize: '22px',
-      lineHeight: '32px'
+      lineHeight: '32px',
+      top: -34
     }
   },
-  'sub-title': {
-    paddingTop: 8,
-    fontWeight: 600,
-    fontSize: '22px',
-    lineHeight: '30px',
-    color: theme.colors.typePrimary
+  '.sub-title': {
+    fontSize: '18px',
+    lineHeight: '36px',
+    color: theme.colors.typePrimary,
+    fontWeight: 700
+  },
+  '.continued-title': {
+    fontWeight: '600',
+    fontSize: '32px',
+    lineHeight: '52px',
+    color: theme.colors.typeSecondary,
+    transform: 'translateY(-10px)',
+    [phone]: {
+      fontSize: '22px',
+      lineHeight: '32px',
+      transform: 'translateY(0)'
+    }
   },
   '.detail': {
     fontWeight: '450',
-    fontSize: '16px',
+    fontSize: '18px',
     lineHeight: '28px',
     color: theme.colors.typeSecondary
   },
@@ -404,6 +527,9 @@ export const TimelineContent = styled('div', {
     color: theme.colors.green8,
     fontWeight: '600',
     fontSize: '16px',
+    [phone]: {
+      marginBottom: 24
+    },
 
     '&.coming': {
       background: theme.colors.blue2,
@@ -416,37 +542,31 @@ export const JoinBlock = styled('div', {
   textAlign: 'center',
   position: 'relative',
   paddingBottom: 36,
-  '&::before': {
-    content: '',
-    display: 'block',
-    borderTop: `1px solid ${theme.colors.dividerPrimary}`,
-    position: 'absolute',
-    top: 0,
-    left: 24,
-    width: 'calc(100% - 48px)'
-  }
+  width: '100%',
+  borderTop: `1px solid ${theme.colors.dividerPrimary}`
 })
 
 export const JoinPrivateTitle = styled('div', {
-  padding: '35px 0 24px',
-  fontSize: '32px',
-  lineHeight: '44px',
-  [max950]: {
-    fontSize: '20px',
-    lineHeight: '28px',
-    paddingBottom: 12
+  padding: '40px 0',
+  fontSize: '46px',
+  lineHeight: '50px',
+  fontWeight: 700,
+  [phone]: {
+    padding: '35px 0',
+    fontSize: '26px',
+    lineHeight: '28px'
   }
 })
 
 export const ContactBtn = styled(Button, {
-  width: 155,
-  height: 52,
+  width: 171,
+  height: 40,
   span: {
-    fontSize: '24px'
+    fontSize: '18px'
   },
-  [max950]: {
-    width: 113,
-    height: 40,
+  [phone]: {
+    width: 155,
+    height: 32,
     span: {
       fontSize: '16px'
     }
@@ -454,25 +574,31 @@ export const ContactBtn = styled(Button, {
 })
 
 export const Footer = styled('footer', {
-  padding: '66px 0 136px',
+  padding: '88px 0 120px',
   display: 'flex',
   maxWidth: 892,
   width: '100%',
   margin: '0 auto',
   justifyContent: 'space-around',
-  [max950]: {
+  [phone]: {
     flexFlow: 'column nowrap',
-    padding: '0 24px',
+    padding: '44px 24px 0',
     flex: 1
   }
 })
 
 export const FooterBlock = styled('div', {
   width: 172,
+  marginRight: 68,
 
-  [max950]: {
+  '&:last-child': {
+    marginRight: 0
+  },
+
+  [phone]: {
     width: 'unset',
-    paddingTop: 68
+    marginRight: 0,
+    paddingBottom: 24
   },
 
   '.desc': {
@@ -484,7 +610,7 @@ export const FooterBlock = styled('div', {
 
   '.copy': {
     fontWeight: '450',
-    fontSize: '16px',
+    fontSize: '14px',
     lineHeight: '28px',
     color: theme.colors.typeSecondary
   },
@@ -493,23 +619,26 @@ export const FooterBlock = styled('div', {
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '28px',
-    paddingBottom: 16
+    paddingBottom: 20
   },
 
   '.link-list': {
     fontWeight: '450',
-    paddingBottom: 36,
     display: 'flex',
     flexFlow: 'column nowrap',
+    [phone]: {
+      paddingBottom: 36
+    },
     a: {
       display: 'flex',
       alignItems: 'center',
       fontSize: '14px',
-      lineHeight: '34px',
+      lineHeight: '24px',
       color: theme.colors.typePrimary,
-      '.brd-icon': {
+      '.mc-icon': {
         fontSize: '16px',
-        marginRight: 4
+        marginRight: 4,
+        color: theme.colors.iconThirdary
       },
       '.text-offset': {
         marginLeft: 4
@@ -526,6 +655,73 @@ export const FooterBlock = styled('div', {
         backdropFilter: 'blur(16px)',
         borderRadius: '2px'
       }
+    },
+    'a + a': {
+      marginTop: 10
+    },
+
+    '&.width': {
+      'a + a': {
+        marginTop: 24,
+        [phone]: {
+          marginTop: 16
+        }
+      }
     }
+  }
+})
+
+export const IntegrationList = styled('div', {
+  paddingTop: 87,
+  paddingBottom: 8,
+  display: 'flex',
+  justifyContent:' space-between',
+  [phone]: {
+    display: 'none',
+  },
+  '.icon-wrapper': {
+    height: 39,
+    width: 39,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '0.2px solid #F0F0F0',
+    boxShadow: ' 0px 2px 4px rgba(44, 91, 255, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.04)',
+    borderRadius: 4,
+    background: 'linear-gradient(0deg, rgba(251, 251, 251, 0.38), rgba(251, 251, 251, 0.38))'
+  },
+
+})
+
+export const IntegrationListMobile = styled('div', {
+  paddingTop: 24,
+  paddingBottom: 8,
+  display: 'none',
+  justifyContent:' space-between',
+  [phone]: {
+    display: 'flex',
+    
+  },
+  '.icon-wrapper': {
+    height: 23,
+    width: 23,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '0.2px solid #F0F0F0',
+    boxShadow: ' 0px 2px 4px rgba(44, 91, 255, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.04)',
+    borderRadius: 4,
+    background: 'linear-gradient(0deg, rgba(251, 251, 251, 0.38), rgba(251, 251, 251, 0.38))'
+  },
+})
+
+export const IntegrationListInfo = styled('div', {
+  fontWeight: '450',
+  fontSize: '15px',
+  lineHeight: '30px',
+  color: theme.colors.grey6,
+  paddingBottom: 148,
+  [phone]: {
+    paddingBottom: 0
   }
 })
