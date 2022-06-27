@@ -12,24 +12,56 @@ export const Page = styled('div', {
   boxSize: 'border-box'
 })
 
-export const ActiveBgWrapper = styled('div', {
-  position: 'relative',
-  '.active-bg': {
-    position: 'fixed',
-    bottom: 0,
-    height: '100vh',
+export const SectionWrapper = styled('div', {
+  margin: '80px 0 23px',
+  overflow: 'hidden'
+})
+
+export const FullPageScrollContainer = styled('div',{
+  position: 'relative'
+})
+
+export const NormalScrollContainer = styled('div',{
+  overflowY:'hidden',
+  overflowX:'hidden'
+})
+
+export const MainContainer = styled('div',{
+  height: '100vh',
+  overflowY: 'scroll'
+})
+
+export const SwiperContainer = styled('div', {
+  height: '100vh',
+
+  '.swiper': {
     width: '100%',
-    objectFit: 'cover'
+    height: '100%'
   },
-  variants: {
-    end: {
-      true: {
-        '.active-bg': {
-          position: 'absolute'
-        }
-      }
-    }
+
+  '.swiper-slide': {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    color: theme.colors.black,
+    textAlign: 'left',
+    fontFamily: '"42sans"'
   }
+})
+
+export const ScrollerWrapper = styled('div', {
+
+})
+
+export const BgWrapper = styled('video', {
+  position: 'fixed',
+  bottom: 0,
+  height: '100vh',
+  width: '100%',
+  objectFit: 'cover',
+  zIndex: '0'
 })
 
 export const SectionLogoWrapper = styled('div', {
@@ -39,7 +71,7 @@ export const SectionLogoWrapper = styled('div', {
   width: 138,
   height: 32,
   [pad]: {
-    left: padPadding,
+    left: padPadding
   },
   [phone]: {
     top: 16,
@@ -58,7 +90,7 @@ export const SnsLinkWrapper = styled('div', {
     color: 'transparent'
   },
   [pad]: {
-    right: padPadding,
+    right: padPadding
   },
   [phone]: {
     top: 18,
@@ -121,7 +153,7 @@ export const ContentWrapper = styled('div', {
     padding: '0 24px'
   },
   [pad]: {
-    padding: `0 ${padPadding}px`,
+    padding: `0 ${padPadding}px`
   },
   variants: {
     verticalCenter: {
@@ -150,11 +182,11 @@ export const ContentWrapper = styled('div', {
       true: {
         pad: `0 ${padPadding * 2}px`,
         [phone]: {
-          justifyContent: `0 ${padPadding * 2}px`,
+          justifyContent: `0 ${padPadding * 2}px`
         },
         [phone]: {
           padding: '0 24px'
-        },
+        }
       }
     }
   }
@@ -273,10 +305,10 @@ export const SectionComment = styled('div', {
           paddingBottom: 24,
           'p + p': {
             marginTop: 11
-          },
+          }
         }
       }
-    },
+    }
   }
 })
 
@@ -449,7 +481,7 @@ export const JoinPrivateTitle = styled('div', {
   [phone]: {
     padding: '35px 0',
     fontSize: '26px',
-    lineHeight: '28px',
+    lineHeight: '28px'
   }
 })
 
