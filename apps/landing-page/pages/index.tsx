@@ -34,19 +34,30 @@ const getExtraMargin = (width: number) => {
 }
 
 const stopframes = [0, 23, 54, 72, 107, 135]
-const videoIncrementSpeed = 16 // time per frame in ms(video) 1000/42 = 24fps;
-const videoDecrecementSpeed = 16 // time per frame in ms(video) 1000/42 = 24fps;
+const videoIncrementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
+const videoDecrecementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
 
 const Home = () => {
   const ref = useRef<null | HTMLVideoElement>(null)
   const [extraMargin, setMargin] = useState(0)
-  const [animationPage, setPage] = useState(-1)
+  const [animationPage, setPage] = useState(0)
   const [hidePage, setHidePage] = useState(-1)
   const [isScriptEnable, setScriptEnable] = useState(false)
   useEffect(() => {
     setScriptEnable(true)
     setMargin(getExtraMargin(window.innerWidth))
-    setPage(0)
+    if (ref.current) {
+      console.log(ref.current)
+      ref.current.play()
+      setTimeout(() => {
+        setPage(0)
+        setHidePage(-1)
+        if (ref.current) {
+          ref.current.pause()
+          ref.current.currentTime = stopframes[1]/24
+        }
+      }, stopframes[1]/24*1000);
+    }
   }, [])
   const videoPlay = (prevPage: number, currentPage: number) => {
     if (!ref.current) {
@@ -171,9 +182,9 @@ const Home = () => {
 
           <SwiperSlide>
             <ContentSection fullpage active={animationPage === 2} hide={hidePage === 2}>
-              <ContentWrapper verticalCenter verticalBottomMobile>
+              <ContentWrapper verticalCenter horizontalRight verticalBottomMobile>
                 <SectionTitleWrapper>
-                  <SectionTitle>Integrate everything</SectionTitle>
+                  <SectionTitle sec3>Integrate everything</SectionTitle>
                 </SectionTitleWrapper>
                 <SectionComment sec3>
                   {`With the exponential rate that SaaS is eating the world, RPA and automated workflows are not able to

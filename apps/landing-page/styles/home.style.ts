@@ -8,7 +8,7 @@ const padPadding = 60
 const phonePadding = 24
 
 const slideOut = keyframes({
-  '0%': { transform: 'translateY(-100%)' },
+  '0%': { transform: 'translateY(100%)' },
   '100%': { transform: 'translateY(0%)' }
 })
 
@@ -137,6 +137,7 @@ export const ContentWrapper = styled('div', {
     verticalBottomMobile: {
       true: {
         [phone]: {
+          alignItems: 'flex-start',
           justifyContent: 'flex-end'
         }
       }
@@ -187,6 +188,14 @@ export const SectionTitle = styled('div', {
         [phone]: {
           fontSize: 44,
           lineHeight: '46px'
+        }
+      }
+    },
+    sec3: {
+      true: {
+        width: 471,
+        [phone]: {
+          width: 'unset'
         }
       }
     },
