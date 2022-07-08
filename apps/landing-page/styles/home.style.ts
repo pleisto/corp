@@ -393,6 +393,7 @@ export const Timeline = styled('div', {
     height: 'calc(100% - 370px)',
     color: theme.colors.typeSecondary,
     zIndex: 1,
+    display: 'none',
     [phone]: {
       display: 'none'
     },
@@ -450,7 +451,7 @@ export const TimelineContent = styled('div', {
     hideInPC: {
       true: {
         '.title': {
-          opacity: 0,
+          // opacity: 0,
           [phone]: {
             opacity: 1
           }

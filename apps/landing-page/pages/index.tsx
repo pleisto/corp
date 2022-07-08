@@ -261,10 +261,11 @@ const Home = () => {
               <Image width="770" height="480" src="/home/s1.png" alt="FORMULA" />
             </TimelineBlock>
             <TimelineBlock>
-              <TimelineContent>
+              <TimelineContent hideInPC>
                 <div className="func-icon">
                   <Icon.Search />
                 </div>
+                <div className="title">Q3 2022</div>
                 <div className="sub-title">Smart Search</div>
                 <div className="detail">
                   {`The structuring of data within documents can be realized more flexibly through Turing's Excel
@@ -276,10 +277,11 @@ const Home = () => {
               <Image width="770" height="480" src="/home/s2.png" alt="Smart Search" />
             </TimelineBlock>
             <TimelineBlock>
-              <TimelineContent>
+              <TimelineContent hideInPC>
                 <div className="func-icon">
                   <Icon.Explore />
                 </div>
+                <div className="title">Q3 2022</div>
                 <div className="sub-title">Plug Store</div>
                 <div className="detail">
                   {`The structuring of data within documents can be realized more flexibly through Turing's Excel
