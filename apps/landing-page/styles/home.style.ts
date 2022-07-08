@@ -386,6 +386,27 @@ export const Timeline = styled('div', {
   [phone]: {
     paddingTop: 56
   },
+  '.time-stikcy-wrapper': {
+    position: 'absolute',
+    top: 57,
+    left: '66px',
+    height: 'calc(100% - 370px)',
+    color: theme.colors.typeSecondary,
+    zIndex: 1,
+    [phone]: {
+      display: 'none'
+    },
+    '.time-stikcy': {
+      position: 'sticky',
+      top: '0',
+      fontWeight: '600',
+      fontSize: '32px',
+      lineHeight: '52px',
+      width: 260,
+      background: 'linear-gradient(180deg, #ffff 0%, #fffe 50%, #fff0)',
+      paddingTop: 23,
+    }
+  },
   '&::before': {
     content: '',
     borderLeft: '1px dashed #ccc',
@@ -394,7 +415,7 @@ export const Timeline = styled('div', {
     height: 'calc(100% - 250px)',
     [phone]: {
       top: 70,
-      height: 'calc(100% - 215px)',
+      height: 'calc(100% - 215px)'
     }
   }
 })
@@ -403,7 +424,9 @@ export const TimelineBlock = styled('div', {
   display: 'flex',
   position: 'relative',
   paddingBottom: 56,
+  height: 452,
   [phone]: {
+    width: 'unset',
     flexFlow: 'column',
     padding: '0 0 56px 25px',
     '&:last-child': {
@@ -417,15 +440,29 @@ export const TimelineBlock = styled('div', {
 
 export const TimelineContent = styled('div', {
   width: 396,
+  flexShrink: 0,
   padding: '80px 70px 0 66px',
   height: 'fit-content',
   position: 'sticky',
   top: 0,
   bottom: 0,
+  variants: {
+    hideInPC: {
+      true: {
+        '.title': {
+          opacity: 0,
+          [phone]: {
+            opacity: 1
+          }
+        }
+      }
+    }
+  },
+
   [phone]: {
     padding: '0 0',
     width: 'unset',
-    position: 'unset',
+    position: 'unset'
   },
   '.func-icon': {
     height: 52,
@@ -458,7 +495,7 @@ export const TimelineContent = styled('div', {
       paddingTop: 0,
       paddingBottom: 2,
       fontSize: '22px',
-      lineHeight: '32px',
+      lineHeight: '32px'
     }
   },
   '.sub-title': {
@@ -583,7 +620,7 @@ export const FooterBlock = styled('div', {
     display: 'flex',
     flexFlow: 'column nowrap',
     [phone]: {
-      paddingBottom: 36,
+      paddingBottom: 36
     },
     a: {
       display: 'flex',
@@ -594,7 +631,7 @@ export const FooterBlock = styled('div', {
       '.mc-icon': {
         fontSize: '16px',
         marginRight: 4,
-        color: theme.colors.iconThirdary,
+        color: theme.colors.iconThirdary
       },
       '.text-offset': {
         marginLeft: 4
@@ -621,8 +658,8 @@ export const FooterBlock = styled('div', {
         marginTop: 24,
         [phone]: {
           marginTop: 16
-        },
-      },
+        }
+      }
     }
   }
 })

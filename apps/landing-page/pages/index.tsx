@@ -54,9 +54,9 @@ const Home = () => {
         setHidePage(-1)
         if (ref.current) {
           ref.current.pause()
-          ref.current.currentTime = stopframes[1]/24
+          ref.current.currentTime = stopframes[1] / 24
         }
-      }, stopframes[1]/24*1000);
+      }, (stopframes[1] / 24) * 1000)
     }
   }, [])
   const videoPlay = (prevPage: number, currentPage: number) => {
@@ -238,52 +238,60 @@ const Home = () => {
 
       <ContentWrapper style={{ maxWidth: 'unset' }}>
         <Timeline>
-          <TimelineBlock>
-            <TimelineContent>
-              <div className="func-icon">
-                <Icon.Formula />
+          <div style={{position: 'relative'}}>
+            <div className="time-stikcy-wrapper">
+              <div className="time-stikcy">
+                Q3 2022
               </div>
-              <div className="title">Q3 2022</div>
-              <div className="sub-title">FORMULA</div>
-              <div className="detail">
-                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
+            </div>
+            <TimelineBlock>
+              <TimelineContent hideInPC>
+                <div className="func-icon">
+                  <Icon.Formula />
+                </div>
+                <div className="title">Q3 2022</div>
+                <div className="sub-title">FORMULA</div>
+                <div className="detail">
+                  {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.`}
-              </div>
-              <div className="status-tag">Online</div>
-            </TimelineContent>
-            <Image width="770" height="480" src="/home/s1.png" alt="FORMULA" />
-          </TimelineBlock>
-          <TimelineBlock>
-            <TimelineContent>
-              <div className="func-icon">
-                <Icon.Search />
-              </div>
-              <div className="sub-title">Smart Search</div>
-              <div className="detail">
-                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
+                </div>
+                <div className="status-tag">Online</div>
+              </TimelineContent>
+              <Image width="770" height="480" src="/home/s1.png" alt="FORMULA" />
+            </TimelineBlock>
+            <TimelineBlock>
+              <TimelineContent>
+                <div className="func-icon">
+                  <Icon.Search />
+                </div>
+                <div className="sub-title">Smart Search</div>
+                <div className="detail">
+                  {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.`}
-              </div>
-              <div className="status-tag">Online</div>
-            </TimelineContent>
-            <Image width="770" height="480" src="/home/s2.png" alt="Smart Search" />
-          </TimelineBlock>
-          <TimelineBlock>
-            <TimelineContent>
-              <div className="func-icon">
-                <Icon.Explore />
-              </div>
-              <div className="sub-title">Plug Store</div>
-              <div className="detail">
-                {`The structuring of data within documents can be realized more flexibly through Turing's Excel
+                </div>
+                <div className="status-tag">Online</div>
+              </TimelineContent>
+              <Image width="770" height="480" src="/home/s2.png" alt="Smart Search" />
+            </TimelineBlock>
+            <TimelineBlock>
+              <TimelineContent>
+                <div className="func-icon">
+                  <Icon.Explore />
+                </div>
+                <div className="sub-title">Plug Store</div>
+                <div className="detail">
+                  {`The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.The structuring of data within documents can be realized more flexibly through Turing's Excel
                 formula.`}
-              </div>
-              <div className="status-tag">Online</div>
-            </TimelineContent>
-            <Image width="770" height="480" src="/home/s3.png" alt="Plug Store" />
-          </TimelineBlock>
+                </div>
+                <div className="status-tag">Online</div>
+              </TimelineContent>
+              <Image width="770" height="480" src="/home/s3.png" alt="Plug Store" />
+            </TimelineBlock>
+          </div>
+
           <TimelineBlock>
             <TimelineContent>
               <div className="func-icon">
@@ -321,8 +329,15 @@ const Home = () => {
       <ContentSection style={{ background: theme.colors.backgroundPrimary.value }}>
         <Footer>
           <FooterBlock>
-            <div className="desc">MashCard  is a bicycle of the mind to<br />Internet OS</div>
-            <div className="copy">Copyright © 2022 Brickdoc Inc. <br />Made on Earth by humans.</div>
+            <div className="desc">
+              MashCard is a bicycle of the mind to
+              <br />
+              Internet OS
+            </div>
+            <div className="copy">
+              Copyright © 2022 Brickdoc Inc. <br />
+              Made on Earth by humans.
+            </div>
           </FooterBlock>
           <FooterBlock>
             <div className="title">MashCard FOSS</div>
