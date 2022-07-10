@@ -127,7 +127,8 @@ const Home = () => {
           fadeEffect={{
             crossFade: true
           }}
-          modules={[Pagination, Mousewheel, EffectFade]}>
+          modules={[Pagination, Mousewheel, EffectFade]}
+        >
           <SwiperSlide>
             <ContentSection fullpage active={animationPage === 0} hide={hidePage === 0}>
               <ContentWrapper verticalCenter horizontalLeft>
@@ -141,7 +142,8 @@ const Home = () => {
                       href="https://github.com/mashcard/mashcard"
                       data-icon="octicon-star"
                       data-show-count="true"
-                      aria-label="Star mashcard/mashcard on GitHub">
+                      aria-label="Star mashcard/mashcard on GitHub"
+                    >
                       Star
                     </a>
                   )}
@@ -238,13 +240,11 @@ const Home = () => {
 
       <ContentWrapper style={{ maxWidth: 'unset' }}>
         <Timeline>
-          <div style={{position: 'relative'}}>
+          <div style={{ position: 'relative' }}>
             <div className="time-stikcy-wrapper">
-              <div className="time-stikcy">
-                Q3 2022
-              </div>
+              <div className="time-stikcy">Q3 2022</div>
             </div>
-            <TimelineBlock>
+            <TimelineBlock style={{ marginTop: 34 }}>
               <TimelineContent hideInPC>
                 <div className="func-icon">
                   <Icon.Formula />
@@ -265,7 +265,7 @@ const Home = () => {
                 <div className="func-icon">
                   <Icon.Search />
                 </div>
-                <div className="title">Q3 2022</div>
+
                 <div className="sub-title">Smart Search</div>
                 <div className="detail">
                   {`The structuring of data within documents can be realized more flexibly through Turing's Excel
@@ -281,7 +281,7 @@ const Home = () => {
                 <div className="func-icon">
                   <Icon.Explore />
                 </div>
-                <div className="title">Q3 2022</div>
+
                 <div className="sub-title">Plug Store</div>
                 <div className="detail">
                   {`The structuring of data within documents can be realized more flexibly through Turing's Excel
@@ -294,7 +294,7 @@ const Home = () => {
             </TimelineBlock>
           </div>
 
-          <TimelineBlock>
+          <TimelineBlock style={{ marginTop: 34 }}>
             <TimelineContent>
               <div className="func-icon">
                 <Icon.Code />
@@ -315,7 +315,7 @@ const Home = () => {
               <div className="func-icon">
                 <Icon.Rotation />
               </div>
-              <div className="title">To be continued</div>
+              <div className="continued-title">To be continued</div>
             </TimelineContent>
           </TimelineBlock>
         </Timeline>

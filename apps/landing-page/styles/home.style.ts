@@ -388,35 +388,33 @@ export const Timeline = styled('div', {
   },
   '.time-stikcy-wrapper': {
     position: 'absolute',
-    top: 57,
+    top: 0,
     left: '66px',
-    height: 'calc(100% - 370px)',
+    height: 'calc(100% - 330px)',
     color: theme.colors.typeSecondary,
     zIndex: 1,
-    display: 'none',
     [phone]: {
       display: 'none'
     },
     '.time-stikcy': {
       position: 'sticky',
-      top: '0',
+      top: 0,
       fontWeight: '600',
       fontSize: '32px',
       lineHeight: '52px',
       width: 260,
-      background: 'linear-gradient(180deg, #ffff 0%, #fffe 50%, #fff0)',
-      paddingTop: 23,
+      background: 'linear-gradient(180deg, #ffff 0%, #fffe 50%, #fff0)'
     }
   },
   '&::before': {
     content: '',
     borderLeft: '1px dashed #ccc',
     position: 'absolute',
-    top: 150,
-    height: 'calc(100% - 250px)',
+    top: 135,
+    height: 'calc(100% - 520px)',
     [phone]: {
-      top: 70,
-      height: 'calc(100% - 215px)'
+      top: 110,
+      height: 'calc(100% - 160px)'
     }
   }
 })
@@ -427,7 +425,7 @@ export const TimelineBlock = styled('div', {
   paddingBottom: 56,
   height: 452,
   [phone]: {
-    width: 'unset',
+    height: 'unset',
     flexFlow: 'column',
     padding: '0 0 56px 25px',
     '&:last-child': {
@@ -442,7 +440,7 @@ export const TimelineBlock = styled('div', {
 export const TimelineContent = styled('div', {
   width: 396,
   flexShrink: 0,
-  padding: '80px 70px 0 66px',
+  padding: '52px 70px 0 66px',
   height: 'fit-content',
   position: 'sticky',
   top: 0,
@@ -451,9 +449,9 @@ export const TimelineContent = styled('div', {
     hideInPC: {
       true: {
         '.title': {
-          // opacity: 0,
+          display: 'none',
           [phone]: {
-            opacity: 1
+            display: 'unset'
           }
         }
       }
@@ -466,15 +464,15 @@ export const TimelineContent = styled('div', {
     position: 'unset'
   },
   '.func-icon': {
-    height: 52,
-    width: 52,
-    borderRadius: 52,
-    lineHeight: '56px',
+    height: 32,
+    width: 32,
+    borderRadius: 32,
+    lineHeight: '32px',
     textAlign: 'center',
     position: 'absolute',
-    left: -25,
-    top: 80,
-    fontSize: 24,
+    left: -15,
+    top: 52,
+    fontSize: 20,
     background: theme.colors.iconPrimary,
     color: theme.colors.white,
     [phone]: {
@@ -492,11 +490,14 @@ export const TimelineContent = styled('div', {
     fontSize: '32px',
     lineHeight: '52px',
     color: theme.colors.typeSecondary,
+    position: 'absolute',
+    top: 0,
     [phone]: {
       paddingTop: 0,
       paddingBottom: 2,
       fontSize: '22px',
-      lineHeight: '32px'
+      lineHeight: '32px',
+      top: -34
     }
   },
   '.sub-title': {
@@ -504,6 +505,18 @@ export const TimelineContent = styled('div', {
     lineHeight: '36px',
     color: theme.colors.typePrimary,
     fontWeight: 700
+  },
+  '.continued-title': {
+    fontWeight: '600',
+    fontSize: '32px',
+    lineHeight: '52px',
+    color: theme.colors.typeSecondary,
+    transform: 'translateY(-10px)',
+    [phone]: {
+      fontSize: '22px',
+      lineHeight: '32px',
+      transform: 'translateY(0)'
+    }
   },
   '.detail': {
     fontWeight: '450',
