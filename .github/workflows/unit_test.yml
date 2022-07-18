@@ -33,7 +33,7 @@ jobs:
           NODE_OPTIONS: '--max-old-space-size=5950'
       - name: Publish Jest test reports
         if: always()
-        uses: mikepenz/action-junit-report@v3.1.0
+        uses: mikepenz/action-junit-report@v3.2.0
         with:
           report_paths: '**/junit-reports/jest.xml'
           check_name: Jest Test Report
