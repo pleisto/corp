@@ -12,9 +12,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@brickdoc/active-support": "workspace:^",
-    "@brickdoc/design-icons": "workspace:^",
-    "@brickdoc/design-system": "workspace:^",
+    "@mashcard/active-support": "workspace:^",
+    "@mashcard/design-icons": "workspace:^",
+    "@mashcard/design-system": "workspace:^",
     "next": "12.1.6",
     "next-transpile-modules": "^9.0.0",
     "react": "18.1.0",
@@ -22,7 +22,7 @@
     "swiper": "^8.2.2"
   },
   "devDependencies": {
-    "@types/node": "17.0.42",
+    "@types/node": "17.0.40",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
     "eslint": "8.17.0",

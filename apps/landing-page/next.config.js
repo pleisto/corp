@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const packageJson = require('./package.json')
-const transpiledPackages = Object.keys(packageJson.dependencies).filter(it => it.startsWith('@brickdoc/'))
+const transpiledPackages = Object.keys(packageJson.dependencies).filter(it => it.startsWith('@mashcard/'))
 transpiledPackages.push('swiper')
 const withTM = require('next-transpile-modules')(transpiledPackages)
 
@@ -14,5 +14,8 @@ module.exports = withTM({
       type: 'asset/resource'
     })
     return config
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 })

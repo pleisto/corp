@@ -1,3 +1,4 @@
+import 'react'
 declare module '*.less' {
   const resource: { [key: string]: string }
   export = resource
@@ -40,4 +41,9 @@ declare module '*.mov' {
 declare module '*.webm' {
   const src: string
   export = src
+}
+declare module 'react' {
+  interface CSSProperties {
+    [key: `--${string}`]: string | number
+  }
 }

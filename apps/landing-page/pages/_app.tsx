@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { globalStyle } from '@brickdoc/design-system'
+import { globalStyle } from '@mashcard/design-system'
 
 globalStyle()
 

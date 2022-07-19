@@ -6,9 +6,10 @@
   "license": "Apache-2.0",
   "private": true,
   "workspaces": [
-    "foss/packages/brickdoc-design-icons",
-    "foss/packages/brickdoc-design-system",
+    "foss/packages/design-icons",
+    "foss/packages/design-system",
     "foss/packages/active-support",
+    "foss/packages/test-helper",
     "apps/*",
     "tools/*",
     "plugins/*"
@@ -42,7 +43,8 @@
     "lint:type": "turbo run lint:type --filter=\"!./foss/**/*\"",
     "test": "turbo run lint:type test:jest --filter=\"!./foss/**/*\"",
     "test:jest": "NODE_ENV=test turbo run test:jest --filter=\"!./foss/**/*\"",
-    "commit": "git add . && cz"
+    "commit": "git add . && cz",
+    "page": "yarn workspace @brickdoc/landing-page"
   },
   "devDependencies": {
     "@brickdoc/eslint-plugin": "^1.0.2",
@@ -92,6 +94,11 @@
     "@swc/helpers": "^0.3.17",
     "dayjs": "^1.11.3",
     "ts-node": "^10.8.1"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "volta": {
     "node": "18.2.0",
