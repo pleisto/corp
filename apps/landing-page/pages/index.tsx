@@ -36,7 +36,8 @@ const getExtraMargin = (width: number) => {
   return extraWidth / 2
 }
 
-const stopframes = [0, 23, 54, 72, 107, 135]
+const stopframes = [0,39,91,136,181,225]
+
 const videoIncrementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
 const videoDecrecementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
 
@@ -402,22 +403,22 @@ const Home = () => {
           <FooterBlock>
             <div className="title">Contact Us</div>
             <div className="link-list">
-              <a href="">
+              <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank">
                 <Icon.ArrowRightSmall />
                 <Image height={20} width={20} src="/home/link-producthunt.svg" alt="Producthunt" />
                 <div className="text-offset">Producthunt</div>
               </a>
-              <a href="">
+              <a href="https://twitter.com/BrickdocHQ" target="_blank">
                 <Icon.ArrowRightSmall />
                 <Image height={20} width={20} src="/home/link-twitter.svg" alt="Twitter" />
                 <div className="text-offset">Twitter</div>
               </a>
-              <a href="">
+              <a href="https://github.com/pleisto/app-engine" target="_blank">
                 <Icon.ArrowRightSmall />
                 <Image height={20} width={20} src="/home/link-github.svg" alt="Github" />
                 <div className="text-offset">Github</div>
               </a>
-              <a href="">
+              <a href="https://www.facebook.com/Brickdoc-100758925759280" target="_blank">
                 <Icon.ArrowRightSmall />
                 <Image height={20} width={20} src="/home/link-Facebook.svg" alt="Facebook" />
                 <div className="text-offset">Facebook</div>

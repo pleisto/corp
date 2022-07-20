@@ -294,10 +294,11 @@ export const SectionComment = styled('div', {
 export const ContentSection = styled('div', {
   height: '100%',
   width: '100%',
-
+  
   variants: {
     fullpage: {
       true: {
+        pointerEvents: 'none',
         height: '100vh',
         position: 'sticky',
         bottom: 0,
@@ -305,6 +306,7 @@ export const ContentSection = styled('div', {
     },
     active: {
       true: {
+        pointerEvents: 'all',
         [SectionComment.toString()]: {
           transition: 'opacity 2s cubic-bezier(0.33, 0.0, 0.2, 1.0)',
           opacity: 1,
