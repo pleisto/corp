@@ -18,17 +18,17 @@ import {
   ContactBtn,
   JoinBlock,
   Footer,
-  FooterBlock,
   Page,
   ActiveBgWrapper,
   SectionTitleWrapper,
   IntegrationList,
   IntegrationListMobile,
-  IntegrationListInfo
+  IntegrationListInfo,
+  DockerTips
 } from '../styles/home.style'
 import { useEffect, useRef, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Mousewheel, EffectFade } from 'swiper'
+// import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Pagination, Mousewheel, EffectFade } from 'swiper'
 
 const getExtraMargin = (width: number) => {
   const columnNums = ~~((width + 8) / 60)
@@ -36,10 +36,10 @@ const getExtraMargin = (width: number) => {
   return extraWidth / 2
 }
 
-const stopframes = [0,39,91,136,181,225]
+const stopframes = [0, 39, 91, 136, 181, 225]
 
-const videoIncrementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
-const videoDecrecementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
+// const videoIncrementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
+// const videoDecrecementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
 
 const integrations = ['github', 'figma', 'aws', 'solid', 'zapier', 'stripe', 'airtable', 'salesforce', 'arweave']
 const integrationsMobileSize = [
@@ -74,14 +74,13 @@ const Home = () => {
   useEffect(() => {
     setScriptEnable(true)
     setMargin(getExtraMargin(window.innerWidth))
-   
-    
+
     if (ref.current) {
       setTimeout(() => {
         ref?.current?.play()
         window.scrollTo(0, 0)
-      }, 0);
-      
+      }, 0)
+
       setActive(0)
       setTimeout(() => {
         if (ref.current) {
@@ -99,7 +98,7 @@ const Home = () => {
           return null
         }
         const stage = ~~percent
-        
+
         const stagePercent = percent - stage
 
         if (stagePercent > 0.7 && stage !== 4) {
@@ -107,13 +106,13 @@ const Home = () => {
         } else {
           setActive(stage)
         }
-        
-        const frame = stage === 4 ?
-          stopframes[5] :
-          stopframes[stage + 1] * (1- stagePercent) + stopframes[stage + 2] * stagePercent
-        console.log(frame/24)
 
-        ref.current.currentTime = frame/24
+        const frame =
+          stage === 4
+            ? stopframes[5]
+            : stopframes[stage + 1] * (1 - stagePercent) + stopframes[stage + 2] * stagePercent
+
+        ref.current.currentTime = frame / 24
       }
     }
 
@@ -342,89 +341,42 @@ const Home = () => {
         </Timeline>
       </ContentWrapper>
 
-      <ContentWrapper doublePadding>
+      <ContentWrapper join>
         <JoinBlock>
-          <JoinPrivateTitle>Apply to join our Private </JoinPrivateTitle>
-          <ContactBtn type="primary">Join the Wait List</ContactBtn>
+          <JoinPrivateTitle>Get early access to MashCard Cloud</JoinPrivateTitle>
+          <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=dmapwLdn3k-f734-4EF0b7LKGrywAhpPmy1unh-RMWNUMkQxNkgyM1gzWThKODRYQTc2SE9DNVc5Qy4u">
+            <ContactBtn type="primary">Join waitList</ContactBtn>
+          </a>
+          <DockerTips>Or Download docker image to preview locally</DockerTips>
         </JoinBlock>
       </ContentWrapper>
 
-      <ContentSection style={{ background: theme.colors.backgroundPrimary.value }}>
+      <ContentSection foot>
         <Footer>
-          <FooterBlock>
-            <div className="desc">
-              MashCard is a bicycle of the mind to
-              <br />
-              Internet OS
-            </div>
-            <div className="copy">
-              Copyright © 2022 Brickdoc Inc. <br />
-              Made on Earth by humans.
-            </div>
-          </FooterBlock>
-          <FooterBlock>
-            <div className="title">MashCard FOSS</div>
-            <div className="link-list">
-              <a href="">
-                <Icon.ArrowRightSmall />
-                License
-              </a>
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Code of Conduct
-              </a>
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Roadmap
-              </a>
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Asked Questions
-              </a>
-            </div>
-          </FooterBlock>
-          <FooterBlock>
-            <div className="title">Cloud Service</div>
-            <div className="link-list width">
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Join the wait list
-              </a>
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Privacy Policy
-              </a>
-              <a href="">
-                <Icon.ArrowRightSmall />
-                Terms of Service
-              </a>
-            </div>
-          </FooterBlock>
-          <FooterBlock>
-            <div className="title">Contact Us</div>
-            <div className="link-list">
-              <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank">
-                <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-producthunt.svg" alt="Producthunt" />
-                <div className="text-offset">Producthunt</div>
-              </a>
-              <a href="https://twitter.com/BrickdocHQ" target="_blank">
-                <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-twitter.svg" alt="Twitter" />
-                <div className="text-offset">Twitter</div>
-              </a>
-              <a href="https://github.com/pleisto/app-engine" target="_blank">
-                <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-github.svg" alt="Github" />
-                <div className="text-offset">Github</div>
-              </a>
-              <a href="https://www.facebook.com/Brickdoc-100758925759280" target="_blank">
-                <Icon.ArrowRightSmall />
-                <Image height={20} width={20} src="/home/link-Facebook.svg" alt="Facebook" />
-                <div className="text-offset">Facebook</div>
-              </a>
-            </div>
-          </FooterBlock>
+          <div className="copy-right">© 2022 Brickdoc Inc. </div>
+          <div className="info-list">
+            <a href="">
+              <Icon.ArrowRightSmall /> Code of Conduct
+            </a>
+            <a href="">
+              <Icon.ArrowRightSmall /> License
+            </a>
+            <a href="https://github.com/mashcard/mashcard/discussions">
+              <Icon.ArrowRightSmall /> Discussions
+            </a>
+          </div>
+          <div className="sns-list">
+            <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank">
+              <Image height={27} width={27} src="/home/link-producthunt.svg" alt="Producthunt" />
+            </a>
+            <a href="https://twitter.com/BrickdocHQ" target="_blank">
+              <Image height={24} width={24} src="/home/link-twitter.svg" alt="Twitter" />
+            </a>
+            <a href="https://github.com/pleisto/app-engine" target="_blank">
+              <Image height={26} width={26} src="/home/link-github.svg" alt="Github" />
+            </a>
+          </div>
+          <div className="copy-right-mobile">© 2022 Brickdoc Inc. </div>
         </Footer>
       </ContentSection>
     </Page>
