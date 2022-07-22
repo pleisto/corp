@@ -40,7 +40,7 @@ export const ActiveBgWrapper = styled('div', {
     bottom: 0,
     height: '100vh',
     width: '100%',
-    objectFit: 'cover',
+    objectFit: 'cover'
   }
 })
 
@@ -144,12 +144,14 @@ export const ContentWrapper = styled('div', {
       true: {
         [phone]: {
           alignItems: 'flex-start'
-        },
+        }
       }
     },
-    doublePadding: {
+    join: {
       true: {
-        pad: `0 ${padPadding * 2}px`,
+        margin: 0,
+        padding: `0 ${padPadding * 2}px`,
+        background: theme.colors.blue1,
         [phone]: {
           justifyContent: `0 ${padPadding * 2}px`
         },
@@ -298,23 +300,31 @@ export const ContentSection = styled('div', {
   variants: {
     fullpage: {
       true: {
+        pointerEvents: 'none',
         height: '100vh',
         position: 'sticky',
-        bottom: 0,
+        bottom: 0
       }
     },
     active: {
       true: {
+        pointerEvents: 'all',
         [SectionComment.toString()]: {
           transition: 'opacity 2s cubic-bezier(0.33, 0.0, 0.2, 1.0)',
           opacity: 1,
-          display: 'block',
+          display: 'block'
         },
         [SectionTitle.toString()]: {
           transition: 'transform 0.6s 0.2s',
           transform: 'translateY(0%)',
-          display: 'block',
+          display: 'block'
         }
+      }
+    },
+    foot: {
+      true: {
+        background: theme.colors.backgroundSecondary,
+        padding: '0 var(--extra-margin)'
       }
     }
   }
@@ -400,8 +410,8 @@ export const Timeline = styled('div', {
     content: '',
     borderLeft: '1px dashed #ccc',
     position: 'absolute',
-    top: 135,
-    height: 'calc(100% - 520px)',
+    top: 155,
+    height: 'calc(100% - 250px)',
     [phone]: {
       top: 110,
       height: 'calc(100% - 160px)'
@@ -541,28 +551,34 @@ export const TimelineContent = styled('div', {
 export const JoinBlock = styled('div', {
   textAlign: 'center',
   position: 'relative',
-  paddingBottom: 36,
+  padding: '150px 0 120px',
   width: '100%',
-  borderTop: `1px solid ${theme.colors.dividerPrimary}`
+  [phone]: {
+    padding: '72px 0'
+  },
+  a: {
+    textDecoration: 'none!important',
+  }
 })
 
 export const JoinPrivateTitle = styled('div', {
-  padding: '40px 0',
   fontSize: '46px',
   lineHeight: '50px',
   fontWeight: 700,
+  paddingBottom: 96,
   [phone]: {
-    padding: '35px 0',
-    fontSize: '26px',
-    lineHeight: '28px'
+    fontSize: '28px',
+    lineHeight: '40px',
+    paddingBottom: 44
   }
 })
 
 export const ContactBtn = styled(Button, {
   width: 171,
   height: 40,
+  background: theme.colors.primaryDefault,
   span: {
-    fontSize: '18px'
+    fontSize: '18px',
   },
   [phone]: {
     width: 155,
@@ -574,98 +590,83 @@ export const ContactBtn = styled(Button, {
 })
 
 export const Footer = styled('footer', {
-  padding: '88px 0 120px',
   display: 'flex',
-  maxWidth: 892,
-  width: '100%',
-  margin: '0 auto',
-  justifyContent: 'space-around',
+  margin: '0 120px',
+  height: 76,
+  alignItems: 'center',
+  lineHeight: '24px',
+  fontSize: 14,
   [phone]: {
+    lineHeight: '22px',
     flexFlow: 'column nowrap',
-    padding: '44px 24px 0',
-    flex: 1
-  }
-})
-
-export const FooterBlock = styled('div', {
-  width: 172,
-  marginRight: 68,
-
-  '&:last-child': {
-    marginRight: 0
+    padding: '37px 0 16px',
+    height: 'unset',
   },
-
-  [phone]: {
-    width: 'unset',
-    marginRight: 0,
-    paddingBottom: 24
-  },
-
-  '.desc': {
-    fontWeight: '600',
-    fontSize: '16px',
-    lineHeight: '28px',
-    marginBottom: 24
-  },
-
-  '.copy': {
-    fontWeight: '450',
-    fontSize: '14px',
-    lineHeight: '28px',
-    color: theme.colors.typeSecondary
-  },
-
-  '.title': {
-    fontWeight: '600',
-    fontSize: '16px',
-    lineHeight: '28px',
-    paddingBottom: 20
-  },
-
-  '.link-list': {
-    fontWeight: '450',
-    display: 'flex',
-    flexFlow: 'column nowrap',
+  '.copy-right': {
+    color: theme.colors.typeSecondary,
     [phone]: {
-      paddingBottom: 36
-    },
+      display: 'none'
+    }
+  },
+  '.copy-right-mobile': {
+    display: 'none',
+    lineHeight: '24px',
+    [phone]: {
+      display: 'unset',
+      width: 'max-content',
+      paddingTop: 20,
+    }
+  },
+  '.info-list': {
+    flex: 1,
+    marginLeft: 100,
     a: {
-      display: 'flex',
-      alignItems: 'center',
-      fontSize: '14px',
-      lineHeight: '24px',
       color: theme.colors.typePrimary,
-      '.mc-icon': {
-        fontSize: '16px',
-        marginRight: 4,
-        color: theme.colors.iconThirdary
-      },
-      '.text-offset': {
-        marginLeft: 4
-      },
-      '.bug-wrapper': {
-        height: 16,
-        width: 16,
-        lineHeight: '16px',
-        textAlign: 'center',
-        background:
-          'linear-gradient(0deg, rgba(248, 251, 255, 0.36), rgba(248, 251, 255, 0.36)), rgba(255, 255, 255, 0.74)',
-        boxShadow:
-          '1px 1px 0px rgba(255, 255, 255, 0.8), 0px 2px 4px rgba(167, 167, 167, 0.3), inset 1px 1px 0px rgba(255, 255, 255, 0.25)',
-        backdropFilter: 'blur(16px)',
-        borderRadius: '2px'
+      width: 'max-content',
+      '&:hover': {
+        color: theme.colors.primaryDefault,
+        textDecoration: 'none'
       }
     },
     'a + a': {
-      marginTop: 10
+      marginLeft: 36
+    },
+    '.mc-icon': {
+      display: 'none'
+    },
+    [phone]: {
+      marginLeft: 0,
+      'a + a': {
+        marginLeft: 0,
+        marginTop: 19
+      },
+      '.mc-icon': {
+        display: 'inline-block'
+      }
+    }
+  },
+  '.sns-list': {
+    display: 'flex',
+    a: {
+      height: 32,
+      width: 32,
+      borderRadius: 4,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&:hover': {
+        background: theme.colors.secondarySelected
+      }
     },
 
-    '&.width': {
+    'a + a': {
+      marginLeft: 16
+    },
+
+    [phone]: {
+      paddingTop: 36,
       'a + a': {
-        marginTop: 24,
-        [phone]: {
-          marginTop: 16
-        }
+        marginLeft: 36
       }
     }
   }
@@ -675,9 +676,9 @@ export const IntegrationList = styled('div', {
   paddingTop: 87,
   paddingBottom: 8,
   display: 'flex',
-  justifyContent:' space-between',
+  justifyContent: ' space-between',
   [phone]: {
-    display: 'none',
+    display: 'none'
   },
   '.icon-wrapper': {
     height: 39,
@@ -689,18 +690,16 @@ export const IntegrationList = styled('div', {
     boxShadow: ' 0px 2px 4px rgba(44, 91, 255, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.04)',
     borderRadius: 4,
     background: 'linear-gradient(0deg, rgba(251, 251, 251, 0.38), rgba(251, 251, 251, 0.38))'
-  },
-
+  }
 })
 
 export const IntegrationListMobile = styled('div', {
   paddingTop: 24,
   paddingBottom: 8,
   display: 'none',
-  justifyContent:' space-between',
+  justifyContent: ' space-between',
   [phone]: {
-    display: 'flex',
-    
+    display: 'flex'
   },
   '.icon-wrapper': {
     height: 23,
@@ -712,7 +711,7 @@ export const IntegrationListMobile = styled('div', {
     boxShadow: ' 0px 2px 4px rgba(44, 91, 255, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.04)',
     borderRadius: 4,
     background: 'linear-gradient(0deg, rgba(251, 251, 251, 0.38), rgba(251, 251, 251, 0.38))'
-  },
+  }
 })
 
 export const IntegrationListInfo = styled('div', {
@@ -724,4 +723,11 @@ export const IntegrationListInfo = styled('div', {
   [phone]: {
     paddingBottom: 0
   }
+})
+
+export const DockerTips = styled('div', {
+  paddingTop: 24,
+  fontSize: 14,
+  lineHeight: '24px',
+  color: theme.colors.typeSecondary
 })

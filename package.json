@@ -10,6 +10,7 @@
     "foss/packages/design-system",
     "foss/packages/active-support",
     "foss/packages/test-helper",
+    "foss/packages/test-helper",
     "apps/*",
     "tools/*",
     "plugins/*"
