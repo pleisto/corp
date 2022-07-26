@@ -557,7 +557,7 @@ export const JoinBlock = styled('div', {
     padding: '72px 0'
   },
   a: {
-    textDecoration: 'none!important',
+    textDecoration: 'none!important'
   }
 })
 
@@ -578,7 +578,7 @@ export const ContactBtn = styled(Button, {
   height: 40,
   background: theme.colors.primaryDefault,
   span: {
-    fontSize: '18px',
+    fontSize: '18px'
   },
   [phone]: {
     width: 155,
@@ -600,7 +600,7 @@ export const Footer = styled('footer', {
     lineHeight: '22px',
     flexFlow: 'column nowrap',
     padding: '37px 0 16px',
-    height: 'unset',
+    height: 'unset'
   },
   '.copy-right': {
     color: theme.colors.typeSecondary,
@@ -614,7 +614,7 @@ export const Footer = styled('footer', {
     [phone]: {
       display: 'unset',
       width: 'max-content',
-      paddingTop: 20,
+      paddingTop: 20
     }
   },
   '.info-list': {

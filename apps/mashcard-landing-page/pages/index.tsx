@@ -1,9 +1,8 @@
-import type { NextPage } from 'next'
-import React from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import 'swiper/css'
-import { Icon, theme } from '@mashcard/design-system'
+import { Icon } from '@mashcard/design-system'
 import {
   ContentSection,
   SectionTitle,
@@ -26,17 +25,16 @@ import {
   IntegrationListInfo,
   DockerTips
 } from '../styles/home.style'
-import { useEffect, useRef, useState } from 'react'
 // import { Swiper, SwiperSlide } from 'swiper/react'
 // import { Pagination, Mousewheel, EffectFade } from 'swiper'
 
-const getExtraMargin = (width: number) => {
+const getExtraMargin = (width: number): number => {
   const columnNums = ~~((width + 8) / 60)
   const extraWidth = width - columnNums * 52 - (columnNums - 1) * 8
   return extraWidth / 2
 }
 
-const stopframes = [0, 39, 91, 136, 181, 225]
+const stopFrames = [0, 39, 91, 136, 181, 225]
 
 // const videoIncrementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
 // const videoDecrecementSpeed = 14 // time per frame in ms(video) 1000/42 = 24fps;
@@ -65,7 +63,7 @@ const integrationsSize = [
   [21, 21]
 ]
 
-const Home = () => {
+const Home: FC = () => {
   const ref = useRef<null | HTMLVideoElement>(null)
   const [extraMargin, setMargin] = useState(0)
   const [activePage, setActive] = useState(-1)
@@ -76,18 +74,22 @@ const Home = () => {
     setMargin(getExtraMargin(window.innerWidth))
 
     if (ref.current) {
-      setTimeout(() => {
-        ref?.current?.play()
-        window.scrollTo(0, 0)
+      setTimeout(async () => {
+        try {
+          await ref?.current?.play()
+          window.scrollTo(0, 0)
+        } catch (e) {
+          // ignore play error
+        }
       }, 0)
 
       setActive(0)
       setTimeout(() => {
         if (ref.current) {
           ref.current.pause()
-          ref.current.currentTime = stopframes[1] / 24
+          ref.current.currentTime = stopFrames[1] / 24
         }
-      }, (stopframes[1] / 24) * 1000)
+      }, (stopFrames[1] / 24) * 1000)
     }
     const scrollHandler: EventListener = e => {
       const top = window.pageYOffset
@@ -109,8 +111,8 @@ const Home = () => {
 
         const frame =
           stage === 4
-            ? stopframes[5]
-            : stopframes[stage + 1] * (1 - stagePercent) + stopframes[stage + 2] * stagePercent
+            ? stopFrames[5]
+            : stopFrames[stage + 1] * (1 - stagePercent) + stopFrames[stage + 2] * stagePercent
 
         ref.current.currentTime = frame / 24
       }
@@ -120,10 +122,8 @@ const Home = () => {
     return window.removeEventListener('scroll', scrollHandler)
   }, [])
 
-  const style: React.CSSProperties = { '--extra-margin': `${extraMargin}px` }
-
   return (
-    <Page style={style}>
+    <Page style={{ '--extra-margin': `${extraMargin}px` }}>
       <Head>
         <title>Brickdoc</title>
         <meta name="Brickdoc" content="Brickdoc" />
@@ -196,7 +196,7 @@ const Home = () => {
               {`The people needs instead an Internet OS that can connect, modify and share structured data between sources
               as easily as copy-paste.`}
               <br />
-              {`OS is essentially a system software that provides interoperability and functionality for applications.`}
+              OS is essentially a system software that provides interoperability and functionality for applications.
               <br />
               {`MashCard is an Internet OS with micro-kernel architecture that provides a WordPress-like plugin system to
               build, customize and express on top of it for an enhanced experience.`}
@@ -366,13 +366,13 @@ const Home = () => {
             </a>
           </div>
           <div className="sns-list">
-            <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank">
+            <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank" rel="noreferrer">
               <Image height={27} width={27} src="/home/link-producthunt.svg" alt="Producthunt" />
             </a>
-            <a href="https://twitter.com/BrickdocHQ" target="_blank">
+            <a href="https://twitter.com/BrickdocHQ" target="_blank" rel="noreferrer">
               <Image height={24} width={24} src="/home/link-twitter.svg" alt="Twitter" />
             </a>
-            <a href="https://github.com/pleisto/app-engine" target="_blank">
+            <a href="https://github.com/mashcard/mashcard" target="_blank" rel="noreferrer">
               <Image height={26} width={26} src="/home/link-github.svg" alt="Github" />
             </a>
           </div>

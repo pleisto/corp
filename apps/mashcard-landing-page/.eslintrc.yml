@@ -1,0 +1,12 @@
+root: true
+
+extends:
+  - next/core-web-vitals
+  - plugin:@pleisto/eslint-plugin/react
+
+parserOptions:
+  project:
+    - ./tsconfig.json
+
+rules:
+  import/no-default-export: off

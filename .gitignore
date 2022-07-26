@@ -10,24 +10,26 @@
 *.rvmrc
 
 # IDE - VSCode
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
 # dependencies
-.turbo
-node_modules
-.yarn/*
-!.yarn/patches
+.turbo/
+node_modules/
+!/.yarn
+/.yarn/*
+!/.yarn/patches
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
-.bundle/*
+.bundle/
 
+# Dev-only files
 .eslintcache
 .byebug_history
 .env.local
@@ -53,12 +55,13 @@ ehthumbs.db
 
 # testing
 .coverage-cache/
-junit-reports/
+.nyc_output/
 coverage/
 
 # build
 dist/
 storybook-static/
 *.gem
-apps/server-monolith/vendor
 target/
+tmp/
+.turbo

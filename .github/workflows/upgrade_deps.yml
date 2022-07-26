@@ -1,0 +1,47 @@
+name: Upgrade Deps
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  schedule:
+    # At 16:00 on every day-of-week from Sunday through Thursday (UTC)
+    - cron: '0 16 * * 0-4'
+
+env:
+  NODE_OPTIONS: '--max-old-space-size=5950'
+  YARN_ENABLE_IMMUTABLE_INSTALLS: false
+
+jobs:
+  dependency_updater:
+    name: Check and Upgrade
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Update yarn packages
+        run: eval "yarn up $PATTERNS --mode=update-lockfile && yarn up $PATTERNS --recursive --mode=update-lockfile"
+        env:
+          # Please keep patterns in sync with ./foss/.github/workflows/upgrade_deps.yml
+          PATTERNS: "'!(core-js-compat|core-js-pure|core-js)'"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT_FOR_BOT_CREATED_PR }}
+          title: 'chore(deps): upgrade dependencies'
+          body: This is an [auto-created](https://github.com/pleisto/corp/blob/main/.github/workflows/upgrade_deps.yml) PR to upgrade dependencies.
+          commit-message: 'chore(deps): upgrade dependencies'
+          branch: deps-automatic-upgrade
+          labels: |
+            dependencies
+          delete-branch: true
