@@ -1,4 +1,4 @@
-import { styled, keyframes, theme, Button } from '@mashcard/design-system'
+import { styled, theme, Button } from '@mashcard/design-system'
 
 const phone = '@media (max-width: 950px)'
 const pad = '@media (min-device-width: 951px) and (max-device-width: 1200px)'

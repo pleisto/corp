@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mashcard-landing-page.fullname" . }}
+  labels:
+    {{- include "mashcard-landing-page.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mashcard-landing-page.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        mashcard.cloud/app-engine-build-at: "{{ now | unixEpoch }}"
+        {{- include "mashcard-landing-page.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "mashcard-landing-page.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}-web
+          image: {{ .Values.image.name | quote }}
+          {{- if empty .Values.secrets  }}
+          {{- else }}
+          envFrom:
+          - secretRef:
+              name: {{ include "mashcard-landing-page.fullname" . }}
+          {{- end }}
+          env:
+            {{- range $key, $value := .Values.envs }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 180
+            tcpSocket:
+              port: http
+          readinessProbe:
+            tcpSocket:
+              port: http
+          resources:
+            requests:
+              cpu: "0.2"
+              memory: 128Mi
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

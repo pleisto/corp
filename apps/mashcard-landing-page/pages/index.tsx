@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Script from 'next/script'
 import 'swiper/css'
 import { Icon } from '@mashcard/design-system'
 import {
@@ -125,10 +126,8 @@ const Home: FC = () => {
   return (
     <Page style={{ '--extra-margin': `${extraMargin}px` }}>
       <Head>
-        <title>Brickdoc</title>
-        <meta name="Brickdoc" content="Brickdoc" />
+        <title>MashCard - A bicycle of the mind to Internet OS</title>
         <link rel="icon" href="/favicon.svg" />
-        {isScriptEnable && <script async defer src="https://buttons.github.io/buttons.js" />}
       </Head>
 
       <ActiveBgWrapper>
@@ -143,14 +142,17 @@ const Home: FC = () => {
             </SectionLogoWrapper>
             <SnsLinkWrapper>
               {isScriptEnable && (
-                <a
-                  className="github-button"
-                  href="https://github.com/mashcard/mashcard"
-                  data-icon="octicon-star"
-                  data-show-count="true"
-                  aria-label="Star mashcard/mashcard on GitHub">
-                  Star
-                </a>
+                <>
+                  <Script src="https://buttons.github.io/buttons.js" />
+                  <a
+                    className="github-button"
+                    href="https://github.com/mashcard/mashcard"
+                    data-icon="octicon-star"
+                    data-show-count="true"
+                    aria-label="Star mashcard/mashcard on GitHub">
+                    Star
+                  </a>
+                </>
               )}
             </SnsLinkWrapper>
             <SectionTitleWrapper>
@@ -367,9 +369,9 @@ const Home: FC = () => {
           </div>
           <div className="sns-list">
             <a href="https://www.producthunt.com/upcoming/brickdoc" target="_blank" rel="noreferrer">
-              <Image height={27} width={27} src="/home/link-producthunt.svg" alt="Producthunt" />
+              <Image height={27} width={27} src="/home/link-producthunt.svg" alt="Product Hunt" />
             </a>
-            <a href="https://twitter.com/BrickdocHQ" target="_blank" rel="noreferrer">
+            <a href="https://twitter.com/mashcard" target="_blank" rel="noreferrer">
               <Image height={24} width={24} src="/home/link-twitter.svg" alt="Twitter" />
             </a>
             <a href="https://github.com/mashcard/mashcard" target="_blank" rel="noreferrer">

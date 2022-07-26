@@ -33,7 +33,7 @@
     ]
   },
   "scripts": {
-    "postinstall": "rm foss/yarn.lock && (dev-support is-ci || husky install) && dev-support pdftron-post-setup",
+    "postinstall": "(rm foss/yarn.lock || true) && (dev-support is-ci || husky install) && dev-support pdftron-post-setup",
     "rust:build": "SYSINFO=$(uname -a) turbo run rust:build --filter=\"!./foss/**/*\"",
     "rust:build:dev": "turbo run rust:build:dev --filter=\"!./foss/**/*\"",
     "lint": "turbo run lint:eslint lint:rubocop lint:type --filter=\"!./foss/**/*\"",
