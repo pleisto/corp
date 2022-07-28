@@ -3739,6 +3739,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pleisto/mashcard-landing-page-next@workspace:apps/mashcard-landing-page-next":
+  version: 0.0.0-use.local
+  resolution: "@pleisto/mashcard-landing-page-next@workspace:apps/mashcard-landing-page-next"
+  dependencies:
+    "@mashcard/active-support": "workspace:^"
+    "@mashcard/design-icons": "workspace:^"
+    "@mashcard/design-system": "workspace:^"
+    eslint-config-next: ^12.2.3
+    next: ^12.2.3
+    next-transpile-modules: ^9.0.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    swiper: ^8.3.2
+  languageName: unknown
+  linkType: soft
+
 "@pleisto/mashcard-landing-page@workspace:apps/mashcard-landing-page":
   version: 0.0.0-use.local
   resolution: "@pleisto/mashcard-landing-page@workspace:apps/mashcard-landing-page"

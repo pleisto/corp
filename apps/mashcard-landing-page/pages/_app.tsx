@@ -1,11 +1,10 @@
-import { globalStyle } from '@mashcard/design-system'
-import type { AppProps } from 'next/app'
-import { FC } from 'react'
 import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { globalStyle } from '@mashcard/design-system'
 
 globalStyle()
 
-const MyApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }
 
