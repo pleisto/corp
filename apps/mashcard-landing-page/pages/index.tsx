@@ -138,7 +138,7 @@ const Home: FC = () => {
         <ContentSection fullpage active={activePage === 0}>
           <ContentWrapper verticalCenter horizontalLeft>
             <SectionLogoWrapper>
-              <Image height={32} width={138} src="/home/logo_en_dark.svg" alt="Picture of the author" />
+              <Image height={30} width={143} src="/home/logo_en_dark.svg" alt="Picture of the author" />
             </SectionLogoWrapper>
             <SnsLinkWrapper>
               {isScriptEnable && (
