@@ -1,0 +1,14 @@
+{
+  "extends": "../../foss/packages/dev-support/tsconfig.shared.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowJs": true,
+    "module": "esnext"
+  },
+  "include": ["**/*"],
+  "exclude": ["dist/**/*"]
+}
