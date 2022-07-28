@@ -5,10 +5,7 @@
   "description": "Pleisto Internal Monorepo Root",
   "private": true,
   "workspaces": [
-    "foss/packages/*",
-    "foss/apps/*",
-    "foss/tools/*",
-    "foss/plugins/*",
+    "foss",
     "packages/*",
     "apps/*",
     "tools/*",

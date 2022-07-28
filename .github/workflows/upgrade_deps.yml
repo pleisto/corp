@@ -7,8 +7,8 @@ concurrency:
 on:
   workflow_dispatch:
   schedule:
-    # At 16:00 on every day-of-week from Sunday through Thursday (UTC)
-    - cron: '0 16 * * 0-4'
+    # At 4:00 on every day-of-week from Monday through Friday (UTC)
+    - cron: '0 4 * * 1-5'
 
 env:
   NODE_OPTIONS: '--max-old-space-size=5950'
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout the codebase
         uses: actions/checkout@v3
         with:
-          submodules: 'true'
+          submodules: recursive
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
@@ -34,6 +34,10 @@ jobs:
         env:
           # Please keep patterns in sync with ./foss/.github/workflows/upgrade_deps.yml
           PATTERNS: "'!(core-js-compat|core-js-pure|core-js)'"
+      - name: Upgrade git submodules
+        run: git submodule deinit --all --force && git submodule update --init --recursive --remote
+      - name: Update yarn.lock
+        run: yarn install
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:

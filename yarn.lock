@@ -3035,7 +3035,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-helmet-async: ^1.3.0
-    react-i18next: ^11.18.1
+    react-i18next: ^11.18.2
     react-router-dom: ^6.3.0
     rfc4648: ^1.5.2
     yup: ^0.32.11
@@ -3277,6 +3277,43 @@ __metadata:
 "@mashcard/mock-auth@workspace:foss/plugins/mock_auth":
   version: 0.0.0-use.local
   resolution: "@mashcard/mock-auth@workspace:foss/plugins/mock_auth"
+  languageName: unknown
+  linkType: soft
+
+"@mashcard/monorepo@workspace:foss":
+  version: 0.0.0-use.local
+  resolution: "@mashcard/monorepo@workspace:foss"
+  dependencies:
+    "@commitlint/cli": ^17.0.3
+    "@commitlint/config-conventional": ^17.0.3
+    "@mashcard/dev-support": "workspace:^"
+    "@swc/cli": ^0.1.57
+    "@swc/core": ^1.2.218
+    "@swc/helpers": ^0.4.3
+    "@swc/jest": ^0.2.22
+    "@testing-library/jest-dom": ^5.16.4
+    "@testing-library/react": ^13.3.0
+    "@testing-library/user-event": ^14.3.0
+    "@types/jest": ^28.1.6
+    "@types/jest-axe": ^3.5.4
+    "@types/node": ^18.6.1
+    "@types/rails__actioncable": ^6.1.6
+    "@types/rails__activestorage": ^7.0.1
+    "@types/react": ^18.0.15
+    "@types/react-dom": ^18.0.6
+    commitizen: ^4.2.5
+    cz-conventional-changelog: ^3.3.0
+    husky: ^8.0.1
+    identity-obj-proxy: ^3.0.0
+    jest: ^28.1.3
+    jest-axe: ^6.0.0
+    jest-environment-jsdom: ^28.1.3
+    lint-staged: ^13.0.3
+    lodash-es: ^4.17.21
+    rimraf: ^3.0.2
+    ts-node: ^10.9.1
+    turbo: ^1.3.4
+    typescript: ^4.7.4
   languageName: unknown
   linkType: soft
 
@@ -19737,9 +19774,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^11.18.1":
-  version: 11.18.1
-  resolution: "react-i18next@npm:11.18.1"
+"react-i18next@npm:^11.18.2":
+  version: 11.18.3
+  resolution: "react-i18next@npm:11.18.3"
   dependencies:
     "@babel/runtime": ^7.14.5
     html-parse-stringify: ^3.0.1
@@ -19751,7 +19788,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 3614d4f41a2bad2831aee7c02da6403955eacf7aeef1cd73635a99b072e72f2ebed3e83ac2bc1bfe72421cb2de025bfbecc9929bfc495ba1f055d49851bf6e62
+  checksum: 05fe3187dd092000c9f24dfd0cad2bd433f9a88a78cec2b43d74545ea1ec014f2b4e2ac84c579480be15bc571ef7fb2a2fafbe0bfac02f80ce10a8ffc6ad91e7
   languageName: node
   linkType: hard
 
