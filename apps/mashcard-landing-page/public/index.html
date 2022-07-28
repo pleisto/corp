@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Coming Soon - MashCard</title>
+<meta name="viewport" content="width=device-width"/>
+<meta charSet="utf-8"/>
+<style>
+  @font-face{font-family:cern;src:url(/fonts/cern-terminal.eot);src:url(/fonts/cern-terminal.eot?#iefix) format("embedded-opentype"),url(/fonts/cern-terminal.woff) format("woff"),url(/fonts/cern-terminal.ttf) format("truetype"),url(/fonts/cern-terminal.svg#icomoon) format("svg")}body *{color:inherit;font:inherit;line-height:normal;margin:0;padding:0}:root{--mc-color-bg:#1c1c1e;--mc-color-tty:#00ff80}aside,body,div,dl,footer,h0,h1,h2,h3,h4,h5,h6,header,html,li,ol,p,pre,section,table,title,ul{display:block}a,b,em,i,span,strong{display:inline}html{word-wrap:break-word;background:var(--mc-color-bg);color:var(--mc-color-tty);font-family:cern,monospace;line-height:1.25em;margin:0 auto;overflow:hidden;text-shadow:0 0 10px;width:44em;width:80ch}body,html{height:37.5em}#file-title{background:var(--mc-color-bg);font-size:.75rem!important;opacity:.5;text-align:right}h1,h2,h3,h4,h5,h6{margin:0}h1{font-size:1.5rem!important;margin:1.5em 0;text-align:center}h1,h2{font-weight:700!important;text-transform:uppercase}h2{margin-top:1.5rem}h3{margin:0 2ch}h4{margin:0 4ch}h5{margin:0 6ch}h6{margin:0 8ch}a{color:inherit;text-decoration-thickness:1px}p{margin-bottom:.75rem;margin-top:.75rem;min-width:27.5em;min-width:50ch}dl,ol,ul{margin:1.5em 0}dd,dt{display:inline-block;vertical-align:top}dd:not(:first-of-type),dt:not(:first-of-type){margin-top:1em}dt{margin-left:7ch;width:20ch}dd{width:27.5em;width:50ch}pre,xmp{display:block;white-space:pre}address{display:block;text-align:right}hp1,hp2{text-transform:uppercase}button,form,input,select,textarea{display:none}#command{display:block;height:9999px;left:50%;margin:0 -40ch;position:fixed;right:50%;top:36em;white-space:nowrap}#command,#command input{background:var(--mc-color-bg)}#command input{border:0;display:inline-block;width:28.05em;width:51ch}#blocker{margin:0 auto;position:fixed;top:0;z-index:1}#cmd-input{cursor:text;min-width:1px;outline:0;overflow:hidden}#cmd-input:active,#cmd-input:focus{cursor:none}#command.hide *{visibility:hidden}@media (max-width:552px){html{min-height:100vh!important;width:100vw!important}#command{display:none}}
+</style>
+  <meta name="browsermode" content="application">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+<body prefix="
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  foaf: http://xmlns.com/foaf/0.1/
+  gr: http://purl.org/goodrelations/v1#
+  xsd: http://www.w3.org/2001/XMLSchema#">
+<div id="file-title">HTTP/3.0 200 OK</div>
+<h1>Our website is coming soon</h1>
+<h2>About <span property="gr:name">MashCard</span></h2>
+<p property="gr:description">
+  MashCard is an all-in-one workspace and user-owns data pod with Compound Document at its core. It's not only an open-source alternative to Coda and Notion but also an Web-based OS of an age when SaaS is eating the world.
+</p>
+<p>
+Enhancing synergy in modern productivity tools is a movement that will give rise to a platform shift where humans and machines complement each other.
+</p>
+<h2>Select Resources</h2>
+<dl>
+<dt><a vocab="http://schema.org/" property="codeRepository" typeof="SoftwareSourceCode" tabindex="-1" href="https://github.com/mashcard/mashcard">GitHub[1]</a>
+<dd> View the source code on GitHub. </dd></dt>
+<dt><a tabindex="-1"  href="https://mirror.xyz/mashcard.eth">Mirror[2]</a>
+<dd>We share our insights on modern productivity tools with you through our blog on Mirror. </dd></dt>
+<dt><a  tabindex="-1"  href="https://twitter.com/mashcard">Twitter[3]</a>
+<dd>Follow us on Twitter to stay up to date with our progress. </dd></dt>
+<dt><a  tabindex="-1"  href="https://forms.office.com/Pages/ResponsePage.aspx?id=dmapwLdn3k-f734-4EF0b7LKGrywAhpPmy1unh-RMWNUMkQxNkgyM1gzWThKODRYQTc2SE9DNVc5Qy4u">Join Waitlist[4]</a>
+<dd>Get early access to MashCard Cloud. </dd></dt>
+</dl>
+
+
+<pre id=lmb-footer> [EOF]</pre>
+<br/><br/>
+<form id=command><label><span class="cmd-prompt"></span>
+  <input tabindex="1" autofocus autocapitalize=off spellcheck=false autocomplete="off" autocorrect=off contenteditable id="cmd-input">
+   <span class=wait id="cmd-cursor"></span></label></form>
+<script>
+const mobile=window.matchMedia("(min-width: 553px)");
+if(mobile.matches){var pagedown=function(){blocker();var a=parseFloat(getComputedStyle(document.body).lineHeight);scrollTo(0,document.body.scrollTop+23*a)},updateCursor=function(){cursor.style.marginLeft=.5*cmd.value.length+"em"},typing=function(){clearTimeout(typingTimer);typingTimer=setTimeout(function(){cursor.className="wait"},200);cursor.className=""},run=function(a,c){if(commands[a])commands[a]();/^\d+$/.test(a)&&(window.location=document.querySelectorAll("a")[+a-1].href)},setPrompt=function(a){a=
+"";document.querySelectorAll("isindex").length&&(a+="K &lt;keywords&gt;, ");document.querySelectorAll("a").length&&(a+="&lt;ref.number&gt;, ");1<history.length&&(a+="Back, ");a+="&lt;RETURN&gt; for more, ";47>=a.length&&(a+="Quit, ");promptElement.innerHTML=a+"or Help: ";cursor.style.left=(.5*(promptElement.textContent.length+1)|0)+"em"},cmd=document.querySelector("#cmd-input"),cursor=document.querySelector("#cmd-cursor"),promptElement=document.querySelector(".cmd-prompt"),cursors={37:"left",38:"up",
+39:"right",40:"down"},typingTimer=null;cmd.oninput=updateCursor;cmd.onkeydown=function(a){typing();var c=cmd.value;13===a.keyCode&&c?(a.preventDefault(),a.stopPropagation(),run(c,a),cmd.value="",updateCursor()):cursors[a.keyCode]&&(a.preventDefault(),a.stopPropagation())};document.documentElement.onkeydown=function(a){13===a.keyCode&&(pagedown(),a.preventDefault())};document.documentElement.onclick=document.documentElement.onfocus=function(){cmd.focus()};var commands={top:function(){blocker();window.scrollTo(0,
+0)},list:function(){},help:function(){window.location="https://github.com/mashcard/mashcard"},home:function(){window.location="/"},alias:function(){},back:function(){history.back()},recall:function(){},quit:function(){alert("I'm not a quitter.");return!1}};commands.t=commands.top;commands.T=commands.top;commands.q=commands.quit;commands.Quit=commands.quit;commands.Back=commands.back;commands.B=commands.back;commands.b=commands.back;"plaintext listing h0 hp1 hp2".replace(/\w+/g,function(a){document.createElement(a)});
+for(var e="img video audio svg canvas iframe".split(" "),i=0;i<e.length;i++)for(var elements=document.getElementsByTagName(e[i]),j=0;j<elements.length;j++)for(;elements[j].lastChild;)elements[j].parentNode.insertBefore(elements[j].lastChild,elements[j]);cmd.focus();window.onload=function(){setPrompt();setTimeout(function(){window.scrollTo(0,0)},0);var a=parseFloat(getComputedStyle(document.body).lineHeight);document.getElementById("lmb-footer").style.paddingBottom=innerHeight-24*a;(window.adjustFontSize=
+function(){var c=Math.floor(innerHeight/25/1.5);0!==c%2&&c--;document.documentElement.style.fontSize=c+"px";blocker.size(1.5*c);blocker()})();addEventListener("resize",adjustFontSize)};var sounds={init:function(){document.addEventListener("keydown",sounds.playKeyboardSound,!1);sounds.injectAudioElements()},soundFiles:["/sounds/key1.mp3","/sounds/key2.mp3","/sounds/key3.mp3","/sounds/key4.mp3","/sounds/key5.mp3"],playKeyboardSound:function(){document.querySelector("#sound"+Math.floor(Math.random()*
+(sounds.soundFiles.length-1+1)+1)).play()},injectAudioElements:function(){for(var a,c,g=document.querySelector("body"),d=0;d<sounds.soundFiles.length;d++)a=document.createElement("audio"),a.id="sound"+(d+1),c=document.createElement("source"),c.src=sounds.soundFiles[d],g.appendChild(a),a.appendChild(c),a.load()}};window.addEventListener("load",sounds.init,!1);var blocker=function(){function a(){if(240>c){setTimeout(a,0);var f=c%10,l=c/10|0;b.clearRect(f*g*8,l*d,8*g,d);f=c+1;b.fillRect(f%10*g*8,(f/
+10|0)*d,g,d);c++}else h.className="",b.canvas.style.display="none"}var c=0,g=8,d=0,b,h=document.getElementById("command");(function(){var f=document.createElement("canvas");b=f.getContext("2d");f.id="blocker";document.body.appendChild(f)})();var k=function(){h.className="hide";b.canvas.style.display="block";b.save();b.fillStyle="#1c1c1e";b.fillRect(0,0,b.canvas.width,b.canvas.height);b.restore();c=0;a()};k.size=function(f){d=f|0;b.canvas.width=document.documentElement.offsetWidth;g=b.canvas.width/
+80;b.canvas.height=24*d;b.fillStyle="hsl(150, 100%, 40%)";240>c&&(b.save(),b.fillStyle="#1c1c1e",b.fillRect(0,0,b.canvas.width,b.canvas.height),b.restore())};return k}()};
+</script>
+
+</body>
+</html>
