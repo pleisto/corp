@@ -4,8 +4,5 @@
   "private": true,
   "volta": {
     "extends": "../../package.json"
-  },
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }
