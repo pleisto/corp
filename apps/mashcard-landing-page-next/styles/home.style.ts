@@ -14,14 +14,15 @@ export const SectionTitleWrapper = styled('div', {
 export const Page = styled('div', {
   background: theme.colors.white,
   boxSize: 'border-box',
+  height: '100%',
 
   '.swiper': {
     width: '100%',
-    height: '100vh'
+    height: '100%'
   },
 
   '.swiper-slide': {
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     flexFlow: 'column nowrap',
     alignItems: 'center',
@@ -34,13 +35,16 @@ export const Page = styled('div', {
 
 export const ActiveBgWrapper = styled('div', {
   position: 'relative',
+  height: '100%',
+
   '.active-bg': {
-    position: 'sticky',
+    position: 'absolute',
     top: 0,
     bottom: 0,
-    height: '100vh',
+    height: '100%',
     width: '100%',
-    objectFit: 'cover'
+    objectFit: 'cover',
+    zIndex: -1,
   }
 })
 
@@ -105,7 +109,6 @@ export const SnsLink = styled('a', {
 
 export const ContentWrapper = styled('div', {
   position: 'relative',
-  height: '100%',
   margin: '0 var(--extra-margin)',
   padding: `0 ${pcPadding}px`,
   display: 'flex',
@@ -120,6 +123,11 @@ export const ContentWrapper = styled('div', {
     padding: `0 ${padPadding}px`
   },
   variants: {
+    fullpage: {
+      true: {
+        height: '100%'
+      }
+    },
     verticalCenter: {
       true: {
         justifyContent: 'center'
@@ -169,6 +177,7 @@ export const SectionTitle = styled('div', {
   lineHeight: '50px',
   paddingBottom: 14,
   transform: 'translateY(100%)',
+  color: theme.colors.typePrimary,
   [phone]: {
     fontSize: 24,
     lineHeight: '28px',
@@ -201,7 +210,7 @@ export const SectionTitle = styled('div', {
       true: {
         color: theme.colors.white
       }
-    }
+    },
   }
 })
 
@@ -211,7 +220,7 @@ export const SectionComment = styled('div', {
   lineHeight: '28px',
   maxWidth: 471,
   width: '100%',
-  color: theme.colors.typeSecondary,
+  color: theme.colors.grey8,
   opacity: 0,
   [phone]: {
     fontSize: '16px',
@@ -263,6 +272,7 @@ export const SectionComment = styled('div', {
         lineHeight: '32px',
         fontStyle: 'italic',
         paddingBottom: 60,
+        color: theme.colors.typePrimary,
         '.mark': {
           transform: 'scale(2)',
           display: 'inline-block',
@@ -276,8 +286,8 @@ export const SectionComment = styled('div', {
           marginLeft: '0.75em'
         },
         '.main': {
+          fontWeight: 600,
           fontSize: 20,
-          color: theme.colors.typePrimary
         },
         'p + p': {
           marginTop: 11
@@ -294,15 +304,13 @@ export const SectionComment = styled('div', {
 })
 
 export const ContentSection = styled('div', {
-  height: '100%',
   width: '100%',
 
   variants: {
     fullpage: {
       true: {
         pointerEvents: 'none',
-        height: '100vh',
-        position: 'sticky',
+        height: '100%',
         bottom: 0
       }
     },
@@ -310,12 +318,12 @@ export const ContentSection = styled('div', {
       true: {
         pointerEvents: 'all',
         [SectionComment.toString()]: {
-          transition: 'opacity 2s cubic-bezier(0.33, 0.0, 0.2, 1.0)',
+          transition: 'opacity .5s cubic-bezier(0.33, 0.0, 0.2, 1.0) 1s',
           opacity: 1,
           display: 'block'
         },
         [SectionTitle.toString()]: {
-          transition: 'transform 0.6s 0.2s',
+          transition: 'transform .5s 1s',
           transform: 'translateY(0%)',
           display: 'block'
         }
@@ -673,7 +681,7 @@ export const Footer = styled('footer', {
 })
 
 export const IntegrationList = styled('div', {
-  paddingTop: 87,
+  paddingTop: 37,
   paddingBottom: 8,
   display: 'flex',
   justifyContent: ' space-between',
