@@ -33,7 +33,7 @@ jobs:
         run: eval "yarn up $PATTERNS --mode=update-lockfile && yarn up $PATTERNS --recursive --mode=update-lockfile"
         env:
           # Please keep patterns in sync with ./foss/.github/workflows/upgrade_deps.yml
-          PATTERNS: "'!(core-js-compat|core-js-pure|core-js)'"
+          PATTERNS: "'*' '@*/*'"
       - name: Upgrade git submodules
         run: git submodule deinit --all --force && git submodule update --init --recursive --remote
       - name: Update yarn.lock
