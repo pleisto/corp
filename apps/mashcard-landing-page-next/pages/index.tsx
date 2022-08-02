@@ -448,13 +448,13 @@ const Home: FC = () => {
               <div className="copy-right">© 2022 Brickdoc Inc. </div>
               <div className="info-list">
                 <a href="">
-                  <Icon.ArrowRightSmall /> Code of Conduct
+                  <Icon.Right /> Code of Conduct
                 </a>
                 <a href="">
-                  <Icon.ArrowRightSmall /> License
+                  <Icon.Right /> License
                 </a>
                 <a href="https://github.com/mashcard/mashcard/discussions">
-                  <Icon.ArrowRightSmall /> Discussions
+                  <Icon.Right /> Discussions
                 </a>
               </div>
               <div className="sns-list">

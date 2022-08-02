@@ -608,6 +608,7 @@ export const Footer = styled('footer', {
     lineHeight: '22px',
     flexFlow: 'column nowrap',
     padding: '37px 0 16px',
+    margin: '0 60px',
     height: 'unset'
   },
   '.copy-right': {
@@ -644,6 +645,9 @@ export const Footer = styled('footer', {
     },
     [phone]: {
       marginLeft: 0,
+      display: 'flex',
+      flexFlow: 'column nowrap',
+      width: '100%',
       'a + a': {
         marginLeft: 0,
         marginTop: 19
