@@ -648,12 +648,16 @@ export const Footer = styled('footer', {
       display: 'flex',
       flexFlow: 'column nowrap',
       width: '100%',
+      a: {
+        display: 'flex',
+      },
       'a + a': {
         marginLeft: 0,
         marginTop: 19
       },
       '.mc-icon': {
-        display: 'inline-block'
+        display: 'inline-block',
+        fontSize: 20
       }
     }
   },
