@@ -193,7 +193,8 @@ const Home: FC = () => {
             />
 
             <video className="active-bg" muted playsInline preload="auto" ref={ref}>
-              <source src="/home/bg.mp4" type="video/mp4" />
+              <source src="/home/bg.mp4" type='video/mp4; codecs="hvc1"' />
+              <source src="/home/bg.webm"  type="video/webm" />
             </video>
 
             <video
@@ -206,7 +207,8 @@ const Home: FC = () => {
               onPlay={() => {
                 setCanplay(true)
               }}>
-              <source src="/home/bg.mp4" type="video/mp4" />
+              <source src="/home/bg.mp4" type='video/mp4; codecs="hvc1"' />
+              <source src="/home/bg.webm"  type="video/webm" />
             </video>
 
             {isPageInit && (
