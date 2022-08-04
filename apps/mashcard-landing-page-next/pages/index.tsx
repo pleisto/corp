@@ -76,23 +76,20 @@ const Home: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setCanplay(true)
-    }, 500);
+    }, 500)
   }, [])
 
   useEffect(() => {
     if (canPlay) {
       setPageEnable(true)
       setMargin(getExtraMargin(window.innerWidth))
-      
 
       if (ref.current) {
         setTimeout(async () => {
           try {
-            
             window.scrollTo(0, 0)
             await ref?.current?.play()
             isInplay.current = true
-            
           } catch (e) {
             // ignore play error
           }
@@ -175,7 +172,7 @@ const Home: FC = () => {
               if (isInplay.current) {
                 isInplay.current = false
                 console.log('block!!!!')
-                setTimeout(play, 200);
+                setTimeout(play, 200)
               } else {
                 play()
               }
@@ -193,8 +190,8 @@ const Home: FC = () => {
             />
 
             <video className="active-bg" muted playsInline preload="auto" ref={ref}>
-              <source src="/home/bg.mp4" type='video/mp4; codecs="hvc1"' />
-              <source src="/home/bg.webm"  type="video/webm" />
+              <source src="/home/bg.mp4" type="video/mp4" />
+              {/* <source src="/home/bg.webm"  type="video/webm" /> */}
             </video>
 
             <video
@@ -207,8 +204,8 @@ const Home: FC = () => {
               onPlay={() => {
                 setCanplay(true)
               }}>
-              <source src="/home/bg.mp4" type='video/mp4; codecs="hvc1"' />
-              <source src="/home/bg.webm"  type="video/webm" />
+              <source src="/home/bg.mp4" type="video/mp4" />
+              {/* <source src="/home/bg.webm"  type="video/webm" /> */}
             </video>
 
             {isPageInit && (
